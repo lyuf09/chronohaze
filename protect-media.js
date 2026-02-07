@@ -654,6 +654,8 @@
         musicPageTitle: "音乐作品集",
         musicIntro: "声音的纹理、情绪的回声、在时间里缓慢成形的片段。",
         musicLead: "仅收录 21 年开始的部分作品（我需要脸面）",
+        mathPageTitle: "数学文章",
+        mathIntro: "研究记录、实验笔记与结构化的思考。",
         photoPageTitle: "摄影作品集",
         photoIntro: "光的轨迹、线条的结构、人与空间的关系。",
         readMore: "查看更多",
@@ -673,6 +675,8 @@
         musicIntro:
           "Textures of sound, echoes of emotion, fragments shaped slowly in time.",
         musicLead: "Selected works since 2021 (I need dignity).",
+        mathPageTitle: "Mathematics Archive",
+        mathIntro: "Research notes, experiments, and structured thoughts.",
         photoPageTitle: "Photography Collection",
         photoIntro:
           "Traces of light, structures of lines, and the relation between people and space.",
@@ -747,6 +751,18 @@
         node.textContent = dict.readMore;
       });
     }
+
+    if (document.body.classList.contains("math-index-page")) {
+      var mathTitle = document.querySelector(".page-title");
+      var mathIntro = document.querySelector(".page-head p");
+      if (mathTitle) {
+        mathTitle.textContent = dict.mathPageTitle;
+      }
+      if (mathIntro) {
+        mathIntro.textContent = dict.mathIntro;
+      }
+      document.title = safeLang === "en" ? "Mathematics | Chronohaze" : "数学 | Chronohaze";
+    }
   }
 
   function injectFloatingLanguageSwitch() {
@@ -787,12 +803,12 @@
     document.body.appendChild(panel);
   }
 
-  function enableMusicIndexRowLinks() {
-    if (!document.body || !document.body.classList.contains("music-index-page")) {
-      return;
-    }
-
-    var rows = Array.from(document.querySelectorAll(".music-list .track-row[data-href]"));
+  function enableIndexRowLinks() {
+    var rows = Array.from(
+      document.querySelectorAll(
+        ".music-list .track-row[data-href], .math-list .math-row[data-href]"
+      )
+    );
 
     rows.forEach(function (row) {
       if (row.dataset.rowLinkReady === "1") {
@@ -842,7 +858,7 @@
     enhanceMusicPlayers();
     removeMusicDetailImages();
     enhanceMusicLyricsLayout();
-    enableMusicIndexRowLinks();
+    enableIndexRowLinks();
   }
 
   document.addEventListener(
