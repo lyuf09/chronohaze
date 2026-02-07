@@ -216,11 +216,11 @@
   width: 366px;
   height: 448px;
   object-fit: cover;
-  filter: saturate(0.82) brightness(0.91) contrast(0.95) hue-rotate(-6deg);
+  filter: saturate(0.72) brightness(0.94) contrast(0.97) hue-rotate(10deg) grayscale(0.06);
 }
 
 .hero-right {
-  background: rgb(219, 220, 221);
+  background: rgb(229, 230, 231);
   border-left: 1px solid rgb(58, 58, 58);
   display: flex;
   justify-content: flex-start;
