@@ -26,40 +26,68 @@
           <img src="assets/logo.png" alt="Chronohaze" />
           <span>chronohaze.space</span>
         </a>
-        <nav class="nav" aria-label="主导航">
-          <a href="index.html">主页</a>
-          <a href="index.html#math">数学</a>
-          <a href="portfolio-1.html">摄影</a>
-          <a href="yin-le.html">音乐</a>
+        <nav class="nav" aria-label="主导航" data-i18n-aria="navAria">
+          <a href="index.html" data-i18n="navHome">主页</a>
+          <a href="index.html#math" data-i18n="navMath">数学</a>
+          <a href="portfolio-1.html" data-i18n="navPhoto">摄影</a>
+          <a href="yin-le.html" data-i18n="navMusic">音乐</a>
         </nav>
       </div>
     </header>
 
     <main class="main">
       <article class="policy">
-        <h1>无障碍支持说明</h1>
-        <p>最近更新：2026 年 2 月 7 日</p>
+        <div data-lang-block="zh">
+          <h1>无障碍支持说明</h1>
+          <p>最近更新：2026 年 2 月 7 日</p>
 
-        <h2>1. 目标</h2>
-        <p>本站是个人作品站，持续参考 WCAG 2.2 AA 的核心原则进行改进，尽量让更多访客在不同设备和辅助技术下都能顺畅浏览。</p>
+          <h2>1. 目标</h2>
+          <p>本站是个人作品站，持续参考 WCAG 2.2 AA 的核心原则进行改进，尽量让更多访客在不同设备和辅助技术下都能顺畅浏览。</p>
 
-        <h2>2. 当前已做</h2>
-        <ul>
-          <li>使用语义化标题结构与主要内容分区。</li>
-          <li>提供可点击的文本导航与可见的页面层级。</li>
-          <li>图片提供 `alt` 描述（在可行范围内）。</li>
-          <li>颜色与文字对比度优先按可读性设计。</li>
-        </ul>
+          <h2>2. 当前已做</h2>
+          <ul>
+            <li>使用语义化标题结构与主要内容分区。</li>
+            <li>提供可点击的文本导航与可见的页面层级。</li>
+            <li>图片提供 `alt` 描述（在可行范围内）。</li>
+            <li>颜色与文字对比度优先按可读性设计。</li>
+          </ul>
 
-        <h2>3. 已知限制</h2>
-        <ul>
-          <li>部分历史音频作品暂未提供完整文字转录。</li>
-          <li>第三方外链页面不受本站直接控制。</li>
-        </ul>
+          <h2>3. 已知限制</h2>
+          <ul>
+            <li>部分历史音频作品暂未提供完整文字转录。</li>
+            <li>第三方外链页面不受本站直接控制。</li>
+          </ul>
 
-        <h2>4. 反馈与协助</h2>
-        <p>如果你在访问中遇到障碍（例如键盘操作、阅读顺序、文本对比、媒体可达性等），请发送邮件说明页面地址与问题细节，我会优先修复。</p>
-        <p>联系邮箱：<a href="mailto:feier530@icloud.com">feier530@icloud.com</a></p>
+          <h2>4. 反馈与协助</h2>
+          <p>如果你在访问中遇到障碍（例如键盘操作、阅读顺序、文本对比、媒体可达性等），请发送邮件说明页面地址与问题细节，我会优先修复。</p>
+          <p>联系邮箱：<a href="mailto:feier530@icloud.com">feier530@icloud.com</a></p>
+        </div>
+
+        <div data-lang-block="en" hidden>
+          <h1>Accessibility Statement</h1>
+          <p>Last updated: February 7, 2026</p>
+
+          <h2>1. Goal</h2>
+          <p>This website is a personal portfolio. It is continuously improved with reference to core WCAG 2.2 AA principles, so more visitors can browse smoothly across different devices and assistive technologies.</p>
+
+          <h2>2. What is currently implemented</h2>
+          <ul>
+            <li>Semantic heading structure and clear main content sections.</li>
+            <li>Clickable text navigation and visible page hierarchy.</li>
+            <li>`alt` descriptions for images where feasible.</li>
+            <li>Text and color contrast designed with readability first.</li>
+          </ul>
+
+          <h2>3. Known limitations</h2>
+          <ul>
+            <li>Some legacy audio works do not yet include full transcripts.</li>
+            <li>External third-party pages are outside this site's direct control.</li>
+          </ul>
+
+          <h2>4. Feedback and assistance</h2>
+          <p>If you encounter accessibility barriers (for example keyboard usage, reading order, text contrast, or media accessibility), please email the page URL and issue details. I will prioritize fixing it.</p>
+          <p>Contact email: <a href="mailto:feier530@icloud.com">feier530@icloud.com</a></p>
+        </div>
       </article>
     </main>
 
@@ -67,8 +95,8 @@
       <div class="container footer-grid">
         <div>
           <p class="footer-title">chronohaze.space</p>
-          <p class="footer-note">辗转不同国家无固定号码 请联系邮箱：<a href="mailto:feier530@icloud.com">feier530@icloud.com</a></p>
-          <p class="footer-note">重庆 · Edinburgh · New york</p>
+          <p class="footer-note"><span data-i18n="footerContactLead">辗转不同国家无固定号码 请联系邮箱：</span><a href="mailto:feier530@icloud.com">feier530@icloud.com</a></p>
+          <p class="footer-note" data-i18n="footerCities">重庆 · Edinburgh · New york</p>
           <p class="footer-copy">© 2035 by chronohaze.space. Powered and secured by GitHub Pages.</p>
           <div class="social" aria-label="Social links">
             <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -78,11 +106,95 @@
           </div>
         </div>
         <div class="footer-right">
-          <a href="blank.html">网站说明</a>
-          <a href="blank-1.html">无障碍支持</a>
+          <a href="blank.html" data-i18n="siteNotes">网站说明</a>
+          <a href="blank-1.html" data-i18n="a11y">无障碍支持</a>
         </div>
       </div>
     </footer>
   </div>
+  <script>
+    (function () {
+      const i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
+      const i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
+      const langBlocks = Array.from(document.querySelectorAll('[data-lang-block]'));
+
+      const i18n = {
+        zh: {
+          htmlLang: 'zh-CN',
+          pageTitle: '无障碍支持 | Chronohaze',
+          navAria: '主导航',
+          navHome: '主页',
+          navMath: '数学',
+          navPhoto: '摄影',
+          navMusic: '音乐',
+          footerContactLead: '辗转不同国家无固定号码 请联系邮箱：',
+          footerCities: '重庆 · Edinburgh · New york',
+          siteNotes: '网站说明',
+          a11y: '无障碍支持'
+        },
+        en: {
+          htmlLang: 'en',
+          pageTitle: 'Accessibility | Chronohaze',
+          navAria: 'Main navigation',
+          navHome: 'Home',
+          navMath: 'Mathematics',
+          navPhoto: 'Photography',
+          navMusic: 'Music',
+          footerContactLead: 'No fixed phone number while moving across countries. Contact via email: ',
+          footerCities: 'Chongqing · Edinburgh · New York',
+          siteNotes: 'Privacy Policy',
+          a11y: 'Accessibility'
+        }
+      };
+
+      function setLanguage(lang) {
+        const safeLang = lang === 'en' ? 'en' : 'zh';
+        const dict = i18n[safeLang];
+        document.documentElement.lang = dict.htmlLang;
+        document.title = dict.pageTitle;
+
+        i18nNodes.forEach(function (node) {
+          const key = node.getAttribute('data-i18n');
+          const value = dict[key];
+          if (typeof value === 'string') {
+            node.textContent = value;
+          }
+        });
+
+        i18nAriaNodes.forEach(function (node) {
+          const key = node.getAttribute('data-i18n-aria');
+          const value = dict[key];
+          if (typeof value === 'string') {
+            node.setAttribute('aria-label', value);
+          }
+        });
+
+        langBlocks.forEach(function (block) {
+          block.hidden = block.getAttribute('data-lang-block') !== safeLang;
+        });
+
+        try {
+          window.localStorage.setItem('chronohaze-lang', safeLang);
+        } catch (err) {
+        }
+      }
+
+      let initialLang = 'zh';
+      try {
+        const savedLang = window.localStorage.getItem('chronohaze-lang');
+        if (savedLang === 'zh' || savedLang === 'en') {
+          initialLang = savedLang;
+        }
+      } catch (err) {
+      }
+
+      const queryLang = new URLSearchParams(window.location.search).get('lang');
+      if (queryLang === 'zh' || queryLang === 'en') {
+        initialLang = queryLang;
+      }
+
+      setLanguage(initialLang);
+    })();
+  </script>
 </body>
 </html>
