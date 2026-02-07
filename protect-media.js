@@ -211,6 +211,202 @@
     article.dataset.detailImagesRemoved = "1";
   }
 
+  function formatDuration(seconds) {
+    if (!isFinite(seconds) || seconds < 0) {
+      return "0:00";
+    }
+
+    var total = Math.floor(seconds);
+    var hours = Math.floor(total / 3600);
+    var minutes = Math.floor((total % 3600) / 60);
+    var secs = total % 60;
+
+    if (hours > 0) {
+      return (
+        String(hours) +
+        ":" +
+        String(minutes).padStart(2, "0") +
+        ":" +
+        String(secs).padStart(2, "0")
+      );
+    }
+
+    return String(minutes) + ":" + String(secs).padStart(2, "0");
+  }
+
+  function setRangeProgress(range, value, max) {
+    var safeMax = Number(max) > 0 ? Number(max) : 100;
+    var safeValue = Math.max(0, Math.min(Number(value) || 0, safeMax));
+    var percent = (safeValue / safeMax) * 100;
+    range.style.setProperty("--range-progress", percent + "%");
+  }
+
+  function enhanceMusicPlayers() {
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var players = Array.from(
+      document.querySelectorAll(".music-detail-article audio")
+    );
+
+    players.forEach(function (audio) {
+      if (audio.dataset.customPlayer === "1") {
+        return;
+      }
+
+      audio.dataset.customPlayer = "1";
+      audio.classList.add("music-player-native");
+      audio.removeAttribute("controls");
+      audio.controls = false;
+
+      var shell = document.createElement("div");
+      shell.className = "music-player-shell";
+
+      var row = document.createElement("div");
+      row.className = "music-player-row";
+
+      var playButton = document.createElement("button");
+      playButton.type = "button";
+      playButton.className = "music-player-play";
+      playButton.setAttribute("aria-label", "播放");
+      playButton.textContent = "PLAY";
+
+      var scrubber = document.createElement("input");
+      scrubber.type = "range";
+      scrubber.className = "music-player-scrubber";
+      scrubber.min = "0";
+      scrubber.max = "1000";
+      scrubber.step = "1";
+      scrubber.value = "0";
+      scrubber.setAttribute("aria-label", "播放进度");
+      setRangeProgress(scrubber, 0, 1000);
+
+      var timeLabel = document.createElement("p");
+      timeLabel.className = "music-player-time";
+      timeLabel.textContent = "0:00 / 0:00";
+
+      var volumeWrap = document.createElement("div");
+      volumeWrap.className = "music-player-volume";
+
+      var volumeButton = document.createElement("button");
+      volumeButton.type = "button";
+      volumeButton.className = "music-player-volume-btn";
+      volumeButton.setAttribute("aria-label", "静音");
+      volumeButton.textContent = "VOL";
+
+      var volume = document.createElement("input");
+      volume.type = "range";
+      volume.className = "music-player-volume-range";
+      volume.min = "0";
+      volume.max = "100";
+      volume.step = "1";
+      volume.value = "85";
+      volume.setAttribute("aria-label", "音量");
+      setRangeProgress(volume, 85, 100);
+
+      volumeWrap.appendChild(volumeButton);
+      volumeWrap.appendChild(volume);
+
+      row.appendChild(playButton);
+      row.appendChild(scrubber);
+      row.appendChild(timeLabel);
+      row.appendChild(volumeWrap);
+      shell.appendChild(row);
+      audio.insertAdjacentElement("afterend", shell);
+
+      if (isFinite(audio.volume)) {
+        audio.volume = 0.85;
+      }
+
+      function syncPlayState() {
+        var isPlaying = !audio.paused && !audio.ended;
+        playButton.classList.toggle("is-playing", isPlaying);
+        playButton.textContent = isPlaying ? "PAUSE" : "PLAY";
+        playButton.setAttribute("aria-label", isPlaying ? "暂停" : "播放");
+      }
+
+      function syncTimeState() {
+        var duration = isFinite(audio.duration) ? audio.duration : 0;
+        var current = isFinite(audio.currentTime) ? audio.currentTime : 0;
+
+        if (duration > 0) {
+          var timelineValue = Math.round((current / duration) * 1000);
+          scrubber.value = String(timelineValue);
+          setRangeProgress(scrubber, timelineValue, 1000);
+        } else {
+          scrubber.value = "0";
+          setRangeProgress(scrubber, 0, 1000);
+        }
+
+        timeLabel.textContent =
+          formatDuration(current) + " / " + formatDuration(duration);
+      }
+
+      function syncVolumeState() {
+        var current = audio.muted ? 0 : audio.volume;
+        var value = Math.round((Number(current) || 0) * 100);
+        volume.value = String(value);
+        setRangeProgress(volume, value, 100);
+        volumeButton.textContent = value === 0 ? "MUTE" : "VOL";
+        volumeButton.classList.toggle("is-muted", value === 0);
+      }
+
+      playButton.addEventListener("click", function () {
+        if (audio.paused || audio.ended) {
+          var playPromise = audio.play();
+          if (playPromise && typeof playPromise.catch === "function") {
+            playPromise.catch(function () {
+              syncPlayState();
+            });
+          }
+        } else {
+          audio.pause();
+        }
+      });
+
+      scrubber.addEventListener("input", function () {
+        if (!isFinite(audio.duration) || audio.duration <= 0) {
+          return;
+        }
+
+        var next = (Number(scrubber.value) / 1000) * audio.duration;
+        audio.currentTime = next;
+        syncTimeState();
+      });
+
+      volume.addEventListener("input", function () {
+        var value = Math.max(0, Math.min(100, Number(volume.value) || 0));
+        audio.muted = value === 0;
+        audio.volume = value / 100;
+        syncVolumeState();
+      });
+
+      volumeButton.addEventListener("click", function () {
+        if (audio.muted || audio.volume === 0) {
+          audio.muted = false;
+          if (audio.volume === 0) {
+            audio.volume = 0.85;
+          }
+        } else {
+          audio.muted = true;
+        }
+        syncVolumeState();
+      });
+
+      audio.addEventListener("play", syncPlayState);
+      audio.addEventListener("pause", syncPlayState);
+      audio.addEventListener("ended", syncPlayState);
+      audio.addEventListener("timeupdate", syncTimeState);
+      audio.addEventListener("loadedmetadata", syncTimeState);
+      audio.addEventListener("volumechange", syncVolumeState);
+
+      syncPlayState();
+      syncTimeState();
+      syncVolumeState();
+    });
+  }
+
   function findLyricHeading(headings, partNumber) {
     var partTagA = "歌词（Part" + partNumber + "）";
     var partTagB = "歌词(Part" + partNumber + ")";
@@ -299,6 +495,7 @@
 
   function boot() {
     protectAllMedia();
+    enhanceMusicPlayers();
     removeMusicDetailImages();
     enhanceMusicLyricsLayout();
   }
