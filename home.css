@@ -26,10 +26,11 @@
   justify-self: start;
   font-family: "Cormorant Garamond", serif;
   color: #f1f1f1;
-  font-size: 26px;
-  letter-spacing: 0.42em;
+  font-size: 17px;
+  letter-spacing: 0.44em;
   text-transform: uppercase;
   font-style: italic;
+  line-height: 1;
 }
 
 .lang-pill {
@@ -44,9 +45,10 @@
 .lang-btn {
   border: 0;
   background: transparent;
-  padding: 8px 30px;
+  padding: 8px 24px;
   color: #5f646e;
-  font-size: 20px;
+  font-size: 14px;
+  letter-spacing: 0.05em;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -60,7 +62,7 @@
 }
 
 .flag {
-  font-size: 13px;
+  font-size: 11px;
 }
 
 .menu-open {
@@ -70,7 +72,7 @@
   border: 0;
   color: #e7e8eb;
   background: transparent;
-  font-size: 44px;
+  font-size: 36px;
   line-height: 1;
   cursor: pointer;
   margin-right: 4px;
@@ -110,17 +112,19 @@
 .hero-right h1 {
   margin: 0;
   font-family: "Noto Serif SC", serif;
-  font-size: clamp(58px, 5vw, 82px);
+  font-size: 58px;
   font-weight: 500;
   color: #2a2b2f;
-  line-height: 1.06;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
 }
 
 .hero-right p {
   margin: 32px 0 0;
   font-family: "Noto Serif SC", serif;
-  font-size: 46px;
-  line-height: 1.44;
+  font-size: 17px;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
   color: #4a4d53;
 }
 
@@ -137,8 +141,8 @@
   height: 46px;
   background: #3f4044;
   color: #dfdfdf;
-  font-size: 22px;
-  letter-spacing: 0.06em;
+  font-size: 16px;
+  letter-spacing: 0.08em;
 }
 
 .player-shell {
@@ -166,8 +170,8 @@
 
 .player-center p {
   margin: 0;
-  font-size: 16px;
-  letter-spacing: 0.07em;
+  font-size: 15px;
+  letter-spacing: 0.06em;
   color: #7b7d82;
   text-transform: uppercase;
 }
@@ -188,7 +192,7 @@
 
 .player-time {
   margin: 0;
-  font-size: 13px;
+  font-size: 11px;
   color: #75787f;
   min-width: 94px;
   text-align: right;
@@ -216,15 +220,17 @@
 .about-overlay h2 {
   margin: 0;
   font-family: "Noto Serif SC", serif;
-  font-size: 56px;
+  font-size: 52px;
   font-weight: 500;
+  letter-spacing: 0.02em;
 }
 
 .about-overlay p {
   margin: 24px 0 0;
   font-family: "Noto Serif SC", serif;
-  font-size: 33px;
-  line-height: 1.6;
+  font-size: 16px;
+  line-height: 1.7;
+  letter-spacing: 0.02em;
 }
 
 .math-section {
@@ -235,9 +241,10 @@
 .math-section h2 {
   margin: 0 0 28px;
   font-family: "Noto Serif SC", serif;
-  font-size: 74px;
+  font-size: 66px;
   font-weight: 500;
   color: #23262e;
+  letter-spacing: 0.02em;
 }
 
 .math-grid {
@@ -258,22 +265,25 @@
 
 .author {
   margin: 0;
-  font-size: 14px;
+  font-size: 11px;
+  letter-spacing: 0.04em;
   color: #4c4e54;
 }
 
 .math-grid h3 {
   margin: 14px 0 10px;
-  font-size: 46px;
-  line-height: 1.28;
+  font-size: 42px;
+  line-height: 1.32;
   font-weight: 500;
   color: #2f333a;
+  letter-spacing: 0.01em;
 }
 
 .math-grid p {
   margin: 0;
-  font-size: 21px;
-  line-height: 1.6;
+  font-size: 14px;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
   color: #444850;
 }
 
@@ -281,7 +291,9 @@
   display: inline-block;
   margin-top: 14px;
   color: #31353c;
-  font-size: 18px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .entry-split {
@@ -318,8 +330,8 @@
   z-index: 1;
   color: #ececec;
   font-family: "Noto Serif SC", serif;
-  font-size: 42px;
-  letter-spacing: 0.08em;
+  font-size: 36px;
+  letter-spacing: 0.12em;
 }
 
 .home-footer {
@@ -335,7 +347,8 @@
 .home-footer a {
   margin: 0;
   color: #e8e9ee;
-  font-size: 16px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
 }
 
 .home-footer div {
@@ -376,8 +389,8 @@
   text-decoration: underline;
   text-underline-offset: 2px;
   font-family: "Cormorant Garamond", serif;
-  font-size: 23px;
-  letter-spacing: 0.04em;
+  font-size: 16px;
+  letter-spacing: 0.08em;
   margin-left: auto;
   display: block;
   cursor: pointer;
@@ -392,8 +405,51 @@
 .drawer-nav a {
   font-family: "Noto Serif SC", serif;
   color: #1f2126;
-  font-size: 62px;
+  font-size: 49px;
   line-height: 1.06;
+  letter-spacing: 0.01em;
+}
+
+@media (min-width: 1900px) {
+  .home-brand {
+    font-size: 20px;
+  }
+
+  .hero-right h1 {
+    font-size: 68px;
+  }
+
+  .hero-right p {
+    font-size: 21px;
+  }
+
+  .contact-btn {
+    font-size: 18px;
+  }
+
+  .about-overlay h2 {
+    font-size: 58px;
+  }
+
+  .about-overlay p {
+    font-size: 18px;
+  }
+
+  .math-section h2 {
+    font-size: 72px;
+  }
+
+  .math-grid h3 {
+    font-size: 48px;
+  }
+
+  .math-grid p {
+    font-size: 15px;
+  }
+
+  .entry-card span {
+    font-size: 40px;
+  }
 }
 
 @media (max-width: 1300px) {
@@ -402,12 +458,12 @@
   }
 
   .home-brand {
-    font-size: 20px;
+    font-size: 14px;
     letter-spacing: 0.3em;
   }
 
   .lang-btn {
-    font-size: 14px;
+    font-size: 12px;
     padding: 6px 18px;
   }
 
@@ -426,23 +482,23 @@
   }
 
   .hero-right h1 {
-    font-size: 48px;
+    font-size: 42px;
   }
 
   .hero-right p {
-    font-size: 24px;
+    font-size: 16px;
   }
 
   .about-overlay h2 {
-    font-size: 40px;
+    font-size: 34px;
   }
 
   .about-overlay p {
-    font-size: 22px;
+    font-size: 14px;
   }
 
   .math-section h2 {
-    font-size: 46px;
+    font-size: 40px;
   }
 
   .math-grid {
@@ -460,11 +516,11 @@
   }
 
   .math-grid h3 {
-    font-size: 30px;
+    font-size: 28px;
   }
 
   .math-grid p {
-    font-size: 17px;
+    font-size: 13px;
   }
 
   .entry-split {
@@ -478,7 +534,7 @@
   }
 
   .entry-card span {
-    font-size: 30px;
+    font-size: 24px;
   }
 
   .drawer {
@@ -491,6 +547,6 @@
   }
 
   .drawer-nav a {
-    font-size: 34px;
+    font-size: 30px;
   }
 }
