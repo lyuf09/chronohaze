@@ -543,6 +543,10 @@ audio {
   letter-spacing: 0.015em;
 }
 
+.music-detail-article > .music-detail-meta:first-of-type {
+  margin-bottom: 34px;
+}
+
 .music-detail-article {
   max-width: 680px;
   padding-top: 42px;

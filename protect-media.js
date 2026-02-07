@@ -260,15 +260,24 @@
 
   function buildTrackArtist(article) {
     var metas = Array.from(article.querySelectorAll(".music-detail-meta"));
-    var credits = metas
-      .map(function (item) {
-        return item.textContent || "";
-      })
-      .join(" ");
-    var byline = credits.match(/[：:]\s*([A-Za-z0-9\s\-_\/&.]+)/);
+    var staffMeta = metas.length > 1 ? metas[1].textContent || "" : "";
+    var staffText = staffMeta.replace(/\s+/g, " ").trim();
+
+    var byline = staffText.match(/[：:]\s*([A-Za-z][A-Za-z0-9_.\-\/&()]*)/);
     if (byline && byline[1]) {
       return byline[1].trim().toUpperCase();
     }
+
+    var hazezz = staffText.match(/\bHazezZ\b/i);
+    if (hazezz) {
+      return "HAZEZZ";
+    }
+
+    var fallback = staffText.match(/\b([A-Za-z][A-Za-z0-9_.\-]*)\b/);
+    if (fallback && fallback[1]) {
+      return fallback[1].toUpperCase();
+    }
+
     return "HAZEZZ";
   }
 
