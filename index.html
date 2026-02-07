@@ -17,6 +17,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="home.css" />
+  <script defer src="protect-media.js"></script>
 </head>
 <body class="home-body">
   <div class="home-page" id="top">
@@ -51,7 +52,7 @@
                 <div class="player-track"><span id="playerProgress"></span></div>
               </div>
               <p class="player-time" id="playerTime">00:00 / 00:00</p>
-              <audio id="heroAudio" preload="metadata">
+              <audio id="heroAudio" preload="metadata" oncontextmenu="return false">
                 <source src="https://audio.jukehost.co.uk/ZK8iOaJLM0p2757mXaquFqQ9d36eRqkm" />
               </audio>
             </div>
