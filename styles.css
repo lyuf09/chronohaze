@@ -471,19 +471,19 @@ audio {
 }
 
 .music-index-page .page-head {
-  padding: 52px 0 30px;
+  padding: 44px 0 24px;
   border-bottom: 0;
   text-align: center;
 }
 
 .music-index-page .page-title {
   font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
-  font-size: clamp(64px, 5.3vw, 92px);
-  line-height: 0.92;
+  font-size: clamp(40px, 3.9vw, 58px);
+  line-height: 0.98;
   letter-spacing: 0.005em;
   font-weight: 400;
   color: #22262f;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 
 .music-index-page .page-head p {
@@ -491,8 +491,8 @@ audio {
   margin-left: auto;
   margin-right: auto;
   color: rgba(58, 63, 73, 0.9);
-  font-size: clamp(15px, 1.1vw, 18px);
-  line-height: 1.35;
+  font-size: clamp(13px, 0.86vw, 15px);
+  line-height: 1.32;
   letter-spacing: 0.01em;
   font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
 }
@@ -504,22 +504,22 @@ audio {
 
 .music-index-page .section {
   border-bottom: 0;
-  padding: 14px 0 56px;
+  padding: 8px 0 48px;
 }
 
 .music-index-page .music-list {
   width: min(100%, 760px);
   margin: 0 auto;
-  gap: 22px;
+  gap: 18px;
 }
 
 .music-index-page .track-row {
   border: 1px solid rgba(245, 247, 252, 0.42);
   border-radius: 0;
   background: transparent;
-  padding: 20px 24px 16px;
-  grid-template-columns: 178px minmax(0, 1fr);
-  gap: 10px 26px;
+  padding: 14px 18px 12px;
+  grid-template-columns: 152px minmax(0, 1fr);
+  gap: 6px 18px;
   align-items: start;
   transition:
     border-color 220ms ease,
@@ -533,17 +533,18 @@ audio {
 
 .music-index-page .track-date {
   color: rgba(57, 62, 72, 0.74);
-  font-size: 34px;
-  line-height: 1.08;
-  letter-spacing: 0.008em;
-  margin-top: 3px;
+  font-size: 13px;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  margin-top: 1px;
   font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  white-space: nowrap;
 }
 
 .music-index-page .track-title {
   font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
-  font-size: clamp(34px, 2.7vw, 46px);
-  line-height: 1.02;
+  font-size: clamp(22px, 1.75vw, 30px);
+  line-height: 1.08;
   font-weight: 400;
   letter-spacing: 0.005em;
   color: #232730;
@@ -552,8 +553,8 @@ audio {
 .music-index-page .track-artist {
   margin-top: 2px;
   color: rgba(67, 73, 85, 0.75);
-  font-size: 28px;
-  line-height: 1.1;
+  font-size: 14px;
+  line-height: 1.2;
   letter-spacing: 0.02em;
   font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
   text-transform: uppercase;
@@ -566,14 +567,14 @@ audio {
   align-items: center;
   justify-content: center;
   min-width: 112px;
-  height: 28px;
-  margin-top: 18px;
+  height: 24px;
+  margin-top: 10px;
   padding: 0;
   border-radius: 0;
   border: 0;
   background: transparent;
   color: rgba(67, 74, 85, 0.56);
-  font-size: 21px;
+  font-size: 13px;
   letter-spacing: 0.01em;
   font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
   text-transform: none;
@@ -1099,48 +1100,48 @@ audio {
   }
 
   .music-index-page .page-head {
-    padding: 44px 0 24px;
+    padding: 36px 0 20px;
   }
 
   .music-index-page .page-title {
-    font-size: clamp(52px, 9vw, 68px);
-    margin-bottom: 10px;
+    font-size: clamp(36px, 7.5vw, 48px);
+    margin-bottom: 8px;
   }
 
   .music-index-page .page-head p {
-    font-size: 16px;
-    line-height: 1.32;
+    font-size: 13px;
+    line-height: 1.3;
   }
 
   .music-index-page .section {
-    padding: 8px 0 40px;
+    padding: 6px 0 34px;
   }
 
   .music-index-page .track-row {
-    padding: 15px 16px 14px;
-    grid-template-columns: 134px minmax(0, 1fr);
-    gap: 6px 16px;
+    padding: 12px 14px 10px;
+    grid-template-columns: 122px minmax(0, 1fr);
+    gap: 5px 14px;
     border-radius: 0;
   }
 
   .music-index-page .track-date {
-    font-size: 24px;
+    font-size: 12px;
   }
 
   .music-index-page .track-title {
-    font-size: clamp(28px, 6.4vw, 38px);
+    font-size: clamp(20px, 4.8vw, 26px);
   }
 
   .music-index-page .track-artist {
-    font-size: 22px;
+    font-size: 13px;
     margin-top: 0;
   }
 
   .music-index-page .track-link {
     min-width: 96px;
     height: 24px;
-    margin-top: 10px;
-    font-size: 18px;
+    margin-top: 8px;
+    font-size: 12px;
   }
 
   .footer-grid {
@@ -1230,46 +1231,46 @@ audio {
   }
 
   .music-index-page .page-head {
-    padding: 34px 0 18px;
+    padding: 28px 0 14px;
   }
 
   .music-index-page .page-title {
-    font-size: clamp(44px, 14vw, 56px);
-    line-height: 0.94;
+    font-size: clamp(32px, 10.6vw, 40px);
+    line-height: 0.98;
     letter-spacing: 0.005em;
   }
 
   .music-index-page .page-head p {
-    font-size: 14px;
-    line-height: 1.32;
+    font-size: 12px;
+    line-height: 1.28;
   }
 
   .music-index-page .section {
-    padding: 6px 0 30px;
+    padding: 4px 0 24px;
   }
 
   .music-index-page .track-row {
-    padding: 12px 12px 11px;
+    padding: 10px 10px 9px;
     grid-template-columns: 1fr;
-    gap: 4px;
+    gap: 3px;
   }
 
   .music-index-page .track-date {
-    font-size: 19px;
+    font-size: 11px;
   }
 
   .music-index-page .track-title {
-    font-size: clamp(24px, 8.8vw, 34px);
+    font-size: clamp(18px, 7.4vw, 24px);
   }
 
   .music-index-page .track-artist {
-    font-size: 19px;
+    font-size: 12px;
   }
 
   .music-index-page .track-link {
     grid-column: 1;
-    margin-top: 8px;
-    font-size: 16px;
+    margin-top: 6px;
+    font-size: 11px;
   }
 
   .photo-grid {
