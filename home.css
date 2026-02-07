@@ -198,7 +198,7 @@
 
 .hero-split {
   min-width: 980px;
-  height: 873px;
+  height: 820px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   position: relative;
@@ -209,7 +209,7 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding-top: 84px;
+  padding-top: 72px;
 }
 
 .hero-left img {
@@ -227,7 +227,7 @@
 
 .hero-right-inner {
   width: 450px;
-  padding-top: 70px;
+  padding-top: 58px;
   padding-left: 50px;
   box-sizing: border-box;
 }
@@ -340,15 +340,15 @@
 }
 
 .about-bg {
-  min-height: 503px;
+  min-height: 450px;
   background:
-    linear-gradient(rgba(41, 45, 56, 0.78), rgba(41, 45, 56, 0.78)),
+    linear-gradient(rgba(55, 57, 61, 0.76), rgba(55, 57, 61, 0.76)),
     url("assets/template/about_branches.jpg") center / cover no-repeat;
   background-blend-mode: multiply;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding-top: 112px;
+  padding-top: 82px;
   box-sizing: border-box;
 }
 
