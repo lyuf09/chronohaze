@@ -176,12 +176,12 @@
     var backgroundHex = mixColors(matched);
     var backgroundRgb = hexToRgb(backgroundHex) || { r: 57, g: 60, b: 66 };
     var luminance = relativeLuminance(backgroundRgb);
-    var isDark = luminance < 0.36;
+    var useDarkText = luminance > 0.55;
 
     return {
       background: backgroundHex,
-      text: isDark ? "rgba(230, 234, 242, 0.9)" : "rgba(34, 39, 47, 0.88)",
-      title: isDark ? "rgba(244, 246, 252, 0.94)" : "rgba(24, 29, 36, 0.92)",
+      text: useDarkText ? "rgba(34, 39, 47, 0.9)" : "rgba(242, 245, 252, 0.95)",
+      title: useDarkText ? "rgba(23, 28, 35, 0.94)" : "rgba(248, 250, 255, 0.96)",
     };
   }
 
