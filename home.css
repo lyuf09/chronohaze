@@ -346,7 +346,8 @@
 .about-bg {
   min-height: 410px;
   background:
-    linear-gradient(rgba(43, 53, 72, 0.5), rgba(43, 53, 72, 0.5)),
+    linear-gradient(rgba(52, 57, 67, 0.58), rgba(52, 57, 67, 0.58)),
+    linear-gradient(rgba(18, 22, 30, 0.16), rgba(18, 22, 30, 0.16)),
     url("assets/template/about_branches.jpg") center / cover no-repeat;
   background-blend-mode: multiply;
   display: flex;
