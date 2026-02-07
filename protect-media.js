@@ -494,6 +494,53 @@
     return column;
   }
 
+  function setupLyricsEntrance(section) {
+    if (!section || section.dataset.lyricsMotionBound === "1") {
+      return;
+    }
+
+    section.dataset.lyricsMotionBound = "1";
+
+    var reducedMotion =
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (reducedMotion) {
+      section.classList.add("is-visible");
+      return;
+    }
+
+    section.classList.add("is-anim-ready");
+
+    var reveal = function () {
+      section.classList.add("is-visible");
+    };
+
+    if (!("IntersectionObserver" in window)) {
+      requestAnimationFrame(function () {
+        setTimeout(reveal, 120);
+      });
+      return;
+    }
+
+    var observer = new IntersectionObserver(
+      function (entries, obs) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            reveal();
+            obs.disconnect();
+          }
+        });
+      },
+      {
+        threshold: 0.24,
+        rootMargin: "0px 0px -6% 0px",
+      }
+    );
+
+    observer.observe(section);
+  }
+
   function enhanceMusicLyricsLayout() {
     if (!document.body || !document.body.classList.contains("music-detail-page")) {
       return;
@@ -547,6 +594,7 @@
     section.appendChild(inner);
 
     article.insertBefore(section, part1Heading);
+    setupLyricsEntrance(section);
 
     part1Heading.remove();
     part1Text.remove();
