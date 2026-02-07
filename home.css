@@ -219,7 +219,7 @@
 }
 
 .hero-right {
-  background: rgb(203, 204, 204);
+  background: rgb(219, 220, 221);
   border-left: 1px solid rgb(58, 58, 58);
   display: flex;
   justify-content: flex-start;
@@ -235,7 +235,7 @@
 .hero-right h1 {
   margin: 0 0 34px;
   font-family: "cormorantgaramond-light", "cormorantgaramond", "cormorant garamond", "Songti SC", "STSong", serif;
-  font-size: 60px;
+  font-size: 52px;
   font-weight: 400;
   line-height: 1.1;
   letter-spacing: -0.03em;
@@ -246,11 +246,10 @@
   margin: 0;
   width: 390px;
   font-family: "cormorantgaramond-light", "cormorantgaramond", "cormorant garamond", "Songti SC", "STSong", serif;
-  font-size: 22px;
-  line-height: 1.25;
+  font-size: 19px;
+  line-height: 1.2;
   letter-spacing: 0;
   color: rgb(58, 58, 58);
-  font-variant-caps: small-caps;
 }
 
 .notice {
@@ -342,9 +341,10 @@
 .about-bg {
   min-height: 450px;
   background:
-    linear-gradient(rgba(55, 57, 61, 0.76), rgba(55, 57, 61, 0.76)),
+    linear-gradient(rgba(104, 104, 104, 0.84), rgba(104, 104, 104, 0.84)),
+    linear-gradient(rgba(48, 50, 54, 0.38), rgba(48, 50, 54, 0.38)),
     url("assets/template/about_branches.jpg") center / cover no-repeat;
-  background-blend-mode: multiply;
+  background-blend-mode: saturation, multiply;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -604,7 +604,7 @@
 
   .hero-right-inner > p {
     width: 100%;
-    font-size: 21px;
+    font-size: 18px;
   }
 
   .contact-btn,
@@ -697,11 +697,11 @@
   }
 
   .hero-right h1 {
-    font-size: 42px;
+    font-size: 38px;
   }
 
   .hero-right-inner > p {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .about-overlay h2 {
