@@ -1101,8 +1101,9 @@ audio {
 
 .footer-right {
   display: flex;
-  align-items: center;
-  gap: 16px;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
 }
 
 .footer-right a {
@@ -1311,7 +1312,8 @@ audio {
   }
 
   .footer-right {
-    gap: 12px;
+    gap: 6px;
+    align-items: flex-start;
   }
 
   .footer-right a {

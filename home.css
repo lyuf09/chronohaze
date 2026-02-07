@@ -554,6 +554,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 24px;
+  align-items: start;
 }
 
 .home-footer-col {
@@ -575,6 +576,11 @@
   letter-spacing: 0.01em;
 }
 
+.home-footer-contact {
+  display: grid;
+  row-gap: 10px;
+}
+
 .home-footer-email {
   display: inline-block;
   margin-top: 8px;
@@ -583,13 +589,6 @@
   line-height: 1.2;
   letter-spacing: 0.06em;
   text-transform: none;
-}
-
-.home-footer-center {
-  display: grid;
-  align-content: start;
-  justify-items: start;
-  row-gap: 14px;
 }
 
 .home-footer-cities {
