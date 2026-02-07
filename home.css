@@ -198,7 +198,7 @@
 
 .hero-split {
   min-width: 980px;
-  height: 820px;
+  height: 790px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   position: relative;
@@ -216,11 +216,15 @@
   width: 366px;
   height: 448px;
   object-fit: cover;
-  filter: saturate(0.72) brightness(0.94) contrast(0.97) hue-rotate(10deg) grayscale(0.06);
+  border: 1px solid rgba(222, 224, 230, 0.18);
+  box-shadow:
+    0 22px 48px rgba(9, 12, 20, 0.28),
+    0 0 0 8px rgba(202, 207, 219, 0.03);
+  filter: saturate(0.62) brightness(0.97) contrast(0.99) hue-rotate(17deg) grayscale(0.09);
 }
 
 .hero-right {
-  background: rgb(229, 230, 231);
+  background: rgb(236, 237, 239);
   border-left: 1px solid rgb(58, 58, 58);
   display: flex;
   justify-content: flex-start;
@@ -236,7 +240,7 @@
 .hero-right h1 {
   margin: 0 0 34px;
   font-family: "cormorantgaramond-light", "cormorantgaramond", "cormorant garamond", "Songti SC", "STSong", serif;
-  font-size: 52px;
+  font-size: 62px;
   font-weight: 400;
   line-height: 1.1;
   letter-spacing: -0.03em;
@@ -247,8 +251,8 @@
   margin: 0;
   width: 390px;
   font-family: "cormorantgaramond-light", "cormorantgaramond", "cormorant garamond", "Songti SC", "STSong", serif;
-  font-size: 19px;
-  line-height: 1.2;
+  font-size: 16px;
+  line-height: 1.28;
   letter-spacing: 0;
   color: rgb(58, 58, 58);
 }
@@ -340,14 +344,15 @@
 }
 
 .about-bg {
-  min-height: 450px;
+  min-height: 410px;
   background:
-    linear-gradient(rgba(90, 94, 102, 0.62), rgba(90, 94, 102, 0.62)),
+    linear-gradient(rgba(43, 53, 72, 0.5), rgba(43, 53, 72, 0.5)),
     url("assets/template/about_branches.jpg") center / cover no-repeat;
+  background-blend-mode: multiply;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding-top: 82px;
+  padding-top: 70px;
   box-sizing: border-box;
 }
 

@@ -26,7 +26,7 @@
           <span>chronohaze.space</span>
         </a>
         <nav class="nav" aria-label="主导航">
-          <a href="../index.html">主页</a>
+          <a class="active" href="../index.html">主页</a>
           <a href="../index.html#welcome">欢迎</a>
           <a href="../index.html#math">数学</a>
           <a href="../portfolio-1.html">摄影</a>
@@ -36,15 +36,79 @@
     </header>
 
     <main class="main">
-      <article class="article">
-        <h1>一个正在进行的 Isabelle 研究项目：Submodular Greedy 的形式化</h1>
-        <p class="article-meta">HazezZ</p>
-        <p>在上一篇文章里我更多写的是为什么选择 Isabelle，以及形式化证明对我意味着什么。这篇文章想更具体地记录一个正在进行中的研究项目：单调子模函数下贪心算法的 (1−1/e) 近似保证的 Isabelle 形式化。</p>
-        <p>这不是一个已经完成的成果展示，而是一份阶段性的研究记录。项目目标不是重新发明定理，而是尝试回答一个更基础的问题：如果把这个证明完整交给 Isabelle，它究竟需要我们说清楚哪些事情？</p>
-        <p>在组合优化中，单调子模函数最大化问题有一个经典结论：在基数约束下，简单贪心算法可以达到 1 − 1/e 的近似比。这个结果常被称为 Nemhauser–Wolsey 定理，在机器学习、信息论、覆盖问题等领域被反复使用。</p>
-        <p>纸笔证明里常见的平均化论证、边际增益、递推不等式，往往隐含了大量未显式陈述的结构性假设。我的工作重点，就是把这些隐含步骤逐条变成可验证的形式化结构。</p>
-        <p><a class="read-more" href="../index.html#math">返回数学栏目</a></p>
-      </article>
+<article class="article">
+  <h1>一个正在进行的 Isabelle 研究项目：Submodular Greedy 的形式化</h1>
+  <p class="article-meta">HazezZ · 2025年12月29日</p>
+  <p>在上一篇文章《我的第一个 Isabelle 形式化证明》中，我更多写的是我为什么选择 Isabelle，以及形式化证明对我而言意味着什么。这篇文章我想更具体地记录一个正在进行中的研究项目，单调子模函数下贪心算法的 (1−1/e) 近似保证的 Isabelle 形式化<strong>。</strong></p>
+      <p>这不是一个已经完成的成果展示而是一份阶段性的研究记录。</p>
+      <h3><strong>我在做什么</strong></h3>
+      <p>在组合优化中，单调子模函数的最大化问题有一个非常经典的结论：在基数约束下，简单的贪心算法可以达到 1 − 1/e 的近似比。</p>
+      <p>这个结果通常被称为 <strong>Nemhauser–Wolsey 定理</strong>，在机器学习、信息论、覆盖问题等领域被反复使用。</p>
+      <p>在纸笔证明中，这个结论往往以一种高度抽象和依赖直觉的方式出现，比如平均化论证、边际增益、递推不等式……但这些看似自然的步骤其实隐含了大量未被显式陈述的结构性假设。</p>
+      <p>这个项目的目标并不是重新发明这个定理，而是尝试回答一个更基础的问题：<strong>如果把这个证明完整地交给 Isabelle，它究竟需要我们说清楚哪些事情？</strong></p>
+      <h3><strong>项目结构：从定理到系统</strong></h3>
+      <p>我将目前的 Isabelle 形式化拆分为两个主要部分，对应两个核心文件：</p>
+      <ul>
+<li>
+<p><strong>Greedy_Submodular_Construct.thy</strong>这一部分负责<strong>算法与结构本身</strong>：</p>
+<ul>
+<li><p>贪心序列的形式化定义</p></li>
+<li><p>边际增益的抽象</p></li>
+<li><p>贪心过程中保持的不变量</p></li>
+</ul>
+<p>在这一层，避免了引入任何近似结论，只关注这个算法在 Isabelle 中到底是什么。</p>
+</li>
+<li>
+<p><strong>Greedy_Submodular_Approx.thy</strong>这一部分负责<strong>近似分析</strong>：</p>
+<ul>
+<li><p>平均化论证的形式化版本</p></li>
+<li><p>gap recurrence 的建立</p></li>
+<li><p>Nemhauser–Wolsey (1−1/e) 界的推导</p></li>
+</ul>
+</li>
+</ul>
+      <p>这样的拆分并不是为了代码整洁而是为了让证明结构在形式化中保持<strong>可复用性</strong>，因为构造与分析是两个不同层次的问题。</p>
+      <h3><strong>在 Isabelle 里，这件事为什么并不“显然”</strong></h3>
+      <p>在数学直觉中，很多推理可以一句话完成，而在 Isabelle 中，每一步都必须被拆解为可验证的逻辑关系。</p>
+      <p>在这个过程中，我逐渐意识到几件事：</p>
+      <ul>
+<li><p>一些“显然成立”的不等式，其实依赖于未被明确写出的单调性或子模性假设</p></li>
+<li><p>纸面证明中被模糊处理的“集合变化”，在形式化中必须精确刻画</p></li>
+<li><p>为了避免证明碎片化，<strong>模块化几乎是必需的，而不是可选项</strong></p></li>
+</ul>
+      <p>形式化并不是在“刁难”证明者，而是在迫使我们诚实地面对：<strong>哪些结论是由结构推出的，哪些只是我们习惯性地相信它成立。</strong></p>
+      <h3><strong>当前状态</strong></h3>
+      <p>这是一个<strong>进行中的研究项目</strong>。</p>
+      <p>目前已经完成的部分包括：</p>
+      <ul>
+<li><p>贪心算法的基本形式化框架</p></li>
+<li><p>边际增益与相关结构性引理</p></li>
+<li><p>近似分析所需的核心递推结构</p></li>
+</ul>
+      <p>仍在推进和调整的部分包括：</p>
+      <ul>
+<li><p>子模性假设的进一步模块化</p></li>
+<li><p>近似分析中若干技术性引理的重构</p></li>
+<li>
+<p>为后续实例化与扩展保留更干净的接口</p>
+<br>
+</li>
+</ul>
+      <h3><strong>接下来会做什么</strong></h3>
+      <p>在接下来的阶段，我计划：</p>
+      <ul>
+<li><p>将子模函数的假设进一步抽象为可复用的 locale</p></li>
+<li><p>尝试具体实例（如覆盖函数）的形式化实例化</p></li>
+<li><p>探索对其他贪心变体的形式化可能性</p></li>
+<li><p>评估代码抽取与可执行实验的可行性</p></li>
+</ul>
+      <p>这个项目更像是一条正在延展的研究路径，而不是一次性的证明任务。</p>
+      <h3><strong>项目链接</strong></h3>
+      <p>该项目的 GitHub 仓库在这里（持续更新中）：</p>
+      <p><a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">https://github.com/lyuf09/isabelle-submodular-greedy/tree/main</a></p>
+  <p><a class="read-more" href="../index.html#math">返回数学栏目</a></p>
+</article>
+
     </main>
 
     <footer class="site-footer">

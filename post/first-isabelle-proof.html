@@ -26,7 +26,7 @@
           <span>chronohaze.space</span>
         </a>
         <nav class="nav" aria-label="主导航">
-          <a href="../index.html">主页</a>
+          <a class="active" href="../index.html">主页</a>
           <a href="../index.html#welcome">欢迎</a>
           <a href="../index.html#math">数学</a>
           <a href="../portfolio-1.html">摄影</a>
@@ -36,15 +36,49 @@
     </header>
 
     <main class="main">
-      <article class="article">
-        <h1>我的第一个 Isabelle 形式化证明</h1>
-        <p class="article-meta">HazezZ</p>
-        <p>有些证明想被刻在更坚固的地方。纸上的推导会泛黄，黑板上的公式会被擦去，而形式化证明留下的是可以被反复验证的逻辑结构。</p>
-        <p>我目前研究的主题和 submodular function 以及 greedy algorithm 相关，正在尝试形式化 Nemhauser–Wolsey theorem 的证明。这是一条关于单调子模函数贪心近似比保证的经典结果。</p>
-        <p>我要在 Isabelle 里完成三件事：把数学对象抽象成形式化定义；搭建推理框架；写出与纸面证明等价的 machine-checkable 版本。它像一场对话，我必须让 Isabelle 听懂每一步推理。</p>
-        <p>数学本身已经很严谨，但人类证明常带着直觉和省略。Isabelle 迫使我把这些直觉拆解成可检查语句，这个过程虽然慢，却非常真实，也让我看见哪些“显然步骤”其实并不显然。</p>
-        <p><a class="read-more" href="../index.html#math">返回数学栏目</a></p>
-      </article>
+<article class="article">
+  <h1>我的第一个 Isabelle 形式化证明</h1>
+  <p class="article-meta">HazezZ · 2025年10月18日</p>
+  <p><strong>有些证明想被刻在更坚固的地方。</strong></p>
+      <p>纸上的推导可以泛黄，黑板上的公式终将被擦去，但形式化证明留下的，是可以被反复验证的真理。</p>
+      <h3><strong>我在做的主题</strong></h3>
+      <p>我目前研究的方向和 submodular function 以及 greedy algorithm 相关。具体来说，我正在尝试形式化 Nemhauser–Wolsey theorem 的证明，这是一条关于单调子模函数的贪心近似比保证的经典结果。</p>
+      <p>我要在 Isabelle 里完成：</p>
+      <ul>
+<li><p>把数学对象抽象成形式化定义（函数、集合、单调性、子模性…）</p></li>
+<li><p>搭建推理框架</p></li>
+<li><p>写出与数学证明完全等价的 machine-checkable version。</p></li>
+</ul>
+      <p>就像在对话一样，我要让 Isabelle 听懂我想说的话（但它不会宽容我任何一个跳步或模糊表达XD</p>
+      <h3>为什么我选择 Isabelle（而不是Lean</h3>
+      <p>数学本身就是严谨的，但人类的证明往往带着直觉和省略。而 Isabelle 逼着我去把直觉全部拆解成可验证的语句，这个过程虽然痛苦，但很真实（其实是我老师做 Isabelle ）</p>
+      <p>它让我看到了：</p>
+      <ul>
+<li><p>哪些我以为显然的步骤其实需要补充</p></li>
+<li><p>哪些论证的逻辑关系是我自己没意识到的</p></li>
+<li><p>证明结构如何在形式化中变得「可复用」</p></li>
+</ul>
+      <p>对我而言，这不仅仅是完成一个 formal proof，更像是学习“如何更诚实地写数学”。</p>
+      <h3>目前进展</h3>
+      <p>✔ 已完成：</p>
+      <ul>
+<li><p>定义 filter limit 与 sequential limit</p></li>
+<li><p>证明 filter limit 蕴含 sequential limit</p></li>
+<li><p>建立贪心算法的基本形式化骨架</p></li>
+</ul>
+      <p>🚧 进行中：</p>
+      <ul>
+<li><p>证明两种极限定义的等价性</p></li>
+<li><p>抽象出子模函数贪心近似的核心逻辑</p></li>
+</ul>
+      <p>❌ 未来计划：</p>
+      <ul>
+<li><p>完整复刻并扩展 Nemhauser–Wolsey 的形式化证明</p></li>
+<li><p>尝试将优化理论与形式化工具结合</p></li>
+</ul>
+  <p><a class="read-more" href="../index.html#math">返回数学栏目</a></p>
+</article>
+
     </main>
 
     <footer class="site-footer">
