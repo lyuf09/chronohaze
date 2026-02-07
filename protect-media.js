@@ -604,12 +604,61 @@
     article.dataset.lyricsEnhanced = "1";
   }
 
+  function enableMusicIndexRowLinks() {
+    if (!document.body || !document.body.classList.contains("music-index-page")) {
+      return;
+    }
+
+    var rows = Array.from(document.querySelectorAll(".music-list .track-row[data-href]"));
+
+    rows.forEach(function (row) {
+      if (row.dataset.rowLinkReady === "1") {
+        return;
+      }
+
+      row.dataset.rowLinkReady = "1";
+
+      function openRowLink() {
+        var href = row.getAttribute("data-href");
+        if (href) {
+          window.location.href = href;
+        }
+      }
+
+      row.addEventListener("click", function (event) {
+        var target = event.target;
+        if (
+          target &&
+          typeof target.closest === "function" &&
+          target.closest("a, button, input, select, textarea, summary, [contenteditable='true']")
+        ) {
+          return;
+        }
+
+        var selection = typeof window.getSelection === "function" ? window.getSelection() : null;
+        if (selection && String(selection).trim()) {
+          return;
+        }
+
+        openRowLink();
+      });
+
+      row.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openRowLink();
+        }
+      });
+    });
+  }
+
   function boot() {
     protectAllMedia();
     ensureMusicDetailBackLink();
     enhanceMusicPlayers();
     removeMusicDetailImages();
     enhanceMusicLyricsLayout();
+    enableMusicIndexRowLinks();
   }
 
   document.addEventListener(

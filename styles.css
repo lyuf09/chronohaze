@@ -478,7 +478,7 @@ audio {
 
 .music-index-page .page-title {
   font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
-  font-size: clamp(40px, 3.9vw, 58px);
+  font-size: clamp(30px, 2.8vw, 42px);
   line-height: 0.98;
   letter-spacing: 0.005em;
   font-weight: 400;
@@ -521,6 +521,7 @@ audio {
   grid-template-columns: 152px minmax(0, 1fr);
   gap: 6px 18px;
   align-items: start;
+  cursor: pointer;
   transition:
     border-color 220ms ease,
     background-color 240ms ease;
@@ -529,6 +530,11 @@ audio {
 .music-index-page .track-row:hover {
   border-color: rgba(249, 251, 255, 0.62);
   background: rgba(242, 244, 249, 0.1);
+}
+
+.music-index-page .track-row:focus-visible {
+  outline: 1px solid rgba(35, 39, 48, 0.58);
+  outline-offset: 2px;
 }
 
 .music-index-page .track-date {
@@ -543,7 +549,7 @@ audio {
 
 .music-index-page .track-title {
   font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
-  font-size: clamp(22px, 1.75vw, 30px);
+  font-size: clamp(15px, 1.08vw, 19px);
   line-height: 1.08;
   font-weight: 400;
   letter-spacing: 0.005em;
@@ -558,34 +564,6 @@ audio {
   letter-spacing: 0.02em;
   font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
   text-transform: uppercase;
-}
-
-.music-index-page .track-link {
-  justify-self: start;
-  grid-column: 2;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 112px;
-  height: 24px;
-  margin-top: 10px;
-  padding: 0;
-  border-radius: 0;
-  border: 0;
-  background: transparent;
-  color: rgba(67, 74, 85, 0.56);
-  font-size: 13px;
-  letter-spacing: 0.01em;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
-  text-transform: none;
-  transition:
-    color 220ms ease,
-    transform 220ms ease;
-}
-
-.music-index-page .track-row:hover .track-link {
-  color: rgba(33, 38, 47, 0.88);
-  transform: translateX(2px);
 }
 
 .article {
@@ -1104,7 +1082,7 @@ audio {
   }
 
   .music-index-page .page-title {
-    font-size: clamp(36px, 7.5vw, 48px);
+    font-size: clamp(28px, 6.4vw, 34px);
     margin-bottom: 8px;
   }
 
@@ -1129,19 +1107,12 @@ audio {
   }
 
   .music-index-page .track-title {
-    font-size: clamp(20px, 4.8vw, 26px);
+    font-size: clamp(14px, 3.8vw, 18px);
   }
 
   .music-index-page .track-artist {
     font-size: 13px;
     margin-top: 0;
-  }
-
-  .music-index-page .track-link {
-    min-width: 96px;
-    height: 24px;
-    margin-top: 8px;
-    font-size: 12px;
   }
 
   .footer-grid {
@@ -1235,7 +1206,7 @@ audio {
   }
 
   .music-index-page .page-title {
-    font-size: clamp(32px, 10.6vw, 40px);
+    font-size: clamp(24px, 8.8vw, 30px);
     line-height: 0.98;
     letter-spacing: 0.005em;
   }
@@ -1260,17 +1231,11 @@ audio {
   }
 
   .music-index-page .track-title {
-    font-size: clamp(18px, 7.4vw, 24px);
+    font-size: clamp(13px, 5.5vw, 16px);
   }
 
   .music-index-page .track-artist {
     font-size: 12px;
-  }
-
-  .music-index-page .track-link {
-    grid-column: 1;
-    margin-top: 6px;
-    font-size: 11px;
   }
 
   .photo-grid {
