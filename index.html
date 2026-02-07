@@ -43,7 +43,7 @@
             <h1 data-i18n="heroTitle" data-reveal="slide-right" data-reveal-delay="60">起点</h1>
             <p data-i18n="heroIntro" data-i18n-html="true" data-reveal="slide-right" data-reveal-delay="140">欢迎来到 CHRONOHAZE.SPACE。<br />时间的薄雾中，理性与浪漫交织。<br />数学、音乐、光影、与时间。<br />一段轨迹，一个宇宙。</p>
             <p class="notice" data-i18n="heroNotice" data-reveal="slide-right" data-reveal-delay="220">网站检修中;作品集都不全，其它之后上</p>
-            <a class="contact-btn" href="mailto:feier530@icloud.com" data-i18n="contactBtn" data-reveal="slide-right" data-reveal-delay="300">联系我</a>
+            <a class="contact-btn" href="#contact" data-i18n="contactBtn" data-reveal="slide-right" data-reveal-delay="300">联系我</a>
 
             <div class="player-shell" id="playerShell" data-reveal="slide-right" data-reveal-delay="380">
               <button class="player-toggle" type="button" aria-label="播放 / 暂停" data-i18n-aria="audioToggleAria" id="audioToggle">▶</button>
@@ -102,15 +102,35 @@
       </section>
     </main>
 
-    <footer class="home-footer">
-      <p>© 2035 by chronohaze.space.</p>
-      <div class="home-footer-links">
-        <a href="blank.html" data-i18n="siteNotes">网站说明</a>
-        <a href="blank-1.html" data-i18n="a11y">无障碍支持</a>
-        <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://www.instagram.com/lyuf09" target="_blank" rel="noopener noreferrer">Instagram</a>
-        <a href="https://space.bilibili.com/35902781" target="_blank" rel="noopener noreferrer">Bilibili</a>
-        <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
+    <footer class="home-footer" id="contact">
+      <div class="home-footer-top">
+        <a class="home-footer-brand" href="#top">chronohaze.space</a>
+      </div>
+
+      <div class="home-footer-main">
+        <div class="home-footer-col home-footer-contact">
+          <p data-i18n="footerContactLead">辗转不同国家无固定号码 请联系邮箱：</p>
+          <a class="home-footer-email" href="mailto:feier530@icloud.com">feier530@icloud.com</a>
+        </div>
+
+        <div class="home-footer-col home-footer-center">
+          <p class="home-footer-cities" data-i18n="footerCities">重庆 · EDINBURGH · NEW YORK</p>
+          <div class="home-footer-social" aria-label="Social links">
+            <a href="https://www.instagram.com/lyuf09" target="_blank" rel="noopener noreferrer" aria-label="Instagram">IG</a>
+            <a href="https://space.bilibili.com/35902781" target="_blank" rel="noopener noreferrer" aria-label="Bilibili">B</a>
+            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
+            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GH</a>
+          </div>
+        </div>
+
+        <div class="home-footer-col home-footer-policy">
+          <a href="blank.html" data-i18n="siteNotes">网站说明</a>
+          <a href="blank-1.html" data-i18n="a11y">无障碍支持</a>
+        </div>
+      </div>
+
+      <div class="home-footer-bottom">
+        <p data-i18n="footerCopy">© 2035 BY CHRONOHAZE.SPACE. POWERED AND SECURED BY GITHUB PAGES.</p>
       </div>
     </footer>
 
@@ -169,6 +189,9 @@
           readMore: 'Read More',
           portfolioLabel: '摄影作品集',
           musicLabel: '音乐作品集',
+          footerContactLead: '辗转不同国家无固定号码 请联系邮箱：',
+          footerCities: '重庆 · EDINBURGH · NEW YORK',
+          footerCopy: '© 2035 BY CHRONOHAZE.SPACE. POWERED AND SECURED BY GITHUB PAGES.',
           siteNotes: '网站说明',
           a11y: '无障碍支持',
           menuClose: 'CLOSE [ - ]',
@@ -198,6 +221,9 @@
           readMore: 'Read More',
           portfolioLabel: 'Photography Portfolio',
           musicLabel: 'Music Portfolio',
+          footerContactLead: 'No fixed phone number while moving across countries. Please contact via email:',
+          footerCities: 'Chongqing · Edinburgh · New York',
+          footerCopy: '© 2035 by chronohaze.space. Powered and secured by GitHub Pages.',
           siteNotes: 'Privacy Policy',
           a11y: 'Terms of Use',
           menuClose: 'Close  [ - ]',
