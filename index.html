@@ -16,11 +16,11 @@
       <a class="home-brand" href="#top">chronohaze.space</a>
 
       <div class="lang-pill" aria-label="language switch">
-        <button class="lang-btn active" type="button"><span class="flag">🇨🇳</span> ZH</button>
-        <button class="lang-btn" type="button"><span class="flag">🇬🇧</span> EN</button>
+        <button class="lang-btn active" type="button" data-lang="zh"><span class="flag">🇨🇳</span> ZH</button>
+        <button class="lang-btn" type="button" data-lang="en"><span class="flag">🇬🇧</span> EN</button>
       </div>
 
-      <button class="menu-open" type="button" aria-controls="drawer" aria-expanded="false" id="openMenu">+</button>
+      <button class="menu-open" type="button" aria-controls="drawer" aria-expanded="false" aria-label="菜单 [ + ]" data-i18n-aria="menuOpenAria" id="openMenu">+</button>
     </header>
 
     <main>
@@ -31,13 +31,13 @@
 
         <div class="hero-right">
           <div class="hero-right-inner">
-            <h1>起点</h1>
-            <p>欢迎来到 Chronohaze.space。<br />时间的薄雾中，理性与浪漫交织。<br />数学、音乐、光影、与时间。<br />一段轨迹，一个宇宙。</p>
-            <p class="notice">网站检修中; 音乐作品集不全，其他之后上</p>
-            <a class="contact-btn" href="mailto:feier530@icloud.com">联系我</a>
+            <h1 data-i18n="heroTitle">起点</h1>
+            <p data-i18n="heroIntro" data-i18n-html="true">欢迎来到 Chronohaze.space。<br />时间的薄雾中，理性与浪漫交织。<br />数学、音乐、光影、与时间。<br />一段轨迹，一个宇宙。</p>
+            <p class="notice" data-i18n="heroNotice">网站检修中; 音乐作品集不全，其他之后上</p>
+            <a class="contact-btn" href="mailto:feier530@icloud.com" data-i18n="contactBtn">联系我</a>
 
             <div class="player-shell" id="playerShell">
-              <button class="player-toggle" type="button" aria-label="播放 / 暂停" id="audioToggle">▶</button>
+              <button class="player-toggle" type="button" aria-label="播放 / 暂停" data-i18n-aria="audioToggleAria" id="audioToggle">▶</button>
               <div class="player-center">
                 <p>AFFIZIEREN - HAZEZZ</p>
                 <div class="player-track"><span id="playerProgress"></span></div>
@@ -53,42 +53,42 @@
 
       <section class="about-bg" id="welcome">
         <div class="about-overlay">
-          <h2>关于我</h2>
-          <p>我是 HazezZ，2005年生人，就读 The University of Edinburgh 纯数，目前<br />在 Cornell University 交换。</p>
-          <p>研究方向是 Operational Research for Machine Learning。<br />除了数学，我也创作清新的前卫核音乐、演奏贝斯和吉他，并热爱摄影。<br />这个网站记录的是我生活与创作的痕迹。</p>
+          <h2 data-i18n="aboutTitle">关于我</h2>
+          <p data-i18n="aboutP1" data-i18n-html="true">我是 HazezZ，2005年生人，就读 The University of Edinburgh 纯数，目前<br />在 Cornell University 交换。</p>
+          <p data-i18n="aboutP2" data-i18n-html="true">研究方向是 Operational Research for Machine Learning。<br />除了数学，我也创作清新的前卫核音乐、演奏贝斯和吉他，并热爱摄影。<br />这个网站记录的是我生活与创作的痕迹。</p>
         </div>
       </section>
 
       <section class="math-section" id="math">
-        <h2>数学</h2>
+        <h2 data-i18n="mathTitle">数学</h2>
         <div class="math-grid">
           <article>
             <p class="author">HazezZ</p>
-            <h3>Spring 2026｜新科研记录的开始</h3>
-            <p>这个学期，我正式开始在康奈尔大学 ORIE 系进行本科科研项目，导师为 Shoham Sabach 教授。在此之前我已经有过其他方向的研究训练，持续在 Isabelle 等工具支持下探索将严格的数学结构表达为可验证的逻辑体系。虽然相关工作仍在推进之中，但这段经历也让我逐渐熟悉了开放性问题的研究节奏。</p>
-            <a href="post/spring-2026.html">Read More</a>
+            <h3 data-i18n="card1Title">Spring 2026｜新科研记录的开始</h3>
+            <p data-i18n="card1Body">这个学期，我正式开始在康奈尔大学 ORIE 系进行本科科研项目，导师为 Shoham Sabach 教授。在此之前我已经有过其他方向的研究训练，持续在 Isabelle 等工具支持下探索将严格的数学结构表达为可验证的逻辑体系。虽然相关工作仍在推进之中，但这段经历也让我逐渐熟悉了开放性问题的研究节奏。</p>
+            <a href="post/spring-2026.html" data-i18n="readMore">Read More</a>
           </article>
           <article>
             <p class="author">HazezZ</p>
-            <h3>一个正在进行的 Isabelle 研究项目：Submodular Greedy 的形式化</h3>
-            <p>在上一篇文章《我的第一个 Isabelle 形式化证明》中，我更多写的是我为什么选择 Isabelle，以及形式化证明对我而言意味着什么。这篇文章我想更具体地记录一个正在进行中的研究项目，单调子模函数下贪心算法的 (1−1/e) 近似保证的 Isabelle 形式化。这不是一个已经完成的成果展示，而是一份阶段性的研究记录。</p>
-            <a href="post/isabelle-submodular-greedy.html">Read More</a>
+            <h3 data-i18n="card2Title">一个正在进行的 Isabelle 研究项目：Submodular Greedy 的形式化</h3>
+            <p data-i18n="card2Body">在上一篇文章《我的第一个 Isabelle 形式化证明》中，我更多写的是我为什么选择 Isabelle，以及形式化证明对我而言意味着什么。这篇文章我想更具体地记录一个正在进行中的研究项目，单调子模函数下贪心算法的 (1−1/e) 近似保证的 Isabelle 形式化。这不是一个已经完成的成果展示，而是一份阶段性的研究记录。</p>
+            <a href="post/isabelle-submodular-greedy.html" data-i18n="readMore">Read More</a>
           </article>
           <article>
             <p class="author">HazezZ</p>
-            <h3>我的第一个 Isabelle 形式化证明</h3>
-            <p>有些证明想被刻在更坚固的地方。纸上的推导可以泛黄，黑板上的公式终将被擦去，但形式化证明留下的，是可以被反复验证的真理。我在做的主题和 submodular function 以及 greedy algorithm 相关，正在尝试形式化 Nemhauser–Wolsey theorem 的证明。</p>
-            <a href="post/first-isabelle-proof.html">Read More</a>
+            <h3 data-i18n="card3Title">我的第一个 Isabelle 形式化证明</h3>
+            <p data-i18n="card3Body">有些证明想被刻在更坚固的地方。纸上的推导可以泛黄，黑板上的公式终将被擦去，但形式化证明留下的，是可以被反复验证的真理。我在做的主题和 submodular function 以及 greedy algorithm 相关，正在尝试形式化 Nemhauser–Wolsey theorem 的证明。</p>
+            <a href="post/first-isabelle-proof.html" data-i18n="readMore">Read More</a>
           </article>
         </div>
       </section>
 
       <section class="entry-split">
         <a class="entry-card" href="portfolio-1.html" style="background-image: url('assets/template/winter.jpg');">
-          <span>摄影作品集</span>
+          <span data-i18n="portfolioLabel">摄影作品集</span>
         </a>
         <a class="entry-card" href="yin-le.html" style="background-image: url('assets/template/green_flowers.jpg');">
-          <span>音乐作品集</span>
+          <span data-i18n="musicLabel">音乐作品集</span>
         </a>
       </section>
     </main>
@@ -96,20 +96,20 @@
     <footer class="home-footer">
       <p>© 2035 by chronohaze.space.</p>
       <div>
-        <a href="blank.html">网站说明</a>
-        <a href="blank-1.html">无障碍支持</a>
+        <a href="blank.html" data-i18n="siteNotes">网站说明</a>
+        <a href="blank-1.html" data-i18n="a11y">无障碍支持</a>
       </div>
     </footer>
 
     <div class="drawer-backdrop" id="backdrop" hidden></div>
     <aside class="drawer" id="drawer" aria-hidden="true">
-      <button class="drawer-close" type="button" id="closeMenu">CLOSE [ - ]</button>
-      <nav class="drawer-nav" aria-label="站点菜单">
-        <a href="#top">主页</a>
-        <a href="#welcome">欢迎</a>
-        <a href="#math">数学</a>
-        <a href="portfolio-1.html">摄影</a>
-        <a href="yin-le.html">音乐</a>
+      <button class="drawer-close" type="button" data-i18n="menuClose" id="closeMenu">CLOSE [ - ]</button>
+      <nav class="drawer-nav" aria-label="站点菜单" data-i18n-aria="drawerAria">
+        <a href="#top" data-i18n="menuHome">主页</a>
+        <a href="#welcome" data-i18n="menuWelcome">欢迎</a>
+        <a href="#math" data-i18n="menuMath">数学</a>
+        <a href="portfolio-1.html" data-i18n="menuPhoto">摄影</a>
+        <a href="yin-le.html" data-i18n="menuMusic">音乐</a>
       </nav>
     </aside>
   </div>
@@ -124,6 +124,77 @@
       const toggle = document.getElementById('audioToggle');
       const progress = document.getElementById('playerProgress');
       const timeLabel = document.getElementById('playerTime');
+      const langButtons = Array.from(document.querySelectorAll('.lang-btn[data-lang]'));
+      const i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
+      const i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
+
+      const titleByLang = {
+        zh: '主页 | Chronohaze',
+        en: 'Home | Chronohaze'
+      };
+
+      const i18n = {
+        zh: {
+          menuOpenAria: '菜单 [ + ]',
+          audioToggleAria: '播放 / 暂停',
+          drawerAria: '站点菜单',
+          heroTitle: '起点',
+          heroIntro: '欢迎来到 Chronohaze.space。<br />时间的薄雾中，理性与浪漫交织。<br />数学、音乐、光影、与时间。<br />一段轨迹，一个宇宙。',
+          heroNotice: '网站检修中; 音乐作品集不全，其他之后上',
+          contactBtn: '联系我',
+          aboutTitle: '关于我',
+          aboutP1: '我是 HazezZ，2005年生人，就读 The University of Edinburgh 纯数，目前<br />在 Cornell University 交换。',
+          aboutP2: '研究方向是 Operational Research for Machine Learning。<br />除了数学，我也创作清新的前卫核音乐、演奏贝斯和吉他，并热爱摄影。<br />这个网站记录的是我生活与创作的痕迹。',
+          mathTitle: '数学',
+          card1Title: 'Spring 2026｜新科研记录的开始',
+          card1Body: '这个学期，我正式开始在康奈尔大学 ORIE 系进行本科科研项目，导师为 Shoham Sabach 教授。在此之前我已经有过其他方向的研究训练，持续在 Isabelle 等工具支持下探索将严格的数学结构表达为可验证的逻辑体系。虽然相关工作仍在推进之中，但这段经历也让我逐渐熟悉了开放性问题的研究节奏。',
+          card2Title: '一个正在进行的 Isabelle 研究项目：Submodular Greedy 的形式化',
+          card2Body: '在上一篇文章《我的第一个 Isabelle 形式化证明》中，我更多写的是我为什么选择 Isabelle，以及形式化证明对我而言意味着什么。这篇文章我想更具体地记录一个正在进行中的研究项目，单调子模函数下贪心算法的 (1−1/e) 近似保证的 Isabelle 形式化。这不是一个已经完成的成果展示，而是一份阶段性的研究记录。',
+          card3Title: '我的第一个 Isabelle 形式化证明',
+          card3Body: '有些证明想被刻在更坚固的地方。纸上的推导可以泛黄，黑板上的公式终将被擦去，但形式化证明留下的，是可以被反复验证的真理。我在做的主题和 submodular function 以及 greedy algorithm 相关，正在尝试形式化 Nemhauser–Wolsey theorem 的证明。',
+          readMore: 'Read More',
+          portfolioLabel: '摄影作品集',
+          musicLabel: '音乐作品集',
+          siteNotes: '网站说明',
+          a11y: '无障碍支持',
+          menuClose: 'CLOSE [ - ]',
+          menuHome: '主页',
+          menuWelcome: '欢迎',
+          menuMath: '数学',
+          menuPhoto: '摄影',
+          menuMusic: '音乐'
+        },
+        en: {
+          menuOpenAria: 'Menu [ + ]',
+          audioToggleAria: 'Play / Pause',
+          drawerAria: 'Site Menu',
+          heroTitle: 'Prologue',
+          heroIntro: 'Welcome to Chronohaze.space.<br />In the haze of time, reason and romance entwine.<br />Math, music, light, and time.<br />A trajectory, a universe.',
+          heroNotice: 'Site maintenance in progress; the music archive is incomplete and more updates are coming soon.',
+          contactBtn: 'Contact',
+          aboutTitle: 'About Me',
+          aboutP1: 'I am HazezZ, born in 2005, studying Pure Mathematics at The University of Edinburgh,<br />currently on exchange at Cornell University.',
+          aboutP2: 'My research focus is Operational Research for Machine Learning.<br />Beyond mathematics, I create fresh metalcore, play bass and guitar, and love photography.<br />This site records traces of my life and creative work.',
+          mathTitle: 'Mathematics',
+          card1Title: 'Spring 2026 | A New Research Journal Begins',
+          card1Body: 'This semester I officially started my undergraduate research project in ORIE at Cornell University under Professor Shoham Sabach. Before this, I had already trained in other research directions and kept exploring how to express strict mathematical structures as verifiable logical systems with tools such as Isabelle. The work is still ongoing, but this stage has helped me become more familiar with the pace of open-ended research.',
+          card2Title: 'An Ongoing Isabelle Project: Formalizing Submodular Greedy',
+          card2Body: 'In my previous post, I wrote more about why I chose Isabelle and what formal proof means to me. Here I want to document a concrete ongoing project: formalizing the (1−1/e) approximation guarantee of greedy under monotone submodular functions in Isabelle. This is not a finished result showcase, but a phase-by-phase research record.',
+          card3Title: 'My First Isabelle Formalization',
+          card3Body: 'Some proofs deserve to be carved into a stronger medium. Notes can fade and formulas on a blackboard can be erased, but formalized proofs leave truths that can be checked again and again. My current topic is related to submodular functions and greedy algorithms, and I am trying to formalize the proof of the Nemhauser–Wolsey theorem.',
+          readMore: 'Read More',
+          portfolioLabel: 'Photography Portfolio',
+          musicLabel: 'Music Portfolio',
+          siteNotes: 'Site Notes',
+          a11y: 'Accessibility',
+          menuClose: 'CLOSE [ - ]',
+          menuHome: 'Home',
+          menuWelcome: 'Welcome',
+          menuMath: 'Mathematics',
+          menuPhoto: 'Photography',
+          menuMusic: 'Music'
+        }
+      };
 
       function setMenu(open) {
         drawer.classList.toggle('open', open);
@@ -132,11 +203,54 @@
         openBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
       }
 
+      function setLanguage(lang) {
+        const safeLang = lang === 'en' ? 'en' : 'zh';
+        const dict = i18n[safeLang];
+
+        document.documentElement.lang = safeLang === 'en' ? 'en' : 'zh-CN';
+        document.title = titleByLang[safeLang];
+
+        i18nNodes.forEach(function (node) {
+          const key = node.getAttribute('data-i18n');
+          const value = dict[key];
+          if (typeof value !== 'string') return;
+          if (node.getAttribute('data-i18n-html') === 'true') {
+            node.innerHTML = value;
+          } else {
+            node.textContent = value;
+          }
+        });
+
+        i18nAriaNodes.forEach(function (node) {
+          const key = node.getAttribute('data-i18n-aria');
+          const value = dict[key];
+          if (typeof value === 'string') {
+            node.setAttribute('aria-label', value);
+          }
+        });
+
+        langButtons.forEach(function (btn) {
+          const isActive = btn.getAttribute('data-lang') === safeLang;
+          btn.classList.toggle('active', isActive);
+          btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        });
+
+        try {
+          window.localStorage.setItem('chronohaze-lang', safeLang);
+        } catch (err) {
+        }
+      }
+
       openBtn.addEventListener('click', function () { setMenu(true); });
       closeBtn.addEventListener('click', function () { setMenu(false); });
       backdrop.addEventListener('click', function () { setMenu(false); });
       drawer.querySelectorAll('a').forEach(function (link) {
         link.addEventListener('click', function () { setMenu(false); });
+      });
+      langButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLanguage(btn.getAttribute('data-lang'));
+        });
       });
 
       function fmt(sec) {
@@ -166,6 +280,17 @@
       audio.addEventListener('loadedmetadata', syncPlayer);
       audio.addEventListener('play', syncPlayer);
       audio.addEventListener('pause', syncPlayer);
+
+      let initialLang = 'zh';
+      try {
+        const savedLang = window.localStorage.getItem('chronohaze-lang');
+        if (savedLang === 'zh' || savedLang === 'en') {
+          initialLang = savedLang;
+        }
+      } catch (err) {
+      }
+
+      setLanguage(initialLang);
       syncPlayer();
     })();
   </script>
