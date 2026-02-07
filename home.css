@@ -527,36 +527,37 @@
 
 .home-footer {
   scroll-margin-top: 108px;
-  background: rgb(58, 58, 58);
-  border-top: 1px solid rgba(225, 228, 236, 0.58);
+  background: rgb(243, 244, 246);
+  border-top: 1px solid rgba(58, 58, 58, 0.14);
 }
 
 .home-footer-top {
-  min-height: 98px;
-  padding: 0 30px;
+  min-height: 0;
+  padding: 28px 30px 8px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .home-footer-brand {
-  font-family: "cormorantgaramond-light", "cormorantgaramond", "cormorant garamond", serif;
-  font-size: 45px;
-  line-height: 1;
+  font-family: "cormorantgaramond-light", "cormorantgaramond", "cormorant garamond", "Songti SC", "STSong", serif;
+  font-size: 28px;
+  line-height: 1.1;
   font-weight: 300;
-  letter-spacing: -0.01em;
-  color: rgb(226, 229, 236);
+  letter-spacing: 0.01em;
+  color: rgb(52, 56, 64);
 }
 
 .home-footer-main {
-  min-height: 248px;
-  border-top: 1px solid rgba(225, 228, 236, 0.58);
-  border-bottom: 1px solid rgba(225, 228, 236, 0.58);
+  min-height: 0;
+  border-top: 0;
+  border-bottom: 0;
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
 }
 
 .home-footer-col {
-  padding: 42px 28px 30px;
+  padding: 6px 30px 22px;
 }
 
 .home-footer p,
@@ -564,91 +565,95 @@
   margin: 0;
   font-family: "cormorantgaramond-light", "cormorantgaramond", "cormorant garamond", "Songti SC", "STSong", serif;
   font-weight: 300;
-  color: rgb(229, 232, 239);
+  color: rgb(74, 79, 88);
 }
 
 .home-footer-contact p {
-  max-width: 290px;
-  font-size: 20px;
-  line-height: 1.15;
+  max-width: 360px;
+  font-size: 16px;
+  line-height: 1.35;
   letter-spacing: 0.01em;
 }
 
 .home-footer-email {
   display: inline-block;
-  margin-top: 12px;
-  font-family: "cinzel", serif;
+  margin-top: 8px;
+  font-family: "cormorantgaramond-light", "cormorantgaramond", "cormorant garamond", serif;
   font-size: 15px;
   line-height: 1.2;
   letter-spacing: 0.06em;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .home-footer-center {
   display: grid;
-  align-content: center;
+  align-content: start;
   justify-items: start;
-  row-gap: 32px;
+  row-gap: 14px;
 }
 
 .home-footer-cities {
-  font-size: 16px;
+  font-size: 13px;
   line-height: 1.4;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-family: "cinzel", serif;
-  color: rgb(213, 218, 228);
+  letter-spacing: 0.05em;
+  text-transform: none;
+  font-family: "cormorantgaramond-light", "cormorantgaramond", "cormorant garamond", serif;
+  color: rgb(92, 97, 108);
 }
 
 .home-footer-social {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px 16px;
+  gap: 8px 10px;
 }
 
 .home-footer-social a {
   display: inline-block;
   font-family: "cormorantgaramond-light", "cormorantgaramond", "cormorant garamond", "Songti SC", "STSong", serif;
-  font-size: 22px;
+  font-size: 13px;
   font-weight: 300;
   line-height: 1.2;
-  letter-spacing: 0.01em;
-  color: rgb(225, 230, 239);
+  letter-spacing: 0.02em;
+  color: rgb(74, 79, 88);
+  border: 1px solid rgba(58, 58, 58, 0.14);
+  border-radius: 999px;
+  padding: 6px 12px;
 }
 
 .home-footer-policy {
-  border-left: 1px solid rgba(225, 228, 236, 0.58);
+  border-left: 0;
   display: grid;
   align-content: start;
-  row-gap: 12px;
-}
-
-.home-footer-policy a {
-  font-size: 24px;
-  font-weight: 300;
-  line-height: 1.1;
-  letter-spacing: -0.01em;
-}
-
-.home-footer-bottom {
-  min-height: 62px;
-  padding: 0 28px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-.home-footer-bottom p {
-  font-family: "cinzel", serif;
-  font-size: 11px;
-  line-height: 1.2;
-  letter-spacing: 0.05em;
-  color: rgb(205, 210, 220);
+  row-gap: 8px;
   text-align: right;
 }
 
+.home-footer-policy a {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+}
+
+.home-footer-bottom {
+  min-height: 0;
+  padding: 0 30px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.home-footer-bottom p {
+  font-family: "cormorantgaramond-light", "cormorantgaramond", "cormorant garamond", serif;
+  font-size: 12px;
+  line-height: 1.2;
+  letter-spacing: 0.03em;
+  color: rgb(102, 107, 118);
+  text-align: left;
+}
+
 .home-footer a:hover {
-  opacity: 0.78;
+  opacity: 0.76;
 }
 
 .drawer-backdrop {

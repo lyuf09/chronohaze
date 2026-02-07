@@ -1071,28 +1071,32 @@ audio {
 }
 
 .site-footer {
-  border-top: 1px solid var(--border);
-  padding: 34px 0 42px;
-  background: var(--surface);
+  border-top: 1px solid rgba(58, 58, 58, 0.14);
+  padding: 28px 0 30px;
+  background: #f3f4f6;
 }
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 22px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
 }
 
 .footer-title {
   margin: 0;
-  font-size: 22px;
-  font-family: "Noto Serif SC", "Songti SC", serif;
-  font-weight: 400;
+  font-size: 26px;
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  color: #343840;
 }
 
 .footer-note {
   margin: 6px 0 0;
   color: #4a4f58;
   font-weight: 300;
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  letter-spacing: 0.01em;
 }
 
 .footer-right {
@@ -1102,8 +1106,10 @@ audio {
 }
 
 .footer-right a {
-  color: var(--muted);
+  color: #4a4f58;
   font-size: 14px;
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  letter-spacing: 0.01em;
 }
 
 .footer-right a:hover {
@@ -1112,24 +1118,29 @@ audio {
 
 .footer-copy {
   margin-top: 14px;
-  color: var(--muted);
-  font-size: 13px;
+  color: #666b76;
+  font-size: 12px;
   font-weight: 300;
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  letter-spacing: 0.03em;
 }
 
 .social {
   display: flex;
-  gap: 12px;
-  margin-top: 12px;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
 }
 
 .social a {
-  border: 1px solid var(--border);
+  border: 1px solid rgba(58, 58, 58, 0.14);
   border-radius: 999px;
-  padding: 5px 12px;
+  padding: 6px 12px;
   color: #4a4f58;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 300;
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  letter-spacing: 0.02em;
 }
 
 .floating-lang-switch {
@@ -1289,6 +1300,22 @@ audio {
 
   .footer-grid {
     grid-template-columns: 1fr;
+  }
+
+  .site-footer {
+    padding: 22px 0 26px;
+  }
+
+  .footer-title {
+    font-size: 22px;
+  }
+
+  .footer-right {
+    gap: 12px;
+  }
+
+  .footer-right a {
+    font-size: 13px;
   }
 
   .music-player-shell {
