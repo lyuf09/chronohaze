@@ -298,7 +298,7 @@
 .about-bg {
   min-height: 503px;
   background:
-    linear-gradient(rgba(47, 47, 47, 0.56), rgba(47, 47, 47, 0.56)),
+    linear-gradient(rgba(74, 77, 84, 0.7), rgba(74, 77, 84, 0.7)),
     url("assets/template/about_branches.jpg") center / cover no-repeat;
   display: flex;
   justify-content: center;
@@ -316,8 +316,8 @@
 .about-overlay h2 {
   margin: 0;
   font-family: "cormorantgaramond-light", "cormorantgaramond", "cormorant garamond", "Songti SC", "STSong", serif;
-  font-size: 38px;
-  font-weight: 400;
+  font-size: 34px;
+  font-weight: 300;
   line-height: 1.1;
   letter-spacing: -0.03em;
   color: rgb(217, 217, 217);
@@ -327,8 +327,8 @@
   width: 663px;
   margin: 24px auto 0;
   font-family: "cinzel", "Songti SC", "STSong", serif;
-  font-size: 18px;
-  font-weight: 400;
+  font-size: 16px;
+  font-weight: 300;
   line-height: 1.8;
   letter-spacing: -0.01em;
   color: rgb(217, 217, 217);
@@ -659,11 +659,12 @@
   }
 
   .about-overlay h2 {
-    font-size: 32px;
+    font-size: 29px;
   }
 
   .about-overlay p {
-    font-size: 15px;
+    font-size: 14px;
+    font-weight: 300;
     line-height: 1.8;
   }
 
