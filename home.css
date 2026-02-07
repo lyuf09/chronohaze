@@ -494,9 +494,12 @@
   color: rgb(232, 233, 238);
 }
 
-.home-footer div {
+.home-footer-links {
   display: flex;
-  gap: 18px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px 14px;
+  max-width: 760px;
 }
 
 .drawer-backdrop {
@@ -739,5 +742,9 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
+  }
+
+  .home-footer-links {
+    justify-content: flex-start;
   }
 }
