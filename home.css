@@ -360,6 +360,7 @@
   padding: 28px 35px 25px;
   border-right: 1px solid rgb(58, 58, 58);
   box-sizing: border-box;
+  cursor: pointer;
 }
 
 .math-grid article:last-child {

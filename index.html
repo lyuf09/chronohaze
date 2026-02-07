@@ -62,19 +62,19 @@
       <section class="math-section" id="math">
         <h2 data-i18n="mathTitle">数学</h2>
         <div class="math-grid">
-          <article>
+          <article data-post-url="post/spring-2026.html" tabindex="0" role="link">
             <p class="author">HazezZ</p>
             <h3 data-i18n="card1Title">Spring 2026｜新科研记录的开始</h3>
             <p data-i18n="card1Body">这个学期，我正式开始在康奈尔大学 ORIE 系进行本科科研项目，导师为 Shoham Sabach 教授。在此之前我已经有过其他方向的研究训练，持续在 Isabelle 等工具支持下探索将严格的数学结构表达为可验证的逻辑体系。虽然相关工作仍在推进之中，但这段经历也让我逐渐熟悉了开放性问题的研究节奏。</p>
             <a href="post/spring-2026.html" data-i18n="readMore">Read More</a>
           </article>
-          <article>
+          <article data-post-url="post/isabelle-submodular-greedy.html" tabindex="0" role="link">
             <p class="author">HazezZ</p>
             <h3 data-i18n="card2Title">一个正在进行的 Isabelle 研究项目：Submodular Greedy 的形式化</h3>
             <p data-i18n="card2Body">在上一篇文章《我的第一个 Isabelle 形式化证明》中，我更多写的是我为什么选择 Isabelle，以及形式化证明对我而言意味着什么。这篇文章我想更具体地记录一个正在进行中的研究项目，单调子模函数下贪心算法的 (1−1/e) 近似保证的 Isabelle 形式化。这不是一个已经完成的成果展示，而是一份阶段性的研究记录。</p>
             <a href="post/isabelle-submodular-greedy.html" data-i18n="readMore">Read More</a>
           </article>
-          <article>
+          <article data-post-url="post/first-isabelle-proof.html" tabindex="0" role="link">
             <p class="author">HazezZ</p>
             <h3 data-i18n="card3Title">我的第一个 Isabelle 形式化证明</h3>
             <p data-i18n="card3Body">有些证明想被刻在更坚固的地方。纸上的推导可以泛黄，黑板上的公式终将被擦去，但形式化证明留下的，是可以被反复验证的真理。我在做的主题和 submodular function 以及 greedy algorithm 相关，正在尝试形式化 Nemhauser–Wolsey theorem 的证明。</p>
@@ -125,6 +125,7 @@
       const progress = document.getElementById('playerProgress');
       const timeLabel = document.getElementById('playerTime');
       const langButtons = Array.from(document.querySelectorAll('.lang-btn[data-lang]'));
+      const mathCards = Array.from(document.querySelectorAll('.math-grid article[data-post-url]'));
       const i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
       const i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
 
@@ -250,6 +251,19 @@
       langButtons.forEach(function (btn) {
         btn.addEventListener('click', function () {
           setLanguage(btn.getAttribute('data-lang'));
+        });
+      });
+      mathCards.forEach(function (card) {
+        const href = card.getAttribute('data-post-url');
+        if (!href) return;
+        card.addEventListener('click', function () {
+          window.location.href = href;
+        });
+        card.addEventListener('keydown', function (event) {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            window.location.href = href;
+          }
         });
       });
 
