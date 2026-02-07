@@ -766,6 +766,26 @@ audio {
   text-wrap: pretty;
 }
 
+@media (min-width: 981px) {
+  .lyrics-showcase-inner {
+    width: min(100%, 940px);
+    padding: 0 24px;
+  }
+
+  .lyrics-columns {
+    width: min(100%, 760px);
+    margin: 0 auto;
+    gap: 72px;
+  }
+
+  .music-detail-article .lyrics-text {
+    font-size: clamp(12px, 0.72vw, 13.5px);
+    line-height: 1.8;
+    letter-spacing: 0.016em;
+    font-weight: 200;
+  }
+}
+
 .policy {
   max-width: 860px;
   margin: 0 auto;
