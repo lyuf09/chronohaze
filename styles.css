@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&display=swap");
+
 :root {
   --bg: #fdfdfd;
   --surface: #ffffff;
@@ -546,6 +548,16 @@ audio {
   padding-top: 42px;
 }
 
+.music-detail-page .music-detail-article,
+.music-detail-page .music-detail-article p,
+.music-detail-page .music-detail-article h1,
+.music-detail-page .music-detail-article h2,
+.music-detail-page .music-detail-article h3,
+.music-detail-page .music-detail-article a,
+.music-detail-page .music-detail-meta {
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+}
+
 .music-detail-page .main {
   background: #cbcccf;
 }
@@ -556,7 +568,7 @@ audio {
   color: rgba(38, 42, 49, 0.66);
   font-size: 18px;
   letter-spacing: 0.02em;
-  font-family: "Noto Serif SC", "Songti SC", serif;
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
   transition: color 180ms ease;
 }
 
@@ -597,12 +609,21 @@ audio {
 
 .music-player-label {
   margin: 0 0 8px;
-  font-family: "Noto Serif SC", "Songti SC", serif;
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
   font-size: 20px;
   line-height: 1.2;
   font-weight: 300;
   letter-spacing: 0.06em;
   color: rgba(40, 44, 52, 0.72);
+  margin-left: 32px;
+}
+
+.music-player-track-artist {
+  color: rgba(46, 52, 61, 0.5);
+}
+
+.music-player-track-sep {
+  color: rgba(46, 52, 61, 0.64);
 }
 
 .music-player-label + .music-player-row {
@@ -625,7 +646,7 @@ audio {
   color: #282b31;
   font-size: 16px;
   line-height: 1;
-  font-family: "Noto Serif SC", "Songti SC", serif;
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
   font-weight: 400;
   cursor: pointer;
   transition:
@@ -695,7 +716,7 @@ audio {
   color: rgba(43, 47, 55, 0.56);
   font-size: 11px;
   letter-spacing: 0.03em;
-  font-family: "Noto Serif SC", "Songti SC", serif;
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
   font-weight: 300;
 }
 
@@ -710,7 +731,7 @@ audio {
   color: rgba(44, 48, 56, 0.58);
   font-size: 12px;
   letter-spacing: 0.04em;
-  font-family: "Noto Serif SC", "Songti SC", serif;
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
   transition: color 180ms ease;
 }
 
@@ -941,6 +962,7 @@ audio {
 
   .music-player-label {
     font-size: 18px;
+    margin-left: 24px;
   }
 
   .lyrics-showcase {
@@ -1060,6 +1082,7 @@ audio {
 
   .music-player-label {
     font-size: 16px;
+    margin-left: 16px;
   }
 
   .music-player-nav {

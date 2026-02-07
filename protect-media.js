@@ -275,7 +275,10 @@
   function buildTrackLabel(article) {
     var titleNode = article.querySelector("h1");
     var title = titleNode ? (titleNode.textContent || "").trim() : "TRACK";
-    return title.toUpperCase() + "  -  " + buildTrackArtist(article);
+    return {
+      title: title.toUpperCase(),
+      artist: buildTrackArtist(article),
+    };
   }
 
   function buildTrackNavigation() {
@@ -350,9 +353,24 @@
 
       var label = document.createElement("p");
       label.className = "music-player-label";
-      label.textContent = buildTrackLabel(
+      var trackData = buildTrackLabel(
         audio.closest(".music-detail-article") || document
       );
+      var trackTitleSpan = document.createElement("span");
+      trackTitleSpan.className = "music-player-track-title";
+      trackTitleSpan.textContent = trackData.title;
+
+      var sepSpan = document.createElement("span");
+      sepSpan.className = "music-player-track-sep";
+      sepSpan.textContent = " - ";
+
+      var artistSpan = document.createElement("span");
+      artistSpan.className = "music-player-track-artist";
+      artistSpan.textContent = trackData.artist;
+
+      label.appendChild(trackTitleSpan);
+      label.appendChild(sepSpan);
+      label.appendChild(artistSpan);
 
       var playButton = document.createElement("button");
       playButton.type = "button";
