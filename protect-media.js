@@ -604,6 +604,189 @@
     article.dataset.lyricsEnhanced = "1";
   }
 
+  function detectPreferredLanguage() {
+    var query = new URLSearchParams(window.location.search).get("lang");
+    if (query === "zh" || query === "en") {
+      return query;
+    }
+
+    try {
+      var saved = localStorage.getItem("siteLang");
+      if (saved === "zh" || saved === "en") {
+        return saved;
+      }
+    } catch (_err) {
+      return "zh";
+    }
+
+    return "zh";
+  }
+
+  function persistPreferredLanguage(lang) {
+    var safeLang = lang === "en" ? "en" : "zh";
+    try {
+      localStorage.setItem("siteLang", safeLang);
+    } catch (_err) {
+      return;
+    }
+  }
+
+  function setSamePageLanguageInUrl(lang) {
+    var safeLang = lang === "en" ? "en" : "zh";
+    var url = new URL(window.location.href);
+    url.searchParams.set("lang", safeLang);
+    window.location.href = url.toString();
+  }
+
+  function applySecondaryPageLanguage(lang) {
+    var safeLang = lang === "en" ? "en" : "zh";
+    var dict = {
+      zh: {
+        htmlLang: "zh-CN",
+        navHome: "主页",
+        navMath: "数学",
+        navPhoto: "摄影",
+        navMusic: "音乐",
+        siteNotes: "网站说明",
+        a11y: "无障碍支持",
+        footerContactLead: "辗转不同国家无固定号码 请联系邮箱：",
+        footerCities: "重庆 · Edinburgh · New york",
+        musicPageTitle: "音乐作品集",
+        musicIntro: "声音的纹理、情绪的回声、在时间里缓慢成形的片段。",
+        musicLead: "仅收录 21 年开始的部分作品（我需要脸面）",
+        photoPageTitle: "摄影作品集",
+        photoIntro: "光的轨迹、线条的结构、人与空间的关系。",
+        readMore: "查看更多",
+      },
+      en: {
+        htmlLang: "en",
+        navHome: "Main",
+        navMath: "Mathematics",
+        navPhoto: "Photography",
+        navMusic: "Music",
+        siteNotes: "Privacy Policy",
+        a11y: "Accessibility",
+        footerContactLead:
+          "No fixed phone number while moving across countries. Contact by email:",
+        footerCities: "Chongqing · Edinburgh · New York",
+        musicPageTitle: "Music Collection",
+        musicIntro:
+          "Textures of sound, echoes of emotion, fragments shaped slowly in time.",
+        musicLead: "Selected works since 2021 (I need dignity).",
+        photoPageTitle: "Photography Collection",
+        photoIntro:
+          "Traces of light, structures of lines, and the relation between people and space.",
+        readMore: "Read More",
+      },
+    }[safeLang];
+
+    document.documentElement.lang = dict.htmlLang;
+
+    Array.from(document.querySelectorAll(".nav a")).forEach(function (link) {
+      var href = link.getAttribute("href") || "";
+      if (/#math/i.test(href)) {
+        link.textContent = dict.navMath;
+      } else if (/portfolio-1\.html/i.test(href)) {
+        link.textContent = dict.navPhoto;
+      } else if (/yin-le\.html/i.test(href)) {
+        link.textContent = dict.navMusic;
+      } else if (/index\.html$/i.test(href) || /\.\.\/index\.html$/i.test(href)) {
+        link.textContent = dict.navHome;
+      }
+    });
+
+    Array.from(document.querySelectorAll(".footer-right a")).forEach(function (link) {
+      var href = link.getAttribute("href") || "";
+      if (/blank-1\.html/i.test(href)) {
+        link.textContent = dict.a11y;
+      } else if (/blank\.html/i.test(href)) {
+        link.textContent = dict.siteNotes;
+      }
+    });
+
+    Array.from(document.querySelectorAll(".footer-note")).forEach(function (note) {
+      var mail = note.querySelector("a[href^='mailto:']");
+      if (mail) {
+        var cloned = mail.cloneNode(true);
+        note.textContent = "";
+        note.appendChild(document.createTextNode(dict.footerContactLead));
+        note.appendChild(cloned);
+      } else if (/Edinburgh/i.test(note.textContent || "")) {
+        note.textContent = dict.footerCities;
+      }
+    });
+
+    if (document.body.classList.contains("music-index-page")) {
+      var musicTitle = document.querySelector(".page-title");
+      var musicIntro = document.querySelector(".page-head p");
+      var musicLead = document.querySelector(".page-head .lead");
+      if (musicTitle) {
+        musicTitle.textContent = dict.musicPageTitle;
+      }
+      if (musicIntro) {
+        musicIntro.textContent = dict.musicIntro;
+      }
+      if (musicLead) {
+        musicLead.textContent = dict.musicLead;
+      }
+      document.title = safeLang === "en" ? "Music | Chronohaze" : "音乐 | Chronohaze";
+    }
+
+    if (document.body.classList.contains("photo-index-page")) {
+      var photoTitle = document.querySelector(".page-title");
+      var photoIntro = document.querySelector(".page-head p");
+      if (photoTitle) {
+        photoTitle.textContent = dict.photoPageTitle;
+      }
+      if (photoIntro) {
+        photoIntro.textContent = dict.photoIntro;
+      }
+      document.title = safeLang === "en" ? "Photography | Chronohaze" : "摄影 | Chronohaze";
+
+      Array.from(document.querySelectorAll(".photo-subtitle")).forEach(function (node) {
+        node.textContent = dict.readMore;
+      });
+    }
+  }
+
+  function injectFloatingLanguageSwitch() {
+    if (document.querySelector(".lang-pill") || document.querySelector(".floating-lang-switch")) {
+      return;
+    }
+
+    var preferred = detectPreferredLanguage();
+    persistPreferredLanguage(preferred);
+    applySecondaryPageLanguage(preferred);
+
+    var panel = document.createElement("div");
+    panel.className = "floating-lang-switch";
+    panel.setAttribute("role", "group");
+    panel.setAttribute("aria-label", "Language switch");
+
+    function buildButton(lang, label) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "floating-lang-btn";
+      btn.setAttribute("data-lang", lang);
+      btn.textContent = label;
+      if (lang === preferred) {
+        btn.classList.add("active");
+      }
+      btn.addEventListener("click", function () {
+        if (lang === preferred) {
+          return;
+        }
+        persistPreferredLanguage(lang);
+        setSamePageLanguageInUrl(lang);
+      });
+      return btn;
+    }
+
+    panel.appendChild(buildButton("zh", "ZH"));
+    panel.appendChild(buildButton("en", "EN"));
+    document.body.appendChild(panel);
+  }
+
   function enableMusicIndexRowLinks() {
     if (!document.body || !document.body.classList.contains("music-index-page")) {
       return;
@@ -653,6 +836,7 @@
   }
 
   function boot() {
+    injectFloatingLanguageSwitch();
     protectAllMedia();
     ensureMusicDetailBackLink();
     enhanceMusicPlayers();
