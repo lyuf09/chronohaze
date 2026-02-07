@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>我的第一个 Isabelle 形式化证明</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="../index.html">
+          <img src="../assets/logo.png" alt="Chronohaze" />
+          <span>chronohaze.space</span>
+        </a>
+        <nav class="nav" aria-label="主导航">
+          <a href="../index.html">主页</a>
+          <a href="../index.html#welcome">欢迎</a>
+          <a href="../index.html#math">数学</a>
+          <a href="../portfolio-1.html">摄影</a>
+          <a href="../yin-le.html">音乐</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main">
+      <article class="article">
+        <h1>我的第一个 Isabelle 形式化证明</h1>
+        <p class="article-meta">HazezZ</p>
+        <p>有些证明想被刻在更坚固的地方。纸上的推导会泛黄，黑板上的公式会被擦去，而形式化证明留下的是可以被反复验证的逻辑结构。</p>
+        <p>我目前研究的主题和 submodular function 以及 greedy algorithm 相关，正在尝试形式化 Nemhauser–Wolsey theorem 的证明。这是一条关于单调子模函数贪心近似比保证的经典结果。</p>
+        <p>我要在 Isabelle 里完成三件事：把数学对象抽象成形式化定义；搭建推理框架；写出与纸面证明等价的 machine-checkable 版本。它像一场对话，我必须让 Isabelle 听懂每一步推理。</p>
+        <p>数学本身已经很严谨，但人类证明常带着直觉和省略。Isabelle 迫使我把这些直觉拆解成可检查语句，这个过程虽然慢，却非常真实，也让我看见哪些“显然步骤”其实并不显然。</p>
+        <p><a class="read-more" href="../index.html#math">返回数学栏目</a></p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <p class="footer-title">chronohaze.space</p>
+          <p class="footer-note">辗转不同国家无固定号码 请联系邮箱：<a href="mailto:feier530@icloud.com">feier530@icloud.com</a></p>
+          <p class="footer-note">重庆 · Edinburgh · New york</p>
+          <p class="footer-copy">© 2035 by chronohaze.space. Powered and secured by GitHub Pages.</p>
+        </div>
+        <div class="footer-right">
+          <a href="../blank.html">隱私權政策</a>
+          <a href="../blank-1.html">無障礙聲明</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
