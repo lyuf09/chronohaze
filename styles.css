@@ -719,10 +719,10 @@ audio {
 .music-detail-article .lyrics-text {
   margin: 0;
   font-family: "Noto Serif SC", "Songti SC", serif;
-  font-size: clamp(15px, 0.95vw, 18px);
-  line-height: 1.9;
+  font-size: clamp(13.5px, 0.84vw, 16px);
+  line-height: 1.86;
   letter-spacing: 0.012em;
-  font-weight: 300;
+  font-weight: 200;
   color: var(--lyrics-fg, rgba(228, 232, 240, 0.88));
   text-wrap: pretty;
 }
@@ -885,8 +885,8 @@ audio {
   }
 
   .music-detail-article .lyrics-text {
-    font-size: 16px;
-    line-height: 1.82;
+    font-size: 14px;
+    line-height: 1.8;
   }
 }
 
@@ -982,7 +982,7 @@ audio {
   }
 
   .music-detail-article .lyrics-text {
-    font-size: 15px;
-    line-height: 1.78;
+    font-size: 13px;
+    line-height: 1.76;
   }
 }
