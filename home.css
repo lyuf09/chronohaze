@@ -298,8 +298,9 @@
 .about-bg {
   min-height: 503px;
   background:
-    linear-gradient(rgba(74, 77, 84, 0.7), rgba(74, 77, 84, 0.7)),
+    linear-gradient(rgba(41, 45, 56, 0.78), rgba(41, 45, 56, 0.78)),
     url("assets/template/about_branches.jpg") center / cover no-repeat;
+  background-blend-mode: multiply;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -310,28 +311,28 @@
 .about-overlay {
   width: 821px;
   text-align: center;
-  color: rgb(217, 217, 217);
+  color: rgb(204, 209, 218);
 }
 
 .about-overlay h2 {
   margin: 0;
   font-family: "cormorantgaramond-light", "cormorantgaramond", "cormorant garamond", "Songti SC", "STSong", serif;
-  font-size: 34px;
+  font-size: 31px;
   font-weight: 300;
   line-height: 1.1;
-  letter-spacing: -0.03em;
-  color: rgb(217, 217, 217);
+  letter-spacing: -0.02em;
+  color: rgb(205, 210, 220);
 }
 
 .about-overlay p {
-  width: 663px;
+  width: 640px;
   margin: 24px auto 0;
-  font-family: "cinzel", "Songti SC", "STSong", serif;
-  font-size: 16px;
+  font-family: "cormorantgaramond-light", "cormorantgaramond", "cormorant garamond", "Songti SC", "STSong", serif;
+  font-size: 14px;
   font-weight: 300;
-  line-height: 1.8;
-  letter-spacing: -0.01em;
-  color: rgb(217, 217, 217);
+  line-height: 1.65;
+  letter-spacing: 0;
+  color: rgb(204, 209, 218);
 }
 
 .math-section {
@@ -660,13 +661,13 @@
   }
 
   .about-overlay h2 {
-    font-size: 29px;
+    font-size: 27px;
   }
 
   .about-overlay p {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 300;
-    line-height: 1.8;
+    line-height: 1.65;
   }
 
   .math-section h2 {
