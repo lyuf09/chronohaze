@@ -211,9 +211,11 @@
     article.dataset.detailImagesRemoved = "1";
   }
 
+  var MUSIC_TRACK_TOTAL = 30;
+
   function formatDuration(seconds) {
     if (!isFinite(seconds) || seconds < 0) {
-      return "0:00";
+      return "00:00";
     }
 
     var total = Math.floor(seconds);
@@ -231,7 +233,7 @@
       );
     }
 
-    return String(minutes) + ":" + String(secs).padStart(2, "0");
+    return String(minutes).padStart(2, "0") + ":" + String(secs).padStart(2, "0");
   }
 
   function setRangeProgress(range, value, max) {
@@ -239,6 +241,89 @@
     var safeValue = Math.max(0, Math.min(Number(value) || 0, safeMax));
     var percent = (safeValue / safeMax) * 100;
     range.style.setProperty("--range-progress", percent + "%");
+  }
+
+  function findTrackIndexFromPath() {
+    var path = window.location.pathname || "";
+    var match = path.match(/track-(\d+)\.html$/i);
+    if (!match) {
+      return null;
+    }
+
+    var value = parseInt(match[1], 10);
+    return isFinite(value) ? value : null;
+  }
+
+  function trackHref(index) {
+    return "track-" + String(index).padStart(2, "0") + ".html";
+  }
+
+  function buildTrackArtist(article) {
+    var metas = Array.from(article.querySelectorAll(".music-detail-meta"));
+    var credits = metas
+      .map(function (item) {
+        return item.textContent || "";
+      })
+      .join(" ");
+    var byline = credits.match(/[：:]\s*([A-Za-z0-9\s\-_\/&.]+)/);
+    if (byline && byline[1]) {
+      return byline[1].trim().toUpperCase();
+    }
+    return "HAZEZZ";
+  }
+
+  function buildTrackLabel(article) {
+    var titleNode = article.querySelector("h1");
+    var title = titleNode ? (titleNode.textContent || "").trim() : "TRACK";
+    return title.toUpperCase() + "  -  " + buildTrackArtist(article);
+  }
+
+  function buildTrackNavigation() {
+    var current = findTrackIndexFromPath();
+    var nav = document.createElement("div");
+    nav.className = "music-player-nav";
+
+    function createNavNode(text, href) {
+      var node = href ? document.createElement("a") : document.createElement("span");
+      node.className = "music-player-nav-link";
+      node.textContent = text;
+      if (href) {
+        node.href = href;
+      } else {
+        node.classList.add("is-disabled");
+      }
+      return node;
+    }
+
+    var prevHref = current && current > 1 ? trackHref(current - 1) : null;
+    var nextHref =
+      current && current < MUSIC_TRACK_TOTAL ? trackHref(current + 1) : null;
+
+    nav.appendChild(createNavNode("Previous", prevHref));
+    nav.appendChild(createNavNode("Next", nextHref));
+    return nav;
+  }
+
+  function ensureMusicDetailBackLink() {
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article || article.querySelector(".music-detail-back")) {
+      return;
+    }
+
+    var heading = article.querySelector("h1");
+    if (!heading) {
+      return;
+    }
+
+    var link = document.createElement("a");
+    link.className = "music-detail-back";
+    link.href = "../yin-le.html";
+    link.textContent = "< Back";
+    article.insertBefore(link, heading);
   }
 
   function enhanceMusicPlayers() {
@@ -263,14 +348,17 @@
       var shell = document.createElement("div");
       shell.className = "music-player-shell";
 
-      var row = document.createElement("div");
-      row.className = "music-player-row";
+      var label = document.createElement("p");
+      label.className = "music-player-label";
+      label.textContent = buildTrackLabel(
+        audio.closest(".music-detail-article") || document
+      );
 
       var playButton = document.createElement("button");
       playButton.type = "button";
       playButton.className = "music-player-play";
       playButton.setAttribute("aria-label", "播放");
-      playButton.textContent = "PLAY";
+      playButton.textContent = "▶";
 
       var scrubber = document.createElement("input");
       scrubber.type = "range";
@@ -284,45 +372,23 @@
 
       var timeLabel = document.createElement("p");
       timeLabel.className = "music-player-time";
-      timeLabel.textContent = "0:00 / 0:00";
+      timeLabel.textContent = "00:00 / 00:00";
 
-      var volumeWrap = document.createElement("div");
-      volumeWrap.className = "music-player-volume";
-
-      var volumeButton = document.createElement("button");
-      volumeButton.type = "button";
-      volumeButton.className = "music-player-volume-btn";
-      volumeButton.setAttribute("aria-label", "静音");
-      volumeButton.textContent = "VOL";
-
-      var volume = document.createElement("input");
-      volume.type = "range";
-      volume.className = "music-player-volume-range";
-      volume.min = "0";
-      volume.max = "100";
-      volume.step = "1";
-      volume.value = "85";
-      volume.setAttribute("aria-label", "音量");
-      setRangeProgress(volume, 85, 100);
-
-      volumeWrap.appendChild(volumeButton);
-      volumeWrap.appendChild(volume);
+      var row = document.createElement("div");
+      row.className = "music-player-row";
 
       row.appendChild(playButton);
       row.appendChild(scrubber);
       row.appendChild(timeLabel);
-      row.appendChild(volumeWrap);
+      shell.appendChild(label);
       shell.appendChild(row);
+      shell.appendChild(buildTrackNavigation());
       audio.insertAdjacentElement("afterend", shell);
-
-      if (isFinite(audio.volume)) {
-        audio.volume = 0.85;
-      }
 
       function syncPlayState() {
         var isPlaying = !audio.paused && !audio.ended;
         playButton.classList.toggle("is-playing", isPlaying);
-        playButton.textContent = isPlaying ? "PAUSE" : "PLAY";
+        playButton.textContent = isPlaying ? "❚❚" : "▶";
         playButton.setAttribute("aria-label", isPlaying ? "暂停" : "播放");
       }
 
@@ -341,15 +407,6 @@
 
         timeLabel.textContent =
           formatDuration(current) + " / " + formatDuration(duration);
-      }
-
-      function syncVolumeState() {
-        var current = audio.muted ? 0 : audio.volume;
-        var value = Math.round((Number(current) || 0) * 100);
-        volume.value = String(value);
-        setRangeProgress(volume, value, 100);
-        volumeButton.textContent = value === 0 ? "MUTE" : "VOL";
-        volumeButton.classList.toggle("is-muted", value === 0);
       }
 
       playButton.addEventListener("click", function () {
@@ -375,35 +432,14 @@
         syncTimeState();
       });
 
-      volume.addEventListener("input", function () {
-        var value = Math.max(0, Math.min(100, Number(volume.value) || 0));
-        audio.muted = value === 0;
-        audio.volume = value / 100;
-        syncVolumeState();
-      });
-
-      volumeButton.addEventListener("click", function () {
-        if (audio.muted || audio.volume === 0) {
-          audio.muted = false;
-          if (audio.volume === 0) {
-            audio.volume = 0.85;
-          }
-        } else {
-          audio.muted = true;
-        }
-        syncVolumeState();
-      });
-
       audio.addEventListener("play", syncPlayState);
       audio.addEventListener("pause", syncPlayState);
       audio.addEventListener("ended", syncPlayState);
       audio.addEventListener("timeupdate", syncTimeState);
       audio.addEventListener("loadedmetadata", syncTimeState);
-      audio.addEventListener("volumechange", syncVolumeState);
 
       syncPlayState();
       syncTimeState();
-      syncVolumeState();
     });
   }
 
@@ -495,6 +531,7 @@
 
   function boot() {
     protectAllMedia();
+    ensureMusicDetailBackLink();
     enhanceMusicPlayers();
     removeMusicDetailImages();
     enhanceMusicLyricsLayout();
