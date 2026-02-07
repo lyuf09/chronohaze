@@ -505,8 +505,8 @@
 }
 
 .entry-card-music {
-  --entry-filter: saturate(0.38) brightness(0.84) contrast(1.04) hue-rotate(24deg) grayscale(0.05);
-  --entry-overlay: rgba(50, 56, 72, 0.24);
+  --entry-filter: saturate(0.43) brightness(0.91) contrast(1.03) hue-rotate(22deg) grayscale(0.03);
+  --entry-overlay: rgba(50, 56, 72, 0.16);
 }
 
 .entry-card span {
