@@ -251,14 +251,10 @@
   margin: 0;
   width: 390px;
   font-family: "cormorantgaramond-light", "cormorantgaramond", "cormorant garamond", "Songti SC", "STSong", serif;
-  font-size: 16px;
-  line-height: 1.28;
-  letter-spacing: 0;
+  font-size: 18px;
+  line-height: 1.38;
+  letter-spacing: 0.015em;
   color: rgb(58, 58, 58);
-}
-
-.notice {
-  margin-top: 28px;
 }
 
 .contact-btn {
@@ -752,7 +748,9 @@
 
   .hero-right-inner > p {
     width: 100%;
-    font-size: 18px;
+    font-size: 19px;
+    line-height: 1.44;
+    letter-spacing: 0.012em;
   }
 
   .contact-btn,
@@ -872,7 +870,9 @@
   }
 
   .hero-right-inner > p {
-    font-size: 14px;
+    font-size: 16px;
+    line-height: 1.48;
+    letter-spacing: 0.012em;
   }
 
   .about-overlay h2 {
