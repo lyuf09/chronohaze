@@ -216,6 +216,7 @@
   width: 366px;
   height: 448px;
   object-fit: cover;
+  filter: saturate(0.82) brightness(0.91) contrast(0.95) hue-rotate(-6deg);
 }
 
 .hero-right {
@@ -341,10 +342,8 @@
 .about-bg {
   min-height: 450px;
   background:
-    linear-gradient(rgba(104, 104, 104, 0.84), rgba(104, 104, 104, 0.84)),
-    linear-gradient(rgba(48, 50, 54, 0.38), rgba(48, 50, 54, 0.38)),
+    linear-gradient(rgba(96, 108, 132, 0.5), rgba(96, 108, 132, 0.5)),
     url("assets/template/about_branches.jpg") center / cover no-repeat;
-  background-blend-mode: saturation, multiply;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -355,7 +354,7 @@
 .about-overlay {
   width: 821px;
   text-align: center;
-  color: rgb(204, 209, 218);
+  color: rgb(223, 227, 234);
 }
 
 .about-overlay h2 {
@@ -365,7 +364,7 @@
   font-weight: 300;
   line-height: 1.1;
   letter-spacing: -0.02em;
-  color: rgb(205, 210, 220);
+  color: rgb(225, 229, 236);
 }
 
 .about-overlay p {
@@ -376,7 +375,7 @@
   font-weight: 300;
   line-height: 1.65;
   letter-spacing: 0;
-  color: rgb(204, 209, 218);
+  color: rgb(223, 227, 234);
 }
 
 .math-section {

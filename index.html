@@ -34,7 +34,7 @@
     <main>
       <section class="hero-split" id="home">
         <div class="hero-left">
-          <img src="assets/template/hero_portrait.jpg" alt="HazezZ portrait" data-reveal="zoom" data-reveal-delay="40" />
+          <img src="assets/template/hero_portrait.jpg" alt="HazezZ portrait" data-reveal="zoom" data-reveal-delay="40" data-reveal-wait="image-load" />
         </div>
 
         <div class="hero-right">
@@ -265,6 +265,8 @@
       (function setupRevealAnimations() {
         if (!revealNodes.length) return;
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let observer = null;
+        const waitForLoad = new Set();
         revealNodes.forEach(function (node) {
           const delay = Number(node.getAttribute('data-reveal-delay') || 0);
           node.style.setProperty('--reveal-delay', String(Math.max(0, delay)) + 'ms');
@@ -277,9 +279,26 @@
           revealNodes.forEach(function (node) { node.classList.add('is-visible'); });
           return;
         }
-        const observer = new IntersectionObserver(function (entries) {
+        revealNodes.forEach(function (node) {
+          if (node.tagName !== 'IMG') return;
+          if (node.getAttribute('data-reveal-wait') !== 'image-load') return;
+          if (node.complete) return;
+          waitForLoad.add(node);
+          const release = function () {
+            waitForLoad.delete(node);
+            if (node.getAttribute('data-reveal-in-view') === 'true') {
+              node.classList.add('is-visible');
+              if (observer) observer.unobserve(node);
+            }
+          };
+          node.addEventListener('load', release, { once: true });
+          node.addEventListener('error', release, { once: true });
+        });
+        observer = new IntersectionObserver(function (entries) {
           entries.forEach(function (entry) {
             if (!entry.isIntersecting) return;
+            entry.target.setAttribute('data-reveal-in-view', 'true');
+            if (waitForLoad.has(entry.target)) return;
             entry.target.classList.add('is-visible');
             observer.unobserve(entry.target);
           });
