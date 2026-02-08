@@ -427,7 +427,7 @@ audio {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 32px 140px;
   align-items: start;
-  width: 60%;
+  width: 75%;
   margin-left: auto;
   margin-right: auto;
 }
