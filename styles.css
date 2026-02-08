@@ -823,12 +823,10 @@ audio {
   box-shadow: 0 10px 20px rgba(24, 30, 40, 0.08);
 }
 
-.music-index-page .music-intro-placeholder {
+.music-index-page .music-intro-figure img {
   width: 100%;
-  aspect-ratio: 3 / 4;
-  background:
-    linear-gradient(160deg, rgba(210, 214, 222, 0.7), rgba(197, 201, 210, 0.7)),
-    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.6), transparent 55%);
+  height: auto;
+  display: block;
 }
 
 .music-index-page .page-title {
