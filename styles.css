@@ -483,6 +483,14 @@ audio {
   filter: brightness(1.6) contrast(1.06) saturate(1.08);
 }
 
+.photo-detail-item.is-bright-strong img {
+  filter: brightness(1.62) contrast(1.05) saturate(1.08);
+}
+
+.photo-detail-item.is-bright-strong:hover img {
+  filter: brightness(1.72) contrast(1.08) saturate(1.1);
+}
+
 .music-list {
   display: grid;
   gap: 10px;
