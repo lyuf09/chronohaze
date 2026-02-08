@@ -555,6 +555,23 @@ audio {
   background: #d5d6d8;
 }
 
+.photo-index-page .photo-hero {
+  padding: 18px 0 6px;
+}
+
+.photo-index-page .photo-hero-inner {
+  display: flex;
+  justify-content: center;
+}
+
+.photo-index-page .photo-hero img {
+  width: min(100%, 980px);
+  height: auto;
+  display: block;
+  border-radius: 0;
+  filter: saturate(0.98) contrast(1.02);
+}
+
 .photo-index-page .page-head {
   padding: 44px 0 24px;
   border-bottom: 0;
