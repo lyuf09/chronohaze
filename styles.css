@@ -9,6 +9,20 @@
   --accent: #2b5672;
   --accent-soft: #f4f7fa;
   --max-width: 1080px;
+  --font-serif: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  --font-sans: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --text-strong: #232730;
+  --text-muted: #5f6572;
+  --text-subtle: #7a808c;
+  --border-soft: rgba(58, 58, 58, 0.14);
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --shadow-soft: 0 14px 24px rgba(24, 30, 40, 0.08);
+  --tracking-body: 0.004em;
+  --tracking-wide: 0.08em;
+  --leading-body: 1.8;
+  --measure: 70ch;
 }
 
 * {
@@ -21,12 +35,12 @@ html {
 
 body {
   margin: 0;
-  font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: var(--font-sans);
   font-weight: 300;
   background: var(--bg);
   color: var(--text);
-  line-height: 1.75;
-  letter-spacing: 0.004em;
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-body);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
@@ -95,7 +109,7 @@ img {
   gap: 24px;
   font-size: 15px;
   line-height: 1;
-  font-family: "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-serif);
   font-weight: 300;
   letter-spacing: 0.02em;
   justify-self: end;
@@ -247,7 +261,7 @@ audio {
 
 .post-card {
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: var(--radius-md);
   background: var(--surface);
   padding: 18px;
   transition: border-color 220ms ease, box-shadow 240ms ease, transform 240ms ease;
@@ -255,7 +269,7 @@ audio {
 
 .post-card:hover {
   border-color: rgba(40, 45, 56, 0.2);
-  box-shadow: 0 14px 24px rgba(24, 30, 40, 0.08);
+  box-shadow: var(--shadow-soft);
   transform: translateY(-2px);
 }
 
@@ -742,7 +756,7 @@ audio {
   flex-direction: column;
   gap: 10px;
   cursor: pointer;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   box-shadow: 0 16px 28px rgba(33, 38, 46, 0.08);
   transition:
     border-color 220ms ease,
@@ -828,7 +842,7 @@ audio {
 }
 
 .article {
-  max-width: 720px;
+  max-width: min(720px, var(--measure));
   margin: 0 auto;
   padding: 56px 24px 84px;
   --rhythm: 18px;
@@ -838,7 +852,7 @@ audio {
   margin: 0;
   font-size: clamp(28px, 2.7vw, 36px);
   line-height: 1.25;
-  font-family: "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-serif);
   font-weight: 400;
   letter-spacing: 0.01em;
 }
@@ -863,7 +877,7 @@ audio {
 .article h2,
 .article h3 {
   margin: calc(var(--rhythm) * 1.6) 0 calc(var(--rhythm) * 0.6);
-  font-family: "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-serif);
   font-weight: 400;
   color: #262a31;
   line-height: 1.25;
@@ -1228,14 +1242,14 @@ audio {
 }
 
 .policy {
-  max-width: 780px;
+  max-width: min(780px, var(--measure));
   margin: 0 auto;
   padding: 50px 24px 70px;
 }
 
 .policy h1 {
   margin: 0;
-  font-family: "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-serif);
   font-size: clamp(28px, 2.6vw, 34px);
   font-weight: 400;
   line-height: 1.22;
@@ -1245,7 +1259,7 @@ audio {
 .policy h2 {
   margin: 24px 0 10px;
   font-size: clamp(20px, 2vw, 24px);
-  font-family: "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-serif);
   font-weight: 400;
   letter-spacing: 0.01em;
 }
@@ -1264,7 +1278,7 @@ audio {
 }
 
 .site-footer {
-  border-top: 1px solid rgba(58, 58, 58, 0.14);
+  border-top: 1px solid var(--border-soft);
   padding: 28px 0 30px;
   background: #f3f4f6;
 }
@@ -1279,7 +1293,7 @@ audio {
 .footer-title {
   margin: 0;
   font-size: 26px;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-serif);
   font-weight: 300;
   letter-spacing: 0.01em;
   color: #343840;
@@ -1289,7 +1303,7 @@ audio {
   margin: 6px 0 0;
   color: #4a4f58;
   font-weight: 300;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-serif);
   letter-spacing: 0.01em;
 }
 
@@ -1305,7 +1319,7 @@ audio {
 .footer-right a {
   color: #4a4f58;
   font-size: 14px;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-serif);
   letter-spacing: 0.01em;
 }
 
@@ -1318,7 +1332,7 @@ audio {
   color: #666b76;
   font-size: 12px;
   font-weight: 300;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-serif);
   letter-spacing: 0.03em;
 }
 
@@ -1330,13 +1344,13 @@ audio {
 }
 
 .social a {
-  border: 1px solid rgba(58, 58, 58, 0.14);
+  border: 1px solid var(--border-soft);
   border-radius: 999px;
   padding: 6px 12px;
   color: #4a4f58;
   font-size: 12px;
   font-weight: 300;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-serif);
   letter-spacing: 0.02em;
 }
 

@@ -17,6 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="assets/template/hero_portrait.jpg" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="home.css" />
   <script defer src="protect-media.js"></script>
@@ -37,7 +38,7 @@
     <main>
       <section class="hero-split" id="home">
         <div class="hero-left">
-          <img src="assets/template/hero_portrait.jpg" alt="HazezZ portrait" data-reveal="zoom" data-reveal-delay="40" data-reveal-wait="image-load" />
+          <img src="assets/template/hero_portrait.jpg" alt="HazezZ portrait" data-reveal="zoom" data-reveal-delay="40" data-reveal-wait="image-load" data-eager="true" loading="eager" decoding="async" fetchpriority="high" />
         </div>
 
         <div class="hero-right">

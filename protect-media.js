@@ -47,6 +47,32 @@
     document.querySelectorAll(MEDIA_SELECTOR).forEach(protectElement);
   }
 
+  function optimizeImages() {
+    var images = Array.from(document.querySelectorAll("img"));
+
+    images.forEach(function (img) {
+      if (!img || img.dataset.optimizeReady === "1") {
+        return;
+      }
+
+      img.dataset.optimizeReady = "1";
+
+      var eager = img.hasAttribute("data-eager");
+
+      if (!img.getAttribute("loading")) {
+        img.setAttribute("loading", eager ? "eager" : "lazy");
+      }
+
+      if (!img.getAttribute("decoding")) {
+        img.setAttribute("decoding", "async");
+      }
+
+      if (eager && !img.getAttribute("fetchpriority")) {
+        img.setAttribute("fetchpriority", "high");
+      }
+    });
+  }
+
   function normalizeText(value) {
     return (value || "").replace(/\s+/g, "");
   }
@@ -854,6 +880,7 @@
   function boot() {
     injectFloatingLanguageSwitch();
     protectAllMedia();
+    optimizeImages();
     ensureMusicDetailBackLink();
     enhanceMusicPlayers();
     removeMusicDetailImages();
