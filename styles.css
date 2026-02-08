@@ -427,8 +427,8 @@ audio {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
   align-items: start;
-  width: min(100%, 70vw);
-  margin-left: auto;
+  width: 60%;
+  margin-left: 0;
   margin-right: auto;
 }
 
@@ -455,7 +455,7 @@ audio {
 }
 
 .photo-detail-item.is-landscape {
-  grid-column: 1 / -1;
+  grid-column: span 1;
 }
 
 .photo-detail-item img {
@@ -1437,6 +1437,9 @@ audio {
   .photo-detail-gallery {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .photo-detail-item,
@@ -1839,6 +1842,9 @@ audio {
 
   .photo-detail-gallery {
     grid-template-columns: 1fr;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .photo-detail-item,
