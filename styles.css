@@ -783,6 +783,54 @@ audio {
   text-align: center;
 }
 
+.music-index-page .music-intro {
+  padding: 6px 0 26px;
+}
+
+.music-index-page .music-intro-layout {
+  display: grid;
+  grid-template-columns: minmax(320px, 1fr) minmax(0, 360px);
+  gap: 36px;
+  align-items: start;
+}
+
+.music-index-page .music-intro-text {
+  font-family: var(--font-serif);
+  color: rgba(58, 63, 73, 0.88);
+  font-size: 15px;
+  line-height: 1.86;
+  letter-spacing: 0.01em;
+  width: 100%;
+  min-width: 320px;
+  max-width: 620px;
+}
+
+.music-index-page .music-intro-text p {
+  margin: 0 0 16px;
+}
+
+.music-index-page .music-intro-text p:last-child {
+  margin-bottom: 0;
+}
+
+.music-index-page .music-intro-figure {
+  margin: 0 0 0 auto;
+  width: min(100%, 360px);
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  background: rgba(250, 250, 250, 0.72);
+  border: 1px solid rgba(58, 58, 58, 0.2);
+  box-shadow: 0 10px 20px rgba(24, 30, 40, 0.08);
+}
+
+.music-index-page .music-intro-placeholder {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background:
+    linear-gradient(160deg, rgba(210, 214, 222, 0.7), rgba(197, 201, 210, 0.7)),
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.6), transparent 55%);
+}
+
 .music-index-page .page-title {
   font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
   font-size: clamp(30px, 2.8vw, 42px);
@@ -837,17 +885,17 @@ audio {
     transform 240ms ease;
 }
 
-.music-index-page .track-row:hover {
-  border-color: rgba(249, 251, 255, 0.62);
-  background: rgba(250, 252, 255, 0.42);
-  box-shadow: 0 22px 36px rgba(20, 26, 34, 0.12);
-  transform: translateY(-1px);
-}
+  .music-index-page .track-row:hover {
+    border-color: rgba(249, 251, 255, 0.62);
+    background: rgba(250, 252, 255, 0.42);
+    box-shadow: 0 22px 36px rgba(20, 26, 34, 0.12);
+    transform: translateY(-1px);
+  }
 
-.music-index-page .track-row:focus-visible {
-  outline: 1px solid rgba(35, 39, 48, 0.58);
-  outline-offset: 2px;
-}
+  .music-index-page .track-row:focus-visible {
+    outline: 1px solid rgba(35, 39, 48, 0.58);
+    outline-offset: 2px;
+  }
 
 .math-index-page .main {
   background: linear-gradient(180deg, #d7d8db 0%, #cfd1d6 100%);
@@ -1614,6 +1662,25 @@ audio {
     padding: 36px 0 20px;
   }
 
+  .music-index-page .music-intro {
+    padding: 4px 0 20px;
+  }
+
+  .music-index-page .music-intro-layout {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .music-index-page .music-intro-text {
+    min-width: 0;
+    max-width: none;
+  }
+
+  .music-index-page .music-intro-figure {
+    width: min(100%, 300px);
+    padding: 6px;
+  }
+
   .math-index-page .page-head {
     padding: 36px 0 20px;
   }
@@ -1985,6 +2052,26 @@ audio {
 
   .music-index-page .section {
     padding: 4px 0 24px;
+  }
+
+  .music-index-page .music-intro {
+    padding: 2px 0 16px;
+  }
+
+  .music-index-page .music-intro-layout {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .music-index-page .music-intro-text {
+    min-width: 0;
+    max-width: none;
+  }
+
+  .music-index-page .music-intro-figure {
+    margin: 0 auto;
+    width: min(100%, 280px);
+    padding: 5px;
   }
 
   .music-index-page .track-row {
