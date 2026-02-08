@@ -414,14 +414,14 @@ audio {
 }
 
 .photo-detail-article {
-  max-width: min(92vw, 1680px);
+  max-width: 96vw;
 }
 
 .photo-detail-gallery {
   margin: 24px 0 24px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 36px;
+  gap: 24px;
   align-items: start;
 }
 
