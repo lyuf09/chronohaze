@@ -425,10 +425,10 @@ audio {
   margin: 20px 0 24px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+  gap: 32px 96px;
   align-items: start;
   width: 60%;
-  margin-left: 0;
+  margin-left: auto;
   margin-right: auto;
 }
 
