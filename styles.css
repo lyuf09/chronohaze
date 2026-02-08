@@ -604,6 +604,9 @@ audio {
   font-size: 15px;
   line-height: 1.86;
   letter-spacing: 0.01em;
+  writing-mode: horizontal-tb;
+  text-orientation: mixed;
+  max-width: 560px;
 }
 
 .photo-index-page .photo-intro-text p {
