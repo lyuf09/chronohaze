@@ -414,14 +414,18 @@ audio {
 }
 
 .photo-detail-article {
-  max-width: 98vw;
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  padding-left: clamp(10px, 1.4vw, 20px);
+  padding-right: clamp(10px, 1.4vw, 20px);
 }
 
 .photo-detail-gallery {
-  margin: 24px 0 24px;
+  margin: 20px 0 24px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
+  gap: 12px;
   align-items: start;
 }
 
@@ -1417,7 +1421,7 @@ audio {
 
   .photo-detail-gallery {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
+    gap: 12px;
   }
 
   .photo-detail-item,
