@@ -73,6 +73,48 @@
     });
   }
 
+  function labelPhotoOrientation() {
+    var images = Array.from(
+      document.querySelectorAll(".photo-detail-gallery img")
+    );
+
+    images.forEach(function (img) {
+      if (!img || img.dataset.orientationReady === "1") {
+        return;
+      }
+
+      img.dataset.orientationReady = "1";
+
+      function applyOrientation() {
+        if (!img.naturalWidth || !img.naturalHeight) {
+          return;
+        }
+
+        var ratio = img.naturalWidth / img.naturalHeight;
+        var figure = img.closest(".photo-detail-item");
+        if (!figure) {
+          return;
+        }
+
+        figure.classList.remove("is-landscape", "is-portrait", "is-square");
+
+        if (ratio > 1.18) {
+          figure.classList.add("is-landscape");
+        } else if (ratio < 0.85) {
+          figure.classList.add("is-portrait");
+        } else {
+          figure.classList.add("is-square");
+        }
+      }
+
+      if (img.complete) {
+        applyOrientation();
+      } else {
+        img.addEventListener("load", applyOrientation, { once: true });
+      }
+    });
+  }
+
   function normalizeText(value) {
     return (value || "").replace(/\s+/g, "");
   }
@@ -881,6 +923,7 @@
     injectFloatingLanguageSwitch();
     protectAllMedia();
     optimizeImages();
+    labelPhotoOrientation();
     ensureMusicDetailBackLink();
     enhanceMusicPlayers();
     removeMusicDetailImages();

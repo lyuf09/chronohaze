@@ -451,6 +451,10 @@ audio {
   transform: none;
 }
 
+.photo-detail-item.is-landscape {
+  grid-column: 1 / -1;
+}
+
 .photo-detail-item img {
   width: 100%;
   height: auto;
@@ -860,6 +864,14 @@ audio {
   margin: 0 auto;
   padding: 56px 24px 84px;
   --rhythm: 18px;
+}
+
+.article.photo-detail-article {
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  padding-left: clamp(8px, 1.2vw, 18px);
+  padding-right: clamp(8px, 1.2vw, 18px);
 }
 
 .article h1 {
