@@ -420,8 +420,8 @@ audio {
 .photo-detail-gallery {
   margin: 30px 0 20px;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 22px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
   align-items: start;
 }
 
@@ -429,12 +429,12 @@ audio {
   margin: 0;
   width: 100%;
   grid-column: span 1;
-  border: 1px solid rgba(45, 50, 60, 0.12);
+  border: 1px solid rgba(45, 50, 60, 0.14);
   border-radius: 0;
   overflow: hidden;
-  background: rgba(248, 248, 250, 0.9);
-  padding: 8px;
-  box-shadow: 0 12px 24px rgba(17, 21, 31, 0.08);
+  background: rgba(248, 248, 250, 0.86);
+  padding: 10px;
+  box-shadow: 0 14px 28px rgba(17, 21, 31, 0.1);
   transition: transform 320ms ease, box-shadow 320ms ease;
 }
 
@@ -444,7 +444,7 @@ audio {
 }
 
 .photo-detail-item:only-child {
-  grid-column: 2 / span 1;
+  grid-column: 1 / -1;
   transform: none;
 }
 
