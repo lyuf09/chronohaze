@@ -26,11 +26,18 @@ body {
   background: var(--bg);
   color: var(--text);
   line-height: 1.75;
+  letter-spacing: 0.004em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+button {
+  font-family: inherit;
 }
 
 img {
@@ -96,11 +103,33 @@ img {
 
 .nav a {
   color: rgba(233, 236, 242, 0.82);
+  position: relative;
+  transition: color 200ms ease;
+}
+
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -8px;
+  height: 1px;
+  background: rgba(248, 250, 255, 0.7);
+  transform: scaleX(0);
+  transform-origin: left;
+  opacity: 0;
+  transition: transform 240ms ease, opacity 240ms ease;
 }
 
 .nav a:hover,
 .nav a.active {
   color: rgb(248, 250, 255);
+}
+
+.nav a:hover::after,
+.nav a.active::after {
+  transform: scaleX(1);
+  opacity: 0.7;
 }
 
 .main {
@@ -221,6 +250,13 @@ audio {
   border-radius: 14px;
   background: var(--surface);
   padding: 18px;
+  transition: border-color 220ms ease, box-shadow 240ms ease, transform 240ms ease;
+}
+
+.post-card:hover {
+  border-color: rgba(40, 45, 56, 0.2);
+  box-shadow: 0 14px 24px rgba(24, 30, 40, 0.08);
+  transform: translateY(-2px);
 }
 
 .post-card h3 {
@@ -242,6 +278,32 @@ audio {
   margin-top: 12px;
   color: var(--accent);
   font-size: 14px;
+  letter-spacing: 0.02em;
+  position: relative;
+  transition: color 200ms ease, opacity 200ms ease, transform 200ms ease;
+}
+
+.read-more::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  opacity: 0.6;
+  transition: transform 220ms ease;
+}
+
+.read-more:hover {
+  color: rgba(33, 70, 108, 0.92);
+  transform: translateY(-1px);
+}
+
+.read-more:hover::after {
+  transform: scaleX(1);
 }
 
 .home-dual {
@@ -766,62 +828,71 @@ audio {
 }
 
 .article {
-  max-width: 780px;
+  max-width: 720px;
   margin: 0 auto;
-  padding: 48px 24px 70px;
+  padding: 56px 24px 84px;
+  --rhythm: 18px;
 }
 
 .article h1 {
   margin: 0;
-  font-size: 34px;
-  line-height: 1.35;
+  font-size: clamp(28px, 2.7vw, 36px);
+  line-height: 1.25;
   font-family: "Noto Serif SC", "Songti SC", serif;
   font-weight: 400;
+  letter-spacing: 0.01em;
 }
 
 .article-meta {
-  margin: 10px 0 30px;
+  margin: 12px 0 calc(var(--rhythm) * 1.4);
   color: var(--muted);
-  font-size: 14px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .article p {
-  margin: 0 0 16px;
-  font-size: 17px;
+  margin: 0 0 var(--rhythm);
+  font-size: 16.5px;
+  line-height: 1.86;
+  letter-spacing: 0.008em;
   color: #33373d;
   font-weight: 300;
 }
 
 .article h2,
 .article h3 {
-  margin: 26px 0 12px;
+  margin: calc(var(--rhythm) * 1.6) 0 calc(var(--rhythm) * 0.6);
   font-family: "Noto Serif SC", "Songti SC", serif;
   font-weight: 400;
   color: #262a31;
+  line-height: 1.25;
 }
 
 .article h2 {
-  font-size: 28px;
+  font-size: clamp(22px, 2.2vw, 28px);
 }
 
 .article h3 {
-  font-size: 24px;
+  font-size: clamp(20px, 2vw, 24px);
 }
 
 .article ul,
 .article ol {
-  margin: 0 0 18px;
+  margin: 0 0 var(--rhythm);
   padding-left: 22px;
   color: #2f343d;
+  line-height: 1.8;
 }
 
 .article li {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .article li p {
   margin: 0;
   font-size: 16px;
+  line-height: 1.8;
   font-weight: 300;
 }
 
@@ -849,6 +920,14 @@ audio {
 .music-detail-article {
   max-width: 680px;
   padding-top: 42px;
+}
+
+.music-detail-article p {
+  margin: 0 0 16px;
+  font-size: 16px;
+  line-height: 1.8;
+  letter-spacing: 0.01em;
+  color: rgba(33, 39, 48, 0.92);
 }
 
 .music-detail-page .music-detail-article,
@@ -1149,7 +1228,7 @@ audio {
 }
 
 .policy {
-  max-width: 860px;
+  max-width: 780px;
   margin: 0 auto;
   padding: 50px 24px 70px;
 }
@@ -1157,21 +1236,26 @@ audio {
 .policy h1 {
   margin: 0;
   font-family: "Noto Serif SC", "Songti SC", serif;
-  font-size: 36px;
+  font-size: clamp(28px, 2.6vw, 34px);
   font-weight: 400;
+  line-height: 1.22;
+  letter-spacing: 0.01em;
 }
 
 .policy h2 {
-  margin: 26px 0 8px;
-  font-size: 23px;
+  margin: 24px 0 10px;
+  font-size: clamp(20px, 2vw, 24px);
   font-family: "Noto Serif SC", "Songti SC", serif;
   font-weight: 400;
+  letter-spacing: 0.01em;
 }
 
 .policy p,
 .policy li {
   color: #373a41;
   font-weight: 300;
+  line-height: 1.85;
+  letter-spacing: 0.008em;
 }
 
 .policy ul {
@@ -1774,5 +1858,14 @@ audio {
   .music-detail-article .lyrics-text {
     font-size: 13px;
     line-height: 1.76;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
