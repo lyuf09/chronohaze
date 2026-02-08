@@ -717,6 +717,23 @@ audio {
   background: #d5d6d8;
 }
 
+.music-index-page .music-hero {
+  padding: 18px 0 6px;
+}
+
+.music-index-page .music-hero-inner {
+  display: flex;
+  justify-content: center;
+}
+
+.music-index-page .music-hero img {
+  width: min(100%, 980px);
+  height: auto;
+  display: block;
+  border-radius: 0;
+  filter: saturate(0.98) contrast(1.02);
+}
+
 .music-index-page .page-head {
   padding: 44px 0 24px;
   border-bottom: 0;
