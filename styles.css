@@ -664,63 +664,75 @@ audio {
 }
 
 .math-index-page .math-list {
-  width: min(100%, 780px);
+  width: min(100%, 980px);
   margin: 0 auto;
   display: grid;
-  gap: 18px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
 }
 
-.math-index-page .math-row {
-  border: 1px solid rgba(245, 247, 252, 0.42);
-  border-radius: 0;
-  background: transparent;
-  padding: 14px 18px 12px;
-  display: grid;
-  grid-template-columns: 140px minmax(0, 1fr);
-  gap: 6px 18px;
-  align-items: start;
+.math-index-page .math-card {
+  border: 1px solid rgba(58, 58, 58, 0.18);
+  background: rgba(247, 245, 241, 0.92);
+  padding: 20px 20px 18px;
+  min-height: 248px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   cursor: pointer;
+  border-radius: 6px;
+  box-shadow: 0 16px 28px rgba(33, 38, 46, 0.08);
   transition:
     border-color 220ms ease,
-    background-color 240ms ease;
+    box-shadow 240ms ease,
+    transform 240ms ease;
 }
 
-.math-index-page .math-row:hover {
-  border-color: rgba(249, 251, 255, 0.62);
-  background: rgba(242, 244, 249, 0.1);
+.math-index-page .math-card:hover {
+  border-color: rgba(58, 58, 58, 0.26);
+  box-shadow: 0 20px 34px rgba(33, 38, 46, 0.12);
+  transform: translateY(-2px);
 }
 
-.math-index-page .math-row:focus-visible {
+.math-index-page .math-card:focus-visible {
   outline: 1px solid rgba(35, 39, 48, 0.58);
   outline-offset: 2px;
 }
 
 .math-index-page .math-date {
   color: rgba(57, 62, 72, 0.74);
-  font-size: 13px;
+  font-size: 12px;
   line-height: 1.2;
-  letter-spacing: 0.02em;
-  margin-top: 1px;
+  letter-spacing: 0.08em;
+  margin: 0;
   font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
-  white-space: nowrap;
+  text-transform: uppercase;
 }
 
 .math-index-page .math-title {
   font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
-  font-size: clamp(16px, 1.2vw, 20px);
-  line-height: 1.2;
+  font-size: clamp(17px, 1.3vw, 22px);
+  line-height: 1.25;
   font-weight: 400;
   letter-spacing: 0.01em;
   color: #232730;
-  margin: 0 0 6px;
+  margin: 0;
 }
 
 .math-index-page .math-desc {
   margin: 0;
   color: rgba(67, 73, 85, 0.75);
   font-size: 13px;
-  line-height: 1.5;
+  line-height: 1.6;
   letter-spacing: 0.01em;
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+}
+
+.math-index-page .math-more {
+  margin-top: auto;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: rgba(67, 74, 85, 0.7);
   font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
 }
 
@@ -1052,8 +1064,8 @@ audio {
   margin: 0 0 clamp(50px, 5.6vw, 80px);
   font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
   font-size: clamp(34px, 3vw, 48px);
-  font-weight: 300;
-  letter-spacing: 0.1em;
+  font-weight: 200;
+  letter-spacing: 0.12em;
   color: var(--lyrics-title, rgba(242, 244, 248, 0.93));
 }
 
@@ -1177,6 +1189,7 @@ audio {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 24px;
+  align-items: start;
 }
 
 .footer-title {
@@ -1199,8 +1212,10 @@ audio {
 .footer-right {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
   gap: 8px;
+  justify-self: end;
+  text-align: left;
 }
 
 .footer-right a {
@@ -1381,25 +1396,27 @@ audio {
   }
 
   .math-index-page .math-list {
-    width: min(100%, 720px);
+    width: min(100%, 840px);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
   }
 
-  .math-index-page .math-row {
-    padding: 12px 14px 10px;
-    grid-template-columns: 120px minmax(0, 1fr);
-    gap: 5px 14px;
+  .math-index-page .math-card {
+    min-height: 220px;
+    padding: 16px 16px 14px;
   }
 
   .math-index-page .math-date {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .math-index-page .math-title {
-    font-size: clamp(15px, 2.8vw, 18px);
+    font-size: clamp(16px, 2.6vw, 20px);
   }
 
   .math-index-page .math-desc {
     font-size: 12px;
+    line-height: 1.55;
   }
 
   .music-index-page .page-title {
@@ -1613,10 +1630,15 @@ audio {
     padding: 4px 0 24px;
   }
 
-  .math-index-page .math-row {
-    padding: 10px 10px 9px;
+  .math-index-page .math-list {
     grid-template-columns: 1fr;
-    gap: 4px;
+    gap: 14px;
+    width: 100%;
+  }
+
+  .math-index-page .math-card {
+    min-height: 0;
+    padding: 14px 14px 12px;
   }
 
   .math-index-page .math-date {
@@ -1624,11 +1646,12 @@ audio {
   }
 
   .math-index-page .math-title {
-    font-size: clamp(14px, 5.5vw, 17px);
+    font-size: clamp(15px, 5.6vw, 18px);
   }
 
   .math-index-page .math-desc {
-    font-size: 11px;
+    font-size: 11.5px;
+    line-height: 1.55;
   }
 
   .music-index-page .page-title {

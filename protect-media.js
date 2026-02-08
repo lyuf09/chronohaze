@@ -806,7 +806,7 @@
   function enableIndexRowLinks() {
     var rows = Array.from(
       document.querySelectorAll(
-        ".music-list .track-row[data-href], .math-list .math-row[data-href]"
+        ".music-list .track-row[data-href], .math-list .math-card[data-href], .math-list .math-row[data-href]"
       )
     );
 

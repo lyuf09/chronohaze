@@ -649,7 +649,9 @@
   display: grid;
   align-content: start;
   row-gap: 8px;
-  text-align: right;
+  text-align: left;
+  justify-self: end;
+  align-self: start;
 }
 
 .home-footer-policy a {
