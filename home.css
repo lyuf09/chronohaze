@@ -66,10 +66,13 @@
 
 .home-body {
   margin: 0;
-  background: rgb(184, 188, 196);
+  background: linear-gradient(180deg, #c1c5d0 0%, #b7bcc6 45%, #c6cbd6 100%);
   color: rgb(58, 58, 58);
   font-family: "madefor-text", "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
   font-weight: 300;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  font-kerning: normal;
 }
 
 .home-page {
@@ -123,6 +126,7 @@
 .home-topbar {
   height: 99px;
   border-top: 2px solid #4b80ff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   background: linear-gradient(90deg, #3a3a3a 0%, #7b85a0 100%);
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -131,6 +135,7 @@
   position: sticky;
   top: 0;
   z-index: 50;
+  box-shadow: 0 16px 30px rgba(12, 16, 24, 0.24);
 }
 
 .home-brand {
@@ -151,10 +156,13 @@
   height: 43px;
   border: 1px solid rgb(157, 157, 157);
   border-radius: 30px;
-  background: rgb(203, 204, 204);
+  background: linear-gradient(180deg, rgba(212, 214, 217, 0.98), rgba(196, 198, 204, 0.98));
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   overflow: hidden;
+  box-shadow:
+    0 10px 22px rgba(14, 18, 26, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 .lang-btn {
@@ -207,7 +215,7 @@
 }
 
 .hero-left {
-  background: rgb(58, 58, 58);
+  background: linear-gradient(180deg, #3c3e45 0%, #2f3036 100%);
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -226,7 +234,7 @@
 }
 
 .hero-right {
-  background: rgb(236, 237, 239);
+  background: linear-gradient(180deg, #f1f1f2 0%, #e6e7ea 100%);
   border-left: 1px solid rgb(58, 58, 58);
   display: flex;
   justify-content: flex-start;
@@ -273,19 +281,36 @@
   color: rgb(203, 204, 204);
   border: 1px solid rgb(58, 58, 58);
   background: rgb(58, 58, 58);
+  box-shadow:
+    0 14px 26px rgba(15, 18, 26, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transition:
+    transform 240ms ease,
+    box-shadow 240ms ease;
+}
+
+.contact-btn:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 18px 30px rgba(15, 18, 26, 0.26),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
 }
 
 .player-shell {
   margin-top: 72px;
   width: 246px;
   min-height: 66px;
-  background: rgb(191, 192, 194);
+  background: linear-gradient(180deg, rgba(205, 206, 210, 0.98), rgba(187, 188, 192, 0.98));
   display: grid;
   grid-template-columns: 18px 1fr auto;
   align-items: center;
   column-gap: 8px;
   padding: 8px 10px;
   box-sizing: border-box;
+  border: 1px solid rgba(58, 58, 58, 0.18);
+  box-shadow:
+    0 12px 22px rgba(18, 22, 30, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
 }
 
 .player-toggle {
@@ -383,8 +408,10 @@
 }
 
 .math-section {
-  background: linear-gradient(90deg, #c4c7d1 0%, #99a4be 100%);
+  background: linear-gradient(90deg, #c6cad4 0%, #a2aec7 100%);
   padding: 44px 64px 52px;
+  border-top: 1px solid rgba(58, 58, 58, 0.22);
+  border-bottom: 1px solid rgba(58, 58, 58, 0.22);
 }
 
 .math-section h2 {
@@ -398,7 +425,7 @@
 }
 
 .math-grid {
-  border: 1px solid rgb(58, 58, 58);
+  border: 1px solid rgba(58, 58, 58, 0.6);
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: minmax(260px, 1fr);
@@ -410,15 +437,20 @@
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
   scrollbar-color: rgba(58, 58, 58, 0.35) transparent;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 24px 48px rgba(16, 20, 30, 0.18);
+  content-visibility: auto;
+  contain-intrinsic-size: 560px 860px;
 }
 
 .math-grid article {
   min-height: 530px;
   padding: 28px 35px 25px;
-  border-right: 1px solid rgb(58, 58, 58);
+  border-right: 1px solid rgba(58, 58, 58, 0.6);
   box-sizing: border-box;
   cursor: pointer;
   scroll-snap-align: start;
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .math-grid article:last-child {
@@ -479,6 +511,8 @@
   justify-content: center;
   gap: 38px;
   align-items: start;
+  content-visibility: auto;
+  contain-intrinsic-size: 900px 560px;
 }
 
 .entry-card {
@@ -552,8 +586,9 @@
 
 .home-footer {
   scroll-margin-top: 108px;
-  background: rgb(243, 244, 246);
+  background: linear-gradient(180deg, #f0f2f5 0%, #e6e8ee 100%);
   border-top: 1px solid rgba(58, 58, 58, 0.14);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
 .home-footer-top {
@@ -642,6 +677,16 @@
   border: 1px solid rgba(58, 58, 58, 0.14);
   border-radius: 999px;
   padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 10px 18px rgba(14, 18, 26, 0.08);
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.home-footer-social a:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 22px rgba(14, 18, 26, 0.12);
 }
 
 .home-footer-policy {
