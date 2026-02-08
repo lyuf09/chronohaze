@@ -579,17 +579,17 @@ audio {
 }
 
 .photo-index-page .photo-intro {
-  padding: 6px 0 28px;
+  padding: 2px 0 22px;
 }
 
 .photo-index-page .photo-intro-figure {
-  margin: 0 auto;
-  width: min(100%, 520px);
-  padding: 10px;
+  margin: 0 0 0 auto;
+  width: min(100%, 360px);
+  padding: 6px;
   border-radius: var(--radius-sm);
-  background: rgba(250, 250, 250, 0.92);
-  border: 1px solid var(--border-soft);
-  box-shadow: var(--shadow-soft);
+  background: rgba(250, 250, 250, 0.72);
+  border: 1px solid rgba(58, 58, 58, 0.2);
+  box-shadow: 0 10px 20px rgba(24, 30, 40, 0.08);
 }
 
 .photo-index-page .photo-intro-figure img {
@@ -1476,12 +1476,12 @@ audio {
   }
 
   .photo-index-page .photo-intro {
-    padding: 4px 0 22px;
+    padding: 2px 0 18px;
   }
 
   .photo-index-page .photo-intro-figure {
-    width: min(100%, 420px);
-    padding: 8px;
+    width: min(100%, 320px);
+    padding: 6px;
   }
 
   .photo-index-page .photo-grid {
@@ -1722,12 +1722,13 @@ audio {
   }
 
   .photo-index-page .photo-intro {
-    padding: 2px 0 18px;
+    padding: 2px 0 16px;
   }
 
   .photo-index-page .photo-intro-figure {
-    width: min(100%, 360px);
-    padding: 6px;
+    margin: 0 auto;
+    width: min(100%, 280px);
+    padding: 5px;
   }
 
   .photo-index-page .photo-card-link {
