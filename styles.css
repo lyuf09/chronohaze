@@ -1715,6 +1715,12 @@ audio {
     max-width: none;
   }
 
+  .photo-index-page .photo-intro-text,
+  .music-index-page .music-intro-text {
+    font-size: 14px;
+    line-height: 1.74;
+  }
+
   .photo-index-page .photo-intro-figure {
     width: min(100%, 300px);
     padding: 6px;
@@ -1896,6 +1902,10 @@ audio {
 }
 
 @media (max-width: 760px) {
+  .container {
+    padding: 0 16px;
+  }
+
   .header-inner {
     min-height: 88px;
     gap: 12px;
@@ -1915,6 +1925,10 @@ audio {
     gap: 18px;
     padding-bottom: 5px;
     font-size: 14px;
+  }
+
+  .nav a {
+    padding: 6px 0;
   }
 
   .hero {
@@ -2052,6 +2066,16 @@ audio {
     padding: 4px 0 24px;
   }
 
+  .photo-index-page .photo-hero,
+  .music-index-page .music-hero {
+    padding: 12px 0 4px;
+  }
+
+  .photo-index-page .photo-hero img,
+  .music-index-page .music-hero img {
+    width: 100%;
+  }
+
   .music-index-page .music-intro {
     padding: 2px 0 16px;
   }
@@ -2068,7 +2092,7 @@ audio {
 
   .music-index-page .music-intro-figure {
     margin: 0 auto;
-    width: min(100%, 280px);
+    width: min(100%, 260px);
     padding: 5px;
   }
 
@@ -2191,6 +2215,21 @@ audio {
   .music-detail-article .lyrics-text {
     font-size: 13px;
     line-height: 1.76;
+  }
+
+  .site-footer {
+    padding: 22px 0 22px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .footer-right {
+    justify-self: start;
+    display: flex;
+    gap: 16px;
   }
 }
 

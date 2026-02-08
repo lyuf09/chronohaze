@@ -924,9 +924,10 @@
 
 @media (max-width: 768px) {
   .home-topbar {
-    height: 84px;
+    height: 76px;
     grid-template-columns: 1fr auto auto;
     column-gap: 12px;
+    padding: 0 16px;
   }
 
   .home-brand {
@@ -935,8 +936,8 @@
   }
 
   .lang-pill {
-    width: 180px;
-    height: 36px;
+    width: 160px;
+    height: 34px;
   }
 
   .lang-btn {
@@ -957,6 +958,27 @@
     font-size: 16px;
     line-height: 1.48;
     letter-spacing: 0.012em;
+  }
+
+  .hero-left {
+    padding: 52px 16px 28px;
+  }
+
+  .hero-left img {
+    width: min(88vw, 420px);
+  }
+
+  .hero-right-inner {
+    padding: 40px 16px 48px;
+  }
+
+  .contact-btn,
+  .player-shell {
+    margin-top: 26px;
+  }
+
+  .player-shell {
+    width: 220px;
   }
 
   .about-overlay h2 {
@@ -987,6 +1009,11 @@
     grid-auto-columns: minmax(250px, 84vw);
   }
 
+  .math-grid article {
+    min-height: 420px;
+    padding: 22px 22px 20px;
+  }
+
   .entry-card {
     max-width: 560px;
     width: 100%;
@@ -998,13 +1025,31 @@
     grid-template-columns: 1fr;
   }
 
+  .entry-split {
+    padding: 26px 16px 42px;
+  }
+
   .entry-card span {
     font-size: 20px;
   }
 
+  .drawer {
+    width: min(92vw, 420px);
+    padding: 14px 20px 24px;
+  }
+
+  .drawer-nav {
+    margin-top: 64px;
+    gap: 16px;
+  }
+
+  .drawer-nav a {
+    font-size: 26px;
+  }
+
   .home-footer-top {
     min-height: 82px;
-    padding: 0 18px;
+    padding: 0 16px;
   }
 
   .home-footer-brand {
@@ -1017,7 +1062,7 @@
   }
 
   .home-footer-col {
-    padding: 24px 18px 22px;
+    padding: 20px 16px 18px;
   }
 
   .home-footer-center {
@@ -1031,7 +1076,7 @@
   }
 
   .home-footer-policy a {
-    font-size: 20px;
+    font-size: 16px;
   }
 
   .home-footer-bottom {
