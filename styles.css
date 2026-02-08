@@ -460,7 +460,7 @@ audio {
 }
 
 .photo-detail-item.is-landscape img {
-  transform: scale(3);
+  transform: scale(1);
   transform-origin: center;
 }
 
@@ -1449,7 +1449,7 @@ audio {
   }
 
   .photo-detail-item.is-landscape img {
-    transform: scale(1.4);
+    transform: scale(1);
   }
 
   .photo-detail-item,
