@@ -456,6 +456,12 @@ audio {
 
 .photo-detail-item.is-landscape {
   grid-column: span 1;
+  align-self: center;
+}
+
+.photo-detail-item.is-landscape img {
+  transform: scale(1.2);
+  transform-origin: center;
 }
 
 .photo-detail-item img {
@@ -1442,6 +1448,10 @@ audio {
     margin-right: 0;
   }
 
+  .photo-detail-item.is-landscape img {
+    transform: scale(1.08);
+  }
+
   .photo-detail-item,
   .photo-detail-item:nth-child(n) {
     grid-column: span 1;
@@ -1845,6 +1855,10 @@ audio {
     width: 100%;
     margin-left: 0;
     margin-right: 0;
+  }
+
+  .photo-detail-item.is-landscape img {
+    transform: none;
   }
 
   .photo-detail-item,
