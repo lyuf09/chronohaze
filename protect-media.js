@@ -327,6 +327,11 @@
   }
 
   function buildTrackArtist(article) {
+    var explicit = article.getAttribute("data-track-artist");
+    if (explicit) {
+      return explicit;
+    }
+
     var metas = Array.from(article.querySelectorAll(".music-detail-meta"));
     var staffMeta = metas.length > 1 ? metas[1].textContent || "" : "";
     var staffText = staffMeta.replace(/\s+/g, " ").trim();
