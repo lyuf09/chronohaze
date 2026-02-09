@@ -1005,6 +1005,13 @@
     line-height: 1.6;
   }
 
+  .math-grid p {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
   .math-grid {
     grid-auto-columns: minmax(250px, 84vw);
   }
