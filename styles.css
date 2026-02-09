@@ -801,6 +801,10 @@ audio {
   box-shadow: 0 18px 30px rgba(14, 18, 26, 0.12);
 }
 
+.music-index-page .music-bottom-gallery img:not(:first-child) {
+  max-width: 320px;
+}
+
 @media (max-width: 760px) {
   .music-index-page .music-bottom {
     padding: 16px 0 36px;
