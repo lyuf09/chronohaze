@@ -781,6 +781,36 @@ audio {
   padding: 30px 0 52px;
 }
 
+.music-index-page .music-bottom {
+  padding: 22px 0 60px;
+}
+
+.music-index-page .music-bottom-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.music-index-page .music-bottom-gallery img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  border-radius: 0;
+  box-shadow: 0 18px 30px rgba(14, 18, 26, 0.12);
+}
+
+@media (max-width: 760px) {
+  .music-index-page .music-bottom {
+    padding: 16px 0 36px;
+  }
+
+  .music-index-page .music-bottom-gallery {
+    gap: 12px;
+  }
+}
+
 .music-index-page .page-head {
   padding: 44px 0 24px;
   border-bottom: 0;
