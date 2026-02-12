@@ -1227,9 +1227,11 @@
       "music/track-13.html": "Red Sandalwood (audio pending upload)",
       "music/track-14.html": "Willow",
       "music/track-15.html": "Yorugao (Moonflower)",
+      "music/track-16.html": "Mortal Frame (Utsusemi)",
       "music/track-17.html": "Moonlapse (feat. Johnny Zhou) (audio pending upload)",
       "music/track-21.html": "Lone Star Prelude (audio pending upload)",
       "music/track-23.html": "Fomalhaut",
+      "music/track-24.html": "The Guilt",
       "music/track-30.html": "Dissociative Amnesia (audio pending upload)",
     };
   }
