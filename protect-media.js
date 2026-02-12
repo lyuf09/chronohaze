@@ -1635,7 +1635,7 @@
   function getMusicTrackTitleOverridesEn() {
     return {
       "music/track-01.html": "Sincerely, Spring (春日和煦)",
-      "music/track-03.html": "Garden (花园)",
+      "music/track-03.html": "Moonlit Garden (花园)",
       "music/track-05.html": "Silt (Yu) (淤)",
       "music/track-07.html": "Hakoniwa (A Miniature Garden) (箱庭)",
       "music/track-08.html": "Honkaku mystery (本格推理) (audio pending upload)",
