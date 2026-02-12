@@ -1983,11 +1983,12 @@
       var style = document.createElement("style");
       style.id = styleId;
       style.textContent = [
-        ".floating-site-logo{position:fixed;right:22px;bottom:22px;width:80px;height:80px;border-radius:999px;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:68;background:linear-gradient(145deg,rgba(109,119,146,.88) 0%,rgba(92,101,127,.9) 100%);border:1px solid rgba(228,233,246,.36);box-shadow:0 10px 24px rgba(17,20,30,.36),inset 0 1px 0 rgba(255,255,255,.22);will-change:transform;animation:floatingSiteLogoBreath 5.4s ease-in-out infinite;}",
-        ".floating-site-logo::before{content:'';position:absolute;inset:-8px;border-radius:inherit;background:radial-gradient(circle,rgba(146,157,180,.35) 0%,rgba(146,157,180,.1) 56%,rgba(146,157,180,0) 78%);}",
-        ".floating-site-logo img{position:relative;z-index:1;width:72%;height:72%;object-fit:contain;opacity:.98;filter:brightness(1.2) contrast(1.1) saturate(.9) drop-shadow(0 0 9px rgba(219,227,247,.46));}",
-        "@keyframes floatingSiteLogoBreath{0%,100%{transform:translateY(0) scale(1);}50%{transform:translateY(-2px) scale(1.02);}}",
-        "@media (max-width: 900px){.floating-site-logo{width:64px;height:64px;right:14px;bottom:14px;}.floating-site-logo::before{inset:-6px;}}",
+        ".floating-site-logo{position:fixed;right:22px;bottom:22px;width:102px;height:102px;border-radius:999px;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:68;background:radial-gradient(circle at 30% 28%,rgba(176,188,217,.78) 0%,rgba(122,134,165,.66) 44%,rgba(84,94,122,.52) 74%,rgba(63,72,95,.34) 100%);box-shadow:0 12px 28px rgba(15,18,28,.32),0 0 26px rgba(144,159,191,.34),inset 0 0 0 1px rgba(229,236,248,.28);will-change:transform;animation:floatingSiteLogoBreath 5.4s ease-in-out infinite;}",
+        ".floating-site-logo::before{content:'';position:absolute;inset:-14px;border-radius:inherit;background:radial-gradient(circle,rgba(150,164,196,.42) 0%,rgba(150,164,196,.14) 54%,rgba(150,164,196,0) 80%);filter:blur(1px);}",
+        ".floating-site-logo::after{content:'';position:absolute;inset:8px;border-radius:inherit;background:radial-gradient(circle at 34% 28%,rgba(237,243,255,.24) 0%,rgba(237,243,255,.04) 62%,rgba(237,243,255,0) 82%);mix-blend-mode:screen;}",
+        ".floating-site-logo img{position:relative;z-index:1;width:74%;height:74%;object-fit:contain;opacity:.99;filter:brightness(1.22) contrast(1.1) saturate(.9) drop-shadow(0 0 10px rgba(221,229,247,.48));}",
+        "@keyframes floatingSiteLogoBreath{0%,100%{transform:translateY(0) scale(1);}50%{transform:translateY(-2px) scale(1.03);}}",
+        "@media (max-width: 900px){.floating-site-logo{width:76px;height:76px;right:14px;bottom:14px;}.floating-site-logo::before{inset:-10px;}.floating-site-logo::after{inset:6px;}}",
       ].join("");
       document.head.appendChild(style);
     }
