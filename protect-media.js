@@ -1182,6 +1182,19 @@
       "Metalcore Piano Lab | From Audio to Chart: A Discretization Experiment (WIP) | Mathematics | Chronohaze";
   }
 
+  function getMusicTrackTitleOverridesEn() {
+    return {
+      "music/track-01.html": "Sincerely, Spring",
+      "music/track-03.html": "Garden",
+      "music/track-05.html": "Silt (Yu)",
+      "music/track-07.html": "Hakoniwa (A Miniature Garden)",
+      "music/track-08.html": "Honkaku mystery (audio pending upload)",
+      "music/track-14.html": "Willow",
+      "music/track-17.html": "Moonlapse (feat. Jonny Zhou) (audio pending upload)",
+      "music/track-30.html": "Dissociative Amnesia (audio pending upload)",
+    };
+  }
+
   function setSamePageLanguageInUrl(lang) {
     var safeLang = lang === "en" ? "en" : "zh";
     var url = new URL(window.location.href);
@@ -1266,13 +1279,7 @@
       var musicLongIntroNodes = Array.from(
         document.querySelectorAll(".music-intro-text p")
       );
-      var musicTitleOverridesEn = {
-        "music/track-01.html": "Sincerely, Spring",
-        "music/track-03.html": "Garden",
-        "music/track-05.html": "Silt (Yu)",
-        "music/track-07.html": "Hakoniwa (A Miniature Garden)",
-        "music/track-08.html": "Honkaku mystery (audio pending upload)",
-      };
+      var musicTitleOverridesEn = getMusicTrackTitleOverridesEn();
       if (musicTitle) {
         musicTitle.textContent = dict.musicPageTitle;
       }
@@ -1414,6 +1421,16 @@
 
     if (document.body.classList.contains("music-detail-page")) {
       var titleNode = document.querySelector(".music-detail-article h1");
+      if (safeLang === "en" && titleNode) {
+        var detailPath = (window.location.pathname || "")
+          .toLowerCase()
+          .replace(/^.*\/chronohaze\//, "")
+          .replace(/^\//, "");
+        var detailTitleOverridesEn = getMusicTrackTitleOverridesEn();
+        if (detailTitleOverridesEn[detailPath]) {
+          titleNode.textContent = detailTitleOverridesEn[detailPath];
+        }
+      }
       if (titleNode && titleNode.textContent) {
         var titleText = titleNode.textContent.trim();
         document.title =
