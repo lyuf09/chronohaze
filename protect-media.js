@@ -1983,9 +1983,9 @@
       var style = document.createElement("style");
       style.id = styleId;
       style.textContent = [
-        ".floating-site-logo{position:fixed;right:22px;bottom:22px;width:102px;height:102px;border-radius:999px;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:68;background:transparent;box-shadow:none;will-change:transform;animation:floatingSiteLogoBreath 5.4s ease-in-out infinite;}",
-        ".floating-site-logo::before{content:'';position:absolute;inset:-24px;border-radius:inherit;background:radial-gradient(circle,rgba(211,221,241,.3) 0%,rgba(211,221,241,.12) 42%,rgba(211,221,241,0) 78%);filter:blur(8px);}",
-        ".floating-site-logo::after{content:'';position:absolute;inset:-6px;border-radius:inherit;background:radial-gradient(circle,rgba(236,242,252,.2) 0%,rgba(236,242,252,.06) 50%,rgba(236,242,252,0) 78%);filter:blur(5px);}",
+        ".floating-site-logo{position:fixed;right:22px;bottom:22px;width:102px;height:102px;border-radius:999px;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:68;background:radial-gradient(circle,rgba(238,244,253,.3) 0%,rgba(238,244,253,.14) 46%,rgba(238,244,253,0) 78%);box-shadow:none;will-change:transform;animation:floatingSiteLogoBreath 5.4s ease-in-out infinite;}",
+        ".floating-site-logo::before{content:'';position:absolute;inset:-24px;border-radius:inherit;background:radial-gradient(circle,rgba(211,221,241,.44) 0%,rgba(211,221,241,.2) 42%,rgba(211,221,241,0) 80%);filter:blur(8px);}",
+        ".floating-site-logo::after{content:'';position:absolute;inset:-6px;border-radius:inherit;background:radial-gradient(circle,rgba(236,242,252,.34) 0%,rgba(236,242,252,.14) 50%,rgba(236,242,252,0) 80%);filter:blur(5px);}",
         ".floating-site-logo img{position:relative;z-index:1;width:76%;height:76%;object-fit:contain;opacity:1;filter:invert(1) brightness(.3) contrast(1.45) saturate(.55) drop-shadow(0 0 1px rgba(255,255,255,.2)) drop-shadow(0 0 6px rgba(94,111,148,.22));}",
         "@keyframes floatingSiteLogoBreath{0%,100%{transform:translateY(0) scale(1);}50%{transform:translateY(-2px) scale(1.03);}}",
         "@media (max-width: 900px){.floating-site-logo{width:76px;height:76px;right:14px;bottom:14px;}.floating-site-logo::before{inset:-14px;}.floating-site-logo::after{inset:-4px;}}",
