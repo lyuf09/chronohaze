@@ -1973,6 +1973,50 @@
     renderMetalcorePost(safeLang, dict);
   }
 
+  function injectFloatingSiteLogo() {
+    if (document.querySelector(".floating-site-logo")) {
+      return;
+    }
+
+    var styleId = "floating-site-logo-style";
+    if (!document.getElementById(styleId)) {
+      var style = document.createElement("style");
+      style.id = styleId;
+      style.textContent = [
+        ".floating-site-logo{position:fixed;right:22px;bottom:22px;width:80px;height:80px;border-radius:999px;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:68;mix-blend-mode:screen;will-change:transform;animation:floatingSiteLogoBreath 5.4s ease-in-out infinite;}",
+        ".floating-site-logo::before{content:'';position:absolute;inset:-8px;border-radius:inherit;background:radial-gradient(circle,rgba(146,157,180,.36) 0%,rgba(146,157,180,.08) 58%,rgba(146,157,180,0) 78%);}",
+        ".floating-site-logo img{position:relative;z-index:1;width:72%;height:72%;object-fit:contain;opacity:.95;filter:brightness(1.18) contrast(1.08) saturate(.88) drop-shadow(0 0 11px rgba(217,225,244,.48)) drop-shadow(0 8px 16px rgba(11,14,22,.34));}",
+        "@keyframes floatingSiteLogoBreath{0%,100%{transform:translateY(0) scale(1);}50%{transform:translateY(-2px) scale(1.02);}}",
+        "@media (max-width: 900px){.floating-site-logo{width:64px;height:64px;right:14px;bottom:14px;}.floating-site-logo::before{inset:-6px;}}",
+      ].join("");
+      document.head.appendChild(style);
+    }
+
+    var iconNode =
+      document.querySelector('link[rel="apple-touch-icon"]') ||
+      document.querySelector('link[rel~="icon"]');
+    var rawSrc = (iconNode && iconNode.getAttribute("href")) || "assets/logo.png";
+    var resolvedSrc = rawSrc;
+    try {
+      resolvedSrc = new URL(rawSrc, window.location.href).toString();
+    } catch (_error) {
+      resolvedSrc = rawSrc;
+    }
+
+    var wrapper = document.createElement("div");
+    wrapper.className = "floating-site-logo";
+    wrapper.setAttribute("aria-hidden", "true");
+
+    var img = document.createElement("img");
+    img.src = resolvedSrc;
+    img.alt = "";
+    img.loading = "lazy";
+    img.decoding = "async";
+    wrapper.appendChild(img);
+
+    document.body.appendChild(wrapper);
+  }
+
   function injectFloatingLanguageSwitch() {
     if (document.querySelector(".lang-pill") || document.querySelector(".floating-lang-switch")) {
       return;
@@ -2060,6 +2104,7 @@
   }
 
   function boot() {
+    injectFloatingSiteLogo();
     injectFloatingLanguageSwitch();
     protectAllMedia();
     optimizeImages();

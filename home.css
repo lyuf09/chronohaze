@@ -238,37 +238,6 @@
   filter: saturate(0.62) brightness(0.97) contrast(0.99) hue-rotate(17deg) grayscale(0.09);
 }
 
-.hero-logo-mark {
-  position: absolute;
-  left: -116px;
-  top: 20px;
-  width: 96px;
-  height: 96px;
-  object-fit: contain;
-  padding: 8px;
-  border-radius: 999px;
-  background: radial-gradient(circle, rgba(126, 136, 156, 0.22) 0%, rgba(126, 136, 156, 0.02) 70%);
-  opacity: 0.9;
-  filter:
-    brightness(1.16)
-    contrast(1.06)
-    drop-shadow(0 0 10px rgba(218, 225, 243, 0.42))
-    drop-shadow(0 8px 16px rgba(9, 12, 20, 0.34));
-  mix-blend-mode: screen;
-  pointer-events: none;
-  animation: heroLogoFloat 5.6s ease-in-out infinite;
-}
-
-@keyframes heroLogoFloat {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-2px);
-  }
-}
-
 .hero-right {
   background: linear-gradient(180deg, #f1f1f2 0%, #e6e7ea 100%);
   border-left: 1px solid rgb(58, 58, 58);
@@ -849,13 +818,6 @@
     aspect-ratio: 481 / 587;
   }
 
-  .hero-logo-mark {
-    width: clamp(72px, 12vw, 90px);
-    height: clamp(72px, 12vw, 90px);
-    left: 14px;
-    top: -54px;
-  }
-
   .hero-right {
     border-left: 0;
     border-top: 1px solid rgb(58, 58, 58);
@@ -1009,14 +971,6 @@
 
   .hero-portrait {
     width: min(88vw, 420px);
-  }
-
-  .hero-logo-mark {
-    width: clamp(58px, 16vw, 72px);
-    height: clamp(58px, 16vw, 72px);
-    left: 10px;
-    top: -42px;
-    opacity: 0.84;
   }
 
   .hero-right-inner {
