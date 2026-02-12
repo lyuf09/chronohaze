@@ -419,6 +419,15 @@
         musicIntro:
           "Textures of sound, echoes of emotion, fragments shaped slowly in time.",
         musicLead: "Selected works since 2021 (I need dignity).",
+        musicLongIntroParagraphs: [
+          "Music was the first creative language I found, and the one I’ve stayed with the longest.",
+          "I started learning piano before primary school, which gave me my earliest foundation in ear training and harmony. Later I picked up the ukulele, and at twelve I began learning the violin. Working with strings gradually helped me understand melodic lines and contrapuntal structure, and by fourteen I started writing original pieces based on the ABRSM music theory I’d studied systematically.",
+          "At fifteen, I began teaching myself composition more independently, learning how to develop a motif into a complete work. At sixteen, I taught myself bass and started to think more deeply about low-end structure and rhythmic backbone. At seventeen, I taught myself electric guitar, which pushed me toward arranging from a full-band perspective, thinking in terms of voicing, interplay between parts, and layers of timbre.",
+          "At nineteen, I began teaching myself mixing and production, gradually shifting from \"someone who writes songs\" into a creator who can carry a piece through the entire production process, imperfect, but complete.",
+          "Along the way, I’ve also taken part in collaborations: contributing to album projects, creating for others, and recording bass parts for other works. To me, music isn’t only personal expression, it’s also a way of building a shared sonic world with others.",
+          "My work often returns to a set of recurring images: summer rain, nighttime, light suspended in humid air, and white flowers that bloom after dark.",
+          "Over time, these elements have become the emotional motifs in my writing, time moving slowly, tension growing in stillness, and everything left unsaid.",
+        ],
         mathPageTitle: "Mathematics Archive",
         mathIntro: "Research notes, experiments, and structured thoughts.",
         photoPageTitle: "Photography Collection",
@@ -991,6 +1000,9 @@
       var musicTitle = document.querySelector(".page-title");
       var musicIntro = document.querySelector(".page-head p");
       var musicLead = document.querySelector(".page-head .lead");
+      var musicLongIntroNodes = Array.from(
+        document.querySelectorAll(".music-intro-text p")
+      );
       if (musicTitle) {
         musicTitle.textContent = dict.musicPageTitle;
       }
@@ -999,6 +1011,17 @@
       }
       if (musicLead) {
         musicLead.textContent = dict.musicLead;
+      }
+      if (
+        safeLang === "en" &&
+        Array.isArray(dict.musicLongIntroParagraphs) &&
+        musicLongIntroNodes.length
+      ) {
+        musicLongIntroNodes.forEach(function (node, index) {
+          if (dict.musicLongIntroParagraphs[index]) {
+            node.textContent = dict.musicLongIntroParagraphs[index];
+          }
+        });
       }
       document.title = safeLang === "en" ? "Music | Chronohaze" : "音乐 | Chronohaze";
     }
