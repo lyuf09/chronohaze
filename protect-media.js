@@ -363,7 +363,87 @@
     };
   }
 
-  function buildTrackNavigation() {
+  function getSecondaryPageDictionary(lang) {
+    var safeLang = lang === "en" ? "en" : "zh";
+
+    return {
+      zh: {
+        htmlLang: "zh-CN",
+        navAria: "主导航",
+        navHome: "主页",
+        navMath: "数学",
+        navPhoto: "摄影",
+        navMusic: "音乐",
+        navCV: "CV",
+        siteNotes: "网站说明",
+        a11y: "无障碍支持",
+        footerContactLead: "辗转不同国家无固定号码 请联系邮箱：",
+        footerCities: "重庆 · Edinburgh · New york",
+        musicPageTitle: "音乐作品集",
+        musicIntro: "声音的纹理、情绪的回声、在时间里缓慢成形的片段。",
+        musicLead: "仅收录 21 年开始的部分作品（我需要脸面）",
+        mathPageTitle: "数学文章",
+        mathIntro: "研究记录、实验笔记与结构化的思考。",
+        photoPageTitle: "摄影作品集",
+        photoIntro: "光的轨迹、线条的结构、人与空间的关系。",
+        readMore: "查看更多",
+        backToMusic: "返回音乐栏目",
+        backToPhoto: "返回摄影栏目",
+        backToMath: "返回数学栏目",
+        detailBack: "< 返回",
+        creationLabel: "创作时间：",
+        workIntroHeading: "作品介绍",
+        lyricsHeading: "歌词",
+        lyricsPart1: "歌词（Part 1）",
+        lyricsPart2: "歌词（Part 2）",
+        playerPrev: "上一首",
+        playerNext: "下一首",
+        playerPlayAria: "播放",
+        playerPauseAria: "暂停",
+        playerProgressAria: "播放进度",
+      },
+      en: {
+        htmlLang: "en",
+        navAria: "Main navigation",
+        navHome: "Main",
+        navMath: "Mathematics",
+        navPhoto: "Photography",
+        navMusic: "Music",
+        navCV: "CV",
+        siteNotes: "Privacy Policy",
+        a11y: "Accessibility",
+        footerContactLead:
+          "No fixed phone number while moving across countries. Contact by email:",
+        footerCities: "Chongqing · Edinburgh · New York",
+        musicPageTitle: "Music Collection",
+        musicIntro:
+          "Textures of sound, echoes of emotion, fragments shaped slowly in time.",
+        musicLead: "Selected works since 2021 (I need dignity).",
+        mathPageTitle: "Mathematics Archive",
+        mathIntro: "Research notes, experiments, and structured thoughts.",
+        photoPageTitle: "Photography Collection",
+        photoIntro:
+          "Traces of light, structures of lines, and the relation between people and space.",
+        readMore: "Read More",
+        backToMusic: "Back to music",
+        backToPhoto: "Back to photography",
+        backToMath: "Back to mathematics",
+        detailBack: "< Back",
+        creationLabel: "Creation period:",
+        workIntroHeading: "About the work",
+        lyricsHeading: "Lyrics",
+        lyricsPart1: "Lyrics (Part 1)",
+        lyricsPart2: "Lyrics (Part 2)",
+        playerPrev: "Previous",
+        playerNext: "Next",
+        playerPlayAria: "Play",
+        playerPauseAria: "Pause",
+        playerProgressAria: "Playback position",
+      },
+    }[safeLang];
+  }
+
+  function buildTrackNavigation(dict) {
     var current = findTrackIndexFromPath();
     var nav = document.createElement("div");
     nav.className = "music-player-nav";
@@ -384,8 +464,8 @@
     var nextHref =
       current && current < MUSIC_TRACK_TOTAL ? trackHref(current + 1) : null;
 
-    nav.appendChild(createNavNode("Previous", prevHref));
-    nav.appendChild(createNavNode("Next", nextHref));
+    nav.appendChild(createNavNode(dict.playerPrev, prevHref));
+    nav.appendChild(createNavNode(dict.playerNext, nextHref));
     return nav;
   }
 
@@ -405,9 +485,10 @@
     }
 
     var link = document.createElement("a");
+    var dict = getSecondaryPageDictionary(detectPreferredLanguage());
     link.className = "music-detail-back";
     link.href = "../yin-le.html";
-    link.textContent = "< Back";
+    link.textContent = dict.detailBack;
     article.insertBefore(link, heading);
   }
 
@@ -419,6 +500,7 @@
     var players = Array.from(
       document.querySelectorAll(".music-detail-article audio")
     );
+    var dict = getSecondaryPageDictionary(detectPreferredLanguage());
 
     players.forEach(function (audio) {
       if (audio.dataset.customPlayer === "1") {
@@ -457,7 +539,7 @@
       var playButton = document.createElement("button");
       playButton.type = "button";
       playButton.className = "music-player-play";
-      playButton.setAttribute("aria-label", "播放");
+      playButton.setAttribute("aria-label", dict.playerPlayAria);
       playButton.textContent = "▶";
 
       var scrubber = document.createElement("input");
@@ -467,7 +549,7 @@
       scrubber.max = "1000";
       scrubber.step = "1";
       scrubber.value = "0";
-      scrubber.setAttribute("aria-label", "播放进度");
+      scrubber.setAttribute("aria-label", dict.playerProgressAria);
       setRangeProgress(scrubber, 0, 1000);
 
       var timeLabel = document.createElement("p");
@@ -482,14 +564,17 @@
       row.appendChild(timeLabel);
       shell.appendChild(label);
       shell.appendChild(row);
-      shell.appendChild(buildTrackNavigation());
+      shell.appendChild(buildTrackNavigation(dict));
       audio.insertAdjacentElement("afterend", shell);
 
       function syncPlayState() {
         var isPlaying = !audio.paused && !audio.ended;
         playButton.classList.toggle("is-playing", isPlaying);
         playButton.textContent = isPlaying ? "❚❚" : "▶";
-        playButton.setAttribute("aria-label", isPlaying ? "暂停" : "播放");
+        playButton.setAttribute(
+          "aria-label",
+          isPlaying ? dict.playerPauseAria : dict.playerPlayAria
+        );
       }
 
       function syncTimeState() {
@@ -546,11 +631,21 @@
   function findLyricHeading(headings, partNumber) {
     var partTagA = "歌词（Part" + partNumber + "）";
     var partTagB = "歌词(Part" + partNumber + ")";
+    var partTagC = "Lyrics (Part " + partNumber + ")";
+    var partTagD = "Lyrics(Part " + partNumber + ")";
+    var partTagE = "Lyrics(Part" + partNumber + ")";
+    var targets = [
+      normalizeText(partTagA).toLowerCase(),
+      normalizeText(partTagB).toLowerCase(),
+      normalizeText(partTagC).toLowerCase(),
+      normalizeText(partTagD).toLowerCase(),
+      normalizeText(partTagE).toLowerCase(),
+    ];
 
     return (
       headings.find(function (heading) {
-        var text = normalizeText(heading.textContent);
-        return text === partTagA || text === partTagB;
+        var text = normalizeText(heading.textContent).toLowerCase();
+        return targets.indexOf(text) >= 0;
       }) || null
     );
   }
@@ -640,22 +735,25 @@
     }
 
     var section = document.createElement("section");
+    var dict = getSecondaryPageDictionary(detectPreferredLanguage());
     section.className = "lyrics-showcase";
-    section.setAttribute("aria-label", "歌词");
+    section.setAttribute("aria-label", dict.lyricsHeading);
 
     var inner = document.createElement("div");
     inner.className = "lyrics-showcase-inner";
 
     var title = document.createElement("h2");
     title.className = "lyrics-showcase-title";
-    title.textContent = "歌词";
+    title.textContent = dict.lyricsHeading;
 
     var columns = document.createElement("div");
     columns.className = "lyrics-columns";
     columns.appendChild(buildLyricColumn(part1Text.innerHTML, "lyrics-column-left"));
     columns.appendChild(buildLyricColumn(part2Text.innerHTML, "lyrics-column-right"));
 
-    var introText = findSectionText(article, "作品介绍");
+    var introText =
+      findSectionText(article, "作品介绍") ||
+      findSectionText(article, "About the work");
     var palette = buildLyricsPalette(introText);
 
     section.style.setProperty("--lyrics-bg", palette.background);
@@ -688,6 +786,11 @@
       if (saved === "zh" || saved === "en") {
         return saved;
       }
+
+      var homeSaved = localStorage.getItem("chronohaze-lang");
+      if (homeSaved === "zh" || homeSaved === "en") {
+        return homeSaved;
+      }
     } catch (_err) {
       return "zh";
     }
@@ -699,9 +802,112 @@
     var safeLang = lang === "en" ? "en" : "zh";
     try {
       localStorage.setItem("siteLang", safeLang);
+      localStorage.setItem("chronohaze-lang", safeLang);
     } catch (_err) {
       return;
     }
+  }
+
+  function translateMusicMetaLabels(content, safeLang, dict) {
+    if (safeLang !== "en" || !content) {
+      return content;
+    }
+
+    var replacements = [
+      [/创作时间：/g, dict.creationLabel],
+      [/作词作曲编曲吉他混音：/g, "Lyrics, composition, arrangement, guitar & mix: "],
+      [/作词作曲编曲混音：/g, "Lyrics, composition, arrangement & mix: "],
+      [/作词作曲编曲：/g, "Lyrics, composition & arrangement: "],
+      [/作词编曲：/g, "Lyrics & arrangement: "],
+      [/作词：/g, "Lyrics: "],
+      [/作曲：/g, "Composition: "],
+      [/编曲：/g, "Arrangement: "],
+      [/钢琴与吉他录制：/g, "Piano & guitar recording: "],
+      [/钢琴录制：/g, "Piano recording: "],
+      [/吉他实录：/g, "Guitar tracking: "],
+      [/吉他录音：/g, "Guitar recording: "],
+      [/吉他录制：/g, "Guitar recording: "],
+      [/贝斯录制：/g, "Bass recording: "],
+      [/混音：/g, "Mix: "],
+      [/作者：/g, "Artist: "],
+    ];
+
+    var translated = content;
+    replacements.forEach(function (pair) {
+      translated = translated.replace(pair[0], pair[1]);
+    });
+    return translated;
+  }
+
+  function monthLabelEn(monthNumber) {
+    var labels = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    var index = Number(monthNumber) - 1;
+    if (index < 0 || index >= labels.length) {
+      return String(monthNumber);
+    }
+    return labels[index];
+  }
+
+  function localizeShortLabelText(text, safeLang) {
+    if (safeLang !== "en" || typeof text !== "string" || !text) {
+      return text;
+    }
+
+    var next = text;
+
+    next = next.replace(/（音频待上传）/g, " (audio pending upload)");
+    next = next.replace(/\(音频待上传\)/g, "(audio pending upload)");
+    next = next.replace(
+      /(\d{4})年(\d{1,2})月(\d{1,2})日/g,
+      function (_match, year, month, day) {
+        return monthLabelEn(month) + " " + Number(day) + ", " + year;
+      }
+    );
+    next = next.replace(/(\d{1,2})月(\d{1,2})日/g, function (_match, month, day) {
+      return monthLabelEn(month) + " " + Number(day);
+    });
+    next = next.replace(/(\d{4})年/g, "$1");
+
+    var phraseMap = [
+      [/英国奥斯沃斯特里/g, "Oswestry, UK"],
+      [/英国爱丁堡/g, "Edinburgh, UK"],
+      [/英国韦茅斯/g, "Weymouth, UK"],
+      [/中国重庆市/g, "Chongqing, China"],
+      [/中国/g, "China"],
+      [/英国/g, "UK "],
+      [/重庆市/g, "Chongqing"],
+      [/重庆/g, "Chongqing"],
+      [/爱丁堡/g, "Edinburgh"],
+      [/奥斯沃斯特里/g, "Oswestry"],
+      [/韦茅斯/g, "Weymouth"],
+      [/返回摄影栏目/g, "Back to photography"],
+      [/返回音乐栏目/g, "Back to music"],
+      [/返回数学栏目/g, "Back to mathematics"],
+      [/阅读全文/g, "Read full article"],
+    ];
+
+    phraseMap.forEach(function (pair) {
+      next = next.replace(pair[0], pair[1]);
+    });
+
+    return next
+      .replace(/\s{2,}/g, " ")
+      .replace(/\s+,/g, ",")
+      .replace(/,\s+/g, ", ")
+      .trim();
   }
 
   function setSamePageLanguageInUrl(lang) {
@@ -713,60 +919,23 @@
 
   function applySecondaryPageLanguage(lang) {
     var safeLang = lang === "en" ? "en" : "zh";
-    var dict = {
-      zh: {
-        htmlLang: "zh-CN",
-        navHome: "主页",
-        navMath: "数学",
-        navPhoto: "摄影",
-        navMusic: "音乐",
-        siteNotes: "网站说明",
-        a11y: "无障碍支持",
-        footerContactLead: "辗转不同国家无固定号码 请联系邮箱：",
-        footerCities: "重庆 · Edinburgh · New york",
-        musicPageTitle: "音乐作品集",
-        musicIntro: "声音的纹理、情绪的回声、在时间里缓慢成形的片段。",
-        musicLead: "仅收录 21 年开始的部分作品（我需要脸面）",
-        mathPageTitle: "数学文章",
-        mathIntro: "研究记录、实验笔记与结构化的思考。",
-        photoPageTitle: "摄影作品集",
-        photoIntro: "光的轨迹、线条的结构、人与空间的关系。",
-        readMore: "查看更多",
-      },
-      en: {
-        htmlLang: "en",
-        navHome: "Main",
-        navMath: "Mathematics",
-        navPhoto: "Photography",
-        navMusic: "Music",
-        siteNotes: "Privacy Policy",
-        a11y: "Accessibility",
-        footerContactLead:
-          "No fixed phone number while moving across countries. Contact by email:",
-        footerCities: "Chongqing · Edinburgh · New York",
-        musicPageTitle: "Music Collection",
-        musicIntro:
-          "Textures of sound, echoes of emotion, fragments shaped slowly in time.",
-        musicLead: "Selected works since 2021 (I need dignity).",
-        mathPageTitle: "Mathematics Archive",
-        mathIntro: "Research notes, experiments, and structured thoughts.",
-        photoPageTitle: "Photography Collection",
-        photoIntro:
-          "Traces of light, structures of lines, and the relation between people and space.",
-        readMore: "Read More",
-      },
-    }[safeLang];
+    var dict = getSecondaryPageDictionary(safeLang);
 
     document.documentElement.lang = dict.htmlLang;
+    Array.from(document.querySelectorAll(".nav")).forEach(function (nav) {
+      nav.setAttribute("aria-label", dict.navAria);
+    });
 
     Array.from(document.querySelectorAll(".nav a")).forEach(function (link) {
       var href = link.getAttribute("href") || "";
-      if (/#math/i.test(href)) {
+      if (/math\.html(?:$|[?#])/i.test(href) || /#math/i.test(href)) {
         link.textContent = dict.navMath;
       } else if (/portfolio-1\.html/i.test(href)) {
         link.textContent = dict.navPhoto;
       } else if (/yin-le\.html/i.test(href)) {
         link.textContent = dict.navMusic;
+      } else if (/Fay_Lyu_CV\.pdf/i.test(href)) {
+        link.textContent = dict.navCV;
       } else if (/index\.html$/i.test(href) || /\.\.\/index\.html$/i.test(href)) {
         link.textContent = dict.navHome;
       }
@@ -790,6 +959,31 @@
         note.appendChild(cloned);
       } else if (/Edinburgh/i.test(note.textContent || "")) {
         note.textContent = dict.footerCities;
+      }
+    });
+
+    Array.from(document.querySelectorAll(".math-more")).forEach(function (node) {
+      node.textContent = dict.readMore;
+    });
+
+    if (safeLang === "en") {
+      Array.from(
+        document.querySelectorAll(
+          ".track-date, .math-date, .article-meta, .photo-date, .track-title"
+        )
+      ).forEach(function (node) {
+        node.textContent = localizeShortLabelText(node.textContent || "", safeLang);
+      });
+    }
+
+    Array.from(document.querySelectorAll("a.read-more")).forEach(function (link) {
+      var href = link.getAttribute("href") || "";
+      if (/portfolio-1\.html/i.test(href)) {
+        link.textContent = dict.backToPhoto;
+      } else if (/yin-le\.html/i.test(href)) {
+        link.textContent = dict.backToMusic;
+      } else if (/math\.html/i.test(href)) {
+        link.textContent = dict.backToMath;
       }
     });
 
@@ -835,6 +1029,76 @@
         mathIntro.textContent = dict.mathIntro;
       }
       document.title = safeLang === "en" ? "Mathematics | Chronohaze" : "数学 | Chronohaze";
+    }
+
+    if (document.body.classList.contains("music-detail-page")) {
+      var titleNode = document.querySelector(".music-detail-article h1");
+      if (titleNode && titleNode.textContent) {
+        var titleText = titleNode.textContent.trim();
+        document.title =
+          titleText + " | " + (safeLang === "en" ? "Music" : "音乐") + " | Chronohaze";
+      }
+
+      var backLink = document.querySelector(".music-detail-back");
+      if (backLink) {
+        backLink.textContent = dict.detailBack;
+      }
+
+      var firstMeta = document.querySelector(".music-detail-article .music-detail-meta");
+      if (firstMeta) {
+        firstMeta.innerHTML = firstMeta.innerHTML.replace(
+          /创作时间：|Creation period:/g,
+          dict.creationLabel
+        );
+      }
+
+      Array.from(document.querySelectorAll(".music-detail-article .music-detail-meta")).forEach(
+        function (meta) {
+          meta.innerHTML = translateMusicMetaLabels(meta.innerHTML, safeLang, dict);
+        }
+      );
+
+      Array.from(document.querySelectorAll(".music-detail-article h2")).forEach(function (heading) {
+        var normalized = normalizeText(heading.textContent).toLowerCase();
+        if (
+          normalized === normalizeText("作品介绍").toLowerCase() ||
+          normalized === normalizeText("About the work").toLowerCase()
+        ) {
+          heading.textContent = dict.workIntroHeading;
+          return;
+        }
+
+        if (
+          normalized === normalizeText("歌词（Part 1）").toLowerCase() ||
+          normalized === normalizeText("歌词(Part 1)").toLowerCase() ||
+          normalized === normalizeText("Lyrics (Part 1)").toLowerCase()
+        ) {
+          heading.textContent = dict.lyricsPart1;
+          return;
+        }
+
+        if (
+          normalized === normalizeText("歌词（Part 2）").toLowerCase() ||
+          normalized === normalizeText("歌词(Part 2)").toLowerCase() ||
+          normalized === normalizeText("Lyrics (Part 2)").toLowerCase()
+        ) {
+          heading.textContent = dict.lyricsPart2;
+        }
+      });
+    }
+
+    if (
+      document.body.classList.contains("photo-detail-page") ||
+      document.querySelector(".photo-detail-article")
+    ) {
+      var photoHeading = document.querySelector(".photo-detail-article h1");
+      if (photoHeading && photoHeading.textContent) {
+        document.title =
+          photoHeading.textContent.trim() +
+          " | " +
+          (safeLang === "en" ? "Photography" : "摄影") +
+          " | Chronohaze";
+      }
     }
   }
 
