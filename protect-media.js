@@ -992,6 +992,94 @@
     document.title = "My First Isabelle Formalization Project | Mathematics | Chronohaze";
   }
 
+  function renderSubmodularGreedyPost(safeLang, dict) {
+    var path = (window.location.pathname || "").toLowerCase();
+    if (!/\/post\/isabelle-submodular-greedy\.html$/.test(path)) {
+      return;
+    }
+
+    var article = document.querySelector(".article");
+    if (!article) {
+      return;
+    }
+
+    if (!article.dataset.zhHtml) {
+      article.dataset.zhHtml = article.innerHTML;
+    }
+
+    if (safeLang !== "en") {
+      article.innerHTML = article.dataset.zhHtml;
+      document.title = "一个正在进行的 Isabelle 研究项目：Submodular Greedy 的形式化";
+      return;
+    }
+
+    article.innerHTML = [
+      "<h1>An Ongoing Isabelle Research Project: Formalising Submodular Greedy</h1>",
+      '<p class="article-meta">HazezZ · Dec 29, 2025</p>',
+      "<p>In my previous post “My First Isabelle Formalization Project”, I mainly wrote about why I chose Isabelle and what formalisation means to me as a way of doing mathematics. In this post, I want to document a more concrete object: an ongoing research project. Specifically, this project concerns the Isabelle formalisation of the (1 − 1/e) approximation guarantee of the greedy algorithm for monotone submodular maximisation under a cardinality constraint. This is not a presentation of a finished result, but a record of work in progress.</p>",
+      "<h3><strong>What This Project Is About</strong></h3>",
+      "<p>In combinatorial optimisation, there is a classical and widely used result:for maximising a monotone submodular function under a cardinality constraint, the simple greedy algorithm achieves an approximation ratio of 1 − 1/e. This result is commonly known as the Nemhauser–Wolsey theorem, and it appears repeatedly in machine learning, information theory, and coverage problems.</p>",
+      "<p>In standard paper-and-pencil proofs, this theorem is usually presented in a highly abstract and intuition-driven way, relying on arguments such as averaging, marginal gains, and recursive inequalities.However, many of these steps implicitly depend on structural assumptions that are never made explicit.</p>",
+      "<p>The goal of this project is not to reinvent the theorem, but to ask a more basic question: If we hand the entire proof to Isabelle, what exactly do we need to say out loud?</p>",
+      "<h3><strong>Project Structure: From Theorem to System</strong></h3>",
+      "<p>I currently structure the Isabelle formalisation into two main parts, corresponding to two core theory files:</p>",
+      "<h4><strong>Greedy_Submodular_Construct.thy</strong></h4>",
+      "<p>This part focuses on the algorithm and its structure:</p>",
+      "<ul>",
+      "<li><p>the formal definition of the greedy sequence</p></li>",
+      "<li><p>an abstract treatment of marginal gains</p></li>",
+      "<li><p>structural invariants maintained throughout the greedy process</p></li>",
+      "</ul>",
+      "<p>At this level, no approximation results are introduced.The goal is simply to make precise what the greedy algorithm is inside Isabelle.</p>",
+      "<h4><strong>Greedy_Submodular_Approx.thy</strong></h4>",
+      "<p>This part is responsible for the approximation analysis:</p>",
+      "<ul>",
+      "<li><p>a formal version of the averaging argument</p></li>",
+      "<li><p>the establishment of a gap recurrence</p></li>",
+      "<li><p>the derivation of the Nemhauser–Wolsey (1 − 1/e) bound</p></li>",
+      "</ul>",
+      "<p>This separation is not merely about code organisation.It is a deliberate design choice to keep the constructive and analytical aspects of the proof reusable and conceptually distinct, since they belong to different layers of reasoning.</p>",
+      "<h3><strong>Why This Is Not “Obvious” in Isabelle</strong></h3>",
+      "<p>In mathematical intuition, many arguments can be completed in a single sentence.In Isabelle, every step must be decomposed into explicit, checkable logical relations.</p>",
+      "<p>Through this process, I gradually became aware of several points:</p>",
+      "<ul>",
+      "<li><p>some inequalities that appear “obvious” in informal proofs actually rely on unstated monotonicity or submodularity assumptions</p></li>",
+      "<li><p>set transformations that are handled loosely on paper must be described with full precision in formalisation</p></li>",
+      "<li><p>to avoid proof fragmentation, modularisation is essentially necessary, not optional</p></li>",
+      "</ul>",
+      "<p>Formalisation is not about making proofs artificially difficult.Rather, it forces us to confront an uncomfortable question:which conclusions truly follow from structure, and which ones we have simply learned to trust.</p>",
+      "<h3><strong>Current Status</strong></h3>",
+      "<p>This is an ongoing research project. The completed components so far include:</p>",
+      "<ul>",
+      "<li><p>a basic formal framework for the greedy algorithm</p></li>",
+      "<li><p>marginal gains and related structural lemmas</p></li>",
+      "<li><p>the core recursive structure required for the approximation analysis</p></li>",
+      "</ul>",
+      "<p>Parts that are still being refined or extended include:</p>",
+      "<ul>",
+      "<li><p>further modularisation of submodularity assumptions</p></li>",
+      "<li><p>restructuring several technical lemmas in the approximation analysis</p></li>",
+      "<li><p>keeping the interfaces clean for future instantiations and extensions</p></li>",
+      "</ul>",
+      "<h3><strong>What Comes Next</strong></h3>",
+      "<p>In the next stage, I plan to:</p>",
+      "<ul>",
+      "<li><p>further abstract submodularity assumptions into reusable locales</p></li>",
+      "<li><p>attempt concrete instantiations, such as coverage functions</p></li>",
+      "<li><p>explore the formalisation of other greedy variants</p></li>",
+      "<li><p>evaluate the feasibility of code extraction and executable experiments</p></li>",
+      "</ul>",
+      "<p>This project is better viewed as a developing research trajectory rather than a one-off proof task.</p>",
+      "<h3><strong>Project Link</strong></h3>",
+      "<p>The GitHub repository for this project (continuously updated):</p>",
+      '<p><a class="read-more" href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">https://github.com/lyuf09/isabelle-submodular-greedy/tree/main</a></p>',
+      '<p><a class="read-more" href="../math.html">' + dict.backToMath + "</a></p>",
+    ].join("");
+
+    document.title =
+      "An Ongoing Isabelle Research Project: Formalising Submodular Greedy | Mathematics | Chronohaze";
+  }
+
   function setSamePageLanguageInUrl(lang) {
     var safeLang = lang === "en" ? "en" : "zh";
     var url = new URL(window.location.href);
@@ -1143,6 +1231,9 @@
         var firstIsabelleCard = document.querySelector(
           '.math-card[data-href="post/first-isabelle-proof.html"]'
         );
+        var submodularCard = document.querySelector(
+          '.math-card[data-href="post/isabelle-submodular-greedy.html"]'
+        );
         if (firstIsabelleCard) {
           var cardTitle = firstIsabelleCard.querySelector(".math-title");
           var cardDesc = firstIsabelleCard.querySelector(".math-desc");
@@ -1152,6 +1243,18 @@
           if (cardDesc) {
             cardDesc.textContent =
               "Embedding verifiability into proof writing: from motivation to the Nemhauser–Wolsey theorem.";
+          }
+        }
+        if (submodularCard) {
+          var submodularTitle = submodularCard.querySelector(".math-title");
+          var submodularDesc = submodularCard.querySelector(".math-desc");
+          if (submodularTitle) {
+            submodularTitle.textContent =
+              "An Ongoing Isabelle Research Project: Formalising Submodular Greedy";
+          }
+          if (submodularDesc) {
+            submodularDesc.textContent =
+              "Formalising the greedy (1 − 1/e) guarantee for monotone submodular maximisation under cardinality constraints.";
           }
         }
       }
@@ -1230,6 +1333,7 @@
     }
 
     renderFirstIsabellePost(safeLang, dict);
+    renderSubmodularGreedyPost(safeLang, dict);
   }
 
   function injectFloatingLanguageSwitch() {
