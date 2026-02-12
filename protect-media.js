@@ -433,6 +433,12 @@
         photoPageTitle: "Photography Collection",
         photoIntro:
           "Traces of light, structures of lines, and the relation between people and space.",
+        photoLongIntroParagraphs: [
+          "Photography is one of the first creative mediums I learned in a structured way. This sunlit portrait was taken by a classmate during a photography trip at seventeen, when we visited Manchester Art Gallery.",
+          "During my A-levels, I chose Photography as one of my subjects, and it ended up being my highest-scoring one, very close to full marks. For my final project, I created an experimental short film with an improvised piano soundtrack (recorded after I sneaked into the assembly hall to use the grand piano), and the piece ultimately received full marks.",
+          "To me, photography isn’t only about capturing a moment, it’s a way of expressing structure and emotion, and it has become one of the ways I make sense of the world.",
+          "After entering university, as my focus shifted more toward coursework and research, I’ve photographed less systematically. But photography has never really left my life, I still find myself pressing the shutter in different cities, in different light, at different times, only now, it feels freer, and quieter.",
+        ],
         readMore: "Read More",
         backToMusic: "Back to music",
         backToPhoto: "Back to photography",
@@ -1029,11 +1035,25 @@
     if (document.body.classList.contains("photo-index-page")) {
       var photoTitle = document.querySelector(".page-title");
       var photoIntro = document.querySelector(".page-head p");
+      var photoLongIntroNodes = Array.from(
+        document.querySelectorAll(".photo-intro-text p")
+      );
       if (photoTitle) {
         photoTitle.textContent = dict.photoPageTitle;
       }
       if (photoIntro) {
         photoIntro.textContent = dict.photoIntro;
+      }
+      if (
+        safeLang === "en" &&
+        Array.isArray(dict.photoLongIntroParagraphs) &&
+        photoLongIntroNodes.length
+      ) {
+        photoLongIntroNodes.forEach(function (node, index) {
+          if (dict.photoLongIntroParagraphs[index]) {
+            node.textContent = dict.photoLongIntroParagraphs[index];
+          }
+        });
       }
       document.title = safeLang === "en" ? "Photography | Chronohaze" : "摄影 | Chronohaze";
 
