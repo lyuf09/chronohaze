@@ -1232,6 +1232,10 @@
       "music/track-21.html": "Lone Star Prelude (audio pending upload)",
       "music/track-23.html": "Fomalhaut",
       "music/track-24.html": "The Guilt",
+      "music/track-25.html": "Jellyfish and the Lake",
+      "music/track-26.html": "Daybreak, the Borderline of Light and Dark",
+      "music/track-27.html": "Cardiac Alarm",
+      "music/track-28.html": "Afterimage",
       "music/track-30.html": "Dissociative Amnesia (audio pending upload)",
     };
   }
