@@ -1226,6 +1226,7 @@
       "music/track-11.html": "I hate you all. (audio pending upload)",
       "music/track-13.html": "Red Sandalwood (audio pending upload)",
       "music/track-14.html": "Willow",
+      "music/track-15.html": "Yorugao (Moonflower)",
       "music/track-17.html": "Moonlapse (feat. Johnny Zhou) (audio pending upload)",
       "music/track-21.html": "Lone Star Prelude (audio pending upload)",
       "music/track-23.html": "Fomalhaut",
