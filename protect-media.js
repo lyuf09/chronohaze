@@ -859,6 +859,19 @@
     replacements.forEach(function (pair) {
       translated = translated.replace(pair[0], pair[1]);
     });
+
+    var identityReplacements = [
+      [/（两天写完）/g, "（finished within 2days）"],
+      [/\(两天写完\)/g, "(finished within 2days)"],
+      [/起子/g, "Johnny Zhou"],
+      [/凛野/g, "Rinya"],
+      [/文心/g, "Wenxin"],
+    ];
+
+    identityReplacements.forEach(function (pair) {
+      translated = translated.replace(pair[0], pair[1]);
+    });
+
     return translated;
   }
 
