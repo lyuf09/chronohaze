@@ -866,6 +866,7 @@
       [/起子/g, "Johnny Zhou"],
       [/凛野/g, "Rinya"],
       [/文心/g, "Wenxin"],
+      [/斐然/g, "Franklimn Zhang"],
     ];
 
     identityReplacements.forEach(function (pair) {
