@@ -897,6 +897,7 @@
     next = next.replace(/(\d{4})年/g, "$1");
 
     var phraseMap = [
+      [/2022、夏、某/g, "2022、summer、someday"],
       [/英国奥斯沃斯特里/g, "Oswestry, UK"],
       [/英国爱丁堡/g, "Edinburgh, UK"],
       [/英国韦茅斯/g, "Weymouth, UK"],
