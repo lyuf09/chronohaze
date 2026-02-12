@@ -1117,6 +1117,71 @@
     document.title = "Spring 2026 | A New Research Direction | Mathematics | Chronohaze";
   }
 
+  function renderMetalcorePost(safeLang, dict) {
+    var path = (window.location.pathname || "").toLowerCase();
+    if (!/\/post\/metalcore-piano-lab\.html$/.test(path)) {
+      return;
+    }
+
+    var article = document.querySelector(".article");
+    if (!article) {
+      return;
+    }
+
+    if (!article.dataset.zhHtml) {
+      article.dataset.zhHtml = article.innerHTML;
+    }
+
+    if (safeLang !== "en") {
+      article.innerHTML = article.dataset.zhHtml;
+      document.title = "Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP）";
+      return;
+    }
+
+    article.innerHTML = [
+      "<h1>Metalcore Piano Lab | From Audio to Chart: A Discretization Experiment (WIP)</h1>",
+      '<p class="article-meta">HazezZ · Feb 7</p>',
+      "<p>Sometimes I feel that the most mathematical part of music isn’t harmony or modality, but how rhythm turns something continuous into something countable.</p>",
+      "<p>An audio track is a continuous time signal, a rhythm game chart, on the other hand is a sequence of discrete events, notes. Mapping the former to the latter is essentially a structured discretization problem, detection, estimation, segmentation, alignment, and finally turning the output into something playable and interactive.</p>",
+      "<p>Metalcore Piano Lab is a browserbased prototype I’ve been building recently. You upload a metalcore / progmetal audio file (or midi), and the system analyzes it and generates a multi track, piano style chart that you can play right away. It’s still in development, note recognition has plenty of room to improve. But I want to document it now as a research style log in my “math” section so the core idea stays clear and traceable.</p>",
+      "<h2>What I’m Building</h2>",
+      "<p>This is a research-driven web rhythm game prototype, honestly, I started it for fun, but it also feels like the kind of project that could become a nice “signal” on a PhD application if I develop it seriously (haha).</p>",
+      "<p>Usage is straightforward: upload a local audio file (mp3 / wav / m4a) or a midi file, click analyze, wait for the chart to generate, and then play using the keyboard (supports 4/6/8 keys and multiple difficulty levels).</p>",
+      "<h2>Core Idea: From a Continuous Signal to Discrete Events</h2>",
+      "<p>The current pipeline looks roughly like this:</p>",
+      "<p><strong>Onset / beat-event detection</strong><br />Which time points count as “events”? Drum hits, pick attacks, downbeats, these instants form the skeleton of the chart.</p>",
+      "<p><strong>Tempo estimation and beat tracking</strong><br />Where should events land so that they feel musical? This step produces a beat grid so notes can be quantized and drifting is controlled.</p>",
+      "<p><strong>Time-signature estimation</strong><br />This makes grouping and emphasis feel more natural, especially in metalcore, where unusual groupings are common. The time signature affects the player’s “cognitive cost” of understanding patterns.</p>",
+      "<p><strong>Adaptive segmentation and template alignment</strong><br />One thing I care about a lot is consistency across repeated sections. If the same riff comes back but the chart logic “mutates,” players immediately feel that something is off.<br />So I’d rather have the system recognize sectional structure and keep repeated parts aligned, instead of generating each section from scratch.</p>",
+      "<p><strong>Perceptual alignment</strong><br />In the end, it’s not only about aligning “mathematical time points,” but also aligning with human perception: what should be emphasized, what density becomes unplayable, and what patterns feel like something a human could actually practice and learn.</p>",
+      "<h2>Why I’m Putting This in the “Math” Section</h2>",
+      "<p>The interesting part here isn’t “I built a small game.” It’s that you’re forced to turn a pile of fuzzy intuitions, groove, downbeats, phrasing, playability, into structures that are computable and reproducible.</p>",
+      "<p>And metalcore is an unusually good stress test: dense rhythms, heavy syncopation, frequent pattern shifts. It pushes the algorithm to answer, head-on, what “stable” means, what “consistent” means, and what a human would consider “reasonable.”</p>",
+      "<h2>Current Status (and Known Limitations)</h2>",
+      "<p>This is a WIP prototype, so I want to be explicit about its boundaries:</p>",
+      "<ul>",
+      "<li><p>It’s currently a lightweight, browser native implementation and does not perform deep stem separation. So when the mix is muddy or the arrangement is highly layered, chart quality can degrade.</p></li>",
+      "<li><p>With complex polymeter or abrupt tempo changes, beat and time signature related stability may drop, leading to noticeable variance in chart quality.</p></li>",
+      "</ul>",
+      "<p>I don’t view this as failure, more like the kind of boundary conditions that an honest experiment should record, what inputs break the system, and what changes improve it.</p>",
+      "<h2>What I Want to Improve Next</h2>",
+      "<p>My next focus is making the auto-generated charts feel more like something a human would write:</p>",
+      "<ul>",
+      "<li><p>Improve tempo/beat tracking stability under tempo changes and strong syncopation</p></li>",
+      "<li><p>Strengthen sectioning + template alignment so repeated parts stay consistent and drift less</p></li>",
+      "<li><p>Build clearer difficulty scaling, map density, span, and left/right-hand load into an interpretable difficulty curve</p></li>",
+      "<li><p>Add more playability constraints (avoid unnecessary jacks, overly large jumps, awkward hand positions, etc.)</p></li>",
+      "<li><p>Finer offset/latency calibration so timing judgment feels tighter</p></li>",
+      "</ul>",
+      "<h2>Project Link</h2>",
+      '<p><a class="read-more" href="https://github.com/lyuf09/metalcore-piano-lab" target="_blank" rel="noopener noreferrer">https://github.com/lyuf09/metalcore-piano-lab</a></p>',
+      '<p><a class="read-more" href="../math.html">' + dict.backToMath + "</a></p>",
+    ].join("");
+
+    document.title =
+      "Metalcore Piano Lab | From Audio to Chart: A Discretization Experiment (WIP) | Mathematics | Chronohaze";
+  }
+
   function setSamePageLanguageInUrl(lang) {
     var safeLang = lang === "en" ? "en" : "zh";
     var url = new URL(window.location.href);
@@ -1265,6 +1330,9 @@
       }
 
       if (safeLang === "en") {
+        var metalcoreCard = document.querySelector(
+          '.math-card[data-href="post/metalcore-piano-lab.html"]'
+        );
         var springCard = document.querySelector(
           '.math-card[data-href="post/spring-2026.html"]'
         );
@@ -1274,6 +1342,18 @@
         var submodularCard = document.querySelector(
           '.math-card[data-href="post/isabelle-submodular-greedy.html"]'
         );
+        if (metalcoreCard) {
+          var metalcoreTitle = metalcoreCard.querySelector(".math-title");
+          var metalcoreDesc = metalcoreCard.querySelector(".math-desc");
+          if (metalcoreTitle) {
+            metalcoreTitle.textContent =
+              "Metalcore Piano Lab | From Audio to Chart: A Discretization Experiment (WIP)";
+          }
+          if (metalcoreDesc) {
+            metalcoreDesc.textContent =
+              "From continuous audio to playable charts: onset detection, beat grids, section alignment, and playability constraints.";
+          }
+        }
         if (springCard) {
           var springTitle = springCard.querySelector(".math-title");
           var springDesc = springCard.querySelector(".math-desc");
@@ -1386,6 +1466,7 @@
     renderFirstIsabellePost(safeLang, dict);
     renderSubmodularGreedyPost(safeLang, dict);
     renderSpring2026Post(safeLang, dict);
+    renderMetalcorePost(safeLang, dict);
   }
 
   function injectFloatingLanguageSwitch() {
