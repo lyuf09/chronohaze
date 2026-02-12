@@ -1656,7 +1656,7 @@
       "music/track-27.html": "Cardiac Alarm (心臓警報)",
       "music/track-28.html": "Afterimage (影)",
       "music/track-29.html": "I Hope I’ll Meet the Future (未来に出会えたらいいな)",
-      "music/track-30.html": "Dissociative Amnesia (分离性遗忘症) (audio pending upload)",
+      "music/track-30.html": "Dissociative Amnesia (分离性遗忘症)",
     };
   }
 
