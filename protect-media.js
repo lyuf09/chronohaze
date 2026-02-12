@@ -863,6 +863,8 @@
     var identityReplacements = [
       [/（两天写完）/g, "（finished within 2days）"],
       [/\(两天写完\)/g, "(finished within 2days)"],
+      [/（一个小时）/g, "（finished in one hour）"],
+      [/\(一个小时\)/g, "(finished in one hour)"],
       [/起子/g, "Johnny Zhou"],
       [/凛野/g, "Rinya"],
       [/文心/g, "Wenxin"],
@@ -1225,6 +1227,8 @@
       "music/track-13.html": "Red Sandalwood (audio pending upload)",
       "music/track-14.html": "Willow",
       "music/track-17.html": "Moonlapse (feat. Johnny Zhou) (audio pending upload)",
+      "music/track-21.html": "Lone Star Prelude (audio pending upload)",
+      "music/track-23.html": "Fomalhaut",
       "music/track-30.html": "Dissociative Amnesia (audio pending upload)",
     };
   }
