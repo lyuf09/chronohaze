@@ -1647,7 +1647,7 @@
       "music/track-16.html": "Mortal Frame (Utsusemi) (現人)",
       "music/track-17.html": "Moonlapse (feat. Johnny Zhou) (audio pending upload)",
       "music/track-20.html": "Supernova (スパーノヴァ)",
-      "music/track-21.html": "Lone Star Prelude (孤星Prelude) (audio pending upload)",
+      "music/track-21.html": "Lone Star Prelude (孤星Prelude)",
       "music/track-23.html": "Fomalhaut (フォーマルハウト/南鱼座α)",
       "music/track-24.html": "The Guilt (罪)",
       "music/track-25.html": "Jellyfish and the Lake (水母与湖)",
