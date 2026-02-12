@@ -1266,6 +1266,13 @@
       var musicLongIntroNodes = Array.from(
         document.querySelectorAll(".music-intro-text p")
       );
+      var musicTitleOverridesEn = {
+        "music/track-01.html": "Sincerely, Spring",
+        "music/track-03.html": "Garden",
+        "music/track-05.html": "Silt (Yu)",
+        "music/track-07.html": "Hakoniwa (A Miniature Garden)",
+        "music/track-08.html": "Honkaku mystery (audio pending upload)",
+      };
       if (musicTitle) {
         musicTitle.textContent = dict.musicPageTitle;
       }
@@ -1283,6 +1290,18 @@
         musicLongIntroNodes.forEach(function (node, index) {
           if (dict.musicLongIntroParagraphs[index]) {
             node.textContent = dict.musicLongIntroParagraphs[index];
+          }
+        });
+      }
+      if (safeLang === "en") {
+        Array.from(document.querySelectorAll(".music-list .track-row")).forEach(function (row) {
+          var href = (row.getAttribute("data-href") || "").toLowerCase();
+          var titleNode = row.querySelector(".track-title");
+          if (!titleNode) {
+            return;
+          }
+          if (musicTitleOverridesEn[href]) {
+            titleNode.textContent = musicTitleOverridesEn[href];
           }
         });
       }
