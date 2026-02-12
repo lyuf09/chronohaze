@@ -879,6 +879,209 @@
     part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
   }
 
+  function applyHeAndMeLyricsInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-02.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var part1Heading = findLyricHeading(headings, 1);
+    var part2Heading = findLyricHeading(headings, 2);
+
+    if (!part1Heading || !part2Heading) {
+      return;
+    }
+
+    var part1Text = part1Heading.nextElementSibling;
+    var part2Text = part2Heading.nextElementSibling;
+
+    if (!part1Text || !part2Text || part1Text.tagName !== "P" || part2Text.tagName !== "P") {
+      return;
+    }
+
+    var part1Blocks = [
+      {
+        zh: [
+          "已经变得不爱吃甜食了、",
+          "将被毁掉的日子一并吞噬",
+          "两人的影子交叠",
+          "要是时间能在那天停滞",
+        ],
+        en: [
+          "I don’t crave sweetness anymore",
+          "All the days meant to be ruined are swallowed whole",
+          "Our shadows once overlapped",
+          "If only time had stopped on that day",
+        ],
+      },
+      {
+        zh: [
+          "妄言后的数个无言清晨",
+          "乱窜的情绪还是无可奈何",
+          "似乎真的不属于我吗",
+          "旧疾复发的、泛潮明信片",
+        ],
+        en: [
+          "Several silent mornings after reckless words",
+          "Emotions running wild with nowhere to go",
+          "Was it truly never mine to keep",
+          "A relapse of an old illness、a dampened postcard.",
+        ],
+      },
+      {
+        zh: [
+          "只是夜晚落入你眼睛的画面我也回想不起",
+          "度过满天繁星的冬夜之后要该如何是好？",
+        ],
+        en: [
+          "Even the image of night falling into your eyes",
+          "I can no longer recall",
+          "After passing through that winter sky full of stars",
+          "Where am I supposed to go?",
+        ],
+      },
+      {
+        zh: [
+          "Call my name again",
+          "Like you used to do",
+          "两人虽然已经在不同世界里",
+          "但却越来越能看见你",
+        ],
+        en: [
+          "Call my name again",
+          "Like you used to do",
+          "We now live in different worlds",
+          "Yet I see you more clearly than ever",
+        ],
+      },
+      {
+        zh: [
+          "Look into my eyes",
+          "With a gentle smile",
+          "即使我的爱也依旧留了下来",
+          "最后也成为了阻碍",
+        ],
+        en: [
+          "Look into my eyes",
+          "With a gentle smile",
+          "Even though my love remained where it was",
+          "In the end it only became a weight between us",
+        ],
+      },
+    ];
+
+    var part2Blocks = [
+      {
+        zh: [
+          "我们要一直一直一直在一起 你说过",
+          "单纯的想法像抛开单块的箱头一般",
+          "我已经离开你了多远的距离？",
+          "好像一直都在做着梦",
+        ],
+        en: [
+          "You said we would stay together forever and ever",
+          "A simple thought, stripped bare like a lonely amp without a single effect",
+          "How far have I already drifted from you?",
+          "It feels like I have been dreaming all this time",
+        ],
+      },
+      {
+        zh: [
+          "像普通下午你又弄丢了拨片 那样子",
+          "想着如果能够赶快送你新的就好了",
+          "梦中的电话却总是拨打不通",
+          "还有好多话没对你说",
+        ],
+        en: [
+          "Like those ordinary afternoons when you lost your pick again",
+          "And I wished I could rush one to you right away",
+          "But in the dream, the call never connects",
+          "There are still so many things I never said",
+        ],
+      },
+      {
+        zh: [
+          "Call my name again",
+          "Like you used to do",
+          "两人虽然已经在不同世界里",
+          "但却越来越能看见你",
+        ],
+        en: [
+          "Call my name again",
+          "Like you used to do",
+          "We now live in different worlds",
+          "Yet I see you more clearly than ever",
+        ],
+      },
+      {
+        zh: [
+          "Begging another embrace",
+          "But it never arrives",
+          "在我的眼睛里长出春天之前",
+          "请不要离开我的回忆",
+        ],
+        en: [
+          "Begging another embrace",
+          "But it never arrives",
+          "Before spring grows inside my eyes",
+          "Please don't leave my memories",
+        ],
+      },
+      {
+        zh: [
+          "说过要一起看的海 后来我一个人去了",
+          "在这无法见面的城市里 阴天的骤雨",
+          "即使我不确定什么才是真实的",
+          "但早已习惯的阵阵刺痛 仍提醒着我",
+        ],
+        en: [
+          "You said we’d see the sea together",
+          "But I went alone in the end",
+          "In this city where we were never meant to meet",
+          "The sudden rain under a grey sky",
+          "Even if I no longer know what is real",
+          "The familiar ache still reminds me",
+        ],
+      },
+      {
+        zh: ["于是终于到了遇见我时你的年纪", "于是又到了不能一起共赴的雨季"],
+        en: [
+          "And now I’ve reached the age you were when you met me",
+          "And once again it is the rainy season we cannot share",
+        ],
+      },
+    ];
+
+    function renderBilingualBlocks(blocks) {
+      return blocks
+        .map(function (block) {
+          return block.zh.join("<br />") + "<br /><br />" + block.en.join("<br />");
+        })
+        .join("<br /><br />");
+    }
+
+    part1Text.innerHTML = renderBilingualBlocks(part1Blocks);
+    part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
+  }
+
   function buildLyricColumn(html, extraClass) {
     var column = document.createElement("div");
     column.className = "lyrics-column " + extraClass;
@@ -1746,6 +1949,7 @@
       });
 
       applyAffizierenLyricsInEnglish(safeLang);
+      applyHeAndMeLyricsInEnglish(safeLang);
     }
 
     if (
