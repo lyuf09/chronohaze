@@ -665,6 +665,220 @@
     );
   }
 
+  function applyAffizierenLyricsInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-04.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var part1Heading = findLyricHeading(headings, 1);
+    var part2Heading = findLyricHeading(headings, 2);
+
+    if (!part1Heading || !part2Heading) {
+      return;
+    }
+
+    var part1Text = part1Heading.nextElementSibling;
+    var part2Text = part2Heading.nextElementSibling;
+
+    if (!part1Text || !part2Text || part1Text.tagName !== "P" || part2Text.tagName !== "P") {
+      return;
+    }
+
+    var part1Blocks = [
+      {
+        zh: [
+          "我的回忆像无聊的电影",
+          "想写下什么却无法动行",
+          "季节轮转过筛后的身影",
+          "一直住在你目光消失之地",
+        ],
+        en: [
+          "My memories play like a tedious film,",
+          "I try to write them down, yet nothing moves.",
+          "The seasons sift through the silhouettes,",
+          "Still living where your gaze once faded.",
+        ],
+      },
+      {
+        zh: [
+          "其实一呼一吸毫无意义",
+          "天井光影总会把我规避",
+          "在最坏的日子沉入灰底",
+          "将丑陋一面留在你的眼里",
+        ],
+        en: [
+          "Each breath feels stripped of meaning,",
+          "The skylight and its shifting light avoid me.",
+          "On the worst of days I sink into the ash,",
+          "Leaving my ugliness in your eyes.",
+        ],
+      },
+      {
+        zh: [
+          "既想回到过去魂牵梦萦的地方",
+          "又想被时间推着大步向前走",
+          "想看见更多不同的绚烂光景",
+          "但是哪里看到的都是你",
+        ],
+        en: [
+          "I long to return to the place my soul still haunts,",
+          "Yet I want time to push me forward in great strides.",
+          "I wish to see visions in colours I haven't known,",
+          "But everywhere I look, it is always you.",
+        ],
+      },
+      {
+        zh: [
+          "只是在我的生命里破开了缺口",
+          "怎样都无法填满那些空",
+          "谁能想到那一面竟是最后",
+          "只是胃不断抽动 不断疼痛",
+        ],
+        en: [
+          "A crack opened quietly in my life,",
+          "No matter how, it cannot be filled.",
+          "Who could have known that moment was the last,",
+          "Only the stomach twisting, aching without end.",
+        ],
+      },
+      {
+        zh: [
+          "在沉淀的回忆中一直呆在一起",
+          "定格在冗长的无数瞬间里",
+          "愿景如纸一般破碎在雨里",
+          "而我想不再迷离 不再心悸",
+        ],
+        en: [
+          "We stayed together in memories that settled,",
+          "Frozen in countless lingering frames.",
+          "Dreamscapes tore like paper in the rain,",
+          "And I only wished not to waver, not to tremble.",
+        ],
+      },
+      {
+        zh: ["噢…", "尚未停下的雨"],
+        en: ["Oh…", "The rain has yet to stop."],
+      },
+    ];
+
+    var part2Blocks = [
+      {
+        zh: [
+          "又一个做过的梦消失了",
+          "那些既视感也是幻觉吗",
+          "只是如果转身回头望去",
+          "还有什么事能够拥有意义",
+        ],
+        en: [
+          "Another dream I once had disappears,",
+          "Were those déjà vus only illusions?",
+          "If I were to turn around and look back,",
+          "Is there anything left that still holds meaning?",
+        ],
+      },
+      {
+        zh: [
+          "三个秋天的长度已经足矣",
+          "遗憾对转瞬即逝的青春像是梦呓",
+          "只能弹奏着你偏爱的曲调",
+          "跌跌撞撞跑向未来不知是否有你",
+        ],
+        en: [
+          "Three autumns in length are more than enough.",
+          "Regret murmurs through fleeting youth like sleep-talk.",
+          "All I can do is play the melody you favoured,",
+          "Stumbling toward a future unsure of your shadow.",
+        ],
+      },
+      {
+        zh: [
+          "呼出灰色气体之后的夜里",
+          "像改掉惯用左手一般的将我忘记",
+          "总有一天连诞辰也想不起",
+          "那种气味可真是令人悲戚",
+        ],
+        en: [
+          "In the night after exhaling gray air,",
+          "You forget me like abandoning a habitual left hand.",
+          "One day even my birthday will slip your mind,",
+          "That scent alone could drown a heart.",
+        ],
+      },
+      {
+        zh: [
+          "只是在我的生命里破开了缺口",
+          "不知何处搁置却肆意翻涌",
+          "紧缩的心脏依旧照常聒噪",
+          "我却只是低俯着 无视喧闹",
+        ],
+        en: [
+          "A crack opened quietly in my life,",
+          "Placed nowhere, yet rising without restraint.",
+          "My tightened heart still rattles on,",
+          "While I bend low, ignoring the noise.",
+        ],
+      },
+      {
+        zh: [
+          "在沉淀的回忆中一直呆在一起",
+          "在朝思暮想的泛黄照片里",
+          "所有遗憾的身旁都没有你",
+          "只是很想触碰你 触碰到你",
+        ],
+        en: [
+          "We remained together in memories that settled,",
+          "Inside yellowed photos I once thought of daily.",
+          "Beside every regret, you were never there,",
+          "I only wish to reach you, to reach you once more.",
+        ],
+      },
+      {
+        zh: [
+          "到最后也拥抱着不成熟的心意",
+          "即使已经在最遥远的距离",
+          "你是不想放弃的我的败笔",
+          "海潮声又淹没了 我的雨季",
+        ],
+        en: [
+          "In the end I hold my childish feelings close,",
+          "Even across the greatest distance.",
+          "You are the flaw I cannot give up on,",
+          "And the tide swallows again my rainy season.",
+        ],
+      },
+    ];
+
+    function renderBilingualBlocks(blocks) {
+      return blocks
+        .map(function (block) {
+          return block.zh.join("<br />") + "<br /><br />" + block.en.join("<br />");
+        })
+        .join("<br /><br />");
+    }
+
+    part1Text.innerHTML = renderBilingualBlocks(part1Blocks);
+    part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
+  }
+
   function buildLyricColumn(html, extraClass) {
     var column = document.createElement("div");
     column.className = "lyrics-column " + extraClass;
@@ -1530,6 +1744,8 @@
           heading.textContent = dict.lyricsPart2;
         }
       });
+
+      applyAffizierenLyricsInEnglish(safeLang);
     }
 
     if (
