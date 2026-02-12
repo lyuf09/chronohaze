@@ -1080,6 +1080,43 @@
       "An Ongoing Isabelle Research Project: Formalising Submodular Greedy | Mathematics | Chronohaze";
   }
 
+  function renderSpring2026Post(safeLang, dict) {
+    var path = (window.location.pathname || "").toLowerCase();
+    if (!/\/post\/spring-2026\.html$/.test(path)) {
+      return;
+    }
+
+    var article = document.querySelector(".article");
+    if (!article) {
+      return;
+    }
+
+    if (!article.dataset.zhHtml) {
+      article.dataset.zhHtml = article.innerHTML;
+    }
+
+    if (safeLang !== "en") {
+      article.innerHTML = article.dataset.zhHtml;
+      document.title = "Spring 2026｜新科研记录的开始";
+      return;
+    }
+
+    article.innerHTML = [
+      "<h1>Spring 2026 | A New Research Direction</h1>",
+      '<p class="article-meta">HazezZ · Jan 29, 2026</p>',
+      "<p>This semester, I’m beginning an undergraduate research project in the ORIE department at Cornell, under the supervision of Professor Shoham Sabach.</p>",
+      "<p>Before this, I pursued research training in a different direction, where I explored, supported by tools such as Isabelle, how rigorous mathematical structures can be expressed within formally verifiable logical systems. Although that work is still ongoing, the experience has gradually familiarized me with the rhythm of open ended research problems, and it has strengthened my conviction that I would like to continue working in areas where theory and structure play a central role.</p>",
+      "<p>Last semester, I spent a term doing guided reading and theoretical preparation with Professor Sabach, and I also took his optimization course. This semester, I’m continuing with Optimization for AI, which I have found especially engaging. Through these discussions and coursework, I’ve been able to enter more deeply into the language and framework of modern optimization theory.</p>",
+      "<p>Professor Sabach’s perspective resonates with me in a subtle way: his work reflects a strong mathematical foundation alongside a clear algorithmic viewpoint. This has been particularly helpful for me as a student trained in pure mathematics who is transitioning into optimization research, and I’m grateful for both his guidance and the space to explore.</p>",
+      "<p>Building on this foundation, my research this semester will focus on first-order methods for constrained and composite optimization. I hope to gradually narrow toward a concrete research question within this area and make initial theoretical progress over the course of the semester.</p>",
+      "<p>For me, this represents a new exploration, extending beyond my previous experience in formalization and theoretical reasoning, and moving further into the core questions of modern optimization methods, while trying to find my own entry point at the intersection of structure and algorithms.</p>",
+      "<p>In the coming months, I will occasionally share brief notes and reflections as the project evolves, as a record and continuation of this research journey.</p>",
+      '<p><a class="read-more" href="../math.html">' + dict.backToMath + "</a></p>",
+    ].join("");
+
+    document.title = "Spring 2026 | A New Research Direction | Mathematics | Chronohaze";
+  }
+
   function setSamePageLanguageInUrl(lang) {
     var safeLang = lang === "en" ? "en" : "zh";
     var url = new URL(window.location.href);
@@ -1228,12 +1265,26 @@
       }
 
       if (safeLang === "en") {
+        var springCard = document.querySelector(
+          '.math-card[data-href="post/spring-2026.html"]'
+        );
         var firstIsabelleCard = document.querySelector(
           '.math-card[data-href="post/first-isabelle-proof.html"]'
         );
         var submodularCard = document.querySelector(
           '.math-card[data-href="post/isabelle-submodular-greedy.html"]'
         );
+        if (springCard) {
+          var springTitle = springCard.querySelector(".math-title");
+          var springDesc = springCard.querySelector(".math-desc");
+          if (springTitle) {
+            springTitle.textContent = "Spring 2026 | A New Research Direction";
+          }
+          if (springDesc) {
+            springDesc.textContent =
+              "Beginning undergraduate research in Cornell ORIE on first-order methods for constrained and composite optimization.";
+          }
+        }
         if (firstIsabelleCard) {
           var cardTitle = firstIsabelleCard.querySelector(".math-title");
           var cardDesc = firstIsabelleCard.querySelector(".math-desc");
@@ -1334,6 +1385,7 @@
 
     renderFirstIsabellePost(safeLang, dict);
     renderSubmodularGreedyPost(safeLang, dict);
+    renderSpring2026Post(safeLang, dict);
   }
 
   function injectFloatingLanguageSwitch() {
