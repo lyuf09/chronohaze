@@ -925,6 +925,73 @@
       .trim();
   }
 
+  function renderFirstIsabellePost(safeLang, dict) {
+    var path = (window.location.pathname || "").toLowerCase();
+    if (!/\/post\/first-isabelle-proof\.html$/.test(path)) {
+      return;
+    }
+
+    var article = document.querySelector(".article");
+    if (!article) {
+      return;
+    }
+
+    if (!article.dataset.zhHtml) {
+      article.dataset.zhHtml = article.innerHTML;
+    }
+
+    if (safeLang !== "en") {
+      article.innerHTML = article.dataset.zhHtml;
+      document.title = "我的第一个 Isabelle 形式化证明";
+      return;
+    }
+
+    article.innerHTML = [
+      '<h1>My First Isabelle Formalization Project</h1>',
+      '<p class="article-meta">HazezZ · Oct 18, 2025</p>',
+      "<p><strong>Some proofs deserve to be carved into something more solid.</strong></p>",
+      "<p>What’s written on paper may fade, what’s drawn on the blackboard may be erased,but a formalized proof remains, verifiable and reproducible.</p>",
+      "<h3><strong>What I’m Working On</strong></h3>",
+      "<p>My current research focuses on submodular functions and greedy algorithms. Specifically, I’m formalizing the Nemhauser–Wolsey theorem, a classical result guaranteeing the approximation bound of a greedy algorithm on monotone submodular functions.</p>",
+      "<p>In Isabelle, I aim to:</p>",
+      "<ul>",
+      "<li><p>Turn mathematical objects into formal definitions (functions, sets, monotonicity, submodularity, etc.)</p></li>",
+      "<li><p>Build the proof framework</p></li>",
+      "<li><p>Write a machine-checkable version of the mathematical proof</p></li>",
+      "</ul>",
+      "<p>It’s like talking to Isabelle, but unlike a human listener, it never lets me skip a single step or handwave through anything.</p>",
+      "<h3>Why I Chose Isabelle (and not Lean</h3>",
+      "<p>Mathematics itself is rigorous, but human written proofs often rely on intuition and shortcuts. Isabelle forces me to make every step explicit and verify everything.It’s tiring, but also incredibly honest (and,  my advisor uses Isabelle too XD).</p>",
+      "<p>Through this, I’ve learned:</p>",
+      "<ul>",
+      '<li><p>Which steps that seem “obvious” actually require careful reasoning</p></li>',
+      "<li><p>How logical structures transform into something formally usable</p></li>",
+      "<li><p>How writing proofs can feel like truly learning how to write mathematics carefully</p></li>",
+      "</ul>",
+      "<p>For me, this isn’t just about producing a formal proof , it’s about learning how to express mathematics truthfully.</p>",
+      "<h3>Progress</h3>",
+      "<p>✔ Completed：</p>",
+      "<ul>",
+      "<li><p>Defined filter_limit and sequential_limit</p></li>",
+      "<li><p>Proved that filter_limit implies sequential_limit</p></li>",
+      "<li><p>Built the basic formalization framework for approximation algorithms</p></li>",
+      "</ul>",
+      "<p>🚧 In Progress：</p>",
+      "<ul>",
+      "<li><p>Proving the equivalence between the two limit definitions</p></li>",
+      "<li><p>Formalizing the core logic behind the approximation of submodular functions</p></li>",
+      "</ul>",
+      "<p>❌ Next Steps：</p>",
+      "<ul>",
+      "<li><p>Complete and extend the formalization of the Nemhauser–Wolsey theorem</p></li>",
+      "<li><p>Explore combining optimization theory with formal methods</p></li>",
+      "</ul>",
+      '<p><a class="read-more" href="../math.html">' + dict.backToMath + "</a></p>",
+    ].join("");
+
+    document.title = "My First Isabelle Formalization Project | Mathematics | Chronohaze";
+  }
+
   function setSamePageLanguageInUrl(lang) {
     var safeLang = lang === "en" ? "en" : "zh";
     var url = new URL(window.location.href);
@@ -1071,6 +1138,24 @@
       if (mathIntro) {
         mathIntro.textContent = dict.mathIntro;
       }
+
+      if (safeLang === "en") {
+        var firstIsabelleCard = document.querySelector(
+          '.math-card[data-href="post/first-isabelle-proof.html"]'
+        );
+        if (firstIsabelleCard) {
+          var cardTitle = firstIsabelleCard.querySelector(".math-title");
+          var cardDesc = firstIsabelleCard.querySelector(".math-desc");
+          if (cardTitle) {
+            cardTitle.textContent = "My First Isabelle Formalization Project";
+          }
+          if (cardDesc) {
+            cardDesc.textContent =
+              "Embedding verifiability into proof writing: from motivation to the Nemhauser–Wolsey theorem.";
+          }
+        }
+      }
+
       document.title = safeLang === "en" ? "Mathematics | Chronohaze" : "数学 | Chronohaze";
     }
 
@@ -1143,6 +1228,8 @@
           " | Chronohaze";
       }
     }
+
+    renderFirstIsabellePost(safeLang, dict);
   }
 
   function injectFloatingLanguageSwitch() {
