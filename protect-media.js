@@ -990,6 +990,126 @@
     part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
   }
 
+  function applyMoonlitGardenLyricsInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-03.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var part1Heading = findLyricHeading(headings, 1);
+    var part2Heading = findLyricHeading(headings, 2);
+
+    if (!part1Heading || !part2Heading) {
+      return;
+    }
+
+    var part1Text = part1Heading.nextElementSibling;
+    var part2Text = part2Heading.nextElementSibling;
+
+    if (!part1Text || !part2Text || part1Text.tagName !== "P" || part2Text.tagName !== "P") {
+      return;
+    }
+
+    var part1Blocks = [
+      {
+        zh: [
+          "每次想到你 都会种下一株",
+          "慢慢沉没在 上涨夜幕",
+          "时间推着我 你化作的音符",
+          "浮在这沉静的风里",
+        ],
+        en: [
+          "Each time I think of you, I plant another one,",
+          "slowly sinking into the rising night.",
+          "Time keeps pushing me forward,",
+          "the notes you became drift in this quiet wind.",
+        ],
+      },
+      {
+        zh: [
+          "每当我沉睡时 你的笑脸浮现",
+          "想共度些时间 好好地说再见",
+          "你曾经弹奏过 多少黎明与黑夜",
+          "都已然消逝在 你画下的句点",
+        ],
+        en: [
+          "Whenever I fall asleep, your smiling face appears.",
+          "I want a little more time, to say goodbye properly.",
+          "How many dawns and nights did you once play?",
+          "All of them have vanished where you drew the final period.",
+        ],
+      },
+      {
+        zh: [
+          "清风轻拂过 随手拨弄一束",
+          "万籁俱寂时 幻象须臾",
+          "裹挟着深夜 怀念那副景色",
+          "不知从何时已褪色",
+        ],
+        en: [
+          "A soft breeze passes by, brushing through a handful at random,",
+          "in the hush of everything, an illusion lasts only a moment.",
+          "Carried by midnight, I miss that scene,",
+          "and somehow it’s been fading for a long time.",
+        ],
+      },
+    ];
+
+    var part2Blocks = [
+      {
+        zh: [
+          "你被时间带走 光阴日月如梭",
+          "以前哼唱的歌 如今剩我一个",
+          "你曾经弹奏过 多少夕阳与白昼",
+          "暗夜始终未明 从离去的那刻",
+        ],
+        en: [
+          "Time took you away, the days and months rushed on.",
+          "Songs you used to hum, now I’m the only one left.",
+          "How many sunsets and daylight did you once play?",
+          "The night has never truly brightened since the moment you left.",
+        ],
+      },
+      {
+        zh: ["如果那颗星星能降临在你身旁"],
+        en: ["If only that star could fall beside you..."],
+      },
+      {
+        zh: ["月光落入的花园", "请不要让我入眠"],
+        en: ["A garden where moonlight settles,", "please don’t let me fall asleep."],
+      },
+    ];
+
+    function renderBilingualBlocks(blocks) {
+      return blocks
+        .map(function (block) {
+          return block.zh.join("<br />") + "<br /><br />" + block.en.join("<br />");
+        })
+        .join("<br /><br />");
+    }
+
+    part1Text.innerHTML = renderBilingualBlocks(part1Blocks);
+    part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
+  }
+
   function applyAffizierenLyricsInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -2516,6 +2636,7 @@
       applySincerelySpringIntroInEnglish(safeLang);
       applySincerelySpringLyricsInEnglish(safeLang);
       applyMoonlitGardenIntroInEnglish(safeLang);
+      applyMoonlitGardenLyricsInEnglish(safeLang);
       applyAffizierenIntroInEnglish(safeLang);
       applyAffizierenNotesInEnglish(safeLang);
       applyAffizierenLyricsInEnglish(safeLang);
