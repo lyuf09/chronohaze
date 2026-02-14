@@ -1631,6 +1631,8 @@
       [/\(两天写完\)/g, "(finished within 2days)"],
       [/（一个小时）/g, "（finished in one hour）"],
       [/\(一个小时\)/g, "(finished in one hour)"],
+      [/过春天，Sincerely/g, "Passing the Spring"],
+      [/两年的回响/g, "Echos of two years"],
       [/起子/g, "Johnny Zhou"],
       [/凛野/g, "Rinya"],
       [/文心/g, "Wenxin"],
