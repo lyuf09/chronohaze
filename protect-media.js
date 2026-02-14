@@ -989,6 +989,64 @@
     intro.innerHTML = paragraphs.join("<br /><br />");
   }
 
+  function applyMoonlitGardenIntroInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-03.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var workHeading =
+      headings.find(function (heading) {
+        var normalized = normalizeText(heading.textContent).toLowerCase();
+        return (
+          normalized === normalizeText("作品介绍").toLowerCase() ||
+          normalized === normalizeText("About the work").toLowerCase()
+        );
+      }) || null;
+
+    if (!workHeading) {
+      return;
+    }
+
+    var intro = workHeading.nextElementSibling;
+    if (!intro || intro.tagName !== "P") {
+      return;
+    }
+
+    var paragraphs = [
+      "\"Moonlit Garden\" is a lullaby written for the night.",
+      "It belongs to Ipomoea alba, yet it arrives in a completely different form. Not with the sharp edges of prog metalcore, and not with violent emotional surges, but with a clear, gentle softness.<br />Moonlight in blue violet tones, tinted with the faintest blush of pink.",
+      "While writing it, I kept returning to one image:<br />“In the night, each flower I plant is an emotion from a moment when I thought of him.”",
+      "At first, these flowers were intense, an unbearable sadness, bitterness, resistance to his leaving. Over time, they softened into quieter feelings.",
+      "A mild, persistent care, occasional gratitude, and when I looked back again, a trace of dislike tangled in with everything else.",
+      "I buried those emotions quietly in the soil, and in the end they grew into a garden no one could see, one that exists only inside the night. In reality, my garden at home has never had flowers at all, so this garden is entirely abstract. A private landscape imagined into being.",
+      "The song is light and clean, but the emotion stays sharply defined. Clean guitar in a gentle mixed time signature gives the melody a particular emptiness, something you can hear, yet can’t quite hold onto, like thoughts that return again and again, never fully released. It’s a rhythm that almost disappears, and yet leaves its full weight behind.<br />And a small frustration: at the time I was carrying my bass and couldn’t bring my guitar to uni, so the 700pounds Ibanez I bought on the spot never quite produced the harmonics I wanted:(",
+      "Although the song points to the same person as the rest of the series, “Moonlit Garden” is almost the gentlest piece I’ve written. It isn’t sharp, and it isn’t an accusation. Instead it’s a kind of understanding that only appears at night, after so many emotions, finally worn down by time into something quiet.",
+      "In the final electric piano section, I brought back a motif from Ipomoea alba. In that moment, the feeling is both an echo and a regret. Lifting something unspeakable from deep inside, and then placing it softly back into the night. There is a slight unwillingness to let go, but it settles, in the end, into a small, downward leaning calm.",
+      "It’s like a whisper sung from the edge of memory.<br />A song written to help you fall asleep, yet one that makes you not want to.",
+    ];
+
+    intro.innerHTML = paragraphs.join("<br /><br />");
+  }
+
   function applyHeAndMeLyricsInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -2060,6 +2118,7 @@
       });
 
       applySincerelySpringIntroInEnglish(safeLang);
+      applyMoonlitGardenIntroInEnglish(safeLang);
       applyAffizierenLyricsInEnglish(safeLang);
       applyHeAndMeIntroInEnglish(safeLang);
       applyHeAndMeLyricsInEnglish(safeLang);
