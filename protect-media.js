@@ -3410,7 +3410,7 @@
       "music/track-14.html": "Willow (柳)",
       "music/track-15.html": "Yorugao (Moonflower) (夜顔)",
       "music/track-16.html": "Mortal Frame (Utsusemi) (現人)",
-      "music/track-17.html": "Moonlapse (feat. Johnny Zhou) (audio pending upload)",
+      "music/track-17.html": "Moonlapse (feat. Johnny Zhou)",
       "music/track-20.html": "Supernova (スパーノヴァ)",
       "music/track-21.html": "Lone Star Prelude (孤星Prelude)",
       "music/track-23.html": "Fomalhaut (フォーマルハウト/南鱼座α)",
