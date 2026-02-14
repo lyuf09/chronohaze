@@ -2378,6 +2378,139 @@
     part2Text.innerHTML = renderMixedBlocks(part2Blocks);
   }
 
+  function applySupernovaLyricsInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-20.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var part1Heading = findLyricHeading(headings, 1);
+    var part2Heading = findLyricHeading(headings, 2);
+
+    if (!part1Heading || !part2Heading) {
+      return;
+    }
+
+    var part1Text = part1Heading.nextElementSibling;
+    var part2Text = part2Heading.nextElementSibling;
+
+    if (!part1Text || !part2Text || part1Text.tagName !== "P" || part2Text.tagName !== "P") {
+      return;
+    }
+
+    var part1Blocks = [
+      {
+        zh: ["広大な宇宙に比べて", "自分が何なのかわからない", "直面したくない", "挫折感に包まれる"],
+        en: [
+          "Compared to the vast universe,",
+          "I don’t even know what I am.",
+          "I don’t want to face it,",
+          "I’m wrapped in failure.",
+        ],
+      },
+      {
+        zh: ["あの予期しないこと", "後悔だらけだった", "昨日と同じ", "何も知らない灰色"],
+        en: [
+          "That unexpected thing,",
+          "nothing but regret.",
+          "Same as yesterday,",
+          "a grey that knows nothing.",
+        ],
+      },
+      {
+        zh: ["時計台に私はたまには夜明けの青に染まる", "夢から覚めたような", "邪魔な感情をすべて消したい", "暗闇で一人になるまで"],
+        en: [
+          "At the clock tower, sometimes I’m stained",
+          "in the blue of dawn,",
+          "as if waking from a dream.",
+          "I want to erase every intrusive feeling",
+          "until I’m alone in the dark.",
+        ],
+      },
+      {
+        zh: ["雑踏から離れる", "静かに漂っている", "音もなく", "夜空に隠れている"],
+        en: [
+          "I step away from the crowd,",
+          "drifting quietly,",
+          "without a sound,",
+          "hiding in the night sky.",
+        ],
+      },
+      {
+        zh: ["切に闇を破りたい", "できないと気づいたときに", "飽和していく", "ものが大嫌いだな"],
+        en: [
+          "I ache to tear open the darkness,",
+          "and the moment I realize I can’t,",
+          "I start to hate",
+          "everything that saturates, that overflows.",
+        ],
+      },
+    ];
+
+    var part2Blocks = [
+      {
+        zh: ["「 時間が命を食べてしまう」", "「 私たちの心を食い荒らす」"],
+        en: ["“Time ends up eating life.”", "“It ravages our hearts.”"],
+      },
+      {
+        zh: ["時計台に私はたまには夜明けの青に染まる", "夢から覚めたような", "邪魔な感情をすべて消したい", "暗闇で一人になるまで"],
+        en: [
+          "At the clock tower, sometimes I’m stained",
+          "in the blue of dawn,",
+          "as if waking from a dream.",
+          "I want to erase every intrusive feeling",
+          "until I’m alone in the dark.",
+        ],
+      },
+      {
+        zh: ["いつまでたっても自分になれない", "思い出した、きっと君のせいだ", "直らない手癖と終わったパーティー、", "だから、どうか、どうか、どうか殺してくれ"],
+        en: [
+          "No matter how long it takes,",
+          "I still can’t become myself.",
+          "I remember now,",
+          "it’s probably your fault.",
+          "Habits that won’t heal,",
+          "a party that’s already over,",
+          "so please, please, please…",
+          "end me.",
+        ],
+      },
+      {
+        zh: ["膨張し、崩れ落ち 、消える"],
+        en: ["Swelling, collapsing,", "disappearing."],
+      },
+    ];
+
+    function renderBilingualBlocks(blocks) {
+      return blocks
+        .map(function (block) {
+          return block.zh.join("<br />") + "<br /><br />" + block.en.join("<br />");
+        })
+        .join("<br /><br />");
+    }
+
+    part1Text.innerHTML = renderBilingualBlocks(part1Blocks);
+    part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
+  }
+
   function applyAffizierenIntroInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -3592,6 +3725,7 @@
       applyWillowIntroInEnglish(safeLang);
       applyWillowLyricsInEnglish(safeLang);
       applyAgnyLyricsInEnglish(safeLang);
+      applySupernovaLyricsInEnglish(safeLang);
       applyMrIdiographicLyricsInEnglish(safeLang);
       applyAffizierenIntroInEnglish(safeLang);
       applyAffizierenNotesInEnglish(safeLang);
