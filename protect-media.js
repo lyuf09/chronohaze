@@ -1101,6 +1101,65 @@
     intro.innerHTML = paragraphs.join("<br /><br />");
   }
 
+  function applyAffizierenNotesInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-04.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var paragraphs = Array.from(article.querySelectorAll("p"));
+    var target =
+      paragraphs.find(function (node) {
+        var text = normalizeText(node.textContent).toLowerCase();
+        return (
+          text.indexOf(normalizeText("音乐上的想法：").toLowerCase()) === 0 ||
+          text.indexOf(normalizeText("Musical notes").toLowerCase()) === 0
+        );
+      }) || null;
+
+    if (!target) {
+      return;
+    }
+
+    var blocks = [
+      "<strong>Musical notes</strong>",
+      "Opening: The track begins with a minimal, repeating piano figure. I intentionally used the guitar pro piano sound instead of a velocity-shaped DAW piano, since no matter how I tweaked the MIDI instruments, they never reached the coldness I wanted. The guitar pro piano has the right “mechanical, inorganic” texture.",
+      "Atmosphere guitars: Influenced by Novelists, the clean guitar is built on heavy delay and reverb, letting the space expand like slow breathing. This texture runs through the entire song, with density adjusted only as the emotion requires.",
+      "Main riff entry: After the intro, all instruments (except vocals) lock into the main riff.",
+      "Tuning: I used A♯–E–A–D–G–B–E (raised A), slightly higher than my usual drop A, which was chosen for the key. The riff itself isn’t difficult, I added triplets to soften the groove. The bass is where it became interesting. I originally wrote it as hybrid picking, but when recording, slap felt more natural, so I switched to slap.",
+      "Verse meter play: The first verse begins with vocals (still using Miku V4C) and clean guitar only, where I hid a small rhythmic device:<br /><br />-bar 2: 4/4 → 9/8<br />-bar 3: back to 4/4<br />-bar 4: 7/8<br /><br />then repeat",
+      "With so few instruments, these changes are perceptually softened, turning into a subtle instability, like a shadow swaying in the dark.",
+      "Drums enter: Once the drums come in, the groove settles back into 4/4, as if the listener finally steps onto solid ground again.",
+      "Pre-chorus: I reintroduce 7/8 against 4/4. The piano line is intentionally restless, an overlap of unease, hesitation, and expectation. The bass suggests the melodic direction first, then the guitars follow, forming a gradual buildup. Elements then peel away to hold the emotion before the chorus.",
+      "Chorus design: I deliberately let the chorus begin with vocals + piano alone for eight bars, so the emotion feels suddenly emptied out. Then the full band crashes in, capturing an internal shock in a single surge. Rhythm guitars stay chordal and restrained since I wanted atmosphere over technique. The bass carries continuity through a slap variant of the main riff. There is one piano note choice that sounds slightly outside (at least to me), but it isn’t, it’s there to create a tiny offbeat emotional tension (one of my favorite moments, because it happened almost unintentionally).",
+      "Harmony: Interestingly, the harmonic structure is not “progressive” in a technical sense. I intentionally reduced complexity to make the sense of restraint clearer.",
+      "Interlude / second verse: The interlude echoes the intro, but with added melodic fills. The second verse is heavier, with rhythm guitars enter, and the bass switches from slap back to hybrid picking.",
+      "The “spoken” section: After two chill drum only bars comes the most distinctive passage, what I call the “spoken/chanting” section. It contains only the loose, simple drums, the same piano from the intro, sliced vocal fragments (casual humming), samples and ambience, and my spoken voice.",
+      "Solo writing: The instrumental solo is heavily influenced by DualInsomiNa, which the rhythm guitar is almost non repeating and line driven, pushing forward through momentary tension (the bass follows with a pick). Technically it’s not a section I can perform perfectly live. The first two notes are also a deliberate (and slightly amusing) echo of a solo that he once featured on my other song.",
+      "Final chorus and landing: The last chorus contrasts sharply with the first, with guitars become more “orthodox” prog metalcore, with palm mutes, djent articulation, and embellishments, while the bass stays on pick to shadow the guitar lines. After the emotion peaks, the arrangement collapses back to the earlier, cleaner texture. One empty bar, and the song ends with piano + vocals again, layered with seaside ambience, like a tide covering the memory once more.",
+      "“And the tide swallows again my rainy season.”",
+    ];
+
+    target.innerHTML = blocks.join("<br /><br />");
+  }
+
   function applyHeAndMeLyricsInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -2174,6 +2233,7 @@
       applySincerelySpringIntroInEnglish(safeLang);
       applyMoonlitGardenIntroInEnglish(safeLang);
       applyAffizierenIntroInEnglish(safeLang);
+      applyAffizierenNotesInEnglish(safeLang);
       applyAffizierenLyricsInEnglish(safeLang);
       applyHeAndMeIntroInEnglish(safeLang);
       applyHeAndMeLyricsInEnglish(safeLang);
