@@ -777,6 +777,219 @@
     intro.innerHTML = paragraphs.join("<br /><br />");
   }
 
+  function applySincerelySpringLyricsInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-01.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var part1Heading = findLyricHeading(headings, 1);
+    var part2Heading = findLyricHeading(headings, 2);
+
+    if (!part1Heading || !part2Heading) {
+      return;
+    }
+
+    var part1Text = part1Heading.nextElementSibling;
+    var part2Text = part2Heading.nextElementSibling;
+
+    if (!part1Text || !part2Text || part1Text.tagName !== "P" || part2Text.tagName !== "P") {
+      return;
+    }
+
+    var part1Blocks = [
+      {
+        zh: [
+          "在这里的第二个春天",
+          "因为是你 街道才拥有了意义",
+          "垂下的发丝掩住了笑意",
+          "而我的目光只是跟随着你",
+        ],
+        en: [
+          "In this second spring I found myself in,",
+          "the streets learned meaning from you.",
+          "Loose strands of hair fell, hiding your smile,",
+          "and all my eyes could do was follow.",
+        ],
+      },
+      {
+        zh: [
+          "微风点缀的日子",
+          "你的笑容 闪烁在阳光中飘散",
+          "明知徒然却重复的日常",
+          "连夏天都失去了期待理由",
+        ],
+        en: [
+          "Days laced with a soft breeze,",
+          "your smile flickered, drifting in sunlight.",
+          "I knew it was futile, yet the same days repeated,",
+          "and even summer lost its reason to be hoped for.",
+        ],
+      },
+      {
+        zh: ["光 洒在耳尖", "泛红颜色", "映在眼中"],
+        en: [
+          "Light—",
+          "spilling over the tips of your ears,",
+          "a flush of red,",
+          "caught in my eyes.",
+        ],
+      },
+      {
+        zh: ["明 天该怎样", "该仍让你", "笑出来吗"],
+        en: ["Tomorrow—", "what should I do?", "Should I still try", "to make you smile?"],
+      },
+      {
+        zh: [
+          "在奋力追赶犹豫 与坚定的春日里",
+          "你确确实实的陪伴在我身旁",
+          "在有限的时刻里却沉默不语",
+          "但只是没来由的想看着你",
+        ],
+        en: [
+          "In a spring I chased through, torn between hesitation and resolve,",
+          "you were truly there, right beside me.",
+          "In moments that were brief, you stayed silent,",
+          "yet for no reason at all, I only wanted to watch you.",
+        ],
+      },
+      {
+        zh: [
+          "你给予我那不用为了寻找价值",
+          "而迷失于这本身的方式里",
+          "义无反顾踏向不可见的未来",
+          "下次还是约在二楼角落见吧",
+        ],
+        en: [
+          "You gave me a way to live",
+          "without getting lost in the act of searching for “worth.”",
+          "To step forward, without looking back, into an unseen future—",
+          "let’s meet again next time, in that corner on the second floor.",
+        ],
+      },
+    ];
+
+    var part2Blocks = [
+      {
+        zh: [
+          "你轻声哼唱着的阴天",
+          "棉花糖里 巧克力味却轻飘飘",
+          "寂寥无声中的那段话",
+          "或许比想象的还更加的糟糕",
+        ],
+        en: [
+          "On a cloudy day you hummed so softly,",
+          "the chocolate inside the cotton candy felt weightless.",
+          "That sentence, spoken in the soundless quiet",
+          "maybe it was worse than I’d imagined.",
+        ],
+      },
+      {
+        zh: [
+          "我们之间也变了呢",
+          "想要说出的话却总是找不到",
+          "风的声音、光的粒子",
+          "下午的你喜欢的旋律",
+        ],
+        en: [
+          "We changed too, didn’t we?",
+          "The words I want to say are always out of reach.",
+          "The sound of wind, the grains of light,",
+          "and the melody you liked in the afternoon.",
+        ],
+      },
+      {
+        zh: [
+          "「時間を、どうやって巻き戻せばいいの…？」",
+          "優しく、あの日と同じ声で。",
+          "眠ったままの淡い緑が",
+          "静かに、夜明けを待っている。",
+          "夢は、何層も重なって",
+          "光の向こうの芝生へ落ちていく。",
+          "耳に残るのは",
+          "君が嫌いだった",
+          "あのジャズギターの音だけ。",
+        ],
+        en: [
+          "“How do you rewind time?”—in that gentle voice,",
+          "the same as that day.",
+          "Pale green, still asleep,",
+          "quietly waiting for dawn.",
+          "My dream falls, layer by layer,",
+          "onto the lawn beyond the light,",
+          "and what remains in my ears",
+          "is only the jazz guitar sound",
+          "you never liked.",
+        ],
+      },
+      {
+        zh: [
+          "在我早已知晓的 会结束的春日里",
+          "仍在寻找着话语背后的意义",
+          "见到你后却竟是平凡的话语",
+          "明明不愿它沦为普通定义",
+        ],
+        en: [
+          "In a spring I already knew would end,",
+          "I still searched for meanings behind every word.",
+          "But when I saw you, the words turned ordinary,",
+          "and I hated how easily it became a common definition.",
+        ],
+      },
+      {
+        zh: [
+          "你给予我那不用为了寻找价值",
+          "而迷失于这本身的方式里",
+          "走过无数次熟悉的十字路口",
+          "仿佛将快看不见你静静伫立",
+        ],
+        en: [
+          "You gave me a way to live",
+          "without getting lost in the act of searching for “worth.”",
+          "Passing that familiar crosswalk countless times,",
+          "I could almost see you standing there, quietly,",
+          "as you began to fade.",
+        ],
+      },
+      {
+        zh: ["不知为何但却闪闪发光的声音", "在春天尽头里"],
+        en: [
+          "A sound that shines for no reason at all,",
+          "at the very end of spring—",
+        ],
+      },
+    ];
+
+    function renderBilingualBlocks(blocks) {
+      return blocks
+        .map(function (block) {
+          return block.zh.join("<br />") + "<br /><br />" + block.en.join("<br />");
+        })
+        .join("<br /><br />");
+    }
+
+    part1Text.innerHTML = renderBilingualBlocks(part1Blocks);
+    part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
+  }
+
   function applyAffizierenLyricsInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -2301,6 +2514,7 @@
       });
 
       applySincerelySpringIntroInEnglish(safeLang);
+      applySincerelySpringLyricsInEnglish(safeLang);
       applyMoonlitGardenIntroInEnglish(safeLang);
       applyAffizierenIntroInEnglish(safeLang);
       applyAffizierenNotesInEnglish(safeLang);
