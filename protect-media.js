@@ -1805,6 +1805,62 @@
     intro.innerHTML = paragraphs.join("<br /><br />");
   }
 
+  function applyHakoniwaIntroInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-07.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var workHeading =
+      headings.find(function (heading) {
+        var normalized = normalizeText(heading.textContent).toLowerCase();
+        return (
+          normalized === normalizeText("作品介绍").toLowerCase() ||
+          normalized === normalizeText("About the work").toLowerCase()
+        );
+      }) || null;
+
+    if (!workHeading) {
+      return;
+    }
+
+    var intro = workHeading.nextElementSibling;
+    if (!intro || intro.tagName !== "P") {
+      return;
+    }
+
+    var paragraphs = [
+      "\"Hakoniwa\" is, without exaggeration, the best composition I've ever written (or, best melody written by me). It is a song built out of white and a faded, pale yellow, the colour of paper itself.",
+      "The Chinese lyrics here are not a translation. I actually wrote two complete sets of lyrics in two languages, matched line by line in structure and meter. Among all my works, this one carries the gentlest and most tender warmth. It isn't exactly sad, it's a softness that flows quietly, almost soundlessly.",
+      "The song was born in my first autumn at uni, not long after I turned eighteen. There was a trace of condensation on the window, the wind felt mild, and my emotions matched that atmosphere, gentle, slightly sentimental, quiet, but not sorrowful.",
+      "Its earliest title was \"Residual.\" At the time, I imagined \"what remains\" after an intense outpouring before adulthood, the amount left after something has been filtered away. But inside me there was always a small hakoniwa, a miniature enclosed garden holding faded memories, scattered points of light, and calm, muted colors. Phrases in the lyrics like \"faded memories\" and \"fragments casually put away\" faintly echo the emotional world of Ipomoea alba, yet this song also feels like a new beginning.",
+      "There is an unobtrusive but important predecessor, \"Hakoniwa\" began as a rework of a piece I wrote in early 2021, \"Hypohyphnotic.\" At first, I thought I simply wanted to revisit an old work and make it more mature. But in the end I only kept the chorus harmonic progression and structure, and I carried over the entire interlude., everything else was discarded. Once I truly started writing, I realized I could no longer return to the original emotional state. Hypohyphnotic belonged to another phase, another texture, while my mind at that time had become lighter, softer, and clearer. I understood that if I kept following the old path, the song would never grow into what it wanted to become.",
+      "Musically, the first half is piano alone, like moisture settling gently when you close your eyes. In the chorus, clean guitar enters, making the emotion brighter yet still weightless. After the interlude, acoustic guitar, drums, and bass gradually unfold, giving the hakoniwa a real pulse. The second chorus becomes a full prog metalcore arrangement, yet it remains gentle rather than sharp, more like a natural expansion than an impact. After the solo, it returns to sunlit piano, which feels, to me, like the ideal ending.",
+      "One detail I find almost funny now is that, I wrote \"Hakoniwa\" before I owned a 7string, and at a time when I barely knew how to play guitar. So the MIDI fake guitar in the demo sounds genuinely rough to my ears today. Still, whenever I look back, I feel it remains my strongest composition since I started writing music in 2020. That's why I've long planned to record the guitars properly and do a real mix (something I'll be doing soon). I even drafted a non-prog version where acoustic guitar drives the chorus rhythm, more like a dusk coloured hakoniwa, and I'll most likely finish it in the future.",
+      "\"Hakoniwa\" doesn't belong to any series, but it carries a faint afterglow from Ipomoea alba. It is a small song about softness, about the quietness and gentle sensitivity of early autumn.",
+    ];
+
+    intro.innerHTML = paragraphs.join("<br /><br />");
+  }
+
   function applyAffizierenIntroInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -3014,6 +3070,7 @@
       applyMoonlitGardenLyricsInEnglish(safeLang);
       applySiltLyricsInEnglish(safeLang);
       applySiltIntroInEnglish(safeLang);
+      applyHakoniwaIntroInEnglish(safeLang);
       applyMrIdiographicLyricsInEnglish(safeLang);
       applyAffizierenIntroInEnglish(safeLang);
       applyAffizierenNotesInEnglish(safeLang);
