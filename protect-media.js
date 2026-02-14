@@ -1047,6 +1047,60 @@
     intro.innerHTML = paragraphs.join("<br /><br />");
   }
 
+  function applyAffizierenIntroInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-04.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var workHeading =
+      headings.find(function (heading) {
+        var normalized = normalizeText(heading.textContent).toLowerCase();
+        return (
+          normalized === normalizeText("作品介绍").toLowerCase() ||
+          normalized === normalizeText("About the work").toLowerCase()
+        );
+      }) || null;
+
+    if (!workHeading) {
+      return;
+    }
+
+    var intro = workHeading.nextElementSibling;
+    if (!intro || intro.tagName !== "P") {
+      return;
+    }
+
+    var paragraphs = [
+      "“Affizieren” was born at the beginning of my autumn at nineteen, the point when everything starts to fade, the temperature drops, and emotions become easier to sink beneath the surface. I found myself looking back on earlier seasons without a sign. When the air turned cold, what remained of those feelings resurfaced, not as intense as before, no longer dazzling enough to be unbearable, but instead as a quiet, almost monotonous sadness in deep blue and grey white tones.",
+      "The psychological state behind the song was one of calm, but constantly rising tide. The images were unusually clear as I wrote, light fractured by autumn wind, the slow swell of surf rising from somewhere deep, and the feeling of walking alone through a long, grey blue alley.",
+      "“vision shattered by rain” a return to the summer when I was seventeen, a youthfully fragile illusion that only rain can completely destroy.",
+      "The word “Affizieren” comes from philosophy.<br />It describes the subtle yet profound way emotions and the external world can affect a subject. Like being moved, nudged slightly, having one’s breathing altered by a single moment. I love the word because it isn’t about my choosing to feel something. It is about how certain things, like seasons, memories, a glance, a voice, quietly, passively leave texture inside me.",
+      "For me, “Affizieren” is an emotional memorial to a period of time. Although it arises from personal feeling, it is not written for any specific person. Throughout the writing process, I deliberately removed direct reference and focused only on the core shape of the emotion.",
+      "At its heart, this song is an act of self observation. It wasn’t created to be heard by anyone in particular. Still, if these melodies and words let someone glimpse a faint blue light inside their own feelings, I would consider that a beautiful outcome.",
+    ];
+
+    intro.innerHTML = paragraphs.join("<br /><br />");
+  }
+
   function applyHeAndMeLyricsInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -2119,6 +2173,7 @@
 
       applySincerelySpringIntroInEnglish(safeLang);
       applyMoonlitGardenIntroInEnglish(safeLang);
+      applyAffizierenIntroInEnglish(safeLang);
       applyAffizierenLyricsInEnglish(safeLang);
       applyHeAndMeIntroInEnglish(safeLang);
       applyHeAndMeLyricsInEnglish(safeLang);
