@@ -1257,6 +1257,173 @@
     part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
   }
 
+  function applyMrIdiographicLyricsInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-06.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var part1Heading = findLyricHeading(headings, 1);
+    var part2Heading = findLyricHeading(headings, 2);
+
+    if (!part1Heading || !part2Heading) {
+      return;
+    }
+
+    var part1Text = part1Heading.nextElementSibling;
+    var part2Text = part2Heading.nextElementSibling;
+
+    if (!part1Text || !part2Text || part1Text.tagName !== "P" || part2Text.tagName !== "P") {
+      return;
+    }
+
+    var part1Blocks = [
+      {
+        zh: ["目に映った"],
+        en: ["Through my eyes..."],
+      },
+      {
+        zh: [
+          "行き交う人々の中に昔の面影を探す",
+          "夜の街を歩いてるだけ 適当に",
+          "あの、元気ですかって",
+          "こんなことも言えないんだ",
+          "あの時スクリーンの向こうは",
+          "手の届かない距離でした",
+          "殴り書きの写真しか残っていない",
+        ],
+        en: [
+          "In the crowd of people passing by, I catch myself looking for an old outline,",
+          "but really, I’m just wandering the city at night, aimlessly.",
+          "Like… “Hey, how’ve you been?”",
+          "I can’t even say something that simple.",
+          "Back then, the other side of the screen",
+          "was a distance my hands could never reach.",
+          "All that’s left now",
+          "are a few scribbled photos, nothing else.",
+        ],
+      },
+      {
+        zh: ["他の人と比べていないか？私を", "聞かせてよ、昔の話", "あなたのために時間を止める"],
+        en: [
+          "Have you ever compared me to someone else?",
+          "Tell me. Let me hear the old stories.",
+          "For you,",
+          "I’d pause time, just a little.",
+        ],
+      },
+      {
+        zh: [
+          "以前あなたに抱いていた疑問が解けました",
+          "軒に白く落ちた花びらがまだ揺れていた",
+          "でもどんなに頑張ってもあなたにはなれない",
+          "今でも覚えてるか、口論のことを",
+        ],
+        en: [
+          "The questions I used to have about you are finally answered now.",
+          "White petals that fell onto the eaves are still trembling there.",
+          "But no matter how hard I try, I can’t become you.",
+          "Do you still remember,",
+          "that argument we had?",
+        ],
+      },
+    ];
+
+    var part2Blocks = [
+      {
+        zh: [
+          "朝のお茶を飲んで月光をあなたのギターに注ぎる",
+          "雨夜に予報を そちらは晴れ",
+          "似ているがあの時 気持ちとは重なりない",
+          "一人になるとまた浮かんできる",
+          "灰色の瞳の失望に戻ったようだ",
+          "本当はこんなはずじゃなかったんだ",
+        ],
+        en: [
+          "Morning tea,",
+          "moonlight pouring onto your guitar.",
+          "On a rainy night I check the forecast,",
+          "it’s sunny where you are.",
+          "It looks similar,",
+          "but it doesn’t overlap with how it felt back then.",
+          "And whenever I’m alone, it all comes back,",
+          "like I’ve returned to that disappointment in that grey eyes.",
+          "Honestly…",
+          "it wasn’t supposed to be like this.",
+        ],
+      },
+      {
+        zh: ["話から 言外の意味を考えた", "訳も分からずあなたの国のニュースを見ました"],
+        en: [
+          "I start reading into what you said, what you didn’t say.",
+          "Without knowing why,",
+          "I end up watching the news from your country.",
+        ],
+      },
+      {
+        zh: [
+          "「今夜、どうして君について話をしたのかわかない」",
+          "最後まで、 神は罰すら下そうとしない",
+          "レコードを置いて 大丈夫だ とつぶやいた",
+          "今でも覚えてるか、「未来」のことを",
+        ],
+        en: [
+          "“Tonight, I don’t even know why I started talking about you.”",
+          "In the end, even God refuses to hand down a punishment.",
+          "I put on a record",
+          "and whisper, “It’s fine.”",
+          "Do you still remember,",
+          "the thing we called “the future”?",
+        ],
+      },
+      {
+        zh: [
+          "以前あなたに抱いていた疑問が解けました",
+          "軒に白く落ちた花びらがまだ揺れてた",
+          "結局 、 今、誰のせいなのかわからないんだ",
+          "灯火、初夏 、なぜ変化し続けるのでしょうか",
+        ],
+        en: [
+          "The questions I used to have about you are finally answered now.",
+          "White petals that fell onto the eaves are still trembling there.",
+          "And yet, in the end, even now,",
+          "I still don’t know whose fault it was.",
+          "Streetlights. Early summer.",
+          "Why do they keep changing?",
+        ],
+      },
+    ];
+
+    function renderBilingualBlocks(blocks) {
+      return blocks
+        .map(function (block) {
+          return block.zh.join("<br />") + "<br /><br />" + block.en.join("<br />");
+        })
+        .join("<br /><br />");
+    }
+
+    part1Text.innerHTML = renderBilingualBlocks(part1Blocks);
+    part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
+  }
+
   function applyAffizierenLyricsInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -2847,6 +3014,7 @@
       applyMoonlitGardenLyricsInEnglish(safeLang);
       applySiltLyricsInEnglish(safeLang);
       applySiltIntroInEnglish(safeLang);
+      applyMrIdiographicLyricsInEnglish(safeLang);
       applyAffizierenIntroInEnglish(safeLang);
       applyAffizierenNotesInEnglish(safeLang);
       applyAffizierenLyricsInEnglish(safeLang);
