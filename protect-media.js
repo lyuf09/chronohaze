@@ -2064,6 +2064,117 @@
     intro.innerHTML = paragraphs.join("<br /><br />");
   }
 
+  function applyWillowLyricsInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-14.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var part1Heading = findLyricHeading(headings, 1);
+    var part2Heading = findLyricHeading(headings, 2);
+
+    if (!part1Heading || !part2Heading) {
+      return;
+    }
+
+    var part1Text = part1Heading.nextElementSibling;
+    var part2Text = part2Heading.nextElementSibling;
+
+    if (!part1Text || !part2Text || part1Text.tagName !== "P" || part2Text.tagName !== "P") {
+      return;
+    }
+
+    var part1Blocks = [
+      {
+        zh: [
+          "霧中、一葉の緑が時雨をはらっていた",
+          "その引継ぎ線の延長も、 失われたものも",
+          "いずれは残された記憶から消えてしまう",
+        ],
+        en: [
+          "In the mist, a single leaf of green brushed away the passing shower.",
+          "The continuation of that handover line, and everything we lost,",
+          "one day, all of it",
+          "will fade from the memories that remain.",
+        ],
+      },
+      {
+        zh: ["もう断ち切れない思いと僕の", "溢れる心配事", "灰のついた手紙は数行しかないのに", "重い"],
+        en: [
+          "There are feelings I can no longer cut away,",
+          "and worries that keep overflowing.",
+          "A letter dusted with ash, only a few lines,",
+          "yet unbearably heavy.",
+        ],
+      },
+      {
+        zh: [
+          "そんな輝かしい日々が今の僕には",
+          "眩しすぎる",
+          "秘めた願いと迷いの目、",
+          "前の景色がぼやけた",
+        ],
+        en: [
+          "Those radiant days, to me now,",
+          "are far too bright to look at.",
+          "A hidden wish, and eyes caught in hesitation,",
+          "the scene in front of me blurred.",
+        ],
+      },
+    ];
+
+    var part2Blocks = [
+      {
+        zh: ["終わりが来ても、恩讐は終わても", "やがては意味になる", "どうしようもないことで泣いたり", "待ったりしている"],
+        en: [
+          "Even when an ending comes, even when old debts and grudges end,",
+          "someday it will become meaning.",
+          "And still, I find myself crying",
+          "over things I can’t undo,",
+          "still waiting.",
+        ],
+      },
+      {
+        zh: ["相変わらずここで君のいない", "春を迎えなければない", "どうしてもこのような結末を", "迎えるのなら…"],
+        en: [
+          "Just the same, I have to stand here",
+          "and welcome a spring without you.",
+          "If we were always meant",
+          "to arrive at an ending like this…",
+        ],
+      },
+    ];
+
+    function renderBilingualBlocks(blocks) {
+      return blocks
+        .map(function (block) {
+          return block.zh.join("<br />") + "<br /><br />" + block.en.join("<br />");
+        })
+        .join("<br /><br />");
+    }
+
+    part1Text.innerHTML = renderBilingualBlocks(part1Blocks);
+    part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
+  }
+
   function applyAffizierenIntroInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -3276,6 +3387,7 @@
       applyHakoniwaIntroInEnglish(safeLang);
       applyHakoniwaLyricsInEnglish(safeLang);
       applyWillowIntroInEnglish(safeLang);
+      applyWillowLyricsInEnglish(safeLang);
       applyMrIdiographicLyricsInEnglish(safeLang);
       applyAffizierenIntroInEnglish(safeLang);
       applyAffizierenNotesInEnglish(safeLang);
