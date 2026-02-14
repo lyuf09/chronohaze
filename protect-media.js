@@ -3405,7 +3405,7 @@
       "music/track-07.html": "Hakoniwa (A Miniature Garden) (箱庭)",
       "music/track-08.html": "Honkaku mystery (本格推理) (audio pending upload)",
       "music/track-10.html": "I Can’t Fall in Love Again (恋に落ちられない) (audio pending upload)",
-      "music/track-11.html": "I hate you all. (我恨你们所有人) (audio pending upload)",
+      "music/track-11.html": "I hate you all. (我恨你们所有人)",
       "music/track-13.html": "Red Sandalwood (小葉紫檀)",
       "music/track-14.html": "Willow (柳)",
       "music/track-15.html": "Yorugao (Moonflower) (夜顔)",
