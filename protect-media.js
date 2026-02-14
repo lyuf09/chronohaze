@@ -175,11 +175,22 @@
     }
 
     var introNode = findSectionParagraph(article, ["作品介绍", "About the work"]);
-    if (!introNode || introNode.getAttribute("data-palette-source")) {
+    if (!introNode) {
       return;
     }
 
-    introNode.setAttribute("data-palette-source", introNode.textContent || "");
+    if (
+      article.dataset.lyricsPaletteBg &&
+      article.dataset.lyricsPaletteFg &&
+      article.dataset.lyricsPaletteTitle
+    ) {
+      return;
+    }
+
+    var basePalette = buildLyricsPalette(introNode.textContent || "");
+    article.dataset.lyricsPaletteBg = basePalette.background;
+    article.dataset.lyricsPaletteFg = basePalette.text;
+    article.dataset.lyricsPaletteTitle = basePalette.title;
   }
 
   function clampChannel(value) {
@@ -1509,12 +1520,22 @@
     columns.appendChild(buildLyricColumn(part1Text.innerHTML, "lyrics-column-left"));
     columns.appendChild(buildLyricColumn(part2Text.innerHTML, "lyrics-column-right"));
 
-    var introNode = findSectionParagraph(article, ["作品介绍", "About the work"]);
-    var introText =
-      (introNode &&
-        (introNode.getAttribute("data-palette-source") || introNode.textContent || "")) ||
-      "";
-    var palette = buildLyricsPalette(introText);
+    var palette = null;
+    if (
+      article.dataset.lyricsPaletteBg &&
+      article.dataset.lyricsPaletteFg &&
+      article.dataset.lyricsPaletteTitle
+    ) {
+      palette = {
+        background: article.dataset.lyricsPaletteBg,
+        text: article.dataset.lyricsPaletteFg,
+        title: article.dataset.lyricsPaletteTitle,
+      };
+    } else {
+      var introNode = findSectionParagraph(article, ["作品介绍", "About the work"]);
+      var introText = (introNode && introNode.textContent) || "";
+      palette = buildLyricsPalette(introText);
+    }
 
     section.style.setProperty("--lyrics-bg", palette.background);
     section.style.setProperty("--lyrics-fg", palette.text);
