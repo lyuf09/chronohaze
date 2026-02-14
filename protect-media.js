@@ -935,6 +935,60 @@
     part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
   }
 
+  function applyHeAndMeIntroInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-02.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var workHeading =
+      headings.find(function (heading) {
+        var normalized = normalizeText(heading.textContent).toLowerCase();
+        return (
+          normalized === normalizeText("作品介绍").toLowerCase() ||
+          normalized === normalizeText("About the work").toLowerCase()
+        );
+      }) || null;
+
+    if (!workHeading) {
+      return;
+    }
+
+    var intro = workHeading.nextElementSibling;
+    if (!intro || intro.tagName !== "P") {
+      return;
+    }
+
+    var paragraphs = [
+      "“He and Me” is a look back in warm whites and pale greys.",
+      "Back then, I couldn’t understand the choice he made at all. But as time passed, I slowly grew to resemble him, and in that quiet way time does, I began to understand. It’s a kind of understanding that arrives late, carrying something like body heat.",
+      "The song began with a dream.<br />In it, we sat down and talked, calmly, for no clear reason. When I woke up, I forgot everything. All that remained was the strange realism of that conversation, an emptiness that lingered in my chest for a long time. Under the dim afterglow of the dream, I wanted to write a little more.",
+      "Harmonically and melodically, I tried progressions I had never used before. I was looking for the feeling of an “adult evening”, not quite closure, but close, understanding, with a faint ache still underneath. In the end, I let the chords fall back into a gentle echo of Ipomoea alba, from IV to iii. Softly slipping between unease and tenderness.",
+      "For me, “He and Me” is a small epilogue to a chapter of lived experience, most likely the last track in the Ipomoea alba world.",
+      "I rarely think about what emotions listeners are supposed to take from it, for me, technique always serves feeling. But once a piece leaves my hands, I find myself hoping people notice the arrangement, the structure, the architecture of the harmony. As for the emotion, I only hope one particular person sees it. Maybe it’s a trace of embarrassment, or maybe it’s simply that songwriting for me, is throwing my feelings into the air… and, while I’m at it, letting the prog arrangement look a little cool.",
+    ];
+
+    intro.innerHTML = paragraphs.join("<br /><br />");
+  }
+
   function applyHeAndMeLyricsInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -2007,6 +2061,7 @@
 
       applySincerelySpringIntroInEnglish(safeLang);
       applyAffizierenLyricsInEnglish(safeLang);
+      applyHeAndMeIntroInEnglish(safeLang);
       applyHeAndMeLyricsInEnglish(safeLang);
     }
 
