@@ -1583,6 +1583,61 @@
     intro.innerHTML = paragraphs.join("<br /><br />");
   }
 
+  function applySiltIntroInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-05.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var workHeading =
+      headings.find(function (heading) {
+        var normalized = normalizeText(heading.textContent).toLowerCase();
+        return (
+          normalized === normalizeText("作品介绍").toLowerCase() ||
+          normalized === normalizeText("About the work").toLowerCase()
+        );
+      }) || null;
+
+    if (!workHeading) {
+      return;
+    }
+
+    var intro = workHeading.nextElementSibling;
+    if (!intro || intro.tagName !== "P") {
+      return;
+    }
+
+    var paragraphs = [
+      "“Yu” is a damp space in deep green.",
+      "It smells like mildewed moss and old wood releasing its humidity in the rainy season, everything gently covered by the sound of rain. A drizzle within green, an atmosphere suspended somewhere between haze and decay.",
+      "For a long time, the working filename of this song was simply yu (since I didn't decide which chinese word to use). The initial idea came from the Japanese word 憂い (urei), a kind of melancholy with summer humidity in it, something I never felt the Chinese character for “gloom (pronounced as yù)” could fully hold. And yu also naturally overlaps with the sound and imagery of rain (in chinese rain is yǔ).",
+      "As I began writing the piece in earnest, the feeling gradually became more accumulative, more like something gathering and settling. That is why I ultimately chose the title “淤(yù)” (bruise / pooled, stagnant). The thoughts that pile up in the deep green rainy season of early summer are like bruises that return on the body again and again. They do not hurt, yet they cannot be ignored, not sharp, but marked by traces that refuse to fade.",
+      "The original inspiration was simple, just a kind of “low-resolution humidity.” A hoarse recording quality, an old-footage texture, something that makes you feel you could almost smell the dampness through the image. This song was written to capture that sensation, it does not depict a real place, does not belong to any memory, and does not carry a private story. It is closer to an air that can be felt. The imagery is only matter corresponding to emotion, wet, cold, soft, decaying.",
+      "Unlike many of my other works, which tend to carry personal intention and a concrete subject, “Yu” is almost entirely non private. It stands largely independent from the Ipomoea alba series. Although there is a slight overlap in where the inspiration comes from, I deliberately did not fold it into that system.",
+      "It is the kind of damp, cold air that smells unmistakably of rain.",
+    ];
+
+    intro.innerHTML = paragraphs.join("<br /><br />");
+  }
+
   function applyAffizierenIntroInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -2791,6 +2846,7 @@
       applyMoonlitGardenIntroInEnglish(safeLang);
       applyMoonlitGardenLyricsInEnglish(safeLang);
       applySiltLyricsInEnglish(safeLang);
+      applySiltIntroInEnglish(safeLang);
       applyAffizierenIntroInEnglish(safeLang);
       applyAffizierenNotesInEnglish(safeLang);
       applyAffizierenLyricsInEnglish(safeLang);
