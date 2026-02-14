@@ -1110,6 +1110,153 @@
     part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
   }
 
+  function applySiltLyricsInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-05.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var part1Heading = findLyricHeading(headings, 1);
+    var part2Heading = findLyricHeading(headings, 2);
+
+    if (!part1Heading || !part2Heading) {
+      return;
+    }
+
+    var part1Text = part1Heading.nextElementSibling;
+    var part2Text = part2Heading.nextElementSibling;
+
+    if (!part1Text || !part2Text || part1Text.tagName !== "P" || part2Text.tagName !== "P") {
+      return;
+    }
+
+    var part1Blocks = [
+      {
+        zh: [
+          "就连声音也仔细回想",
+          "雨声连绵不绝",
+          "闭上眼后再抽离以往",
+          "重复闷热想象",
+        ],
+        en: [
+          "I even replay the sound, carefully,",
+          "rainfall without end.",
+          "Eyes closed, I pull myself out of the past,",
+          "repeating that stifling, humid imagining.",
+        ],
+      },
+      {
+        zh: ["遗落下来的话语就是", "加深过的印象", "他的双耳里所记住的", "长长的目光"],
+        en: [
+          "The words left behind are nothing,",
+          "but impressions, darkened with time.",
+          "A long, long gaze...",
+          "somehow remembered in his ears.",
+        ],
+      },
+      {
+        zh: [
+          "生锈琴键 发霉的雨 等待在车站",
+          "那些不会到来的日子和时间相伴",
+          "昏碌的绿 沉默的你 如石上青苔",
+          "车轮又压过浅洼声的夜晚",
+        ],
+        en: [
+          "Rusted piano keys, mildewed rain, waiting at the bus stop.",
+          "Days that will never arrive keep time company.",
+          "Dull, busy green, you in silence, like moss on stone.",
+          "And the wheels roll over another night of shallow puddle noise.",
+        ],
+      },
+      {
+        zh: ["潮朽木头般气味散落", "牵着我的思绪", "就连你瞳孔中的轮廓", "滴零随风飘落"],
+        en: [
+          "A scent like tidewet, decaying wood scatters,",
+          "tugging at my thoughts.",
+          "Even the outline inside your pupils",
+          "drips apart, and drifts off with the wind.",
+        ],
+      },
+    ];
+
+    var part2Blocks = [
+      {
+        zh: ["而我驻足廊前", "聆听檐下朦胧淅沥", "而你被雨笼罩", "池塘泛起圈圈涟漪"],
+        en: [
+          "And I stop beneath the corridor,",
+          "listening to the blurred patter under the eaves.",
+          "You are veiled by rain,",
+          "and the pond opens rings of ripples.",
+        ],
+      },
+      {
+        zh: ["目及之处", "荡漾开去"],
+        en: ["As far as the eye can reach,", "they spread..."],
+      },
+      {
+        zh: [
+          "弦音响起 泣雨沥沥 那炽热的回音",
+          "湿润花朵独自摇曳在盛夏雨幕里",
+          "撑伞背离 不留痕迹 一寸寸冲刷去",
+          "压抑的低潮连着浊辉一并",
+        ],
+        en: [
+          "Strings rise, rain weeping, that fevered echo.",
+          "A damp flower sways alone beneath the midsummer rain curtain.",
+          "Turning away under an umbrella, leaving no trace,",
+          "washed away inch by inch, along with the low, suppressed tide and its muddy light.",
+        ],
+      },
+      {
+        zh: [
+          "再次落笔 重叠回忆 阴霾过的痕迹",
+          "镌刻于指尖处那锈迹斑斑的印记",
+          "跌入水底 淹没自己 深青色的呼吸",
+          "归咎于属于我落下的水滴",
+        ],
+        en: [
+          "I write again, overlapped memories, the marks of overcast days.",
+          "Etched into my fingertips, those rust speckled imprints.",
+          "I sink to the bottom, drown myself, breathing a deep teal.",
+          "Blaming it all on the drops that fell from me.",
+        ],
+      },
+      {
+        zh: ["湿淋淋的月影", "归还于尘埃"],
+        en: ["The drenched shadow of the moon", "returned to dust."],
+      },
+    ];
+
+    function renderBilingualBlocks(blocks) {
+      return blocks
+        .map(function (block) {
+          return block.zh.join("<br />") + "<br /><br />" + block.en.join("<br />");
+        })
+        .join("<br /><br />");
+    }
+
+    part1Text.innerHTML = renderBilingualBlocks(part1Blocks);
+    part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
+  }
+
   function applyAffizierenLyricsInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -2637,6 +2784,7 @@
       applySincerelySpringLyricsInEnglish(safeLang);
       applyMoonlitGardenIntroInEnglish(safeLang);
       applyMoonlitGardenLyricsInEnglish(safeLang);
+      applySiltLyricsInEnglish(safeLang);
       applyAffizierenIntroInEnglish(safeLang);
       applyAffizierenNotesInEnglish(safeLang);
       applyAffizierenLyricsInEnglish(safeLang);
