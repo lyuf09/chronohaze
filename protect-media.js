@@ -119,22 +119,67 @@
     return (value || "").replace(/\s+/g, "");
   }
 
-  function findSectionText(article, headingLabel) {
+  function findSectionParagraph(article, headingLabels) {
+    if (!article) {
+      return null;
+    }
+
+    var labels = Array.isArray(headingLabels) ? headingLabels : [headingLabels];
+    var normalizedLabels = labels
+      .filter(function (label) {
+        return typeof label === "string" && label;
+      })
+      .map(function (label) {
+        return normalizeText(label).toLowerCase();
+      });
+
+    if (!normalizedLabels.length) {
+      return null;
+    }
+
     var headings = Array.from(article.querySelectorAll("h2"));
     var target = headings.find(function (heading) {
-      return normalizeText(heading.textContent) === normalizeText(headingLabel);
+      var normalized = normalizeText(heading.textContent).toLowerCase();
+      return normalizedLabels.indexOf(normalized) >= 0;
     });
 
     if (!target) {
-      return "";
+      return null;
     }
 
     var content = target.nextElementSibling;
     if (!content || content.tagName !== "P") {
+      return null;
+    }
+
+    return content;
+  }
+
+  function findSectionText(article, headingLabel) {
+    var content = findSectionParagraph(article, headingLabel);
+    if (!content) {
       return "";
     }
 
     return content.textContent || "";
+  }
+
+  function cacheMusicIntroPaletteSource() {
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var introNode = findSectionParagraph(article, ["作品介绍", "About the work"]);
+    if (!introNode || introNode.getAttribute("data-palette-source")) {
+      return;
+    }
+
+    introNode.setAttribute("data-palette-source", introNode.textContent || "");
   }
 
   function clampChannel(value) {
@@ -1464,9 +1509,11 @@
     columns.appendChild(buildLyricColumn(part1Text.innerHTML, "lyrics-column-left"));
     columns.appendChild(buildLyricColumn(part2Text.innerHTML, "lyrics-column-right"));
 
+    var introNode = findSectionParagraph(article, ["作品介绍", "About the work"]);
     var introText =
-      findSectionText(article, "作品介绍") ||
-      findSectionText(article, "About the work");
+      (introNode &&
+        (introNode.getAttribute("data-palette-source") || introNode.textContent || "")) ||
+      "";
     var palette = buildLyricsPalette(introText);
 
     section.style.setProperty("--lyrics-bg", palette.background);
@@ -2391,6 +2438,7 @@
   }
 
   function boot() {
+    cacheMusicIntroPaletteSource();
     injectFloatingSiteLogo();
     injectFloatingLanguageSwitch();
     protectAllMedia();
