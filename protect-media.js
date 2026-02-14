@@ -1861,6 +1861,156 @@
     intro.innerHTML = paragraphs.join("<br /><br />");
   }
 
+  function applyHakoniwaLyricsInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-07.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var part1Heading = findLyricHeading(headings, 1);
+    var part2Heading = findLyricHeading(headings, 2);
+
+    if (!part1Heading || !part2Heading) {
+      return;
+    }
+
+    var part1Text = part1Heading.nextElementSibling;
+    var part2Text = part2Heading.nextElementSibling;
+
+    if (!part1Text || !part2Text || part1Text.tagName !== "P" || part2Text.tagName !== "P") {
+      return;
+    }
+
+    var part1Blocks = [
+      {
+        zh: ["雨が降っているような", "浅い窪みに隠れていた", "もう夕日の色は見えない"],
+        en: [
+          "As if it were raining,",
+          "I was hiding in a shallow hollow,",
+          "the colour of sunset",
+          "is already out of sight.",
+        ],
+      },
+      {
+        zh: ["枯れて入れ替わる花", "片隅に放置されていた", "秋の朔に踏み出した"],
+        en: [
+          "Flowers wither, replaced again and again,",
+          "left abandoned in a corner.",
+          "Stepping forward",
+          "on the first day of autumn,",
+          "over fallen leaves.",
+        ],
+      },
+      {
+        zh: ["色の重なり合い、曇った玻璃の反射", "カメラの光で振り返ったこと", "夜明け前の輪廓に縋りついていた"],
+        en: [
+          "Layers of colour,",
+          "the reflection on fogged glass,",
+          "what I looked back on",
+          "in the flash of my camera.",
+          "Before dawn,",
+          "I clung to that outline,",
+          "stubbornly, with my eyes closed.",
+        ],
+      },
+      {
+        zh: ["羽よりも軽い心臓", "重くて消えていく事", "感性は水面に浮かんていた"],
+        en: [
+          "In a heart lighter than a feather,",
+          "things that feels heavy slowly fade away.",
+          "Sensitivity floated",
+          "on the surface of water.",
+        ],
+      },
+      {
+        zh: ["色褪せた人たちは", "ほこりのようにどうでもいいんだ", "できると思ったことも"],
+        en: [
+          "Faded people are just",
+          "like dust, they hardly matter.",
+          "Even the things",
+          "I once thought I could do.",
+        ],
+      },
+      {
+        zh: [
+          "湿った満開の弁、箱庭の淡い言葉",
+          "溶けた唄と冗長な刹那",
+          "色の重なり合い、曇った玻璃の反射",
+          "夕日に照らされた眠い顔から",
+        ],
+        en: [
+          "Moist petals at full bloom,",
+          "the pale words inside this miniature garden;",
+          "songs that dissolve,",
+          "and an overlong instant behind them...",
+          "Layers of colour again,",
+          "the reflection on fogged glass,",
+          "from the last light of the sun,",
+          "until it melted",
+          "into my fingertips.",
+        ],
+      },
+    ];
+
+    function renderBilingualBlocks(blocks) {
+      return blocks
+        .map(function (block) {
+          return block.zh.join("<br />") + "<br /><br />" + block.en.join("<br />");
+        })
+        .join("<br /><br />");
+    }
+
+    part1Text.innerHTML = renderBilingualBlocks(part1Blocks);
+    part2Text.innerHTML = [
+      "空中零星雨点似乎飘落",
+      "隐匿于浅洼倒影 反射落寞",
+      "已经看不到夕阳的颜色",
+      "",
+      "时而枯萎后更换的花朵",
+      "日日积攒后碎裂 歇于角落",
+      "踩着树叶 脚步踏向秋末",
+      "",
+      "色彩的重叠后 雾气围绕",
+      "模糊玻璃反射的夜色",
+      "在我镜头下光辉中 谨默的那一刻",
+      "黎明到来以前 那个轮廓",
+      "闭上眼睛 如此执拗着",
+      "",
+      "相比羽毛更轻的心脏里",
+      "似而沉重却缓慢 消失殆尽",
+      "所谓的感性于水面浮起",
+      "",
+      "已经褪色了许久的回忆",
+      "大部分碎片已然 随意收起",
+      "即使那时以为自己可以",
+      "",
+      "潮湿而满开的花瓣",
+      "箱庭之中那清淡的话语",
+      "溶解的歌谣与那背后冗长的刹那",
+      "色彩的重叠后 雾气围绕",
+      "模糊玻璃反射的夜色",
+      "被夕阳余晖洒下融化在我指尖那一刻",
+    ].join("<br />");
+  }
+
   function applyAffizierenIntroInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -3071,6 +3221,7 @@
       applySiltLyricsInEnglish(safeLang);
       applySiltIntroInEnglish(safeLang);
       applyHakoniwaIntroInEnglish(safeLang);
+      applyHakoniwaLyricsInEnglish(safeLang);
       applyMrIdiographicLyricsInEnglish(safeLang);
       applyAffizierenIntroInEnglish(safeLang);
       applyAffizierenNotesInEnglish(safeLang);
