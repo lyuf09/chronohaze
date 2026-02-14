@@ -665,6 +665,62 @@
     );
   }
 
+  function applySincerelySpringIntroInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-01.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var workHeading =
+      headings.find(function (heading) {
+        var normalized = normalizeText(heading.textContent).toLowerCase();
+        return (
+          normalized === normalizeText("作品介绍").toLowerCase() ||
+          normalized === normalizeText("About the work").toLowerCase()
+        );
+      }) || null;
+
+    if (!workHeading) {
+      return;
+    }
+
+    var intro = workHeading.nextElementSibling;
+    if (!intro || intro.tagName !== "P") {
+      return;
+    }
+
+    var paragraphs = [
+      "\"Sincerely, Spring\" lives in a world of pale spring greens and clear, blue air. It captures the quiet way I looked at someone truly, impossibly good during my second spring at university, not a blazing emotion, but small moments lifted gently by the breeze.",
+      "It’s concrete too, the streets by the Meadows, that corner on the second floor of the main library, the sound of the wind, the dust like grains of light. He loves jazz, just not jazz with electric guitar in it.",
+      "This song holds what that “second spring” felt like for me. It wasn’t only the season returning, but an emotional restart. During that time, he stayed close in a soft, unspoken way, and ordinary days suddenly meant something.",
+      "Part of the melody and its emotional imagery nods to “Kimi no Kioku (Memories of You)” from Persona 3, a song he recommended to me. That spring, I listened to the Persona 3 soundtrack almost every day, it even ended up as my No. 1 in my year-end stats (sorry Novelists😭).",
+      "Musically, “Sincerely, Spring” leans intentionally toward J-rock, light, transparent, with just a hint of progmetal sharpness. Spring’s hesitation and resolve, light, and silence.",
+      "He gave me a warmth that felt unmistakably real, patient, caring, understanding, respectful. A kind of presence that lets you stop pushing yourself and finally breathe again.",
+      "For me, this track marks a new beginning (and it’s the first song I recorded on a Strandberg Boden Metal NX7). It’s also the first time I fully stepped out of the world of Ipomoea alba to write something that truly belongs to spring. In both the literal season and the arc of my emotions, it feels like a clear rebirth.",
+      "A breeze at the edge of spring, perplexing, and strangely reassuring.",
+    ];
+
+    intro.innerHTML = paragraphs.join("<br /><br />");
+  }
+
   function applyAffizierenLyricsInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -1949,6 +2005,7 @@
         }
       });
 
+      applySincerelySpringIntroInEnglish(safeLang);
       applyAffizierenLyricsInEnglish(safeLang);
       applyHeAndMeLyricsInEnglish(safeLang);
     }
