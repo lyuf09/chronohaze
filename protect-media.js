@@ -2011,6 +2011,59 @@
     ].join("<br />");
   }
 
+  function applyWillowIntroInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-14.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var workHeading =
+      headings.find(function (heading) {
+        var normalized = normalizeText(heading.textContent).toLowerCase();
+        return (
+          normalized === normalizeText("作品介绍").toLowerCase() ||
+          normalized === normalizeText("About the work").toLowerCase()
+        );
+      }) || null;
+
+    if (!workHeading) {
+      return;
+    }
+
+    var intro = workHeading.nextElementSibling;
+    if (!intro || intro.tagName !== "P") {
+      return;
+    }
+
+    var paragraphs = [
+      "\"Willow\" was written in a spring just after something had ended.",
+      "It began with a clean guitar intro written by Ameria. The first time I heard that melody, I got goosebumps immediately, and that was what drew me in, little by little, until I took on the overall arrangement and production (everything except the guitar and vocals).",
+      "The title \"Willow\" wasn’t chosen by me, but in my own reading, it suggests a scene:<br />a mountain forest wrapped in heavy fog, someone still lingering beneath the willow trees, still waiting.<br />A farewell that has already happened, and yet refuses to fully dissipate.",
+      "This song isn’t about rewinding the past or trying to hold on.<br />It is more interested in what comes after, how a person stays where they are, and continues to watch the seasons change, even when everything has already ended.",
+      "Even when people stop speaking, even when memory is destined to fade, there can still be a quiet wish inside you, that the other person will be doing well.",
+    ];
+
+    intro.innerHTML = paragraphs.join("<br /><br />");
+  }
+
   function applyAffizierenIntroInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -3222,6 +3275,7 @@
       applySiltIntroInEnglish(safeLang);
       applyHakoniwaIntroInEnglish(safeLang);
       applyHakoniwaLyricsInEnglish(safeLang);
+      applyWillowIntroInEnglish(safeLang);
       applyMrIdiographicLyricsInEnglish(safeLang);
       applyAffizierenIntroInEnglish(safeLang);
       applyAffizierenNotesInEnglish(safeLang);
