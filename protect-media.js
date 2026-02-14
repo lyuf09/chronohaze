@@ -2175,6 +2175,209 @@
     part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
   }
 
+  function applyAgnyLyricsInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-19.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var part1Heading = findLyricHeading(headings, 1);
+    var part2Heading = findLyricHeading(headings, 2);
+
+    if (!part1Heading || !part2Heading) {
+      return;
+    }
+
+    var part1Text = part1Heading.nextElementSibling;
+    var part2Text = part2Heading.nextElementSibling;
+
+    if (!part1Text || !part2Text || part1Text.tagName !== "P" || part2Text.tagName !== "P") {
+      return;
+    }
+
+    var part1Blocks = [
+      {
+        zh: ["被度量的抗争的生命", "仿佛我的一切都沦为笑柄", "被阻隔的紧绷的神经", "仿佛转眼间就被吞噬殆尽"],
+        en: [
+          "A life measured in resistance,",
+          "as if everything I am",
+          "has turned into a joke.",
+          "Nerves stretched tight, kept behind a barrier,",
+          "as if in the blink of an eye",
+          "they’re swallowed whole.",
+        ],
+      },
+      {
+        zh: ["只是被定义的错误存在", "偏见也始终在", "全缠绕进绷带", "正当化的谬误早已不意外", "嘲笑着我吧在看不见的地带"],
+        en: [
+          "Just an existence labeled “wrong.”",
+          "The bias never leaves.",
+          "All of it wrapped into bandages.",
+          "A justified fallacy, nothing new.",
+          "Go ahead, laugh at me",
+          "from where you can’t be seen.",
+        ],
+      },
+      {
+        zh: ["黑色的墙壁", "无尽的压抑", "渴望着战斗", "武者般颤抖", "反复咀嚼着", "早已厌倦了", "溢满而出的", "情绪快要沸腾"],
+        en: [
+          "Black walls.",
+          "Endless pressure.",
+          "Craving a fight,",
+          "trembling like a warrior.",
+          "Chewing it over, again and again,",
+          "I’m already sick of it.",
+          "The overflow,",
+          "my emotions are about to boil.",
+        ],
+      },
+      {
+        onlyEn: [
+          "With relief, with humiliation, with terror,",
+          "he understood that he also was an illusion,",
+          "that someone else was dreaming him.",
+        ],
+      },
+      {
+        zh: ["接着舞吧", "在属于我的丧钟敲响之前", "以燃烧一般的模样", "刻下我的悲鸣", "若能逃离这可笑的悲剧", "囚于这副肉身中我的灵魂", "会在你的凝视下消陨吗"],
+        en: [
+          "So dance.",
+          "Before my own death bell rings.",
+          "Burn like flame,",
+          "carve my scream into the air.",
+          "If I could escape this ridiculous tragedy,",
+          "this soul imprisoned in flesh,",
+          "would it vanish",
+          "under your gaze?",
+        ],
+      },
+    ];
+
+    var part2Blocks = [
+      {
+        zh: [
+          "睁开双眼后有什么黑色的东西流出来了似乎想将我淹没",
+          "来自谁的污言秽语渗入了皮肤又让我的存在感到了不安吗",
+          "“看不见未来啊”听到我这样说以后你轻蔑地笑了吧",
+          "于是我想 如果能拿起刀的话又要刺向 谁的方向",
+        ],
+        en: [
+          "When I open my eyes, something black pours out,",
+          "like it wants to drown me.",
+          "Whose filthy words seeped into my skin",
+          "and made my existence feel unsafe again?",
+          "“I can’t see the future.”",
+          "You heard me say it,",
+          "and smirked, didn’t you?",
+          "So I think:",
+          "if I could pick up a knife,",
+          "who would I stab,",
+          "and in what direction?",
+        ],
+      },
+      {
+        zh: ["罪恶的腐朽", "生锈的伤口"],
+        en: ["Rotting sin.", "Rusting wounds."],
+      },
+      {
+        zh: ["再次舞吧", "在属于我的命运降临之前", "以象征性的反抗", "留下我的呻吟", "若能逃离这可笑的悲剧", "囚于这副肉身中我的灵魂", "会在你的祈祷中重塑吗"],
+        en: [
+          "Dance again.",
+          "Before my fate comes down.",
+          "A symbolic rebellion,",
+          "leave my groans behind.",
+          "If I could escape this ridiculous tragedy,",
+          "this soul imprisoned in flesh,",
+          "could it be remade",
+          "inside your prayer?",
+        ],
+      },
+      {
+        zh: ["是否被定义为错误就该满身伤痕", "残忍地将所有封存在最后的黄昏"],
+        en: [
+          "If being defined as “wrong” means I must be covered in scars,",
+          "then cruelly seal it all away",
+          "into the last dusk.",
+        ],
+      },
+      {
+        zh: [
+          "接着舞吧",
+          "在属于我的结局到来之前",
+          "穷尽徒劳的挣扎",
+          "再次舞起来吧",
+          "在只有我扭曲的人潮之中",
+          "跳起荒诞的舞吧",
+          "若能结束这可笑的悲剧",
+          "用刀刃刺向自己发出悲鸣吧",
+          "让我拥抱你作为应有的结局",
+          "在谢幕的掌声里宽恕我吧",
+        ],
+        en: [
+          "So dance.",
+          "Before my ending arrives.",
+          "Spend every last futile struggle,",
+          "dance again.",
+          "In the crowd where only I am twisted,",
+          "dance an absurd dance.",
+          "If this ridiculous tragedy could end,",
+          "then let the blade turn on myself,",
+          "let a scream break open my throat.",
+          "Let me hold you,",
+          "as the ending I deserve.",
+          "In the applause after the curtain falls,",
+          "forgive me.",
+        ],
+      },
+      {
+        zh: ["无法逃离的悲剧", "无法违背的命运", "无法抗争的生命", "无法触碰到的你"],
+        en: ["A tragedy I can’t escape.", "A fate I can’t defy.", "A life I can’t fight.", "You...untouchable"],
+      },
+      {
+        zh: ["你抬头看着我", "请抬头看着我", "不要离开视线", "直到我颤抖着", "化为雕塑"],
+        en: [
+          "Look up at me.",
+          "Please, look up at me.",
+          "Don’t let your eyes leave",
+          "until I’m trembling,",
+          "until I turn to stone.",
+        ],
+      },
+    ];
+
+    function renderMixedBlocks(blocks) {
+      return blocks
+        .map(function (block) {
+          if (Array.isArray(block.onlyEn)) {
+            return block.onlyEn.join("<br />");
+          }
+          return block.zh.join("<br />") + "<br /><br />" + block.en.join("<br />");
+        })
+        .join("<br /><br />");
+    }
+
+    part1Text.innerHTML = renderMixedBlocks(part1Blocks);
+    part2Text.innerHTML = renderMixedBlocks(part2Blocks);
+  }
+
   function applyAffizierenIntroInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -3388,6 +3591,7 @@
       applyHakoniwaLyricsInEnglish(safeLang);
       applyWillowIntroInEnglish(safeLang);
       applyWillowLyricsInEnglish(safeLang);
+      applyAgnyLyricsInEnglish(safeLang);
       applyMrIdiographicLyricsInEnglish(safeLang);
       applyAffizierenIntroInEnglish(safeLang);
       applyAffizierenNotesInEnglish(safeLang);
