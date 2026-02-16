@@ -174,6 +174,18 @@
       return;
     }
 
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath === "music/track-14.html") {
+      article.dataset.lyricsPaletteBg = "#2f473c";
+      article.dataset.lyricsPaletteFg = "rgba(240, 246, 242, 0.95)";
+      article.dataset.lyricsPaletteTitle = "rgba(248, 252, 249, 0.97)";
+      return;
+    }
+
     var introNode = findSectionParagraph(article, ["作品介绍", "About the work"]);
     if (!introNode) {
       return;
