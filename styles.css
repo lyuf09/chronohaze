@@ -1219,6 +1219,43 @@ audio {
   display: block;
 }
 
+.music-album-page .album-cover-note {
+  min-height: 460px;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.music-album-page .album-cover-fallback {
+  width: min(100%, 320px);
+  text-align: center;
+}
+
+.music-album-page .album-cover-kicker {
+  margin: 0;
+  color: rgba(72, 80, 98, 0.76);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+}
+
+.music-album-page .album-cover-main {
+  margin: 8px 0 0;
+  color: rgba(44, 50, 62, 0.94);
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-size: clamp(30px, 3vw, 46px);
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+}
+
+.music-album-page .album-cover-meta {
+  margin: 12px 0 0;
+  color: rgba(72, 80, 97, 0.74);
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+}
+
 .music-album-page .album-track-panel {
   display: flex;
   flex-direction: column;
@@ -2530,6 +2567,10 @@ audio {
   .music-album-page .album-cover {
     width: min(100%, 520px);
     margin: 0 auto;
+  }
+
+  .music-album-page .album-cover-note {
+    min-height: 320px;
   }
 }
 
