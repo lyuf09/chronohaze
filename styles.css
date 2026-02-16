@@ -963,11 +963,59 @@ audio {
     transform 240ms ease;
 }
 
+.music-index-page .track-row.track-row-album {
+  position: relative;
+  border-color: rgba(72, 83, 108, 0.42);
+  background:
+    linear-gradient(96deg, rgba(106, 117, 146, 0.2) 0%, rgba(250, 252, 255, 0.32) 44%),
+    rgba(250, 252, 255, 0.34);
+  box-shadow:
+    0 20px 38px rgba(33, 42, 59, 0.14),
+    inset 0 0 0 1px rgba(232, 237, 247, 0.28);
+}
+
+.music-index-page .track-row.track-row-album::before {
+  content: "ALBUM";
+  position: absolute;
+  right: 16px;
+  top: 14px;
+  padding: 2px 8px 3px;
+  border: 1px solid rgba(70, 79, 102, 0.38);
+  color: rgba(66, 75, 96, 0.88);
+  background: rgba(237, 242, 251, 0.6);
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  line-height: 1;
+}
+
+.music-index-page .track-row.track-row-album .track-date {
+  color: rgba(65, 73, 91, 0.84);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.music-index-page .track-row.track-row-album .track-title {
+  letter-spacing: 0.015em;
+}
+
+.music-index-page .track-row.track-row-album .track-artist {
+  color: rgba(67, 73, 85, 0.83);
+}
+
   .music-index-page .track-row:hover {
     border-color: rgba(249, 251, 255, 0.62);
     background: rgba(250, 252, 255, 0.42);
     box-shadow: 0 22px 36px rgba(20, 26, 34, 0.12);
     transform: translateY(-1px);
+  }
+
+  .music-index-page .track-row.track-row-album:hover {
+    border-color: rgba(86, 96, 123, 0.52);
+    background:
+      linear-gradient(96deg, rgba(108, 119, 149, 0.24) 0%, rgba(250, 252, 255, 0.42) 44%),
+      rgba(250, 252, 255, 0.42);
+    box-shadow: 0 26px 40px rgba(30, 40, 56, 0.16);
   }
 
   .music-index-page .track-row:focus-visible {
@@ -2333,6 +2381,13 @@ audio {
     padding: 10px 10px 9px;
     grid-template-columns: 1fr;
     gap: 3px;
+  }
+
+  .music-index-page .track-row.track-row-album::before {
+    right: 10px;
+    top: 8px;
+    font-size: 9px;
+    padding: 2px 6px;
   }
 
   .music-index-page .track-date {
