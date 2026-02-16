@@ -200,6 +200,13 @@
       return;
     }
 
+    if (detailPath === "music/track-21.html") {
+      article.dataset.lyricsPaletteBg = "#182344";
+      article.dataset.lyricsPaletteFg = "rgba(236, 242, 255, 0.95)";
+      article.dataset.lyricsPaletteTitle = "rgba(246, 250, 255, 0.97)";
+      return;
+    }
+
     var introNode = findSectionParagraph(article, ["作品介绍", "About the work"]);
     if (!introNode) {
       return;
