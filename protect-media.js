@@ -394,7 +394,11 @@
     return "track-" + String(index).padStart(2, "0") + ".html";
   }
 
-  function buildTrackArtist(article) {
+  function buildTrackArtist(article, audioElement) {
+    if (audioElement && audioElement.getAttribute("data-track-artist")) {
+      return audioElement.getAttribute("data-track-artist");
+    }
+
     var explicit = article.getAttribute("data-track-artist");
     if (explicit) {
       return explicit;
@@ -422,12 +426,15 @@
     return "HAZEZZ";
   }
 
-  function buildTrackLabel(article) {
+  function buildTrackLabel(article, audioElement) {
+    var explicitTitle = audioElement
+      ? audioElement.getAttribute("data-track-title")
+      : null;
     var titleNode = article.querySelector("h1");
-    var title = titleNode ? (titleNode.textContent || "").trim() : "TRACK";
+    var title = explicitTitle || (titleNode ? (titleNode.textContent || "").trim() : "TRACK");
     return {
       title: title.toUpperCase(),
-      artist: buildTrackArtist(article),
+      artist: buildTrackArtist(article, audioElement),
     };
   }
 
@@ -601,7 +608,8 @@
       var label = document.createElement("p");
       label.className = "music-player-label";
       var trackData = buildTrackLabel(
-        audio.closest(".music-detail-article") || document
+        audio.closest(".music-detail-article") || document,
+        audio
       );
       var trackTitleSpan = document.createElement("span");
       trackTitleSpan.className = "music-player-track-title";
