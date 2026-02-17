@@ -257,7 +257,7 @@
     }
 
     if (detailPath === "music/track-16.html") {
-      article.dataset.lyricsPaletteBg = "#9b8a67";
+      article.dataset.lyricsPaletteBg = "#d2b48c";
       article.dataset.lyricsPaletteFg = "rgba(251, 247, 235, 0.95)";
       article.dataset.lyricsPaletteTitle = "rgba(255, 252, 243, 0.97)";
       return;
@@ -306,7 +306,7 @@
     }
 
     if (detailPath === "music/track-19.html") {
-      article.dataset.lyricsPaletteBg = "#c31d3a";
+      article.dataset.lyricsPaletteBg = "#ad1f37";
       article.dataset.lyricsPaletteFg = "rgba(255, 243, 246, 0.95)";
       article.dataset.lyricsPaletteTitle = "rgba(255, 249, 251, 0.97)";
       return;
