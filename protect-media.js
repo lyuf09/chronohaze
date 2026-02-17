@@ -327,7 +327,7 @@
     }
 
     if (detailPath === "music/track-24.html") {
-      article.dataset.lyricsPaletteBg = "#1f46ff";
+      article.dataset.lyricsPaletteBg = "#2a4fcf";
       article.dataset.lyricsPaletteFg = "rgba(241, 246, 255, 0.95)";
       article.dataset.lyricsPaletteTitle = "rgba(249, 252, 255, 0.97)";
       return;
