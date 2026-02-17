@@ -788,7 +788,7 @@ audio {
 }
 
 .photo-index-page .photo-tail img {
-  width: min(100%, 980px);
+  width: min(100%, 760px);
   height: auto;
   display: block;
   border-radius: 0;
