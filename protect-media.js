@@ -4122,7 +4122,7 @@
         link.textContent = dict.navPhoto;
       } else if (/yin-le\.html/i.test(href)) {
         link.textContent = dict.navMusic;
-      } else if (/Fay_Lyu_CV\.pdf/i.test(href)) {
+      } else if (/Fay_Lyu_CV\.pdf|(?:^|\/)cv\.html(?:$|[?#])/i.test(href)) {
         link.textContent = dict.navCV;
       } else if (/index\.html$/i.test(href) || /\.\.\/index\.html$/i.test(href)) {
         link.textContent = dict.navHome;
