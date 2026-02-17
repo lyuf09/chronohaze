@@ -778,6 +778,23 @@ audio {
   letter-spacing: 0.01em;
 }
 
+.photo-index-page .photo-tail {
+  padding: 10px 0 58px;
+}
+
+.photo-index-page .photo-tail-inner {
+  display: flex;
+  justify-content: center;
+}
+
+.photo-index-page .photo-tail img {
+  width: min(100%, 980px);
+  height: auto;
+  display: block;
+  border-radius: 0;
+  box-shadow: 0 14px 28px rgba(18, 24, 32, 0.14);
+}
+
 .photo-blue-page .main {
   background: linear-gradient(180deg, #d7d8db 0%, #cfd1d6 100%);
 }
@@ -2062,6 +2079,10 @@ audio {
     font-size: 12px;
   }
 
+  .photo-index-page .photo-tail {
+    padding: 8px 0 34px;
+  }
+
   .math-index-page .page-title {
     font-size: clamp(28px, 6.4vw, 34px);
     margin-bottom: 8px;
@@ -2333,6 +2354,10 @@ audio {
   .photo-index-page .photo-subtitle {
     margin-top: 2px;
     font-size: 11px;
+  }
+
+  .photo-index-page .photo-tail {
+    padding: 6px 0 24px;
   }
 
   .math-index-page .page-title {
