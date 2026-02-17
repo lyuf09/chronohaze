@@ -639,6 +639,30 @@
         musicPageTitle: "音乐作品集",
         musicIntro: "声音的纹理、情绪的回声、在时间里缓慢成形的片段。",
         musicLead: "仅收录 21 年开始的部分作品（我需要脸面）",
+        musicIATitle: "结构化入口",
+        musicIASubtitle: "Album / Singles / WIP 快速浏览与筛选",
+        musicTabAll: "全部",
+        musicTabAlbum: "Album",
+        musicTabSingles: "Singles",
+        musicTabWip: "WIP",
+        musicFilterYear: "年份",
+        musicFilterTag: "Tag",
+        musicFilterAudio: "音频",
+        musicFilterAllYears: "全部年份",
+        musicFilterAllTags: "全部标签",
+        musicFilterAudioAll: "全部",
+        musicFilterAudioReady: "有音频",
+        musicFilterAudioPending: "待上传",
+        musicGroupAlbum: "Album",
+        musicGroupSingles: "Singles",
+        musicGroupWip: "WIP",
+        musicNoResults: "没有匹配结果，试试放宽筛选条件。",
+        musicTagAlbum: "album",
+        musicTagSingle: "single",
+        musicTagWip: "wip",
+        musicTagAudio: "audio",
+        musicTagPending: "pending",
+        musicTagCollab: "collab",
         mathPageTitle: "数学文章",
         mathIntro: "研究记录、实验笔记与结构化的思考。",
         photoPageTitle: "摄影作品集",
@@ -676,6 +700,30 @@
         musicIntro:
           "Textures of sound, echoes of emotion, fragments shaped slowly in time.",
         musicLead: "Selected works since 2021 (I need dignity).",
+        musicIATitle: "Structured Entry",
+        musicIASubtitle: "Browse quickly through Album / Singles / WIP",
+        musicTabAll: "All",
+        musicTabAlbum: "Album",
+        musicTabSingles: "Singles",
+        musicTabWip: "WIP",
+        musicFilterYear: "Year",
+        musicFilterTag: "Tag",
+        musicFilterAudio: "Audio",
+        musicFilterAllYears: "All years",
+        musicFilterAllTags: "All tags",
+        musicFilterAudioAll: "All",
+        musicFilterAudioReady: "With audio",
+        musicFilterAudioPending: "Pending upload",
+        musicGroupAlbum: "Album",
+        musicGroupSingles: "Singles",
+        musicGroupWip: "WIP",
+        musicNoResults: "No matching result. Try a wider filter.",
+        musicTagAlbum: "album",
+        musicTagSingle: "single",
+        musicTagWip: "wip",
+        musicTagAudio: "audio",
+        musicTagPending: "pending",
+        musicTagCollab: "collab",
         musicLongIntroParagraphs: [
           "Music was the first creative language I found, and the one I’ve stayed with the longest.",
           "I started learning piano before primary school, which gave me my earliest foundation in ear training and harmony. Later I picked up the ukulele, and at twelve I began learning the violin. Working with strings gradually helped me understand melodic lines and contrapuntal structure, and by fourteen I started writing original pieces based on the ABRSM music theory I’d studied systematically.",
@@ -3305,6 +3353,7 @@
     next = next.replace(/(\d{4})年/g, "$1");
 
     var phraseMap = [
+      [/2022年夏天/g, "Summer 2022"],
       [/2022、夏、某/g, "2022、summer、someday"],
       [/英国奥斯沃斯特里/g, "Oswestry, UK"],
       [/英国爱丁堡/g, "Edinburgh, UK"],
@@ -3625,6 +3674,428 @@
       "music/track-29.html": "I Hope I’ll Meet the Future (未来に出会えたらいいな)",
       "music/track-30.html": "Dissociative Amnesia (分离性遗忘症)",
     };
+  }
+
+  function splitMusicTags(raw) {
+    if (!raw) {
+      return [];
+    }
+
+    return String(raw)
+      .split(",")
+      .map(function (tag) {
+        return tag.trim().toLowerCase();
+      })
+      .filter(Boolean);
+  }
+
+  function uniqueMusicTags(tags) {
+    var seen = Object.create(null);
+    return tags.filter(function (tag) {
+      if (seen[tag]) {
+        return false;
+      }
+      seen[tag] = true;
+      return true;
+    });
+  }
+
+  function inferMusicRowType(row, titleText) {
+    if (row.classList.contains("track-row-album")) {
+      return "album";
+    }
+    if (/音频待上传|audio pending upload/i.test(titleText || "")) {
+      return "wip";
+    }
+    return "single";
+  }
+
+  function parseMusicRowYear(row) {
+    var dateNode = row.querySelector(".track-date");
+    var dateText = dateNode ? dateNode.textContent || "" : "";
+    var match = dateText.match(/(20\d{2})/);
+    return match ? match[1] : "";
+  }
+
+  function getMusicTagLabel(tag, dict) {
+    var map = {
+      album: dict.musicTagAlbum,
+      single: dict.musicTagSingle,
+      wip: dict.musicTagWip,
+      audio: dict.musicTagAudio,
+      pending: dict.musicTagPending,
+      collab: dict.musicTagCollab,
+    };
+    return map[tag] || tag;
+  }
+
+  function ensureMusicRowTags(row, tags, dict) {
+    var metaWrap = row.querySelector("div");
+    if (!metaWrap) {
+      return;
+    }
+
+    metaWrap.classList.add("track-meta");
+    var tagsWrap = metaWrap.querySelector(".track-tags");
+    if (!tagsWrap) {
+      tagsWrap = document.createElement("div");
+      tagsWrap.className = "track-tags";
+      metaWrap.appendChild(tagsWrap);
+    }
+
+    tagsWrap.textContent = "";
+    tags.forEach(function (tag) {
+      var node = document.createElement("span");
+      node.className = "track-tag";
+      node.dataset.tag = tag;
+      node.textContent = getMusicTagLabel(tag, dict);
+      tagsWrap.appendChild(node);
+    });
+  }
+
+  function setupMusicIndexArchitecture() {
+    if (!document.body || !document.body.classList.contains("music-index-page")) {
+      return;
+    }
+
+    var rootSection = document.querySelector(".music-index-page .section");
+    var sourceList = document.querySelector(".music-index-page .section .music-list");
+    if (!rootSection || !sourceList) {
+      return;
+    }
+
+    var dict = getSecondaryPageDictionary(detectPreferredLanguage());
+    var shell = rootSection.querySelector(".music-ia-shell");
+    var rows = Array.from(sourceList.querySelectorAll(".track-row"));
+    if (!rows.length) {
+      return;
+    }
+
+    if (!shell) {
+      shell = document.createElement("div");
+      shell.className = "container music-ia-shell";
+
+      var iaHead = document.createElement("div");
+      iaHead.className = "music-ia-head";
+      var iaTitle = document.createElement("h2");
+      iaTitle.className = "music-ia-title";
+      iaTitle.textContent = dict.musicIATitle;
+      var iaSub = document.createElement("p");
+      iaSub.className = "music-ia-subtitle";
+      iaSub.textContent = dict.musicIASubtitle;
+      iaHead.appendChild(iaTitle);
+      iaHead.appendChild(iaSub);
+
+      var controls = document.createElement("div");
+      controls.className = "music-ia-controls";
+
+      var tabs = document.createElement("div");
+      tabs.className = "music-ia-tabs";
+      tabs.setAttribute("role", "tablist");
+
+      [
+        { key: "all", label: dict.musicTabAll },
+        { key: "album", label: dict.musicTabAlbum },
+        { key: "single", label: dict.musicTabSingles },
+        { key: "wip", label: dict.musicTabWip },
+      ].forEach(function (item, index) {
+        var button = document.createElement("button");
+        button.type = "button";
+        button.className = "music-ia-tab";
+        button.dataset.groupFilter = item.key;
+        button.textContent = item.label;
+        if (index === 0) {
+          button.classList.add("is-active");
+        }
+        tabs.appendChild(button);
+      });
+
+      var filters = document.createElement("div");
+      filters.className = "music-ia-filters";
+
+      function buildFilter(labelText, filterName) {
+        var wrapper = document.createElement("label");
+        wrapper.className = "music-ia-filter";
+        var label = document.createElement("span");
+        label.className = "music-ia-filter-label";
+        label.textContent = labelText;
+        var select = document.createElement("select");
+        select.className = "music-ia-filter-select";
+        select.dataset.filter = filterName;
+        wrapper.appendChild(label);
+        wrapper.appendChild(select);
+        return wrapper;
+      }
+
+      filters.appendChild(buildFilter(dict.musicFilterYear, "year"));
+      filters.appendChild(buildFilter(dict.musicFilterTag, "tag"));
+      filters.appendChild(buildFilter(dict.musicFilterAudio, "audio"));
+
+      controls.appendChild(tabs);
+      controls.appendChild(filters);
+
+      var groups = document.createElement("div");
+      groups.className = "music-group-stack";
+      [
+        { key: "album", label: dict.musicGroupAlbum },
+        { key: "single", label: dict.musicGroupSingles },
+        { key: "wip", label: dict.musicGroupWip },
+      ].forEach(function (item) {
+        var group = document.createElement("section");
+        group.className = "music-group";
+        group.dataset.group = item.key;
+
+        var heading = document.createElement("h3");
+        heading.className = "music-group-title";
+        var text = document.createElement("span");
+        text.className = "music-group-title-text";
+        text.textContent = item.label;
+        var count = document.createElement("span");
+        count.className = "music-group-count";
+        count.dataset.groupCount = item.key;
+        heading.appendChild(text);
+        heading.appendChild(count);
+
+        var list = document.createElement("div");
+        list.className = "music-list music-list-group";
+        list.dataset.listGroup = item.key;
+
+        group.appendChild(heading);
+        group.appendChild(list);
+        groups.appendChild(group);
+      });
+
+      var empty = document.createElement("p");
+      empty.className = "music-ia-empty";
+      empty.textContent = dict.musicNoResults;
+      empty.hidden = true;
+
+      sourceList.classList.add("music-list-source");
+      sourceList.hidden = true;
+
+      shell.appendChild(iaHead);
+      shell.appendChild(controls);
+      shell.appendChild(groups);
+      shell.appendChild(empty);
+      shell.appendChild(sourceList);
+      rootSection.textContent = "";
+      rootSection.appendChild(shell);
+    }
+
+    var yearSelect = shell.querySelector('select[data-filter="year"]');
+    var tagSelect = shell.querySelector('select[data-filter="tag"]');
+    var audioSelect = shell.querySelector('select[data-filter="audio"]');
+    var tabs = Array.from(shell.querySelectorAll(".music-ia-tab"));
+    var emptyState = shell.querySelector(".music-ia-empty");
+    var groupSections = Array.from(shell.querySelectorAll(".music-group"));
+    var albumList = shell.querySelector('[data-list-group="album"]');
+    var singlesList = shell.querySelector('[data-list-group="single"]');
+    var wipList = shell.querySelector('[data-list-group="wip"]');
+
+    if (!yearSelect || !tagSelect || !audioSelect || !albumList || !singlesList || !wipList) {
+      return;
+    }
+
+    var yearValues = [];
+    var tagValues = [];
+
+    rows.forEach(function (row) {
+      var titleNode = row.querySelector(".track-title");
+      var artistNode = row.querySelector(".track-artist");
+      var titleText = titleNode ? titleNode.textContent || "" : "";
+      var artistText = artistNode ? artistNode.textContent || "" : "";
+
+      var type = row.dataset.musicType || inferMusicRowType(row, titleText);
+      var hasAudio = type === "wip" ? "0" : "1";
+      var year = row.dataset.musicYear || parseMusicRowYear(row);
+      var tags = splitMusicTags(row.dataset.tags || "");
+
+      if (!tags.length) {
+        tags.push(type);
+        tags.push(hasAudio === "1" ? "audio" : "pending");
+        if (/[\/]|feat\.?|ft\.?/i.test(artistText + " " + titleText)) {
+          tags.push("collab");
+        }
+      }
+
+      tags = uniqueMusicTags(tags).slice(0, 3);
+
+      row.dataset.musicType = type;
+      row.dataset.musicYear = year;
+      row.dataset.hasAudio = hasAudio;
+      row.dataset.tags = tags.join(",");
+      row.classList.remove("track-row-album", "track-row-single", "track-row-wip");
+      row.classList.add("track-row-" + type);
+
+      ensureMusicRowTags(row, tags, dict);
+
+      if (year) {
+        yearValues.push(year);
+      }
+      tagValues = tagValues.concat(tags);
+
+      if (type === "album") {
+        albumList.appendChild(row);
+      } else if (type === "wip") {
+        wipList.appendChild(row);
+      } else {
+        singlesList.appendChild(row);
+      }
+    });
+
+    yearValues = uniqueMusicTags(yearValues).sort(function (a, b) {
+      return Number(b) - Number(a);
+    });
+
+    var tagOrder = ["album", "single", "wip", "audio", "pending", "collab"];
+    tagValues = uniqueMusicTags(tagValues).sort(function (a, b) {
+      var ia = tagOrder.indexOf(a);
+      var ib = tagOrder.indexOf(b);
+      if (ia >= 0 && ib >= 0) {
+        return ia - ib;
+      }
+      if (ia >= 0) {
+        return -1;
+      }
+      if (ib >= 0) {
+        return 1;
+      }
+      return a.localeCompare(b);
+    });
+
+    function fillSelect(selectNode, allLabel, values, displayFn) {
+      var current = selectNode.value || "all";
+      selectNode.textContent = "";
+      var allOption = document.createElement("option");
+      allOption.value = "all";
+      allOption.textContent = allLabel;
+      selectNode.appendChild(allOption);
+
+      values.forEach(function (value) {
+        var option = document.createElement("option");
+        option.value = value;
+        option.textContent = displayFn ? displayFn(value) : value;
+        selectNode.appendChild(option);
+      });
+
+      if (Array.from(selectNode.options).some(function (opt) { return opt.value === current; })) {
+        selectNode.value = current;
+      } else {
+        selectNode.value = "all";
+      }
+    }
+
+    fillSelect(yearSelect, dict.musicFilterAllYears, yearValues, null);
+    fillSelect(tagSelect, dict.musicFilterAllTags, tagValues, function (tag) {
+      return getMusicTagLabel(tag, dict);
+    });
+    fillSelect(audioSelect, dict.musicFilterAudioAll, ["ready", "pending"], function (value) {
+      return value === "ready" ? dict.musicFilterAudioReady : dict.musicFilterAudioPending;
+    });
+
+    var titleMap = {
+      all: dict.musicTabAll,
+      album: dict.musicTabAlbum,
+      single: dict.musicTabSingles,
+      wip: dict.musicTabWip,
+    };
+    tabs.forEach(function (tab) {
+      tab.textContent = titleMap[tab.dataset.groupFilter] || tab.textContent;
+    });
+
+    var filterLabels = shell.querySelectorAll(".music-ia-filter-label");
+    if (filterLabels[0]) filterLabels[0].textContent = dict.musicFilterYear;
+    if (filterLabels[1]) filterLabels[1].textContent = dict.musicFilterTag;
+    if (filterLabels[2]) filterLabels[2].textContent = dict.musicFilterAudio;
+
+    var groupTitleMap = {
+      album: dict.musicGroupAlbum,
+      single: dict.musicGroupSingles,
+      wip: dict.musicGroupWip,
+    };
+    groupSections.forEach(function (group) {
+      var key = group.dataset.group;
+      var titleNode = group.querySelector(".music-group-title-text");
+      if (titleNode && groupTitleMap[key]) {
+        titleNode.textContent = groupTitleMap[key];
+      }
+    });
+    emptyState.textContent = dict.musicNoResults;
+
+    function activeGroupFilter() {
+      var active = shell.querySelector(".music-ia-tab.is-active");
+      return active ? active.dataset.groupFilter : "all";
+    }
+
+    function applyFilters() {
+      var groupFilter = activeGroupFilter();
+      var yearFilter = yearSelect.value || "all";
+      var tagFilter = tagSelect.value || "all";
+      var audioFilter = audioSelect.value || "all";
+
+      var visibleTotal = 0;
+
+      rows.forEach(function (row) {
+        var type = row.dataset.musicType || "single";
+        var year = row.dataset.musicYear || "";
+        var hasAudio = row.dataset.hasAudio === "1";
+        var tags = splitMusicTags(row.dataset.tags || "");
+
+        var matchesGroup = groupFilter === "all" || type === groupFilter;
+        var matchesYear = yearFilter === "all" || year === yearFilter;
+        var matchesTag = tagFilter === "all" || tags.indexOf(tagFilter) >= 0;
+        var matchesAudio =
+          audioFilter === "all" ||
+          (audioFilter === "ready" && hasAudio) ||
+          (audioFilter === "pending" && !hasAudio);
+
+        var visible = matchesGroup && matchesYear && matchesTag && matchesAudio;
+        row.hidden = !visible;
+        if (visible) {
+          visibleTotal += 1;
+        }
+      });
+
+      groupSections.forEach(function (group) {
+        var key = group.dataset.group;
+        var groupRows = Array.from(group.querySelectorAll(".track-row"));
+        var visibleCount = groupRows.filter(function (row) {
+          return !row.hidden;
+        }).length;
+        var countNode = group.querySelector("[data-group-count]");
+        if (countNode) {
+          countNode.textContent = visibleCount > 0 ? " (" + visibleCount + ")" : " (0)";
+        }
+
+        if (groupFilter !== "all" && key !== groupFilter) {
+          group.hidden = true;
+        } else {
+          group.hidden = visibleCount === 0;
+        }
+      });
+
+      emptyState.hidden = visibleTotal > 0;
+    }
+
+    if (shell.dataset.musicFiltersBound !== "1") {
+      tabs.forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          tabs.forEach(function (node) {
+            node.classList.remove("is-active");
+          });
+          tab.classList.add("is-active");
+          applyFilters();
+        });
+      });
+
+      [yearSelect, tagSelect, audioSelect].forEach(function (select) {
+        select.addEventListener("change", applyFilters);
+      });
+
+      shell.dataset.musicFiltersBound = "1";
+    }
+
+    applyFilters();
   }
 
   function setSamePageLanguageInUrl(lang) {
@@ -4091,6 +4562,7 @@
     cacheMusicIntroPaletteSource();
     injectFloatingSiteLogo();
     injectFloatingLanguageSwitch();
+    setupMusicIndexArchitecture();
     protectAllMedia();
     optimizeImages();
     labelPhotoOrientation();

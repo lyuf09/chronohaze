@@ -957,6 +957,130 @@ audio {
   padding: 8px 0 48px;
 }
 
+.music-index-page .music-ia-shell {
+  width: min(100%, 860px);
+  margin: 0 auto;
+}
+
+.music-index-page .music-ia-head {
+  margin: 0 0 16px;
+}
+
+.music-index-page .music-ia-title {
+  margin: 0;
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-size: clamp(21px, 1.9vw, 28px);
+  line-height: 1.06;
+  letter-spacing: 0.02em;
+  color: rgba(32, 38, 50, 0.94);
+}
+
+.music-index-page .music-ia-subtitle {
+  margin: 6px 0 0;
+  color: rgba(64, 72, 88, 0.82);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.music-index-page .music-ia-controls {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.music-index-page .music-ia-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.music-index-page .music-ia-tab {
+  border: 1px solid rgba(56, 63, 80, 0.26);
+  border-radius: 999px;
+  background: rgba(246, 249, 255, 0.36);
+  color: rgba(49, 57, 76, 0.9);
+  padding: 6px 14px;
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 180ms ease;
+}
+
+.music-index-page .music-ia-tab:hover {
+  background: rgba(246, 249, 255, 0.52);
+  border-color: rgba(55, 64, 86, 0.42);
+}
+
+.music-index-page .music-ia-tab.is-active {
+  background: rgba(58, 69, 98, 0.86);
+  color: rgba(245, 249, 255, 0.96);
+  border-color: rgba(58, 69, 98, 0.92);
+}
+
+.music-index-page .music-ia-filters {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.music-index-page .music-ia-filter {
+  display: grid;
+  gap: 4px;
+}
+
+.music-index-page .music-ia-filter-label {
+  color: rgba(63, 71, 86, 0.86);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.music-index-page .music-ia-filter-select {
+  width: 100%;
+  border: 1px solid rgba(56, 63, 80, 0.22);
+  border-radius: 10px;
+  background: rgba(249, 251, 255, 0.5);
+  color: rgba(40, 47, 62, 0.92);
+  padding: 7px 10px;
+  font-size: 13px;
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+}
+
+.music-index-page .music-group-stack {
+  display: grid;
+  gap: 18px;
+}
+
+.music-index-page .music-group-title {
+  margin: 0 0 8px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  color: rgba(43, 51, 67, 0.9);
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-size: 16px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.music-index-page .music-group-count {
+  color: rgba(77, 86, 106, 0.72);
+  font-size: 12px;
+  letter-spacing: 0.03em;
+}
+
+.music-index-page .music-ia-empty {
+  margin: 8px 0 0;
+  color: rgba(62, 70, 86, 0.75);
+  font-size: 14px;
+}
+
+.music-index-page .music-list-source {
+  display: none !important;
+}
+
 .music-index-page .music-list {
   width: min(100%, 760px);
   margin: 0 auto;
@@ -978,6 +1102,31 @@ audio {
     background-color 240ms ease,
     box-shadow 240ms ease,
     transform 240ms ease;
+}
+
+.music-index-page .track-meta {
+  min-width: 0;
+}
+
+.music-index-page .track-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.music-index-page .track-tag {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(67, 77, 100, 0.24);
+  background: rgba(248, 250, 255, 0.4);
+  color: rgba(57, 65, 83, 0.82);
+  padding: 2px 8px 3px;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
 }
 
 .music-index-page .track-row.track-row-album {
@@ -1025,25 +1174,38 @@ audio {
   padding-right: 72px;
 }
 
-  .music-index-page .track-row:hover {
-    border-color: rgba(249, 251, 255, 0.62);
-    background: rgba(250, 252, 255, 0.42);
-    box-shadow: 0 22px 36px rgba(20, 26, 34, 0.12);
-    transform: translateY(-1px);
-  }
+.music-index-page .track-row.track-row-wip {
+  border-style: dashed;
+  border-color: rgba(92, 99, 118, 0.28);
+  background: rgba(242, 245, 251, 0.25);
+  box-shadow: 0 12px 24px rgba(24, 30, 40, 0.06);
+}
 
-  .music-index-page .track-row.track-row-album:hover {
-    border-color: rgba(86, 96, 123, 0.52);
-    background:
-      linear-gradient(96deg, rgba(108, 119, 149, 0.24) 0%, rgba(250, 252, 255, 0.42) 44%),
-      rgba(250, 252, 255, 0.42);
-    box-shadow: 0 26px 40px rgba(30, 40, 56, 0.16);
-  }
+.music-index-page .track-row.track-row-wip .track-title,
+.music-index-page .track-row.track-row-wip .track-artist,
+.music-index-page .track-row.track-row-wip .track-date {
+  color: rgba(66, 72, 87, 0.78);
+}
 
-  .music-index-page .track-row:focus-visible {
-    outline: 1px solid rgba(35, 39, 48, 0.58);
-    outline-offset: 2px;
-  }
+.music-index-page .track-row:hover {
+  border-color: rgba(249, 251, 255, 0.62);
+  background: rgba(250, 252, 255, 0.42);
+  box-shadow: 0 22px 36px rgba(20, 26, 34, 0.12);
+  transform: translateY(-1px);
+}
+
+.music-index-page .track-row.track-row-album:hover {
+  border-color: rgba(86, 96, 123, 0.52);
+  background:
+    linear-gradient(96deg, rgba(108, 119, 149, 0.24) 0%, rgba(250, 252, 255, 0.42) 44%),
+    rgba(250, 252, 255, 0.42);
+  box-shadow: 0 26px 40px rgba(30, 40, 56, 0.16);
+}
+
+.music-index-page .track-row:focus-visible {
+  outline: 1px solid rgba(35, 39, 48, 0.58);
+  outline-offset: 2px;
+}
 
 .math-index-page .main {
   background: linear-gradient(180deg, #d7d8db 0%, #cfd1d6 100%);
@@ -2135,6 +2297,26 @@ audio {
     padding: 6px 0 34px;
   }
 
+  .music-index-page .music-ia-shell {
+    width: 100%;
+  }
+
+  .music-index-page .music-ia-head {
+    margin-bottom: 14px;
+  }
+
+  .music-index-page .music-ia-filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .music-index-page .music-ia-filter:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .music-index-page .music-group-title {
+    font-size: 15px;
+  }
+
   .music-index-page .track-row {
     padding: 12px 14px 10px;
     grid-template-columns: 122px minmax(0, 1fr);
@@ -2153,6 +2335,11 @@ audio {
   .music-index-page .track-artist {
     font-size: 13px;
     margin-top: 0;
+  }
+
+  .music-index-page .track-tag {
+    font-size: 10px;
+    padding: 2px 7px 3px;
   }
 
   .footer-grid {
@@ -2414,6 +2601,55 @@ audio {
     padding: 4px 0 24px;
   }
 
+  .music-index-page .music-ia-head {
+    margin-bottom: 12px;
+  }
+
+  .music-index-page .music-ia-title {
+    font-size: clamp(18px, 7vw, 24px);
+  }
+
+  .music-index-page .music-ia-subtitle {
+    font-size: 11px;
+    letter-spacing: 0.06em;
+  }
+
+  .music-index-page .music-ia-controls {
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .music-index-page .music-ia-tabs {
+    gap: 6px;
+  }
+
+  .music-index-page .music-ia-tab {
+    padding: 5px 12px;
+    font-size: 12px;
+  }
+
+  .music-index-page .music-ia-filters {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .music-index-page .music-ia-filter:last-child {
+    grid-column: auto;
+  }
+
+  .music-index-page .music-ia-filter-label {
+    font-size: 10px;
+  }
+
+  .music-index-page .music-group-stack {
+    gap: 14px;
+  }
+
+  .music-index-page .music-group-title {
+    margin-bottom: 6px;
+    font-size: 14px;
+  }
+
   .photo-index-page .photo-hero,
   .music-index-page .music-hero {
     padding: 12px 0 4px;
@@ -2471,6 +2707,16 @@ audio {
 
   .music-index-page .track-artist {
     font-size: 12px;
+  }
+
+  .music-index-page .track-tags {
+    margin-top: 6px;
+    gap: 5px;
+  }
+
+  .music-index-page .track-tag {
+    font-size: 10px;
+    padding: 2px 6px;
   }
 
   .photo-grid {
