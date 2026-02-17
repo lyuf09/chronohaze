@@ -306,9 +306,9 @@
     }
 
     if (detailPath === "music/track-07.html") {
-      article.dataset.lyricsPaletteBg = "#b5bd98";
-      article.dataset.lyricsPaletteFg = "rgba(64, 70, 52, 0.95)";
-      article.dataset.lyricsPaletteTitle = "rgba(50, 56, 39, 0.98)";
+      article.dataset.lyricsPaletteBg = "#c9c8b5";
+      article.dataset.lyricsPaletteFg = "rgba(74, 70, 57, 0.95)";
+      article.dataset.lyricsPaletteTitle = "rgba(60, 56, 45, 0.98)";
       return;
     }
 
