@@ -4150,6 +4150,16 @@
       }
     });
 
+    Array.from(document.querySelectorAll("[data-copy-zh][data-copy-en]")).forEach(function (
+      node
+    ) {
+      var key = safeLang === "en" ? "data-copy-en" : "data-copy-zh";
+      var value = node.getAttribute(key);
+      if (value) {
+        node.textContent = value;
+      }
+    });
+
     Array.from(document.querySelectorAll(".math-more")).forEach(function (node) {
       node.textContent = dict.readMore;
     });
