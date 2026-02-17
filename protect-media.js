@@ -180,8 +180,8 @@
       .replace(/^\//, "");
 
     if (detailPath === "music/track-14.html") {
-      article.dataset.lyricsPaletteBg = "#2f473c";
-      article.dataset.lyricsPaletteFg = "rgba(240, 246, 242, 0.95)";
+      article.dataset.lyricsPaletteBg = "#56685f";
+      article.dataset.lyricsPaletteFg = "rgba(241, 246, 243, 0.95)";
       article.dataset.lyricsPaletteTitle = "rgba(248, 252, 249, 0.97)";
       return;
     }
@@ -225,6 +225,83 @@
       article.dataset.lyricsPaletteBg = "#9a6e86";
       article.dataset.lyricsPaletteFg = "rgba(249, 243, 247, 0.95)";
       article.dataset.lyricsPaletteTitle = "rgba(255, 250, 253, 0.97)";
+      return;
+    }
+
+    if (detailPath === "music/track-10.html") {
+      article.dataset.lyricsPaletteBg = "#d9bec8";
+      article.dataset.lyricsPaletteFg = "rgba(62, 52, 59, 0.95)";
+      article.dataset.lyricsPaletteTitle = "rgba(47, 39, 45, 0.98)";
+      return;
+    }
+
+    if (detailPath === "music/track-12.html") {
+      article.dataset.lyricsPaletteBg = "#dde8f4";
+      article.dataset.lyricsPaletteFg = "rgba(55, 68, 82, 0.95)";
+      article.dataset.lyricsPaletteTitle = "rgba(42, 55, 70, 0.98)";
+      return;
+    }
+
+    if (detailPath === "music/track-15.html") {
+      article.dataset.lyricsPaletteBg = "#1a3f93";
+      article.dataset.lyricsPaletteFg = "rgba(239, 245, 255, 0.95)";
+      article.dataset.lyricsPaletteTitle = "rgba(248, 251, 255, 0.97)";
+      return;
+    }
+
+    if (detailPath === "music/track-16.html") {
+      article.dataset.lyricsPaletteBg = "#9b8a67";
+      article.dataset.lyricsPaletteFg = "rgba(251, 247, 235, 0.95)";
+      article.dataset.lyricsPaletteTitle = "rgba(255, 252, 243, 0.97)";
+      return;
+    }
+
+    if (detailPath === "music/track-17.html") {
+      article.dataset.lyricsPaletteBg = "#86506f";
+      article.dataset.lyricsPaletteFg = "rgba(248, 240, 246, 0.95)";
+      article.dataset.lyricsPaletteTitle = "rgba(255, 248, 253, 0.97)";
+      return;
+    }
+
+    if (detailPath === "music/track-19.html") {
+      article.dataset.lyricsPaletteBg = "#c31d3a";
+      article.dataset.lyricsPaletteFg = "rgba(255, 243, 246, 0.95)";
+      article.dataset.lyricsPaletteTitle = "rgba(255, 249, 251, 0.97)";
+      return;
+    }
+
+    if (detailPath === "music/track-22.html") {
+      article.dataset.lyricsPaletteBg = "#80894b";
+      article.dataset.lyricsPaletteFg = "rgba(247, 248, 236, 0.95)";
+      article.dataset.lyricsPaletteTitle = "rgba(252, 253, 243, 0.97)";
+      return;
+    }
+
+    if (detailPath === "music/track-23.html") {
+      article.dataset.lyricsPaletteBg = "#d58f87";
+      article.dataset.lyricsPaletteFg = "rgba(61, 44, 45, 0.95)";
+      article.dataset.lyricsPaletteTitle = "rgba(49, 34, 35, 0.98)";
+      return;
+    }
+
+    if (detailPath === "music/track-24.html") {
+      article.dataset.lyricsPaletteBg = "#1f46ff";
+      article.dataset.lyricsPaletteFg = "rgba(241, 246, 255, 0.95)";
+      article.dataset.lyricsPaletteTitle = "rgba(249, 252, 255, 0.97)";
+      return;
+    }
+
+    if (detailPath === "music/track-25.html") {
+      article.dataset.lyricsPaletteBg = "#516c75";
+      article.dataset.lyricsPaletteFg = "rgba(237, 245, 247, 0.95)";
+      article.dataset.lyricsPaletteTitle = "rgba(246, 250, 252, 0.97)";
+      return;
+    }
+
+    if (detailPath === "music/track-26.html") {
+      article.dataset.lyricsPaletteBg = "#283854";
+      article.dataset.lyricsPaletteFg = "rgba(236, 243, 255, 0.95)";
+      article.dataset.lyricsPaletteTitle = "rgba(246, 250, 255, 0.97)";
       return;
     }
 
