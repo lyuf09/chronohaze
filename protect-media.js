@@ -179,6 +179,13 @@
       .replace(/^.*\/chronohaze\//, "")
       .replace(/^\//, "");
 
+    if (detailPath === "music/track-01.html") {
+      article.dataset.lyricsPaletteBg = "#4d95ad";
+      article.dataset.lyricsPaletteFg = "rgba(242, 249, 253, 0.95)";
+      article.dataset.lyricsPaletteTitle = "rgba(250, 253, 255, 0.97)";
+      return;
+    }
+
     if (detailPath === "music/track-14.html") {
       article.dataset.lyricsPaletteBg = "#56685f";
       article.dataset.lyricsPaletteFg = "rgba(241, 246, 243, 0.95)";
