@@ -207,6 +207,27 @@
       return;
     }
 
+    if (detailPath === "music/track-28.html") {
+      article.dataset.lyricsPaletteBg = "#31343b";
+      article.dataset.lyricsPaletteFg = "rgba(236, 238, 243, 0.95)";
+      article.dataset.lyricsPaletteTitle = "rgba(245, 247, 251, 0.97)";
+      return;
+    }
+
+    if (detailPath === "music/track-29.html") {
+      article.dataset.lyricsPaletteBg = "#5b97a5";
+      article.dataset.lyricsPaletteFg = "rgba(241, 248, 250, 0.95)";
+      article.dataset.lyricsPaletteTitle = "rgba(249, 253, 254, 0.97)";
+      return;
+    }
+
+    if (detailPath === "music/track-30.html") {
+      article.dataset.lyricsPaletteBg = "#9a6e86";
+      article.dataset.lyricsPaletteFg = "rgba(249, 243, 247, 0.95)";
+      article.dataset.lyricsPaletteTitle = "rgba(255, 250, 253, 0.97)";
+      return;
+    }
+
     var introNode = findSectionParagraph(article, ["作品介绍", "About the work"]);
     if (!introNode) {
       return;
