@@ -235,6 +235,13 @@
       return;
     }
 
+    if (detailPath === "music/track-11.html") {
+      article.dataset.lyricsPaletteBg = "#f1b544";
+      article.dataset.lyricsPaletteFg = "rgba(57, 38, 18, 0.95)";
+      article.dataset.lyricsPaletteTitle = "rgba(45, 29, 12, 0.98)";
+      return;
+    }
+
     if (detailPath === "music/track-12.html") {
       article.dataset.lyricsPaletteBg = "#dde8f4";
       article.dataset.lyricsPaletteFg = "rgba(55, 68, 82, 0.95)";
@@ -257,9 +264,44 @@
     }
 
     if (detailPath === "music/track-17.html") {
-      article.dataset.lyricsPaletteBg = "#86506f";
+      article.dataset.lyricsPaletteBg = "#9a4f76";
       article.dataset.lyricsPaletteFg = "rgba(248, 240, 246, 0.95)";
       article.dataset.lyricsPaletteTitle = "rgba(255, 248, 253, 0.97)";
+      return;
+    }
+
+    if (detailPath === "music/track-02.html") {
+      article.dataset.lyricsPaletteBg = "#b8ab86";
+      article.dataset.lyricsPaletteFg = "rgba(250, 246, 236, 0.95)";
+      article.dataset.lyricsPaletteTitle = "rgba(255, 251, 243, 0.97)";
+      return;
+    }
+
+    if (detailPath === "music/track-03.html") {
+      article.dataset.lyricsPaletteBg = "#44538b";
+      article.dataset.lyricsPaletteFg = "rgba(240, 244, 255, 0.95)";
+      article.dataset.lyricsPaletteTitle = "rgba(248, 250, 255, 0.97)";
+      return;
+    }
+
+    if (detailPath === "music/track-04.html") {
+      article.dataset.lyricsPaletteBg = "#253865";
+      article.dataset.lyricsPaletteFg = "rgba(235, 241, 255, 0.95)";
+      article.dataset.lyricsPaletteTitle = "rgba(246, 249, 255, 0.97)";
+      return;
+    }
+
+    if (detailPath === "music/track-07.html") {
+      article.dataset.lyricsPaletteBg = "#b5bd98";
+      article.dataset.lyricsPaletteFg = "rgba(64, 70, 52, 0.95)";
+      article.dataset.lyricsPaletteTitle = "rgba(50, 56, 39, 0.98)";
+      return;
+    }
+
+    if (detailPath === "music/track-09.html") {
+      article.dataset.lyricsPaletteBg = "#5ea9dd";
+      article.dataset.lyricsPaletteFg = "rgba(241, 248, 255, 0.95)";
+      article.dataset.lyricsPaletteTitle = "rgba(249, 252, 255, 0.97)";
       return;
     }
 
