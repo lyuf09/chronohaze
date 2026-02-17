@@ -229,9 +229,9 @@
     }
 
     if (detailPath === "music/track-30.html") {
-      article.dataset.lyricsPaletteBg = "#aa6f90";
-      article.dataset.lyricsPaletteFg = "rgba(249, 243, 247, 0.95)";
-      article.dataset.lyricsPaletteTitle = "rgba(255, 250, 253, 0.97)";
+      article.dataset.lyricsPaletteBg = "#e1a9ba";
+      article.dataset.lyricsPaletteFg = "rgba(76, 50, 60, 0.95)";
+      article.dataset.lyricsPaletteTitle = "rgba(61, 39, 47, 0.98)";
       return;
     }
 
