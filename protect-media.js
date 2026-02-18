@@ -940,6 +940,7 @@
         musicTagAudio: "audio",
         musicTagPending: "pending",
         musicTagCollab: "collab",
+        musicTagInstrumental: "纯音乐",
         mathPageTitle: "数学文章",
         mathIntro: "研究记录、实验笔记与结构化的思考。",
         photoPageTitle: "摄影作品集",
@@ -1001,6 +1002,7 @@
         musicTagAudio: "audio",
         musicTagPending: "pending",
         musicTagCollab: "collab",
+        musicTagInstrumental: "Instrumental",
         musicLongIntroParagraphs: [
           "Music was the first creative language I found, and the one I’ve stayed with the longest.",
           "I started learning piano before primary school, which gave me my earliest foundation in ear training and harmony. Later I picked up the ukulele, and at twelve I began learning the violin. Working with strings gradually helped me understand melodic lines and contrapuntal structure, and by fourteen I started writing original pieces based on the ABRSM music theory I’d studied systematically.",
@@ -4002,6 +4004,7 @@
       audio: dict.musicTagAudio,
       pending: dict.musicTagPending,
       collab: dict.musicTagCollab,
+      instrumental: dict.musicTagInstrumental,
     };
     return map[tag] || tag;
   }
@@ -4224,7 +4227,7 @@
       return Number(b) - Number(a);
     });
 
-    var tagOrder = ["album", "single", "wip", "audio", "pending", "collab"];
+    var tagOrder = ["album", "single", "wip", "audio", "pending", "collab", "instrumental"];
     tagValues = uniqueMusicTags(tagValues).sort(function (a, b) {
       var ia = tagOrder.indexOf(a);
       var ib = tagOrder.indexOf(b);
