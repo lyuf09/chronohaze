@@ -1197,6 +1197,14 @@ audio {
     transform 240ms ease;
 }
 
+.music-index-page .track-row.is-filter-hidden {
+  display: none !important;
+}
+
+.music-index-page .music-group.is-filter-hidden {
+  display: none !important;
+}
+
 .music-index-page .track-meta {
   min-width: 0;
 }

@@ -4359,6 +4359,7 @@
 
         var visible = matchesGroup && matchesYear && matchesTag && matchesAudio;
         row.hidden = !visible;
+        row.classList.toggle("is-filter-hidden", !visible);
         if (visible) {
           visibleTotal += 1;
         }
@@ -4377,8 +4378,10 @@
 
         if (groupFilter !== "all" && key !== groupFilter) {
           group.hidden = true;
+          group.classList.add("is-filter-hidden");
         } else {
           group.hidden = visibleCount === 0;
+          group.classList.toggle("is-filter-hidden", visibleCount === 0);
         }
       });
 
