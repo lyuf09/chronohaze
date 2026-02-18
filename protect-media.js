@@ -358,6 +358,53 @@
     });
   }
 
+  function normalizeNavHref(href) {
+    if (!href) {
+      return "";
+    }
+    try {
+      var url = new URL(href, window.location.href);
+      var path = String(url.pathname || "")
+        .replace(/\/+/g, "/")
+        .replace(/\/index\.html$/i, "/")
+        .replace(/\/$/, "");
+      return path + String(url.search || "") + String(url.hash || "");
+    } catch (_error) {
+      return String(href).trim().toLowerCase();
+    }
+  }
+
+  function dedupeNavLinks() {
+    Array.from(document.querySelectorAll(".nav")).forEach(function (nav) {
+      var seenByText = new Set();
+      var seenByHref = new Set();
+
+      Array.from(nav.querySelectorAll("a")).forEach(function (link) {
+        if (!link || !link.parentNode) {
+          return;
+        }
+
+        var textKey = normalizeText(link.textContent || "").toLowerCase();
+        var hrefKey = normalizeNavHref(link.getAttribute("href") || "");
+
+        var duplicateByText = textKey && seenByText.has(textKey);
+        var duplicateByHref = hrefKey && seenByHref.has(hrefKey);
+
+        if (duplicateByText || duplicateByHref) {
+          link.parentNode.removeChild(link);
+          return;
+        }
+
+        if (textKey) {
+          seenByText.add(textKey);
+        }
+        if (hrefKey) {
+          seenByHref.add(hrefKey);
+        }
+      });
+    });
+  }
+
   function labelPhotoOrientation() {
     var images = Array.from(
       document.querySelectorAll(".photo-detail-gallery img")
@@ -5498,6 +5545,7 @@
 
   function boot() {
     ensureSearchNavLink();
+    dedupeNavLinks();
     cacheMusicIntroPaletteSource();
     injectFloatingSiteLogo();
     injectFloatingLanguageSwitch();
