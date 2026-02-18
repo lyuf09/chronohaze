@@ -320,7 +320,8 @@
       "date": "2023年8月27日",
       "excerpt": "HazezZ",
       "tags": [
-        "single"
+        "single",
+        "collab"
       ],
       "sort": 20230827,
       "scope": "music",
@@ -523,7 +524,8 @@
       "tags": [
         "single",
         "collab",
-        "progcore"
+        "progcore",
+        "instrumental"
       ],
       "sort": 20220830,
       "scope": "music",
@@ -724,7 +726,6 @@
       "tags": [
         "single",
         "indie",
-        "postrock",
         "jrock"
       ],
       "sort": 20211029,

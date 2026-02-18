@@ -4124,9 +4124,6 @@
     if (row.classList.contains("track-row-album")) {
       return "album";
     }
-    if (/音频待上传|audio pending upload/i.test(titleText || "")) {
-      return "wip";
-    }
     return "single";
   }
 
@@ -4217,7 +4214,6 @@
         { key: "all", label: dict.musicTabAll },
         { key: "album", label: dict.musicTabAlbum },
         { key: "single", label: dict.musicTabSingles },
-        { key: "wip", label: dict.musicTabWip },
       ].forEach(function (item, index) {
         var button = document.createElement("button");
         button.type = "button";
@@ -4259,7 +4255,6 @@
       [
         { key: "album", label: dict.musicGroupAlbum },
         { key: "single", label: dict.musicGroupSingles },
-        { key: "wip", label: dict.musicGroupWip },
       ].forEach(function (item) {
         var group = document.createElement("section");
         group.className = "music-group";
@@ -4309,9 +4304,8 @@
     var groupSections = Array.from(shell.querySelectorAll(".music-group"));
     var albumList = shell.querySelector('[data-list-group="album"]');
     var singlesList = shell.querySelector('[data-list-group="single"]');
-    var wipList = shell.querySelector('[data-list-group="wip"]');
 
-    if (!yearSelect || !tagSelect || !audioSelect || !albumList || !singlesList || !wipList) {
+    if (!yearSelect || !tagSelect || !audioSelect || !albumList || !singlesList) {
       return;
     }
 
@@ -4325,14 +4319,16 @@
       var artistText = artistNode ? artistNode.textContent || "" : "";
 
       var type = row.dataset.musicType || inferMusicRowType(row, titleText);
-      var hasAudio = type === "wip" ? "0" : "1";
+      var hasAudio = /音频待上传|audio pending upload/i.test(titleText || "")
+        ? "0"
+        : "1";
       var year = row.dataset.musicYear || parseMusicRowYear(row);
       var tags = sanitizeMusicTags(splitMusicTags(row.dataset.tags || ""));
 
       if (!tags.length) {
         tags.push(type === "album" ? "album" : "single");
       }
-      if (/[\/]|feat\.?|ft\.?/i.test(artistText + " " + titleText)) {
+      if (/\//.test(artistText || "") || /feat\.?|ft\.?/i.test(titleText || "")) {
         tags.push("collab");
       }
 
@@ -4354,8 +4350,6 @@
 
       if (type === "album") {
         albumList.appendChild(row);
-      } else if (type === "wip") {
-        wipList.appendChild(row);
       } else {
         singlesList.appendChild(row);
       }
@@ -4430,7 +4424,6 @@
       all: dict.musicTabAll,
       album: dict.musicTabAlbum,
       single: dict.musicTabSingles,
-      wip: dict.musicTabWip,
     };
     tabs.forEach(function (tab) {
       tab.textContent = titleMap[tab.dataset.groupFilter] || tab.textContent;
@@ -4444,7 +4437,6 @@
     var groupTitleMap = {
       album: dict.musicGroupAlbum,
       single: dict.musicGroupSingles,
-      wip: dict.musicGroupWip,
     };
     groupSections.forEach(function (group) {
       var key = group.dataset.group;
