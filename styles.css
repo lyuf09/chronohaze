@@ -2040,6 +2040,15 @@ audio {
   letter-spacing: 0.01em;
 }
 
+.policy h3 {
+  margin: 14px 0 6px;
+  font-size: clamp(17px, 1.6vw, 20px);
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: #2e333d;
+}
+
 .policy p,
 .policy li {
   color: #373a41;
@@ -2051,6 +2060,53 @@ audio {
 .policy ul {
   margin: 0;
   padding-left: 18px;
+}
+
+.cv-tagline {
+  margin: 0;
+  color: #2d3340;
+  font-family: var(--font-serif);
+  font-size: clamp(17px, 1.8vw, 22px);
+  line-height: 1.55;
+  letter-spacing: 0.012em;
+}
+
+.cv-highlight-card {
+  margin: 18px 0 28px;
+  padding: 18px 20px;
+  border: 1px solid #d7dce6;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #f4f6fa 0%, #edf1f7 100%);
+  box-shadow: 0 8px 18px rgba(32, 42, 62, 0.06);
+}
+
+.cv-highlight-card h2 {
+  margin: 0 0 10px;
+}
+
+.cv-highlight-card ul {
+  margin: 0;
+}
+
+.cv-project-list {
+  margin: 8px 0 2px;
+  padding-left: 20px;
+}
+
+.cv-project-list > li {
+  margin-bottom: 16px;
+}
+
+.cv-project-list > li:last-child {
+  margin-bottom: 0;
+}
+
+.cv-experience-item {
+  margin-bottom: 12px;
+}
+
+.cv-experience-item:last-of-type {
+  margin-bottom: 0;
 }
 
 .site-footer {
