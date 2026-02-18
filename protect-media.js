@@ -279,7 +279,15 @@
 
       item.dataset.mediaPreloadReady = "1";
 
-      if (!item.hasAttribute("autoplay") && !item.hasAttribute("data-eager-media")) {
+      var explicitPreload = (item.getAttribute("preload") || "").toLowerCase();
+      var shouldKeepExplicitPreload =
+        explicitPreload === "metadata" || explicitPreload === "auto";
+
+      if (
+        !item.hasAttribute("autoplay") &&
+        !item.hasAttribute("data-eager-media") &&
+        !shouldKeepExplicitPreload
+      ) {
         item.preload = "none";
       }
 
