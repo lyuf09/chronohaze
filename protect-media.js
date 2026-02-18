@@ -951,12 +951,12 @@
         musicGroupSingles: "Singles",
         musicGroupWip: "WIP",
         musicNoResults: "没有匹配结果，试试放宽筛选条件。",
-        musicTagAlbum: "album",
-        musicTagSingle: "single",
+        musicTagAlbum: "专辑",
+        musicTagSingle: "单曲",
         musicTagWip: "wip",
         musicTagAudio: "audio",
         musicTagPending: "pending",
-        musicTagCollab: "collab",
+        musicTagCollab: "合作曲",
         musicTagInstrumental: "纯音乐",
         musicTagJrock: "日系摇滚",
         musicTagProgcore: "前卫核",
@@ -4024,6 +4024,17 @@
     });
   }
 
+  function sanitizeMusicTags(tags) {
+    var hidden = {
+      wip: true,
+      audio: true,
+      pending: true,
+    };
+    return tags.filter(function (tag) {
+      return !hidden[tag];
+    });
+  }
+
   function inferMusicRowType(row, titleText) {
     if (row.classList.contains("track-row-album")) {
       return "album";
@@ -4238,17 +4249,16 @@
       var type = row.dataset.musicType || inferMusicRowType(row, titleText);
       var hasAudio = type === "wip" ? "0" : "1";
       var year = row.dataset.musicYear || parseMusicRowYear(row);
-      var tags = splitMusicTags(row.dataset.tags || "");
+      var tags = sanitizeMusicTags(splitMusicTags(row.dataset.tags || ""));
 
       if (!tags.length) {
-        tags.push(type);
-        tags.push(hasAudio === "1" ? "audio" : "pending");
-        if (/[\/]|feat\.?|ft\.?/i.test(artistText + " " + titleText)) {
-          tags.push("collab");
-        }
+        tags.push(type === "album" ? "album" : "single");
+      }
+      if (/[\/]|feat\.?|ft\.?/i.test(artistText + " " + titleText)) {
+        tags.push("collab");
       }
 
-      tags = uniqueMusicTags(tags).slice(0, 3);
+      tags = uniqueMusicTags(sanitizeMusicTags(tags)).slice(0, 3);
 
       row.dataset.musicType = type;
       row.dataset.musicYear = year;
@@ -4280,9 +4290,6 @@
     var tagOrder = [
       "album",
       "single",
-      "wip",
-      "audio",
-      "pending",
       "collab",
       "instrumental",
       "jrock",
