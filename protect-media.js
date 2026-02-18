@@ -983,6 +983,12 @@
         searchLoadingProgress: "正在加载索引（{done}/{total}）…",
         searchLoadError: "搜索索引加载失败，请稍后重试。",
         searchFallbackNotice: "已切换到兜底列表",
+        searchFallbackText: "索引加载失败，可先使用以下入口：",
+        searchFallbackMath: "浏览数学",
+        searchFallbackPhoto: "浏览摄影",
+        searchFallbackMusic: "浏览音乐",
+        searchFallbackCV: "浏览 CV",
+        searchFallbackExternal: "站外搜索（site:chronohaze.space）",
         searchResultZero: "暂无匹配结果。",
         searchResultCount: "共 {count} 条结果",
         siteNotes: "网站说明",
@@ -1075,6 +1081,12 @@
         searchLoadingProgress: "Loading index ({done}/{total})…",
         searchLoadError: "Failed to load search index. Please try again later.",
         searchFallbackNotice: "Fallback list enabled",
+        searchFallbackText: "Index failed to load. You can use these shortcuts:",
+        searchFallbackMath: "Browse math",
+        searchFallbackPhoto: "Browse photography",
+        searchFallbackMusic: "Browse music",
+        searchFallbackCV: "Browse CV",
+        searchFallbackExternal: "External search (site:chronohaze.space)",
         searchResultZero: "No matching results.",
         searchResultCount: "{count} results",
         siteNotes: "Privacy Policy",
@@ -4615,6 +4627,13 @@
     var skeletonNode = document.querySelector(".search-skeleton");
     var listNode = document.querySelector(".search-results");
     var emptyNode = document.querySelector(".search-empty");
+    var fallbackPanel = document.querySelector(".search-fallback-actions");
+    var fallbackTextNode = document.querySelector("[data-search-fallback-text]");
+    var fallbackMathNode = document.querySelector("[data-search-fallback-math]");
+    var fallbackPhotoNode = document.querySelector("[data-search-fallback-photo]");
+    var fallbackMusicNode = document.querySelector("[data-search-fallback-music]");
+    var fallbackCVNode = document.querySelector("[data-search-fallback-cv]");
+    var fallbackExternalNode = document.querySelector("[data-search-fallback-external]");
     var formNode = document.querySelector(".search-form");
     var submitNode = document.querySelector(".search-submit");
 
@@ -4647,6 +4666,24 @@
     }
     if (submitNode) {
       submitNode.textContent = dict.searchSubmit;
+    }
+    if (fallbackTextNode) {
+      fallbackTextNode.textContent = dict.searchFallbackText;
+    }
+    if (fallbackMathNode) {
+      fallbackMathNode.textContent = dict.searchFallbackMath;
+    }
+    if (fallbackPhotoNode) {
+      fallbackPhotoNode.textContent = dict.searchFallbackPhoto;
+    }
+    if (fallbackMusicNode) {
+      fallbackMusicNode.textContent = dict.searchFallbackMusic;
+    }
+    if (fallbackCVNode) {
+      fallbackCVNode.textContent = dict.searchFallbackCV;
+    }
+    if (fallbackExternalNode) {
+      fallbackExternalNode.textContent = dict.searchFallbackExternal;
     }
     inputNode.placeholder = dict.searchPlaceholder;
 
@@ -4688,6 +4725,29 @@
     var allScopes = ["math", "photo", "music", "cv", "site"];
     statusNode.textContent = dict.searchLoading;
     emptyNode.hidden = true;
+    if (fallbackPanel) {
+      fallbackPanel.hidden = true;
+    }
+
+    function setFallbackVisibility(visible) {
+      if (!fallbackPanel) {
+        return;
+      }
+      fallbackPanel.hidden = !visible;
+    }
+
+    function updateFallbackExternalLink() {
+      if (!fallbackExternalNode) {
+        return;
+      }
+      var query = normalizeText(inputNode.value || "").trim();
+      var q = "site:chronohaze.space";
+      if (query) {
+        q += " " + query;
+      }
+      fallbackExternalNode.href =
+        "https://www.google.com/search?q=" + encodeURIComponent(q);
+    }
 
     function updateSearchUrl(query, scope, tag) {
       var url = new URL(window.location.href);
@@ -4740,6 +4800,7 @@
       }
       listNode.textContent = "";
       emptyNode.hidden = true;
+      setFallbackVisibility(false);
       statusNode.textContent = text || dict.searchLoading;
     }
 
@@ -4747,6 +4808,7 @@
       if (skeletonNode) {
         skeletonNode.hidden = true;
       }
+      setFallbackVisibility(false);
     }
 
     function getItemTagLabels(item) {
@@ -4790,6 +4852,105 @@
       }
     }
 
+    function withTimeout(promise, timeoutMs) {
+      return new Promise(function (resolve, reject) {
+        var settled = false;
+        var timer = window.setTimeout(function () {
+          if (settled) {
+            return;
+          }
+          settled = true;
+          reject(new Error("timeout"));
+        }, timeoutMs);
+
+        promise.then(
+          function (value) {
+            if (settled) {
+              return;
+            }
+            settled = true;
+            window.clearTimeout(timer);
+            resolve(value);
+          },
+          function (error) {
+            if (settled) {
+              return;
+            }
+            settled = true;
+            window.clearTimeout(timer);
+            reject(error);
+          }
+        );
+      });
+    }
+
+    function getAssetCandidateUrls(relativePath) {
+      var rel = String(relativePath || "").replace(/^\.\//, "");
+      var urls = [];
+
+      function push(url) {
+        if (!url || urls.indexOf(url) >= 0) {
+          return;
+        }
+        urls.push(url);
+      }
+
+      push(rel);
+      push("./" + rel);
+
+      try {
+        var page = new URL(window.location.href);
+        var pageBase = String(page.pathname || "").replace(/[^/]*$/, "/");
+        if (pageBase) {
+          push(pageBase + rel);
+        }
+        push(page.origin + pageBase + rel);
+        push(page.origin + "/" + rel);
+      } catch (_error) {
+      }
+
+      var scriptNode = document.querySelector('script[src*="protect-media.js"]');
+      if (scriptNode) {
+        try {
+          var scriptUrl = new URL(scriptNode.getAttribute("src"), window.location.href);
+          var scriptBase = String(scriptUrl.pathname || "").replace(/[^/]*$/, "/");
+          push(scriptBase + rel);
+          push(scriptUrl.origin + scriptBase + rel);
+        } catch (_error2) {
+        }
+      }
+
+      push("/" + rel);
+      return urls;
+    }
+
+    function fetchJsonFromCandidates(relativePath) {
+      var candidates = getAssetCandidateUrls(relativePath);
+      var index = 0;
+
+      function tryNext() {
+        if (index >= candidates.length) {
+          return Promise.reject(new Error("not found"));
+        }
+        var url = candidates[index];
+        index += 1;
+
+        return withTimeout(
+          fetch(url, { cache: "no-cache" }).then(function (response) {
+            if (!response.ok) {
+              throw new Error("HTTP " + response.status);
+            }
+            return response.json();
+          }),
+          8000
+        ).catch(function () {
+          return tryNext();
+        });
+      }
+
+      return tryNext();
+    }
+
     function fetchScopeIndex(scope) {
       if (scopeCache[scope]) {
         return Promise.resolve(scopeCache[scope]);
@@ -4799,13 +4960,7 @@
         scopeCache[scope] = [];
         return Promise.resolve([]);
       }
-      return fetch(file, { cache: "no-cache" })
-        .then(function (response) {
-          if (!response.ok) {
-            throw new Error("HTTP " + response.status);
-          }
-          return response.json();
-        })
+      return fetchJsonFromCandidates(file)
         .then(function (payload) {
           var items = normalizeItems(payload).map(function (item) {
             if (!item.scope) {
@@ -4832,13 +4987,7 @@
         }
       }
 
-      return fetch("assets/search-index.json", { cache: "no-cache" })
-        .then(function (response) {
-          if (!response.ok) {
-            throw new Error("HTTP " + response.status);
-          }
-          return response.json();
-        })
+      return fetchJsonFromCandidates("assets/search-index.json")
         .then(function (payload) {
           return normalizeItems(payload);
         })
@@ -4920,6 +5069,7 @@
         emptyNode.hidden = false;
         emptyNode.textContent = dict.searchLoadError;
         listNode.textContent = "";
+        setFallbackVisibility(true);
         return;
       }
 
@@ -4965,6 +5115,7 @@
         status += " · " + dict.searchFallbackNotice;
       }
       statusNode.textContent = status;
+      setFallbackVisibility(false);
 
       listNode.textContent = "";
       if (!matched.length) {
@@ -5023,21 +5174,28 @@
 
     var debounceTimer = null;
     inputNode.addEventListener("input", function () {
+      updateFallbackExternalLink();
       window.clearTimeout(debounceTimer);
       debounceTimer = window.setTimeout(renderResults, 140);
     });
 
     scopeNode.addEventListener("change", function () {
       initialTag = "all";
+      updateFallbackExternalLink();
       loadItemsForScope(scopeNode.value || "all");
     });
-    tagNode.addEventListener("change", renderResults);
-
-    formNode.addEventListener("submit", function (event) {
-      event.preventDefault();
+    tagNode.addEventListener("change", function () {
+      updateFallbackExternalLink();
       renderResults();
     });
 
+    formNode.addEventListener("submit", function (event) {
+      event.preventDefault();
+      updateFallbackExternalLink();
+      renderResults();
+    });
+
+    updateFallbackExternalLink();
     loadItemsForScope(scopeNode.value || "all");
   }
 

@@ -1439,6 +1439,36 @@ audio {
   font-size: 14px;
 }
 
+.search-index-page .search-fallback-actions {
+  margin: 10px 0 2px;
+  padding: 10px 12px 11px;
+  border: 1px solid rgba(86, 95, 116, 0.26);
+  background: rgba(246, 249, 255, 0.52);
+}
+
+.search-index-page .search-fallback-text {
+  margin: 0;
+  color: rgba(58, 66, 84, 0.88);
+  font-size: 13px;
+}
+
+.search-index-page .search-fallback-links {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.search-index-page .search-fallback-links a {
+  border: 1px solid rgba(82, 91, 110, 0.28);
+  background: rgba(249, 252, 255, 0.62);
+  color: rgba(49, 57, 74, 0.9);
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  padding: 5px 9px;
+}
+
 .search-index-page .search-results {
   margin: 12px 0 0;
   padding: 0;
