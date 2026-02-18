@@ -944,6 +944,8 @@
         musicTagJrock: "日系摇滚",
         musicTagProgcore: "前卫核",
         musicTagPostrock: "后摇",
+        musicTagPop: "流行",
+        musicTagIndie: "indie",
         mathPageTitle: "数学文章",
         mathIntro: "研究记录、实验笔记与结构化的思考。",
         photoPageTitle: "摄影作品集",
@@ -1009,6 +1011,8 @@
         musicTagJrock: "J-rock",
         musicTagProgcore: "Prog Metalcore",
         musicTagPostrock: "Post-rock",
+        musicTagPop: "Pop",
+        musicTagIndie: "Indie",
         musicLongIntroParagraphs: [
           "Music was the first creative language I found, and the one I’ve stayed with the longest.",
           "I started learning piano before primary school, which gave me my earliest foundation in ear training and harmony. Later I picked up the ukulele, and at twelve I began learning the violin. Working with strings gradually helped me understand melodic lines and contrapuntal structure, and by fourteen I started writing original pieces based on the ABRSM music theory I’d studied systematically.",
@@ -4014,6 +4018,8 @@
       jrock: dict.musicTagJrock,
       progcore: dict.musicTagProgcore,
       postrock: dict.musicTagPostrock,
+      pop: dict.musicTagPop,
+      indie: dict.musicTagIndie,
     };
     return map[tag] || tag;
   }
@@ -4247,6 +4253,8 @@
       "jrock",
       "progcore",
       "postrock",
+      "pop",
+      "indie",
     ];
     tagValues = uniqueMusicTags(tagValues).sort(function (a, b) {
       var ia = tagOrder.indexOf(a);
