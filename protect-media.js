@@ -4572,6 +4572,21 @@
     if (document.body.classList.contains("math-index-page")) {
       var mathTitle = document.querySelector(".page-title");
       var mathIntro = document.querySelector(".page-head p");
+      function setMathCardTitle(card, text) {
+        if (!card) {
+          return;
+        }
+        var titleNode = card.querySelector(".math-title");
+        if (!titleNode) {
+          return;
+        }
+        var titleLink = titleNode.querySelector(".math-title-link");
+        if (titleLink) {
+          titleLink.textContent = text;
+        } else {
+          titleNode.textContent = text;
+        }
+      }
       if (mathTitle) {
         mathTitle.textContent = dict.mathPageTitle;
       }
@@ -4593,46 +4608,38 @@
           '.math-card[data-href="post/isabelle-submodular-greedy.html"]'
         );
         if (metalcoreCard) {
-          var metalcoreTitle = metalcoreCard.querySelector(".math-title");
           var metalcoreDesc = metalcoreCard.querySelector(".math-desc");
-          if (metalcoreTitle) {
-            metalcoreTitle.textContent =
-              "Metalcore Piano Lab | From Audio to Chart: A Discretization Experiment (WIP)";
-          }
+          setMathCardTitle(
+            metalcoreCard,
+            "Metalcore Piano Lab | From Audio to Chart: A Discretization Experiment (WIP)"
+          );
           if (metalcoreDesc) {
             metalcoreDesc.textContent =
               "From continuous audio to playable charts: onset detection, beat grids, section alignment, and playability constraints.";
           }
         }
         if (springCard) {
-          var springTitle = springCard.querySelector(".math-title");
           var springDesc = springCard.querySelector(".math-desc");
-          if (springTitle) {
-            springTitle.textContent = "Spring 2026 | A New Research Direction";
-          }
+          setMathCardTitle(springCard, "Spring 2026 | A New Research Direction");
           if (springDesc) {
             springDesc.textContent =
               "Beginning undergraduate research in Cornell ORIE on first-order methods for constrained and composite optimization.";
           }
         }
         if (firstIsabelleCard) {
-          var cardTitle = firstIsabelleCard.querySelector(".math-title");
           var cardDesc = firstIsabelleCard.querySelector(".math-desc");
-          if (cardTitle) {
-            cardTitle.textContent = "My First Isabelle Formalization Project";
-          }
+          setMathCardTitle(firstIsabelleCard, "My First Isabelle Formalization Project");
           if (cardDesc) {
             cardDesc.textContent =
               "Embedding verifiability into proof writing: from motivation to the Nemhauser–Wolsey theorem.";
           }
         }
         if (submodularCard) {
-          var submodularTitle = submodularCard.querySelector(".math-title");
           var submodularDesc = submodularCard.querySelector(".math-desc");
-          if (submodularTitle) {
-            submodularTitle.textContent =
-              "An Ongoing Isabelle Research Project: Formalising Submodular Greedy";
-          }
+          setMathCardTitle(
+            submodularCard,
+            "An Ongoing Isabelle Research Project: Formalising Submodular Greedy"
+          );
           if (submodularDesc) {
             submodularDesc.textContent =
               "Formalising the greedy (1 − 1/e) guarantee for monotone submodular maximisation under cardinality constraints.";
