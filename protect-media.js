@@ -4194,17 +4194,6 @@
       shell = document.createElement("div");
       shell.className = "container music-ia-shell";
 
-      var iaHead = document.createElement("div");
-      iaHead.className = "music-ia-head";
-      var iaTitle = document.createElement("h2");
-      iaTitle.className = "music-ia-title";
-      iaTitle.textContent = dict.musicIATitle;
-      var iaSub = document.createElement("p");
-      iaSub.className = "music-ia-subtitle";
-      iaSub.textContent = dict.musicIASubtitle;
-      iaHead.appendChild(iaTitle);
-      iaHead.appendChild(iaSub);
-
       var controls = document.createElement("div");
       controls.className = "music-ia-controls";
 
@@ -4292,7 +4281,6 @@
       sourceList.classList.add("music-list-source");
       sourceList.hidden = true;
 
-      shell.appendChild(iaHead);
       shell.appendChild(controls);
       shell.appendChild(groups);
       shell.appendChild(empty);
