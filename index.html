@@ -70,8 +70,15 @@
                 <div class="player-track"><span id="playerProgress"></span></div>
               </div>
               <p class="player-time" id="playerTime">00:00 / 00:00</p>
-              <audio id="heroAudio" preload="metadata" data-eager-media="1" oncontextmenu="return false">
-                <source src="assets/audio/juke/ZK8iOaJLM0p2757mXaquFqQ9d36eRqkm.mp3" />
+              <audio
+                id="heroAudio"
+                preload="metadata"
+                data-eager-media="1"
+                data-fallback-duration="345.91345"
+                playsinline
+                oncontextmenu="return false"
+              >
+                <source src="assets/audio/juke/ZK8iOaJLM0p2757mXaquFqQ9d36eRqkm.mp3" type="audio/mpeg" />
               </audio>
             </div>
           </div>
@@ -398,10 +405,17 @@
         return String(m).padStart(2, '0') + ':' + String(r).padStart(2, '0');
       }
 
+      const fallbackDuration = Number(audio.getAttribute('data-fallback-duration') || 0);
+
+      function getPlayerDuration() {
+        return Number.isFinite(audio.duration) && audio.duration > 0 ? audio.duration : fallbackDuration;
+      }
+
       function syncPlayer() {
-        const ratio = audio.duration ? (audio.currentTime / audio.duration) : 0;
+        const duration = getPlayerDuration();
+        const ratio = duration ? (audio.currentTime / duration) : 0;
         progress.style.width = (ratio * 100).toFixed(2) + '%';
-        timeLabel.textContent = fmt(audio.currentTime) + ' / ' + fmt(audio.duration);
+        timeLabel.textContent = fmt(audio.currentTime) + ' / ' + fmt(duration);
         toggle.textContent = audio.paused ? '▶' : '▮▮';
       }
 
@@ -415,8 +429,13 @@
 
       audio.addEventListener('timeupdate', syncPlayer);
       audio.addEventListener('loadedmetadata', syncPlayer);
+      audio.addEventListener('durationchange', syncPlayer);
+      audio.addEventListener('loadeddata', syncPlayer);
+      audio.addEventListener('canplay', syncPlayer);
       audio.addEventListener('play', syncPlayer);
       audio.addEventListener('pause', syncPlayer);
+      audio.addEventListener('stalled', syncPlayer);
+      audio.addEventListener('error', syncPlayer);
 
       let initialLang = 'zh';
       try {
@@ -429,6 +448,13 @@
 
       setLanguage(initialLang);
       syncPlayer();
+
+      if (audio.readyState < 1) {
+        try {
+          audio.load();
+        } catch (err) {
+        }
+      }
     })();
   </script>
 </body>
