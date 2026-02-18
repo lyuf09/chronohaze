@@ -1349,7 +1349,7 @@ audio {
 
 .search-index-page .search-form {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 190px 112px;
+  grid-template-columns: minmax(0, 1fr) 180px 180px 112px;
   gap: 10px;
   align-items: end;
 }
@@ -1368,7 +1368,8 @@ audio {
 }
 
 .search-index-page #site-search-input,
-.search-index-page #site-search-scope {
+.search-index-page #site-search-scope,
+.search-index-page #site-search-tag {
   width: 100%;
   border: 1px solid rgba(66, 74, 92, 0.28);
   border-radius: 12px;
@@ -1381,6 +1382,7 @@ audio {
 
 .search-index-page #site-search-input:focus-visible,
 .search-index-page #site-search-scope:focus-visible,
+.search-index-page #site-search-tag:focus-visible,
 .search-index-page .search-submit:focus-visible {
   outline: 1px solid rgba(49, 59, 84, 0.58);
   outline-offset: 2px;
@@ -1409,6 +1411,26 @@ audio {
   margin: 12px 0 4px;
   color: rgba(59, 66, 82, 0.78);
   font-size: 13px;
+}
+
+.search-index-page .search-skeleton {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.search-index-page .search-skeleton-item {
+  height: 108px;
+  border: 1px solid rgba(88, 96, 114, 0.22);
+  background:
+    linear-gradient(
+      90deg,
+      rgba(237, 241, 249, 0.38) 0%,
+      rgba(247, 251, 255, 0.64) 48%,
+      rgba(237, 241, 249, 0.38) 100%
+    );
+  background-size: 220% 100%;
+  animation: search-skeleton-shimmer 1.15s ease-in-out infinite;
 }
 
 .search-index-page .search-empty {
@@ -1484,6 +1506,15 @@ audio {
   font-size: 11px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+}
+
+@keyframes search-skeleton-shimmer {
+  0% {
+    background-position: 180% 0;
+  }
+  100% {
+    background-position: -30% 0;
+  }
 }
 
 .search-index-page .main {

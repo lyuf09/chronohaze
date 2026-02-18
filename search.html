@@ -1,111 +1,114 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/x-icon" href="assets/favicon.ico?v=3" />
-  <link rel="apple-touch-icon" href="assets/logo.png?v=3" />
-  <title>搜索 | Chronohaze</title>
-  <meta name="description" content="Chronohaze 站内搜索：快速检索数学、摄影、音乐与 CV 页面内容。" />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Chronohaze" />
-  <meta property="og:title" content="搜索 | Chronohaze" />
-  <meta property="og:description" content="Chronohaze 站内搜索：快速检索数学、摄影、音乐与 CV 页面内容。" />
-  <meta property="og:url" content="https://lyuf09.github.io/chronohaze/search.html" />
-  <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="搜索 | Chronohaze" />
-  <meta name="twitter:description" content="Chronohaze 站内搜索：快速检索数学、摄影、音乐与 CV 页面内容。" />
-  <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/logo.png" />
-  <link rel="canonical" href="https://lyuf09.github.io/chronohaze/search.html" />
-  <link rel="alternate" type="application/rss+xml" title="Chronohaze RSS" href="https://lyuf09.github.io/chronohaze/feed.xml" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@300;400;500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-  <script defer src="protect-media.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="assets/favicon.ico?v=3" rel="icon" type="image/x-icon"/>
+<link href="assets/logo.png?v=3" rel="apple-touch-icon"/>
+<title>搜索 | Chronohaze</title>
+<meta content="Chronohaze 站内搜索：快速检索数学、摄影、音乐与 CV 页面内容。" name="description"/>
+<meta content="website" property="og:type"/>
+<meta content="Chronohaze" property="og:site_name"/>
+<meta content="搜索 | Chronohaze" property="og:title"/>
+<meta content="Chronohaze 站内搜索：快速检索数学、摄影、音乐与 CV 页面内容。" property="og:description"/>
+<meta content="https://lyuf09.github.io/chronohaze/search.html" property="og:url"/>
+<meta content="https://lyuf09.github.io/chronohaze/assets/logo.png" property="og:image"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="搜索 | Chronohaze" name="twitter:title"/>
+<meta content="Chronohaze 站内搜索：快速检索数学、摄影、音乐与 CV 页面内容。" name="twitter:description"/>
+<meta content="https://lyuf09.github.io/chronohaze/assets/logo.png" name="twitter:image"/>
+<link href="https://lyuf09.github.io/chronohaze/search.html" rel="canonical"/>
+<link href="https://lyuf09.github.io/chronohaze/feed.xml" rel="alternate" title="Chronohaze RSS" type="application/rss+xml"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&amp;family=Noto+Serif+SC:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="styles.css" rel="stylesheet"/>
+<script defer="" src="protect-media.js"></script>
 </head>
 <body class="search-index-page">
-  <div class="page">
-    <header class="site-header">
-      <div class="container header-inner">
-        <a class="brand" href="index.html">
-          <img src="assets/logo.png" alt="Chronohaze" />
-          <span>chronohaze.space</span>
-        </a>
-        <nav class="nav" aria-label="主导航">
-          <a href="index.html">主页</a>
-          <a href="math.html">数学</a>
-          <a href="portfolio-1.html">摄影</a>
-          <a href="yin-le.html">音乐</a>
-          <a href="cv.html">CV</a>
-          <a class="active" href="search.html">搜索</a>
-        </nav>
-      </div>
-    </header>
-
-    <main class="main">
-      <section class="page-head search-head">
-        <div class="container">
-          <h1 class="page-title" data-search-title>站内搜索</h1>
-          <p data-search-intro>按标题、简介、标签搜索全站内容。</p>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="container search-shell">
-          <form class="search-form" role="search" aria-label="站内搜索表单">
-            <label class="search-field">
-              <span class="search-field-label" data-search-keyword-label>关键词</span>
-              <input
-                id="site-search-input"
-                name="q"
-                type="search"
-                placeholder="输入关键词"
-                autocomplete="off"
-              />
-            </label>
-            <label class="search-field search-scope-field" for="site-search-scope">
-              <span class="search-field-label" data-search-scope-label>范围</span>
-              <select id="site-search-scope" name="scope">
-                <option value="all">全部</option>
-                <option value="math">数学</option>
-                <option value="photo">摄影</option>
-                <option value="music">音乐</option>
-                <option value="cv">CV</option>
-              </select>
-            </label>
-            <button class="search-submit" type="submit">搜索</button>
-          </form>
-
-          <p class="search-status" aria-live="polite">正在加载索引…</p>
-          <p class="search-empty" hidden></p>
-          <ul class="search-results" aria-live="polite"></ul>
-        </div>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <div class="container footer-grid">
-        <div>
-          <p class="footer-title">chronohaze.space</p>
-          <p class="footer-note">辗转不同国家无固定号码 请联系邮箱：<a href="mailto:feier530@icloud.com">feier530@icloud.com</a></p>
-          <p class="footer-note">重庆 · Edinburgh · New York</p>
-          <p class="footer-copy">© 2026 by chronohaze.space. Powered and secured by GitHub Pages.</p>
-          <div class="social" aria-label="Social links">
-            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            <a href="https://www.instagram.com/lyuf09" target="_blank" rel="noopener noreferrer">Instagram</a>
-            <a href="https://space.bilibili.com/35902781" target="_blank" rel="noopener noreferrer">Bilibili</a>
-            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
-          </div>
-        </div>
-        <div class="footer-right">
-          <a href="blank.html">网站说明</a>
-          <a href="blank-1.html">无障碍支持</a>
-        </div>
-      </div>
-    </footer>
-  </div>
+<div class="page">
+<header class="site-header">
+<div class="container header-inner">
+<a class="brand" href="index.html">
+<img alt="Chronohaze" src="assets/logo.png"/>
+<span>chronohaze.space</span>
+</a>
+<nav aria-label="主导航" class="nav">
+<a href="index.html">主页</a>
+<a href="math.html">数学</a>
+<a href="portfolio-1.html">摄影</a>
+<a href="yin-le.html">音乐</a>
+<a href="cv.html">CV</a>
+<a class="active" href="search.html">搜索</a>
+</nav>
+</div>
+</header>
+<main class="main">
+<section class="page-head search-head">
+<div class="container">
+<h1 class="page-title" data-search-title="">站内搜索</h1>
+<p data-search-intro="">按标题、简介、正文与标签搜索全站内容。</p>
+</div>
+</section>
+<section class="section">
+<div class="container search-shell">
+<form aria-label="站内搜索表单" class="search-form" role="search">
+<label class="search-field">
+<span class="search-field-label" data-search-keyword-label="">关键词</span>
+<input autocomplete="off" id="site-search-input" name="q" placeholder="输入关键词" type="search"/>
+</label>
+<label class="search-field search-scope-field" for="site-search-scope">
+<span class="search-field-label" data-search-scope-label="">范围</span>
+<select id="site-search-scope" name="scope">
+<option value="all">全部</option>
+<option value="math">数学</option>
+<option value="photo">摄影</option>
+<option value="music">音乐</option>
+<option value="cv">CV</option>
+</select>
+</label>
+<label class="search-field search-tag-field" for="site-search-tag">
+<span class="search-field-label" data-search-tag-label="">标签</span>
+<select id="site-search-tag" name="tag">
+<option value="all">全部标签</option>
+</select>
+</label>
+<button class="search-submit" type="submit">搜索</button>
+</form>
+<p aria-live="polite" class="search-status">正在加载索引…</p>
+<div aria-hidden="true" class="search-skeleton" hidden="">
+<div class="search-skeleton-item"></div>
+<div class="search-skeleton-item"></div>
+<div class="search-skeleton-item"></div>
+<div class="search-skeleton-item"></div>
+</div>
+<p class="search-empty" hidden=""></p>
+<ul aria-live="polite" class="search-results"></ul>
+</div>
+</section>
+</main>
+<footer class="site-footer">
+<div class="container footer-grid">
+<div>
+<p class="footer-title">chronohaze.space</p>
+<p class="footer-note">辗转不同国家无固定号码 请联系邮箱：<a href="mailto:feier530@icloud.com">feier530@icloud.com</a></p>
+<p class="footer-note">重庆 · Edinburgh · New York</p>
+<p class="footer-copy">© 2026 by chronohaze.space. Powered and secured by GitHub Pages.</p>
+<div aria-label="Social links" class="social">
+<a href="https://www.linkedin.com/in/fay-lyu-uoe/" rel="noopener noreferrer" target="_blank">LinkedIn</a>
+<a href="https://www.instagram.com/lyuf09" rel="noopener noreferrer" target="_blank">Instagram</a>
+<a href="https://space.bilibili.com/35902781" rel="noopener noreferrer" target="_blank">Bilibili</a>
+<a href="https://github.com/lyuf09" rel="noopener noreferrer" target="_blank">GitHub</a>
+</div>
+</div>
+<div class="footer-right">
+<a href="blank.html">网站说明</a>
+<a href="blank-1.html">无障碍支持</a>
+</div>
+</div>
+</footer>
+</div>
+<script id="search-inline-fallback" type="application/json">{"items":[{"title":"搜索 / Search","url":"search.html","section":"Site","date":"","excerpt":"Site-wide search index","tags":["search"],"sort":20260218,"scope":"site"},{"title":"「劇場の雨が止む日のどこかで、 君に話しかけるつもりだ」","url":"music/album-teenage-best.html","section":"Music","date":"Album","excerpt":"HazezZ's teenage years best‘s collection","tags":["album"],"sort":20260217,"scope":"music"},{"title":"Ipomoea Alba","url":"music/album-ipomoea-alba.html","section":"Music","date":"Album","excerpt":"14 tracks · Album page","tags":["album"],"sort":20260217,"scope":"music"},{"title":"Blue","url":"photo/blue.html","section":"Photography","date":"Blue","excerpt":"毕业作品视频","tags":["photo"],"sort":20260217,"scope":"photo"},{"title":"Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP）","url":"post/metalcore-piano-lab.html","section":"Mathematics","date":"2月7日","excerpt":"从连续音频到可玩的谱面：起音检测、节拍网格、段落对齐与可玩性约束。","tags":["math","article"],"sort":20260207,"scope":"math"},{"title":"Spring 2026｜新科研记录的开始","url":"post/spring-2026.html","section":"Mathematics","date":"1月29日","excerpt":"从纯数学走向优化研究：一个学期的研究训练与新的问题切入口。","tags":["math","article"],"sort":20260129,"scope":"math"},{"title":"一个正在进行的 Isabelle 研究项目：Submodular Greedy 的形式化","url":"post/isabelle-submodular-greedy.html","section":"Mathematics","date":"2025年12月29日","excerpt":"在 Isabelle 中形式化单调子模函数下贪心算法的近似保证。","tags":["math","article"],"sort":20251229,"scope":"math"},{"title":"春日和煦","url":"music/track-01.html","section":"Music","date":"2025年10月21日","excerpt":"HazezZ","tags":["single","audio","jrock"],"sort":20251021,"scope":"music"},{"title":"我的第一个 Isabelle 形式化证明","url":"post/first-isabelle-proof.html","section":"Mathematics","date":"2025年10月18日","excerpt":"把可验证性嵌进证明过程：从动机到 Nemhauser–Wolsey theorem。","tags":["math","article"],"sort":20251018,"scope":"math"},{"title":"He and me","url":"music/track-02.html","section":"Music","date":"2025年3月22日","excerpt":"HazezZ","tags":["single"],"sort":20250322,"scope":"music"},{"title":"花园","url":"music/track-03.html","section":"Music","date":"2025年2月1日","excerpt":"HazezZ","tags":["single","audio","jrock"],"sort":20250201,"scope":"music"},{"title":"隐入口","url":"photo/photo-14.html","section":"Photography","date":"30/08/2025","excerpt":"美国 · 伊萨卡","tags":["photo","featured"],"sort":20250101,"scope":"photo"},{"title":"你的记忆","url":"photo/photo-13.html","section":"Photography","date":"05/04/2025 - Memories of you","excerpt":"英国 · 爱丁堡","tags":["photo","featured"],"sort":20250101,"scope":"photo"},{"title":"02/01/2025","url":"photo/photo-12.html","section":"Photography","date":"02/01/2025","excerpt":"","tags":["photo"],"sort":20250101,"scope":"photo"},{"title":"Affizieren","url":"music/track-04.html","section":"Music","date":"2024年12月21日","excerpt":"HazezZ","tags":["single","audio","progcore"],"sort":20241221,"scope":"music"},{"title":"Felix（音频待上传）","url":"music/track-felix.html","section":"Music","date":"2024年12月","excerpt":"HazezZ","tags":["single"],"sort":20241201,"scope":"music"},{"title":"淤","url":"music/track-05.html","section":"Music","date":"2024年8月29日","excerpt":"HazezZ","tags":["single"],"sort":20240829,"scope":"music"},{"title":"Mr.Idiographic","url":"music/track-06.html","section":"Music","date":"2024年7月5日","excerpt":"HazezZ","tags":["single"],"sort":20240705,"scope":"music"},{"title":"箱庭","url":"music/track-07.html","section":"Music","date":"2024年2月14日","excerpt":"HazezZ","tags":["single","audio","progcore"],"sort":20240214,"scope":"music"},{"title":"框景练习","url":"photo/photo-10.html","section":"Photography","date":"20/04/2024","excerpt":"英国 · 爱丁堡","tags":["photo","featured"],"sort":20240101,"scope":"photo"},{"title":"本格推理","url":"music/track-08.html","section":"Music","date":"2023年11月11日","excerpt":"HazezZ","tags":["single","audio","progcore"],"sort":20231111,"scope":"music"},{"title":"Epilogue","url":"music/track-09.html","section":"Music","date":"2023年8月30日","excerpt":"HazezZ","tags":["single"],"sort":20230830,"scope":"music"},{"title":"恋に落ちられない（音频待上传）","url":"music/track-10.html","section":"Music","date":"2023年8月27日","excerpt":"HazezZ","tags":["single"],"sort":20230827,"scope":"music"},{"title":"我恨你们所有人","url":"music/track-11.html","section":"Music","date":"2023年8月23日","excerpt":"HazezZ","tags":["single"],"sort":20230823,"scope":"music"},{"title":"Rainy days","url":"music/track-12.html","section":"Music","date":"2023年8月11日","excerpt":"HazezZ","tags":["single"],"sort":20230811,"scope":"music"},{"title":"小葉紫檀","url":"music/track-13.html","section":"Music","date":"2023年5月30日","excerpt":"HazezZ","tags":["single"],"sort":20230530,"scope":"music"},{"title":"柳","url":"music/track-14.html","section":"Music","date":"2023年4月29日","excerpt":"Armeria / HazezZ","tags":["single"],"sort":20230429,"scope":"music"},{"title":"夜顔","url":"music/track-15.html","section":"Music","date":"2023年4月21日","excerpt":"HazezZ","tags":["single","audio","progcore"],"sort":20230421,"scope":"music"},{"title":"現人","url":"music/track-16.html","section":"Music","date":"2023年2月24日","excerpt":"HazezZ","tags":["single"],"sort":20230224,"scope":"music"},{"title":"Moonlapse (feat. 起子)","url":"music/track-17.html","section":"Music","date":"2023年2月18日","excerpt":"HazezZ","tags":["single"],"sort":20230218,"scope":"music"},{"title":"隙光","url":"photo/photo-08.html","section":"Photography","date":"09/08/2023","excerpt":"中国 · 重庆","tags":["photo","featured"],"sort":20230101,"scope":"photo"},{"title":"铁与蕨","url":"photo/photo-11.html","section":"Photography","date":"21/10/2023","excerpt":"英国 · 格拉斯哥","tags":["photo","featured"],"sort":20230101,"scope":"photo"},{"title":"参照系","url":"photo/photo-07.html","section":"Photography","date":"01/04/2023","excerpt":"中国 · 重庆","tags":["photo","featured"],"sort":20230101,"scope":"photo"},{"title":"17/09/2023","url":"photo/photo-09.html","section":"Photography","date":"17/09/2023","excerpt":"","tags":["photo"],"sort":20230101,"scope":"photo"},{"title":"11/03/2023","url":"photo/photo-06.html","section":"Photography","date":"11/03/2023","excerpt":"","tags":["photo"],"sort":20230101,"scope":"photo"},{"title":"願う（音频待上传）","url":"music/track-negau.html","section":"Music","date":"2022年12月","excerpt":"HazezZ","tags":["single"],"sort":20221201,"scope":"music"},{"title":"Ipomoea alba","url":"music/track-18.html","section":"Music","date":"2022年8月30日","excerpt":"HazezZ","tags":["single"],"sort":20220830,"scope":"music"},{"title":"Agny","url":"music/track-19.html","section":"Music","date":"2022年7月9日","excerpt":"湖323 / HazezZ","tags":["single"],"sort":20220709,"scope":"music"},{"title":"写不下的海边小镇和你（音频待上传）","url":"music/track-seaside-town.html","section":"Music","date":"2022年夏天","excerpt":"HazezZ","tags":["single"],"sort":20220701,"scope":"music"},{"title":"スパーノヴァ","url":"music/track-20.html","section":"Music","date":"2022年5月20日","excerpt":"HazezZ","tags":["single"],"sort":20220520,"scope":"music"},{"title":"孤星Prelude","url":"music/track-21.html","section":"Music","date":"2022年3月3日","excerpt":"HazezZ","tags":["single","audio","instrumental"],"sort":20220303,"scope":"music"},{"title":"Z（E）RO","url":"music/track-22.html","section":"Music","date":"2022年2月4日","excerpt":"HazezZ","tags":["single"],"sort":20220204,"scope":"music"},{"title":"2022、夏、某","url":"photo/photo-05.html","section":"Photography","date":"2022、夏、某","excerpt":"","tags":["photo"],"sort":20220101,"scope":"photo"},{"title":"14/06/2022","url":"photo/photo-04.html","section":"Photography","date":"14/06/2022","excerpt":"","tags":["photo"],"sort":20220101,"scope":"photo"},{"title":"12/04/2022","url":"photo/photo-01.html","section":"Photography","date":"12/04/2022","excerpt":"","tags":["photo"],"sort":20220101,"scope":"photo"},{"title":"01/06/2022","url":"photo/photo-03.html","section":"Photography","date":"01/06/2022","excerpt":"","tags":["photo"],"sort":20220101,"scope":"photo"},{"title":"01/05/2022","url":"photo/photo-02.html","section":"Photography","date":"01/05/2022","excerpt":"","tags":["photo"],"sort":20220101,"scope":"photo"},{"title":"フォーマルハウト/南鱼座α","url":"music/track-23.html","section":"Music","date":"2021年12月6日","excerpt":"HazezZ","tags":["single","audio","pop"],"sort":20211206,"scope":"music"},{"title":"罪","url":"music/track-24.html","section":"Music","date":"2021年11月25日","excerpt":"HazezZ / iine_p (薛天from灯诱）","tags":["single","audio","progcore"],"sort":20211125,"scope":"music"},{"title":"水母与湖","url":"music/track-25.html","section":"Music","date":"2021年11月19日","excerpt":"HazezZ","tags":["single","audio","postrock"],"sort":20211119,"scope":"music"},{"title":"夜明け、明暗の境目/凌晨、明暗交界处","url":"music/track-26.html","section":"Music","date":"2021年10月29日","excerpt":"HazezZ","tags":["single","audio","indie"],"sort":20211029,"scope":"music"},{"title":"心臓警報","url":"music/track-27.html","section":"Music","date":"2021年10月17日","excerpt":"HazezZ","tags":["single"],"sort":20211017,"scope":"music"},{"title":"影","url":"music/track-28.html","section":"Music","date":"2021年10月9日","excerpt":"HazezZ","tags":["single","audio","postrock"],"sort":20211009,"scope":"music"},{"title":"未来に出会えたらいいな","url":"music/track-29.html","section":"Music","date":"2021年6月3日","excerpt":"HazezZ","tags":["single","audio","jrock"],"sort":20210603,"scope":"music"},{"title":"分离性遗忘症","url":"music/track-30.html","section":"Music","date":"2021年2月2日","excerpt":"HazezZ","tags":["single"],"sort":20210202,"scope":"music"},{"title":"音乐 / Music","url":"yin-le.html","section":"Site","date":"","excerpt":"Music index with albums, singles, and filters","tags":["music"],"sort":0,"scope":"music"},{"title":"数学 / Mathematics","url":"math.html","section":"Site","date":"","excerpt":"Math archive index","tags":["math"],"sort":0,"scope":"math"},{"title":"摄影 / Photography","url":"portfolio-1.html","section":"Site","date":"","excerpt":"Photography index and archive","tags":["photo"],"sort":0,"scope":"photo"},{"title":"主页 / Home","url":"index.html","section":"Site","date":"","excerpt":"Chronohaze main page","tags":["home"],"sort":0,"scope":"site"},{"title":"CV","url":"cv.html","section":"Site","date":"","excerpt":"Public CV page","tags":["cv"],"sort":0,"scope":"cv"}]}</script>
 </body>
 </html>

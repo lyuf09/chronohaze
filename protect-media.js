@@ -919,19 +919,23 @@
         navCV: "CV",
         navSearch: "搜索",
         searchPageTitle: "站内搜索",
-        searchIntro: "按标题、简介、标签搜索全站内容。",
+        searchIntro: "按标题、简介、正文与标签搜索全站内容。",
         searchKeywordLabel: "关键词",
         searchPlaceholder: "输入关键词（例如：Affizieren / 形式化 / 摄影）",
         searchScopeLabel: "范围",
+        searchTagLabel: "标签",
         searchScopeAll: "全部",
         searchScopeMath: "数学",
         searchScopePhoto: "摄影",
         searchScopeMusic: "音乐",
         searchScopeCV: "CV",
+        searchTagAll: "全部标签",
         searchSubmit: "搜索",
         searchEmptyHint: "输入关键词开始搜索。",
         searchLoading: "正在加载索引…",
+        searchLoadingProgress: "正在加载索引（{done}/{total}）…",
         searchLoadError: "搜索索引加载失败，请稍后重试。",
+        searchFallbackNotice: "已切换到兜底列表",
         searchResultZero: "暂无匹配结果。",
         searchResultCount: "共 {count} 条结果",
         siteNotes: "网站说明",
@@ -1001,20 +1005,24 @@
         navCV: "CV",
         navSearch: "Search",
         searchPageTitle: "Site Search",
-        searchIntro: "Search across titles, excerpts, and tags.",
+        searchIntro: "Search across titles, excerpts, body text, and tags.",
         searchKeywordLabel: "Keyword",
         searchPlaceholder:
           "Type keywords (e.g. Affizieren / formalization / photography)",
         searchScopeLabel: "Scope",
+        searchTagLabel: "Tag",
         searchScopeAll: "All",
         searchScopeMath: "Mathematics",
         searchScopePhoto: "Photography",
         searchScopeMusic: "Music",
         searchScopeCV: "CV",
+        searchTagAll: "All tags",
         searchSubmit: "Search",
         searchEmptyHint: "Type a keyword to start searching.",
         searchLoading: "Loading index…",
+        searchLoadingProgress: "Loading index ({done}/{total})…",
         searchLoadError: "Failed to load search index. Please try again later.",
+        searchFallbackNotice: "Fallback list enabled",
         searchResultZero: "No matching results.",
         searchResultCount: "{count} results",
         siteNotes: "Privacy Policy",
@@ -4476,8 +4484,46 @@
     return "other";
   }
 
-  function getSearchSectionLabel(sectionText, dict) {
-    var key = getSearchSectionKey(sectionText);
+  function getSearchItemScope(item) {
+    if (!item || typeof item !== "object") {
+      return "other";
+    }
+
+    var explicit = String(item.scope || "").toLowerCase();
+    if (
+      explicit === "all" ||
+      explicit === "math" ||
+      explicit === "music" ||
+      explicit === "photo" ||
+      explicit === "cv" ||
+      explicit === "site"
+    ) {
+      return explicit === "all" ? "other" : explicit;
+    }
+
+    var key = getSearchSectionKey(item.section || "");
+    if (key !== "other") {
+      return key;
+    }
+
+    var url = String(item.url || "").toLowerCase();
+    if (/^post\/|(?:^|\/)math\.html(?:$|[?#])/.test(url)) {
+      return "math";
+    }
+    if (/^music\/|(?:^|\/)yin-le\.html(?:$|[?#])/.test(url)) {
+      return "music";
+    }
+    if (/^photo\/|(?:^|\/)portfolio-1\.html(?:$|[?#])/.test(url)) {
+      return "photo";
+    }
+    if (/(?:^|\/)cv\.html(?:$|[?#])/.test(url)) {
+      return "cv";
+    }
+    return "site";
+  }
+
+  function getSearchSectionLabel(item, dict) {
+    var key = getSearchItemScope(item);
     if (key === "math") {
       return dict.searchScopeMath;
     }
@@ -4490,7 +4536,7 @@
     if (key === "cv") {
       return dict.searchScopeCV;
     }
-    return sectionText || dict.searchScopeAll;
+    return item && item.section ? item.section : dict.searchScopeAll;
   }
 
   function setupSearchIndexPage() {
@@ -4508,13 +4554,24 @@
     var inputNode = document.querySelector("#site-search-input");
     var scopeNode = document.querySelector("#site-search-scope");
     var scopeLabelNode = document.querySelector("[data-search-scope-label]");
+    var tagNode = document.querySelector("#site-search-tag");
+    var tagLabelNode = document.querySelector("[data-search-tag-label]");
     var statusNode = document.querySelector(".search-status");
+    var skeletonNode = document.querySelector(".search-skeleton");
     var listNode = document.querySelector(".search-results");
     var emptyNode = document.querySelector(".search-empty");
     var formNode = document.querySelector(".search-form");
     var submitNode = document.querySelector(".search-submit");
 
-    if (!inputNode || !scopeNode || !statusNode || !listNode || !emptyNode || !formNode) {
+    if (
+      !inputNode ||
+      !scopeNode ||
+      !tagNode ||
+      !statusNode ||
+      !listNode ||
+      !emptyNode ||
+      !formNode
+    ) {
       return;
     }
 
@@ -4529,6 +4586,9 @@
     }
     if (scopeLabelNode) {
       scopeLabelNode.textContent = dict.searchScopeLabel;
+    }
+    if (tagLabelNode) {
+      tagLabelNode.textContent = dict.searchTagLabel;
     }
     if (submitNode) {
       submitNode.textContent = dict.searchSubmit;
@@ -4551,18 +4611,30 @@
 
     var initialQuery = params.get("q") || "";
     var initialScope = params.get("scope") || "all";
+    var initialTag = params.get("tag") || "all";
     inputNode.value = initialQuery;
     if (Array.from(scopeNode.options).some(function (option) { return option.value === initialScope; })) {
       scopeNode.value = initialScope;
     }
 
-    var items = [];
+    var allItems = [];
+    var scopeCache = Object.create(null);
     var loaded = false;
     var loadError = false;
+    var usingFallback = false;
+    var loadToken = 0;
+    var scopeFiles = {
+      math: "assets/search-data/math.json",
+      photo: "assets/search-data/photo.json",
+      music: "assets/search-data/music.json",
+      cv: "assets/search-data/cv.json",
+      site: "assets/search-data/site.json",
+    };
+    var allScopes = ["math", "photo", "music", "cv", "site"];
     statusNode.textContent = dict.searchLoading;
     emptyNode.hidden = true;
 
-    function updateSearchUrl(query, scope) {
+    function updateSearchUrl(query, scope, tag) {
       var url = new URL(window.location.href);
       if (query) {
         url.searchParams.set("q", query);
@@ -4574,13 +4646,217 @@
       } else {
         url.searchParams.delete("scope");
       }
+      if (tag && tag !== "all") {
+        url.searchParams.set("tag", tag);
+      } else {
+        url.searchParams.delete("tag");
+      }
       history.replaceState(null, "", url.toString());
+    }
+
+    function normalizeItems(payload) {
+      var items = Array.isArray(payload) ? payload : payload && payload.items;
+      if (!Array.isArray(items)) {
+        return [];
+      }
+      return items.filter(function (item) {
+        return item && typeof item === "object" && item.url;
+      });
+    }
+
+    function dedupeByUrl(items) {
+      var seen = Object.create(null);
+      return items.filter(function (item) {
+        var key = String(item.url || "");
+        if (!key) {
+          return false;
+        }
+        if (seen[key]) {
+          return false;
+        }
+        seen[key] = true;
+        return true;
+      });
+    }
+
+    function setLoadingState(text) {
+      if (skeletonNode) {
+        skeletonNode.hidden = false;
+      }
+      listNode.textContent = "";
+      emptyNode.hidden = true;
+      statusNode.textContent = text || dict.searchLoading;
+    }
+
+    function setLoadedState() {
+      if (skeletonNode) {
+        skeletonNode.hidden = true;
+      }
+    }
+
+    function getItemTagLabels(item) {
+      var tags = Array.isArray(item && item.tags) ? item.tags : [];
+      return tags
+        .map(function (tag) {
+          return String(tag || "").trim().toLowerCase();
+        })
+        .filter(Boolean);
+    }
+
+    function buildTagOptions() {
+      var selectedScope = scopeNode.value || "all";
+      var selectedTag = tagNode.value || initialTag || "all";
+      var pool = allItems.filter(function (item) {
+        return selectedScope === "all" || getSearchItemScope(item) === selectedScope;
+      });
+      var tags = [];
+      pool.forEach(function (item) {
+        tags = tags.concat(getItemTagLabels(item));
+      });
+      tags = uniqueMusicTags(tags).sort();
+
+      tagNode.textContent = "";
+      var allOption = document.createElement("option");
+      allOption.value = "all";
+      allOption.textContent = dict.searchTagAll;
+      tagNode.appendChild(allOption);
+
+      tags.forEach(function (tag) {
+        var option = document.createElement("option");
+        option.value = tag;
+        option.textContent = getMusicTagLabel(tag, dict);
+        tagNode.appendChild(option);
+      });
+
+      if (Array.from(tagNode.options).some(function (option) { return option.value === selectedTag; })) {
+        tagNode.value = selectedTag;
+      } else {
+        tagNode.value = "all";
+      }
+    }
+
+    function fetchScopeIndex(scope) {
+      if (scopeCache[scope]) {
+        return Promise.resolve(scopeCache[scope]);
+      }
+      var file = scopeFiles[scope];
+      if (!file) {
+        scopeCache[scope] = [];
+        return Promise.resolve([]);
+      }
+      return fetch(file, { cache: "no-cache" })
+        .then(function (response) {
+          if (!response.ok) {
+            throw new Error("HTTP " + response.status);
+          }
+          return response.json();
+        })
+        .then(function (payload) {
+          var items = normalizeItems(payload).map(function (item) {
+            if (!item.scope) {
+              item.scope = scope;
+            }
+            return item;
+          });
+          scopeCache[scope] = items;
+          return items;
+        });
+    }
+
+    function loadCombinedFallback() {
+      function parseInlineFallback() {
+        var node = document.getElementById("search-inline-fallback");
+        if (!node) {
+          return [];
+        }
+        try {
+          var payload = JSON.parse(node.textContent || "[]");
+          return normalizeItems(payload);
+        } catch (_error) {
+          return [];
+        }
+      }
+
+      return fetch("assets/search-index.json", { cache: "no-cache" })
+        .then(function (response) {
+          if (!response.ok) {
+            throw new Error("HTTP " + response.status);
+          }
+          return response.json();
+        })
+        .then(function (payload) {
+          return normalizeItems(payload);
+        })
+        .catch(function () {
+          var inlineItems = parseInlineFallback();
+          if (inlineItems.length) {
+            return inlineItems;
+          }
+          throw new Error("fallback unavailable");
+        });
+    }
+
+    function loadItemsForScope(scope) {
+      loadToken += 1;
+      var currentToken = loadToken;
+      loaded = false;
+      loadError = false;
+      usingFallback = false;
+
+      var targetScopes = scope === "all" ? allScopes.slice() : [scope];
+      setLoadingState(dict.searchLoading);
+
+      var collected = [];
+      var chain = Promise.resolve();
+      targetScopes.forEach(function (targetScope, index) {
+        chain = chain.then(function () {
+          var progressText = dict.searchLoadingProgress
+            .replace("{done}", String(index + 1))
+            .replace("{total}", String(targetScopes.length));
+          setLoadingState(progressText);
+          return fetchScopeIndex(targetScope).then(function (items) {
+            collected = collected.concat(items);
+          });
+        });
+      });
+
+      return chain
+        .then(function () {
+          if (currentToken !== loadToken) {
+            return;
+          }
+          allItems = dedupeByUrl(collected);
+          loaded = true;
+          setLoadedState();
+          buildTagOptions();
+          renderResults();
+        })
+        .catch(function () {
+          if (currentToken !== loadToken) {
+            return;
+          }
+          return loadCombinedFallback()
+            .then(function (items) {
+              allItems = dedupeByUrl(items);
+              loaded = true;
+              usingFallback = true;
+              setLoadedState();
+              buildTagOptions();
+              renderResults();
+            })
+            .catch(function () {
+              loaded = true;
+              loadError = true;
+              usingFallback = false;
+              setLoadedState();
+              renderResults();
+            });
+        });
     }
 
     function renderResults() {
       if (!loaded) {
-        statusNode.textContent = dict.searchLoading;
-        emptyNode.hidden = true;
+        setLoadingState(statusNode.textContent || dict.searchLoading);
         return;
       }
 
@@ -4594,10 +4870,16 @@
 
       var query = normalizeText(inputNode.value || "").toLowerCase().trim();
       var scope = scopeNode.value || "all";
+      var tag = tagNode.value || "all";
       var terms = query ? query.split(/\s+/).filter(Boolean) : [];
 
-      var matched = items.filter(function (item) {
-        if (scope !== "all" && getSearchSectionKey(item.section) !== scope) {
+      var matched = allItems.filter(function (item) {
+        var itemScope = getSearchItemScope(item);
+        var itemTags = getItemTagLabels(item);
+        if (scope !== "all" && itemScope !== scope) {
+          return false;
+        }
+        if (tag !== "all" && itemTags.indexOf(tag) < 0) {
           return false;
         }
         if (!terms.length) {
@@ -4607,8 +4889,9 @@
           [
             item.title || "",
             item.excerpt || "",
+            item.content || "",
             item.section || "",
-            (item.tags || []).join(" "),
+            itemTags.join(" "),
             item.date || "",
           ].join(" ")
         ).toLowerCase();
@@ -4621,13 +4904,17 @@
         return Number(b.sort || 0) - Number(a.sort || 0);
       });
 
-      updateSearchUrl(query, scope);
-      statusNode.textContent = dict.searchResultCount.replace("{count}", String(matched.length));
+      updateSearchUrl(query, scope, tag);
+      var status = dict.searchResultCount.replace("{count}", String(matched.length));
+      if (usingFallback) {
+        status += " · " + dict.searchFallbackNotice;
+      }
+      statusNode.textContent = status;
 
       listNode.textContent = "";
       if (!matched.length) {
         emptyNode.hidden = false;
-        emptyNode.textContent = query ? dict.searchResultZero : dict.searchEmptyHint;
+        emptyNode.textContent = query || tag !== "all" ? dict.searchResultZero : dict.searchEmptyHint;
         return;
       }
 
@@ -4647,7 +4934,7 @@
 
         var meta = document.createElement("p");
         meta.className = "search-result-meta";
-        var sectionLabel = getSearchSectionLabel(item.section, dict);
+        var sectionLabel = getSearchSectionLabel(item, dict);
         meta.textContent = [item.date || "", sectionLabel].filter(Boolean).join(" · ");
 
         var excerpt = document.createElement("p");
@@ -4656,10 +4943,10 @@
 
         var tagsWrap = document.createElement("div");
         tagsWrap.className = "search-result-tags";
-        (item.tags || []).slice(0, 4).forEach(function (tag) {
+        getItemTagLabels(item).slice(0, 4).forEach(function (tagText) {
           var chip = document.createElement("span");
           chip.className = "search-result-tag";
-          chip.textContent = tag;
+          chip.textContent = getMusicTagLabel(tagText, dict);
           tagsWrap.appendChild(chip);
         });
 
@@ -4685,30 +4972,18 @@
       debounceTimer = window.setTimeout(renderResults, 140);
     });
 
-    scopeNode.addEventListener("change", renderResults);
+    scopeNode.addEventListener("change", function () {
+      initialTag = "all";
+      loadItemsForScope(scopeNode.value || "all");
+    });
+    tagNode.addEventListener("change", renderResults);
 
     formNode.addEventListener("submit", function (event) {
       event.preventDefault();
       renderResults();
     });
 
-    fetch("assets/search-index.json", { cache: "no-cache" })
-      .then(function (response) {
-        if (!response.ok) {
-          throw new Error("HTTP " + response.status);
-        }
-        return response.json();
-      })
-      .then(function (payload) {
-        items = Array.isArray(payload && payload.items) ? payload.items : [];
-        loaded = true;
-        renderResults();
-      })
-      .catch(function () {
-        loaded = true;
-        loadError = true;
-        renderResults();
-      });
+    loadItemsForScope(scopeNode.value || "all");
   }
 
   function setSamePageLanguageInUrl(lang) {

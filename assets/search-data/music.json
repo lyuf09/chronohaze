@@ -1,19 +1,7 @@
 {
   "generated_at": "2026-02-18",
+  "scope": "music",
   "items": [
-    {
-      "title": "搜索 / Search",
-      "url": "search.html",
-      "section": "Site",
-      "date": "",
-      "excerpt": "Site-wide search index",
-      "tags": [
-        "search"
-      ],
-      "sort": 20260218,
-      "scope": "site",
-      "content": "站内搜索 按标题、简介、标签搜索全站内容。 关键词 范围 全部 数学 摄影 音乐 CV 标签 全部标签 搜索 正在加载索引…"
-    },
     {
       "title": "「劇場の雨が止む日のどこかで、 君に話しかけるつもりだ」",
       "url": "music/album-teenage-best.html",
@@ -41,61 +29,6 @@
       "content": "Track 01 Ipomoea Alba Track 02 17, with you Track 03 海底的独白 Track 04 夜顔 Track 05 祈愿（願う） Track 06 Rainy days Track 07 Epilogue Track 08 Mr.Idiographic Track 09 花园 Track 10 Affizeren Track 11 He and Me Track 12 The rain in my head Track 13 Felix Track 14 Ipomoea Alba PianoVer. 返回音乐作品集"
     },
     {
-      "title": "Blue",
-      "url": "photo/blue.html",
-      "section": "Photography",
-      "date": "Blue",
-      "excerpt": "毕业作品视频",
-      "tags": [
-        "photo"
-      ],
-      "sort": 20260217,
-      "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV Blue 毕业作品视频 您的浏览器暂不支持视频播放。 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： feier530@icloud.com 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
-    },
-    {
-      "title": "Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP）",
-      "url": "post/metalcore-piano-lab.html",
-      "section": "Mathematics",
-      "date": "2月7日",
-      "excerpt": "从连续音频到可玩的谱面：起音检测、节拍网格、段落对齐与可玩性约束。",
-      "tags": [
-        "math",
-        "article"
-      ],
-      "sort": 20260207,
-      "scope": "math",
-      "content": "Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP） HazezZ · 2月7日 有时候我会觉得音乐里最数学的部分不是和声或调式，而是 节奏如何从连续变成可数 。 一段音频是连续的时间信号，而音游谱面是一串离散事件（notes），把前者映射到后者，本质上就是一次结构化的离散化：检测、估计、分段、对齐，最后再把结果变成可玩的交互。 Metalcore Piano Lab 是我最近做的一个浏览器端原型，上传一首 metalcore / prog-metal 的音频（或者midi），系统会自动分析并生成钢琴式多轨谱面，让它能直接玩起来。它还在开发中，目前谱子的识别还有很多需要优化的地方，但我想先把它作为一篇数学栏目里的研究记录，留下一条清晰的思路。 我在做什么 这是一个研究导向的 web rhythm game prototype（虽然其实就是我自己做着玩儿的但是说不定之后申请博士可以把这个写进去所以稍微弄得科研了一点）。 使用方式很简单：上传本地音频（mp3 / wav / m4a）或MIDI文件，点击 Analyze，等待系统生成谱面，然后用键盘进行游玩（支持 4/6/8 keys 与多难度）。 核心思路：从连续信号到离散事件 目前的流水线大致是这样： 起音/打点检测 哪些时间点“发生了事件”？鼓点、拨弦、重拍……这些瞬间决定了谱面的骨架。 速度估计与节拍跟踪 事件要落到哪里才“像音乐”？这一步给出一个节拍网格，让 notes 可以被量化，避免漂移。 拍号估计 让分组和重音更自然：尤其是在 prog-core 这种容易出现非典型分组的风格里，拍号会影响玩家的“理解成本”。 自适应分段与模板对齐 我很在意的一点是 重复段落的谱面一致性 ，同一个 riff 回来时如果谱面逻辑突然变形，玩家会立刻觉得怪怪的。 所以我更希望系统能识别段落结构，并尽量让重复段对齐，而不是每次都从零生成。 感知对齐 最后要对齐的不只是“数学上的时间点”，还有人的感知，比如哪些音该强调，哪些密度会让手感爆炸，哪些模式会更像可以练出来的谱面。 为什么把它放在「数学」栏目 因为这里面最有趣的不是“写了个小游戏”，而是： 你必须把一堆模糊的直觉（听感、重拍、段落、可玩性）变成可计算、可复现的结构。 而金属核前卫核恰好非常适合作为压力测试，节奏密、切分多、等等，它会逼着算法正面回答什么叫“稳定”，什么叫“一致”，什么叫“人类会觉得合理”。 当前状态（以及它还没完善地方） 这是一个 WIP 原型，所以我也把限制写清楚： 目前是 browser-native 的轻量实现，没有做深度的 stem separation（所以混音很糊或层次很复杂时会更难）。 遇到复杂 polymeter 或突然变速（abrupt tempo changes），beat/拍号相关的稳定性可能会下降，导致谱面质量波动。 但我并不觉得这是失败，反耳（🤭）更像实验记录里必须留下的边界条件，哪些输入会让系统崩，哪些改动能改善它。 接下来要优化什么 我接下来的重点会放在“自动生成谱面更像人写的”这件事上： 提升 tempo/beat tracking 在变速与强切分场景下的稳定性 强化 sectioning + template alignment，让重复段落更一致、更少漂移 更清晰的 difficulty scaling，把密度、跨度、左右手负担映射到可解释的难度曲线 加入更多可玩性约束：避免不必要的连打、过大跳跃、手位不合理等 更细的 offset/latency 校准，让判定更跟手 项目链接 https://github.com/lyuf09/metalcore-piano-lab 返回数学栏目"
-    },
-    {
-      "title": "Spring 2026｜新科研记录的开始",
-      "url": "post/spring-2026.html",
-      "section": "Mathematics",
-      "date": "1月29日",
-      "excerpt": "从纯数学走向优化研究：一个学期的研究训练与新的问题切入口。",
-      "tags": [
-        "math",
-        "article"
-      ],
-      "sort": 20260129,
-      "scope": "math",
-      "content": "Spring 2026｜新科研记录的开始 HazezZ · 1月29日 这个学期，我正式开始在康奈尔大学 ORIE 系进行本科科研项目，导师为 Shoham Sabach 教授。 在此之前我已经有过其他方向的研究训练，持续在 Isabelle 等工具支持下探索将严格的数学结构表达为可验证的逻辑体系。虽然相关工作仍在推进之中，但这段经历让我逐渐熟悉了开放性问题的研究节奏，也让我更加确信自己希望在理论与结构密切相关的领域继续深入。 上学期我在 Sabach 教授的指导下进行了一个学期的文献阅读与理论学习，同时也选修了他开设的优化课程（这学期也继续选修了他的Optimization for ai，十分有意思:)）在这一过程中我们逐渐建立了稳定的沟通与信任，也让我得以更扎实地进入现代优化理论的语境之中。 Sabach 教授本人的学术道路也让我感到一种微妙的共鸣，他最初长期学习纯数学，而后逐渐将兴趣转向优化理论这一兼具数学结构与算法思想的方向。或许正因为这样的经历，他也格外理解纯数学背景的学生如何过渡到优化研究，并愿意给予我很大的支持与空间。 在这样的基础上，本学期的研究将围绕 约束优化与复合优化中的一阶方法（first-order methods for constrained and composite optimization） 展开。我希望能够在这一方向中逐步收敛出一个具体的研究问题，并在理论层面做出初步推进。 对我而言这是一段新的探索，在已有的形式化与理论训练之外，进一步走向现代优化方法的核心问题，并尝试在结构与算法的交界处找到属于自己的切入口。 在接下来的学期里，我会不定期记录一些学习与思考的片段，作为这段研究旅程的延伸与注脚。 返回数学栏目"
-    },
-    {
-      "title": "一个正在进行的 Isabelle 研究项目：Submodular Greedy 的形式化",
-      "url": "post/isabelle-submodular-greedy.html",
-      "section": "Mathematics",
-      "date": "2025年12月29日",
-      "excerpt": "在 Isabelle 中形式化单调子模函数下贪心算法的近似保证。",
-      "tags": [
-        "math",
-        "article"
-      ],
-      "sort": 20251229,
-      "scope": "math",
-      "content": "一个正在进行的 Isabelle 研究项目：Submodular Greedy 的形式化 HazezZ · 2025年12月29日 在上一篇文章《我的第一个 Isabelle 形式化证明》中，我更多写的是我为什么选择 Isabelle，以及形式化证明对我而言意味着什么。这篇文章我想更具体地记录一个正在进行中的研究项目，单调子模函数下贪心算法的 (1−1/e) 近似保证的 Isabelle 形式化 。 这不是一个已经完成的成果展示而是一份阶段性的研究记录。 我在做什么 在组合优化中，单调子模函数的最大化问题有一个非常经典的结论：在基数约束下，简单的贪心算法可以达到 1 − 1/e 的近似比。 这个结果通常被称为 Nemhauser–Wolsey 定理 ，在机器学习、信息论、覆盖问题等领域被反复使用。 在纸笔证明中，这个结论往往以一种高度抽象和依赖直觉的方式出现，比如平均化论证、边际增益、递推不等式……但这些看似自然的步骤其实隐含了大量未被显式陈述的结构性假设。 这个项目的目标并不是重新发明这个定理，而是尝试回答一个更基础的问题： 如果把这个证明完整地交给 Isabelle，它究竟需要我们说清楚哪些事情？ 项目结构：从定理到系统 我将目前的 Isabelle 形式化拆分为两个主要部分，对应两个核心文件： Greedy_Submodular_Construct.thy 这一部分负责 算法与结构本身 ： 贪心序列的形式化定义 边际增益的抽象 贪心过程中保持的不变量 在这一层，避免了引入任何近似结论，只关注这个算法在 Isabelle 中到底是什么。 Greedy_Submodular_Approx.thy 这一部分负责 近似分析 ： 平均化论证的形式化版本 gap recurrence 的建立 Nemhauser–Wolsey (1−1/e) 界的推导 这样的拆分并不是为了代码整洁而是为了让证明结构在形式化中保持 可复用性 ，因为构造与分析是两个不同层次的问题。 在 Isabelle 里，这件事为什么并不“显然” 在数学直觉中，很多推理可以一句话完成，而在 Isabelle 中，每一步都必须被拆解为可验证的逻辑关系。 在这个过程中，我逐渐意识到几件事： 一些“显然成立”的不等式，其实依赖于未被明确写出的单调性或子模性假设 纸面证明中被模糊处理的“集合变化”，在形式化中必须精确刻画 为了避免证明碎片化， 模块化几乎是必需的，而不是可选项 形式化并不是在“刁难”证明者，而是在迫使我们诚实地面对： 哪些结论是由结构推出的，哪些只是我们习惯性地相信它成立。 当前状态 这是一个 进行中的研究项目 。 目前已经完成的部分包括： 贪心算法的基本形式化框架 边际增益与相关结构性引理 近似分析所需的核心递推结构 仍在推进和调整的部分包括： 子模性假设的进一步模块化 近似分析中若干技术性引理的重构 为后续实例化与扩展保留更干净的接口 接下来会做什么 在接下来的阶段，我计划： 将子模函数的假设进一步抽象为可复用的 locale 尝试具体实例（如覆盖函数）的形式化实例化 探索对其他贪心变体的形式化可能性 评估代码抽取与可执行实验的可行性 这个项目更像是一条正在延展的研究路径，而不是一次性的证明任务。 项目链接 该项目的 GitHub 仓库在这里（持续更新中）： https://github.com/lyuf09/isabelle-submodular-greedy/tree/main 返回数学栏目"
-    },
-    {
       "title": "春日和煦",
       "url": "music/track-01.html",
       "section": "Music",
@@ -109,20 +42,6 @@
       "sort": 20251021,
       "scope": "music",
       "content": "春日和煦 创作时间： 06/2025 - 10/2025 过春天，Sincerely 作词作曲编曲吉他混音：HazezZ 作品介绍 《春日和煦》停留在春天淡绿与透明蓝色空气里的世界。 记录的是我在大学的第二个春天里，对某位极其美好之人的静静凝望，不是炽烈的情绪，而是被微风轻托着的细小瞬间。 具象的，Meadows旁街道、主图二楼的角落、风的声音、光的粒子，他喜欢爵士却不喜欢爵士里有电吉他， 这首歌承载着我生命里那个第二次春天的感受。 不仅是季节的重新到来，也是情绪的重启。 在那段时间里，陪伴在我身边，以一种轻柔、不言破的方式，让普通的日子突然拥有意义。 部分旋律与情绪意象向 Persona 3 的《キミの記憶（Memories of You）》致敬，那是他推荐给我的歌。 那一年的春天，我几乎每天都在听 Persona 3 的track，最后竟然在我的年终统计中排到了第一名（对不起小说家）。 音乐上，《春日和煦》刻意靠近日系摇滚， 轻盈、透明、带一点点前卫核的锐度。 春天的犹豫、坚定、光与沉默。 他给予我一种极其温暖的存在感， 包容、关心、理解、尊重。 是一种让人能够停止逼迫自己、重新呼吸的温度。 这首歌对我而言，是一个全新的开始（也是用strandberg boden metal nx7录的第一首歌）。 这是我第一次完全脱离《Ipomoea alba》的世界，写出真正属于春天的歌。 无论在现实的季节里，还是情绪的轨迹里，它都是一次晴朗的重生。 春天尽头里那阵让人迷茫又安心的微风。 歌词（Part 1） 在这里的第二个春天 因为是你 街道才拥有了意义 垂下的发丝掩住了笑意 而我的目光只是跟随着你 微风点缀的日子 你的笑容 闪烁在阳光中飘散 明知徒然却重复的日常 连夏天都失去了期待理由 光 洒在耳尖 泛红颜色 映在眼中 明 天该怎样 该仍让你 笑出来吗 在奋力追赶犹豫 与坚定的春日里 你确确实实的陪伴在我身旁 在有限的时刻里却沉默不语 但只是没来由的想看着你 你给予我那不用为了寻找价值 而迷失于这本身的方式里 义无反顾踏向不可见的未来 下次还是约在二楼角落见吧 歌词（Part 2） 你轻声哼唱着的阴天 棉花糖里 巧克力味却轻飘飘 寂寥无声中的那段话 或许比想象的还更加的糟糕 我们之间也变了呢 想要说出的话却总是找不到 风的声音、光的粒子 下午的你喜欢的旋律 “要怎么倒退时间？”用着温柔的声音 睡着的淡淡绿色 渐渐等待着黎明 我的梦层层跌入 阳光之后的草坪 却是你不喜欢的 爵士吉他 的声音 「時間を、どうやって巻き戻せばいいの…？」 優しく、あの日と同じ声で。 眠ったままの淡い緑が 静かに、夜明けを待っている。 夢は、何層も重なって 光の向こうの芝生へ落ちていく。 耳に残るのは 君が嫌いだった あのジャズギターの音だけ。 在我早已知晓的 会结束的春日里 仍在寻找着话语背后的意义 见到你后却竟是平凡的话语 明明不愿它沦为普通定义 你给予我那不用为了寻找价值 而迷失于这本身的方式里 走过无数次熟悉的十字路口 仿佛将快看不见你静静伫立 不知为何但却闪闪发光的声音 在春天尽头里 返回音乐栏目"
-    },
-    {
-      "title": "我的第一个 Isabelle 形式化证明",
-      "url": "post/first-isabelle-proof.html",
-      "section": "Mathematics",
-      "date": "2025年10月18日",
-      "excerpt": "把可验证性嵌进证明过程：从动机到 Nemhauser–Wolsey theorem。",
-      "tags": [
-        "math",
-        "article"
-      ],
-      "sort": 20251018,
-      "scope": "math",
-      "content": "我的第一个 Isabelle 形式化证明 HazezZ · 2025年10月18日 有些证明想被刻在更坚固的地方。 纸上的推导可以泛黄，黑板上的公式终将被擦去，但形式化证明留下的，是可以被反复验证的真理。 我在做的主题 我目前研究的方向和 submodular function 以及 greedy algorithm 相关。具体来说，我正在尝试形式化 Nemhauser–Wolsey theorem 的证明，这是一条关于单调子模函数的贪心近似比保证的经典结果。 我要在 Isabelle 里完成： 把数学对象抽象成形式化定义（函数、集合、单调性、子模性…） 搭建推理框架 写出与数学证明完全等价的 machine-checkable version。 就像在对话一样，我要让 Isabelle 听懂我想说的话（但它不会宽容我任何一个跳步或模糊表达XD 为什么我选择 Isabelle（而不是Lean 数学本身就是严谨的，但人类的证明往往带着直觉和省略。而 Isabelle 逼着我去把直觉全部拆解成可验证的语句，这个过程虽然痛苦，但很真实（其实是我老师做 Isabelle ） 它让我看到了： 哪些我以为显然的步骤其实需要补充 哪些论证的逻辑关系是我自己没意识到的 证明结构如何在形式化中变得「可复用」 对我而言，这不仅仅是完成一个 formal proof，更像是学习“如何更诚实地写数学”。 目前进展 ✔ 已完成： 定义 filter limit 与 sequential limit 证明 filter limit 蕴含 sequential limit 建立贪心算法的基本形式化骨架 🚧 进行中： 证明两种极限定义的等价性 抽象出子模函数贪心近似的核心逻辑 ❌ 未来计划： 完整复刻并扩展 Nemhauser–Wolsey 的形式化证明 尝试将优化理论与形式化工具结合 返回数学栏目"
     },
     {
       "title": "He and me",
@@ -151,47 +70,6 @@
       "sort": 20250201,
       "scope": "music",
       "content": "花园 创作时间： 09/2024 - 01/2025 if only i could dream again, will I dream of you. 作词作曲编曲吉他混音：HazezZ 作品介绍 《花园》是一首写给夜晚的安眠曲。 它属于Ipomoea alba，却以完全不同的方式出现， 不是前卫核的锋利，也不是情绪剧烈的震荡，而是蓝紫色、带着一点淡粉的月光的清亮与柔软。 我在创作时不断想到一个画面， “在夜晚中，一朵一朵种下的花，都是我某一刻想到他的情感。” 这些花一开始是强烈、无法接受的难过，是恨意，是对离开的抗拒， 后来慢慢变成了淡淡的在意，偶尔的感谢，再回望时又混杂着讨厌。 这些情绪都被悄悄埋进土里，最后在心里长成了一座没人看见的花园。 现实中我家花园并没有种过任何花，所以这座花园完全是一种抽象的、只存在于夜色里的想象。 整首歌轻盈、干净、但情感始终清晰。 清音吉他以混合拍轻轻摆动，让旋律有着“听得见，却抓不住”的落空感，像那些来来回回不能完全放下的思绪。 这种若有若无的节奏感，一种快要消失，却又全部沉重留下来的感情。 可惜的是，我当时因为带贝斯没能带吉他上学现买的一个只要几千块的ibz始终敲不响那个泛音:( 尽管主题与系列中的其他作品一样指向同一个对象，但《花园》几乎是我能写出的最温柔的。 它不是尖锐的，也不是控诉的，而是一种夜晚才会出现的理解， 明明经历过那么多情绪，却在最终被时间磨成平静。 在最后的电钢琴里，我又加入了Ipomoea alba的旋律。 那一刻的情绪既是呼应，也是遗憾，把深处无法言说的东西重新举起来，再轻轻放回夜色里。 在这里带着一丝不甘，却最终落回轻微下坠式的平静。 像是一首站在回忆边缘唱出的低语。 是一首为了入眠而写，却又让人不愿睡去的歌。 歌词（Part 1） 每次想到你 都会种下一株 慢慢沉没在 上涨夜幕 时间推着我 你化作的音符 浮在这沉静的风里 每当我沉睡时 你的笑脸浮现 想共度些时间 好好地说再见 你曾经弹奏过 多少黎明与黑夜 都已然消逝在 你画下的句点 清风轻拂过 随手拨弄一束 万籁俱寂时 幻象须臾 裹挟着深夜 怀念那副景色 不知从何时已褪色 歌词（Part 2） 你被时间带走 光阴日月如梭 以前哼唱的歌 如今剩我一个 你曾经弹奏过 多少夕阳与白昼 暗夜始终未明 从离去的那刻 如果那颗星星能降临在你身旁 月光落入的花园 请不要让我入眠 返回音乐栏目"
-    },
-    {
-      "title": "隐入口",
-      "url": "photo/photo-14.html",
-      "section": "Photography",
-      "date": "30/08/2025",
-      "excerpt": "美国 · 伊萨卡",
-      "tags": [
-        "photo",
-        "featured"
-      ],
-      "sort": 20250101,
-      "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 30/08/2025 美国纽约伊萨卡 · 2025年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： feier530@icloud.com 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
-    },
-    {
-      "title": "你的记忆",
-      "url": "photo/photo-13.html",
-      "section": "Photography",
-      "date": "05/04/2025 - Memories of you",
-      "excerpt": "英国 · 爱丁堡",
-      "tags": [
-        "photo",
-        "featured"
-      ],
-      "sort": 20250101,
-      "scope": "photo",
-      "content": "05/04/2025 - Memories of you 英国爱丁堡 · 2025年 返回摄影栏目"
-    },
-    {
-      "title": "02/01/2025",
-      "url": "photo/photo-12.html",
-      "section": "Photography",
-      "date": "02/01/2025",
-      "excerpt": "",
-      "tags": [
-        "photo"
-      ],
-      "sort": 20250101,
-      "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 02/01/2025 英国爱丁堡 · 2025年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： feier530@icloud.com 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
     },
     {
       "title": "Affizieren",
@@ -261,20 +139,6 @@
       "sort": 20240214,
       "scope": "music",
       "content": "箱庭 创作时间： 09/2023 - 12/2023 作词作曲编曲混音：HazezZ 作品介绍 《箱庭》绝对是我作曲最好的一首歌， 它是一首由白、褪色的淡黄、所构成的歌。 它像纸的颜色。 中文歌词在这里不是翻译，而是我确实写了两种语言的歌词（词格对的上的） 在我所有作品中，它拥有最温柔、最感性的温度， 谈不上忧伤，而是一种静静流动、近乎无声的柔软情绪。 这首歌诞生在大学最初的秋天，也是刚满18岁不久。 窗户有些水汽，风是柔的，那时的情绪也刚好相同， 温柔，却略微感性，安静，却并非悲伤。 这首最初的名字其实是「残差」。 那时候的我想象的是一种在成年之前强烈情绪抒发后“被滤去后剩下的量” 但我心里像装着一座小小的箱庭，里面摆放着褪色的记忆、散落的光点、沉静的颜色。 歌词里的“褪色的回忆”“被随意收起的碎片”隐约呼应着 Ipomoea alba 系列的情绪，却又是全新的开始。 它有一段并不显眼、却很重要的前身。 它最初其实是我在 2021 年年初写的《Hypohyphnotic》的重制。 当时我以为自己只是想把那首旧作重新拾起来，让它变得更成熟一点。 但后来我只保留了副歌的和声走向和副歌结构，还有完整照搬了那段间奏，其他全都没有用。 因为在真正动笔时，我发现自己已经无法回到原来的情绪里了。 Hypohyphnotic 所属于的是另一个阶段、另一种质地，而我当时的心境已经变得更轻、更柔、更清晰。 我意识到，如果继续沿着旧的轨迹走，这首歌就不会长成它想要的样子。 这首歌前半段只有钢琴，像闭上眼时水气轻轻落下； 副歌加入清音吉他，情绪变得清亮却仍然轻盈； 间奏以后，木吉他、鼓、贝斯逐渐展开，让箱庭真正拥有了脉搏。 第二次副歌是完整的前卫核编配，却依然温柔不锐利，是一种自然的扩散。 之后的 Solo 后，落回带着日光感的钢琴，是我心里对这首歌最理想的结局。 特别的是，《箱庭》在我还没有七弦琴、吉他都不太会弹的时候就被写出来了（不如说这是最后一首没实录的歌？在此之前其他歌也是这样），所以用的midi假吉他现在看来十分难听。 但我偶尔回头想，至今仍觉得这是我从 2020 年开始写歌以来，作曲上最好的一首。 因此我一直计划实录吉他，再做一次真正的混音（短期内就会做）。 甚至我还写过一个非前卫核版本，用木吉他作为副歌的律动，那个更像黄昏时的箱庭，未来很大概率会完成它。 《箱庭》不属于任何系列，但它的确携带着从Ipomoea alba走来的微弱余光。 它是一首关于柔软、初秋的宁静与感性的小歌谣。 歌词（Part 1） 雨が降っているような 浅い窪みに隠れていた もう夕日の色は見えない 枯れて入れ替わる花 片隅に放置されていた 秋の朔に踏み出した 色の重なり合い、曇った玻璃の反射 カメラの光で振り返ったこと 夜明け前の輪廓に縋りついていた 羽よりも軽い心臓 重くて消えていく事 感性は水面に浮かんていた 色褪せた人たちは ほこりのようにどうでもいいんだ できると思ったことも 湿った満開の弁、箱庭の淡い言葉 溶けた唄と冗長な刹那 色の重なり合い、曇った玻璃の反射 夕日に照らされた眠い顔から 歌词（Part 2） 空中零星雨点似乎飘落 隐匿于浅洼倒影 反射落寞 已经看不到夕阳的颜色 时而枯萎后更换的花朵 日日积攒后碎裂 歇于角落 踩着树叶 脚步踏向秋末 色彩的重叠后 雾气围绕 模糊玻璃反射的夜色 在我镜头下光辉中 谨默的那一刻 黎明到来以前 那个轮廓 闭上眼睛 如此执拗着 相比羽毛更轻的心脏里 似而沉重却缓慢 消失殆尽 所谓的感性于水面浮起 已经褪色了许久的回忆 大部分碎片已然 随意收起 即使那时以为自己可以 潮湿而满开的花瓣 箱庭之中那清淡的话语 溶解的歌谣与那背后冗长的刹那 色彩的重叠后 雾气围绕 模糊玻璃反射的夜色 被夕阳余晖洒下融化在我指尖那一刻 返回音乐栏目"
-    },
-    {
-      "title": "框景练习",
-      "url": "photo/photo-10.html",
-      "section": "Photography",
-      "date": "20/04/2024",
-      "excerpt": "英国 · 爱丁堡",
-      "tags": [
-        "photo",
-        "featured"
-      ],
-      "sort": 20240101,
-      "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 20/04/2024 英国爱丁堡 · 2024年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： feier530@icloud.com 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
     },
     {
       "title": "本格推理",
@@ -411,74 +275,6 @@
       "content": "Moonlapse (feat. 起子) 创作时间： 04/2022 - 09/2022 作词作曲编曲混音：HazezZ 吉他实录：Armeria solo：起子 作品介绍 《Moonlapse》诞生于我创作前卫核的早期阶段。 那时我刚开始尝试将更具侵略性的编配语言与个人叙事结合，许多音乐技法尚未完全成熟，但情绪表达却处在一种异常饱和的状态。 这首歌最初的构想可以追溯到 2022 年春天。 当时的歌词带有明显的意识流倾向，更多是围绕一种“不可触及的月光”的想象展开。 那种情绪并不建立在现实互动之上，而是一种单向投射、近乎虚构的情感轮廓。 因此早期版本的歌名也直接指向某个具象对象，但随着时间推移，这种指向性逐渐被削弱。 在作品尚未完成之际，我曾邀请当时关系密切的音乐伙伴feat吉他solo。 这一决定使《Moonlapse》从原本的单人叙事，转变为带有共同痕迹的合作作品。 然而随着现实关系的变化，这段合作最终未被保留，取而代之的是另一位创作者的演奏参与。 因此在声音层面，《Moonlapse》实际上承载着不同阶段的人际轨迹，某些旋律源自最初的想象，而某些声音则来自后来的互动。 这种结构性的更替，使这首歌逐渐脱离“写给某个人”的范畴。 它更像是一段在时间中被反复覆盖、重录、显影的胶片。 如果用色彩形容这首歌，它更接近一种梅紫色。 不是恋爱叙事常见的暖色，也不是彻底沉降的冷色， 而是一种曾经浓烈、如今却被时间压暗的综合色调。 这种颜色既包含早期情感的艳度，也带着后来关系变化所留下的阴影层次。 它并不指向某一段具体记忆，而是多重时间片段叠加后的综合色谱。 从创作阶段来看，《Moonlapse》并非技术上最成熟的作品。 相反，它保留着明显的早期痕迹，比如莫名其妙快的吉他，很奇怪的bkd。 但也正因如此，它呈现出一种难以复制的真实状态。 因此对我而言，《Moonlapse》更像是一段被声音封存的时间样本。 它记录的不只是某段关系，而是那个阶段的创作方式、情绪结构、以及人与人之间不断变动的距离感。 当旋律再次响起时，被唤起的也许并非具体人物， 而是那段仍带着梅紫色余温的创作年代本身。 歌词（Part 1） 「 永遠に会えないと思う」 何かが胸にあふれた あの日、そんな言葉に打たれた それでいい 記憶ができて消える 花びらのようなフィルムに残る 天井から落ちる光は… 夕陽なのか夜明けなのか 時間も分からず、すべてが曖昧になる 君はまだ光に逆らって屋上に立っている （私の夜になった） 住む世界が違うと触れられないのか 歌词（Part 2） 「カラスの群れに隠れた顔」 時間も分からず、すべてが曖昧になる 思えばそれは私の秋の最初の月光だった もう君のほかには何も見えない 何度も繰り返して また遠ざかっていきそうだった (それはもう帰れない (あの夏の悔しさを忘れたいのに まだ納得しない でもしょうがないわね 最悪の場合はこれだろう 当たり前 消える、消える 一緒に知らん顔をしよう 返回音乐栏目"
     },
     {
-      "title": "隙光",
-      "url": "photo/photo-08.html",
-      "section": "Photography",
-      "date": "09/08/2023",
-      "excerpt": "中国 · 重庆",
-      "tags": [
-        "photo",
-        "featured"
-      ],
-      "sort": 20230101,
-      "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 09/08/2023 中国重庆市 · 2023年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： feier530@icloud.com 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
-    },
-    {
-      "title": "铁与蕨",
-      "url": "photo/photo-11.html",
-      "section": "Photography",
-      "date": "21/10/2023",
-      "excerpt": "英国 · 格拉斯哥",
-      "tags": [
-        "photo",
-        "featured"
-      ],
-      "sort": 20230101,
-      "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 21/10/2023 英国格拉斯哥 · 2023年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： feier530@icloud.com 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
-    },
-    {
-      "title": "参照系",
-      "url": "photo/photo-07.html",
-      "section": "Photography",
-      "date": "01/04/2023",
-      "excerpt": "中国 · 重庆",
-      "tags": [
-        "photo",
-        "featured"
-      ],
-      "sort": 20230101,
-      "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 01/04/2023 中国重庆市 · 2023年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： feier530@icloud.com 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
-    },
-    {
-      "title": "17/09/2023",
-      "url": "photo/photo-09.html",
-      "section": "Photography",
-      "date": "17/09/2023",
-      "excerpt": "",
-      "tags": [
-        "photo"
-      ],
-      "sort": 20230101,
-      "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 17/09/2023 英国爱丁堡 · 2023年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： feier530@icloud.com 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
-    },
-    {
-      "title": "11/03/2023",
-      "url": "photo/photo-06.html",
-      "section": "Photography",
-      "date": "11/03/2023",
-      "excerpt": "",
-      "tags": [
-        "photo"
-      ],
-      "sort": 20230101,
-      "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 11/03/2023 英国奥斯沃斯特里 · 2023年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： feier530@icloud.com 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
-    },
-    {
       "title": "願う（音频待上传）",
       "url": "music/track-negau.html",
       "section": "Music",
@@ -570,71 +366,6 @@
       "sort": 20220204,
       "scope": "music",
       "content": "Z（E）RO 创作时间： 12/2021 - 01/2022 再见，海平线 作词作曲编曲：HazezZ 吉他录音：（时间太长忘记是哪位了） 作品介绍 《Z（Eclipse）RO》。 这首歌诞生于一种被遮蔽的意识状态之中。 不是崩塌，也不是爆发，而更像是在光被吞没前的一段长时间静默，被拖入阴影内部缓慢回响。 整首作品是纯粹的抽象意识流叙事。 没有具体人物，也没有现实时间线。 它更接近一个悬浮于现实之外的天体空间， 带着冷光、回声、以及失重感。 耳鸣、拉长的视觉、被冲刷的意识、破碎的时针， 这些并非事件，而是状态的具象化。 像系统误差，也像情绪在标准化之后留下的偏差残影。 歌中反复出现的“片段”“镜头”“幻灯机”， 对应的是一种被观看、被记录、被归档的人生切面。 在那样的结构里，价值被衡量，情绪被校准， 而“自我”逐渐退化为可替换的单位。 当时写的设定中提到： 人是可以伪装的， 所有价值都能由内心衡量， 日出未必意味着光明，太阳也无非是一颗晨星。 只有当我们真正醒着时，破晓才会发生。 在这片天体空间的尽头，存在一座月球上的巨钟。 秒针运转的声音被无限放大。 只要抵达那里，就能调节时间，回到任意节点。 然而真正被反复梦见的，却不是钟，而是海。 梦境中总是出现海岸线。 可以奔跑、可以接近、可以看见浪的颜色， 但是终究只像一面静止的背景墙， 我始终无法真正进入海水之中。 那是唯一带着现实重量的意象， 也是整首歌最深处的回声。 音乐结构上，《Z（E）RO》在后段展开了带有 djent 质感的推进段落。 像是穿越某种门槛，也像叙事终于坠入具象。 那段旋律带着强烈的奇幻叙事感，是整首歌的核心段落（也是我最喜欢的）。 最终，一切在归零中结束。 不是结束于答案，而是结束于不再追问。 它是一首关于偏差、遮蔽、与自我校准的作品。 也是一段发生在天体阴影中的意识记录。 歌词（Part 1） 为什么有些耳鸣 沉闷的胸口竟逐渐喘不过气 意识被冲刷腐蚀 视觉的镜头被拉长的每次 “我们会再见的吧” 脑海里一直相信着这一句话 片段中清澈瞳孔 尝试触碰却恍如隔世的他 刺眼，咀嚼 覆灭了的那一切 零星，岁月 或许已得以忘却 顽固，荒唐 梦境却逐渐枯黄 反刍，遐想 也有对自己撒谎 (I think, I've tried my best.) 歌词（Part 2） 连渡鸦也飞走了 日落前昏沉如死寂般的蓝色 焦虑不安都浮现 时针表盘摔破碎所以耽搁 我全都想起来了，在那个梦境里的 海边总是没办法到达 那现在就马上奔向那一侧 凋零，偏执 被浓雾笼罩之时 光晕，潮汐 绽放停滞的花期 呓语，泛滥 终于找到了答案 (Dawn will only come, when we are all awake.) 划过，指尖 最后一句的再见 (I have nothing more to lose.) 经过了标准化的一切都变得无比乏味 在幻灯机的镜头里转身离去做个收尾 返回音乐栏目"
-    },
-    {
-      "title": "2022、夏、某",
-      "url": "photo/photo-05.html",
-      "section": "Photography",
-      "date": "2022、夏、某",
-      "excerpt": "",
-      "tags": [
-        "photo"
-      ],
-      "sort": 20220101,
-      "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 2022、夏、某 英国韦茅斯 · 2022年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： feier530@icloud.com 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
-    },
-    {
-      "title": "14/06/2022",
-      "url": "photo/photo-04.html",
-      "section": "Photography",
-      "date": "14/06/2022",
-      "excerpt": "",
-      "tags": [
-        "photo"
-      ],
-      "sort": 20220101,
-      "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 14/06/2022 英国奥斯沃斯特里 · 2022年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： feier530@icloud.com 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
-    },
-    {
-      "title": "12/04/2022",
-      "url": "photo/photo-01.html",
-      "section": "Photography",
-      "date": "12/04/2022",
-      "excerpt": "",
-      "tags": [
-        "photo"
-      ],
-      "sort": 20220101,
-      "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 12/04/2022 英国奥斯沃斯特里 · 2022年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： feier530@icloud.com 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
-    },
-    {
-      "title": "01/06/2022",
-      "url": "photo/photo-03.html",
-      "section": "Photography",
-      "date": "01/06/2022",
-      "excerpt": "",
-      "tags": [
-        "photo"
-      ],
-      "sort": 20220101,
-      "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 01/06/2022 英国奥斯沃斯特里 · 2022年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： feier530@icloud.com 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
-    },
-    {
-      "title": "01/05/2022",
-      "url": "photo/photo-02.html",
-      "section": "Photography",
-      "date": "01/05/2022",
-      "excerpt": "",
-      "tags": [
-        "photo"
-      ],
-      "sort": 20220101,
-      "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 01/05/2022 英国奥斯沃斯特里 · 2022年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： feier530@icloud.com 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
     },
     {
       "title": "フォーマルハウト/南鱼座α",
@@ -764,58 +495,6 @@
       "sort": 0,
       "scope": "music",
       "content": "Album Ipomoea Alba 14 tracks · Album page"
-    },
-    {
-      "title": "数学 / Mathematics",
-      "url": "math.html",
-      "section": "Site",
-      "date": "",
-      "excerpt": "Math archive index",
-      "tags": [
-        "math"
-      ],
-      "sort": 0,
-      "scope": "math",
-      "content": "2月7日 Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP） 从连续音频到可玩的谱面：起音检测、节拍网格、段落对齐与可玩性约束。 阅读全文"
-    },
-    {
-      "title": "摄影 / Photography",
-      "url": "portfolio-1.html",
-      "section": "Site",
-      "date": "",
-      "excerpt": "Photography index and archive",
-      "tags": [
-        "photo"
-      ],
-      "sort": 0,
-      "scope": "photo",
-      "content": "参照系 中国 · 重庆 用晃动代替对焦，同一种不稳定把不同高度写成同一段冷色的余像/ICM"
-    },
-    {
-      "title": "主页 / Home",
-      "url": "index.html",
-      "section": "Site",
-      "date": "",
-      "excerpt": "Chronohaze main page",
-      "tags": [
-        "home"
-      ],
-      "sort": 0,
-      "scope": "site",
-      "content": "HazezZ Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP） 有时候我会觉得音乐里最数学的部分不是和声或调式，而是节奏如何从连续变成可数。把连续音频映射到离散谱面，本质上是一条结构化的离散化流水线。 Read More"
-    },
-    {
-      "title": "CV",
-      "url": "cv.html",
-      "section": "Site",
-      "date": "",
-      "excerpt": "Public CV page",
-      "tags": [
-        "cv"
-      ],
-      "sort": 0,
-      "scope": "cv",
-      "content": "公开版 CV 出于隐私与安全考虑：本页仅展示公开联系方式，不公开手机号与详细住址。申请/岗位用途的完整版简历（含更多细节）可邮件索取。本站不提供可直接下载的完整版 CV 文件。 一句话定位（Tagline） 优化与形式化证明（Optimization & Formal Methods） · 数据分析（Data Analytics） · 工程系统与专利（Patent-pending Engineering System） Highlights（重点亮点） 专利在审 / 已授权：围绕“防止砂石离析（anti-segregation）”的布料系统与方法，已提交发明专利并拥有已授权实用新型专利。 工程系统核心开发：参与研发防离析布料系统（spreading system），负责系统建模与参数优化；项目已获得多家央企合作意向与长期推进。 Isabelle/HOL 形式化证明：形式化单调子模最大化（monotone submodular maximization）与贪心算法（greedy algorithm），面向经典 (1−1/e) 近似保证（approximation guarantee）推进证明结构与复用框架。 数据分析实习落地：负责转化漏斗、留存与归因分析（funnel / retention / attribution），排查并修复 UTM 映射导致的归因错误。 基本信息 Name： Fay Lyu（Hazezz） Email： feier530@icloud.com Location： Ithaca, USA / Edinburgh, UK 公开链接 LinkedIn： fay-lyu-uoe GitHub： lyuf09 代表项目与 IP（Selected Projects & IP） 防离析布料系统（Patent pending） 角色： 核心开发（core developer） 问题： 针对砂石布料过程中的离析问题（material segregation） 工作： 系统建模（modeling）与关键参数优化（parameter optimization） 进展： 已提交专利，并与多家央企建立长期合作推进。 Isabelle/HOL：子模贪心算法形式化 方向： 单调子模最大化 + 基数约束（cardinality constraint）下的贪心算法 工作： 构建可复用形式化框架（reusable framework），并推进经典近似保证 (1−1/e) 的证明结构。 专利（Patents） 发明专利： Anti-Segregation Spreading Method and Device（已受理/在审） 实用新型： Anti-Segregation Spreading Device（已授权，2025-07-04） （公开版不写专利号；完整版再提供。） 经历（Selected Experience） 数据分析实习（Data Analyst Intern） 转化漏斗、留存、归因分析（funnel / retention / attribution） 数据质量验证与排查；修复 UTM mapping 归因错误并重算结果。 数学与计算建模实习（Modeling Intern） 砂石边坡滚动/轨迹建模（rolling / trajectory modeling） 与地灾防治国重实验方案对接，推进可落地的分析与实验计划。 完整版简历（Full CV） 申请学校/岗位可索取完整版简历（含完整经历、项目细节与联系方式），请邮件联系。 Public CV For privacy and safety, this page only shows public contact information and excludes phone number and full address. The full version for applications is available by email request. No downloadable full CV file is hosted on this public site. Tagline Optimization & Formal Methods · Data Analytics · Patent-pending Engineering System Highlights Patent pipeline (pending + granted): anti-segregation spreading system and method, with an invention patent under review and a granted utility-model patent. Core engineering development: worked on anti-segregation spreading system modeling and parameter optimization; project is moving forward with intended long-term enterprise collaboration. Isabelle/HOL formalization: monotone submodular maximization and greedy algorithm framework toward the classical (1−1/e) approximation guarantee. Data analytics implementation: funnel, retention, and attribution analysis; diagnosed and fixed UTM mapping attribution errors. Basic Info Name: Fay Lyu (Hazezz) Email: feier530@icloud.com Location: Ithaca, USA / Edinburgh, UK Public Links LinkedIn: fay-lyu-uoe GitHub: lyuf09 Selected Projects & IP Anti-segregation Spreading System (Patent pending) Role: Core developer Problem: Material segregation during aggregate spreading process Work: System modeling and key parameter optimization Status: Patent submitted; ongoing long-term collaboration progress with major enterprise partners. Isabelle/HOL: Formalizing Submodular Greedy Scope: Monotone submodular maximization with cardinality constraint Work: Reusable formal framework and proof structure toward the classical (1−1/e) approximation guarantee. Patents Invention: Anti-Segregation Spreading Method and Device (accepted / under review) Utility model: Anti-Segregation Spreading Device (granted, 2025-07-04) Patent numbers are omitted in this public version for safety. Selected Experience Data Analyst Intern Funnel, retention, and attribution analysis. Data-quality validation and troubleshooting; fixed UTM mapping attribution issues and recomputed results. Modeling Intern Rolling / trajectory modeling for aggregate slope behavior. Coordinated with national key-lab experimental plans and advanced actionable analysis workflows. Full CV The full application version (detailed experience, project records, and complete contact information) is available on request by email."
     }
   ]
 }

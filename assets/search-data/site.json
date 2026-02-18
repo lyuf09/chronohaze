@@ -1,0 +1,32 @@
+{
+  "generated_at": "2026-02-18",
+  "scope": "site",
+  "items": [
+    {
+      "title": "搜索 / Search",
+      "url": "search.html",
+      "section": "Site",
+      "date": "",
+      "excerpt": "Site-wide search index",
+      "tags": [
+        "search"
+      ],
+      "sort": 20260218,
+      "scope": "site",
+      "content": "站内搜索 按标题、简介、标签搜索全站内容。 关键词 范围 全部 数学 摄影 音乐 CV 标签 全部标签 搜索 正在加载索引…"
+    },
+    {
+      "title": "主页 / Home",
+      "url": "index.html",
+      "section": "Site",
+      "date": "",
+      "excerpt": "Chronohaze main page",
+      "tags": [
+        "home"
+      ],
+      "sort": 0,
+      "scope": "site",
+      "content": "HazezZ Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP） 有时候我会觉得音乐里最数学的部分不是和声或调式，而是节奏如何从连续变成可数。把连续音频映射到离散谱面，本质上是一条结构化的离散化流水线。 Read More"
+    }
+  ]
+}
