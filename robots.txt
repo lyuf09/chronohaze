@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /*.pdf$
 
 Sitemap: https://lyuf09.github.io/chronohaze/sitemap.xml
