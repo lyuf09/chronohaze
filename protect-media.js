@@ -289,6 +289,67 @@
     });
   }
 
+  function normalizeFooterMeta() {
+    var currentYear = new Date().getFullYear();
+
+    var cityNodes = Array.from(
+      document.querySelectorAll(
+        ".footer-note, .home-footer-cities, [data-i18n='footerCities']"
+      )
+    );
+
+    cityNodes.forEach(function (node) {
+      if (!node) {
+        return;
+      }
+      var next = String(node.textContent || "")
+        .replace(/\bnew york\b/gi, "New York")
+        .replace(/\bEDINBURGH\b/g, "Edinburgh");
+      if (next !== node.textContent) {
+        node.textContent = next;
+      }
+    });
+
+    var copyNodes = Array.from(
+      document.querySelectorAll(
+        ".footer-copy, .home-footer-copy, [data-i18n='footerCopy']"
+      )
+    );
+
+    copyNodes.forEach(function (node) {
+      if (!node) {
+        return;
+      }
+      var next = String(node.textContent || "").replace(
+        /©\s*20\d{2}/g,
+        "© " + String(currentYear)
+      );
+      if (next !== node.textContent) {
+        node.textContent = next;
+      }
+    });
+  }
+
+  function bindFooterMetaSync() {
+    if (document.body && document.body.dataset.footerMetaBound === "1") {
+      return;
+    }
+    if (document.body) {
+      document.body.dataset.footerMetaBound = "1";
+    }
+
+    document.addEventListener("click", function (event) {
+      var target = event.target;
+      if (
+        target &&
+        typeof target.closest === "function" &&
+        target.closest("[data-lang], .lang-btn, .floating-lang-btn")
+      ) {
+        window.setTimeout(normalizeFooterMeta, 0);
+      }
+    });
+  }
+
   function labelPhotoOrientation() {
     var images = Array.from(
       document.querySelectorAll(".photo-detail-gallery img")
@@ -851,7 +912,7 @@
         siteNotes: "网站说明",
         a11y: "无障碍支持",
         footerContactLead: "辗转不同国家无固定号码 请联系邮箱：",
-        footerCities: "重庆 · Edinburgh · New york",
+        footerCities: "重庆 · Edinburgh · New York",
         musicPageTitle: "音乐作品集",
         musicIntro: "声音的纹理、情绪的回声、在时间里缓慢成形的片段。",
         musicLead: "仅收录 21 年开始的部分作品（我需要脸面）",
@@ -4792,6 +4853,8 @@
     protectAllMedia();
     optimizeMediaLoading();
     optimizeImages();
+    normalizeFooterMeta();
+    bindFooterMetaSync();
     labelPhotoOrientation();
     ensureMusicDetailBackLink();
     enhanceMusicPlayers();
@@ -4870,6 +4933,7 @@
 
     optimizeMediaLoading();
     optimizeImages();
+    normalizeFooterMeta();
     labelPhotoOrientation();
   });
 

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lyuf09.github.io/chronohaze/sitemap.xml
