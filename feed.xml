@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Chronohaze Updates</title>
+    <link>https://lyuf09.github.io/chronohaze/</link>
+    <description>Latest updates from Chronohaze: mathematics notes, music releases, and photography archives.</description>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 18 Feb 2026 12:00:00 +0000</lastBuildDate>
+    <generator>Chronohaze static feed</generator>
+
+    <item>
+      <title>Metalcore Piano Lab | From Audio to Chart: A Discretization Experiment (WIP)</title>
+      <link>https://lyuf09.github.io/chronohaze/post/metalcore-piano-lab.html</link>
+      <guid>https://lyuf09.github.io/chronohaze/post/metalcore-piano-lab.html</guid>
+      <pubDate>Sat, 07 Feb 2026 08:00:00 +0000</pubDate>
+      <description>From continuous audio to playable chart events: detection, estimation, segmentation, alignment, and interaction.</description>
+    </item>
+
+    <item>
+      <title>Spring 2026 | A New Research Direction</title>
+      <link>https://lyuf09.github.io/chronohaze/post/spring-2026.html</link>
+      <guid>https://lyuf09.github.io/chronohaze/post/spring-2026.html</guid>
+      <pubDate>Thu, 29 Jan 2026 08:00:00 +0000</pubDate>
+      <description>Research notes on optimization, first-order methods, and transitioning from formal verification to open-ended research.</description>
+    </item>
+
+    <item>
+      <title>An Ongoing Isabelle Research Project: Formalising Submodular Greedy</title>
+      <link>https://lyuf09.github.io/chronohaze/post/isabelle-submodular-greedy.html</link>
+      <guid>https://lyuf09.github.io/chronohaze/post/isabelle-submodular-greedy.html</guid>
+      <pubDate>Mon, 29 Dec 2025 08:00:00 +0000</pubDate>
+      <description>Formalisation progress toward the (1 − 1/e) greedy approximation guarantee for monotone submodular maximization.</description>
+    </item>
+
+    <item>
+      <title>My First Isabelle Formalization Project</title>
+      <link>https://lyuf09.github.io/chronohaze/post/first-isabelle-proof.html</link>
+      <guid>https://lyuf09.github.io/chronohaze/post/first-isabelle-proof.html</guid>
+      <pubDate>Sat, 18 Oct 2025 08:00:00 +0000</pubDate>
+      <description>Why formalization matters and how rigorous proof structures are made machine-checkable in Isabelle/HOL.</description>
+    </item>
+
+    <item>
+      <title>Ipomoea Alba (Album Page)</title>
+      <link>https://lyuf09.github.io/chronohaze/music/album-ipomoea-alba.html</link>
+      <guid>https://lyuf09.github.io/chronohaze/music/album-ipomoea-alba.html</guid>
+      <pubDate>Tue, 17 Feb 2026 08:00:00 +0000</pubDate>
+      <description>Album landing page with 14 tracks, concept notes, and direct entry to each track page.</description>
+    </item>
+
+    <item>
+      <title>「劇場の雨が止む日のどこかで、君に話しかけるつもりだ」 (Album Page)</title>
+      <link>https://lyuf09.github.io/chronohaze/music/album-teenage-best.html</link>
+      <guid>https://lyuf09.github.io/chronohaze/music/album-teenage-best.html</guid>
+      <pubDate>Tue, 17 Feb 2026 08:00:00 +0000</pubDate>
+      <description>HazezZ's teenage years best's collection: selected tracks from early-period writing and production.</description>
+    </item>
+
+    <item>
+      <title>春日和煦 / Sincerely, Spring</title>
+      <link>https://lyuf09.github.io/chronohaze/music/track-01.html</link>
+      <guid>https://lyuf09.github.io/chronohaze/music/track-01.html</guid>
+      <pubDate>Tue, 21 Oct 2025 08:00:00 +0000</pubDate>
+      <description>J-rock color study in pale spring green and blue air, with bilingual lyrics and production notes.</description>
+    </item>
+
+    <item>
+      <title>He and me</title>
+      <link>https://lyuf09.github.io/chronohaze/music/track-02.html</link>
+      <guid>https://lyuf09.github.io/chronohaze/music/track-02.html</guid>
+      <pubDate>Sat, 22 Mar 2025 08:00:00 +0000</pubDate>
+      <description>A warm-white epilogue track with bilingual lyric layout and minimal arrangement architecture.</description>
+    </item>
+
+    <item>
+      <title>花园 / Moonlit Garden</title>
+      <link>https://lyuf09.github.io/chronohaze/music/track-03.html</link>
+      <guid>https://lyuf09.github.io/chronohaze/music/track-03.html</guid>
+      <pubDate>Sat, 01 Feb 2025 08:00:00 +0000</pubDate>
+      <description>Night-lullaby writing with dreamlike blue-violet palette, bilingual lyrics, and restrained motion.</description>
+    </item>
+
+    <item>
+      <title>Affizieren</title>
+      <link>https://lyuf09.github.io/chronohaze/music/track-04.html</link>
+      <guid>https://lyuf09.github.io/chronohaze/music/track-04.html</guid>
+      <pubDate>Sat, 21 Dec 2024 08:00:00 +0000</pubDate>
+      <description>Deep blue introspective track with long-form production notes, lyrical translation, and arrangement breakdown.</description>
+    </item>
+
+    <item>
+      <title>Photography Collection</title>
+      <link>https://lyuf09.github.io/chronohaze/portfolio-1.html</link>
+      <guid>https://lyuf09.github.io/chronohaze/portfolio-1.html</guid>
+      <pubDate>Tue, 17 Feb 2026 08:00:00 +0000</pubDate>
+      <description>Featured sets + archive structure, including bilingual intro and curated cover updates.</description>
+    </item>
+
+    <item>
+      <title>Blue — A-level photography final piece</title>
+      <link>https://lyuf09.github.io/chronohaze/photo/blue.html</link>
+      <guid>https://lyuf09.github.io/chronohaze/photo/blue.html</guid>
+      <pubDate>Tue, 17 Feb 2026 08:00:00 +0000</pubDate>
+      <description>Standalone page for graduation project video under photography archive.</description>
+    </item>
+  </channel>
+</rss>

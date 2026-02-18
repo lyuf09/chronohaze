@@ -909,6 +909,23 @@
         navPhoto: "摄影",
         navMusic: "音乐",
         navCV: "CV",
+        navSearch: "搜索",
+        searchPageTitle: "站内搜索",
+        searchIntro: "按标题、简介、标签搜索全站内容。",
+        searchKeywordLabel: "关键词",
+        searchPlaceholder: "输入关键词（例如：Affizieren / 形式化 / 摄影）",
+        searchScopeLabel: "范围",
+        searchScopeAll: "全部",
+        searchScopeMath: "数学",
+        searchScopePhoto: "摄影",
+        searchScopeMusic: "音乐",
+        searchScopeCV: "CV",
+        searchSubmit: "搜索",
+        searchEmptyHint: "输入关键词开始搜索。",
+        searchLoading: "正在加载索引…",
+        searchLoadError: "搜索索引加载失败，请稍后重试。",
+        searchResultZero: "暂无匹配结果。",
+        searchResultCount: "共 {count} 条结果",
         siteNotes: "网站说明",
         a11y: "无障碍支持",
         footerContactLead: "辗转不同国家无固定号码 请联系邮箱：",
@@ -974,6 +991,24 @@
         navPhoto: "Photography",
         navMusic: "Music",
         navCV: "CV",
+        navSearch: "Search",
+        searchPageTitle: "Site Search",
+        searchIntro: "Search across titles, excerpts, and tags.",
+        searchKeywordLabel: "Keyword",
+        searchPlaceholder:
+          "Type keywords (e.g. Affizieren / formalization / photography)",
+        searchScopeLabel: "Scope",
+        searchScopeAll: "All",
+        searchScopeMath: "Mathematics",
+        searchScopePhoto: "Photography",
+        searchScopeMusic: "Music",
+        searchScopeCV: "CV",
+        searchSubmit: "Search",
+        searchEmptyHint: "Type a keyword to start searching.",
+        searchLoading: "Loading index…",
+        searchLoadError: "Failed to load search index. Please try again later.",
+        searchResultZero: "No matching results.",
+        searchResultCount: "{count} results",
         siteNotes: "Privacy Policy",
         a11y: "Accessibility",
         footerContactLead:
@@ -4409,11 +4444,285 @@
     applyFilters();
   }
 
+  function getSearchSectionKey(sectionText) {
+    var section = normalizeText(sectionText || "").toLowerCase();
+    if (section === "mathematics" || section === "math") {
+      return "math";
+    }
+    if (section === "music") {
+      return "music";
+    }
+    if (section === "photography" || section === "photo") {
+      return "photo";
+    }
+    if (section === "cv") {
+      return "cv";
+    }
+    return "other";
+  }
+
+  function getSearchSectionLabel(sectionText, dict) {
+    var key = getSearchSectionKey(sectionText);
+    if (key === "math") {
+      return dict.searchScopeMath;
+    }
+    if (key === "music") {
+      return dict.searchScopeMusic;
+    }
+    if (key === "photo") {
+      return dict.searchScopePhoto;
+    }
+    if (key === "cv") {
+      return dict.searchScopeCV;
+    }
+    return sectionText || dict.searchScopeAll;
+  }
+
+  function setupSearchIndexPage() {
+    if (!document.body || !document.body.classList.contains("search-index-page")) {
+      return;
+    }
+
+    var lang = detectPreferredLanguage();
+    var dict = getSecondaryPageDictionary(lang);
+    var params = new URLSearchParams(window.location.search);
+
+    var titleNode = document.querySelector("[data-search-title]");
+    var introNode = document.querySelector("[data-search-intro]");
+    var keywordLabelNode = document.querySelector("[data-search-keyword-label]");
+    var inputNode = document.querySelector("#site-search-input");
+    var scopeNode = document.querySelector("#site-search-scope");
+    var scopeLabelNode = document.querySelector("[data-search-scope-label]");
+    var statusNode = document.querySelector(".search-status");
+    var listNode = document.querySelector(".search-results");
+    var emptyNode = document.querySelector(".search-empty");
+    var formNode = document.querySelector(".search-form");
+    var submitNode = document.querySelector(".search-submit");
+
+    if (!inputNode || !scopeNode || !statusNode || !listNode || !emptyNode || !formNode) {
+      return;
+    }
+
+    if (titleNode) {
+      titleNode.textContent = dict.searchPageTitle;
+    }
+    if (introNode) {
+      introNode.textContent = dict.searchIntro;
+    }
+    if (keywordLabelNode) {
+      keywordLabelNode.textContent = dict.searchKeywordLabel;
+    }
+    if (scopeLabelNode) {
+      scopeLabelNode.textContent = dict.searchScopeLabel;
+    }
+    if (submitNode) {
+      submitNode.textContent = dict.searchSubmit;
+    }
+    inputNode.placeholder = dict.searchPlaceholder;
+
+    var scopeLabels = {
+      all: dict.searchScopeAll,
+      math: dict.searchScopeMath,
+      photo: dict.searchScopePhoto,
+      music: dict.searchScopeMusic,
+      cv: dict.searchScopeCV,
+    };
+    Array.from(scopeNode.options).forEach(function (option) {
+      var value = option.value || "all";
+      if (scopeLabels[value]) {
+        option.textContent = scopeLabels[value];
+      }
+    });
+
+    var initialQuery = params.get("q") || "";
+    var initialScope = params.get("scope") || "all";
+    inputNode.value = initialQuery;
+    if (Array.from(scopeNode.options).some(function (option) { return option.value === initialScope; })) {
+      scopeNode.value = initialScope;
+    }
+
+    var items = [];
+    var loaded = false;
+    var loadError = false;
+    statusNode.textContent = dict.searchLoading;
+    emptyNode.hidden = true;
+
+    function updateSearchUrl(query, scope) {
+      var url = new URL(window.location.href);
+      if (query) {
+        url.searchParams.set("q", query);
+      } else {
+        url.searchParams.delete("q");
+      }
+      if (scope && scope !== "all") {
+        url.searchParams.set("scope", scope);
+      } else {
+        url.searchParams.delete("scope");
+      }
+      history.replaceState(null, "", url.toString());
+    }
+
+    function renderResults() {
+      if (!loaded) {
+        statusNode.textContent = dict.searchLoading;
+        emptyNode.hidden = true;
+        return;
+      }
+
+      if (loadError) {
+        statusNode.textContent = dict.searchLoadError;
+        emptyNode.hidden = false;
+        emptyNode.textContent = dict.searchLoadError;
+        listNode.textContent = "";
+        return;
+      }
+
+      var query = normalizeText(inputNode.value || "").toLowerCase().trim();
+      var scope = scopeNode.value || "all";
+      var terms = query ? query.split(/\s+/).filter(Boolean) : [];
+
+      var matched = items.filter(function (item) {
+        if (scope !== "all" && getSearchSectionKey(item.section) !== scope) {
+          return false;
+        }
+        if (!terms.length) {
+          return true;
+        }
+        var pool = normalizeText(
+          [
+            item.title || "",
+            item.excerpt || "",
+            item.section || "",
+            (item.tags || []).join(" "),
+            item.date || "",
+          ].join(" ")
+        ).toLowerCase();
+        return terms.every(function (term) {
+          return pool.indexOf(term) >= 0;
+        });
+      });
+
+      matched.sort(function (a, b) {
+        return Number(b.sort || 0) - Number(a.sort || 0);
+      });
+
+      updateSearchUrl(query, scope);
+      statusNode.textContent = dict.searchResultCount.replace("{count}", String(matched.length));
+
+      listNode.textContent = "";
+      if (!matched.length) {
+        emptyNode.hidden = false;
+        emptyNode.textContent = query ? dict.searchResultZero : dict.searchEmptyHint;
+        return;
+      }
+
+      emptyNode.hidden = true;
+      var fragment = document.createDocumentFragment();
+      matched.forEach(function (item) {
+        var li = document.createElement("li");
+        li.className = "search-result-item";
+
+        var link = document.createElement("a");
+        link.className = "search-result-link";
+        link.href = item.url || "#";
+
+        var title = document.createElement("h3");
+        title.className = "search-result-title";
+        title.textContent = item.title || "";
+
+        var meta = document.createElement("p");
+        meta.className = "search-result-meta";
+        var sectionLabel = getSearchSectionLabel(item.section, dict);
+        meta.textContent = [item.date || "", sectionLabel].filter(Boolean).join(" · ");
+
+        var excerpt = document.createElement("p");
+        excerpt.className = "search-result-excerpt";
+        excerpt.textContent = item.excerpt || "";
+
+        var tagsWrap = document.createElement("div");
+        tagsWrap.className = "search-result-tags";
+        (item.tags || []).slice(0, 4).forEach(function (tag) {
+          var chip = document.createElement("span");
+          chip.className = "search-result-tag";
+          chip.textContent = tag;
+          tagsWrap.appendChild(chip);
+        });
+
+        link.appendChild(title);
+        if (meta.textContent) {
+          link.appendChild(meta);
+        }
+        if (excerpt.textContent) {
+          link.appendChild(excerpt);
+        }
+        if (tagsWrap.childNodes.length) {
+          link.appendChild(tagsWrap);
+        }
+        li.appendChild(link);
+        fragment.appendChild(li);
+      });
+      listNode.appendChild(fragment);
+    }
+
+    var debounceTimer = null;
+    inputNode.addEventListener("input", function () {
+      window.clearTimeout(debounceTimer);
+      debounceTimer = window.setTimeout(renderResults, 140);
+    });
+
+    scopeNode.addEventListener("change", renderResults);
+
+    formNode.addEventListener("submit", function (event) {
+      event.preventDefault();
+      renderResults();
+    });
+
+    fetch("assets/search-index.json", { cache: "no-cache" })
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error("HTTP " + response.status);
+        }
+        return response.json();
+      })
+      .then(function (payload) {
+        items = Array.isArray(payload && payload.items) ? payload.items : [];
+        loaded = true;
+        renderResults();
+      })
+      .catch(function () {
+        loaded = true;
+        loadError = true;
+        renderResults();
+      });
+  }
+
   function setSamePageLanguageInUrl(lang) {
     var safeLang = lang === "en" ? "en" : "zh";
     var url = new URL(window.location.href);
     url.searchParams.set("lang", safeLang);
     window.location.href = url.toString();
+  }
+
+  function getSearchPageHref() {
+    var path = (window.location.pathname || "").toLowerCase();
+    if (/\/(music|photo|post)\//.test(path)) {
+      return "../search.html";
+    }
+    return "search.html";
+  }
+
+  function ensureSearchNavLink() {
+    var href = getSearchPageHref();
+    Array.from(document.querySelectorAll(".nav")).forEach(function (nav) {
+      if (nav.querySelector('a[href*="search.html"]')) {
+        return;
+      }
+      var link = document.createElement("a");
+      link.href = href;
+      link.setAttribute("data-nav-search", "1");
+      link.textContent = "搜索";
+      nav.appendChild(link);
+    });
   }
 
   function applySecondaryPageLanguage(lang) {
@@ -4435,6 +4744,8 @@
         link.textContent = dict.navMusic;
       } else if (/Fay_Lyu_CV\.pdf|(?:^|\/)cv\.html(?:$|[?#])/i.test(href)) {
         link.textContent = dict.navCV;
+      } else if (/search\.html(?:$|[?#])/i.test(href)) {
+        link.textContent = dict.navSearch;
       } else if (/index\.html$/i.test(href) || /\.\.\/index\.html$/i.test(href)) {
         link.textContent = dict.navHome;
       }
@@ -4532,7 +4843,12 @@
             return;
           }
           if (musicTitleOverridesEn[href]) {
-            titleNode.textContent = musicTitleOverridesEn[href];
+            var titleLink = titleNode.querySelector("a");
+            if (titleLink) {
+              titleLink.textContent = musicTitleOverridesEn[href];
+            } else {
+              titleNode.textContent = musicTitleOverridesEn[href];
+            }
           }
         });
       }
@@ -4648,6 +4964,10 @@
       }
 
       document.title = safeLang === "en" ? "Mathematics | Chronohaze" : "数学 | Chronohaze";
+    }
+
+    if (document.body.classList.contains("search-index-page")) {
+      document.title = safeLang === "en" ? "Search | Chronohaze" : "搜索 | Chronohaze";
     }
 
     if (document.body.classList.contains("music-detail-page")) {
@@ -4887,10 +5207,12 @@
   }
 
   function boot() {
+    ensureSearchNavLink();
     cacheMusicIntroPaletteSource();
     injectFloatingSiteLogo();
     injectFloatingLanguageSwitch();
     setupMusicIndexArchitecture();
+    setupSearchIndexPage();
     protectAllMedia();
     optimizeMediaLoading();
     optimizeImages();

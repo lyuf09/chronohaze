@@ -574,10 +574,34 @@ audio {
   font-weight: 300;
 }
 
+.track-title-link {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 180ms ease;
+}
+
+.track-title-link:hover,
+.track-title-link:focus-visible {
+  border-color: currentColor;
+}
+
 .track-artist {
   margin: 3px 0 0;
   font-size: 13px;
   color: var(--muted);
+}
+
+.track-album-link {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(67, 74, 85, 0.3);
+}
+
+.track-album-link:hover,
+.track-album-link:focus-visible {
+  color: rgba(39, 47, 62, 0.92);
+  border-bottom-color: rgba(39, 47, 62, 0.6);
 }
 
 .track-link {
@@ -1306,6 +1330,275 @@ audio {
 .music-index-page .track-row:focus-visible {
   outline: 1px solid rgba(35, 39, 48, 0.58);
   outline-offset: 2px;
+}
+
+.search-index-page .main {
+  background:
+    radial-gradient(circle at 12% 8%, rgba(186, 198, 224, 0.22), transparent 40%),
+    linear-gradient(180deg, #d2d4da 0%, #cfd1d7 100%);
+}
+
+.search-index-page .page-head {
+  padding-bottom: 10px;
+}
+
+.search-index-page .search-shell {
+  width: min(100%, 920px);
+  margin: 0 auto 20px;
+}
+
+.search-index-page .search-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 190px 112px;
+  gap: 10px;
+  align-items: end;
+}
+
+.search-index-page .search-field {
+  display: grid;
+  gap: 6px;
+}
+
+.search-index-page .search-field-label {
+  margin: 0;
+  color: rgba(58, 64, 76, 0.84);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.search-index-page #site-search-input,
+.search-index-page #site-search-scope {
+  width: 100%;
+  border: 1px solid rgba(66, 74, 92, 0.28);
+  border-radius: 12px;
+  background: rgba(245, 248, 255, 0.56);
+  color: rgba(38, 44, 58, 0.94);
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+}
+
+.search-index-page #site-search-input:focus-visible,
+.search-index-page #site-search-scope:focus-visible,
+.search-index-page .search-submit:focus-visible {
+  outline: 1px solid rgba(49, 59, 84, 0.58);
+  outline-offset: 2px;
+}
+
+.search-index-page .search-submit {
+  border: 1px solid rgba(64, 73, 95, 0.46);
+  border-radius: 12px;
+  background: rgba(67, 78, 108, 0.9);
+  color: rgba(244, 248, 255, 0.96);
+  min-height: 40px;
+  padding: 0 14px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 180ms ease, border-color 180ms ease;
+}
+
+.search-index-page .search-submit:hover {
+  background: rgba(75, 88, 120, 0.95);
+  border-color: rgba(72, 82, 107, 0.62);
+}
+
+.search-index-page .search-status {
+  margin: 12px 0 4px;
+  color: rgba(59, 66, 82, 0.78);
+  font-size: 13px;
+}
+
+.search-index-page .search-empty {
+  margin: 8px 0 0;
+  color: rgba(62, 70, 86, 0.74);
+  font-size: 14px;
+}
+
+.search-index-page .search-results {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+
+.search-index-page .search-result-item {
+  margin: 0;
+}
+
+.search-index-page .search-result-link {
+  display: block;
+  border: 1px solid rgba(58, 65, 84, 0.26);
+  background: rgba(249, 252, 255, 0.35);
+  box-shadow: 0 14px 28px rgba(22, 28, 38, 0.08);
+  padding: 14px 16px 12px;
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 200ms ease, box-shadow 220ms ease, transform 220ms ease;
+}
+
+.search-index-page .search-result-link:hover {
+  border-color: rgba(72, 81, 104, 0.44);
+  box-shadow: 0 18px 34px rgba(20, 26, 36, 0.12);
+  transform: translateY(-1px);
+}
+
+.search-index-page .search-result-title {
+  margin: 0;
+  color: rgba(32, 39, 52, 0.94);
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-size: clamp(18px, 1.55vw, 23px);
+  line-height: 1.12;
+  letter-spacing: 0.008em;
+}
+
+.search-index-page .search-result-meta {
+  margin: 5px 0 0;
+  color: rgba(72, 80, 96, 0.84);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+.search-index-page .search-result-excerpt {
+  margin: 8px 0 0;
+  color: rgba(56, 64, 79, 0.9);
+  font-size: 14px;
+  line-height: 1.46;
+}
+
+.search-index-page .search-result-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 9px;
+}
+
+.search-index-page .search-result-tag {
+  border: 1px solid rgba(84, 92, 110, 0.25);
+  background: rgba(247, 250, 255, 0.46);
+  color: rgba(62, 69, 85, 0.86);
+  padding: 2px 8px;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.search-index-page .main {
+  background: linear-gradient(180deg, #d7d8db 0%, #cfd1d6 100%);
+}
+
+.search-index-page .page-head {
+  padding: 44px 0 22px;
+  border-bottom: 0;
+  text-align: center;
+}
+
+.search-index-page .search-lead {
+  margin: 10px auto 0;
+  color: rgba(58, 65, 82, 0.76);
+  width: min(100%, 780px);
+}
+
+.search-index-page .search-controls {
+  margin: 20px auto 0;
+  width: min(100%, 860px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 190px;
+  gap: 10px;
+}
+
+.search-index-page .search-input,
+.search-index-page .search-scope {
+  border: 1px solid rgba(56, 63, 80, 0.22);
+  border-radius: 10px;
+  background: rgba(249, 251, 255, 0.55);
+  color: rgba(40, 47, 62, 0.92);
+  padding: 9px 12px;
+  font-size: 14px;
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+}
+
+.search-index-page .section {
+  border-bottom: 0;
+  padding: 8px 0 48px;
+}
+
+.search-index-page .search-status {
+  margin: 2px auto 14px;
+  width: min(100%, 860px);
+  color: rgba(56, 63, 80, 0.76);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+
+.search-index-page .search-results {
+  width: min(100%, 860px);
+  margin: 0 auto;
+  display: grid;
+  gap: 10px;
+}
+
+.search-index-page .search-result {
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+  border: 1px solid rgba(58, 58, 58, 0.18);
+  border-radius: 0;
+  background: rgba(250, 252, 255, 0.32);
+  padding: 12px 14px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 10px 18px rgba(18, 24, 34, 0.07);
+}
+
+.search-index-page .search-result:hover {
+  border-color: rgba(58, 58, 58, 0.28);
+  box-shadow: 0 14px 24px rgba(18, 24, 34, 0.1);
+}
+
+.search-index-page .search-meta {
+  margin: 0;
+  color: rgba(61, 68, 85, 0.72);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+.search-index-page .search-title {
+  margin: 0;
+  color: #232730;
+  font-size: 19px;
+  line-height: 1.22;
+  font-weight: 400;
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+}
+
+.search-index-page .search-excerpt {
+  margin: 4px 0 0;
+  color: rgba(66, 74, 88, 0.8);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.search-index-page .search-tags {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.search-index-page .search-tag {
+  border: 1px solid rgba(67, 77, 100, 0.2);
+  background: rgba(248, 250, 255, 0.38);
+  color: rgba(57, 65, 83, 0.8);
+  padding: 2px 7px 3px;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
 }
 
 .math-index-page .main {
@@ -3084,6 +3377,15 @@ audio {
 }
 
 @media (max-width: 980px) {
+  .search-index-page .search-form {
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+
+  .search-index-page .search-submit {
+    width: 100%;
+  }
+
   .music-album-page .album-layout {
     grid-template-columns: 1fr;
     gap: 20px;
@@ -3100,6 +3402,23 @@ audio {
 }
 
 @media (max-width: 640px) {
+  .search-index-page .search-shell {
+    width: min(100%, 92vw);
+  }
+
+  .search-index-page .search-result-link {
+    padding: 12px 12px 10px;
+  }
+
+  .search-index-page .search-result-title {
+    font-size: clamp(17px, 7vw, 21px);
+  }
+
+  .search-index-page .search-result-excerpt {
+    font-size: 13px;
+    line-height: 1.44;
+  }
+
   .music-album-page .album-head {
     padding: 30px 0 12px;
   }

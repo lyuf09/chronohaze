@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico?v=3" />
+  <link rel="apple-touch-icon" href="assets/logo.png?v=3" />
+  <title>搜索 | Chronohaze</title>
+  <meta name="description" content="Chronohaze 站内搜索：快速检索数学、摄影、音乐与 CV 页面内容。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Chronohaze" />
+  <meta property="og:title" content="搜索 | Chronohaze" />
+  <meta property="og:description" content="Chronohaze 站内搜索：快速检索数学、摄影、音乐与 CV 页面内容。" />
+  <meta property="og:url" content="https://lyuf09.github.io/chronohaze/search.html" />
+  <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="搜索 | Chronohaze" />
+  <meta name="twitter:description" content="Chronohaze 站内搜索：快速检索数学、摄影、音乐与 CV 页面内容。" />
+  <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/logo.png" />
+  <link rel="canonical" href="https://lyuf09.github.io/chronohaze/search.html" />
+  <link rel="alternate" type="application/rss+xml" title="Chronohaze RSS" href="https://lyuf09.github.io/chronohaze/feed.xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="protect-media.js"></script>
+</head>
+<body class="search-index-page">
+  <div class="page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="index.html">
+          <img src="assets/logo.png" alt="Chronohaze" />
+          <span>chronohaze.space</span>
+        </a>
+        <nav class="nav" aria-label="主导航">
+          <a href="index.html">主页</a>
+          <a href="math.html">数学</a>
+          <a href="portfolio-1.html">摄影</a>
+          <a href="yin-le.html">音乐</a>
+          <a href="cv.html">CV</a>
+          <a class="active" href="search.html">搜索</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="page-head search-head">
+        <div class="container">
+          <h1 class="page-title" data-search-title>站内搜索</h1>
+          <p data-search-intro>按标题、简介、标签搜索全站内容。</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container search-shell">
+          <form class="search-form" role="search" aria-label="站内搜索表单">
+            <label class="search-field">
+              <span class="search-field-label" data-search-keyword-label>关键词</span>
+              <input
+                id="site-search-input"
+                name="q"
+                type="search"
+                placeholder="输入关键词"
+                autocomplete="off"
+              />
+            </label>
+            <label class="search-field search-scope-field" for="site-search-scope">
+              <span class="search-field-label" data-search-scope-label>范围</span>
+              <select id="site-search-scope" name="scope">
+                <option value="all">全部</option>
+                <option value="math">数学</option>
+                <option value="photo">摄影</option>
+                <option value="music">音乐</option>
+                <option value="cv">CV</option>
+              </select>
+            </label>
+            <button class="search-submit" type="submit">搜索</button>
+          </form>
+
+          <p class="search-status" aria-live="polite">正在加载索引…</p>
+          <p class="search-empty" hidden></p>
+          <ul class="search-results" aria-live="polite"></ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <p class="footer-title">chronohaze.space</p>
+          <p class="footer-note">辗转不同国家无固定号码 请联系邮箱：<a href="mailto:feier530@icloud.com">feier530@icloud.com</a></p>
+          <p class="footer-note">重庆 · Edinburgh · New York</p>
+          <p class="footer-copy">© 2026 by chronohaze.space. Powered and secured by GitHub Pages.</p>
+          <div class="social" aria-label="Social links">
+            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://www.instagram.com/lyuf09" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://space.bilibili.com/35902781" target="_blank" rel="noopener noreferrer">Bilibili</a>
+            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+        <div class="footer-right">
+          <a href="blank.html">网站说明</a>
+          <a href="blank-1.html">无障碍支持</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
