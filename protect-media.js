@@ -47,6 +47,196 @@
     document.querySelectorAll(MEDIA_SELECTOR).forEach(protectElement);
   }
 
+  function splitSrc(value) {
+    var source = String(value || "");
+    var match = source.match(/^([^?#]+)([?#].*)?$/);
+    return {
+      path: match ? match[1] : source,
+      suffix: match && match[2] ? match[2] : "",
+    };
+  }
+
+  function isResponsiveImagePath(path) {
+    if (!path) {
+      return false;
+    }
+
+    if (!/\.(jpe?g)$/i.test(path)) {
+      return false;
+    }
+
+    if (!/(^|\/)assets\/(images\/wix|template)\//i.test(path)) {
+      return false;
+    }
+
+    return !/-\d+\.(jpe?g|webp)$/i.test(path);
+  }
+
+  function buildVariantPath(path, width, extension) {
+    return path.replace(
+      /\.(jpe?g)$/i,
+      "-" + String(width) + "." + String(extension || "jpg").toLowerCase()
+    );
+  }
+
+  function ensurePictureWrapper(img) {
+    if (!img || !img.parentNode) {
+      return null;
+    }
+
+    var parent = img.parentNode;
+    if (parent.tagName === "PICTURE") {
+      return parent;
+    }
+
+    var picture = document.createElement("picture");
+    picture.className = "responsive-picture";
+    picture.style.display = "block";
+    picture.style.width = "100%";
+    parent.insertBefore(picture, img);
+    picture.appendChild(img);
+    return picture;
+  }
+
+  function defaultImageSizes(img) {
+    if (!img || img.getAttribute("sizes")) {
+      return;
+    }
+
+    if (img.closest(".photo-detail-gallery")) {
+      img.setAttribute("sizes", "(max-width: 900px) 92vw, 44vw");
+      return;
+    }
+
+    if (img.closest(".photo-archive-grid, .photo-index-grid")) {
+      img.setAttribute("sizes", "(max-width: 900px) 92vw, 30vw");
+      return;
+    }
+
+    if (img.closest(".photo-intro-layout, .music-intro-layout")) {
+      img.setAttribute("sizes", "(max-width: 900px) 92vw, 42vw");
+      return;
+    }
+
+    if (img.closest(".welcome-main-grid, .welcome-main, .welcome-image-panel")) {
+      img.setAttribute("sizes", "(max-width: 900px) 92vw, 46vw");
+      return;
+    }
+
+    img.setAttribute("sizes", "100vw");
+  }
+
+  function deriveFallbackAltFromFilename(path) {
+    var safePath = String(path || "");
+    var filename = safePath.split("/").pop() || "";
+    filename = filename.replace(/\.[^.]+$/, "").replace(/[_-]+/g, " ").trim();
+    if (!filename || /^64569d_/i.test(filename)) {
+      return "";
+    }
+    return filename;
+  }
+
+  function enrichImageAlt(img) {
+    if (!img) {
+      return;
+    }
+
+    if (img.closest(".floating-site-logo")) {
+      return;
+    }
+
+    var currentAlt = (img.getAttribute("alt") || "").trim();
+    if (currentAlt && !/^(image|photo|img)$/i.test(currentAlt)) {
+      return;
+    }
+
+    var nextAlt = "";
+
+    if (img.closest(".photo-detail-gallery")) {
+      var detailTitleNode = document.querySelector(".photo-detail-header h1");
+      var detailTitle = detailTitleNode
+        ? (detailTitleNode.textContent || "").trim()
+        : "Photography";
+      var frames = Array.from(
+        document.querySelectorAll(".photo-detail-gallery img")
+      );
+      var frameIndex = frames.indexOf(img) + 1;
+      if (frameIndex > 0) {
+        nextAlt = detailTitle + " frame " + frameIndex;
+      }
+    }
+
+    if (!nextAlt) {
+      var archiveCard = img.closest(".photo-archive-item, .photo-archive-card");
+      if (archiveCard) {
+        var cardTitleNode =
+          archiveCard.querySelector("h3, .photo-archive-item-title, .photo-archive-card-title");
+        var cardTitle = cardTitleNode
+          ? (cardTitleNode.textContent || "").trim()
+          : "Photography archive";
+        nextAlt = cardTitle + " cover";
+      }
+    }
+
+    if (!nextAlt && img.closest(".photo-intro-layout")) {
+      nextAlt = "Portrait of HazezZ with camera";
+    }
+
+    if (!nextAlt && img.closest(".music-intro-layout")) {
+      nextAlt = "HazezZ in music session";
+    }
+
+    if (!nextAlt) {
+      var token = splitSrc(img.getAttribute("src") || "");
+      nextAlt = deriveFallbackAltFromFilename(token.path) || "Chronohaze image";
+    }
+
+    img.setAttribute("alt", nextAlt);
+  }
+
+  function applyResponsiveSourceSet(img) {
+    if (!img) {
+      return;
+    }
+
+    var token = splitSrc(img.getAttribute("src"));
+    var path = token.path;
+    var suffix = token.suffix || "";
+
+    if (!isResponsiveImagePath(path)) {
+      return;
+    }
+
+    if (img.dataset.responsiveReady === "1") {
+      return;
+    }
+
+    defaultImageSizes(img);
+
+    var webpSet = [
+      buildVariantPath(path, 960, "webp") + suffix + " 960w",
+      buildVariantPath(path, 1600, "webp") + suffix + " 1600w",
+    ].join(", ");
+
+    var picture = ensurePictureWrapper(img);
+    if (!picture) {
+      return;
+    }
+
+    var source = picture.querySelector("source[data-responsive-webp='1']");
+    if (!source) {
+      source = document.createElement("source");
+      source.dataset.responsiveWebp = "1";
+      source.type = "image/webp";
+      picture.insertBefore(source, picture.firstChild);
+    }
+
+    source.srcset = webpSet;
+    source.sizes = img.getAttribute("sizes") || "100vw";
+
+    img.dataset.responsiveReady = "1";
+  }
+
   function optimizeImages() {
     var images = Array.from(document.querySelectorAll("img"));
 
@@ -69,6 +259,32 @@
 
       if (eager && !img.getAttribute("fetchpriority")) {
         img.setAttribute("fetchpriority", "high");
+      }
+
+      enrichImageAlt(img);
+    });
+
+    images.forEach(function (img) {
+      applyResponsiveSourceSet(img);
+    });
+  }
+
+  function optimizeMediaLoading() {
+    var media = Array.from(document.querySelectorAll("audio, video"));
+
+    media.forEach(function (item) {
+      if (!item || item.dataset.mediaPreloadReady === "1") {
+        return;
+      }
+
+      item.dataset.mediaPreloadReady = "1";
+
+      if (!item.hasAttribute("autoplay") && !item.hasAttribute("data-eager-media")) {
+        item.preload = "none";
+      }
+
+      if (item.tagName === "VIDEO" && !item.hasAttribute("playsinline")) {
+        item.setAttribute("playsinline", "");
       }
     });
   }
@@ -4574,6 +4790,7 @@
     injectFloatingLanguageSwitch();
     setupMusicIndexArchitecture();
     protectAllMedia();
+    optimizeMediaLoading();
     optimizeImages();
     labelPhotoOrientation();
     ensureMusicDetailBackLink();
@@ -4650,6 +4867,10 @@
         }
       });
     });
+
+    optimizeMediaLoading();
+    optimizeImages();
+    labelPhotoOrientation();
   });
 
   observer.observe(document.documentElement, { childList: true, subtree: true });
