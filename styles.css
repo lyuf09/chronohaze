@@ -545,6 +545,46 @@ audio {
   filter: brightness(1.72) contrast(1.08) saturate(1.1);
 }
 
+.photo-detail-pager {
+  margin: 8px auto 0;
+  width: 75%;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 18px;
+}
+
+.photo-detail-pager-link {
+  color: #4a4f58;
+  text-decoration: none;
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  transition: color 180ms ease, opacity 180ms ease;
+}
+
+.photo-detail-pager-link:hover {
+  color: #2d3340;
+}
+
+.photo-detail-pager-link[data-photo-nav-label="prev"] {
+  justify-self: start;
+}
+
+.photo-detail-pager-link[data-photo-nav-label="back"] {
+  justify-self: center;
+}
+
+.photo-detail-pager-link[data-photo-nav-label="next"] {
+  justify-self: end;
+}
+
+.photo-detail-pager-link.is-disabled {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
 .music-list {
   display: grid;
   gap: 10px;
@@ -2445,6 +2485,42 @@ audio {
   padding-left: 18px;
 }
 
+.cv-lang-tabs {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 16px;
+  padding: 4px;
+  border: 1px solid #d3d8e2;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #f4f6fa 0%, #eaedf4 100%);
+}
+
+.cv-lang-tab {
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #4a5160;
+  font-family: var(--font-serif);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: background 180ms ease, color 180ms ease, box-shadow 180ms ease;
+}
+
+.cv-lang-tab:hover {
+  background: rgba(108, 122, 156, 0.1);
+  color: #2f3544;
+}
+
+.cv-lang-tab.is-active {
+  background: linear-gradient(180deg, #606b85 0%, #4f586f 100%);
+  color: #f2f5fb;
+  box-shadow: 0 3px 8px rgba(35, 45, 66, 0.28);
+}
+
 .cv-tagline {
   margin: 0;
   color: #2d3340;
@@ -2658,6 +2734,16 @@ audio {
 
   .photo-detail-item:only-child {
     grid-column: 1 / -1;
+  }
+
+  .photo-detail-pager {
+    width: 100%;
+    margin-top: 6px;
+    gap: 12px;
+  }
+
+  .photo-detail-pager-link {
+    font-size: 14px;
   }
 
   .track-row {
@@ -3344,6 +3430,16 @@ audio {
   .photo-detail-item:nth-child(n) {
     grid-column: 1 / -1;
     transform: none;
+  }
+
+  .photo-detail-pager {
+    width: 100%;
+    gap: 8px;
+  }
+
+  .photo-detail-pager-link {
+    font-size: 12px;
+    letter-spacing: 0.01em;
   }
 
   .music-player-shell {

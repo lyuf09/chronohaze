@@ -1041,6 +1041,9 @@
         backToMusic: "返回音乐栏目",
         backToPhoto: "返回摄影栏目",
         backToMath: "返回数学栏目",
+        photoPrevGroup: "上一组",
+        photoBackToArchive: "返回摄影栏目",
+        photoNextGroup: "下一组",
         detailBack: "< 返回",
         creationLabel: "创作时间：",
         workIntroHeading: "作品介绍",
@@ -1157,6 +1160,9 @@
         backToMusic: "Back to music",
         backToPhoto: "Back to photography",
         backToMath: "Back to mathematics",
+        photoPrevGroup: "Prev set",
+        photoBackToArchive: "Back",
+        photoNextGroup: "Next set",
         detailBack: "< Back",
         creationLabel: "Creation period:",
         workIntroHeading: "About the work",
@@ -5302,6 +5308,17 @@
       }
     });
 
+    Array.from(document.querySelectorAll("[data-photo-nav-label]")).forEach(function (node) {
+      var key = node.getAttribute("data-photo-nav-label");
+      if (key === "prev") {
+        node.textContent = dict.photoPrevGroup;
+      } else if (key === "back") {
+        node.textContent = dict.photoBackToArchive;
+      } else if (key === "next") {
+        node.textContent = dict.photoNextGroup;
+      }
+    });
+
     if (document.body.classList.contains("music-index-page")) {
       var musicTitle = document.querySelector(".page-title");
       var musicIntro = document.querySelector(".page-head p");
@@ -5653,6 +5670,90 @@
     document.body.appendChild(panel);
   }
 
+  function setupPhotoDetailPager() {
+    var article = document.querySelector(".photo-detail-article");
+    if (!article || article.querySelector(".photo-detail-pager")) {
+      return;
+    }
+
+    var currentPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+    if (!/^photo\/.+\.html$/.test(currentPath)) {
+      return;
+    }
+
+    var orderedRoutes = [
+      "photo/photo-01.html",
+      "photo/photo-02.html",
+      "photo/photo-03.html",
+      "photo/photo-04.html",
+      "photo/photo-05.html",
+      "photo/photo-06.html",
+      "photo/photo-07.html",
+      "photo/photo-08.html",
+      "photo/photo-09.html",
+      "photo/photo-10.html",
+      "photo/photo-11.html",
+      "photo/photo-12.html",
+      "photo/photo-13.html",
+      "photo/photo-14.html",
+      "photo/blue.html",
+    ];
+
+    var currentIndex = orderedRoutes.indexOf(currentPath);
+    if (currentIndex < 0) {
+      return;
+    }
+
+    var prevRoute = currentIndex > 0 ? orderedRoutes[currentIndex - 1] : "";
+    var nextRoute =
+      currentIndex < orderedRoutes.length - 1 ? orderedRoutes[currentIndex + 1] : "";
+
+    var dict = getSecondaryPageDictionary(detectPreferredLanguage());
+
+    function buildNavNode(label, route, key) {
+      if (!route) {
+        var muted = document.createElement("span");
+        muted.className = "photo-detail-pager-link is-disabled";
+        muted.setAttribute("data-photo-nav-label", key);
+        muted.textContent = label;
+        return muted;
+      }
+
+      var link = document.createElement("a");
+      link.className = "photo-detail-pager-link";
+      link.setAttribute("data-photo-nav-label", key);
+      link.href = route;
+      link.textContent = label;
+      return link;
+    }
+
+    var nav = document.createElement("nav");
+    nav.className = "photo-detail-pager";
+    nav.setAttribute("aria-label", "Photo navigation");
+
+    var prevHref = prevRoute ? prevRoute.replace(/^photo\//, "") : "";
+    var nextHref = nextRoute ? nextRoute.replace(/^photo\//, "") : "";
+
+    nav.appendChild(buildNavNode(dict.photoPrevGroup, prevHref, "prev"));
+    nav.appendChild(buildNavNode(dict.photoBackToArchive, "../portfolio-1.html", "back"));
+    nav.appendChild(buildNavNode(dict.photoNextGroup, nextHref, "next"));
+
+    var backLink = article.querySelector('a.read-more[href*="portfolio-1.html"]');
+    if (
+      backLink &&
+      backLink.parentElement &&
+      backLink.parentElement.tagName &&
+      backLink.parentElement.tagName.toLowerCase() === "p"
+    ) {
+      backLink.parentElement.replaceWith(nav);
+    } else {
+      article.appendChild(nav);
+    }
+  }
+
   function enableIndexRowLinks() {
     var rows = Array.from(
       document.querySelectorAll(
@@ -5715,6 +5816,7 @@
     normalizeFooterMeta();
     bindFooterMetaSync();
     labelPhotoOrientation();
+    setupPhotoDetailPager();
     ensureMusicDetailBackLink();
     enhanceMusicPlayers();
     removeMusicDetailImages();

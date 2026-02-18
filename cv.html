@@ -54,6 +54,11 @@
 
     <main class="main">
       <article class="policy cv-policy">
+        <div class="cv-lang-tabs" role="tablist" aria-label="CV language tabs">
+          <button class="cv-lang-tab is-active" type="button" role="tab" aria-selected="true" data-cv-lang-tab="zh">中文</button>
+          <button class="cv-lang-tab" type="button" role="tab" aria-selected="false" data-cv-lang-tab="en">English</button>
+        </div>
+
         <div data-lang-block="zh">
           <h1>公开版 CV</h1>
           <p>出于隐私与安全考虑：本页仅展示公开联系方式，不公开手机号与详细住址。申请/岗位用途的完整版简历（含更多细节）可邮件索取。本站不提供可直接下载的完整版 CV 文件。</p>
@@ -218,6 +223,7 @@
       var i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
       var i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
       var langBlocks = Array.from(document.querySelectorAll('[data-lang-block]'));
+      var langTabs = Array.from(document.querySelectorAll('[data-cv-lang-tab]'));
 
       var i18n = {
         zh: {
@@ -272,6 +278,12 @@
           block.hidden = block.getAttribute('data-lang-block') !== safeLang;
         });
 
+        langTabs.forEach(function (tab) {
+          var active = tab.getAttribute('data-cv-lang-tab') === safeLang;
+          tab.classList.toggle('is-active', active);
+          tab.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+
         try {
           window.localStorage.setItem('chronohaze-lang', safeLang);
         } catch (err) {
@@ -291,6 +303,19 @@
       if (queryLang === 'zh' || queryLang === 'en') {
         initialLang = queryLang;
       }
+
+      langTabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          var nextLang = tab.getAttribute('data-cv-lang-tab');
+          if (nextLang !== 'zh' && nextLang !== 'en') {
+            return;
+          }
+          setLanguage(nextLang);
+          var url = new URL(window.location.href);
+          url.searchParams.set('lang', nextLang);
+          window.history.replaceState({}, '', url.toString());
+        });
+      });
 
       setLanguage(initialLang);
     })();
