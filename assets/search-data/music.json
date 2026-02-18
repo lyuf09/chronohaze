@@ -36,8 +36,8 @@
       "excerpt": "HazezZ",
       "tags": [
         "single",
-        "audio",
-        "jrock"
+        "jrock",
+        "progcore"
       ],
       "sort": 20251021,
       "scope": "music",
@@ -50,7 +50,8 @@
       "date": "2025年3月22日",
       "excerpt": "HazezZ",
       "tags": [
-        "single"
+        "single",
+        "progcore"
       ],
       "sort": 20250322,
       "scope": "music",
@@ -64,8 +65,8 @@
       "excerpt": "HazezZ",
       "tags": [
         "single",
-        "audio",
-        "jrock"
+        "mathrock",
+        "pop"
       ],
       "sort": 20250201,
       "scope": "music",
@@ -79,7 +80,6 @@
       "excerpt": "HazezZ",
       "tags": [
         "single",
-        "audio",
         "progcore"
       ],
       "sort": 20241221,
@@ -106,7 +106,9 @@
       "date": "2024年8月29日",
       "excerpt": "HazezZ",
       "tags": [
-        "single"
+        "single",
+        "postrock",
+        "progcore"
       ],
       "sort": 20240829,
       "scope": "music",
@@ -119,7 +121,10 @@
       "date": "2024年7月5日",
       "excerpt": "HazezZ",
       "tags": [
-        "single"
+        "single",
+        "jazz",
+        "progcore",
+        "pop"
       ],
       "sort": 20240705,
       "scope": "music",
@@ -133,7 +138,7 @@
       "excerpt": "HazezZ",
       "tags": [
         "single",
-        "audio",
+        "pop",
         "progcore"
       ],
       "sort": 20240214,
@@ -148,7 +153,8 @@
       "excerpt": "HazezZ",
       "tags": [
         "single",
-        "audio",
+        "jrock",
+        "mathrock",
         "progcore"
       ],
       "sort": 20231111,
@@ -162,7 +168,10 @@
       "date": "2023年8月30日",
       "excerpt": "HazezZ",
       "tags": [
-        "single"
+        "single",
+        "jrock",
+        "progcore",
+        "pop"
       ],
       "sort": 20230830,
       "scope": "music",
@@ -188,7 +197,9 @@
       "date": "2023年8月23日",
       "excerpt": "HazezZ",
       "tags": [
-        "single"
+        "single",
+        "jrock",
+        "progcore"
       ],
       "sort": 20230823,
       "scope": "music",
@@ -201,7 +212,9 @@
       "date": "2023年8月11日",
       "excerpt": "HazezZ",
       "tags": [
-        "single"
+        "single",
+        "progcore",
+        "posthardcore"
       ],
       "sort": 20230811,
       "scope": "music",
@@ -214,7 +227,9 @@
       "date": "2023年5月30日",
       "excerpt": "HazezZ",
       "tags": [
-        "single"
+        "single",
+        "mathrock",
+        "progcore"
       ],
       "sort": 20230530,
       "scope": "music",
@@ -227,7 +242,10 @@
       "date": "2023年4月29日",
       "excerpt": "Armeria / HazezZ",
       "tags": [
-        "single"
+        "single",
+        "collab",
+        "posthardcore",
+        "progcore"
       ],
       "sort": 20230429,
       "scope": "music",
@@ -241,8 +259,8 @@
       "excerpt": "HazezZ",
       "tags": [
         "single",
-        "audio",
-        "progcore"
+        "posthardcore",
+        "emorock"
       ],
       "sort": 20230421,
       "scope": "music",
@@ -255,7 +273,9 @@
       "date": "2023年2月24日",
       "excerpt": "HazezZ",
       "tags": [
-        "single"
+        "single",
+        "progcore",
+        "mathrock"
       ],
       "sort": 20230224,
       "scope": "music",
@@ -268,7 +288,10 @@
       "date": "2023年2月18日",
       "excerpt": "HazezZ",
       "tags": [
-        "single"
+        "single",
+        "collab",
+        "posthardcore",
+        "progcore"
       ],
       "sort": 20230218,
       "scope": "music",
@@ -294,7 +317,9 @@
       "date": "2022年8月30日",
       "excerpt": "HazezZ",
       "tags": [
-        "single"
+        "single",
+        "collab",
+        "progcore"
       ],
       "sort": 20220830,
       "scope": "music",
@@ -307,7 +332,9 @@
       "date": "2022年7月9日",
       "excerpt": "湖323 / HazezZ",
       "tags": [
-        "single"
+        "single",
+        "collab",
+        "hardrock"
       ],
       "sort": 20220709,
       "scope": "music",
@@ -333,7 +360,10 @@
       "date": "2022年5月20日",
       "excerpt": "HazezZ",
       "tags": [
-        "single"
+        "single",
+        "mathrock",
+        "posthardcore",
+        "progcore"
       ],
       "sort": 20220520,
       "scope": "music",
@@ -347,8 +377,8 @@
       "excerpt": "HazezZ",
       "tags": [
         "single",
-        "audio",
-        "instrumental"
+        "instrumental",
+        "pop"
       ],
       "sort": 20220303,
       "scope": "music",
@@ -361,7 +391,10 @@
       "date": "2022年2月4日",
       "excerpt": "HazezZ",
       "tags": [
-        "single"
+        "single",
+        "progcore",
+        "jrock",
+        "mathrock"
       ],
       "sort": 20220204,
       "scope": "music",
@@ -375,8 +408,7 @@
       "excerpt": "HazezZ",
       "tags": [
         "single",
-        "audio",
-        "pop"
+        "jrock"
       ],
       "sort": 20211206,
       "scope": "music",
@@ -390,8 +422,10 @@
       "excerpt": "HazezZ / iine_p (薛天from灯诱）",
       "tags": [
         "single",
-        "audio",
-        "progcore"
+        "collab",
+        "jrock",
+        "mathrock",
+        "indie"
       ],
       "sort": 20211125,
       "scope": "music",
@@ -405,7 +439,7 @@
       "excerpt": "HazezZ",
       "tags": [
         "single",
-        "audio",
+        "indie",
         "postrock"
       ],
       "sort": 20211119,
@@ -420,8 +454,9 @@
       "excerpt": "HazezZ",
       "tags": [
         "single",
-        "audio",
-        "indie"
+        "indie",
+        "postrock",
+        "jrock"
       ],
       "sort": 20211029,
       "scope": "music",
@@ -434,7 +469,9 @@
       "date": "2021年10月17日",
       "excerpt": "HazezZ",
       "tags": [
-        "single"
+        "single",
+        "emorock",
+        "jrock"
       ],
       "sort": 20211017,
       "scope": "music",
@@ -448,7 +485,7 @@
       "excerpt": "HazezZ",
       "tags": [
         "single",
-        "audio",
+        "indie",
         "postrock"
       ],
       "sort": 20211009,
@@ -463,7 +500,6 @@
       "excerpt": "HazezZ",
       "tags": [
         "single",
-        "audio",
         "jrock"
       ],
       "sort": 20210603,
@@ -477,7 +513,8 @@
       "date": "2021年2月2日",
       "excerpt": "HazezZ",
       "tags": [
-        "single"
+        "single",
+        "pop"
       ],
       "sort": 20210202,
       "scope": "music",

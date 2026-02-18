@@ -1019,6 +1019,11 @@
         musicTagInstrumental: "纯音乐",
         musicTagJrock: "日系摇滚",
         musicTagProgcore: "前卫核",
+        musicTagMathrock: "数学摇滚",
+        musicTagPosthardcore: "后核",
+        musicTagJazz: "爵士",
+        musicTagHardrock: "硬摇滚",
+        musicTagEmorock: "情绪摇滚",
         musicTagPostrock: "后摇",
         musicTagPop: "流行",
         musicTagIndie: "indie",
@@ -1108,6 +1113,11 @@
         musicTagInstrumental: "Instrumental",
         musicTagJrock: "J-rock",
         musicTagProgcore: "Prog Metalcore",
+        musicTagMathrock: "Math rock",
+        musicTagPosthardcore: "Post-hardcore",
+        musicTagJazz: "Jazz",
+        musicTagHardrock: "Hard rock",
+        musicTagEmorock: "Emo rock",
         musicTagPostrock: "Post-rock",
         musicTagPop: "Pop",
         musicTagIndie: "Indie",
@@ -4126,6 +4136,11 @@
       instrumental: dict.musicTagInstrumental,
       jrock: dict.musicTagJrock,
       progcore: dict.musicTagProgcore,
+      mathrock: dict.musicTagMathrock,
+      posthardcore: dict.musicTagPosthardcore,
+      jazz: dict.musicTagJazz,
+      hardrock: dict.musicTagHardrock,
+      emorock: dict.musicTagEmorock,
       postrock: dict.musicTagPostrock,
       pop: dict.musicTagPop,
       indie: dict.musicTagIndie,
@@ -4321,7 +4336,7 @@
         tags.push("collab");
       }
 
-      tags = uniqueMusicTags(sanitizeMusicTags(tags)).slice(0, 3);
+      tags = uniqueMusicTags(sanitizeMusicTags(tags));
 
       row.dataset.musicType = type;
       row.dataset.musicYear = year;
@@ -4357,6 +4372,11 @@
       "instrumental",
       "jrock",
       "progcore",
+      "mathrock",
+      "posthardcore",
+      "jazz",
+      "hardrock",
+      "emorock",
       "postrock",
       "pop",
       "indie",
