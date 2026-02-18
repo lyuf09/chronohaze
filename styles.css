@@ -1459,6 +1459,10 @@ audio {
   margin-top: 10px;
 }
 
+.search-index-page .search-skeleton[hidden] {
+  display: none;
+}
+
 .search-index-page .search-skeleton-item {
   height: 108px;
   border: 1px solid rgba(88, 96, 114, 0.22);
