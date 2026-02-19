@@ -4186,6 +4186,136 @@
     part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
   }
 
+  function applyRainyDaysLyricsInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-12.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var part1Heading = findLyricHeading(headings, 1);
+    var part2Heading = findLyricHeading(headings, 2);
+
+    if (!part1Heading || !part2Heading) {
+      return;
+    }
+
+    var part1Text = part1Heading.nextElementSibling;
+    var part2Text = part2Heading.nextElementSibling;
+
+    if (!part1Text || !part2Text || part1Text.tagName !== "P" || part2Text.tagName !== "P") {
+      return;
+    }
+
+    var part1Blocks = [
+      {
+        zh: [
+          "Morning、また何もない朝だよ",
+          "窓辺 、あの花は崩れた",
+          "名前もう忘れてしまいました",
+          "「 ヨル 」なんて、がついてるようだ",
+        ],
+        en: [
+          "Morning—",
+          "another morning with nothing in it.",
+          "By the window, that flower has collapsed.",
+          "I’ve already forgotten its name.",
+          "Even the word “night”",
+          "seems to carry something extra, like a tag that won’t come off.",
+        ],
+      },
+      {
+        zh: [
+          "「今日はあのカーキ色コートを着るか",
+          "そのぬくもりはまだ残ってる",
+          "もう思い出せないこの体も",
+          "こんなの生活に慣れてきた",
+          "ベースも,カメラも, 手元に残ってる",
+          "出かけるなら革靴もここにいる",
+          "欠けてるもんといえば",
+          "そう言えば…」",
+        ],
+        en: [
+          "“Should I wear that khaki coat today?",
+          "Its warmth is still there.",
+          "I can’t quite remember it anymore—",
+          "even this body of mine.",
+          "And somehow, I’m getting used to living like this.",
+          "My bass, my camera,",
+          "they’re still here in my hands.",
+          "If I go out, even my leather shoes are right here.",
+          "As for what’s missing…",
+          "come to think of it…”",
+        ],
+      },
+      {
+        zh: ["雨、降り注ぐ", "私だけに　ね", "君　ここにいない"],
+        en: ["Rain—pouring down,", "only on me, right?", "You—", "are not here."],
+      },
+      {
+        zh: ["出会い夢を見たの朝", "心臓が痛くて動けないな", "もっと一緒に暮らしたいのに", "いくら努力しても触れない"],
+        en: [
+          "That morning I dreamed of when we first met,",
+          "my chest hurt so much I couldn’t move.",
+          "I want to live with you a little longer,",
+          "but no matter how hard I try, I can’t reach you.",
+        ],
+      },
+    ];
+
+    var part2Blocks = [
+      {
+        zh: ["何度も君を描きた", "他のもの全部気にしないな", "どうしても離れたくないのに", "思い出にしかならないでしょうか"],
+        en: [
+          "Again and again, I tried to draw you,",
+          "ignoring everything else.",
+          "I don’t want to let go, not ever—",
+          "but will you end up only as a memory?",
+        ],
+      },
+      {
+        zh: ["どうすればいいのか わからない", "もう何もできないな", "何もいらない"],
+        en: [
+          "I don’t know what I’m supposed to do.",
+          "There’s nothing I can do anymore.",
+          "I don’t need anything.",
+        ],
+      },
+      {
+        zh: ["空は雨が降ってるが、", "いつか晴れる日が来るでしょう。"],
+        en: ["The sky is raining, but—", "someday, a clear day will come."],
+      },
+    ];
+
+    function renderBilingualBlocks(blocks) {
+      return blocks
+        .map(function (block) {
+          return block.zh.join("<br />") + "<br /><br />" + block.en.join("<br />");
+        })
+        .join("<br /><br />");
+    }
+
+    part1Text.innerHTML = renderBilingualBlocks(part1Blocks);
+    part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
+  }
+
   function buildLyricColumn(html, extraClass) {
     var column = document.createElement("div");
     column.className = "lyrics-column " + extraClass;
@@ -6270,6 +6400,7 @@
       applyEpilogueLyricsInEnglish(safeLang);
       applyIHateYouAllIntroInEnglish(safeLang);
       applyIHateYouAllLyricsInEnglish(safeLang);
+      applyRainyDaysLyricsInEnglish(safeLang);
     }
 
     if (
