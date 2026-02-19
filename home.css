@@ -1189,3 +1189,94 @@
     padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px));
   }
 }
+
+/* iPhone 13+ profiles: normal / Pro / Plus-Max */
+@media only screen and (min-width: 390px) and (max-width: 430px) and (orientation: portrait) {
+  .home-topbar {
+    column-gap: 10px;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    padding-left: max(14px, calc(10px + env(safe-area-inset-left, 0px)));
+    padding-right: max(14px, calc(10px + env(safe-area-inset-right, 0px)));
+  }
+
+  .home-brand {
+    font-size: 11.5px;
+    letter-spacing: 0.2em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .lang-pill {
+    width: clamp(142px, 39vw, 168px);
+    height: 32px;
+  }
+
+  .lang-btn {
+    font-size: 11px;
+    gap: 5px;
+  }
+
+  .menu-open {
+    width: 36px;
+    height: 36px;
+    font-size: 30px;
+  }
+
+  .hero-left {
+    padding: 44px 14px 24px;
+  }
+
+  .hero-right-inner {
+    padding: 34px 18px 42px;
+  }
+
+  .hero-right h1 {
+    font-size: clamp(36px, 10vw, 42px);
+    margin-bottom: 18px;
+  }
+
+  .hero-right-inner > p {
+    font-size: 15px;
+    line-height: 1.52;
+  }
+
+  .player-shell {
+    width: min(100%, 248px);
+  }
+
+  .entry-split {
+    padding: 24px 14px 36px;
+  }
+
+  .entry-card {
+    width: min(100%, 86vw);
+  }
+
+  .math-grid {
+    grid-auto-columns: minmax(244px, 82vw);
+  }
+
+  .math-grid article {
+    min-height: 402px;
+  }
+}
+
+@media only screen and (min-width: 428px) and (max-width: 430px) and (orientation: portrait) {
+  .home-brand {
+    font-size: 12px;
+    letter-spacing: 0.23em;
+  }
+
+  .lang-pill {
+    width: 170px;
+  }
+
+  .hero-portrait {
+    width: min(82vw, 430px);
+  }
+
+  .entry-card {
+    width: min(100%, 82vw);
+  }
+}

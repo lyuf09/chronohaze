@@ -3983,6 +3983,86 @@ body {
   }
 }
 
+/* iPhone 13+ profiles: normal / Pro / Plus-Max */
+@media only screen and (min-width: 390px) and (max-width: 430px) and (orientation: portrait) {
+  .header-inner {
+    min-height: 84px;
+    padding: 10px 0 8px;
+    gap: 10px;
+  }
+
+  .brand {
+    font-size: 12px;
+    letter-spacing: 0.24em;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .nav {
+    gap: 16px;
+    font-size: 13.5px;
+    padding-bottom: 4px;
+  }
+
+  .nav a {
+    min-height: 38px;
+  }
+
+  .page-head {
+    padding: 30px 0 14px;
+  }
+
+  .search-index-page .search-shell {
+    width: min(100%, 94vw);
+  }
+
+  .search-index-page .search-skeleton-item {
+    height: 96px;
+  }
+
+  .music-index-page .track-row {
+    padding: 11px 12px 10px;
+  }
+
+  .music-index-page .track-tags {
+    gap: 4px;
+  }
+
+  .music-detail-article {
+    padding-top: 26px;
+  }
+
+  .music-detail-article .lyrics-showcase-title {
+    font-size: clamp(28px, 7.6vw, 34px);
+  }
+
+  .lyrics-showcase-inner {
+    padding: 0 20px;
+  }
+
+  .photo-detail-gallery {
+    gap: 14px;
+  }
+}
+
+@media only screen and (min-width: 428px) and (max-width: 430px) and (orientation: portrait) {
+  .container {
+    padding-left: max(18px, calc(14px + var(--safe-left)));
+    padding-right: max(18px, calc(14px + var(--safe-right)));
+  }
+
+  .nav {
+    gap: 18px;
+  }
+
+  .music-index-page .track-title,
+  .math-index-page .math-title {
+    font-size: clamp(16px, 4.6vw, 19px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
