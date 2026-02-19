@@ -41,6 +41,10 @@
   --card-bg: rgba(250, 252, 255, 0.33);
   --card-shadow: 0 14px 26px rgba(16, 21, 31, 0.09);
   --card-shadow-hover: 0 22px 38px rgba(16, 21, 31, 0.13);
+  --motion-duration-base: 760ms;
+  --motion-duration-soft: 620ms;
+  --motion-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-ease-soft: cubic-bezier(0.24, 0.94, 0.32, 1);
 }
 
 * {
@@ -92,6 +96,33 @@ button {
 img {
   max-width: 100%;
   display: block;
+}
+
+body.motion-enhanced .motion-reveal {
+  opacity: 0;
+  transform: translate3d(0, var(--motion-offset, 15px), 0) scale(var(--motion-scale, 0.996));
+  filter: saturate(0.94);
+  transition:
+    opacity var(--motion-duration, var(--motion-duration-base)) var(--motion-ease-out),
+    transform var(--motion-duration, var(--motion-duration-base)) var(--motion-ease-soft),
+    filter calc(var(--motion-duration, var(--motion-duration-base)) + 80ms) ease;
+  transition-delay: var(--motion-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+body.motion-enhanced .motion-reveal.is-in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: saturate(1);
+}
+
+body.motion-enhanced .motion-reveal.motion-reveal-soft {
+  --motion-offset: 11px;
+  --motion-duration: var(--motion-duration-soft);
+}
+
+body.motion-enhanced .motion-reveal.motion-reveal-card {
+  --motion-offset: 16px;
 }
 
 .page {
@@ -1449,12 +1480,18 @@ audio {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background-color 180ms ease, border-color 180ms ease;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    transform 200ms ease,
+    box-shadow 200ms ease;
 }
 
 .search-index-page .search-submit:hover {
   background: rgba(75, 88, 120, 0.95);
   border-color: rgba(72, 82, 107, 0.62);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 20px rgba(19, 25, 38, 0.16);
 }
 
 .search-index-page .search-status {
@@ -2044,10 +2081,12 @@ audio {
   font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
   font-size: 24px;
   line-height: 1.2;
+  transition: color 200ms ease, transform 220ms ease;
 }
 
 .music-album-page .album-back-link:hover {
   color: rgba(40, 69, 98, 0.98);
+  transform: translateX(-1px);
 }
 
 .article {
@@ -3585,6 +3624,15 @@ h4,
 
 .nav a {
   padding-bottom: 8px;
+  transition:
+    color 220ms ease,
+    opacity 220ms ease,
+    transform 220ms ease;
+}
+
+.nav a:hover,
+.nav a.active {
+  transform: translateY(-1px);
 }
 
 .page-head {
@@ -3634,6 +3682,17 @@ h4,
   background: rgba(246, 249, 255, 0.44);
   font-size: 12.5px;
   letter-spacing: 0.06em;
+  transition:
+    border-color 200ms ease,
+    background-color 220ms ease,
+    color 200ms ease,
+    transform 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.music-index-page .music-ia-tab:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 18px rgba(23, 30, 43, 0.11);
 }
 
 .music-index-page .music-ia-filter-select,
@@ -3647,10 +3706,47 @@ h4,
 .music-index-page .track-title {
   font-size: 15.5px;
   letter-spacing: 0.01em;
+  transition: color 220ms ease, transform 240ms ease;
 }
 
 .math-index-page .math-title {
   letter-spacing: 0.012em;
+  transition: color 220ms ease, transform 240ms ease;
+}
+
+.photo-index-page .photo-title {
+  transition: color 220ms ease, transform 240ms ease;
+}
+
+.music-index-page .track-row:hover .track-title,
+.music-index-page .track-row:focus-visible .track-title,
+.math-index-page .math-card:hover .math-title,
+.math-index-page .math-card:focus-visible .math-title,
+.photo-index-page .photo-feature-card:hover .photo-title,
+.photo-index-page .photo-card:hover .photo-title {
+  transform: translateX(2px);
+}
+
+.music-index-page .track-tag {
+  transition:
+    border-color 200ms ease,
+    background-color 220ms ease,
+    color 200ms ease,
+    transform 220ms ease;
+}
+
+.music-index-page .track-row:hover .track-tag {
+  transform: translateY(-1px);
+}
+
+.music-album-page .album-track-name,
+.search-index-page .search-result-title {
+  transition: color 220ms ease, transform 240ms ease;
+}
+
+.music-album-page .album-track-link:not(.is-disabled):hover .album-track-name,
+.search-index-page .search-result-link:hover .search-result-title {
+  transform: translateX(2px);
 }
 
 .site-footer {
@@ -3672,6 +3768,10 @@ h4,
 .footer-right a {
   position: relative;
   padding-bottom: 2px;
+  transition:
+    color 180ms ease,
+    opacity 180ms ease,
+    transform 180ms ease;
 }
 
 .footer-right a::after {
@@ -3693,9 +3793,18 @@ h4,
   transform: scaleX(1);
 }
 
+.footer-right a:hover {
+  transform: translateY(-1px);
+}
+
 .social a {
   border-color: rgba(59, 67, 82, 0.22);
   background: rgba(255, 255, 255, 0.56);
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease;
 }
 
 @media (max-width: 980px) {

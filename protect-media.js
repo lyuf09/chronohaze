@@ -5862,6 +5862,216 @@
     });
   }
 
+  var fineMotionObserver = null;
+
+  function setupFineMotionPass() {
+    if (!document.body || document.body.classList.contains("home-body")) {
+      return;
+    }
+
+    var reducedMotion =
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reducedMotion) {
+      return;
+    }
+
+    document.body.classList.add("motion-enhanced");
+
+    var groupCounts = new Map();
+    var newTargets = [];
+
+    function registerTargets(selector, options) {
+      var config = options || {};
+      Array.from(document.querySelectorAll(selector)).forEach(function (node) {
+        if (!node || node.dataset.motionBound === "1") {
+          return;
+        }
+
+        if (node.closest(".search-skeleton")) {
+          return;
+        }
+
+        if (node.matches(".is-filter-hidden")) {
+          return;
+        }
+
+        if (
+          node.hasAttribute("hidden") ||
+          (node.closest("[hidden]") && !node.classList.contains("search-result-link"))
+        ) {
+          return;
+        }
+
+        var displayValue = "";
+        try {
+          displayValue = window.getComputedStyle(node).display;
+        } catch (_err) {
+          displayValue = "";
+        }
+        if (displayValue === "none") {
+          return;
+        }
+
+        node.dataset.motionBound = "1";
+        node.classList.add("motion-reveal");
+        if (config.variantClass) {
+          node.classList.add(config.variantClass);
+        }
+
+        var groupNode = config.groupSelector
+          ? node.closest(config.groupSelector)
+          : node.parentElement;
+        var counterKey = groupNode || document.body;
+        var counter = groupCounts.get(counterKey) || 0;
+        groupCounts.set(counterKey, counter + 1);
+
+        var delayStep = typeof config.delayStep === "number" ? config.delayStep : 56;
+        var baseDelay = typeof config.baseDelay === "number" ? config.baseDelay : 0;
+        var maxDelay = typeof config.maxDelay === "number" ? config.maxDelay : 360;
+        var delay = Math.min(baseDelay + counter * delayStep, maxDelay);
+        node.style.setProperty("--motion-delay", String(delay) + "ms");
+
+        newTargets.push(node);
+      });
+    }
+
+    registerTargets(".page-head h1, .page-head p", {
+      groupSelector: ".page-head",
+      variantClass: "motion-reveal-soft",
+      baseDelay: 20,
+      delayStep: 64,
+      maxDelay: 220,
+    });
+    registerTargets(".photo-intro-layout > *, .music-intro-layout > *", {
+      groupSelector: ".photo-intro-layout, .music-intro-layout",
+      variantClass: "motion-reveal-soft",
+      baseDelay: 24,
+      delayStep: 84,
+      maxDelay: 360,
+    });
+    registerTargets(".music-index-page .music-ia-shell", {
+      variantClass: "motion-reveal-soft",
+      baseDelay: 16,
+      delayStep: 60,
+      maxDelay: 100,
+    });
+    registerTargets(".music-index-page .track-row", {
+      groupSelector: ".music-group, .music-list",
+      variantClass: "motion-reveal-card",
+      baseDelay: 28,
+      delayStep: 56,
+      maxDelay: 360,
+    });
+    registerTargets(".math-index-page .math-card", {
+      groupSelector: ".math-list",
+      variantClass: "motion-reveal-card",
+      baseDelay: 22,
+      delayStep: 64,
+      maxDelay: 360,
+    });
+    registerTargets(".photo-index-page .photo-feature-card, .photo-index-page .photo-card", {
+      groupSelector: ".photo-feature-grid, .photo-archive-grid, .photo-index-grid",
+      variantClass: "motion-reveal-card",
+      baseDelay: 24,
+      delayStep: 60,
+      maxDelay: 360,
+    });
+    registerTargets(".search-index-page .search-result-link", {
+      groupSelector: ".search-results",
+      variantClass: "motion-reveal-card",
+      baseDelay: 18,
+      delayStep: 46,
+      maxDelay: 320,
+    });
+    registerTargets(".music-album-page .album-layout > *, .music-album-page .album-track-link", {
+      groupSelector: ".album-layout, .album-tracklist",
+      variantClass: "motion-reveal-card",
+      baseDelay: 18,
+      delayStep: 52,
+      maxDelay: 340,
+    });
+    registerTargets(".photo-detail-gallery .photo-detail-item, .photo-detail-pager", {
+      groupSelector: ".photo-detail-gallery, .photo-detail-article",
+      variantClass: "motion-reveal-card",
+      baseDelay: 20,
+      delayStep: 52,
+      maxDelay: 320,
+    });
+    registerTargets(
+      ".music-detail-article > h1, .music-detail-article > .music-detail-meta, .music-detail-article > .music-detail-cover, .music-detail-article > .player-shell-article, .music-detail-article > h2, .music-detail-article > p, .music-detail-article > .lyrics-showcase",
+      {
+        groupSelector: ".music-detail-article",
+        variantClass: "motion-reveal-soft",
+        baseDelay: 14,
+        delayStep: 42,
+        maxDelay: 300,
+      }
+    );
+    registerTargets(
+      ".main > .article:not(.music-detail-article):not(.photo-detail-article):not(.cv-policy) > h1, .main > .article:not(.music-detail-article):not(.photo-detail-article):not(.cv-policy) > h2, .main > .article:not(.music-detail-article):not(.photo-detail-article):not(.cv-policy) > p, .main > .article:not(.music-detail-article):not(.photo-detail-article):not(.cv-policy) > ul, .main > .article:not(.music-detail-article):not(.photo-detail-article):not(.cv-policy) > ol",
+      {
+        groupSelector: ".main > .article:not(.music-detail-article):not(.photo-detail-article):not(.cv-policy)",
+        variantClass: "motion-reveal-soft",
+        baseDelay: 10,
+        delayStep: 34,
+        maxDelay: 220,
+      }
+    );
+    registerTargets(".cv-policy > .cv-lang-tabs, .cv-policy [data-lang-block]:not([hidden]) > h1, .cv-policy [data-lang-block]:not([hidden]) > h2, .cv-policy [data-lang-block]:not([hidden]) > p, .cv-policy [data-lang-block]:not([hidden]) > section, .cv-policy [data-lang-block]:not([hidden]) > ol", {
+      groupSelector: ".cv-policy, .cv-policy [data-lang-block]",
+      variantClass: "motion-reveal-soft",
+      baseDelay: 12,
+      delayStep: 38,
+      maxDelay: 260,
+    });
+
+    if (!newTargets.length) {
+      return;
+    }
+
+    function revealNode(node) {
+      if (!node || node.dataset.motionShown === "1") {
+        return;
+      }
+      node.dataset.motionShown = "1";
+      node.classList.add("is-in");
+    }
+
+    if (!("IntersectionObserver" in window)) {
+      requestAnimationFrame(function () {
+        newTargets.forEach(revealNode);
+      });
+      return;
+    }
+
+    if (!fineMotionObserver) {
+      fineMotionObserver = new IntersectionObserver(
+        function (entries, observer) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting || entry.intersectionRatio > 0.06) {
+              revealNode(entry.target);
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          threshold: 0.08,
+          rootMargin: "0px 0px -8% 0px",
+        }
+      );
+    }
+
+    newTargets.forEach(function (node) {
+      var rect = node.getBoundingClientRect();
+      if (rect.top <= window.innerHeight * 0.9) {
+        revealNode(node);
+        return;
+      }
+      fineMotionObserver.observe(node);
+    });
+  }
+
   function boot() {
     ensureSearchNavLink();
     dedupeNavLinks();
@@ -5882,6 +6092,7 @@
     removeMusicDetailImages();
     enhanceMusicLyricsLayout();
     enableIndexRowLinks();
+    setupFineMotionPass();
   }
 
   document.addEventListener(
@@ -5956,6 +6167,7 @@
     optimizeImages();
     normalizeFooterMeta();
     labelPhotoOrientation();
+    setupFineMotionPass();
   });
 
   observer.observe(document.documentElement, { childList: true, subtree: true });

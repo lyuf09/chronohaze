@@ -116,6 +116,13 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
   [data-reveal] {
     opacity: 1;
     transform: none;
@@ -180,11 +187,21 @@
   letter-spacing: 0;
   cursor: pointer;
   padding: 0;
+  transition:
+    background-color 220ms ease,
+    color 220ms ease,
+    transform 220ms ease,
+    letter-spacing 220ms ease;
 }
 
 .lang-btn.active {
   background: rgb(58, 58, 58);
   color: rgb(255, 255, 255);
+}
+
+.lang-btn:not(.active):hover {
+  background: rgba(255, 255, 255, 0.26);
+  transform: translateY(-1px);
 }
 
 .flag {
@@ -204,6 +221,13 @@
   font-weight: 300;
   cursor: pointer;
   padding: 0;
+  transition: color 220ms ease, transform 220ms ease, text-shadow 220ms ease;
+}
+
+.menu-open:hover {
+  color: rgb(244, 247, 255);
+  transform: translateY(-1px) scale(1.03);
+  text-shadow: 0 0 10px rgba(220, 228, 249, 0.22);
 }
 
 .hero-split {
@@ -316,6 +340,14 @@
   box-shadow:
     0 12px 22px rgba(18, 22, 30, 0.16),
     inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  transition: transform 260ms ease, box-shadow 260ms ease;
+}
+
+.player-shell:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 16px 28px rgba(18, 22, 30, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.52);
 }
 
 .player-toggle {
@@ -587,6 +619,17 @@
     rgba(8, 10, 16, 0.38) 0 2px 10px;
   letter-spacing: 0.02em;
   -webkit-font-smoothing: antialiased;
+  transition: transform 260ms ease, text-shadow 260ms ease, letter-spacing 260ms ease;
+}
+
+.entry-card:hover span {
+  transform: translateY(-2px);
+  letter-spacing: 0.03em;
+  text-shadow:
+    rgba(255, 255, 255, 0.66) 0 0 2px,
+    rgba(222, 231, 249, 0.56) 0 0 12px,
+    rgba(153, 171, 220, 0.42) 0 0 28px,
+    rgba(8, 10, 16, 0.42) 0 3px 12px;
 }
 
 .home-footer {
