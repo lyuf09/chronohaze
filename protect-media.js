@@ -3803,6 +3803,61 @@
     part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
   }
 
+  function applyEpilogueIntroInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-09.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var workHeading =
+      headings.find(function (heading) {
+        var normalized = normalizeText(heading.textContent).toLowerCase();
+        return (
+          normalized === normalizeText("作品介绍").toLowerCase() ||
+          normalized === normalizeText("About the work").toLowerCase()
+        );
+      }) || null;
+
+    if (!workHeading) {
+      return;
+    }
+
+    var intro = workHeading.nextElementSibling;
+    if (!intro || intro.tagName !== "P") {
+      return;
+    }
+
+    var paragraphs = [
+      "“Epilogue” is, to me, a closing chapter for Ipomoea alba, but only for the emotions that once burned out of control, so intense they became unbearable in their own immaturity. The feeling itself doesn’t disappear.",
+      "I understand that your life is yours, and I understand that no amount of calling out can change anything. So in the first half, there is only acoustic guitar and voice. It even keeps a certain lightness, a one sided pretense of ease, like slipping a one sided farewell into an everyday tone, trying to make everything look less serious than it is.",
+      "The chorus carries regret and emptiness, but not a dramatic collapse. It feels more like a forced smile you manage when looking back. The chord progression in the chorus is the small thing I never got to say or share, nothing theatrical, just ordinary conversation, an ordinary “we’ll talk next time.” And it’s precisely that ordinariness that later turns into a blank space that can never be fulfilled.",
+      "From the end of the first chorus onward, reality begins to flood in, and memories start to feel heavier. Life continues rationally, as if everything is still moving forward, yet the hollow space becomes even more visible.",
+      "The rainy season window and the black notebook return as an early summer signature of Ipomoea alba. So does the seaside town and the blue across the water, scenery I saw when I traveled to Weymouth during that time, bright, open, and distant in the most literal way, visible, yet unreachable.",
+      "At the end, I used a repeated section that fades out, receding like the tide.<br />It doesn’t need a sharp conclusion, and it doesn’t need a polished line like “I finally moved on.” The tide retreats, it simply does. The sand stays wet.",
+      "For me, “Epilogue” is also one of the songs I feel most deeply. It writes an ending in a way that’s almost light enough to vanish, so that the ending sits closer to life itself.",
+    ];
+
+    intro.innerHTML = paragraphs.join("<br /><br />");
+  }
+
   function applyEpilogueLyricsInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -6020,6 +6075,7 @@
       applyAffizierenLyricsInEnglish(safeLang);
       applyHeAndMeIntroInEnglish(safeLang);
       applyHeAndMeLyricsInEnglish(safeLang);
+      applyEpilogueIntroInEnglish(safeLang);
       applyEpilogueLyricsInEnglish(safeLang);
     }
 
