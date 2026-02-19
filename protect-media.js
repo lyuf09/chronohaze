@@ -2794,6 +2794,61 @@
     ].join("<br />");
   }
 
+  function applyHonkakuMysteryIntroInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-08.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var workHeading =
+      headings.find(function (heading) {
+        var normalized = normalizeText(heading.textContent).toLowerCase();
+        return (
+          normalized === normalizeText("作品介绍").toLowerCase() ||
+          normalized === normalizeText("About the work").toLowerCase()
+        );
+      }) || null;
+
+    if (!workHeading) {
+      return;
+    }
+
+    var intro = workHeading.nextElementSibling;
+    if (!intro || intro.tagName !== "P") {
+      return;
+    }
+
+    var paragraphs = [
+      "“Honkaku Mystery” is a high speed rock/metalcore track, a tribute to the mood of narrative misdirection (and honestly, I rarely write something this fast). On the surface it feels like a clean, efficient investigation, underneath, it’s a reverse interrogation of the self and of memory.",
+      "Here, deduction is treated as a posture, not to obtain an answer, but to see clearly what happens when the truth becomes ugly enough for reason itself to fracture.",
+      "The “he” in the song is more like a part of my own body, yet he could also be anyoneme, the kind of person who believes the world can be explained, that causality can be connected into a line, that an ending will always arrive. But when he strings clue after clue together with red thread, that thread is both the red line on a detective board and the red line of causality. The tighter it pulls, the closer it gets to “the truth”, and the sooner logic collapses. Because the truth is too ugly, to the point where no elegant structure can keep wrapping it up.",
+      "“A room surrounded by screens” is a space enclosed by memory, imagination, information, and self-projection, an absolute information cocoon. Thinking you’re investigating, you’re actually sinking deeper into your own screens and old shadows, thinking you’re unraveling the knot, you’re only repeatedly confirming conclusions that have already been written by emotion.",
+      "The cruelest part is that even when the truth is uncovered, nothing follows.",
+      "The “god who does not judge” points exactly to that emptiness: no verdict, no finale, no fair gavel coming down. So the laugh at the end isn’t relief, it’s a cold laugh. When deduction reaches its limit, what remains is only the most ordinary human circuitry, habitual awareness and habitual thinking, still running in the ruins.",
+      "Musically, the song chooses a more direct drive: fast, pressing, relentless. In the middle, mixed time signatures cut in like editorial jump cuts, making the narrative feel like rapid scene switches. And my favorite parts, the intro and the opening of the chorus, are the evidence the song flashes right from the start, like a camera strobe aimed straight at the pupil on first contact.",
+    ];
+
+    intro.innerHTML = paragraphs.join("<br /><br />");
+  }
+
   function applyWillowIntroInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -5677,6 +5732,7 @@
       applySiltIntroInEnglish(safeLang);
       applyHakoniwaIntroInEnglish(safeLang);
       applyHakoniwaLyricsInEnglish(safeLang);
+      applyHonkakuMysteryIntroInEnglish(safeLang);
       applyWillowIntroInEnglish(safeLang);
       applyWillowLyricsInEnglish(safeLang);
       applyMrIdiographicIntroInEnglish(safeLang);
