@@ -2849,6 +2849,144 @@
     intro.innerHTML = paragraphs.join("<br /><br />");
   }
 
+  function applyHonkakuMysteryLyricsInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-08.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var part1Heading = findLyricHeading(headings, 1);
+    var part2Heading = findLyricHeading(headings, 2);
+
+    if (!part1Heading || !part2Heading) {
+      return;
+    }
+
+    var part1Text = part1Heading.nextElementSibling;
+    var part2Text = part2Heading.nextElementSibling;
+
+    if (!part1Text || !part2Text || part1Text.tagName !== "P" || part2Text.tagName !== "P") {
+      return;
+    }
+
+    var part1Blocks = [
+      {
+        zh: ["逃げる理由ない", "目的を否めないはできない", "スクリーンで囲まれた部屋", "行列は跡を描く"],
+        en: [
+          "No reason to hide,",
+          "No reason to deny.",
+          "A room surrounded by screens,",
+          "A procession sketches its trail.",
+        ],
+      },
+      {
+        zh: ["台本通りの出演", "罪と罰を書く", "夜街道の煙", "赤い線で結ばれinvestigation"],
+        en: [
+          "An appearance, exactly as the script demands,",
+          "Writing down crime and punishment.",
+          "Smoke along the night road,",
+          "tied together with red threads, investigation.",
+        ],
+      },
+      {
+        zh: ["彼の瞼の裏に浮かんだ底流は", "まだ終わりを迎えない"],
+        en: ["The undercurrent that rose behind his eyelids", "still hasn’t reached its end."],
+      },
+      {
+        zh: [
+          "（散った)",
+          "砂ぼこりや落ち葉とともに",
+          "無秩序な瞳が朱に染まる",
+          "日々築いてきた彼のロジックリンクは崩れた",
+          "「ようやく触れたような気がした」",
+          "ありふれた意識過程だけ",
+          "過去になった後",
+          "彼は自分のため息を聞こえた",
+        ],
+        en: [
+          "(Scattered)",
+          "With dust and fallen leaves,",
+          "disordered eyes stain themselves vermilion.",
+          "The logic-links he built day by day collapsed.",
+          "“I felt like I finally touched it.”",
+          "Nothing left but an ordinary process of consciousness,",
+          "after it all became the past,",
+          "he could hear his own sigh.",
+        ],
+      },
+    ];
+
+    var part2Blocks = [
+      {
+        zh: ["セピアの映画を追いかけた", "醜いをきれいな言葉で隠した", "彼の名前もことも全部", "ついに失いかけた"],
+        en: [
+          "Chasing after a sepia film,",
+          "hiding the ugly with beautiful words.",
+          "His name, and everything about him",
+          "at last, he was close to losing it all.",
+        ],
+      },
+      {
+        zh: ["裁かれない神の背後と", "その日から停滞した時間", "灯台の光と蒼い空間", "彼の無意識の顔だけが"],
+        en: [
+          "Behind the god who never judges,",
+          "and the time that stagnated from that day on,",
+          "the lighthouse beam, the blue hollow of space,",
+          "and only the face of his unconscious.",
+        ],
+      },
+      {
+        zh: [
+          "砂ぼこりや落ち葉とともに",
+          "無秩序な瞳が朱に染まる",
+          "日々積み重なってた彼の違和感は壊した",
+          "「ようやく理解できた気がした」",
+          "ありふれた思索回路だけ",
+          "過去になった後",
+          "彼は笑った",
+        ],
+        en: [
+          "With dust and fallen leaves,",
+          "disordered eyes stain themselves vermilion.",
+          "The unease he had stacked up day by day shattered.",
+          "“I felt like I finally understood.”",
+          "Nothing left but the ordinary circuits of thought,",
+          "after it all became the past,",
+          "he laughed.",
+        ],
+      },
+    ];
+
+    function renderBilingualBlocks(blocks) {
+      return blocks
+        .map(function (block) {
+          return block.zh.join("<br />") + "<br /><br />" + block.en.join("<br />");
+        })
+        .join("<br /><br />");
+    }
+
+    part1Text.innerHTML = renderBilingualBlocks(part1Blocks);
+    part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
+  }
+
   function applyWillowIntroInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -5733,6 +5871,7 @@
       applyHakoniwaIntroInEnglish(safeLang);
       applyHakoniwaLyricsInEnglish(safeLang);
       applyHonkakuMysteryIntroInEnglish(safeLang);
+      applyHonkakuMysteryLyricsInEnglish(safeLang);
       applyWillowIntroInEnglish(safeLang);
       applyWillowLyricsInEnglish(safeLang);
       applyMrIdiographicIntroInEnglish(safeLang);
