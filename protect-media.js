@@ -2151,6 +2151,62 @@
     part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
   }
 
+  function applyMrIdiographicIntroInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-06.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var workHeading =
+      headings.find(function (heading) {
+        var normalized = normalizeText(heading.textContent).toLowerCase();
+        return (
+          normalized === normalizeText("作品介绍").toLowerCase() ||
+          normalized === normalizeText("About the work").toLowerCase()
+        );
+      }) || null;
+
+    if (!workHeading) {
+      return;
+    }
+
+    var intro = workHeading.nextElementSibling;
+    if (!intro || intro.tagName !== "P") {
+      return;
+    }
+
+    var paragraphs = [
+      "“Mr. Idiographic” takes place on an early-summer night.",
+      "The city is lit in scattered glows, people drift by in the street. I’m just walking, no destination, no urgency.",
+      "The “you” in this song feels less like a single person than a blurred, hard to name presence. Maybe the afterimage of a relationship, or maybe just a memory that refuses to let me press pause tonight.",
+      "「他の人と比べていないか？私を」<br />Have you ever compared me to someone else?",
+      "It isn’t a hysterical interrogation. It’s a faint, almost restrained test, quietly asking, because I do care, but only daring to ask softly, in the end, was I still the better one?",
+      "Musically, it’s progressive metalcore with a slight jazz tint: a 12/8 swing that keeps swaying forward. The feel is loose, bright, even a little like I’m “not taking it that seriously.” But the unease in the lyrics never disappears, like walking casually on the outside while the mind keeps circling back to the same place.",
+      "The title “Mr. Idiographic” comes from the texture of that kind of relationship. In the end, grand explanations don’t hold. What remains is only an idiographic truth, a case by case truth that can be true only for you, for me, for that specific stretch of time. The “Mr.” is deliberately distant, faintly mocking, a polite step backward, while still unwilling to let go, calling that shadow out with a name that sounds courteous, but is, underneath, cold.",
+      "This is a strongly narrative song. Beneath its easy shell lies the care that never got spoken. The early summer lights keep shifting, and together with the question of “whose fault it was,” there is still no answer.",
+    ];
+
+    intro.innerHTML = paragraphs.join("<br /><br />");
+  }
+
   function applyAffizierenLyricsInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -5623,6 +5679,7 @@
       applyHakoniwaLyricsInEnglish(safeLang);
       applyWillowIntroInEnglish(safeLang);
       applyWillowLyricsInEnglish(safeLang);
+      applyMrIdiographicIntroInEnglish(safeLang);
       applyAgnyLyricsInEnglish(safeLang);
       applySupernovaLyricsInEnglish(safeLang);
       applyMrIdiographicLyricsInEnglish(safeLang);
