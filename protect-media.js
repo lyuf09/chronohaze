@@ -3151,6 +3151,131 @@
     part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
   }
 
+  function applyYorugaoLyricsInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-15.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var part1Heading = findLyricHeading(headings, 1);
+    var part2Heading = findLyricHeading(headings, 2);
+
+    if (!part1Heading || !part2Heading) {
+      return;
+    }
+
+    var part1Text = part1Heading.nextElementSibling;
+    var part2Text = part2Heading.nextElementSibling;
+
+    if (!part1Text || !part2Text || part1Text.tagName !== "P" || part2Text.tagName !== "P") {
+      return;
+    }
+
+    var part1Blocks = [
+      {
+        zh: ["暗い街灯の下、無人の街に", "浮かぶ心臓がそこにあるのだ", "あの冬夜この世界は", "二人きりのようでした"],
+        en: [
+          "Under dim streetlights, in an empty street,",
+          "a floating heart is right there.",
+          "That winter night, this world",
+          "felt like it belonged to only the two of us.",
+        ],
+      },
+      {
+        zh: ["深い黒に目をやった時", "君の眼はあたしだけを見つめた", "その走り続ける夜に", "月光さえも無視された"],
+        en: [
+          "When I looked into the deep black,",
+          "your eyes were fixed on me alone.",
+          "In that night that kept on running,",
+          "even moonlight was ignored.",
+        ],
+      },
+      {
+        zh: ["「あきらめればいいんだ」", "大人たちに笑われても", "あたしもここへ来たじゃないか"],
+        en: [
+          "“Just give up.”",
+          "Even if those people laughed at me,",
+          "I still came all the way here, didn’t I?",
+        ],
+      },
+      {
+        zh: ["心が苦しくても、 愛を描きたい", "「 寒くない、あたしの手を握ってるから」", "暗い道見えないがそれほど重要ではない", "そのささやき声を覚えていればいい"],
+        en: [
+          "Even if my chest hurts, I want to depict love.",
+          "“I’m not cold, because you’re holding my hand.”",
+          "The dark road is hard to see, but that isn’t what matters.",
+          "As long as I can remember your whispered voice, it’s enough.",
+        ],
+      },
+    ];
+
+    var part2Blocks = [
+      {
+        zh: ["先のこと気づかないふりをしてた", "君が想像する景色を見たい", "このまま、一緒に遠くへ", "逃げられたらいいな"],
+        en: [
+          "I pretended not to notice what comes next.",
+          "I want to see the scenery you imagine.",
+          "Like this, together, farther away,",
+          "if only we could run.",
+        ],
+      },
+      {
+        zh: ["気づくたびに君はあたしから遠ざかってく", "あの夏から嫌いなものだけが増えてる"],
+        en: [
+          "Every time I realize it, you drift farther from me.",
+          "Since that summer, only the things I hate have multiplied.",
+        ],
+      },
+      {
+        zh: ["心が苦しくても、 愛を描きたい", "大人になるあたしどうすればいいか", "白昼夢を見てるあたしも実は", "終わらせなければならないことを知ってる"],
+        en: [
+          "Even if my chest hurts, I want to depict love.",
+          "As I grow up, what am I supposed to do?",
+          "Even me, lost in a waking daydream,",
+          "knows there are things I have to end.",
+        ],
+      },
+      {
+        zh: ["「 さらば、夏に咲くヨルガオ」と言えたら、嗚呼", "もう君がそばにいられなくても", "これから誕生日を忘れてしまうことも", "あたしが許してくれるでしょう"],
+        en: [
+          "If I could say, “farewell—to the yorugao that blooms in summer,” ah—",
+          "even if you can’t stay by my side anymore.",
+          "Even if you start forgetting my birthday from now on,",
+          "I’ll probably forgive you anyway.",
+        ],
+      },
+    ];
+
+    function renderBilingualBlocks(blocks) {
+      return blocks
+        .map(function (block) {
+          return block.zh.join("<br />") + "<br /><br />" + block.en.join("<br />");
+        })
+        .join("<br /><br />");
+    }
+
+    part1Text.innerHTML = renderBilingualBlocks(part1Blocks);
+    part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
+  }
+
   function applyAgnyLyricsInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -6610,6 +6735,7 @@
       applyHonkakuMysteryLyricsInEnglish(safeLang);
       applyWillowIntroInEnglish(safeLang);
       applyWillowLyricsInEnglish(safeLang);
+      applyYorugaoLyricsInEnglish(safeLang);
       applyMrIdiographicIntroInEnglish(safeLang);
       applyAgnyLyricsInEnglish(safeLang);
       applySupernovaLyricsInEnglish(safeLang);
