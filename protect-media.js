@@ -3803,6 +3803,143 @@
     part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
   }
 
+  function applyEpilogueLyricsInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-09.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var part1Heading = findLyricHeading(headings, 1);
+    var part2Heading = findLyricHeading(headings, 2);
+
+    if (!part1Heading || !part2Heading) {
+      return;
+    }
+
+    var part1Text = part1Heading.nextElementSibling;
+    var part2Text = part2Heading.nextElementSibling;
+
+    if (!part1Text || !part2Text || part1Text.tagName !== "P" || part2Text.tagName !== "P") {
+      return;
+    }
+
+    var part1Blocks = [
+      {
+        zh: ["遠い国へ行くと聞きました", "大丈夫だ、分かる", "君の人生は君のものだ", "いくら叫んでも最低だ"],
+        en: [
+          "I heard you’re leaving for a faraway country.",
+          "It’s okay, I understand.",
+          "Your life belongs to you.",
+          "No matter how loudly I shout, it’s still pathetic.",
+        ],
+      },
+      {
+        zh: [
+          "宝物のような その笑顔はセピア色になった",
+          "淡白な雨期の窓辺で手元の黒いノートに",
+          "一緒に見えなかったことを　海を　街を　全部を",
+          "目に見えない、限りない不安を",
+          "真夜中に捨てたのだ",
+        ],
+        en: [
+          "That treasure like smile of yours has turned sepia,",
+          "by the pale rainy season window,",
+          "in the black notebook in my hands.",
+          "Everything we never got to see together:",
+          "the sea, the town, all of it.",
+          "An invisible, endless anxiety,",
+          "I threw it away at midnight.",
+        ],
+      },
+      {
+        zh: ["それから君はいつも", "悲しげに歩いていた", "きっと今の私でさえ", "干渉できないことなんだ"],
+        en: [
+          "After that, you were always",
+          "walking as if weighed down by sorrow.",
+          "Surely, even the me I am now",
+          "can’t interfere, it’s something beyond my reach.",
+        ],
+      },
+      {
+        zh: ["対岸の青、海辺の町", "砂粒を歩いている", "もう一回", "君のことを思い出した"],
+        en: [
+          "The blue across the water, a seaside town",
+          "I’m walking on grains of sand.",
+          "One more time,",
+          "I remembered you.",
+        ],
+      },
+    ];
+
+    var part2Blocks = [
+      {
+        zh: [
+          "嘘のように 君がいなければ意味がないなんだ",
+          "淡白な雨期の窓辺に夏だけが残された",
+          "なぜ滞在しないのかはもう問い詰めたりはしない",
+          "この答えはもういらない",
+          "だから全部捨てたのだ",
+        ],
+        en: [
+          "As if it were a lie,",
+          "without you, nothing means anything.",
+          "By the pale rainy season window,",
+          "only summer was left behind.",
+          "I won’t press you anymore",
+          "about why you won’t stay.",
+          "I don’t need that answer now.",
+          "So I threw everything away.",
+        ],
+      },
+      {
+        zh: [
+          "宝物のような その笑顔はセピア色になった",
+          "淡白な雨期の窓辺で手元の黒いノートに",
+          "こんな歌を書いても 意味がないのでしたら",
+          "明日も将来も期待も何も聞きたくない…",
+        ],
+        en: [
+          "That treasure like smile of yours has turned sepia,",
+          "by the pale rainy season window,",
+          "in the black notebook in my hands.",
+          "If even writing a song like this",
+          "is still meaningless,",
+          "then I don’t want to hear about",
+          "tomorrow, the future, or hope… anything.",
+        ],
+      },
+    ];
+
+    function renderBilingualBlocks(blocks) {
+      return blocks
+        .map(function (block) {
+          return block.zh.join("<br />") + "<br /><br />" + block.en.join("<br />");
+        })
+        .join("<br /><br />");
+    }
+
+    part1Text.innerHTML = renderBilingualBlocks(part1Blocks);
+    part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
+  }
+
   function buildLyricColumn(html, extraClass) {
     var column = document.createElement("div");
     column.className = "lyrics-column " + extraClass;
@@ -5883,6 +6020,7 @@
       applyAffizierenLyricsInEnglish(safeLang);
       applyHeAndMeIntroInEnglish(safeLang);
       applyHeAndMeLyricsInEnglish(safeLang);
+      applyEpilogueLyricsInEnglish(safeLang);
     }
 
     if (
