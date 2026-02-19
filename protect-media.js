@@ -4316,6 +4316,58 @@
     part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
   }
 
+  function applyRainyDaysIntroInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-12.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var workHeading =
+      headings.find(function (heading) {
+        var normalized = normalizeText(heading.textContent).toLowerCase();
+        return (
+          normalized === normalizeText("作品介绍").toLowerCase() ||
+          normalized === normalizeText("About the work").toLowerCase()
+        );
+      }) || null;
+
+    if (!workHeading) {
+      return;
+    }
+
+    var intro = workHeading.nextElementSibling;
+    if (!intro || intro.tagName !== "P") {
+      return;
+    }
+
+    var paragraphs = [
+      "“Rainy days” was written in the thin gap between winter and spring, when the air has already begun to warm.",
+      "It takes place in that foggy time right after a separation—waking up and realizing it’s another morning, and the morning is empty.",
+      "The flower by the window is Ipomoea alba. The moment it collapses feels like a silent signal: something really has ended. The khaki coat is what I wore when I went to see him, and ever since then, every time I put it on it feels like I can almost touch what’s gone—close enough to reach for, impossible to hold. Everything that can remain in life is still here. The thing that’s truly missing is the one you can’t even name, so all you can do is pause inside the sentence.",
+      "Musically, “Rainy days” threads in melodic motifs from Ipomoea alba again and again, like memory resurfacing in different corners. The song itself barely repeats sections. No turning back, no stopping—just moving forward all the way to the end, like time itself. ☔️",
+    ];
+
+    intro.innerHTML = paragraphs.join("<br /><br />");
+  }
+
   function buildLyricColumn(html, extraClass) {
     var column = document.createElement("div");
     column.className = "lyrics-column " + extraClass;
@@ -6400,6 +6452,7 @@
       applyEpilogueLyricsInEnglish(safeLang);
       applyIHateYouAllIntroInEnglish(safeLang);
       applyIHateYouAllLyricsInEnglish(safeLang);
+      applyRainyDaysIntroInEnglish(safeLang);
       applyRainyDaysLyricsInEnglish(safeLang);
     }
 
