@@ -3151,6 +3151,59 @@
     part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
   }
 
+  function applyYorugaoIntroInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-15.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var workHeading =
+      headings.find(function (heading) {
+        var normalized = normalizeText(heading.textContent).toLowerCase();
+        return (
+          normalized === normalizeText("作品介绍").toLowerCase() ||
+          normalized === normalizeText("About the work").toLowerCase()
+        );
+      }) || null;
+
+    if (!workHeading) {
+      return;
+    }
+
+    var intro = workHeading.nextElementSibling;
+    if (!intro || intro.tagName !== "P") {
+      return;
+    }
+
+    var paragraphs = [
+      "“Yorugao (Moonflower)” is the most intense, the most stubborn song I’ve written.",
+      "It is a saturated deep blue: a record of that night, an empty street under streetlights, a heart rising to the surface, the heat burning in my palm, and everything that never had time to be sorted out, yet undeniably happened.",
+      "For me, “Yogao” carries two layers of meaning. One is a face lit up by streetlights at night (which is the direct translation). The other is Ipomoea alba, the moonflower image, because “moonflower” in Japanese is also 夜顔. In this song, the two meanings overlap like an echo wrapped in darkness: it doesn’t need to be explained, but you can still hear the weight of what it holds. The recurring Ipomoea alba melodic motif stays here quietly, without making a scene.",
+      "I’m genuinely afraid to look back at this song, every line of its lyrics, even the long memories I wrote down on purpose back then. At this point it’s not even embarrassment or shame anymore.",
+      "But I have only one conclusion about the version of me that night: she was brave, and I don’t regret it.<br />My decisiveness, my willingness to act, is what I like most about myself. And “Yogao” simply left that bravery, and that obsession that can’t be brushed off lightly, inside a deep blue night.",
+    ];
+
+    intro.innerHTML = paragraphs.join("<br /><br />");
+  }
+
   function applyYorugaoLyricsInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -6735,6 +6788,7 @@
       applyHonkakuMysteryLyricsInEnglish(safeLang);
       applyWillowIntroInEnglish(safeLang);
       applyWillowLyricsInEnglish(safeLang);
+      applyYorugaoIntroInEnglish(safeLang);
       applyYorugaoLyricsInEnglish(safeLang);
       applyMrIdiographicIntroInEnglish(safeLang);
       applyAgnyLyricsInEnglish(safeLang);
