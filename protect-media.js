@@ -4854,7 +4854,10 @@
 
     function setLoadingState(text) {
       if (skeletonNode) {
+        skeletonNode.classList.remove("is-hidden");
         skeletonNode.hidden = false;
+        skeletonNode.setAttribute("aria-hidden", "false");
+        skeletonNode.style.display = "";
       }
       listNode.textContent = "";
       emptyNode.hidden = true;
@@ -4864,7 +4867,10 @@
 
     function setLoadedState() {
       if (skeletonNode) {
+        skeletonNode.classList.add("is-hidden");
         skeletonNode.hidden = true;
+        skeletonNode.setAttribute("aria-hidden", "true");
+        skeletonNode.style.display = "none";
       }
       setFallbackVisibility(false);
     }
