@@ -4435,6 +4435,58 @@
     part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
   }
 
+  function applyRedSandalwoodIntroInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-13.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var workHeading =
+      headings.find(function (heading) {
+        var normalized = normalizeText(heading.textContent).toLowerCase();
+        return (
+          normalized === normalizeText("作品介绍").toLowerCase() ||
+          normalized === normalizeText("About the work").toLowerCase()
+        );
+      }) || null;
+
+    if (!workHeading) {
+      return;
+    }
+
+    var intro = workHeading.nextElementSibling;
+    if (!intro || intro.tagName !== "P") {
+      return;
+    }
+
+    var paragraphs = [
+      "“Red Sandalwood” is a song in red-brown and deep umber tones, upright, restrained, yet carrying a wish that borders on obsession. It keeps the dampness I’ve come to know from Ipomoea alba, but this time it doesn’t point to anyone. It reads more like a vow written to myself: cold, direct.",
+      "It begins with the line “along last summer’s sea and the rainy season,” and then refuses to return to anything similar. Nostalgia is only lens flare and sunlight filtering through leaves. What I really wanted to write is something harder to name: the more you try to seize the truth, the more you realize it doesn’t exist. The only thing that can be swapped is standpoint, and the world we see is nothing more than surfaces pieced together from fragments. So what, exactly, is “objectivity”?",
+      "From beginning to end, some things remain untouchable. And if you can’t reach them, the only fate left is to be carried away by time and rain. What dissolves in the end is regret, along with that Ipomoea alba that withered in the rainy season: belonging to no one now, yet leaving behind a permanent edge of coldness.",
+      "I released this song on my 18th birthday. It was a gift I gave myself, gathered back into stillness, and then moving forward.",
+    ];
+
+    intro.innerHTML = paragraphs.join("<br /><br />");
+  }
+
   function applyRainyDaysIntroInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -6573,6 +6625,7 @@
       applyIHateYouAllLyricsInEnglish(safeLang);
       applyRainyDaysIntroInEnglish(safeLang);
       applyRainyDaysLyricsInEnglish(safeLang);
+      applyRedSandalwoodIntroInEnglish(safeLang);
       applyRedSandalwoodLyricsInEnglish(safeLang);
     }
 
