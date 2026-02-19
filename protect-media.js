@@ -3995,6 +3995,60 @@
     part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
   }
 
+  function applyIHateYouAllIntroInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-11.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var workHeading =
+      headings.find(function (heading) {
+        var normalized = normalizeText(heading.textContent).toLowerCase();
+        return (
+          normalized === normalizeText("作品介绍").toLowerCase() ||
+          normalized === normalizeText("About the work").toLowerCase()
+        );
+      }) || null;
+
+    if (!workHeading) {
+      return;
+    }
+
+    var intro = workHeading.nextElementSibling;
+    if (!intro || intro.tagName !== "P") {
+      return;
+    }
+
+    var paragraphs = [
+      "“I hate you all.” is a fast song written in a defensive stance. The hate is real, but it functions more like a protective shell than a final verdict.",
+      "The “me” in the lyrics isn’t who I am now. It’s the version of me back then: childish, instinctive, hard on the outside and brittle underneath. I couldn’t handle the social detours, the unspoken rules, the gestures that looked polite but weren’t sincere. I only knew how to get angry directly when I was angry, and laugh directly when I was happy. Looking back, she feels a bit like Girls Band Cry’s Nina (except the show hadn’t even aired yet, if it had, I would’ve pointed at the screen like: that’s literally me 😱).",
+      "The origin of this song is very specific: the window of my dorm room when I was studying in Manchester. It was March, and it was still snowing. That out of season cold felt like a kind of sarcasm, things were supposed to be warming up, yet the world insisted on moving in reverse. And that’s where the opening chain of “Why…?” came from.",
+      "The “you all” points to a group of people who used to count as friends. What remained in the end wasn’t the argument itself, but something long lasting and difficult to name, something close to a psychological wound (a description I don’t even like using). It hit especially hard because the ones causing the harm were “grown men,” using filthy words to attack a kid who hadn’t truly hurt anyone 😡 (sure, I was immature, but what did that kid even do?😭). That kind of unfairness sharpens your pride into something jagged, and turns expression into a weapon.",
+      "But “I hate you all.” isn’t a song meant for serious, lifelong hatred (I don’t like writing music just to truly hate someone). It’s more like a J-rock-style release, deliberately bright in places. Because I didn’t want to pin myself inside hatred forever, this song captures a real reaction from a specific phase of my life: when I didn’t yet know how to process complicated emotions, at least I could still write them down.",
+      "The translated version of this song is simply its title:<br /><br />I hate you all.<br />It was the only sentence I could say out loud that year 😡",
+    ];
+
+    intro.innerHTML = paragraphs.join("<br /><br />");
+  }
+
   function applyIHateYouAllLyricsInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -6214,6 +6268,7 @@
       applyHeAndMeLyricsInEnglish(safeLang);
       applyEpilogueIntroInEnglish(safeLang);
       applyEpilogueLyricsInEnglish(safeLang);
+      applyIHateYouAllIntroInEnglish(safeLang);
       applyIHateYouAllLyricsInEnglish(safeLang);
     }
 
