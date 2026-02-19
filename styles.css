@@ -1601,6 +1601,12 @@ audio {
   text-align: center;
 }
 
+.search-index-page .page-head p {
+  margin: 14px auto 0;
+  max-width: 860px;
+  text-align: center;
+}
+
 .search-index-page .search-lead {
   margin: 10px auto 0;
   color: rgba(58, 65, 82, 0.76);
