@@ -4316,6 +4316,125 @@
     part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
   }
 
+  function applyRedSandalwoodLyricsInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-13.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var part1Heading = findLyricHeading(headings, 1);
+    var part2Heading = findLyricHeading(headings, 2);
+
+    if (!part1Heading || !part2Heading) {
+      return;
+    }
+
+    var part1Text = part1Heading.nextElementSibling;
+    var part2Text = part2Heading.nextElementSibling;
+
+    if (!part1Text || !part2Text || part1Text.tagName !== "P" || part2Text.tagName !== "P") {
+      return;
+    }
+
+    var part1Blocks = [
+      {
+        zh: ["去年の夏海と梅雨に沿って", "懐かしいのは木漏れ日", "同じような景色を待って", "似た場所に戻りたくない"],
+        en: [
+          "Along last summer’s sea and the rainy season,",
+          "what feels nostalgic is the sunlight through leaves.",
+          "Waiting for the same kind of scenery,",
+          "yet I don’t want to return to a similar place.",
+        ],
+      },
+      {
+        zh: ["ただ、知っておいてほしいことがあるんだ", "それとも誰にも言うべきではないでした"],
+        en: [
+          "There’s something I want you to know—",
+          "or maybe it’s something",
+          "I shouldn’t tell anyone at all.",
+        ],
+      },
+      {
+        zh: ["なぜなら真実は存在しないから", "置き換えられるのは立場だけ", "目に映るものは皆寄せ集めの一面だ", "ね、客観とは何か"],
+        en: [
+          "Because truth doesn’t exist.",
+          "Only standpoints can be replaced.",
+          "Everything we see is just a patchwork surface.",
+          "So, what is “objectivity,” anyway?",
+        ],
+      },
+      {
+        zh: ["あの日の夢を見てた", "雨が薄く降ってた だけ", "世界はまだ続けてくなのに", "関係のないことだと思った"],
+        en: [
+          "I was dreaming of that day—",
+          "only that a thin rain was falling.",
+          "Even though the world keeps going on,",
+          "I thought it had nothing to do with me.",
+        ],
+      },
+    ];
+
+    var part2Blocks = [
+      {
+        zh: ["「 実はもっと話したかったんだ」", "もう関係ないとしても", "探し求めた答えは望むものではない", "どんなに執着しても"],
+        en: [
+          "“Actually, I wanted to talk more.”",
+          "Even if it doesn’t matter anymore—",
+          "the answer I chased",
+          "was never the one I wanted,",
+          "no matter how tightly I clung.",
+        ],
+      },
+      {
+        zh: ["真理の祭壇前だけで下げる", "「 客観的 」な目的性があるようだ", "始まりから終わりまで、触れられないでしたら", "流されるしかないな"],
+        en: [
+          "Only in front of the altar of “truth”",
+          "do we lower our heads,",
+          "as if there were some “objective” purpose.",
+          "If from beginning to end it remains untouchable,",
+          "then there’s nothing to do but be carried away.",
+        ],
+      },
+      {
+        zh: ["最後に融解した", "後悔とそこに枯れたヨルガオ"],
+        en: [
+          "In the end, what dissolved",
+          "was regret—",
+          "and the Ipomoea Alba that withered there in the rainy season.",
+        ],
+      },
+    ];
+
+    function renderBilingualBlocks(blocks) {
+      return blocks
+        .map(function (block) {
+          return block.zh.join("<br />") + "<br /><br />" + block.en.join("<br />");
+        })
+        .join("<br /><br />");
+    }
+
+    part1Text.innerHTML = renderBilingualBlocks(part1Blocks);
+    part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
+  }
+
   function applyRainyDaysIntroInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -6454,6 +6573,7 @@
       applyIHateYouAllLyricsInEnglish(safeLang);
       applyRainyDaysIntroInEnglish(safeLang);
       applyRainyDaysLyricsInEnglish(safeLang);
+      applyRedSandalwoodLyricsInEnglish(safeLang);
     }
 
     if (
