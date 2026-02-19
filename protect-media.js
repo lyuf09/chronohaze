@@ -3995,6 +3995,143 @@
     part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
   }
 
+  function applyIHateYouAllLyricsInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-11.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var part1Heading = findLyricHeading(headings, 1);
+    var part2Heading = findLyricHeading(headings, 2);
+
+    if (!part1Heading || !part2Heading) {
+      return;
+    }
+
+    var part1Text = part1Heading.nextElementSibling;
+    var part2Text = part2Heading.nextElementSibling;
+
+    if (!part1Text || !part2Text || part1Text.tagName !== "P" || part2Text.tagName !== "P") {
+      return;
+    }
+
+    var part1Blocks = [
+      {
+        zh: [
+          "何で3月なのに雪が降るのか",
+          "何で嫌いな人をフォローするのか",
+          "何で不都合なことをして後悔するのか",
+          "何でただ謝罪してすべてを取り除くのか",
+        ],
+        en: [
+          "Why does it still snow in March?",
+          "Why would people follow someone they can’t stand?",
+          "Why would anyone do something they know will backfire, then regret it?",
+          "Why do people just apologize and erase everything, like it’s all gone?",
+        ],
+      },
+      {
+        zh: ["みんな嫌いだ"],
+        en: ["I hate everyone."],
+      },
+      {
+        zh: ["あたし", "わからない,わからない", "正解なんて私が知るもんか", "「大人になっていない」も言い訳", "これも嫌なんだ"],
+        en: [
+          "Me—",
+          "I don’t know, I don’t know.",
+          "Like I’m supposed to know what the “right answer” is.",
+          "“Not grown up yet” is an excuse too,",
+          "and I hate that as well.",
+        ],
+      },
+      {
+        zh: ["だけど", "知るわけない,知るわけない", "正しいやり方なんて知るわけない", "何年も生きていなかったら", "そんなこと思わなかった"],
+        en: [
+          "But—",
+          "How would I know, how would I know?",
+          "There’s no way I know the “right way” to do it.",
+          "If I hadn’t lived for all these years,",
+          "I wouldn’t even think like this.",
+        ],
+      },
+    ];
+
+    var part2Blocks = [
+      {
+        zh: ["同級生と間違ったことを言ってもいいのか", "イヤホン持ってるから聞こえなくてもいいのか"],
+        en: [
+          "Is it okay if I accidentally said the wrong thing to a classmate?",
+          "Is it okay to pretend I can’t hear because I’ve got my earphones in?",
+        ],
+      },
+      {
+        zh: ["そもそもみんなと解け合わないとか", "全部自分で選んだんだ", "人間って俗っぽいだからね", "全部バカみたい"],
+        en: [
+          "Maybe I was never going to fit in with everyone in the first place.",
+          "I chose all of it myself.",
+          "Humans are so tacky and petty, you know.",
+          "Everything’s just… stupid.",
+        ],
+      },
+      {
+        zh: ["ずっと好きな曲を", "ずっと君だけを"],
+        en: ["Always the song I loved,", "always you—only you."],
+      },
+      {
+        zh: ["でも全部忘れたいな! !", "あんたも嫌いなんだ！"],
+        en: ["But I want to forget everything!!", "I hate you too!"],
+      },
+      {
+        zh: ["いつか", "分かるのか,分かるのか", "道順とかいつか分かるのか", "大人になってから全部知ったら", "怖すぎるな、ああ"],
+        en: [
+          "Someday—",
+          "Will I understand, will I understand?",
+          "Will I ever figure out the route, the steps?",
+          "If I only learn everything after I’m “an adult,”",
+          "that’s way too terrifying… ah.",
+        ],
+      },
+      {
+        zh: ["挫折感にまみれた17 歳", "大人の考え事がわからない", "あんたはそんな声で別れると言った", "すごく傲慢だ"],
+        en: [
+          "Seventeen, soaked in frustration.",
+          "I don’t understand how adults think.",
+          "You said, in that voice, “We’re done here.”",
+          "So arrogant.",
+        ],
+      },
+    ];
+
+    function renderBilingualBlocks(blocks) {
+      return blocks
+        .map(function (block) {
+          return block.zh.join("<br />") + "<br /><br />" + block.en.join("<br />");
+        })
+        .join("<br /><br />");
+    }
+
+    part1Text.innerHTML = renderBilingualBlocks(part1Blocks);
+    part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
+  }
+
   function buildLyricColumn(html, extraClass) {
     var column = document.createElement("div");
     column.className = "lyrics-column " + extraClass;
@@ -6077,6 +6214,7 @@
       applyHeAndMeLyricsInEnglish(safeLang);
       applyEpilogueIntroInEnglish(safeLang);
       applyEpilogueLyricsInEnglish(safeLang);
+      applyIHateYouAllLyricsInEnglish(safeLang);
     }
 
     if (
