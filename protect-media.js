@@ -282,6 +282,16 @@
       var explicitPreload = (item.getAttribute("preload") || "").toLowerCase();
       var shouldKeepExplicitPreload =
         explicitPreload === "metadata" || explicitPreload === "auto";
+      var shouldPreferMetadata =
+        item.tagName === "AUDIO" &&
+        (item.hasAttribute("data-eager-media") ||
+          item.id === "heroAudio" ||
+          !!item.closest(".music-detail-article"));
+
+      if (shouldPreferMetadata && !shouldKeepExplicitPreload) {
+        item.preload = "metadata";
+        shouldKeepExplicitPreload = true;
+      }
 
       if (
         !item.hasAttribute("autoplay") &&
@@ -401,6 +411,58 @@
         if (hrefKey) {
           seenByHref.add(hrefKey);
         }
+      });
+
+      var desiredOrder = ["home", "math", "photo", "music", "cv", "search"];
+      var links = Array.from(nav.querySelectorAll("a"));
+      var keyedFirst = Object.create(null);
+      var leftovers = [];
+
+      function getNavKey(link) {
+        var hrefKey = normalizeNavHref(link.getAttribute("href") || "");
+        if (!hrefKey) {
+          return "";
+        }
+        if (/\/math\.html(?:$|[?#])/i.test(hrefKey) || /#math/i.test(hrefKey)) {
+          return "math";
+        }
+        if (/\/portfolio-1\.html(?:$|[?#])/i.test(hrefKey)) {
+          return "photo";
+        }
+        if (/\/yin-le\.html(?:$|[?#])/i.test(hrefKey)) {
+          return "music";
+        }
+        if (/\/cv\.html(?:$|[?#])/i.test(hrefKey) || /fay_lyu_cv\.pdf/i.test(hrefKey)) {
+          return "cv";
+        }
+        if (/\/search\.html(?:$|[?#])/i.test(hrefKey)) {
+          return "search";
+        }
+        if (/\/index(?:\.html)?(?:$|[?#])/i.test(hrefKey) || /\/chronohaze$/i.test(hrefKey)) {
+          return "home";
+        }
+        return "";
+      }
+
+      links.forEach(function (link) {
+        var key = getNavKey(link);
+        if (key && !keyedFirst[key]) {
+          keyedFirst[key] = link;
+          return;
+        }
+        leftovers.push(link);
+      });
+
+      var ordered = [];
+      desiredOrder.forEach(function (key) {
+        if (keyedFirst[key]) {
+          ordered.push(keyedFirst[key]);
+        }
+      });
+      ordered = ordered.concat(leftovers);
+
+      ordered.forEach(function (link) {
+        nav.appendChild(link);
       });
     });
   }
@@ -998,11 +1060,11 @@
         musicPageTitle: "音乐作品集",
         musicIntro: "声音的纹理、情绪的回声、在时间里缓慢成形的片段。",
         musicLead: "仅收录 21 年开始的部分作品（我需要脸面）",
-        musicIATitle: "结构化入口",
-        musicIASubtitle: "Album / Singles / WIP 快速浏览与筛选",
+        musicIATitle: "",
+        musicIASubtitle: "",
         musicTabAll: "全部",
-        musicTabAlbum: "Album",
-        musicTabSingles: "Singles",
+        musicTabAlbum: "专辑",
+        musicTabSingles: "单曲",
         musicTabWip: "WIP",
         musicFilterYear: "年份",
         musicFilterTag: "Tag",
@@ -1012,8 +1074,8 @@
         musicFilterAudioAll: "全部",
         musicFilterAudioReady: "有音频",
         musicFilterAudioPending: "待上传",
-        musicGroupAlbum: "Album",
-        musicGroupSingles: "Singles",
+        musicGroupAlbum: "专辑",
+        musicGroupSingles: "单曲",
         musicGroupWip: "WIP",
         musicNoResults: "没有匹配结果，试试放宽筛选条件。",
         musicTagAlbum: "专辑",
@@ -1101,8 +1163,8 @@
         musicIntro:
           "Textures of sound, echoes of emotion, fragments shaped slowly in time.",
         musicLead: "Selected works since 2021 (I need dignity).",
-        musicIATitle: "Structured Entry",
-        musicIASubtitle: "Browse quickly through Album / Singles / WIP",
+        musicIATitle: "",
+        musicIASubtitle: "",
         musicTabAll: "All",
         musicTabAlbum: "Album",
         musicTabSingles: "Singles",
@@ -4217,16 +4279,15 @@
       tabs.setAttribute("role", "tablist");
 
       [
-        { key: "all", label: dict.musicTabAll },
         { key: "album", label: dict.musicTabAlbum },
         { key: "single", label: dict.musicTabSingles },
-      ].forEach(function (item, index) {
+      ].forEach(function (item) {
         var button = document.createElement("button");
         button.type = "button";
         button.className = "music-ia-tab";
         button.dataset.groupFilter = item.key;
         button.textContent = item.label;
-        if (index === 0) {
+        if (item.key === "single") {
           button.classList.add("is-active");
         }
         tabs.appendChild(button);
@@ -4427,7 +4488,6 @@
     });
 
     var titleMap = {
-      all: dict.musicTabAll,
       album: dict.musicTabAlbum,
       single: dict.musicTabSingles,
     };
@@ -4455,7 +4515,7 @@
 
     function activeGroupFilter() {
       var active = shell.querySelector(".music-ia-tab.is-active");
-      return active ? active.dataset.groupFilter : "all";
+      return active ? active.dataset.groupFilter : "single";
     }
 
     function applyFilters() {
@@ -4472,7 +4532,7 @@
         var hasAudio = row.dataset.hasAudio === "1";
         var tags = splitMusicTags(row.dataset.tags || "");
 
-        var matchesGroup = groupFilter === "all" || type === groupFilter;
+        var matchesGroup = type === groupFilter;
         var matchesYear = yearFilter === "all" || year === yearFilter;
         var matchesTag = tagFilter === "all" || tags.indexOf(tagFilter) >= 0;
         var matchesAudio =
@@ -4499,7 +4559,7 @@
           countNode.textContent = visibleCount > 0 ? " (" + visibleCount + ")" : " (0)";
         }
 
-        if (groupFilter !== "all" && key !== groupFilter) {
+        if (key !== groupFilter) {
           group.hidden = true;
           group.classList.add("is-filter-hidden");
         } else {
