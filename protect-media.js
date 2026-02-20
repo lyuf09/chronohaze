@@ -5051,6 +5051,196 @@
     intro.innerHTML = paragraphs.join("<br /><br />");
   }
 
+  function applyIpomoeaAlbaIntroInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-18.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var workHeading =
+      headings.find(function (heading) {
+        var normalized = normalizeText(heading.textContent).toLowerCase();
+        return (
+          normalized === normalizeText("作品介绍").toLowerCase() ||
+          normalized === normalizeText("About the work").toLowerCase()
+        );
+      }) || null;
+
+    if (!workHeading) {
+      return;
+    }
+
+    var intro = workHeading.nextElementSibling;
+    if (!intro || intro.tagName !== "P") {
+      return;
+    }
+
+    var paragraphs = [
+      "“Ipomoea alba” is the starting point of the entire self-titled album, the source from which all the later emotions and images unfold.",
+      "The first lines were written on a pale, washed-out rainy day.<br />The air by the window was damp, carrying a mixed scent of soil and flowers.<br />A black notebook lay open like a night surface lightly soaked by rain.",
+      "Those sentences were closer to a faint, slowly surfacing stream of consciousness,<br />an anchor found suddenly inside emptiness,<br />quietly letting a person remain in reality.",
+      "That’s why the song’s palette settles into white and pale blue:<br />not pure brightness, but the soft reflection you get when post-rain light filters through clouds.",
+      "After the writing was finished, the piano and guitar were recorded by Johnny.<br />He didn’t step into the songwriting itself, but on the level of sound he gave the piece its first shape and warmth, like someone turning an abstract emotion into something audible, something real.",
+      "Because of that, “Ipomoea alba” always keeps a certain lightness,<br />as if reality hasn’t fully intruded yet.<br />It isn’t as heavy or shattered as the tracks that follow,<br />it feels more like a timeslice still paused by a window after rain.",
+      "From this song onward, yorugao (Ipomoea alba), the rainy season, the notebook, damp air,<br />and the theme of finding a reason to exist inside nothingness begin to expand,<br />eventually becoming the album’s overture.",
+      "If the later songs record depletion, tearing, and farewells,<br />“Ipomoea alba” stays at the quiet moment before anything collapses,<br />when everything is still, briefly, and undeniably held together.",
+    ];
+
+    intro.innerHTML = paragraphs.join("<br /><br />");
+  }
+
+  function applyIpomoeaAlbaLyricsInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-18.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var part1Heading = findLyricHeading(headings, 1);
+    var part2Heading = findLyricHeading(headings, 2);
+
+    if (!part1Heading || !part2Heading) {
+      return;
+    }
+
+    var part1Text = part1Heading.nextElementSibling;
+    var part2Text = part2Heading.nextElementSibling;
+
+    if (!part1Text || !part2Text || part1Text.tagName !== "P" || part2Text.tagName !== "P") {
+      return;
+    }
+
+    var part1Blocks = [
+      {
+        zh: ["「いつのまにか心を奪われていた」", "雨上がりの午後にこう書いた", "窓の外 湿った匂いと夕暮れの中の顔", "私はこう思い描いている"],
+        en: [
+          "“Before I knew it, my heart was taken.”",
+          "I wrote thaton an afternoon after the rain.",
+          "Outside the window—damp scent,",
+          "and a face inside the dusk.",
+          "This is how I keep imagining it.",
+        ],
+      },
+      {
+        zh: ["言葉の幽霊のように", "喉の奥に残っている"],
+        en: ["Like the ghost of a word,", "it stays deep in my throat."],
+      },
+      {
+        zh: ["君がいるから、", "意味のないもののために存在の口実を作る", "この両手で何も掴めなくても", "あとは二人でいい"],
+        en: [
+          "Because of you,",
+          "I keep stitching excuses for the meaningless to exist.",
+          "Even if these hands can’t hold on to anything,",
+          "let the rest be just the two of us.",
+        ],
+      },
+      {
+        zh: ["また果てしない虚無感がやってきた", "人は誰でも必ず死ぬんだよ、", "君も知っている", "だからもっとそばにいてくれ"],
+        en: [
+          "That endless hollowness seems to be coming again.",
+          "Everyone dies—you know.",
+          "So stay closer to me,",
+          "just a little.",
+        ],
+      },
+      {
+        zh: ["少しでも欠けているといらいらする", "これでは余計な悩みが増える", "今は正しくなくてももうだいじょうぶだよ", "「no」がもたらした決意の「yes」…"],
+        en: [
+          "I get irritated when even the smallest piece is missing.",
+          "It only adds more unnecessary worries.",
+          "Even if it isn’t “right” right now, it’s okay.",
+          "A “yes” of resolve",
+          "brought by a “no”…",
+        ],
+      },
+      {
+        zh: ["いつのまにか心を…"],
+        en: ["Before I knew it, my heart…"],
+      },
+    ];
+
+    var part2Blocks = [
+      {
+        zh: ["浮かんだ心臓も、 ヨルガオも", "すべてノートにいる", "君の笑顔だけは記録できない"],
+        en: [
+          "A heart that rose to the surface,",
+          "the yorugao too—",
+          "everything lives in the notebook.",
+          "Only your smile",
+          "can’t be recorded.",
+        ],
+      },
+      {
+        zh: ["あのね", "この人生は永遠の夜のようだった", "やっと、誰かが…", "その人は君"],
+        en: [
+          "Hey—",
+          "this life felt like an endless night.",
+          "And finally, someone…",
+          "that someone was you.",
+        ],
+      },
+      {
+        zh: ["君がいるから、 君がいるから、"],
+        en: ["Because you’re here—because you’re here—"],
+      },
+      {
+        zh: ["日の出の時間にはまだ遠いが、", "君がいてくれれば、", "今は生きていける", "君もそうであるように"],
+        en: [
+          "Dawn is still far away, but",
+          "if you stay with me,",
+          "I can keep living for now—",
+          "just like you do.",
+        ],
+      },
+    ];
+
+    function renderBilingualBlocks(blocks) {
+      return blocks
+        .map(function (block) {
+          return block.zh.join("<br />") + "<br /><br />" + block.en.join("<br />");
+        })
+        .join("<br /><br />");
+    }
+
+    part1Text.innerHTML = renderBilingualBlocks(part1Blocks);
+    part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
+  }
+
   function applyRainyDaysIntroInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -7187,6 +7377,8 @@
       applyAffizierenIntroInEnglish(safeLang);
       applyAffizierenNotesInEnglish(safeLang);
       applyAffizierenLyricsInEnglish(safeLang);
+      applyIpomoeaAlbaIntroInEnglish(safeLang);
+      applyIpomoeaAlbaLyricsInEnglish(safeLang);
       applyHeAndMeIntroInEnglish(safeLang);
       applyHeAndMeLyricsInEnglish(safeLang);
       applyEpilogueIntroInEnglish(safeLang);
