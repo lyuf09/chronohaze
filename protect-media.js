@@ -4315,6 +4315,132 @@
     part2Text.innerHTML = renderMixedBlocks(part2Blocks);
   }
 
+  function applyFomalhautLyricsInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-23.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var part1Heading = findLyricHeading(headings, 1);
+    var part2Heading = findLyricHeading(headings, 2);
+
+    if (!part1Heading || !part2Heading) {
+      return;
+    }
+
+    var part1Text = part1Heading.nextElementSibling;
+    var part2Text = part2Heading.nextElementSibling;
+
+    if (!part1Text || !part2Text || part1Text.tagName !== "P" || part2Text.tagName !== "P") {
+      return;
+    }
+
+    var part1Blocks = [
+      {
+        zh: ["どうしても変えられない時点", "夜明けまでに溶かそう"],
+        en: [
+          "A point in time that simply can’t be changed,",
+          "let’s melt it down before the break of day.",
+        ],
+      },
+      {
+        zh: [
+          "夕方、冷たい空気が再び私を包む",
+          "十一月の夜が私を飲み込みそうだ",
+          "短い幻から脱した",
+          "こんな人生もいつ終わるかわからない",
+        ],
+        en: [
+          "Evening—cold air wraps around me again.",
+          "A November night is ready to swallow me whole.",
+          "I wake from a brief illusion,",
+          "and still don’t know when a life like this will end.",
+        ],
+      },
+      {
+        zh: ["ごめん", "言いたいことが伝わらなかった", "もう伝えられないでしょう", "もう死んでるなんて", "音とか形とか", "両目だけでは何も見えない", "ウィル、もう一度連れて行って"],
+        en: [
+          "I’m sorry.",
+          "What I wanted to say never reached you.",
+          "It probably never will.",
+          "To say that's already dead—",
+          "sound, or shape, or anything at all…",
+          "with only two eyes, nothing can be seen.",
+          "take me there once more.",
+        ],
+      },
+    ];
+
+    var part2Blocks = [
+      {
+        zh: ["社交不安、障害患者としてそんなことは言えない", "誰も私のコンテクストを理解しようとしない", "意味のない憂鬱と濡れた前髪", "時を越えて君の懐に抱かれたい"],
+        en: [
+          "As a patient with social anxiety, I can’t say things like that.",
+          "No one even tries to understand my context.",
+          "Meaningless depression, and damp bangs on my forehead—",
+          "I want to cross time and be held against your chest.",
+        ],
+      },
+      {
+        zh: ["ごめん", "言いたいことが伝わらなかった", "もう伝えられないでしょう", "もう死んでるなんて", "音とか形とか", "両目だけでは何も見えない", "ウィル、もう一度連れて行って"],
+        en: [
+          "I’m sorry.",
+          "What I wanted to say never reached you.",
+          "It probably never will.",
+          "To say that's already dead—",
+          "sound, or shape, or anything at all…",
+          "with only two eyes, nothing can be seen.",
+          "take me there once more.",
+        ],
+      },
+      {
+        zh: ["ごめん", "どうしても越えられない時点", "夜明けまでに溶かそう", "ビルの間を歩き回りました", "ずっと探している", "実は分かってたんだ", "人たちはいつも集まって自分を偽っている"],
+        en: [
+          "I’m sorry.",
+          "A point in time that I can’t get past, no matter what—",
+          "let’s melt it down before the break of day.",
+          "I wandered between the buildings,",
+          "still searching—always.",
+          "Truth is, I already knew:",
+          "people gather just to fake who they are.",
+        ],
+      },
+      {
+        zh: ["もう一度一緒に逃げよう", "最も輝く恒星"],
+        en: ["Let’s run away together one more time—", "the brightest star."],
+      },
+    ];
+
+    function renderBilingualBlocks(blocks) {
+      return blocks
+        .map(function (block) {
+          return block.zh.join("<br />") + "<br /><br />" + block.en.join("<br />");
+        })
+        .join("<br /><br />");
+    }
+
+    part1Text.innerHTML = renderBilingualBlocks(part1Blocks);
+    part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
+  }
+
   function applyLoneStarPreludeIntroInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -7694,6 +7820,7 @@
       applySupernovaLyricsInEnglish(safeLang);
       applyZeroIntroInEnglish(safeLang);
       applyZeroLyricsInEnglish(safeLang);
+      applyFomalhautLyricsInEnglish(safeLang);
       applyLoneStarPreludeIntroInEnglish(safeLang);
       applyMrIdiographicLyricsInEnglish(safeLang);
       applyAffizierenIntroInEnglish(safeLang);
