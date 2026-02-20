@@ -3528,6 +3528,193 @@
     part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
   }
 
+  function applyMoonlapseIntroInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-17.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var workHeading =
+      headings.find(function (heading) {
+        var normalized = normalizeText(heading.textContent).toLowerCase();
+        return (
+          normalized === normalizeText("作品介绍").toLowerCase() ||
+          normalized === normalizeText("About the work").toLowerCase()
+        );
+      }) || null;
+
+    if (!workHeading) {
+      return;
+    }
+
+    var intro = workHeading.nextElementSibling;
+    if (!intro || intro.tagName !== "P") {
+      return;
+    }
+
+    var paragraphs = [
+      "“Moonlapse” was born in the early stage of my progressive metalcore writing.",
+      "Back then, I had just begun experimenting with merging a more aggressive arranging language with personal narrative. Many of my techniques weren’t fully matured yet, but the emotional output was unusually saturated, almost overflowing.",
+      "The earliest concept can be traced back to the spring of 2022. At the time, the lyrics leaned strongly toward stream of consciousness writing, orbiting an image of “untouchable moonlight.” That emotion wasn’t built on real interaction, it was a one-way projection, an almost fictional outline of feeling. For that reason, the song’s earliest title pointed directly to a concrete subject, but as time passed, that directness gradually faded.",
+      "Before the piece was finished, I once invited a close friend at the time to feature a guitar solo. That decision shifted “Moonlapse” from a purely solo narrative into a collaborative work marked by shared traces. But as real life relationships changed, that collaboration was ultimately not kept, and another musician’s performance took its place. So on a sonic level, “Moonlapse” carries interpersonal trajectories from different phases: some melodies come from the original imagination, while some sounds belong to later interactions.",
+      "This structural replacement slowly pulled the song away from the category of “written for someone.”<br />It became more like a strip of film, repeatedly overwritten, re-recorded, and developed over time.",
+      "If I had to describe the colour of this song, it would be closest to a plum-purple hue: neither the warm palette typical of romance narratives, nor a fully settled coldness, but a blended tone that was once intense and has since been darkened by time.",
+      "That colour holds both the vividness of early emotion and the shadowed layers left by later shifts in relationships. It doesn’t point to a single, specific memory, rather, it’s a composite spectrum formed by multiple time-slices overlapping.",
+      "In terms of craft, “Moonlapse” isn’t my most technically polished work. Instead, it keeps obvious early-stage fingerprints, like guitar parts that are inexplicably fast, and some very odd breakdown.",
+      "But precisely because of that, it captures a kind of raw state that’s hard to reproduce. To me, “Moonlapse” is more like a time specimen sealed in sound. It records not only a relationship, but also the way I wrote in that period, the structure of my emotions, and the constantly shifting sense of distance between people.",
+      "When the melody plays again, what it awakens may not be a specific person,<br />but that era of making itself, still carrying the residual warmth of plum-purple.",
+    ];
+
+    intro.innerHTML = paragraphs.join("<br /><br />");
+  }
+
+  function applyMoonlapseLyricsInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-17.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var part1Heading = findLyricHeading(headings, 1);
+    var part2Heading = findLyricHeading(headings, 2);
+
+    if (!part1Heading || !part2Heading) {
+      return;
+    }
+
+    var part1Text = part1Heading.nextElementSibling;
+    var part2Text = part2Heading.nextElementSibling;
+
+    if (!part1Text || !part2Text || part1Text.tagName !== "P" || part2Text.tagName !== "P") {
+      return;
+    }
+
+    var part1Blocks = [
+      {
+        zh: ["「 永遠に会えないと思う」", "何かが胸にあふれた", "あの日、そんな言葉に打たれた", "それでいい"],
+        en: [
+          "“I think we’ll never meet again”",
+          "Something overflowed in my chest.",
+          "That day, those words hit me,",
+          "and that was enough.",
+        ],
+      },
+      {
+        zh: ["記憶ができて消える", "花びらのようなフィルムに残る", "天井から落ちる光は…"],
+        en: [
+          "A memory forms, then disappears—",
+          "still leaving itself on film,",
+          "like falling petals.",
+          "The light dropping from the ceiling…",
+        ],
+      },
+      {
+        zh: ["夕陽なのか夜明けなのか", "時間も分からず、すべてが曖昧になる"],
+        en: [
+          "Is it sunset, or is it daybreak?",
+          "I can’t even tell the time—",
+          "everything turns vague.",
+        ],
+      },
+      {
+        zh: ["君はまだ光に逆らって屋上に立っている", "（私の夜になった）", "住む世界が違うと触れられないのか"],
+        en: [
+          "You’re still standing on the rooftop, defying the light.",
+          "(you became my night.)",
+          "If we live in different worlds,",
+          "does that mean we can’t touch—can’t reach?",
+        ],
+      },
+    ];
+
+    var part2Blocks = [
+      {
+        zh: ["「カラスの群れに隠れた顔」", "時間も分からず、すべてが曖昧になる"],
+        en: [
+          "“A face hidden within a flock of crows.”",
+          "I can’t even tell the time—",
+          "everything turns vague.",
+        ],
+      },
+      {
+        zh: ["思えばそれは私の秋の最初の月光だった", "もう君のほかには何も見えない"],
+        en: [
+          "Thinking back, that was the first moonlight of my autumn.",
+          "Now I can’t see anything",
+          "except you.",
+        ],
+      },
+      {
+        zh: ["何度も繰り返して", "また遠ざかっていきそうだった", "(それはもう帰れない", "(あの夏の悔しさを忘れたいのに", "まだ納得しない", "でもしょうがないわね"],
+        en: [
+          "Over and over,",
+          "it kept repeating—",
+          "and it felt like you were about to drift farther away again.",
+          "(There’s no going back now.)",
+          "(Even though I want to forget the regret of that summer,)",
+          "I still can’t accept it.",
+          "But… it can’t be helped, can it.",
+        ],
+      },
+      {
+        zh: ["最悪の場合はこれだろう", "当たり前", "消える、消える", "一緒に知らん顔をしよう"],
+        en: [
+          "In the worst case, this is what it is—",
+          "obvious, ordinary.",
+          "Fading, fading—",
+          "let’s pretend together",
+          "that we never knew.",
+        ],
+      },
+    ];
+
+    function renderBilingualBlocks(blocks) {
+      return blocks
+        .map(function (block) {
+          return block.zh.join("<br />") + "<br /><br />" + block.en.join("<br />");
+        })
+        .join("<br /><br />");
+    }
+
+    part1Text.innerHTML = renderBilingualBlocks(part1Blocks);
+    part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
+  }
+
   function applyAgnyLyricsInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -6991,6 +7178,8 @@
       applyYorugaoLyricsInEnglish(safeLang);
       applyMortalFrameIntroInEnglish(safeLang);
       applyMortalFrameLyricsInEnglish(safeLang);
+      applyMoonlapseIntroInEnglish(safeLang);
+      applyMoonlapseLyricsInEnglish(safeLang);
       applyMrIdiographicIntroInEnglish(safeLang);
       applyAgnyLyricsInEnglish(safeLang);
       applySupernovaLyricsInEnglish(safeLang);
