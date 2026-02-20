@@ -4441,6 +4441,62 @@
     part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
   }
 
+  function applyFomalhautIntroInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-23.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var workHeading =
+      headings.find(function (heading) {
+        var normalized = normalizeText(heading.textContent).toLowerCase();
+        return (
+          normalized === normalizeText("作品介绍").toLowerCase() ||
+          normalized === normalizeText("About the work").toLowerCase()
+        );
+      }) || null;
+
+    if (!workHeading) {
+      return;
+    }
+
+    var intro = workHeading.nextElementSibling;
+    if (!intro || intro.tagName !== "P") {
+      return;
+    }
+
+    var paragraphs = [
+      "“Fomalhaut” was born in a mild winter in the UK.",
+      "The air was clear, and darkness fell early.<br />The chill of evening would settle in quickly, but never quite turned sharp.<br />Streetlights glowed orange, while the sky above was a deep, saturated blue.",
+      "The song lives precisely in the space between those two colors.",
+      "It is closer to a record of a single point in time,<br />a moment that cannot be altered, and cannot be crossed,<br />returning again and again in the mind, yet offering no way to be processed.",
+      "When someone realizes that certain things can no longer be undone,<br />collapse does not come immediately.<br />Instead, a strange calm takes over,<br />like standing at the edge of a city, watching the lights and the night sky exist side by side.",
+      "The title refers to Fomalhaut (α Piscis Austrini),<br />a star far from the ecliptic.<br />Bright, yet solitary,<br />present, but unrelated to most orbits.",
+      "That is why it becomes the most fitting symbol for this song.<br />Not an escape from reality,<br />but the search for a more distant point of reference<br />beyond an unchangeable set of coordinates.",
+      "Musically, “Fomalhaut” leans into a relatively pure J-rock / pop arrangement.<br />It feels like a winter street at six in the evening:<br />the lights are already on,<br />but night has not fully arrived.",
+    ];
+
+    intro.innerHTML = paragraphs.join("<br /><br />");
+  }
+
   function applyLoneStarPreludeIntroInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -7820,6 +7876,7 @@
       applySupernovaLyricsInEnglish(safeLang);
       applyZeroIntroInEnglish(safeLang);
       applyZeroLyricsInEnglish(safeLang);
+      applyFomalhautIntroInEnglish(safeLang);
       applyFomalhautLyricsInEnglish(safeLang);
       applyLoneStarPreludeIntroInEnglish(safeLang);
       applyMrIdiographicLyricsInEnglish(safeLang);
