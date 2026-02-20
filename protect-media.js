@@ -4106,6 +4106,65 @@
     part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
   }
 
+  function applyZeroIntroInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-22.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var workHeading =
+      headings.find(function (heading) {
+        var normalized = normalizeText(heading.textContent).toLowerCase();
+        return (
+          normalized === normalizeText("作品介绍").toLowerCase() ||
+          normalized === normalizeText("About the work").toLowerCase()
+        );
+      }) || null;
+
+    if (!workHeading) {
+      return;
+    }
+
+    var intro = workHeading.nextElementSibling;
+    if (!intro || intro.tagName !== "P") {
+      return;
+    }
+
+    var paragraphs = [
+      "“Z (Eclipse) RO.”",
+      "This song was born in a state of occluded consciousness.<br />Not a collapse, not an eruption, more like a long silence before light is swallowed, dragged into the interior of shadow and made to echo slowly from within.",
+      "The entire work is pure abstract, stream of consciousness narration.<br />No concrete characters, no real-world timeline.<br />It is closer to a celestial space suspended outside reality,<br />cold light, reverberation, and weightlessness.",
+      "Tinnitus, elongated vision, consciousness washed and corroded, broken clock hands,<br />these are not events, but states made visible.<br />Like a system error, or like the residual “deviation” left behind after emotion has been standardized.",
+      "The recurring words“fragments,” “lens,” “projector”<br />refer to slices of life that are watched, recorded, and archived.<br />Within that structure, value is measured, emotion is calibrated,<br />and the “self” gradually degrades into a replaceable unit.",
+      "In the world-setting I wrote at the time:<br />people can disguise themselves;<br />all value can be weighed internally;<br />sunrise does not necessarily mean brightness, and the sun is merely a morning star.<br />Only when we are truly awake does daybreak actually happen.",
+      "At the far end of this celestial space stands a giant clock on the moon.<br />The sound of the second hand is amplified without limit.<br />If you could reach it, you could tune time, return to any point.<br />And yet what returns in recurring dreams is not the clock, but the sea.",
+      "Dreams always bring a coastline.<br />You can run, you can approach, you can see the color of the waves,<br />but it remains, in the end, like a static background wall.<br />I can never truly enter the water.<br />It is the only image that carries real-world weight,<br />and the deepest echo inside the song.",
+      "Structurally, “Z (E) RO” opens into a driving passage with a djent-like texture in its later section,<br />like crossing a threshold, or like the narrative finally falling into something concrete.<br />That melody carries a strong sense of fantasy storytelling; it is the core of the track (and my favorite part).",
+      "In the end, everything finishes by returning to zero.<br />Not ending with an answer, but ending by no longer asking.",
+      "It is a piece about deviation, occlusion, and self-calibration,<br />an awareness log recorded in the shadow of a celestial body.",
+    ];
+
+    intro.innerHTML = paragraphs.join("<br /><br />");
+  }
+
   function applyZeroLyricsInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -7633,6 +7692,7 @@
       applyAgnyLyricsInEnglish(safeLang);
       applySupernovaIntroInEnglish(safeLang);
       applySupernovaLyricsInEnglish(safeLang);
+      applyZeroIntroInEnglish(safeLang);
       applyZeroLyricsInEnglish(safeLang);
       applyLoneStarPreludeIntroInEnglish(safeLang);
       applyMrIdiographicLyricsInEnglish(safeLang);
