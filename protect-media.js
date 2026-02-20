@@ -4106,6 +4106,60 @@
     part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
   }
 
+  function applyLoneStarPreludeIntroInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-21.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var workHeading =
+      headings.find(function (heading) {
+        var normalized = normalizeText(heading.textContent).toLowerCase();
+        return (
+          normalized === normalizeText("作品介绍").toLowerCase() ||
+          normalized === normalizeText("About the work").toLowerCase()
+        );
+      }) || null;
+
+    if (!workHeading) {
+      return;
+    }
+
+    var intro = workHeading.nextElementSibling;
+    if (!intro || intro.tagName !== "P") {
+      return;
+    }
+
+    var paragraphs = [
+      "“Lonely Star Prelude” was written after an evening self-study session in March 2022.",
+      "That night, I returned to my room and simply sat down to play for a while, no preset emotion, no clear compositional goal. The melody flowed out in an unusually smooth state: from the first note to the end, it arrived almost in one breath, as if I had caught a signal drifting in the air.",
+      "At first, it was imagined as a prelude to “Supernova.” So in timbre and atmosphere, it deliberately leans toward the feel of a “cosmic transmission”: spacious, distant, with a faintly ionized reverb. But later, I didn’t force it into any larger structural system. Because of that, it remained, becoming a completely independent piece of pure imagery.",
+      "The piece uses very few voices. There’s almost no dense texture and no technical display, it feels closer to an extended breath. Skylike blank space, slowly floating harmonies, and a piano tone with a cold sheen together form a moon-blue sense of space.",
+      "There is no narrative, and it points to no specific object.<br />It’s more like a solitary star, briefly appearing, quietly suspended, then disappearing into an endless night sky.",
+      "Looking back now, I still love its timbre and atmosphere. That emptiness, pure, unadorned piano sound, still feels difficult to improve in any way.",
+    ];
+
+    intro.innerHTML = paragraphs.join("<br /><br />");
+  }
+
   function applyAffizierenIntroInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -7429,6 +7483,7 @@
       applyAgnyLyricsInEnglish(safeLang);
       applySupernovaIntroInEnglish(safeLang);
       applySupernovaLyricsInEnglish(safeLang);
+      applyLoneStarPreludeIntroInEnglish(safeLang);
       applyMrIdiographicLyricsInEnglish(safeLang);
       applyAffizierenIntroInEnglish(safeLang);
       applyAffizierenNotesInEnglish(safeLang);
