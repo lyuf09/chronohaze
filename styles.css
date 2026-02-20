@@ -2112,6 +2112,23 @@ audio {
   font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
 }
 
+.music-album-page .album-track-feature {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 8px;
+  padding: 1px 8px;
+  border: 1px solid rgba(78, 89, 110, 0.34);
+  border-radius: 999px;
+  color: rgba(52, 62, 80, 0.9);
+  font-size: 11px;
+  line-height: 1.35;
+  letter-spacing: 0.04em;
+  font-family: "Noto Serif SC", "Songti SC", serif;
+  vertical-align: middle;
+  background: rgba(247, 249, 255, 0.34);
+}
+
 .music-album-page .album-back-link {
   align-self: flex-start;
   margin-top: 4px;
@@ -3954,6 +3971,12 @@ h4,
   .music-album-page .album-track-name {
     font-size: clamp(13px, 5.5vw, 16px);
     line-height: 1.14;
+  }
+
+  .music-album-page .album-track-feature {
+    margin-left: 6px;
+    padding: 1px 6px;
+    font-size: 10px;
   }
 
   .music-album-page .album-back-link {
