@@ -4497,6 +4497,178 @@
     intro.innerHTML = paragraphs.join("<br /><br />");
   }
 
+  function applyTheGuiltLyricsInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-24.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var part1Heading = findLyricHeading(headings, 1);
+    var part2Heading = findLyricHeading(headings, 2);
+
+    if (!part1Heading || !part2Heading) {
+      return;
+    }
+
+    var part1Text = part1Heading.nextElementSibling;
+    var part2Text = part2Heading.nextElementSibling;
+
+    if (!part1Text || !part2Text || part1Text.tagName !== "P" || part2Text.tagName !== "P") {
+      return;
+    }
+
+    var part1Blocks = [
+      {
+        zh: ["想起来了很久以前做过的梦里", "晨雾弥漫且毫无声息的城市里", "我听见自己发出了那样的叹息", "在光碟里刻画关于日暮的回忆"],
+        en: [
+          "I remember now—",
+          "a dream from a long time ago.",
+          "In a city drowned in morning fog,",
+          "silent, without a single sound,",
+          "I heard myself let out that kind of sigh,",
+          "etching dusk into a disc—",
+          "a memory engraved in circles.",
+        ],
+      },
+      {
+        zh: ["无论何时都受困于怯弱的自我", "已经记不得了对吧 渐渐被迷惑", "是为了什么虚假的 正义与焦点", "作为代价割舍掉的人不得其所"],
+        en: [
+          "At any time, trapped inside a timid self,",
+          "you can’t remember anymore, can you—",
+          "slowly getting confused,",
+          "for what—some counterfeit justice, some spotlight?",
+          "As the price, the ones cut away",
+          "never end up where they belong.",
+        ],
+      },
+      {
+        zh: ["啊，夜晚已经到了"],
+        en: ["Ah—night has already arrived."],
+      },
+      {
+        zh: ["黑烟升上天空 保持着无重力状态", "我已经不在了 我已经完全厌倦了", "谁又利用了谁 多么愚蠢的欺瞒者", "那些人们关不上的嘴却让我的心", "剧烈地跳动了起来"],
+        en: [
+          "Black smoke rises into the sky,",
+          "held in a weightless state.",
+          "I’m not here anymore.",
+          "I’m completely tired of it.",
+          "Who used whom—what a stupid fraud,",
+          "and the mouths people can’t shut",
+          "make my heart",
+          "start to pound—violently.",
+        ],
+      },
+      {
+        zh: ["独自在站台上望着远处的人群", "那些抑制的疏远与舍弃的话语", "摇摇欲坠般的随着声音的方向", "在铁道路口缓慢走向时间尽头"],
+        en: [
+          "Alone on the platform, watching the distant crowd,",
+          "those restrained distances, those discarded words,",
+          "swaying, on the verge of collapse,",
+          "following the direction of the noise,",
+          "walking slowly through the rail crossing",
+          "toward the end of time.",
+        ],
+      },
+      {
+        zh: ["在一切结束前"],
+        en: ["Before everything ends—"],
+      },
+    ];
+
+    var part2Blocks = [
+      {
+        zh: ["黑烟升上天空 保持着无重力状态", "我已经不在了 我已经完全厌倦了", "谁又利用了谁 多么愚蠢的欺瞒者", "那些人们关不上的嘴却让我的心"],
+        en: [
+          "Black smoke rises into the sky,",
+          "held in a weightless state.",
+          "I’m not here anymore.",
+          "I’m completely tired of it.",
+          "Who used whom—what a stupid fraud,",
+          "and the mouths people can’t shut",
+          "make my heart—",
+        ],
+      },
+      {
+        zh: [
+          "「不合理、不合理なものは見えないものばかりだ",
+          "灰色の悲鳴と銃声が鳴り響いた",
+          "簡単にシステムをリセットすれば消えて",
+          "全部やり直せるなんておかしいじゃないか",
+          "あの伝わらなかった「さよなら」だけが、",
+          "冷たい冬と長い夜につきあっていた",
+          "冷やされていた温度はすっかり灰になってしまった",
+          "消えても私だけを灼く火 」",
+        ],
+        en: [
+          "The unreasonable—",
+          "it’s always the things you can’t even see.",
+          "Grey screams, gunshots, ringing through the air,",
+          "and somewhere in it, laughter.",
+          "“Just reset the system”—and it all disappears,",
+          "“start over from zero”—",
+          "how is that not absurd?",
+          "Only that goodbye that never reached anyone",
+          "stayed with the cold winter and the endless night.",
+          "The warmth that once had a temperature",
+          "has turned entirely into ash.",
+          "Even if everything vanishes,",
+          "there’s still a fire that burns only me.",
+        ],
+      },
+      {
+        zh: ["别再盯着我了 戴上耳机全无视掉", "别沉默不语了 这样不是很任性吗", "菀枯的事终究 会变成阻碍的对吧", "悲伤的事就连 自己也回想不起来"],
+        en: [
+          "Stop staring at me—",
+          "put on my headphones and ignore it all.",
+          "Stop staying silent—",
+          "isn’t that selfish too?",
+          "What withers will eventually",
+          "turn into an obstacle, won’t it?",
+          "Even the sad things—",
+          "even the sad things—",
+          "can’t be recalled, not even by the one who lived them.",
+        ],
+      },
+      {
+        zh: ["或许能在下个水无来临之前…"],
+        en: ["Maybe before the next “mizunashi” comes—"],
+      },
+      {
+        zh: ["什么时候才能和自己见面呢", "花与夏之水饴"],
+        en: ["When will it be possible", "to meet myself?", "Flowers, and summer’s mizuame."],
+      },
+    ];
+
+    function renderBilingualBlocks(blocks) {
+      return blocks
+        .map(function (block) {
+          return block.zh.join("<br />") + "<br /><br />" + block.en.join("<br />");
+        })
+        .join("<br /><br />");
+    }
+
+    part1Text.innerHTML = renderBilingualBlocks(part1Blocks);
+    part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
+  }
+
   function applyLoneStarPreludeIntroInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -7878,6 +8050,7 @@
       applyZeroLyricsInEnglish(safeLang);
       applyFomalhautIntroInEnglish(safeLang);
       applyFomalhautLyricsInEnglish(safeLang);
+      applyTheGuiltLyricsInEnglish(safeLang);
       applyLoneStarPreludeIntroInEnglish(safeLang);
       applyMrIdiographicLyricsInEnglish(safeLang);
       applyAffizierenIntroInEnglish(safeLang);
