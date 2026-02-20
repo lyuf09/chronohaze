@@ -3329,6 +3329,205 @@
     part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
   }
 
+  function applyMortalFrameIntroInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-16.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var workHeading =
+      headings.find(function (heading) {
+        var normalized = normalizeText(heading.textContent).toLowerCase();
+        return (
+          normalized === normalizeText("作品介绍").toLowerCase() ||
+          normalized === normalizeText("About the work").toLowerCase()
+        );
+      }) || null;
+
+    if (!workHeading) {
+      return;
+    }
+
+    var intro = workHeading.nextElementSibling;
+    if (!intro || intro.tagName !== "P") {
+      return;
+    }
+
+    var paragraphs = [
+      "“Mortal Frame” is a song written for the self that is present, here, now.<br />It isn’t aimed at some transcendent soul, but at a body pinned inside reality, a person who gets tired, who bluffs, who holds themselves up with sheer posture.",
+      "Musically, it drives forward in mixed meters. The rhythm sways and staggers at the same time, sharp, clean, almost effortless on the surface, with a hint of nonchalance. The entire track is built on my favorite guitar riff, using it as a spine to push the narrative to the very front. Moving through crowds, whispering a confession to the glass, it’s that feeling of knowing it’ll sound embarrassingly sentimental the moment you say it, yet still needing to leave a scratch where the heart is. (And as a small note: the photo in my music portfolio, the one with the white headless guitar, was taken when I played this song at school.)",
+      "In a sense, it’s also a spiritual sequel to Moonlapse. The line “I think we’ll never meet again,” returns, not only the words, but the melody itself, kept intact.",
+      "More than anything, it feels like a reply I’m giving to myself: to that pose of being good at pretending, good at looking lucid, yet often failing to understand other people (and not really understanding myself, either), to a way of living that writes emotions into nightfall, and into the work. It’s satire, and it’s confession, a song that sounds cool, but keeps its stubbornness hidden in the dark.",
+    ];
+
+    intro.innerHTML = paragraphs.join("<br /><br />");
+  }
+
+  function applyMortalFrameLyricsInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-16.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var part1Heading = findLyricHeading(headings, 1);
+    var part2Heading = findLyricHeading(headings, 2);
+
+    if (!part1Heading || !part2Heading) {
+      return;
+    }
+
+    var part1Text = part1Heading.nextElementSibling;
+    var part2Text = part2Heading.nextElementSibling;
+
+    if (!part1Text || !part2Text || part1Text.tagName !== "P" || part2Text.tagName !== "P") {
+      return;
+    }
+
+    var part1Blocks = [
+      {
+        zh: ["「そんなこと、 理解できない僕はずっとそうだった」と言った", "彼は「 それでもいいんだ」と言う。", "続けようとしたら　突然崩れた"],
+        en: [
+          "“I was always like that，",
+          "the kind of me who couldn’t understand things like that,” I said.",
+          "He says, “That’s fine.”",
+          "And when I tried to keep going, it suddenly collapsed.",
+        ],
+      },
+      {
+        zh: ["いつも他人のことを笑っている", "自分の立場では理解できない感情", "「捨てれば完璧になれる」", "僕はこう思う"],
+        en: [
+          "Always laughing at other people,",
+          "emotions I can’t understand from where I stand.",
+          "“If I throw it away, I can become perfect.”",
+          "That’s what I think.",
+        ],
+      },
+      {
+        zh: ["10月、ロンドン、人々", "地平線の内側に", "昔の影をたどって", "誰も救わないから"],
+        en: [
+          "October, London, people—",
+          "inside the horizon,",
+          "tracing the shadows of the past,",
+          "because it saves no one.",
+        ],
+      },
+      {
+        zh: ["花びらがいっせいに落ちる", "アイロニーも飽和した", "曙光が散る", "フィクションの角度から"],
+        en: [
+          "Petals fall all at once.",
+          "Even irony has saturated.",
+          "Dawnlight scatters—",
+          "from the angle of fiction.",
+        ],
+      },
+    ];
+
+    var part2Blocks = [
+      {
+        zh: ["傘に落ちる雨粒のように", "5時にはもう日が暮れた冬のなか", "「 永遠に会えないと思う」", "脳裏をよぎる"],
+        en: [
+          "Like raindrops hitting an umbrella,",
+          "in a winter where by five o’clock it’s already dark,",
+          "“I think we’ll never meet again,”",
+          "flashes through my mind.",
+        ],
+      },
+      {
+        zh: ["次から次へと僕の頭上を", "光が通り過ぎて行く", "自由も 真実も 平和も 愛も", "せめて維持しよう、 内なるもの"],
+        en: [
+          "One after another, above my head,",
+          "light keeps passing by.",
+          "Freedom, truth, peace, love—",
+          "at least let me keep them alive, the inner things.",
+        ],
+      },
+      {
+        zh: ["時間と現実が重なる", "触れられなくなる", "その輪郭", "ニル・アドミラリとヴァニタス"],
+        en: [
+          "Time and reality overlap.",
+          "That outline becomes untouchable—",
+          "its contour:",
+          "Nil Admirari and Vanitas.",
+        ],
+      },
+      {
+        zh: ["「これじゃ結局 、意味がないじゃないか」", "こんなことを考えていた", "大量の丸薬を手に注いだ", "その時、その時", "君のことを思い出した"],
+        en: [
+          "“In the end, this just means nothing, doesn’t it?”",
+          "I kept thinking that.",
+          "I poured a mass of pills into my palm.",
+          "And then—right then,",
+          "I remembered you.",
+        ],
+      },
+      {
+        zh: ["実はあの夏から自分の感情が", "無意識に再び拾い上げられた", "コントロールできないなんて大嫌い"],
+        en: [
+          "Truth is, since that summer, my emotions",
+          "have been unconsciously picked up again.",
+          "I hate it—",
+          "I hate not being able to control it.",
+        ],
+      },
+      {
+        zh: ["あの日僕は劇場の前でじっとしていた", "真夜中、 街灯 、ガラスに告解", "I‘ll tell you someday, about the story that came from despair"],
+        en: [
+          "That day I stood still in front of the theater.",
+          "Midnight—streetlights—",
+          "a confession to the glass.",
+          "I’ll tell you someday, about the story that came from despair.",
+        ],
+      },
+    ];
+
+    function renderBilingualBlocks(blocks) {
+      return blocks
+        .map(function (block) {
+          return block.zh.join("<br />") + "<br /><br />" + block.en.join("<br />");
+        })
+        .join("<br /><br />");
+    }
+
+    part1Text.innerHTML = renderBilingualBlocks(part1Blocks);
+    part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
+  }
+
   function applyAgnyLyricsInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -6790,6 +6989,8 @@
       applyWillowLyricsInEnglish(safeLang);
       applyYorugaoIntroInEnglish(safeLang);
       applyYorugaoLyricsInEnglish(safeLang);
+      applyMortalFrameIntroInEnglish(safeLang);
+      applyMortalFrameLyricsInEnglish(safeLang);
       applyMrIdiographicIntroInEnglish(safeLang);
       applyAgnyLyricsInEnglish(safeLang);
       applySupernovaLyricsInEnglish(safeLang);
