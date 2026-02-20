@@ -4106,6 +4106,156 @@
     part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
   }
 
+  function applyZeroLyricsInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-22.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var part1Heading = findLyricHeading(headings, 1);
+    var part2Heading = findLyricHeading(headings, 2);
+
+    if (!part1Heading || !part2Heading) {
+      return;
+    }
+
+    var part1Text = part1Heading.nextElementSibling;
+    var part2Text = part2Heading.nextElementSibling;
+
+    if (!part1Text || !part2Text || part1Text.tagName !== "P" || part2Text.tagName !== "P") {
+      return;
+    }
+
+    var part1Blocks = [
+      {
+        zh: ["为什么有些耳鸣", "沉闷的胸口竟逐渐喘不过气", "意识被冲刷腐蚀", "视觉的镜头被拉长的每次"],
+        en: [
+          "Why do some kinds of tinnitus",
+          "make my chest so dull I slowly can’t breathe?",
+          "Consciousness gets rinsed, corroded,",
+          "and every time the frame of vision is stretched longer.",
+        ],
+      },
+      {
+        zh: ["“我们会再见的吧”", "脑海里一直相信着这一句话", "片段中清澈瞳孔", "尝试触碰却恍如隔世的他"],
+        en: [
+          "“We’ll meet again, won’t we?”",
+          "I kept believing that line in my head.",
+          "In the fragments, those clear pupils,",
+          "I tried to reach him,",
+          "yet it felt like another lifetime.",
+        ],
+      },
+      {
+        zh: ["刺眼，咀嚼", "覆灭了的那一切"],
+        en: ["Blinding.", "Chewed through.", "Everything that was—", "wiped out."],
+      },
+      {
+        zh: ["零星，岁月", "或许已得以忘却"],
+        en: ["Scattered.", "The years—", "maybe already forgotten."],
+      },
+      {
+        zh: ["顽固，荒唐", "梦境却逐渐枯黄"],
+        en: ["Stubborn.", "Absurd.", "And yet the dream", "keeps turning yellow."],
+      },
+      {
+        zh: ["反刍，遐想", "也有对自己撒谎"],
+        en: ["Ruminating.", "Stray thoughts.", "Even lying to myself."],
+      },
+      {
+        onlyEn: ["(I think, I've tried my best.)"],
+      },
+    ];
+
+    var part2Blocks = [
+      {
+        zh: ["连渡鸦也飞走了", "日落前昏沉如死寂般的蓝色", "焦虑不安都浮现", "时针表盘摔破碎所以耽搁"],
+        en: [
+          "Even the ravens have flown away.",
+          "Before sunset—",
+          "a heavy, dead-silent blue.",
+          "Anxiety surfaces.",
+          "The clock face shatters—",
+          "the hands break, so time stalls.",
+        ],
+      },
+      {
+        zh: ["我全都想起来了，在那个梦境里的", "海边总是没办法到达", "那现在就马上奔向那一侧"],
+        en: [
+          "I remember it all—",
+          "in that dream,",
+          "the seaside is always unreachable.",
+          "So now—right now—",
+          "I’ll run to the other side.",
+        ],
+      },
+      {
+        zh: ["凋零，偏执", "被浓雾笼罩之时"],
+        en: ["Withering.", "Obsession—", "when the thick fog closes in."],
+      },
+      {
+        zh: ["光晕，潮汐", "绽放停滞的花期"],
+        en: ["Halo.", "Tides—", "a flowering season", "that blooms and freezes in place."],
+      },
+      {
+        zh: ["呓语，泛滥", "终于找到了答案"],
+        en: ["Murmurs.", "Overflow—", "at last, an answer is found."],
+      },
+      {
+        onlyEn: ["(Dawn will only come, when we are all awake.)"],
+      },
+      {
+        zh: ["划过，指尖", "最后一句的再见"],
+        en: ["Brushing past, fingertips—", "the final goodbye."],
+      },
+      {
+        onlyEn: ["(I have nothing more to lose.)"],
+      },
+      {
+        zh: ["经过了标准化的一切都变得无比乏味", "在幻灯机的镜头里转身离去做个收尾"],
+        en: [
+          "After everything gets standardized,",
+          "everything becomes unbearably dull.",
+          "Inside the projector’s lens,",
+          "I turn away and leave—",
+          "to make an ending.",
+        ],
+      },
+    ];
+
+    function renderMixedBlocks(blocks) {
+      return blocks
+        .map(function (block) {
+          if (Array.isArray(block.onlyEn)) {
+            return block.onlyEn.join("<br />");
+          }
+          return block.zh.join("<br />") + "<br /><br />" + block.en.join("<br />");
+        })
+        .join("<br /><br />");
+    }
+
+    part1Text.innerHTML = renderMixedBlocks(part1Blocks);
+    part2Text.innerHTML = renderMixedBlocks(part2Blocks);
+  }
+
   function applyLoneStarPreludeIntroInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -7483,6 +7633,7 @@
       applyAgnyLyricsInEnglish(safeLang);
       applySupernovaIntroInEnglish(safeLang);
       applySupernovaLyricsInEnglish(safeLang);
+      applyZeroLyricsInEnglish(safeLang);
       applyLoneStarPreludeIntroInEnglish(safeLang);
       applyMrIdiographicLyricsInEnglish(safeLang);
       applyAffizierenIntroInEnglish(safeLang);
