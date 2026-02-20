@@ -4497,6 +4497,64 @@
     intro.innerHTML = paragraphs.join("<br /><br />");
   }
 
+  function applyTheGuiltIntroInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-24.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var workHeading =
+      headings.find(function (heading) {
+        var normalized = normalizeText(heading.textContent).toLowerCase();
+        return (
+          normalized === normalizeText("作品介绍").toLowerCase() ||
+          normalized === normalizeText("About the work").toLowerCase()
+        );
+      }) || null;
+
+    if (!workHeading) {
+      return;
+    }
+
+    var intro = workHeading.nextElementSibling;
+    if (!intro || intro.tagName !== "P") {
+      return;
+    }
+
+    var paragraphs = [
+      "“The Guilt” is built on a grey and black worldview.<br />Almost no saturation remains: the space is without light, without warmth, without echo.",
+      "The core emotion of the song is not guilt, but conviction, being declared guilty.<br />It does not come from love, memory, or seasons, but from a sense of public and interpersonal siege:<br />an individual is pushed into a position of being watched, defined, and judged,<br />as if the verdict has already been written, only the procedure is left to repeat itself.",
+      "The title The Guilt is both a label thrown from the outside and a selftrial gradually formed within.<br />As voices keep pouring in from beyond the self, the outline of the self begins to blur:<br />is it misunderstanding, or is there truly an “error” that cannot be argued away?",
+      "Structurally, most of the song is built on an unstable 5/4 meter,<br />creating a persistent psychological imbalance,<br />like footsteps being interrupted, like breathing slipping offbeat,<br />like reality and the self remaining half a frame out of alignment.",
+      "In the chorus, the modulation is deliberately pushed toward the dominant,<br />forcing the emotion upward,<br />not into an outburst, but into a tension driven to the edge of a threshold.",
+      "The bass slap in the chorus functions as a crucial timbral language.<br />It carries none of the elasticity of traditional funk;<br />instead it reads as a cold, hard counterstrike,<br />short, direct, and almost mercilessly granular,<br />like the last instinctive response that remains when speech has failed.",
+      "A systematized condition of the individual,<br />and a sense of detachment under structural pressure.",
+      "The palette is deliberately singular:<br />grey white and charcoal black,<br />a world drained of blood, leaving only structure and contour.",
+      "There is no romance narrative, no nostalgia for time,<br />and no seasonal metaphor.",
+      "This is a song about how an individual, placed in the position of being convicted,<br />faces their own shadow,<br />cold, hard, silent,<br />yet undeniably real.",
+    ];
+
+    intro.innerHTML = paragraphs.join("<br /><br />");
+  }
+
   function applyTheGuiltLyricsInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -8050,6 +8108,7 @@
       applyZeroLyricsInEnglish(safeLang);
       applyFomalhautIntroInEnglish(safeLang);
       applyFomalhautLyricsInEnglish(safeLang);
+      applyTheGuiltIntroInEnglish(safeLang);
       applyTheGuiltLyricsInEnglish(safeLang);
       applyLoneStarPreludeIntroInEnglish(safeLang);
       applyMrIdiographicLyricsInEnglish(safeLang);
