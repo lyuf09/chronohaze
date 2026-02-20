@@ -1949,8 +1949,9 @@ audio {
 }
 
 .music-album-page .album-intro {
-  width: min(100%, 760px);
-  margin: 18px auto 0;
+  width: 100%;
+  margin: 0;
+  padding: 2px 2px 0;
   color: rgba(43, 49, 60, 0.86);
   font-family: "Noto Serif SC", "Songti SC", serif;
   font-size: clamp(14px, 0.95vw, 16px);
@@ -1978,6 +1979,24 @@ audio {
   grid-template-columns: minmax(260px, 380px) minmax(0, 1fr);
   gap: 34px;
   align-items: start;
+}
+
+.music-album-page .album-layout.with-intro {
+  grid-template-areas:
+    "cover tracks"
+    "intro tracks";
+}
+
+.music-album-page .album-layout.with-intro .album-cover {
+  grid-area: cover;
+}
+
+.music-album-page .album-layout.with-intro .album-intro {
+  grid-area: intro;
+}
+
+.music-album-page .album-layout.with-intro .album-track-panel {
+  grid-area: tracks;
 }
 
 .music-album-page .album-cover {
@@ -3855,9 +3874,22 @@ h4,
     gap: 20px;
   }
 
+  .music-album-page .album-layout.with-intro {
+    grid-template-areas:
+      "cover"
+      "intro"
+      "tracks";
+  }
+
   .music-album-page .album-cover {
     width: min(100%, 520px);
     margin: 0 auto;
+  }
+
+  .music-album-page .album-layout.with-intro .album-intro {
+    width: min(100%, 520px);
+    margin: 0 auto;
+    padding: 0;
   }
 
   .music-album-page .album-cover-note {
@@ -3897,7 +3929,6 @@ h4,
   }
 
   .music-album-page .album-intro {
-    margin-top: 14px;
     font-size: 13px;
     line-height: 1.62;
   }
