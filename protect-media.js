@@ -3918,6 +3918,61 @@
     part2Text.innerHTML = renderMixedBlocks(part2Blocks);
   }
 
+  function applySupernovaIntroInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-20.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var workHeading =
+      headings.find(function (heading) {
+        var normalized = normalizeText(heading.textContent).toLowerCase();
+        return (
+          normalized === normalizeText("作品介绍").toLowerCase() ||
+          normalized === normalizeText("About the work").toLowerCase()
+        );
+      }) || null;
+
+    if (!workHeading) {
+      return;
+    }
+
+    var intro = workHeading.nextElementSibling;
+    if (!intro || intro.tagName !== "P") {
+      return;
+    }
+
+    var paragraphs = [
+      "“Supernova” was written on the eve of my 17th birthday, a piece born out of adolescent confusion. It doesn’t belong to any narrative series, and it predates the emotional throughline that later unfolds in Ipomoea alba. If anything, it feels like an internal collapse before an emotional universe had even formed.",
+      "The entire song is built inside a highly fictionalized mental space. The lyrics point to no specific person, instead, they lean toward a self-projection, an “other side” created by self-splitting: an inner presence that wants to draw close, yet remains impossible to understand.",
+      "The “clock tower” functions in the same way. It isn’t a real location, but a symbolic structure for time, existence, and isolation. Beneath that clock tower that doesn’t truly exist, the individual is forced to confront their own smallness and weightlessness on a vast, cosmic scale.",
+      "Structurally, the track advances through mixed time signature, one of the rhythmic languages I strongly favored in my early writing. The shifts of tension between sections, and the arc of emotional swelling, in a way echo the imagery implied by the title “Supernova”: eruption → expansion → collapse.",
+      "In the second half of the arrangement, there is a section that deliberately nods to the atmosphere of “Bering Sea” by Inchaos—a tribute-like imitation. After the release, the band’s guitarist, Aiten, mentioned that he liked the track and even asked for the multitracks to attempt a remix. For me at the time, it became an unexpectedly precious memory.",
+      "Overall, “Supernova” carries an extremely deep-blue texture. Its emotion doesn’t point to a concrete event, but to an existential pressure, swelling, expanding, and dissolving. The seemingly extreme lines are closer to a literary rendering of adolescent inner tension, rather than a literal transcription of any real-life scene.",
+      "If many of my later works are about “losing someone,”<br />then “Supernova” records something earlier: how, before anyone else enters the story, a person first has to stare into their own emptiness.",
+    ];
+
+    intro.innerHTML = paragraphs.join("<br /><br />");
+  }
+
   function applySupernovaLyricsInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -7372,6 +7427,7 @@
       applyMoonlapseLyricsInEnglish(safeLang);
       applyMrIdiographicIntroInEnglish(safeLang);
       applyAgnyLyricsInEnglish(safeLang);
+      applySupernovaIntroInEnglish(safeLang);
       applySupernovaLyricsInEnglish(safeLang);
       applyMrIdiographicLyricsInEnglish(safeLang);
       applyAffizierenIntroInEnglish(safeLang);
