@@ -4877,6 +4877,162 @@
     part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
   }
 
+  function applyDaybreakBorderlineIntroInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-26.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var workHeading =
+      headings.find(function (heading) {
+        var normalized = normalizeText(heading.textContent).toLowerCase();
+        return (
+          normalized === normalizeText("作品介绍").toLowerCase() ||
+          normalized === normalizeText("About the work").toLowerCase()
+        );
+      }) || null;
+
+    if (!workHeading) {
+      return;
+    }
+
+    var intro = workHeading.nextElementSibling;
+    if (!intro || intro.tagName !== "P") {
+      return;
+    }
+
+    var paragraphs = [
+      "“Daybreak, the Borderline of Light and Dark” stands alongside “Jellyfish and the Lake” as one of the most aesthetically complete works in my personal catalogue.",
+      "If “Jellyfish and the Lake” dissolves like water spreading outward,<br />this song remains suspended in a temporal layer where day and night cannot be confirmed, neither darkness nor daylight, but the fatigue and weightlessness that arise when time stalls at the boundary.",
+      "Stylistically, it leans toward indie in its looseness,<br />yet gradually shifts into a more conventional rock arrangement toward the latter half.<br />This transition, from dispersion to cohesion, resembles consciousness drifting back toward the body,<br />though it never fully lands.",
+      "Amps, dizziness, tinnitus, overload.<br />A state of being wrapped and swallowed by sound itself,<br />somewhere between excessive volume and excessive clarity.",
+      "The condition is painful, yet strangely hollow,<br />as if awareness were magnified and stretched,<br />while steadily losing substance.",
+      "The most important part of the piece remains the central instrumental section,<br />still my favorite passage to this day.",
+      "It is a purely instrumental space.<br />No technical display, no complex logic,<br />yet it completes the most coherent emotional arc through unconscious intuition alone.",
+      "After that, six words are layered in,<br />from liberation to detachment,<br />from cooltoned humidity to internal combustion,<br />eventually arriving at burial.",
+      "There was a kind of beauty in that segment<br />that I now find difficult to recreate.<br />At the time, I was far less skilled in arrangement,<br />yet there were none of the structural “errors” I would now identify.<br />With greater technical control today,<br />I am paradoxically restrained by the logic of progressive structures,<br />unable to return to that precise, unconscious clarity.",
+      "When sadness and self sentimentality become formulaic,<br />when emotion is reused until it loses its temperature,<br />when one is lucid, yet uncertain whether still participating in reality...",
+      "this song exists in that border state.",
+      "A confirmation, in the quietest hour before dawn,<br />that the self has not yet completely collapsed.",
+    ];
+
+    intro.innerHTML = paragraphs.join("<br /><br />");
+  }
+
+  function applyDaybreakBorderlineLyricsInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-26.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var part1Heading = findLyricHeading(headings, 1);
+    var part2Heading = findLyricHeading(headings, 2);
+
+    if (!part1Heading || !part2Heading) {
+      return;
+    }
+
+    var part1Text = part1Heading.nextElementSibling;
+    var part2Text = part2Heading.nextElementSibling;
+
+    if (!part1Text || !part2Text || part1Text.tagName !== "P" || part2Text.tagName !== "P") {
+      return;
+    }
+
+    var part1Blocks = [
+      {
+        zh: ["悲しみと自己感動のふりに慣れている", "今日もいつものようにゆっくり眠った", "夢うつつの朝に", "曖昧な意識の中で穏やかな絶望"],
+        en: [
+          "I’ve grown accustomed",
+          "to performing sorrow and self sentiment.",
+          "Today again, as usual,",
+          "I fell asleep slowly.",
+          "In a half-dream morning,",
+          "within ambiguous awareness,",
+          "a gentle despair.",
+        ],
+      },
+      {
+        zh: ["自由", "白昼夢", "藍", "湿った", "燃える", "埋葬"],
+        en: ["Freedom.", "Daydream.", "Indigo.", "Damp.", "Burning.", "Burial."],
+      },
+      {
+        zh: ["どうしてめまいがしたのか、マーシャルを持ってきた", "背景雑音とともに横になる", "何を弾けばいいのか", "ここにいない、vacuous duplicate only"],
+        en: [
+          "Why was I dizzy?",
+          "I brought the Marshall over.",
+          "Lying down with the background noise.",
+          "What am I supposed to play?",
+          "Not here—",
+          "vacuous duplicate only.",
+        ],
+      },
+    ];
+
+    var part2Blocks = [
+      {
+        zh: ["夕闇の中に立っている", "もう少しでいい", "誰が返事をしてくれるか", "誰がこれを終わらせるのか"],
+        en: ["Standing in the evening dusk.", "Just a little more—", "who will answer?", "Who will end this?"],
+      },
+      {
+        zh: ["もっと見たい、知らない景色", "足りない、足りない", "だからもうちょっと聞きたい", "だからもう一度聞きたい"],
+        en: [
+          "I want to see more, unknown scenery.",
+          "Not enough, not enough.",
+          "So I want to listen a little longer.",
+          "So I want to hear it once more.",
+        ],
+      },
+    ];
+
+    function renderBilingualBlocks(blocks) {
+      return blocks
+        .map(function (block) {
+          return block.zh.join("<br />") + "<br /><br />" + block.en.join("<br />");
+        })
+        .join("<br /><br />");
+    }
+
+    part1Text.innerHTML = renderBilingualBlocks(part1Blocks);
+    part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
+  }
+
   function applyLoneStarPreludeIntroInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -8262,6 +8418,8 @@
       applyTheGuiltLyricsInEnglish(safeLang);
       applyJellyfishLakeIntroInEnglish(safeLang);
       applyJellyfishLakeLyricsInEnglish(safeLang);
+      applyDaybreakBorderlineIntroInEnglish(safeLang);
+      applyDaybreakBorderlineLyricsInEnglish(safeLang);
       applyLoneStarPreludeIntroInEnglish(safeLang);
       applyMrIdiographicLyricsInEnglish(safeLang);
       applyAffizierenIntroInEnglish(safeLang);
