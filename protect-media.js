@@ -5721,6 +5721,187 @@
     part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
   }
 
+  function applyDissociativeAmnesiaIntroInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-30.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var workHeading =
+      headings.find(function (heading) {
+        var normalized = normalizeText(heading.textContent).toLowerCase();
+        return (
+          normalized === normalizeText("作品介绍").toLowerCase() ||
+          normalized === normalizeText("About the work").toLowerCase()
+        );
+      }) || null;
+
+    if (!workHeading) {
+      return;
+    }
+
+    var introNodes = [];
+    var cursor = workHeading.nextElementSibling;
+    while (cursor && cursor.tagName === "P") {
+      introNodes.push(cursor);
+      cursor = cursor.nextElementSibling;
+    }
+
+    if (!introNodes.length) {
+      return;
+    }
+
+    var paragraphs = [
+      "“Dissociative Amnesia” was written in February 2021, and it is one of the earliest works currently included in my portfolio (back then I was writing at my fastest pace， one song a day, or one every two days).",
+      "There were many other pieces written before and after that remain unreleased,<br />but this particular moment became a personal threshold:<br />the earliest point in time whose “old self” I can tolerate letting others see.",
+      "The writing process was entirely spontaneous.<br />At the time, classes taught me almost nothing I could actually use for composition;<br />I hadn’t started learning bass or arrangement techniques,<br />and the lyrics were literally machine-translated<br />(because writing lyrics in native lagurage felt unbearably cringe for a kid).<br />More than anything, this song is a document of how songwriting begins.",
+      "The theme came from a chance encounter with the concept of “dissociative amnesia.”<br />The piece is not based on lived experience (I don't drink any alcohol even now😭）<br />it is closer to an imagined psychological writing that borrows the imagery of a disorder<br />(a teenager under sixteen has very little “life” to draw from anyway).",
+      "Musically, it leans strongly toward electronic / dance-pop.<br />I had listened to far too much Ayase (from Yoasobi): the groove moves in a straight line, pushing forward.<br />Yet the melodic contour already hints at something that would keep developing in later works,<br />emotional tension, and an instinct for building a chorus,<br />even though the arrangement and production remain unmistakably immature.<br />The core melodic motif, however, still has a texture I genuinely like today.",
+      "Before technique and method existed, intuition arrived first.",
+      "That is why “Dissociative Amnesia” sits at the beginning of the portfolio:<br />not because it is the most refined,<br />but because it marks the earliest point from which all later sound and narrative began.",
+    ];
+
+    introNodes[0].innerHTML = paragraphs.join("<br /><br />");
+    introNodes.slice(1).forEach(function (node) {
+      node.remove();
+    });
+  }
+
+  function applyDissociativeAmnesiaLyricsInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-30.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var part1Heading = findLyricHeading(headings, 1);
+    var part2Heading = findLyricHeading(headings, 2);
+
+    if (!part1Heading || !part2Heading) {
+      return;
+    }
+
+    var part1Text = part1Heading.nextElementSibling;
+    var part2Text = part2Heading.nextElementSibling;
+
+    if (!part1Text || !part2Text || part1Text.tagName !== "P" || part2Text.tagName !== "P") {
+      return;
+    }
+
+    var part1Blocks = [
+      {
+        zh: ["テーブルの上のリップクリーム", "食べかけのパン", "「火曜日に何があったのか」と聞かれました"],
+        en: ["Lip balm on the table.", "Half-eaten bread.", "I was asked,", "“What happened on Tuesday?”"],
+      },
+      {
+        zh: ["夢を繰り返すシーン", "はっと目を開けた", "「思い出せないあのこと」"],
+        en: ["A scene that repeats in my dreams—", "I suddenly opened my eyes:", "“that thing I can’t remember.”"],
+      },
+      {
+        zh: ["腐った体と心を持って", "ゆっくりと夕暮れに落ちる", "乾いた空虚感と", "何も起こらないと定められた夜", "ほっとしたようで不安だった"],
+        en: [
+          "With a body and a mind gone rotten,",
+          "I sink slowly into dusk.",
+          "A dry emptiness,",
+          "and a night decreed",
+          "that nothing will happen.",
+          "I felt relieved—",
+          "and anxious.",
+        ],
+      },
+      {
+        zh: ["テーブルの上の化粧水", "飲みかけのヨーグルト", "「火曜日に何があったのか」と聞かれました"],
+        en: ["Toner on the table.", "Half-finished yogurt.", "I was asked,", "“What happened on Tuesday?”"],
+      },
+    ];
+
+    var part2Blocks = [
+      {
+        zh: ["うつろな目つきだった", "意識の中に隠されている", "「あの忘れられない記憶」"],
+        en: ["My gaze was hollow.", "Hidden inside my consciousness:", "“that unforgettable memory.”"],
+      },
+      {
+        zh: ["腐った体と心を持って", "ゆっくりと夕暮れに落ちる", "乾いた空虚感と", "何も起こらないと定められた夜", "ほっとしたようで不安だった"],
+        en: [
+          "With a body and a mind gone rotten,",
+          "I sink slowly into dusk.",
+          "A dry emptiness,",
+          "and a night decreed",
+          "that nothing will happen.",
+          "I felt relieved—",
+          "and anxious.",
+        ],
+      },
+      {
+        zh: ["電子のような香り", "ゆっくりと眠りについた", "錆のような血の跡", "あのひどい思い出"],
+        en: [
+          "A scent like electronics.",
+          "I fell asleep, slowly.",
+          "Bloodstains like rust—",
+          "that awful memory.",
+        ],
+      },
+      {
+        zh: ["スモッグだらけの夜に", "ゆっくりと溶けていく", "退廃的な疲労感と", "彼とビールを飲んだあの夜", "ほっとしたようで不安だった"],
+        en: [
+          "In a night full of smog,",
+          "I melt away, slowly.",
+          "A decadent fatigue,",
+          "and that night",
+          "drinking beer with him.",
+          "I felt relieved—",
+          "and anxious.",
+        ],
+      },
+    ];
+
+    function renderBilingualBlocks(blocks) {
+      return blocks
+        .map(function (block) {
+          return block.zh.join("<br />") + "<br /><br />" + block.en.join("<br />");
+        })
+        .join("<br /><br />");
+    }
+
+    part1Text.innerHTML = renderBilingualBlocks(part1Blocks);
+    part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
+  }
+
   function applyLoneStarPreludeIntroInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -9114,6 +9295,8 @@
       applyAfterimageLyricsInEnglish(safeLang);
       applyFutureMeetIntroInEnglish(safeLang);
       applyFutureMeetLyricsInEnglish(safeLang);
+      applyDissociativeAmnesiaIntroInEnglish(safeLang);
+      applyDissociativeAmnesiaLyricsInEnglish(safeLang);
       applyLoneStarPreludeIntroInEnglish(safeLang);
       applyMrIdiographicLyricsInEnglish(safeLang);
       applyAffizierenIntroInEnglish(safeLang);
