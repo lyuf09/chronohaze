@@ -5509,6 +5509,218 @@
     part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
   }
 
+  function applyFutureMeetIntroInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-29.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var workHeading =
+      headings.find(function (heading) {
+        var normalized = normalizeText(heading.textContent).toLowerCase();
+        return (
+          normalized === normalizeText("作品介绍").toLowerCase() ||
+          normalized === normalizeText("About the work").toLowerCase()
+        );
+      }) || null;
+
+    if (!workHeading) {
+      return;
+    }
+
+    var intro = workHeading.nextElementSibling;
+    if (!intro || intro.tagName !== "P") {
+      return;
+    }
+
+    var paragraphs = [
+      "“I Hope I’ll Meet the Future” is a J-rock piece filled with the air of early summer,<br />a coming of age perspective born from looking upward.",
+      "The lyrical prototype came from a drummer I admired at the time:<br />not someone reachable in reality,<br />but a presence like a stage light.<br />Their rhythm, energy, and sheer sense of being there<br />became the starting point of a shift in my self awareness.",
+      "The aftershock of the stage continues inside the body,<br />sound arrives before emotion does.",
+      "The colour imagery is built from overlapping orange and blue green.<br />Orange carries the warmth of early summer sunlight, an object of longing, a source of light.<br />Blue green comes from air and shadow:<br />not the heavy heat of midsummer,<br />but the sensation of early June, when a breeze is still present.<br />This warm yet non sticky climate echoes the stage of growth the song belongs to.",
+      "It is not a lack of passion,<br />but a lack of strength to stand alongside it yet.<br />The song does not move toward possession or closeness;<br />it stays in a restrained wish,<br />hoping that at some point in the future,<br />a more complete self might be able to meet it.",
+      "Flowers are still blooming, and the self is still growing.<br />Someday, it will no longer be transparent,<br />no longer existing only from the angle of looking up.",
+      "The song thus remains in a sunlit layer of time:<br />neither memory, nor reality,<br />but a direction, toward a future self.",
+    ];
+
+    intro.innerHTML = paragraphs.join("<br /><br />");
+  }
+
+  function applyFutureMeetLyricsInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-29.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var part1Heading = findLyricHeading(headings, 1);
+    var part2Heading = findLyricHeading(headings, 2);
+
+    if (!part1Heading || !part2Heading) {
+      return;
+    }
+
+    var part1Text = part1Heading.nextElementSibling;
+    var part2Text = part2Heading.nextElementSibling;
+
+    if (!part1Text || !part2Text || part1Text.tagName !== "P" || part2Text.tagName !== "P") {
+      return;
+    }
+
+    var part1Blocks = [
+      {
+        zh: ["その日に君を見ました", "シンバルが震えている"],
+        en: ["I saw you that day.", "The cymbals were trembling."],
+      },
+      {
+        zh: ["オレンジとブルーが重なり合っている"],
+        en: ["Orange and blue", "overlapped."],
+      },
+      {
+        zh: ["人生の迷いを嘆いている", "昼寝のような顔を思い出した", "心象風景が曙光になった", "蓄音機に刻み込みたい"],
+        en: [
+          "I mourn the uncertainty of life.",
+          "Then I remembered a face,",
+          "soft, like a midday nap.",
+          "My inner landscape turned into first light.",
+          "I want to engrave it",
+          "into a phonograph record.",
+        ],
+      },
+      {
+        zh: ["音もなく咲く夏が、", "大人になるまでに何度聞こえただろうか"],
+        en: [
+          "A summer that blooms without a sound—",
+          "how many times have I heard it",
+          "before becoming an adult?",
+        ],
+      },
+      {
+        zh: ["白昼夢を見ているあたしは君の足どりに追いつけない"],
+        en: ["Watching a daydream,", "I can’t catch up", "to your footsteps."],
+      },
+      {
+        zh: ["熱くても力がない、", "それを隠してゆっくり実現しよう", "未来に出会えたらいいな"],
+        en: [
+          "Hot with feeling, but without strength—",
+          "I’ll hide it,",
+          "and make it real slowly.",
+          "I hope I can meet the future.",
+        ],
+      },
+      {
+        zh: ["君は複製できない人間だ", "あたしは贋物だ", "くだらない映画を見て時間をつぶすしかなかった"],
+        en: [
+          "You are a person who can’t be duplicated.",
+          "I’m a counterfeit.",
+          "All I could do",
+          "was kill time with a stupid movie.",
+        ],
+      },
+    ];
+
+    var part2Blocks = [
+      {
+        zh: ["ただの光", "このまま照らし続けてください", "世界を横切った", "ほんの一瞬だ", "動揺していた心が再び固くなった"],
+        en: [
+          "Just a light—",
+          "please keep shining",
+          "like this.",
+          "You crossed the world",
+          "for only an instant.",
+          "My shaken heart",
+          "hardened again.",
+        ],
+      },
+      {
+        zh: ["熱くても力がない、", "それを隠してゆっくり実現しよう", "未来に出会えたらいいな"],
+        en: [
+          "Hot with feeling, but without strength—",
+          "I’ll hide it,",
+          "and make it real slowly.",
+          "I hope I can meet the future.",
+        ],
+      },
+      {
+        zh: ["ただの光", "このまま照らし続けてください", "あたしの存在を知ってくれる", "ほんの一瞬だ", "動揺していた心が再び固くなった"],
+        en: [
+          "Just a light—",
+          "please keep shining",
+          "like this.",
+          "For only an instant,",
+          "you might know I exist.",
+          "My shaken heart",
+          "hardened again.",
+        ],
+      },
+      {
+        zh: ["熱くても力がない、", "それを隠してゆっくり実現しよう", "未来に出会えたらいいな"],
+        en: [
+          "Hot with feeling, but without strength—",
+          "I’ll hide it,",
+          "and make it real slowly.",
+          "I hope I can meet the future.",
+        ],
+      },
+      {
+        zh: ["今日も歌っている", "バス停の脇の花はまだ咲いていた", "やがて透明にならなくなるだろう"],
+        en: [
+          "Still singing today.",
+          "The flowers by the bus stop",
+          "were still in bloom.",
+          "Soon enough,",
+          "I won’t be transparent anymore.",
+        ],
+      },
+    ];
+
+    function renderBilingualBlocks(blocks) {
+      return blocks
+        .map(function (block) {
+          return block.zh.join("<br />") + "<br /><br />" + block.en.join("<br />");
+        })
+        .join("<br /><br />");
+    }
+
+    part1Text.innerHTML = renderBilingualBlocks(part1Blocks);
+    part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
+  }
+
   function applyLoneStarPreludeIntroInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -8900,6 +9112,8 @@
       applyCardiacAlarmLyricsInEnglish(safeLang);
       applyAfterimageIntroInEnglish(safeLang);
       applyAfterimageLyricsInEnglish(safeLang);
+      applyFutureMeetIntroInEnglish(safeLang);
+      applyFutureMeetLyricsInEnglish(safeLang);
       applyLoneStarPreludeIntroInEnglish(safeLang);
       applyMrIdiographicLyricsInEnglish(safeLang);
       applyAffizierenIntroInEnglish(safeLang);
