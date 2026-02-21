@@ -7884,6 +7884,11 @@
         return;
       }
 
+      var featureNode = titleNode.querySelector(".album-track-feature");
+      if (featureNode) {
+        featureNode.textContent = "✿ Featured";
+      }
+
       var currentTitle = normalizeText(
         Array.from(titleNode.childNodes)
           .filter(function (node) {
@@ -7904,7 +7909,6 @@
         return;
       }
 
-      var featureNode = titleNode.querySelector(".album-track-feature");
       var hasFeature = !!featureNode;
       titleNode.textContent = nextTitle;
 
