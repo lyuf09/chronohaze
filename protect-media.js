@@ -1008,6 +1008,10 @@
       : null;
     var titleNode = article.querySelector("h1");
     var title = explicitTitle || (titleNode ? (titleNode.textContent || "").trim() : "TRACK");
+    var titleTextOverridesEn = getMusicInlineTitleOverridesEn();
+    if (detectPreferredLanguage() === "en" && titleTextOverridesEn[title]) {
+      title = titleTextOverridesEn[title];
+    }
     return {
       title: title.toUpperCase(),
       artist: buildTrackArtist(article, audioElement),
@@ -7835,6 +7839,12 @@
     };
   }
 
+  function getMusicInlineTitleOverridesEn() {
+    return {
+      海底的独白: "A Monologue under the Sea",
+    };
+  }
+
   function normalizeMusicDetailPath(href) {
     if (typeof href !== "string" || !href.trim()) {
       return "";
@@ -7865,16 +7875,32 @@
     }
 
     var overrides = getMusicTrackTitleOverridesEn();
+    var titleTextOverridesEn = getMusicInlineTitleOverridesEn();
     var links = Array.from(document.querySelectorAll(".album-track-link[href]"));
     links.forEach(function (link) {
       var route = normalizeMusicDetailPath(link.getAttribute("href") || "");
-      var nextTitle = overrides[route];
-      if (!nextTitle) {
+      var titleNode = link.querySelector(".album-track-name");
+      if (!titleNode) {
         return;
       }
 
-      var titleNode = link.querySelector(".album-track-name");
-      if (!titleNode) {
+      var currentTitle = normalizeText(
+        Array.from(titleNode.childNodes)
+          .filter(function (node) {
+            return !(
+              node.nodeType === 1 &&
+              node.classList &&
+              node.classList.contains("album-track-feature")
+            );
+          })
+          .map(function (node) {
+            return node.textContent || "";
+          })
+          .join(" ")
+      );
+
+      var nextTitle = overrides[route] || titleTextOverridesEn[currentTitle];
+      if (!nextTitle) {
         return;
       }
 
