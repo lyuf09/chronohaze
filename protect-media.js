@@ -7012,6 +7012,44 @@
     intro.innerHTML = paragraphs.join("<br /><br />");
   }
 
+  function applyIpomoeaAlbumIntroInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-album-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/album-ipomoea-alba.html") {
+      return;
+    }
+
+    var intro = document.querySelector(".album-intro");
+    if (!intro) {
+      return;
+    }
+
+    var paragraphs = [
+      "Ipomoea alba blooms in moonlight.",
+      "Some emotions do not unfold within the same city.<br />They grow slowly through screens, time zones, and the rare moments when wakefulness aligns,<br />stretched, diluted, kept breathing by promises postponed again and again,<br />until they sink into sea wind and become a tide that resists explanation.",
+      "Everything began on a rainy day,<br />between white flowers, damp air, and a black notebook.<br />It belongs neither to daylight nor to interpretation,<br />only to fragments that were never spoken, yet undeniably real.",
+      "An entire album can be written out of emotion,<br />while reality owes no matching share in return.",
+      "This albu (or more like a collection for now) holds rain, and the sea, and a deep-blue persistence,<br />imagined futures, projections cast onto a distant coastline,<br />the tension between reality and ideal,<br />and, later, an understanding that slowly cools.",
+      "No more questions. No more closing in. No more proving meaning through an ending.<br />The sea is still far away, and moonlight still falls on the same surface of water.<br />If these songs are ever heard, it will be enough,<br />someone will know that place once existed.",
+      "Note: Some tracks are missing, and some have not been fully re-recorded or revised due to the long time span of the project. Further completion is planned.",
+    ];
+
+    intro.innerHTML = paragraphs.map(function (paragraph) {
+      return "<p>" + paragraph + "</p>";
+    }).join("");
+  }
+
   function applyIpomoeaAlbaLyricsInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -9303,6 +9341,7 @@
       applyAffizierenNotesInEnglish(safeLang);
       applyAffizierenLyricsInEnglish(safeLang);
       applyIpomoeaAlbaIntroInEnglish(safeLang);
+      applyIpomoeaAlbumIntroInEnglish(safeLang);
       applyIpomoeaAlbaLyricsInEnglish(safeLang);
       applyHeAndMeIntroInEnglish(safeLang);
       applyHeAndMeLyricsInEnglish(safeLang);
