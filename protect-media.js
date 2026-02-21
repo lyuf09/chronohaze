@@ -5260,6 +5260,255 @@
     part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
   }
 
+  function applyAfterimageIntroInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-28.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var workHeading =
+      headings.find(function (heading) {
+        var normalized = normalizeText(heading.textContent).toLowerCase();
+        return (
+          normalized === normalizeText("作品介绍").toLowerCase() ||
+          normalized === normalizeText("About the work").toLowerCase()
+        );
+      }) || null;
+
+    if (!workHeading) {
+      return;
+    }
+
+    var intro = workHeading.nextElementSibling;
+    if (!intro || intro.tagName !== "P") {
+      return;
+    }
+
+    var paragraphs = [
+      "“Afterimage” was written in the late summer after my GCSEs, in the brief transition before A-Level began.<br />It was a stretch of time that belonged neither to the past nor yet to the future, a momentary suspension, as if standing still inside the afterimage cast by time itself.",
+      "The song does not point to anything specific.<br />It is a record of consciousness:<br />of the unreliability of memory as a structure,<br />of the instant when emotion slips away in silence.<br />The recurring images in the lyrics are a quiet interrogation of memory’s own truthfulness.",
+      "Sonically, “Afterimage” is my only true post rock attempt.<br />The arrangement centers on space and atmospheric layers,<br />emotion develops slowly through continuous expansion and sinking,<br />gradually revealing itself.<br />Its overall temperature is cool, though not the cold of winter,<br />more like the bodily chill that appears when light is reduced,<br />the air deep inside tree shade,<br />or the dimness of evening shadows.",
+      "The closest image this piece holds is falling asleep unnoticed within shadow:<br />no collapse, no falling,<br />just a brief weightlessness of consciousness,<br />sinking into a silent deep sea.",
+      "Looking back five years later,<br />the work still retains a high degree of structural completeness.<br />Aside from the guitar recording and mix I never fully finished at the time,<br />almost nothing feels in need of revision.<br />It is more like a specimen preserved in the shadow of time,<br />quiet, dark grey, sharply contoured,<br />and no longer belonging to reality.",
+    ];
+
+    intro.innerHTML = paragraphs.join("<br /><br />");
+  }
+
+  function applyAfterimageLyricsInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-28.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var part1Heading = findLyricHeading(headings, 1);
+    var part2Heading = findLyricHeading(headings, 2);
+
+    if (!part1Heading || !part2Heading) {
+      return;
+    }
+
+    var part1Text = part1Heading.nextElementSibling;
+    var part2Text = part2Heading.nextElementSibling;
+
+    if (!part1Text || !part2Text || part1Text.tagName !== "P" || part2Text.tagName !== "P") {
+      return;
+    }
+
+    var part1Blocks = [
+      {
+        zh: ["そのことには何の幻想もないかもしれない", "あれは錯覚か自己欺瞞か", "何度も夢に見たハッピーエンド", "でも、それはとても言えない"],
+        en: [
+          "Maybe there was never any illusion in that at all.",
+          "Was it a misperception or self deception?",
+          "A happy ending I saw in dreams, again and again.",
+          "And yet—",
+          "it can’t be said.",
+        ],
+      },
+      {
+        zh: ["記憶の中の人が入れ替わり続ける", "そういえば花もそうだ", "ただ通りかかっただけだ"],
+        en: [
+          "In my memory, people keep swapping places.",
+          "Come to think of it, flowers do that too.",
+          "It was only passing by.",
+        ],
+      },
+      {
+        zh: ["窓の外で真っ暗な蝉の鳴き声", "想い溢れる", "こんなに静かでも眠れない"],
+        en: [
+          "Outside the window,",
+          "the pitch dark cry of cicadas.",
+          "Feelings overflow.",
+          "Even in this much quiet, sleep won’t come.",
+        ],
+      },
+      {
+        zh: ["夜の青をかきわけて", "目が霧だらけになる", "私が落ちたどん底", "音のない海の底に"],
+        en: [
+          "Parting the blue of night,",
+          "my eyes fill with fog.",
+          "The rock bottom where I fell—",
+          "to the seabed without sound.",
+        ],
+      },
+      {
+        zh: ["記憶の中の"],
+        en: ["In my memory—"],
+      },
+    ];
+
+    var part2Blocks = [
+      {
+        zh: ["夢で僕の名前を呼んで", "そして覚めた後にまた", "無限の沈黙で何度も僕を殺す"],
+        en: [
+          "Call my name in a dream.",
+          "And when you wake again,",
+          "kill me over and over",
+          "with infinite silence.",
+        ],
+      },
+      {
+        zh: ["すねを通る水が速くなった", "冷たい、形のない銃", "光のない混沌の中で"],
+        en: [
+          "The water running past my shins quickens.",
+          "Cold—",
+          "a shapeless gun.",
+          "Within lightless chaos—",
+        ],
+      },
+      {
+        zh: ["心臓を射抜く"],
+        en: ["shoots through the heart."],
+      },
+      {
+        zh: ["画面が飛び続けて、君と出会った時に止まる", "振り出しに戻ったようだった。", "残した傷は消えない"],
+        en: [
+          "The screen keeps skipping frames,",
+          "stopping only when I met you.",
+          "It felt like returning to the starting line.",
+          "The wounds left behind don’t fade.",
+        ],
+      },
+      {
+        zh: ["今でも心", "も覚えている、「壊れたTwilight」", "死んでしまいそうだ", "遺言のような"],
+        en: [
+          "Even now, my heart",
+          "still remembers—“Broken Twilight.”",
+          "It feels like I might die.",
+          "Like a last testament.",
+        ],
+      },
+      {
+        zh: ["夢で僕の名前を呼んで", "そして覚めた后にまた", "無限の沈黙で何度も僕を殺す"],
+        en: [
+          "Call my name in a dream.",
+          "And when you wake again,",
+          "kill me over and over",
+          "with infinite silence.",
+        ],
+      },
+      {
+        zh: ["すねを通る水が速くなった", "冷たい、形のない銃", "光のない混沌の中で"],
+        en: [
+          "The water running past my shins quickens.",
+          "Cold—",
+          "a shapeless gun.",
+          "Within lightless chaos—",
+        ],
+      },
+      {
+        zh: ["心臓を射抜く"],
+        en: ["shoots through the heart."],
+      },
+      {
+        zh: ["夢で僕の名前を呼んで", "そして覚めた后にまた", "無限の沈黙で何度も僕を殺す"],
+        en: [
+          "Call my name in a dream.",
+          "And when you wake again,",
+          "kill me over and over",
+          "with infinite silence.",
+        ],
+      },
+      {
+        zh: ["不意に指の間から抜けていく", "答えはどこにもない", "と気づいたのだ", "だから言葉もいらない、", "ちょっと"],
+        en: [
+          "Suddenly slipping through my fingers—",
+          "I realized",
+          "there is no answer anywhere.",
+          "So words aren’t necessary.",
+          "Just—",
+        ],
+      },
+      {
+        zh: ["緋色空の下で", "カラスが走り抜ける", "真っ黒な目を閉じる", "雨の止んだこの街で"],
+        en: [
+          "Beneath a crimson sky,",
+          "a crow runs past.",
+          "I close my pitch-black eyes",
+          "in this city where the rain has stopped.",
+        ],
+      },
+      {
+        zh: ["過去の傷に触れ", "この愛の時代に", "黙って消えてしまった", "君、とっくに沈んでいる"],
+        en: [
+          "Touching old wounds,",
+          "in this era of love,",
+          "you quietly disappeared.",
+          "You—",
+          "long since sunk beneath.",
+        ],
+      },
+    ];
+
+    function renderBilingualBlocks(blocks) {
+      return blocks
+        .map(function (block) {
+          return block.zh.join("<br />") + "<br /><br />" + block.en.join("<br />");
+        })
+        .join("<br /><br />");
+    }
+
+    part1Text.innerHTML = renderBilingualBlocks(part1Blocks);
+    part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
+  }
+
   function applyLoneStarPreludeIntroInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -8649,6 +8898,8 @@
       applyDaybreakBorderlineLyricsInEnglish(safeLang);
       applyCardiacAlarmIntroInEnglish(safeLang);
       applyCardiacAlarmLyricsInEnglish(safeLang);
+      applyAfterimageIntroInEnglish(safeLang);
+      applyAfterimageLyricsInEnglish(safeLang);
       applyLoneStarPreludeIntroInEnglish(safeLang);
       applyMrIdiographicLyricsInEnglish(safeLang);
       applyAffizierenIntroInEnglish(safeLang);
