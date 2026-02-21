@@ -5033,6 +5033,233 @@
     part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
   }
 
+  function applyCardiacAlarmIntroInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-27.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var workHeading =
+      headings.find(function (heading) {
+        var normalized = normalizeText(heading.textContent).toLowerCase();
+        return (
+          normalized === normalizeText("作品介绍").toLowerCase() ||
+          normalized === normalizeText("About the work").toLowerCase()
+        );
+      }) || null;
+
+    if (!workHeading) {
+      return;
+    }
+
+    var intro = workHeading.nextElementSibling;
+    if (!intro || intro.tagName !== "P") {
+      return;
+    }
+
+    var paragraphs = [
+      "“Cardiac Alarm” was my first attempt at writing something post hardcore.",
+      "Ironically while I intended it to be heavier, the result barely qualifies as “core” at all.<br />Instead, it became a narrative that trembles under pressure,<br />not explosive, but persistently overloaded.",
+      "Its underlying colour is deep red, like a warning light before the end,<br />no time left to explain anything.<br />When memory suddenly surges back,<br />the body reacts before consciousness does:<br />heart rate destabilized, breathing thinned, frames skipping,<br />as if the chest had been pierced by a weapon without form.",
+      "During its creation, I had been listening obsessively to Forget and Forgive.<br />That tender sense of collapse clung to the melody (when will faf return 😔).<br />I even wrote sweep picking patterns, ironically as of February 2026, I still can’t strum properly haha.<br />In this song, that awkwardness remains as something honest.",
+      "At the time, I uploaded it to Niconico,<br />where Avogado6 purchased an advertisement for it.<br />To me, that felt like a strange echo:<br />a song about sinking and endings,<br />quietly nudged by the world somewhere in a corner,<br />leaving proof that it had once been seen.",
+    ];
+
+    intro.innerHTML = paragraphs.join("<br /><br />");
+  }
+
+  function applyCardiacAlarmLyricsInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-27.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var part1Heading = findLyricHeading(headings, 1);
+    var part2Heading = findLyricHeading(headings, 2);
+
+    if (!part1Heading || !part2Heading) {
+      return;
+    }
+
+    var part1Text = part1Heading.nextElementSibling;
+    var part2Text = part2Heading.nextElementSibling;
+
+    if (!part1Text || !part2Text || part1Text.tagName !== "P" || part2Text.tagName !== "P") {
+      return;
+    }
+
+    var part1Blocks = [
+      {
+        zh: ["「それ」が生まれる前の顔を探している", "どこかの時点ですべてが消えてしまうと知りながら"],
+        en: [
+          "Searching for the face",
+          "before “that thing” was born—",
+          "knowing that at some point",
+          "everything would disappear.",
+        ],
+      },
+      {
+        zh: ["その瞬間に", "記憶が潮のように押し寄せてくる", "夏が過ぎても", "変わらない"],
+        en: [
+          "In that instant,",
+          "memories surge like a tide.",
+          "Even after summer passes,",
+          "nothing changes.",
+        ],
+      },
+      {
+        zh: ["夢で僕の名前を呼んで", "そして覚めた後にまた", "無限の沈黙で何度も僕を殺す"],
+        en: [
+          "Call my name in a dream.",
+          "And when you wake again,",
+          "kill me over and over",
+          "with infinite silence.",
+        ],
+      },
+      {
+        zh: ["すねを通る水が速くなった", "冷たい、形のない銃", "光のない混沌の中で"],
+        en: [
+          "The water running past my shins quickens.",
+          "Cold—",
+          "a shapeless gun.",
+          "Within lightless chaos—",
+        ],
+      },
+      {
+        zh: ["心臓を射抜く"],
+        en: ["shoots through the heart."],
+      },
+      {
+        zh: ["画面が飛び続けて、君と出会った時に止まる", "振り出しに戻ったようだった。", "残した傷は消えない"],
+        en: [
+          "The screen keeps skipping frames,",
+          "stopping only when I met you.",
+          "It felt like returning to the starting line.",
+          "The wounds left behind don’t fade.",
+        ],
+      },
+      {
+        zh: ["今でも心", "も覚えている、「壊れたTwilight」", "死んでしまいそうだ", "遺言のような"],
+        en: [
+          "Even now, my heart",
+          "still remembers—“Broken Twilight.”",
+          "It feels like I might die.",
+          "Like a last testament.",
+        ],
+      },
+    ];
+
+    var part2Blocks = [
+      {
+        zh: ["夢で僕の名前を呼んで", "そして覚めた后にまた", "無限の沈黙で何度も僕を殺す"],
+        en: [
+          "Call my name in a dream.",
+          "And when you wake again,",
+          "kill me over and over",
+          "with infinite silence.",
+        ],
+      },
+      {
+        zh: ["すねを通る水が速くなった", "冷たい、形のない銃", "光のない混沌の中で"],
+        en: [
+          "The water running past my shins quickens.",
+          "Cold—",
+          "a shapeless gun.",
+          "Within lightless chaos—",
+        ],
+      },
+      {
+        zh: ["心臓を射抜く"],
+        en: ["shoots through the heart."],
+      },
+      {
+        zh: ["夢で僕の名前を呼んで", "そして覚めた后にまた", "無限の沈黙で何度も僕を殺す"],
+        en: [
+          "Call my name in a dream.",
+          "And when you wake again,",
+          "kill me over and over",
+          "with infinite silence.",
+        ],
+      },
+      {
+        zh: ["不意に指の間から抜けていく", "答えはどこにもない", "と気づいたのだ", "だから言葉もいらない、", "ちょっと"],
+        en: [
+          "Suddenly slipping through my fingers—",
+          "I realized",
+          "there is no answer anywhere.",
+          "So words aren’t necessary.",
+          "Just—",
+        ],
+      },
+      {
+        zh: ["緋色空の下で", "カラスが走り抜ける", "真っ黒な目を閉じる", "雨の止んだこの街で"],
+        en: [
+          "Beneath a crimson sky,",
+          "a crow runs past.",
+          "I close my pitch-black eyes",
+          "in this city where the rain has stopped.",
+        ],
+      },
+      {
+        zh: ["過去の傷に触れ", "この愛の時代に", "黙って消えてしまった", "君、とっくに沈んでいる"],
+        en: [
+          "Touching old wounds,",
+          "in this era of love,",
+          "you quietly disappeared.",
+          "You—",
+          "long since sunk beneath.",
+        ],
+      },
+    ];
+
+    function renderBilingualBlocks(blocks) {
+      return blocks
+        .map(function (block) {
+          return block.zh.join("<br />") + "<br /><br />" + block.en.join("<br />");
+        })
+        .join("<br /><br />");
+    }
+
+    part1Text.innerHTML = renderBilingualBlocks(part1Blocks);
+    part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
+  }
+
   function applyLoneStarPreludeIntroInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -8420,6 +8647,8 @@
       applyJellyfishLakeLyricsInEnglish(safeLang);
       applyDaybreakBorderlineIntroInEnglish(safeLang);
       applyDaybreakBorderlineLyricsInEnglish(safeLang);
+      applyCardiacAlarmIntroInEnglish(safeLang);
+      applyCardiacAlarmLyricsInEnglish(safeLang);
       applyLoneStarPreludeIntroInEnglish(safeLang);
       applyMrIdiographicLyricsInEnglish(safeLang);
       applyAffizierenIntroInEnglish(safeLang);
