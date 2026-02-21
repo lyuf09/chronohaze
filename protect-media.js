@@ -7835,6 +7835,63 @@
     };
   }
 
+  function normalizeMusicDetailPath(href) {
+    if (typeof href !== "string" || !href.trim()) {
+      return "";
+    }
+
+    var clean = href.trim().toLowerCase().split("#")[0].split("?")[0];
+    clean = clean.replace(/^https?:\/\/[^/]+\/(?:chronohaze\/)?/, "");
+    clean = clean.replace(/^\.\//, "").replace(/^\.\.\//, "");
+
+    if (/^music\/track-[^/]+\.html$/.test(clean)) {
+      return clean;
+    }
+
+    if (/^track-[^/]+\.html$/.test(clean)) {
+      return "music/" + clean;
+    }
+
+    return clean;
+  }
+
+  function applyMusicAlbumTrackTitlesInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-album-page")) {
+      return;
+    }
+
+    var overrides = getMusicTrackTitleOverridesEn();
+    var links = Array.from(document.querySelectorAll(".album-track-link[href]"));
+    links.forEach(function (link) {
+      var route = normalizeMusicDetailPath(link.getAttribute("href") || "");
+      var nextTitle = overrides[route];
+      if (!nextTitle) {
+        return;
+      }
+
+      var titleNode = link.querySelector(".album-track-name");
+      if (!titleNode) {
+        return;
+      }
+
+      var featureNode = titleNode.querySelector(".album-track-feature");
+      var hasFeature = !!featureNode;
+      titleNode.textContent = nextTitle;
+
+      if (hasFeature) {
+        var feature = document.createElement("span");
+        feature.className = "album-track-feature";
+        feature.textContent = "✿ Featured";
+        titleNode.appendChild(document.createTextNode(" "));
+        titleNode.appendChild(feature);
+      }
+    });
+  }
+
   function splitMusicTags(raw) {
     if (!raw) {
       return [];
@@ -9229,6 +9286,8 @@
     if (document.body.classList.contains("search-index-page")) {
       document.title = safeLang === "en" ? "Search | Chronohaze" : "搜索 | Chronohaze";
     }
+
+    applyMusicAlbumTrackTitlesInEnglish(safeLang);
 
     if (document.body.classList.contains("music-detail-page")) {
       var titleNode = document.querySelector(".music-detail-article h1");
