@@ -4727,6 +4727,156 @@
     part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
   }
 
+  function applyJellyfishLakeIntroInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-25.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var workHeading =
+      headings.find(function (heading) {
+        var normalized = normalizeText(heading.textContent).toLowerCase();
+        return (
+          normalized === normalizeText("作品介绍").toLowerCase() ||
+          normalized === normalizeText("About the work").toLowerCase()
+        );
+      }) || null;
+
+    if (!workHeading) {
+      return;
+    }
+
+    var intro = workHeading.nextElementSibling;
+    if (!intro || intro.tagName !== "P") {
+      return;
+    }
+
+    var paragraphs = [
+      "“Jellyfish and the Lake” is a work with a distinctly singular temperament.",
+      "Its structure and style hover beyond clear boundaries.<br />On the surface, it leans toward the spacious breath and expansion of post-rock,<br />yet midway through, a sharply cut djent textured passage interrupts the flow.<br />What might seem incompatible instead forms a narrative language unique to this piece.",
+      "Looking back five years later, it still feels like an aesthetic high point in my creative trajectory,<br />even if the mix continues to leave me with certain regrets.",
+      "The song unfolds around the state of disappearance.",
+      "Soft, fragile memories.<br />Fragments of the self that have fallen away.<br />Images, sounds, habits that remain.<br />And the hollow that cannot be filled.",
+      "These elements do not move in a linear storyline,<br />they diffuse like water,<br />slowly spreading, seeping into one another.",
+      "The image of the “jellyfish” in the lyrics suggests not simply death,<br />but dissolution as a mode of existence,<br />dying and turning into water,<br />disappearing without a trace,<br />as though it had never appeared at all.",
+      "The overall color of the piece is a deep blue green lake.<br />Not the movement of the sea, nor the fall of rain,<br />but a body of water that is still, yet carries depth.",
+      "The arrangement follows this texture:<br />melodies and atmospheres ripple outward like water rings,<br />slow, restrained, steadily sinking.",
+      "Like the faint silhouette of a jellyfish drifting beneath the surface,<br />transparent, silent,<br />and never entirely gone.",
+    ];
+
+    intro.innerHTML = paragraphs.join("<br /><br />");
+  }
+
+  function applyJellyfishLakeLyricsInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-25.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var part1Heading = findLyricHeading(headings, 1);
+    var part2Heading = findLyricHeading(headings, 2);
+
+    if (!part1Heading || !part2Heading) {
+      return;
+    }
+
+    var part1Text = part1Heading.nextElementSibling;
+    var part2Text = part2Heading.nextElementSibling;
+
+    if (!part1Text || !part2Text || part1Text.tagName !== "P" || part2Text.tagName !== "P") {
+      return;
+    }
+
+    var part1Blocks = [
+      {
+        zh: ["クラゲは死んで水となって", "跡形もなく消える", "まるで現れなかったかのように", "あの人もそうだった"],
+        en: [
+          "The jellyfish dies and turns into water,",
+          "vanishing without a trace—",
+          "as if it had never appeared at all.",
+          "That person was the same.",
+        ],
+      },
+      {
+        zh: ["思い出はあたしに残されたすべて", "あの永遠の笑った顔", "うかつな夢"],
+        en: [
+          "Memories are all that were left behind for me—",
+          "that eternal smiling face,",
+          "those careless dreams.",
+        ],
+      },
+    ];
+
+    var part2Blocks = [
+      {
+        zh: ["あたしたちの歌を忘れたら", "連れて行ってくれる?", "「 忘れる 」以外の苦しみは省かれる"],
+        en: [
+          "If we forget our song,",
+          "will you take me with you?",
+          "Suffering, other than “forgetting,”",
+          "is omitted.",
+        ],
+      },
+      {
+        zh: ["夜にほれ込んだか、黎明を軽視した", "孤独で、絶望的で、夢遊病的な愛"],
+        en: [
+          "Did we fall in love with the night,",
+          "or dismiss the dawn?",
+          "A love that was solitary,",
+          "desperate,",
+          "somnambulant.",
+        ],
+      },
+    ];
+
+    function renderBilingualBlocks(blocks) {
+      return blocks
+        .map(function (block) {
+          return block.zh.join("<br />") + "<br /><br />" + block.en.join("<br />");
+        })
+        .join("<br /><br />");
+    }
+
+    part1Text.innerHTML = renderBilingualBlocks(part1Blocks);
+    part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
+  }
+
   function applyLoneStarPreludeIntroInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -8110,6 +8260,8 @@
       applyFomalhautLyricsInEnglish(safeLang);
       applyTheGuiltIntroInEnglish(safeLang);
       applyTheGuiltLyricsInEnglish(safeLang);
+      applyJellyfishLakeIntroInEnglish(safeLang);
+      applyJellyfishLakeLyricsInEnglish(safeLang);
       applyLoneStarPreludeIntroInEnglish(safeLang);
       applyMrIdiographicLyricsInEnglish(safeLang);
       applyAffizierenIntroInEnglish(safeLang);
