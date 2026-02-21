@@ -9288,6 +9288,7 @@
     }
 
     applyMusicAlbumTrackTitlesInEnglish(safeLang);
+    applyIpomoeaAlbumIntroInEnglish(safeLang);
 
     if (document.body.classList.contains("music-detail-page")) {
       var titleNode = document.querySelector(".music-detail-article h1");
@@ -9400,7 +9401,6 @@
       applyAffizierenNotesInEnglish(safeLang);
       applyAffizierenLyricsInEnglish(safeLang);
       applyIpomoeaAlbaIntroInEnglish(safeLang);
-      applyIpomoeaAlbumIntroInEnglish(safeLang);
       applyIpomoeaAlbaLyricsInEnglish(safeLang);
       applyHeAndMeIntroInEnglish(safeLang);
       applyHeAndMeLyricsInEnglish(safeLang);
