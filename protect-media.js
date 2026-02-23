@@ -9944,27 +9944,51 @@
     });
   }
 
+  function runTaskGroup(tasks) {
+    tasks.forEach(function (task) {
+      if (typeof task === "function") {
+        task();
+      }
+    });
+  }
+
+  var BOOT_TASK_GROUPS = {
+    navAndChrome: [
+      ensureSearchNavLink,
+      dedupeNavLinks,
+      cacheMusicIntroPaletteSource,
+      injectFloatingSiteLogo,
+      injectFloatingLanguageSwitch,
+    ],
+    pageArchitecture: [setupMusicIndexArchitecture, setupSearchIndexPage],
+    mediaAndProtection: [protectAllMedia, optimizeMediaLoading, optimizeImages],
+    pagePolish: [
+      normalizeFooterMeta,
+      bindFooterMetaSync,
+      labelPhotoOrientation,
+      setupPhotoDetailPager,
+      ensureMusicDetailBackLink,
+      enhanceMusicPlayers,
+      removeMusicDetailImages,
+      enhanceMusicLyricsLayout,
+      enableIndexRowLinks,
+      setupFineMotionPass,
+    ],
+  };
+
+  var MUTATION_REFRESH_TASKS = [
+    optimizeMediaLoading,
+    optimizeImages,
+    normalizeFooterMeta,
+    labelPhotoOrientation,
+    setupFineMotionPass,
+  ];
+
   function boot() {
-    ensureSearchNavLink();
-    dedupeNavLinks();
-    cacheMusicIntroPaletteSource();
-    injectFloatingSiteLogo();
-    injectFloatingLanguageSwitch();
-    setupMusicIndexArchitecture();
-    setupSearchIndexPage();
-    protectAllMedia();
-    optimizeMediaLoading();
-    optimizeImages();
-    normalizeFooterMeta();
-    bindFooterMetaSync();
-    labelPhotoOrientation();
-    setupPhotoDetailPager();
-    ensureMusicDetailBackLink();
-    enhanceMusicPlayers();
-    removeMusicDetailImages();
-    enhanceMusicLyricsLayout();
-    enableIndexRowLinks();
-    setupFineMotionPass();
+    runTaskGroup(BOOT_TASK_GROUPS.navAndChrome);
+    runTaskGroup(BOOT_TASK_GROUPS.pageArchitecture);
+    runTaskGroup(BOOT_TASK_GROUPS.mediaAndProtection);
+    runTaskGroup(BOOT_TASK_GROUPS.pagePolish);
   }
 
   document.addEventListener(
@@ -10035,11 +10059,7 @@
       });
     });
 
-    optimizeMediaLoading();
-    optimizeImages();
-    normalizeFooterMeta();
-    labelPhotoOrientation();
-    setupFineMotionPass();
+    runTaskGroup(MUTATION_REFRESH_TASKS);
   });
 
   observer.observe(document.documentElement, { childList: true, subtree: true });
