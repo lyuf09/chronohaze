@@ -8812,8 +8812,12 @@
         if (!node) {
           return [];
         }
+        var raw = node.textContent || "[]";
+        if (raw.length > 8000) {
+          return [];
+        }
         try {
-          var payload = JSON.parse(node.textContent || "[]");
+          var payload = JSON.parse(raw);
           return normalizeItems(payload);
         } catch (_error) {
           return [];
@@ -8896,6 +8900,8 @@
         setLoadingState(statusNode.textContent || dict.searchLoading);
         return;
       }
+
+      setLoadedState();
 
       if (loadError) {
         statusNode.textContent = dict.searchLoadError;
@@ -9199,7 +9205,55 @@
           }
         });
       }
+
+      Array.from(document.querySelectorAll(".track-album-link")).forEach(function (link) {
+        var href = String(link.getAttribute("href") || "").toLowerCase();
+        if (/album-ipomoea-alba\.html(?:$|[?#])/.test(href)) {
+          link.textContent =
+            safeLang === "en" ? "14 tracks · Album page" : "14 首曲目 · 专辑页";
+          return;
+        }
+        if (/album-teenage-best\.html(?:$|[?#])/.test(href)) {
+          link.textContent =
+            safeLang === "en"
+              ? "HazezZ's teenage years best‘s collection · Album page"
+              : "HazezZ's teenage years best‘s collection · 专辑页";
+        }
+      });
+
       document.title = safeLang === "en" ? "Music | Chronohaze" : "音乐 | Chronohaze";
+    }
+
+    if (document.body.classList.contains("music-album-page")) {
+      var albumSubtitle = document.querySelector(".album-subtitle");
+      var albumBackLink = document.querySelector(".album-back-link");
+      var albumIntroNode = document.querySelector(".album-intro");
+      var albumPath = (window.location.pathname || "")
+        .toLowerCase()
+        .replace(/^.*\/chronohaze\//, "")
+        .replace(/^\//, "");
+
+      if (albumSubtitle) {
+        if (albumPath === "music/album-ipomoea-alba.html") {
+          albumSubtitle.textContent =
+            safeLang === "en"
+              ? "Album page · click any track to open its work page"
+              : "专辑页 · 点击曲目可跳转到对应作品页";
+        } else if (albumPath === "music/album-teenage-best.html") {
+          albumSubtitle.textContent =
+            safeLang === "en"
+              ? "HazezZ's teenage years best‘s collection"
+              : "HazezZ 青少年时期精选集";
+        }
+      }
+
+      if (albumBackLink) {
+        albumBackLink.textContent = safeLang === "en" ? "Back to music" : "返回音乐作品集";
+      }
+
+      if (albumIntroNode) {
+        albumIntroNode.setAttribute("aria-label", safeLang === "en" ? "Album intro" : "专辑介绍");
+      }
     }
 
     if (document.body.classList.contains("photo-index-page")) {
