@@ -21,6 +21,30 @@ REQUIRED_ITEM_KEYS = {
 }
 
 
+def load_music_catalog_map(root: Path) -> Dict[str, Dict[str, Any]]:
+    catalog_path = root / "assets" / "data" / "music-catalog.json"
+    if not catalog_path.is_file():
+        return {}
+
+    payload = load_json(catalog_path)
+    if not isinstance(payload, dict):
+        return {}
+
+    items = payload.get("items")
+    if not isinstance(items, list):
+        return {}
+
+    result: Dict[str, Dict[str, Any]] = {}
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+        url = str(item.get("url", "")).strip()
+        if not url:
+            continue
+        result[url] = item
+    return result
+
+
 def load_json(path: Path) -> Any:
     with path.open("r", encoding="utf-8") as fh:
         return json.load(fh)
@@ -49,9 +73,12 @@ def validate_item(item: Dict[str, Any], source: Path, index: int) -> None:
         )
 
 
-def merge_items(search_data_dir: Path) -> List[Dict[str, Any]]:
+def merge_items(
+    search_data_dir: Path, music_catalog_map: Dict[str, Dict[str, Any]] | None = None
+) -> List[Dict[str, Any]]:
     collected: List[Dict[str, Any]] = []
     seen_urls = set()
+    music_catalog_map = music_catalog_map or {}
 
     preferred_order = ["music.json", "math.json", "photo.json", "site.json", "cv.json"]
     discovered = {path.name: path for path in search_data_dir.glob("*.json")}
@@ -77,6 +104,15 @@ def merge_items(search_data_dir: Path) -> List[Dict[str, Any]]:
             url = str(item.get("url", "")).strip()
             if not url:
                 continue
+            if path.name == "music.json":
+                catalog_item = music_catalog_map.get(url)
+                if catalog_item:
+                    catalog_tags = catalog_item.get("tags")
+                    if isinstance(catalog_tags, list):
+                        item["tags"] = [str(tag) for tag in catalog_tags if str(tag).strip()]
+                    catalog_date = str(catalog_item.get("date", "")).strip()
+                    if catalog_date:
+                        item["date"] = catalog_date
             if url in seen_urls:
                 # Keep first occurrence to avoid unstable search duplicates.
                 continue
@@ -107,7 +143,8 @@ def main() -> int:
     if not search_data_dir.is_dir():
         raise SystemExit(f"Missing search data directory: {search_data_dir}")
 
-    items = merge_items(search_data_dir)
+    music_catalog_map = load_music_catalog_map(root)
+    items = merge_items(search_data_dir, music_catalog_map)
     payload = {
         "generated_at": date.today().isoformat(),
         "items": items,

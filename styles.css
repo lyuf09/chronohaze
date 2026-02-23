@@ -1612,6 +1612,13 @@ audio {
   line-height: 1.46;
 }
 
+.search-index-page .search-hit {
+  background: rgba(156, 171, 210, 0.22);
+  color: inherit;
+  padding: 0 0.08em;
+  border-radius: 0.16em;
+}
+
 .search-index-page .search-result-tags {
   display: flex;
   flex-wrap: wrap;

@@ -269,8 +269,11 @@
     });
   }
 
+  var videoMetadataWarmupObserver = null;
+
   function optimizeMediaLoading() {
     var media = Array.from(document.querySelectorAll("audio, video"));
+    var videoWarmupTargets = [];
 
     media.forEach(function (item) {
       if (!item || item.dataset.mediaPreloadReady === "1") {
@@ -284,9 +287,7 @@
         explicitPreload === "metadata" || explicitPreload === "auto";
       var shouldPreferMetadata =
         item.tagName === "AUDIO" &&
-        (item.hasAttribute("data-eager-media") ||
-          item.id === "heroAudio" ||
-          !!item.closest(".music-detail-article"));
+        !item.hasAttribute("autoplay");
 
       if (shouldPreferMetadata && !shouldKeepExplicitPreload) {
         item.preload = "metadata";
@@ -304,7 +305,84 @@
       if (item.tagName === "VIDEO" && !item.hasAttribute("playsinline")) {
         item.setAttribute("playsinline", "");
       }
+
+      if (
+        item.tagName === "VIDEO" &&
+        !item.hasAttribute("autoplay") &&
+        !item.hasAttribute("data-eager-media") &&
+        (item.getAttribute("preload") || "").toLowerCase() === "none"
+      ) {
+        videoWarmupTargets.push(item);
+      }
+
+      if (item.dataset.mediaAnalyticsBound !== "1") {
+        item.dataset.mediaAnalyticsBound = "1";
+        item.addEventListener(
+          "play",
+          function () {
+            if (item.dataset.mediaPlayTracked === "1") {
+              return;
+            }
+            item.dataset.mediaPlayTracked = "1";
+            var source =
+              item.getAttribute("src") ||
+              (item.currentSrc || "") ||
+              ((item.querySelector && item.querySelector("source")) || {}).src ||
+              "";
+            var path = "";
+            try {
+              path = source ? new URL(source, window.location.href).pathname : "";
+            } catch (_error) {
+              path = String(source || "");
+            }
+            trackAnalyticsEvent("media_play_start", {
+              media_kind: String(item.tagName || "").toLowerCase(),
+              page_path: window.location.pathname,
+              media_path: path,
+            });
+          },
+          { once: false }
+        );
+      }
     });
+
+    if (videoWarmupTargets.length && "IntersectionObserver" in window) {
+      if (!videoMetadataWarmupObserver) {
+        videoMetadataWarmupObserver = new IntersectionObserver(
+        function (entries, observer) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) {
+              return;
+            }
+            var video = entry.target;
+            if (video && video.tagName === "VIDEO") {
+              var preload = (video.getAttribute("preload") || "").toLowerCase();
+              if (preload === "none") {
+                video.preload = "metadata";
+              }
+            }
+            observer.unobserve(entry.target);
+          });
+        },
+        {
+          rootMargin: "240px 0px",
+          threshold: 0.01,
+        }
+      );
+      }
+
+      document.querySelectorAll("video").forEach(function (video) {
+        if (!video || video.dataset.videoWarmupObserved === "1") {
+          return;
+        }
+        var preloadValue = (video.getAttribute("preload") || "").toLowerCase();
+        if (preloadValue !== "none") {
+          return;
+        }
+        video.dataset.videoWarmupObserved = "1";
+        videoMetadataWarmupObserver.observe(video);
+      });
+    }
   }
 
   function normalizeFooterMeta() {
@@ -511,6 +589,16 @@
 
   function normalizeText(value) {
     return (value || "").replace(/\s+/g, "");
+  }
+
+  function trackAnalyticsEvent(name, params) {
+    if (typeof window.gtag !== "function" || !name) {
+      return;
+    }
+    try {
+      window.gtag("event", name, params || {});
+    } catch (_error) {
+    }
   }
 
   function findSectionParagraph(article, headingLabels) {
@@ -8018,6 +8106,68 @@
     });
   }
 
+  var musicCatalogLoadPromise = null;
+  var musicCatalogByHref = null;
+
+  function normalizeMusicCatalogHref(value) {
+    return String(value || "")
+      .trim()
+      .replace(/^\.\//, "")
+      .replace(/^\//, "");
+  }
+
+  function getMusicCatalogForRowHref(href) {
+    if (!musicCatalogByHref) {
+      return null;
+    }
+    return musicCatalogByHref[normalizeMusicCatalogHref(href)] || null;
+  }
+
+  function loadMusicCatalogMetadata() {
+    if (musicCatalogByHref) {
+      return Promise.resolve(musicCatalogByHref);
+    }
+    if (musicCatalogLoadPromise) {
+      return musicCatalogLoadPromise;
+    }
+
+    musicCatalogLoadPromise = fetch("assets/data/music-catalog.json", {
+      cache: "no-cache",
+    })
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error("HTTP " + response.status);
+        }
+        return response.json();
+      })
+      .then(function (payload) {
+        var items = Array.isArray(payload && payload.items) ? payload.items : [];
+        var map = Object.create(null);
+        items.forEach(function (item) {
+          if (!item || typeof item !== "object") {
+            return;
+          }
+          var key = normalizeMusicCatalogHref(item.url || "");
+          if (!key) {
+            return;
+          }
+          map[key] = item;
+        });
+        musicCatalogByHref = map;
+        return musicCatalogByHref;
+      })
+      .catch(function () {
+        musicCatalogByHref = Object.create(null);
+        return musicCatalogByHref;
+      })
+      .then(function (result) {
+        musicCatalogLoadPromise = null;
+        return result;
+      });
+
+    return musicCatalogLoadPromise;
+  }
+
   function setupMusicIndexArchitecture() {
     if (!document.body || !document.body.classList.contains("music-index-page")) {
       return;
@@ -8036,1006 +8186,352 @@
       return;
     }
 
-    if (!shell) {
-      shell = document.createElement("div");
-      shell.className = "container music-ia-shell";
+    function applyMusicIndexArchitecture(catalogMap) {
+      catalogMap = catalogMap || Object.create(null);
 
-      var controls = document.createElement("div");
-      controls.className = "music-ia-controls";
+      if (!shell) {
+        shell = document.createElement("div");
+        shell.className = "container music-ia-shell";
 
-      var tabs = document.createElement("div");
-      tabs.className = "music-ia-tabs";
-      tabs.setAttribute("role", "tablist");
+        var controls = document.createElement("div");
+        controls.className = "music-ia-controls";
 
-      [
-        { key: "album", label: dict.musicTabAlbum },
-        { key: "single", label: dict.musicTabSingles },
-      ].forEach(function (item) {
-        var button = document.createElement("button");
-        button.type = "button";
-        button.className = "music-ia-tab";
-        button.dataset.groupFilter = item.key;
-        button.textContent = item.label;
-        if (item.key === "single") {
-          button.classList.add("is-active");
+        var tabs = document.createElement("div");
+        tabs.className = "music-ia-tabs";
+        tabs.setAttribute("role", "tablist");
+
+        [
+          { key: "album", label: dict.musicTabAlbum },
+          { key: "single", label: dict.musicTabSingles },
+        ].forEach(function (item) {
+          var button = document.createElement("button");
+          button.type = "button";
+          button.className = "music-ia-tab";
+          button.dataset.groupFilter = item.key;
+          button.textContent = item.label;
+          if (item.key === "single") {
+            button.classList.add("is-active");
+          }
+          tabs.appendChild(button);
+        });
+
+        var filters = document.createElement("div");
+        filters.className = "music-ia-filters";
+
+        function buildFilter(labelText, filterName) {
+          var wrapper = document.createElement("label");
+          wrapper.className = "music-ia-filter";
+          var label = document.createElement("span");
+          label.className = "music-ia-filter-label";
+          label.textContent = labelText;
+          var select = document.createElement("select");
+          select.className = "music-ia-filter-select";
+          select.dataset.filter = filterName;
+          wrapper.appendChild(label);
+          wrapper.appendChild(select);
+          return wrapper;
         }
-        tabs.appendChild(button);
-      });
 
-      var filters = document.createElement("div");
-      filters.className = "music-ia-filters";
+        filters.appendChild(buildFilter(dict.musicFilterYear, "year"));
+        filters.appendChild(buildFilter(dict.musicFilterTag, "tag"));
+        filters.appendChild(buildFilter(dict.musicFilterAudio, "audio"));
 
-      function buildFilter(labelText, filterName) {
-        var wrapper = document.createElement("label");
-        wrapper.className = "music-ia-filter";
-        var label = document.createElement("span");
-        label.className = "music-ia-filter-label";
-        label.textContent = labelText;
-        var select = document.createElement("select");
-        select.className = "music-ia-filter-select";
-        select.dataset.filter = filterName;
-        wrapper.appendChild(label);
-        wrapper.appendChild(select);
-        return wrapper;
+        controls.appendChild(tabs);
+        controls.appendChild(filters);
+
+        var groups = document.createElement("div");
+        groups.className = "music-group-stack";
+        [
+          { key: "album", label: dict.musicGroupAlbum },
+          { key: "single", label: dict.musicGroupSingles },
+        ].forEach(function (item) {
+          var group = document.createElement("section");
+          group.className = "music-group";
+          group.dataset.group = item.key;
+
+          var heading = document.createElement("h3");
+          heading.className = "music-group-title";
+          var text = document.createElement("span");
+          text.className = "music-group-title-text";
+          text.textContent = item.label;
+          var count = document.createElement("span");
+          count.className = "music-group-count";
+          count.dataset.groupCount = item.key;
+          heading.appendChild(text);
+          heading.appendChild(count);
+
+          var list = document.createElement("div");
+          list.className = "music-list music-list-group";
+          list.dataset.listGroup = item.key;
+
+          group.appendChild(heading);
+          group.appendChild(list);
+          groups.appendChild(group);
+        });
+
+        var empty = document.createElement("p");
+        empty.className = "music-ia-empty";
+        empty.textContent = dict.musicNoResults;
+        empty.hidden = true;
+
+        sourceList.classList.add("music-list-source");
+        sourceList.hidden = true;
+
+        shell.appendChild(controls);
+        shell.appendChild(groups);
+        shell.appendChild(empty);
+        shell.appendChild(sourceList);
+        rootSection.textContent = "";
+        rootSection.appendChild(shell);
       }
 
-      filters.appendChild(buildFilter(dict.musicFilterYear, "year"));
-      filters.appendChild(buildFilter(dict.musicFilterTag, "tag"));
-      filters.appendChild(buildFilter(dict.musicFilterAudio, "audio"));
+      var yearSelect = shell.querySelector('select[data-filter="year"]');
+      var tagSelect = shell.querySelector('select[data-filter="tag"]');
+      var audioSelect = shell.querySelector('select[data-filter="audio"]');
+      var tabs = Array.from(shell.querySelectorAll(".music-ia-tab"));
+      var emptyState = shell.querySelector(".music-ia-empty");
+      var groupSections = Array.from(shell.querySelectorAll(".music-group"));
+      var albumList = shell.querySelector('[data-list-group="album"]');
+      var singlesList = shell.querySelector('[data-list-group="single"]');
 
-      controls.appendChild(tabs);
-      controls.appendChild(filters);
-
-      var groups = document.createElement("div");
-      groups.className = "music-group-stack";
-      [
-        { key: "album", label: dict.musicGroupAlbum },
-        { key: "single", label: dict.musicGroupSingles },
-      ].forEach(function (item) {
-        var group = document.createElement("section");
-        group.className = "music-group";
-        group.dataset.group = item.key;
-
-        var heading = document.createElement("h3");
-        heading.className = "music-group-title";
-        var text = document.createElement("span");
-        text.className = "music-group-title-text";
-        text.textContent = item.label;
-        var count = document.createElement("span");
-        count.className = "music-group-count";
-        count.dataset.groupCount = item.key;
-        heading.appendChild(text);
-        heading.appendChild(count);
-
-        var list = document.createElement("div");
-        list.className = "music-list music-list-group";
-        list.dataset.listGroup = item.key;
-
-        group.appendChild(heading);
-        group.appendChild(list);
-        groups.appendChild(group);
-      });
-
-      var empty = document.createElement("p");
-      empty.className = "music-ia-empty";
-      empty.textContent = dict.musicNoResults;
-      empty.hidden = true;
-
-      sourceList.classList.add("music-list-source");
-      sourceList.hidden = true;
-
-      shell.appendChild(controls);
-      shell.appendChild(groups);
-      shell.appendChild(empty);
-      shell.appendChild(sourceList);
-      rootSection.textContent = "";
-      rootSection.appendChild(shell);
-    }
-
-    var yearSelect = shell.querySelector('select[data-filter="year"]');
-    var tagSelect = shell.querySelector('select[data-filter="tag"]');
-    var audioSelect = shell.querySelector('select[data-filter="audio"]');
-    var tabs = Array.from(shell.querySelectorAll(".music-ia-tab"));
-    var emptyState = shell.querySelector(".music-ia-empty");
-    var groupSections = Array.from(shell.querySelectorAll(".music-group"));
-    var albumList = shell.querySelector('[data-list-group="album"]');
-    var singlesList = shell.querySelector('[data-list-group="single"]');
-
-    if (!yearSelect || !tagSelect || !audioSelect || !albumList || !singlesList) {
-      return;
-    }
-
-    var yearValues = [];
-    var tagValues = [];
-
-    rows.forEach(function (row) {
-      var titleNode = row.querySelector(".track-title");
-      var artistNode = row.querySelector(".track-artist");
-      var titleText = titleNode ? titleNode.textContent || "" : "";
-      var artistText = artistNode ? artistNode.textContent || "" : "";
-
-      var type = row.dataset.musicType || inferMusicRowType(row, titleText);
-      var hasAudio = /音频待上传|audio pending upload/i.test(titleText || "")
-        ? "0"
-        : "1";
-      var year = row.dataset.musicYear || parseMusicRowYear(row);
-      var tags = sanitizeMusicTags(splitMusicTags(row.dataset.tags || ""));
-
-      if (!tags.length) {
-        tags.push(type === "album" ? "album" : "single");
-      }
-      if (/\//.test(artistText || "") || /feat\.?|ft\.?/i.test(titleText || "")) {
-        tags.push("collab");
+      if (!yearSelect || !tagSelect || !audioSelect || !albumList || !singlesList) {
+        return;
       }
 
-      tags = uniqueMusicTags(sanitizeMusicTags(tags));
-
-      row.dataset.musicType = type;
-      row.dataset.musicYear = year;
-      row.dataset.hasAudio = hasAudio;
-      row.dataset.tags = tags.join(",");
-      row.classList.remove("track-row-album", "track-row-single", "track-row-wip");
-      row.classList.add("track-row-" + type);
-
-      ensureMusicRowTags(row, tags, dict);
-
-      if (year) {
-        yearValues.push(year);
-      }
-      tagValues = tagValues.concat(tags);
-
-      if (type === "album") {
-        albumList.appendChild(row);
-      } else {
-        singlesList.appendChild(row);
-      }
-    });
-
-    yearValues = uniqueMusicTags(yearValues).sort(function (a, b) {
-      return Number(b) - Number(a);
-    });
-
-    var tagOrder = [
-      "album",
-      "single",
-      "collab",
-      "instrumental",
-      "jrock",
-      "progcore",
-      "mathrock",
-      "posthardcore",
-      "jazz",
-      "hardrock",
-      "emorock",
-      "postrock",
-      "pop",
-      "indie",
-    ];
-    tagValues = uniqueMusicTags(tagValues).sort(function (a, b) {
-      var ia = tagOrder.indexOf(a);
-      var ib = tagOrder.indexOf(b);
-      if (ia >= 0 && ib >= 0) {
-        return ia - ib;
-      }
-      if (ia >= 0) {
-        return -1;
-      }
-      if (ib >= 0) {
-        return 1;
-      }
-      return a.localeCompare(b);
-    });
-
-    function fillSelect(selectNode, allLabel, values, displayFn) {
-      var current = selectNode.value || "all";
-      selectNode.textContent = "";
-      var allOption = document.createElement("option");
-      allOption.value = "all";
-      allOption.textContent = allLabel;
-      selectNode.appendChild(allOption);
-
-      values.forEach(function (value) {
-        var option = document.createElement("option");
-        option.value = value;
-        option.textContent = displayFn ? displayFn(value) : value;
-        selectNode.appendChild(option);
-      });
-
-      if (Array.from(selectNode.options).some(function (opt) { return opt.value === current; })) {
-        selectNode.value = current;
-      } else {
-        selectNode.value = "all";
-      }
-    }
-
-    fillSelect(yearSelect, dict.musicFilterAllYears, yearValues, null);
-    fillSelect(tagSelect, dict.musicFilterAllTags, tagValues, function (tag) {
-      return getMusicTagLabel(tag, dict);
-    });
-    fillSelect(audioSelect, dict.musicFilterAudioAll, ["ready", "pending"], function (value) {
-      return value === "ready" ? dict.musicFilterAudioReady : dict.musicFilterAudioPending;
-    });
-
-    var titleMap = {
-      album: dict.musicTabAlbum,
-      single: dict.musicTabSingles,
-    };
-    tabs.forEach(function (tab) {
-      tab.textContent = titleMap[tab.dataset.groupFilter] || tab.textContent;
-    });
-
-    var filterLabels = shell.querySelectorAll(".music-ia-filter-label");
-    if (filterLabels[0]) filterLabels[0].textContent = dict.musicFilterYear;
-    if (filterLabels[1]) filterLabels[1].textContent = dict.musicFilterTag;
-    if (filterLabels[2]) filterLabels[2].textContent = dict.musicFilterAudio;
-
-    var groupTitleMap = {
-      album: dict.musicGroupAlbum,
-      single: dict.musicGroupSingles,
-    };
-    groupSections.forEach(function (group) {
-      var key = group.dataset.group;
-      var titleNode = group.querySelector(".music-group-title-text");
-      if (titleNode && groupTitleMap[key]) {
-        titleNode.textContent = groupTitleMap[key];
-      }
-    });
-    emptyState.textContent = dict.musicNoResults;
-
-    function activeGroupFilter() {
-      var active = shell.querySelector(".music-ia-tab.is-active");
-      return active ? active.dataset.groupFilter : "single";
-    }
-
-    function applyFilters() {
-      var groupFilter = activeGroupFilter();
-      var yearFilter = yearSelect.value || "all";
-      var tagFilter = tagSelect.value || "all";
-      var audioFilter = audioSelect.value || "all";
-
-      var visibleTotal = 0;
+      var yearValues = [];
+      var tagValues = [];
 
       rows.forEach(function (row) {
-        var type = row.dataset.musicType || "single";
-        var year = row.dataset.musicYear || "";
-        var hasAudio = row.dataset.hasAudio === "1";
-        var tags = splitMusicTags(row.dataset.tags || "");
+        var titleNode = row.querySelector(".track-title");
+        var artistNode = row.querySelector(".track-artist");
+        var titleText = titleNode ? titleNode.textContent || "" : "";
+        var artistText = artistNode ? artistNode.textContent || "" : "";
+        var rowHref = row.getAttribute("data-href") || "";
+        var catalogItem = getMusicCatalogForRowHref(rowHref) || catalogMap[normalizeMusicCatalogHref(rowHref)];
 
-        var matchesGroup = type === groupFilter;
-        var matchesYear = yearFilter === "all" || year === yearFilter;
-        var matchesTag = tagFilter === "all" || tags.indexOf(tagFilter) >= 0;
-        var matchesAudio =
-          audioFilter === "all" ||
-          (audioFilter === "ready" && hasAudio) ||
-          (audioFilter === "pending" && !hasAudio);
+        var type =
+          (catalogItem && catalogItem.type) ||
+          row.dataset.musicType ||
+          inferMusicRowType(row, titleText);
+        var hasAudio =
+          catalogItem && typeof catalogItem.has_audio === "boolean"
+            ? (catalogItem.has_audio ? "1" : "0")
+            : /音频待上传|audio pending upload/i.test(titleText || "")
+              ? "0"
+              : "1";
+        var year =
+          (catalogItem && String(catalogItem.year || "").trim()) ||
+          row.dataset.musicYear ||
+          parseMusicRowYear(row);
+        var tags = sanitizeMusicTags(
+          splitMusicTags(
+            catalogItem && Array.isArray(catalogItem.tags)
+              ? catalogItem.tags.join(",")
+              : row.dataset.tags || ""
+          )
+        );
 
-        var visible = matchesGroup && matchesYear && matchesTag && matchesAudio;
-        row.hidden = !visible;
-        row.classList.toggle("is-filter-hidden", !visible);
-        if (visible) {
-          visibleTotal += 1;
+        if (!tags.length) {
+          tags.push(type === "album" ? "album" : "single");
+        }
+        if (/\//.test(artistText || "") || /feat\.?|ft\.?/i.test(titleText || "")) {
+          tags.push("collab");
+        }
+
+        tags = uniqueMusicTags(sanitizeMusicTags(tags));
+
+        row.dataset.musicType = type;
+        row.dataset.musicYear = year;
+        row.dataset.hasAudio = hasAudio;
+        row.dataset.tags = tags.join(",");
+        row.classList.remove("track-row-album", "track-row-single", "track-row-wip");
+        row.classList.add("track-row-" + type);
+
+        ensureMusicRowTags(row, tags, dict);
+
+        if (year) {
+          yearValues.push(year);
+        }
+        tagValues = tagValues.concat(tags);
+
+        if (type === "album") {
+          albumList.appendChild(row);
+        } else {
+          singlesList.appendChild(row);
         }
       });
 
+      yearValues = uniqueMusicTags(yearValues).sort(function (a, b) {
+        return Number(b) - Number(a);
+      });
+
+      var tagOrder = [
+        "album",
+        "single",
+        "collab",
+        "instrumental",
+        "jrock",
+        "progcore",
+        "mathrock",
+        "posthardcore",
+        "jazz",
+        "hardrock",
+        "emorock",
+        "postrock",
+        "pop",
+        "indie",
+      ];
+      tagValues = uniqueMusicTags(tagValues).sort(function (a, b) {
+        var ia = tagOrder.indexOf(a);
+        var ib = tagOrder.indexOf(b);
+        if (ia >= 0 && ib >= 0) {
+          return ia - ib;
+        }
+        if (ia >= 0) {
+          return -1;
+        }
+        if (ib >= 0) {
+          return 1;
+        }
+        return a.localeCompare(b);
+      });
+
+      function fillSelect(selectNode, allLabel, values, displayFn) {
+        var current = selectNode.value || "all";
+        selectNode.textContent = "";
+        var allOption = document.createElement("option");
+        allOption.value = "all";
+        allOption.textContent = allLabel;
+        selectNode.appendChild(allOption);
+
+        values.forEach(function (value) {
+          var option = document.createElement("option");
+          option.value = value;
+          option.textContent = displayFn ? displayFn(value) : value;
+          selectNode.appendChild(option);
+        });
+
+        if (Array.from(selectNode.options).some(function (opt) { return opt.value === current; })) {
+          selectNode.value = current;
+        } else {
+          selectNode.value = "all";
+        }
+      }
+
+      fillSelect(yearSelect, dict.musicFilterAllYears, yearValues, null);
+      fillSelect(tagSelect, dict.musicFilterAllTags, tagValues, function (tag) {
+        return getMusicTagLabel(tag, dict);
+      });
+      fillSelect(audioSelect, dict.musicFilterAudioAll, ["ready", "pending"], function (value) {
+        return value === "ready" ? dict.musicFilterAudioReady : dict.musicFilterAudioPending;
+      });
+
+      var titleMap = {
+        album: dict.musicTabAlbum,
+        single: dict.musicTabSingles,
+      };
+      tabs.forEach(function (tab) {
+        tab.textContent = titleMap[tab.dataset.groupFilter] || tab.textContent;
+      });
+
+      var filterLabels = shell.querySelectorAll(".music-ia-filter-label");
+      if (filterLabels[0]) filterLabels[0].textContent = dict.musicFilterYear;
+      if (filterLabels[1]) filterLabels[1].textContent = dict.musicFilterTag;
+      if (filterLabels[2]) filterLabels[2].textContent = dict.musicFilterAudio;
+
+      var groupTitleMap = {
+        album: dict.musicGroupAlbum,
+        single: dict.musicGroupSingles,
+      };
       groupSections.forEach(function (group) {
         var key = group.dataset.group;
-        var groupRows = Array.from(group.querySelectorAll(".track-row"));
-        var visibleCount = groupRows.filter(function (row) {
-          return !row.hidden;
-        }).length;
-        var countNode = group.querySelector("[data-group-count]");
-        if (countNode) {
-          countNode.textContent = visibleCount > 0 ? " (" + visibleCount + ")" : " (0)";
-        }
-
-        if (key !== groupFilter) {
-          group.hidden = true;
-          group.classList.add("is-filter-hidden");
-        } else {
-          group.hidden = visibleCount === 0;
-          group.classList.toggle("is-filter-hidden", visibleCount === 0);
+        var titleNode = group.querySelector(".music-group-title-text");
+        if (titleNode && groupTitleMap[key]) {
+          titleNode.textContent = groupTitleMap[key];
         }
       });
+      emptyState.textContent = dict.musicNoResults;
 
-      emptyState.hidden = visibleTotal > 0;
-    }
-
-    if (shell.dataset.musicFiltersBound !== "1") {
-      tabs.forEach(function (tab) {
-        tab.addEventListener("click", function () {
-          tabs.forEach(function (node) {
-            node.classList.remove("is-active");
-          });
-          tab.classList.add("is-active");
-          applyFilters();
-        });
-      });
-
-      [yearSelect, tagSelect, audioSelect].forEach(function (select) {
-        select.addEventListener("change", applyFilters);
-      });
-
-      shell.dataset.musicFiltersBound = "1";
-    }
-
-    applyFilters();
-  }
-
-  function getSearchSectionKey(sectionText) {
-    var section = normalizeText(sectionText || "").toLowerCase();
-    if (section === "mathematics" || section === "math") {
-      return "math";
-    }
-    if (section === "music") {
-      return "music";
-    }
-    if (section === "photography" || section === "photo") {
-      return "photo";
-    }
-    if (section === "cv") {
-      return "cv";
-    }
-    return "other";
-  }
-
-  function getSearchItemScope(item) {
-    if (!item || typeof item !== "object") {
-      return "other";
-    }
-
-    var explicit = String(item.scope || "").toLowerCase();
-    if (
-      explicit === "all" ||
-      explicit === "math" ||
-      explicit === "music" ||
-      explicit === "photo" ||
-      explicit === "cv" ||
-      explicit === "site"
-    ) {
-      return explicit === "all" ? "other" : explicit;
-    }
-
-    var key = getSearchSectionKey(item.section || "");
-    if (key !== "other") {
-      return key;
-    }
-
-    var url = String(item.url || "").toLowerCase();
-    if (/^post\/|(?:^|\/)math\.html(?:$|[?#])/.test(url)) {
-      return "math";
-    }
-    if (/^music\/|(?:^|\/)yin-le\.html(?:$|[?#])/.test(url)) {
-      return "music";
-    }
-    if (/^photo\/|(?:^|\/)portfolio-1\.html(?:$|[?#])/.test(url)) {
-      return "photo";
-    }
-    if (/(?:^|\/)cv\.html(?:$|[?#])/.test(url)) {
-      return "cv";
-    }
-    return "site";
-  }
-
-  function getSearchSectionLabel(item, dict) {
-    var key = getSearchItemScope(item);
-    if (key === "math") {
-      return dict.searchScopeMath;
-    }
-    if (key === "music") {
-      return dict.searchScopeMusic;
-    }
-    if (key === "photo") {
-      return dict.searchScopePhoto;
-    }
-    if (key === "cv") {
-      return dict.searchScopeCV;
-    }
-    return item && item.section ? item.section : dict.searchScopeAll;
-  }
-
-  function setupSearchIndexPage() {
-    if (!document.body || !document.body.classList.contains("search-index-page")) {
-      return;
-    }
-
-    var lang = detectPreferredLanguage();
-    var dict = getSecondaryPageDictionary(lang);
-    var params = new URLSearchParams(window.location.search);
-
-    var titleNode = document.querySelector("[data-search-title]");
-    var introNode = document.querySelector("[data-search-intro]");
-    var keywordLabelNode = document.querySelector("[data-search-keyword-label]");
-    var inputNode = document.querySelector("#site-search-input");
-    var scopeNode = document.querySelector("#site-search-scope");
-    var scopeLabelNode = document.querySelector("[data-search-scope-label]");
-    var tagNode = document.querySelector("#site-search-tag");
-    var tagLabelNode = document.querySelector("[data-search-tag-label]");
-    var statusNode = document.querySelector(".search-status");
-    var skeletonNode = document.querySelector(".search-skeleton");
-    var listNode = document.querySelector(".search-results");
-    var emptyNode = document.querySelector(".search-empty");
-    var fallbackPanel = document.querySelector(".search-fallback-actions");
-    var fallbackTextNode = document.querySelector("[data-search-fallback-text]");
-    var fallbackMathNode = document.querySelector("[data-search-fallback-math]");
-    var fallbackPhotoNode = document.querySelector("[data-search-fallback-photo]");
-    var fallbackMusicNode = document.querySelector("[data-search-fallback-music]");
-    var fallbackCVNode = document.querySelector("[data-search-fallback-cv]");
-    var fallbackExternalNode = document.querySelector("[data-search-fallback-external]");
-    var formNode = document.querySelector(".search-form");
-    var submitNode = document.querySelector(".search-submit");
-
-    if (
-      !inputNode ||
-      !scopeNode ||
-      !tagNode ||
-      !statusNode ||
-      !listNode ||
-      !emptyNode ||
-      !formNode
-    ) {
-      return;
-    }
-
-    if (titleNode) {
-      titleNode.textContent = dict.searchPageTitle;
-    }
-    if (introNode) {
-      introNode.textContent = dict.searchIntro;
-    }
-    if (keywordLabelNode) {
-      keywordLabelNode.textContent = dict.searchKeywordLabel;
-    }
-    if (scopeLabelNode) {
-      scopeLabelNode.textContent = dict.searchScopeLabel;
-    }
-    if (tagLabelNode) {
-      tagLabelNode.textContent = dict.searchTagLabel;
-    }
-    if (submitNode) {
-      submitNode.textContent = dict.searchSubmit;
-    }
-    if (fallbackTextNode) {
-      fallbackTextNode.textContent = dict.searchFallbackText;
-    }
-    if (fallbackMathNode) {
-      fallbackMathNode.textContent = dict.searchFallbackMath;
-    }
-    if (fallbackPhotoNode) {
-      fallbackPhotoNode.textContent = dict.searchFallbackPhoto;
-    }
-    if (fallbackMusicNode) {
-      fallbackMusicNode.textContent = dict.searchFallbackMusic;
-    }
-    if (fallbackCVNode) {
-      fallbackCVNode.textContent = dict.searchFallbackCV;
-    }
-    if (fallbackExternalNode) {
-      fallbackExternalNode.textContent = dict.searchFallbackExternal;
-    }
-    inputNode.placeholder = dict.searchPlaceholder;
-
-    var scopeLabels = {
-      all: dict.searchScopeAll,
-      math: dict.searchScopeMath,
-      photo: dict.searchScopePhoto,
-      music: dict.searchScopeMusic,
-      cv: dict.searchScopeCV,
-    };
-    Array.from(scopeNode.options).forEach(function (option) {
-      var value = option.value || "all";
-      if (scopeLabels[value]) {
-        option.textContent = scopeLabels[value];
+      function activeGroupFilter() {
+        var active = shell.querySelector(".music-ia-tab.is-active");
+        return active ? active.dataset.groupFilter : "single";
       }
-    });
 
-    var initialQuery = params.get("q") || "";
-    var initialScope = params.get("scope") || "all";
-    var initialTag = params.get("tag") || "all";
-    inputNode.value = initialQuery;
-    if (Array.from(scopeNode.options).some(function (option) { return option.value === initialScope; })) {
-      scopeNode.value = initialScope;
-    }
+      function applyFilters() {
+        var groupFilter = activeGroupFilter();
+        var yearFilter = yearSelect.value || "all";
+        var tagFilter = tagSelect.value || "all";
+        var audioFilter = audioSelect.value || "all";
 
-    var allItems = [];
-    var scopeCache = Object.create(null);
-    var loaded = false;
-    var loadError = false;
-    var usingFallback = false;
-    var loadToken = 0;
-    var scopeFiles = {
-      math: "assets/search-data/math.json",
-      photo: "assets/search-data/photo.json",
-      music: "assets/search-data/music.json",
-      cv: "assets/search-data/cv.json",
-      site: "assets/search-data/site.json",
-    };
-    var allScopes = ["math", "photo", "music", "cv", "site"];
-    statusNode.textContent = dict.searchLoading;
-    emptyNode.hidden = true;
-    if (fallbackPanel) {
-      fallbackPanel.hidden = true;
-    }
+        var visibleTotal = 0;
 
-    function setFallbackVisibility(visible) {
-      if (!fallbackPanel) {
-        return;
-      }
-      fallbackPanel.hidden = !visible;
-    }
+        rows.forEach(function (row) {
+          var type = row.dataset.musicType || "single";
+          var year = row.dataset.musicYear || "";
+          var hasAudio = row.dataset.hasAudio === "1";
+          var tags = splitMusicTags(row.dataset.tags || "");
 
-    function updateFallbackExternalLink() {
-      if (!fallbackExternalNode) {
-        return;
-      }
-      var query = normalizeText(inputNode.value || "").trim();
-      var q = "site:chronohaze.space";
-      if (query) {
-        q += " " + query;
-      }
-      fallbackExternalNode.href =
-        "https://www.google.com/search?q=" + encodeURIComponent(q);
-    }
+          var matchesGroup = type === groupFilter;
+          var matchesYear = yearFilter === "all" || year === yearFilter;
+          var matchesTag = tagFilter === "all" || tags.indexOf(tagFilter) >= 0;
+          var matchesAudio =
+            audioFilter === "all" ||
+            (audioFilter === "ready" && hasAudio) ||
+            (audioFilter === "pending" && !hasAudio);
 
-    function updateSearchUrl(query, scope, tag) {
-      var url = new URL(window.location.href);
-      if (query) {
-        url.searchParams.set("q", query);
-      } else {
-        url.searchParams.delete("q");
-      }
-      if (scope && scope !== "all") {
-        url.searchParams.set("scope", scope);
-      } else {
-        url.searchParams.delete("scope");
-      }
-      if (tag && tag !== "all") {
-        url.searchParams.set("tag", tag);
-      } else {
-        url.searchParams.delete("tag");
-      }
-      history.replaceState(null, "", url.toString());
-    }
-
-    function normalizeItems(payload) {
-      var items = Array.isArray(payload) ? payload : payload && payload.items;
-      if (!Array.isArray(items)) {
-        return [];
-      }
-      return items.filter(function (item) {
-        return item && typeof item === "object" && item.url;
-      });
-    }
-
-    function dedupeByUrl(items) {
-      var seen = Object.create(null);
-      return items.filter(function (item) {
-        var key = String(item.url || "");
-        if (!key) {
-          return false;
-        }
-        if (seen[key]) {
-          return false;
-        }
-        seen[key] = true;
-        return true;
-      });
-    }
-
-    function setLoadingState(text) {
-      if (skeletonNode) {
-        skeletonNode.classList.remove("is-hidden");
-        skeletonNode.hidden = false;
-        skeletonNode.setAttribute("aria-hidden", "false");
-        skeletonNode.style.display = "";
-      }
-      listNode.textContent = "";
-      emptyNode.hidden = true;
-      setFallbackVisibility(false);
-      statusNode.textContent = text || dict.searchLoading;
-    }
-
-    function setLoadedState() {
-      if (skeletonNode) {
-        skeletonNode.classList.add("is-hidden");
-        skeletonNode.hidden = true;
-        skeletonNode.setAttribute("aria-hidden", "true");
-        skeletonNode.style.display = "none";
-      }
-      setFallbackVisibility(false);
-    }
-
-    function getItemTagLabels(item) {
-      var tags = Array.isArray(item && item.tags) ? item.tags : [];
-      return tags
-        .map(function (tag) {
-          return String(tag || "").trim().toLowerCase();
-        })
-        .filter(Boolean);
-    }
-
-    function buildTagOptions() {
-      var selectedScope = scopeNode.value || "all";
-      var selectedTag = tagNode.value || initialTag || "all";
-      var pool = allItems.filter(function (item) {
-        return selectedScope === "all" || getSearchItemScope(item) === selectedScope;
-      });
-      var tags = [];
-      pool.forEach(function (item) {
-        tags = tags.concat(getItemTagLabels(item));
-      });
-      tags = uniqueMusicTags(tags).sort();
-
-      tagNode.textContent = "";
-      var allOption = document.createElement("option");
-      allOption.value = "all";
-      allOption.textContent = dict.searchTagAll;
-      tagNode.appendChild(allOption);
-
-      tags.forEach(function (tag) {
-        var option = document.createElement("option");
-        option.value = tag;
-        option.textContent = getMusicTagLabel(tag, dict);
-        tagNode.appendChild(option);
-      });
-
-      if (Array.from(tagNode.options).some(function (option) { return option.value === selectedTag; })) {
-        tagNode.value = selectedTag;
-      } else {
-        tagNode.value = "all";
-      }
-    }
-
-    function withTimeout(promise, timeoutMs) {
-      return new Promise(function (resolve, reject) {
-        var settled = false;
-        var timer = window.setTimeout(function () {
-          if (settled) {
-            return;
+          var visible = matchesGroup && matchesYear && matchesTag && matchesAudio;
+          row.hidden = !visible;
+          row.classList.toggle("is-filter-hidden", !visible);
+          if (visible) {
+            visibleTotal += 1;
           }
-          settled = true;
-          reject(new Error("timeout"));
-        }, timeoutMs);
-
-        promise.then(
-          function (value) {
-            if (settled) {
-              return;
-            }
-            settled = true;
-            window.clearTimeout(timer);
-            resolve(value);
-          },
-          function (error) {
-            if (settled) {
-              return;
-            }
-            settled = true;
-            window.clearTimeout(timer);
-            reject(error);
-          }
-        );
-      });
-    }
-
-    function getAssetCandidateUrls(relativePath) {
-      var rel = String(relativePath || "").replace(/^\.\//, "");
-      var urls = [];
-
-      function push(url) {
-        if (!url || urls.indexOf(url) >= 0) {
-          return;
-        }
-        urls.push(url);
-      }
-
-      push(rel);
-      push("./" + rel);
-
-      try {
-        var page = new URL(window.location.href);
-        var pageBase = String(page.pathname || "").replace(/[^/]*$/, "/");
-        if (pageBase) {
-          push(pageBase + rel);
-        }
-        push(page.origin + pageBase + rel);
-        push(page.origin + "/" + rel);
-      } catch (_error) {
-      }
-
-      var scriptNode = document.querySelector('script[src*="protect-media.js"]');
-      if (scriptNode) {
-        try {
-          var scriptUrl = new URL(scriptNode.getAttribute("src"), window.location.href);
-          var scriptBase = String(scriptUrl.pathname || "").replace(/[^/]*$/, "/");
-          push(scriptBase + rel);
-          push(scriptUrl.origin + scriptBase + rel);
-        } catch (_error2) {
-        }
-      }
-
-      push("/" + rel);
-      return urls;
-    }
-
-    function fetchJsonFromCandidates(relativePath) {
-      var candidates = getAssetCandidateUrls(relativePath);
-      var index = 0;
-
-      function tryNext() {
-        if (index >= candidates.length) {
-          return Promise.reject(new Error("not found"));
-        }
-        var url = candidates[index];
-        index += 1;
-
-        return withTimeout(
-          fetch(url, { cache: "no-cache" }).then(function (response) {
-            if (!response.ok) {
-              throw new Error("HTTP " + response.status);
-            }
-            return response.json();
-          }),
-          8000
-        ).catch(function () {
-          return tryNext();
         });
-      }
 
-      return tryNext();
-    }
-
-    function fetchScopeIndex(scope) {
-      if (scopeCache[scope]) {
-        return Promise.resolve(scopeCache[scope]);
-      }
-      var file = scopeFiles[scope];
-      if (!file) {
-        scopeCache[scope] = [];
-        return Promise.resolve([]);
-      }
-      return fetchJsonFromCandidates(file)
-        .then(function (payload) {
-          var items = normalizeItems(payload).map(function (item) {
-            if (!item.scope) {
-              item.scope = scope;
-            }
-            return item;
-          });
-          scopeCache[scope] = items;
-          return items;
-        });
-    }
-
-    function loadCombinedFallback() {
-      function parseInlineFallback() {
-        var node = document.getElementById("search-inline-fallback");
-        if (!node) {
-          return [];
-        }
-        var raw = node.textContent || "[]";
-        if (raw.length > 8000) {
-          return [];
-        }
-        try {
-          var payload = JSON.parse(raw);
-          return normalizeItems(payload);
-        } catch (_error) {
-          return [];
-        }
-      }
-
-      return fetchJsonFromCandidates("assets/search-index.json")
-        .then(function (payload) {
-          return normalizeItems(payload);
-        })
-        .catch(function () {
-          var inlineItems = parseInlineFallback();
-          if (inlineItems.length) {
-            return inlineItems;
+        groupSections.forEach(function (group) {
+          var key = group.dataset.group;
+          var groupRows = Array.from(group.querySelectorAll(".track-row"));
+          var visibleCount = groupRows.filter(function (row) {
+            return !row.hidden;
+          }).length;
+          var countNode = group.querySelector("[data-group-count]");
+          if (countNode) {
+            countNode.textContent = visibleCount > 0 ? " (" + visibleCount + ")" : " (0)";
           }
-          throw new Error("fallback unavailable");
-        });
-    }
 
-    function loadItemsForScope(scope) {
-      loadToken += 1;
-      var currentToken = loadToken;
-      loaded = false;
-      loadError = false;
-      usingFallback = false;
-
-      var targetScopes = scope === "all" ? allScopes.slice() : [scope];
-      setLoadingState(dict.searchLoading);
-
-      var collected = [];
-      var chain = Promise.resolve();
-      targetScopes.forEach(function (targetScope, index) {
-        chain = chain.then(function () {
-          var progressText = dict.searchLoadingProgress
-            .replace("{done}", String(index + 1))
-            .replace("{total}", String(targetScopes.length));
-          setLoadingState(progressText);
-          return fetchScopeIndex(targetScope).then(function (items) {
-            collected = collected.concat(items);
-          });
-        });
-      });
-
-      return chain
-        .then(function () {
-          if (currentToken !== loadToken) {
-            return;
+          if (key !== groupFilter) {
+            group.hidden = true;
+            group.classList.add("is-filter-hidden");
+          } else {
+            group.hidden = visibleCount === 0;
+            group.classList.toggle("is-filter-hidden", visibleCount === 0);
           }
-          allItems = dedupeByUrl(collected);
-          loaded = true;
-          setLoadedState();
-          buildTagOptions();
-          renderResults();
-        })
-        .catch(function () {
-          if (currentToken !== loadToken) {
-            return;
-          }
-          return loadCombinedFallback()
-            .then(function (items) {
-              allItems = dedupeByUrl(items);
-              loaded = true;
-              usingFallback = true;
-              setLoadedState();
-              buildTagOptions();
-              renderResults();
-            })
-            .catch(function () {
-              loaded = true;
-              loadError = true;
-              usingFallback = false;
-              setLoadedState();
-              renderResults();
+        });
+
+        emptyState.hidden = visibleTotal > 0;
+      }
+
+      if (shell.dataset.musicFiltersBound !== "1") {
+        tabs.forEach(function (tab) {
+          tab.addEventListener("click", function () {
+            tabs.forEach(function (node) {
+              node.classList.remove("is-active");
             });
+            tab.classList.add("is-active");
+            applyFilters();
+          });
         });
+
+        [yearSelect, tagSelect, audioSelect].forEach(function (select) {
+          select.addEventListener("change", applyFilters);
+        });
+
+        shell.dataset.musicFiltersBound = "1";
+      }
+
+      applyFilters();
     }
 
-    function renderResults() {
-      if (!loaded) {
-        setLoadingState(statusNode.textContent || dict.searchLoading);
-        return;
-      }
-
-      setLoadedState();
-
-      if (loadError) {
-        statusNode.textContent = dict.searchLoadError;
-        emptyNode.hidden = false;
-        emptyNode.textContent = dict.searchLoadError;
-        listNode.textContent = "";
-        setFallbackVisibility(true);
-        return;
-      }
-
-      var query = normalizeText(inputNode.value || "").toLowerCase().trim();
-      var scope = scopeNode.value || "all";
-      var tag = tagNode.value || "all";
-      var terms = query ? query.split(/\s+/).filter(Boolean) : [];
-
-      var matched = allItems.filter(function (item) {
-        var itemScope = getSearchItemScope(item);
-        var itemTags = getItemTagLabels(item);
-        if (scope !== "all" && itemScope !== scope) {
-          return false;
-        }
-        if (tag !== "all" && itemTags.indexOf(tag) < 0) {
-          return false;
-        }
-        if (!terms.length) {
-          return true;
-        }
-        var pool = normalizeText(
-          [
-            item.title || "",
-            item.excerpt || "",
-            item.content || "",
-            item.section || "",
-            itemTags.join(" "),
-            item.date || "",
-          ].join(" ")
-        ).toLowerCase();
-        return terms.every(function (term) {
-          return pool.indexOf(term) >= 0;
-        });
-      });
-
-      matched.sort(function (a, b) {
-        return Number(b.sort || 0) - Number(a.sort || 0);
-      });
-
-      updateSearchUrl(query, scope, tag);
-      var status = dict.searchResultCount.replace("{count}", String(matched.length));
-      if (usingFallback) {
-        status += " · " + dict.searchFallbackNotice;
-      }
-      statusNode.textContent = status;
-      setFallbackVisibility(false);
-
-      listNode.textContent = "";
-      if (!matched.length) {
-        emptyNode.hidden = false;
-        emptyNode.textContent = query || tag !== "all" ? dict.searchResultZero : dict.searchEmptyHint;
-        return;
-      }
-
-      emptyNode.hidden = true;
-      var fragment = document.createDocumentFragment();
-      matched.forEach(function (item) {
-        var li = document.createElement("li");
-        li.className = "search-result-item";
-
-        var link = document.createElement("a");
-        link.className = "search-result-link";
-        link.href = item.url || "#";
-
-        var title = document.createElement("h3");
-        title.className = "search-result-title";
-        title.textContent = item.title || "";
-
-        var meta = document.createElement("p");
-        meta.className = "search-result-meta";
-        var sectionLabel = getSearchSectionLabel(item, dict);
-        meta.textContent = [item.date || "", sectionLabel].filter(Boolean).join(" · ");
-
-        var excerpt = document.createElement("p");
-        excerpt.className = "search-result-excerpt";
-        excerpt.textContent = item.excerpt || "";
-
-        var tagsWrap = document.createElement("div");
-        tagsWrap.className = "search-result-tags";
-        getItemTagLabels(item).slice(0, 4).forEach(function (tagText) {
-          var chip = document.createElement("span");
-          chip.className = "search-result-tag";
-          chip.textContent = getMusicTagLabel(tagText, dict);
-          tagsWrap.appendChild(chip);
-        });
-
-        link.appendChild(title);
-        if (meta.textContent) {
-          link.appendChild(meta);
-        }
-        if (excerpt.textContent) {
-          link.appendChild(excerpt);
-        }
-        if (tagsWrap.childNodes.length) {
-          link.appendChild(tagsWrap);
-        }
-        li.appendChild(link);
-        fragment.appendChild(li);
-      });
-      listNode.appendChild(fragment);
-    }
-
-    var debounceTimer = null;
-    inputNode.addEventListener("input", function () {
-      updateFallbackExternalLink();
-      window.clearTimeout(debounceTimer);
-      debounceTimer = window.setTimeout(renderResults, 140);
-    });
-
-    scopeNode.addEventListener("change", function () {
-      initialTag = "all";
-      updateFallbackExternalLink();
-      loadItemsForScope(scopeNode.value || "all");
-    });
-    tagNode.addEventListener("change", function () {
-      updateFallbackExternalLink();
-      renderResults();
-    });
-
-    formNode.addEventListener("submit", function (event) {
-      event.preventDefault();
-      updateFallbackExternalLink();
-      renderResults();
-    });
-
-    updateFallbackExternalLink();
-    loadItemsForScope(scopeNode.value || "all");
+    loadMusicCatalogMetadata().then(applyMusicIndexArchitecture);
   }
 
   function setSamePageLanguageInUrl(lang) {
@@ -9703,6 +9199,18 @@
       function openRowLink() {
         var href = row.getAttribute("data-href");
         if (href) {
+          if (row.classList.contains("track-row")) {
+            trackAnalyticsEvent("music_row_open", {
+              page_path: window.location.pathname,
+              item_href: href,
+              item_type: row.dataset.musicType || "",
+            });
+          } else if (row.classList.contains("math-card") || row.classList.contains("math-row")) {
+            trackAnalyticsEvent("math_row_open", {
+              page_path: window.location.pathname,
+              item_href: href,
+            });
+          }
           window.location.href = href;
         }
       }
@@ -9730,6 +9238,38 @@
           event.preventDefault();
           openRowLink();
         }
+      });
+    });
+  }
+
+  function bindCollectionLinkAnalytics() {
+    var bindings = [
+      {
+        selector: ".photo-index-page .photo-feature-link, .photo-index-page .photo-card-link",
+        eventName: "photo_group_open",
+        type: "photo-group",
+      },
+      {
+        selector: ".music-album-page .album-track-link:not(.is-disabled)",
+        eventName: "album_track_open",
+        type: "album-track",
+      },
+    ];
+
+    bindings.forEach(function (config) {
+      Array.from(document.querySelectorAll(config.selector)).forEach(function (link) {
+        if (!link || link.dataset.analyticsBound === "1") {
+          return;
+        }
+        link.dataset.analyticsBound = "1";
+        link.addEventListener("click", function () {
+          var href = link.getAttribute("href") || "";
+          trackAnalyticsEvent(config.eventName, {
+            page_path: window.location.pathname,
+            item_href: href,
+            item_type: config.type,
+          });
+        });
       });
     });
   }
@@ -9952,6 +9492,14 @@
     });
   }
 
+  window.ChronohazeShared = window.ChronohazeShared || {};
+  window.ChronohazeShared.normalizeText = normalizeText;
+  window.ChronohazeShared.detectPreferredLanguage = detectPreferredLanguage;
+  window.ChronohazeShared.getSecondaryPageDictionary = getSecondaryPageDictionary;
+  window.ChronohazeShared.uniqueMusicTags = uniqueMusicTags;
+  window.ChronohazeShared.getMusicTagLabel = getMusicTagLabel;
+  window.ChronohazeShared.trackAnalyticsEvent = trackAnalyticsEvent;
+
   var BOOT_TASK_GROUPS = {
     navAndChrome: [
       ensureSearchNavLink,
@@ -9960,7 +9508,7 @@
       injectFloatingSiteLogo,
       injectFloatingLanguageSwitch,
     ],
-    pageArchitecture: [setupMusicIndexArchitecture, setupSearchIndexPage],
+    pageArchitecture: [setupMusicIndexArchitecture],
     mediaAndProtection: [protectAllMedia, optimizeMediaLoading, optimizeImages],
     pagePolish: [
       normalizeFooterMeta,
@@ -9972,6 +9520,7 @@
       removeMusicDetailImages,
       enhanceMusicLyricsLayout,
       enableIndexRowLinks,
+      bindCollectionLinkAnalytics,
       setupFineMotionPass,
     ],
   };
@@ -9981,6 +9530,7 @@
     optimizeImages,
     normalizeFooterMeta,
     labelPhotoOrientation,
+    bindCollectionLinkAnalytics,
     setupFineMotionPass,
   ];
 
