@@ -57,9 +57,14 @@ def parse_links(html_text: str, selector_class: str) -> List[Dict[str, Any]]:
 def parse_research_page(text: str) -> Dict[str, Any]:
     payload: Dict[str, Any] = {
         "hero": {},
+        "meta": {},
         "interests": {},
         "projects_section": {},
         "projects": [],
+        "outputs_section": {},
+        "outputs": [],
+        "now_section": {},
+        "now_items": [],
         "links_section": {},
         "links": [],
         "search": {},
@@ -90,6 +95,29 @@ def parse_research_page(text: str) -> Dict[str, Any]:
             "positioning": clean(positioning_m.group(1) if positioning_m else ""),
             "chips": chips,
         }
+        meta_items: List[Dict[str, str]] = []
+        for pill_m in re.finditer(
+            r'<(?P<tag>div|span) class="research-meta-pill">(.*?)</(?P=tag)>',
+            hero_block,
+            re.S,
+        ):
+            pill_body = pill_m.group(2) or ""
+            label_m = re.search(r'<span class="research-meta-label">(.*?)</span>', pill_body, re.S)
+            time_m = re.search(r'<time[^>]*datetime="([^"]*)"[^>]*>(.*?)</time>', pill_body, re.S)
+            span_values = [clean(x) for x in re.findall(r'<span[^>]*>(.*?)</span>', pill_body, re.S) if clean(x)]
+            value = ""
+            if time_m:
+                value = clean(time_m.group(2))
+            elif len(span_values) >= 2:
+                value = span_values[-1]
+            meta_items.append(
+                {
+                    "label": clean(label_m.group(1) if label_m else ""),
+                    "value": value,
+                    "datetime": (time_m.group(1).strip() if time_m else ""),
+                }
+            )
+        payload["meta"] = {"items": [item for item in meta_items if item.get("label") or item.get("value")]}
         payload["interests"] = {
             "title": clean(panel_title_m.group(1) if panel_title_m else ""),
             "items": interests,
@@ -152,6 +180,69 @@ def parse_research_page(text: str) -> Dict[str, Any]:
                 }
             )
 
+    outputs_section_m = re.search(
+        r'<section class="section research-outputs-section">(.*?)</section>',
+        text,
+        re.S,
+    )
+    if outputs_section_m:
+        block = outputs_section_m.group(1)
+        head_m = re.search(r'<div class="container research-section-head">(.*?)</div>', block, re.S)
+        if head_m:
+            payload["outputs_section"] = {
+                "title": clean(re.search(r"<h2>(.*?)</h2>", head_m.group(1), re.S).group(1))
+                if re.search(r"<h2>(.*?)</h2>", head_m.group(1), re.S)
+                else "",
+                "lead": clean(re.search(r"<p>(.*?)</p>", head_m.group(1), re.S).group(1))
+                if re.search(r"<p>(.*?)</p>", head_m.group(1), re.S)
+                else "",
+            }
+
+        for a_m in re.finditer(r'<a\s+class="research-output-card"([^>]*)href="([^"]+)"([^>]*)>(.*?)</a>', block, re.S):
+            attrs = " ".join([(a_m.group(1) or ""), (a_m.group(3) or "")])
+            body = a_m.group(4) or ""
+            payload["outputs"].append(
+                {
+                    "href": (a_m.group(2) or "").strip(),
+                    "external": ('target="_blank"' in attrs or 'rel="noopener' in attrs),
+                    "kicker": clean(
+                        re.search(r'<span class="research-output-kicker">(.*?)</span>', body, re.S).group(1)
+                    )
+                    if re.search(r'<span class="research-output-kicker">(.*?)</span>', body, re.S)
+                    else "",
+                    "title": clean(re.search(r"<strong>(.*?)</strong>", body, re.S).group(1))
+                    if re.search(r"<strong>(.*?)</strong>", body, re.S)
+                    else "",
+                    "status": clean(
+                        re.search(r'<span class="research-output-status">(.*?)</span>', body, re.S).group(1)
+                    )
+                    if re.search(r'<span class="research-output-status">(.*?)</span>', body, re.S)
+                    else "",
+                    "description": clean(re.search(r"<p>(.*?)</p>", body, re.S).group(1))
+                    if re.search(r"<p>(.*?)</p>", body, re.S)
+                    else "",
+                }
+            )
+
+    now_section_m = re.search(
+        r'<section class="section research-now-section">(.*?)</section>',
+        text,
+        re.S,
+    )
+    if now_section_m:
+        block = now_section_m.group(1)
+        head_m = re.search(r'<div class="container research-section-head">(.*?)</div>', block, re.S)
+        if head_m:
+            payload["now_section"] = {
+                "title": clean(re.search(r"<h2>(.*?)</h2>", head_m.group(1), re.S).group(1))
+                if re.search(r"<h2>(.*?)</h2>", head_m.group(1), re.S)
+                else "",
+                "lead": clean(re.search(r"<p>(.*?)</p>", head_m.group(1), re.S).group(1))
+                if re.search(r"<p>(.*?)</p>", head_m.group(1), re.S)
+                else "",
+            }
+        payload["now_items"] = [clean(x) for x in re.findall(r"<li>(.*?)</li>", block, re.S) if clean(x)]
+
     links_section_m = re.search(
         r'<section class="section research-fast-links-section">(.*?)</section>',
         text,
@@ -185,8 +276,11 @@ def parse_research_page(text: str) -> Dict[str, Any]:
     content_parts = []
     for segment in (
         payload.get("hero", {}),
+        payload.get("meta", {}),
         payload.get("interests", {}),
         payload.get("projects_section", {}),
+        payload.get("outputs_section", {}),
+        payload.get("now_section", {}),
         payload.get("links_section", {}),
     ):
         if isinstance(segment, dict):
@@ -203,6 +297,13 @@ def parse_research_page(text: str) -> Dict[str, Any]:
         for link in project.get("links", []):
             if isinstance(link, dict):
                 content_parts.append(str(link.get("label", "")))
+    for output in payload.get("outputs", []):
+        if isinstance(output, dict):
+            content_parts.extend(
+                str(output.get(k, "")) for k in ("kicker", "title", "status", "description")
+            )
+    for item in payload.get("now_items", []):
+        content_parts.append(str(item))
     payload["search"] = {
         "title": "Research | Fay Lyu (HazezZ)",
         "url": "research.html",

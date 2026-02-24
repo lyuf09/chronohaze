@@ -130,16 +130,46 @@
     return a;
   }
 
+  function buildOutputCard(item) {
+    var a = document.createElement("a");
+    a.className = "research-output-card";
+    a.href = item.href || "#";
+    if (item.external) {
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+    }
+    var kicker = document.createElement("span");
+    kicker.className = "research-output-kicker";
+    kicker.textContent = item.kicker || "";
+    var strong = document.createElement("strong");
+    strong.textContent = item.title || "";
+    var status = document.createElement("span");
+    status.className = "research-output-status";
+    status.textContent = item.status || "";
+    var p = document.createElement("p");
+    p.textContent = item.description || "";
+    a.appendChild(kicker);
+    a.appendChild(strong);
+    a.appendChild(status);
+    a.appendChild(p);
+    return a;
+  }
+
   function applyResearchCatalog(payload) {
     if (!payload || typeof payload !== "object") {
       return;
     }
 
     var hero = payload.hero || {};
+    var meta = payload.meta || {};
     var interests = payload.interests || {};
     var projects = Array.isArray(payload.projects) ? payload.projects : [];
+    var outputs = Array.isArray(payload.outputs) ? payload.outputs : [];
+    var nowItems = Array.isArray(payload.now_items) ? payload.now_items : [];
     var links = Array.isArray(payload.links) ? payload.links : [];
     var projectsSection = payload.projects_section || {};
+    var outputsSection = payload.outputs_section || {};
+    var nowSection = payload.now_section || {};
     var linksSection = payload.links_section || {};
 
     var heroRoot = document.querySelector(".research-hero");
@@ -149,6 +179,8 @@
       var subtitle = heroRoot.querySelector(".research-subtitle");
       var positioning = heroRoot.querySelector(".research-positioning");
       var chipRow = heroRoot.querySelector(".research-chip-row");
+      var metaRow = heroRoot.querySelector(".research-meta-row");
+      var lastUpdatedNode = heroRoot.querySelector(".research-last-updated");
       var interestsTitle = heroRoot.querySelector(".research-hero-panel h2");
       var interestsList = heroRoot.querySelector(".research-hero-panel ul");
 
@@ -165,6 +197,36 @@
           chip.textContent = chipText;
           chipRow.appendChild(chip);
         });
+      }
+
+      if (metaRow && meta && Array.isArray(meta.items) && meta.items.length) {
+        metaRow.textContent = "";
+        meta.items.forEach(function (entry) {
+          if (!entry || (!entry.label && !entry.value)) {
+            return;
+          }
+          var pill = document.createElement("span");
+          pill.className = "research-meta-pill";
+          var label = document.createElement("span");
+          label.className = "research-meta-label";
+          label.textContent = entry.label || "";
+          pill.appendChild(label);
+          if (entry.datetime) {
+            var time = document.createElement("time");
+            time.className = "research-last-updated";
+            time.dateTime = entry.datetime;
+            time.textContent = entry.value || entry.datetime;
+            pill.appendChild(time);
+          } else {
+            var value = document.createElement("span");
+            value.textContent = entry.value || "";
+            pill.appendChild(value);
+          }
+          metaRow.appendChild(pill);
+        });
+      } else if (lastUpdatedNode && payload.generated_at) {
+        lastUpdatedNode.textContent = payload.generated_at;
+        lastUpdatedNode.dateTime = payload.generated_at;
       }
 
       if (interestsTitle && interests.title) {
@@ -194,6 +256,44 @@
         grid.textContent = "";
         projects.forEach(function (project) {
           grid.appendChild(buildProjectCard(project));
+        });
+      }
+    }
+
+    var outputsSectionRoot = document.querySelector(".research-outputs-section");
+    if (outputsSectionRoot) {
+      var outputsHead = outputsSectionRoot.querySelector(".research-section-head");
+      if (outputsHead) {
+        var oh2 = outputsHead.querySelector("h2");
+        var op = outputsHead.querySelector("p");
+        if (oh2 && outputsSection.title) oh2.textContent = outputsSection.title;
+        if (op && outputsSection.lead) op.textContent = outputsSection.lead;
+      }
+      var outputsGrid = outputsSectionRoot.querySelector(".research-outputs-grid");
+      if (outputsGrid && outputs.length) {
+        outputsGrid.textContent = "";
+        outputs.forEach(function (item) {
+          outputsGrid.appendChild(buildOutputCard(item));
+        });
+      }
+    }
+
+    var nowSectionRoot = document.querySelector(".research-now-section");
+    if (nowSectionRoot) {
+      var nowHead = nowSectionRoot.querySelector(".research-section-head");
+      if (nowHead) {
+        var nh2 = nowHead.querySelector("h2");
+        var np = nowHead.querySelector("p");
+        if (nh2 && nowSection.title) nh2.textContent = nowSection.title;
+        if (np && nowSection.lead) np.textContent = nowSection.lead;
+      }
+      var nowList = nowSectionRoot.querySelector(".research-now-list");
+      if (nowList && nowItems.length) {
+        nowList.textContent = "";
+        nowItems.forEach(function (line) {
+          var li = document.createElement("li");
+          li.textContent = line;
+          nowList.appendChild(li);
         });
       }
     }
