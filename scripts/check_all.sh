@@ -21,6 +21,7 @@ python3 "$ROOT/scripts/check_catalog_drift.py" --root "$ROOT"
 echo
 echo "[4/4] Shell script syntax"
 bash -n "$ROOT/scripts/optimize_large_jpegs.sh"
+bash -n "$ROOT/scripts/build_site_generated_assets.sh"
 bash -n "$ROOT/scripts/build_media_assets.sh"
 
 echo
