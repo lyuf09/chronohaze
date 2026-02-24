@@ -15,7 +15,11 @@ ARCHIVE_CARD_RE = re.compile(r'<article\s+class="photo-card(?P<class_extra>[^"]*
 def clean(fragment: str) -> str:
     txt = fragment.replace('<br />', ' ').replace('<br/>', ' ').replace('<br>', ' ')
     txt = TAG_RE.sub('', txt)
-    return re.sub(r'\s+', ' ', html.unescape(txt)).strip()
+    txt = html.unescape(txt)
+    # Collapse ASCII whitespace while preserving ideographic/full-width spaces (U+3000),
+    # which are used intentionally in some bilingual captions.
+    txt = re.sub(r"[ \t\r\n\f\v]+", " ", txt)
+    return txt.strip()
 
 
 def parse_attrs(tag_fragment: str) -> Dict[str, str]:
