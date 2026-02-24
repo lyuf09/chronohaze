@@ -4828,6 +4828,241 @@ body {
   }
 }
 
+/* Design system pass II: tighten shared tokens + primitives */
+:root {
+  --ui-surface-glass: rgba(248, 250, 254, 0.5);
+  --ui-surface-glass-strong: rgba(250, 252, 255, 0.68);
+  --ui-surface-soft: rgba(245, 247, 251, 0.42);
+  --ui-border-soft: rgba(70, 79, 98, 0.14);
+  --ui-border-mid: rgba(70, 79, 98, 0.22);
+  --ui-border-strong: rgba(70, 79, 98, 0.32);
+  --ui-shadow-1: 0 12px 22px rgba(18, 24, 34, 0.06);
+  --ui-shadow-2: 0 18px 34px rgba(18, 24, 34, 0.1);
+  --ui-shadow-3: 0 24px 42px rgba(18, 24, 34, 0.14);
+  --ui-radius-card: 12px;
+  --ui-radius-control: 10px;
+  --ui-radius-pill: 999px;
+  --ui-control-min-height: 40px;
+  --ui-focus-ring: 0 0 0 2px rgba(79, 123, 215, 0.22), 0 0 0 4px rgba(79, 123, 215, 0.08);
+  --ui-heading-color: rgba(29, 35, 46, 0.95);
+  --ui-copy-color: rgba(42, 48, 60, 0.84);
+  --ui-muted-color: rgba(68, 76, 92, 0.72);
+}
+
+:where(button, input, select, textarea, summary):focus-visible,
+:where(
+  .nav a,
+  .track-title-link,
+  .track-link,
+  .track-row,
+  .math-card,
+  .math-title-link,
+  .photo-card-link,
+  .photo-feature-link,
+  .search-result-link,
+  .cv-toc-link,
+  .cv-research-link,
+  .research-fast-link,
+  .research-link-row a,
+  .music-transcript-nav-link
+):focus-visible {
+  outline: none;
+  box-shadow: var(--ui-focus-ring);
+  border-radius: max(6px, var(--ui-radius-control));
+}
+
+:where(button, .music-index-page .music-ia-tab, .search-index-page .search-submit, .cv-research-link) {
+  min-height: var(--ui-control-min-height);
+}
+
+.page-head p,
+.research-section-head p,
+.photo-index-page .photo-section-lead,
+.cv-policy p {
+  color: var(--ui-copy-color);
+}
+
+.music-index-page .track-row,
+.math-index-page .math-card,
+.photo-index-page .photo-feature-card,
+.search-index-page .search-result-link,
+.research-hero-copy,
+.research-hero-panel,
+.research-project-card,
+.research-fast-link,
+.cv-highlight-card,
+.cv-utility-bar {
+  border-radius: var(--ui-radius-card);
+  border-color: var(--ui-border-soft);
+  box-shadow: var(--ui-shadow-1);
+}
+
+.music-index-page .track-row:hover,
+.math-index-page .math-card:hover,
+.photo-index-page .photo-feature-card:hover,
+.search-index-page .search-result-link:hover,
+.research-fast-link:hover,
+.research-link-row a:hover {
+  box-shadow: var(--ui-shadow-2);
+}
+
+.research-hero-copy h1,
+.research-project-card h3,
+.research-fast-link strong,
+.cv-highlight-card h2,
+.math-index-page .math-title,
+.music-index-page .track-title {
+  color: var(--ui-heading-color);
+}
+
+.research-project-card p,
+.research-fast-link > span:last-child,
+.math-index-page .math-desc,
+.music-index-page .track-artist,
+.search-index-page .search-result-excerpt {
+  color: var(--ui-copy-color);
+}
+
+.research-project-kind,
+.research-fast-link-kicker,
+.math-index-page .math-date,
+.search-index-page .search-result-meta {
+  color: var(--ui-muted-color);
+}
+
+.music-index-page .music-ia-tab,
+.music-index-page .music-ia-filter-select,
+.search-index-page #site-search-input,
+.search-index-page #site-search-scope,
+.search-index-page #site-search-tag,
+.search-index-page .search-submit,
+.cv-toc-link,
+.cv-research-link,
+.research-link-row a,
+.research-chip,
+.music-index-page .track-tag,
+.search-index-page .search-result-tag,
+.music-transcript-nav-link,
+.music-transcript-status-pill {
+  border-radius: var(--ui-radius-control);
+}
+
+.music-index-page .music-ia-filter-select,
+.search-index-page #site-search-input,
+.search-index-page #site-search-scope,
+.search-index-page #site-search-tag {
+  min-height: var(--ui-control-min-height);
+  border-color: var(--ui-border-mid);
+  background: var(--ui-surface-glass-strong);
+  color: rgba(31, 37, 49, 0.88);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.52);
+}
+
+.music-index-page .music-ia-filter-select:hover,
+.search-index-page #site-search-input:hover,
+.search-index-page #site-search-scope:hover,
+.search-index-page #site-search-tag:hover {
+  border-color: var(--ui-border-strong);
+}
+
+.search-index-page .search-submit,
+.cv-research-link {
+  border-color: rgba(66, 77, 101, 0.34);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 8px 18px rgba(25, 32, 46, 0.08);
+}
+
+.cv-toc-link,
+.research-link-row a,
+.research-chip,
+.music-index-page .track-tag,
+.search-index-page .search-result-tag {
+  border-color: var(--ui-border-soft);
+  background: var(--ui-surface-glass);
+}
+
+.cv-toc-link:hover,
+.research-link-row a:hover,
+.music-index-page .track-tag:hover {
+  border-color: var(--ui-border-mid);
+  background: var(--ui-surface-glass-strong);
+}
+
+.research-chip {
+  border-radius: var(--ui-radius-pill);
+}
+
+.music-transcript-details {
+  border-color: var(--ui-border-soft);
+  background: var(--ui-surface-soft);
+  box-shadow: var(--ui-shadow-1);
+}
+
+.music-transcript-details[open] .music-transcript-summary {
+  border-bottom-color: rgba(70, 79, 98, 0.1);
+}
+
+.music-transcript-nav-link {
+  border-color: var(--ui-border-soft);
+  background: rgba(255, 255, 255, 0.42);
+}
+
+.music-transcript-nav-link:hover {
+  border-color: var(--ui-border-mid);
+}
+
+.photo-index-page .photo-section-head,
+.research-section-head,
+.music-index-page .page-head .container,
+.math-index-page .page-head .container {
+  position: relative;
+}
+
+.photo-index-page .photo-section-head::after,
+.research-section-head::after {
+  content: "";
+  display: block;
+  width: min(72px, 16vw);
+  height: 1px;
+  margin-top: 10px;
+  background: linear-gradient(90deg, rgba(62, 70, 88, 0.36), rgba(62, 70, 88, 0));
+}
+
+.search-index-page .search-result-link,
+.research-fast-link,
+.research-project-card,
+.cv-highlight-card {
+  backdrop-filter: blur(8px) saturate(108%);
+}
+
+@media (max-width: 760px) {
+  :root {
+    --ui-control-min-height: 38px;
+    --ui-radius-card: 11px;
+    --ui-radius-control: 9px;
+  }
+
+  .music-index-page .track-row,
+  .math-index-page .math-card,
+  .photo-index-page .photo-feature-card,
+  .search-index-page .search-result-link,
+  .research-hero-copy,
+  .research-hero-panel,
+  .research-project-card,
+  .research-fast-link,
+  .cv-highlight-card,
+  .cv-utility-bar {
+    box-shadow: 0 10px 20px rgba(18, 24, 34, 0.06);
+  }
+
+  .photo-index-page .photo-section-head::after,
+  .research-section-head::after {
+    margin-top: 8px;
+    width: 54px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
