@@ -2603,6 +2603,56 @@ audio {
   letter-spacing: 0.008em;
 }
 
+.music-transcript-status {
+  margin: 0 0 8px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  color: rgba(56, 62, 76, 0.74);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.music-transcript-status-label {
+  color: rgba(52, 58, 72, 0.7);
+  letter-spacing: 0.01em;
+}
+
+.music-transcript-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 999px;
+  border: 1px solid rgba(74, 83, 103, 0.14);
+  background: rgba(255, 255, 255, 0.34);
+  padding: 2px 7px 3px;
+  color: rgba(41, 47, 61, 0.82);
+}
+
+.music-transcript-status-pill--available {
+  border-color: rgba(84, 132, 108, 0.22);
+  background: rgba(236, 247, 241, 0.56);
+}
+
+.music-transcript-status-pill--pending {
+  border-color: rgba(148, 125, 86, 0.2);
+  background: rgba(250, 244, 231, 0.46);
+}
+
+.music-transcript-status-pill--muted {
+  border-color: rgba(74, 83, 103, 0.1);
+  background: rgba(246, 248, 251, 0.36);
+}
+
+.music-transcript-status-key {
+  color: rgba(46, 52, 66, 0.7);
+}
+
+.music-transcript-status-value {
+  color: rgba(31, 37, 49, 0.86);
+}
+
 .music-transcript-nav {
   display: flex;
   flex-wrap: wrap;
@@ -2749,6 +2799,14 @@ audio {
   .music-transcript-summary-meta {
     width: 100%;
     margin-left: 0;
+  }
+
+  .music-transcript-status {
+    gap: 5px;
+  }
+
+  .music-transcript-status-pill {
+    padding: 2px 6px 3px;
   }
 }
 

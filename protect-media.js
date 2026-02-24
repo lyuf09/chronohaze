@@ -1834,6 +1834,11 @@
       caption.className = "music-transcript-caption";
       body.appendChild(caption);
 
+      var status = document.createElement("p");
+      status.className = "music-transcript-status";
+      status.hidden = true;
+      body.appendChild(status);
+
       var nav = document.createElement("nav");
       nav.className = "music-transcript-nav";
       nav.setAttribute("aria-label", "Transcript quick links");
@@ -1866,6 +1871,11 @@
       var migratedCaption = document.createElement("p");
       migratedCaption.className = "music-transcript-caption";
       migratedBody.appendChild(migratedCaption);
+
+      var migratedStatus = document.createElement("p");
+      migratedStatus.className = "music-transcript-status";
+      migratedStatus.hidden = true;
+      migratedBody.appendChild(migratedStatus);
 
       var migratedNav = document.createElement("nav");
       migratedNav.className = "music-transcript-nav";
@@ -1901,6 +1911,7 @@
     }
 
     var captionNode = details.querySelector(".music-transcript-caption");
+    var statusNode = details.querySelector(".music-transcript-status");
     var navNode = details.querySelector(".music-transcript-nav");
     var emptyNode = details.querySelector(".music-transcript-empty");
     var summaryNode = details.querySelector(".music-transcript-summary");
@@ -1946,6 +1957,13 @@
           notes: "Notes",
           lyrics: "Lyrics",
           timeline: "Timeline",
+          statusPrefix: "Status:",
+          statusNotes: "Notes",
+          statusLyrics: "Lyrics",
+          statusTimeline: "Timeline",
+          statusAvailable: "Available",
+          statusPending: "Pending",
+          statusNoLyrics: "No lyrics (instrumental or not provided)",
           caption:
             "Quick jump to existing text alternatives on this page. " +
             (playerTitles.length ? "Track: " + trackLabel + "." : ""),
@@ -1958,6 +1976,13 @@
           notes: "Notes / 作品介绍",
           lyrics: "Lyrics / 歌词",
           timeline: "Timeline / 时间轴",
+          statusPrefix: "状态：",
+          statusNotes: "Notes",
+          statusLyrics: "Lyrics",
+          statusTimeline: "Timeline",
+          statusAvailable: "已提供",
+          statusPending: "待补充",
+          statusNoLyrics: "无歌词（纯音乐或暂未提供）",
           caption:
             "用于快速跳转到本页已有的文字信息（作品介绍 / 歌词）。" +
             (playerTitles.length ? " 当前音频：" + trackLabel + "。" : ""),
@@ -1986,6 +2011,57 @@
 
     if (captionNode) {
       captionNode.textContent = labelDict.caption;
+    }
+
+    if (statusNode) {
+      statusNode.innerHTML = "";
+      var statusPrefix = document.createElement("span");
+      statusPrefix.className = "music-transcript-status-label";
+      statusPrefix.textContent = labelDict.statusPrefix;
+      statusNode.appendChild(statusPrefix);
+
+      function appendStatusPill(keyText, valueText, tone) {
+        var pill = document.createElement("span");
+        pill.className =
+          "music-transcript-status-pill music-transcript-status-pill--" + tone;
+        var keySpan = document.createElement("span");
+        keySpan.className = "music-transcript-status-key";
+        keySpan.textContent = keyText;
+        var valueSpan = document.createElement("span");
+        valueSpan.className = "music-transcript-status-value";
+        valueSpan.textContent = valueText;
+        pill.appendChild(keySpan);
+        pill.appendChild(valueSpan);
+        statusNode.appendChild(pill);
+      }
+
+      appendStatusPill(
+        labelDict.statusNotes,
+        hasWorkIntro ? labelDict.statusAvailable : labelDict.statusPending,
+        hasWorkIntro ? "available" : "pending"
+      );
+
+      if (hasLyrics) {
+        appendStatusPill(
+          labelDict.statusLyrics,
+          labelDict.statusAvailable,
+          "available"
+        );
+      } else {
+        appendStatusPill(
+          labelDict.statusLyrics,
+          labelDict.statusNoLyrics,
+          "muted"
+        );
+      }
+
+      appendStatusPill(
+        labelDict.statusTimeline,
+        timelineReady ? labelDict.statusAvailable : labelDict.statusPending,
+        timelineReady ? "available" : "pending"
+      );
+
+      statusNode.hidden = false;
     }
 
     if (navNode) {
