@@ -8221,6 +8221,18 @@
       return;
     }
 
+    function restoreMusicIndexFallback() {
+      sourceList.hidden = false;
+      sourceList.classList.remove("music-list-source");
+      if (rootSection && sourceList.parentNode !== rootSection) {
+        rootSection.textContent = "";
+        rootSection.appendChild(sourceList);
+      }
+      if (shell && shell.parentNode && shell.parentNode !== rootSection) {
+        shell.parentNode.removeChild(shell);
+      }
+    }
+
     function applyMusicIndexArchitecture(catalogMap) {
       catalogMap = catalogMap || Object.create(null);
 
@@ -8566,7 +8578,18 @@
       applyFilters();
     }
 
-    loadMusicCatalogMetadata().then(applyMusicIndexArchitecture);
+    loadMusicCatalogMetadata()
+      .then(function (catalogMap) {
+        try {
+          applyMusicIndexArchitecture(catalogMap);
+        } catch (error) {
+          restoreMusicIndexFallback();
+          throw error;
+        }
+      })
+      .catch(function () {
+        restoreMusicIndexFallback();
+      });
   }
 
   function setSamePageLanguageInUrl(lang) {
@@ -9523,7 +9546,13 @@
   function runTaskGroup(tasks) {
     tasks.forEach(function (task) {
       if (typeof task === "function") {
-        task();
+        try {
+          task();
+        } catch (error) {
+          if (window.console && typeof window.console.error === "function") {
+            window.console.error("[Chronohaze] task failed:", task.name || "anonymous", error);
+          }
+        }
       }
     });
   }
