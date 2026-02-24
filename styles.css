@@ -2915,6 +2915,21 @@ audio {
   letter-spacing: 0.012em;
 }
 
+.cv-research-note {
+  margin: 8px 0 0;
+  color: #525a6d;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.cv-research-note a {
+  color: #4a678f;
+}
+
+.cv-research-note a:hover {
+  color: #354f76;
+}
+
 .cv-highlight-card {
   margin: 18px 0 28px;
   padding: 18px 20px;
