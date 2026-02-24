@@ -362,6 +362,11 @@
   padding: 0;
 }
 
+.player-toggle:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
 .player-center p {
   margin: 0;
   font-family: "cinzel", serif;
@@ -401,6 +406,10 @@
 
 .player-shell audio {
   display: none;
+}
+
+.player-shell.is-audio-unavailable .player-track span {
+  width: 0 !important;
 }
 
 .about-bg {

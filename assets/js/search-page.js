@@ -237,6 +237,7 @@
     var loadError = false;
     var usingFallback = false;
     var loadToken = 0;
+    var autoExternalRedirected = false;
     var scopeFiles = {
       math: "assets/search-data/math.json",
       photo: "assets/search-data/photo.json",
@@ -262,15 +263,33 @@
 
     function updateFallbackExternalLink() {
       if (!fallbackExternalNode) {
-        return;
+        return "";
       }
       var query = normalizeText(inputNode.value || "").trim();
       var q = "site:chronohaze.space";
       if (query) {
         q += " " + query;
       }
-      fallbackExternalNode.href =
-        "https://www.google.com/search?q=" + encodeURIComponent(q);
+      var href = "https://www.google.com/search?q=" + encodeURIComponent(q);
+      fallbackExternalNode.href = href;
+      return href;
+    }
+
+    function maybeRedirectToExternalSearch(rawQuery) {
+      if (!loadError || autoExternalRedirected) {
+        return false;
+      }
+      var query = String(rawQuery || "").trim();
+      if (!query) {
+        return false;
+      }
+      var externalHref = updateFallbackExternalLink();
+      if (!externalHref) {
+        return false;
+      }
+      autoExternalRedirected = true;
+      window.location.assign(externalHref);
+      return true;
     }
 
     function updateSearchUrl(query, scope, tag) {
@@ -436,10 +455,19 @@
         }
         push(page.origin + pageBase + rel);
         push(page.origin + "/" + rel);
+        if (/\/chronohaze(?:\/|$)/.test(page.pathname || "")) {
+          var repoBase = (page.pathname || "").replace(/^(.*?\/chronohaze)\/.*$/, "$1");
+          if (repoBase && repoBase !== page.pathname) {
+            push(repoBase + "/" + rel);
+            push(page.origin + repoBase + "/" + rel);
+          }
+        }
       } catch (_error) {
       }
 
-      var scriptNode = document.querySelector('script[src*="protect-media.js"]');
+      var scriptNode = document.querySelector(
+        'script[src*="search-page.js"], script[src*="protect-media.js"]'
+      );
       if (scriptNode) {
         try {
           var scriptUrl = new URL(scriptNode.getAttribute("src"), window.location.href);
@@ -752,6 +780,8 @@
     }
 
     function renderResults() {
+      var rawQuery = String(inputNode.value || "").trim();
+
       if (!loaded) {
         setLoadingState(statusNode.textContent || dict.searchLoading);
         return;
@@ -760,15 +790,24 @@
       setLoadedState();
 
       if (loadError) {
-        statusNode.textContent = dict.searchLoadError;
-        emptyNode.hidden = false;
-        emptyNode.textContent = dict.searchLoadError;
+        if (maybeRedirectToExternalSearch(rawQuery)) {
+          statusNode.textContent =
+            dict.searchFallbackRedirecting || dict.searchFallbackText || dict.searchFallbackExternal;
+          emptyNode.hidden = true;
+          emptyNode.textContent = "";
+          listNode.textContent = "";
+          setFallbackVisibility(true);
+          return;
+        }
+        statusNode.textContent =
+          dict.searchFallbackModeLabel || dict.searchFallbackText || dict.searchFallbackExternal;
+        emptyNode.hidden = true;
+        emptyNode.textContent = "";
         listNode.textContent = "";
         setFallbackVisibility(true);
         return;
       }
 
-      var rawQuery = String(inputNode.value || "").trim();
       var scope = scopeNode.value || "all";
       var tag = tagNode.value || "all";
       var terms = rawQuery
@@ -918,6 +957,9 @@
     formNode.addEventListener("submit", function (event) {
       event.preventDefault();
       updateFallbackExternalLink();
+      if (maybeRedirectToExternalSearch(String(inputNode.value || "").trim())) {
+        return;
+      }
       trackAnalyticsEvent("search_submit", {
         page_path: window.location.pathname,
         query_length: String(inputNode.value || "").trim().length,

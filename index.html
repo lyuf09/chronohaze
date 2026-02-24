@@ -191,11 +191,32 @@
       const toggle = document.getElementById('audioToggle');
       const progress = document.getElementById('playerProgress');
       const timeLabel = document.getElementById('playerTime');
+      const playerShell = document.getElementById('playerShell');
       const langButtons = Array.from(document.querySelectorAll('.lang-btn[data-lang]'));
       const mathCards = Array.from(document.querySelectorAll('.math-grid article[data-post-url]'));
       const revealNodes = Array.from(document.querySelectorAll('[data-reveal]'));
       const i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
       const i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
+
+      function fmtClockSeed(sec) {
+        if (!Number.isFinite(sec) || sec <= 0) return '00:00';
+        const s = Math.max(0, Math.floor(sec));
+        const m = Math.floor(s / 60);
+        const r = s % 60;
+        return String(m).padStart(2, '0') + ':' + String(r).padStart(2, '0');
+      }
+
+      if (audio && timeLabel) {
+        const seededFallbackDuration = Number(audio.getAttribute('data-fallback-duration') || 0);
+        if (seededFallbackDuration > 0) {
+          timeLabel.textContent = '00:00 / ' + fmtClockSeed(seededFallbackDuration);
+        }
+        const sourceNode = audio.querySelector('source[src]');
+        if ((!audio.getAttribute('src') || !audio.getAttribute('src').trim()) && sourceNode) {
+          const sourceSrc = sourceNode.getAttribute('src');
+          if (sourceSrc) audio.setAttribute('src', sourceSrc);
+        }
+      }
 
       const titleByLang = {
         zh: '主页 | Chronohaze',
@@ -420,6 +441,7 @@
       }
 
       toggle.addEventListener('click', function () {
+        if (toggle.disabled) return;
         if (audio.paused) {
           audio.play();
         } else {
@@ -436,6 +458,17 @@
       audio.addEventListener('pause', syncPlayer);
       audio.addEventListener('stalled', syncPlayer);
       audio.addEventListener('error', syncPlayer);
+      audio.addEventListener('error', function () {
+        const duration = getPlayerDuration();
+        timeLabel.textContent = '00:00 / ' + fmt(duration);
+        toggle.disabled = true;
+        toggle.setAttribute('aria-disabled', 'true');
+        toggle.textContent = '·';
+        if (playerShell) {
+          playerShell.classList.add('is-audio-unavailable');
+          playerShell.setAttribute('title', 'Audio unavailable on this device/network. Open the track page from 音乐作品集.');
+        }
+      });
 
       let initialLang = 'zh';
       try {

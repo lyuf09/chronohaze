@@ -1135,9 +1135,11 @@
         searchEmptyHint: "输入关键词开始搜索。",
         searchLoading: "正在加载索引…",
         searchLoadingProgress: "正在加载索引（{done}/{total}）…",
-        searchLoadError: "搜索索引加载失败，请稍后重试。",
+        searchLoadError: "搜索索引暂不可用。",
         searchFallbackNotice: "已切换到兜底列表",
-        searchFallbackText: "索引加载失败，可先使用以下入口：",
+        searchFallbackText: "搜索索引暂不可用，可先使用以下入口：",
+        searchFallbackModeLabel: "已切换到快捷入口与站外搜索",
+        searchFallbackRedirecting: "正在切换到站外搜索…",
         searchFallbackMath: "浏览数学",
         searchFallbackPhoto: "浏览摄影",
         searchFallbackMusic: "浏览音乐",
@@ -1236,9 +1238,11 @@
         searchEmptyHint: "Type a keyword to start searching.",
         searchLoading: "Loading index…",
         searchLoadingProgress: "Loading index ({done}/{total})…",
-        searchLoadError: "Failed to load search index. Please try again later.",
+        searchLoadError: "Search index is temporarily unavailable.",
         searchFallbackNotice: "Fallback list enabled",
-        searchFallbackText: "Index failed to load. You can use these shortcuts:",
+        searchFallbackText: "Search index is temporarily unavailable. You can use these shortcuts:",
+        searchFallbackModeLabel: "Using shortcuts and external site search",
+        searchFallbackRedirecting: "Redirecting to external site search…",
         searchFallbackMath: "Browse math",
         searchFallbackPhoto: "Browse photography",
         searchFallbackMusic: "Browse music",
@@ -8010,6 +8014,37 @@
     });
   }
 
+  function ensureMusicAlbumTrackStatuses() {
+    if (!document.body || !document.body.classList.contains("music-album-page")) {
+      return;
+    }
+
+    Array.from(document.querySelectorAll(".album-tracklist .album-track-link")).forEach(function (row) {
+      var noNode = row.querySelector(".album-track-no");
+      if (!noNode || noNode.querySelector(".album-track-status")) {
+        return;
+      }
+
+      var statusKey = normalizeText(row.getAttribute("data-track-status") || "").toLowerCase();
+      if (!statusKey) {
+        statusKey = row.classList.contains("is-disabled") ? "coming-soon" : "available";
+      }
+
+      var label = "Available";
+      if (statusKey === "coming-soon") {
+        label = "Coming soon";
+      } else if (statusKey === "draft") {
+        label = "Draft";
+      }
+
+      var chip = document.createElement("span");
+      chip.className = "album-track-status status-" + statusKey;
+      chip.textContent = label;
+      noNode.appendChild(document.createTextNode(" "));
+      noNode.appendChild(chip);
+    });
+  }
+
   function splitMusicTags(raw) {
     if (!raw) {
       return [];
@@ -8867,6 +8902,7 @@
       document.title = safeLang === "en" ? "Search | Chronohaze" : "搜索 | Chronohaze";
     }
 
+    ensureMusicAlbumTrackStatuses();
     applyMusicAlbumTrackTitlesInEnglish(safeLang);
     applyIpomoeaAlbumIntroInEnglish(safeLang);
 
