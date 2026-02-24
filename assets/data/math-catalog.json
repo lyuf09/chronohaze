@@ -1,0 +1,54 @@
+{
+  "generated_at": "2026-02-24",
+  "source": "math.html",
+  "items": [
+    {
+      "order": 1,
+      "url": "post/metalcore-piano-lab.html",
+      "date": "2月7日",
+      "title": "Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP）",
+      "excerpt": "从连续音频到可玩的谱面：起音检测、节拍网格、段落对齐与可玩性约束。",
+      "readmore_url": "post/metalcore-piano-lab.html",
+      "tags": [
+        "math",
+        "article"
+      ]
+    },
+    {
+      "order": 2,
+      "url": "post/spring-2026.html",
+      "date": "1月29日",
+      "title": "Spring 2026｜新科研记录的开始",
+      "excerpt": "从纯数学走向优化研究：一个学期的研究训练与新的问题切入口。",
+      "readmore_url": "post/spring-2026.html",
+      "tags": [
+        "math",
+        "article"
+      ]
+    },
+    {
+      "order": 3,
+      "url": "post/isabelle-submodular-greedy.html",
+      "date": "2025年12月29日",
+      "title": "一个正在进行的 Isabelle 研究项目：Submodular Greedy 的形式化",
+      "excerpt": "在 Isabelle 中形式化单调子模函数下贪心算法的近似保证。",
+      "readmore_url": "post/isabelle-submodular-greedy.html",
+      "tags": [
+        "math",
+        "article"
+      ]
+    },
+    {
+      "order": 4,
+      "url": "post/first-isabelle-proof.html",
+      "date": "2025年10月18日",
+      "title": "我的第一个 Isabelle 形式化证明",
+      "excerpt": "把可验证性嵌进证明过程：从动机到 Nemhauser–Wolsey theorem。",
+      "readmore_url": "post/first-isabelle-proof.html",
+      "tags": [
+        "math",
+        "article"
+      ]
+    }
+  ]
+}

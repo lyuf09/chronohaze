@@ -47,6 +47,104 @@
     document.querySelectorAll(MEDIA_SELECTOR).forEach(protectElement);
   }
 
+  var imageVariantManifest = null;
+  var imageVariantManifestLoadTried = false;
+  var imageVariantManifestPromise = null;
+
+  function getAssetCandidateUrls(relativePath) {
+    var rel = String(relativePath || "").replace(/^\.\//, "");
+    var urls = [];
+
+    function push(url) {
+      if (!url || urls.indexOf(url) >= 0) {
+        return;
+      }
+      urls.push(url);
+    }
+
+    push(rel);
+    push("./" + rel);
+
+    try {
+      var page = new URL(window.location.href);
+      var pageBase = String(page.pathname || "").replace(/[^/]*$/, "/");
+      if (pageBase) {
+        push(pageBase + rel);
+      }
+      push(page.origin + pageBase + rel);
+      push(page.origin + "/" + rel);
+      if (/\/chronohaze(?:\/|$)/.test(page.pathname || "")) {
+        var repoBase = (page.pathname || "").replace(/^(.*?\/chronohaze)\/.*$/, "$1");
+        if (repoBase) {
+          push(repoBase + "/" + rel);
+          push(page.origin + repoBase + "/" + rel);
+        }
+      }
+    } catch (_e) {}
+
+    return urls;
+  }
+
+  function fetchJsonFromCandidates(relativePath) {
+    var candidates = getAssetCandidateUrls(relativePath);
+    var idx = 0;
+
+    function tryNext() {
+      if (idx >= candidates.length) {
+        return Promise.reject(new Error("not found"));
+      }
+      var url = candidates[idx++];
+      return fetch(url, { cache: "no-cache" })
+        .then(function (response) {
+          if (!response.ok) {
+            throw new Error("HTTP " + response.status);
+          }
+          return response.json();
+        })
+        .catch(function () {
+          return tryNext();
+        });
+    }
+
+    return tryNext();
+  }
+
+  function ensureImageVariantManifestLoaded() {
+    if (imageVariantManifest || imageVariantManifestLoadTried) {
+      return imageVariantManifestPromise || Promise.resolve(imageVariantManifest);
+    }
+    imageVariantManifestLoadTried = true;
+    imageVariantManifestPromise = fetchJsonFromCandidates("assets/data/image-variants.json")
+      .then(function (payload) {
+        if (payload && typeof payload === "object" && payload.items && typeof payload.items === "object") {
+          imageVariantManifest = payload.items;
+        } else {
+          imageVariantManifest = Object.create(null);
+        }
+        return imageVariantManifest;
+      })
+      .catch(function () {
+        imageVariantManifest = Object.create(null);
+        return imageVariantManifest;
+      })
+      .then(function (result) {
+        imageVariantManifestPromise = null;
+        // Upgrade guessed srcsets to manifest-backed srcsets when available.
+        requestAnimationFrame(function () {
+          optimizeImages();
+        });
+        return result;
+      });
+    return imageVariantManifestPromise;
+  }
+
+  function getImageVariantEntry(path) {
+    if (!imageVariantManifest || !path) {
+      return null;
+    }
+    return imageVariantManifest[String(path).replace(/^\.?\//, "")] || null;
+  }
+
   function splitSrc(value) {
     var source = String(value || "");
     var match = source.match(/^([^?#]+)([?#].*)?$/);
@@ -61,7 +159,7 @@
       return false;
     }
 
-    if (!/\.(jpe?g)$/i.test(path)) {
+    if (!/\.(jpe?g|png)$/i.test(path)) {
       return false;
     }
 
@@ -69,12 +167,12 @@
       return false;
     }
 
-    return !/-\d+\.(jpe?g|webp)$/i.test(path);
+    return !/-\d+\.(jpe?g|png|webp|avif)$/i.test(path);
   }
 
   function buildVariantPath(path, width, extension) {
     return path.replace(
-      /\.(jpe?g)$/i,
+      /\.(jpe?g|png)$/i,
       "-" + String(width) + "." + String(extension || "jpg").toLowerCase()
     );
   }
@@ -222,37 +320,63 @@
       return;
     }
 
-    if (img.dataset.responsiveReady === "1") {
+    defaultImageSizes(img);
+    var manifestEntry = getImageVariantEntry(path);
+    var wantsManifest = !!(manifestEntry && manifestEntry.formats);
+    var currentMode = img.dataset.responsiveReady || "";
+    if (currentMode === "manifest" || (!wantsManifest && currentMode === "guess")) {
       return;
     }
-
-    defaultImageSizes(img);
-
-    var webpSet = [
-      buildVariantPath(path, 960, "webp") + suffix + " 960w",
-      buildVariantPath(path, 1600, "webp") + suffix + " 1600w",
-    ].join(", ");
 
     var picture = ensurePictureWrapper(img);
     if (!picture) {
       return;
     }
 
-    var source = picture.querySelector("source[data-responsive-webp='1']");
-    if (!source) {
-      source = document.createElement("source");
-      source.dataset.responsiveWebp = "1";
-      source.type = "image/webp";
-      picture.insertBefore(source, picture.firstChild);
+    function upsertSource(marker, mimeType, srcsetValue) {
+      var selector = "source[" + marker + "='1']";
+      var sourceNode = picture.querySelector(selector);
+      if (!srcsetValue) {
+        if (sourceNode && sourceNode.parentNode) {
+          sourceNode.parentNode.removeChild(sourceNode);
+        }
+        return null;
+      }
+      if (!sourceNode) {
+        sourceNode = document.createElement("source");
+        sourceNode.setAttribute(marker, "1");
+        sourceNode.type = mimeType;
+        picture.insertBefore(sourceNode, picture.firstChild);
+      }
+      sourceNode.srcset = srcsetValue;
+      sourceNode.sizes = img.getAttribute("sizes") || "100vw";
+      return sourceNode;
     }
 
-    source.srcset = webpSet;
-    source.sizes = img.getAttribute("sizes") || "100vw";
+    if (wantsManifest) {
+      var formats = manifestEntry.formats || {};
+      var avifSet = formats.avif && formats.avif.srcset ? String(formats.avif.srcset) : "";
+      var webpSetManifest = formats.webp && formats.webp.srcset ? String(formats.webp.srcset) : "";
+      upsertSource("data-responsive-webp", "image/webp", webpSetManifest);
+      upsertSource("data-responsive-avif", "image/avif", avifSet);
+      if (formats.jpg && formats.jpg.srcset && !img.dataset.photoThumbOptimized && !img.dataset.photoDetailProgressive) {
+        img.srcset = String(formats.jpg.srcset);
+        img.setAttribute("sizes", img.getAttribute("sizes") || "100vw");
+      }
+      img.dataset.responsiveReady = "manifest";
+      return;
+    }
 
-    img.dataset.responsiveReady = "1";
+    var webpSetGuess = [
+      buildVariantPath(path, 960, "webp") + suffix + " 960w",
+      buildVariantPath(path, 1600, "webp") + suffix + " 1600w",
+    ].join(", ");
+    upsertSource("data-responsive-webp", "image/webp", webpSetGuess);
+    img.dataset.responsiveReady = "guess";
   }
 
   function optimizeImages() {
+    ensureImageVariantManifestLoaded();
     var images = Array.from(document.querySelectorAll("img"));
 
     images.forEach(function (img) {

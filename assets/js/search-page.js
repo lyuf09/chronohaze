@@ -135,7 +135,56 @@
 
     var lang = detectPreferredLanguage();
     var dict = getSecondaryPageDictionary(lang);
-    var params = new URLSearchParams(window.location.search);
+    var SEARCH_STATE_KEY = "chronohaze:search-state:v1";
+
+    function readUrlState() {
+      var url = new URL(window.location.href);
+      return {
+        q: url.searchParams.get("q") || "",
+        scope: url.searchParams.get("scope") || "all",
+        tag: url.searchParams.get("tag") || "all",
+        hasExplicit:
+          url.searchParams.has("q") ||
+          url.searchParams.has("scope") ||
+          url.searchParams.has("tag"),
+      };
+    }
+
+    function readStoredState() {
+      try {
+        var raw = window.localStorage.getItem(SEARCH_STATE_KEY);
+        if (!raw) {
+          return null;
+        }
+        var parsed = JSON.parse(raw);
+        if (!parsed || typeof parsed !== "object") {
+          return null;
+        }
+        return {
+          q: String(parsed.q || ""),
+          scope: String(parsed.scope || "all"),
+          tag: String(parsed.tag || "all"),
+        };
+      } catch (_e) {
+        return null;
+      }
+    }
+
+    function persistSearchState(query, scope, tag) {
+      try {
+        window.localStorage.setItem(
+          SEARCH_STATE_KEY,
+          JSON.stringify({
+            q: String(query || ""),
+            scope: String(scope || "all"),
+            tag: String(tag || "all"),
+          })
+        );
+      } catch (_e) {}
+    }
+
+    var urlState = readUrlState();
+    var storedState = urlState.hasExplicit ? null : readStoredState();
 
     var titleNode = document.querySelector("[data-search-title]");
     var introNode = document.querySelector("[data-search-intro]");
@@ -223,9 +272,9 @@
       }
     });
 
-    var initialQuery = params.get("q") || "";
-    var initialScope = params.get("scope") || "all";
-    var initialTag = params.get("tag") || "all";
+    var initialQuery = (storedState && storedState.q) || urlState.q || "";
+    var initialScope = (storedState && storedState.scope) || urlState.scope || "all";
+    var initialTag = (storedState && storedState.tag) || urlState.tag || "all";
     inputNode.value = initialQuery;
     if (Array.from(scopeNode.options).some(function (option) { return option.value === initialScope; })) {
       scopeNode.value = initialScope;
@@ -246,8 +295,18 @@
       site: "assets/search-data/site.json",
     };
     var allScopes = ["math", "photo", "music", "cv", "site"];
-    var musicCatalogOverridesByUrl = null;
-    var musicCatalogOverridesPromise = null;
+    var catalogOverridesByScope = {
+      music: null,
+      math: null,
+      photo: null,
+      site: null,
+    };
+    var catalogOverridesPromises = {
+      music: null,
+      math: null,
+      photo: null,
+      site: null,
+    };
     statusNode.textContent = dict.searchLoading;
     emptyNode.hidden = true;
     if (fallbackPanel) {
@@ -309,6 +368,7 @@
       } else {
         url.searchParams.delete("tag");
       }
+      persistSearchState(query, scope, tag);
       history.replaceState(null, "", url.toString());
     }
 
@@ -509,6 +569,150 @@
       return tryNext();
     }
 
+    function getCatalogMapFromPayload(kind, payload) {
+      var map = Object.create(null);
+      if (!payload || typeof payload !== "object") {
+        return map;
+      }
+
+      if (kind === "music" || kind === "math") {
+        var list = Array.isArray(payload.items) ? payload.items : [];
+        list.forEach(function (item) {
+          if (!item || typeof item !== "object" || !item.url) {
+            return;
+          }
+          map[String(item.url).replace(/^\.?\//, "")] = item;
+        });
+        return map;
+      }
+
+      if (kind === "photo") {
+        var photoItems = Array.isArray(payload.items) ? payload.items : [];
+        photoItems.forEach(function (item) {
+          if (!item || typeof item !== "object" || !item.url) {
+            return;
+          }
+          map[String(item.url).replace(/^\.?\//, "")] = item;
+        });
+        return map;
+      }
+
+      if (kind === "site") {
+        var researchSearch = payload.search;
+        if (researchSearch && typeof researchSearch === "object" && researchSearch.url) {
+          map[String(researchSearch.url).replace(/^\.?\//, "")] = researchSearch;
+        }
+        return map;
+      }
+
+      return map;
+    }
+
+    function loadCatalogOverrides(kind) {
+      if (!kind || !catalogOverridesByScope.hasOwnProperty(kind)) {
+        return Promise.resolve(Object.create(null));
+      }
+
+      if (catalogOverridesByScope[kind]) {
+        return Promise.resolve(catalogOverridesByScope[kind]);
+      }
+      if (catalogOverridesPromises[kind]) {
+        return catalogOverridesPromises[kind];
+      }
+
+      var fileByKind = {
+        music: "assets/data/music-catalog.json",
+        math: "assets/data/math-catalog.json",
+        photo: "assets/data/photo-catalog.json",
+        site: "assets/data/research-catalog.json",
+      };
+
+      catalogOverridesPromises[kind] = fetchJsonFromCandidates(fileByKind[kind])
+        .then(function (payload) {
+          var map = getCatalogMapFromPayload(kind, payload);
+          catalogOverridesByScope[kind] = map;
+          return map;
+        })
+        .catch(function () {
+          var empty = Object.create(null);
+          catalogOverridesByScope[kind] = empty;
+          return empty;
+        })
+        .then(function (result) {
+          catalogOverridesPromises[kind] = null;
+          return result;
+        });
+
+      return catalogOverridesPromises[kind];
+    }
+
+    function applyCatalogOverridesToScope(scope, items) {
+      if (!Array.isArray(items) || !items.length) {
+        return Promise.resolve(items || []);
+      }
+
+      var catalogKinds = [];
+      if (scope === "music") {
+        catalogKinds.push("music");
+      } else if (scope === "math") {
+        catalogKinds.push("math");
+      } else if (scope === "photo") {
+        catalogKinds.push("photo");
+      } else if (scope === "site") {
+        catalogKinds.push("site");
+      }
+
+      if (!catalogKinds.length) {
+        return Promise.resolve(items);
+      }
+
+      return Promise.all(catalogKinds.map(loadCatalogOverrides)).then(function (maps) {
+        var overlayMap = maps[0] || Object.create(null);
+        var nextItems = items.map(function (item) {
+          var key = String(item.url || "").replace(/^\.?\//, "");
+          var overlay = overlayMap[key];
+          if (!overlay) {
+            return item;
+          }
+          var next = Object.assign({}, item);
+          if (Array.isArray(overlay.tags) && overlay.tags.length) {
+            next.tags = overlay.tags.slice();
+          }
+          if (overlay.date) {
+            next.date = overlay.date;
+          }
+          if (overlay.title) {
+            next.title = overlay.title;
+          }
+          if (overlay.excerpt) {
+            next.excerpt = overlay.excerpt;
+          }
+          if (overlay.content) {
+            next.content = overlay.content;
+          }
+          if (overlay.section) {
+            next.section = overlay.section;
+          }
+          if (overlay.scope) {
+            next.scope = overlay.scope;
+          }
+          return next;
+        });
+
+        if (scope === "site") {
+          var researchOverlay = overlayMap["research.html"];
+          var hasResearch = nextItems.some(function (item) {
+            return String(item.url || "").replace(/^\.?\//, "") === "research.html";
+          });
+          if (!hasResearch && researchOverlay && researchOverlay.url) {
+            nextItems = nextItems.concat([Object.assign({}, researchOverlay)]);
+          }
+        }
+
+        return nextItems;
+      });
+    }
+
     function fetchScopeIndex(scope) {
       if (scopeCache[scope]) {
         return Promise.resolve(scopeCache[scope]);
@@ -526,61 +730,11 @@
             }
             return item;
           });
-          if (scope !== "music") {
-            scopeCache[scope] = items;
-            return items;
-          }
-          return loadMusicCatalogOverrides().then(function (catalogMap) {
-            var patched = items.map(function (item) {
-              var key = String(item.url || "").replace(/^\.?\//, "");
-              var catalogItem = catalogMap[key];
-              if (!catalogItem) {
-                return item;
-              }
-              var next = Object.assign({}, item);
-              if (Array.isArray(catalogItem.tags) && catalogItem.tags.length) {
-                next.tags = catalogItem.tags.slice();
-              }
-              if (catalogItem.date) {
-                next.date = catalogItem.date;
-              }
-              return next;
-            });
+          return applyCatalogOverridesToScope(scope, items).then(function (patched) {
             scopeCache[scope] = patched;
             return patched;
           });
         });
-    }
-
-    function loadMusicCatalogOverrides() {
-      if (musicCatalogOverridesByUrl) {
-        return Promise.resolve(musicCatalogOverridesByUrl);
-      }
-      if (musicCatalogOverridesPromise) {
-        return musicCatalogOverridesPromise;
-      }
-      musicCatalogOverridesPromise = fetchJsonFromCandidates("assets/data/music-catalog.json")
-        .then(function (payload) {
-          var items = Array.isArray(payload && payload.items) ? payload.items : [];
-          var map = Object.create(null);
-          items.forEach(function (item) {
-            if (!item || typeof item !== "object" || !item.url) {
-              return;
-            }
-            map[String(item.url).replace(/^\.?\//, "")] = item;
-          });
-          musicCatalogOverridesByUrl = map;
-          return musicCatalogOverridesByUrl;
-        })
-        .catch(function () {
-          musicCatalogOverridesByUrl = Object.create(null);
-          return musicCatalogOverridesByUrl;
-        })
-        .then(function (result) {
-          musicCatalogOverridesPromise = null;
-          return result;
-        });
-      return musicCatalogOverridesPromise;
     }
 
     function loadCombinedFallback() {
@@ -967,6 +1121,23 @@
         tag: tagNode.value || "all",
       });
       renderResults();
+    });
+
+    function applyStateFromLocation() {
+      var state = readUrlState();
+      inputNode.value = state.q || "";
+      if (Array.from(scopeNode.options).some(function (option) { return option.value === state.scope; })) {
+        scopeNode.value = state.scope;
+      } else {
+        scopeNode.value = "all";
+      }
+      initialTag = state.tag || "all";
+      updateFallbackExternalLink();
+      loadItemsForScope(scopeNode.value || "all");
+    }
+
+    window.addEventListener("popstate", function () {
+      applyStateFromLocation();
     });
 
     updateFallbackExternalLink();

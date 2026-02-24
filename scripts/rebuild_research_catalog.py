@@ -1,0 +1,240 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+import html
+import json
+import re
+from datetime import date
+from pathlib import Path
+from typing import Any, Dict, List
+
+
+TAG_RE = re.compile(r"<[^>]+>")
+
+
+def clean(fragment: str) -> str:
+    text = fragment or ""
+    text = text.replace("<br>", " ").replace("<br/>", " ").replace("<br />", " ")
+    text = TAG_RE.sub("", text)
+    return re.sub(r"\s+", " ", html.unescape(text)).strip()
+
+
+def parse_links(html_text: str, selector_class: str) -> List[Dict[str, Any]]:
+    pattern = re.compile(
+        rf'<a\s+class="{re.escape(selector_class)}"([^>]*)href="([^"]+)"([^>]*)>(.*?)</a>',
+        re.S,
+    )
+    out: List[Dict[str, Any]] = []
+    for m in pattern.finditer(html_text):
+        attrs = " ".join([(m.group(1) or ""), (m.group(3) or "")])
+        is_external = "target=\"_blank\"" in attrs or "rel=\"noopener" in attrs
+        body = m.group(4) or ""
+        if selector_class == "research-fast-link":
+            kicker_m = re.search(r'<span\s+class="research-fast-link-kicker">(.*?)</span>', body, re.S)
+            title_m = re.search(r"<strong>(.*?)</strong>", body, re.S)
+            desc_m = re.search(r"<span>(.*?)</span>(?!.*<span>)", body, re.S)
+            out.append(
+                {
+                    "href": (m.group(2) or "").strip(),
+                    "external": bool(is_external),
+                    "kicker": clean(kicker_m.group(1) if kicker_m else ""),
+                    "title": clean(title_m.group(1) if title_m else ""),
+                    "description": clean(desc_m.group(1) if desc_m else ""),
+                }
+            )
+        else:
+            out.append(
+                {
+                    "href": (m.group(2) or "").strip(),
+                    "external": bool(is_external),
+                    "label": clean(body),
+                }
+            )
+    return out
+
+
+def parse_research_page(text: str) -> Dict[str, Any]:
+    payload: Dict[str, Any] = {
+        "hero": {},
+        "interests": {},
+        "projects_section": {},
+        "projects": [],
+        "links_section": {},
+        "links": [],
+        "search": {},
+    }
+
+    hero_block_m = re.search(r'<section class="research-hero">(.*?)</section>', text, re.S)
+    if hero_block_m:
+        hero_block = hero_block_m.group(1)
+        eyebrow_m = re.search(r'<p class="research-eyebrow">(.*?)</p>', hero_block, re.S)
+        h1_m = re.search(r"<h1>(.*?)</h1>", hero_block, re.S)
+        subtitle_m = re.search(r'<p class="research-subtitle">(.*?)</p>', hero_block, re.S)
+        positioning_m = re.search(r'<p class="research-positioning">(.*?)</p>', hero_block, re.S)
+        chips = [
+            clean(x)
+            for x in re.findall(r'<span class="research-chip">(.*?)</span>', hero_block, re.S)
+            if clean(x)
+        ]
+        panel_title_m = re.search(r'<aside class="research-hero-panel".*?<h2>(.*?)</h2>', hero_block, re.S)
+        interests = [
+            clean(x)
+            for x in re.findall(r"<li>(.*?)</li>", hero_block, re.S)
+            if clean(x)
+        ]
+        payload["hero"] = {
+            "eyebrow": clean(eyebrow_m.group(1) if eyebrow_m else ""),
+            "name": clean(h1_m.group(1) if h1_m else ""),
+            "subtitle": clean(subtitle_m.group(1) if subtitle_m else ""),
+            "positioning": clean(positioning_m.group(1) if positioning_m else ""),
+            "chips": chips,
+        }
+        payload["interests"] = {
+            "title": clean(panel_title_m.group(1) if panel_title_m else ""),
+            "items": interests,
+        }
+
+    project_section_m = re.search(
+        r'<section class="section research-projects-section">(.*?)</section>',
+        text,
+        re.S,
+    )
+    if project_section_m:
+        block = project_section_m.group(1)
+        head_m = re.search(r'<div class="container research-section-head">(.*?)</div>', block, re.S)
+        if head_m:
+            payload["projects_section"] = {
+                "title": clean(re.search(r"<h2>(.*?)</h2>", head_m.group(1), re.S).group(1))
+                if re.search(r"<h2>(.*?)</h2>", head_m.group(1), re.S)
+                else "",
+                "lead": clean(re.search(r"<p>(.*?)</p>", head_m.group(1), re.S).group(1))
+                if re.search(r"<p>(.*?)</p>", head_m.group(1), re.S)
+                else "",
+            }
+
+        card_pattern = re.compile(r'<article class="research-project-card">(.*?)</article>', re.S)
+        for card in card_pattern.finditer(block):
+            body = card.group(1) or ""
+            kind_m = re.search(r'<p class="research-project-kind">(.*?)</p>', body, re.S)
+            title_m = re.search(r"<h3>(.*?)</h3>", body, re.S)
+            field_map: Dict[str, str] = {}
+            for p_m in re.finditer(r"<p>(.*?)</p>", body, re.S):
+                p_body = p_m.group(1) or ""
+                label_m = re.match(r"\s*<strong>([^<:]+):</strong>\s*(.*)$", p_body, re.S)
+                if not label_m:
+                    continue
+                label = clean(label_m.group(1)).lower().replace(" ", "_")
+                field_map[label] = clean(label_m.group(2))
+            links_row_m = re.search(r'<div class="research-link-row">(.*?)</div>', body, re.S)
+            links = parse_links(links_row_m.group(1), "research-link-row") if links_row_m else []
+            if links_row_m:
+                # parse_links expects anchor class names; here anchors are plain <a>, so parse directly.
+                links = []
+                for a_m in re.finditer(r'<a\s+([^>]*)href="([^"]+)"([^>]*)>(.*?)</a>', links_row_m.group(1), re.S):
+                    attrs = " ".join([(a_m.group(1) or ""), (a_m.group(3) or "")])
+                    links.append(
+                        {
+                            "href": (a_m.group(2) or "").strip(),
+                            "label": clean(a_m.group(4) or ""),
+                            "external": ('target="_blank"' in attrs or "rel=\"noopener" in attrs),
+                        }
+                    )
+            payload["projects"].append(
+                {
+                    "kind": clean(kind_m.group(1) if kind_m else ""),
+                    "title": clean(title_m.group(1) if title_m else ""),
+                    "problem": field_map.get("problem", ""),
+                    "method": field_map.get("method", ""),
+                    "current_status": field_map.get("current_status", ""),
+                    "contribution": field_map.get("contribution", ""),
+                    "links": links,
+                }
+            )
+
+    links_section_m = re.search(
+        r'<section class="section research-fast-links-section">(.*?)</section>',
+        text,
+        re.S,
+    )
+    if links_section_m:
+        block = links_section_m.group(1)
+        head_m = re.search(r'<div class="container research-section-head">(.*?)</div>', block, re.S)
+        if head_m:
+            payload["links_section"] = {
+                "title": clean(re.search(r"<h2>(.*?)</h2>", head_m.group(1), re.S).group(1))
+                if re.search(r"<h2>(.*?)</h2>", head_m.group(1), re.S)
+                else "",
+                "lead": clean(re.search(r"<p>(.*?)</p>", head_m.group(1), re.S).group(1))
+                if re.search(r"<p>(.*?)</p>", head_m.group(1), re.S)
+                else "",
+            }
+        grid_m = re.search(r'<div class="container research-fast-links-grid">(.*?)</div>', block, re.S)
+        if grid_m:
+            payload["links"] = parse_links(grid_m.group(1), "research-fast-link")
+
+    title_m = re.search(r"<title>(.*?)</title>", text, re.S)
+    desc_m = re.search(r'<meta\s+name="description"\s+content="([^"]*)"', text, re.S)
+    search_excerpt = ""
+    if isinstance(payload.get("hero"), dict):
+        search_excerpt = str(payload["hero"].get("subtitle", "") or "").strip()
+    if isinstance(payload.get("projects_section"), dict):
+        lead = str(payload["projects_section"].get("lead", "") or "").strip()
+        if lead:
+            search_excerpt = lead
+    content_parts = []
+    for segment in (
+        payload.get("hero", {}),
+        payload.get("interests", {}),
+        payload.get("projects_section", {}),
+        payload.get("links_section", {}),
+    ):
+        if isinstance(segment, dict):
+            content_parts.extend(str(v) for v in segment.values() if not isinstance(v, list))
+            for v in segment.values():
+                if isinstance(v, list):
+                    content_parts.extend(str(x) for x in v)
+    for project in payload.get("projects", []):
+        if not isinstance(project, dict):
+            continue
+        content_parts.extend(
+            str(project.get(k, "")) for k in ("kind", "title", "problem", "method", "current_status", "contribution")
+        )
+        for link in project.get("links", []):
+            if isinstance(link, dict):
+                content_parts.append(str(link.get("label", "")))
+    payload["search"] = {
+        "title": "Research | Fay Lyu (HazezZ)",
+        "url": "research.html",
+        "section": "Site",
+        "date": "",
+        "excerpt": search_excerpt or "Research landing page",
+        "tags": ["research", "optimization", "formal-methods"],
+        "sort": 20260224,
+        "scope": "site",
+        "content": clean(" ".join(content_parts)),
+        "meta_title": clean(title_m.group(1) if title_m else ""),
+        "meta_description": clean(desc_m.group(1) if desc_m else ""),
+    }
+    return payload
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(description="Build canonical research metadata from research.html")
+    ap.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
+    args = ap.parse_args()
+    root = args.root.resolve()
+    src = root / "research.html"
+    out = root / "assets" / "data" / "research-catalog.json"
+    text = src.read_text(encoding="utf-8")
+    payload = parse_research_page(text)
+    payload["generated_at"] = date.today().isoformat()
+    payload["source"] = "research.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(f"Wrote {out} (projects={len(payload.get('projects', []))}, links={len(payload.get('links', []))})")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
