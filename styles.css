@@ -2668,11 +2668,52 @@ audio {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin: 0 0 16px;
+  margin: 0;
   padding: 4px;
   border: 1px solid #d3d8e2;
   border-radius: 999px;
   background: linear-gradient(180deg, #f4f6fa 0%, #eaedf4 100%);
+}
+
+.cv-utility-bar {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 16px;
+  position: sticky;
+  top: 74px;
+  z-index: 3;
+  padding: 10px 12px;
+  border: 1px solid rgba(207, 214, 227, 0.72);
+  border-radius: 14px;
+  background: rgba(244, 246, 251, 0.86);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 26px rgba(26, 34, 48, 0.06);
+}
+
+.cv-toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cv-toc-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px 6px;
+  border-radius: 999px;
+  border: 1px solid rgba(112, 122, 145, 0.22);
+  background: rgba(255, 255, 255, 0.56);
+  color: #485062;
+  font-family: var(--font-serif);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.cv-toc-link:hover {
+  background: rgba(255, 255, 255, 0.78);
+  border-color: rgba(92, 105, 132, 0.36);
+  color: #303847;
 }
 
 .cv-lang-tab {
@@ -2745,6 +2786,28 @@ audio {
 
 .cv-experience-item:last-of-type {
   margin-bottom: 0;
+}
+
+.cv-policy [id^="cv-"] {
+  scroll-margin-top: 120px;
+}
+
+@media (max-width: 900px) {
+  .cv-utility-bar {
+    top: 64px;
+    padding: 8px 10px;
+    gap: 8px;
+  }
+
+  .cv-toc-link {
+    font-size: 11px;
+    letter-spacing: 0.03em;
+    padding: 4px 9px 5px;
+  }
+
+  .cv-policy [id^="cv-"] {
+    scroll-margin-top: 108px;
+  }
 }
 
 .site-footer {
