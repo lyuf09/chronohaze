@@ -258,6 +258,14 @@
     }
     inputNode.placeholder = dict.searchPlaceholder;
 
+    var shortcutsHintNode = document.createElement("p");
+    shortcutsHintNode.className = "search-shortcuts";
+    shortcutsHintNode.textContent =
+      dict.searchShortcutHint || "/ or Ctrl/Cmd+K to focus · ↑↓ select · Enter open";
+    if (statusNode.parentNode) {
+      statusNode.parentNode.insertBefore(shortcutsHintNode, statusNode.nextSibling);
+    }
+
     var scopeLabels = {
       all: dict.searchScopeAll,
       math: dict.searchScopeMath,
@@ -281,12 +289,14 @@
     }
 
     var allItems = [];
+    var lastRenderedItems = [];
     var scopeCache = Object.create(null);
     var loaded = false;
     var loadError = false;
     var usingFallback = false;
     var loadToken = 0;
     var autoExternalRedirected = false;
+    var activeResultIndex = -1;
     var scopeFiles = {
       math: "assets/search-data/math.json",
       photo: "assets/search-data/photo.json",
@@ -408,6 +418,8 @@
       emptyNode.hidden = true;
       setFallbackVisibility(false);
       statusNode.textContent = text || dict.searchLoading;
+      lastRenderedItems = [];
+      activeResultIndex = -1;
     }
 
     function setLoadedState() {
@@ -418,6 +430,60 @@
         skeletonNode.style.display = "none";
       }
       setFallbackVisibility(false);
+    }
+
+    function getResultLinks() {
+      return Array.prototype.slice.call(listNode.querySelectorAll(".search-result-link"));
+    }
+
+    function setActiveResult(index, opts) {
+      var links = getResultLinks();
+      var options = opts || {};
+      if (!links.length) {
+        activeResultIndex = -1;
+        return;
+      }
+      var nextIndex = Math.max(0, Math.min(index, links.length - 1));
+      activeResultIndex = nextIndex;
+      links.forEach(function (link, i) {
+        var active = i === nextIndex;
+        link.classList.toggle("is-active", active);
+        link.setAttribute("aria-current", active ? "true" : "false");
+        if (active && options.focus) {
+          try {
+            link.focus({ preventScroll: !!options.preventScroll });
+          } catch (_e) {
+            link.focus();
+          }
+          if (!options.preventScroll) {
+            link.scrollIntoView({ block: "nearest" });
+          }
+        }
+      });
+    }
+
+    function moveActiveResult(delta, focus) {
+      var links = getResultLinks();
+      if (!links.length) {
+        return false;
+      }
+      var baseIndex = activeResultIndex >= 0 ? activeResultIndex : delta > 0 ? -1 : links.length;
+      setActiveResult(baseIndex + delta, { focus: !!focus });
+      return true;
+    }
+
+    function openActiveResult() {
+      var links = getResultLinks();
+      if (!links.length) {
+        return false;
+      }
+      var idx = activeResultIndex >= 0 ? activeResultIndex : 0;
+      var link = links[idx];
+      if (!link || !link.href) {
+        return false;
+      }
+      link.click();
+      return true;
     }
 
     function getItemTagLabels(item) {
@@ -893,6 +959,68 @@
       node.appendChild(fragment);
     }
 
+    function extractSnippet(text, rawTerms) {
+      var source = String(text || "").trim();
+      if (!source) {
+        return "";
+      }
+      var terms = dedupeTerms(rawTerms).filter(Boolean);
+      if (!terms.length) {
+        return source.length > 220 ? source.slice(0, 220).trim() + "…" : source;
+      }
+      var lower = source.toLowerCase();
+      var hitIndex = -1;
+      terms.forEach(function (term) {
+        if (hitIndex >= 0) {
+          return;
+        }
+        var idx = lower.indexOf(String(term || "").toLowerCase());
+        if (idx >= 0) {
+          hitIndex = idx;
+        }
+      });
+      if (hitIndex < 0) {
+        return source.length > 220 ? source.slice(0, 220).trim() + "…" : source;
+      }
+      var before = 78;
+      var after = 120;
+      var start = Math.max(0, hitIndex - before);
+      var end = Math.min(source.length, hitIndex + after);
+      var snippet = source.slice(start, end).trim();
+      if (start > 0) {
+        snippet = "…" + snippet;
+      }
+      if (end < source.length) {
+        snippet = snippet + "…";
+      }
+      return snippet;
+    }
+
+    function resolveExcerptText(item, rawTerms) {
+      var excerpt = String(item && item.excerpt ? item.excerpt : "").trim();
+      var content = String(item && item.content ? item.content : "").trim();
+      var hasQuery = Array.isArray(rawTerms) && rawTerms.length > 0;
+
+      if (!hasQuery) {
+        if (excerpt) {
+          return excerpt;
+        }
+        return extractSnippet(content, []);
+      }
+
+      var excerptLower = excerpt.toLowerCase();
+      var excerptHasHit = rawTerms.some(function (term) {
+        return excerptLower.indexOf(String(term || "").toLowerCase()) >= 0;
+      });
+      if (excerpt && excerptHasHit) {
+        return excerpt;
+      }
+      if (content) {
+        return extractSnippet(content, rawTerms);
+      }
+      return excerpt;
+    }
+
     function buildSearchPools(item, itemTags) {
       var titleRaw = String(item.title || "");
       var excerptRaw = String(item.excerpt || "");
@@ -1020,6 +1148,12 @@
 
       updateSearchUrl(rawQuery, scope, tag);
       var status = dict.searchResultCount.replace("{count}", String(matched.length));
+      if (scope !== "all" && scopeLabels[scope]) {
+        status += " · " + scopeLabels[scope];
+      }
+      if (tag !== "all") {
+        status += " · #" + getMusicTagLabel(tag, dict);
+      }
       if (usingFallback) {
         status += " · " + dict.searchFallbackNotice;
       }
@@ -1028,12 +1162,15 @@
 
       listNode.textContent = "";
       if (!matched.length) {
+        lastRenderedItems = [];
+        activeResultIndex = -1;
         emptyNode.hidden = false;
         emptyNode.textContent = rawQuery || tag !== "all" ? dict.searchResultZero : dict.searchEmptyHint;
         return;
       }
 
       emptyNode.hidden = true;
+      lastRenderedItems = matched.map(function (entry) { return entry.item; });
       var fragment = document.createDocumentFragment();
       matched.forEach(function (entry, index) {
         var item = entry.item;
@@ -1064,7 +1201,7 @@
 
         var excerpt = document.createElement("p");
         excerpt.className = "search-result-excerpt";
-        setHighlightedText(excerpt, item.excerpt || "", rawTerms);
+        setHighlightedText(excerpt, resolveExcerptText(item, rawTerms), rawTerms);
 
         var tagsWrap = document.createElement("div");
         tagsWrap.className = "search-result-tags";
@@ -1089,6 +1226,7 @@
         fragment.appendChild(li);
       });
       listNode.appendChild(fragment);
+      activeResultIndex = -1;
     }
 
     var debounceTimer = null;
@@ -1121,6 +1259,97 @@
         tag: tagNode.value || "all",
       });
       renderResults();
+    });
+
+    inputNode.addEventListener("keydown", function (event) {
+      if (event.isComposing) {
+        return;
+      }
+      if (event.key === "ArrowDown") {
+        if (moveActiveResult(1, true)) {
+          event.preventDefault();
+        }
+        return;
+      }
+      if (event.key === "ArrowUp") {
+        if (moveActiveResult(-1, true)) {
+          event.preventDefault();
+        }
+        return;
+      }
+      if (event.key === "Enter" && !event.shiftKey && !event.altKey && !event.metaKey && !event.ctrlKey) {
+        if (activeResultIndex >= 0 && openActiveResult()) {
+          event.preventDefault();
+        }
+        return;
+      }
+      if (event.key === "Escape") {
+        activeResultIndex = -1;
+        getResultLinks().forEach(function (link) {
+          link.classList.remove("is-active");
+          link.removeAttribute("aria-current");
+        });
+      }
+    });
+
+    listNode.addEventListener("keydown", function (event) {
+      if (event.isComposing) {
+        return;
+      }
+      if (event.key === "ArrowDown") {
+        if (moveActiveResult(1, true)) {
+          event.preventDefault();
+        }
+        return;
+      }
+      if (event.key === "ArrowUp") {
+        if (moveActiveResult(-1, true)) {
+          event.preventDefault();
+        }
+        return;
+      }
+      if (event.key === "Escape") {
+        event.preventDefault();
+        inputNode.focus();
+      }
+    });
+
+    listNode.addEventListener("focusin", function (event) {
+      var link = event.target && event.target.closest ? event.target.closest(".search-result-link") : null;
+      if (!link) {
+        return;
+      }
+      var links = getResultLinks();
+      var idx = links.indexOf(link);
+      if (idx >= 0) {
+        setActiveResult(idx, { focus: false, preventScroll: true });
+      }
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.defaultPrevented || event.isComposing) {
+        return;
+      }
+      var target = event.target;
+      var tagName = target && target.tagName ? String(target.tagName).toLowerCase() : "";
+      var isEditable =
+        (target && target.isContentEditable) ||
+        tagName === "input" ||
+        tagName === "textarea" ||
+        tagName === "select";
+
+      if (!isEditable && !event.metaKey && !event.ctrlKey && !event.altKey && event.key === "/") {
+        event.preventDefault();
+        inputNode.focus();
+        inputNode.select();
+        return;
+      }
+      if ((event.metaKey || event.ctrlKey) && !event.shiftKey && !event.altKey && String(event.key).toLowerCase() === "k") {
+        event.preventDefault();
+        inputNode.focus();
+        inputNode.select();
+        return;
+      }
     });
 
     function applyStateFromLocation() {

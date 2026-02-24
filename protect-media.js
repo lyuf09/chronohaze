@@ -1390,6 +1390,7 @@
         searchFallbackExternal: "站外搜索（site:chronohaze.space）",
         searchResultZero: "暂无匹配结果。",
         searchResultCount: "共 {count} 条结果",
+        searchShortcutHint: "/ 或 Ctrl/Cmd+K 聚焦 · ↑↓ 选择结果 · Enter 打开",
         siteNotes: "网站说明",
         a11y: "无障碍支持",
         footerContactLead: "辗转不同国家无固定号码 请联系邮箱：",
@@ -1493,6 +1494,7 @@
         searchFallbackExternal: "External search (site:chronohaze.space)",
         searchResultZero: "No matching results.",
         searchResultCount: "{count} results",
+        searchShortcutHint: "/ or Ctrl/Cmd+K to focus · ↑↓ select · Enter open",
         siteNotes: "Privacy Policy",
         a11y: "Accessibility",
         footerContactLead:
