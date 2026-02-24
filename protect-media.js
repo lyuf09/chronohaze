@@ -8349,62 +8349,68 @@
       var tagValues = [];
 
       rows.forEach(function (row) {
-        var titleNode = row.querySelector(".track-title");
-        var artistNode = row.querySelector(".track-artist");
-        var titleText = titleNode ? titleNode.textContent || "" : "";
-        var artistText = artistNode ? artistNode.textContent || "" : "";
-        var rowHref = row.getAttribute("data-href") || "";
-        var catalogItem = getMusicCatalogForRowHref(rowHref) || catalogMap[normalizeMusicCatalogHref(rowHref)];
+        try {
+          var titleNode = row.querySelector(".track-title");
+          var artistNode = row.querySelector(".track-artist");
+          var titleText = titleNode ? titleNode.textContent || "" : "";
+          var artistText = artistNode ? artistNode.textContent || "" : "";
+          var rowHref = row.getAttribute("data-href") || "";
+          var catalogItem = getMusicCatalogForRowHref(rowHref) || catalogMap[normalizeMusicCatalogHref(rowHref)];
 
-        var type =
-          (catalogItem && catalogItem.type) ||
-          row.dataset.musicType ||
-          inferMusicRowType(row, titleText);
-        var hasAudio =
-          catalogItem && typeof catalogItem.has_audio === "boolean"
-            ? (catalogItem.has_audio ? "1" : "0")
-            : /音频待上传|audio pending upload/i.test(titleText || "")
-              ? "0"
-              : "1";
-        var year =
-          (catalogItem && String(catalogItem.year || "").trim()) ||
-          row.dataset.musicYear ||
-          parseMusicRowYear(row);
-        var tags = sanitizeMusicTags(
-          splitMusicTags(
-            catalogItem && Array.isArray(catalogItem.tags)
-              ? catalogItem.tags.join(",")
-              : row.dataset.tags || ""
-          )
-        );
+          var type =
+            (catalogItem && catalogItem.type) ||
+            row.dataset.musicType ||
+            inferMusicRowType(row, titleText);
+          var hasAudio =
+            catalogItem && typeof catalogItem.has_audio === "boolean"
+              ? (catalogItem.has_audio ? "1" : "0")
+              : /音频待上传|audio pending upload/i.test(titleText || "")
+                ? "0"
+                : "1";
+          var year =
+            (catalogItem && String(catalogItem.year || "").trim()) ||
+            row.dataset.musicYear ||
+            parseMusicRowYear(row);
+          var tags = sanitizeMusicTags(
+            splitMusicTags(
+              catalogItem && Array.isArray(catalogItem.tags)
+                ? catalogItem.tags.join(",")
+                : row.dataset.tags || ""
+            )
+          );
 
-        if (!tags.length) {
-          tags.push(type === "album" ? "album" : "single");
-        }
-        if (/\//.test(artistText || "") || /feat\.?|ft\.?/i.test(titleText || "")) {
-          tags.push("collab");
-        }
+          if (!tags.length) {
+            tags.push(type === "album" ? "album" : "single");
+          }
+          if (/\//.test(artistText || "") || /feat\.?|ft\.?/i.test(titleText || "")) {
+            tags.push("collab");
+          }
 
-        tags = uniqueMusicTags(sanitizeMusicTags(tags));
+          tags = uniqueMusicTags(sanitizeMusicTags(tags));
 
-        row.dataset.musicType = type;
-        row.dataset.musicYear = year;
-        row.dataset.hasAudio = hasAudio;
-        row.dataset.tags = tags.join(",");
-        row.classList.remove("track-row-album", "track-row-single", "track-row-wip");
-        row.classList.add("track-row-" + type);
+          row.dataset.musicType = type;
+          row.dataset.musicYear = year;
+          row.dataset.hasAudio = hasAudio;
+          row.dataset.tags = tags.join(",");
+          row.classList.remove("track-row-album", "track-row-single", "track-row-wip");
+          row.classList.add("track-row-" + type);
 
-        ensureMusicRowTags(row, tags, dict);
+          ensureMusicRowTags(row, tags, dict);
 
-        if (year) {
-          yearValues.push(year);
-        }
-        tagValues = tagValues.concat(tags);
+          if (year) {
+            yearValues.push(year);
+          }
+          tagValues = tagValues.concat(tags);
 
-        if (type === "album") {
-          albumList.appendChild(row);
-        } else {
-          singlesList.appendChild(row);
+          if (type === "album") {
+            albumList.appendChild(row);
+          } else {
+            singlesList.appendChild(row);
+          }
+        } catch (rowError) {
+          if (window.console && typeof window.console.error === "function") {
+            window.console.error("[Chronohaze] music row build failed:", row, rowError);
+          }
         }
       });
 
@@ -8581,7 +8587,9 @@
     loadMusicCatalogMetadata()
       .then(function (catalogMap) {
         try {
-          applyMusicIndexArchitecture(catalogMap);
+          withMutationRefreshSuppressed(function () {
+            applyMusicIndexArchitecture(catalogMap);
+          });
         } catch (error) {
           restoreMusicIndexFallback();
           throw error;
@@ -9593,11 +9601,36 @@
   var MUTATION_REFRESH_TASKS = [
     optimizeMediaLoading,
     optimizeImages,
-    normalizeFooterMeta,
     labelPhotoOrientation,
     bindCollectionLinkAnalytics,
     setupFineMotionPass,
   ];
+
+  var mutationRefreshScheduled = false;
+  var mutationRefreshSuppressed = 0;
+
+  function withMutationRefreshSuppressed(task) {
+    mutationRefreshSuppressed += 1;
+    try {
+      return typeof task === "function" ? task() : undefined;
+    } finally {
+      mutationRefreshSuppressed = Math.max(0, mutationRefreshSuppressed - 1);
+    }
+  }
+
+  function scheduleMutationRefresh() {
+    if (mutationRefreshScheduled || mutationRefreshSuppressed > 0) {
+      return;
+    }
+    mutationRefreshScheduled = true;
+    window.requestAnimationFrame(function () {
+      mutationRefreshScheduled = false;
+      if (mutationRefreshSuppressed > 0) {
+        return;
+      }
+      runTaskGroup(MUTATION_REFRESH_TASKS);
+    });
+  }
 
   function boot() {
     runTaskGroup(BOOT_TASK_GROUPS.navAndChrome);
@@ -9674,7 +9707,7 @@
       });
     });
 
-    runTaskGroup(MUTATION_REFRESH_TASKS);
+    scheduleMutationRefresh();
   });
 
   observer.observe(document.documentElement, { childList: true, subtree: true });
