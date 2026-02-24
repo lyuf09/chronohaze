@@ -104,11 +104,12 @@
           </article>
 
           <article class="research-project-card">
-            <p class="research-project-kind">Optimization Research</p>
+            <p class="research-project-kind">Optimization Research · Duality / Lower Bounds</p>
             <h3>Spring 2026 | A New Research Direction (Cornell ORIE)</h3>
-            <p><strong>Problem:</strong> Develop a clear entry point into first-order methods for constrained and composite optimization, with the goal of narrowing toward a concrete theoretical question.</p>
-            <p><strong>Method:</strong> Guided reading + coursework-driven theoretical preparation, then iterative narrowing from broad method families toward tractable research questions.</p>
-            <p><strong>Contribution:</strong> Research scoping, conceptual synthesis, and written records of the evolving problem framing.</p>
+            <p><strong>Problem:</strong> Understand which dual / lower-bound framework gives nontrivial information for a graph-relative-difference distance-fitting objective (B-encoded), with current focus on constrained/composite first-order structure and duality.</p>
+            <p><strong>Method:</strong> Compare DC/Fenchel-based dualization against plain Lagrangian duals, and analyze where relaxation becomes too loose (unconstrainedness / translation invariance / non-identifiability).</p>
+            <p><strong>Current status:</strong> Right now we’re trying to understand which dual framework gives nontrivial information for this distance-fitting objective. The DC/Fenchel route gives a clean conjugate-based dual with explicit domain conditions, while the most natural plain Lagrangian duals turn out to be too loose and collapse to the trivial bound 0 due to unconstrainedness and translation invariance. The next step is to tighten the relaxation (e.g., via gauge-fixing and/or an augmented Lagrangian / ADMM viewpoint) to obtain an informative bound or an algorithmically useful dual.</p>
+            <p><strong>Contribution:</strong> Dual-framework comparison, structural diagnosis of degeneracy, and research-note documentation of the evolving problem formulation.</p>
             <div class="research-link-row">
               <a href="post/spring-2026.html">Research note</a>
               <a href="math.html">Math archive</a>
