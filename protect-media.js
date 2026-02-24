@@ -1522,6 +1522,171 @@
     });
   }
 
+  function ensureMusicTranscriptPanel() {
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var audios = Array.from(article.querySelectorAll("audio"));
+    if (!audios.length) {
+      return;
+    }
+
+    var preferredLang = detectPreferredLanguage();
+    var isEn = preferredLang === "en";
+    var lyricHeadings = Array.from(article.querySelectorAll("h2")).filter(function (heading) {
+      var text = normalizeText(heading.textContent || "").toLowerCase();
+      return text.indexOf(normalizeText("歌词").toLowerCase()) >= 0 || text.indexOf("lyrics") >= 0;
+    });
+    var hasLyrics = lyricHeadings.length > 0 || !!article.querySelector(".lyrics-showcase");
+    var hasWorkIntro = Array.from(article.querySelectorAll("h2")).some(function (heading) {
+      var text = normalizeText(heading.textContent || "").toLowerCase();
+      return (
+        text === normalizeText("作品介绍").toLowerCase() ||
+        text === normalizeText("About the work").toLowerCase()
+      );
+    });
+
+    var playerTitleNodes = Array.from(article.querySelectorAll(".music-player-track-title"));
+    var playerTitles = playerTitleNodes
+      .map(function (node) {
+        return String(node.textContent || "").trim();
+      })
+      .filter(Boolean);
+
+    if (!playerTitles.length) {
+      var pageTitle = article.querySelector("h1");
+      if (pageTitle && pageTitle.textContent) {
+        playerTitles.push(String(pageTitle.textContent).trim());
+      }
+    }
+
+    var details = article.querySelector(".music-transcript-details");
+    if (!details) {
+      details = document.createElement("details");
+      details.className = "music-transcript-details";
+
+      var summary = document.createElement("summary");
+      summary.className = "music-transcript-summary";
+      summary.setAttribute("data-copy-zh", "媒体转录（Beta）");
+      summary.setAttribute("data-copy-en", "Media Transcript (Beta)");
+      details.appendChild(summary);
+
+      var body = document.createElement("div");
+      body.className = "music-transcript-body";
+
+      var lead = document.createElement("p");
+      lead.className = "music-transcript-lead";
+      body.appendChild(lead);
+
+      var grid = document.createElement("div");
+      grid.className = "music-transcript-grid";
+
+      ["notes", "lyrics", "timeline"].forEach(function (key) {
+        var item = document.createElement("section");
+        item.className = "music-transcript-item";
+        item.setAttribute("data-transcript-item", key);
+
+        var h = document.createElement("h3");
+        h.className = "music-transcript-item-title";
+        item.appendChild(h);
+
+        var p = document.createElement("p");
+        p.className = "music-transcript-item-copy";
+        item.appendChild(p);
+
+        grid.appendChild(item);
+      });
+
+      body.appendChild(grid);
+      details.appendChild(body);
+    }
+
+    var firstHeading = article.querySelector("h2");
+    if (firstHeading) {
+      if (details.parentNode !== article || details.nextElementSibling !== firstHeading) {
+        article.insertBefore(details, firstHeading);
+      }
+    } else if (details.parentNode !== article) {
+      article.appendChild(details);
+    }
+
+    var leadNode = details.querySelector(".music-transcript-lead");
+    var summaryNode = details.querySelector(".music-transcript-summary");
+    if (summaryNode) {
+      summaryNode.textContent = isEn ? "Media Transcript (Beta)" : "媒体转录（Beta）";
+    }
+
+    var trackLabel;
+    if (playerTitles.length <= 1) {
+      trackLabel = playerTitles[0] || (isEn ? "this track" : "本页音频");
+    } else {
+      trackLabel = isEn
+        ? playerTitles.slice(0, 2).join(" / ") + (playerTitles.length > 2 ? " +" + String(playerTitles.length - 2) : "")
+        : playerTitles.slice(0, 2).join(" / ") + (playerTitles.length > 2 ? " 等" : "");
+    }
+
+    if (leadNode) {
+      leadNode.textContent = isEn
+        ? "Quick accessibility notes for " + trackLabel + ". Audio count: " + String(audios.length) + "."
+        : "用于快速浏览的无障碍说明：" + trackLabel + "。本页音频数量：" + String(audios.length) + "。";
+    }
+
+    var itemTitles = {
+      zh: {
+        notes: "Notes / 笔记",
+        lyrics: "Lyrics / 歌词",
+        timeline: "Timestamped description / 时间轴描述",
+      },
+      en: {
+        notes: "Notes",
+        lyrics: "Lyrics",
+        timeline: "Timestamped description",
+      },
+    };
+
+    var itemCopies = {
+      zh: {
+        notes:
+          "本页" +
+          (hasWorkIntro ? "含作品介绍（见下方“作品介绍”）" : "暂未单列作品介绍") +
+          "，此折叠区用于快速说明与无障碍导航。",
+        lyrics: hasLyrics
+          ? "本页已提供歌词文本（见下方歌词区块）。"
+          : "本页暂未提供歌词文本，可视为纯音乐 / 无歌词或待补录。",
+        timeline:
+          "逐时间轴描述仍在补充中；当前可先参考作品介绍与歌词（如有）获取内容脉络。",
+      },
+      en: {
+        notes:
+          "This page " +
+          (hasWorkIntro ? "includes work notes (see the section below)." : "does not yet include a dedicated notes section.") +
+          " This panel is a quick accessibility aid.",
+        lyrics: hasLyrics
+          ? "Lyrics text is available below on this page."
+          : "No lyrics text is currently provided (instrumental / no lyrics / pending transcript).",
+        timeline:
+          "A timestamped description is still in progress. For now, please use the work notes and lyrics (if available) as the primary text alternative.",
+      },
+    };
+
+    Array.from(details.querySelectorAll("[data-transcript-item]")).forEach(function (item) {
+      var key = item.getAttribute("data-transcript-item");
+      var titleNode = item.querySelector(".music-transcript-item-title");
+      var copyNode = item.querySelector(".music-transcript-item-copy");
+      if (!key || !titleNode || !copyNode) {
+        return;
+      }
+      titleNode.textContent = itemTitles[isEn ? "en" : "zh"][key] || key;
+      copyNode.textContent = itemCopies[isEn ? "en" : "zh"][key] || "";
+    });
+  }
+
   function findLyricHeading(headings, partNumber) {
     var partTagA = "歌词（Part" + partNumber + "）";
     var partTagB = "歌词(Part" + partNumber + ")";
@@ -9059,6 +9224,7 @@
       applyRainyDaysLyricsInEnglish(safeLang);
       applyRedSandalwoodIntroInEnglish(safeLang);
       applyRedSandalwoodLyricsInEnglish(safeLang);
+      ensureMusicTranscriptPanel();
     }
 
     if (
@@ -9590,6 +9756,7 @@
       setupPhotoDetailPager,
       ensureMusicDetailBackLink,
       enhanceMusicPlayers,
+      ensureMusicTranscriptPanel,
       removeMusicDetailImages,
       enhanceMusicLyricsLayout,
       enableIndexRowLinks,

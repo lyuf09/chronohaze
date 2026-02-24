@@ -2518,6 +2518,95 @@ audio {
   pointer-events: none;
 }
 
+.music-transcript-details {
+  width: min(100%, 620px);
+  margin: 16px 0 28px;
+  border: 1px solid rgba(66, 73, 88, 0.2);
+  border-radius: 12px;
+  background: rgba(244, 246, 250, 0.48);
+  box-shadow: 0 10px 24px rgba(23, 29, 40, 0.05);
+  overflow: hidden;
+}
+
+.music-transcript-summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 12px 14px 13px;
+  color: rgba(35, 41, 51, 0.84);
+  font-size: 14px;
+  line-height: 1.25;
+  letter-spacing: 0.03em;
+  user-select: none;
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.music-transcript-summary::-webkit-details-marker {
+  display: none;
+}
+
+.music-transcript-summary::before {
+  content: "＋";
+  font-size: 15px;
+  line-height: 1;
+  color: rgba(49, 58, 76, 0.72);
+  transition: transform 180ms ease, color 180ms ease;
+}
+
+.music-transcript-details[open] .music-transcript-summary::before {
+  content: "−";
+  color: rgba(34, 42, 58, 0.84);
+}
+
+.music-transcript-details[open] .music-transcript-summary {
+  border-bottom: 1px solid rgba(66, 73, 88, 0.12);
+  background: rgba(248, 250, 253, 0.46);
+}
+
+.music-transcript-body {
+  padding: 12px 14px 14px;
+}
+
+.music-transcript-lead {
+  margin: 0 0 10px;
+  color: rgba(50, 57, 71, 0.78);
+  font-size: 12px;
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+}
+
+.music-transcript-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.music-transcript-item {
+  border: 1px solid rgba(75, 84, 102, 0.12);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.44);
+  padding: 10px 11px 9px;
+}
+
+.music-transcript-item-title {
+  margin: 0 0 5px;
+  color: rgba(37, 44, 56, 0.92);
+  font-size: 13px;
+  line-height: 1.25;
+  letter-spacing: 0.03em;
+  font-weight: 400;
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+}
+
+.music-transcript-item-copy {
+  margin: 0;
+  color: rgba(50, 57, 71, 0.78);
+  font-size: 12px;
+  line-height: 1.6;
+  letter-spacing: 0.008em;
+}
+
 .lyrics-showcase {
   margin: 76px calc(50% - 50vw) 0;
   background: var(--lyrics-bg, #393c42);
@@ -2616,6 +2705,10 @@ audio {
     line-height: 1.8;
     letter-spacing: 0.016em;
     font-weight: 200;
+  }
+
+  .music-transcript-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
