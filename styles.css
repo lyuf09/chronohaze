@@ -2531,27 +2531,28 @@ audio {
 }
 
 .music-transcript-details {
-  width: min(100%, 620px);
-  margin: 16px 0 28px;
+  width: min(100%, 720px);
+  margin: 10px 0 20px;
   border: 1px solid rgba(66, 73, 88, 0.2);
-  border-radius: 12px;
-  background: rgba(244, 246, 250, 0.48);
-  box-shadow: 0 10px 24px rgba(23, 29, 40, 0.05);
+  border-radius: 10px;
+  background: rgba(244, 246, 250, 0.34);
+  box-shadow: 0 6px 18px rgba(23, 29, 40, 0.035);
   overflow: hidden;
 }
 
 .music-transcript-summary {
   list-style: none;
   cursor: pointer;
-  padding: 12px 14px 13px;
+  padding: 9px 12px 10px;
   color: rgba(35, 41, 51, 0.84);
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.25;
   letter-spacing: 0.03em;
   user-select: none;
   font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
   display: flex;
-  align-items: center;
+  align-items: baseline;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
@@ -2561,7 +2562,7 @@ audio {
 
 .music-transcript-summary::before {
   content: "＋";
-  font-size: 15px;
+  font-size: 13px;
   line-height: 1;
   color: rgba(49, 58, 76, 0.72);
   transition: transform 180ms ease, color 180ms ease;
@@ -2574,49 +2575,75 @@ audio {
 
 .music-transcript-details[open] .music-transcript-summary {
   border-bottom: 1px solid rgba(66, 73, 88, 0.12);
-  background: rgba(248, 250, 253, 0.46);
+  background: rgba(248, 250, 253, 0.36);
 }
 
 .music-transcript-body {
-  padding: 12px 14px 14px;
+  padding: 9px 12px 11px;
 }
 
-.music-transcript-lead {
-  margin: 0 0 10px;
-  color: rgba(50, 57, 71, 0.78);
+.music-transcript-summary-main {
+  color: rgba(32, 38, 49, 0.9);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+
+.music-transcript-summary-meta {
+  color: rgba(62, 69, 84, 0.7);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+}
+
+.music-transcript-caption {
+  margin: 0 0 8px;
+  color: rgba(56, 62, 76, 0.74);
+  font-size: 11px;
+  line-height: 1.55;
+  letter-spacing: 0.008em;
+}
+
+.music-transcript-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.music-transcript-nav-link {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(74, 83, 103, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.38);
+  color: rgba(39, 46, 60, 0.82);
+  padding: 5px 10px 6px;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.music-transcript-nav-link:hover {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(74, 83, 103, 0.24);
+  color: rgba(31, 37, 49, 0.9);
+}
+
+.music-transcript-empty {
+  margin: 0;
+  color: rgba(56, 62, 76, 0.72);
   font-size: 12px;
   line-height: 1.55;
-  letter-spacing: 0.01em;
-}
-
-.music-transcript-grid {
-  display: grid;
-  gap: 10px;
-}
-
-.music-transcript-item {
-  border: 1px solid rgba(75, 84, 102, 0.12);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.44);
-  padding: 10px 11px 9px;
-}
-
-.music-transcript-item-title {
-  margin: 0 0 5px;
-  color: rgba(37, 44, 56, 0.92);
-  font-size: 13px;
-  line-height: 1.25;
-  letter-spacing: 0.03em;
-  font-weight: 400;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
-}
-
-.music-transcript-item-copy {
-  margin: 0;
-  color: rgba(50, 57, 71, 0.78);
-  font-size: 12px;
-  line-height: 1.6;
   letter-spacing: 0.008em;
+}
+
+.music-transcript-grid,
+.music-transcript-item,
+.music-transcript-item-title,
+.music-transcript-item-copy,
+.music-transcript-lead {
+  display: none !important;
 }
 
 .lyrics-showcase {
@@ -2719,8 +2746,9 @@ audio {
     font-weight: 200;
   }
 
-  .music-transcript-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .music-transcript-summary-meta {
+    width: 100%;
+    margin-left: 0;
   }
 }
 
