@@ -104,17 +104,32 @@
     }
 
     if (img.closest(".photo-detail-gallery")) {
-      img.setAttribute("sizes", "(max-width: 900px) 92vw, 44vw");
+      img.setAttribute(
+        "sizes",
+        "(max-width: 900px) 94vw, (min-width: 1400px) 43vw, 48vw"
+      );
       return;
     }
 
-    if (img.closest(".photo-archive-grid, .photo-index-grid")) {
-      img.setAttribute("sizes", "(max-width: 900px) 92vw, 30vw");
+    if (
+      img.closest(
+        ".photo-archive-grid, .photo-index-grid, .photo-grid, .photo-featured-grid, .photo-card, .photo-feature-card"
+      )
+    ) {
+      img.setAttribute(
+        "sizes",
+        "(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw"
+      );
       return;
     }
 
     if (img.closest(".photo-intro-layout, .music-intro-layout")) {
       img.setAttribute("sizes", "(max-width: 900px) 92vw, 42vw");
+      return;
+    }
+
+    if (img.closest(".photo-tail-inner, .music-bottom-gallery")) {
+      img.setAttribute("sizes", "(max-width: 900px) 92vw, 72vw");
       return;
     }
 
@@ -199,7 +214,7 @@
       return;
     }
 
-    var token = splitSrc(img.getAttribute("src"));
+    var token = splitSrc(img.dataset.responsiveBaseSrc || img.getAttribute("src"));
     var path = token.path;
     var suffix = token.suffix || "";
 
@@ -266,6 +281,110 @@
 
     images.forEach(function (img) {
       applyResponsiveSourceSet(img);
+    });
+  }
+
+  function upgradePhotoImageLoadingStrategy() {
+    var listThumbSelectors = [
+      ".photo-card-link img",
+      ".photo-feature-link img",
+    ].join(", ");
+
+    Array.from(document.querySelectorAll(listThumbSelectors)).forEach(function (img) {
+      if (!img || img.dataset.photoThumbOptimized === "1") {
+        return;
+      }
+
+      img.dataset.photoThumbOptimized = "1";
+      var token = splitSrc(img.getAttribute("src"));
+      var path = token.path;
+      var suffix = token.suffix || "";
+      if (!isResponsiveImagePath(path)) {
+        return;
+      }
+
+      img.dataset.responsiveBaseSrc = path + suffix;
+      img.dataset.fullResSrc = path + suffix;
+      img.src = buildVariantPath(path, 960, "webp") + suffix;
+      if (!img.getAttribute("loading")) {
+        img.loading = "lazy";
+      }
+      if (!img.getAttribute("decoding")) {
+        img.decoding = "async";
+      }
+    });
+
+    Array.from(document.querySelectorAll(".photo-detail-gallery img")).forEach(function (img) {
+      if (!img || img.dataset.photoDetailProgressive === "1") {
+        return;
+      }
+      img.dataset.photoDetailProgressive = "1";
+
+      var token = splitSrc(img.getAttribute("src"));
+      var path = token.path;
+      var suffix = token.suffix || "";
+      if (!isResponsiveImagePath(path)) {
+        return;
+      }
+
+      var fullSrc = path + suffix;
+      img.dataset.responsiveBaseSrc = fullSrc;
+      img.dataset.fullResSrc = fullSrc;
+      img.dataset.fullResLoaded = "0";
+      img.dataset.previewSrc = buildVariantPath(path, 1600, "webp") + suffix;
+
+      // Use a visually lossless preview by default; load original only when the viewer asks for it.
+      img.src = img.dataset.previewSrc;
+
+      var figure = img.closest(".photo-detail-item");
+      if (figure && figure.dataset.fullResBinder !== "1") {
+        figure.dataset.fullResBinder = "1";
+        figure.classList.add("photo-detail-item--progressive");
+        figure.setAttribute(
+          "title",
+          "Click to load original resolution"
+        );
+        figure.addEventListener("click", function (event) {
+          var targetImg = figure.querySelector("img");
+          if (!targetImg || targetImg.dataset.fullResLoaded === "1") {
+            return;
+          }
+          var original = targetImg.dataset.fullResSrc;
+          if (!original) {
+            return;
+          }
+          targetImg.dataset.fullResLoaded = "1";
+          figure.classList.add("is-loading-fullres");
+          var picture = targetImg.parentNode && targetImg.parentNode.tagName === "PICTURE"
+            ? targetImg.parentNode
+            : null;
+          if (picture) {
+            Array.from(
+              picture.querySelectorAll("source[data-responsive-webp='1'], source[data-responsive-avif='1']")
+            ).forEach(function (node) {
+              node.remove();
+            });
+          }
+          targetImg.src = original;
+          targetImg.addEventListener(
+            "load",
+            function () {
+              figure.classList.remove("is-loading-fullres");
+              figure.classList.add("is-fullres-loaded");
+            },
+            { once: true }
+          );
+          targetImg.addEventListener(
+            "error",
+            function () {
+              figure.classList.remove("is-loading-fullres");
+              targetImg.dataset.fullResLoaded = "0";
+            },
+            { once: true }
+          );
+          event.preventDefault();
+        });
+      }
     });
   }
 
@@ -9748,7 +9867,12 @@
       injectFloatingLanguageSwitch,
     ],
     pageArchitecture: [setupMusicIndexArchitecture],
-    mediaAndProtection: [protectAllMedia, optimizeMediaLoading, optimizeImages],
+    mediaAndProtection: [
+      protectAllMedia,
+      optimizeMediaLoading,
+      upgradePhotoImageLoadingStrategy,
+      optimizeImages,
+    ],
     pagePolish: [
       normalizeFooterMeta,
       bindFooterMetaSync,
@@ -9767,6 +9891,7 @@
 
   var MUTATION_REFRESH_TASKS = [
     optimizeMediaLoading,
+    upgradePhotoImageLoadingStrategy,
     optimizeImages,
     labelPhotoOrientation,
     bindCollectionLinkAnalytics,

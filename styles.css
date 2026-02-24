@@ -518,6 +518,18 @@ audio {
   transform: translateY(-2px);
 }
 
+.photo-detail-item--progressive {
+  cursor: zoom-in;
+}
+
+.photo-detail-item--progressive.is-loading-fullres {
+  opacity: 0.9;
+}
+
+.photo-detail-item--progressive.is-fullres-loaded {
+  cursor: default;
+}
+
 .photo-detail-item:only-child {
   grid-column: 1 / -1;
   transform: none;
