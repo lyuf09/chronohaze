@@ -9591,8 +9591,6 @@
   };
 
   var MUTATION_REFRESH_TASKS = [
-    ensureSearchNavLink,
-    dedupeNavLinks,
     optimizeMediaLoading,
     optimizeImages,
     normalizeFooterMeta,
