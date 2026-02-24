@@ -10131,6 +10131,451 @@
     });
   }
 
+  var STRUCTURED_DATA_SCRIPT_ID = "chronohaze-structured-data";
+  var CHRONOHAZE_SITE_URL = "https://lyuf09.github.io/chronohaze/";
+  var CHRONOHAZE_WEBSITE_ID = CHRONOHAZE_SITE_URL + "#website";
+  var CHRONOHAZE_PERSON_ID = CHRONOHAZE_SITE_URL + "#person";
+  var CHRONOHAZE_PERSON_SAME_AS = [
+    "https://github.com/lyuf09",
+    "https://www.linkedin.com/in/fay-lyu-uoe/",
+    "https://www.instagram.com/lyuf09",
+    "https://space.bilibili.com/35902781",
+  ];
+
+  function getCanonicalPageUrl() {
+    var canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical && canonical.href) {
+      return canonical.href;
+    }
+    try {
+      var url = new URL(window.location.href);
+      url.hash = "";
+      url.search = "";
+      return url.toString();
+    } catch (_error) {
+      return window.location.href;
+    }
+  }
+
+  function absolutizeUrl(href) {
+    if (!href) {
+      return "";
+    }
+    try {
+      return new URL(href, window.location.href).toString();
+    } catch (_error) {
+      return String(href || "");
+    }
+  }
+
+  function textContentOf(node) {
+    return normalizeText(node && node.textContent ? node.textContent : "");
+  }
+
+  function contentAttr(selector) {
+    var node = document.querySelector(selector);
+    return node && node.getAttribute ? normalizeText(node.getAttribute("content") || "") : "";
+  }
+
+  function buildBaseWebGraph() {
+    var canonical = getCanonicalPageUrl();
+    var pathname = "";
+    try {
+      pathname = new URL(canonical).pathname || "";
+    } catch (_e) {
+      pathname = window.location.pathname || "";
+    }
+    var htmlLang = (document.documentElement && document.documentElement.lang) || "zh-CN";
+    var metaDescription = contentAttr('meta[name="description"]');
+    var ogImage = contentAttr('meta[property="og:image"]');
+    var pageTitle = normalizeText(document.title || "");
+    var h1 = textContentOf(document.querySelector("h1"));
+    var pageName = h1 || pageTitle || "Chronohaze";
+    var pageType = "WebPage";
+    var body = document.body;
+
+    if (body) {
+      if (body.classList.contains("home-body")) pageType = "ProfilePage";
+      else if (body.classList.contains("math-index-page")) pageType = "CollectionPage";
+      else if (body.classList.contains("photo-index-page")) pageType = "CollectionPage";
+      else if (body.classList.contains("music-index-page")) pageType = "CollectionPage";
+      else if (body.classList.contains("music-album-page")) pageType = "CollectionPage";
+      else if (body.classList.contains("music-detail-page")) pageType = "WebPage";
+      else if (body.classList.contains("research-landing-page")) pageType = "AboutPage";
+      else if (body.classList.contains("search-index-page")) pageType = "SearchResultsPage";
+    }
+    if (/\/post\/[^/]+\.html$/i.test(pathname)) {
+      pageType = "BlogPosting";
+    }
+    if (/\/cv\.html$/i.test(pathname)) {
+      pageType = "ProfilePage";
+    }
+
+    var page = {
+      "@type": pageType,
+      "@id": canonical + "#webpage",
+      url: canonical,
+      name: pageName,
+      description: metaDescription || undefined,
+      inLanguage: htmlLang,
+      isPartOf: { "@id": CHRONOHAZE_WEBSITE_ID },
+      about: { "@id": CHRONOHAZE_PERSON_ID },
+    };
+    if (ogImage) {
+      page.primaryImageOfPage = { "@type": "ImageObject", url: absolutizeUrl(ogImage) };
+    }
+
+    var website = {
+      "@type": "WebSite",
+      "@id": CHRONOHAZE_WEBSITE_ID,
+      url: CHRONOHAZE_SITE_URL,
+      name: "chronohaze.space",
+      alternateName: "Chronohaze",
+      inLanguage: htmlLang,
+      potentialAction: {
+        "@type": "SearchAction",
+        target: CHRONOHAZE_SITE_URL + "search.html?q={search_term_string}",
+        "query-input": "required name=search_term_string",
+      },
+    };
+
+    var person = {
+      "@type": "Person",
+      "@id": CHRONOHAZE_PERSON_ID,
+      name: "Fay Lyu",
+      alternateName: "HazezZ",
+      url: CHRONOHAZE_SITE_URL,
+      sameAs: CHRONOHAZE_PERSON_SAME_AS.slice(),
+      email: "mailto:feier530@icloud.com",
+    };
+
+    return {
+      canonical: canonical,
+      pathname: pathname,
+      htmlLang: htmlLang,
+      pageTitle: pageTitle,
+      pageName: pageName,
+      metaDescription: metaDescription,
+      page: page,
+      website: website,
+      person: person,
+    };
+  }
+
+  function buildMathIndexStructuredData(base) {
+    var cards = Array.prototype.slice.call(document.querySelectorAll(".math-card[data-href]"));
+    if (!cards.length) {
+      return null;
+    }
+    var items = [];
+    cards.forEach(function (card, index) {
+      var href = card.getAttribute("data-href");
+      if (!href) return;
+      var title = textContentOf(card.querySelector("h3"));
+      if (!title) return;
+      items.push({
+        "@type": "ListItem",
+        position: index + 1,
+        url: absolutizeUrl(href),
+        name: title,
+      });
+    });
+    if (!items.length) return null;
+    return {
+      "@type": "ItemList",
+      "@id": base.canonical + "#math-itemlist",
+      itemListOrder: "https://schema.org/ItemListOrderAscending",
+      numberOfItems: items.length,
+      itemListElement: items,
+    };
+  }
+
+  function buildPhotoIndexStructuredData(base) {
+    var nodes = Array.prototype.slice.call(
+      document.querySelectorAll(".photo-feature-card a[href], .photo-archive-row[href], .photo-archive a[href]")
+    );
+    if (!nodes.length) {
+      return null;
+    }
+    var seen = Object.create(null);
+    var items = [];
+    nodes.forEach(function (a) {
+      if (!a || !a.getAttribute) return;
+      var href = a.getAttribute("href");
+      if (!href || seen[href]) return;
+      seen[href] = true;
+      var title =
+        textContentOf(a.querySelector(".photo-feature-title")) ||
+        textContentOf(a.querySelector(".photo-archive-title")) ||
+        textContentOf(a);
+      if (!title) return;
+      items.push({
+        "@type": "ListItem",
+        position: items.length + 1,
+        url: absolutizeUrl(href),
+        name: title,
+      });
+    });
+    if (!items.length) return null;
+    return {
+      "@type": "ItemList",
+      "@id": base.canonical + "#photo-groups",
+      numberOfItems: items.length,
+      itemListElement: items,
+    };
+  }
+
+  function buildResearchStructuredData(base) {
+    if (!document.body || !document.body.classList.contains("research-landing-page")) {
+      return null;
+    }
+    var projectCards = Array.prototype.slice.call(document.querySelectorAll(".research-project-card"));
+    var itemList = null;
+    if (projectCards.length) {
+      itemList = {
+        "@type": "ItemList",
+        "@id": base.canonical + "#research-projects",
+        numberOfItems: projectCards.length,
+        itemListElement: projectCards
+          .map(function (card, idx) {
+            var title = textContentOf(card.querySelector("h3"));
+            if (!title) return null;
+            var firstLink = card.querySelector(".research-link-row a[href]");
+            return {
+              "@type": "ListItem",
+              position: idx + 1,
+              name: title,
+              url: firstLink ? absolutizeUrl(firstLink.getAttribute("href")) : base.canonical,
+            };
+          })
+          .filter(Boolean),
+      };
+    }
+
+    var aboutPage = {
+      "@type": "AboutPage",
+      "@id": base.canonical + "#research-about",
+      url: base.canonical,
+      name: base.pageName,
+      description: base.metaDescription || undefined,
+      about: { "@id": CHRONOHAZE_PERSON_ID },
+      mainEntity: { "@id": CHRONOHAZE_PERSON_ID },
+      inLanguage: base.htmlLang,
+      isPartOf: { "@id": CHRONOHAZE_WEBSITE_ID },
+    };
+    return itemList ? [aboutPage, itemList] : [aboutPage];
+  }
+
+  function buildMusicAlbumStructuredData(base) {
+    if (!document.body || !document.body.classList.contains("music-album-page")) {
+      return null;
+    }
+    var title = textContentOf(document.querySelector("h1")) || base.pageName;
+    var imageNode = document.querySelector(".album-cover img, .album-cover-image, .album-cover");
+    var imageUrl =
+      (imageNode && imageNode.getAttribute && (imageNode.getAttribute("src") || imageNode.getAttribute("data-src"))) || "";
+    var trackLinks = Array.prototype.slice.call(document.querySelectorAll(".album-tracklist .album-track-link"));
+    var tracks = [];
+    trackLinks.forEach(function (link) {
+      var nameNode = link.querySelector(".album-track-name");
+      var noNode = link.querySelector(".album-track-no");
+      var name = textContentOf(nameNode);
+      var pos = parseInt((textContentOf(noNode).match(/(\d+)/) || [])[1], 10);
+      if (!name) return;
+      tracks.push({
+        "@type": "MusicRecording",
+        position: isFinite(pos) ? pos : tracks.length + 1,
+        name: name,
+        url: absolutizeUrl(link.getAttribute("href") || base.canonical),
+      });
+    });
+    var album = {
+      "@type": "MusicAlbum",
+      "@id": base.canonical + "#album",
+      url: base.canonical,
+      name: title,
+      byArtist: { "@type": "Person", name: "HazezZ" },
+      inLanguage: base.htmlLang,
+      numTracks: tracks.length || undefined,
+      track: tracks.length ? tracks : undefined,
+      image: imageUrl ? absolutizeUrl(imageUrl) : undefined,
+      description: base.metaDescription || undefined,
+    };
+    return [album];
+  }
+
+  function buildMusicDetailStructuredData(base) {
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return null;
+    }
+    var title = textContentOf(document.querySelector("h1")) || base.pageName;
+    var audios = Array.prototype.slice.call(document.querySelectorAll("audio[src]"));
+    if (!audios.length) return null;
+    var tracks = audios
+      .map(function (audio, idx) {
+        var src = audio.getAttribute("src");
+        if (!src) return null;
+        var trackTitle = normalizeText(audio.getAttribute("data-track-title") || "");
+        return {
+          "@type": "MusicRecording",
+          "@id": base.canonical + "#recording-" + (idx + 1),
+          name: trackTitle || (idx === 0 ? title : title + " (" + (idx + 1) + ")"),
+          byArtist: { "@type": "Person", name: "HazezZ" },
+          url: base.canonical,
+          contentUrl: absolutizeUrl(src),
+          inLanguage: base.htmlLang,
+        };
+      })
+      .filter(Boolean);
+
+    if (!tracks.length) return null;
+    if (tracks.length === 1) {
+      return tracks;
+    }
+    return [
+      {
+        "@type": "MusicPlaylist",
+        "@id": base.canonical + "#playlist",
+        url: base.canonical,
+        name: title,
+        numTracks: tracks.length,
+        track: tracks.map(function (t) {
+          return { "@id": t["@id"] };
+        }),
+        description: base.metaDescription || undefined,
+      },
+    ].concat(tracks);
+  }
+
+  function buildPostStructuredData(base) {
+    if (!/\/post\/[^/]+\.html$/i.test(base.pathname || "")) {
+      return null;
+    }
+    var article = document.querySelector("article.article");
+    if (!article) return null;
+    var headline = textContentOf(article.querySelector("h1")) || base.pageName;
+    var paras = Array.prototype.slice.call(article.querySelectorAll("p"));
+    var articleText = normalizeText(
+      paras
+        .map(function (p) {
+          return p && p.textContent ? p.textContent : "";
+        })
+        .join(" ")
+    );
+    var metaText = textContentOf(article.querySelector(".article-meta"));
+    return [
+      {
+        "@type": "BlogPosting",
+        "@id": base.canonical + "#article",
+        mainEntityOfPage: { "@id": base.canonical + "#webpage" },
+        headline: headline,
+        name: headline,
+        description: base.metaDescription || undefined,
+        articleBody: articleText || undefined,
+        articleSection: "Mathematics",
+        author: { "@id": CHRONOHAZE_PERSON_ID },
+        publisher: { "@id": CHRONOHAZE_PERSON_ID },
+        url: base.canonical,
+        inLanguage: base.htmlLang,
+        keywords: metaText || undefined,
+      },
+    ];
+  }
+
+  function buildCollectionPageItemList(base) {
+    if (!document.body) return null;
+    if (document.body.classList.contains("music-index-page")) {
+      var rows = Array.prototype.slice.call(document.querySelectorAll(".music-entry-card, .music-row, .music-list-row a[href]"));
+      var items = [];
+      rows.forEach(function (row) {
+        var link =
+          (row.tagName === "A" ? row : row.querySelector("a[href]")) ||
+          (row.getAttribute && row.getAttribute("data-href") ? row : null);
+        var href = "";
+        if (link) {
+          href = link.getAttribute ? link.getAttribute("href") || link.getAttribute("data-href") || "" : "";
+        }
+        if (!href) return;
+        var title =
+          textContentOf(row.querySelector(".music-entry-title")) ||
+          textContentOf(row.querySelector(".music-title")) ||
+          textContentOf(row.querySelector(".music-item-title")) ||
+          textContentOf(link);
+        if (!title) return;
+        items.push({
+          "@type": "ListItem",
+          position: items.length + 1,
+          name: title,
+          url: absolutizeUrl(href),
+        });
+      });
+      if (items.length) {
+        return {
+          "@type": "ItemList",
+          "@id": base.canonical + "#music-list",
+          numberOfItems: items.length,
+          itemListElement: items,
+        };
+      }
+    }
+    return null;
+  }
+
+  function buildStructuredDataGraph() {
+    var base = buildBaseWebGraph();
+    var graph = [base.website, base.person, base.page];
+    var extras = [];
+
+    if (document.body) {
+      if (document.body.classList.contains("math-index-page")) {
+        extras.push(buildMathIndexStructuredData(base));
+      } else if (document.body.classList.contains("photo-index-page")) {
+        extras.push(buildPhotoIndexStructuredData(base));
+      } else if (document.body.classList.contains("research-landing-page")) {
+        extras = extras.concat(buildResearchStructuredData(base) || []);
+      } else if (document.body.classList.contains("music-album-page")) {
+        extras = extras.concat(buildMusicAlbumStructuredData(base) || []);
+      } else if (document.body.classList.contains("music-detail-page")) {
+        extras = extras.concat(buildMusicDetailStructuredData(base) || []);
+      } else if (document.body.classList.contains("music-index-page")) {
+        extras.push(buildCollectionPageItemList(base));
+      }
+    }
+    extras = extras.concat(buildPostStructuredData(base) || []);
+
+    extras.forEach(function (item) {
+      if (!item) return;
+      graph.push(item);
+    });
+
+    return {
+      "@context": "https://schema.org",
+      "@graph": graph.filter(Boolean),
+    };
+  }
+
+  function ensureStructuredData() {
+    if (!document.head) {
+      return;
+    }
+    var payload = buildStructuredDataGraph();
+    if (!payload || !Array.isArray(payload["@graph"]) || !payload["@graph"].length) {
+      return;
+    }
+    var json = JSON.stringify(payload);
+    var existing = document.getElementById(STRUCTURED_DATA_SCRIPT_ID);
+    if (existing && existing.textContent === json) {
+      return;
+    }
+    var script = existing || document.createElement("script");
+    script.type = "application/ld+json";
+    script.id = STRUCTURED_DATA_SCRIPT_ID;
+    script.textContent = json;
+    if (!existing) {
+      document.head.appendChild(script);
+    }
+  }
+
   window.ChronohazeShared = window.ChronohazeShared || {};
   window.ChronohazeShared.normalizeText = normalizeText;
   window.ChronohazeShared.detectPreferredLanguage = detectPreferredLanguage;
@@ -10155,6 +10600,7 @@
       optimizeImages,
     ],
     pagePolish: [
+      ensureStructuredData,
       normalizeFooterMeta,
       bindFooterMetaSync,
       labelPhotoOrientation,
@@ -10171,6 +10617,7 @@
   };
 
   var MUTATION_REFRESH_TASKS = [
+    ensureStructuredData,
     optimizeMediaLoading,
     upgradePhotoImageLoadingStrategy,
     optimizeImages,
