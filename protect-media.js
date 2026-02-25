@@ -1429,7 +1429,11 @@
         musicGroupSingles: "单曲",
         musicGroupWip: "WIP",
         musicYearUnknown: "未标注年份",
+        statusAvailable: "已上线",
+        statusComingSoon: "待上线",
+        statusDraft: "草稿",
         musicStatusPendingAudio: "待上传音频",
+        pageLastUpdated: "最近更新",
         musicNoResults: "没有匹配结果，试试放宽筛选条件。",
         musicTagAlbum: "专辑",
         musicTagSingle: "单曲",
@@ -1537,7 +1541,11 @@
         musicGroupSingles: "Singles",
         musicGroupWip: "WIP",
         musicYearUnknown: "Unspecified year",
+        statusAvailable: "Available",
+        statusComingSoon: "Coming soon",
+        statusDraft: "Draft",
         musicStatusPendingAudio: "Audio pending",
+        pageLastUpdated: "Last updated",
         musicNoResults: "No matching result. Try a wider filter.",
         musicTagAlbum: "album",
         musicTagSingle: "single",
@@ -1580,9 +1588,9 @@
         backToMusic: "Back to music",
         backToPhoto: "Back to photography",
         backToMath: "Back to mathematics",
-        photoPrevGroup: "Prev set",
+        photoPrevGroup: "Prev",
         photoBackToArchive: "Back",
-        photoNextGroup: "Next set",
+        photoNextGroup: "Next",
         detailBack: "< Back",
         creationLabel: "Creation period:",
         workIntroHeading: "About the work",
@@ -8328,9 +8336,12 @@
       return;
     }
 
+    var dict = getSecondaryPageDictionary(detectPreferredLanguage());
+    var safeLang = detectPreferredLanguage();
+
     Array.from(document.querySelectorAll(".album-tracklist .album-track-link")).forEach(function (row) {
       var noNode = row.querySelector(".album-track-no");
-      if (!noNode || noNode.querySelector(".album-track-status")) {
+      if (!noNode) {
         return;
       }
 
@@ -8339,18 +8350,22 @@
         statusKey = row.classList.contains("is-disabled") ? "coming-soon" : "available";
       }
 
-      var label = "Available";
+      var label = dict.statusAvailable || "Available";
       if (statusKey === "coming-soon") {
-        label = "Coming soon";
+        label = dict.statusComingSoon || "Coming soon";
       } else if (statusKey === "draft") {
-        label = "Draft";
+        label = dict.statusDraft || "Draft";
       }
 
-      var chip = document.createElement("span");
-      chip.className = "album-track-status status-" + statusKey;
+      var chip = noNode.querySelector(".album-track-status");
+      if (!chip) {
+        chip = document.createElement("span");
+        noNode.appendChild(document.createTextNode(" "));
+        noNode.appendChild(chip);
+      }
+      chip.className = "album-track-status music-status-badge status-" + statusKey;
+      chip.dataset.statusLang = safeLang;
       chip.textContent = label;
-      noNode.appendChild(document.createTextNode(" "));
-      noNode.appendChild(chip);
     });
   }
 
@@ -8488,7 +8503,8 @@
       dateNode.appendChild(existing);
     }
 
-    existing.className = "track-status-badge status-" + statusKey;
+    existing.className = "track-status-badge music-status-badge status-" + statusKey;
+    existing.dataset.statusLang = detectPreferredLanguage();
     existing.textContent = label || statusKey;
     row.classList.toggle("track-row-pending", statusKey === "pending-audio");
   }
@@ -9179,6 +9195,138 @@
     });
   }
 
+  function normalizeLastUpdatedDate(value) {
+    var raw = normalizeText(value || "");
+    if (!raw) {
+      return "";
+    }
+    var direct = raw.match(/\b(20\d{2})-(\d{2})-(\d{2})\b/);
+    if (direct) {
+      return direct[1] + "-" + direct[2] + "-" + direct[3];
+    }
+    var parsed = new Date(raw);
+    if (!isFinite(parsed.getTime())) {
+      return "";
+    }
+    var y = parsed.getFullYear();
+    var m = String(parsed.getMonth() + 1).padStart(2, "0");
+    var d = String(parsed.getDate()).padStart(2, "0");
+    if (y < 2000 || y > 2100) {
+      return "";
+    }
+    return y + "-" + m + "-" + d;
+  }
+
+  function getCurrentPageLastUpdatedISO() {
+    var researchTime = document.querySelector(".research-last-updated");
+    if (researchTime) {
+      return normalizeLastUpdatedDate(
+        researchTime.getAttribute("datetime") || researchTime.textContent || ""
+      );
+    }
+
+    var metaNode = document.querySelector(
+      'meta[property="article:modified_time"], meta[name="last-updated"]'
+    );
+    if (metaNode) {
+      var metaDate = normalizeLastUpdatedDate(metaNode.getAttribute("content") || "");
+      if (metaDate) {
+        return metaDate;
+      }
+    }
+
+    return normalizeLastUpdatedDate(document.lastModified || "");
+  }
+
+  function ensureUnifiedPageLastUpdatedBadge(lang) {
+    var safeLang = lang === "en" ? "en" : "zh";
+    var dict = getSecondaryPageDictionary(safeLang);
+    var dateIso = getCurrentPageLastUpdatedISO();
+
+    var researchMetaPills = Array.from(document.querySelectorAll(".research-meta-pill"));
+    var researchPill = researchMetaPills.find(function (node) {
+      return !!node.querySelector(".research-last-updated");
+    });
+    if (researchPill) {
+      researchPill.classList.add("page-last-updated-pill");
+      researchPill.dataset.statusLang = safeLang;
+      var rLabel = researchPill.querySelector(".research-meta-label");
+      if (rLabel) {
+        rLabel.textContent = dict.pageLastUpdated || "Last updated";
+      }
+      var rTime = researchPill.querySelector(".research-last-updated");
+      if (rTime && dateIso) {
+        rTime.setAttribute("datetime", dateIso);
+        rTime.textContent = dateIso;
+      }
+    }
+
+    var targetHost = null;
+    var pageKind = "";
+    if (document.body.classList.contains("music-album-page")) {
+      targetHost = document.querySelector(".album-head .container");
+      pageKind = "album";
+    } else if (/\/?cv\.html(?:$|[?#])/.test((window.location.pathname || "").toLowerCase())) {
+      targetHost = document.querySelector(".cv-utility-bar");
+      pageKind = "cv";
+    }
+
+    if (!targetHost) {
+      return;
+    }
+
+    var row = targetHost.querySelector(".page-last-updated-row");
+    if (!row) {
+      row = document.createElement("div");
+      row.className = "page-last-updated-row";
+      row.dataset.pageMeta = pageKind;
+      if (pageKind === "album") {
+        var subtitle = targetHost.querySelector(".album-subtitle");
+        if (subtitle) {
+          subtitle.insertAdjacentElement("afterend", row);
+        } else {
+          targetHost.appendChild(row);
+        }
+      } else if (pageKind === "cv") {
+        var utilityTop = targetHost.querySelector(".cv-utility-top");
+        if (utilityTop) {
+          utilityTop.insertAdjacentElement("afterend", row);
+        } else {
+          targetHost.prepend(row);
+        }
+      }
+    }
+
+    var pill = row.querySelector(".page-last-updated-pill");
+    if (!pill) {
+      pill = document.createElement("div");
+      pill.className = "page-last-updated-pill";
+      var labelNode = document.createElement("span");
+      labelNode.className = "page-last-updated-label";
+      var timeNode = document.createElement("time");
+      timeNode.className = "page-last-updated-time";
+      pill.appendChild(labelNode);
+      pill.appendChild(timeNode);
+      row.appendChild(pill);
+    }
+
+    pill.dataset.statusLang = safeLang;
+    var label = pill.querySelector(".page-last-updated-label");
+    var time = pill.querySelector(".page-last-updated-time");
+    if (label) {
+      label.textContent = dict.pageLastUpdated || "Last updated";
+    }
+    if (time) {
+      if (dateIso) {
+        time.setAttribute("datetime", dateIso);
+        time.textContent = dateIso;
+      } else {
+        time.removeAttribute("datetime");
+        time.textContent = "—";
+      }
+    }
+  }
+
   function applySecondaryPageLanguage(lang) {
     var safeLang = lang === "en" ? "en" : "zh";
     var dict = getSecondaryPageDictionary(safeLang);
@@ -9483,6 +9631,7 @@
       document.title = safeLang === "en" ? "Search | Chronohaze" : "搜索 | Chronohaze";
     }
 
+    ensureUnifiedPageLastUpdatedBadge(safeLang);
     ensureMusicAlbumTrackStatuses();
     applyMusicAlbumTrackTitlesInEnglish(safeLang);
     applyIpomoeaAlbumIntroInEnglish(safeLang);
@@ -9717,7 +9866,7 @@
   }
 
   function setupPhotoDetailPager() {
-    var article = document.querySelector(".photo-detail-article");
+    var article = document.querySelector(".photo-detail-article, .photo-blue-article");
     if (!article || article.querySelector(".photo-detail-pager")) {
       return;
     }
@@ -10588,6 +10737,7 @@
       ensureStructuredData,
       normalizeFooterMeta,
       bindFooterMetaSync,
+      ensureUnifiedPageLastUpdatedBadge,
       labelPhotoOrientation,
       setupPhotoDetailPager,
       ensureMusicDetailBackLink,
@@ -10603,6 +10753,7 @@
 
   var MUTATION_REFRESH_TASKS = [
     ensureStructuredData,
+    ensureUnifiedPageLastUpdatedBadge,
     optimizeMediaLoading,
     upgradePhotoImageLoadingStrategy,
     optimizeImages,
