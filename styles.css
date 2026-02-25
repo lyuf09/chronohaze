@@ -1778,6 +1778,148 @@ audio {
   font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
 }
 
+.search-index-page .search-result-group-jumps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 2px 0 4px;
+  padding: 0 0 6px;
+}
+
+.search-index-page .search-result-group-jump {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid rgba(70, 78, 96, 0.2);
+  background: rgba(247, 250, 255, 0.4);
+  color: rgba(52, 60, 77, 0.86);
+  text-decoration: none;
+  padding: 4px 10px;
+  font-size: 12px;
+  letter-spacing: 0.03em;
+  line-height: 1.2;
+  border-radius: 999px;
+  transition: border-color 180ms ease, background 180ms ease, color 180ms ease;
+}
+
+.search-index-page .search-result-group-jump:hover,
+.search-index-page .search-result-group-jump:focus-visible {
+  border-color: rgba(66, 74, 92, 0.34);
+  background: rgba(249, 252, 255, 0.62);
+  color: rgba(39, 47, 63, 0.94);
+}
+
+.search-index-page .search-result-group {
+  display: grid;
+  gap: 9px;
+  scroll-margin-top: 84px;
+}
+
+.search-index-page .search-result-group + .search-result-group {
+  margin-top: 4px;
+}
+
+.search-index-page .search-result-group-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 2px 1px 0;
+  border-bottom: 1px solid rgba(64, 72, 91, 0.14);
+}
+
+.search-index-page .search-result-group-title {
+  margin: 0;
+  color: rgba(36, 43, 57, 0.9);
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-size: 18px;
+  line-height: 1.12;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+}
+
+.search-index-page .search-result-group-count {
+  color: rgba(60, 67, 84, 0.72);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 2px 1px 3px;
+}
+
+.search-index-page .search-result-group-list {
+  display: grid;
+  gap: 10px;
+}
+
+.search-index-page .search-result-rank {
+  display: inline-block;
+  margin: 0 0 6px;
+  color: rgba(67, 74, 90, 0.62);
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.search-index-page .search-result-title {
+  margin-top: 1px;
+}
+
+.search-index-page .search-hit {
+  background: linear-gradient(
+    180deg,
+    transparent 56%,
+    rgba(130, 149, 191, 0.16) 56%,
+    rgba(130, 149, 191, 0.16) 90%,
+    transparent 90%
+  );
+  color: inherit;
+  padding: 0;
+  border-radius: 0;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.search-index-page .search-result-title .search-hit {
+  background: linear-gradient(
+    180deg,
+    transparent 54%,
+    rgba(122, 142, 186, 0.2) 54%,
+    rgba(122, 142, 186, 0.2) 90%,
+    transparent 90%
+  );
+}
+
+.search-index-page .search-result-excerpt .search-hit {
+  background: linear-gradient(
+    180deg,
+    transparent 58%,
+    rgba(137, 154, 192, 0.12) 58%,
+    rgba(137, 154, 192, 0.12) 90%,
+    transparent 90%
+  );
+}
+
+@media (max-width: 720px) {
+  .search-index-page .search-result-group-head {
+    align-items: baseline;
+  }
+
+  .search-index-page .search-result-group-title {
+    font-size: 16px;
+  }
+
+  .search-index-page .search-result-group-jumps {
+    gap: 6px;
+  }
+
+  .search-index-page .search-result-group-jump {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+}
+
 .math-index-page .main {
   background: linear-gradient(180deg, #d7d8db 0%, #cfd1d6 100%);
 }

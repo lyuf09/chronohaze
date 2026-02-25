@@ -124,6 +124,24 @@
     return item && item.section ? item.section : dict.searchScopeAll;
   }
 
+  function getSearchDisplayGroupKey(item) {
+    var url = String((item && item.url) || "").toLowerCase();
+    if (/^research(?:-summary)?\.html(?:$|[?#])/.test(url) || /(?:^|\/)research(?:-summary)?\.html(?:$|[?#])/.test(url)) {
+      return "research";
+    }
+    return getSearchItemScope(item);
+  }
+
+  function getSearchDisplayGroupLabel(groupKey, dict, lang) {
+    if (groupKey === "research") {
+      return dict.searchScopeResearch || (lang === "zh" ? "研究" : "Research");
+    }
+    if (groupKey === "site") {
+      return dict.searchScopeSite || (lang === "zh" ? "页面" : "Pages");
+    }
+    return getSearchSectionLabel({ scope: groupKey }, dict);
+  }
+
   function setupSearchIndexPage() {
     if (!document.body || !document.body.classList.contains("search-index-page")) {
       return;
@@ -297,6 +315,8 @@
     var loadToken = 0;
     var autoExternalRedirected = false;
     var activeResultIndex = -1;
+    var pendingUrlSyncMode = "replace";
+    var lastSyncedUrlStateKey = null;
     var scopeFiles = {
       math: "assets/search-data/math.json",
       photo: "assets/search-data/photo.json",
@@ -362,24 +382,63 @@
     }
 
     function updateSearchUrl(query, scope, tag) {
+      var state = {
+        q: String(query || ""),
+        scope: String(scope || "all"),
+        tag: String(tag || "all"),
+      };
+      var stateKey = [state.q, state.scope, state.tag].join("\u0001");
       var url = new URL(window.location.href);
-      if (query) {
-        url.searchParams.set("q", query);
+      url.search = "";
+      if (state.q) {
+        url.searchParams.set("q", state.q);
       } else {
         url.searchParams.delete("q");
       }
-      if (scope && scope !== "all") {
-        url.searchParams.set("scope", scope);
+      if (state.scope && state.scope !== "all") {
+        url.searchParams.set("scope", state.scope);
       } else {
         url.searchParams.delete("scope");
       }
-      if (tag && tag !== "all") {
-        url.searchParams.set("tag", tag);
+      if (state.tag && state.tag !== "all") {
+        url.searchParams.set("tag", state.tag);
       } else {
         url.searchParams.delete("tag");
       }
-      persistSearchState(query, scope, tag);
-      history.replaceState(null, "", url.toString());
+      persistSearchState(state.q, state.scope, state.tag);
+
+      var nextUrl = url.toString();
+      if (lastSyncedUrlStateKey === stateKey && nextUrl === window.location.href) {
+        pendingUrlSyncMode = "replace";
+        return;
+      }
+
+      var writeMode = pendingUrlSyncMode === "push" ? "push" : "replace";
+      pendingUrlSyncMode = "replace";
+      lastSyncedUrlStateKey = stateKey;
+      if (writeMode === "push") {
+        history.pushState(
+          { q: state.q, scope: state.scope, tag: state.tag },
+          "",
+          nextUrl
+        );
+      } else {
+        history.replaceState(
+          { q: state.q, scope: state.scope, tag: state.tag },
+          "",
+          nextUrl
+        );
+      }
+    }
+
+    function requestUrlSync(mode) {
+      if (mode === "push") {
+        pendingUrlSyncMode = "push";
+        return;
+      }
+      if (pendingUrlSyncMode !== "push") {
+        pendingUrlSyncMode = "replace";
+      }
     }
 
     function normalizeItems(payload) {
@@ -1172,58 +1231,141 @@
       emptyNode.hidden = true;
       lastRenderedItems = matched.map(function (entry) { return entry.item; });
       var fragment = document.createDocumentFragment();
+      var groupRecords = [];
+      var groupMap = Object.create(null);
+
+      function getOrCreateGroup(groupKey) {
+        if (groupMap[groupKey]) {
+          return groupMap[groupKey];
+        }
+        var record = {
+          key: groupKey,
+          items: [],
+        };
+        groupMap[groupKey] = record;
+        groupRecords.push(record);
+        return record;
+      }
+
       matched.forEach(function (entry, index) {
         var item = entry.item;
-        var li = document.createElement("li");
-        li.className = "search-result-item";
+        getOrCreateGroup(getSearchDisplayGroupKey(item)).items.push({
+          item: item,
+          rank: index + 1,
+        });
+      });
 
-        var link = document.createElement("a");
-        link.className = "search-result-link";
-        link.href = item.url || "#";
-        link.addEventListener("click", function () {
-          trackAnalyticsEvent("search_result_open", {
-            page_path: window.location.pathname,
-            result_href: item.url || "",
-            scope: getSearchItemScope(item),
-            rank: index + 1,
-            query_length: rawQuery.length,
+      if (groupRecords.length > 1) {
+        var jumpWrap = document.createElement("div");
+        jumpWrap.className = "search-result-group-jumps";
+        jumpWrap.setAttribute("aria-label", lang === "zh" ? "结果分组导航" : "Result section navigation");
+        groupRecords.forEach(function (group) {
+          var jump = document.createElement("a");
+          jump.className = "search-result-group-jump";
+          jump.href = "#search-group-" + group.key;
+          jump.textContent =
+            getSearchDisplayGroupLabel(group.key, dict, lang) + " (" + group.items.length + ")";
+          jumpWrap.appendChild(jump);
+        });
+        fragment.appendChild(jumpWrap);
+      }
+
+      groupRecords.forEach(function (group) {
+        var section = document.createElement("section");
+        section.className = "search-result-group";
+        section.id = "search-group-" + group.key;
+        section.setAttribute("data-search-group", group.key);
+
+        var head = document.createElement("div");
+        head.className = "search-result-group-head";
+
+        var heading = document.createElement("h2");
+        heading.className = "search-result-group-title";
+        heading.textContent = getSearchDisplayGroupLabel(group.key, dict, lang);
+
+        var count = document.createElement("span");
+        count.className = "search-result-group-count";
+        count.textContent = String(group.items.length);
+        count.setAttribute("aria-label", (lang === "zh" ? "结果数 " : "Results ") + String(group.items.length));
+
+        head.appendChild(heading);
+        head.appendChild(count);
+        section.appendChild(head);
+
+        var groupList = document.createElement("div");
+        groupList.className = "search-result-group-list";
+        groupList.setAttribute("role", "list");
+
+        group.items.forEach(function (wrapped) {
+          var groupItem = wrapped.item;
+          var itemNode = document.createElement("div");
+          itemNode.className = "search-result-item";
+          itemNode.setAttribute("role", "listitem");
+
+          var link = document.createElement("a");
+          link.className = "search-result-link";
+          link.href = groupItem.url || "#";
+          link.addEventListener("click", function () {
+            trackAnalyticsEvent("search_result_open", {
+              page_path: window.location.pathname,
+              result_href: groupItem.url || "",
+              scope: getSearchItemScope(groupItem),
+              rank: wrapped.rank,
+              query_length: rawQuery.length,
+            });
           });
+
+          var title = document.createElement("h3");
+          title.className = "search-result-title";
+          setHighlightedText(title, groupItem.title || "", rawTerms);
+
+          var meta = document.createElement("p");
+          meta.className = "search-result-meta";
+          var sectionLabel = getSearchDisplayGroupLabel(
+            getSearchDisplayGroupKey(groupItem),
+            dict,
+            lang
+          );
+          meta.textContent = [groupItem.date || "", sectionLabel].filter(Boolean).join(" · ");
+
+          var excerpt = document.createElement("p");
+          excerpt.className = "search-result-excerpt";
+          setHighlightedText(excerpt, resolveExcerptText(groupItem, rawTerms), rawTerms);
+
+          var tagsWrap = document.createElement("div");
+          tagsWrap.className = "search-result-tags";
+          getItemTagLabels(groupItem).slice(0, 4).forEach(function (tagText) {
+            var chip = document.createElement("span");
+            chip.className = "search-result-tag";
+            chip.textContent = getMusicTagLabel(tagText, dict);
+            tagsWrap.appendChild(chip);
+          });
+
+          var rankNode = document.createElement("span");
+          rankNode.className = "search-result-rank";
+          rankNode.textContent = "#" + wrapped.rank;
+          rankNode.setAttribute(
+            "aria-label",
+            (lang === "zh" ? "全局排序第 " : "Global rank ") + wrapped.rank
+          );
+
+          link.appendChild(rankNode);
+          link.appendChild(title);
+          if (meta.textContent) {
+            link.appendChild(meta);
+          }
+          if (excerpt.textContent) {
+            link.appendChild(excerpt);
+          }
+          if (tagsWrap.childNodes.length) {
+            link.appendChild(tagsWrap);
+          }
+          itemNode.appendChild(link);
+          groupList.appendChild(itemNode);
         });
 
-        var title = document.createElement("h3");
-        title.className = "search-result-title";
-        setHighlightedText(title, item.title || "", rawTerms);
-
-        var meta = document.createElement("p");
-        meta.className = "search-result-meta";
-        var sectionLabel = getSearchSectionLabel(item, dict);
-        meta.textContent = [item.date || "", sectionLabel].filter(Boolean).join(" · ");
-
-        var excerpt = document.createElement("p");
-        excerpt.className = "search-result-excerpt";
-        setHighlightedText(excerpt, resolveExcerptText(item, rawTerms), rawTerms);
-
-        var tagsWrap = document.createElement("div");
-        tagsWrap.className = "search-result-tags";
-        getItemTagLabels(item).slice(0, 4).forEach(function (tagText) {
-          var chip = document.createElement("span");
-          chip.className = "search-result-tag";
-          chip.textContent = getMusicTagLabel(tagText, dict);
-          tagsWrap.appendChild(chip);
-        });
-
-        link.appendChild(title);
-        if (meta.textContent) {
-          link.appendChild(meta);
-        }
-        if (excerpt.textContent) {
-          link.appendChild(excerpt);
-        }
-        if (tagsWrap.childNodes.length) {
-          link.appendChild(tagsWrap);
-        }
-        li.appendChild(link);
-        fragment.appendChild(li);
+        section.appendChild(groupList);
+        fragment.appendChild(section);
       });
       listNode.appendChild(fragment);
       activeResultIndex = -1;
@@ -1231,17 +1373,20 @@
 
     var debounceTimer = null;
     inputNode.addEventListener("input", function () {
+      requestUrlSync("replace");
       updateFallbackExternalLink();
       window.clearTimeout(debounceTimer);
       debounceTimer = window.setTimeout(renderResults, 140);
     });
 
     scopeNode.addEventListener("change", function () {
+      requestUrlSync("push");
       initialTag = "all";
       updateFallbackExternalLink();
       loadItemsForScope(scopeNode.value || "all");
     });
     tagNode.addEventListener("change", function () {
+      requestUrlSync("push");
       updateFallbackExternalLink();
       renderResults();
     });
@@ -1258,6 +1403,7 @@
         scope: scopeNode.value || "all",
         tag: tagNode.value || "all",
       });
+      requestUrlSync("push");
       renderResults();
     });
 
@@ -1361,6 +1507,7 @@
         scopeNode.value = "all";
       }
       initialTag = state.tag || "all";
+      requestUrlSync("replace");
       updateFallbackExternalLink();
       loadItemsForScope(scopeNode.value || "all");
     }
