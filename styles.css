@@ -3490,6 +3490,11 @@ audio {
   font-size: 12px;
 }
 
+.research-meta-pill .research-last-updated {
+  white-space: nowrap;
+  letter-spacing: 0.035em;
+}
+
 .research-meta-label {
   color: rgba(71, 79, 98, 0.72);
   text-transform: uppercase;
@@ -3707,10 +3712,58 @@ audio {
 }
 
 .research-output-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
   color: rgba(57, 64, 81, 0.82);
   font-size: 12px;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.02em;
   font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+}
+
+.research-output-status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(84, 92, 112, 0.18);
+  background: rgba(246, 248, 252, 0.82);
+  color: rgba(38, 45, 58, 0.9);
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.research-output-status-badge--active {
+  background: rgba(236, 243, 255, 0.88);
+  border-color: rgba(73, 101, 157, 0.22);
+  color: rgba(42, 67, 114, 0.92);
+}
+
+.research-output-status-badge--in-prep {
+  background: rgba(246, 240, 255, 0.9);
+  border-color: rgba(116, 88, 170, 0.2);
+  color: rgba(82, 59, 125, 0.92);
+}
+
+.research-output-status-badge--draft {
+  background: rgba(247, 248, 250, 0.9);
+  border-color: rgba(91, 98, 116, 0.16);
+  color: rgba(70, 76, 91, 0.86);
+}
+
+.research-output-status-detail {
+  min-width: 0;
+  color: rgba(63, 70, 88, 0.76);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .research-output-card p {

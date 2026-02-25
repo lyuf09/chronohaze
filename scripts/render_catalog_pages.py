@@ -212,8 +212,12 @@ def render_research_meta(items: List[Dict[str, Any]]) -> str:
         rows.append('<div class="research-meta-pill">')
         rows.append(f'  <span class="research-meta-label">{esc_text(item.get("label"))}</span>')
         if item.get("datetime"):
+            extra_attrs = ""
+            tz = str(item.get("timezone") or "").strip()
+            if tz:
+                extra_attrs += f' data-timezone="{esc(tz)}" title="{esc(tz)}"'
             rows.append(
-                f'  <time class="research-last-updated" datetime="{esc(item.get("datetime"))}">{esc_text(item.get("value"))}</time>'
+                f'  <time class="research-last-updated" datetime="{esc(item.get("datetime"))}"{extra_attrs}>{esc_text(item.get("value"))}</time>'
             )
         else:
             rows.append(f'  <span>{esc_text(item.get("value"))}</span>')
@@ -250,12 +254,19 @@ def render_research_outputs(items: List[Dict[str, Any]]) -> str:
     rows: List[str] = []
     for item in items:
         attrs = ' target="_blank" rel="noopener noreferrer"' if item.get("external") else ""
+        status_key = str(item.get("status_key") or "").strip()
+        status_label = str(item.get("status_label") or item.get("status") or "").strip()
+        status_detail = str(item.get("status_detail") or "").strip()
+        badge_class = f" research-output-status-badge--{status_key.replace('_', '-')}" if status_key else ""
         rows.extend(
             [
-                f'<a class="research-output-card"{attr_if("data-output-type", item.get("type"))} href="{esc(item.get("href"))}"{attrs}>',
+                f'<a class="research-output-card"{attr_if("data-output-type", item.get("type"))}{attr_if("data-output-status", status_key)} href="{esc(item.get("href"))}"{attrs}>',
                 f'  <span class="research-output-kicker">{esc_text(item.get("kicker"))}</span>',
                 f'  <strong>{esc_text(item.get("title"))}</strong>',
-                f'  <span class="research-output-status">{esc_text(item.get("status"))}</span>',
+                '  <span class="research-output-status">',
+                f'    <span class="research-output-status-badge{badge_class}">{esc_text(status_label)}</span>',
+                (f'    <span class="research-output-status-detail">{esc_text(status_detail)}</span>' if status_detail else ""),
+                "  </span>",
                 f'  <p>{esc_text(item.get("description"))}</p>',
                 "</a>",
             ]
@@ -307,12 +318,14 @@ def render_research_summary_meta(payload: Dict[str, Any]) -> str:
     meta_items = (payload.get("meta") or {}).get("items") or []
     current_focus = ""
     last_updated = payload.get("generated_at") or ""
+    last_updated_tz = ""
     for item in meta_items:
         label = str(item.get("label") or "").strip().lower()
         if label == "current focus":
             current_focus = str(item.get("value") or "").strip()
         if label == "last updated":
             last_updated = str(item.get("value") or last_updated or "").strip()
+            last_updated_tz = str(item.get("timezone") or "").strip()
     rows = [
         '<div class="research-summary-meta-grid">',
         '  <div class="research-summary-meta-card">',
@@ -325,7 +338,7 @@ def render_research_summary_meta(payload: Dict[str, Any]) -> str:
         "  </div>",
         '  <div class="research-summary-meta-card">',
         '    <span class="research-summary-meta-label">Last updated</span>',
-        f'    <strong>{esc_text(last_updated)}</strong>',
+        (f'    <strong title="{esc(last_updated_tz)}">{esc_text(last_updated)}</strong>' if last_updated_tz else f'    <strong>{esc_text(last_updated)}</strong>'),
         "  </div>",
         "</div>",
     ]
@@ -368,8 +381,11 @@ def render_research_summary_outputs(groups: List[Dict[str, Any]]) -> str:
         rows.append(f'  <h3>{esc_text(group.get("title"))}</h3>')
         rows.append("  <ul>")
         for item in (group.get("items") or [])[:4]:
+            status_label = esc_text(item.get("status_label") or item.get("status") or "")
+            status_detail = esc_text(item.get("status_detail") or "")
+            status_text = status_label + (f" · {status_detail}" if status_detail else "")
             rows.append(
-                f'    <li><a href="{esc(item.get("href"))}">{esc_text(item.get("title"))}</a> <span>{esc_text(item.get("status"))}</span></li>'
+                f'    <li><a href="{esc(item.get("href"))}">{esc_text(item.get("title"))}</a> <span>{status_text}</span></li>'
             )
         rows.append("  </ul>")
         rows.append("</div>")

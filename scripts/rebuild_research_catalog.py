@@ -5,12 +5,14 @@ import argparse
 import html
 import json
 import re
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 from typing import Any, Dict, List
+from zoneinfo import ZoneInfo
 
 
 TAG_RE = re.compile(r"<[^>]+>")
+OUTPUT_STATUS_SPLIT_RE = re.compile(r"\s*[·•|/:-]\s*", re.S)
 
 
 def clean(fragment: str) -> str:
@@ -34,6 +36,53 @@ def classify_output_type(item: Dict[str, Any]) -> str:
     if "draft" in status or "in prep" in status:
         return "in_prep"
     return "other"
+
+
+def canonicalize_output_status(status_text: str) -> Dict[str, str]:
+    raw = str(status_text or "").strip()
+    if not raw:
+        return {
+            "key": "active",
+            "label": "Active",
+            "detail": "",
+            "display": "Active",
+        }
+
+    parts = [p.strip() for p in OUTPUT_STATUS_SPLIT_RE.split(raw, maxsplit=1) if p.strip()]
+    head = parts[0].lower() if parts else raw.lower()
+    tail = parts[1].strip() if len(parts) > 1 else ""
+
+    if head in {"wip", "in prep", "in-prep", "pending"}:
+        key = "in_prep"
+        label = "In prep"
+    elif "draft" in head:
+        key = "draft"
+        label = "Draft"
+    else:
+        key = "active"
+        label = "Active"
+
+    display = label + (f" · {tail}" if tail else "")
+    return {
+        "key": key,
+        "label": label,
+        "detail": tail,
+        "display": display,
+    }
+
+
+def build_research_last_updated_meta() -> Dict[str, str]:
+    tz_name = "America/New_York"
+    now_et = datetime.now(ZoneInfo(tz_name))
+    display = now_et.strftime("%Y-%m-%d · %I:%M %p ET")
+    return {
+        "label": "Last updated",
+        "value": display,
+        "datetime": now_et.isoformat(timespec="seconds"),
+        "timezone": tz_name,
+        "date_only": now_et.date().isoformat(),
+        "display_format": "YYYY-MM-DD · hh:mm A ET",
+    }
 
 
 def marker_block(text: str, marker: str) -> str:
@@ -340,19 +389,23 @@ def parse_research_page(text: str) -> Dict[str, Any]:
     for item in payload.get("now_items", []):
         content_parts.append(str(item))
     today = date.today().isoformat()
-    today_sort = int(today.replace("-", ""))
+    last_updated_meta = build_research_last_updated_meta()
+    sort_from_date = str(last_updated_meta.get("date_only") or today)
+    try:
+        today_sort = int(sort_from_date.replace("-", ""))
+    except ValueError:
+        today_sort = int(today.replace("-", ""))
 
     # Build-time source of truth for "Last updated" (avoid hand-edited timestamps in HTML).
     meta_items = list((payload.get("meta") or {}).get("items") or [])
     has_last_updated = False
     for item in meta_items:
         if str(item.get("label") or "").strip().lower() == "last updated":
-            item["value"] = today
-            item["datetime"] = today
+            item.update(last_updated_meta)
             has_last_updated = True
             break
     if not has_last_updated:
-        meta_items.insert(0, {"label": "Last updated", "value": today, "datetime": today})
+        meta_items.insert(0, dict(last_updated_meta))
     if not payload.get("meta"):
         payload["meta"] = {}
     payload["meta"]["items"] = meta_items
@@ -360,6 +413,11 @@ def parse_research_page(text: str) -> Dict[str, Any]:
     outputs = [o for o in payload.get("outputs", []) if isinstance(o, dict)]
     for item in outputs:
         item["type"] = classify_output_type(item)
+        status_meta = canonicalize_output_status(str(item.get("status") or ""))
+        item["status_key"] = status_meta["key"]
+        item["status_label"] = status_meta["label"]
+        item["status_detail"] = status_meta["detail"]
+        item["status_display"] = status_meta["display"]
     type_order = [
         ("repo", "Repos", "Codebases and prototype implementations"),
         ("notes", "Notes", "Research notes, logs, and technical writeups"),

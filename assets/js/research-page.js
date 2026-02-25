@@ -145,7 +145,17 @@
     strong.textContent = item.title || "";
     var status = document.createElement("span");
     status.className = "research-output-status";
-    status.textContent = item.status || "";
+    var badge = document.createElement("span");
+    var statusKey = String(item.status_key || "").trim().replace(/_/g, "-");
+    badge.className = "research-output-status-badge" + (statusKey ? " research-output-status-badge--" + statusKey : "");
+    badge.textContent = item.status_label || item.status || "";
+    status.appendChild(badge);
+    if (item.status_detail) {
+      var detail = document.createElement("span");
+      detail.className = "research-output-status-detail";
+      detail.textContent = item.status_detail;
+      status.appendChild(detail);
+    }
     var p = document.createElement("p");
     p.textContent = item.description || "";
     a.appendChild(kicker);
@@ -268,6 +278,10 @@
             var time = document.createElement("time");
             time.className = "research-last-updated";
             time.dateTime = entry.datetime;
+            if (entry.timezone) {
+              time.setAttribute("data-timezone", entry.timezone);
+              time.title = entry.timezone;
+            }
             time.textContent = entry.value || entry.datetime;
             pill.appendChild(time);
           } else {
