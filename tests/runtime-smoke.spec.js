@@ -30,7 +30,9 @@ test("music index renders and remains interactive", async ({ page }) => {
   const initialTrackRows = page.locator(".track-row");
   await expect.poll(async () => initialTrackRows.count()).toBeGreaterThan(3);
 
-  const singlesTab = page.locator(".music-ia-tab[data-group='single']");
+  const singlesTab = page.locator(
+    ".music-ia-tab[data-group-filter='single'], .music-ia-tab[data-group='single']"
+  );
   await singlesTab.click();
   await expect(singlesTab).toHaveClass(/is-active/);
   await expect.poll(async () => page.locator(".music-group").count()).toBeGreaterThan(0);
