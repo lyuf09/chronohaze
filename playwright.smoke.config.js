@@ -5,7 +5,7 @@ const baseURL = process.env.CHRONOHAZE_SMOKE_BASE_URL || "http://127.0.0.1:4173/
 
 module.exports = defineConfig({
   testDir: "./tests",
-  testMatch: /runtime-smoke\.spec\.js$/,
+  testMatch: /(?:runtime-smoke|structured-data)\.spec\.js$/,
   timeout: 30000,
   expect: {
     timeout: 10000,

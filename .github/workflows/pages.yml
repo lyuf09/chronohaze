@@ -52,6 +52,9 @@ jobs:
       - name: Run runtime smoke (Playwright)
         run: bash scripts/run_playwright_smoke.sh
 
+      - name: Validate structured data JSON-LD (Playwright)
+        run: bash scripts/run_playwright_structured_data_check.sh
+
       - name: Configure Pages
         uses: actions/configure-pages@v5
 

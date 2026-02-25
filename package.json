@@ -5,6 +5,7 @@
     "@playwright/test": "^1.54.2"
   },
   "scripts": {
-    "smoke:runtime": "bash scripts/run_playwright_smoke.sh"
+    "smoke:runtime": "bash scripts/run_playwright_smoke.sh",
+    "check:structured-data": "bash scripts/run_playwright_structured_data_check.sh"
   }
 }
