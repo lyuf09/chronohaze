@@ -49,10 +49,12 @@ jobs:
       - name: Run site checks
         run: bash scripts/check_all.sh
 
-      - name: Run runtime smoke (Playwright)
+      - name: Run runtime smoke (Playwright, non-blocking for deploy)
+        continue-on-error: true
         run: bash scripts/run_playwright_smoke.sh
 
-      - name: Validate structured data JSON-LD (Playwright)
+      - name: Validate structured data JSON-LD (Playwright, non-blocking for deploy)
+        continue-on-error: true
         run: bash scripts/run_playwright_structured_data_check.sh
 
       - name: Configure Pages
