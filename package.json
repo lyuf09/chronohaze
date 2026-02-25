@@ -6,6 +6,7 @@
   },
   "scripts": {
     "smoke:runtime": "bash scripts/run_playwright_smoke.sh",
-    "check:structured-data": "bash scripts/run_playwright_structured_data_check.sh"
+    "check:structured-data": "bash scripts/run_playwright_structured_data_check.sh",
+    "smoke:runtime:webkit": "CHRONOHAZE_SMOKE_PROJECTS=webkit CHRONOHAZE_SMOKE_PORT=4175 bash scripts/run_playwright_smoke.sh"
   }
 }

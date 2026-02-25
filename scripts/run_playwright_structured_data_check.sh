@@ -30,4 +30,4 @@ for _ in {1..30}; do
 done
 
 export CHRONOHAZE_SMOKE_BASE_URL="$BASE_URL"
-npx playwright test -c "$ROOT/playwright.smoke.config.js" "$ROOT/tests/structured-data.spec.js"
+npx playwright test -c "$ROOT/playwright.smoke.config.js" --project=chromium "$ROOT/tests/structured-data.spec.js"

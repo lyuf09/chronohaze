@@ -41,7 +41,7 @@ jobs:
           npm install
           sudo apt-get update
           sudo apt-get install -y libavif-bin
-          npx playwright install --with-deps chromium
+          npx playwright install --with-deps chromium webkit
 
       - name: Build generated data and media assets
         run: bash scripts/build_site_generated_assets.sh

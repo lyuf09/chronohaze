@@ -31,4 +31,15 @@ for _ in {1..30}; do
 done
 
 export CHRONOHAZE_SMOKE_BASE_URL="$BASE_URL"
-npx playwright test -c "$ROOT/playwright.smoke.config.js"
+PLAYWRIGHT_CMD=(npx playwright test -c "$ROOT/playwright.smoke.config.js")
+if [[ -n "${CHRONOHAZE_SMOKE_PROJECTS:-}" ]]; then
+  IFS=',' read -r -a _projects <<<"${CHRONOHAZE_SMOKE_PROJECTS}"
+  for _project in "${_projects[@]}"; do
+    _project="${_project//[[:space:]]/}"
+    if [[ -n "$_project" ]]; then
+      PLAYWRIGHT_CMD+=("--project=$_project")
+    fi
+  done
+fi
+PLAYWRIGHT_CMD+=("$ROOT/tests/runtime-smoke.spec.js")
+"${PLAYWRIGHT_CMD[@]}"
