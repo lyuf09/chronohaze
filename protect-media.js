@@ -857,6 +857,292 @@
     }
   }
 
+  function copyTextToClipboard(text) {
+    var value = String(text || "");
+    if (!value) {
+      return Promise.resolve(false);
+    }
+
+    if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+      return navigator.clipboard
+        .writeText(value)
+        .then(function () {
+          return true;
+        })
+        .catch(function () {
+          return false;
+        });
+    }
+
+    try {
+      var textarea = document.createElement("textarea");
+      textarea.value = value;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.top = "-1000px";
+      textarea.style.left = "-1000px";
+      document.body.appendChild(textarea);
+      textarea.select();
+      textarea.setSelectionRange(0, textarea.value.length);
+      var ok = false;
+      try {
+        ok = !!document.execCommand("copy");
+      } catch (_error) {
+        ok = false;
+      }
+      textarea.remove();
+      return Promise.resolve(ok);
+    } catch (_error) {
+      return Promise.resolve(false);
+    }
+  }
+
+  function buildPageSharePayload() {
+    var canonicalNode = document.querySelector('link[rel="canonical"]');
+    var metaTitleNode =
+      document.querySelector('meta[property="og:title"]') ||
+      document.querySelector('meta[name="twitter:title"]');
+    var metaDescNode =
+      document.querySelector('meta[property="og:description"]') ||
+      document.querySelector('meta[name="description"]');
+    var h1 = document.querySelector("h1");
+    var article = document.querySelector("article, .article, .music-detail-article");
+    var firstPara = article ? article.querySelector("p") : document.querySelector("main p");
+    var url = "";
+    try {
+      url = canonicalNode && canonicalNode.href ? canonicalNode.href : window.location.href;
+    } catch (_error) {
+      url = window.location.href;
+    }
+    var title = "";
+    if (metaTitleNode && metaTitleNode.content) {
+      title = String(metaTitleNode.content);
+    } else if (h1 && h1.textContent) {
+      title = h1.textContent;
+    } else {
+      title = document.title || "";
+    }
+    title = String(title || "")
+      .replace(/\s+\|\s+Chronohaze\s*$/i, "")
+      .trim();
+
+    var description = "";
+    if (metaDescNode && metaDescNode.content) {
+      description = String(metaDescNode.content).trim();
+    } else if (firstPara && firstPara.textContent) {
+      description = String(firstPara.textContent).replace(/\s+/g, " ").trim();
+    }
+
+    if (description.length > 140) {
+      description = description.slice(0, 137).replace(/\s+\S*$/, "") + "…";
+    }
+
+    var text = [title, description, url]
+      .filter(function (item, idx) {
+        if (!item) {
+          return false;
+        }
+        if (idx === 1 && item === title) {
+          return false;
+        }
+        return true;
+      })
+      .join("\n");
+
+    return {
+      url: url,
+      title: title,
+      description: description,
+      text: text,
+      titleLinkText: [title, url].filter(Boolean).join("\n"),
+    };
+  }
+
+  function getSharePanelDict() {
+    return getSecondaryPageDictionary(detectPreferredLanguage());
+  }
+
+  function renderSharePanelLanguage(root) {
+    if (!root) {
+      return;
+    }
+    var dict = getSharePanelDict();
+    var payload = buildPageSharePayload();
+    root.querySelectorAll("[data-share-i18n]").forEach(function (node) {
+      var key = node.getAttribute("data-share-i18n");
+      if (!key || !(key in dict)) {
+        return;
+      }
+      node.textContent = dict[key];
+    });
+    var nativeBtn = root.querySelector('[data-share-action="native"]');
+    if (nativeBtn) {
+      nativeBtn.hidden = !(navigator && typeof navigator.share === "function");
+    }
+    root.querySelectorAll("[data-share-title]").forEach(function (node) {
+      var mode = node.getAttribute("data-share-title");
+      if (mode === "page-title") {
+        node.textContent = payload.title || document.title || "Chronohaze";
+      }
+    });
+    return { dict: dict, payload: payload };
+  }
+
+  function ensureSiteSharePanel() {
+    if (!document.body) {
+      return;
+    }
+    if (document.querySelector(".site-share-shell")) {
+      renderSharePanelLanguage(document.querySelector(".site-share-shell"));
+      return;
+    }
+
+    var shell = document.createElement("div");
+    shell.className = "site-share-shell";
+    shell.setAttribute("data-open", "0");
+
+    var launcher = document.createElement("button");
+    launcher.type = "button";
+    launcher.className = "site-share-fab";
+    launcher.setAttribute("aria-expanded", "false");
+    launcher.setAttribute("aria-haspopup", "dialog");
+    launcher.innerHTML =
+      '<span class="site-share-fab-icon" aria-hidden="true">↗</span><span class="site-share-fab-label" data-share-i18n="shareButton">Share</span>';
+
+    var panel = document.createElement("section");
+    panel.className = "site-share-panel";
+    panel.setAttribute("role", "dialog");
+    panel.setAttribute("aria-modal", "false");
+    panel.setAttribute("hidden", "");
+    panel.innerHTML = [
+      '<div class="site-share-panel-head">',
+      '  <div class="site-share-panel-title-wrap">',
+      '    <p class="site-share-panel-overline" data-share-i18n="sharePanelTitle">Share this page</p>',
+      '    <h3 class="site-share-panel-title" data-share-title="page-title">Chronohaze</h3>',
+      "  </div>",
+      '  <button type="button" class="site-share-close" data-share-action="close" data-share-i18n="shareClose">Close</button>',
+      "</div>",
+      '<p class="site-share-panel-hint" data-share-i18n="sharePanelHint">Copy the link or generate share text</p>',
+      '<div class="site-share-panel-actions">',
+      '  <button type="button" class="site-share-action" data-share-action="copy-link" data-share-i18n="shareCopyLink">Copy link</button>',
+      '  <button type="button" class="site-share-action" data-share-action="copy-title-link" data-share-i18n="shareCopyTitleLink">Copy title + link</button>',
+      '  <button type="button" class="site-share-action" data-share-action="copy-text" data-share-i18n="shareCopyText">Copy share text</button>',
+      '  <button type="button" class="site-share-action" data-share-action="native" data-share-i18n="shareNative">System share</button>',
+      "</div>",
+      '<p class="site-share-status" aria-live="polite"></p>',
+    ].join("");
+
+    shell.appendChild(launcher);
+    shell.appendChild(panel);
+    document.body.appendChild(shell);
+
+    var statusNode = panel.querySelector(".site-share-status");
+
+    function setOpen(nextOpen) {
+      var isOpen = !!nextOpen;
+      shell.setAttribute("data-open", isOpen ? "1" : "0");
+      launcher.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      if (isOpen) {
+        panel.removeAttribute("hidden");
+        renderSharePanelLanguage(shell);
+      } else {
+        panel.setAttribute("hidden", "");
+        if (statusNode) {
+          statusNode.textContent = "";
+        }
+      }
+    }
+
+    function setStatus(message) {
+      if (statusNode) {
+        statusNode.textContent = message || "";
+      }
+    }
+
+    launcher.addEventListener("click", function () {
+      var next = shell.getAttribute("data-open") !== "1";
+      setOpen(next);
+      trackAnalyticsEvent("share_panel_toggle", {
+        page_path: window.location.pathname || "",
+        opened: next ? 1 : 0,
+      });
+    });
+
+    panel.addEventListener("click", function (event) {
+      var button = event.target && event.target.closest("[data-share-action]");
+      if (!button) {
+        return;
+      }
+      var action = button.getAttribute("data-share-action");
+      var localized = renderSharePanelLanguage(shell) || {};
+      var dict = localized.dict || getSharePanelDict();
+      var payload = localized.payload || buildPageSharePayload();
+
+      if (action === "close") {
+        setOpen(false);
+        return;
+      }
+
+      if (action === "native") {
+        if (!(navigator && typeof navigator.share === "function")) {
+          setStatus(dict.shareNoNative || "");
+          return;
+        }
+        navigator
+          .share({
+            title: payload.title || document.title || "Chronohaze",
+            text: payload.description || payload.title || "",
+            url: payload.url || window.location.href,
+          })
+          .then(function () {
+            setStatus("");
+            trackAnalyticsEvent("share_native", { page_path: window.location.pathname || "" });
+          })
+          .catch(function () {
+          });
+        return;
+      }
+
+      var textToCopy = "";
+      if (action === "copy-link") {
+        textToCopy = payload.url || window.location.href;
+      } else if (action === "copy-title-link") {
+        textToCopy = payload.titleLinkText;
+      } else if (action === "copy-text") {
+        textToCopy = payload.text;
+      }
+
+      copyTextToClipboard(textToCopy).then(function (ok) {
+        setStatus(ok ? dict.shareCopied : dict.shareCopyFailed);
+        if (ok) {
+          trackAnalyticsEvent("share_copy", {
+            page_path: window.location.pathname || "",
+            share_action: action,
+          });
+        }
+      });
+    });
+
+    document.addEventListener("click", function (event) {
+      if (shell.getAttribute("data-open") !== "1") {
+        return;
+      }
+      var target = event.target;
+      if (target && typeof target.closest === "function" && target.closest(".site-share-shell")) {
+        return;
+      }
+      setOpen(false);
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && shell.getAttribute("data-open") === "1") {
+        setOpen(false);
+      }
+    });
+
+    renderSharePanelLanguage(shell);
+  }
+
   function findSectionParagraph(article, headingLabels) {
     if (!article) {
       return null;
@@ -1474,6 +1760,17 @@
         playerPlayAria: "播放",
         playerPauseAria: "暂停",
         playerProgressAria: "播放进度",
+        shareButton: "分享",
+        sharePanelTitle: "分享此页",
+        sharePanelHint: "复制链接或生成分享文案",
+        shareCopyLink: "复制链接",
+        shareCopyTitleLink: "复制标题 + 链接",
+        shareCopyText: "复制分享文案",
+        shareNative: "系统分享",
+        shareClose: "关闭",
+        shareCopied: "已复制",
+        shareCopyFailed: "复制失败，请手动复制",
+        shareNoNative: "当前浏览器不支持系统分享",
       },
       en: {
         htmlLang: "en",
@@ -1602,6 +1899,17 @@
         playerPlayAria: "Play",
         playerPauseAria: "Pause",
         playerProgressAria: "Playback position",
+        shareButton: "Share",
+        sharePanelTitle: "Share this page",
+        sharePanelHint: "Copy the link or generate share text",
+        shareCopyLink: "Copy link",
+        shareCopyTitleLink: "Copy title + link",
+        shareCopyText: "Copy share text",
+        shareNative: "System share",
+        shareClose: "Close",
+        shareCopied: "Copied",
+        shareCopyFailed: "Copy failed. Please copy manually.",
+        shareNoNative: "System share is not supported in this browser",
       },
     }[safeLang];
   }
@@ -10392,6 +10700,8 @@
         }
       }
     });
+
+    ensureSiteSharePanel();
   }
 
   var structuredDataModulePromise = null;
@@ -10455,6 +10765,7 @@
     navAndChrome: [
       ensureSearchNavLink,
       dedupeNavLinks,
+      ensureSiteSharePanel,
       cacheMusicIntroPaletteSource,
       injectFloatingSiteLogo,
       injectFloatingLanguageSwitch,
