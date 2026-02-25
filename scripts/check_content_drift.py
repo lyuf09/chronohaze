@@ -229,8 +229,34 @@ def compare_detail_page_vs_catalog(detail_page_rows: List[dict], detail_catalog_
     if page_urls != catalog_urls:
         findings.append(Finding("warn", "music-detail-catalog", "Detail catalog item order differs from page scan"))
 
-    compare_scalar = ("title_raw", "title_clean", "status", "creation_period", "subtitle", "audio_count")
-    compare_lists = ("subtitle_lines", "credit_lines", "extra_meta_lines", "credit_alias_tokens", "audio_titles")
+    compare_scalar = (
+        "title_raw",
+        "title_clean",
+        "status",
+        "creation_period",
+        "subtitle",
+        "audio_count",
+        "body_section_count",
+        "description_text",
+        "description_excerpt",
+        "lyrics_text",
+        "lyrics_line_count",
+        "notes_text",
+        "other_section_text",
+        "search_body_text",
+    )
+    compare_lists = (
+        "subtitle_lines",
+        "credit_lines",
+        "extra_meta_lines",
+        "credit_alias_tokens",
+        "audio_titles",
+        "body_section_headings",
+        "description_sections",
+        "lyrics_sections",
+        "notes_sections",
+    )
+    compare_nested_lists = ("body_sections",)
 
     for url in page_urls:
         if url not in catalog_map:
@@ -255,6 +281,17 @@ def compare_detail_page_vs_catalog(detail_page_rows: List[dict], detail_catalog_
                         "error",
                         "music-detail-catalog",
                         f"{url} list mismatch [{key}]: page={page_list!r} catalog={cat_list!r}",
+                    )
+                )
+        for key in compare_nested_lists:
+            page_value = page_item.get(key, [])
+            cat_value = catalog_item.get(key, [])
+            if page_value != cat_value:
+                findings.append(
+                    Finding(
+                        "error",
+                        "music-detail-catalog",
+                        f"{url} nested mismatch [{key}]",
                     )
                 )
     return findings
@@ -299,10 +336,18 @@ def compare_detail_catalog_vs_search_index(list_page_rows: List[dict], detail_ca
             value = str(detail_item.get(key, "")).strip()
             if value:
                 required_snippets.append((key, value))
+        for key in ("description_excerpt",):
+            value = str(detail_item.get(key, "")).strip()
+            if value:
+                required_snippets.append((key, value))
         for alias in detail_item.get("credit_alias_tokens", []) if isinstance(detail_item.get("credit_alias_tokens"), list) else []:
             alias_text = str(alias).strip()
             if alias_text:
                 required_snippets.append(("credit_alias_tokens", alias_text))
+        for heading in detail_item.get("body_section_headings", []) if isinstance(detail_item.get("body_section_headings"), list) else []:
+            heading_text = str(heading).strip()
+            if heading_text:
+                required_snippets.append(("body_section_headings", heading_text))
 
         for label, snippet in required_snippets:
             if normalize_text(snippet) and normalize_text(snippet) not in search_content_norm:

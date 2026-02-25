@@ -13,6 +13,7 @@ from typing import Any, Dict, List
 H1_RE = re.compile(r"<h1>(.*?)</h1>", re.S)
 META_RE = re.compile(r'<p\s+class="music-detail-meta">(.*?)</p>', re.S)
 AUDIO_RE = re.compile(r"<audio\b([^>]*)>", re.S)
+SECTION_RE = re.compile(r"<h2>(.*?)</h2>\s*<p(?:\s+[^>]*)?>(.*?)</p>", re.S)
 ATTR_RE = re.compile(r'([:\w-]+)="([^"]*)"')
 TAG_RE = re.compile(r"<[^>]+>")
 PENDING_RE = re.compile(r"\s*[（(]\s*(?:音频待上传|audio pending upload)\s*[）)]\s*$", re.I)
@@ -97,6 +98,20 @@ def split_nonempty_lines(text: str) -> List[str]:
     return out
 
 
+def split_paragraph_blocks(text: str) -> List[str]:
+    raw = str(text or "").strip()
+    if not raw:
+        return []
+    blocks = re.split(r"(?:\r?\n){2,}", raw)
+    out: List[str] = []
+    for block in blocks:
+        normalized_lines = [re.sub(r"\s+", " ", ln).strip() for ln in block.splitlines()]
+        normalized = "\n".join([ln for ln in normalized_lines if ln]).strip()
+        if normalized:
+            out.append(normalized)
+    return out
+
+
 def strip_pending_suffix(title: str) -> str:
     return PENDING_RE.sub("", str(title or "")).strip()
 
@@ -146,6 +161,30 @@ def build_credit_alias_tokens(lines: List[str]) -> List[str]:
     return tokens
 
 
+def classify_section_kind(heading: str) -> str:
+    title = str(heading or "").strip()
+    title_l = title.lower()
+    if not title:
+        return "section"
+    if "歌词" in title or "lyric" in title_l:
+        return "lyrics"
+    if "作品介绍" in title or "description" in title_l:
+        return "description"
+    if "音乐上的想法" in title or "musical note" in title_l or "notes" == title_l:
+        return "notes"
+    return "section"
+
+
+def build_description_excerpt(text: str, max_chars: int = 220) -> str:
+    normalized = re.sub(r"\s+", " ", str(text or "")).strip()
+    if not normalized:
+        return ""
+    if len(normalized) <= max_chars:
+        return normalized
+    cutoff = normalized[:max_chars].rstrip()
+    return cutoff + "…"
+
+
 def parse_audio_items(html_text: str) -> List[Dict[str, str]]:
     items: List[Dict[str, str]] = []
     for audio_m in AUDIO_RE.finditer(html_text):
@@ -161,12 +200,35 @@ def parse_audio_items(html_text: str) -> List[Dict[str, str]]:
     return items
 
 
+def parse_content_sections(html_text: str) -> List[Dict[str, Any]]:
+    sections: List[Dict[str, Any]] = []
+    for match in SECTION_RE.finditer(html_text):
+        heading = clean_html_text(match.group(1), preserve_breaks=False)
+        body_text = clean_html_text(match.group(2), preserve_breaks=True)
+        kind = classify_section_kind(heading)
+        line_items = split_nonempty_lines(body_text)
+        paragraph_blocks = split_paragraph_blocks(body_text)
+        sections.append(
+            {
+                "heading": heading,
+                "kind": kind,
+                "text": body_text,
+                "lines": line_items,
+                "paragraphs": paragraph_blocks,
+                "line_count": len(line_items),
+                "paragraph_count": len(paragraph_blocks),
+            }
+        )
+    return sections
+
+
 def parse_detail_page(path: Path) -> Dict[str, Any]:
     html_text = path.read_text(encoding="utf-8")
     h1_m = H1_RE.search(html_text)
     meta_raw = META_RE.findall(html_text)
     metas = [clean_html_text(m, preserve_breaks=True) for m in meta_raw]
     audio_items = parse_audio_items(html_text)
+    body_sections = parse_content_sections(html_text)
 
     title_raw = clean_html_text(h1_m.group(1), preserve_breaks=False) if h1_m else ""
     title_clean = strip_pending_suffix(title_raw)
@@ -215,6 +277,28 @@ def parse_detail_page(path: Path) -> Dict[str, Any]:
     credit_alias_tokens = build_credit_alias_tokens(credit_lines)
     status = infer_status(title_raw, audio_items)
 
+    description_sections = [sec for sec in body_sections if sec.get("kind") == "description"]
+    lyrics_sections = [sec for sec in body_sections if sec.get("kind") == "lyrics"]
+    notes_sections = [sec for sec in body_sections if sec.get("kind") == "notes"]
+    other_sections = [sec for sec in body_sections if sec.get("kind") == "section"]
+
+    description_text = "\n\n".join(str(sec.get("text", "")).strip() for sec in description_sections if str(sec.get("text", "")).strip()).strip()
+    lyrics_text = "\n\n".join(str(sec.get("text", "")).strip() for sec in lyrics_sections if str(sec.get("text", "")).strip()).strip()
+    notes_text = "\n\n".join(str(sec.get("text", "")).strip() for sec in notes_sections if str(sec.get("text", "")).strip()).strip()
+    other_section_text = "\n\n".join(str(sec.get("text", "")).strip() for sec in other_sections if str(sec.get("text", "")).strip()).strip()
+
+    body_section_headings = [str(sec.get("heading", "")).strip() for sec in body_sections if str(sec.get("heading", "")).strip()]
+    search_body_parts: List[str] = []
+    for sec in body_sections:
+        heading = str(sec.get("heading", "")).strip()
+        text = str(sec.get("text", "")).strip()
+        if heading:
+            search_body_parts.append(heading)
+        if text:
+            search_body_parts.append(text)
+    search_body_text = "\n\n".join(search_body_parts).strip()
+    description_excerpt = build_description_excerpt(description_text or notes_text or other_section_text)
+
     return {
         "url": f"music/{path.name}",
         "file": path.name,
@@ -230,6 +314,19 @@ def parse_detail_page(path: Path) -> Dict[str, Any]:
         "audio_count": len(audio_items),
         "audio_items": audio_items,
         "audio_titles": audio_titles,
+        "body_sections": body_sections,
+        "body_section_headings": body_section_headings,
+        "body_section_count": len(body_sections),
+        "description_sections": [sec.get("heading", "") for sec in description_sections],
+        "description_text": description_text,
+        "description_excerpt": description_excerpt,
+        "lyrics_sections": [sec.get("heading", "") for sec in lyrics_sections],
+        "lyrics_text": lyrics_text,
+        "lyrics_line_count": sum(int(sec.get("line_count", 0) or 0) for sec in lyrics_sections),
+        "notes_sections": [sec.get("heading", "") for sec in notes_sections],
+        "notes_text": notes_text,
+        "other_section_text": other_section_text,
+        "search_body_text": search_body_text,
     }
 
 

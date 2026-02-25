@@ -168,6 +168,9 @@ def apply_music_detail_overlay(item: Dict[str, Any], detail_item: Dict[str, Any]
     alias_tokens = [str(x).strip() for x in detail_item.get("credit_alias_tokens", []) if str(x).strip()] if isinstance(detail_item.get("credit_alias_tokens"), list) else []
     audio_titles = [str(x).strip() for x in detail_item.get("audio_titles", []) if str(x).strip()] if isinstance(detail_item.get("audio_titles"), list) else []
     title_clean = str(detail_item.get("title_clean", "") or "").strip()
+    description_excerpt = str(detail_item.get("description_excerpt", "") or "").strip()
+    search_body_text = str(detail_item.get("search_body_text", "") or "").strip()
+    body_section_headings = [str(x).strip() for x in detail_item.get("body_section_headings", []) if str(x).strip()] if isinstance(detail_item.get("body_section_headings"), list) else []
 
     if status:
         item["status"] = status
@@ -177,11 +180,20 @@ def apply_music_detail_overlay(item: Dict[str, Any], detail_item: Dict[str, Any]
     # Enrich searchability with canonical detail metadata + cross-language credit aliases.
     append_content_fragments(
         item,
-        [title_clean, creation_period, subtitle] + credit_lines + alias_tokens + audio_titles,
+        [title_clean, creation_period, subtitle, description_excerpt] + credit_lines + alias_tokens + audio_titles + body_section_headings + [search_body_text],
     )
 
-    # If excerpt is empty/placeholder, prefer subtitle.
-    if subtitle and not str(item.get("excerpt", "") or "").strip():
+    excerpt = str(item.get("excerpt", "") or "").strip()
+    artist = str(item.get("artist", "") or "").strip()
+    excerpt_norm = _norm_for_contains(excerpt)
+    artist_norm = _norm_for_contains(artist)
+    placeholder_excerpt = (not excerpt_norm) or (artist_norm and excerpt_norm == artist_norm)
+
+    # Prefer canonical description excerpt for music pages; fallback to subtitle.
+    if description_excerpt:
+        if placeholder_excerpt or not excerpt_norm:
+            item["excerpt"] = description_excerpt
+    elif subtitle and (placeholder_excerpt or not excerpt_norm):
         item["excerpt"] = subtitle
 
 
