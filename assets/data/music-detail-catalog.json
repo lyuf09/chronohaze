@@ -1,0 +1,947 @@
+{
+  "generated_at": "2026-02-24",
+  "source_glob": "music/track-*.html",
+  "items": [
+    {
+      "url": "music/track-01.html",
+      "file": "track-01.html",
+      "title_raw": "春日和煦",
+      "title_clean": "春日和煦",
+      "status": "available",
+      "creation_period": "06/2025 - 10/2025",
+      "subtitle": "过春天，Sincerely",
+      "subtitle_lines": [
+        "过春天，Sincerely"
+      ],
+      "credit_lines": [
+        "作词作曲编曲吉他混音：HazezZ"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "HazezZ",
+        "Haze"
+      ],
+      "audio_count": 1,
+      "audio_items": [
+        {
+          "src": "../assets/audio/juke/LDX9gfnB67dtcrtIe0a4jrgiD51R8AaY.mp3",
+          "title": ""
+        }
+      ],
+      "audio_titles": []
+    },
+    {
+      "url": "music/track-02.html",
+      "file": "track-02.html",
+      "title_raw": "He and me",
+      "title_clean": "He and me",
+      "status": "available",
+      "creation_period": "12/2024 - 2/2025",
+      "subtitle": "I’ll miss our words",
+      "subtitle_lines": [
+        "I’ll miss our words"
+      ],
+      "credit_lines": [
+        "作词作曲编曲吉他混音：HazezZ"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "HazezZ",
+        "Haze"
+      ],
+      "audio_count": 1,
+      "audio_items": [
+        {
+          "src": "../assets/audio/juke/UvbVPGLyctRVGsjUkS1CAJnKGN7MeFd3.mp3",
+          "title": ""
+        }
+      ],
+      "audio_titles": []
+    },
+    {
+      "url": "music/track-03.html",
+      "file": "track-03.html",
+      "title_raw": "花园",
+      "title_clean": "花园",
+      "status": "available",
+      "creation_period": "09/2024 - 01/2025",
+      "subtitle": "if only i could dream again, will I dream of you.",
+      "subtitle_lines": [
+        "if only i could dream again, will I dream of you."
+      ],
+      "credit_lines": [
+        "作词作曲编曲吉他混音：HazezZ"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "HazezZ",
+        "Haze"
+      ],
+      "audio_count": 1,
+      "audio_items": [
+        {
+          "src": "../assets/audio/juke/YGJ6JeVIvKObSczBKWoPwYqqIEiho5f2.mp3",
+          "title": ""
+        }
+      ],
+      "audio_titles": []
+    },
+    {
+      "url": "music/track-04.html",
+      "file": "track-04.html",
+      "title_raw": "Affizieren",
+      "title_clean": "Affizieren",
+      "status": "available",
+      "creation_period": "9/2024 - 12/2024",
+      "subtitle": "两年的回响",
+      "subtitle_lines": [
+        "两年的回响"
+      ],
+      "credit_lines": [
+        "作词作曲编曲吉他贝斯混音：HazezZ"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "HazezZ",
+        "Haze"
+      ],
+      "audio_count": 1,
+      "audio_items": [
+        {
+          "src": "../assets/audio/juke/ZK8iOaJLM0p2757mXaquFqQ9d36eRqkm.mp3",
+          "title": ""
+        }
+      ],
+      "audio_titles": []
+    },
+    {
+      "url": "music/track-05.html",
+      "file": "track-05.html",
+      "title_raw": "淤",
+      "title_clean": "淤",
+      "status": "available",
+      "creation_period": "06/2024 - 08/2024",
+      "subtitle": "暴雨倾盆所击中的思绪 / 夏日的忧郁 / 一直魂牵梦绕的那种花朵 / 与淤青化作诗歌 / 融于雨中 / 待另一座城也陷入潮湿之时",
+      "subtitle_lines": [
+        "暴雨倾盆所击中的思绪",
+        "夏日的忧郁",
+        "一直魂牵梦绕的那种花朵",
+        "与淤青化作诗歌",
+        "融于雨中",
+        "待另一座城也陷入潮湿之时"
+      ],
+      "credit_lines": [
+        "作词作曲编曲吉他贝斯混音：HazezZ"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "HazezZ",
+        "Haze"
+      ],
+      "audio_count": 1,
+      "audio_items": [
+        {
+          "src": "../assets/audio/juke/4HvUzvTZN7cSfn9XPQ1rH9OdtlE6GInI.mp3",
+          "title": ""
+        }
+      ],
+      "audio_titles": []
+    },
+    {
+      "url": "music/track-06.html",
+      "file": "track-06.html",
+      "title_raw": "Mr.Idiographic",
+      "title_clean": "Mr.Idiographic",
+      "status": "available",
+      "creation_period": "04/2024 - 07/2024",
+      "subtitle": "",
+      "subtitle_lines": [],
+      "credit_lines": [
+        "作词作曲编曲吉他混音：HazezZ"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "HazezZ",
+        "Haze"
+      ],
+      "audio_count": 1,
+      "audio_items": [
+        {
+          "src": "../assets/audio/juke/rgGIjci5QacZg95q5zThfIWQ6nNYfCyY.mp3",
+          "title": ""
+        }
+      ],
+      "audio_titles": []
+    },
+    {
+      "url": "music/track-07.html",
+      "file": "track-07.html",
+      "title_raw": "箱庭",
+      "title_clean": "箱庭",
+      "status": "available",
+      "creation_period": "09/2023 - 12/2023",
+      "subtitle": "",
+      "subtitle_lines": [],
+      "credit_lines": [
+        "作词作曲编曲混音：HazezZ"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "HazezZ",
+        "Haze"
+      ],
+      "audio_count": 1,
+      "audio_items": [
+        {
+          "src": "../assets/audio/juke/itvWrh7ViGW5Eu5j1SeCYf9iV3IEogUt.mp3",
+          "title": ""
+        }
+      ],
+      "audio_titles": []
+    },
+    {
+      "url": "music/track-08.html",
+      "file": "track-08.html",
+      "title_raw": "本格推理",
+      "title_clean": "本格推理",
+      "status": "available",
+      "creation_period": "09/2023 - 12/2023",
+      "subtitle": "",
+      "subtitle_lines": [],
+      "credit_lines": [
+        "作词作曲编曲混音：HazezZ",
+        "部分吉他录制：文心"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "Wenxin",
+        "HazezZ",
+        "Haze"
+      ],
+      "audio_count": 1,
+      "audio_items": [
+        {
+          "src": "../assets/audio/juke/honkaku-mystery.mp3",
+          "title": ""
+        }
+      ],
+      "audio_titles": []
+    },
+    {
+      "url": "music/track-09.html",
+      "file": "track-09.html",
+      "title_raw": "Epilogue",
+      "title_clean": "Epilogue",
+      "status": "available",
+      "creation_period": "08/2023",
+      "subtitle": "",
+      "subtitle_lines": [],
+      "credit_lines": [
+        "作词作曲编曲混音：HazezZ"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "HazezZ",
+        "Haze"
+      ],
+      "audio_count": 1,
+      "audio_items": [
+        {
+          "src": "../assets/audio/juke/epilogue.mp3",
+          "title": ""
+        }
+      ],
+      "audio_titles": []
+    },
+    {
+      "url": "music/track-10.html",
+      "file": "track-10.html",
+      "title_raw": "恋に落ちられない（音频待上传）",
+      "title_clean": "恋に落ちられない",
+      "status": "audio_pending",
+      "creation_period": "02/2023（两天写完）",
+      "subtitle": "",
+      "subtitle_lines": [],
+      "credit_lines": [
+        "作词作曲编曲混音：HazezZ",
+        "演唱：花厩usu",
+        "吉他录制：Armeria"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "HazezZ",
+        "Haze"
+      ],
+      "audio_count": 1,
+      "audio_items": [
+        {
+          "src": "../assets/audio/juke/ZK8iOaJLM0p2757mXaquFqQ9d36eRqkm.mp3",
+          "title": ""
+        }
+      ],
+      "audio_titles": []
+    },
+    {
+      "url": "music/track-11.html",
+      "file": "track-11.html",
+      "title_raw": "我恨你们所有人",
+      "title_clean": "我恨你们所有人",
+      "status": "available",
+      "creation_period": "03/2023 - 08/2023",
+      "subtitle": "",
+      "subtitle_lines": [],
+      "credit_lines": [
+        "作词作曲编曲混音：HazezZ"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "HazezZ",
+        "Haze"
+      ],
+      "audio_count": 1,
+      "audio_items": [
+        {
+          "src": "../assets/audio/juke/i-hate-you-all.mp3",
+          "title": ""
+        }
+      ],
+      "audio_titles": []
+    },
+    {
+      "url": "music/track-12.html",
+      "file": "track-12.html",
+      "title_raw": "Rainy days",
+      "title_clean": "Rainy days",
+      "status": "available",
+      "creation_period": "03/2024 - 04/2024",
+      "subtitle": "",
+      "subtitle_lines": [],
+      "credit_lines": [
+        "作词作曲编曲混音：HazezZ"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "HazezZ",
+        "Haze"
+      ],
+      "audio_count": 1,
+      "audio_items": [
+        {
+          "src": "../assets/audio/juke/rainy-days.mp3",
+          "title": ""
+        }
+      ],
+      "audio_titles": []
+    },
+    {
+      "url": "music/track-13.html",
+      "file": "track-13.html",
+      "title_raw": "小葉紫檀",
+      "title_clean": "小葉紫檀",
+      "status": "available",
+      "creation_period": "03/2023 - 05/2023",
+      "subtitle": "",
+      "subtitle_lines": [],
+      "credit_lines": [
+        "作词作曲编曲混音：HazezZ",
+        "吉他solo录制：Armeria"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "HazezZ",
+        "Haze"
+      ],
+      "audio_count": 1,
+      "audio_items": [
+        {
+          "src": "../assets/audio/juke/red-sandalwood.mp3",
+          "title": ""
+        }
+      ],
+      "audio_titles": []
+    },
+    {
+      "url": "music/track-14.html",
+      "file": "track-14.html",
+      "title_raw": "柳",
+      "title_clean": "柳",
+      "status": "available",
+      "creation_period": "01/2023 - 04/2023",
+      "subtitle": "",
+      "subtitle_lines": [],
+      "credit_lines": [
+        "作词：Haze",
+        "作曲：Armeria",
+        "编曲：Armeria、Haze",
+        "调教：Armeria",
+        "吉他：Armeria",
+        "贝斯：Haze",
+        "混音：Haze"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "HazezZ"
+      ],
+      "audio_count": 1,
+      "audio_items": [
+        {
+          "src": "../assets/audio/juke/NPNN9tJEPu7ekA0mlawASjEkNaaRkMG8.mp3",
+          "title": ""
+        }
+      ],
+      "audio_titles": []
+    },
+    {
+      "url": "music/track-15.html",
+      "file": "track-15.html",
+      "title_raw": "夜顔",
+      "title_clean": "夜顔",
+      "status": "available",
+      "creation_period": "01/2023 - 02/2023",
+      "subtitle": "08.01.2023",
+      "subtitle_lines": [
+        "08.01.2023"
+      ],
+      "credit_lines": [
+        "作词作曲编曲混音：HazezZ"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "HazezZ",
+        "Haze"
+      ],
+      "audio_count": 1,
+      "audio_items": [
+        {
+          "src": "../assets/audio/juke/yorugao.mp3",
+          "title": ""
+        }
+      ],
+      "audio_titles": []
+    },
+    {
+      "url": "music/track-16.html",
+      "file": "track-16.html",
+      "title_raw": "現人",
+      "title_clean": "現人",
+      "status": "available",
+      "creation_period": "12/2022 - 01/2023",
+      "subtitle": "",
+      "subtitle_lines": [],
+      "credit_lines": [
+        "作词作曲编曲混音：HazezZ"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "HazezZ",
+        "Haze"
+      ],
+      "audio_count": 1,
+      "audio_items": [
+        {
+          "src": "../assets/audio/juke/utsusemi.mp3",
+          "title": ""
+        }
+      ],
+      "audio_titles": []
+    },
+    {
+      "url": "music/track-17.html",
+      "file": "track-17.html",
+      "title_raw": "Moonlapse (feat. 起子)",
+      "title_clean": "Moonlapse (feat. 起子)",
+      "status": "available",
+      "creation_period": "04/2022 - 09/2022",
+      "subtitle": "",
+      "subtitle_lines": [],
+      "credit_lines": [
+        "作词作曲编曲混音：HazezZ",
+        "吉他实录：Armeria",
+        "solo：起子"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "Johnny Zhou",
+        "HazezZ",
+        "Haze"
+      ],
+      "audio_count": 1,
+      "audio_items": [
+        {
+          "src": "../assets/audio/juke/moonlapse-complete.mp3",
+          "title": ""
+        }
+      ],
+      "audio_titles": []
+    },
+    {
+      "url": "music/track-18.html",
+      "file": "track-18.html",
+      "title_raw": "Ipomoea alba",
+      "title_clean": "Ipomoea alba",
+      "status": "available",
+      "creation_period": "07/2022",
+      "subtitle": "",
+      "subtitle_lines": [],
+      "credit_lines": [
+        "作词作曲编曲：HazezZ",
+        "钢琴与吉他录制：起子",
+        "混音：凛野"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "Johnny Zhou",
+        "Rinya",
+        "HazezZ",
+        "Haze"
+      ],
+      "audio_count": 3,
+      "audio_items": [
+        {
+          "src": "../assets/audio/juke/ipomoea-alba.wav",
+          "title": "Ipomoea alba"
+        },
+        {
+          "src": "../assets/audio/juke/ipomoea-alba-piano.wav",
+          "title": "Ipomoea alba piano ver."
+        },
+        {
+          "src": "../assets/audio/juke/haidi.wav",
+          "title": "海底的独白"
+        }
+      ],
+      "audio_titles": [
+        "Ipomoea alba",
+        "Ipomoea alba piano ver.",
+        "海底的独白"
+      ]
+    },
+    {
+      "url": "music/track-19.html",
+      "file": "track-19.html",
+      "title_raw": "Agny",
+      "title_clean": "Agny",
+      "status": "available",
+      "creation_period": "12/2021 - 02/2022",
+      "subtitle": "",
+      "subtitle_lines": [],
+      "credit_lines": [
+        "作曲：湖323",
+        "作词编曲：湖323/Haze",
+        "吉他混音：湖323"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "HazezZ"
+      ],
+      "audio_count": 1,
+      "audio_items": [
+        {
+          "src": "../assets/audio/juke/uO7E1WPtPNsrJ69U3IutXgDzdMCULpO7.mp3",
+          "title": ""
+        }
+      ],
+      "audio_titles": []
+    },
+    {
+      "url": "music/track-20.html",
+      "file": "track-20.html",
+      "title_raw": "スパーノヴァ",
+      "title_clean": "スパーノヴァ",
+      "status": "available",
+      "creation_period": "03/2022 - 05/2022",
+      "subtitle": "",
+      "subtitle_lines": [],
+      "credit_lines": [
+        "作词作曲编曲：HazezZ",
+        "吉他录音：斐然",
+        "混音：凛野"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "Rinya",
+        "Franklimn Zhang",
+        "HazezZ",
+        "Haze"
+      ],
+      "audio_count": 1,
+      "audio_items": [
+        {
+          "src": "../assets/audio/juke/VT7YkfpcJRtuPmllJp8L77VX1dcG9ly7.mp3",
+          "title": ""
+        }
+      ],
+      "audio_titles": []
+    },
+    {
+      "url": "music/track-21.html",
+      "file": "track-21.html",
+      "title_raw": "孤星Prelude",
+      "title_clean": "孤星Prelude",
+      "status": "available",
+      "creation_period": "03/2022（一个小时）",
+      "subtitle": "",
+      "subtitle_lines": [],
+      "credit_lines": [
+        "作曲：HazezZ"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "HazezZ",
+        "Haze"
+      ],
+      "audio_count": 1,
+      "audio_items": [
+        {
+          "src": "../assets/audio/Prelude.mp3",
+          "title": ""
+        }
+      ],
+      "audio_titles": []
+    },
+    {
+      "url": "music/track-22.html",
+      "file": "track-22.html",
+      "title_raw": "Z（E）RO",
+      "title_clean": "Z（E）RO",
+      "status": "available",
+      "creation_period": "12/2021 - 01/2022",
+      "subtitle": "再见，海平线",
+      "subtitle_lines": [
+        "再见，海平线"
+      ],
+      "credit_lines": [
+        "作词作曲编曲：HazezZ",
+        "吉他录音：（时间太长忘记是哪位了）"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "HazezZ",
+        "Haze"
+      ],
+      "audio_count": 1,
+      "audio_items": [
+        {
+          "src": "../assets/audio/juke/sQlT1noXuc4GH0pNuPM9PdUsSzrCUJ3g.mp3",
+          "title": ""
+        }
+      ],
+      "audio_titles": []
+    },
+    {
+      "url": "music/track-23.html",
+      "file": "track-23.html",
+      "title_raw": "フォーマルハウト/南鱼座α",
+      "title_clean": "フォーマルハウト/南鱼座α",
+      "status": "available",
+      "creation_period": "12/2021",
+      "subtitle": "",
+      "subtitle_lines": [],
+      "credit_lines": [
+        "作词作曲编曲：HazezZ"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "HazezZ",
+        "Haze"
+      ],
+      "audio_count": 1,
+      "audio_items": [
+        {
+          "src": "../assets/audio/juke/H4vlcktlpLm2EGOCdkB3I43PS3HoOHVj.mp3",
+          "title": ""
+        }
+      ],
+      "audio_titles": []
+    },
+    {
+      "url": "music/track-24.html",
+      "file": "track-24.html",
+      "title_raw": "罪",
+      "title_clean": "罪",
+      "status": "available",
+      "creation_period": "10/2021 - 11/2021",
+      "subtitle": "",
+      "subtitle_lines": [],
+      "credit_lines": [
+        "作词作曲编曲：HazezZ",
+        "人声调教：iine_p (薛天from灯诱）"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "HazezZ",
+        "Haze"
+      ],
+      "audio_count": 1,
+      "audio_items": [
+        {
+          "src": "../assets/audio/juke/the-guilt.mp3",
+          "title": ""
+        }
+      ],
+      "audio_titles": []
+    },
+    {
+      "url": "music/track-25.html",
+      "file": "track-25.html",
+      "title_raw": "水母与湖",
+      "title_clean": "水母与湖",
+      "status": "available",
+      "creation_period": "11/2021",
+      "subtitle": "",
+      "subtitle_lines": [],
+      "credit_lines": [
+        "作词作曲编曲：HazezZ"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "HazezZ",
+        "Haze"
+      ],
+      "audio_count": 1,
+      "audio_items": [
+        {
+          "src": "../assets/audio/juke/zCHYr9tvkJYSND78y9iy89Gc9UZjUoZc.mp3",
+          "title": ""
+        }
+      ],
+      "audio_titles": []
+    },
+    {
+      "url": "music/track-26.html",
+      "file": "track-26.html",
+      "title_raw": "夜明け、明暗の境目/凌晨、明暗交界处",
+      "title_clean": "夜明け、明暗の境目/凌晨、明暗交界处",
+      "status": "available",
+      "creation_period": "10/2021",
+      "subtitle": "",
+      "subtitle_lines": [],
+      "credit_lines": [
+        "作词作曲编曲：HazezZ"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "HazezZ",
+        "Haze"
+      ],
+      "audio_count": 1,
+      "audio_items": [
+        {
+          "src": "../assets/audio/juke/lmo2LzfxJ6er4GdLbQ7X532WeJaicBZF.mp3",
+          "title": ""
+        }
+      ],
+      "audio_titles": []
+    },
+    {
+      "url": "music/track-27.html",
+      "file": "track-27.html",
+      "title_raw": "心臓警報",
+      "title_clean": "心臓警報",
+      "status": "available",
+      "creation_period": "09/2021 - 10/2021",
+      "subtitle": "",
+      "subtitle_lines": [],
+      "credit_lines": [
+        "作词作曲编曲：HazezZ"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "HazezZ",
+        "Haze"
+      ],
+      "audio_count": 1,
+      "audio_items": [
+        {
+          "src": "../assets/audio/juke/R13qOk2dhRekrq9DJHY5owUcCfXXy6DA.mp3",
+          "title": ""
+        }
+      ],
+      "audio_titles": []
+    },
+    {
+      "url": "music/track-28.html",
+      "file": "track-28.html",
+      "title_raw": "影",
+      "title_clean": "影",
+      "status": "available",
+      "creation_period": "08/2021",
+      "subtitle": "",
+      "subtitle_lines": [],
+      "credit_lines": [
+        "作词作曲编曲：HazezZ"
+      ],
+      "extra_meta_lines": [
+        "Miku version",
+        "Vocal version (HazezZ)"
+      ],
+      "credit_alias_tokens": [
+        "HazezZ",
+        "Haze"
+      ],
+      "audio_count": 2,
+      "audio_items": [
+        {
+          "src": "../assets/audio/juke/kage-miku.wav",
+          "title": "Miku version"
+        },
+        {
+          "src": "../assets/audio/juke/kage-vocal.mp3",
+          "title": "Vocal version (HazezZ)"
+        }
+      ],
+      "audio_titles": [
+        "Miku version",
+        "Vocal version (HazezZ)"
+      ]
+    },
+    {
+      "url": "music/track-29.html",
+      "file": "track-29.html",
+      "title_raw": "未来に出会えたらいいな",
+      "title_clean": "未来に出会えたらいいな",
+      "status": "available",
+      "creation_period": "06/2021",
+      "subtitle": "",
+      "subtitle_lines": [],
+      "credit_lines": [
+        "作词作曲编曲：HazezZ"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "HazezZ",
+        "Haze"
+      ],
+      "audio_count": 1,
+      "audio_items": [
+        {
+          "src": "../assets/audio/juke/mirai-ni-deaetara.mp3",
+          "title": ""
+        }
+      ],
+      "audio_titles": []
+    },
+    {
+      "url": "music/track-30.html",
+      "file": "track-30.html",
+      "title_raw": "分离性遗忘症",
+      "title_clean": "分离性遗忘症",
+      "status": "available",
+      "creation_period": "02/2021",
+      "subtitle": "",
+      "subtitle_lines": [],
+      "credit_lines": [
+        "作词作曲编曲：HazezZ"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "HazezZ",
+        "Haze"
+      ],
+      "audio_count": 1,
+      "audio_items": [
+        {
+          "src": "../assets/audio/Dissociative-Amnesia.m4a",
+          "title": ""
+        }
+      ],
+      "audio_titles": []
+    },
+    {
+      "url": "music/track-felix.html",
+      "file": "track-felix.html",
+      "title_raw": "Felix（音频待上传）",
+      "title_clean": "Felix",
+      "status": "audio_pending",
+      "creation_period": "2024年12月",
+      "subtitle": "",
+      "subtitle_lines": [],
+      "credit_lines": [
+        "作词作曲编曲混音：HazezZ"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "HazezZ",
+        "Haze"
+      ],
+      "audio_count": 1,
+      "audio_items": [
+        {
+          "src": "../assets/audio/juke/ZK8iOaJLM0p2757mXaquFqQ9d36eRqkm.mp3",
+          "title": ""
+        }
+      ],
+      "audio_titles": []
+    },
+    {
+      "url": "music/track-negau.html",
+      "file": "track-negau.html",
+      "title_raw": "願う（音频待上传）",
+      "title_clean": "願う",
+      "status": "audio_pending",
+      "creation_period": "2022年12月",
+      "subtitle": "",
+      "subtitle_lines": [],
+      "credit_lines": [
+        "作词作曲编曲混音：HazezZ"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "HazezZ",
+        "Haze"
+      ],
+      "audio_count": 1,
+      "audio_items": [
+        {
+          "src": "../assets/audio/juke/ZK8iOaJLM0p2757mXaquFqQ9d36eRqkm.mp3",
+          "title": ""
+        }
+      ],
+      "audio_titles": []
+    },
+    {
+      "url": "music/track-seaside-town.html",
+      "file": "track-seaside-town.html",
+      "title_raw": "写不下的海边小镇和你（音频待上传）",
+      "title_clean": "写不下的海边小镇和你",
+      "status": "audio_pending",
+      "creation_period": "2022年夏天",
+      "subtitle": "",
+      "subtitle_lines": [],
+      "credit_lines": [
+        "作词作曲编曲混音：HazezZ"
+      ],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [
+        "HazezZ",
+        "Haze"
+      ],
+      "audio_count": 1,
+      "audio_items": [
+        {
+          "src": "",
+          "title": ""
+        }
+      ],
+      "audio_titles": []
+    },
+    {
+      "url": "music/track-the-rain-in-my-head.html",
+      "file": "track-the-rain-in-my-head.html",
+      "title_raw": "The rain in my head（音频待上传）",
+      "title_clean": "The rain in my head",
+      "status": "audio_pending",
+      "creation_period": "TBD",
+      "subtitle": "Album：Ipomoea Alba · Track 12",
+      "subtitle_lines": [
+        "Album：Ipomoea Alba · Track 12"
+      ],
+      "credit_lines": [],
+      "extra_meta_lines": [],
+      "credit_alias_tokens": [],
+      "audio_count": 0,
+      "audio_items": [],
+      "audio_titles": []
+    }
+  ]
+}

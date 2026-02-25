@@ -11,7 +11,7 @@ echo "[1/7] Site consistency"
 python3 "$ROOT/scripts/check_site_consistency.py" --root "$ROOT"
 
 echo
-echo "[2/7] Music content drift (page / catalog / search-index)"
+echo "[2/7] Music content drift (list+detail pages / catalogs / search-index)"
 python3 "$ROOT/scripts/check_content_drift.py" --root "$ROOT"
 
 echo

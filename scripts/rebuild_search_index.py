@@ -45,6 +45,16 @@ def load_music_catalog_map(root: Path) -> Dict[str, Dict[str, Any]]:
     return _catalog_items_to_url_map(payload.get("items"))
 
 
+def load_music_detail_catalog_map(root: Path) -> Dict[str, Dict[str, Any]]:
+    catalog_path = root / "assets" / "data" / "music-detail-catalog.json"
+    if not catalog_path.is_file():
+        return {}
+    payload = load_json(catalog_path)
+    if not isinstance(payload, dict):
+        return {}
+    return _catalog_items_to_url_map(payload.get("items"))
+
+
 def load_math_catalog_map(root: Path) -> Dict[str, Dict[str, Any]]:
     catalog_path = root / "assets" / "data" / "math-catalog.json"
     if not catalog_path.is_file():
@@ -125,6 +135,56 @@ def overlay_fields(item: Dict[str, Any], overlay: Dict[str, Any], keys: Tuple[st
             item[key] = value
 
 
+def _norm_for_contains(value: Any) -> str:
+    return " ".join(str(value or "").split()).strip().lower()
+
+
+def append_content_fragments(item: Dict[str, Any], fragments: List[str]) -> None:
+    base = str(item.get("content", "") or "").strip()
+    base_norm = _norm_for_contains(base)
+    extras: List[str] = []
+    seen_norm = set()
+    for fragment in fragments:
+        text = " ".join(str(fragment or "").split()).strip()
+        if not text:
+            continue
+        norm = _norm_for_contains(text)
+        if not norm or norm in seen_norm or (base_norm and norm in base_norm):
+            continue
+        seen_norm.add(norm)
+        extras.append(text)
+    if not extras:
+        return
+    item["content"] = (base + " " + " ".join(extras)).strip() if base else " ".join(extras)
+
+
+def apply_music_detail_overlay(item: Dict[str, Any], detail_item: Dict[str, Any]) -> None:
+    if not isinstance(detail_item, dict):
+        return
+    status = str(detail_item.get("status", "") or "").strip()
+    subtitle = str(detail_item.get("subtitle", "") or "").strip()
+    creation_period = str(detail_item.get("creation_period", "") or "").strip()
+    credit_lines = [str(x).strip() for x in detail_item.get("credit_lines", []) if str(x).strip()] if isinstance(detail_item.get("credit_lines"), list) else []
+    alias_tokens = [str(x).strip() for x in detail_item.get("credit_alias_tokens", []) if str(x).strip()] if isinstance(detail_item.get("credit_alias_tokens"), list) else []
+    audio_titles = [str(x).strip() for x in detail_item.get("audio_titles", []) if str(x).strip()] if isinstance(detail_item.get("audio_titles"), list) else []
+    title_clean = str(detail_item.get("title_clean", "") or "").strip()
+
+    if status:
+        item["status"] = status
+    if subtitle:
+        item["subtitle"] = subtitle
+
+    # Enrich searchability with canonical detail metadata + cross-language credit aliases.
+    append_content_fragments(
+        item,
+        [title_clean, creation_period, subtitle] + credit_lines + alias_tokens + audio_titles,
+    )
+
+    # If excerpt is empty/placeholder, prefer subtitle.
+    if subtitle and not str(item.get("excerpt", "") or "").strip():
+        item["excerpt"] = subtitle
+
+
 def apply_catalog_overlay(path_name: str, item: Dict[str, Any], catalogs: Dict[str, Any]) -> None:
     url = str(item.get("url", "")).strip()
     if not url:
@@ -134,6 +194,9 @@ def apply_catalog_overlay(path_name: str, item: Dict[str, Any], catalogs: Dict[s
         catalog_item = (catalogs.get("music") or {}).get(url)
         if catalog_item:
             overlay_fields(item, catalog_item, ("tags", "date", "title", "artist"))
+        detail_item = (catalogs.get("music_detail") or {}).get(url)
+        if detail_item:
+            apply_music_detail_overlay(item, detail_item)
         return
 
     if path_name == "math.json":
@@ -238,6 +301,7 @@ def main() -> int:
 
     catalogs = {
         "music": load_music_catalog_map(root),
+        "music_detail": load_music_detail_catalog_map(root),
         "math": load_math_catalog_map(root),
         "photo": load_photo_catalog_map(root),
         "research": load_research_catalog(root),
