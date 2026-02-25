@@ -5770,6 +5770,12 @@ body {
   box-shadow: var(--ui-shadow-1);
 }
 
+/* Keep music rows visually sharper than the global card system */
+.music-index-page .track-row,
+.music-album-page .album-track-link {
+  border-radius: 0;
+}
+
 .music-index-page .track-row:hover,
 .math-index-page .math-card:hover,
 .photo-index-page .photo-feature-card:hover,
