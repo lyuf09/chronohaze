@@ -238,6 +238,30 @@
       return;
     }
 
+    var uiText = {
+      shareCopy: lang === "zh" ? "复制搜索链接" : "Copy URL",
+      shareNative: lang === "zh" ? "分享" : "Share",
+      shareCopied: lang === "zh" ? "已复制" : "Copied",
+      shareCopyFailed: lang === "zh" ? "复制失败" : "Copy failed",
+      shareUnavailable: lang === "zh" ? "当前浏览器不支持系统分享" : "System share unavailable",
+      suggestLead:
+        lang === "zh"
+          ? "没找到结果。你可以先试试这些入口或标签："
+          : "No matching results yet. Try these nearby tags or entry points:",
+      suggestTagsTitle: lang === "zh" ? "同类标签" : "Related tags",
+      suggestHotTitle: lang === "zh" ? "热门入口" : "Hot entries",
+      suggestReset: lang === "zh" ? "清空筛选" : "Reset filters",
+      suggestClearQuery: lang === "zh" ? "清空关键词" : "Clear query",
+      hotMath: lang === "zh" ? "数学栏目" : "Math",
+      hotPhoto: lang === "zh" ? "摄影作品集" : "Photography",
+      hotMusic: lang === "zh" ? "音乐作品集" : "Music",
+      hotCV: "CV",
+      hotResearch: lang === "zh" ? "Research 入口" : "Research landing",
+      hotSearch: lang === "zh" ? "搜索页首页" : "Search home",
+      shareHint: lang === "zh" ? "当前筛选可复制 / 分享" : "Shareable filtered URL",
+      permalinkLabel: lang === "zh" ? "搜索链接" : "Search permalink",
+    };
+
     if (titleNode) {
       titleNode.textContent = dict.searchPageTitle;
     }
@@ -275,6 +299,66 @@
       fallbackExternalNode.textContent = dict.searchFallbackExternal;
     }
     inputNode.placeholder = dict.searchPlaceholder;
+
+    var statusRow = statusNode.parentNode && statusNode.parentNode.classList.contains("search-status-row")
+      ? statusNode.parentNode
+      : null;
+    if (!statusRow && statusNode.parentNode) {
+      statusRow = document.createElement("div");
+      statusRow.className = "search-status-row";
+      statusNode.parentNode.insertBefore(statusRow, statusNode);
+      statusRow.appendChild(statusNode);
+    }
+
+    var shareTools = document.querySelector(".search-share-tools");
+    if (!shareTools && statusRow) {
+      shareTools = document.createElement("div");
+      shareTools.className = "search-share-tools";
+      shareTools.hidden = true;
+      var copyBtn = document.createElement("button");
+      copyBtn.type = "button";
+      copyBtn.className = "search-share-btn";
+      copyBtn.setAttribute("data-search-share-copy", "");
+      copyBtn.textContent = uiText.shareCopy;
+      var nativeBtn = document.createElement("button");
+      nativeBtn.type = "button";
+      nativeBtn.className = "search-share-btn";
+      nativeBtn.setAttribute("data-search-share-native", "");
+      nativeBtn.textContent = uiText.shareNative;
+      var shareHint = document.createElement("span");
+      shareHint.className = "search-share-hint";
+      shareHint.setAttribute("data-search-share-hint", "");
+      shareHint.textContent = uiText.shareHint;
+      shareTools.appendChild(copyBtn);
+      shareTools.appendChild(nativeBtn);
+      shareTools.appendChild(shareHint);
+      statusRow.appendChild(shareTools);
+    }
+
+    var noResultsPanel = document.querySelector(".search-no-results-panel");
+    if (!noResultsPanel && emptyNode && emptyNode.parentNode) {
+      noResultsPanel = document.createElement("div");
+      noResultsPanel.className = "search-no-results-panel";
+      noResultsPanel.hidden = true;
+      noResultsPanel.innerHTML =
+        '<p class="search-no-results-lead"></p>' +
+        '<div class="search-no-results-grid">' +
+          '<section class="search-suggest-block" data-suggest-block="tags">' +
+            '<h3 class="search-suggest-title"></h3>' +
+            '<div class="search-suggest-list search-suggest-tags"></div>' +
+          '</section>' +
+          '<section class="search-suggest-block" data-suggest-block="hot">' +
+            '<h3 class="search-suggest-title"></h3>' +
+            '<div class="search-suggest-list search-suggest-links"></div>' +
+          '</section>' +
+        '</div>' +
+        '<div class="search-suggest-actions"></div>';
+      if (fallbackPanel && fallbackPanel.parentNode === emptyNode.parentNode) {
+        emptyNode.parentNode.insertBefore(noResultsPanel, fallbackPanel);
+      } else {
+        emptyNode.parentNode.insertBefore(noResultsPanel, emptyNode.nextSibling);
+      }
+    }
 
     var shortcutsHintNode = document.createElement("p");
     shortcutsHintNode.className = "search-shortcuts";
@@ -431,6 +515,100 @@
       }
     }
 
+    function buildSearchUrlForState(query, scope, tag) {
+      var url = new URL(window.location.href);
+      url.search = "";
+      if (query) {
+        url.searchParams.set("q", String(query));
+      }
+      if (scope && scope !== "all") {
+        url.searchParams.set("scope", String(scope));
+      }
+      if (tag && tag !== "all") {
+        url.searchParams.set("tag", String(tag));
+      }
+      return url.toString();
+    }
+
+    function currentSearchState() {
+      return {
+        q: String(inputNode.value || "").trim(),
+        scope: String(scopeNode.value || "all"),
+        tag: String(tagNode.value || "all"),
+      };
+    }
+
+    function supportsNativeShare() {
+      return !!(navigator && typeof navigator.share === "function");
+    }
+
+    function flashShareHint(message, isError) {
+      if (!shareTools) {
+        return;
+      }
+      var hintNode = shareTools.querySelector("[data-search-share-hint]");
+      if (!hintNode) {
+        return;
+      }
+      hintNode.textContent = String(message || uiText.shareHint);
+      hintNode.classList.toggle("is-error", !!isError);
+      window.clearTimeout(flashShareHint._timer);
+      flashShareHint._timer = window.setTimeout(function () {
+        hintNode.textContent = uiText.shareHint;
+        hintNode.classList.remove("is-error");
+      }, 1600);
+    }
+
+    function copyTextToClipboard(text) {
+      var content = String(text || "");
+      if (!content) {
+        return Promise.reject(new Error("empty"));
+      }
+      if (navigator && navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+        return navigator.clipboard.writeText(content);
+      }
+      return new Promise(function (resolve, reject) {
+        try {
+          var ta = document.createElement("textarea");
+          ta.value = content;
+          ta.setAttribute("readonly", "");
+          ta.style.position = "fixed";
+          ta.style.opacity = "0";
+          ta.style.pointerEvents = "none";
+          document.body.appendChild(ta);
+          ta.select();
+          var ok = document.execCommand("copy");
+          document.body.removeChild(ta);
+          if (!ok) {
+            reject(new Error("copy failed"));
+            return;
+          }
+          resolve();
+        } catch (err) {
+          reject(err || new Error("copy failed"));
+        }
+      });
+    }
+
+    function syncSearchUrlBeforeSharing() {
+      var state = currentSearchState();
+      updateSearchUrl(state.q, state.scope, state.tag);
+      return buildSearchUrlForState(state.q, state.scope, state.tag);
+    }
+
+    function updateShareToolsVisibility() {
+      if (!shareTools) {
+        return;
+      }
+      var state = currentSearchState();
+      var shouldShow = !!(state.q || state.scope !== "all" || state.tag !== "all");
+      shareTools.hidden = !shouldShow;
+      var nativeBtn = shareTools.querySelector("[data-search-share-native]");
+      if (nativeBtn) {
+        nativeBtn.hidden = !supportsNativeShare();
+      }
+    }
+
     function requestUrlSync(mode) {
       if (mode === "push") {
         pendingUrlSyncMode = "push";
@@ -475,10 +653,12 @@
       }
       listNode.textContent = "";
       emptyNode.hidden = true;
+      hideNoResultsRecommendations();
       setFallbackVisibility(false);
       statusNode.textContent = text || dict.searchLoading;
       lastRenderedItems = [];
       activeResultIndex = -1;
+      updateShareToolsVisibility();
     }
 
     function setLoadedState() {
@@ -1120,6 +1300,157 @@
       return score;
     }
 
+    function hideNoResultsRecommendations() {
+      if (!noResultsPanel) {
+        return;
+      }
+      noResultsPanel.hidden = true;
+    }
+
+    function topTagRecommendations(scope, excludeTag) {
+      var counts = Object.create(null);
+      allItems.forEach(function (item) {
+        var itemScope = getSearchItemScope(item);
+        if (scope !== "all" && itemScope !== scope) {
+          return;
+        }
+        getItemTagLabels(item).forEach(function (tagValue) {
+          if (!tagValue || tagValue === "all" || tagValue === excludeTag) {
+            return;
+          }
+          counts[tagValue] = (counts[tagValue] || 0) + 1;
+        });
+      });
+      return Object.keys(counts)
+        .sort(function (a, b) {
+          if (counts[b] !== counts[a]) {
+            return counts[b] - counts[a];
+          }
+          return String(a).localeCompare(String(b));
+        })
+        .slice(0, 8)
+        .map(function (tagValue) {
+          return { tag: tagValue, count: counts[tagValue] };
+        });
+    }
+
+    function buildHotEntries(scope) {
+      var entries = [
+        { href: "research.html", label: uiText.hotResearch, group: "site" },
+        { href: "math.html", label: uiText.hotMath, group: "math" },
+        { href: "yin-le.html", label: uiText.hotMusic, group: "music" },
+        { href: "portfolio-1.html", label: uiText.hotPhoto, group: "photo" },
+        { href: "cv.html", label: uiText.hotCV, group: "cv" },
+        { href: "search.html", label: uiText.hotSearch, group: "site" },
+      ];
+      if (!scope || scope === "all") {
+        return entries.slice(0, 6);
+      }
+      var preferred = entries.filter(function (entry) {
+        return entry.group === scope;
+      });
+      var others = entries.filter(function (entry) {
+        return entry.group !== scope;
+      });
+      return preferred.concat(others).slice(0, 6);
+    }
+
+    function renderNoResultsRecommendations(rawQuery, scope, tag) {
+      if (!noResultsPanel) {
+        return;
+      }
+
+      var lead = noResultsPanel.querySelector(".search-no-results-lead");
+      var tagsBlock = noResultsPanel.querySelector('[data-suggest-block="tags"]');
+      var hotBlock = noResultsPanel.querySelector('[data-suggest-block="hot"]');
+      var tagsTitle = tagsBlock ? tagsBlock.querySelector(".search-suggest-title") : null;
+      var hotTitle = hotBlock ? hotBlock.querySelector(".search-suggest-title") : null;
+      var tagsList = noResultsPanel.querySelector(".search-suggest-tags");
+      var hotList = noResultsPanel.querySelector(".search-suggest-links");
+      var actionsNode = noResultsPanel.querySelector(".search-suggest-actions");
+
+      if (lead) {
+        lead.textContent = uiText.suggestLead;
+      }
+      if (tagsTitle) {
+        tagsTitle.textContent = uiText.suggestTagsTitle;
+      }
+      if (hotTitle) {
+        hotTitle.textContent = uiText.suggestHotTitle;
+      }
+
+      if (tagsList) {
+        tagsList.textContent = "";
+        var tagRecs = topTagRecommendations(scope, tag === "all" ? "" : tag);
+        tagRecs.forEach(function (tagRec) {
+          var btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "search-suggest-chip";
+          btn.textContent = "#" + getMusicTagLabel(tagRec.tag, dict) + " (" + tagRec.count + ")";
+          btn.addEventListener("click", function () {
+            if (Array.from(tagNode.options).some(function (opt) { return opt.value === tagRec.tag; })) {
+              tagNode.value = tagRec.tag;
+              requestUrlSync("push");
+              renderResults();
+            }
+          });
+          tagsList.appendChild(btn);
+        });
+        if (!tagsList.childNodes.length) {
+          var noTag = document.createElement("span");
+          noTag.className = "search-suggest-empty";
+          noTag.textContent = lang === "zh" ? "当前范围暂无可推荐标签" : "No tag suggestions for this scope";
+          tagsList.appendChild(noTag);
+        }
+      }
+
+      if (hotList) {
+        hotList.textContent = "";
+        buildHotEntries(scope).forEach(function (entry) {
+          var link = document.createElement("a");
+          link.className = "search-suggest-link";
+          link.href = entry.href;
+          link.textContent = entry.label;
+          hotList.appendChild(link);
+        });
+      }
+
+      if (actionsNode) {
+        actionsNode.textContent = "";
+        if (rawQuery) {
+          var clearQueryBtn = document.createElement("button");
+          clearQueryBtn.type = "button";
+          clearQueryBtn.className = "search-suggest-action";
+          clearQueryBtn.textContent = uiText.suggestClearQuery;
+          clearQueryBtn.addEventListener("click", function () {
+            inputNode.value = "";
+            requestUrlSync("push");
+            renderResults();
+            inputNode.focus();
+          });
+          actionsNode.appendChild(clearQueryBtn);
+        }
+        if (scope !== "all" || tag !== "all") {
+          var resetBtn = document.createElement("button");
+          resetBtn.type = "button";
+          resetBtn.className = "search-suggest-action";
+          resetBtn.textContent = uiText.suggestReset;
+          resetBtn.addEventListener("click", function () {
+            scopeNode.value = "all";
+            initialTag = "all";
+            buildTagOptions();
+            tagNode.value = "all";
+            requestUrlSync("push");
+            updateFallbackExternalLink();
+            loadItemsForScope("all");
+          });
+          actionsNode.appendChild(resetBtn);
+        }
+      }
+
+      noResultsPanel.hidden = false;
+    }
+
     function renderResults() {
       var rawQuery = String(inputNode.value || "").trim();
 
@@ -1131,6 +1462,7 @@
       setLoadedState();
 
       if (loadError) {
+        updateShareToolsVisibility();
         if (maybeRedirectToExternalSearch(rawQuery)) {
           statusNode.textContent =
             dict.searchFallbackRedirecting || dict.searchFallbackText || dict.searchFallbackExternal;
@@ -1138,6 +1470,7 @@
           emptyNode.textContent = "";
           listNode.textContent = "";
           setFallbackVisibility(true);
+          hideNoResultsRecommendations();
           return;
         }
         statusNode.textContent =
@@ -1146,6 +1479,7 @@
         emptyNode.textContent = "";
         listNode.textContent = "";
         setFallbackVisibility(true);
+        hideNoResultsRecommendations();
         return;
       }
 
@@ -1218,6 +1552,7 @@
       }
       statusNode.textContent = status;
       setFallbackVisibility(false);
+      updateShareToolsVisibility();
 
       listNode.textContent = "";
       if (!matched.length) {
@@ -1225,10 +1560,12 @@
         activeResultIndex = -1;
         emptyNode.hidden = false;
         emptyNode.textContent = rawQuery || tag !== "all" ? dict.searchResultZero : dict.searchEmptyHint;
+        renderNoResultsRecommendations(rawQuery, scope, tag);
         return;
       }
 
       emptyNode.hidden = true;
+      hideNoResultsRecommendations();
       lastRenderedItems = matched.map(function (entry) { return entry.item; });
       var fragment = document.createDocumentFragment();
       var groupRecords = [];
@@ -1375,6 +1712,7 @@
     inputNode.addEventListener("input", function () {
       requestUrlSync("replace");
       updateFallbackExternalLink();
+      updateShareToolsVisibility();
       window.clearTimeout(debounceTimer);
       debounceTimer = window.setTimeout(renderResults, 140);
     });
@@ -1388,6 +1726,7 @@
     tagNode.addEventListener("change", function () {
       requestUrlSync("push");
       updateFallbackExternalLink();
+      updateShareToolsVisibility();
       renderResults();
     });
 
@@ -1406,6 +1745,44 @@
       requestUrlSync("push");
       renderResults();
     });
+
+    if (shareTools) {
+      var copyBtnNode = shareTools.querySelector("[data-search-share-copy]");
+      var nativeBtnNode = shareTools.querySelector("[data-search-share-native]");
+      if (copyBtnNode) {
+        copyBtnNode.addEventListener("click", function () {
+          var shareUrl = syncSearchUrlBeforeSharing();
+          copyTextToClipboard(shareUrl)
+            .then(function () {
+              flashShareHint(uiText.shareCopied, false);
+            })
+            .catch(function () {
+              flashShareHint(uiText.shareCopyFailed, true);
+            });
+        });
+      }
+      if (nativeBtnNode) {
+        nativeBtnNode.addEventListener("click", function () {
+          var shareUrl = syncSearchUrlBeforeSharing();
+          if (!supportsNativeShare()) {
+            flashShareHint(uiText.shareUnavailable, true);
+            return;
+          }
+          navigator
+            .share({
+              title: document.title || uiText.permalinkLabel,
+              text: uiText.permalinkLabel,
+              url: shareUrl,
+            })
+            .catch(function (err) {
+              if (err && err.name === "AbortError") {
+                return;
+              }
+              flashShareHint(uiText.shareCopyFailed, true);
+            });
+        });
+      }
+    }
 
     inputNode.addEventListener("keydown", function (event) {
       if (event.isComposing) {
@@ -1509,6 +1886,7 @@
       initialTag = state.tag || "all";
       requestUrlSync("replace");
       updateFallbackExternalLink();
+      updateShareToolsVisibility();
       loadItemsForScope(scopeNode.value || "all");
     }
 
@@ -1517,6 +1895,7 @@
     });
 
     updateFallbackExternalLink();
+    updateShareToolsVisibility();
     loadItemsForScope(scopeNode.value || "all");
   }
 

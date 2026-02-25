@@ -5801,6 +5801,52 @@ body {
 }
 
 /* Search page product polish */
+.search-index-page .search-status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 2px;
+}
+
+.search-index-page .search-share-tools {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.search-index-page .search-share-btn {
+  border: 1px solid rgba(72, 80, 98, 0.22);
+  background: rgba(248, 251, 255, 0.46);
+  color: rgba(52, 60, 78, 0.88);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 11px;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease;
+}
+
+.search-index-page .search-share-btn:hover,
+.search-index-page .search-share-btn:focus-visible {
+  border-color: rgba(72, 82, 104, 0.34);
+  background: rgba(250, 253, 255, 0.72);
+  color: rgba(37, 45, 62, 0.94);
+}
+
+.search-index-page .search-share-hint {
+  color: rgba(72, 78, 93, 0.66);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.search-index-page .search-share-hint.is-error {
+  color: rgba(133, 62, 62, 0.86);
+}
+
 .search-index-page .search-shortcuts {
   margin: 6px 2px 0;
   color: rgba(72, 78, 93, 0.72);
@@ -5819,7 +5865,129 @@ body {
   color: rgba(24, 30, 42, 0.98);
 }
 
+.search-index-page .search-no-results-panel {
+  margin: 10px 0 4px;
+  padding: 12px 14px;
+  border: 1px solid rgba(78, 87, 107, 0.2);
+  background: rgba(248, 251, 255, 0.42);
+  box-shadow: 0 10px 18px rgba(18, 24, 34, 0.05);
+}
+
+.search-index-page .search-no-results-lead {
+  margin: 0;
+  color: rgba(56, 63, 80, 0.84);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.search-index-page .search-no-results-grid {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.search-index-page .search-suggest-block {
+  border: 1px solid rgba(75, 84, 103, 0.14);
+  background: rgba(251, 253, 255, 0.48);
+  padding: 10px;
+}
+
+.search-index-page .search-suggest-title {
+  margin: 0 0 8px;
+  font-size: 12px;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(64, 72, 90, 0.8);
+}
+
+.search-index-page .search-suggest-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.search-index-page .search-suggest-chip,
+.search-index-page .search-suggest-link,
+.search-index-page .search-suggest-action {
+  border: 1px solid rgba(76, 85, 104, 0.22);
+  background: rgba(249, 252, 255, 0.58);
+  color: rgba(49, 57, 74, 0.9);
+  text-decoration: none;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 11px;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease;
+}
+
+.search-index-page .search-suggest-chip,
+.search-index-page .search-suggest-action {
+  cursor: pointer;
+}
+
+.search-index-page .search-suggest-chip:hover,
+.search-index-page .search-suggest-chip:focus-visible,
+.search-index-page .search-suggest-link:hover,
+.search-index-page .search-suggest-link:focus-visible,
+.search-index-page .search-suggest-action:hover,
+.search-index-page .search-suggest-action:focus-visible {
+  border-color: rgba(72, 82, 105, 0.34);
+  background: rgba(250, 253, 255, 0.78);
+  color: rgba(36, 44, 60, 0.96);
+}
+
+.search-index-page .search-suggest-empty {
+  color: rgba(73, 79, 95, 0.66);
+  font-size: 11px;
+}
+
+.search-index-page .search-suggest-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.search-index-page .search-hit {
+  background: none;
+  color: inherit;
+  padding: 0;
+  border-radius: 0;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  border-bottom: 1px solid rgba(122, 142, 186, 0.32);
+}
+
+.search-index-page .search-result-title .search-hit {
+  border-bottom-color: rgba(112, 132, 178, 0.4);
+}
+
+.search-index-page .search-result-excerpt .search-hit {
+  border-bottom-color: rgba(128, 146, 186, 0.24);
+}
+
 @media (max-width: 640px) {
+  .search-index-page .search-status-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .search-index-page .search-share-tools {
+    width: 100%;
+  }
+
+  .search-index-page .search-share-hint {
+    white-space: normal;
+  }
+
+  .search-index-page .search-no-results-grid {
+    grid-template-columns: 1fr;
+  }
+
   .search-index-page .search-shortcuts {
     font-size: 10px;
     line-height: 1.4;
