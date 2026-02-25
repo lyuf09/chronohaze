@@ -158,7 +158,11 @@
     var meta = document.createElement("div");
     meta.className = "photo-meta";
     meta.appendChild(textNode("p", "photo-date", item.date || item.title || ""));
-    meta.appendChild(textNode("p", "photo-subtitle", item.subtitle || "Read More"));
+    var subtitle = (item && item.subtitle) || "";
+    if (typeof subtitle === "string" && subtitle.trim().toLowerCase() === "read more") {
+      subtitle = "阅读全文";
+    }
+    meta.appendChild(textNode("p", "photo-subtitle", subtitle || "阅读全文"));
     a.appendChild(meta);
     article.appendChild(a);
 

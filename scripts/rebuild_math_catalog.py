@@ -9,12 +9,48 @@ from typing import Dict, List
 CARD_RE = re.compile(r'<article\s+class="math-card"(?P<attrs>[^>]*)>(?P<body>.*?)</article>', re.S)
 ATTR_RE = re.compile(r'([:\w-]+)="([^"]*)"')
 TAG_RE = re.compile(r'<[^>]+>')
+DATE_FULL_ZH_RE = re.compile(r'^\s*(\d{4})年(\d{1,2})月(\d{1,2})日\s*$')
+DATE_MONTH_ZH_RE = re.compile(r'^\s*(\d{4})年(\d{1,2})月\s*$')
+DATE_MD_ZH_RE = re.compile(r'^\s*(\d{1,2})月(\d{1,2})日\s*$')
+
+# Canonical date style for index cards: ISO-like labels
+# (full date: YYYY-MM-DD, month-only: YYYY-MM)
+MATH_DATE_OVERRIDES = {
+    "post/metalcore-piano-lab.html": "2026-02-07",
+    "post/spring-2026.html": "2026-01-29",
+}
 
 
 def clean(fragment: str) -> str:
     txt = fragment.replace('<br />', ' ').replace('<br/>', ' ').replace('<br>', ' ')
     txt = TAG_RE.sub('', txt)
     return re.sub(r'\s+', ' ', html.unescape(txt)).strip()
+
+
+def _zp(n: str) -> str:
+    return f"{int(n):02d}"
+
+
+def normalize_math_date(raw: str, href: str) -> str:
+    value = (raw or "").strip()
+    if not value:
+        return ""
+    if href in MATH_DATE_OVERRIDES:
+        return MATH_DATE_OVERRIDES[href]
+    m = DATE_FULL_ZH_RE.match(value)
+    if m:
+        y, mo, d = m.groups()
+        return f"{y}-{_zp(mo)}-{_zp(d)}"
+    m = DATE_MONTH_ZH_RE.match(value)
+    if m:
+        y, mo = m.groups()
+        return f"{y}-{_zp(mo)}"
+    # Leave unsupported formats unchanged; drift checks will still catch weirdness.
+    m = DATE_MD_ZH_RE.match(value)
+    if m:
+        # Yearless dates should be avoided. Keep original if no explicit override was provided.
+        return value
+    return value
 
 
 def parse_cards(text: str) -> List[Dict[str, object]]:
@@ -32,7 +68,7 @@ def parse_cards(text: str) -> List[Dict[str, object]]:
         items.append({
             'order': idx,
             'url': href,
-            'date': clean(date_m.group(1) if date_m else ''),
+            'date': normalize_math_date(clean(date_m.group(1) if date_m else ''), href),
             'title': clean(title_m.group(1) if title_m else ''),
             'excerpt': clean(desc_m.group(1) if desc_m else ''),
             'readmore_url': (more_m.group(1).strip() if more_m else href),

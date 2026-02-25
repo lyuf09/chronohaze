@@ -2,19 +2,19 @@
   "generated_at": "2026-02-25",
   "items": [
     {
-      "content": "PhD Landing Page Fay Lyu (HazezZ) Optimization · Formal Methods · Game Theory · Data I work at the intersection of optimization, formal methods, and data-oriented modeling. My current research-facing work includes Isabelle/HOL formalization of submodular greedy guarantees, optimization reading/research in ORIE, and prototype-building that turns structured intuition into reproducible pipelines. This page is a short research entry point (interests, current projects, and links). For internships, engineering deployment details, and broader application-facing summaries, see the CV page. Optimization Formal Methods Game Theory Submodularity Isabelle/HOL Data Analytics Engineering Systems {'label': 'Last updated', 'value': '2026-02-25 · 03:50 PM ET', 'datetime': '2026-02-25T15:50:46-05:00'} {'label': 'Current focus', 'value': 'Duality / lower bounds / first-order structure', 'datetime': ''} {'label': 'Outputs', 'value': '2 repos · 1 notes · 1 in prep', 'datetime': ''} Research interests (current) Optimization theory (especially algorithmic structure and first-order methods) Game theory (especially as a mathematical modeling language for strategic structure) Formal methods for mathematics (Isabelle/HOL, proof structure, reusability) Data/signal-to-structure problems and prototype design I care about explicit assumptions, reusable abstractions, and verifiable reasoning Current Projects (3 entry points) Each card shows the research question, method direction, contribution style, and where to read more. Research Outputs (by type) Repos, notes, and in-progress materials organized for quick scanning before deeper reading. What I’m Currently Thinking About Questions and themes I’m actively using to steer reading, proof work, and modeling choices. Selected Links (1-page entry) Research-first entry points; the CV page carries application-facing experience and engineering summaries. Formal Methods · Optimization Theory An Ongoing Isabelle Research Project: Formalising Submodular Greedy Formalize the classical greedy (1−1/e) approximation guarantee for monotone submodular maximization under a cardinality constraint. Split the development into constructive and approximation-analysis layers, then encode assumptions and intermediate lemmas explicitly in Isabelle/HOL. Building reusable formal scaffolding + documenting design choices and proof decomposition as a research log. Research note GitHub repo Optimization Research · Duality / Lower Bounds Spring 2026 | A New Research Direction (Cornell ORIE) Understand which dual / lower-bound framework gives nontrivial information for a graph-relative-difference distance-fitting objective (B-encoded), with current focus on constrained/composite first-order structure and duality. Compare DC/Fenchel-based dualization against plain Lagrangian duals, and analyze where relaxation becomes too loose (unconstrainedness / translation invariance / non-identifiability). Right now we’re trying to understand which dual framework gives nontrivial information for this distance-fitting objective. The DC/Fenchel route gives a clean conjugate-based dual with explicit domain conditions, while the most natural plain Lagrangian duals turn out to be too loose and collapse to the trivial bound 0 due to unconstrainedness and translation invariance. The next step is to tighten the relaxation (e.g., via gauge-fixing and/or an augmented Lagrangian / ADMM viewpoint) to obtain an informative bound or an algorithmically useful dual. Dual-framework comparison, structural diagnosis of degeneracy, and research-note documentation of the evolving problem formulation. Research note Math archive Signal / Discretization Prototype · Data-oriented Systems Metalcore Piano Lab | From Audio to Chart (WIP) Map continuous audio (or MIDI) into a playable rhythm-game style chart as a structured discretization problem. Onset/beat detection, tempo tracking, segmentation, alignment, and playability-oriented constraints. Browser-native prototype + research-style documentation of assumptions, failure modes, and next optimization targets. Research note GitHub repo Formal Methods Isabelle Submodular Greedy (repo) Active Theory files, constructive/approximation split, and reusable lemmas for submodular greedy formalization. Prototype Metalcore Piano Lab (repo) In prep Browser-native prototype turning audio/MIDI into playable chart structures, with explicit failure modes and next steps. Research Notes Math / Research Archive Active Optimization notes, Isabelle formalization logs, and ongoing research records with technical context. Faculty Summary 1-page research summary (PDF-ready) Draft One-page overview of interests, current projects, methods, and entry links for faculty/PhD readers. Which dual formulations remain informative under non-identifiability / translation invariance, and which collapse to trivial lower bounds. How to design reusable proof structure in Isabelle/HOL so formalization artifacts scale beyond one theorem statement. When a “natural” relaxation is too loose: what structural fix (gauge-fixing, constraints, augmentation) restores useful information. How signal-like inputs (audio, temporal traces) can be mapped into discrete, computable structures without losing interpretability. How optimization / formal methods / modeling can share one language of explicit assumptions and reproducible abstractions.",
-      "section": "Site",
+      "sort": 20260225,
+      "url": "research.html",
+      "content": "PhD Landing Page Fay Lyu (HazezZ) Optimization · Formal Methods · Game Theory · Data I work at the intersection of optimization, formal methods, and data-oriented modeling. My current research-facing work includes Isabelle/HOL formalization of submodular greedy guarantees, optimization reading/research in ORIE, and prototype-building that turns structured intuition into reproducible pipelines. This page is a short research entry point (interests, current projects, and links). For internships, engineering deployment details, and broader application-facing summaries, see the CV page. Optimization Formal Methods Game Theory Submodularity Isabelle/HOL Data Analytics Engineering Systems {'label': 'Last updated', 'value': '2026-02-25 · 04:14 PM ET', 'datetime': '2026-02-25T16:14:09-05:00'} {'label': 'Current focus', 'value': 'Duality / lower bounds / first-order structure', 'datetime': ''} {'label': 'Outputs', 'value': '2 repos · 1 notes · 1 in prep', 'datetime': ''} Research interests (current) Optimization theory (especially algorithmic structure and first-order methods) Game theory (especially as a mathematical modeling language for strategic structure) Formal methods for mathematics (Isabelle/HOL, proof structure, reusability) Data/signal-to-structure problems and prototype design I care about explicit assumptions, reusable abstractions, and verifiable reasoning Current Projects (3 entry points) Each card shows the research question, method direction, contribution style, and where to read more. Research Outputs (by type) Repos, notes, and in-progress materials organized for quick scanning before deeper reading. What I’m Currently Thinking About Questions and themes I’m actively using to steer reading, proof work, and modeling choices. Selected Links (1-page entry) Research-first entry points; the CV page carries application-facing experience and engineering summaries. Formal Methods · Optimization Theory An Ongoing Isabelle Research Project: Formalising Submodular Greedy Formalize the classical greedy (1−1/e) approximation guarantee for monotone submodular maximization under a cardinality constraint. Split the development into constructive and approximation-analysis layers, then encode assumptions and intermediate lemmas explicitly in Isabelle/HOL. Building reusable formal scaffolding + documenting design choices and proof decomposition as a research log. Research note GitHub repo Optimization Research · Duality / Lower Bounds Spring 2026 | A New Research Direction (Cornell ORIE) Understand which dual / lower-bound framework gives nontrivial information for a graph-relative-difference distance-fitting objective (B-encoded), with current focus on constrained/composite first-order structure and duality. Compare DC/Fenchel-based dualization against plain Lagrangian duals, and analyze where relaxation becomes too loose (unconstrainedness / translation invariance / non-identifiability). Right now we’re trying to understand which dual framework gives nontrivial information for this distance-fitting objective. The DC/Fenchel route gives a clean conjugate-based dual with explicit domain conditions, while the most natural plain Lagrangian duals turn out to be too loose and collapse to the trivial bound 0 due to unconstrainedness and translation invariance. The next step is to tighten the relaxation (e.g., via gauge-fixing and/or an augmented Lagrangian / ADMM viewpoint) to obtain an informative bound or an algorithmically useful dual. Dual-framework comparison, structural diagnosis of degeneracy, and research-note documentation of the evolving problem formulation. Research note Math archive Signal / Discretization Prototype · Data-oriented Systems Metalcore Piano Lab | From Audio to Chart (WIP) Map continuous audio (or MIDI) into a playable rhythm-game style chart as a structured discretization problem. Onset/beat detection, tempo tracking, segmentation, alignment, and playability-oriented constraints. Browser-native prototype + research-style documentation of assumptions, failure modes, and next optimization targets. Research note GitHub repo Formal Methods Isabelle Submodular Greedy (repo) Active Theory files, constructive/approximation split, and reusable lemmas for submodular greedy formalization. Prototype Metalcore Piano Lab (repo) In prep Browser-native prototype turning audio/MIDI into playable chart structures, with explicit failure modes and next steps. Research Notes Math / Research Archive Active Optimization notes, Isabelle formalization logs, and ongoing research records with technical context. Faculty Summary 1-page research summary (PDF-ready) Draft One-page overview of interests, current projects, methods, and entry links for faculty/PhD readers. Which dual formulations remain informative under non-identifiability / translation invariance, and which collapse to trivial lower bounds. How to design reusable proof structure in Isabelle/HOL so formalization artifacts scale beyond one theorem statement. When a “natural” relaxation is too loose: what structural fix (gauge-fixing, constraints, augmentation) restores useful information. How signal-like inputs (audio, temporal traces) can be mapped into discrete, computable structures without losing interpretability. How optimization / formal methods / modeling can share one language of explicit assumptions and reproducible abstractions.",
+      "scope": "site",
+      "excerpt": "Each card shows the research question, method direction, contribution style, and where to read more.",
+      "title": "Research | Fay Lyu (HazezZ)",
       "tags": [
         "research",
         "optimization",
         "formal-methods"
       ],
-      "url": "research.html",
-      "scope": "site",
-      "date": "",
-      "title": "Research | Fay Lyu (HazezZ)",
-      "excerpt": "Each card shows the research question, method direction, contribution style, and where to read more.",
-      "sort": 20260225
+      "section": "Site",
+      "date": ""
     },
     {
       "title": "搜索 / Search",
@@ -75,7 +75,7 @@
       "title": "Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP）",
       "url": "post/metalcore-piano-lab.html",
       "section": "Mathematics",
-      "date": "2月7日",
+      "date": "2026-02-07",
       "excerpt": "从连续音频到可玩的谱面：起音检测、节拍网格、段落对齐与可玩性约束。",
       "tags": [
         "math",
@@ -89,7 +89,7 @@
       "title": "Spring 2026｜新科研记录的开始",
       "url": "post/spring-2026.html",
       "section": "Mathematics",
-      "date": "1月29日",
+      "date": "2026-01-29",
       "excerpt": "从纯数学走向优化研究：一个学期的研究训练与新的问题切入口。",
       "tags": [
         "math",
@@ -103,7 +103,7 @@
       "title": "一个正在进行的 Isabelle 研究项目：Submodular Greedy 的形式化",
       "url": "post/isabelle-submodular-greedy.html",
       "section": "Mathematics",
-      "date": "2025年12月29日",
+      "date": "2025-12-29",
       "excerpt": "在 Isabelle 中形式化单调子模函数下贪心算法的近似保证。",
       "tags": [
         "math",
@@ -135,7 +135,7 @@
       "title": "我的第一个 Isabelle 形式化证明",
       "url": "post/first-isabelle-proof.html",
       "section": "Mathematics",
-      "date": "2025年10月18日",
+      "date": "2025-10-18",
       "excerpt": "把可验证性嵌进证明过程：从动机到 Nemhauser–Wolsey theorem。",
       "tags": [
         "math",
@@ -185,7 +185,7 @@
       "url": "photo/photo-14.html",
       "section": "Photography",
       "date": "30/08/2025",
-      "excerpt": "Read More",
+      "excerpt": "阅读全文",
       "tags": [
         "photo",
         "featured"
@@ -199,7 +199,7 @@
       "url": "photo/photo-13.html",
       "section": "Photography",
       "date": "05/04/2025 - Memories of you",
-      "excerpt": "Read More",
+      "excerpt": "阅读全文",
       "tags": [
         "photo",
         "featured"
@@ -213,7 +213,7 @@
       "url": "photo/photo-12.html",
       "section": "Photography",
       "date": "02/01/2025",
-      "excerpt": "Read More",
+      "excerpt": "阅读全文",
       "tags": [
         "photo"
       ],
@@ -311,7 +311,7 @@
       "url": "photo/photo-10.html",
       "section": "Photography",
       "date": "20/04/2024",
-      "excerpt": "Read More",
+      "excerpt": "阅读全文",
       "tags": [
         "photo",
         "featured"
@@ -499,7 +499,7 @@
       "url": "photo/photo-08.html",
       "section": "Photography",
       "date": "09/08/2023",
-      "excerpt": "Read More",
+      "excerpt": "阅读全文",
       "tags": [
         "photo",
         "featured"
@@ -513,7 +513,7 @@
       "url": "photo/photo-11.html",
       "section": "Photography",
       "date": "21/10/2023",
-      "excerpt": "Read More",
+      "excerpt": "阅读全文",
       "tags": [
         "photo",
         "featured"
@@ -527,7 +527,7 @@
       "url": "photo/photo-07.html",
       "section": "Photography",
       "date": "01/04/2023",
-      "excerpt": "Read More",
+      "excerpt": "阅读全文",
       "tags": [
         "photo",
         "featured"
@@ -541,7 +541,7 @@
       "url": "photo/photo-09.html",
       "section": "Photography",
       "date": "17/09/2023",
-      "excerpt": "Read More",
+      "excerpt": "阅读全文",
       "tags": [
         "photo"
       ],
@@ -554,7 +554,7 @@
       "url": "photo/photo-06.html",
       "section": "Photography",
       "date": "11/03/2023",
-      "excerpt": "Read More",
+      "excerpt": "阅读全文",
       "tags": [
         "photo"
       ],
@@ -686,7 +686,7 @@
       "url": "photo/photo-05.html",
       "section": "Photography",
       "date": "2022、夏、某",
-      "excerpt": "Read More",
+      "excerpt": "阅读全文",
       "tags": [
         "photo"
       ],
@@ -699,7 +699,7 @@
       "url": "photo/photo-04.html",
       "section": "Photography",
       "date": "14/06/2022",
-      "excerpt": "Read More",
+      "excerpt": "阅读全文",
       "tags": [
         "photo"
       ],
@@ -712,7 +712,7 @@
       "url": "photo/photo-01.html",
       "section": "Photography",
       "date": "12/04/2022",
-      "excerpt": "Read More",
+      "excerpt": "阅读全文",
       "tags": [
         "photo"
       ],
@@ -725,7 +725,7 @@
       "url": "photo/photo-03.html",
       "section": "Photography",
       "date": "01/06/2022",
-      "excerpt": "Read More",
+      "excerpt": "阅读全文",
       "tags": [
         "photo"
       ],
@@ -738,7 +738,7 @@
       "url": "photo/photo-02.html",
       "section": "Photography",
       "date": "01/05/2022",
-      "excerpt": "Read More",
+      "excerpt": "阅读全文",
       "tags": [
         "photo"
       ],

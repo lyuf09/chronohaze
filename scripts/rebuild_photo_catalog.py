@@ -81,6 +81,8 @@ def parse_archive(text: str, featured_urls: set[str]) -> List[Dict[str, object]]
         sub_m = re.search(r'<p\s+class="photo-subtitle">(.*?)</p>', body, re.S)
         date_text = clean(date_m.group(1) if date_m else '')
         subtitle = clean(sub_m.group(1) if sub_m else '')
+        if subtitle.strip().lower() == 'read more':
+            subtitle = '阅读全文'
         is_film = 'photo-card-film' in class_extra or href.endswith('/blue.html')
         tags = ['photo']
         if href in featured_urls:

@@ -7904,6 +7904,72 @@
     return labels[index];
   }
 
+  function normalizeDisplayDateText(text) {
+    if (typeof text !== "string" || !text) {
+      return text;
+    }
+
+    function pad2(value) {
+      var n = Number(value);
+      if (!isFinite(n)) {
+        return String(value);
+      }
+      return n < 10 ? "0" + n : String(n);
+    }
+
+    var next = text;
+    var enMonthMap = {
+      jan: "01",
+      january: "01",
+      feb: "02",
+      february: "02",
+      mar: "03",
+      march: "03",
+      apr: "04",
+      april: "04",
+      may: "05",
+      jun: "06",
+      june: "06",
+      jul: "07",
+      july: "07",
+      aug: "08",
+      august: "08",
+      sep: "09",
+      sept: "09",
+      september: "09",
+      oct: "10",
+      october: "10",
+      nov: "11",
+      november: "11",
+      dec: "12",
+      december: "12",
+    };
+
+    next = next.replace(
+      /(\d{4})年(\d{1,2})月(\d{1,2})日/g,
+      function (_m, year, month, day) {
+        return year + "-" + pad2(month) + "-" + pad2(day);
+      }
+    );
+    next = next.replace(/(\d{4})年(\d{1,2})月(?!\d)/g, function (_m, year, month) {
+      return year + "-" + pad2(month);
+    });
+
+    next = next.replace(
+      /\b([A-Za-z]{3,9})\s+(\d{1,2}),\s*(\d{4})\b/g,
+      function (_m, monthWord, day, year) {
+        var key = String(monthWord || "").toLowerCase();
+        var month = enMonthMap[key];
+        if (!month) {
+          return _m;
+        }
+        return year + "-" + month + "-" + pad2(day);
+      }
+    );
+
+    return next;
+  }
+
   function localizeShortLabelText(text, safeLang) {
     if (safeLang !== "en" || typeof text !== "string" || !text) {
       return text;
@@ -7949,7 +8015,7 @@
       [/返回摄影栏目/g, "Back to photography"],
       [/返回音乐栏目/g, "Back to music"],
       [/返回数学栏目/g, "Back to mathematics"],
-      [/阅读全文/g, "Read full article"],
+      [/阅读全文/g, "Read More"],
     ];
 
     phraseMap.forEach(function (pair) {
@@ -9386,6 +9452,12 @@
 
     Array.from(document.querySelectorAll(".math-more")).forEach(function (node) {
       node.textContent = dict.readMore;
+    });
+
+    Array.from(
+      document.querySelectorAll(".track-date, .math-date, .article-meta, .photo-date")
+    ).forEach(function (node) {
+      node.textContent = normalizeDisplayDateText(node.textContent || "");
     });
 
     if (safeLang === "en") {

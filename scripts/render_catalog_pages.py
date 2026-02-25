@@ -199,7 +199,10 @@ def render_photo_archive(items: List[Dict[str, Any]], image_manifest: Dict[str, 
             )
         rows.append('    <div class="photo-meta">')
         rows.append(f'      <p class="photo-date">{esc_text(item.get("date") or item.get("title"))}</p>')
-        rows.append(f'      <p class="photo-subtitle">{esc_text(item.get("subtitle") or "Read More")}</p>')
+        subtitle = str(item.get("subtitle") or "").strip()
+        if subtitle.lower() == "read more":
+            subtitle = "阅读全文"
+        rows.append(f'      <p class="photo-subtitle">{esc_text(subtitle or "阅读全文")}</p>')
         rows.append('    </div>')
         rows.append('  </a>')
         rows.append("</article>")
