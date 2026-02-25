@@ -91,3 +91,18 @@ test("album page renders cover and track links", async ({ page }) => {
 
   expect(errors).toEqual([]);
 });
+
+test("photo detail page supports keyboard prev/next navigation", async ({ page }) => {
+  const errors = trackPageErrors(page);
+  await page.goto("photo/photo-01.html", { waitUntil: "domcontentloaded" });
+
+  await expect(page.locator(".photo-detail-article, .photo-blue-article")).toBeVisible();
+  await expect(page.locator(".photo-detail-pager")).toBeVisible();
+  await expect(page.locator(".photo-detail-pager [data-photo-nav-label='next']")).toBeVisible();
+
+  await page.keyboard.press("ArrowRight");
+  await expect(page).toHaveURL(/photo\/photo-02\.html$/);
+  await expect(page.locator(".photo-detail-pager")).toBeVisible();
+
+  expect(errors).toEqual([]);
+});

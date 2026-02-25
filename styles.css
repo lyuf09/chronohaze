@@ -6286,4 +6286,42 @@ body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+
+  .floating-site-logo {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .floating-site-logo::before,
+  .floating-site-logo::after {
+    filter: none !important;
+  }
+
+  body.motion-enhanced .motion-reveal,
+  body.motion-enhanced .motion-reveal.is-in {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+
+  .lyrics-showcase .lyrics-showcase-title,
+  .lyrics-showcase .lyrics-column-left,
+  .lyrics-showcase .lyrics-column-right,
+  .lyrics-showcase.is-anim-ready .lyrics-showcase-title,
+  .lyrics-showcase.is-anim-ready .lyrics-column-left,
+  .lyrics-showcase.is-anim-ready .lyrics-column-right,
+  .lyrics-showcase.is-visible .lyrics-showcase-title,
+  .lyrics-showcase.is-visible .lyrics-column-left,
+  .lyrics-showcase.is-visible .lyrics-column-right {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+
+  .search-index-page .search-skeleton-item {
+    animation: none !important;
+    background-size: 100% 100% !important;
+  }
 }
