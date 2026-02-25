@@ -153,7 +153,7 @@ def render_research_outputs(items: List[Dict[str, Any]]) -> str:
         attrs = ' target="_blank" rel="noopener noreferrer"' if item.get("external") else ""
         rows.extend(
             [
-                f'<a class="research-output-card" href="{esc(item.get("href"))}"{attrs}>',
+                f'<a class="research-output-card"{attr_if("data-output-type", item.get("type"))} href="{esc(item.get("href"))}"{attrs}>',
                 f'  <span class="research-output-kicker">{esc_text(item.get("kicker"))}</span>',
                 f'  <strong>{esc_text(item.get("title"))}</strong>',
                 f'  <span class="research-output-status">{esc_text(item.get("status"))}</span>',
@@ -161,6 +161,25 @@ def render_research_outputs(items: List[Dict[str, Any]]) -> str:
                 "</a>",
             ]
         )
+    return "\n".join(rows)
+
+
+def render_research_output_groups(groups: List[Dict[str, Any]]) -> str:
+    rows: List[str] = []
+    for group in groups:
+        items = group.get("items") or []
+        if not items:
+            continue
+        rows.append(f'<section class="research-output-group" data-output-group="{esc(group.get("key"))}">')
+        rows.append('  <div class="research-output-group-head">')
+        rows.append(f'    <h3>{esc_text(group.get("title"))}</h3>')
+        if group.get("lead"):
+            rows.append(f'    <p>{esc_text(group.get("lead"))}</p>')
+        rows.append("  </div>")
+        rows.append('  <div class="research-outputs-grid">')
+        rows.append(indent(render_research_outputs(items).splitlines(), "    "))
+        rows.append("  </div>")
+        rows.append("</section>")
     return indent(rows, "          ")
 
 
@@ -182,6 +201,80 @@ def render_research_links(items: List[Dict[str, Any]]) -> str:
             ]
         )
     return indent(rows, "          ")
+
+
+def render_research_summary_meta(payload: Dict[str, Any]) -> str:
+    hero = payload.get("hero") or {}
+    meta_items = (payload.get("meta") or {}).get("items") or []
+    current_focus = ""
+    last_updated = payload.get("generated_at") or ""
+    for item in meta_items:
+        label = str(item.get("label") or "").strip().lower()
+        if label == "current focus":
+            current_focus = str(item.get("value") or "").strip()
+        if label == "last updated":
+            last_updated = str(item.get("value") or last_updated or "").strip()
+    rows = [
+        '<div class="research-summary-meta-grid">',
+        '  <div class="research-summary-meta-card">',
+        '    <span class="research-summary-meta-label">Name</span>',
+        f'    <strong>{esc_text(hero.get("name"))}</strong>',
+        "  </div>",
+        '  <div class="research-summary-meta-card">',
+        '    <span class="research-summary-meta-label">Focus</span>',
+        f'    <strong>{esc_text(current_focus)}</strong>',
+        "  </div>",
+        '  <div class="research-summary-meta-card">',
+        '    <span class="research-summary-meta-label">Last updated</span>',
+        f'    <strong>{esc_text(last_updated)}</strong>',
+        "  </div>",
+        "</div>",
+    ]
+    return indent(rows, "        ")
+
+
+def render_research_summary_projects(items: List[Dict[str, Any]]) -> str:
+    rows: List[str] = []
+    for idx, item in enumerate(items[:3], start=1):
+        rows.extend(
+            [
+                '<article class="research-summary-project">',
+                f'  <p class="research-summary-kicker">Project {idx}</p>',
+                f'  <h3>{esc_text(item.get("title"))}</h3>',
+                f'  <p><strong>Problem:</strong> {esc_text(item.get("problem"))}</p>',
+                f'  <p><strong>Method:</strong> {esc_text(item.get("method"))}</p>',
+            ]
+        )
+        links = item.get("links") or []
+        if links:
+            rows.append('  <p class="research-summary-links">')
+            label_links = []
+            for link in links:
+                if not link.get("href"):
+                    continue
+                label_links.append(f'<a href="{esc(link.get("href"))}">{esc_text(link.get("label") or link.get("href"))}</a>')
+            rows.append("    " + " · ".join(label_links))
+            rows.append("  </p>")
+        rows.append("</article>")
+    return indent(rows, "        ")
+
+
+def render_research_summary_outputs(groups: List[Dict[str, Any]]) -> str:
+    rows: List[str] = []
+    for group in groups:
+        key = str(group.get("key") or "")
+        if key == "other":
+            continue
+        rows.append('<div class="research-summary-output-group">')
+        rows.append(f'  <h3>{esc_text(group.get("title"))}</h3>')
+        rows.append("  <ul>")
+        for item in (group.get("items") or [])[:4]:
+            rows.append(
+                f'    <li><a href="{esc(item.get("href"))}">{esc_text(item.get("title"))}</a> <span>{esc_text(item.get("status"))}</span></li>'
+            )
+        rows.append("  </ul>")
+        rows.append("</div>")
+    return indent(rows, "        ")
 
 
 def main() -> int:
@@ -221,7 +314,7 @@ def main() -> int:
         research_html, "research-projects", render_research_projects(research_catalog.get("projects") or [])
     )
     research_html = replace_between_markers(
-        research_html, "research-outputs", render_research_outputs(research_catalog.get("outputs") or [])
+        research_html, "research-outputs", render_research_output_groups(research_catalog.get("output_groups") or [])
     )
     research_html = replace_between_markers(
         research_html, "research-now", render_research_now(research_catalog.get("now_items") or [])
@@ -231,10 +324,27 @@ def main() -> int:
     )
     research_html_path.write_text(research_html, encoding="utf-8")
 
+    # research-summary.html (print / PDF-ready one-page brief)
+    research_summary_path = root / "research-summary.html"
+    if research_summary_path.exists():
+        research_summary = research_summary_path.read_text(encoding="utf-8")
+        research_summary = replace_between_markers(
+            research_summary, "research-summary-meta", render_research_summary_meta(research_catalog)
+        )
+        research_summary = replace_between_markers(
+            research_summary, "research-summary-projects", render_research_summary_projects(research_catalog.get("projects") or [])
+        )
+        research_summary = replace_between_markers(
+            research_summary, "research-summary-outputs", render_research_summary_outputs(research_catalog.get("output_groups") or [])
+        )
+        research_summary_path.write_text(research_summary, encoding="utf-8")
+
     print("Rendered generated content blocks into:")
     print(f"- {math_html_path}")
     print(f"- {photo_html_path}")
     print(f"- {research_html_path}")
+    if research_summary_path.exists():
+        print(f"- {research_summary_path}")
     return 0
 
 

@@ -155,6 +155,58 @@
     return a;
   }
 
+  function groupResearchOutputs(outputs, declaredGroups) {
+    var groups = [];
+    var byKey = Object.create(null);
+    var sourceGroups = Array.isArray(declaredGroups) ? declaredGroups : [];
+    sourceGroups.forEach(function (g) {
+      if (!g || !g.key) return;
+      var key = String(g.key);
+      var group = {
+        key: key,
+        title: g.title || key,
+        lead: g.lead || "",
+        items: []
+      };
+      groups.push(group);
+      byKey[key] = group;
+    });
+    (Array.isArray(outputs) ? outputs : []).forEach(function (item) {
+      if (!item) return;
+      var key = item.type || "other";
+      if (!byKey[key]) {
+        byKey[key] = { key: key, title: key, lead: "", items: [] };
+        groups.push(byKey[key]);
+      }
+      byKey[key].items.push(item);
+    });
+    return groups.filter(function (g) { return g.items && g.items.length; });
+  }
+
+  function buildResearchOutputGroup(group) {
+    var section = document.createElement("section");
+    section.className = "research-output-group";
+    section.setAttribute("data-output-group", group.key || "");
+    var head = document.createElement("div");
+    head.className = "research-output-group-head";
+    var h3 = document.createElement("h3");
+    h3.textContent = group.title || group.key || "Outputs";
+    head.appendChild(h3);
+    if (group.lead) {
+      var p = document.createElement("p");
+      p.textContent = group.lead;
+      head.appendChild(p);
+    }
+    section.appendChild(head);
+    var grid = document.createElement("div");
+    grid.className = "research-outputs-grid";
+    (group.items || []).forEach(function (item) {
+      grid.appendChild(buildOutputCard(item));
+    });
+    section.appendChild(grid);
+    return section;
+  }
+
   function applyResearchCatalog(payload) {
     if (!payload || typeof payload !== "object") {
       return;
@@ -165,6 +217,7 @@
     var interests = payload.interests || {};
     var projects = Array.isArray(payload.projects) ? payload.projects : [];
     var outputs = Array.isArray(payload.outputs) ? payload.outputs : [];
+    var outputGroups = Array.isArray(payload.output_groups) ? payload.output_groups : [];
     var nowItems = Array.isArray(payload.now_items) ? payload.now_items : [];
     var links = Array.isArray(payload.links) ? payload.links : [];
     var projectsSection = payload.projects_section || {};
@@ -269,11 +322,11 @@
         if (oh2 && outputsSection.title) oh2.textContent = outputsSection.title;
         if (op && outputsSection.lead) op.textContent = outputsSection.lead;
       }
-      var outputsGrid = outputsSectionRoot.querySelector(".research-outputs-grid");
-      if (outputsGrid && outputs.length) {
-        outputsGrid.textContent = "";
-        outputs.forEach(function (item) {
-          outputsGrid.appendChild(buildOutputCard(item));
+      var outputsShell = outputsSectionRoot.querySelector(".research-outputs-shell, .research-outputs-grid");
+      if (outputsShell && outputs.length) {
+        outputsShell.textContent = "";
+        groupResearchOutputs(outputs, outputGroups).forEach(function (group) {
+          outputsShell.appendChild(buildResearchOutputGroup(group));
         });
       }
     }

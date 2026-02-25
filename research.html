@@ -84,9 +84,14 @@
               </div>
               <div class="research-meta-pill">
                 <span class="research-meta-label">Outputs</span>
-                <span>Repos · notes · in-progress writeups</span>
+                <span>2 repos · 1 notes · 1 in prep</span>
               </div>
               <!-- GENERATED:research-meta:end -->
+            </div>
+            <div class="research-cta-row" aria-label="Research quick actions">
+              <a class="research-cta-link" href="research-summary.html" target="_blank" rel="noopener noreferrer">1-page faculty summary (PDF-ready)</a>
+              <a class="research-cta-link" href="#research-projects">Current projects</a>
+              <a class="research-cta-link" href="#research-outputs">Outputs</a>
             </div>
           </div>
           <aside class="research-hero-panel" aria-label="Quick profile">
@@ -102,7 +107,7 @@
         </div>
       </section>
 
-      <section class="section research-projects-section">
+      <section class="section research-projects-section" id="research-projects">
         <div class="container research-section-head">
           <h2>Current Projects (3 entry points)</h2>
           <p>Each card shows the research question, method direction, contribution style, and where to read more.</p>
@@ -147,37 +152,61 @@
         </div>
       </section>
 
-      <section class="section research-outputs-section">
+      <section class="section research-outputs-section" id="research-outputs">
         <div class="container research-section-head">
-          <h2>Research Outputs (selected)</h2>
-          <p>Working repos, notes, and artifacts that show current direction (not only finished results).</p>
+          <h2>Research Outputs (by type)</h2>
+          <p>Repos, notes, and in-progress materials organized for quick scanning before deeper reading.</p>
         </div>
-        <div class="container research-outputs-grid">
+        <div class="container research-outputs-shell">
           <!-- GENERATED:research-outputs:start -->
-          <a class="research-output-card" href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">
-            <span class="research-output-kicker">Formal Methods</span>
-            <strong>Isabelle Submodular Greedy (repo)</strong>
-            <span class="research-output-status">Active · Isabelle/HOL formalization</span>
-            <p>Theory files, constructive/approximation split, and reusable lemmas for submodular greedy formalization.</p>
-          </a>
-          <a class="research-output-card" href="math.html">
-            <span class="research-output-kicker">Research Notes</span>
-            <strong>Math / Research Archive</strong>
-            <span class="research-output-status">Active · Logs + writeups</span>
-            <p>Optimization notes, Isabelle formalization logs, and ongoing research records with technical context.</p>
-          </a>
-          <a class="research-output-card" href="https://github.com/lyuf09/metalcore-piano-lab" target="_blank" rel="noopener noreferrer">
-            <span class="research-output-kicker">Prototype</span>
-            <strong>Metalcore Piano Lab (repo)</strong>
-            <span class="research-output-status">WIP · Signal-to-structure system</span>
-            <p>Browser-native prototype turning audio/MIDI into playable chart structures, with explicit failure modes and next steps.</p>
-          </a>
-          <a class="research-output-card" href="cv.html?lang=en">
-            <span class="research-output-kicker">Application Context</span>
-            <strong>Public CV (overview)</strong>
-            <span class="research-output-status">Updated · Contact-safe summary</span>
-            <p>Condensed, application-facing view of experience, patents, internships, and engineering systems work.</p>
-          </a>
+          <section class="research-output-group" data-output-group="repo">
+            <div class="research-output-group-head">
+              <h3>Repos</h3>
+              <p>Codebases and prototype implementations</p>
+            </div>
+            <div class="research-outputs-grid">
+              <a class="research-output-card" data-output-type="repo" href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">
+      <span class="research-output-kicker">Formal Methods</span>
+      <strong>Isabelle Submodular Greedy (repo)</strong>
+      <span class="research-output-status">Active · Isabelle/HOL formalization</span>
+      <p>Theory files, constructive/approximation split, and reusable lemmas for submodular greedy formalization.</p>
+    </a>
+    <a class="research-output-card" data-output-type="repo" href="https://github.com/lyuf09/metalcore-piano-lab" target="_blank" rel="noopener noreferrer">
+      <span class="research-output-kicker">Prototype</span>
+      <strong>Metalcore Piano Lab (repo)</strong>
+      <span class="research-output-status">WIP · Signal-to-structure system</span>
+      <p>Browser-native prototype turning audio/MIDI into playable chart structures, with explicit failure modes and next steps.</p>
+    </a>
+            </div>
+          </section>
+          <section class="research-output-group" data-output-group="notes">
+            <div class="research-output-group-head">
+              <h3>Notes</h3>
+              <p>Research notes, logs, and technical writeups</p>
+            </div>
+            <div class="research-outputs-grid">
+              <a class="research-output-card" data-output-type="notes" href="math.html">
+      <span class="research-output-kicker">Research Notes</span>
+      <strong>Math / Research Archive</strong>
+      <span class="research-output-status">Active · Logs + writeups</span>
+      <p>Optimization notes, Isabelle formalization logs, and ongoing research records with technical context.</p>
+    </a>
+            </div>
+          </section>
+          <section class="research-output-group" data-output-group="in_prep">
+            <div class="research-output-group-head">
+              <h3>In prep</h3>
+              <p>Shareable drafts and materials being refined</p>
+            </div>
+            <div class="research-outputs-grid">
+              <a class="research-output-card" data-output-type="in_prep" href="research-summary.html" target="_blank" rel="noopener noreferrer">
+      <span class="research-output-kicker">Faculty Summary</span>
+      <strong>1-page research summary (PDF-ready)</strong>
+      <span class="research-output-status">Draft · Print/export for quick review</span>
+      <p>One-page overview of interests, current projects, methods, and entry links for faculty/PhD readers.</p>
+    </a>
+            </div>
+          </section>
           <!-- GENERATED:research-outputs:end -->
         </div>
       </section>
@@ -221,6 +250,11 @@
             <span class="research-fast-link-kicker">Notes</span>
             <strong>Math / Research Notes</strong>
             <span>Optimization, Isabelle formalization, and experimental logs.</span>
+          </a>
+          <a class="research-fast-link" href="research-summary.html" target="_blank" rel="noopener noreferrer">
+            <span class="research-fast-link-kicker">Faculty view</span>
+            <strong>1-page research summary (PDF-ready)</strong>
+            <span>Print/export-friendly summary for quick faculty review before opening notes/repos.</span>
           </a>
           <a class="research-fast-link" href="mailto:feier530@icloud.com">
             <span class="research-fast-link-kicker">Contact</span>

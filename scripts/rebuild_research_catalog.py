@@ -20,6 +20,32 @@ def clean(fragment: str) -> str:
     return re.sub(r"\s+", " ", html.unescape(text)).strip()
 
 
+def classify_output_type(item: Dict[str, Any]) -> str:
+    explicit = str(item.get("type") or "").strip().lower()
+    if explicit:
+        return explicit
+    title = str(item.get("title") or "").lower()
+    kicker = str(item.get("kicker") or "").lower()
+    status = str(item.get("status") or "").lower()
+    if "repo" in title or "github" in title or "prototype" in kicker:
+        return "repo"
+    if "note" in kicker or "archive" in title:
+        return "notes"
+    if "draft" in status or "in prep" in status:
+        return "in_prep"
+    return "other"
+
+
+def marker_block(text: str, marker: str) -> str:
+    start = f"<!-- GENERATED:{marker}:start -->"
+    end = f"<!-- GENERATED:{marker}:end -->"
+    si = text.find(start)
+    ei = text.find(end)
+    if si < 0 or ei < 0 or ei < si:
+        return ""
+    return text[si + len(start) : ei]
+
+
 def parse_links(html_text: str, selector_class: str) -> List[Dict[str, Any]]:
     pattern = re.compile(
         rf'<a\s+class="{re.escape(selector_class)}"([^>]*)href="([^"]+)"([^>]*)>(.*?)</a>',
@@ -124,7 +150,7 @@ def parse_research_page(text: str) -> Dict[str, Any]:
         }
 
     project_section_m = re.search(
-        r'<section class="section research-projects-section">(.*?)</section>',
+        r'<section[^>]*class="section research-projects-section"[^>]*>(.*?)</section>',
         text,
         re.S,
     )
@@ -141,8 +167,9 @@ def parse_research_page(text: str) -> Dict[str, Any]:
                 else "",
             }
 
+        projects_block = marker_block(text, "research-projects") or block
         card_pattern = re.compile(r'<article class="research-project-card">(.*?)</article>', re.S)
-        for card in card_pattern.finditer(block):
+        for card in card_pattern.finditer(projects_block):
             body = card.group(1) or ""
             kind_m = re.search(r'<p class="research-project-kind">(.*?)</p>', body, re.S)
             title_m = re.search(r"<h3>(.*?)</h3>", body, re.S)
@@ -181,7 +208,7 @@ def parse_research_page(text: str) -> Dict[str, Any]:
             )
 
     outputs_section_m = re.search(
-        r'<section class="section research-outputs-section">(.*?)</section>',
+        r'<section[^>]*class="section research-outputs-section"[^>]*>(.*?)</section>',
         text,
         re.S,
     )
@@ -198,13 +225,16 @@ def parse_research_page(text: str) -> Dict[str, Any]:
                 else "",
             }
 
-        for a_m in re.finditer(r'<a\s+class="research-output-card"([^>]*)href="([^"]+)"([^>]*)>(.*?)</a>', block, re.S):
+        outputs_block = marker_block(text, "research-outputs") or block
+        for a_m in re.finditer(r'<a\s+class="research-output-card"([^>]*)href="([^"]+)"([^>]*)>(.*?)</a>', outputs_block, re.S):
             attrs = " ".join([(a_m.group(1) or ""), (a_m.group(3) or "")])
             body = a_m.group(4) or ""
+            type_m = re.search(r'data-output-type="([^"]+)"', attrs)
             payload["outputs"].append(
                 {
                     "href": (a_m.group(2) or "").strip(),
                     "external": ('target="_blank"' in attrs or 'rel="noopener' in attrs),
+                    "type": clean(type_m.group(1) if type_m else ""),
                     "kicker": clean(
                         re.search(r'<span class="research-output-kicker">(.*?)</span>', body, re.S).group(1)
                     )
@@ -225,7 +255,7 @@ def parse_research_page(text: str) -> Dict[str, Any]:
             )
 
     now_section_m = re.search(
-        r'<section class="section research-now-section">(.*?)</section>',
+        r'<section[^>]*class="section research-now-section"[^>]*>(.*?)</section>',
         text,
         re.S,
     )
@@ -241,10 +271,11 @@ def parse_research_page(text: str) -> Dict[str, Any]:
                 if re.search(r"<p>(.*?)</p>", head_m.group(1), re.S)
                 else "",
             }
-        payload["now_items"] = [clean(x) for x in re.findall(r"<li>(.*?)</li>", block, re.S) if clean(x)]
+        now_block = marker_block(text, "research-now") or block
+        payload["now_items"] = [clean(x) for x in re.findall(r"<li>(.*?)</li>", now_block, re.S) if clean(x)]
 
     links_section_m = re.search(
-        r'<section class="section research-fast-links-section">(.*?)</section>',
+        r'<section[^>]*class="section research-fast-links-section"[^>]*>(.*?)</section>',
         text,
         re.S,
     )
@@ -260,9 +291,13 @@ def parse_research_page(text: str) -> Dict[str, Any]:
                 if re.search(r"<p>(.*?)</p>", head_m.group(1), re.S)
                 else "",
             }
-        grid_m = re.search(r'<div class="container research-fast-links-grid">(.*?)</div>', block, re.S)
-        if grid_m:
-            payload["links"] = parse_links(grid_m.group(1), "research-fast-link")
+        links_block = marker_block(text, "research-links")
+        if links_block:
+            payload["links"] = parse_links(links_block, "research-fast-link")
+        else:
+            grid_m = re.search(r'<div class="container research-fast-links-grid">(.*?)</div>', block, re.S)
+            if grid_m:
+                payload["links"] = parse_links(grid_m.group(1), "research-fast-link")
 
     title_m = re.search(r"<title>(.*?)</title>", text, re.S)
     desc_m = re.search(r'<meta\s+name="description"\s+content="([^"]*)"', text, re.S)
@@ -304,6 +339,50 @@ def parse_research_page(text: str) -> Dict[str, Any]:
             )
     for item in payload.get("now_items", []):
         content_parts.append(str(item))
+    today = date.today().isoformat()
+    today_sort = int(today.replace("-", ""))
+
+    # Build-time source of truth for "Last updated" (avoid hand-edited timestamps in HTML).
+    meta_items = list((payload.get("meta") or {}).get("items") or [])
+    has_last_updated = False
+    for item in meta_items:
+        if str(item.get("label") or "").strip().lower() == "last updated":
+            item["value"] = today
+            item["datetime"] = today
+            has_last_updated = True
+            break
+    if not has_last_updated:
+        meta_items.insert(0, {"label": "Last updated", "value": today, "datetime": today})
+    if not payload.get("meta"):
+        payload["meta"] = {}
+    payload["meta"]["items"] = meta_items
+
+    outputs = [o for o in payload.get("outputs", []) if isinstance(o, dict)]
+    for item in outputs:
+        item["type"] = classify_output_type(item)
+    type_order = [
+        ("repo", "Repos", "Codebases and prototype implementations"),
+        ("notes", "Notes", "Research notes, logs, and technical writeups"),
+        ("in_prep", "In prep", "Shareable drafts and materials being refined"),
+        ("other", "Other", "Supporting links"),
+    ]
+    grouped: List[Dict[str, Any]] = []
+    for key, title, lead in type_order:
+        group_items = [item for item in outputs if item.get("type") == key]
+        if not group_items:
+            continue
+        grouped.append({"key": key, "title": title, "lead": lead, "items": group_items})
+    payload["outputs"] = outputs
+    payload["output_groups"] = grouped
+
+    repo_count = sum(1 for item in outputs if item.get("type") == "repo")
+    notes_count = sum(1 for item in outputs if item.get("type") == "notes")
+    prep_count = sum(1 for item in outputs if item.get("type") == "in_prep")
+    for item in meta_items:
+        if str(item.get("label") or "").strip().lower() == "outputs":
+            item["value"] = f"{repo_count} repos · {notes_count} notes · {prep_count} in prep"
+            item["datetime"] = ""
+
     payload["search"] = {
         "title": "Research | Fay Lyu (HazezZ)",
         "url": "research.html",
@@ -311,7 +390,7 @@ def parse_research_page(text: str) -> Dict[str, Any]:
         "date": "",
         "excerpt": search_excerpt or "Research landing page",
         "tags": ["research", "optimization", "formal-methods"],
-        "sort": 20260224,
+        "sort": today_sort,
         "scope": "site",
         "content": clean(" ".join(content_parts)),
         "meta_title": clean(title_m.group(1) if title_m else ""),
