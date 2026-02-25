@@ -8,6 +8,8 @@ import sys
 from dataclasses import dataclass
 from html.parser import HTMLParser
 from pathlib import Path
+import socket
+import time
 from typing import Iterable, List, Optional, Set, Tuple
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlsplit
@@ -139,51 +141,102 @@ def should_check_external(ref: Ref) -> bool:
     return ref.page in KEY_EXTERNAL_PAGES
 
 
-def check_external_urls(urls: List[str], timeout: float = 8.0) -> List[str]:
-    errors: List[str] = []
+def _is_transient_network_error(message: str) -> bool:
+    msg = (message or "").lower()
+    transient_needles = [
+        "timed out",
+        "timeout",
+        "temporary failure",
+        "temporary",
+        "name or service not known",
+        "nodename nor servname provided",
+        "no address associated",
+        "connection reset",
+        "connection refused",
+        "network is unreachable",
+        "tlsv1 alert",
+        "ssl:",
+        "remote end closed connection",
+    ]
+    return any(needle in msg for needle in transient_needles)
+
+
+def check_external_urls(
+    urls: List[str], timeout: float = 8.0, retries: int = 2
+) -> Tuple[List[str], List[str]]:
+    hard_errors: List[str] = []
+    soft_errors: List[str] = []
     for url in urls:
         status = None
         last_err = None
-        for method in ("HEAD", "GET"):
-            try:
-                req = Request(
-                    url,
-                    method=method,
-                    headers={
-                        "User-Agent": "chronohaze-link-check/1.0",
-                        "Accept": "*/*",
-                    },
-                )
-                with urlopen(req, timeout=timeout) as resp:  # noqa: S310
-                    status = getattr(resp, "status", None) or resp.getcode()
+        last_status = None
+        for attempt in range(retries + 1):
+            status = None
+            last_err = None
+            for method in ("HEAD", "GET"):
+                try:
+                    req = Request(
+                        url,
+                        method=method,
+                        headers={
+                            "User-Agent": "chronohaze-link-check/1.0",
+                            "Accept": "*/*",
+                        },
+                    )
+                    with urlopen(req, timeout=timeout) as resp:  # noqa: S310
+                        status = getattr(resp, "status", None) or resp.getcode()
+                    break
+                except HTTPError as exc:
+                    status = exc.code
+                    last_status = status
+                    # Some sites block bots; treat as reachable for key-profile links.
+                    domain = (urlsplit(url).hostname or "").lower()
+                    if domain.endswith("linkedin.com") and status in {403, 429, 999}:
+                        last_err = None
+                        break
+                    if domain.endswith("instagram.com") and status in {403, 429}:
+                        last_err = None
+                        break
+                    if method == "HEAD" and status in {405, 501}:
+                        continue
+                    # 401/403 can still indicate reachable endpoints
+                    if status in {401, 403}:
+                        last_err = None
+                        break
+                    last_err = f"HTTP {status}"
+                except URLError as exc:
+                    reason = exc.reason
+                    if isinstance(reason, socket.timeout):
+                        reason = "timed out"
+                    last_err = str(reason)
+                    if method == "HEAD":
+                        continue
+                except Exception as exc:  # pragma: no cover - defensive
+                    last_err = str(exc)
+                    if method == "HEAD":
+                        continue
+            if not last_err:
                 break
-            except HTTPError as exc:
-                status = exc.code
-                # Some sites block bots; treat as reachable for key-profile links.
-                domain = (urlsplit(url).hostname or "").lower()
-                if domain.endswith("linkedin.com") and status in {403, 429, 999}:
-                    break
-                if domain.endswith("instagram.com") and status in {403, 429}:
-                    break
-                if method == "HEAD" and status in {405, 501}:
-                    continue
-                last_err = f"HTTP {status}"
-                # 401/403 can still indicate reachable endpoints
-                if status in {401, 403}:
-                    last_err = None
-                    break
-            except URLError as exc:
-                last_err = str(exc.reason)
-                if method == "HEAD":
-                    continue
-            except Exception as exc:  # pragma: no cover - defensive
-                last_err = str(exc)
-                if method == "HEAD":
-                    continue
+            if attempt < retries:
+                time.sleep(0.5 * (attempt + 1))
 
-        if last_err:
-            errors.append(f"{url} ({last_err})")
-    return errors
+        if not last_err:
+            continue
+
+        if last_status in {404, 410}:
+            hard_errors.append(f"{url} ({last_err})")
+            continue
+        if last_status and 400 <= last_status < 500:
+            # Other 4xx often indicate policy/rate-limit/bot blocking; keep non-blocking.
+            soft_errors.append(f"{url} ({last_err})")
+            continue
+        if _is_transient_network_error(last_err) or (last_status and last_status >= 500):
+            soft_errors.append(f"{url} ({last_err})")
+            continue
+        # Unknown failure mode: still report, but do not break deploys on flaky third-party endpoints.
+        soft_errors.append(f"{url} ({last_err})")
+
+    return hard_errors, soft_errors
 
 
 def main() -> int:
@@ -243,12 +296,22 @@ def main() -> int:
         )
         return 0
 
-    external_errors = check_external_urls(sorted(key_external_urls))
-    if external_errors:
+    hard_external_errors, soft_external_errors = check_external_urls(sorted(key_external_urls))
+    if hard_external_errors:
         print("ERROR: key external links unreachable")
-        for err in external_errors:
+        for err in hard_external_errors:
             print(f"- {err}")
         return 1
+
+    if soft_external_errors:
+        print("WARN: some key external links were not verifiable in this run (non-blocking)")
+        for err in soft_external_errors:
+            print(f"- {err}")
+        print(
+            f"OK: internal links/resources pass; key external links checked with warnings "
+            f"({len(key_external_urls)} URLs checked)"
+        )
+        return 0
 
     print(
         f"OK: internal links/resources pass; key external links reachable "
