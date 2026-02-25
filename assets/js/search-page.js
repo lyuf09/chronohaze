@@ -154,6 +154,8 @@
     var lang = detectPreferredLanguage();
     var dict = getSecondaryPageDictionary(lang);
     var SEARCH_STATE_KEY = "chronohaze:search-state:v1";
+    var SEARCH_HISTORY_KEY = "chronohaze:search-history:v1";
+    var SEARCH_HISTORY_LIMIT = 8;
 
     function readUrlState() {
       var url = new URL(window.location.href);
@@ -199,6 +201,64 @@
           })
         );
       } catch (_e) {}
+    }
+
+    function readSearchHistory() {
+      try {
+        var raw = window.localStorage.getItem(SEARCH_HISTORY_KEY);
+        if (!raw) {
+          return [];
+        }
+        var parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed)) {
+          return [];
+        }
+        return parsed
+          .map(function (entry) {
+            return {
+              q: String(entry && entry.q ? entry.q : "").trim(),
+              scope: String(entry && entry.scope ? entry.scope : "all"),
+              tag: String(entry && entry.tag ? entry.tag : "all"),
+              ts: Number(entry && entry.ts ? entry.ts : 0) || 0,
+            };
+          })
+          .filter(function (entry) {
+            return entry.q || entry.scope !== "all" || entry.tag !== "all";
+          })
+          .slice(0, SEARCH_HISTORY_LIMIT);
+      } catch (_e) {
+        return [];
+      }
+    }
+
+    function persistSearchHistory(entries) {
+      try {
+        window.localStorage.setItem(
+          SEARCH_HISTORY_KEY,
+          JSON.stringify((Array.isArray(entries) ? entries : []).slice(0, SEARCH_HISTORY_LIMIT))
+        );
+      } catch (_e) {}
+    }
+
+    function pushSearchHistoryEntry(query, scope, tag) {
+      var q = String(query || "").trim();
+      var s = String(scope || "all");
+      var t = String(tag || "all");
+      if (!q && s === "all" && t === "all") {
+        return;
+      }
+      var next = readSearchHistory();
+      var key = [q, s, t].join("\u0001");
+      next = next.filter(function (entry) {
+        return [entry.q, entry.scope, entry.tag].join("\u0001") !== key;
+      });
+      next.unshift({
+        q: q,
+        scope: s,
+        tag: t,
+        ts: Date.now(),
+      });
+      persistSearchHistory(next);
     }
 
     var urlState = readUrlState();
@@ -260,6 +320,13 @@
       hotSearch: lang === "zh" ? "搜索页首页" : "Search home",
       shareHint: lang === "zh" ? "当前筛选可复制 / 分享" : "Shareable filtered URL",
       permalinkLabel: lang === "zh" ? "搜索链接" : "Search permalink",
+      navQuickTitle: lang === "zh" ? "快速入口" : "Quick links",
+      navRecentTitle: lang === "zh" ? "最近搜索" : "Recent searches",
+      navTagsTitle: lang === "zh" ? "热门标签" : "Popular tags",
+      navRecentEmpty: lang === "zh" ? "还没有最近搜索" : "No recent searches yet",
+      navApplyScopeOnly: lang === "zh" ? "只看此栏" : "Browse this section",
+      navClearRecent: lang === "zh" ? "清空记录" : "Clear history",
+      navAllTagsFallback: lang === "zh" ? "加载后显示" : "Shown after index loads",
     };
 
     if (titleNode) {
@@ -368,6 +435,36 @@
       statusNode.parentNode.insertBefore(shortcutsHintNode, statusNode.nextSibling);
     }
 
+    var navPanel = document.querySelector(".search-nav-panel");
+    if (!navPanel && listNode.parentNode) {
+      navPanel = document.createElement("section");
+      navPanel.className = "search-nav-panel";
+      navPanel.setAttribute("aria-label", lang === "zh" ? "搜索导航入口" : "Search navigation hub");
+      navPanel.innerHTML =
+        '<div class="search-nav-grid">' +
+          '<section class="search-nav-block" data-search-nav-block="quick">' +
+            '<div class="search-nav-head">' +
+              '<h2 class="search-nav-title"></h2>' +
+            "</div>" +
+            '<div class="search-nav-list search-nav-quick-links"></div>' +
+          "</section>" +
+          '<section class="search-nav-block" data-search-nav-block="recent">' +
+            '<div class="search-nav-head">' +
+              '<h2 class="search-nav-title"></h2>' +
+              '<button type="button" class="search-nav-clear-btn" data-search-nav-clear hidden></button>' +
+            "</div>" +
+            '<div class="search-nav-list search-nav-recent-list"></div>' +
+          "</section>" +
+          '<section class="search-nav-block" data-search-nav-block="tags">' +
+            '<div class="search-nav-head">' +
+              '<h2 class="search-nav-title"></h2>' +
+            "</div>" +
+            '<div class="search-nav-list search-nav-tag-list"></div>' +
+          "</section>" +
+        "</div>";
+      listNode.parentNode.insertBefore(navPanel, listNode);
+    }
+
     var scopeLabels = {
       all: dict.searchScopeAll,
       math: dict.searchScopeMath,
@@ -446,6 +543,157 @@
       var href = "https://www.google.com/search?q=" + encodeURIComponent(q);
       fallbackExternalNode.href = href;
       return href;
+    }
+
+    function formatRecentSearchLabel(entry) {
+      var parts = [];
+      if (entry.q) {
+        parts.push(entry.q);
+      } else if (entry.scope !== "all") {
+        parts.push(scopeLabels[entry.scope] || entry.scope);
+      } else {
+        parts.push(lang === "zh" ? "浏览" : "Browse");
+      }
+      var metaParts = [];
+      if (entry.scope && entry.scope !== "all") {
+        metaParts.push(scopeLabels[entry.scope] || entry.scope);
+      }
+      if (entry.tag && entry.tag !== "all") {
+        metaParts.push("#" + getMusicTagLabel(entry.tag, dict));
+      }
+      return {
+        main: parts.join(" "),
+        meta: metaParts.join(" · "),
+      };
+    }
+
+    function applySearchStateAndRender(nextState) {
+      var next = nextState || {};
+      inputNode.value = String(next.q || "");
+      var nextScope = String(next.scope || "all");
+      if (Array.from(scopeNode.options).some(function (option) { return option.value === nextScope; })) {
+        scopeNode.value = nextScope;
+      } else {
+        scopeNode.value = "all";
+      }
+      initialTag = String(next.tag || "all");
+      requestUrlSync("push");
+      updateFallbackExternalLink();
+      updateShareToolsVisibility();
+      loadItemsForScope(scopeNode.value || "all").then(function () {
+        if (tagNode && Array.from(tagNode.options).some(function (opt) { return opt.value === initialTag; })) {
+          tagNode.value = initialTag;
+          renderResults();
+        }
+      });
+    }
+
+    function renderSearchNavHub() {
+      if (!navPanel) {
+        return;
+      }
+      var scope = scopeNode.value || "all";
+      var currentTag = tagNode.value || "all";
+      var quickBlock = navPanel.querySelector('[data-search-nav-block="quick"]');
+      var recentBlock = navPanel.querySelector('[data-search-nav-block="recent"]');
+      var tagBlock = navPanel.querySelector('[data-search-nav-block="tags"]');
+      var quickTitle = quickBlock ? quickBlock.querySelector(".search-nav-title") : null;
+      var recentTitle = recentBlock ? recentBlock.querySelector(".search-nav-title") : null;
+      var tagTitle = tagBlock ? tagBlock.querySelector(".search-nav-title") : null;
+      var quickList = navPanel.querySelector(".search-nav-quick-links");
+      var recentList = navPanel.querySelector(".search-nav-recent-list");
+      var tagList = navPanel.querySelector(".search-nav-tag-list");
+      var clearBtn = navPanel.querySelector("[data-search-nav-clear]");
+
+      if (quickTitle) quickTitle.textContent = uiText.navQuickTitle;
+      if (recentTitle) recentTitle.textContent = uiText.navRecentTitle;
+      if (tagTitle) {
+        tagTitle.textContent =
+          uiText.navTagsTitle + (scope !== "all" ? " · " + (scopeLabels[scope] || scope) : "");
+      }
+
+      if (quickList) {
+        quickList.textContent = "";
+        buildHotEntries(scope).forEach(function (entry) {
+          var link = document.createElement("a");
+          link.className = "search-nav-link-chip";
+          link.href = entry.href;
+          link.textContent = entry.label;
+          quickList.appendChild(link);
+        });
+      }
+
+      var recent = readSearchHistory();
+      if (clearBtn) {
+        clearBtn.hidden = recent.length === 0;
+        clearBtn.textContent = uiText.navClearRecent;
+        clearBtn.onclick = function () {
+          persistSearchHistory([]);
+          renderSearchNavHub();
+        };
+      }
+
+      if (recentList) {
+        recentList.textContent = "";
+        if (!recent.length) {
+          var emptyRecent = document.createElement("span");
+          emptyRecent.className = "search-nav-empty";
+          emptyRecent.textContent = uiText.navRecentEmpty;
+          recentList.appendChild(emptyRecent);
+        } else {
+          recent.slice(0, SEARCH_HISTORY_LIMIT).forEach(function (entry) {
+            var btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "search-nav-history-chip";
+            var label = formatRecentSearchLabel(entry);
+            btn.innerHTML =
+              '<span class="search-nav-history-main"></span>' +
+              (label.meta ? '<span class="search-nav-history-meta"></span>' : "");
+            btn.querySelector(".search-nav-history-main").textContent = label.main;
+            var metaNode = btn.querySelector(".search-nav-history-meta");
+            if (metaNode) {
+              metaNode.textContent = label.meta;
+            }
+            btn.addEventListener("click", function () {
+              applySearchStateAndRender(entry);
+            });
+            recentList.appendChild(btn);
+          });
+        }
+      }
+
+      if (tagList) {
+        tagList.textContent = "";
+        if (!loaded || loadError) {
+          var pending = document.createElement("span");
+          pending.className = "search-nav-empty";
+          pending.textContent = uiText.navAllTagsFallback;
+          tagList.appendChild(pending);
+        } else {
+          topTagRecommendations(scope, currentTag === "all" ? "" : currentTag)
+            .slice(0, 10)
+            .forEach(function (tagRec) {
+              var chip = document.createElement("button");
+              chip.type = "button";
+              chip.className = "search-nav-tag-chip";
+              chip.textContent = "#" + getMusicTagLabel(tagRec.tag, dict) + " (" + tagRec.count + ")";
+              chip.addEventListener("click", function () {
+                if (Array.from(tagNode.options).some(function (opt) { return opt.value === tagRec.tag; })) {
+                  tagNode.value = tagRec.tag;
+                  requestUrlSync("push");
+                  renderResults();
+                }
+              });
+              tagList.appendChild(chip);
+            });
+          if (!tagList.childNodes.length) {
+            var noTags = document.createElement("span");
+            noTags.className = "search-nav-empty";
+            noTags.textContent = lang === "zh" ? "当前范围暂无标签" : "No tags in current scope";
+            tagList.appendChild(noTags);
+          }
+        }
+      }
     }
 
     function maybeRedirectToExternalSearch(rawQuery) {
@@ -659,6 +907,7 @@
       lastRenderedItems = [];
       activeResultIndex = -1;
       updateShareToolsVisibility();
+      renderSearchNavHub();
     }
 
     function setLoadedState() {
@@ -669,6 +918,7 @@
         skeletonNode.style.display = "none";
       }
       setFallbackVisibility(false);
+      renderSearchNavHub();
     }
 
     function getResultLinks() {
@@ -1553,6 +1803,7 @@
       statusNode.textContent = status;
       setFallbackVisibility(false);
       updateShareToolsVisibility();
+      renderSearchNavHub();
 
       listNode.textContent = "";
       if (!matched.length) {
@@ -1742,6 +1993,8 @@
         scope: scopeNode.value || "all",
         tag: tagNode.value || "all",
       });
+      pushSearchHistoryEntry(inputNode.value || "", scopeNode.value || "all", tagNode.value || "all");
+      renderSearchNavHub();
       requestUrlSync("push");
       renderResults();
     });
@@ -1896,6 +2149,7 @@
 
     updateFallbackExternalLink();
     updateShareToolsVisibility();
+    renderSearchNavHub();
     loadItemsForScope(scopeNode.value || "all");
   }
 
