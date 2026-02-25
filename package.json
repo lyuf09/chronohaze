@@ -1,0 +1,10 @@
+{
+  "name": "chronohaze-site-checks",
+  "private": true,
+  "devDependencies": {
+    "@playwright/test": "^1.54.2"
+  },
+  "scripts": {
+    "smoke:runtime": "bash scripts/run_playwright_smoke.sh"
+  }
+}

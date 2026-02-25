@@ -1,0 +1,344 @@
+(function () {
+  "use strict";
+
+  function fallbackDetectPreferredLanguage() {
+    try {
+      var fromQuery = new URL(window.location.href).searchParams.get("lang");
+      if (fromQuery === "en" || fromQuery === "zh") {
+        return fromQuery;
+      }
+    } catch (_err) {}
+
+    var activeBtn = document.querySelector(".lang-btn.active[data-lang]");
+    if (activeBtn) {
+      return activeBtn.getAttribute("data-lang") === "en" ? "en" : "zh";
+    }
+
+    var htmlLang = (document.documentElement && document.documentElement.lang) || "";
+    if (/^en\b/i.test(htmlLang)) {
+      return "en";
+    }
+    return "zh";
+  }
+
+  function fallbackNormalizeText(value) {
+    return String(value || "").replace(/\s+/g, " ").trim();
+  }
+
+  function ensureMusicTranscriptPanel(options) {
+    var detectPreferredLanguage =
+      (options && typeof options.detectPreferredLanguage === "function"
+        ? options.detectPreferredLanguage
+        : fallbackDetectPreferredLanguage);
+    var normalizeText =
+      (options && typeof options.normalizeText === "function"
+        ? options.normalizeText
+        : fallbackNormalizeText);
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var audios = Array.from(article.querySelectorAll("audio"));
+    if (!audios.length) {
+      return;
+    }
+
+    var preferredLang = detectPreferredLanguage();
+    var isEn = preferredLang === "en";
+    var allH2Headings = Array.from(article.querySelectorAll("h2"));
+    var lyricHeadings = allH2Headings.filter(function (heading) {
+      var text = normalizeText(heading.textContent || "").toLowerCase();
+      return text.indexOf(normalizeText("歌词").toLowerCase()) >= 0 || text.indexOf("lyrics") >= 0;
+    });
+    var hasLyrics = lyricHeadings.length > 0 || !!article.querySelector(".lyrics-showcase");
+    var notesHeading = allH2Headings.find(function (heading) {
+      var text = normalizeText(heading.textContent || "").toLowerCase();
+      return (
+        text === normalizeText("作品介绍").toLowerCase() ||
+        text === normalizeText("About the work").toLowerCase() ||
+        text === normalizeText("作品介绍 / About the work").toLowerCase()
+      );
+    });
+    var hasWorkIntro = !!notesHeading;
+
+    var playerTitleNodes = Array.from(article.querySelectorAll(".music-player-track-title"));
+    var playerTitles = playerTitleNodes
+      .map(function (node) {
+        return String(node.textContent || "").trim();
+      })
+      .filter(Boolean);
+
+    if (!playerTitles.length) {
+      var pageTitle = article.querySelector("h1");
+      if (pageTitle && pageTitle.textContent) {
+        playerTitles.push(String(pageTitle.textContent).trim());
+      }
+    }
+
+    var details = article.querySelector(".music-transcript-details");
+    if (!details) {
+      details = document.createElement("details");
+      details.className = "music-transcript-details";
+
+      var summary = document.createElement("summary");
+      summary.className = "music-transcript-summary";
+      var summaryMain = document.createElement("span");
+      summaryMain.className = "music-transcript-summary-main";
+      summary.appendChild(summaryMain);
+      var summaryMeta = document.createElement("span");
+      summaryMeta.className = "music-transcript-summary-meta";
+      summary.appendChild(summaryMeta);
+      details.appendChild(summary);
+
+      var body = document.createElement("div");
+      body.className = "music-transcript-body";
+
+      var caption = document.createElement("p");
+      caption.className = "music-transcript-caption";
+      body.appendChild(caption);
+
+      var status = document.createElement("p");
+      status.className = "music-transcript-status";
+      status.hidden = true;
+      body.appendChild(status);
+
+      var nav = document.createElement("nav");
+      nav.className = "music-transcript-nav";
+      nav.setAttribute("aria-label", "Transcript quick links");
+      body.appendChild(nav);
+
+      var empty = document.createElement("p");
+      empty.className = "music-transcript-empty";
+      empty.hidden = true;
+      body.appendChild(empty);
+
+      details.appendChild(body);
+    }
+
+    if (!details.querySelector(".music-transcript-summary-main") || !details.querySelector(".music-transcript-nav")) {
+      details.innerHTML = "";
+      var migratedSummary = document.createElement("summary");
+      migratedSummary.className = "music-transcript-summary";
+      var migratedSummaryMain = document.createElement("span");
+      migratedSummaryMain.className = "music-transcript-summary-main";
+      migratedSummary.appendChild(migratedSummaryMain);
+      var migratedSummaryMeta = document.createElement("span");
+      migratedSummaryMeta.className = "music-transcript-summary-meta";
+      migratedSummary.appendChild(migratedSummaryMeta);
+      details.appendChild(migratedSummary);
+
+      var migratedBody = document.createElement("div");
+      migratedBody.className = "music-transcript-body";
+
+      var migratedCaption = document.createElement("p");
+      migratedCaption.className = "music-transcript-caption";
+      migratedBody.appendChild(migratedCaption);
+
+      var migratedStatus = document.createElement("p");
+      migratedStatus.className = "music-transcript-status";
+      migratedStatus.hidden = true;
+      migratedBody.appendChild(migratedStatus);
+
+      var migratedNav = document.createElement("nav");
+      migratedNav.className = "music-transcript-nav";
+      migratedNav.setAttribute("aria-label", "Transcript quick links");
+      migratedBody.appendChild(migratedNav);
+
+      var migratedEmpty = document.createElement("p");
+      migratedEmpty.className = "music-transcript-empty";
+      migratedEmpty.hidden = true;
+      migratedBody.appendChild(migratedEmpty);
+
+      details.appendChild(migratedBody);
+    }
+
+    var firstHeading = article.querySelector("h2");
+    var lyricsSection = article.querySelector(".lyrics-showcase");
+    if (notesHeading && !notesHeading.id) {
+      notesHeading.id = "track-notes";
+    }
+    if (lyricsSection && !lyricsSection.id) {
+      lyricsSection.id = "track-lyrics";
+    }
+    if (!lyricsSection && lyricHeadings.length && !lyricHeadings[0].id) {
+      lyricHeadings[0].id = "track-lyrics";
+    }
+
+    if (firstHeading) {
+      if (details.parentNode !== article || details.nextElementSibling !== firstHeading) {
+        article.insertBefore(details, firstHeading);
+      }
+    } else if (details.parentNode !== article) {
+      article.appendChild(details);
+    }
+
+    var captionNode = details.querySelector(".music-transcript-caption");
+    var statusNode = details.querySelector(".music-transcript-status");
+    var navNode = details.querySelector(".music-transcript-nav");
+    var emptyNode = details.querySelector(".music-transcript-empty");
+    var summaryNode = details.querySelector(".music-transcript-summary");
+    var summaryMainNode = details.querySelector(".music-transcript-summary-main");
+    var summaryMetaNode = details.querySelector(".music-transcript-summary-meta");
+
+    var trackLabel;
+    if (playerTitles.length <= 1) {
+      trackLabel = playerTitles[0] || (isEn ? "this track" : "本页音频");
+    } else {
+      trackLabel = isEn
+        ? playerTitles.slice(0, 2).join(" / ") + (playerTitles.length > 2 ? " +" + String(playerTitles.length - 2) : "")
+        : playerTitles.slice(0, 2).join(" / ") + (playerTitles.length > 2 ? " 等" : "");
+    }
+
+    var transcriptLinks = [];
+    if (hasWorkIntro && notesHeading && notesHeading.id) {
+      transcriptLinks.push({ key: "notes", href: "#" + notesHeading.id });
+    }
+    var lyricTargetNode = lyricsSection || lyricHeadings[0] || null;
+    if (hasLyrics && lyricTargetNode && lyricTargetNode.id) {
+      transcriptLinks.push({ key: "lyrics", href: "#" + lyricTargetNode.id });
+    }
+
+    var timelineReady = article.dataset.transcriptTimelineReady === "1";
+    if (timelineReady && article.dataset.transcriptTimelineTarget) {
+      transcriptLinks.push({
+        key: "timeline",
+        href: article.dataset.transcriptTimelineTarget,
+      });
+    }
+
+    var labelDict = isEn
+      ? {
+          summaryMain: "Accessibility / Transcript",
+          containsPrefix: "Contains:",
+          notes: "Notes",
+          lyrics: "Lyrics",
+          timeline: "Timeline",
+          statusPrefix: "Status:",
+          statusNotes: "Notes",
+          statusLyrics: "Lyrics",
+          statusTimeline: "Timeline",
+          statusAvailable: "Available",
+          statusPending: "Pending",
+          statusNoLyrics: "No lyrics (instrumental or not provided)",
+          caption:
+            "Quick jump to existing text alternatives on this page. " +
+            (playerTitles.length ? "Track: " + trackLabel + "." : ""),
+          empty:
+            "This page currently has no additional transcript navigation items. Existing notes/lyrics may appear below depending on the track.",
+        }
+      : {
+          summaryMain: "Accessibility / Transcript",
+          containsPrefix: "本页含：",
+          notes: "Notes / 作品介绍",
+          lyrics: "Lyrics / 歌词",
+          timeline: "Timeline / 时间轴",
+          statusPrefix: "状态：",
+          statusNotes: "Notes",
+          statusLyrics: "Lyrics",
+          statusTimeline: "Timeline",
+          statusAvailable: "已提供",
+          statusPending: "待补充",
+          statusNoLyrics: "无歌词（纯音乐或暂未提供）",
+          caption:
+            "用于快速跳转到本页已有的文字信息（作品介绍 / 歌词）。" +
+            (playerTitles.length ? " 当前音频：" + trackLabel + "。" : ""),
+          empty: "本页暂时没有可跳转的转录导航项（内容可能仍在下方正文中）。",
+        };
+
+    if (summaryMainNode) {
+      summaryMainNode.textContent = labelDict.summaryMain;
+    }
+    if (summaryMetaNode) {
+      var containsItems = transcriptLinks.map(function (item) {
+        return labelDict[item.key] || item.key;
+      });
+      if (!containsItems.length) {
+        containsItems.push(isEn ? "Text" : "文本");
+      }
+      summaryMetaNode.textContent = labelDict.containsPrefix + " " + containsItems.join(" / ");
+    }
+
+    if (summaryNode) {
+      summaryNode.setAttribute(
+        "aria-label",
+        (isEn ? "Accessibility and transcript panel for " : "无障碍与转录面板：") + trackLabel
+      );
+    }
+
+    if (captionNode) {
+      captionNode.textContent = labelDict.caption;
+    }
+
+    if (statusNode) {
+      statusNode.innerHTML = "";
+      var statusPrefix = document.createElement("span");
+      statusPrefix.className = "music-transcript-status-label";
+      statusPrefix.textContent = labelDict.statusPrefix;
+      statusNode.appendChild(statusPrefix);
+
+      function appendStatusPill(keyText, valueText, tone) {
+        var pill = document.createElement("span");
+        pill.className =
+          "music-transcript-status-pill music-transcript-status-pill--" + tone;
+        var keySpan = document.createElement("span");
+        keySpan.className = "music-transcript-status-key";
+        keySpan.textContent = keyText;
+        var valueSpan = document.createElement("span");
+        valueSpan.className = "music-transcript-status-value";
+        valueSpan.textContent = valueText;
+        pill.appendChild(keySpan);
+        pill.appendChild(valueSpan);
+        statusNode.appendChild(pill);
+      }
+
+      appendStatusPill(
+        labelDict.statusNotes,
+        hasWorkIntro ? labelDict.statusAvailable : labelDict.statusPending,
+        hasWorkIntro ? "available" : "pending"
+      );
+
+      if (hasLyrics) {
+        appendStatusPill(labelDict.statusLyrics, labelDict.statusAvailable, "available");
+      } else {
+        appendStatusPill(labelDict.statusLyrics, labelDict.statusNoLyrics, "muted");
+      }
+
+      appendStatusPill(
+        labelDict.statusTimeline,
+        timelineReady ? labelDict.statusAvailable : labelDict.statusPending,
+        timelineReady ? "available" : "pending"
+      );
+
+      statusNode.hidden = false;
+    }
+
+    if (navNode) {
+      navNode.setAttribute("aria-label", isEn ? "Transcript navigation" : "转录导航");
+      navNode.innerHTML = "";
+      transcriptLinks.forEach(function (item) {
+        var link = document.createElement("a");
+        link.className = "music-transcript-nav-link";
+        link.setAttribute("data-transcript-link", item.key);
+        link.href = item.href;
+        link.textContent = labelDict[item.key] || item.key;
+        navNode.appendChild(link);
+      });
+      navNode.hidden = transcriptLinks.length === 0;
+    }
+
+    if (emptyNode) {
+      emptyNode.textContent = labelDict.empty;
+      emptyNode.hidden = transcriptLinks.length !== 0;
+    }
+  }
+
+  window.ChronohazeMusicDetail = window.ChronohazeMusicDetail || {};
+  window.ChronohazeMusicDetail.ensureTranscriptPanel = ensureMusicTranscriptPanel;
+})();
+

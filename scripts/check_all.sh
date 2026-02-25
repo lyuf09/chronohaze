@@ -35,6 +35,7 @@ echo "[7/7] Shell script syntax"
 bash -n "$ROOT/scripts/optimize_large_jpegs.sh"
 bash -n "$ROOT/scripts/build_site_generated_assets.sh"
 bash -n "$ROOT/scripts/build_media_assets.sh"
+bash -n "$ROOT/scripts/run_playwright_smoke.sh"
 
 echo
 echo "OK: all checks passed"

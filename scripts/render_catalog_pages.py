@@ -5,7 +5,7 @@ import argparse
 import html
 import json
 from pathlib import Path
-from typing import Any, Dict, Iterable, List
+from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 
 def load_json(path: Path) -> Any:
@@ -35,11 +35,32 @@ def variant_srcset(path: str, ext: str, widths: Iterable[int] = (960, 1600)) -> 
     return ", ".join(f"{variant_path(path, int(width), ext)} {int(width)}w" for width in widths)
 
 
+def normalize_manifest_key(path: str) -> str:
+    return str(path).replace("\\", "/").lstrip("./")
+
+
+def get_image_dimensions(image_manifest: Dict[str, Any], path: str) -> Tuple[Optional[int], Optional[int]]:
+    if not path:
+        return (None, None)
+    items = image_manifest.get("items") or {}
+    entry = items.get(normalize_manifest_key(path))
+    if not isinstance(entry, dict):
+        return (None, None)
+    original = entry.get("original") or {}
+    width = original.get("width")
+    height = original.get("height")
+    if isinstance(width, int) and isinstance(height, int) and width > 0 and height > 0:
+        return (width, height)
+    return (None, None)
+
+
 def render_responsive_picture(
     path: str,
     alt: str,
     *,
     sizes: str,
+    width: Optional[int] = None,
+    height: Optional[int] = None,
     loading: str = "lazy",
     eager: bool = False,
     img_class: str = "",
@@ -54,6 +75,10 @@ def render_responsive_picture(
     ]
     if img_class:
         attrs.append(f'class="{esc(img_class)}"')
+    if isinstance(width, int) and width > 0:
+        attrs.append(f'width="{width}"')
+    if isinstance(height, int) and height > 0:
+        attrs.append(f'height="{height}"')
     if eager:
         attrs.append('data-eager="true"')
     if fetchpriority:
@@ -105,13 +130,15 @@ def render_math_cards(items: List[Dict[str, Any]]) -> str:
     return indent(rows, "          ")
 
 
-def render_photo_featured(items: List[Dict[str, Any]]) -> str:
+def render_photo_featured(items: List[Dict[str, Any]], image_manifest: Dict[str, Any]) -> str:
     rows: List[str] = []
     grid_sizes = "(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw"
     for item in items:
         theme = item.get("theme") or {}
         location = item.get("location") or {}
         concept = item.get("concept") or {}
+        cover_path = str(item.get("cover") or "")
+        cover_width, cover_height = get_image_dimensions(image_manifest, cover_path)
         rows.extend(
             [
                 '<article class="photo-feature-card">',
@@ -121,9 +148,11 @@ def render_photo_featured(items: List[Dict[str, Any]]) -> str:
         rows.extend(
             indent(
                 render_responsive_picture(
-                    str(item.get("cover") or ""),
+                    cover_path,
                     str(item.get("title") or "Photography feature"),
                     sizes=grid_sizes,
+                    width=cover_width,
+                    height=cover_height,
                     loading="lazy",
                 ),
                 "    ",
@@ -143,11 +172,13 @@ def render_photo_featured(items: List[Dict[str, Any]]) -> str:
     return indent(rows, "          ")
 
 
-def render_photo_archive(items: List[Dict[str, Any]]) -> str:
+def render_photo_archive(items: List[Dict[str, Any]], image_manifest: Dict[str, Any]) -> str:
     rows: List[str] = []
     grid_sizes = "(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw"
     for item in items:
         classes = "photo-card photo-card-film" if item.get("is_film") else "photo-card"
+        cover_path = str(item.get("cover") or "")
+        cover_width, cover_height = get_image_dimensions(image_manifest, cover_path)
         rows.append(f'<article class="{classes}">')
         rows.append(f'  <a class="photo-card-link" href="{esc(item.get("url"))}">')
         if item.get("is_film"):
@@ -156,9 +187,11 @@ def render_photo_archive(items: List[Dict[str, Any]]) -> str:
             rows.extend(
                 indent(
                     render_responsive_picture(
-                        str(item.get("cover") or ""),
+                        cover_path,
                         str(item.get("alt") or item.get("title") or item.get("date") or "Photography archive cover"),
                         sizes=grid_sizes,
+                        width=cover_width,
+                        height=cover_height,
                         loading="lazy",
                     ),
                     "    ",
@@ -352,6 +385,8 @@ def main() -> int:
     math_catalog = load_json(root / "assets" / "data" / "math-catalog.json")
     photo_catalog = load_json(root / "assets" / "data" / "photo-catalog.json")
     research_catalog = load_json(root / "assets" / "data" / "research-catalog.json")
+    image_manifest_path = root / "assets" / "data" / "image-variants.json"
+    image_manifest: Dict[str, Any] = load_json(image_manifest_path) if image_manifest_path.exists() else {"items": {}}
 
     # math.html
     math_html_path = root / "math.html"
@@ -363,10 +398,10 @@ def main() -> int:
     photo_html_path = root / "portfolio-1.html"
     photo_html = photo_html_path.read_text(encoding="utf-8")
     photo_html = replace_between_markers(
-        photo_html, "photo-featured", render_photo_featured(photo_catalog.get("featured") or [])
+        photo_html, "photo-featured", render_photo_featured(photo_catalog.get("featured") or [], image_manifest)
     )
     photo_html = replace_between_markers(
-        photo_html, "photo-archive", render_photo_archive(photo_catalog.get("archive") or [])
+        photo_html, "photo-archive", render_photo_archive(photo_catalog.get("archive") or [], image_manifest)
     )
     photo_html_path.write_text(photo_html, encoding="utf-8")
 
