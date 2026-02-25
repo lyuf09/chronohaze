@@ -13,5 +13,6 @@ python3 "$ROOT/scripts/rebuild_research_catalog.py" --root "$ROOT"
 bash "$ROOT/scripts/build_media_assets.sh" --skip-jpg
 
 python3 "$ROOT/scripts/render_catalog_pages.py" --root "$ROOT"
+python3 "$ROOT/scripts/build_social_cards_and_meta.py" --root "$ROOT"
 
 python3 "$ROOT/scripts/rebuild_search_index.py" --root "$ROOT"
