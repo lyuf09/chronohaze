@@ -26,6 +26,48 @@ def attr_if(name: str, value: Any) -> str:
     return f' {name}="{esc(text)}"' if text else ""
 
 
+def variant_path(path: str, width: int, ext: str) -> str:
+    p = Path(path)
+    return str(p.with_name(f"{p.stem}-{width}.{ext}")).replace("\\", "/")
+
+
+def variant_srcset(path: str, ext: str, widths: Iterable[int] = (960, 1600)) -> str:
+    return ", ".join(f"{variant_path(path, int(width), ext)} {int(width)}w" for width in widths)
+
+
+def render_responsive_picture(
+    path: str,
+    alt: str,
+    *,
+    sizes: str,
+    loading: str = "lazy",
+    eager: bool = False,
+    img_class: str = "",
+    fetchpriority: str = "",
+) -> List[str]:
+    attrs: List[str] = [
+        f'src="{esc(path)}"',
+        f'alt="{esc(alt)}"',
+        f'loading="{esc(loading)}"',
+        'decoding="async"',
+        f'sizes="{esc(sizes)}"',
+    ]
+    if img_class:
+        attrs.append(f'class="{esc(img_class)}"')
+    if eager:
+        attrs.append('data-eager="true"')
+    if fetchpriority:
+        attrs.append(f'fetchpriority="{esc(fetchpriority)}"')
+
+    return [
+        '<picture class="responsive-picture" style="display:block;width:100%;">',
+        f'  <source type="image/avif" srcset="{esc(variant_srcset(path, "avif"))}" sizes="{esc(sizes)}" />',
+        f'  <source type="image/webp" srcset="{esc(variant_srcset(path, "webp"))}" sizes="{esc(sizes)}" />',
+        f"  <img {' '.join(attrs)} />",
+        "</picture>",
+    ]
+
+
 def replace_between_markers(text: str, marker: str, body: str) -> str:
     start = f"<!-- GENERATED:{marker}:start -->"
     end = f"<!-- GENERATED:{marker}:end -->"
@@ -65,6 +107,7 @@ def render_math_cards(items: List[Dict[str, Any]]) -> str:
 
 def render_photo_featured(items: List[Dict[str, Any]]) -> str:
     rows: List[str] = []
+    grid_sizes = "(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw"
     for item in items:
         theme = item.get("theme") or {}
         location = item.get("location") or {}
@@ -73,7 +116,21 @@ def render_photo_featured(items: List[Dict[str, Any]]) -> str:
             [
                 '<article class="photo-feature-card">',
                 f'  <a class="photo-feature-link" href="{esc(item.get("url"))}">',
-                f'    <img src="{esc(item.get("cover"))}" alt="{esc(item.get("title"))}" loading="lazy" />',
+            ]
+        )
+        rows.extend(
+            indent(
+                render_responsive_picture(
+                    str(item.get("cover") or ""),
+                    str(item.get("title") or "Photography feature"),
+                    sizes=grid_sizes,
+                    loading="lazy",
+                ),
+                "    ",
+            ).splitlines()
+        )
+        rows.extend(
+            [
                 '    <div class="photo-feature-meta">',
                 f'      <p class="photo-feature-theme"{attr_if("data-copy-zh", theme.get("zh"))}{attr_if("data-copy-en", theme.get("en"))}>{esc_text(theme.get("zh"))}</p>',
                 f'      <p class="photo-feature-location"{attr_if("data-copy-zh", location.get("zh"))}{attr_if("data-copy-en", location.get("en"))}>{esc_text(location.get("zh"))}</p>',
@@ -88,6 +145,7 @@ def render_photo_featured(items: List[Dict[str, Any]]) -> str:
 
 def render_photo_archive(items: List[Dict[str, Any]]) -> str:
     rows: List[str] = []
+    grid_sizes = "(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw"
     for item in items:
         classes = "photo-card photo-card-film" if item.get("is_film") else "photo-card"
         rows.append(f'<article class="{classes}">')
@@ -95,8 +153,16 @@ def render_photo_archive(items: List[Dict[str, Any]]) -> str:
         if item.get("is_film"):
             rows.append('    <div class="photo-film-thumb" aria-hidden="true">▶</div>')
         else:
-            rows.append(
-                f'    <img src="{esc(item.get("cover"))}" alt="{esc(item.get("alt") or item.get("title") or item.get("date"))}" loading="lazy" />'
+            rows.extend(
+                indent(
+                    render_responsive_picture(
+                        str(item.get("cover") or ""),
+                        str(item.get("alt") or item.get("title") or item.get("date") or "Photography archive cover"),
+                        sizes=grid_sizes,
+                        loading="lazy",
+                    ),
+                    "    ",
+                ).splitlines()
             )
         rows.append('    <div class="photo-meta">')
         rows.append(f'      <p class="photo-date">{esc_text(item.get("date") or item.get("title"))}</p>')

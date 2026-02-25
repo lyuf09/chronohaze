@@ -19,7 +19,11 @@ echo "[3/4] Math/Photo/Research catalog drift (page / catalog / search-index)"
 python3 "$ROOT/scripts/check_catalog_drift.py" --root "$ROOT"
 
 echo
-echo "[4/4] Shell script syntax"
+echo "[4/5] Priority AVIF coverage"
+python3 "$ROOT/scripts/check_priority_avif.py" --root "$ROOT"
+
+echo
+echo "[5/5] Shell script syntax"
 bash -n "$ROOT/scripts/optimize_large_jpegs.sh"
 bash -n "$ROOT/scripts/build_site_generated_assets.sh"
 bash -n "$ROOT/scripts/build_media_assets.sh"

@@ -231,6 +231,11 @@
       return;
     }
 
+    if (img.closest(".music-album-page .album-cover, .album-cover")) {
+      img.setAttribute("sizes", "(max-width: 900px) 92vw, (max-width: 1280px) 44vw, 40vw");
+      return;
+    }
+
     if (img.closest(".welcome-main-grid, .welcome-main, .welcome-image-panel")) {
       img.setAttribute("sizes", "(max-width: 900px) 92vw, 46vw");
       return;

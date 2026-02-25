@@ -62,7 +62,11 @@
       <section class="album-main">
         <div class="container album-layout">
           <figure class="album-cover">
-            <img src="../assets/template/teenage-best-album-cover.jpg" alt="「劇場の雨が止む日のどこかで、君に話しかけるつもりだ」专辑封面" data-eager="true" loading="eager" decoding="async" />
+            <picture class="responsive-picture" style="display:block;width:100%;">
+              <source type="image/avif" srcset="../assets/template/teenage-best-album-cover-960.avif 960w, ../assets/template/teenage-best-album-cover-1600.avif 1600w" sizes="(max-width: 900px) 92vw, (max-width: 1280px) 44vw, 40vw" />
+              <source type="image/webp" srcset="../assets/template/teenage-best-album-cover-960.webp 960w, ../assets/template/teenage-best-album-cover-1600.webp 1600w" sizes="(max-width: 900px) 92vw, (max-width: 1280px) 44vw, 40vw" />
+              <img src="../assets/template/teenage-best-album-cover.jpg" alt="「劇場の雨が止む日のどこかで、君に話しかけるつもりだ」专辑封面" data-eager="true" loading="eager" decoding="async" fetchpriority="high" sizes="(max-width: 900px) 92vw, (max-width: 1280px) 44vw, 40vw" />
+            </picture>
           </figure>
 
           <div class="album-track-panel">
