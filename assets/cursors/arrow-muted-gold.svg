@@ -1,23 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
   <defs>
-    <linearGradient id="fill" x1="4" y1="4" x2="22" y2="30" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#f3ead0"/>
-      <stop offset="0.42" stop-color="#cdbb92"/>
-      <stop offset="0.78" stop-color="#9f947f"/>
-      <stop offset="1" stop-color="#8590a1"/>
+    <linearGradient id="fill" x1="2.6" y1="2.2" x2="19.6" y2="29.6" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f8efd8"/>
+      <stop offset="0.42" stop-color="#d7c29a"/>
+      <stop offset="0.78" stop-color="#a8977d"/>
+      <stop offset="1" stop-color="#8c98ab"/>
     </linearGradient>
-    <linearGradient id="stroke" x1="5" y1="4" x2="24" y2="27" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#fff8e6"/>
-      <stop offset="0.38" stop-color="#d7c79e"/>
-      <stop offset="1" stop-color="#9aa9be"/>
+    <linearGradient id="edge" x1="3.2" y1="2.6" x2="21.2" y2="26.4" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff9e9" stop-opacity="0.96"/>
+      <stop offset="0.38" stop-color="#e5d2a9" stop-opacity="0.88"/>
+      <stop offset="1" stop-color="#b3bfd1" stop-opacity="0.82"/>
     </linearGradient>
-    <filter id="soft" x="0" y="0" width="40" height="40" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-      <feGaussianBlur stdDeviation="0.8"/>
+    <filter id="halo" x="0" y="0" width="36" height="36" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="0.55"/>
     </filter>
   </defs>
-  <path d="M4.5 4.6L23.9 18.8L15.8 20.6L19.1 31.2L15.8 32.2L12.5 21.7L6.6 27.7L4.5 4.6Z" fill="#cfbd93" opacity="0.14" filter="url(#soft)"/>
-  <path d="M4.7 4.8L23.4 18.5L15.4 20.3L18.9 31L16.1 31.9L12.7 21.1L6.8 27.2L4.7 4.8Z" fill="url(#fill)"/>
-  <path d="M5.15 5.47L22.3 18.04L14.38 19.84L17.8 30.35L16.55 30.75L13.08 19.96L7.64 25.53L5.15 5.47Z" stroke="url(#stroke)" stroke-width="1.05" stroke-linejoin="round"/>
-  <path d="M7.7 7.55L19.4 16.25L13.35 17.6L10.28 20.74L7.7 7.55Z" fill="#ffffff" opacity="0.2"/>
-  <path d="M13.02 20.05L16.26 30.05" stroke="#eef3fb" stroke-opacity="0.14" stroke-width="0.9" stroke-linecap="round"/>
+  <path d="M2.4 2.8L24.1 17.7L15.1 19.8L19.2 31.2L15.4 32.6L11.2 21.2L5 27.3L2.4 2.8Z" fill="#d6c39c" opacity="0.12" filter="url(#halo)"/>
+  <path d="M2.7 3L23.5 17.3L14.7 19.3L18.8 30.7L15.8 31.8L11.7 20.3L5.7 26.2L2.7 3Z" fill="url(#fill)"/>
+  <path d="M3.35 3.88L22.2 16.86L13.52 18.84L17.6 30.16L16.12 30.7L12.03 19.26L6.49 24.72L3.35 3.88Z" stroke="url(#edge)" stroke-width="1.02" stroke-linejoin="round"/>
+  <path d="M5.4 5.9L18.6 15L12.35 16.42L9.5 19.2L5.4 5.9Z" fill="#ffffff" opacity="0.17"/>
 </svg>
