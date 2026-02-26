@@ -14,6 +14,9 @@ Guideline:
 - Use serif display for major titles (`H1/H2`) where the page already follows the house style.
 - Use sans for controls/forms/status labels.
 - Keep body copy weight light; prefer spacing/line-height over heavier weight for emphasis.
+- Prefer one visual size per semantic tier on a page family (e.g. all index-page `H2` use the same scale).
+- Long-form Chinese body copy should stay in the `1.7–1.9` line-height range.
+- Card summaries should be clamped to a fixed number of lines (usually `2` for title, `3` for summary).
 
 ## 2. Spacing Scale
 
@@ -59,6 +62,7 @@ Guideline:
 - Primary: page CTA only (1–2 max per viewport)
 - Secondary: utility actions
 - Text link: inline navigation / metadata links
+- Button labels should stay in one tone family per page: avoid mixing highly poetic and highly system-like wording in the same control cluster.
 
 ## 5. Cards
 
