@@ -38,12 +38,18 @@ Guideline:
 
 Core palette is intentionally restrained:
 
+- One main background family (deep gray / graphite for dark surfaces, soft neutral gray for light surfaces)
+- One accent family only (low-saturation cool blue / mist blue)
+- Neutral grayscale for text, borders, surfaces
 - Ink / text: `--color-ink-strong`, `--color-ink`, `--color-ink-muted`
 - Lines / borders: `--color-gray-line-soft`, `--color-gray-line-mid`, `--color-gray-line-strong`
 - Single accent family: `--color-accent`, `--color-accent-soft`, `--color-accent-halo`
 
 Guideline:
 - Keep one accent family for focus/interactive states.
+- Prefer “less but precise” color usage; do not introduce page-specific UI blues/greys unless promoted to tokens.
+- Divider lines should stay thin + semi-transparent (border opacity first, thickness second).
+- Hover state should change brightness/opacity/border strength first, not hue.
 - Use artwork-specific colors inside content (e.g. lyric panels), not in global controls.
 
 ## 4. Buttons (Three Types)
@@ -82,7 +88,31 @@ Guideline:
 
 - Focus ring must use `--ui-focus-ring`
 - Hover should change **one** of: border, background, shadow (avoid changing everything aggressively)
+- Micro-interaction timing target: `150–220ms`
+- Motion amplitude target: `2–4px` max for lift/offset, no spring-like bounce for primary UI
 - Motion should degrade under `prefers-reduced-motion`
+
+Recommended micro interactions:
+- Card hover: lift `1–2px`, shadow one level up
+- Image hover: zoom `1.01–1.03`
+- Button hover: opacity/brightness + subtle border/shadow adjustment
+- Text reveal: quick fade/short translate only
+
+Avoid:
+- Large directional slides
+- Strong bounce/spring easing
+- Multiple simultaneous dramatic property changes
+
+## 6.1 Font Pairing (Brand-level)
+
+- Display / editorial titles: serif (`--font-serif`, page-specific serif display family allowed if consistent)
+- Body / UI text: clean sans (`--font-sans` or page-specific UI sans)
+
+What creates “premium” feel is usually not decorative font choice, but:
+- weight contrast (`Light / Regular / Medium`)
+- consistent letter-spacing by tier
+- consistent line-height by tier
+- not mixing too many font voices in the same control cluster
 
 ## 7. Current Source of Truth
 

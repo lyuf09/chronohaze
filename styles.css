@@ -1,50 +1,54 @@
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&display=swap");
 
 :root {
-  --bg: #fdfdfd;
-  --surface: #ffffff;
-  --text: #1d1d1f;
-  --muted: #6d6d72;
-  --border: #e8e8ec;
-  --accent: #2b5672;
-  --accent-soft: #f4f7fa;
+  --bg: #eceff4;
+  --surface: #f4f6fa;
+  --text: #1f242c;
+  --muted: #66707c;
+  --border: #dbe1ea;
+  --accent: #7488a4;
+  --accent-soft: rgba(116, 136, 164, 0.12);
   --max-width: 1080px;
   --font-serif: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
   --font-sans: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
-  --text-strong: #232730;
-  --text-muted: #5f6572;
-  --text-subtle: #7a808c;
-  --border-soft: rgba(58, 58, 58, 0.14);
+  --text-strong: #212732;
+  --text-muted: #606978;
+  --text-subtle: #788191;
+  --border-soft: rgba(54, 62, 78, 0.12);
   --radius-sm: 6px;
   --radius-md: 12px;
   --radius-lg: 18px;
-  --shadow-soft: 0 14px 24px rgba(24, 30, 40, 0.08);
-  --shadow-card: 0 18px 36px rgba(17, 22, 32, 0.12);
-  --shadow-elevated: 0 28px 60px rgba(14, 18, 28, 0.18);
+  --shadow-soft: 0 10px 18px rgba(20, 25, 34, 0.07);
+  --shadow-card: 0 14px 28px rgba(17, 22, 32, 0.09);
+  --shadow-elevated: 0 20px 36px rgba(14, 18, 28, 0.13);
   --tracking-body: 0.004em;
   --tracking-wide: 0.08em;
   --leading-body: 1.8;
   --measure: 70ch;
-  --paper: #f4f2ef;
-  --paper-cool: #eef0f4;
+  --paper: #f2f1ee;
+  --paper-cool: #edf0f5;
   --ink: #1f2328;
   --ink-soft: #3a3f49;
-  --line: rgba(31, 35, 40, 0.12);
-  --line-strong: rgba(31, 35, 40, 0.24);
+  --line: rgba(31, 35, 40, 0.1);
+  --line-strong: rgba(31, 35, 40, 0.18);
   --space-1: 6px;
   --space-2: 10px;
   --space-3: 14px;
   --space-4: 20px;
   --space-5: 28px;
   --space-6: 40px;
-  --card-stroke: rgba(58, 66, 82, 0.2);
-  --card-bg: rgba(250, 252, 255, 0.33);
-  --card-shadow: 0 14px 26px rgba(16, 21, 31, 0.09);
-  --card-shadow-hover: 0 22px 38px rgba(16, 21, 31, 0.13);
-  --motion-duration-base: 760ms;
-  --motion-duration-soft: 620ms;
+  --card-stroke: rgba(58, 66, 82, 0.16);
+  --card-bg: rgba(247, 249, 253, 0.44);
+  --card-shadow: 0 12px 22px rgba(16, 21, 31, 0.07);
+  --card-shadow-hover: 0 16px 30px rgba(16, 21, 31, 0.1);
+  --motion-duration-base: 260ms;
+  --motion-duration-soft: 200ms;
   --motion-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --motion-ease-soft: cubic-bezier(0.24, 0.94, 0.32, 1);
+  --ui-t-fast: 160ms;
+  --ui-t-base: 190ms;
+  --ui-t-slow: 220ms;
+  --ui-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 * {
@@ -61,9 +65,9 @@ body {
   font-weight: 300;
   background: var(--bg);
   background-image:
-    radial-gradient(1200px 800px at 8% 8%, rgba(210, 214, 224, 0.18), transparent 60%),
-    radial-gradient(1200px 800px at 92% 0%, rgba(205, 210, 224, 0.14), transparent 58%),
-    linear-gradient(180deg, rgba(248, 247, 245, 0.92) 0%, rgba(241, 242, 246, 0.9) 100%);
+    radial-gradient(1200px 800px at 8% 8%, rgba(188, 196, 210, 0.09), transparent 60%),
+    radial-gradient(1200px 800px at 92% 0%, rgba(116, 136, 164, 0.05), transparent 58%),
+    linear-gradient(180deg, rgba(241, 244, 248, 0.95) 0%, rgba(235, 239, 245, 0.94) 100%);
   color: var(--text);
   line-height: var(--leading-body);
   letter-spacing: var(--tracking-body);
@@ -73,24 +77,24 @@ body {
 }
 
 ::selection {
-  background: rgba(75, 128, 255, 0.18);
+  background: rgba(116, 136, 164, 0.18);
   color: #1a1e26;
 }
 
 a {
   color: inherit;
   text-decoration: none;
-  transition: color 220ms ease, opacity 220ms ease;
+  transition: color var(--ui-t-base) ease, opacity var(--ui-t-base) ease;
 }
 
 button {
   font-family: inherit;
   transition:
-    color 220ms ease,
-    background-color 240ms ease,
-    border-color 240ms ease,
-    box-shadow 240ms ease,
-    transform 240ms ease;
+    color var(--ui-t-base) ease,
+    background-color var(--ui-t-slow) ease,
+    border-color var(--ui-t-slow) ease,
+    box-shadow var(--ui-t-slow) ease,
+    transform var(--ui-t-slow) var(--ui-ease);
 }
 
 img {
@@ -100,7 +104,7 @@ img {
 
 body.motion-enhanced .motion-reveal {
   opacity: 0;
-  transform: translate3d(0, var(--motion-offset, 15px), 0) scale(var(--motion-scale, 0.996));
+  transform: translate3d(0, var(--motion-offset, 10px), 0) scale(var(--motion-scale, 0.998));
   filter: saturate(0.94);
   transition:
     opacity var(--motion-duration, var(--motion-duration-base)) var(--motion-ease-out),
@@ -117,12 +121,12 @@ body.motion-enhanced .motion-reveal.is-in {
 }
 
 body.motion-enhanced .motion-reveal.motion-reveal-soft {
-  --motion-offset: 11px;
+  --motion-offset: 8px;
   --motion-duration: var(--motion-duration-soft);
 }
 
 body.motion-enhanced .motion-reveal.motion-reveal-card {
-  --motion-offset: 16px;
+  --motion-offset: 12px;
 }
 
 .page {
@@ -139,13 +143,13 @@ body.motion-enhanced .motion-reveal.motion-reveal-card {
 }
 
 .site-header {
-  border-top: 2px solid #4b80ff;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
-  background: linear-gradient(90deg, #545a6c 0%, #7f89a4 100%);
+  border-top: 1px solid rgba(122, 144, 176, 0.38);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(90deg, #262a33 0%, #353c49 52%, #4f5a70 100%);
   position: sticky;
   top: 0;
   z-index: 50;
-  box-shadow: 0 10px 28px rgba(17, 22, 32, 0.16);
+  box-shadow: 0 8px 20px rgba(12, 16, 24, 0.16);
 }
 
 .header-inner {
@@ -186,7 +190,7 @@ body.motion-enhanced .motion-reveal.motion-reveal-card {
 .nav a {
   color: rgba(233, 236, 242, 0.82);
   position: relative;
-  transition: color 200ms ease;
+  transition: color var(--ui-t-base) ease, opacity var(--ui-t-base) ease;
 }
 
 .nav a::after {
@@ -196,16 +200,16 @@ body.motion-enhanced .motion-reveal.motion-reveal-card {
   right: 0;
   bottom: -8px;
   height: 1px;
-  background: rgba(248, 250, 255, 0.7);
+  background: rgba(224, 233, 248, 0.46);
   transform: scaleX(0);
   transform-origin: left;
   opacity: 0;
-  transition: transform 240ms ease, opacity 240ms ease;
+  transition: transform var(--ui-t-slow) var(--ui-ease), opacity var(--ui-t-slow) ease;
 }
 
 .nav a:hover,
 .nav a.active {
-  color: rgb(248, 250, 255);
+  color: rgb(245, 248, 252);
 }
 
 .nav a:hover::after,
@@ -1206,27 +1210,35 @@ audio {
 }
 
 .music-index-page .music-ia-tab {
-  border: 1px solid rgba(56, 63, 80, 0.26);
+  border: 1px solid var(--ui-border-soft);
   border-radius: 999px;
-  background: rgba(246, 249, 255, 0.36);
-  color: rgba(49, 57, 76, 0.9);
+  background: var(--ui-surface-glass);
+  color: var(--ui-copy-color);
   padding: 6px 14px;
   font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
   font-size: 13px;
-  letter-spacing: 0.05em;
+  line-height: var(--type-button-line);
+  letter-spacing: var(--type-button-tracking);
   cursor: pointer;
-  transition: all 180ms ease;
+  transition:
+    border-color var(--ui-t-fast) ease,
+    background-color var(--ui-t-fast) ease,
+    color var(--ui-t-fast) ease,
+    box-shadow var(--ui-t-fast) ease,
+    transform var(--ui-t-fast) var(--ui-ease);
 }
 
 .music-index-page .music-ia-tab:hover {
-  background: rgba(246, 249, 255, 0.52);
-  border-color: rgba(55, 64, 86, 0.42);
+  background: var(--ui-surface-glass-strong);
+  border-color: var(--ui-border-mid);
+  transform: translateY(var(--ui-hover-lift-soft));
 }
 
 .music-index-page .music-ia-tab.is-active {
-  background: rgba(58, 69, 98, 0.86);
-  color: rgba(245, 249, 255, 0.96);
-  border-color: rgba(58, 69, 98, 0.92);
+  background: rgba(63, 72, 88, 0.92);
+  color: rgba(245, 248, 252, 0.96);
+  border-color: rgba(95, 109, 130, 0.44);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .music-index-page .music-ia-filters {
@@ -1421,22 +1433,23 @@ audio {
 }
 
 .music-status-badge.status-available {
-  border-color: rgba(82, 91, 112, 0.22);
-  background: rgba(247, 249, 253, 0.52);
-  color: rgba(69, 78, 96, 0.84);
+  border-color: var(--ui-border-soft);
+  background: var(--ui-surface-glass);
+  color: var(--ui-copy-color);
 }
 
 .music-status-badge.status-pending-audio,
 .music-status-badge.status-coming-soon {
-  border-color: rgba(151, 118, 60, 0.24);
-  background: rgba(254, 248, 233, 0.66);
-  color: rgba(109, 84, 44, 0.88);
+  border-color: color-mix(in srgb, var(--color-accent) 26%, transparent);
+  background: color-mix(in srgb, var(--color-accent) 12%, white);
+  color: color-mix(in srgb, var(--ui-heading-color) 78%, var(--color-accent));
 }
 
 .music-status-badge.status-draft {
-  border-color: rgba(118, 98, 138, 0.24);
-  background: rgba(247, 241, 255, 0.6);
-  color: rgba(78, 62, 92, 0.88);
+  border-style: dashed;
+  border-color: var(--ui-border-mid);
+  background: color-mix(in srgb, var(--ui-surface-soft) 88%, white);
+  color: color-mix(in srgb, var(--ui-copy-color) 86%, transparent);
 }
 
 .music-index-page .track-status-badge {
@@ -1446,27 +1459,35 @@ audio {
 }
 
 .music-index-page .track-row.track-row-pending {
-  border-color: rgba(88, 96, 116, 0.24);
+  border-color: var(--ui-border-mid);
   background:
-    linear-gradient(90deg, rgba(236, 239, 247, 0.26) 0%, rgba(250, 252, 255, 0.28) 38%),
-    rgba(250, 252, 255, 0.24);
-  box-shadow: 0 14px 26px rgba(20, 26, 34, 0.07);
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-accent) 7%, white) 0%,
+      color-mix(in srgb, var(--ui-surface-glass) 92%, white) 42%
+    ),
+    color-mix(in srgb, var(--ui-surface-glass) 78%, white);
+  box-shadow: var(--ui-shadow-1);
 }
 
 .music-index-page .track-row.track-row-pending .track-title,
 .music-index-page .track-row.track-row-pending .track-artist {
-  color: rgba(52, 60, 76, 0.86);
+  color: color-mix(in srgb, var(--ui-copy-color) 96%, transparent);
 }
 
 .music-index-page .track-row.track-row-album {
   position: relative;
-  border-color: rgba(72, 83, 108, 0.42);
+  border-color: color-mix(in srgb, var(--color-accent) 34%, var(--ui-border-mid));
   background:
-    linear-gradient(96deg, rgba(106, 117, 146, 0.2) 0%, rgba(250, 252, 255, 0.32) 44%),
-    rgba(250, 252, 255, 0.34);
+    linear-gradient(
+      96deg,
+      color-mix(in srgb, var(--color-accent) 14%, white) 0%,
+      color-mix(in srgb, var(--ui-surface-glass) 90%, white) 46%
+    ),
+    color-mix(in srgb, var(--ui-surface-glass) 78%, white);
   box-shadow:
-    0 20px 38px rgba(33, 42, 59, 0.14),
-    inset 0 0 0 1px rgba(232, 237, 247, 0.28);
+    var(--ui-shadow-2),
+    inset 0 0 0 1px color-mix(in srgb, var(--color-accent) 8%, white);
 }
 
 .music-index-page .track-row.track-row-album::before {
@@ -1475,9 +1496,9 @@ audio {
   right: 16px;
   top: 14px;
   padding: 2px 8px 3px;
-  border: 1px solid rgba(70, 79, 102, 0.38);
-  color: rgba(66, 75, 96, 0.88);
-  background: rgba(237, 242, 251, 0.6);
+  border: 1px solid color-mix(in srgb, var(--color-accent) 28%, var(--ui-border-mid));
+  color: color-mix(in srgb, var(--ui-copy-color) 84%, var(--color-accent));
+  background: color-mix(in srgb, var(--color-accent) 9%, white);
   font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
   font-size: 10px;
   letter-spacing: 0.14em;
@@ -1485,7 +1506,7 @@ audio {
 }
 
 .music-index-page .track-row.track-row-album .track-date {
-  color: rgba(65, 73, 91, 0.84);
+  color: color-mix(in srgb, var(--ui-muted-color) 82%, var(--color-accent));
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -1496,7 +1517,7 @@ audio {
 }
 
 .music-index-page .track-row.track-row-album .track-artist {
-  color: rgba(67, 73, 85, 0.83);
+  color: color-mix(in srgb, var(--ui-copy-color) 88%, transparent);
 }
 
 .music-index-page .track-row.track-row-album > div {
@@ -1505,30 +1526,34 @@ audio {
 
 .music-index-page .track-row.track-row-wip {
   border-style: dashed;
-  border-color: rgba(92, 99, 118, 0.28);
-  background: rgba(242, 245, 251, 0.25);
-  box-shadow: 0 12px 24px rgba(24, 30, 40, 0.06);
+  border-color: var(--ui-border-mid);
+  background: color-mix(in srgb, var(--ui-surface-soft) 76%, white);
+  box-shadow: var(--ui-shadow-1);
 }
 
 .music-index-page .track-row.track-row-wip .track-title,
 .music-index-page .track-row.track-row-wip .track-artist,
 .music-index-page .track-row.track-row-wip .track-date {
-  color: rgba(66, 72, 87, 0.78);
+  color: color-mix(in srgb, var(--ui-copy-color) 82%, transparent);
 }
 
 .music-index-page .track-row:hover {
-  border-color: rgba(249, 251, 255, 0.62);
-  background: rgba(250, 252, 255, 0.42);
-  box-shadow: 0 22px 36px rgba(20, 26, 34, 0.12);
-  transform: translateY(-1px);
+  border-color: var(--ui-border-mid);
+  background: var(--ui-surface-glass-strong);
+  box-shadow: var(--ui-shadow-2);
+  transform: translateY(var(--ui-hover-lift));
 }
 
 .music-index-page .track-row.track-row-album:hover {
-  border-color: rgba(86, 96, 123, 0.52);
+  border-color: color-mix(in srgb, var(--color-accent) 34%, var(--ui-border-mid));
   background:
-    linear-gradient(96deg, rgba(108, 119, 149, 0.24) 0%, rgba(250, 252, 255, 0.42) 44%),
-    rgba(250, 252, 255, 0.42);
-  box-shadow: 0 26px 40px rgba(30, 40, 56, 0.16);
+    linear-gradient(
+      96deg,
+      color-mix(in srgb, var(--color-accent) 12%, white) 0%,
+      color-mix(in srgb, var(--ui-surface-glass-strong) 94%, white) 46%
+    ),
+    var(--ui-surface-glass-strong);
+  box-shadow: var(--ui-shadow-3);
 }
 
 .music-index-page .track-row:focus-visible {
@@ -1538,8 +1563,8 @@ audio {
 
 .search-index-page .main {
   background:
-    radial-gradient(circle at 12% 8%, rgba(186, 198, 224, 0.22), transparent 40%),
-    linear-gradient(180deg, #d2d4da 0%, #cfd1d7 100%);
+    radial-gradient(circle at 12% 8%, color-mix(in srgb, var(--color-accent) 14%, white) 0%, transparent 42%),
+    linear-gradient(180deg, #d3d5db 0%, #cfd1d7 100%);
 }
 
 .search-index-page .page-head {
@@ -1593,28 +1618,30 @@ audio {
 }
 
 .search-index-page .search-submit {
-  border: 1px solid rgba(64, 73, 95, 0.46);
+  border: 1px solid rgba(64, 73, 95, 0.38);
   border-radius: 12px;
-  background: rgba(67, 78, 108, 0.9);
+  background: rgba(63, 72, 88, 0.92);
   color: rgba(244, 248, 255, 0.96);
   min-height: 40px;
   padding: 0 14px;
-  font-size: 13px;
-  letter-spacing: 0.08em;
+  font-size: var(--type-button-size);
+  line-height: var(--type-button-line);
+  letter-spacing: var(--type-button-tracking);
   text-transform: uppercase;
   cursor: pointer;
   transition:
-    background-color 180ms ease,
-    border-color 180ms ease,
-    transform 200ms ease,
-    box-shadow 200ms ease;
+    background-color var(--ui-t-fast) ease,
+    border-color var(--ui-t-fast) ease,
+    transform var(--ui-t-base) var(--ui-ease),
+    box-shadow var(--ui-t-base) ease,
+    opacity var(--ui-t-fast) ease;
 }
 
 .search-index-page .search-submit:hover {
-  background: rgba(75, 88, 120, 0.95);
-  border-color: rgba(72, 82, 107, 0.62);
-  transform: translateY(-1px);
-  box-shadow: 0 12px 20px rgba(19, 25, 38, 0.16);
+  background: rgba(68, 78, 95, 0.95);
+  border-color: rgba(92, 104, 126, 0.46);
+  transform: translateY(var(--ui-hover-lift));
+  box-shadow: 0 10px 18px rgba(19, 25, 38, 0.12);
 }
 
 .search-index-page .search-status {
@@ -2379,10 +2406,10 @@ audio {
 
 .music-album-page .album-track-link:not(.is-disabled):hover,
 .music-album-page .album-track-link:not(.is-disabled):focus-visible {
-  border-color: rgba(248, 251, 255, 0.62);
-  background: rgba(250, 252, 255, 0.45);
-  box-shadow: 0 18px 30px rgba(20, 26, 34, 0.12);
-  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--color-accent) 28%, white);
+  background: color-mix(in srgb, var(--color-accent) 5%, var(--ui-surface-glass-strong));
+  box-shadow: var(--ui-shadow-2);
+  transform: translateY(var(--ui-hover-lift-soft));
 }
 
 .music-album-page .album-track-link.is-disabled {
@@ -2392,8 +2419,8 @@ audio {
 
 .music-album-page .album-track-link.is-pending {
   border-style: dashed;
-  border-color: rgba(84, 93, 109, 0.34);
-  background: rgba(247, 248, 252, 0.28);
+  border-color: var(--ui-border-mid);
+  background: color-mix(in srgb, var(--ui-surface-soft) 82%, white);
 }
 
 .music-album-page .album-track-no {
@@ -2425,21 +2452,21 @@ audio {
   gap: 4px;
   margin-left: 8px;
   padding: 1px 8px;
-  border: 1px solid rgba(78, 89, 110, 0.34);
+  border: 1px solid color-mix(in srgb, var(--color-accent) 24%, var(--ui-border-mid));
   border-radius: 999px;
-  color: rgba(52, 62, 80, 0.9);
+  color: color-mix(in srgb, var(--ui-copy-color) 94%, var(--color-accent));
   font-size: 11px;
   line-height: 1.35;
   letter-spacing: 0.04em;
   font-family: "Noto Serif SC", "Songti SC", serif;
   vertical-align: middle;
-  background: rgba(247, 249, 255, 0.34);
+  background: color-mix(in srgb, var(--color-accent) 8%, white);
 }
 
 .music-album-page .album-back-link {
   align-self: flex-start;
   margin-top: 4px;
-  color: rgba(58, 88, 120, 0.94);
+  color: color-mix(in srgb, var(--ui-heading-color) 82%, var(--color-accent));
   font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
   font-size: 24px;
   line-height: 1.2;
@@ -5258,9 +5285,9 @@ h4,
 .nav a {
   padding-bottom: 8px;
   transition:
-    color 220ms ease,
-    opacity 220ms ease,
-    transform 220ms ease;
+    color var(--ui-t-base) ease,
+    opacity var(--ui-t-base) ease,
+    transform var(--ui-t-base) var(--ui-ease);
 }
 
 .nav a:hover,
@@ -5303,7 +5330,7 @@ h4,
 .search-index-page .search-result-link:hover {
   border-color: rgba(66, 74, 92, 0.3);
   box-shadow: var(--card-shadow-hover);
-  transform: translateY(-1px);
+  transform: translateY(var(--ui-hover-lift-soft));
 }
 
 .music-index-page .music-ia-controls {
@@ -5311,21 +5338,22 @@ h4,
 }
 
 .music-index-page .music-ia-tab {
-  border-color: rgba(58, 68, 89, 0.28);
-  background: rgba(246, 249, 255, 0.44);
+  border-color: var(--ui-border-soft);
+  background: var(--ui-surface-glass);
   font-size: 12.5px;
-  letter-spacing: 0.06em;
+  line-height: var(--type-button-line);
+  letter-spacing: var(--type-button-tracking);
   transition:
-    border-color 200ms ease,
-    background-color 220ms ease,
-    color 200ms ease,
-    transform 220ms ease,
-    box-shadow 220ms ease;
+    border-color var(--ui-t-fast) ease,
+    background-color var(--ui-t-base) ease,
+    color var(--ui-t-fast) ease,
+    transform var(--ui-t-base) var(--ui-ease),
+    box-shadow var(--ui-t-base) ease;
 }
 
 .music-index-page .music-ia-tab:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 10px 18px rgba(23, 30, 43, 0.11);
+  transform: translateY(var(--ui-hover-lift-soft));
+  box-shadow: 0 8px 14px rgba(23, 30, 43, 0.08);
 }
 
 .music-index-page .music-ia-filter-select,
@@ -5340,13 +5368,13 @@ h4,
   font-size: 15.5px;
   letter-spacing: 0.01em;
   line-height: 1.16;
-  transition: color 220ms ease, transform 240ms ease;
+  transition: color var(--ui-t-base) ease, transform var(--ui-t-base) var(--ui-ease);
 }
 
 .math-index-page .math-title {
   letter-spacing: 0.012em;
   line-height: 1.18;
-  transition: color 220ms ease, transform 240ms ease;
+  transition: color var(--ui-t-base) ease, transform var(--ui-t-base) var(--ui-ease);
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
@@ -5401,7 +5429,7 @@ h4,
 }
 
 .photo-index-page .photo-title {
-  transition: color 220ms ease, transform 240ms ease;
+  transition: color var(--ui-t-base) ease, transform var(--ui-t-base) var(--ui-ease);
 }
 
 .music-index-page .track-row:hover .track-title,
@@ -5410,29 +5438,29 @@ h4,
 .math-index-page .math-card:focus-visible .math-title,
 .photo-index-page .photo-feature-card:hover .photo-title,
 .photo-index-page .photo-card:hover .photo-title {
-  transform: translateX(2px);
+  transform: translateX(1px);
 }
 
 .music-index-page .track-tag {
   transition:
-    border-color 200ms ease,
-    background-color 220ms ease,
-    color 200ms ease,
-    transform 220ms ease;
+    border-color var(--ui-t-fast) ease,
+    background-color var(--ui-t-base) ease,
+    color var(--ui-t-fast) ease,
+    transform var(--ui-t-base) var(--ui-ease);
 }
 
 .music-index-page .track-row:hover .track-tag {
-  transform: translateY(-1px);
+  transform: translateY(var(--ui-hover-lift-soft));
 }
 
 .music-album-page .album-track-name,
 .search-index-page .search-result-title {
-  transition: color 220ms ease, transform 240ms ease;
+  transition: color var(--ui-t-base) ease, transform var(--ui-t-base) var(--ui-ease);
 }
 
 .music-album-page .album-track-link:not(.is-disabled):hover .album-track-name,
 .search-index-page .search-result-link:hover .search-result-title {
-  transform: translateX(2px);
+  transform: translateX(1px);
 }
 
 .site-footer {
@@ -5456,9 +5484,9 @@ h4,
   position: relative;
   padding-bottom: 2px;
   transition:
-    color 180ms ease,
-    opacity 180ms ease,
-    transform 180ms ease;
+    color var(--ui-t-fast) ease,
+    opacity var(--ui-t-fast) ease,
+    transform var(--ui-t-fast) var(--ui-ease);
 }
 
 .footer-right a::after {
@@ -5472,7 +5500,7 @@ h4,
   opacity: 0;
   transform: scaleX(0.55);
   transform-origin: left;
-  transition: opacity 180ms ease, transform 180ms ease;
+  transition: opacity var(--ui-t-fast) ease, transform var(--ui-t-fast) var(--ui-ease);
 }
 
 .footer-right a:hover::after {
@@ -5481,17 +5509,18 @@ h4,
 }
 
 .footer-right a:hover {
-  transform: translateY(-1px);
+  transform: translateY(var(--ui-hover-lift-soft));
 }
 
 .social a {
   border-color: rgba(59, 67, 82, 0.22);
   background: rgba(255, 255, 255, 0.56);
   transition:
-    transform 220ms ease,
-    box-shadow 220ms ease,
-    border-color 220ms ease,
-    background-color 220ms ease;
+    transform var(--ui-t-base) var(--ui-ease),
+    box-shadow var(--ui-t-base) ease,
+    border-color var(--ui-t-base) ease,
+    background-color var(--ui-t-base) ease,
+    opacity var(--ui-t-fast) ease;
 }
 
 @media (max-width: 980px) {
@@ -5785,15 +5814,15 @@ body {
 /* Design system pass II: tighten shared tokens + primitives */
 :root {
   /* Core palette (keep one clear accent) */
-  --color-ink-strong: rgba(29, 35, 46, 0.95);
-  --color-ink: rgba(42, 48, 60, 0.84);
-  --color-ink-muted: rgba(68, 76, 92, 0.72);
-  --color-gray-line-soft: rgba(70, 79, 98, 0.14);
-  --color-gray-line-mid: rgba(70, 79, 98, 0.22);
-  --color-gray-line-strong: rgba(70, 79, 98, 0.32);
-  --color-accent: rgba(79, 123, 215, 0.9);
-  --color-accent-soft: rgba(79, 123, 215, 0.22);
-  --color-accent-halo: rgba(79, 123, 215, 0.08);
+  --color-ink-strong: rgba(27, 33, 44, 0.96);
+  --color-ink: rgba(39, 46, 58, 0.86);
+  --color-ink-muted: rgba(69, 77, 92, 0.72);
+  --color-gray-line-soft: rgba(67, 75, 92, 0.12);
+  --color-gray-line-mid: rgba(67, 75, 92, 0.18);
+  --color-gray-line-strong: rgba(67, 75, 92, 0.26);
+  --color-accent: rgba(118, 137, 166, 0.92);
+  --color-accent-soft: rgba(118, 137, 166, 0.18);
+  --color-accent-halo: rgba(118, 137, 166, 0.08);
 
   /* Spacing scale */
   --space-1: 8px;
@@ -5806,10 +5835,10 @@ body {
   /* Type scale (shared defaults for new sections/components) */
   --type-h1-size: clamp(38px, 5vw, 56px);
   --type-h1-line: 1.08;
-  --type-h1-weight: 500;
+  --type-h1-weight: 400;
   --type-h2-size: clamp(24px, 3vw, 32px);
   --type-h2-line: 1.14;
-  --type-h2-weight: 500;
+  --type-h2-weight: 400;
   --type-h3-size: clamp(18px, 2vw, 22px);
   --type-h3-line: 1.2;
   --type-h3-weight: 500;
@@ -5822,17 +5851,17 @@ body {
   --type-button-size: 12.5px;
   --type-button-line: 1.15;
   --type-button-weight: 500;
-  --type-button-tracking: 0.045em;
+  --type-button-tracking: 0.055em;
 
-  --ui-surface-glass: rgba(248, 250, 254, 0.5);
-  --ui-surface-glass-strong: rgba(250, 252, 255, 0.68);
-  --ui-surface-soft: rgba(245, 247, 251, 0.42);
+  --ui-surface-glass: rgba(245, 247, 251, 0.52);
+  --ui-surface-glass-strong: rgba(248, 250, 253, 0.74);
+  --ui-surface-soft: rgba(242, 245, 249, 0.46);
   --ui-border-soft: var(--color-gray-line-soft);
   --ui-border-mid: var(--color-gray-line-mid);
   --ui-border-strong: var(--color-gray-line-strong);
-  --ui-shadow-1: 0 12px 22px rgba(18, 24, 34, 0.06);
-  --ui-shadow-2: 0 18px 34px rgba(18, 24, 34, 0.1);
-  --ui-shadow-3: 0 24px 42px rgba(18, 24, 34, 0.14);
+  --ui-shadow-1: 0 8px 18px rgba(18, 24, 34, 0.05);
+  --ui-shadow-2: 0 14px 28px rgba(18, 24, 34, 0.08);
+  --ui-shadow-3: 0 18px 34px rgba(18, 24, 34, 0.11);
   --ui-radius-card: 12px;
   --ui-radius-control: 10px;
   --ui-radius-pill: 999px;
@@ -5841,6 +5870,8 @@ body {
   --ui-heading-color: var(--color-ink-strong);
   --ui-copy-color: var(--color-ink);
   --ui-muted-color: var(--color-ink-muted);
+  --ui-hover-lift: -2px;
+  --ui-hover-lift-soft: -1px;
 
   /* Shared component primitives */
   --btn-border: var(--ui-border-mid);
@@ -5879,13 +5910,19 @@ body {
   background: var(--btn-bg);
   color: var(--btn-color);
   text-decoration: none;
-  transition: border-color 200ms ease, background-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+  transition:
+    border-color var(--ui-t-base) ease,
+    background-color var(--ui-t-base) ease,
+    box-shadow var(--ui-t-base) ease,
+    transform var(--ui-t-base) var(--ui-ease),
+    opacity var(--ui-t-base) ease;
 }
 
 .ui-btn:hover {
   border-color: var(--ui-border-strong);
   background: var(--btn-bg-hover);
   box-shadow: var(--ui-shadow-1);
+  transform: translateY(var(--ui-hover-lift));
 }
 
 .ui-btn:focus-visible {
@@ -5921,34 +5958,44 @@ body {
 }
 
 .ui-type-h1 {
+  font-family: var(--font-serif);
   font-size: var(--type-h1-size);
   line-height: var(--type-h1-line);
   font-weight: var(--type-h1-weight);
+  letter-spacing: -0.02em;
 }
 
 .ui-type-h2 {
+  font-family: var(--font-serif);
   font-size: var(--type-h2-size);
   line-height: var(--type-h2-line);
   font-weight: var(--type-h2-weight);
+  letter-spacing: -0.015em;
 }
 
 .ui-type-h3 {
+  font-family: var(--font-sans);
   font-size: var(--type-h3-size);
   line-height: var(--type-h3-line);
   font-weight: var(--type-h3-weight);
+  letter-spacing: -0.01em;
 }
 
 .ui-type-body {
+  font-family: var(--font-sans);
   font-size: var(--type-body-size);
   line-height: var(--type-body-line);
   font-weight: var(--type-body-weight);
+  letter-spacing: 0.004em;
 }
 
 .ui-type-button {
+  font-family: var(--font-sans);
   font-size: var(--type-button-size);
   line-height: var(--type-button-line);
   font-weight: var(--type-button-weight);
   letter-spacing: var(--type-button-tracking);
+  text-transform: none;
 }
 
 :where(button, input, select, textarea, summary):focus-visible,
@@ -6012,6 +6059,7 @@ body {
 .research-fast-link:hover,
 .research-link-row a:hover {
   box-shadow: var(--ui-shadow-2);
+  transform: translateY(var(--ui-hover-lift));
 }
 
 .research-hero-copy h1,
@@ -6078,7 +6126,7 @@ body {
   border-color: rgba(66, 77, 101, 0.34);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.35),
-    0 8px 18px rgba(25, 32, 46, 0.08);
+    0 6px 14px rgba(25, 32, 46, 0.06);
 }
 
 .cv-toc-link,
@@ -6188,39 +6236,44 @@ body {
 }
 
 .search-index-page .search-share-btn {
-  border: 1px solid rgba(72, 80, 98, 0.22);
-  background: rgba(248, 251, 255, 0.46);
-  color: rgba(52, 60, 78, 0.88);
+  border: 1px solid var(--ui-border-soft);
+  background: var(--ui-surface-glass);
+  color: var(--ui-copy-color);
   border-radius: 999px;
   padding: 4px 10px;
   font-size: 11px;
   line-height: 1.2;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   cursor: pointer;
-  transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease;
+  transition:
+    border-color var(--ui-t-fast) ease,
+    background-color var(--ui-t-fast) ease,
+    color var(--ui-t-fast) ease,
+    transform var(--ui-t-fast) var(--ui-ease);
 }
 
 .search-index-page .search-share-btn:hover,
 .search-index-page .search-share-btn:focus-visible {
-  border-color: rgba(72, 82, 104, 0.34);
-  background: rgba(250, 253, 255, 0.72);
-  color: rgba(37, 45, 62, 0.94);
+  border-color: var(--ui-border-mid);
+  background: var(--ui-surface-glass-strong);
+  color: var(--ui-heading-color);
+  transform: translateY(var(--ui-hover-lift-soft));
 }
 
 .search-index-page .search-share-hint {
-  color: rgba(72, 78, 93, 0.66);
+  color: color-mix(in srgb, var(--ui-muted-color) 92%, transparent);
   font-size: 11px;
   letter-spacing: 0.02em;
   white-space: nowrap;
 }
 
 .search-index-page .search-share-hint.is-error {
-  color: rgba(133, 62, 62, 0.86);
+  color: rgba(122, 67, 67, 0.88);
 }
 
 .search-index-page .search-shortcuts {
   margin: 6px 2px 0;
-  color: rgba(72, 78, 93, 0.72);
+  color: color-mix(in srgb, var(--ui-muted-color) 96%, transparent);
   font-size: 11px;
   line-height: 1.35;
   letter-spacing: 0.02em;
@@ -6228,9 +6281,9 @@ body {
 
 .search-index-page .search-nav-panel {
   margin: 12px 0 14px;
-  border: 1px solid rgba(76, 86, 108, 0.14);
-  background: rgba(249, 252, 255, 0.46);
-  box-shadow: 0 12px 22px rgba(18, 24, 34, 0.05);
+  border: 1px solid var(--ui-border-soft);
+  background: var(--ui-surface-glass);
+  box-shadow: var(--ui-shadow-1);
   border-radius: 12px;
   padding: 12px;
   backdrop-filter: blur(8px) saturate(108%);
@@ -6243,8 +6296,8 @@ body {
 }
 
 .search-index-page .search-nav-block {
-  border: 1px solid rgba(73, 83, 103, 0.12);
-  background: rgba(252, 254, 255, 0.5);
+  border: 1px solid var(--ui-border-soft);
+  background: color-mix(in srgb, var(--ui-surface-soft) 85%, white);
   border-radius: 10px;
   padding: 10px;
   min-width: 0;
@@ -6264,19 +6317,24 @@ body {
   line-height: 1.2;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(64, 72, 90, 0.84);
+  color: color-mix(in srgb, var(--ui-muted-color) 95%, transparent);
 }
 
 .search-index-page .search-nav-clear-btn {
-  border: 1px solid rgba(74, 84, 103, 0.18);
-  background: rgba(249, 252, 255, 0.58);
-  color: rgba(66, 74, 90, 0.82);
+  border: 1px solid var(--ui-border-soft);
+  background: color-mix(in srgb, var(--ui-surface-glass) 94%, white);
+  color: color-mix(in srgb, var(--ui-copy-color) 92%, transparent);
   border-radius: 999px;
   padding: 3px 8px;
   font-size: 10px;
   line-height: 1.2;
   letter-spacing: 0.02em;
   cursor: pointer;
+  transition:
+    border-color var(--ui-t-fast) ease,
+    background-color var(--ui-t-fast) ease,
+    color var(--ui-t-fast) ease,
+    transform var(--ui-t-fast) var(--ui-ease);
 }
 
 .search-index-page .search-nav-list {
@@ -6287,15 +6345,21 @@ body {
 
 .search-index-page .search-nav-link-chip,
 .search-index-page .search-nav-tag-chip {
-  border: 1px solid rgba(75, 84, 103, 0.2);
-  background: rgba(249, 252, 255, 0.62);
-  color: rgba(47, 55, 72, 0.92);
+  border: 1px solid var(--ui-border-mid);
+  background: color-mix(in srgb, var(--ui-surface-glass) 90%, white);
+  color: color-mix(in srgb, var(--ui-copy-color) 96%, transparent);
   text-decoration: none;
   border-radius: 999px;
   padding: 4px 10px;
   font-size: 11px;
   line-height: 1.2;
   letter-spacing: 0.02em;
+  transition:
+    border-color var(--ui-t-fast) ease,
+    background-color var(--ui-t-fast) ease,
+    color var(--ui-t-fast) ease,
+    transform var(--ui-t-fast) var(--ui-ease),
+    box-shadow var(--ui-t-fast) ease;
 }
 
 .search-index-page .search-nav-tag-chip {
@@ -6308,9 +6372,10 @@ body {
 .search-index-page .search-nav-tag-chip:focus-visible,
 .search-index-page .search-nav-clear-btn:hover,
 .search-index-page .search-nav-clear-btn:focus-visible {
-  border-color: rgba(72, 82, 104, 0.32);
-  background: rgba(250, 253, 255, 0.82);
-  color: rgba(37, 45, 62, 0.96);
+  border-color: var(--ui-border-strong);
+  background: var(--ui-surface-glass-strong);
+  color: var(--ui-heading-color);
+  transform: translateY(var(--ui-hover-lift-soft));
 }
 
 .search-index-page .search-nav-history-chip {
@@ -6320,64 +6385,71 @@ body {
   gap: 2px;
   min-width: min(100%, 220px);
   max-width: 100%;
-  border: 1px solid rgba(75, 84, 103, 0.2);
-  background: rgba(249, 252, 255, 0.62);
-  color: rgba(47, 55, 72, 0.92);
+  border: 1px solid var(--ui-border-mid);
+  background: color-mix(in srgb, var(--ui-surface-glass) 90%, white);
+  color: color-mix(in srgb, var(--ui-copy-color) 96%, transparent);
   border-radius: 10px;
   padding: 6px 10px;
   font-size: 11px;
   line-height: 1.25;
   cursor: pointer;
   text-align: left;
+  transition:
+    border-color var(--ui-t-fast) ease,
+    background-color var(--ui-t-fast) ease,
+    transform var(--ui-t-fast) var(--ui-ease),
+    box-shadow var(--ui-t-fast) ease;
 }
 
 .search-index-page .search-nav-history-main {
   display: block;
-  color: rgba(36, 44, 60, 0.95);
+  color: var(--ui-heading-color);
   font-size: 11px;
   line-height: 1.25;
 }
 
 .search-index-page .search-nav-history-meta {
   display: block;
-  color: rgba(76, 82, 96, 0.72);
+  color: var(--ui-muted-color);
   font-size: 10px;
   line-height: 1.2;
 }
 
 .search-index-page .search-nav-history-chip:hover,
 .search-index-page .search-nav-history-chip:focus-visible {
-  border-color: rgba(72, 82, 104, 0.32);
-  background: rgba(250, 253, 255, 0.84);
+  border-color: var(--ui-border-strong);
+  background: var(--ui-surface-glass-strong);
+  transform: translateY(var(--ui-hover-lift-soft));
+  box-shadow: var(--ui-shadow-1);
 }
 
 .search-index-page .search-nav-empty {
-  color: rgba(73, 79, 95, 0.66);
+  color: color-mix(in srgb, var(--ui-muted-color) 92%, transparent);
   font-size: 11px;
   line-height: 1.3;
 }
 
 .search-index-page .search-result-link.is-active {
-  border-color: rgba(82, 94, 126, 0.34);
-  background: rgba(249, 251, 255, 0.84);
-  box-shadow: 0 14px 26px rgba(22, 28, 40, 0.09);
+  border-color: color-mix(in srgb, var(--color-accent) 30%, var(--ui-border-mid));
+  background: color-mix(in srgb, var(--color-accent) 5%, var(--ui-surface-glass-strong));
+  box-shadow: var(--ui-shadow-2);
 }
 
 .search-index-page .search-result-link.is-active .search-result-title {
-  color: rgba(24, 30, 42, 0.98);
+  color: var(--ui-heading-color);
 }
 
 .search-index-page .search-no-results-panel {
   margin: 10px 0 4px;
   padding: 12px 14px;
-  border: 1px solid rgba(78, 87, 107, 0.2);
-  background: rgba(248, 251, 255, 0.42);
-  box-shadow: 0 10px 18px rgba(18, 24, 34, 0.05);
+  border: 1px solid var(--ui-border-mid);
+  background: color-mix(in srgb, var(--ui-surface-glass) 88%, white);
+  box-shadow: var(--ui-shadow-1);
 }
 
 .search-index-page .search-no-results-lead {
   margin: 0;
-  color: rgba(56, 63, 80, 0.84);
+  color: var(--ui-copy-color);
   font-size: 13px;
   line-height: 1.45;
 }
@@ -6390,8 +6462,8 @@ body {
 }
 
 .search-index-page .search-suggest-block {
-  border: 1px solid rgba(75, 84, 103, 0.14);
-  background: rgba(251, 253, 255, 0.48);
+  border: 1px solid var(--ui-border-soft);
+  background: color-mix(in srgb, var(--ui-surface-soft) 88%, white);
   padding: 10px;
 }
 
@@ -6401,7 +6473,7 @@ body {
   line-height: 1.2;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(64, 72, 90, 0.8);
+  color: color-mix(in srgb, var(--ui-muted-color) 94%, transparent);
 }
 
 .search-index-page .search-suggest-list {
@@ -6413,16 +6485,20 @@ body {
 .search-index-page .search-suggest-chip,
 .search-index-page .search-suggest-link,
 .search-index-page .search-suggest-action {
-  border: 1px solid rgba(76, 85, 104, 0.22);
-  background: rgba(249, 252, 255, 0.58);
-  color: rgba(49, 57, 74, 0.9);
+  border: 1px solid var(--ui-border-mid);
+  background: color-mix(in srgb, var(--ui-surface-glass) 90%, white);
+  color: color-mix(in srgb, var(--ui-copy-color) 96%, transparent);
   text-decoration: none;
   border-radius: 999px;
   padding: 4px 10px;
   font-size: 11px;
   line-height: 1.2;
   letter-spacing: 0.02em;
-  transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease;
+  transition:
+    border-color var(--ui-t-fast) ease,
+    background-color var(--ui-t-fast) ease,
+    color var(--ui-t-fast) ease,
+    transform var(--ui-t-fast) var(--ui-ease);
 }
 
 .search-index-page .search-suggest-chip,
@@ -6436,13 +6512,14 @@ body {
 .search-index-page .search-suggest-link:focus-visible,
 .search-index-page .search-suggest-action:hover,
 .search-index-page .search-suggest-action:focus-visible {
-  border-color: rgba(72, 82, 105, 0.34);
-  background: rgba(250, 253, 255, 0.78);
-  color: rgba(36, 44, 60, 0.96);
+  border-color: var(--ui-border-strong);
+  background: var(--ui-surface-glass-strong);
+  color: var(--ui-heading-color);
+  transform: translateY(var(--ui-hover-lift-soft));
 }
 
 .search-index-page .search-suggest-empty {
-  color: rgba(73, 79, 95, 0.66);
+  color: color-mix(in srgb, var(--ui-muted-color) 92%, transparent);
   font-size: 11px;
 }
 
@@ -6460,7 +6537,7 @@ body {
   border-radius: 0;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
-  border-bottom: 1px solid rgba(122, 142, 186, 0.32);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-accent) 34%, transparent);
 }
 
 .search-index-page .search-result-title .search-hit {
