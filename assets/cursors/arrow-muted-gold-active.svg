@@ -1,24 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
   <defs>
-    <linearGradient id="g-fill" x1="8" y1="9" x2="33" y2="39" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#e8dab2"/>
-      <stop offset="0.38" stop-color="#c5b183"/>
-      <stop offset="0.74" stop-color="#99896c"/>
-      <stop offset="1" stop-color="#7e7567"/>
+    <linearGradient id="fill" x1="4" y1="5" x2="22" y2="30" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#eadbb9"/>
+      <stop offset="0.45" stop-color="#c4af86"/>
+      <stop offset="0.8" stop-color="#978972"/>
+      <stop offset="1" stop-color="#7f8898"/>
     </linearGradient>
-    <linearGradient id="g-edge" x1="9" y1="10" x2="30" y2="35" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#f2e6c3" stop-opacity="0.9"/>
-      <stop offset="0.45" stop-color="#b8aa89" stop-opacity="0.78"/>
-      <stop offset="1" stop-color="#7f8797" stop-opacity="0.72"/>
+    <linearGradient id="stroke" x1="5" y1="5" x2="24" y2="27" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f7edd3"/>
+      <stop offset="0.38" stop-color="#d1bf97"/>
+      <stop offset="1" stop-color="#a4b2c5"/>
     </linearGradient>
-    <filter id="f-glow" x="0" y="0" width="48" height="48" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-      <feGaussianBlur stdDeviation="0.85"/>
+    <filter id="soft" x="0" y="0" width="40" height="40" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="0.65"/>
     </filter>
   </defs>
-  <g transform="translate(0 0.6) scale(0.992)">
-    <path d="M10 10L31 19.5L23.2 24L29.7 37.8L25.6 39.8L19.1 26L14 33L10 10Z" fill="#bfab7f" opacity="0.14" filter="url(#f-glow)"/>
-    <path d="M10 10L31 19.5L23.2 24L29.7 37.8L25.6 39.8L19.1 26L14 33L10 10Z" fill="url(#g-fill)"/>
-    <path d="M10.6 10.8L29.8 19.6L22.3 23.9L28.8 37.4L25.8 38.8L19.2 24.9L14.5 31.3L10.6 10.8Z" stroke="url(#g-edge)" stroke-width="1.06" stroke-linejoin="round"/>
-    <path d="M12.8 12.9L26.4 19.2L21.8 21.9L18.2 27L12.8 12.9Z" fill="#f4f5f7" opacity="0.14"/>
+  <g transform="translate(0 0.55)">
+    <path d="M4.5 4.6L23.9 18.8L15.8 20.6L19.1 31.2L15.8 32.2L12.5 21.7L6.6 27.7L4.5 4.6Z" fill="#c8b487" opacity="0.09" filter="url(#soft)"/>
+    <path d="M4.7 4.8L23.4 18.5L15.4 20.3L18.9 31L16.1 31.9L12.7 21.1L6.8 27.2L4.7 4.8Z" fill="url(#fill)"/>
+    <path d="M5.15 5.47L22.3 18.04L14.38 19.84L17.8 30.35L16.55 30.75L13.08 19.96L7.64 25.53L5.15 5.47Z" stroke="url(#stroke)" stroke-width="1.02" stroke-linejoin="round"/>
+    <path d="M7.95 7.9L18.95 16.05L13.45 17.3L10.45 20.35L7.95 7.9Z" fill="#ffffff" opacity="0.14"/>
   </g>
 </svg>

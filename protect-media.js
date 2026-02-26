@@ -10311,6 +10311,212 @@
     document.body.appendChild(wrapper);
   }
 
+  function setupDesktopCursorAtmosphere() {
+    if (!document.body || document.querySelector(".cursor-atmosphere-layer")) {
+      return;
+    }
+    if (!window.matchMedia) {
+      return;
+    }
+    var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+    if (!finePointer.matches) {
+      return;
+    }
+    var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (reducedMotion.matches) {
+      return;
+    }
+
+    var layer = document.createElement("div");
+    layer.className = "cursor-atmosphere-layer";
+    layer.setAttribute("aria-hidden", "true");
+    var core = document.createElement("div");
+    core.className = "cursor-atmosphere-core";
+    layer.appendChild(core);
+    document.body.appendChild(layer);
+
+    var state = {
+      x: 0,
+      y: 0,
+      targetX: 0,
+      targetY: 0,
+      visible: false,
+      muted: false,
+      rafId: 0,
+      lastSparkAt: 0,
+      lastSparkX: 0,
+      lastSparkY: 0,
+    };
+
+    function isMutedTarget(target) {
+      if (!target || !target.closest) {
+        return false;
+      }
+      return !!target.closest(
+        "input, textarea, select, option, audio, video, iframe, [contenteditable='true'], [contenteditable]:not([contenteditable='false'])"
+      );
+    }
+
+    function syncLayerClasses() {
+      layer.classList.toggle("is-visible", state.visible);
+      layer.classList.toggle("is-muted", state.muted);
+    }
+
+    function spawnSpark(ts) {
+      var dx = state.targetX - state.lastSparkX;
+      var dy = state.targetY - state.lastSparkY;
+      var speed = Math.sqrt(dx * dx + dy * dy);
+      if (speed < 8) {
+        return;
+      }
+      if (ts - state.lastSparkAt < 58) {
+        return;
+      }
+
+      state.lastSparkAt = ts;
+      state.lastSparkX = state.targetX;
+      state.lastSparkY = state.targetY;
+
+      var spark = document.createElement("span");
+      spark.className = "cursor-atmosphere-spark";
+
+      var offsetX = (Math.random() - 0.5) * 10 - dx * 0.08;
+      var offsetY = (Math.random() - 0.5) * 10 - dy * 0.08;
+      var driftX = -dx * (0.12 + Math.random() * 0.1) + (Math.random() - 0.5) * 10;
+      var driftY = -dy * (0.12 + Math.random() * 0.1) + (Math.random() - 0.5) * 10;
+      var size = 3.4 + Math.random() * 3.2;
+      var life = 360 + Math.random() * 260;
+      var opacity = 0.24 + Math.random() * 0.22;
+      var rot = Math.round(Math.random() * 180 - 90);
+
+      spark.style.setProperty("--spark-x", state.targetX + offsetX + "px");
+      spark.style.setProperty("--spark-y", state.targetY + offsetY + "px");
+      spark.style.setProperty("--spark-dx", driftX + "px");
+      spark.style.setProperty("--spark-dy", driftY + "px");
+      spark.style.setProperty("--spark-size", size.toFixed(2) + "px");
+      spark.style.setProperty("--spark-life", Math.round(life) + "ms");
+      spark.style.setProperty("--spark-opacity", opacity.toFixed(2));
+      spark.style.setProperty("--spark-rot", rot + "deg");
+
+      layer.appendChild(spark);
+      spark.addEventListener("animationend", function () {
+        if (spark.parentNode) {
+          spark.parentNode.removeChild(spark);
+        }
+      });
+
+      var sparks = layer.querySelectorAll(".cursor-atmosphere-spark");
+      if (sparks.length > 18) {
+        var overflow = sparks.length - 18;
+        for (var i = 0; i < overflow; i += 1) {
+          if (sparks[i] && sparks[i].parentNode) {
+            sparks[i].parentNode.removeChild(sparks[i]);
+          }
+        }
+      }
+    }
+
+    function tick(ts) {
+      state.rafId = 0;
+      state.x += (state.targetX - state.x) * 0.22;
+      state.y += (state.targetY - state.y) * 0.22;
+
+      core.style.left = state.x.toFixed(2) + "px";
+      core.style.top = state.y.toFixed(2) + "px";
+
+      if (state.visible && !state.muted) {
+        spawnSpark(ts || performance.now());
+      }
+
+      var needsContinue =
+        state.visible &&
+        (Math.abs(state.targetX - state.x) > 0.2 || Math.abs(state.targetY - state.y) > 0.2);
+
+      if (needsContinue) {
+        state.rafId = window.requestAnimationFrame(tick);
+      }
+    }
+
+    function requestTick() {
+      if (!state.rafId) {
+        state.rafId = window.requestAnimationFrame(tick);
+      }
+    }
+
+    document.addEventListener(
+      "pointermove",
+      function (event) {
+        if (event.pointerType && event.pointerType !== "mouse") {
+          return;
+        }
+        state.targetX = event.clientX;
+        state.targetY = event.clientY;
+        if (!state.visible) {
+          state.x = state.targetX;
+          state.y = state.targetY;
+          state.lastSparkX = state.targetX;
+          state.lastSparkY = state.targetY;
+          state.visible = true;
+        }
+        state.muted = isMutedTarget(event.target);
+        syncLayerClasses();
+        requestTick();
+      },
+      { passive: true }
+    );
+
+    document.addEventListener(
+      "pointerdown",
+      function (event) {
+        if (event.pointerType && event.pointerType !== "mouse") {
+          return;
+        }
+        layer.classList.add("is-pressed");
+        state.muted = isMutedTarget(event.target);
+        syncLayerClasses();
+      },
+      { passive: true }
+    );
+
+    document.addEventListener(
+      "pointerup",
+      function () {
+        layer.classList.remove("is-pressed");
+      },
+      { passive: true }
+    );
+
+    document.addEventListener(
+      "pointerleave",
+      function (event) {
+        if (event.target === document.documentElement || event.target === document.body) {
+          state.visible = false;
+          syncLayerClasses();
+          layer.classList.remove("is-pressed");
+        }
+      },
+      { passive: true }
+    );
+
+    document.addEventListener(
+      "visibilitychange",
+      function () {
+        if (document.hidden) {
+          state.visible = false;
+          syncLayerClasses();
+          layer.classList.remove("is-pressed");
+        }
+      },
+      { passive: true }
+    );
+
+    window.addEventListener("blur", function () {
+      state.visible = false;
+      syncLayerClasses();
+      layer.classList.remove("is-pressed");
+    });
+  }
+
   function injectFloatingLanguageSwitch() {
     if (document.querySelector(".lang-pill") || document.querySelector(".floating-lang-switch")) {
       return;
@@ -11001,6 +11207,7 @@
       bindCollectionLinkAnalytics,
       setupPageTransitions,
       setupFineMotionPass,
+      setupDesktopCursorAtmosphere,
     ],
   };
 
