@@ -43,7 +43,7 @@ def main() -> int:
     # Core JS/CSS/HTML file budgets. Keep conservative to avoid false alarms while still catching regressions.
     file_budgets: List[Tuple[str, int, str]] = [
         ("protect-media.js", 430_000, "core frontend runtime bundle"),
-        ("styles.css", 150_000, "global styles"),
+        ("styles.css", 155_000, "global styles"),
         ("home.css", 40_000, "home page styles"),
         ("assets/js/search-page.js", 80_000, "search page runtime"),
         ("assets/js/structured-data.js", 25_000, "structured data module"),

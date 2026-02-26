@@ -10479,6 +10479,110 @@
   }
 
   var fineMotionObserver = null;
+  var pageTransitionBound = false;
+  var pageTransitionNavigating = false;
+
+  function setupPageTransitions() {
+    if (pageTransitionBound || !document.body) {
+      return;
+    }
+    pageTransitionBound = true;
+
+    var reducedMotion =
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reducedMotion) {
+      return;
+    }
+
+    document.body.classList.add("page-transition-enabled");
+
+    window.addEventListener("pageshow", function () {
+      pageTransitionNavigating = false;
+      if (document.body) {
+        document.body.classList.remove("page-transition-leaving");
+      }
+    });
+
+    document.addEventListener(
+      "click",
+      function (event) {
+        if (pageTransitionNavigating || !event || event.defaultPrevented) {
+          return;
+        }
+
+        if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+          return;
+        }
+
+        var target = event.target;
+        if (!target || typeof target.closest !== "function") {
+          return;
+        }
+
+        var link = target.closest("a[href]");
+        if (!link) {
+          return;
+        }
+
+        if (
+          link.dataset.noPageTransition === "1" ||
+          link.hasAttribute("download") ||
+          (link.getAttribute("target") || "").toLowerCase() === "_blank"
+        ) {
+          return;
+        }
+
+        var rawHref = (link.getAttribute("href") || "").trim();
+        if (!rawHref) {
+          return;
+        }
+        if (
+          rawHref.charAt(0) === "#" ||
+          /^(?:mailto|tel|javascript|data):/i.test(rawHref)
+        ) {
+          return;
+        }
+
+        var url;
+        var current;
+        try {
+          url = new URL(link.href, window.location.href);
+          current = new URL(window.location.href);
+        } catch (_err) {
+          return;
+        }
+
+        if (!/^https?:$/i.test(url.protocol) || url.origin !== current.origin) {
+          return;
+        }
+
+        if (
+          url.pathname === current.pathname &&
+          url.search === current.search &&
+          url.hash &&
+          url.hash !== current.hash
+        ) {
+          return;
+        }
+
+        if (url.href === current.href) {
+          return;
+        }
+
+        pageTransitionNavigating = true;
+        if (document.body) {
+          document.body.classList.add("page-transition-leaving");
+        }
+
+        event.preventDefault();
+        window.setTimeout(function () {
+          window.location.href = url.href;
+        }, 180);
+      },
+      true
+    );
+  }
 
   function setupFineMotionPass() {
     if (!document.body || document.body.classList.contains("home-body")) {
@@ -10791,6 +10895,7 @@
       enhanceMusicLyricsLayout,
       enableIndexRowLinks,
       bindCollectionLinkAnalytics,
+      setupPageTransitions,
       setupFineMotionPass,
     ],
   };
