@@ -54,9 +54,16 @@
     var card = document.createElement("article");
     card.className = "research-project-card";
 
-    function appendPara(html) {
+    function appendLine(label, value, extraClass) {
+      if (!value) return;
       var p = document.createElement("p");
-      p.innerHTML = html;
+      p.className = "research-project-line" + (extraClass ? " " + extraClass : "");
+      p.innerHTML =
+        "<strong>" +
+        label +
+        ":</strong><span class=\"research-project-line-body\">" +
+        value +
+        "</span>";
       card.appendChild(p);
     }
 
@@ -72,16 +79,41 @@
       card.appendChild(h3);
     }
     if (project.problem) {
-      appendPara("<strong>Problem:</strong> " + project.problem);
+      appendLine("Problem", project.problem);
     }
     if (project.method) {
-      appendPara("<strong>Method:</strong> " + project.method);
-    }
-    if (project.current_status) {
-      appendPara("<strong>Current status:</strong> " + project.current_status);
+      appendLine("Method", project.method);
     }
     if (project.contribution) {
-      appendPara("<strong>Contribution:</strong> " + project.contribution);
+      appendLine("Contribution", project.contribution);
+    }
+    if (project.status_label || project.status_detail || project.current_status || project.status) {
+      var statusLine = document.createElement("p");
+      statusLine.className = "research-project-line research-project-line--status";
+      var strong = document.createElement("strong");
+      strong.textContent = "Status:";
+      statusLine.appendChild(strong);
+      var wrap = document.createElement("span");
+      wrap.className = "research-project-status-wrap";
+      var statusLabel = project.status_label || project.status || "";
+      var statusDetail = project.status_detail || project.current_status || "";
+      if (statusLabel) {
+        var badge = document.createElement("span");
+        badge.className = "research-project-status-badge";
+        if (project.status_key) {
+          badge.className += " research-project-status-badge--" + String(project.status_key).replace(/_/g, "-");
+        }
+        badge.textContent = statusLabel;
+        wrap.appendChild(badge);
+      }
+      if (statusDetail) {
+        var detail = document.createElement("span");
+        detail.className = "research-project-status-detail";
+        detail.textContent = statusDetail;
+        wrap.appendChild(detail);
+      }
+      statusLine.appendChild(wrap);
+      card.appendChild(statusLine);
     }
 
     var links = Array.isArray(project.links) ? project.links : [];

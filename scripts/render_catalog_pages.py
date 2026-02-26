@@ -235,11 +235,23 @@ def render_research_projects(items: List[Dict[str, Any]]) -> str:
         if item.get("kind"):
             rows.append(f'  <p class="research-project-kind">{esc_text(item.get("kind"))}</p>')
         rows.append(f'  <h3>{esc_text(item.get("title"))}</h3>')
-        rows.append(f'  <p><strong>Problem:</strong> {esc_text(item.get("problem"))}</p>')
-        rows.append(f'  <p><strong>Method:</strong> {esc_text(item.get("method"))}</p>')
-        if item.get("current_status"):
-            rows.append(f'  <p><strong>Current status:</strong> {esc_text(item.get("current_status"))}</p>')
-        rows.append(f'  <p><strong>Contribution:</strong> {esc_text(item.get("contribution"))}</p>')
+        rows.append(f'  <p class="research-project-line"><strong>Problem:</strong><span class="research-project-line-body">{esc_text(item.get("problem"))}</span></p>')
+        rows.append(f'  <p class="research-project-line"><strong>Method:</strong><span class="research-project-line-body">{esc_text(item.get("method"))}</span></p>')
+        rows.append(f'  <p class="research-project-line"><strong>Contribution:</strong><span class="research-project-line-body">{esc_text(item.get("contribution"))}</span></p>')
+        status_label = str(item.get("status_label") or "").strip()
+        status_key = str(item.get("status_key") or "").strip()
+        status_detail = str(item.get("status_detail") or "").strip()
+        if status_label or status_detail:
+            badge_class = f" research-project-status-badge--{status_key.replace('_', '-')}" if status_key else ""
+            rows.append('  <p class="research-project-line research-project-line--status">')
+            rows.append('    <strong>Status:</strong>')
+            rows.append('    <span class="research-project-status-wrap">')
+            if status_label:
+                rows.append(f'      <span class="research-project-status-badge{badge_class}">{esc_text(status_label)}</span>')
+            if status_detail:
+                rows.append(f'      <span class="research-project-status-detail">{esc_text(status_detail)}</span>')
+            rows.append("    </span>")
+            rows.append("  </p>")
         links = item.get("links") or []
         if links:
             rows.append('  <div class="research-link-row">')

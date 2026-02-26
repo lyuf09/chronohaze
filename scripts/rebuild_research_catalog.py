@@ -12,7 +12,7 @@ from zoneinfo import ZoneInfo
 
 
 TAG_RE = re.compile(r"<[^>]+>")
-OUTPUT_STATUS_SPLIT_RE = re.compile(r"\s*[·•|/:-]\s*", re.S)
+OUTPUT_STATUS_SPLIT_RE = re.compile(r"(?:\s*[·•|]\s*|\s*:\s+|\s+/\s+|\s+-\s+)", re.S)
 
 
 def clean(fragment: str) -> str:
@@ -58,6 +58,40 @@ def canonicalize_output_status(status_text: str) -> Dict[str, str]:
     elif "draft" in head:
         key = "draft"
         label = "Draft"
+    else:
+        key = "active"
+        label = "Active"
+
+    display = label + (f" · {tail}" if tail else "")
+    return {
+        "key": key,
+        "label": label,
+        "detail": tail,
+        "display": display,
+    }
+
+
+def canonicalize_project_status(status_text: str, fallback_detail: str = "") -> Dict[str, str]:
+    raw = str(status_text or "").strip()
+    detail_fallback = str(fallback_detail or "").strip()
+    if not raw:
+        return {
+            "key": "",
+            "label": "",
+            "detail": detail_fallback,
+            "display": detail_fallback,
+        }
+
+    parts = [p.strip() for p in OUTPUT_STATUS_SPLIT_RE.split(raw, maxsplit=1) if p.strip()]
+    head = parts[0].lower() if parts else raw.lower()
+    tail = parts[1].strip() if len(parts) > 1 else detail_fallback
+
+    if head in {"wip", "work in progress"}:
+        key = "wip"
+        label = "WIP"
+    elif head in {"in prep", "in-prep", "in preparation", "pending"}:
+        key = "in_prep"
+        label = "In prep"
     else:
         key = "active"
         label = "Active"
@@ -223,8 +257,28 @@ def parse_research_page(text: str) -> Dict[str, Any]:
             kind_m = re.search(r'<p class="research-project-kind">(.*?)</p>', body, re.S)
             title_m = re.search(r"<h3>(.*?)</h3>", body, re.S)
             field_map: Dict[str, str] = {}
-            for p_m in re.finditer(r"<p>(.*?)</p>", body, re.S):
+            for p_m in re.finditer(r"<p[^>]*>(.*?)</p>", body, re.S):
                 p_body = p_m.group(1) or ""
+                p_full = p_m.group(0) or ""
+                if "research-project-line--status" in p_full:
+                    badge_m = re.search(
+                        r'class="[^"]*research-project-status-badge[^"]*">(.*?)</span>',
+                        p_body,
+                        re.S,
+                    )
+                    detail_m = re.search(
+                        r'class="[^"]*research-project-status-detail[^"]*">(.*?)</span>',
+                        p_body,
+                        re.S,
+                    )
+                    badge_text = clean(badge_m.group(1) if badge_m else "")
+                    detail_text = clean(detail_m.group(1) if detail_m else "")
+                    if badge_text or detail_text:
+                        status_raw = badge_text
+                        if detail_text:
+                            status_raw = f"{status_raw} · {detail_text}" if status_raw else detail_text
+                        field_map["status"] = status_raw
+                    continue
                 label_m = re.match(r"\s*<strong>([^<:]+):</strong>\s*(.*)$", p_body, re.S)
                 if not label_m:
                     continue
@@ -250,6 +304,7 @@ def parse_research_page(text: str) -> Dict[str, Any]:
                     "title": clean(title_m.group(1) if title_m else ""),
                     "problem": field_map.get("problem", ""),
                     "method": field_map.get("method", ""),
+                    "status": field_map.get("status", ""),
                     "current_status": field_map.get("current_status", ""),
                     "contribution": field_map.get("contribution", ""),
                     "links": links,
@@ -431,6 +486,18 @@ def parse_research_page(text: str) -> Dict[str, Any]:
             continue
         grouped.append({"key": key, "title": title, "lead": lead, "items": group_items})
     payload["outputs"] = outputs
+
+    projects = [p for p in payload.get("projects", []) if isinstance(p, dict)]
+    for item in projects:
+        status_meta = canonicalize_project_status(
+            str(item.get("status") or ""),
+            fallback_detail=str(item.get("current_status") or ""),
+        )
+        item["status_key"] = status_meta["key"]
+        item["status_label"] = status_meta["label"]
+        item["status_detail"] = status_meta["detail"]
+        item["status_display"] = status_meta["display"]
+    payload["projects"] = projects
     payload["output_groups"] = grouped
 
     repo_count = sum(1 for item in outputs if item.get("type") == "repo")

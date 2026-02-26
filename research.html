@@ -66,7 +66,7 @@
             <h1>Fay Lyu (HazezZ)</h1>
             <p class="research-subtitle">Optimization · Formal Methods · Game Theory · Data</p>
             <p class="research-positioning">
-              I work at the intersection of optimization, formal methods, and data-oriented modeling. My current research-facing work includes Isabelle/HOL formalization of submodular greedy guarantees, optimization reading/research in ORIE, and prototype-building that turns structured intuition into reproducible pipelines. This page is a short research entry point (interests, current projects, and links). For internships, engineering deployment details, and broader application-facing summaries, see the CV page.
+              Research entry point: optimization, formal methods, game theory, and data-oriented modeling. This page is for quick faculty-level scanning (current questions, methods, outputs, and links). CV keeps internship/engineering/application-facing detail.
             </p>
             <div class="research-chip-row" aria-label="Research keywords">
               <span class="research-chip">Optimization</span>
@@ -81,7 +81,7 @@
               <!-- GENERATED:research-meta:start -->
               <div class="research-meta-pill">
                 <span class="research-meta-label">Last updated</span>
-                <time class="research-last-updated" datetime="2026-02-26T12:09:56-05:00" data-timezone="America/New_York" title="America/New_York">2026-02-26 · 12:09 PM ET</time>
+                <time class="research-last-updated" datetime="2026-02-26T13:19:10-05:00" data-timezone="America/New_York" title="America/New_York">2026-02-26 · 01:19 PM ET</time>
               </div>
               <div class="research-meta-pill">
                 <span class="research-meta-label">Current focus</span>
@@ -115,42 +115,61 @@
       <section class="section research-projects-section" id="research-projects">
         <div class="container research-section-head">
           <h2>Current Projects (3 entry points)</h2>
-          <p>Each card shows the research question, method direction, contribution style, and where to read more.</p>
+          <p>Editorial summary cards: problem, method, contribution, status, and links. Longer technical context lives in the notes.</p>
         </div>
         <div class="container research-project-grid">
           <!-- GENERATED:research-projects:start -->
           <article class="research-project-card">
             <p class="research-project-kind">Formal Methods · Optimization Theory</p>
             <h3>An Ongoing Isabelle Research Project: Formalising Submodular Greedy</h3>
-            <p><strong>Problem:</strong> Formalize the classical greedy (1−1/e) approximation guarantee for monotone submodular maximization under a cardinality constraint.</p>
-            <p><strong>Method:</strong> Split the development into constructive and approximation-analysis layers, then encode assumptions and intermediate lemmas explicitly in Isabelle/HOL.</p>
-            <p><strong>Contribution:</strong> Building reusable formal scaffolding + documenting design choices and proof decomposition as a research log.</p>
+            <p class="research-project-line"><strong>Problem:</strong><span class="research-project-line-body">Formalize the classical greedy (1−1/e) approximation guarantee for monotone submodular maximization under a cardinality constraint.</span></p>
+            <p class="research-project-line"><strong>Method:</strong><span class="research-project-line-body">Split the development into constructive and approximation-analysis layers, then encode assumptions and intermediate lemmas explicitly in Isabelle/HOL.</span></p>
+            <p class="research-project-line"><strong>Contribution:</strong><span class="research-project-line-body">Reusable formal scaffolding + proof decomposition notes for a machine-checkable development path.</span></p>
+            <p class="research-project-line research-project-line--status">
+              <strong>Status:</strong>
+              <span class="research-project-status-wrap">
+                <span class="research-project-status-badge research-project-status-badge--active">Active</span>
+              </span>
+            </p>
             <div class="research-link-row">
-              <a href="post/isabelle-submodular-greedy.html">Research note</a>
-              <a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">GitHub repo</a>
+              <a href="post/isabelle-submodular-greedy.html">Note</a>
+              <a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">Repo</a>
             </div>
           </article>
           <article class="research-project-card">
             <p class="research-project-kind">Optimization Research · Duality / Lower Bounds</p>
             <h3>Spring 2026 | A New Research Direction (Cornell ORIE)</h3>
-            <p><strong>Problem:</strong> Understand which dual / lower-bound framework gives nontrivial information for a graph-relative-difference distance-fitting objective (B-encoded), with current focus on constrained/composite first-order structure and duality.</p>
-            <p><strong>Method:</strong> Compare DC/Fenchel-based dualization against plain Lagrangian duals, and analyze where relaxation becomes too loose (unconstrainedness / translation invariance / non-identifiability).</p>
-            <p><strong>Current status:</strong> Right now we’re trying to understand which dual framework gives nontrivial information for this distance-fitting objective. The DC/Fenchel route gives a clean conjugate-based dual with explicit domain conditions, while the most natural plain Lagrangian duals turn out to be too loose and collapse to the trivial bound 0 due to unconstrainedness and translation invariance. The next step is to tighten the relaxation (e.g., via gauge-fixing and/or an augmented Lagrangian / ADMM viewpoint) to obtain an informative bound or an algorithmically useful dual.</p>
-            <p><strong>Contribution:</strong> Dual-framework comparison, structural diagnosis of degeneracy, and research-note documentation of the evolving problem formulation.</p>
+            <p class="research-project-line"><strong>Problem:</strong><span class="research-project-line-body">Identify a nontrivial dual / lower-bound framework for a graph-relative-difference distance-fitting objective (B-encoded).</span></p>
+            <p class="research-project-line"><strong>Method:</strong><span class="research-project-line-body">Compare DC/Fenchel dualization with plain Lagrangian duals and diagnose degeneracy from unconstrainedness + translation invariance.</span></p>
+            <p class="research-project-line"><strong>Contribution:</strong><span class="research-project-line-body">Dual-framework comparison, structural diagnosis of trivial bounds, and note-driven refinement of the problem formulation.</span></p>
+            <p class="research-project-line research-project-line--status">
+              <strong>Status:</strong>
+              <span class="research-project-status-wrap">
+                <span class="research-project-status-badge research-project-status-badge--active">Active</span>
+                <span class="research-project-status-detail">DC/Fenchel route is informative; next step is tighter relaxations (gauge-fixing / augmented Lagrangian / ADMM).</span>
+              </span>
+            </p>
             <div class="research-link-row">
-              <a href="post/spring-2026.html">Research note</a>
-              <a href="math.html">Math archive</a>
+              <a href="post/spring-2026.html">Note</a>
+              <a href="math.html">Archive</a>
             </div>
           </article>
           <article class="research-project-card">
             <p class="research-project-kind">Signal / Discretization Prototype · Data-oriented Systems</p>
             <h3>Metalcore Piano Lab | From Audio to Chart (WIP)</h3>
-            <p><strong>Problem:</strong> Map continuous audio (or MIDI) into a playable rhythm-game style chart as a structured discretization problem.</p>
-            <p><strong>Method:</strong> Onset/beat detection, tempo tracking, segmentation, alignment, and playability-oriented constraints.</p>
-            <p><strong>Contribution:</strong> Browser-native prototype + research-style documentation of assumptions, failure modes, and next optimization targets.</p>
+            <p class="research-project-line"><strong>Problem:</strong><span class="research-project-line-body">Map continuous audio (or MIDI) into a playable rhythm-game chart as a structured discretization problem.</span></p>
+            <p class="research-project-line"><strong>Method:</strong><span class="research-project-line-body">Onset/beat detection, tempo tracking, segmentation, alignment, and playability-oriented constraints.</span></p>
+            <p class="research-project-line"><strong>Contribution:</strong><span class="research-project-line-body">Browser-native prototype + reproducible notes on assumptions, failure modes, and optimization targets.</span></p>
+            <p class="research-project-line research-project-line--status">
+              <strong>Status:</strong>
+              <span class="research-project-status-wrap">
+                <span class="research-project-status-badge research-project-status-badge--active">Active</span>
+                <span class="research-project-status-detail">Browser prototype works end-to-end; chart quality and scaling heuristics are being refined.</span>
+              </span>
+            </p>
             <div class="research-link-row">
-              <a href="post/metalcore-piano-lab.html">Research note</a>
-              <a href="https://github.com/lyuf09/metalcore-piano-lab" target="_blank" rel="noopener noreferrer">GitHub repo</a>
+              <a href="post/metalcore-piano-lab.html">Note</a>
+              <a href="https://github.com/lyuf09/metalcore-piano-lab" target="_blank" rel="noopener noreferrer">Repo</a>
             </div>
           </article>
           <!-- GENERATED:research-projects:end -->
