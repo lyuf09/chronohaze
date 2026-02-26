@@ -16,3 +16,4 @@ python3 "$ROOT/scripts/render_catalog_pages.py" --root "$ROOT"
 python3 "$ROOT/scripts/build_social_cards_and_meta.py" --root "$ROOT"
 
 python3 "$ROOT/scripts/rebuild_search_index.py" --root "$ROOT"
+python3 "$ROOT/scripts/sanitize_public_contact_artifacts.py" --root "$ROOT"

@@ -122,7 +122,6 @@
       alternateName: "HazezZ",
       url: CHRONOHAZE_SITE_URL,
       sameAs: CHRONOHAZE_PERSON_SAME_AS.slice(),
-      email: "mailto:feier530@icloud.com",
     };
 
     return {

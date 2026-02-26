@@ -5552,6 +5552,47 @@ h4,
   transform: translateY(var(--ui-hover-lift-soft));
 }
 
+.obf-email-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: copy;
+  transition:
+    opacity var(--ui-t-fast) ease,
+    color var(--ui-t-fast) ease,
+    filter var(--ui-t-fast) ease;
+}
+
+.obf-email-link:hover,
+.obf-email-link:focus-visible {
+  opacity: 0.9;
+  filter: brightness(1.02);
+}
+
+.obf-email-link[data-email-copied="1"]::after {
+  content: "copied";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  border: 1px solid rgba(95, 121, 171, 0.28);
+  background: rgba(95, 121, 171, 0.09);
+  color: rgba(57, 72, 106, 0.82);
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+html[lang="zh-CN"] .obf-email-link[data-email-copied="1"]::after {
+  content: "已复制";
+  min-width: auto;
+  letter-spacing: 0.05em;
+}
+
 .social a {
   border-color: rgba(59, 67, 82, 0.22);
   background: rgba(255, 255, 255, 0.56);

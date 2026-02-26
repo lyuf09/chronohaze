@@ -897,6 +897,106 @@
     }
   }
 
+  var CHRONOHAZE_EMAIL_BOOK = {
+    main: {
+      userParts: ["fei", "er530"],
+      domainParts: ["icloud", "com"],
+    },
+  };
+
+  function resolveEmailAddress(key) {
+    var record = CHRONOHAZE_EMAIL_BOOK[key || "main"];
+    if (!record) {
+      return "";
+    }
+    var user = Array.isArray(record.userParts) ? record.userParts.join("") : "";
+    var domain = Array.isArray(record.domainParts) ? record.domainParts.join(".") : "";
+    if (!user || !domain) {
+      return "";
+    }
+    return user + "@" + domain;
+  }
+
+  function formatObfuscatedEmailDisplay(emailValue) {
+    var value = String(emailValue || "");
+    if (!value || value.indexOf("@") < 0) {
+      return value;
+    }
+    var parts = value.split("@");
+    return parts[0] + " [at] " + String(parts[1] || "").replace(/\./g, " [dot] ");
+  }
+
+  function enhanceObfuscatedEmailLinks() {
+    var safeLang = detectPreferredLanguage();
+    var dict = getSecondaryPageDictionary(safeLang) || {};
+    var copyHint =
+      dict.emailCopyHint ||
+      (safeLang === "en" ? "Click to copy email address" : "点击复制邮箱地址");
+    var copiedHint = dict.emailCopiedEmail || (safeLang === "en" ? "Email copied" : "邮箱已复制");
+    var copyFailedHint =
+      dict.emailCopyFailed || (safeLang === "en" ? "Copy failed" : "复制失败，请手动复制");
+
+    Array.from(document.querySelectorAll("a[data-email-link='1']")).forEach(function (link) {
+      if (!link) {
+        return;
+      }
+
+      var key = link.getAttribute("data-email-key") || "main";
+      var emailAddress = resolveEmailAddress(key);
+      if (!emailAddress) {
+        return;
+      }
+
+      link.setAttribute("href", "#");
+      link.setAttribute("role", "button");
+      link.setAttribute("data-email-value", emailAddress);
+
+      if (!link.dataset.emailObfInitialized) {
+        var visibleText = String(link.textContent || "").trim();
+        if (!visibleText || visibleText.indexOf("@") >= 0 || visibleText.indexOf("[at]") < 0) {
+          link.textContent = formatObfuscatedEmailDisplay(emailAddress);
+        }
+      }
+
+      if (link.dataset.emailCopied !== "1") {
+        link.setAttribute("title", copyHint);
+      }
+      link.setAttribute("aria-label", copyHint);
+
+      if (link.dataset.emailObfBound === "1") {
+        return;
+      }
+
+      link.dataset.emailObfBound = "1";
+      link.dataset.emailObfInitialized = "1";
+
+      link.addEventListener("click", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        var latestEmail = link.getAttribute("data-email-value") || emailAddress;
+        copyTextToClipboard(latestEmail).then(function (ok) {
+          link.dataset.emailCopied = ok ? "1" : "0";
+          link.setAttribute("title", ok ? copiedHint : copyFailedHint);
+          link.setAttribute("aria-label", ok ? copiedHint : copyFailedHint);
+          if (ok) {
+            trackAnalyticsEvent("email_copy", {
+              page_path: window.location.pathname || "",
+            });
+          }
+          window.setTimeout(function () {
+            if (!link || !link.isConnected) {
+              return;
+            }
+            link.dataset.emailCopied = "";
+            link.setAttribute("title", copyHint);
+            link.setAttribute("aria-label", copyHint);
+          }, ok ? 1500 : 2200);
+        });
+      });
+    });
+  }
+
   function buildPageSharePayload() {
     var canonicalNode = document.querySelector('link[rel="canonical"]');
     var metaTitleNode =
@@ -1771,6 +1871,9 @@
         shareCopied: "已复制",
         shareCopyFailed: "复制失败，请手动复制",
         shareNoNative: "当前浏览器不支持系统分享",
+        emailCopyHint: "点击复制邮箱地址",
+        emailCopiedEmail: "邮箱已复制",
+        emailCopyFailed: "复制失败，请手动复制",
       },
       en: {
         htmlLang: "en",
@@ -1910,6 +2013,9 @@
         shareCopied: "Copied",
         shareCopyFailed: "Copy failed. Please copy manually.",
         shareNoNative: "System share is not supported in this browser",
+        emailCopyHint: "Click to copy email address",
+        emailCopiedEmail: "Email copied",
+        emailCopyFailed: "Copy failed. Please copy manually.",
       },
     }[safeLang];
   }
@@ -10869,6 +10975,7 @@
     navAndChrome: [
       ensureSearchNavLink,
       dedupeNavLinks,
+      enhanceObfuscatedEmailLinks,
       ensureSiteSharePanel,
       cacheMusicIntroPaletteSource,
       injectFloatingSiteLogo,
@@ -10901,6 +11008,7 @@
   };
 
   var MUTATION_REFRESH_TASKS = [
+    enhanceObfuscatedEmailLinks,
     ensureStructuredData,
     ensureUnifiedPageLastUpdatedBadge,
     optimizeMediaLoading,
