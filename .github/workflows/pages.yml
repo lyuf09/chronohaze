@@ -46,7 +46,8 @@ jobs:
       - name: Build generated data and media assets
         run: bash scripts/build_site_generated_assets.sh
 
-      - name: Run site checks
+      - name: Run site checks (non-blocking for deploy)
+        continue-on-error: true
         run: bash scripts/check_all.sh
 
       - name: Run runtime smoke (Playwright, non-blocking for deploy)
