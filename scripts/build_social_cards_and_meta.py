@@ -20,6 +20,9 @@ OG_SIZE = (OG_WIDTH, OG_HEIGHT)
 
 MATH_OG_DIR = "assets/og/math"
 MUSIC_OG_DIR = "assets/og/music"
+SITE_OG_DIR = "assets/og/site"
+
+FAVICON_VERSION = "4"
 
 HREFLANG_MARKER_START = "<!-- GENERATED:hreflang:start -->"
 HREFLANG_MARKER_END = "<!-- GENERATED:hreflang:end -->"
@@ -165,6 +168,7 @@ def replace_meta_content(text: str, attr_name: str, attr_value: str, content: st
 def patch_page_head(
     page_path: Path,
     *,
+    root: Optional[Path] = None,
     og_image_url: Optional[str] = None,
     force_hreflang: bool = False,
 ) -> bool:
@@ -177,6 +181,30 @@ def patch_page_head(
     if og_image_url:
         text = replace_meta_content(text, "property", "og:image", og_image_url)
         text = replace_meta_content(text, "name", "twitter:image", og_image_url)
+
+    if root is not None:
+        try:
+            rel_page = page_path.relative_to(root)
+            depth = max(0, len(rel_page.parts) - 1)
+            prefix = "../" * depth
+            favicon_href = f"{prefix}assets/favicon.ico?v={FAVICON_VERSION}"
+            apple_href = f"{prefix}assets/apple-touch-icon.png?v={FAVICON_VERSION}"
+            text = re.sub(
+                r'(<link\b[^>]*rel=["\']icon["\'][^>]*href=["\'])([^"\']*)(["\'][^>]*>)',
+                rf"\1{favicon_href}\3",
+                text,
+                count=1,
+                flags=re.I,
+            )
+            text = re.sub(
+                r'(<link\b[^>]*rel=["\']apple-touch-icon["\'][^>]*href=["\'])([^"\']*)(["\'][^>]*>)',
+                rf"\1{apple_href}\3",
+                text,
+                count=1,
+                flags=re.I,
+            )
+        except ValueError:
+            pass
 
     if canonical_url and (force_hreflang or is_bilingual_page(str(page_path))):
         text = upsert_hreflang_block(text, canonical_url)
@@ -464,8 +492,6 @@ def render_music_card_image(item: dict, out_path: Path, palette_hex: str) -> Non
 def collect_hreflang_targets(root: Path) -> List[Path]:
     targets: List[Path] = []
     for rel in sorted(root.glob("*.html")):
-        if rel.name == "research-summary.html":
-            continue
         targets.append(rel)
     for sub in ("music", "post", "photo"):
         for path in sorted((root / sub).glob("*.html")):
@@ -473,10 +499,190 @@ def collect_hreflang_targets(root: Path) -> List[Path]:
     return targets
 
 
+def extract_meta(text: str, attr_name: str, attr_value: str) -> str:
+    m = re.search(
+        rf'<meta\s+{re.escape(attr_name)}="{re.escape(attr_value)}"\s+content="([^"]*)"\s*/?>',
+        text,
+        flags=re.I,
+    )
+    return m.group(1).strip() if m else ""
+
+
+def extract_title_and_description(page_path: Path) -> Tuple[str, str]:
+    text = page_path.read_text(encoding="utf-8")
+    title = ""
+    m = re.search(r"<title>(.*?)</title>", text, flags=re.I | re.S)
+    if m:
+        title = re.sub(r"\s+", " ", m.group(1)).strip()
+    og_title = extract_meta(text, "property", "og:title")
+    if og_title:
+        title = og_title
+    desc = extract_meta(text, "property", "og:description") or extract_meta(text, "name", "description")
+    desc = re.sub(r"\s+", " ", desc).strip()
+    return title, desc
+
+
+def site_card_config_for(rel: str) -> Tuple[str, Tuple[int, int, int], Tuple[int, int, int]]:
+    rel = rel.replace("\\", "/")
+    label = "CHRONOHAZE"
+    base = (27, 34, 50)
+    accent = (109, 129, 161)
+    if rel == "index.html":
+        label, base, accent = "CHRONOHAZE · HOME", (24, 30, 44), (113, 132, 164)
+    elif rel == "math.html" or rel.startswith("post/"):
+        label, base, accent = "CHRONOHAZE · MATH", (20, 26, 42), (86, 116, 190)
+    elif rel == "yin-le.html":
+        label, base, accent = "CHRONOHAZE · MUSIC", (30, 24, 34), (138, 112, 164)
+    elif rel.startswith("music/album-"):
+        label, base, accent = "CHRONOHAZE · ALBUM", (28, 24, 33), (152, 118, 170)
+    elif rel.startswith("music/"):
+        label, base, accent = "CHRONOHAZE · TRACK", (30, 24, 34), (138, 112, 164)
+    elif rel == "portfolio-1.html" or rel.startswith("photo/"):
+        label, base, accent = "CHRONOHAZE · PHOTO", (22, 31, 30), (104, 138, 143)
+    elif rel == "research.html" or rel == "research-summary.html":
+        label, base, accent = "CHRONOHAZE · RESEARCH", (21, 27, 40), (95, 123, 174)
+    elif rel == "cv.html":
+        label, base, accent = "CHRONOHAZE · CV", (30, 31, 38), (126, 137, 157)
+    elif rel == "search.html":
+        label, base, accent = "CHRONOHAZE · SEARCH", (25, 31, 40), (96, 124, 166)
+    return label, base, accent
+
+
+def render_site_card_image(rel: str, title: str, desc: str, out_path: Path) -> None:
+    label, base, accent = site_card_config_for(rel)
+    deep = adjust(base, s_mul=0.9, l_mul=0.82)
+    dark = adjust(base, s_mul=0.9, l_mul=0.45)
+    text_rgb = (240, 244, 250)
+    muted_rgb = mix(text_rgb, accent, 0.6)
+
+    img = Image.new("RGBA", OG_SIZE, (*dark, 255))
+    draw = ImageDraw.Draw(img, "RGBA")
+    for x in range(OG_WIDTH):
+        t = x / max(1, OG_WIDTH - 1)
+        c = mix(dark, deep, t * 0.8)
+        draw.line((x, 0, x, OG_HEIGHT), fill=(*c, 255), width=1)
+
+    draw_radial_glow(img, (OG_WIDTH - 140, 110), 240, accent, 110)
+    draw_radial_glow(img, (180, OG_HEIGHT - 120), 220, mix(accent, (255, 255, 255), 0.16), 90)
+    draw = ImageDraw.Draw(img, "RGBA")
+
+    for i in range(0, OG_WIDTH, 68):
+        alpha = 18 if i % 136 == 0 else 8
+        draw.line((i, 0, i, OG_HEIGHT), fill=(230, 236, 248, alpha), width=1)
+    for j in range(0, OG_HEIGHT, 68):
+        alpha = 16 if j % 136 == 0 else 7
+        draw.line((0, j, OG_WIDTH, j), fill=(230, 236, 248, alpha), width=1)
+
+    panel = Image.new("RGBA", OG_SIZE, (0, 0, 0, 0))
+    pd = ImageDraw.Draw(panel, "RGBA")
+    pd.rounded_rectangle(
+        (58, 58, OG_WIDTH - 58, OG_HEIGHT - 58),
+        radius=30,
+        fill=(246, 248, 252, 232),
+        outline=(255, 255, 255, 72),
+        width=2,
+    )
+    img.alpha_composite(panel)
+    draw = ImageDraw.Draw(img, "RGBA")
+    draw_noise_dots(draw, rel + title, (36, 48, 78), count=44)
+
+    title_font = load_font(HEADLINE_FONT_CANDIDATES, 54)
+    body_font = load_font(SANS_FONT_CANDIDATES, 24)
+    label_font = load_font(SANS_FONT_CANDIDATES, 20)
+    meta_font = load_font(MONO_FONT_CANDIDATES, 18)
+
+    draw.rounded_rectangle((86, 90, 322, 132), radius=18, fill=(*mix(accent, dark, 0.35), 225))
+    draw.text((102, 99), label, font=label_font, fill=(242, 246, 252, 255))
+
+    clean_title = re.sub(r"\s+", " ", title or "").strip() or "Chronohaze"
+    title_lines = fit_text_lines(draw, clean_title, title_font, max_width=930, max_lines=4)
+    y = draw_text_lines(draw, title_lines, x=90, y=170, font=title_font, fill=(24, 29, 40, 255), line_gap=7)
+
+    clean_desc = re.sub(r"\s+", " ", desc or "").strip()
+    if clean_desc:
+        desc_lines = fit_text_lines(draw, clean_desc, body_font, max_width=920, max_lines=4)
+        y = draw_text_lines(
+            draw,
+            desc_lines,
+            x=92,
+            y=y + 16,
+            font=body_font,
+            fill=(89, 99, 120, 255),
+            line_gap=5,
+        )
+
+    rail_y = OG_HEIGHT - 96
+    draw.line((90, rail_y, OG_WIDTH - 90, rail_y), fill=(154, 168, 195, 100), width=2)
+    draw.text((92, rail_y + 14), "chronohaze.space", font=meta_font, fill=(*muted_rgb, 255))
+    slug_text = Path(rel).stem
+    slug_bbox = draw.textbbox((0, 0), slug_text, font=meta_font)
+    draw.text((OG_WIDTH - 92 - (slug_bbox[2] - slug_bbox[0]), rail_y + 14), slug_text, font=meta_font, fill=(92, 103, 129, 255))
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    img.convert("RGB").save(out_path, format="PNG", optimize=True)
+
+
+def render_favicon_set(root: Path) -> None:
+    logo_path = root / "assets/logo.png"
+    if not logo_path.exists():
+        return
+    logo = Image.open(logo_path).convert("RGBA")
+    bbox = logo.getbbox()
+    if bbox:
+        logo = logo.crop(bbox)
+    canvas = Image.new("RGBA", (512, 512), (0, 0, 0, 0))
+    bg = Image.new("RGBA", (512, 512), (0, 0, 0, 0))
+    bd = ImageDraw.Draw(bg, "RGBA")
+
+    for y in range(512):
+        t = y / 511.0
+        c = mix((36, 46, 70), (26, 32, 46), t)
+        bd.line((0, y, 512, y), fill=(*c, 255), width=1)
+    bd.ellipse((22, 22, 490, 490), fill=(0, 0, 0, 0), outline=(240, 246, 255, 38), width=2)
+    glow = Image.new("RGBA", (512, 512), (0, 0, 0, 0))
+    gd = ImageDraw.Draw(glow, "RGBA")
+    gd.ellipse((60, 64, 452, 456), fill=(160, 182, 224, 70))
+    glow = glow.filter(ImageFilter.GaussianBlur(48))
+    bg.alpha_composite(glow)
+    canvas.alpha_composite(bg)
+
+    # subtle grain
+    gd = ImageDraw.Draw(canvas, "RGBA")
+    draw_noise_dots(gd, "favicon", (245, 248, 253), count=80)
+
+    target_w = 360
+    ratio = target_w / max(1, logo.width)
+    target_h = max(1, int(round(logo.height * ratio)))
+    logo_resized = logo.resize((target_w, target_h), resample=Image.LANCZOS)
+    x = (512 - target_w) // 2
+    y = (512 - target_h) // 2 - 6
+
+    # strengthen white logo for tiny sizes
+    alpha = logo_resized.getchannel("A")
+    strengthened = Image.new("RGBA", logo_resized.size, (245, 248, 253, 255))
+    strengthened.putalpha(alpha)
+    shadow = Image.new("RGBA", logo_resized.size, (0, 0, 0, 0))
+    sd = ImageDraw.Draw(shadow, "RGBA")
+    sd.rectangle((0, 0, logo_resized.size[0], logo_resized.size[1]), fill=(0, 0, 0, 0))
+    shadow = strengthened.filter(ImageFilter.GaussianBlur(1))
+    canvas.alpha_composite(shadow, (x, y))
+    canvas.alpha_composite(strengthened, (x, y))
+
+    canvas.convert("RGB").save(root / "assets/favicon-32.png", format="PNG", optimize=True, compress_level=9)
+    canvas.resize((180, 180), Image.LANCZOS).convert("RGB").save(
+        root / "assets/apple-touch-icon.png", format="PNG", optimize=True, compress_level=9
+    )
+    canvas.resize((32, 32), Image.LANCZOS).convert("RGBA").save(root / "assets/favicon-32.png", format="PNG", optimize=True)
+    canvas.resize((16, 16), Image.LANCZOS).convert("RGBA").save(root / "assets/favicon-16.png", format="PNG", optimize=True)
+    ico_base = canvas.convert("RGBA")
+    ico_base.save(root / "assets/favicon.ico", format="ICO", sizes=[(16, 16), (32, 32), (48, 48)])
+
+
 def build_cards_and_patch_heads(root: Path) -> None:
     math_catalog = load_json(root / "assets/data/math-catalog.json")
     music_detail_catalog = load_json(root / "assets/data/music-detail-catalog.json")
     palette_map = parse_music_palette_map(root / "protect-media.js")
+    render_favicon_set(root)
 
     math_image_map: Dict[str, str] = {}
     for item in (math_catalog.get("items") or []):
@@ -497,6 +703,18 @@ def build_cards_and_patch_heads(root: Path) -> None:
         render_music_card_image(item, root / out_rel, palette_hex)
         music_image_map[rel_url] = relative_url_to_absolute(out_rel)
 
+    site_image_map: Dict[str, str] = {}
+    for page in collect_hreflang_targets(root):
+        rel = str(page.relative_to(root)).replace("\\", "/")
+        if rel in math_image_map or rel in music_image_map:
+            continue
+        if rel in ("blank.html", "blank-1.html"):
+            continue
+        title, desc = extract_title_and_description(page)
+        out_rel = f"{SITE_OG_DIR}/{Path(rel).stem}.png"
+        render_site_card_image(rel, title, desc, root / out_rel)
+        site_image_map[rel] = relative_url_to_absolute(out_rel)
+
     # Patch page heads
     for page in collect_hreflang_targets(root):
         rel = str(page.relative_to(root)).replace("\\", "/")
@@ -505,7 +723,9 @@ def build_cards_and_patch_heads(root: Path) -> None:
             og_image = math_image_map[rel]
         elif rel in music_image_map:
             og_image = music_image_map[rel]
-        patch_page_head(page, og_image_url=og_image, force_hreflang=True)
+        elif rel in site_image_map:
+            og_image = site_image_map[rel]
+        patch_page_head(page, root=root, og_image_url=og_image, force_hreflang=True)
 
 
 def main() -> None:
@@ -518,6 +738,7 @@ def main() -> None:
 
     ensure_dir(root / MATH_OG_DIR)
     ensure_dir(root / MUSIC_OG_DIR)
+    ensure_dir(root / SITE_OG_DIR)
     build_cards_and_patch_heads(root)
 
 

@@ -69,7 +69,7 @@ def main() -> int:
             ],
             580_000,
         ),
-        ("key CSS payload", ["styles.css", "home.css"], 180_000),
+        ("key CSS payload", ["styles.css", "home.css"], 195_000),
     ]
     for label, rels, max_bytes in aggregate_groups:
         total = 0

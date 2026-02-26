@@ -80,6 +80,7 @@
   --home-line-soft: rgba(52, 59, 74, 0.12);
   --home-line-mid: rgba(52, 59, 74, 0.18);
   --home-line-strong: rgba(52, 59, 74, 0.28);
+  --home-line-hairline: rgba(242, 246, 252, 0.16);
   --home-accent: rgba(116, 133, 162, 0.94);
   --home-accent-soft: rgba(116, 133, 162, 0.12);
   --home-accent-halo: rgba(116, 133, 162, 0.08);
@@ -121,6 +122,22 @@
 .home-page {
   min-height: 100vh;
   position: relative;
+  isolation: isolate;
+}
+
+.home-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.035;
+  background-image:
+    radial-gradient(circle at 18% 24%, rgba(255, 255, 255, 0.9) 0.65px, transparent 1px),
+    radial-gradient(circle at 72% 62%, rgba(28, 33, 46, 0.9) 0.7px, transparent 1.05px),
+    radial-gradient(circle at 44% 78%, rgba(255, 255, 255, 0.65) 0.55px, transparent 0.95px);
+  background-size: 5px 5px, 7px 7px, 9px 9px;
+  background-position: 0 0, 1px 2px, 2px 1px;
 }
 
 [data-reveal] {
@@ -186,7 +203,9 @@
   position: sticky;
   top: 0;
   z-index: 50;
-  box-shadow: 0 12px 24px rgba(12, 16, 24, 0.18);
+  box-shadow:
+    0 12px 24px rgba(12, 16, 24, 0.16),
+    inset 0 1px 0 var(--home-line-hairline);
 }
 
 .home-brand {
@@ -284,6 +303,7 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   position: relative;
+  z-index: 1;
 }
 
 .hero-left {
@@ -295,6 +315,7 @@
   align-items: flex-start;
   padding-top: 72px;
   position: relative;
+  border-right: 1px solid rgba(244, 247, 252, 0.06);
 }
 
 .hero-portrait-frame {
@@ -307,8 +328,9 @@
   object-fit: cover;
   border: 1px solid rgba(232, 237, 245, 0.12);
   box-shadow:
-    0 16px 34px rgba(9, 12, 20, 0.2),
-    0 0 0 6px rgba(202, 207, 219, 0.02);
+    0 14px 28px rgba(9, 12, 20, 0.18),
+    0 0 0 1px rgba(244, 248, 255, 0.05),
+    0 0 0 6px rgba(202, 207, 219, 0.015);
   filter: saturate(0.62) brightness(0.97) contrast(0.99) hue-rotate(17deg) grayscale(0.09);
 }
 
@@ -324,6 +346,7 @@
   padding-top: 58px;
   padding-left: 50px;
   box-sizing: border-box;
+  position: relative;
 }
 
 .hero-right h1 {
@@ -392,6 +415,8 @@
   box-shadow:
     var(--home-shadow-1),
     inset 0 1px 0 rgba(255, 255, 255, 0.42);
+  backdrop-filter: blur(8px) saturate(108%);
+  -webkit-backdrop-filter: blur(8px) saturate(108%);
   transition:
     transform var(--home-t-base) var(--home-ease),
     box-shadow var(--home-t-base) ease,
@@ -480,6 +505,8 @@
   margin-top: var(--home-space-section-gap);
   padding: 78px 24px 82px;
   box-sizing: border-box;
+  position: relative;
+  z-index: 1;
 }
 
 .about-overlay {
@@ -518,6 +545,8 @@
   padding: 58px 64px 70px;
   border-top: 1px solid var(--home-line-mid);
   border-bottom: 1px solid var(--home-line-mid);
+  position: relative;
+  z-index: 1;
 }
 
 .math-section h2 {
@@ -543,7 +572,11 @@
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
   scrollbar-color: rgba(52, 59, 74, 0.24) transparent;
-  background: rgba(246, 248, 252, 0.18);
+  background:
+    radial-gradient(circle at 18% 24%, rgba(255, 255, 255, 0.05) 0.65px, transparent 1px),
+    radial-gradient(circle at 72% 62%, rgba(27, 33, 44, 0.06) 0.65px, transparent 1px),
+    rgba(246, 248, 252, 0.18);
+  background-size: 6px 6px, 7px 7px, auto;
   box-shadow: 0 18px 34px rgba(16, 20, 30, 0.12);
   content-visibility: auto;
   contain-intrinsic-size: 560px 860px;
@@ -557,6 +590,8 @@
   cursor: pointer;
   scroll-snap-align: start;
   background: rgba(248, 250, 253, 0.16);
+  backdrop-filter: blur(6px) saturate(105%);
+  -webkit-backdrop-filter: blur(6px) saturate(105%);
   transition:
     background-color var(--home-t-base) ease,
     box-shadow var(--home-t-base) ease,
@@ -645,6 +680,8 @@
   align-items: start;
   content-visibility: auto;
   contain-intrinsic-size: 900px 560px;
+  position: relative;
+  z-index: 1;
 }
 
 .entry-card {
@@ -663,6 +700,9 @@
   box-shadow:
     0 14px 26px rgba(14, 18, 29, 0.14),
     0 0 0 1px rgba(245, 247, 252, 0.04) inset;
+  transition:
+    box-shadow var(--home-t-slow) ease,
+    transform var(--home-t-slow) var(--home-ease);
 }
 
 .entry-card::before {
@@ -683,11 +723,20 @@
   inset: 0;
   background:
     linear-gradient(to bottom, rgba(13, 16, 24, 0.02), var(--entry-overlay)),
-    linear-gradient(to top, rgba(13, 16, 24, 0.14), rgba(13, 16, 24, 0.03));
+    linear-gradient(to top, rgba(13, 16, 24, 0.14), rgba(13, 16, 24, 0.03)),
+    radial-gradient(circle at 22% 20%, rgba(255, 255, 255, 0.06) 0.6px, transparent 1px),
+    radial-gradient(circle at 68% 62%, rgba(255, 255, 255, 0.05) 0.55px, transparent 0.95px);
+  background-size: auto, auto, 8px 8px, 10px 10px;
 }
 
 .entry-card:hover::before {
   transform: scale(1.022);
+}
+
+.entry-card:hover {
+  box-shadow:
+    0 18px 30px rgba(14, 18, 29, 0.16),
+    0 0 0 1px rgba(245, 247, 252, 0.06) inset;
 }
 
 .entry-card-photo {
@@ -735,6 +784,125 @@
   background: linear-gradient(180deg, rgba(240, 243, 248, 0.94) 0%, rgba(230, 235, 242, 0.95) 100%);
   border-top: 1px solid var(--home-line-soft);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  position: relative;
+  z-index: 1;
+}
+
+.now-strip {
+  margin-top: var(--home-space-section-gap);
+  padding: 0 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.now-shell {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 24px 28px 26px;
+  border: 1px solid rgba(243, 247, 253, 0.14);
+  background:
+    linear-gradient(180deg, rgba(241, 244, 249, 0.22), rgba(233, 238, 245, 0.16)),
+    radial-gradient(circle at 18% 24%, rgba(255, 255, 255, 0.05) 0.7px, transparent 1px),
+    radial-gradient(circle at 70% 64%, rgba(21, 27, 38, 0.06) 0.7px, transparent 1px);
+  background-size: auto, 7px 7px, 9px 9px;
+  box-shadow:
+    0 14px 24px rgba(15, 19, 29, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(10px) saturate(108%);
+  -webkit-backdrop-filter: blur(10px) saturate(108%);
+}
+
+.now-head {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.now-kicker {
+  margin: 0;
+  font-family: var(--home-font-ui);
+  font-size: 11px;
+  line-height: 1.2;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--home-ink-muted);
+}
+
+.now-head h2 {
+  margin: 0;
+  font-family: var(--home-font-display);
+  font-size: clamp(20px, 2vw, 28px);
+  line-height: 1.14;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  color: var(--home-ink-strong);
+}
+
+.now-intro {
+  margin: 0;
+  font-family: var(--home-font-body);
+  font-size: 14px;
+  line-height: 1.62;
+  color: var(--home-ink-muted);
+}
+
+.now-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.now-card {
+  padding: 14px 14px 15px;
+  border: 1px solid rgba(56, 64, 80, 0.1);
+  background:
+    linear-gradient(180deg, rgba(249, 251, 254, 0.46), rgba(242, 246, 251, 0.34)),
+    radial-gradient(circle at 22% 28%, rgba(255, 255, 255, 0.08) 0.6px, transparent 0.95px);
+  background-size: auto, 8px 8px;
+  box-shadow:
+    0 8px 18px rgba(18, 23, 34, 0.045),
+    inset 0 1px 0 rgba(255, 255, 255, 0.24);
+  transition:
+    transform var(--home-t-base) var(--home-ease),
+    box-shadow var(--home-t-base) ease,
+    border-color var(--home-t-base) ease,
+    background-color var(--home-t-base) ease;
+}
+
+.now-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(61, 70, 89, 0.16);
+  box-shadow:
+    0 12px 22px rgba(18, 23, 34, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+.now-card-label {
+  margin: 0 0 8px;
+  font-family: var(--home-font-ui);
+  font-size: 10.5px;
+  line-height: 1.2;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--home-ink-muted);
+}
+
+.now-card h3 {
+  margin: 0;
+  font-family: "madefor-display", "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 16px;
+  line-height: 1.26;
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  color: var(--home-ink-strong);
+}
+
+.now-card > p:last-child {
+  margin: 10px 0 0;
+  font-family: var(--home-font-body);
+  font-size: 13px;
+  line-height: 1.62;
+  color: var(--home-ink);
 }
 
 .home-footer-top {
@@ -1082,6 +1250,18 @@
     grid-auto-flow: column;
     justify-content: start;
     gap: 22px;
+  }
+
+  .now-strip {
+    padding: 0 18px;
+  }
+
+  .now-shell {
+    padding: 18px 18px 20px;
+  }
+
+  .now-grid {
+    grid-template-columns: 1fr;
   }
 }
 
