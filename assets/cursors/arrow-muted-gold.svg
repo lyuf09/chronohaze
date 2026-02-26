@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="g-fill" x1="8" y1="8" x2="34" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f1e6c6"/>
+      <stop offset="0.35" stop-color="#cfbf93"/>
+      <stop offset="0.72" stop-color="#aa9977"/>
+      <stop offset="1" stop-color="#8b816f"/>
+    </linearGradient>
+    <linearGradient id="g-edge" x1="9" y1="9" x2="31" y2="35" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f5ecd1" stop-opacity="0.92"/>
+      <stop offset="0.45" stop-color="#bfb394" stop-opacity="0.78"/>
+      <stop offset="1" stop-color="#767f90" stop-opacity="0.7"/>
+    </linearGradient>
+    <filter id="f-glow" x="0" y="0" width="48" height="48" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="1.05"/>
+    </filter>
+  </defs>
+  <path d="M10 10L31 19.5L23.2 24L29.7 37.8L25.6 39.8L19.1 26L14 33L10 10Z" fill="#d3c39a" opacity="0.18" filter="url(#f-glow)"/>
+  <path d="M10 10L31 19.5L23.2 24L29.7 37.8L25.6 39.8L19.1 26L14 33L10 10Z" fill="url(#g-fill)"/>
+  <path d="M10.6 10.8L29.8 19.6L22.3 23.9L28.8 37.4L25.8 38.8L19.2 24.9L14.5 31.3L10.6 10.8Z" stroke="url(#g-edge)" stroke-width="1.05" stroke-linejoin="round"/>
+  <path d="M12.6 12.6L26.8 19.2L21.6 22.2L17.7 27.6L12.6 12.6Z" fill="#f4f5f7" opacity="0.2"/>
+  <path d="M19.6 25.2L23.2 24L28.3 34.8" stroke="#dee4ee" stroke-opacity="0.14" stroke-width="1" stroke-linecap="round"/>
+</svg>

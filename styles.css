@@ -106,6 +106,65 @@ button {
     transform var(--ui-t-slow) var(--ui-ease);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  :root {
+    --cursor-default: url("assets/cursors/arrow-muted-gold.svg") 10 10;
+    --cursor-hover: url("assets/cursors/arrow-muted-gold-hover.svg") 10 10;
+    --cursor-active: url("assets/cursors/arrow-muted-gold-active.svg") 10 10;
+  }
+
+  html,
+  body {
+    cursor: var(--cursor-default), auto;
+  }
+
+  a[href],
+  button:not(:disabled):not([aria-disabled="true"]),
+  summary,
+  [role="button"]:not([aria-disabled="true"]),
+  [data-href],
+  label[for],
+  .track-row[data-href],
+  .music-feature-card,
+  .share-panel-toggle,
+  .lang-btn,
+  .floating-lang-btn {
+    cursor: var(--cursor-hover), pointer;
+  }
+
+  a[href]:active,
+  button:not(:disabled):not([aria-disabled="true"]):active,
+  summary:active,
+  [role="button"]:not([aria-disabled="true"]):active,
+  [data-href]:active,
+  .track-row[data-href]:active {
+    cursor: var(--cursor-active), pointer;
+  }
+
+  input,
+  textarea,
+  select,
+  option,
+  audio,
+  video,
+  iframe {
+    cursor: auto;
+  }
+
+  input[type="text"],
+  input[type="search"],
+  input[type="email"],
+  input[type="url"],
+  input[type="password"],
+  input[type="tel"],
+  input[type="number"],
+  textarea,
+  [contenteditable="true"],
+  [contenteditable]:not([contenteditable="false"]) {
+    cursor: text;
+  }
+}
+
 img {
   max-width: 100%;
   display: block;
