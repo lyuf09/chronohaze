@@ -2087,7 +2087,7 @@ audio {
 
 .math-index-page .section {
   border-bottom: 0;
-  padding: 8px 0 48px;
+  padding: 16px 0 64px;
 }
 
 .math-index-page .math-list {
@@ -2095,17 +2095,17 @@ audio {
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 22px;
+  gap: 30px;
 }
 
 .math-index-page .math-card {
   border: 1px solid rgba(58, 58, 58, 0.18);
   background: rgba(247, 245, 241, 0.92);
-  padding: 20px 20px 18px;
-  min-height: 248px;
+  padding: 24px 24px 22px;
+  min-height: 270px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   cursor: pointer;
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow-card);
@@ -4523,18 +4523,18 @@ audio {
   }
 
   .math-index-page .section {
-    padding: 6px 0 34px;
+    padding: 10px 0 42px;
   }
 
   .math-index-page .math-list {
     width: min(100%, 840px);
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
+    gap: 22px;
   }
 
   .math-index-page .math-card {
-    min-height: 220px;
-    padding: 16px 16px 14px;
+    min-height: 236px;
+    padding: 18px 18px 16px;
   }
 
   .math-index-page .math-date {
@@ -4870,18 +4870,18 @@ audio {
   }
 
   .math-index-page .section {
-    padding: 4px 0 24px;
+    padding: 8px 0 30px;
   }
 
   .math-index-page .math-list {
     grid-template-columns: 1fr;
-    gap: 14px;
+    gap: 16px;
     width: 100%;
   }
 
   .math-index-page .math-card {
     min-height: 0;
-    padding: 14px 14px 12px;
+    padding: 16px 16px 14px;
   }
 
   .math-index-page .math-date {
@@ -5436,7 +5436,8 @@ h4,
 }
 
 .site-footer {
-  padding: 32px 0 34px;
+  margin-top: clamp(40px, 5vw, 64px);
+  padding: 40px 0 42px;
 }
 
 .footer-grid {
@@ -5657,7 +5658,7 @@ body {
 }
 
 .site-footer {
-  padding-bottom: calc(34px + var(--safe-bottom));
+  padding-bottom: calc(42px + var(--safe-bottom));
 }
 
 @media (max-width: 760px) {
@@ -5694,6 +5695,10 @@ body {
     min-height: 34px;
     display: inline-flex;
     align-items: center;
+  }
+
+  .site-footer {
+    margin-top: 30px;
   }
 }
 
