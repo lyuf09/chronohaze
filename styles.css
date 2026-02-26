@@ -178,44 +178,7 @@ button {
   }
 
   .cursor-atmosphere-core {
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    transform: translate3d(-50%, -50%, 0);
-    border-radius: 999px;
-    background:
-      radial-gradient(circle at 34% 32%, rgba(252, 248, 236, 0.65) 0 14%, rgba(230, 214, 176, 0.32) 34%, rgba(164, 172, 188, 0.12) 58%, rgba(164, 172, 188, 0) 72%),
-      radial-gradient(circle at 64% 66%, rgba(130, 145, 170, 0.1) 0 34%, rgba(130, 145, 170, 0) 70%);
-    filter: blur(0.2px);
-    will-change: transform, opacity;
-  }
-
-  .cursor-atmosphere-core::before {
-    content: "";
-    position: absolute;
-    inset: -8px;
-    border-radius: inherit;
-    background: radial-gradient(circle, rgba(214, 196, 149, 0.14) 0%, rgba(214, 196, 149, 0.06) 44%, rgba(214, 196, 149, 0) 76%);
-    filter: blur(2px);
-    opacity: 0.75;
-  }
-
-  .cursor-atmosphere-core::after {
-    content: "";
-    position: absolute;
-    inset: 4px;
-    border-radius: inherit;
-    border: 1px solid rgba(255, 246, 224, 0.24);
-    opacity: 0.55;
-  }
-
-  .cursor-atmosphere-layer.is-muted .cursor-atmosphere-core {
-    opacity: 0.2;
-  }
-
-  .cursor-atmosphere-layer.is-pressed .cursor-atmosphere-core {
-    transform: translate3d(-50%, -50%, 0) scale(0.9);
-    opacity: 0.8;
+    display: none;
   }
 
   .cursor-atmosphere-spark {

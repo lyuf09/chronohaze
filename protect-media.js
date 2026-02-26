@@ -10418,8 +10418,8 @@
 
     function tick(ts) {
       state.rafId = 0;
-      state.x += (state.targetX - state.x) * 0.22;
-      state.y += (state.targetY - state.y) * 0.22;
+      state.x = state.targetX;
+      state.y = state.targetY;
 
       core.style.left = state.x.toFixed(2) + "px";
       core.style.top = state.y.toFixed(2) + "px";
@@ -10428,9 +10428,7 @@
         spawnSpark(ts || performance.now());
       }
 
-      var needsContinue =
-        state.visible &&
-        (Math.abs(state.targetX - state.x) > 0.2 || Math.abs(state.targetY - state.y) > 0.2);
+      var needsContinue = false;
 
       if (needsContinue) {
         state.rafId = window.requestAnimationFrame(tick);
