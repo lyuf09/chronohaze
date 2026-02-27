@@ -65,9 +65,15 @@
 }
 
 :root {
-  --home-font-display: "cormorantgaramond-light", "cormorantgaramond", "cormorant garamond", "Songti SC", "STSong", serif;
-  --home-font-body: "madefor-text", "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
-  --home-font-ui: "futura-lt-w01-book", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --home-font-display-zh: "cormorantgaramond-light", "cormorantgaramond", "cormorant garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+  --home-font-display-en: "Cormorant Garamond", "cormorantgaramond-light", "cormorantgaramond", "Iowan Old Style", "Times New Roman", serif;
+  --home-font-body-zh: "madefor-text", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --home-font-body-en: "Inter", "Avenir Next", "madefor-text", "Helvetica Neue", Arial, sans-serif;
+  --home-font-ui-zh: "futura-lt-w01-book", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --home-font-ui-en: "futura-lt-w01-book", "Inter", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  --home-font-display: var(--home-font-display-zh);
+  --home-font-body: var(--home-font-body-zh);
+  --home-font-ui: var(--home-font-ui-zh);
   --home-font-ui-serif: "cinzel", serif;
   --home-bg-top: #bfc4ce;
   --home-bg-bottom: #c8cdd7;
@@ -98,10 +104,28 @@
   --home-type-h3-size: clamp(19px, 1.45vw, 24px);
   --home-type-h3-line: 1.2;
   --home-type-body-line: 1.78;
+  --home-type-subtitle-tracking: 0.12em;
   --home-type-button-size: 12.5px;
   --home-type-button-line: 1.15;
   --home-type-button-tracking: 0.045em;
   --home-space-section-gap: 30px;
+}
+
+html:lang(zh),
+html:lang(zh-CN) {
+  --home-font-display: var(--home-font-display-zh);
+  --home-font-body: var(--home-font-body-zh);
+  --home-font-ui: var(--home-font-ui-zh);
+  --home-type-body-line: 1.78;
+  --home-type-subtitle-tracking: 0.12em;
+}
+
+html:lang(en) {
+  --home-font-display: var(--home-font-display-en);
+  --home-font-body: var(--home-font-body-en);
+  --home-font-ui: var(--home-font-ui-en);
+  --home-type-body-line: 1.72;
+  --home-type-subtitle-tracking: 0.16em;
 }
 
 .home-body {
@@ -823,7 +847,7 @@
   font-family: var(--home-font-ui);
   font-size: 11px;
   line-height: 1.2;
-  letter-spacing: 0.14em;
+  letter-spacing: var(--home-type-subtitle-tracking);
   text-transform: uppercase;
   color: var(--home-ink-muted);
 }
@@ -882,14 +906,14 @@
   font-family: var(--home-font-ui);
   font-size: 10.5px;
   line-height: 1.2;
-  letter-spacing: 0.12em;
+  letter-spacing: var(--home-type-subtitle-tracking);
   text-transform: uppercase;
   color: var(--home-ink-muted);
 }
 
 .now-card h3 {
   margin: 0;
-  font-family: "madefor-display", "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: var(--home-font-display);
   font-size: 16px;
   line-height: 1.26;
   font-weight: 300;

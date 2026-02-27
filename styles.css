@@ -9,8 +9,12 @@
   --accent: #7488a4;
   --accent-soft: rgba(116, 136, 164, 0.12);
   --max-width: 1080px;
-  --font-serif: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
-  --font-sans: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-serif-zh: "Noto Serif SC", "Songti SC", "STSong", serif;
+  --font-serif-en: "Cormorant Garamond", "Iowan Old Style", "Times New Roman", serif;
+  --font-sans-zh: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-sans-en: "Inter", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  --font-serif: var(--font-serif-zh);
+  --font-sans: var(--font-sans-zh);
   --text-strong: #212732;
   --text-muted: #606978;
   --text-subtle: #788191;
@@ -22,6 +26,7 @@
   --shadow-card: 0 14px 28px rgba(17, 22, 32, 0.09);
   --shadow-elevated: 0 20px 36px rgba(14, 18, 28, 0.13);
   --tracking-body: 0.004em;
+  --tracking-meta: 0.026em;
   --tracking-wide: 0.08em;
   --leading-body: 1.8;
   --measure: 70ch;
@@ -62,6 +67,24 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+html:lang(zh),
+html:lang(zh-CN) {
+  --font-serif: var(--font-serif-zh);
+  --font-sans: var(--font-sans-zh);
+  --tracking-body: 0.004em;
+  --tracking-meta: 0.026em;
+  --leading-body: 1.82;
+  text-autospace: normal;
+}
+
+html:lang(en) {
+  --font-serif: var(--font-serif-en);
+  --font-sans: var(--font-sans-en);
+  --tracking-body: 0.009em;
+  --tracking-meta: 0.062em;
+  --leading-body: 1.76;
 }
 
 body {
@@ -273,6 +296,52 @@ button {
   .cursor-atmosphere-layer {
     display: none !important;
   }
+}
+
+:where(
+    .article-meta,
+    .photo-meta,
+    .photo-subtitle,
+    .photo-feature-meta,
+    .music-ia-subtitle,
+    .music-featured-meta,
+    .track-meta,
+    .album-subtitle,
+    .album-cover-meta,
+    .music-detail-meta,
+    .music-transcript-summary-meta,
+    .search-result-meta,
+    .search-meta,
+    .search-nav-history-meta,
+    .research-subtitle,
+    .research-summary-subtitle,
+    .research-meta-label,
+    .research-summary-meta-label
+  ) {
+  letter-spacing: var(--tracking-meta);
+}
+
+html:lang(en) :where(
+    .article-meta,
+    .photo-meta,
+    .photo-subtitle,
+    .photo-feature-meta,
+    .music-ia-subtitle,
+    .music-featured-meta,
+    .track-meta,
+    .album-subtitle,
+    .album-cover-meta,
+    .music-detail-meta,
+    .music-transcript-summary-meta,
+    .search-result-meta,
+    .search-meta,
+    .search-nav-history-meta,
+    .research-subtitle,
+    .research-summary-subtitle,
+    .research-meta-label,
+    .research-summary-meta-label
+  ) {
+  text-transform: none;
 }
 
 img {
