@@ -3900,9 +3900,9 @@
     var part1Blocks = [
       {
         zh: [
-          "霧中、一葉の緑が時雨をはらっていた",
-          "その引継ぎ線の延長も、 失われたものも",
-          "いずれは残された記憶から消えてしまう",
+          "霧中、一葉の緑が時雨を払っていた",
+          "その継ぎ目の延長も、失われたものも",
+          "いずれも残された記憶から消えてしまう",
         ],
         en: [
           "In the mist, a single leaf of green brushed away the passing shower.",
@@ -3912,7 +3912,7 @@
         ],
       },
       {
-        zh: ["もう断ち切れない思いと僕の", "溢れる心配事", "灰のついた手紙は数行しかないのに", "重い"],
+        zh: ["もう断ち切れない想いと僕の", "溢れる心配事", "灰のついた手紙は数行しかないのに", "重い"],
         en: [
           "There are feelings I can no longer cut away,",
           "and worries that keep overflowing.",
@@ -3925,7 +3925,7 @@
           "そんな輝かしい日々が今の僕には",
           "眩しすぎる",
           "秘めた願いと迷いの目、",
-          "前の景色がぼやけた",
+          "目の前の景色がぼやけた",
         ],
         en: [
           "Those radiant days, to me now,",
@@ -3938,7 +3938,7 @@
 
     var part2Blocks = [
       {
-        zh: ["終わりが来ても、恩讐は終わても", "やがては意味になる", "どうしようもないことで泣いたり", "待ったりしている"],
+        zh: ["終わりが来ても、恩讐が終わっても", "やがては意味になる", "どうしようもないことで泣いたり", "待ったりしている"],
         en: [
           "Even when an ending comes, even when old debts and grudges end,",
           "someday it will become meaning.",
@@ -3948,7 +3948,7 @@
         ],
       },
       {
-        zh: ["相変わらずここで君のいない", "春を迎えなければない", "どうしてもこのような結末を", "迎えるのなら…"],
+        zh: ["相変わらずここで君のいない", "春を迎えなければならない", "どうしてもこのような結末を", "迎えるのなら…"],
         en: [
           "Just the same, I have to stand here",
           "and welcome a spring without you.",
