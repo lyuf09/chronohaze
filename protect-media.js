@@ -7983,7 +7983,7 @@
 
     var part1Blocks = [
       {
-        zh: ["「いつのまにか心を奪われていた」", "雨上がりの午後にこう書いた", "窓の外 湿った匂いと夕暮れの中の顔", "私はこう思い描いている"],
+        zh: ["「いつのまにか心を奪われていた」", "雨上がりの午後にそう書いた", "窓の外、湿った匂いと夕暮れの中の顔を", "私はこう思い描いている"],
         en: [
           "“Before I knew it, my heart was taken.”",
           "I wrote thaton an afternoon after the rain.",
@@ -7997,7 +7997,7 @@
         en: ["Like the ghost of a word,", "it stays deep in my throat."],
       },
       {
-        zh: ["君がいるから、", "意味のないもののために存在の口実を作る", "この両手で何も掴めなくても", "あとは二人でいい"],
+        zh: ["君がいるから、", "意味のないもののために生きる口実を作る", "この両手で何も掴めなくても", "あとは二人だけでいい"],
         en: [
           "Because of you,",
           "I keep stitching excuses for the meaningless to exist.",
@@ -8006,7 +8006,7 @@
         ],
       },
       {
-        zh: ["また果てしない虚無感がやってきた", "人は誰でも必ず死ぬんだよ、", "君も知っている", "だからもっとそばにいてくれ"],
+        zh: ["また果てしない虚無感がやってきた", "人は誰でも必ず死ぬんだよ、", "それを君も知っている", "だからもっとそばにいてくれ"],
         en: [
           "That endless hollowness seems to be coming again.",
           "Everyone dies—you know.",
@@ -8015,7 +8015,7 @@
         ],
       },
       {
-        zh: ["少しでも欠けているといらいらする", "これでは余計な悩みが増える", "今は正しくなくてももうだいじょうぶだよ", "「no」がもたらした決意の「yes」…"],
+        zh: ["少しでも欠けているといらいらしてしまう", "これじゃ余計な悩みが増える", "今は正しくなくてももう大丈夫だよ", "「no」がもたらした決意の「yes」…"],
         en: [
           "I get irritated when even the smallest piece is missing.",
           "It only adds more unnecessary worries.",
@@ -8032,7 +8032,7 @@
 
     var part2Blocks = [
       {
-        zh: ["浮かんだ心臓も、 ヨルガオも", "すべてノートにいる", "君の笑顔だけは記録できない"],
+        zh: ["浮かんだ心臓も、ヨルガオも", "すべてノートにある", "君の笑顔だけは記録できない"],
         en: [
           "A heart that rose to the surface,",
           "the yorugao too—",
@@ -8051,11 +8051,11 @@
         ],
       },
       {
-        zh: ["君がいるから、 君がいるから、"],
+        zh: ["君がいるから、君がいるから、"],
         en: ["Because you’re here—because you’re here—"],
       },
       {
-        zh: ["日の出の時間にはまだ遠いが、", "君がいてくれれば、", "今は生きていける", "君もそうであるように"],
+        zh: ["夜明けにはまだ遠いけど、", "君がいてくれれば、", "今は生きていける", "君もそうでいられるように"],
         en: [
           "Dawn is still far away, but",
           "if you stay with me,",
