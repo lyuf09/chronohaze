@@ -1,6 +1,6 @@
 # ChronoHaze
 
-Static multi-page template replicated from the current Wix site structure, ready for replacing media/content.
+Static multi-page personal website.
 
 ## Current Routes
 - `/index.html` (主页，含欢迎与数学栏目)
