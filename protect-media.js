@@ -4063,7 +4063,7 @@
 
     var part1Blocks = [
       {
-        zh: ["暗い街灯の下、無人の街に", "浮かぶ心臓がそこにあるのだ", "あの冬夜この世界は", "二人きりのようでした"],
+        zh: ["暗い街灯の下、無人の街に", "浮かぶ心臓がそこにあった", "あの冬の夜、この世界は", "二人きりのようでした"],
         en: [
           "Under dim streetlights, in an empty street,",
           "a floating heart is right there.",
@@ -4072,7 +4072,7 @@
         ],
       },
       {
-        zh: ["深い黒に目をやった時", "君の眼はあたしだけを見つめた", "その走り続ける夜に", "月光さえも無視された"],
+        zh: ["深い黒に目をやった時", "君の目はあたしだけを見つめた", "その走り続けた夜に", "月光さえも見えなかった"],
         en: [
           "When I looked into the deep black,",
           "your eyes were fixed on me alone.",
@@ -4089,7 +4089,7 @@
         ],
       },
       {
-        zh: ["心が苦しくても、 愛を描きたい", "「 寒くない、あたしの手を握ってるから」", "暗い道見えないがそれほど重要ではない", "そのささやき声を覚えていればいい"],
+        zh: ["心が苦しくても、愛を描きたい", "「寒くない、あたしの手を握ってるから」", "暗い道は見えないが　それほど重要ではない", "そのささやき声を覚えていればいい"],
         en: [
           "Even if my chest hurts, I want to depict love.",
           "“I’m not cold, because you’re holding my hand.”",
@@ -4101,7 +4101,7 @@
 
     var part2Blocks = [
       {
-        zh: ["先のこと気づかないふりをしてた", "君が想像する景色を見たい", "このまま、一緒に遠くへ", "逃げられたらいいな"],
+        zh: ["先のことに気づかないふりをしてた", "君が想像する景色を見たい", "このまま、一緒に遠くへ", "逃げられたらいいな"],
         en: [
           "I pretended not to notice what comes next.",
           "I want to see the scenery you imagine.",
@@ -4110,14 +4110,14 @@
         ],
       },
       {
-        zh: ["気づくたびに君はあたしから遠ざかってく", "あの夏から嫌いなものだけが増えてる"],
+        zh: ["気づくたびに君はあたしから遠ざかっていく", "あの夏から嫌いなものだけが増えていく"],
         en: [
           "Every time I realize it, you drift farther from me.",
           "Since that summer, only the things I hate have multiplied.",
         ],
       },
       {
-        zh: ["心が苦しくても、 愛を描きたい", "大人になるあたしどうすればいいか", "白昼夢を見てるあたしも実は", "終わらせなければならないことを知ってる"],
+        zh: ["心が苦しくても、愛を描きたい", "大人になるあたしはどうすればいいのか", "白昼夢を見てるあたしも実は", "終わらせなければならないことを知ってる"],
         en: [
           "Even if my chest hurts, I want to depict love.",
           "As I grow up, what am I supposed to do?",
@@ -4126,7 +4126,7 @@
         ],
       },
       {
-        zh: ["「 さらば、夏に咲くヨルガオ」と言えたら、嗚呼", "もう君がそばにいられなくても", "これから誕生日を忘れてしまうことも", "あたしが許してくれるでしょう"],
+        zh: ["「さらば、夏に咲くヨルガオ」と言えたら、嗚呼", "もう君がそばにいられなくても", "これから誕生日を忘れてしまうことさえ", "あたしは許せるのでしょう"],
         en: [
           "If I could say, “farewell—to the yorugao that blooms in summer,” ah—",
           "even if you can’t stay by my side anymore.",
