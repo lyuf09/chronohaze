@@ -1813,7 +1813,21 @@
         musicFilterAudioPending: "待上传",
         musicGroupAlbum: "专辑",
         musicGroupSingles: "单曲",
+        musicGroupAllTracks: "完整曲目",
         musicGroupWip: "WIP",
+        musicSectionFeaturedTitle: "Featured（精选）",
+        musicSectionFeaturedLead:
+          "1 张专辑 + 代表作先看，先抓住主线再深入。",
+        musicSectionArchiveTitle: "Archive by era（按时期归档）",
+        musicSectionArchiveLead:
+          "按创作时期展开，快速定位每一段声音阶段。",
+        musicSectionAllTracksTitle: "All tracks（完整列表）",
+        musicSectionAllTracksLead:
+          "完整曲目入口，支持按年份、标签与音频状态筛选。",
+        musicFeatureAlbumLabel: "精选专辑",
+        musicFeatureTrackLabel: "代表作",
+        musicFeatureAlbumLabelEn: "Featured album",
+        musicFeatureTrackLabelEn: "Featured track",
         musicYearUnknown: "未标注年份",
         statusAvailable: "已上线",
         statusComingSoon: "待上线",
@@ -1939,7 +1953,21 @@
         musicFilterAudioPending: "Pending upload",
         musicGroupAlbum: "Album",
         musicGroupSingles: "Singles",
+        musicGroupAllTracks: "All tracks",
         musicGroupWip: "WIP",
+        musicSectionFeaturedTitle: "Featured",
+        musicSectionFeaturedLead:
+          "Start with one album and key representative tracks.",
+        musicSectionArchiveTitle: "Archive by era",
+        musicSectionArchiveLead:
+          "Expand by year to scan each creative phase.",
+        musicSectionAllTracksTitle: "All tracks",
+        musicSectionAllTracksLead:
+          "Full catalog with filters for year, tag, and audio status.",
+        musicFeatureAlbumLabel: "Featured album",
+        musicFeatureTrackLabel: "Featured track",
+        musicFeatureAlbumLabelEn: "Featured album",
+        musicFeatureTrackLabelEn: "Featured track",
         musicYearUnknown: "Unspecified year",
         statusAvailable: "Available",
         statusComingSoon: "Coming soon",
@@ -9068,7 +9096,8 @@
     if (!rows.length) {
       return;
     }
-    var MUSIC_INDEX_STATE_KEY = "chronohaze:music-index-state:v1";
+
+    var MUSIC_INDEX_STATE_KEY = "chronohaze:music-index-state:v2";
     var musicIndexUrlSyncSuspended = false;
     var musicIndexStateBootstrapped = shell && shell.dataset.musicStateBootstrapped === "1";
 
@@ -9076,18 +9105,16 @@
       try {
         var url = new URL(window.location.href);
         return {
-          group: url.searchParams.get("group") || "",
           year: url.searchParams.get("year") || "",
           tag: url.searchParams.get("tag") || "",
           audio: url.searchParams.get("audio") || "",
           hasExplicit:
-            url.searchParams.has("group") ||
             url.searchParams.has("year") ||
             url.searchParams.has("tag") ||
             url.searchParams.has("audio"),
         };
       } catch (_error) {
-        return { group: "", year: "", tag: "", audio: "", hasExplicit: false };
+        return { year: "", tag: "", audio: "", hasExplicit: false };
       }
     }
 
@@ -9102,7 +9129,6 @@
           return null;
         }
         return {
-          group: String(parsed.group || ""),
           year: String(parsed.year || ""),
           tag: String(parsed.tag || ""),
           audio: String(parsed.audio || ""),
@@ -9117,7 +9143,6 @@
         window.localStorage.setItem(
           MUSIC_INDEX_STATE_KEY,
           JSON.stringify({
-            group: String((state && state.group) || "album"),
             year: String((state && state.year) || "all"),
             tag: String((state && state.tag) || "all"),
             audio: String((state && state.audio) || "all"),
@@ -9133,19 +9158,17 @@
       try {
         var url = new URL(window.location.href);
         var next = {
-          group: String((state && state.group) || "album"),
           year: String((state && state.year) || "all"),
           tag: String((state && state.tag) || "all"),
           audio: String((state && state.audio) || "all"),
         };
-        if (next.group && next.group !== "album") url.searchParams.set("group", next.group);
-        else url.searchParams.delete("group");
         if (next.year && next.year !== "all") url.searchParams.set("year", next.year);
         else url.searchParams.delete("year");
         if (next.tag && next.tag !== "all") url.searchParams.set("tag", next.tag);
         else url.searchParams.delete("tag");
         if (next.audio && next.audio !== "all") url.searchParams.set("audio", next.audio);
         else url.searchParams.delete("audio");
+        url.searchParams.delete("group");
         history.replaceState(history.state, "", url.toString());
       } catch (_error) {}
     }
@@ -9153,7 +9176,6 @@
     var urlState = readMusicIndexUrlState();
     var storedState = urlState.hasExplicit ? null : readMusicIndexStoredState();
     var initialMusicIndexState = {
-      group: (urlState.group || (storedState && storedState.group) || "album").toLowerCase(),
       year: urlState.year || (storedState && storedState.year) || "all",
       tag: (urlState.tag || (storedState && storedState.tag) || "all").toLowerCase(),
       audio: (urlState.audio || (storedState && storedState.audio) || "all").toLowerCase(),
@@ -9171,203 +9193,309 @@
       }
     }
 
-    function applyMusicIndexArchitecture(catalogMap) {
-      catalogMap = catalogMap || Object.create(null);
-
-      if (!shell) {
-        shell = document.createElement("div");
-        shell.className = "container music-ia-shell";
-
-        var controls = document.createElement("div");
-        controls.className = "music-ia-controls";
-
-        var tabs = document.createElement("div");
-        tabs.className = "music-ia-tabs";
-        tabs.setAttribute("role", "tablist");
-
-        [
-          { key: "album", label: dict.musicTabAlbum },
-          { key: "single", label: dict.musicTabSingles },
-        ].forEach(function (item) {
-          var button = document.createElement("button");
-          button.type = "button";
-          button.className = "music-ia-tab";
-          button.dataset.groupFilter = item.key;
-          button.textContent = item.label;
-          if (item.key === "album") {
-            button.classList.add("is-active");
-          }
-          tabs.appendChild(button);
-        });
-
-        var filters = document.createElement("div");
-        filters.className = "music-ia-filters";
-
-        function buildFilter(labelText, filterName) {
-          var wrapper = document.createElement("label");
-          wrapper.className = "music-ia-filter";
-          var label = document.createElement("span");
-          label.className = "music-ia-filter-label";
-          label.textContent = labelText;
-          var select = document.createElement("select");
-          select.className = "music-ia-filter-select";
-          select.dataset.filter = filterName;
-          wrapper.appendChild(label);
-          wrapper.appendChild(select);
-          return wrapper;
-        }
-
-        filters.appendChild(buildFilter(dict.musicFilterYear, "year"));
-        filters.appendChild(buildFilter(dict.musicFilterTag, "tag"));
-        filters.appendChild(buildFilter(dict.musicFilterAudio, "audio"));
-
-        controls.appendChild(tabs);
-        controls.appendChild(filters);
-
-        var groups = document.createElement("div");
-        groups.className = "music-group-stack";
-        [
-          { key: "album", label: dict.musicGroupAlbum },
-          { key: "single", label: dict.musicGroupSingles },
-        ].forEach(function (item) {
-          var group = document.createElement("section");
-          group.className = "music-group";
-          group.dataset.group = item.key;
-
-          var heading = document.createElement("h3");
-          heading.className = "music-group-title";
-          var text = document.createElement("span");
-          text.className = "music-group-title-text";
-          text.textContent = item.label;
-          var count = document.createElement("span");
-          count.className = "music-group-count";
-          count.dataset.groupCount = item.key;
-          heading.appendChild(text);
-          heading.appendChild(count);
-
-          var list = document.createElement("div");
-          list.className = "music-list music-list-group";
-          list.dataset.listGroup = item.key;
-
-          group.appendChild(heading);
-          group.appendChild(list);
-          groups.appendChild(group);
-        });
-
-        var empty = document.createElement("p");
-        empty.className = "music-ia-empty";
-        empty.textContent = dict.musicNoResults;
-        empty.hidden = true;
-
-        sourceList.classList.add("music-list-source");
-        sourceList.hidden = true;
-
-        shell.appendChild(controls);
-        shell.appendChild(groups);
-        shell.appendChild(empty);
-        shell.appendChild(sourceList);
-        rootSection.textContent = "";
-        rootSection.appendChild(shell);
+    function createMusicCuratedShell() {
+      if (shell) {
+        return shell;
       }
 
+      shell = document.createElement("div");
+      shell.className = "container music-ia-shell music-curated-shell";
+
+      var featuredLayer = document.createElement("section");
+      featuredLayer.className = "music-curated-layer music-curated-featured";
+
+      var featuredHead = document.createElement("div");
+      featuredHead.className = "music-curated-head";
+      var featuredTitle = document.createElement("h2");
+      featuredTitle.className = "music-curated-title";
+      featuredTitle.dataset.curatedTitle = "featured";
+      var featuredLead = document.createElement("p");
+      featuredLead.className = "music-curated-lead";
+      featuredLead.dataset.curatedLead = "featured";
+      featuredHead.appendChild(featuredTitle);
+      featuredHead.appendChild(featuredLead);
+
+      var featuredGrid = document.createElement("div");
+      featuredGrid.className = "music-feature-grid";
+      featuredGrid.dataset.featureGrid = "1";
+
+      featuredLayer.appendChild(featuredHead);
+      featuredLayer.appendChild(featuredGrid);
+
+      var archiveLayer = document.createElement("section");
+      archiveLayer.className = "music-curated-layer music-curated-archive";
+
+      var archiveHead = document.createElement("div");
+      archiveHead.className = "music-curated-head";
+      var archiveTitle = document.createElement("h2");
+      archiveTitle.className = "music-curated-title";
+      archiveTitle.dataset.curatedTitle = "archive";
+      var archiveLead = document.createElement("p");
+      archiveLead.className = "music-curated-lead";
+      archiveLead.dataset.curatedLead = "archive";
+      archiveHead.appendChild(archiveTitle);
+      archiveHead.appendChild(archiveLead);
+
+      var archiveStack = document.createElement("div");
+      archiveStack.className = "music-era-stack";
+      archiveStack.dataset.eraStack = "1";
+
+      archiveLayer.appendChild(archiveHead);
+      archiveLayer.appendChild(archiveStack);
+
+      var allLayer = document.createElement("section");
+      allLayer.className = "music-curated-layer music-curated-all";
+
+      var allHead = document.createElement("div");
+      allHead.className = "music-curated-head";
+      var allTitle = document.createElement("h2");
+      allTitle.className = "music-curated-title";
+      allTitle.dataset.curatedTitle = "all";
+      var allLead = document.createElement("p");
+      allLead.className = "music-curated-lead";
+      allLead.dataset.curatedLead = "all";
+      allHead.appendChild(allTitle);
+      allHead.appendChild(allLead);
+
+      var controls = document.createElement("div");
+      controls.className = "music-ia-controls";
+
+      var filters = document.createElement("div");
+      filters.className = "music-ia-filters";
+
+      function buildFilter(labelText, filterName) {
+        var wrapper = document.createElement("label");
+        wrapper.className = "music-ia-filter";
+        var label = document.createElement("span");
+        label.className = "music-ia-filter-label";
+        label.textContent = labelText;
+        var select = document.createElement("select");
+        select.className = "music-ia-filter-select";
+        select.dataset.filter = filterName;
+        wrapper.appendChild(label);
+        wrapper.appendChild(select);
+        return wrapper;
+      }
+
+      filters.appendChild(buildFilter(dict.musicFilterYear, "year"));
+      filters.appendChild(buildFilter(dict.musicFilterTag, "tag"));
+      filters.appendChild(buildFilter(dict.musicFilterAudio, "audio"));
+      controls.appendChild(filters);
+
+      var group = document.createElement("section");
+      group.className = "music-group music-group-all";
+
+      var heading = document.createElement("h3");
+      heading.className = "music-group-title";
+      var headingText = document.createElement("span");
+      headingText.className = "music-group-title-text";
+      headingText.dataset.groupTitle = "all";
+      var headingCount = document.createElement("span");
+      headingCount.className = "music-group-count";
+      headingCount.dataset.groupCount = "all";
+      heading.appendChild(headingText);
+      heading.appendChild(headingCount);
+
+      var allList = document.createElement("div");
+      allList.className = "music-list music-list-group";
+      allList.dataset.listGroup = "all";
+
+      group.appendChild(heading);
+      group.appendChild(allList);
+
+      var empty = document.createElement("p");
+      empty.className = "music-ia-empty";
+      empty.hidden = true;
+
+      sourceList.classList.add("music-list-source");
+      sourceList.hidden = true;
+
+      allLayer.appendChild(allHead);
+      allLayer.appendChild(controls);
+      allLayer.appendChild(group);
+      allLayer.appendChild(empty);
+
+      shell.appendChild(featuredLayer);
+      shell.appendChild(archiveLayer);
+      shell.appendChild(allLayer);
+      shell.appendChild(sourceList);
+
+      rootSection.textContent = "";
+      rootSection.appendChild(shell);
+      return shell;
+    }
+
+    function plainDateText(dateNode) {
+      if (!dateNode) {
+        return "";
+      }
+      var clone = dateNode.cloneNode(true);
+      Array.from(clone.querySelectorAll(".track-status-badge")).forEach(function (badge) {
+        badge.remove();
+      });
+      return normalizeText(clone.textContent || "");
+    }
+
+    function musicYearSort(a, b) {
+      if (a === "unknown" && b === "unknown") {
+        return 0;
+      }
+      if (a === "unknown") {
+        return 1;
+      }
+      if (b === "unknown") {
+        return -1;
+      }
+      return Number(b) - Number(a);
+    }
+
+    function featuredBlueprint() {
+      var safeLang = detectPreferredLanguage() === "en" ? "en" : "zh";
+      return [
+        {
+          href: "music/album-ipomoea-alba.html",
+          label: safeLang === "en" ? dict.musicFeatureAlbumLabelEn : dict.musicFeatureAlbumLabel,
+          accent: "#5f76a0",
+          accentSoft: "#1f2a45",
+          copy:
+            safeLang === "en"
+              ? "The moonflower core album where rain, sea, and deep-blue motifs start to connect."
+              : "以月光花为核心的专辑母体，雨、海与深蓝色执念在这里开始彼此连线。",
+          hero: true,
+        },
+        {
+          href: "music/track-04.html",
+          label: safeLang === "en" ? dict.musicFeatureTrackLabelEn : dict.musicFeatureTrackLabel,
+          accent: "#2a3657",
+          accentSoft: "#121826",
+          copy:
+            safeLang === "en"
+              ? "Deep blue restraint, mechanical piano texture, and a precise progressive arc."
+              : "深蓝克制、机械钢琴质感与精密推进的前卫核结构。",
+        },
+        {
+          href: "music/track-17.html",
+          label: safeLang === "en" ? dict.musicFeatureTrackLabelEn : dict.musicFeatureTrackLabel,
+          accent: "#6f4f72",
+          accentSoft: "#221a2f",
+          copy:
+            safeLang === "en"
+              ? "A plum-toned time specimen: overwritten memories, shifting distance, and early intensity."
+              : "梅紫色时间样本：被反复覆盖的记忆、变化中的距离感与早期饱和情绪。",
+        },
+        {
+          href: "music/track-20.html",
+          label: safeLang === "en" ? dict.musicFeatureTrackLabelEn : dict.musicFeatureTrackLabel,
+          accent: "#275088",
+          accentSoft: "#131f3a",
+          copy:
+            safeLang === "en"
+              ? "Cosmic deep-blue tension in mixed meter: eruption, expansion, and collapse."
+              : "宇宙深蓝色混合拍张力：爆发、扩张与坍缩同场发生。",
+        },
+        {
+          href: "music/track-26.html",
+          label: safeLang === "en" ? dict.musicFeatureTrackLabelEn : dict.musicFeatureTrackLabel,
+          accent: "#46607d",
+          accentSoft: "#1e2c40",
+          copy:
+            safeLang === "en"
+              ? "A liminal indie scene between dusk and dawn, weightless but never detached."
+              : "停在明暗交界处的 indie 场景：轻盈漂浮，但始终没有真正落地。",
+        },
+      ];
+    }
+
+    function applyMusicIndexArchitecture(catalogMap) {
+      catalogMap = catalogMap || Object.create(null);
+      createMusicCuratedShell();
+
+      var featureGrid = shell.querySelector('[data-feature-grid="1"]');
+      var archiveStack = shell.querySelector('[data-era-stack="1"]');
       var yearSelect = shell.querySelector('select[data-filter="year"]');
       var tagSelect = shell.querySelector('select[data-filter="tag"]');
       var audioSelect = shell.querySelector('select[data-filter="audio"]');
-      var tabs = Array.from(shell.querySelectorAll(".music-ia-tab"));
-      var emptyState = shell.querySelector(".music-ia-empty");
-      var groupSections = Array.from(shell.querySelectorAll(".music-group"));
-      var albumList = shell.querySelector('[data-list-group="album"]');
-      var singlesList = shell.querySelector('[data-list-group="single"]');
+      var allList = shell.querySelector('[data-list-group="all"]');
+      var allCount = shell.querySelector('[data-group-count="all"]');
+      var allGroupTitle = shell.querySelector('[data-group-title="all"]');
+      var emptyState = shell.querySelector('.music-ia-empty');
 
-      if (!yearSelect || !tagSelect || !audioSelect || !albumList || !singlesList) {
+      if (!featureGrid || !archiveStack || !yearSelect || !tagSelect || !audioSelect || !allList || !emptyState) {
         return;
       }
 
+      var titleNodeFeatured = shell.querySelector('[data-curated-title="featured"]');
+      var titleNodeArchive = shell.querySelector('[data-curated-title="archive"]');
+      var titleNodeAll = shell.querySelector('[data-curated-title="all"]');
+      var leadNodeFeatured = shell.querySelector('[data-curated-lead="featured"]');
+      var leadNodeArchive = shell.querySelector('[data-curated-lead="archive"]');
+      var leadNodeAll = shell.querySelector('[data-curated-lead="all"]');
+      if (titleNodeFeatured) titleNodeFeatured.textContent = dict.musicSectionFeaturedTitle;
+      if (titleNodeArchive) titleNodeArchive.textContent = dict.musicSectionArchiveTitle;
+      if (titleNodeAll) titleNodeAll.textContent = dict.musicSectionAllTracksTitle;
+      if (leadNodeFeatured) leadNodeFeatured.textContent = dict.musicSectionFeaturedLead;
+      if (leadNodeArchive) leadNodeArchive.textContent = dict.musicSectionArchiveLead;
+      if (leadNodeAll) leadNodeAll.textContent = dict.musicSectionAllTracksLead;
+      if (allGroupTitle) allGroupTitle.textContent = dict.musicGroupAllTracks;
+
+      var filterLabels = shell.querySelectorAll('.music-ia-filter-label');
+      if (filterLabels[0]) filterLabels[0].textContent = dict.musicFilterYear;
+      if (filterLabels[1]) filterLabels[1].textContent = dict.musicFilterTag;
+      if (filterLabels[2]) filterLabels[2].textContent = dict.musicFilterAudio;
+      emptyState.textContent = dict.musicNoResults;
+
+      featureGrid.textContent = '';
+      archiveStack.textContent = '';
+      allList.textContent = '';
+
       var yearValues = [];
       var tagValues = [];
-      var singleYearGroupMap = Object.create(null);
+      var hasUnknownYear = false;
+      var rowsByHref = Object.create(null);
+      var eras = Object.create(null);
 
-      albumList.textContent = "";
-      singlesList.textContent = "";
-
-      function getOrCreateSingleYearGroup(year) {
-        var key = String(year || "").trim() || "unknown";
-        if (singleYearGroupMap[key]) {
-          return singleYearGroupMap[key];
-        }
-
-        var wrap = document.createElement("section");
-        wrap.className = "music-year-group";
-        wrap.dataset.yearGroup = key;
-
-        var head = document.createElement("div");
-        head.className = "music-year-group-head";
-
-        var title = document.createElement("h4");
-        title.className = "music-year-group-title";
-        title.textContent = key === "unknown" ? dict.musicYearUnknown : key;
-
-        var count = document.createElement("span");
-        count.className = "music-year-group-count";
-        count.dataset.yearGroupCount = key;
-
-        head.appendChild(title);
-        head.appendChild(count);
-
-        var list = document.createElement("div");
-        list.className = "music-year-group-list";
-        list.dataset.yearGroupList = key;
-
-        wrap.appendChild(head);
-        wrap.appendChild(list);
-        singlesList.appendChild(wrap);
-
-        singleYearGroupMap[key] = {
-          wrap: wrap,
-          head: head,
-          title: title,
-          count: count,
-          list: list,
-        };
-        return singleYearGroupMap[key];
-      }
-
-      rows.forEach(function (row) {
+      rows.forEach(function (row, index) {
         try {
-          var titleNode = row.querySelector(".track-title");
-          var artistNode = row.querySelector(".track-artist");
-          var titleText = titleNode ? titleNode.textContent || "" : "";
-          var artistText = artistNode ? artistNode.textContent || "" : "";
-          var rowHref = row.getAttribute("data-href") || "";
-          var catalogItem = getMusicCatalogForRowHref(rowHref) || catalogMap[normalizeMusicCatalogHref(rowHref)];
+          var titleNode = row.querySelector('.track-title');
+          var artistNode = row.querySelector('.track-artist');
+          var dateNode = row.querySelector('.track-date');
+          var titleText = normalizeText(titleNode ? titleNode.textContent || '' : '');
+          var artistText = normalizeText(artistNode ? artistNode.textContent || '' : '');
+          var dateText = plainDateText(dateNode);
+          var rowHref = row.getAttribute('data-href') || '';
+          var normalizedHref = normalizeMusicCatalogHref(rowHref);
+          var catalogItem = getMusicCatalogForRowHref(rowHref) || catalogMap[normalizedHref];
 
           var type =
             (catalogItem && catalogItem.type) ||
             row.dataset.musicType ||
             inferMusicRowType(row, titleText);
+
           var hasAudio =
-            catalogItem && typeof catalogItem.has_audio === "boolean"
-              ? (catalogItem.has_audio ? "1" : "0")
-              : /音频待上传|audio pending upload/i.test(titleText || "")
-                ? "0"
-                : "1";
+            catalogItem && typeof catalogItem.has_audio === 'boolean'
+              ? (catalogItem.has_audio ? '1' : '0')
+              : /音频待上传|audio pending upload/i.test(titleText || '')
+                ? '0'
+                : '1';
+
           var year =
-            (catalogItem && String(catalogItem.year || "").trim()) ||
+            (catalogItem && String(catalogItem.year || '').trim()) ||
             row.dataset.musicYear ||
             parseMusicRowYear(row);
+
           var tags = sanitizeMusicTags(
             splitMusicTags(
               catalogItem && Array.isArray(catalogItem.tags)
-                ? catalogItem.tags.join(",")
-                : row.dataset.tags || ""
+                ? catalogItem.tags.join(',')
+                : row.dataset.tags || ''
             )
           );
 
           if (!tags.length) {
-            tags.push(type === "album" ? "album" : "single");
+            tags.push(type === 'album' ? 'album' : 'single');
           }
-          if (/\//.test(artistText || "") || /feat\.?|ft\.?/i.test(titleText || "")) {
-            tags.push("collab");
+          if (/\//.test(artistText || '') || /feat\.?|ft\.?/i.test(titleText || '')) {
+            tags.push('collab');
           }
 
           tags = uniqueMusicTags(sanitizeMusicTags(tags));
@@ -9375,54 +9503,213 @@
           row.dataset.musicType = type;
           row.dataset.musicYear = year;
           row.dataset.hasAudio = hasAudio;
-          row.dataset.tags = tags.join(",");
-          row.classList.remove("track-row-album", "track-row-single", "track-row-wip");
-          row.classList.add("track-row-" + type);
+          row.dataset.tags = tags.join(',');
+          row.classList.remove('track-row-album', 'track-row-single', 'track-row-wip');
+          row.classList.add('track-row-' + type);
           stripPendingAudioMarkerFromTitle(titleNode);
           ensureMusicRowStatusBadge(
             row,
-            hasAudio === "0" ? "pending-audio" : "",
+            hasAudio === '0' ? 'pending-audio' : '',
             dict.musicStatusPendingAudio
           );
-
           ensureMusicRowTags(row, tags, dict);
+
+          allList.appendChild(row);
+
+          var rowData = {
+            row: row,
+            href: rowHref,
+            normalizedHref: normalizedHref,
+            type: type,
+            title: normalizeText(titleNode ? titleNode.textContent || '' : ''),
+            artist: normalizeText(artistNode ? artistNode.textContent || '' : ''),
+            date: dateText,
+            year: year,
+            tags: tags,
+            hasAudio: hasAudio === '1',
+            order: index,
+          };
+
+          rowsByHref[normalizedHref] = rowData;
 
           if (year) {
             yearValues.push(year);
+          } else {
+            hasUnknownYear = true;
           }
+
           tagValues = tagValues.concat(tags);
 
-          if (type === "album") {
-            albumList.appendChild(row);
-          } else {
-            getOrCreateSingleYearGroup(year).list.appendChild(row);
+          if (type === 'single') {
+            var eraKey = /^20\d{2}$/.test(String(year)) ? String(year) : 'unknown';
+            if (eraKey === 'unknown') {
+              hasUnknownYear = true;
+            }
+            if (!eras[eraKey]) {
+              eras[eraKey] = [];
+            }
+            eras[eraKey].push(rowData);
           }
         } catch (rowError) {
-          if (window.console && typeof window.console.error === "function") {
-            window.console.error("[Chronohaze] music row build failed:", row, rowError);
+          if (window.console && typeof window.console.error === 'function') {
+            window.console.error('[Chronohaze] music row build failed:', row, rowError);
           }
         }
       });
 
-      yearValues = uniqueMusicTags(yearValues).sort(function (a, b) {
-        return Number(b) - Number(a);
+      var featuredItems = featuredBlueprint();
+      featuredItems.forEach(function (item) {
+        var rowData = rowsByHref[normalizeMusicCatalogHref(item.href)];
+        if (!rowData || !rowData.href) {
+          return;
+        }
+
+        var card = document.createElement('a');
+        card.className = 'music-feature-card';
+        if (item.hero) {
+          card.classList.add('is-hero');
+        }
+        card.href = rowData.href;
+        card.style.setProperty('--feature-accent', item.accent || '#5f779f');
+        card.style.setProperty('--feature-accent-soft', item.accentSoft || '#1e2b45');
+
+        var cover = document.createElement('div');
+        cover.className = 'music-feature-cover';
+
+        var badge = document.createElement('span');
+        badge.className = 'music-feature-type';
+        badge.textContent = item.label || '';
+
+        var title = document.createElement('h3');
+        title.className = 'music-feature-title';
+        title.textContent = rowData.title;
+
+        var meta = document.createElement('p');
+        meta.className = 'music-feature-meta';
+        if (rowData.type === 'album') {
+          meta.textContent = rowData.artist;
+        } else {
+          meta.textContent = [rowData.date, rowData.artist].filter(Boolean).join(' · ');
+        }
+
+        var desc = document.createElement('p');
+        desc.className = 'music-feature-desc';
+        desc.textContent = item.copy || '';
+
+        card.appendChild(cover);
+        card.appendChild(badge);
+        card.appendChild(title);
+        card.appendChild(meta);
+        card.appendChild(desc);
+
+        card.addEventListener('click', function () {
+          trackAnalyticsEvent('music_feature_open', {
+            page_path: window.location.pathname,
+            item_href: rowData.href,
+            item_type: rowData.type,
+          });
+        });
+
+        featureGrid.appendChild(card);
       });
 
+      var eraKeys = Object.keys(eras).sort(musicYearSort);
+      eraKeys.forEach(function (year, yearIndex) {
+        var details = document.createElement('details');
+        details.className = 'music-era-group';
+        details.dataset.eraYear = year;
+        if (yearIndex < 3) {
+          details.open = true;
+        }
+
+        var summary = document.createElement('summary');
+        summary.className = 'music-era-summary';
+
+        var yearNode = document.createElement('span');
+        yearNode.className = 'music-era-year';
+        yearNode.textContent = year === 'unknown' ? dict.musicYearUnknown : year;
+
+        var countNode = document.createElement('span');
+        countNode.className = 'music-era-count';
+        countNode.textContent = String(eras[year].length);
+
+        summary.appendChild(yearNode);
+        summary.appendChild(countNode);
+
+        var list = document.createElement('div');
+        list.className = 'music-era-list';
+
+        eras[year].forEach(function (rowData) {
+          var item = document.createElement('a');
+          item.className = 'music-era-item';
+          item.href = rowData.href;
+
+          var itemDate = document.createElement('span');
+          itemDate.className = 'music-era-item-date';
+          itemDate.textContent = rowData.date;
+
+          var itemTitle = document.createElement('span');
+          itemTitle.className = 'music-era-item-title';
+          itemTitle.textContent = rowData.title;
+
+          var itemMeta = document.createElement('span');
+          itemMeta.className = 'music-era-item-meta';
+          itemMeta.textContent = rowData.artist;
+
+          item.appendChild(itemDate);
+          item.appendChild(itemTitle);
+          item.appendChild(itemMeta);
+
+          if (!rowData.hasAudio) {
+            var status = document.createElement('span');
+            status.className = 'music-status-badge status-pending-audio music-era-item-status';
+            status.dataset.statusLang = detectPreferredLanguage();
+            status.textContent = dict.musicStatusPendingAudio;
+            item.appendChild(status);
+          }
+
+          item.addEventListener('click', function () {
+            trackAnalyticsEvent('music_archive_open', {
+              page_path: window.location.pathname,
+              item_href: rowData.href,
+              item_type: rowData.type,
+            });
+          });
+
+          list.appendChild(item);
+        });
+
+        details.appendChild(summary);
+        details.appendChild(list);
+        archiveStack.appendChild(details);
+      });
+
+      yearValues = uniqueMusicTags(
+        yearValues.filter(function (value) {
+          return /^20\d{2}$/.test(String(value));
+        })
+      ).sort(function (a, b) {
+        return Number(b) - Number(a);
+      });
+      if (hasUnknownYear) {
+        yearValues.push('unknown');
+      }
+
       var tagOrder = [
-        "album",
-        "single",
-        "collab",
-        "instrumental",
-        "jrock",
-        "progcore",
-        "mathrock",
-        "posthardcore",
-        "jazz",
-        "hardrock",
-        "emorock",
-        "postrock",
-        "pop",
-        "indie",
+        'album',
+        'single',
+        'collab',
+        'instrumental',
+        'jrock',
+        'progcore',
+        'mathrock',
+        'posthardcore',
+        'jazz',
+        'hardrock',
+        'emorock',
+        'postrock',
+        'pop',
+        'indie',
       ];
       tagValues = uniqueMusicTags(tagValues).sort(function (a, b) {
         var ia = tagOrder.indexOf(a);
@@ -9440,167 +9727,105 @@
       });
 
       function fillSelect(selectNode, allLabel, values, displayFn) {
-        var current = selectNode.value || "all";
-        selectNode.textContent = "";
-        var allOption = document.createElement("option");
-        allOption.value = "all";
+        var current = selectNode.value || 'all';
+        selectNode.textContent = '';
+        var allOption = document.createElement('option');
+        allOption.value = 'all';
         allOption.textContent = allLabel;
         selectNode.appendChild(allOption);
 
         values.forEach(function (value) {
-          var option = document.createElement("option");
+          var option = document.createElement('option');
           option.value = value;
           option.textContent = displayFn ? displayFn(value) : value;
           selectNode.appendChild(option);
         });
 
-        if (Array.from(selectNode.options).some(function (opt) { return opt.value === current; })) {
+        if (
+          Array.from(selectNode.options).some(function (opt) {
+            return opt.value === current;
+          })
+        ) {
           selectNode.value = current;
         } else {
-          selectNode.value = "all";
+          selectNode.value = 'all';
         }
       }
 
-      fillSelect(yearSelect, dict.musicFilterAllYears, yearValues, null);
+      fillSelect(yearSelect, dict.musicFilterAllYears, yearValues, function (value) {
+        return value === 'unknown' ? dict.musicYearUnknown : value;
+      });
       fillSelect(tagSelect, dict.musicFilterAllTags, tagValues, function (tag) {
         return getMusicTagLabel(tag, dict);
       });
-      fillSelect(audioSelect, dict.musicFilterAudioAll, ["ready", "pending"], function (value) {
-        return value === "ready" ? dict.musicFilterAudioReady : dict.musicFilterAudioPending;
+      fillSelect(audioSelect, dict.musicFilterAudioAll, ['ready', 'pending'], function (value) {
+        return value === 'ready' ? dict.musicFilterAudioReady : dict.musicFilterAudioPending;
       });
-
-      var titleMap = {
-        album: dict.musicTabAlbum,
-        single: dict.musicTabSingles,
-      };
-      tabs.forEach(function (tab) {
-        tab.textContent = titleMap[tab.dataset.groupFilter] || tab.textContent;
-      });
-
-      var filterLabels = shell.querySelectorAll(".music-ia-filter-label");
-      if (filterLabels[0]) filterLabels[0].textContent = dict.musicFilterYear;
-      if (filterLabels[1]) filterLabels[1].textContent = dict.musicFilterTag;
-      if (filterLabels[2]) filterLabels[2].textContent = dict.musicFilterAudio;
-
-      var groupTitleMap = {
-        album: dict.musicGroupAlbum,
-        single: dict.musicGroupSingles,
-      };
-      groupSections.forEach(function (group) {
-        var key = group.dataset.group;
-        var titleNode = group.querySelector(".music-group-title-text");
-        if (titleNode && groupTitleMap[key]) {
-          titleNode.textContent = groupTitleMap[key];
-        }
-      });
-      emptyState.textContent = dict.musicNoResults;
 
       if (!musicIndexStateBootstrapped) {
-        var targetGroup =
-          initialMusicIndexState.group === "single" || initialMusicIndexState.group === "album"
-            ? initialMusicIndexState.group
-            : "album";
-        tabs.forEach(function (tab) {
-          tab.classList.toggle("is-active", tab.dataset.groupFilter === targetGroup);
-        });
-
         if (
           initialMusicIndexState.year &&
-          Array.from(yearSelect.options).some(function (opt) { return opt.value === initialMusicIndexState.year; })
+          Array.from(yearSelect.options).some(function (opt) {
+            return opt.value === initialMusicIndexState.year;
+          })
         ) {
           yearSelect.value = initialMusicIndexState.year;
         }
         if (
           initialMusicIndexState.tag &&
-          Array.from(tagSelect.options).some(function (opt) { return opt.value === initialMusicIndexState.tag; })
+          Array.from(tagSelect.options).some(function (opt) {
+            return opt.value === initialMusicIndexState.tag;
+          })
         ) {
           tagSelect.value = initialMusicIndexState.tag;
         }
         if (
           initialMusicIndexState.audio &&
-          Array.from(audioSelect.options).some(function (opt) { return opt.value === initialMusicIndexState.audio; })
+          Array.from(audioSelect.options).some(function (opt) {
+            return opt.value === initialMusicIndexState.audio;
+          })
         ) {
           audioSelect.value = initialMusicIndexState.audio;
         }
 
-        shell.dataset.musicStateBootstrapped = "1";
+        shell.dataset.musicStateBootstrapped = '1';
         musicIndexStateBootstrapped = true;
       }
 
-      function activeGroupFilter() {
-        var active = shell.querySelector(".music-ia-tab.is-active");
-        return active ? active.dataset.groupFilter : "album";
-      }
-
       function applyFilters() {
-        var groupFilter = activeGroupFilter();
-        var yearFilter = yearSelect.value || "all";
-        var tagFilter = tagSelect.value || "all";
-        var audioFilter = audioSelect.value || "all";
+        var yearFilter = yearSelect.value || 'all';
+        var tagFilter = tagSelect.value || 'all';
+        var audioFilter = audioSelect.value || 'all';
 
         var visibleTotal = 0;
 
         rows.forEach(function (row) {
-          var type = row.dataset.musicType || "single";
-          var year = row.dataset.musicYear || "";
-          var hasAudio = row.dataset.hasAudio === "1";
-          var tags = splitMusicTags(row.dataset.tags || "");
+          var year = row.dataset.musicYear || '';
+          var hasAudio = row.dataset.hasAudio === '1';
+          var tags = splitMusicTags(row.dataset.tags || '');
+          var safeYear = /^20\d{2}$/.test(String(year)) ? String(year) : 'unknown';
 
-          var matchesGroup = type === groupFilter;
-          var matchesYear = yearFilter === "all" || year === yearFilter;
-          var matchesTag = tagFilter === "all" || tags.indexOf(tagFilter) >= 0;
+          var matchesYear = yearFilter === 'all' || safeYear === yearFilter;
+          var matchesTag = tagFilter === 'all' || tags.indexOf(tagFilter) >= 0;
           var matchesAudio =
-            audioFilter === "all" ||
-            (audioFilter === "ready" && hasAudio) ||
-            (audioFilter === "pending" && !hasAudio);
+            audioFilter === 'all' ||
+            (audioFilter === 'ready' && hasAudio) ||
+            (audioFilter === 'pending' && !hasAudio);
 
-          var visible = matchesGroup && matchesYear && matchesTag && matchesAudio;
+          var visible = matchesYear && matchesTag && matchesAudio;
           row.hidden = !visible;
-          row.classList.toggle("is-filter-hidden", !visible);
+          row.classList.toggle('is-filter-hidden', !visible);
           if (visible) {
             visibleTotal += 1;
           }
         });
 
-        groupSections.forEach(function (group) {
-          var key = group.dataset.group;
-          var groupRows = Array.from(group.querySelectorAll(".track-row"));
-          var visibleCount = groupRows.filter(function (row) {
-            return !row.hidden;
-          }).length;
-          var countNode = group.querySelector("[data-group-count]");
-          if (countNode) {
-            countNode.textContent = visibleCount > 0 ? " (" + visibleCount + ")" : " (0)";
-          }
-
-          if (key !== groupFilter) {
-            group.hidden = true;
-            group.classList.add("is-filter-hidden");
-          } else {
-            group.hidden = visibleCount === 0;
-            group.classList.toggle("is-filter-hidden", visibleCount === 0);
-          }
-        });
-
-        Array.from(singlesList.querySelectorAll(".music-year-group")).forEach(function (yearGroup) {
-          var yearRows = Array.from(yearGroup.querySelectorAll(".track-row"));
-          var yearVisibleCount = yearRows.filter(function (row) {
-            return !row.hidden;
-          }).length;
-          var yearCountNode = yearGroup.querySelector(".music-year-group-count");
-          if (yearCountNode) {
-            yearCountNode.textContent = yearVisibleCount > 0 ? String(yearVisibleCount) : "0";
-          }
-          var shouldHide =
-            groupFilter !== "single" || yearVisibleCount === 0;
-          yearGroup.hidden = shouldHide;
-          yearGroup.classList.toggle("is-filter-hidden", shouldHide);
-        });
-
+        if (allCount) {
+          allCount.textContent = ' (' + String(visibleTotal) + ')';
+        }
         emptyState.hidden = visibleTotal > 0;
 
         var stateSnapshot = {
-          group: groupFilter,
           year: yearFilter,
           tag: tagFilter,
           audio: audioFilter,
@@ -9609,22 +9834,11 @@
         syncMusicIndexUrlState(stateSnapshot);
       }
 
-      if (shell.dataset.musicFiltersBound !== "1") {
-        tabs.forEach(function (tab) {
-          tab.addEventListener("click", function () {
-            tabs.forEach(function (node) {
-              node.classList.remove("is-active");
-            });
-            tab.classList.add("is-active");
-            applyFilters();
-          });
-        });
-
+      if (shell.dataset.musicFiltersBound !== '1') {
         [yearSelect, tagSelect, audioSelect].forEach(function (select) {
-          select.addEventListener("change", applyFilters);
+          select.addEventListener('change', applyFilters);
         });
-
-        shell.dataset.musicFiltersBound = "1";
+        shell.dataset.musicFiltersBound = '1';
       }
 
       applyFilters();
