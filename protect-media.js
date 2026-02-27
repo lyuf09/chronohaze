@@ -9172,6 +9172,7 @@
         kind: "album",
         accent: "#5f76a0",
         accentSoft: "#1f2a45",
+        image: "assets/template/ipomoea-alba-album-cover.jpg",
         copyZh: "月光花专辑主线：雨、海、深蓝色执念与时间切片。",
         copyEn: "Album axis of rain, sea, deep-blue persistence, and time slices.",
       },
@@ -9198,14 +9199,6 @@
         accentSoft: "#131f3a",
         copyZh: "宇宙深蓝色混合拍张力：爆发、扩张与坍缩。",
         copyEn: "Cosmic deep-blue mixed-meter tension: eruption, expansion, collapse.",
-      },
-      {
-        href: "music/track-26.html",
-        kind: "track",
-        accent: "#46607d",
-        accentSoft: "#1e2c40",
-        copyZh: "停在明暗交界处的 indie 场景，轻盈但不抽离。",
-        copyEn: "Liminal indie scene between dusk and dawn, weightless but grounded.",
       },
     ];
     var rowByHref = Object.create(null);
@@ -9270,6 +9263,10 @@
         cover.className = "music-featured-cover";
         cover.style.setProperty("--feature-accent", item.accent);
         cover.style.setProperty("--feature-accent-soft", item.accentSoft);
+        if (item.image) {
+          cover.classList.add("has-image");
+          cover.style.setProperty("--feature-image-url", 'url("' + item.image + '")');
+        }
 
         var chip = document.createElement("span");
         chip.className = "music-featured-chip";
