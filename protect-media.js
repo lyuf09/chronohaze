@@ -10366,10 +10366,10 @@
       var dx = state.targetX - state.lastSparkX;
       var dy = state.targetY - state.lastSparkY;
       var speed = Math.sqrt(dx * dx + dy * dy);
-      if (speed < 8) {
+      if (speed < 7) {
         return;
       }
-      if (ts - state.lastSparkAt < 58) {
+      if (ts - state.lastSparkAt < 49) {
         return;
       }
 
@@ -10379,6 +10379,9 @@
 
       var spark = document.createElement("span");
       spark.className = "cursor-atmosphere-spark";
+      if (Math.random() < 0.6) {
+        spark.classList.add("is-star");
+      }
 
       var offsetX = (Math.random() - 0.5) * 10 - dx * 0.08;
       var offsetY = (Math.random() - 0.5) * 10 - dy * 0.08;
@@ -10399,6 +10402,26 @@
       spark.style.setProperty("--spark-rot", rot + "deg");
 
       layer.appendChild(spark);
+
+      if (Math.random() < 0.34) {
+        var sparkCompanion = document.createElement("span");
+        sparkCompanion.className = "cursor-atmosphere-spark is-star";
+        sparkCompanion.style.setProperty("--spark-x", state.targetX + offsetX * 0.65 + (Math.random() - 0.5) * 8 + "px");
+        sparkCompanion.style.setProperty("--spark-y", state.targetY + offsetY * 0.65 + (Math.random() - 0.5) * 8 + "px");
+        sparkCompanion.style.setProperty("--spark-dx", driftX * 0.68 + "px");
+        sparkCompanion.style.setProperty("--spark-dy", driftY * 0.68 + "px");
+        sparkCompanion.style.setProperty("--spark-size", (size * (0.66 + Math.random() * 0.16)).toFixed(2) + "px");
+        sparkCompanion.style.setProperty("--spark-life", Math.round(life * (0.82 + Math.random() * 0.14)) + "ms");
+        sparkCompanion.style.setProperty("--spark-opacity", (opacity * 0.82).toFixed(2));
+        sparkCompanion.style.setProperty("--spark-rot", Math.round(rot + (Math.random() - 0.5) * 64) + "deg");
+        layer.appendChild(sparkCompanion);
+        sparkCompanion.addEventListener("animationend", function () {
+          if (sparkCompanion.parentNode) {
+            sparkCompanion.parentNode.removeChild(sparkCompanion);
+          }
+        });
+      }
+
       spark.addEventListener("animationend", function () {
         if (spark.parentNode) {
           spark.parentNode.removeChild(spark);
@@ -10406,8 +10429,8 @@
       });
 
       var sparks = layer.querySelectorAll(".cursor-atmosphere-spark");
-      if (sparks.length > 18) {
-        var overflow = sparks.length - 18;
+      if (sparks.length > 26) {
+        var overflow = sparks.length - 26;
         for (var i = 0; i < overflow; i += 1) {
           if (sparks[i] && sparks[i].parentNode) {
             sparks[i].parentNode.removeChild(sparks[i]);
