@@ -4240,7 +4240,7 @@
 
     var part1Blocks = [
       {
-        zh: ["「そんなこと、 理解できない僕はずっとそうだった」と言った", "彼は「 それでもいいんだ」と言う。", "続けようとしたら　突然崩れた"],
+        zh: ["「そんなこと、理解できない。僕はずっとそうだった」と言った", "彼は「それでもいいんだ」と言った", "続けようとしたら　突然崩れた"],
         en: [
           "“I was always like that，",
           "the kind of me who couldn’t understand things like that,” I said.",
@@ -4249,7 +4249,7 @@
         ],
       },
       {
-        zh: ["いつも他人のことを笑っている", "自分の立場では理解できない感情", "「捨てれば完璧になれる」", "僕はこう思う"],
+        zh: ["いつも他人のことを笑っている", "自分の立場じゃ理解できない感情", "「捨てれば完璧になれる」", "僕はそう思う"],
         en: [
           "Always laughing at other people,",
           "emotions I can’t understand from where I stand.",
@@ -4258,7 +4258,7 @@
         ],
       },
       {
-        zh: ["10月、ロンドン、人々", "地平線の内側に", "昔の影をたどって", "誰も救わないから"],
+        zh: ["10月、ロンドン、人々", "地平線の内側に", "昔の影をたどって", "誰も救えないから"],
         en: [
           "October, London, people—",
           "inside the horizon,",
@@ -4279,7 +4279,7 @@
 
     var part2Blocks = [
       {
-        zh: ["傘に落ちる雨粒のように", "5時にはもう日が暮れた冬のなか", "「 永遠に会えないと思う」", "脳裏をよぎる"],
+        zh: ["傘に落ちる雨粒のように", "5時にはもう日が暮れる冬のなかで", "「永遠に会えないと思う」", "脳裏をよぎる"],
         en: [
           "Like raindrops hitting an umbrella,",
           "in a winter where by five o’clock it’s already dark,",
@@ -4288,7 +4288,7 @@
         ],
       },
       {
-        zh: ["次から次へと僕の頭上を", "光が通り過ぎて行く", "自由も 真実も 平和も 愛も", "せめて維持しよう、 内なるもの"],
+        zh: ["次から次へと僕の頭上を", "光が通り過ぎていく", "自由も、真実も、平和も、愛も", "せめて内なるものだけは維持しよう"],
         en: [
           "One after another, above my head,",
           "light keeps passing by.",
@@ -4306,7 +4306,7 @@
         ],
       },
       {
-        zh: ["「これじゃ結局 、意味がないじゃないか」", "こんなことを考えていた", "大量の丸薬を手に注いだ", "その時、その時", "君のことを思い出した"],
+        zh: ["「これじゃ結局、意味がないじゃないか」", "こんなことを考えていた", "大量の丸薬を手のひらにあけた", "その時、その時", "君のことを思い出した"],
         en: [
           "“In the end, this just means nothing, doesn’t it?”",
           "I kept thinking that.",
@@ -4316,7 +4316,7 @@
         ],
       },
       {
-        zh: ["実はあの夏から自分の感情が", "無意識に再び拾い上げられた", "コントロールできないなんて大嫌い"],
+        zh: ["実はあの夏から、自分の感情を", "無意識にまた拾い上げていた", "コントロールできないなんて大嫌い"],
         en: [
           "Truth is, since that summer, my emotions",
           "have been unconsciously picked up again.",
@@ -4325,7 +4325,7 @@
         ],
       },
       {
-        zh: ["あの日僕は劇場の前でじっとしていた", "真夜中、 街灯 、ガラスに告解", "I‘ll tell you someday, about the story that came from despair"],
+        zh: ["あの日、僕は劇場の前でじっとしていた", "真夜中、街灯、ガラスに告解", "I’ll tell you someday, about the story that came from despair"],
         en: [
           "That day I stood still in front of the theater.",
           "Midnight—streetlights—",
