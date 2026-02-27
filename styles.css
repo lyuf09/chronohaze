@@ -108,37 +108,56 @@ button {
 
 @media (hover: hover) and (pointer: fine) {
   :root {
-    --cursor-default: url("assets/cursors/arrow-muted-gold.svg") 2 2;
-    --cursor-hover: url("assets/cursors/arrow-muted-gold-hover.svg") 2 2;
-    --cursor-active: url("assets/cursors/arrow-muted-gold-active.svg") 2 2;
+    --cursor-default: url("assets/cursors/arrow-muted-gold.svg?v=3") 2 2;
+    --cursor-hover: url("assets/cursors/arrow-muted-gold-hover.svg?v=3") 2 2;
+    --cursor-active: url("assets/cursors/arrow-muted-gold-active.svg?v=3") 2 2;
   }
 
+  *,
+  *::before,
+  *::after,
   html,
   body {
-    cursor: var(--cursor-default), auto;
+    cursor: var(--cursor-default), auto !important;
   }
 
-  a[href],
-  button:not(:disabled):not([aria-disabled="true"]),
-  summary,
-  [role="button"]:not([aria-disabled="true"]),
-  [data-href],
-  label[for],
-  .track-row[data-href],
-  .music-feature-card,
-  .share-panel-toggle,
-  .lang-btn,
-  .floating-lang-btn {
-    cursor: var(--cursor-hover), pointer;
+  :where(
+      a[href],
+      button:not(:disabled):not([aria-disabled="true"]),
+      summary,
+      [role="button"]:not([aria-disabled="true"]),
+      [data-href],
+      [onclick],
+      label[for],
+      input[type="button"],
+      input[type="submit"],
+      input[type="reset"],
+      .track-row[data-href],
+      .music-feature-card,
+      .share-panel-toggle,
+      .lang-btn,
+      .floating-lang-btn
+    ) {
+    cursor: var(--cursor-hover), var(--cursor-default), auto !important;
   }
 
-  a[href]:active,
-  button:not(:disabled):not([aria-disabled="true"]):active,
-  summary:active,
-  [role="button"]:not([aria-disabled="true"]):active,
-  [data-href]:active,
-  .track-row[data-href]:active {
-    cursor: var(--cursor-active), pointer;
+  :where(
+      a[href]:active,
+      button:not(:disabled):not([aria-disabled="true"]):active,
+      summary:active,
+      [role="button"]:not([aria-disabled="true"]):active,
+      [data-href]:active,
+      [onclick]:active,
+      input[type="button"]:active,
+      input[type="submit"]:active,
+      input[type="reset"]:active,
+      .track-row[data-href]:active,
+      .music-feature-card:active,
+      .share-panel-toggle:active,
+      .lang-btn:active,
+      .floating-lang-btn:active
+    ) {
+    cursor: var(--cursor-active), var(--cursor-hover), var(--cursor-default), auto !important;
   }
 
   input,
@@ -148,7 +167,7 @@ button {
   audio,
   video,
   iframe {
-    cursor: auto;
+    cursor: auto !important;
   }
 
   input[type="text"],
@@ -161,7 +180,7 @@ button {
   textarea,
   [contenteditable="true"],
   [contenteditable]:not([contenteditable="false"]) {
-    cursor: text;
+    cursor: text !important;
   }
 
   .cursor-atmosphere-layer {
