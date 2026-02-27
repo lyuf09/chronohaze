@@ -10466,23 +10466,34 @@
       document.head.appendChild(style);
     }
 
-    var rawSrc = "assets/logo-float.png";
-    var resolvedSrc = rawSrc;
-    try {
-      resolvedSrc = new URL(rawSrc, window.location.href).toString();
-    } catch (_error) {
-      resolvedSrc = rawSrc;
-    }
-
     var wrapper = document.createElement("div");
     wrapper.className = "floating-site-logo";
     wrapper.setAttribute("aria-hidden", "true");
 
     var img = document.createElement("img");
-    img.src = resolvedSrc;
     img.alt = "";
     img.loading = "lazy";
     img.decoding = "async";
+
+    var logoCandidates = getAssetCandidateUrls("assets/logo-float.png");
+    if (!Array.isArray(logoCandidates) || !logoCandidates.length) {
+      logoCandidates = ["assets/logo-float.png"];
+    }
+    var logoCandidateIndex = 0;
+    function setNextLogoSource() {
+      if (logoCandidateIndex >= logoCandidates.length) {
+        return;
+      }
+      var candidate = logoCandidates[logoCandidateIndex++];
+      try {
+        img.src = new URL(candidate, window.location.href).toString();
+      } catch (_error) {
+        img.src = candidate;
+      }
+    }
+    img.addEventListener("error", setNextLogoSource);
+    setNextLogoSource();
+
     wrapper.appendChild(img);
 
     document.body.appendChild(wrapper);
