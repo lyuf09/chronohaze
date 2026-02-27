@@ -10086,9 +10086,9 @@
 
     Array.from(document.querySelectorAll(".footer-right a")).forEach(function (link) {
       var href = link.getAttribute("href") || "";
-      if (/blank-1\.html/i.test(href)) {
+      if (/accessibility\.html|blank-1\.html/i.test(href)) {
         link.textContent = dict.a11y;
-      } else if (/blank\.html/i.test(href)) {
+      } else if (/policy\.html|blank\.html/i.test(href)) {
         link.textContent = dict.siteNotes;
       }
     });

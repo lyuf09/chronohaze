@@ -708,7 +708,7 @@ def build_cards_and_patch_heads(root: Path) -> None:
         rel = str(page.relative_to(root)).replace("\\", "/")
         if rel in math_image_map or rel in music_image_map:
             continue
-        if rel in ("blank.html", "blank-1.html"):
+        if rel in ("policy.html", "accessibility.html", "blank.html", "blank-1.html"):
             continue
         title, desc = extract_title_and_description(page)
         out_rel = f"{SITE_OG_DIR}/{Path(rel).stem}.png"
