@@ -2865,12 +2865,12 @@
       {
         zh: [
           "行き交う人々の中に昔の面影を探す",
-          "夜の街を歩いてるだけ 適当に",
-          "あの、元気ですかって",
-          "こんなことも言えないんだ",
+          "夜の街を歩いてるだけ　ただ適当に",
+          "今、元気ですかって",
+          "そんなことさえ言えないんだ",
           "あの時スクリーンの向こうは",
-          "手の届かない距離でした",
-          "殴り書きの写真しか残っていない",
+          "手じゃ触れられない距離だった",
+          "雑に撮った写真しか　もう何も残ってない",
         ],
         en: [
           "In the crowd of people passing by, I catch myself looking for an old outline,",
@@ -2884,7 +2884,7 @@
         ],
       },
       {
-        zh: ["他の人と比べていないか？私を", "聞かせてよ、昔の話", "あなたのために時間を止める"],
+        zh: ["他の誰かと私を比べたりした？", "聞かせてよ、昔の二人の話を", "あなたのためなら時間を止める"],
         en: [
           "Have you ever compared me to someone else?",
           "Tell me. Let me hear the old stories.",
@@ -2894,10 +2894,10 @@
       },
       {
         zh: [
-          "以前あなたに抱いていた疑問が解けました",
-          "軒に白く落ちた花びらがまだ揺れていた",
+          "以前あなたに抱いていた疑問はもう全部解けた",
+          "軒に白く落ちた花びらは　まだ揺れていた",
           "でもどんなに頑張ってもあなたにはなれない",
-          "今でも覚えてるか、口論のことを",
+          "今でも覚えてる？　口論したことを",
         ],
         en: [
           "The questions I used to have about you are finally answered now.",
@@ -2912,12 +2912,12 @@
     var part2Blocks = [
       {
         zh: [
-          "朝のお茶を飲んで月光をあなたのギターに注ぎる",
-          "雨夜に予報を そちらは晴れ",
-          "似ているがあの時 気持ちとは重なりない",
-          "一人になるとまた浮かんできる",
-          "灰色の瞳の失望に戻ったようだ",
-          "本当はこんなはずじゃなかったんだ",
+          "朝のお茶を飲んで　月光があなたのギターに落ちる",
+          "雨の夜に予報を見る　そっちは晴れだって",
+          "似ているのに　あの時の気持ちとは重ならない",
+          "一人になるとまた目の前に浮かんでくる",
+          "灰色の瞳にあった失望へ　戻ったみたいだ",
+          "ねえ　本当はこんなはずじゃなかったんだ",
         ],
         en: [
           "Morning tea,",
@@ -2933,7 +2933,7 @@
         ],
       },
       {
-        zh: ["話から 言外の意味を考えた", "訳も分からずあなたの国のニュースを見ました"],
+        zh: ["また言葉の端の意味を考えていた", "また訳もなく　そっちのニュースを見てた"],
         en: [
           "I start reading into what you said, what you didn’t say.",
           "Without knowing why,",
@@ -2942,30 +2942,14 @@
       },
       {
         zh: [
-          "「今夜、どうして君について話をしたのかわかない」",
-          "最後まで、 神は罰すら下そうとしない",
-          "レコードを置いて 大丈夫だ とつぶやいた",
-          "今でも覚えてるか、「未来」のことを",
+          "「今夜、どうして君のことを話したのかわからない」",
+          "最後まで、神は罰すら下そうとしない",
+          "結局、今も誰のせいなのかわからないんだ",
+          "灯火、初夏、なぜ変わり続けるのだろう",
         ],
         en: [
           "“Tonight, I don’t even know why I started talking about you.”",
           "In the end, even God refuses to hand down a punishment.",
-          "I put on a record",
-          "and whisper, “It’s fine.”",
-          "Do you still remember,",
-          "the thing we called “the future”?",
-        ],
-      },
-      {
-        zh: [
-          "以前あなたに抱いていた疑問が解けました",
-          "軒に白く落ちた花びらがまだ揺れてた",
-          "結局 、 今、誰のせいなのかわからないんだ",
-          "灯火、初夏 、なぜ変化し続けるのでしょうか",
-        ],
-        en: [
-          "The questions I used to have about you are finally answered now.",
-          "White petals that fell onto the eaves are still trembling there.",
           "And yet, in the end, even now,",
           "I still don’t know whose fault it was.",
           "Streetlights. Early summer.",
