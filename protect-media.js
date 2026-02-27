@@ -9231,7 +9231,7 @@
         accent: "#5f76a0",
         accentSoft: "#1f2a45",
         image: "assets/template/ipomoea-alba-album-cover.jpg",
-        copyZh: "月光花专辑主线：雨、海、深蓝色执念与时间切片。",
+        copyZh: "雨季，海，深蓝色的执念。",
         copyEn: "Album axis of rain, sea, deep-blue persistence, and time slices.",
       },
       {
@@ -9239,7 +9239,7 @@
         kind: "track",
         accent: "#2a3657",
         accentSoft: "#121826",
-        copyZh: "冷蓝克制与机械质感并行的前卫核代表作。",
+        copyZh: "被秋天的风吹得碎裂的光线，从深处缓慢升起的潮声。安静的、几乎单调的悲意，悄悄在体内留下了纹理。",
         copyEn: "A signature progcore track with restrained cold-blue tension.",
       },
       {
