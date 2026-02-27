@@ -9243,12 +9243,12 @@
         copyEn: "A signature progcore track with restrained cold-blue tension.",
       },
       {
-        href: "music/track-17.html",
+        href: "music/track-02.html",
         kind: "track",
-        accent: "#6f4f72",
-        accentSoft: "#221a2f",
-        copyZh: "梅紫色记忆样本：覆盖、重录与关系距离的变化。",
-        copyEn: "Plum-toned memory specimen of overwrite, re-record, and distance.",
+        accent: "#d8d0bf",
+        accentSoft: "#5e5b4f",
+        copyZh: "暖白与浅灰色调下的回望：克制而迟到的理解。",
+        copyEn: "A warm white-and-pale-grey retrospective with restrained understanding.",
       },
       {
         href: "music/track-20.html",
