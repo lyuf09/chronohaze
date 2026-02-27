@@ -1085,7 +1085,81 @@
         node.textContent = payload.title || document.title || "Chronohaze";
       }
     });
+
+    bridgeMobileShareWithFloatingLogo();
     return { dict: dict, payload: payload };
+  }
+
+  function isMobileShareDockMode() {
+    if (!window.matchMedia) {
+      return false;
+    }
+    return (
+      window.matchMedia("(max-width: 900px)").matches ||
+      window.matchMedia("(hover: none)").matches ||
+      window.matchMedia("(pointer: coarse)").matches
+    );
+  }
+
+  function bridgeMobileShareWithFloatingLogo() {
+    var shell = document.querySelector(".site-share-shell");
+    var launcher = shell ? shell.querySelector(".site-share-fab") : null;
+    var logo = document.querySelector(".floating-site-logo");
+
+    if (!shell || !launcher || !logo) {
+      return;
+    }
+
+    if (!isMobileShareDockMode()) {
+      shell.removeAttribute("data-mobile-share-via-logo");
+      logo.classList.remove("is-share-trigger", "is-share-open");
+      logo.removeAttribute("role");
+      logo.removeAttribute("tabindex");
+      logo.removeAttribute("aria-label");
+      logo.setAttribute("aria-hidden", "true");
+      return;
+    }
+
+    shell.setAttribute("data-mobile-share-via-logo", "1");
+    logo.classList.add("is-share-trigger");
+    logo.removeAttribute("aria-hidden");
+    logo.setAttribute("role", "button");
+    logo.setAttribute("tabindex", "0");
+
+    var dict = getSharePanelDict();
+    logo.setAttribute("aria-label", (dict && dict.shareButton) || "Share");
+
+    function syncOpenState() {
+      logo.classList.toggle("is-share-open", shell.getAttribute("data-open") === "1");
+    }
+
+    syncOpenState();
+
+    if (logo.dataset.shareLauncherBound !== "1") {
+      logo.dataset.shareLauncherBound = "1";
+      logo.addEventListener("click", function (event) {
+        if (shell.getAttribute("data-mobile-share-via-logo") !== "1") {
+          return;
+        }
+        event.preventDefault();
+        launcher.click();
+      });
+      logo.addEventListener("keydown", function (event) {
+        if (shell.getAttribute("data-mobile-share-via-logo") !== "1") {
+          return;
+        }
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          launcher.click();
+        }
+      });
+    }
+
+    if (shell.dataset.shareLogoObserverBound !== "1" && window.MutationObserver) {
+      shell.dataset.shareLogoObserverBound = "1";
+      var observer = new MutationObserver(syncOpenState);
+      observer.observe(shell, { attributes: true, attributeFilter: ["data-open"] });
+    }
   }
 
   function ensureSiteSharePanel() {
@@ -10446,6 +10520,7 @@
 
   function injectFloatingSiteLogo() {
     if (document.querySelector(".floating-site-logo")) {
+      bridgeMobileShareWithFloatingLogo();
       return;
     }
 
@@ -10497,6 +10572,7 @@
     wrapper.appendChild(img);
 
     document.body.appendChild(wrapper);
+    bridgeMobileShareWithFloatingLogo();
   }
 
   function setupDesktopCursorAtmosphere() {

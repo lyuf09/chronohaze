@@ -7342,6 +7342,27 @@ body {
     align-items: flex-end;
   }
 
+  .site-share-shell[data-mobile-share-via-logo="1"] .site-share-fab {
+    display: none;
+  }
+
+  .floating-site-logo.is-share-trigger {
+    pointer-events: auto;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  .floating-site-logo.is-share-trigger:focus-visible {
+    outline: 2px solid rgba(128, 147, 191, 0.5);
+    outline-offset: 2px;
+  }
+
+  .floating-site-logo.is-share-open {
+    opacity: 0;
+    transform: scale(0.92);
+    pointer-events: none;
+  }
+
   .site-share-fab {
     width: 36px;
     min-width: 36px;
