@@ -26,13 +26,21 @@ Use these tokens for layout rhythm and component spacing:
 - `--space-2`: `12px`
 - `--space-3`: `16px`
 - `--space-4`: `24px`
-- `--space-5`: `32px`
-- `--space-6`: `48px`
+- `--space-5`: `40px`
+- `--space-6`: `64px`
 
 Guideline:
 - Small UI gaps: `8/12`
 - Card inner spacing: `16/24`
-- Section gaps: `32/48`
+- Section gaps: `40/64`
+
+## 2.1 Radius / Borders / Width
+
+- Button radius: `--radius-button` = `10px`
+- Card radius: `--radius-card` = `16px`
+- Hairline border: `--border-hairline` = `1px` low-contrast line
+- Copy width: `--max-width-copy` = `720px`
+- List width: `--max-width-list` = `1100px`
 
 ## 3. Color Tokens
 
@@ -118,7 +126,7 @@ What creates “premium” feel is usually not decorative font choice, but:
 
 Primary tokens live in:
 
-- `/tmp/chronohaze-engineering-pass2/styles.css` (Design-system token block near the end of the file)
+- `/private/tmp/chronohaze/styles.css` (`:root` token blocks + shared `.ui-*` primitives)
 
 When adding a new page:
 
