@@ -1861,16 +1861,16 @@ audio {
 }
 
 .music-status-badge.status-available {
-  border-color: var(--ui-border-soft);
-  background: var(--ui-surface-glass);
-  color: var(--ui-copy-color);
+  border-color: color-mix(in srgb, var(--color-accent) 26%, transparent);
+  background: color-mix(in srgb, var(--color-accent) 12%, white);
+  color: color-mix(in srgb, var(--ui-heading-color) 78%, var(--color-accent));
 }
 
 .music-status-badge.status-pending-audio,
 .music-status-badge.status-coming-soon {
-  border-color: color-mix(in srgb, var(--color-accent) 26%, transparent);
-  background: color-mix(in srgb, var(--color-accent) 12%, white);
-  color: color-mix(in srgb, var(--ui-heading-color) 78%, var(--color-accent));
+  border-color: var(--ui-border-soft);
+  background: var(--ui-surface-glass);
+  color: color-mix(in srgb, var(--ui-copy-color) 86%, transparent);
 }
 
 .music-status-badge.status-draft {
@@ -1887,12 +1887,12 @@ audio {
 }
 
 .music-index-page .track-row.track-row-pending {
-  border-color: var(--ui-border-mid);
+  border-color: var(--ui-border-soft);
   background:
     linear-gradient(
       90deg,
-      color-mix(in srgb, var(--color-accent) 7%, white) 0%,
-      color-mix(in srgb, var(--ui-surface-glass) 92%, white) 42%
+      color-mix(in srgb, var(--ui-surface-glass) 85%, white) 0%,
+      color-mix(in srgb, var(--ui-surface-soft) 88%, white) 42%
     ),
     color-mix(in srgb, var(--ui-surface-glass) 78%, white);
   box-shadow: var(--ui-shadow-1);
@@ -1900,7 +1900,18 @@ audio {
 
 .music-index-page .track-row.track-row-pending .track-title,
 .music-index-page .track-row.track-row-pending .track-artist {
-  color: color-mix(in srgb, var(--ui-copy-color) 96%, transparent);
+  color: color-mix(in srgb, var(--ui-copy-color) 82%, transparent);
+}
+
+.music-index-page .music-group[data-group="single"] .track-row:not(.track-row-pending):not(.track-row-wip) {
+  border-color: color-mix(in srgb, var(--color-accent) 18%, var(--ui-border-soft));
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-accent) 8%, white) 0%,
+      color-mix(in srgb, var(--ui-surface-glass) 94%, white) 42%
+    ),
+    color-mix(in srgb, var(--ui-surface-glass) 82%, white);
 }
 
 .music-index-page .track-row.track-row-album {
