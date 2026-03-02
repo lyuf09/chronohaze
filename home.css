@@ -168,8 +168,8 @@ html:lang(en) {
   opacity: 0;
   transform: translate3d(0, 12px, 0);
   transition:
-    opacity var(--reveal-duration, 220ms) ease,
-    transform var(--reveal-duration, 220ms) var(--home-ease);
+    opacity var(--reveal-duration, 220ms) var(--reveal-ease, ease),
+    transform var(--reveal-duration, 220ms) var(--reveal-ease, var(--home-ease));
   transition-delay: var(--reveal-delay, 0ms);
   will-change: opacity, transform;
 }
@@ -702,10 +702,17 @@ html:lang(en) {
   justify-content: center;
   gap: 44px;
   align-items: start;
-  content-visibility: auto;
-  contain-intrinsic-size: 900px 560px;
   position: relative;
   z-index: 1;
+}
+
+.entry-card[data-reveal] {
+  --reveal-duration: 660ms;
+  --reveal-ease: cubic-bezier(0.2, 0.86, 0.2, 1);
+}
+
+.entry-card[data-reveal="zoom"] {
+  transform: translate3d(0, 22px, 0) scale(0.972);
 }
 
 .entry-card {
