@@ -166,12 +166,14 @@ html:lang(en) {
 
 [data-reveal] {
   opacity: 0;
-  transform: translate3d(0, 12px, 0);
+  transform: translate3d(0, 18px, 0);
+  filter: saturate(0.95);
   transition:
-    opacity var(--reveal-duration, 220ms) var(--reveal-ease, ease),
-    transform var(--reveal-duration, 220ms) var(--reveal-ease, var(--home-ease));
+    opacity var(--reveal-duration, 520ms) var(--reveal-ease, ease),
+    transform var(--reveal-duration, 520ms) var(--reveal-ease, var(--home-ease)),
+    filter calc(var(--reveal-duration, 520ms) + 120ms) ease;
   transition-delay: var(--reveal-delay, 0ms);
-  will-change: opacity, transform;
+  will-change: opacity, transform, filter;
 }
 
 [data-reveal="fade"] {
@@ -179,24 +181,25 @@ html:lang(en) {
 }
 
 [data-reveal="zoom"] {
-  transform: translate3d(0, 10px, 0) scale(0.995);
+  transform: translate3d(0, 16px, 0) scale(0.982);
 }
 
 [data-reveal="slide-right"] {
-  transform: translate3d(10px, 0, 0);
+  transform: translate3d(16px, 0, 0);
 }
 
 [data-reveal="slide-left"] {
-  transform: translate3d(-10px, 0, 0);
+  transform: translate3d(-16px, 0, 0);
 }
 
 [data-reveal="slide-up"] {
-  transform: translate3d(0, 14px, 0);
+  transform: translate3d(0, 20px, 0);
 }
 
 [data-reveal].is-visible {
   opacity: 1;
   transform: translate3d(0, 0, 0) scale(1);
+  filter: saturate(1);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -210,6 +213,7 @@ html:lang(en) {
   [data-reveal] {
     opacity: 1;
     transform: none;
+    filter: none;
     transition: none;
   }
 }
@@ -707,7 +711,7 @@ html:lang(en) {
 }
 
 .entry-card[data-reveal] {
-  --reveal-duration: 660ms;
+  --reveal-duration: 760ms;
   --reveal-ease: cubic-bezier(0.2, 0.86, 0.2, 1);
 }
 

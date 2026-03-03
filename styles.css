@@ -51,10 +51,11 @@
   --card-bg: rgba(247, 249, 253, 0.44);
   --card-shadow: 0 12px 22px rgba(16, 21, 31, 0.07);
   --card-shadow-hover: 0 16px 30px rgba(16, 21, 31, 0.1);
-  --motion-duration-base: 260ms;
-  --motion-duration-soft: 200ms;
-  --motion-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --motion-ease-soft: cubic-bezier(0.24, 0.94, 0.32, 1);
+  --motion-duration-base: 420ms;
+  --motion-duration-soft: 340ms;
+  --motion-duration-card: 500ms;
+  --motion-ease-out: cubic-bezier(0.18, 0.92, 0.3, 1);
+  --motion-ease-soft: cubic-bezier(0.2, 0.88, 0.28, 1);
   --ui-t-fast: 160ms;
   --ui-t-base: 190ms;
   --ui-t-slow: 220ms;
@@ -356,12 +357,12 @@ img {
 
 body.motion-enhanced .motion-reveal {
   opacity: 0;
-  transform: translate3d(0, var(--motion-offset, 10px), 0) scale(var(--motion-scale, 0.998));
+  transform: translate3d(0, var(--motion-offset, 10px), 0) scale(var(--motion-scale, 0.996));
   filter: saturate(0.94);
   transition:
     opacity var(--motion-duration, var(--motion-duration-base)) var(--motion-ease-out),
     transform var(--motion-duration, var(--motion-duration-base)) var(--motion-ease-soft),
-    filter calc(var(--motion-duration, var(--motion-duration-base)) + 80ms) ease;
+    filter calc(var(--motion-duration, var(--motion-duration-base)) + 120ms) ease;
   transition-delay: var(--motion-delay, 0ms);
   will-change: opacity, transform;
 }
@@ -373,12 +374,13 @@ body.motion-enhanced .motion-reveal.is-in {
 }
 
 body.motion-enhanced .motion-reveal.motion-reveal-soft {
-  --motion-offset: 8px;
+  --motion-offset: 6px;
   --motion-duration: var(--motion-duration-soft);
 }
 
 body.motion-enhanced .motion-reveal.motion-reveal-card {
-  --motion-offset: 12px;
+  --motion-offset: 10px;
+  --motion-duration: var(--motion-duration-card);
 }
 
 .page {
