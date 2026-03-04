@@ -6369,6 +6369,28 @@ body {
 }
 
 @media (max-width: 760px) {
+  h1,
+  h2,
+  h3,
+  h4,
+  .page-title,
+  .article p,
+  .article li,
+  .music-detail-article p,
+  .music-detail-article li,
+  .photo-index-page .photo-section-lead,
+  .photo-index-page .photo-intro-text p,
+  .music-index-page .music-intro-text p,
+  .cv-page .cv-section p,
+  .research-page .research-intro-copy,
+  .research-page .research-card-copy,
+  .research-page .research-output-copy,
+  .music-detail-article .lyrics-text {
+    text-wrap: wrap;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+
   .container {
     padding: 0 max(16px, calc(12px + var(--safe-right))) 0 max(16px, calc(12px + var(--safe-left)));
   }
