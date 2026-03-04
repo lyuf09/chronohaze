@@ -3074,6 +3074,15 @@ audio {
   object-fit: cover;
 }
 
+.music-detail-cover-credit {
+  width: min(100%, 620px);
+  margin: -8px 0 16px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(38, 43, 52, 0.52);
+}
+
 .music-detail-article audio {
   margin: 10px 0 22px;
   width: min(100%, 620px);
