@@ -9394,6 +9394,7 @@
         kind: "track",
         accent: "#275088",
         accentSoft: "#131f3a",
+        image: "assets/template/supernova-cover.jpg",
         copyZh: "宇宙深蓝色混合拍张力：爆发、扩张与坍缩。",
         copyEn: "Cosmic deep-blue mixed-meter tension: eruption, expansion, collapse.",
       },
