@@ -2425,51 +2425,8 @@
     });
   }
 
-  var musicDetailTranscriptModulePromise = null;
-
-  function loadMusicDetailTranscriptModule() {
-    if (window.ChronohazeMusicDetail && typeof window.ChronohazeMusicDetail.ensureTranscriptPanel === "function") {
-      return Promise.resolve(window.ChronohazeMusicDetail.ensureTranscriptPanel);
-    }
-
-    if (musicDetailTranscriptModulePromise) {
-      return musicDetailTranscriptModulePromise;
-    }
-
-    musicDetailTranscriptModulePromise = new Promise(function (resolve) {
-      var script = document.createElement("script");
-      script.src = resolveAssetCandidateUrl("assets/js/music-detail-transcript.js");
-      script.async = true;
-      script.onload = function () {
-        if (window.ChronohazeMusicDetail && typeof window.ChronohazeMusicDetail.ensureTranscriptPanel === "function") {
-          resolve(window.ChronohazeMusicDetail.ensureTranscriptPanel);
-          return;
-        }
-        resolve(null);
-      };
-      script.onerror = function () {
-        resolve(null);
-      };
-      document.head.appendChild(script);
-    });
-
-    return musicDetailTranscriptModulePromise;
-  }
-
   function ensureMusicTranscriptPanel() {
-    if (!document.body || !document.body.classList.contains("music-detail-page")) {
-      return;
-    }
-
-    loadMusicDetailTranscriptModule().then(function (ensureTranscriptPanelImpl) {
-      if (typeof ensureTranscriptPanelImpl !== "function") {
-        return;
-      }
-      ensureTranscriptPanelImpl({
-        detectPreferredLanguage: detectPreferredLanguage,
-        normalizeText: normalizeText,
-      });
-    });
+    return;
   }
 
   function findLyricHeading(headings, partNumber) {
@@ -10635,7 +10592,6 @@
       applyRainyDaysLyricsInEnglish(safeLang);
       applyRedSandalwoodIntroInEnglish(safeLang);
       applyRedSandalwoodLyricsInEnglish(safeLang);
-      ensureMusicTranscriptPanel();
     }
 
     if (
@@ -11625,7 +11581,6 @@
       setupPhotoDetailPager,
       ensureMusicDetailBackLink,
       enhanceMusicPlayers,
-      ensureMusicTranscriptPanel,
       enhanceMusicLyricsLayout,
       enableIndexRowLinks,
       bindCollectionLinkAnalytics,
