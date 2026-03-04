@@ -23,8 +23,13 @@ echo "[4/10] Priority AVIF coverage"
 python3 "$ROOT/scripts/check_priority_avif.py" --root "$ROOT"
 
 echo
-echo "[5/10] Broken links (internal + key external in CI)"
-python3 "$ROOT/scripts/check_broken_links.py" --root "$ROOT"
+if [[ "${CHRONOHAZE_CHECK_EXTERNAL_LINKS:-0}" == "1" ]]; then
+  echo "[5/10] Broken links (internal + key external)"
+  python3 "$ROOT/scripts/check_broken_links.py" --root "$ROOT" --check-external
+else
+  echo "[5/10] Broken links (internal only; external moved to nightly/manual)"
+  python3 "$ROOT/scripts/check_broken_links.py" --root "$ROOT" --skip-external
+fi
 
 echo
 echo "[6/10] Critical page smoke test"

@@ -3,8 +3,10 @@ name: Site Build & Checks
 on:
   pull_request:
   push:
-    branches-ignore:
-      - gh-pages
+    branches:
+      - main
+  schedule:
+    - cron: "25 7 * * *"
   workflow_dispatch:
 
 permissions:
@@ -29,15 +31,28 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: "npm"
+          cache-dependency-path: "package.json"
 
       - name: Install build dependencies
+        env:
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
         run: |
           python -m pip install --upgrade pip
           python -m pip install pillow
-          npm install
+          if [ -f package-lock.json ]; then
+            npm ci --no-audit --prefer-offline
+          else
+            npm install --package-lock-only --no-audit --prefer-offline
+            npm ci --no-audit --prefer-offline
+          fi
           sudo apt-get update
           sudo apt-get install -y libavif-bin fonts-noto-cjk
-          npx playwright install --with-deps chromium webkit
+          if [ "$GITHUB_EVENT_NAME" = "schedule" ]; then
+            npx playwright install --with-deps chromium webkit
+          else
+            npx playwright install --with-deps chromium
+          fi
 
       - name: Build generated data and media assets
         run: bash scripts/build_site_generated_assets.sh
@@ -46,6 +61,8 @@ jobs:
         run: bash scripts/check_all.sh
 
       - name: Run runtime smoke (Playwright)
+        env:
+          CHRONOHAZE_SMOKE_PROJECTS: ${{ github.event_name == 'schedule' && 'chromium,webkit,iphone13' || 'chromium' }}
         run: bash scripts/run_playwright_smoke.sh
 
       - name: Validate structured data JSON-LD (Playwright)
