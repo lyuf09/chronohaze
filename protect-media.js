@@ -1002,6 +1002,9 @@
     var metaTitleNode =
       document.querySelector('meta[property="og:title"]') ||
       document.querySelector('meta[name="twitter:title"]');
+    var metaImageNode =
+      document.querySelector('meta[property="og:image"]') ||
+      document.querySelector('meta[name="twitter:image"]');
     var metaDescNode =
       document.querySelector('meta[property="og:description"]') ||
       document.querySelector('meta[name="description"]');
@@ -1037,6 +1040,11 @@
       description = description.slice(0, 137).replace(/\s+\S*$/, "") + "…";
     }
 
+    var image = "";
+    if (metaImageNode && metaImageNode.content) {
+      image = String(metaImageNode.content).trim();
+    }
+
     var text = [title, description, url]
       .filter(function (item, idx) {
         if (!item) {
@@ -1053,6 +1061,7 @@
       url: url,
       title: title,
       description: description,
+      image: image,
       text: text,
       titleLinkText: [title, url].filter(Boolean).join("\n"),
     };
@@ -1075,10 +1084,6 @@
       }
       node.textContent = dict[key];
     });
-    var nativeBtn = root.querySelector('[data-share-action="native"]');
-    if (nativeBtn) {
-      nativeBtn.hidden = !(navigator && typeof navigator.share === "function");
-    }
     root.querySelectorAll("[data-share-title]").forEach(function (node) {
       var mode = node.getAttribute("data-share-title");
       if (mode === "page-title") {
@@ -1191,17 +1196,19 @@
     panel.innerHTML = [
       '<div class="site-share-panel-head">',
       '  <div class="site-share-panel-title-wrap">',
-      '    <p class="site-share-panel-overline" data-share-i18n="sharePanelTitle">Share this page</p>',
+      '    <p class="site-share-panel-overline" data-share-i18n="sharePanelTitle">Share</p>',
       '    <h3 class="site-share-panel-title" data-share-title="page-title">Chronohaze</h3>',
       "  </div>",
       '  <button type="button" class="site-share-close" data-share-action="close" data-share-i18n="shareClose">Close</button>',
       "</div>",
-      '<p class="site-share-panel-hint" data-share-i18n="sharePanelHint">Copy the link or generate share text</p>',
+      '<p class="site-share-panel-hint" data-share-i18n="sharePanelHint">Choose a platform to share this page.</p>',
       '<div class="site-share-panel-actions">',
+      '  <button type="button" class="site-share-action" data-share-action="qq" data-share-i18n="shareQQ">QQ</button>',
+      '  <button type="button" class="site-share-action" data-share-action="wechat" data-share-i18n="shareWeChat">WeChat</button>',
+      '  <button type="button" class="site-share-action" data-share-action="moments" data-share-i18n="shareMoments">Moments</button>',
+      '  <button type="button" class="site-share-action" data-share-action="weibo" data-share-i18n="shareWeibo">Weibo</button>',
+      '  <button type="button" class="site-share-action" data-share-action="instagram" data-share-i18n="shareInstagram">Instagram</button>',
       '  <button type="button" class="site-share-action" data-share-action="copy-link" data-share-i18n="shareCopyLink">Copy link</button>',
-      '  <button type="button" class="site-share-action" data-share-action="copy-title-link" data-share-i18n="shareCopyTitleLink">Copy title + link</button>',
-      '  <button type="button" class="site-share-action" data-share-action="copy-text" data-share-i18n="shareCopyText">Copy share text</button>',
-      '  <button type="button" class="site-share-action" data-share-action="native" data-share-i18n="shareNative">System share</button>',
       "</div>",
       '<p class="site-share-status" aria-live="polite"></p>',
     ].join("");
@@ -1233,6 +1240,39 @@
       }
     }
 
+    function openSharePopup(url) {
+      if (!url) {
+        return false;
+      }
+      var popup = null;
+      try {
+        popup = window.open(url, "_blank", "noopener,noreferrer,width=720,height=620");
+      } catch (_error) {
+        popup = null;
+      }
+      return !!popup;
+    }
+
+    function tryNativeShare(payload, dict) {
+      if (!(navigator && typeof navigator.share === "function")) {
+        return Promise.resolve(false);
+      }
+      return navigator
+        .share({
+          title: payload.title || document.title || "Chronohaze",
+          text: payload.description || payload.title || "",
+          url: payload.url || window.location.href,
+        })
+        .then(function () {
+          setStatus(dict.shareOpened || "");
+          trackAnalyticsEvent("share_native", { page_path: window.location.pathname || "" });
+          return true;
+        })
+        .catch(function () {
+          return false;
+        });
+    }
+
     launcher.addEventListener("click", function () {
       var next = shell.getAttribute("data-open") !== "1";
       setOpen(next);
@@ -1257,36 +1297,106 @@
         return;
       }
 
-      if (action === "native") {
-        if (!(navigator && typeof navigator.share === "function")) {
-          setStatus(dict.shareNoNative || "");
-          return;
-        }
-        navigator
-          .share({
-            title: payload.title || document.title || "Chronohaze",
-            text: payload.description || payload.title || "",
-            url: payload.url || window.location.href,
-          })
-          .then(function () {
-            setStatus("");
-            trackAnalyticsEvent("share_native", { page_path: window.location.pathname || "" });
-          })
-          .catch(function () {
+      if (action === "qq") {
+        var qqUrl =
+          "https://connect.qq.com/widget/shareqq/index.html?url=" +
+          encodeURIComponent(payload.url || window.location.href) +
+          "&title=" +
+          encodeURIComponent(payload.title || document.title || "Chronohaze") +
+          "&summary=" +
+          encodeURIComponent(payload.description || "") +
+          "&pics=" +
+          encodeURIComponent(payload.image || "");
+        var qqOpened = openSharePopup(qqUrl);
+        setStatus(qqOpened ? dict.shareOpened : dict.sharePopupBlocked);
+        if (qqOpened) {
+          trackAnalyticsEvent("share_open", {
+            page_path: window.location.pathname || "",
+            share_action: "qq",
           });
+        }
         return;
       }
 
-      var textToCopy = "";
-      if (action === "copy-link") {
-        textToCopy = payload.url || window.location.href;
-      } else if (action === "copy-title-link") {
-        textToCopy = payload.titleLinkText;
-      } else if (action === "copy-text") {
-        textToCopy = payload.text;
+      if (action === "weibo") {
+        var weiboUrl =
+          "https://service.weibo.com/share/share.php?url=" +
+          encodeURIComponent(payload.url || window.location.href) +
+          "&title=" +
+          encodeURIComponent(payload.titleLinkText || payload.url || window.location.href) +
+          "&pic=" +
+          encodeURIComponent(payload.image || "");
+        var weiboOpened = openSharePopup(weiboUrl);
+        setStatus(weiboOpened ? dict.shareOpened : dict.sharePopupBlocked);
+        if (weiboOpened) {
+          trackAnalyticsEvent("share_open", {
+            page_path: window.location.pathname || "",
+            share_action: "weibo",
+          });
+        }
+        return;
       }
 
-      copyTextToClipboard(textToCopy).then(function (ok) {
+      if (action === "wechat" || action === "moments" || action === "instagram") {
+        tryNativeShare(payload, dict).then(function (nativeDone) {
+          if (nativeDone) {
+            return;
+          }
+          var textToCopy = action === "instagram" ? payload.titleLinkText : payload.url;
+          copyTextToClipboard(textToCopy).then(function (ok) {
+            if (!ok) {
+              setStatus(dict.shareCopyFailed || "");
+              return;
+            }
+            if (action === "wechat") {
+              setStatus(dict.shareWechatCopied || dict.shareCopied || "");
+            } else if (action === "moments") {
+              setStatus(dict.shareMomentsCopied || dict.shareCopied || "");
+            } else {
+              setStatus(dict.shareInstagramCopied || dict.shareCopied || "");
+            }
+            trackAnalyticsEvent("share_copy", {
+              page_path: window.location.pathname || "",
+              share_action: action,
+            });
+          });
+        });
+        return;
+      }
+
+      if (action === "copy-link") {
+        copyTextToClipboard(payload.url || window.location.href).then(function (ok) {
+          setStatus(ok ? dict.shareCopied : dict.shareCopyFailed);
+          if (ok) {
+            trackAnalyticsEvent("share_copy", {
+              page_path: window.location.pathname || "",
+              share_action: action,
+            });
+          }
+        });
+        return;
+      }
+
+      if (action === "copy-title-link" || action === "copy-text" || action === "native") {
+        var fallbackText =
+          action === "copy-title-link"
+            ? payload.titleLinkText
+            : action === "copy-text"
+              ? payload.text
+              : payload.url || window.location.href;
+        copyTextToClipboard(fallbackText).then(function (ok) {
+          setStatus(ok ? dict.shareCopied : dict.shareCopyFailed);
+          if (ok) {
+            trackAnalyticsEvent("share_copy", {
+              page_path: window.location.pathname || "",
+              share_action: action,
+            });
+          }
+        });
+        return;
+      }
+
+      copyTextToClipboard(payload.url || window.location.href).then(function (ok) {
         setStatus(ok ? dict.shareCopied : dict.shareCopyFailed);
         if (ok) {
           trackAnalyticsEvent("share_copy", {
@@ -1939,16 +2049,22 @@
         playerPauseAria: "暂停",
         playerProgressAria: "播放进度",
         shareButton: "分享",
-        sharePanelTitle: "分享此页",
-        sharePanelHint: "复制链接或生成分享文案",
+        sharePanelTitle: "分享",
+        sharePanelHint: "选择平台（链接会自动带封面与标题）",
+        shareQQ: "QQ",
+        shareWeChat: "微信",
+        shareMoments: "朋友圈",
+        shareWeibo: "微博",
+        shareInstagram: "Instagram",
         shareCopyLink: "复制链接",
-        shareCopyTitleLink: "复制标题 + 链接",
-        shareCopyText: "复制分享文案",
-        shareNative: "系统分享",
         shareClose: "关闭",
         shareCopied: "已复制",
+        shareOpened: "已打开分享窗口",
+        sharePopupBlocked: "浏览器拦截了弹窗，请允许弹窗后重试",
+        shareWechatCopied: "已复制链接，请到微信粘贴分享",
+        shareMomentsCopied: "已复制链接，请到朋友圈粘贴发布",
+        shareInstagramCopied: "已复制标题与链接，请粘贴到 Instagram",
         shareCopyFailed: "复制失败，请手动复制",
-        shareNoNative: "当前浏览器不支持系统分享",
         emailCopyHint: "点击复制邮箱地址",
         emailCopiedEmail: "邮箱已复制",
         emailCopyFailed: "复制失败，请手动复制",
@@ -2085,16 +2201,22 @@
         playerPauseAria: "Pause",
         playerProgressAria: "Playback position",
         shareButton: "Share",
-        sharePanelTitle: "Share this page",
-        sharePanelHint: "Copy the link or generate share text",
+        sharePanelTitle: "Share",
+        sharePanelHint: "Choose a platform (link keeps preview card metadata).",
+        shareQQ: "QQ",
+        shareWeChat: "WeChat",
+        shareMoments: "Moments",
+        shareWeibo: "Weibo",
+        shareInstagram: "Instagram",
         shareCopyLink: "Copy link",
-        shareCopyTitleLink: "Copy title + link",
-        shareCopyText: "Copy share text",
-        shareNative: "System share",
         shareClose: "Close",
         shareCopied: "Copied",
+        shareOpened: "Share window opened",
+        sharePopupBlocked: "Popup was blocked. Please allow popups and retry.",
+        shareWechatCopied: "Link copied. Paste it in WeChat to share.",
+        shareMomentsCopied: "Link copied. Paste it in Moments to publish.",
+        shareInstagramCopied: "Title + link copied. Paste into Instagram.",
         shareCopyFailed: "Copy failed. Please copy manually.",
-        shareNoNative: "System share is not supported in this browser",
         emailCopyHint: "Click to copy email address",
         emailCopiedEmail: "Email copied",
         emailCopyFailed: "Copy failed. Please copy manually.",
