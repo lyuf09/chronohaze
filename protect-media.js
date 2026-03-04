@@ -349,6 +349,19 @@
       return;
     }
 
+    // Remove legacy static <source> nodes so responsive sources are driven
+    // only by manifest-backed markers below.
+    Array.from(
+      picture.querySelectorAll("source[type='image/avif']:not([data-responsive-avif='1'])")
+    ).forEach(function (node) {
+      node.remove();
+    });
+    Array.from(
+      picture.querySelectorAll("source[type='image/webp']:not([data-responsive-webp='1'])")
+    ).forEach(function (node) {
+      node.remove();
+    });
+
     function upsertSource(marker, mimeType, srcsetValue) {
       var selector = "source[" + marker + "='1']";
       var sourceNode = picture.querySelector(selector);
