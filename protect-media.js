@@ -9352,7 +9352,7 @@
         kind: "album",
         accent: "#5f76a0",
         accentSoft: "#1f2a45",
-        image: "assets/template/ipomoea-alba-album-cover.jpg",
+        image: "assets/template/ipomoea-alba-feature-cover.jpg",
         copyZh: "雨季，海，深蓝色的执念。",
         copyEn: "Album axis of rain, sea, deep-blue persistence, and time slices.",
       },
