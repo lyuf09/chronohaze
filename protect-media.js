@@ -337,7 +337,10 @@
     var manifestEntry = getImageVariantEntry(path);
     var wantsManifest = !!(manifestEntry && manifestEntry.formats);
     var currentMode = img.dataset.responsiveReady || "";
-    if (currentMode === "manifest" || (!wantsManifest && currentMode === "guess")) {
+    if (
+      currentMode === "manifest" ||
+      (!wantsManifest && (currentMode === "guess" || currentMode === "none"))
+    ) {
       return;
     }
 
@@ -380,12 +383,11 @@
       return;
     }
 
-    var webpSetGuess = [
-      buildVariantPath(path, 960, "webp") + suffix + " 960w",
-      buildVariantPath(path, 1600, "webp") + suffix + " 1600w",
-    ].join(", ");
-    upsertSource("data-responsive-webp", "image/webp", webpSetGuess);
-    img.dataset.responsiveReady = "guess";
+    // Do not inject guessed variant URLs when no manifest entry exists.
+    // Guessed sources can 404 for manually added assets and cause broken images.
+    upsertSource("data-responsive-webp", "image/webp", null);
+    upsertSource("data-responsive-avif", "image/avif", null);
+    img.dataset.responsiveReady = "none";
   }
 
   function optimizeImages() {
