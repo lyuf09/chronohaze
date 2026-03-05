@@ -137,9 +137,16 @@ button {
 
 @media (hover: hover) and (pointer: fine) {
   :root {
-    --cursor-default: url("assets/cursors/arrow-muted-gold.svg?v=7") 1 1;
-    --cursor-hover: url("assets/cursors/arrow-muted-gold-hover.svg?v=7") 1 1;
-    --cursor-active: url("assets/cursors/arrow-muted-gold-active.svg?v=7") 1 1;
+    --cursor-default: url("assets/cursors/arrow-muted-gold.svg?v=8") 1 1;
+    --cursor-hover: url("assets/cursors/arrow-muted-gold-hover.svg?v=8") 1 1;
+    --cursor-active: url("assets/cursors/arrow-muted-gold-active.svg?v=8") 1 1;
+  }
+
+  html.cursor-bright-bg,
+  body.cursor-bright-bg {
+    --cursor-default: url("assets/cursors/arrow-muted-gold-contrast.svg?v=1") 1 1;
+    --cursor-hover: url("assets/cursors/arrow-muted-gold-hover-contrast.svg?v=1") 1 1;
+    --cursor-active: url("assets/cursors/arrow-muted-gold-active-contrast.svg?v=1") 1 1;
   }
 
   *,

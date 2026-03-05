@@ -10706,6 +10706,8 @@
       lastSparkAt: 0,
       lastSparkX: 0,
       lastSparkY: 0,
+      lastContrastSampleAt: 0,
+      highContrast: false,
     };
 
     function isMutedTarget(target) {
@@ -10720,6 +10722,88 @@
     function syncLayerClasses() {
       layer.classList.toggle("is-visible", state.visible);
       layer.classList.toggle("is-muted", state.muted);
+    }
+
+    function parseRgbColor(value) {
+      var input = String(value || "").trim();
+      if (!input || input === "transparent") {
+        return null;
+      }
+      var parts = input.match(/[\d.]+/g);
+      if (!parts || parts.length < 3) {
+        return null;
+      }
+      var r = Math.max(0, Math.min(255, Number(parts[0])));
+      var g = Math.max(0, Math.min(255, Number(parts[1])));
+      var b = Math.max(0, Math.min(255, Number(parts[2])));
+      var a = parts.length > 3 ? Number(parts[3]) : 1;
+      if (!isFinite(r) || !isFinite(g) || !isFinite(b) || !isFinite(a)) {
+        return null;
+      }
+      return { r: r, g: g, b: b, a: Math.max(0, Math.min(1, a)) };
+    }
+
+    function getRelativeLuminance(color) {
+      function toLinear(channel) {
+        var c = channel / 255;
+        if (c <= 0.03928) {
+          return c / 12.92;
+        }
+        return Math.pow((c + 0.055) / 1.055, 2.4);
+      }
+      var r = toLinear(color.r);
+      var g = toLinear(color.g);
+      var b = toLinear(color.b);
+      return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+    }
+
+    function getSurfaceLuminance(target) {
+      var node = target && target.nodeType === 1 ? target : null;
+      var depth = 0;
+      while (node && depth < 10) {
+        var styles = null;
+        try {
+          styles = window.getComputedStyle(node);
+        } catch (_error) {
+          styles = null;
+        }
+        if (styles) {
+          var bgColor = parseRgbColor(styles.backgroundColor);
+          if (bgColor && bgColor.a > 0.04) {
+            return getRelativeLuminance(bgColor);
+          }
+        }
+        node = node.parentElement;
+        depth += 1;
+      }
+      var bodyColor = parseRgbColor(window.getComputedStyle(document.body).backgroundColor);
+      if (bodyColor) {
+        return getRelativeLuminance(bodyColor);
+      }
+      return 0.5;
+    }
+
+    function syncCursorContrast(target, ts) {
+      var now = ts || performance.now();
+      if (now - state.lastContrastSampleAt < 84) {
+        return;
+      }
+      state.lastContrastSampleAt = now;
+      var luminance = getSurfaceLuminance(target);
+      var nextHighContrast = state.highContrast ? luminance > 0.72 : luminance > 0.82;
+      if (nextHighContrast === state.highContrast) {
+        return;
+      }
+      state.highContrast = nextHighContrast;
+      document.documentElement.classList.toggle("cursor-bright-bg", nextHighContrast);
+    }
+
+    function resetCursorContrast() {
+      if (!state.highContrast) {
+        return;
+      }
+      state.highContrast = false;
+      document.documentElement.classList.remove("cursor-bright-bg");
     }
 
     function spawnSpark(ts) {
@@ -10840,6 +10924,7 @@
           state.visible = true;
         }
         state.muted = isMutedTarget(event.target);
+        syncCursorContrast(event.target, performance.now());
         syncLayerClasses();
         requestTick();
       },
@@ -10874,6 +10959,7 @@
           state.visible = false;
           syncLayerClasses();
           layer.classList.remove("is-pressed");
+          resetCursorContrast();
         }
       },
       { passive: true }
@@ -10886,6 +10972,7 @@
           state.visible = false;
           syncLayerClasses();
           layer.classList.remove("is-pressed");
+          resetCursorContrast();
         }
       },
       { passive: true }
@@ -10895,6 +10982,7 @@
       state.visible = false;
       syncLayerClasses();
       layer.classList.remove("is-pressed");
+      resetCursorContrast();
     });
   }
 
