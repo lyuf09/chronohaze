@@ -9334,7 +9334,7 @@
         accent: "#2a3657",
         accentSoft: "#121826",
         image: "assets/template/affizieren-cover.jpg",
-        copyZh: "两年的回响",
+        copyZh: "被世界轻触后留下的纹理",
         copyEn: "A signature progcore track with restrained cold-blue tension.",
       },
       {
