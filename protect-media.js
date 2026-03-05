@@ -10726,10 +10726,10 @@
       var dx = state.targetX - state.lastSparkX;
       var dy = state.targetY - state.lastSparkY;
       var speed = Math.sqrt(dx * dx + dy * dy);
-      if (speed < 7) {
+      if (speed < 6) {
         return;
       }
-      if (ts - state.lastSparkAt < 56) {
+      if (ts - state.lastSparkAt < 44) {
         return;
       }
 
@@ -10747,9 +10747,9 @@
       var offsetY = (Math.random() - 0.5) * 10 - dy * 0.08;
       var driftX = -dx * (0.12 + Math.random() * 0.1) + (Math.random() - 0.5) * 10;
       var driftY = -dy * (0.12 + Math.random() * 0.1) + (Math.random() - 0.5) * 10;
-      var size = 2.6 + Math.random() * 2.4;
-      var life = 320 + Math.random() * 200;
-      var opacity = 0.2 + Math.random() * 0.16;
+      var size = 2.9 + Math.random() * 2.9;
+      var life = 360 + Math.random() * 240;
+      var opacity = 0.3 + Math.random() * 0.24;
       var rot = Math.round(Math.random() * 180 - 90);
 
       spark.style.setProperty("--spark-x", state.targetX + offsetX + "px");
@@ -10763,16 +10763,16 @@
 
       layer.appendChild(spark);
 
-      if (Math.random() < 0.3) {
+      if (Math.random() < 0.42) {
         var sparkCompanion = document.createElement("span");
         sparkCompanion.className = "cursor-atmosphere-spark is-star";
         sparkCompanion.style.setProperty("--spark-x", state.targetX + offsetX * 0.65 + (Math.random() - 0.5) * 8 + "px");
         sparkCompanion.style.setProperty("--spark-y", state.targetY + offsetY * 0.65 + (Math.random() - 0.5) * 8 + "px");
         sparkCompanion.style.setProperty("--spark-dx", driftX * 0.68 + "px");
         sparkCompanion.style.setProperty("--spark-dy", driftY * 0.68 + "px");
-        sparkCompanion.style.setProperty("--spark-size", (size * (0.64 + Math.random() * 0.14)).toFixed(2) + "px");
-        sparkCompanion.style.setProperty("--spark-life", Math.round(life * (0.8 + Math.random() * 0.12)) + "ms");
-        sparkCompanion.style.setProperty("--spark-opacity", (opacity * 0.74).toFixed(2));
+        sparkCompanion.style.setProperty("--spark-size", (size * (0.66 + Math.random() * 0.16)).toFixed(2) + "px");
+        sparkCompanion.style.setProperty("--spark-life", Math.round(life * (0.82 + Math.random() * 0.14)) + "ms");
+        sparkCompanion.style.setProperty("--spark-opacity", (opacity * 0.9).toFixed(2));
         sparkCompanion.style.setProperty("--spark-rot", Math.round(rot + (Math.random() - 0.5) * 64) + "deg");
         layer.appendChild(sparkCompanion);
         sparkCompanion.addEventListener("animationend", function () {
