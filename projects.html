@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico?v=4" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=4" />
+  <title>Projects | Fay Lyu (HazezZ) | Chronohaze</title>
+  <meta name="description" content="Product-style projects snapshot: formal methods, optimization, data analytics, engineering systems, and prototype work by Fay Lyu (HazezZ)." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Chronohaze" />
+  <meta property="og:title" content="Projects | Fay Lyu (HazezZ)" />
+  <meta property="og:description" content="Problem → approach → evidence → status. A product-style project map with research and engineering tracks." />
+  <meta property="og:url" content="https://lyuf09.github.io/chronohaze/projects.html" />
+  <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/research.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Projects | Fay Lyu (HazezZ)" />
+  <meta name="twitter:description" content="Problem → approach → evidence → status. A product-style project map with research and engineering tracks." />
+  <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/research.png" />
+  <link rel="canonical" href="https://lyuf09.github.io/chronohaze/projects.html" />
+  <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/projects.html?lang=zh" />
+  <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/projects.html?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/projects.html" />
+  <link rel="alternate" type="application/rss+xml" title="Chronohaze RSS" href="https://lyuf09.github.io/chronohaze/feed.xml" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JWZY2TVYFZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-JWZY2TVYFZ');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="protect-media.js"></script>
+</head>
+<body class="research-landing-page">
+  <div class="page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="index.html">
+          <img src="assets/logo.png" alt="Chronohaze" />
+          <span>chronohaze.space</span>
+        </a>
+        <nav class="nav" aria-label="Main navigation">
+          <a href="index.html">主页</a>
+          <a href="math.html">数学</a>
+          <a href="portfolio-1.html">摄影</a>
+          <a href="yin-le.html">音乐</a>
+          <a class="active" href="projects.html">Projects</a>
+          <a href="cv.html">CV</a>
+          <a href="research.html">Research</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="research-hero">
+        <div class="container research-hero-inner">
+          <div class="research-hero-copy">
+            <p class="research-eyebrow">Projects</p>
+            <h1>Product-style Project Snapshot</h1>
+            <p class="research-subtitle">Problem → Approach → Evidence → Status</p>
+            <p class="research-positioning">
+              A product-style snapshot of what I’m building: problem → approach → evidence → status.
+              For deeper technical context, see <a href="math.html">Research Notes</a> and <a href="cv.html">CV</a>.
+            </p>
+            <div class="research-chip-row" aria-label="Project focus tags">
+              <span class="research-chip">Formal Methods</span>
+              <span class="research-chip">Optimization</span>
+              <span class="research-chip">Signal Processing</span>
+              <span class="research-chip">Engineering Systems</span>
+              <span class="research-chip">Data Analytics</span>
+            </div>
+          </div>
+          <aside class="research-hero-panel" aria-label="Projects quick map">
+            <h2>Sections</h2>
+            <ul>
+              <li>A. Research & Formal Methods</li>
+              <li>B. Prototypes / Signal-to-Structure</li>
+              <li>C. Engineering Systems & IP</li>
+              <li>D. Data Analytics (Applied)</li>
+              <li>E. This Website as a Product</li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section research-projects-section" id="projects-research-formal">
+        <div class="container research-section-head">
+          <h2>Section A — Research &amp; Formal Methods</h2>
+        </div>
+        <div class="container research-project-grid">
+          <article class="research-project-card">
+            <p class="research-project-kind">Formal Methods · Submodular Optimization</p>
+            <h3>Isabelle/HOL — Formalising Submodular Greedy</h3>
+            <p class="research-project-line"><strong>What it is:</strong><span class="research-project-line-body">Machine-checking the classical (1−1/e) approximation guarantee for monotone submodular maximization under a cardinality constraint.</span></p>
+            <p class="research-project-line"><strong>Why it matters:</strong><span class="research-project-line-body">Turns proof intuition into explicit, reproducible structure and supports reusable formal blocks for future variants.</span></p>
+            <p class="research-project-line research-project-line--status"><strong>Status:</strong><span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">Active</span></span></p>
+            <p class="research-project-line"><strong>Evidence:</strong><span class="research-project-line-body">Public repo + notes documenting proof decomposition and reusable scaffolding.</span></p>
+            <div class="research-link-row">
+              <a href="post/isabelle-submodular-greedy.html">Note</a>
+              <a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">Repo</a>
+            </div>
+          </article>
+          <article class="research-project-card">
+            <p class="research-project-kind">Optimization Theory · Duality / Lower Bounds</p>
+            <h3>Duality / Lower Bounds — Structure-first Diagnosis</h3>
+            <p class="research-project-line"><strong>What it is:</strong><span class="research-project-line-body">A dual/lower-bound study for a translation-invariant distance-fitting objective encoded by graph-relative differences.</span></p>
+            <p class="research-project-line"><strong>Why it matters:</strong><span class="research-project-line-body">Identifies why natural Lagrangian dual routes collapse, then narrows toward dual frameworks that yield nontrivial information.</span></p>
+            <p class="research-project-line research-project-line--status"><strong>Status:</strong><span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">Active</span></span></p>
+            <p class="research-project-line"><strong>Evidence:</strong><span class="research-project-line-body">Research note on formulations, degeneracy diagnosis, and next-step relaxation plans.</span></p>
+            <div class="research-link-row">
+              <a href="post/spring-2026.html">Note</a>
+              <a href="math.html">Archive</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section research-projects-section" id="projects-prototype">
+        <div class="container research-section-head">
+          <h2>Section B — Prototypes / Signal-to-Structure</h2>
+        </div>
+        <div class="container research-project-grid">
+          <article class="research-project-card">
+            <p class="research-project-kind">Signal Processing · Discretization Prototype</p>
+            <h3>Metalcore Piano Lab — From Audio to Chart (WIP)</h3>
+            <p class="research-project-line"><strong>What it is:</strong><span class="research-project-line-body">A browser prototype mapping continuous audio or MIDI into playable rhythm-game chart events.</span></p>
+            <p class="research-project-line"><strong>Why it matters:</strong><span class="research-project-line-body">Bridges signal analysis and interaction design with explicit assumptions, failure modes, and playability constraints.</span></p>
+            <p class="research-project-line research-project-line--status"><strong>Status:</strong><span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--wip">Active / WIP</span></span></p>
+            <p class="research-project-line"><strong>Evidence:</strong><span class="research-project-line-body">Prototype repo + structured note with pipeline and optimization targets.</span></p>
+            <div class="research-link-row">
+              <a href="post/metalcore-piano-lab.html">Note</a>
+              <a href="https://github.com/lyuf09/metalcore-piano-lab" target="_blank" rel="noopener noreferrer">Repo</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section research-projects-section" id="projects-engineering">
+        <div class="container research-section-head">
+          <h2>Section C — Engineering Systems &amp; IP</h2>
+        </div>
+        <div class="container research-project-grid">
+          <article class="research-project-card">
+            <p class="research-project-kind">Engineering Systems · Modeling / Parameter Optimization</p>
+            <h3>Anti-segregation Spreading System (Patent pipeline)</h3>
+            <p class="research-project-line"><strong>What it is:</strong><span class="research-project-line-body">System-level work targeting segregation reduction in aggregate spreading workflows.</span></p>
+            <p class="research-project-line"><strong>Why it matters:</strong><span class="research-project-line-body">Connects mathematical modeling and parameter optimization to real deployment constraints and long-cycle engineering adoption.</span></p>
+            <p class="research-project-line research-project-line--status"><strong>Status:</strong><span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--in-prep">Patent pending + utility model granted</span></span></p>
+            <p class="research-project-line"><strong>Evidence:</strong><span class="research-project-line-body">Public-safe summary in CV; detailed version available on request.</span></p>
+            <div class="research-link-row">
+              <a href="cv.html">CV (public)</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section research-projects-section" id="projects-data">
+        <div class="container research-section-head">
+          <h2>Section D — Data Analytics (Applied)</h2>
+        </div>
+        <div class="container research-project-grid">
+          <article class="research-project-card">
+            <p class="research-project-kind">Data Analytics · Diagnostics</p>
+            <h3>Funnel / Retention / Attribution Debugging</h3>
+            <p class="research-project-line"><strong>What it is:</strong><span class="research-project-line-body">Conversion, retention, and attribution diagnostics to make operational metrics decision-grade.</span></p>
+            <p class="research-project-line"><strong>Why it matters:</strong><span class="research-project-line-body">Reliable metric pipelines are prerequisites for product, growth, and experiment decisions in noisy environments.</span></p>
+            <p class="research-project-line research-project-line--status"><strong>Status:</strong><span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">Shipped</span></span></p>
+            <p class="research-project-line"><strong>Evidence:</strong><span class="research-project-line-body">Public-safe internship summary; details available by request.</span></p>
+            <div class="research-link-row">
+              <a href="cv.html">CV (public)</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section research-projects-section" id="projects-site">
+        <div class="container research-section-head">
+          <h2>Section E — This Website as a “Product”</h2>
+        </div>
+        <div class="container research-project-grid">
+          <article class="research-project-card">
+            <p class="research-project-kind">Personal Infrastructure · Documentation System</p>
+            <h3>Chronohaze — Research + Creative Archive</h3>
+            <p class="research-project-line"><strong>What it is:</strong><span class="research-project-line-body">A static, maintainable archive for research notes and creative works with strong discoverability and shareability.</span></p>
+            <p class="research-project-line"><strong>Why it matters:</strong><span class="research-project-line-body">Makes ongoing work legible in 30 seconds, supports long-lived links, and keeps maintenance overhead low.</span></p>
+            <p class="research-project-line research-project-line--status"><strong>Status:</strong><span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">Active maintenance</span></span></p>
+            <p class="research-project-line"><strong>Evidence:</strong><span class="research-project-line-body">Live site + repository + generated search/catalog pipeline.</span></p>
+            <div class="research-link-row">
+              <a href="index.html">Site</a>
+              <a href="https://github.com/lyuf09/chronohaze" target="_blank" rel="noopener noreferrer">Repo</a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <p class="footer-title">chronohaze.space</p>
+          <p class="footer-note">辗转不同国家无固定号码 请联系邮箱：<a href="#" data-email-link="1" data-email-key="main" class="obf-email-link">feier530 [at] icloud [dot] com</a></p>
+          <p class="footer-note">重庆 · Edinburgh · New York</p>
+          <p class="footer-copy">© 2026 by chronohaze.space. Powered and secured by GitHub Pages.</p>
+          <div class="social" aria-label="Social links">
+            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://www.instagram.com/lyuf09" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://space.bilibili.com/35902781" target="_blank" rel="noopener noreferrer">Bilibili</a>
+            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+        <div class="footer-right">
+          <a href="policy.html">网站说明</a>
+          <a href="accessibility.html">无障碍支持</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

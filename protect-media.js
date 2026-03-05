@@ -1958,6 +1958,7 @@
         navMath: "数学",
         navPhoto: "摄影",
         navMusic: "音乐",
+        navProjects: "项目",
         navCV: "CV",
         navSearch: "搜索",
         searchPageTitle: "站内搜索",
@@ -2091,6 +2092,7 @@
         navMath: "Mathematics",
         navPhoto: "Photography",
         navMusic: "Music",
+        navProjects: "Projects",
         navCV: "CV",
         navSearch: "Search",
         searchPageTitle: "Site Search",
@@ -10172,6 +10174,8 @@
         link.textContent = dict.navPhoto;
       } else if (/yin-le\.html/i.test(href)) {
         link.textContent = dict.navMusic;
+      } else if (/projects\.html(?:$|[?#])/i.test(href)) {
+        link.textContent = dict.navProjects || "Projects";
       } else if (/Fay_Lyu_CV\.pdf|(?:^|\/)cv\.html(?:$|[?#])/i.test(href)) {
         link.textContent = dict.navCV;
       } else if (/search\.html(?:$|[?#])/i.test(href)) {

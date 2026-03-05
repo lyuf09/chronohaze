@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-18",
+  "generated_at": "2026-03-05",
   "scope": "site",
   "items": [
     {
@@ -27,6 +27,22 @@
       "sort": 0,
       "scope": "site",
       "content": "HazezZ Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP） 有时候我会觉得音乐里最数学的部分不是和声或调式，而是节奏如何从连续变成可数。把连续音频映射到离散谱面，本质上是一条结构化的离散化流水线。 Read More"
+    },
+    {
+      "title": "Projects / 项目",
+      "url": "projects.html",
+      "section": "Site",
+      "date": "2026-03-05",
+      "excerpt": "Product-style project snapshot: problem, approach, evidence, status.",
+      "tags": [
+        "projects",
+        "research",
+        "optimization",
+        "formal-methods"
+      ],
+      "sort": 20260305,
+      "scope": "site",
+      "content": "Projects A product-style snapshot of what I’m building: problem, approach, evidence, status. Isabelle/HOL formalising submodular greedy. Duality lower bounds diagnosis. Metalcore Piano Lab. Anti-segregation spreading system. Data analytics diagnostics. Chronohaze as personal infrastructure."
     }
   ]
 }
