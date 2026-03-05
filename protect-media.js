@@ -9334,7 +9334,7 @@
         accent: "#2a3657",
         accentSoft: "#121826",
         image: "assets/template/affizieren-cover.jpg",
-        copyZh: "被秋天的风吹得碎裂的光线，从深处缓慢升起的潮声。安静的、几乎单调的悲意，悄悄在体内留下了纹理。",
+        copyZh: "两年的回响",
         copyEn: "A signature progcore track with restrained cold-blue tension.",
       },
       {
