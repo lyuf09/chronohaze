@@ -10615,7 +10615,9 @@
   }
 
   function injectFloatingSiteLogo() {
-    if (document.querySelector(".floating-site-logo")) {
+    var existingFloatingLogo = document.querySelector(".floating-site-logo");
+    if (existingFloatingLogo) {
+      setupFloatingSiteLogoContrast(existingFloatingLogo);
       bridgeMobileShareWithFloatingLogo();
       return;
     }
@@ -10625,11 +10627,15 @@
       var style = document.createElement("style");
       style.id = styleId;
       style.textContent = [
-        ".floating-site-logo{position:fixed;right:max(22px,calc(env(safe-area-inset-right,0px) + 16px));bottom:max(22px,calc(env(safe-area-inset-bottom,0px) + 16px));width:102px;height:102px;border-radius:999px;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:68;background:radial-gradient(circle,rgba(238,244,253,.22) 0%,rgba(238,244,253,.12) 44%,rgba(238,244,253,0) 78%);box-shadow:none;will-change:transform;animation:floatingSiteLogoBreath 5.4s ease-in-out infinite;}",
-        ".floating-site-logo::before{content:'';position:absolute;inset:-24px;border-radius:inherit;background:radial-gradient(circle,rgba(205,216,236,.42) 0%,rgba(205,216,236,.18) 40%,rgba(205,216,236,0) 82%);filter:blur(9px);}",
-        ".floating-site-logo::after{content:'';position:absolute;inset:-4px;border-radius:inherit;background:radial-gradient(circle,rgba(255,255,255,0) 56%,rgba(214,223,240,.32) 70%,rgba(214,223,240,.12) 86%,rgba(214,223,240,0) 100%);filter:blur(4px);}",
-        ".floating-site-logo img{position:relative;z-index:1;width:76%;height:76%;object-fit:contain;opacity:.98;filter:contrast(1.05) saturate(.92) drop-shadow(0 0 1px rgba(255,255,255,.12)) drop-shadow(0 0 6px rgba(94,111,148,.16));}",
-        "@keyframes floatingSiteLogoBreath{0%,100%{transform:translateY(0) scale(1);}50%{transform:translateY(-2px) scale(1.03);}}",
+        ".floating-site-logo{position:fixed;right:max(22px,calc(env(safe-area-inset-right,0px) + 16px));bottom:max(22px,calc(env(safe-area-inset-bottom,0px) + 16px));width:102px;height:102px;border-radius:999px;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:68;background:radial-gradient(circle,rgba(238,244,253,.22) 0%,rgba(238,244,253,.12) 44%,rgba(238,244,253,0) 78%);box-shadow:none;will-change:transform;animation:floatingSiteLogoBreath 4.8s cubic-bezier(.42,0,.2,1) infinite;transition:background 220ms ease,box-shadow 220ms ease,opacity 220ms ease;}",
+        ".floating-site-logo::before{content:'';position:absolute;inset:-24px;border-radius:inherit;background:radial-gradient(circle,rgba(205,216,236,.42) 0%,rgba(205,216,236,.18) 40%,rgba(205,216,236,0) 82%);filter:blur(9px);transition:background 220ms ease,filter 220ms ease,opacity 220ms ease;}",
+        ".floating-site-logo::after{content:'';position:absolute;inset:-4px;border-radius:inherit;background:radial-gradient(circle,rgba(255,255,255,0) 56%,rgba(214,223,240,.32) 70%,rgba(214,223,240,.12) 86%,rgba(214,223,240,0) 100%);filter:blur(4px);transition:background 220ms ease,filter 220ms ease,opacity 220ms ease;}",
+        ".floating-site-logo img{position:relative;z-index:1;width:76%;height:76%;object-fit:contain;opacity:.98;filter:contrast(1.05) saturate(.92) drop-shadow(0 0 1px rgba(255,255,255,.12)) drop-shadow(0 0 6px rgba(94,111,148,.16));transition:filter 220ms ease,opacity 220ms ease;}",
+        ".floating-site-logo.is-contrast{background:radial-gradient(circle,rgba(56,70,101,.36) 0%,rgba(47,61,90,.26) 44%,rgba(44,58,87,0) 82%);}",
+        ".floating-site-logo.is-contrast::before{background:radial-gradient(circle,rgba(39,50,76,.54) 0%,rgba(34,45,69,.27) 40%,rgba(34,45,69,0) 84%);filter:blur(10px);}",
+        ".floating-site-logo.is-contrast::after{background:radial-gradient(circle,rgba(255,255,255,0) 54%,rgba(60,78,115,.36) 69%,rgba(49,63,94,.18) 86%,rgba(49,63,94,0) 100%);}",
+        ".floating-site-logo.is-contrast img{opacity:.995;filter:contrast(1.18) saturate(.9) brightness(.88) drop-shadow(0 0 1px rgba(11,17,31,.66)) drop-shadow(0 0 5px rgba(19,30,50,.48)) drop-shadow(0 0 9px rgba(31,48,77,.26));}",
+        "@keyframes floatingSiteLogoBreath{0%,100%{transform:translate3d(0,0,0) scale(1);}25%{transform:translate3d(.8px,-2.2px,0) scale(1.02);}50%{transform:translate3d(0,-5.8px,0) scale(1.045);}75%{transform:translate3d(-.9px,-2.4px,0) scale(1.024);}}",
         "@media (prefers-reduced-motion: reduce){.floating-site-logo{animation:none;transform:none;}.floating-site-logo::before,.floating-site-logo::after{filter:none;}}",
         "@media (max-width: 900px){.floating-site-logo{width:76px;height:76px;right:max(12px,calc(env(safe-area-inset-right,0px) + 10px));bottom:max(12px,calc(env(safe-area-inset-bottom,0px) + 10px));}.floating-site-logo::before{inset:-14px;}.floating-site-logo::after{inset:-4px;}}",
         "@media only screen and (min-width:390px) and (max-width:430px) and (orientation:portrait){.floating-site-logo{width:70px;height:70px;right:max(10px,calc(env(safe-area-inset-right,0px) + 8px));bottom:max(10px,calc(env(safe-area-inset-bottom,0px) + 8px));}}",
@@ -10668,7 +10674,146 @@
     wrapper.appendChild(img);
 
     document.body.appendChild(wrapper);
+    setupFloatingSiteLogoContrast(wrapper);
     bridgeMobileShareWithFloatingLogo();
+  }
+
+  function setupFloatingSiteLogoContrast(wrapper) {
+    if (!wrapper || wrapper.dataset.contrastAdaptiveBound === "1") {
+      return;
+    }
+    wrapper.dataset.contrastAdaptiveBound = "1";
+
+    var rafId = 0;
+    var intervalId = 0;
+    var lastContrastState = null;
+
+    function parseRgbColor(input) {
+      var value = String(input || "").trim();
+      if (!value || value === "transparent") {
+        return null;
+      }
+      var parts = value.match(/[\d.]+/g);
+      if (!parts || parts.length < 3) {
+        return null;
+      }
+      var r = Number(parts[0]);
+      var g = Number(parts[1]);
+      var b = Number(parts[2]);
+      var a = parts.length > 3 ? Number(parts[3]) : 1;
+      if (!isFinite(r) || !isFinite(g) || !isFinite(b) || !isFinite(a)) {
+        return null;
+      }
+      return {
+        r: Math.max(0, Math.min(255, r)),
+        g: Math.max(0, Math.min(255, g)),
+        b: Math.max(0, Math.min(255, b)),
+        a: Math.max(0, Math.min(1, a)),
+      };
+    }
+
+    function getRelativeLuminance(color) {
+      function channelToLinear(channel) {
+        var c = channel / 255;
+        if (c <= 0.03928) {
+          return c / 12.92;
+        }
+        return Math.pow((c + 0.055) / 1.055, 2.4);
+      }
+      return (
+        0.2126 * channelToLinear(color.r) +
+        0.7152 * channelToLinear(color.g) +
+        0.0722 * channelToLinear(color.b)
+      );
+    }
+
+    function getSurfaceLuminance(target) {
+      var node = target && target.nodeType === 1 ? target : null;
+      var depth = 0;
+      while (node && depth < 12) {
+        var styles = null;
+        try {
+          styles = window.getComputedStyle(node);
+        } catch (_error) {
+          styles = null;
+        }
+        if (styles) {
+          var bgColor = parseRgbColor(styles.backgroundColor);
+          if (bgColor && bgColor.a > 0.04) {
+            return getRelativeLuminance(bgColor);
+          }
+        }
+        node = node.parentElement;
+        depth += 1;
+      }
+      var fallback = null;
+      try {
+        fallback = parseRgbColor(window.getComputedStyle(document.body).backgroundColor);
+      } catch (_error) {
+        fallback = null;
+      }
+      return fallback ? getRelativeLuminance(fallback) : 0.78;
+    }
+
+    function sampleContrastTarget() {
+      rafId = 0;
+      if (!wrapper.isConnected) {
+        if (intervalId) {
+          window.clearInterval(intervalId);
+        }
+        return;
+      }
+      var rect = wrapper.getBoundingClientRect();
+      if (!rect.width || !rect.height) {
+        return;
+      }
+
+      var sampleX = Math.min(window.innerWidth - 1, Math.max(0, rect.left + rect.width * 0.5));
+      var sampleY = Math.min(window.innerHeight - 1, Math.max(0, rect.top + rect.height * 0.5));
+      var sampleTarget = document.elementFromPoint(sampleX, sampleY);
+
+      if (
+        sampleTarget &&
+        sampleTarget.closest &&
+        sampleTarget.closest(".floating-site-logo, .cursor-atmosphere-layer, .site-share-shell")
+      ) {
+        var fallbackY = Math.max(0, sampleY - rect.height * 0.62);
+        var fallbackTarget = document.elementFromPoint(sampleX, fallbackY);
+        if (fallbackTarget) {
+          sampleTarget = fallbackTarget;
+        }
+      }
+
+      var luminance = getSurfaceLuminance(sampleTarget || document.documentElement);
+      var shouldUseContrast = luminance >= 0.86;
+
+      if (shouldUseContrast !== lastContrastState) {
+        wrapper.classList.toggle("is-contrast", shouldUseContrast);
+        lastContrastState = shouldUseContrast;
+      }
+    }
+
+    function requestSample() {
+      if (rafId) {
+        return;
+      }
+      rafId = window.requestAnimationFrame(sampleContrastTarget);
+    }
+
+    window.addEventListener("scroll", requestSample, { passive: true });
+    window.addEventListener("resize", requestSample, { passive: true });
+    window.addEventListener("orientationchange", requestSample, { passive: true });
+    document.addEventListener("visibilitychange", requestSample);
+
+    intervalId = window.setInterval(function () {
+      if (document.hidden || !wrapper.isConnected) {
+        return;
+      }
+      requestSample();
+    }, 900);
+
+    requestSample();
+    window.setTimeout(requestSample, 140);
   }
 
   function setupDesktopCursorAtmosphere() {
