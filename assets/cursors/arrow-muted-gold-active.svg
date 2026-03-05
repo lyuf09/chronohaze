@@ -1,22 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 30 30" fill="none">
   <defs>
-    <linearGradient id="fill" x1="2.7" y1="2.5" x2="18.7" y2="25.5" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#efdfbf"/>
-      <stop offset="0.42" stop-color="#ccb58c"/>
-      <stop offset="0.8" stop-color="#9a8c76"/>
-      <stop offset="1" stop-color="#7f8b9f"/>
+    <linearGradient id="fill" x1="2.7" y1="2.4" x2="18.7" y2="25.6" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f3e8d3"/>
+      <stop offset="0.4" stop-color="#d9c49d"/>
+      <stop offset="0.78" stop-color="#a09079"/>
+      <stop offset="1" stop-color="#8497b0"/>
     </linearGradient>
-    <linearGradient id="edge" x1="3.2" y1="2.9" x2="19.8" y2="24.2" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#faefd8" stop-opacity="0.9"/>
-      <stop offset="0.45" stop-color="#dec8a1" stop-opacity="0.82"/>
-      <stop offset="1" stop-color="#aebdd1" stop-opacity="0.76"/>
+    <linearGradient id="edge" x1="3.2" y1="2.8" x2="19.8" y2="24.2" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fdf4e2" stop-opacity="0.94"/>
+      <stop offset="0.45" stop-color="#e3cfab" stop-opacity="0.84"/>
+      <stop offset="1" stop-color="#b8c8dd" stop-opacity="0.76"/>
     </linearGradient>
     <filter id="halo" x="0" y="0" width="30" height="30" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
-      <feGaussianBlur stdDeviation="0.3"/>
+      <feGaussianBlur stdDeviation="0.28"/>
     </filter>
   </defs>
-  <path d="M2.7 2.6L21.4 16.4L13.42 18.22L17.66 27.62L14.8 28.66L10.62 19.2L5.2 24.58L2.7 2.6Z" fill="#c7b28a" opacity="0.1" filter="url(#halo)"/>
+  <path d="M2.7 2.6L21.4 16.4L13.42 18.22L17.66 27.62L14.8 28.66L10.62 19.2L5.2 24.58L2.7 2.6Z" fill="#c9b692" opacity="0.12" filter="url(#halo)"/>
   <path d="M3.1 2.9L20.74 15.96L12.96 17.74L17.16 27.16L14.96 27.96L10.78 18.52L5.74 23.54L3.1 2.9Z" fill="url(#fill)"/>
   <path d="M3.66 3.66L19.54 15.4L11.9 17.16L16.04 26.38L14.96 26.78L10.74 17.4L6.1 22.04L3.66 3.66Z" stroke="url(#edge)" stroke-width="1" stroke-linejoin="round"/>
-  <path d="M5.18 5.4L16.72 13.88L11.38 15.08L9.02 17.42L5.18 5.4Z" fill="#fff" opacity="0.1"/>
+  <path d="M5.22 5.42L16.76 13.9L11.4 15.1L8.98 17.46L5.22 5.42Z" fill="#ffffff" opacity="0.14"/>
 </svg>
