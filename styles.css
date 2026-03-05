@@ -137,9 +137,9 @@ button {
 
 @media (hover: hover) and (pointer: fine) {
   :root {
-    --cursor-default: url("assets/cursors/arrow-muted-gold.svg?v=6") 1 1;
-    --cursor-hover: url("assets/cursors/arrow-muted-gold-hover.svg?v=6") 1 1;
-    --cursor-active: url("assets/cursors/arrow-muted-gold-active.svg?v=6") 1 1;
+    --cursor-default: url("assets/cursors/arrow-muted-gold.svg?v=7") 1 1;
+    --cursor-hover: url("assets/cursors/arrow-muted-gold-hover.svg?v=7") 1 1;
+    --cursor-active: url("assets/cursors/arrow-muted-gold-active.svg?v=7") 1 1;
   }
 
   *,

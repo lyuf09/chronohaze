@@ -2,22 +2,29 @@
   <defs>
     <linearGradient id="fill" x1="2.7" y1="2.3" x2="19.2" y2="26" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#fffef9"/>
-      <stop offset="0.4" stop-color="#f0e1c4"/>
-      <stop offset="0.77" stop-color="#bfac90"/>
-      <stop offset="1" stop-color="#9cadc7"/>
+      <stop offset="0.38" stop-color="#f1e3c8"/>
+      <stop offset="0.75" stop-color="#c1ad91"/>
+      <stop offset="1" stop-color="#9cafca"/>
     </linearGradient>
     <linearGradient id="edge" x1="3" y1="2.7" x2="20.2" y2="24.9" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
-      <stop offset="0.46" stop-color="#f7ebd4" stop-opacity="0.94"/>
-      <stop offset="1" stop-color="#deebf9" stop-opacity="0.86"/>
+      <stop offset="0.46" stop-color="#f8ecd6" stop-opacity="0.96"/>
+      <stop offset="1" stop-color="#e0edfa" stop-opacity="0.88"/>
     </linearGradient>
-    <filter id="halo" x="0" y="0" width="30" height="30" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
-      <feGaussianBlur stdDeviation="0.3"/>
+    <linearGradient id="coolRim" x1="4.2" y1="4" x2="16.8" y2="25" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#b5cae2" stop-opacity="0.44"/>
+      <stop offset="1" stop-color="#8fa8cb" stop-opacity="0.14"/>
+    </linearGradient>
+    <filter id="softShadow" x="0" y="0" width="30" height="30" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="0.24"/>
     </filter>
   </defs>
-  <path d="M2.7 2.6L21.4 16.4L13.42 18.22L17.66 27.62L14.8 28.66L10.62 19.2L5.2 24.58L2.7 2.6Z" fill="#e5d8bc" opacity="0.13" filter="url(#halo)"/>
+  <path d="M2.7 2.6L21.4 16.4L13.42 18.22L17.66 27.62L14.8 28.66L10.62 19.2L5.2 24.58L2.7 2.6Z" fill="#21314b" opacity="0.28" transform="translate(0.48 0.56)" filter="url(#softShadow)"/>
+  <path d="M2.7 2.6L21.4 16.4L13.42 18.22L17.66 27.62L14.8 28.66L10.62 19.2L5.2 24.58L2.7 2.6Z" fill="#e7dcc3" opacity="0.13"/>
   <path d="M3.1 2.9L20.74 15.96L12.96 17.74L17.16 27.16L14.96 27.96L10.78 18.52L5.74 23.54L3.1 2.9Z" fill="url(#fill)"/>
-  <path d="M3.66 3.66L19.54 15.4L11.9 17.16L16.04 26.38L14.96 26.78L10.74 17.4L6.1 22.04L3.66 3.66Z" stroke="#18273f" stroke-opacity="0.46" stroke-width="1.38" stroke-linejoin="round"/>
-  <path d="M3.66 3.66L19.54 15.4L11.9 17.16L16.04 26.38L14.96 26.78L10.74 17.4L6.1 22.04L3.66 3.66Z" stroke="url(#edge)" stroke-width="1.05" stroke-linejoin="round"/>
-  <path d="M5.06 5.28L16.98 14.04L11.37 15.3L8.83 17.75L5.06 5.28Z" fill="#ffffff" opacity="0.26"/>
+  <path d="M3.66 3.66L19.54 15.4L11.9 17.16L16.04 26.38L14.96 26.78L10.74 17.4L6.1 22.04L3.66 3.66Z" stroke="#142238" stroke-opacity="0.54" stroke-width="1.44" stroke-linejoin="round"/>
+  <path d="M3.66 3.66L19.54 15.4L11.9 17.16L16.04 26.38L14.96 26.78L10.74 17.4L6.1 22.04L3.66 3.66Z" stroke="url(#coolRim)" stroke-width="1.14" stroke-linejoin="round"/>
+  <path d="M3.66 3.66L19.54 15.4L11.9 17.16L16.04 26.38L14.96 26.78L10.74 17.4L6.1 22.04L3.66 3.66Z" stroke="url(#edge)" stroke-width="1.02" stroke-linejoin="round"/>
+  <path d="M5.06 5.28L16.98 14.04L11.37 15.3L8.83 17.75L5.06 5.28Z" fill="#ffffff" opacity="0.32"/>
+  <path d="M8.02 7.56L15.92 13.36" stroke="#fff" stroke-opacity="0.28" stroke-width="0.8" stroke-linecap="round"/>
 </svg>
