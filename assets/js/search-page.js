@@ -322,11 +322,9 @@
       permalinkLabel: lang === "zh" ? "搜索链接" : "Search permalink",
       navQuickTitle: lang === "zh" ? "快速入口" : "Quick links",
       navRecentTitle: lang === "zh" ? "最近搜索" : "Recent searches",
-      navTagsTitle: lang === "zh" ? "热门标签" : "Popular tags",
       navRecentEmpty: lang === "zh" ? "还没有最近搜索" : "No recent searches yet",
       navApplyScopeOnly: lang === "zh" ? "只看此栏" : "Browse this section",
       navClearRecent: lang === "zh" ? "清空记录" : "Clear history",
-      navAllTagsFallback: lang === "zh" ? "加载后显示" : "Shown after index loads",
     };
 
     if (titleNode) {
@@ -454,12 +452,6 @@
               '<button type="button" class="search-nav-clear-btn" data-search-nav-clear hidden></button>' +
             "</div>" +
             '<div class="search-nav-list search-nav-recent-list"></div>' +
-          "</section>" +
-          '<section class="search-nav-block" data-search-nav-block="tags">' +
-            '<div class="search-nav-head">' +
-              '<h2 class="search-nav-title"></h2>' +
-            "</div>" +
-            '<div class="search-nav-list search-nav-tag-list"></div>' +
           "</section>" +
         "</div>";
       listNode.parentNode.insertBefore(navPanel, listNode);
@@ -593,24 +585,16 @@
         return;
       }
       var scope = scopeNode.value || "all";
-      var currentTag = tagNode.value || "all";
       var quickBlock = navPanel.querySelector('[data-search-nav-block="quick"]');
       var recentBlock = navPanel.querySelector('[data-search-nav-block="recent"]');
-      var tagBlock = navPanel.querySelector('[data-search-nav-block="tags"]');
       var quickTitle = quickBlock ? quickBlock.querySelector(".search-nav-title") : null;
       var recentTitle = recentBlock ? recentBlock.querySelector(".search-nav-title") : null;
-      var tagTitle = tagBlock ? tagBlock.querySelector(".search-nav-title") : null;
       var quickList = navPanel.querySelector(".search-nav-quick-links");
       var recentList = navPanel.querySelector(".search-nav-recent-list");
-      var tagList = navPanel.querySelector(".search-nav-tag-list");
       var clearBtn = navPanel.querySelector("[data-search-nav-clear]");
 
       if (quickTitle) quickTitle.textContent = uiText.navQuickTitle;
       if (recentTitle) recentTitle.textContent = uiText.navRecentTitle;
-      if (tagTitle) {
-        tagTitle.textContent =
-          uiText.navTagsTitle + (scope !== "all" ? " · " + (scopeLabels[scope] || scope) : "");
-      }
 
       if (quickList) {
         quickList.textContent = "";
@@ -662,38 +646,6 @@
         }
       }
 
-      if (tagList) {
-        tagList.textContent = "";
-        if (!loaded || loadError) {
-          var pending = document.createElement("span");
-          pending.className = "search-nav-empty";
-          pending.textContent = uiText.navAllTagsFallback;
-          tagList.appendChild(pending);
-        } else {
-          topTagRecommendations(scope, currentTag === "all" ? "" : currentTag)
-            .slice(0, 10)
-            .forEach(function (tagRec) {
-              var chip = document.createElement("button");
-              chip.type = "button";
-              chip.className = "search-nav-tag-chip";
-              chip.textContent = "#" + getMusicTagLabel(tagRec.tag, dict) + " (" + tagRec.count + ")";
-              chip.addEventListener("click", function () {
-                if (Array.from(tagNode.options).some(function (opt) { return opt.value === tagRec.tag; })) {
-                  tagNode.value = tagRec.tag;
-                  requestUrlSync("push");
-                  renderResults();
-                }
-              });
-              tagList.appendChild(chip);
-            });
-          if (!tagList.childNodes.length) {
-            var noTags = document.createElement("span");
-            noTags.className = "search-nav-empty";
-            noTags.textContent = lang === "zh" ? "当前范围暂无标签" : "No tags in current scope";
-            tagList.appendChild(noTags);
-          }
-        }
-      }
     }
 
     function maybeRedirectToExternalSearch(rawQuery) {
