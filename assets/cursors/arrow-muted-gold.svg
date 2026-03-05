@@ -1,22 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
   <defs>
-    <linearGradient id="fill" x1="2.6" y1="2.2" x2="19.6" y2="29.6" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#f8efd8"/>
-      <stop offset="0.42" stop-color="#d7c29a"/>
-      <stop offset="0.78" stop-color="#a8977d"/>
-      <stop offset="1" stop-color="#8c98ab"/>
+    <linearGradient id="fill" x1="2.8" y1="2.6" x2="18.8" y2="25.6" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f7efde"/>
+      <stop offset="0.4" stop-color="#dbc59d"/>
+      <stop offset="0.78" stop-color="#a1917c"/>
+      <stop offset="1" stop-color="#8998af"/>
     </linearGradient>
-    <linearGradient id="edge" x1="3.2" y1="2.6" x2="21.2" y2="26.4" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#fff9e9" stop-opacity="0.96"/>
-      <stop offset="0.38" stop-color="#e5d2a9" stop-opacity="0.88"/>
-      <stop offset="1" stop-color="#b3bfd1" stop-opacity="0.82"/>
+    <linearGradient id="edge" x1="3.2" y1="2.9" x2="19.9" y2="24.4" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff8e6" stop-opacity="0.92"/>
+      <stop offset="0.44" stop-color="#ead9b4" stop-opacity="0.86"/>
+      <stop offset="1" stop-color="#c2cfdf" stop-opacity="0.78"/>
     </linearGradient>
-    <filter id="halo" x="0" y="0" width="36" height="36" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-      <feGaussianBlur stdDeviation="0.55"/>
+    <filter id="halo" x="0" y="0" width="30" height="30" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="0.36"/>
     </filter>
   </defs>
-  <path d="M2.4 2.8L24.1 17.7L15.1 19.8L19.2 31.2L15.4 32.6L11.2 21.2L5 27.3L2.4 2.8Z" fill="#d6c39c" opacity="0.12" filter="url(#halo)"/>
-  <path d="M2.7 3L23.5 17.3L14.7 19.3L18.8 30.7L15.8 31.8L11.7 20.3L5.7 26.2L2.7 3Z" fill="url(#fill)"/>
-  <path d="M3.35 3.88L22.2 16.86L13.52 18.84L17.6 30.16L16.12 30.7L12.03 19.26L6.49 24.72L3.35 3.88Z" stroke="url(#edge)" stroke-width="1.02" stroke-linejoin="round"/>
-  <path d="M5.4 5.9L18.6 15L12.35 16.42L9.5 19.2L5.4 5.9Z" fill="#ffffff" opacity="0.17"/>
+  <path d="M2.7 2.6L21.4 16.4L13.42 18.22L17.66 27.62L14.8 28.66L10.62 19.2L5.2 24.58L2.7 2.6Z" fill="#d4c39f" opacity="0.1" filter="url(#halo)"/>
+  <path d="M3.1 2.9L20.74 15.96L12.96 17.74L17.16 27.16L14.96 27.96L10.78 18.52L5.74 23.54L3.1 2.9Z" fill="url(#fill)"/>
+  <path d="M3.66 3.66L19.54 15.4L11.9 17.16L16.04 26.38L14.96 26.78L10.74 17.4L6.1 22.04L3.66 3.66Z" stroke="url(#edge)" stroke-width="0.96" stroke-linejoin="round"/>
+  <path d="M5.2 5.44L16.68 13.86L11.4 15.04L9.04 17.36L5.2 5.44Z" fill="#fff" opacity="0.14"/>
 </svg>
