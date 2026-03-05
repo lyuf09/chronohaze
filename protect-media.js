@@ -9343,7 +9343,7 @@
         accent: "#d8d0bf",
         accentSoft: "#5e5b4f",
         image: "assets/template/he-and-me-cover.jpg",
-        copyZh: "暖白与浅灰色调下的回望：克制而迟到的理解。",
+        copyZh: "梦醒后还没散尽的对话",
         copyEn: "A warm white-and-pale-grey retrospective with restrained understanding.",
       },
       {
