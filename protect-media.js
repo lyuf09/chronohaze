@@ -10691,6 +10691,7 @@
     var rafId = 0;
     var intervalId = 0;
     var lastContrastState = null;
+    var mediaLuminanceCache = new WeakMap();
 
     function parseRgbColor(input) {
       var value = String(input || "").trim();
@@ -10731,8 +10732,134 @@
       );
     }
 
-    function getSurfaceLuminance(target) {
+    function sampleImgLuminance(img, viewportX, viewportY) {
+      if (!img || !img.complete || !img.naturalWidth || !img.naturalHeight) {
+        return null;
+      }
+      var rect = img.getBoundingClientRect();
+      if (!rect.width || !rect.height) {
+        return null;
+      }
+      var localX = (viewportX - rect.left) / rect.width;
+      var localY = (viewportY - rect.top) / rect.height;
+      if (!isFinite(localX) || !isFinite(localY)) {
+        return null;
+      }
+      localX = Math.max(0, Math.min(1, localX));
+      localY = Math.max(0, Math.min(1, localY));
+
+      var px = Math.max(0, Math.min(img.naturalWidth - 1, Math.round(localX * (img.naturalWidth - 1))));
+      var py = Math.max(0, Math.min(img.naturalHeight - 1, Math.round(localY * (img.naturalHeight - 1))));
+
+      var cacheItem = mediaLuminanceCache.get(img);
+      if (cacheItem && cacheItem.x === px && cacheItem.y === py && Date.now() - cacheItem.t < 1000) {
+        return cacheItem.l;
+      }
+
+      try {
+        var canvas = document.createElement("canvas");
+        canvas.width = 6;
+        canvas.height = 6;
+        var ctx = canvas.getContext("2d", { willReadFrequently: true });
+        if (!ctx) {
+          return null;
+        }
+        var sx = Math.max(0, Math.min(img.naturalWidth - 2, px - 1));
+        var sy = Math.max(0, Math.min(img.naturalHeight - 2, py - 1));
+        ctx.drawImage(img, sx, sy, 2, 2, 0, 0, 6, 6);
+        var data = ctx.getImageData(0, 0, 6, 6).data;
+        var lumSum = 0;
+        var alphaSum = 0;
+        for (var i = 0; i < data.length; i += 4) {
+          var alpha = data[i + 3] / 255;
+          if (alpha <= 0.02) {
+            continue;
+          }
+          lumSum += getRelativeLuminance({
+            r: data[i],
+            g: data[i + 1],
+            b: data[i + 2],
+          }) * alpha;
+          alphaSum += alpha;
+        }
+        if (!alphaSum) {
+          return null;
+        }
+        var luminance = lumSum / alphaSum;
+        mediaLuminanceCache.set(img, { x: px, y: py, l: luminance, t: Date.now() });
+        return luminance;
+      } catch (_error) {
+        return null;
+      }
+    }
+
+    function sampleVideoLuminance(video, viewportX, viewportY) {
+      if (!video || video.readyState < 2 || !video.videoWidth || !video.videoHeight) {
+        return null;
+      }
+      var rect = video.getBoundingClientRect();
+      if (!rect.width || !rect.height) {
+        return null;
+      }
+      var localX = (viewportX - rect.left) / rect.width;
+      var localY = (viewportY - rect.top) / rect.height;
+      if (!isFinite(localX) || !isFinite(localY)) {
+        return null;
+      }
+      localX = Math.max(0, Math.min(1, localX));
+      localY = Math.max(0, Math.min(1, localY));
+
+      var px = Math.max(0, Math.min(video.videoWidth - 1, Math.round(localX * (video.videoWidth - 1))));
+      var py = Math.max(0, Math.min(video.videoHeight - 1, Math.round(localY * (video.videoHeight - 1))));
+
+      var cacheItem = mediaLuminanceCache.get(video);
+      if (cacheItem && cacheItem.x === px && cacheItem.y === py && Date.now() - cacheItem.t < 350) {
+        return cacheItem.l;
+      }
+
+      try {
+        var canvas = document.createElement("canvas");
+        canvas.width = 6;
+        canvas.height = 6;
+        var ctx = canvas.getContext("2d", { willReadFrequently: true });
+        if (!ctx) {
+          return null;
+        }
+        var sx = Math.max(0, Math.min(video.videoWidth - 2, px - 1));
+        var sy = Math.max(0, Math.min(video.videoHeight - 2, py - 1));
+        ctx.drawImage(video, sx, sy, 2, 2, 0, 0, 6, 6);
+        var data = ctx.getImageData(0, 0, 6, 6).data;
+        var lumSum = 0;
+        for (var i = 0; i < data.length; i += 4) {
+          lumSum += getRelativeLuminance({
+            r: data[i],
+            g: data[i + 1],
+            b: data[i + 2],
+          });
+        }
+        var luminance = lumSum / 36;
+        mediaLuminanceCache.set(video, { x: px, y: py, l: luminance, t: Date.now() });
+        return luminance;
+      } catch (_error) {
+        return null;
+      }
+    }
+
+    function getSurfaceLuminance(target, sampleX, sampleY) {
       var node = target && target.nodeType === 1 ? target : null;
+      if (node && node.closest) {
+        var media = node.closest("img,video");
+        if (media) {
+          var mediaLum =
+            media.tagName === "IMG"
+              ? sampleImgLuminance(media, sampleX, sampleY)
+              : sampleVideoLuminance(media, sampleX, sampleY);
+          if (mediaLum !== null) {
+            return mediaLum;
+          }
+        }
+      }
+
       var depth = 0;
       while (node && depth < 12) {
         var styles = null;
@@ -10759,6 +10886,43 @@
       return fallback ? getRelativeLuminance(fallback) : 0.78;
     }
 
+    function isInternalOverlayTarget(node) {
+      return !!(
+        node &&
+        node.closest &&
+        node.closest(".floating-site-logo, .cursor-atmosphere-layer, .site-share-shell")
+      );
+    }
+
+    function findSampleTarget(sampleX, sampleY, rect) {
+      var safeX = Math.min(window.innerWidth - 1, Math.max(0, sampleX));
+      var safeY = Math.min(window.innerHeight - 1, Math.max(0, sampleY));
+      var candidate = document.elementFromPoint(safeX, safeY);
+      if (!isInternalOverlayTarget(candidate)) {
+        return {
+          target: candidate,
+          x: safeX,
+          y: safeY,
+        };
+      }
+
+      var fallbackY = Math.max(0, safeY - rect.height * 0.66);
+      var fallback = document.elementFromPoint(safeX, fallbackY);
+      if (!isInternalOverlayTarget(fallback)) {
+        return {
+          target: fallback,
+          x: safeX,
+          y: fallbackY,
+        };
+      }
+
+      return {
+        target: candidate,
+        x: safeX,
+        y: safeY,
+      };
+    }
+
     function sampleContrastTarget() {
       rafId = 0;
       if (!wrapper.isConnected) {
@@ -10772,24 +10936,44 @@
         return;
       }
 
-      var sampleX = Math.min(window.innerWidth - 1, Math.max(0, rect.left + rect.width * 0.5));
-      var sampleY = Math.min(window.innerHeight - 1, Math.max(0, rect.top + rect.height * 0.5));
-      var sampleTarget = document.elementFromPoint(sampleX, sampleY);
+      var points = [
+        { x: rect.left + rect.width * 0.5, y: rect.top + rect.height * 0.5, w: 0.34 },
+        { x: rect.left + rect.width * 0.25, y: rect.top + rect.height * 0.25, w: 0.16 },
+        { x: rect.left + rect.width * 0.75, y: rect.top + rect.height * 0.25, w: 0.16 },
+        { x: rect.left + rect.width * 0.25, y: rect.top + rect.height * 0.75, w: 0.16 },
+        { x: rect.left + rect.width * 0.75, y: rect.top + rect.height * 0.75, w: 0.18 },
+      ];
 
-      if (
-        sampleTarget &&
-        sampleTarget.closest &&
-        sampleTarget.closest(".floating-site-logo, .cursor-atmosphere-layer, .site-share-shell")
-      ) {
-        var fallbackY = Math.max(0, sampleY - rect.height * 0.62);
-        var fallbackTarget = document.elementFromPoint(sampleX, fallbackY);
-        if (fallbackTarget) {
-          sampleTarget = fallbackTarget;
+      var weightedLuminance = 0;
+      var weightSum = 0;
+      var brightestPoint = 0;
+
+      for (var i = 0; i < points.length; i += 1) {
+        var point = points[i];
+        var picked = findSampleTarget(point.x, point.y, rect);
+        var luminance = getSurfaceLuminance(
+          picked.target || document.documentElement,
+          picked.x,
+          picked.y
+        );
+        if (!isFinite(luminance)) {
+          continue;
+        }
+        weightedLuminance += luminance * point.w;
+        weightSum += point.w;
+        if (luminance > brightestPoint) {
+          brightestPoint = luminance;
         }
       }
 
-      var luminance = getSurfaceLuminance(sampleTarget || document.documentElement);
-      var shouldUseContrast = luminance >= 0.86;
+      var avgLuminance = weightSum ? weightedLuminance / weightSum : 0.78;
+      var sensedLuminance = Math.max(avgLuminance, brightestPoint * 0.94);
+
+      var enterThreshold = 0.74;
+      var exitThreshold = 0.64;
+      var shouldUseContrast = lastContrastState
+        ? sensedLuminance >= exitThreshold
+        : sensedLuminance >= enterThreshold;
 
       if (shouldUseContrast !== lastContrastState) {
         wrapper.classList.toggle("is-contrast", shouldUseContrast);
