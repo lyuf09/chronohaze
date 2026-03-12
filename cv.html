@@ -70,26 +70,42 @@
           </div>
           <nav class="cv-toc" aria-label="CV section navigation">
             <a class="cv-toc-link" href="#cv-zh-highlights" data-cv-toc-link="highlights">Highlights</a>
+            <a class="cv-toc-link" href="#cv-zh-directions" data-cv-toc-link="directions">Directions</a>
             <a class="cv-toc-link" href="#cv-zh-projects" data-cv-toc-link="projects">Projects</a>
             <a class="cv-toc-link" href="#cv-zh-experience" data-cv-toc-link="experience">Experience</a>
           </nav>
         </div>
 
         <div data-lang-block="zh">
-          <h1>公开版 CV</h1>
+          <h1>Fay Lyu</h1>
           <p>出于隐私与安全考虑：本页仅展示公开联系方式，不公开手机号与详细住址。申请/岗位用途的完整版简历（含更多细节）可邮件索取。本站不提供可直接下载的完整版 CV 文件。</p>
 
-          <h2>一句话定位（Tagline）</h2>
-          <p class="cv-tagline">优化与形式化证明（Optimization &amp; Formal Methods） · 数据分析（Data Analytics） · 工程系统与专利（Patent-pending Engineering System）</p>
+          <h2>Header / Tagline</h2>
+          <p class="cv-tagline">Undergraduate Mathematics (Exchange at Cornell) · Optimization &amp; Formal Methods (Isabelle/HOL)</p>
+          <p class="cv-tagline cv-tagline-sub">Submodular optimization guarantees · Duality / lower bounds under invariances · Robust localization models</p>
+          <section class="cv-summary">
+            <h2>简述（Short Summary）</h2>
+            <p>我目前主要在做优化研究与形式化验证：一方面构建面向经典近似保证的可复用 Isabelle/HOL 形式化开发；另一方面研究在不变性条件下会退化为“无信息”的对偶 / 下界表述。</p>
+            <p>研究笔记、代码仓库与部分项目材料见下方链接。</p>
+          </section>
           <p class="cv-research-note">研究向读者可先看 <a href="research.html">Research landing page</a>（30 秒入口：研究方向 / 当前项目 / 笔记链接）。</p>
 
           <section class="cv-highlight-card" id="cv-zh-highlights">
             <h2>Highlights（重点亮点）</h2>
             <ul>
-              <li>专利在审 / 已授权：围绕“防止砂石离析（anti-segregation）”的布料系统与方法，已提交发明专利并拥有已授权实用新型专利。</li>
-              <li>工程系统核心开发：参与研发防离析布料系统（spreading system），负责系统建模与参数优化；项目已获得多家央企合作意向与长期推进。</li>
-              <li>Isabelle/HOL 形式化证明：形式化单调子模最大化与贪心算法，推进经典 (1−1/e) 近似保证。<br /><a href="research.html">Details → Research page</a> / <a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">repo</a></li>
-              <li>数据分析实习落地：负责转化漏斗、留存与归因分析（funnel / retention / attribution），排查并修复 UTM 映射导致的归因错误。</li>
+              <li>形式化方法（Isabelle/HOL）：正在构建一个结构清晰、可复用的 Isabelle/HOL 代码库，用于单调子模最大化在基数约束下的经典 (1 − 1/e) 近似保证。（附 repository + research log）</li>
+              <li>优化研究：关注对偶 / 下界表述在 translation invariance（及相关对称性）下何时退化，并探索 gauge-fixing / augmentation 等结构性修正以恢复有信息量的 certificates。（附 notes）</li>
+              <li>工程 + IP：作为 aggregate spreading system 的核心贡献者之一，参与一套旨在减少砂石作业离析的工程系统；相关专利已提交（编号可按需提供）。</li>
+              <li>数据分析：基于生产表构建并验证留存与漏斗分析；定位 join / identifier 问题，并与相关方及下游报表对齐指标口径。</li>
+            </ul>
+          </section>
+
+          <section class="cv-highlight-card" id="cv-zh-directions">
+            <h2>当前研究方向（Current research directions）</h2>
+            <ul>
+              <li>Submodular optimization：greedy-type algorithms 的近似分析；面向 mechanized verification 的 proof reuse 与 modularization。</li>
+              <li>Duality and certificates：理解 lower bounds 在 invariances 下何时变成 trivial，以及如何修改表述以恢复有信息量的 dual signals。</li>
+              <li>Robust localization models：IRLS-style 自适应加权框架及相关 first-order methods（reading + early notes）。</li>
             </ul>
           </section>
 
@@ -109,7 +125,7 @@
               <p><strong>角色：</strong>核心开发（core developer）</p>
               <p><strong>问题：</strong>针对砂石布料过程中的离析问题（material segregation）</p>
               <p><strong>工作：</strong>系统建模（modeling）与关键参数优化（parameter optimization）</p>
-              <p><strong>影响/进展：</strong>已提交专利，并与多家央企建立长期合作推进。</p>
+              <p><strong>影响/进展：</strong>与产业合作方及学术实验室协作，围绕降低砂石离析的 aggregate spreading system 做原型迭代；参与设计决策、测试反馈闭环与知识产权申报文档。</p>
             </li>
             <li>
               <h3>Isabelle/HOL：子模贪心算法形式化</h3>
@@ -129,14 +145,14 @@
             <h3>数据分析实习（Data Analyst Intern）</h3>
             <ul>
               <li>转化漏斗、留存、归因分析（funnel / retention / attribution）</li>
-              <li>数据质量验证与排查；修复 UTM mapping 归因错误并重算结果。</li>
+              <li>基于生产事件表计算留存指标（overall / new vs returning cohorts）；处理不同 join keys 带来的口径不一致，并产出用于正式报表的修正指标定义。</li>
             </ul>
           </section>
           <section class="cv-experience-item">
-            <h3>数学与计算建模实习（Modeling Intern）</h3>
+            <h3>工程系统协作（Engineering Systems Collaboration）</h3>
             <ul>
-              <li>砂石边坡滚动/轨迹建模（rolling / trajectory modeling）</li>
-              <li>与地灾防治国重实验方案对接，推进可落地的分析与实验计划。</li>
+              <li>围绕 aggregate spreading system 与产业合作方、学术实验室协作，面向减少 gravel operations 中的 material segregation 做原型与迭代。</li>
+              <li>参与设计决策、测试反馈闭环与 IP filing 文档整理。</li>
             </ul>
           </section>
 
@@ -145,20 +161,35 @@
         </div>
 
         <div data-lang-block="en" hidden>
-          <h1>Public CV</h1>
+          <h1>Fay Lyu</h1>
           <p>For privacy and safety, this page only shows public contact information and excludes phone number and full address. The full version for applications is available by email request. No downloadable full CV file is hosted on this public site.</p>
 
-          <h2>Tagline</h2>
-          <p class="cv-tagline">Optimization &amp; Formal Methods · Data Analytics · Patent-pending Engineering System</p>
+          <h2>Header / Tagline</h2>
+          <p class="cv-tagline">Undergraduate Mathematics (Exchange at Cornell) · Optimization &amp; Formal Methods (Isabelle/HOL)</p>
+          <p class="cv-tagline cv-tagline-sub">Submodular optimization guarantees · Duality / lower bounds under invariances · Robust localization models</p>
+          <section class="cv-summary">
+            <h2>Short Summary</h2>
+            <p>I’m currently working on optimization research and formal verification: building reusable Isabelle/HOL developments for classic approximation guarantees, and studying dual/lower-bound formulations that become uninformative under invariances.</p>
+            <p>Links: research notes, repositories, and selected project artifacts are listed below.</p>
+          </section>
           <p class="cv-research-note">For faculty / research readers, start with the <a href="research.html">Research landing page</a> (30-second entry: interests, current projects, and notes).</p>
 
           <section class="cv-highlight-card" id="cv-en-highlights">
             <h2>Highlights</h2>
             <ul>
-              <li>Patent pipeline (pending + granted): anti-segregation spreading system and method, with an invention patent under review and a granted utility-model patent.</li>
-              <li>Core engineering development: worked on anti-segregation spreading system modeling and parameter optimization; project is moving forward with intended long-term enterprise collaboration.</li>
-              <li>Isabelle/HOL formalization: monotone submodular greedy toward the classical (1−1/e) approximation guarantee.<br /><a href="research.html">Details → Research page</a> / <a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">repo</a></li>
-              <li>Data analytics implementation: funnel, retention, and attribution analysis; diagnosed and fixed UTM mapping attribution errors.</li>
+              <li>Formal Methods (Isabelle/HOL): Developing a reusable, well-structured Isabelle/HOL codebase for monotone submodular maximization under a cardinality constraint, including the classical (1 − 1/e) approximation guarantee. (repository + research log available)</li>
+              <li>Optimization Research: Investigating when dual / lower-bound formulations collapse under translation invariance (and related symmetries), and exploring structural fixes (e.g., gauge-fixing / augmentation) that recover meaningful certificates. (notes available)</li>
+              <li>Engineering + IP: Core contributor to an aggregate spreading system designed to reduce material segregation in gravel operations; patents filed (IDs available upon request).</li>
+              <li>Data Analytics: Built and validated retention and funnel analyses from production tables; diagnosed join/identifier issues and aligned metrics with stakeholders and downstream reporting.</li>
+            </ul>
+          </section>
+
+          <section class="cv-highlight-card" id="cv-en-directions">
+            <h2>Current research directions</h2>
+            <ul>
+              <li>Submodular optimization: approximation analysis for greedy-type algorithms; proof reuse and modularization for mechanized verification.</li>
+              <li>Duality and certificates: understanding when lower bounds become trivial under invariances, and how to modify formulations to recover informative dual signals.</li>
+              <li>Robust localization models: IRLS-style adaptive weighting frameworks and related first-order methods (reading + early notes).</li>
             </ul>
           </section>
 
@@ -178,7 +209,7 @@
               <p><strong>Role:</strong> Core developer</p>
               <p><strong>Problem:</strong> Material segregation during aggregate spreading process</p>
               <p><strong>Work:</strong> System modeling and key parameter optimization</p>
-              <p><strong>Status:</strong> Patent submitted; ongoing long-term collaboration progress with major enterprise partners.</p>
+              <p><strong>Status:</strong> Collaborated with an industry partner and an academic lab to prototype and iterate on an aggregate spreading system aimed at reducing segregation; contributed to design decisions, testing feedback loops, and documentation for IP filing.</p>
             </li>
             <li>
               <h3>Isabelle/HOL: Formalizing Submodular Greedy</h3>
@@ -198,14 +229,14 @@
             <h3>Data Analyst Intern</h3>
             <ul>
               <li>Funnel, retention, and attribution analysis.</li>
-              <li>Data-quality validation and troubleshooting; fixed UTM mapping attribution issues and recomputed results.</li>
+              <li>Computed retention metrics (overall / new vs returning cohorts) from production event tables; reconciled inconsistencies caused by different join keys and produced a corrected metric definition used in reporting.</li>
             </ul>
           </section>
           <section class="cv-experience-item">
-            <h3>Modeling Intern</h3>
+            <h3>Engineering Systems Collaboration</h3>
             <ul>
-              <li>Rolling / trajectory modeling for aggregate slope behavior.</li>
-              <li>Coordinated with national key-lab experimental plans and advanced actionable analysis workflows.</li>
+              <li>Collaborated with an industry partner and an academic lab to prototype and iterate on an aggregate spreading system aimed at reducing segregation.</li>
+              <li>Contributed to design decisions, testing feedback loops, and documentation for IP filing.</li>
             </ul>
           </section>
 
@@ -253,11 +284,13 @@
           navMath: '数学',
           navPhoto: '摄影',
           navMusic: '音乐',
+          navProjects: '项目',
           footerContactLead: '辗转不同国家无固定号码 请联系邮箱：',
           footerCities: '重庆 · Edinburgh · New York',
           siteNotes: '网站说明',
           a11y: '无障碍支持',
           tocHighlights: '重点亮点',
+          tocDirections: '研究方向',
           tocProjects: '项目与 IP',
           tocExperience: '经历',
           researchLandingCta: 'Research Landing Page'
@@ -270,11 +303,13 @@
           navMath: 'Mathematics',
           navPhoto: 'Photography',
           navMusic: 'Music',
+          navProjects: 'Projects',
           footerContactLead: 'No fixed phone number while moving across countries. Contact via email: ',
           footerCities: 'Chongqing · Edinburgh · New York',
           siteNotes: 'Privacy Policy',
           a11y: 'Accessibility',
           tocHighlights: 'Highlights',
+          tocDirections: 'Directions',
           tocProjects: 'Projects',
           tocExperience: 'Experience',
           researchLandingCta: 'Research landing page'
@@ -284,11 +319,13 @@
       var tocTargetMap = {
         zh: {
           highlights: 'cv-zh-highlights',
+          directions: 'cv-zh-directions',
           projects: 'cv-zh-projects',
           experience: 'cv-zh-experience'
         },
         en: {
           highlights: 'cv-en-highlights',
+          directions: 'cv-en-directions',
           projects: 'cv-en-projects',
           experience: 'cv-en-experience'
         }
@@ -335,6 +372,8 @@
           }
           if (key === 'highlights') {
             link.textContent = dict.tocHighlights;
+          } else if (key === 'directions') {
+            link.textContent = dict.tocDirections;
           } else if (key === 'projects') {
             link.textContent = dict.tocProjects;
           } else if (key === 'experience') {

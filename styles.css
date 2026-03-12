@@ -3699,6 +3699,31 @@ audio {
   letter-spacing: 0.012em;
 }
 
+.cv-tagline-sub {
+  margin-top: 4px;
+  font-family: var(--font-sans);
+  font-size: clamp(14px, 1.25vw, 16px);
+  line-height: 1.65;
+  letter-spacing: 0.02em;
+  color: #566076;
+}
+
+.cv-summary {
+  margin: 20px 0 0;
+}
+
+.cv-summary h2 {
+  margin-bottom: 8px;
+}
+
+.cv-summary p {
+  margin: 0 0 8px;
+}
+
+.cv-summary p:last-child {
+  margin-bottom: 0;
+}
+
 .cv-research-note {
   margin: 8px 0 0;
   color: #525a6d;
