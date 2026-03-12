@@ -2042,6 +2042,15 @@
         musicTagPostrock: "后摇",
         musicTagPop: "流行",
         musicTagIndie: "indie",
+        musicLongIntroParagraphs: [
+          "音乐是我最早开始也是持续时间最长的创作表达方式。",
+          "我从小学习钢琴，建立了最初的听觉与和声基础，随后接触尤克里里，并在12岁开始学习小提琴。弦乐训练让我逐渐理解旋律线条与复调结构，也正是在14岁时我开始尝试基于系统学习的乐理进行原创作曲。随后我以 Distinction 完成了英皇乐理全部等级考试，这段训练也成为我后来持续写作与编曲的重要基础。",
+          "15岁起我开始独立进行自学编曲创作，将旋律发展为完整作品。16岁自学贝斯，开始深入理解低频结构与节奏骨架，17岁自学电吉他，使我能够从整体编制角度设计作品的声部关系与音色层次。",
+          "19岁开始自学混音与制作，逐渐从所谓写歌的人转变为能够完成完整音乐制作流程的创作者（即使有着许多不完美）。",
+          "在此过程中我也参与过多次合作项目：包括受邀参与专辑制作、为他人作品创作与录制贝斯声部等。对我而言音乐不仅是个人表达，也是与他人共同建构声音世界的过程。",
+          "我的个人创作往往围绕一些持续出现的意象展开。夏日的雨季、夜晚、潮湿空气中的光、以及白色夜开花植物。",
+          "这些元素逐渐构成了我作品中的情绪母题。关于时间的缓慢流动、在寂静中生长的张力、以及未言明的一切。",
+        ],
         mathPageTitle: "数学文章",
         mathIntro: "研究记录、实验笔记与结构化的思考。",
         photoPageTitle: "摄影作品集",
@@ -10275,11 +10284,7 @@
       if (musicLead) {
         musicLead.textContent = dict.musicLead;
       }
-      if (
-        safeLang === "en" &&
-        Array.isArray(dict.musicLongIntroParagraphs) &&
-        musicLongIntroNodes.length
-      ) {
+      if (Array.isArray(dict.musicLongIntroParagraphs) && musicLongIntroNodes.length) {
         musicLongIntroNodes.forEach(function (node, index) {
           if (dict.musicLongIntroParagraphs[index]) {
             node.textContent = dict.musicLongIntroParagraphs[index];
