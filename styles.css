@@ -4126,6 +4126,12 @@ audio {
   line-height: 1.7;
 }
 
+.research-project-claim {
+  color: rgba(34, 40, 52, 0.9);
+  font-size: 13px;
+  line-height: 1.72;
+}
+
 .research-project-card strong {
   color: rgba(27, 32, 41, 0.92);
   font-weight: 500;
@@ -4154,6 +4160,12 @@ audio {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.research-project-line-body--wrap {
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
 }
 
 .research-project-line--status {

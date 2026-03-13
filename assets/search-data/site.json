@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-05",
+  "generated_at": "2026-03-12",
   "scope": "site",
   "items": [
     {
@@ -32,17 +32,19 @@
       "title": "Projects / 项目",
       "url": "projects.html",
       "section": "Site",
-      "date": "2026-03-05",
-      "excerpt": "Product-style project snapshot: problem, approach, evidence, status.",
+      "date": "2026-03-12",
+      "excerpt": "A curated set of research and engineering projects with concrete artifacts for quick scanning.",
       "tags": [
         "projects",
         "research",
         "optimization",
-        "formal-methods"
+        "formal-methods",
+        "data",
+        "engineering"
       ],
-      "sort": 20260305,
+      "sort": 20260312,
       "scope": "site",
-      "content": "Projects A product-style snapshot of what I’m building: problem, approach, evidence, status. Isabelle/HOL formalising submodular greedy. Duality lower bounds diagnosis. Metalcore Piano Lab. Anti-segregation spreading system. Data analytics diagnostics. Chronohaze as personal infrastructure."
+      "content": "Selected Projects. A curated set of research and engineering projects with concrete artifacts, repos, notes, and write-ups. Formal Methods: Isabelle/HOL submodular greedy guarantees, monotone submodular maximization, cardinality constraint, classical (1 − 1/e) guarantee, reusable gap-recurrence framework, locale structure, theory files, research log, stochastic and lazy variants. Optimization Research: dual certificates that collapse under invariances, translation invariance, symmetry, trivial lower bounds, gauge-fixing, derivation note, meeting summary, benchmark comparison. Data: retention and cohort analysis from production tables, new vs returning users, D1 retention, post-k-th visit retention, inconsistent join keys, reproducible SQL, validation tables and plots, automated checks. Engineering & IP: anti-segregation aggregate spreading system, iterative parameter tuning, field feedback, IP filing, patent documentation, technical summary."
     }
   ]
 }
