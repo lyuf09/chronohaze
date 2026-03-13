@@ -116,17 +116,17 @@
             <article class="research-project-card">
               <h3>Isabelle/HOL：子模贪心算法形式化</h3>
               <p class="research-project-line"><strong>题目：</strong> <span class="research-project-line-body">在 Isabelle/HOL 中形式化验证单调子模最大化在基数约束下的经典贪心近似保证。</span></p>
-              <p class="research-project-line"><strong>方法：</strong> <span class="research-project-line-body">Isabelle/HOL、基于 locale 的组织方式、模块化证明结构，以及可复用的 lemma。</span></p>
-              <p class="research-project-line"><strong>我做了什么：</strong> <span class="research-project-line-body">我一边推进主要证明，一边整理假设与接口，使贪心构造和近似分析能够较清楚地分开组织。这个项目里很重要的一点，是希望后续相关变体可以直接建立在同一套形式化骨架上。</span></p>
+              <p class="research-project-line"><strong>方法：</strong> <span class="research-project-line-body">Isabelle/HOL、基于 locale 的组织方式、分步证明结构，以及围绕贪心步骤和近似分析整理的一组 lemma。</span></p>
+              <p class="research-project-line"><strong>我做了什么：</strong> <span class="research-project-line-body">我一边推进主要证明，一边调整假设与接口的边界，使贪心构造和近似分析能够分开组织，也让后续相关变体更容易接在同一套文件结构上。</span></p>
               <p class="research-project-line research-project-line--status"><strong>当前状态：</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">进行中。</span></span></p>
               <p class="research-project-line"><strong>相关材料：</strong> <span class="research-project-line-body"><a href="research.html">Research 页面</a> / <a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">Repository</a> / <a href="post/isabelle-submodular-greedy.html">Notes</a></span></p>
             </article>
 
             <article class="research-project-card">
               <h3>不变性下的对偶与下界</h3>
-              <p class="research-project-line"><strong>题目：</strong> <span class="research-project-line-body">研究带有图相对结构、同时具有平移不变性的距离拟合目标时，对偶与下界为什么会退化。</span></p>
-              <p class="research-project-line"><strong>方法：</strong> <span class="research-project-line-body">从 Fenchel/DC 与 Lagrangian 两条路线出发，再进一步分析下界究竟在哪一步、因为什么原因而失去信息。</span></p>
-              <p class="research-project-line"><strong>我做了什么：</strong> <span class="research-project-line-body">我重新推导并核查了主要公式，定位了退化来源，并把下一步缩小到 gauge-fixing、增广等结构修正上。</span></p>
+              <p class="research-project-line"><strong>题目：</strong> <span class="research-project-line-body">研究带有图相对结构、同时具有平移不变性的距离拟合目标时，对偶与下界为什么会退化为常数或零下界。</span></p>
+              <p class="research-project-line"><strong>方法：</strong> <span class="research-project-line-body">从 Fenchel/DC 与 Lagrangian 两条路线出发，再逐步检查是哪一个不变性让下界在消元后变成平凡结果。</span></p>
+              <p class="research-project-line"><strong>我做了什么：</strong> <span class="research-project-line-body">我重新推导并核查了主要公式，也更明确地定位了退化发生的步骤。下一步主要是测试 gauge-fixing、增广或更紧约束是否足以恢复非平凡下界。</span></p>
               <p class="research-project-line research-project-line--status"><strong>当前状态：</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">进行中。</span></span></p>
               <p class="research-project-line"><strong>相关材料：</strong> <span class="research-project-line-body"><a href="research.html">Research 页面</a> / <a href="post/spring-2026.html">Notes</a> / <a href="math.html">Archive</a></span></p>
             </article>
@@ -135,17 +135,17 @@
             <article class="research-project-card">
               <h3>Isabelle/HOL: Formalizing Submodular Greedy</h3>
               <p class="research-project-line"><strong>Topic:</strong> <span class="research-project-line-body">Formal verification of the classical greedy approximation guarantee for monotone submodular maximization under a cardinality constraint.</span></p>
-              <p class="research-project-line"><strong>Methods:</strong> <span class="research-project-line-body">Isabelle/HOL, locale-based organization, modular proof structure, and reusable lemmas.</span></p>
-              <p class="research-project-line"><strong>My work:</strong> <span class="research-project-line-body">I have been developing the formal proof while organizing the assumptions and interfaces so that the greedy construction and the approximation argument remain cleanly separated. A major goal is to make related variants easier to build on top of the same formal backbone.</span></p>
+              <p class="research-project-line"><strong>Methods:</strong> <span class="research-project-line-body">Isabelle/HOL, locale-based organization, stepwise proof structure, and supporting lemmas for the greedy step and approximation recurrence.</span></p>
+              <p class="research-project-line"><strong>My work:</strong> <span class="research-project-line-body">I have been developing the proof while adjusting the assumptions and interfaces so that the greedy construction and the approximation argument stay separate both on the page and in the theory files. The aim is to leave room for closely related variants without rewriting everything.</span></p>
               <p class="research-project-line research-project-line--status"><strong>Current status:</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">Ongoing.</span></span></p>
               <p class="research-project-line"><strong>Materials:</strong> <span class="research-project-line-body"><a href="research.html">Research page</a> / <a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">Repository</a> / <a href="post/isabelle-submodular-greedy.html">Notes</a></span></p>
             </article>
 
             <article class="research-project-card">
               <h3>Duality and Lower Bounds under Invariances</h3>
-              <p class="research-project-line"><strong>Topic:</strong> <span class="research-project-line-body">Duality and lower-bound behavior for translation-invariant distance-fitting objectives with graph-relative structure.</span></p>
-              <p class="research-project-line"><strong>Methods:</strong> <span class="research-project-line-body">Fenchel/DC and Lagrangian derivations, followed by structural diagnosis of where and why the lower bound degenerates.</span></p>
-              <p class="research-project-line"><strong>My work:</strong> <span class="research-project-line-body">I re-derived the main formulations, checked the source of the collapse, and narrowed the next step to structural modifications such as gauge-fixing or augmentation.</span></p>
+              <p class="research-project-line"><strong>Topic:</strong> <span class="research-project-line-body">Duality and lower-bound behavior for translation-invariant distance-fitting objectives with graph-relative structure, especially when the bound collapses to a trivial constant.</span></p>
+              <p class="research-project-line"><strong>Methods:</strong> <span class="research-project-line-body">Fenchel/DC and Lagrangian derivations, followed by a step-by-step diagnosis of where the collapse occurs.</span></p>
+              <p class="research-project-line"><strong>My work:</strong> <span class="research-project-line-body">I re-derived the main formulations, checked the source of the collapse, and narrowed the next step to gauge-fixing, augmentation, or tighter constraints.</span></p>
               <p class="research-project-line research-project-line--status"><strong>Current status:</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">Ongoing.</span></span></p>
               <p class="research-project-line"><strong>Materials:</strong> <span class="research-project-line-body"><a href="research.html">Research page</a> / <a href="post/spring-2026.html">Notes</a> / <a href="math.html">Archive</a></span></p>
             </article>
@@ -251,7 +251,7 @@
               <h3>Chronohaze</h3>
               <p class="research-project-line"><strong>题目：</strong> <span class="research-project-line-body">一个将研究笔记、项目材料与创作内容整理在一起的静态网站。</span></p>
               <p class="research-project-line"><strong>方法：</strong> <span class="research-project-line-body">结构化页面、稳定链接、可检索条目，以及低维护成本的静态发布。</span></p>
-              <p class="research-project-line"><strong>我做了什么：</strong> <span class="research-project-line-body">我把这个站当作一个长期归档系统来搭，而不是单纯的个人展示页；这样研究、项目与创作可以放在同一个地方，但又不会被压成同一种表达方式。</span></p>
+              <p class="research-project-line"><strong>我做了什么：</strong> <span class="research-project-line-body">我把这个站当作一个长期归档系统来搭，让研究、项目与创作能够放在同一个地方，同时又各有自己的入口和上下文。</span></p>
               <p class="research-project-line research-project-line--status"><strong>当前状态：</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">持续维护中。</span></span></p>
               <p class="research-project-line"><strong>相关材料：</strong> <span class="research-project-line-body"><a href="index.html">Site</a> / <a href="https://github.com/lyuf09/chronohaze" target="_blank" rel="noopener noreferrer">Repository</a></span></p>
             </article>
@@ -261,7 +261,7 @@
               <h3>Chronohaze</h3>
               <p class="research-project-line"><strong>Topic:</strong> <span class="research-project-line-body">A static website that keeps research notes, project materials, and creative work organized in one place.</span></p>
               <p class="research-project-line"><strong>Methods:</strong> <span class="research-project-line-body">Structured pages, stable links, searchable entries, and low-maintenance static publishing.</span></p>
-              <p class="research-project-line"><strong>My work:</strong> <span class="research-project-line-body">I built the site as a long-term archive rather than a single portfolio page, so that research, projects, and creative work can coexist without collapsing into the same kind of presentation.</span></p>
+              <p class="research-project-line"><strong>My work:</strong> <span class="research-project-line-body">I built the site as a long-term archive rather than a single portfolio page, so that research, projects, and creative work can live together while keeping different kinds of material in their own context.</span></p>
               <p class="research-project-line research-project-line--status"><strong>Current status:</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">Ongoing maintenance.</span></span></p>
               <p class="research-project-line"><strong>Materials:</strong> <span class="research-project-line-body"><a href="index.html">Site</a> / <a href="https://github.com/lyuf09/chronohaze" target="_blank" rel="noopener noreferrer">Repository</a></span></p>
             </article>

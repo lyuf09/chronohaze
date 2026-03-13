@@ -78,13 +78,13 @@
             <div data-lang-block="zh">
               <h1>研究</h1>
               <p class="research-subtitle">优化 · 形式化验证（Isabelle/HOL） · 数学建模</p>
-              <p class="research-positioning">我是一名数学本科生，目前主要在几条彼此相关的方向上工作：一是对子模贪心算法近似保证的形式化验证；二是研究带有不变性的优化模型中，对偶与下界为什么会失去信息，以及怎样把这种信息恢复回来；三是做一些小型计算原型，把连续信号转成离散结构，并把其中的假设明确写出来。</p>
+              <p class="research-positioning">我是一名数学本科生，目前主要在几条彼此相关的方向上工作：一是对子模贪心算法近似保证的形式化验证；二是研究带有不变性的优化模型中，对偶与下界为什么会失去信息，以及怎样把这种信息恢复回来；三是做一些小型计算原型，把连续信号转成离散结构，并把其中的建模假设和失效模式写出来。</p>
               <p class="research-positioning">这里先给出一个简要概览；更长的技术笔记、仓库和项目材料都在下方链接中。</p>
             </div>
             <div data-lang-block="en" hidden>
               <h1>Research</h1>
               <p class="research-subtitle">Optimization · Formal Verification (Isabelle/HOL) · Mathematical Modeling</p>
-              <p class="research-positioning">I am an undergraduate mathematics student currently working across several connected directions: formal verification of approximation guarantees for submodular greedy algorithms, duality and lower-bound questions in optimization models with invariances, and small computational prototypes that turn continuous signals into discrete structures with explicit assumptions.</p>
+              <p class="research-positioning">I am an undergraduate mathematics student currently working across several connected directions: formal verification of approximation guarantees for submodular greedy algorithms, duality and lower-bound questions in optimization models with invariances, and small computational prototypes that turn continuous signals into discrete structures while keeping track of their modeling assumptions and failure modes.</p>
               <p class="research-positioning">This page gives a concise overview of what I am currently working on. Longer technical notes, repositories, and project materials are linked below.</p>
             </div>
           </div>
@@ -93,7 +93,7 @@
               <h2>研究兴趣</h2>
               <ul>
                 <li>优化<br />我关注对偶、下界、一阶结构与数学建模，尤其在平移不变性、对称性或可识别性问题会直接影响模型表达能力的时候，这类问题会更吸引我。</li>
-                <li>形式化验证<br />我使用 Isabelle/HOL 形式化数学论证，重点不仅在于“证明出来”，也在于如何组织 proof structure、reusable interfaces、locales，以及怎样让整个 development 能够自然扩展，而不是只服务于单个定理。</li>
+                <li>形式化验证<br />我使用 Isabelle/HOL 形式化数学论证。除了把定理证出来，我也关心假设怎样打包、lemma 怎样复用，以及一个 development 如何支持后续变体，而不只停在单个结论上。</li>
                 <li>子模算法<br />我尤其关注单调子模最大化中的贪心算法、它们的近似保证，以及这些近似分析如何在机器检验环境下被组织成清晰、可复用的形式。</li>
                 <li>建模与结构<br />更广义地说，我对这样的问题很感兴趣：一个数学模型在真正面对对称性、不变性、近似需求或实现约束时，会发生怎样的结构变化。</li>
               </ul>
@@ -102,7 +102,7 @@
               <h2>Research Interests</h2>
               <ul>
                 <li>Optimization<br />I am interested in duality, lower bounds, first-order structure, and mathematical modeling, especially when invariances or identifiability issues affect what can actually be recovered from a formulation.</li>
-                <li>Formal Verification<br />I use Isabelle/HOL to formalize mathematical arguments with an emphasis on proof structure, reusable interfaces, locales, and developments that can be extended beyond a single theorem statement.</li>
+                <li>Formal Verification<br />I use Isabelle/HOL to formalize mathematical arguments. Besides proving the theorem itself, I care about how assumptions are packaged, how lemmas are reused, and how a development can support later variants instead of stopping at one statement.</li>
                 <li>Submodular Algorithms<br />I am especially interested in greedy algorithms for monotone submodular maximization, their approximation guarantees, and how those guarantees can be organized formally in a machine-checked setting.</li>
                 <li>Modeling and Structure<br />More broadly, I am interested in how a mathematical formulation changes once it is forced to face symmetry, invariance, approximation, or implementation constraints.</li>
               </ul>
@@ -122,8 +122,8 @@
             <article class="research-project-card">
               <h3>Isabelle/HOL：子模贪心算法形式化</h3>
               <p class="research-project-line"><strong>问题：</strong> <span class="research-project-line-body">在 Isabelle/HOL 中形式化验证：单调子模最大化在基数约束下，贪心算法满足经典的 (1 - 1/e) 近似保证。</span></p>
-              <p class="research-project-line"><strong>方法：</strong> <span class="research-project-line-body">使用 Isabelle/HOL、基于 locale 的组织方式、分步证明结构，以及把贪心构造与近似分析分开的模块化接口。</span></p>
-              <p class="research-project-line"><strong>目前做了什么：</strong> <span class="research-project-line-body">我正在搭建主要的形式化证明，同时也在整理假设、lemma 与接口，使后续相关贪心变体能够尽量复用同一套结构，而不是从头重写。</span></p>
+              <p class="research-project-line"><strong>方法：</strong> <span class="research-project-line-body">使用 Isabelle/HOL、基于 locale 的组织方式、分步证明结构，以及把贪心步骤和近似递推尽量分开处理。</span></p>
+              <p class="research-project-line"><strong>目前做了什么：</strong> <span class="research-project-line-body">我正在搭建主要的形式化证明，同时也在反复调整假设、lemma 与接口的边界，看看哪些部分能够在相关贪心变体里直接沿用。</span></p>
               <p class="research-project-line research-project-line--status"><strong>当前状态：</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">进行中。</span></span></p>
               <div class="research-link-row">
                 <a href="post/isabelle-submodular-greedy.html">Note</a>
@@ -135,8 +135,8 @@
             <article class="research-project-card">
               <h3>不变性下的对偶与下界</h3>
               <p class="research-project-line"><strong>问题：</strong> <span class="research-project-line-body">对于某些由图上的相对差分定义出的距离拟合目标，自然写出的对偶形式会因为平移不变性或相关的不可识别性而退化，最终只能给出无信息的下界。</span></p>
-              <p class="research-project-line"><strong>方法：</strong> <span class="research-project-line-body">比较 Fenchel/DC 与 Lagrangian 两条路线，并进一步分析：退化究竟发生在哪里，以及需要加入什么额外结构或修正之后，才能让对偶重新变得有信息。</span></p>
-              <p class="research-project-line"><strong>目前做了什么：</strong> <span class="research-project-line-body">我已经重新推导并核查了几条主要路线，也更明确地看清楚了平凡下界出现的原因。接下来主要会集中在 gauge-fixing、增广或其他结构修正上。</span></p>
+              <p class="research-project-line"><strong>方法：</strong> <span class="research-project-line-body">比较 Fenchel/DC 与 Lagrangian 两条路线，并逐步检查：是哪个不变性让消元后的下界变成平凡结果，以及加入什么约束后情况会改变。</span></p>
+              <p class="research-project-line"><strong>目前做了什么：</strong> <span class="research-project-line-body">我已经把几条主要推导路线重新走通，也比较清楚地看到平凡下界是在哪一步出现的。下一步会继续测试 gauge-fixing、增广或更紧约束是否足以恢复非平凡下界。</span></p>
               <p class="research-project-line research-project-line--status"><strong>当前状态：</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">进行中。</span></span></p>
               <div class="research-link-row">
                 <a href="post/spring-2026.html">Note</a>
@@ -163,8 +163,8 @@
             <article class="research-project-card">
               <h3>Isabelle/HOL: Formalizing Submodular Greedy</h3>
               <p class="research-project-line"><strong>Problem:</strong> <span class="research-project-line-body">Formally verify the classical greedy (1 - 1/e) approximation guarantee for monotone submodular maximization under a cardinality constraint.</span></p>
-              <p class="research-project-line"><strong>Methods:</strong> <span class="research-project-line-body">Isabelle/HOL, locale-based organization, stepwise proof structure, and modular interfaces between greedy construction and approximation arguments.</span></p>
-              <p class="research-project-line"><strong>What I have done so far:</strong> <span class="research-project-line-body">I have been building the main formal development while also organizing assumptions, lemmas, and interfaces so that related greedy variants can reuse the same structure instead of starting from scratch.</span></p>
+              <p class="research-project-line"><strong>Methods:</strong> <span class="research-project-line-body">Isabelle/HOL, locale-based organization, stepwise proof structure, and a split between the greedy step and the approximation recurrence.</span></p>
+              <p class="research-project-line"><strong>What I have done so far:</strong> <span class="research-project-line-body">I have been building the main formal development while also adjusting the boundary between assumptions, lemmas, and interfaces so that closely related greedy variants do not have to start over.</span></p>
               <p class="research-project-line research-project-line--status"><strong>Current status:</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">Ongoing.</span></span></p>
               <div class="research-link-row">
                 <a href="post/isabelle-submodular-greedy.html">Note</a>
@@ -175,9 +175,9 @@
 
             <article class="research-project-card">
               <h3>Duality and Lower Bounds under Invariances</h3>
-              <p class="research-project-line"><strong>Problem:</strong> <span class="research-project-line-body">For certain distance-fitting objectives defined through graph-relative differences, natural dual formulations may collapse because of translation invariance or related non-identifiability.</span></p>
-              <p class="research-project-line"><strong>Methods:</strong> <span class="research-project-line-body">Comparison of Fenchel/DC and Lagrangian routes, followed by structural analysis of where the degeneration comes from and what extra constraints or modifications may be needed.</span></p>
-              <p class="research-project-line"><strong>What I have done so far:</strong> <span class="research-project-line-body">I have worked through the main derivations, clarified why the trivial lower bound appears, and narrowed the next step to structural fixes such as gauge-fixing or augmentation.</span></p>
+              <p class="research-project-line"><strong>Problem:</strong> <span class="research-project-line-body">For certain distance-fitting objectives defined through graph-relative differences, natural dual formulations may collapse to trivial constant bounds because of translation invariance or related non-identifiability.</span></p>
+              <p class="research-project-line"><strong>Methods:</strong> <span class="research-project-line-body">Comparison of Fenchel/DC and Lagrangian routes, with attention to exactly which invariance causes the collapse and what added constraint changes the picture.</span></p>
+              <p class="research-project-line"><strong>What I have done so far:</strong> <span class="research-project-line-body">I have worked through the main derivations, identified where the trivial bound appears, and narrowed the next step to gauge-fixing, augmentation, or tighter constraints.</span></p>
               <p class="research-project-line research-project-line--status"><strong>Current status:</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">Ongoing.</span></span></p>
               <div class="research-link-row">
                 <a href="post/spring-2026.html">Note</a>
@@ -237,7 +237,7 @@
             <ul>
               <!-- GENERATED:research-now:start -->
               <li>一个下界究竟是在什么时候因为不变性而失去信息？又需要多小的结构修正，才足以把有用的信息恢复回来？</li>
-              <li>怎样组织 Isabelle development，才能让它不只是证明一个定理，而是真的能够自然支持后续变体？</li>
+              <li>怎样组织 Isabelle development，才能让它不只是证明一个定理，而是真的能够比较自然地支持后续变体？</li>
               <li>当离散化输出既要可玩、可理解，又不能只是“算法上勉强成立”时，应该如何评估它的质量？</li>
               <!-- GENERATED:research-now:end -->
             </ul>
