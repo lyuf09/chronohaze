@@ -8082,3 +8082,100 @@ body {
     grid-column: 1 / -1;
   }
 }
+
+/* Final mobile readability pass */
+@media (max-width: 760px) {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  :root {
+    --type-body-size: 15.5px;
+    --type-body-line: 1.78;
+    --type-caption-size: 11.5px;
+  }
+
+  .container {
+    padding: 0 max(18px, calc(14px + var(--safe-right))) 0 max(18px, calc(14px + var(--safe-left)));
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  .page-title,
+  .section-title,
+  .hero-card h2,
+  .research-page .research-hero-title,
+  .music-index-page .music-featured-item-title,
+  .music-index-page .track-title,
+  .music-album-page .album-cover-main h1,
+  .music-detail-page .page-title,
+  .search-index-page .search-result-title {
+    text-wrap: wrap;
+    overflow-wrap: break-word;
+  }
+
+  p,
+  li,
+  .lead,
+  .footer-note,
+  .page-head p,
+  .music-index-page .music-intro-text p,
+  .music-index-page .music-featured-item-copy,
+  .music-detail-article p,
+  .music-detail-article li,
+  .music-detail-article .lyrics-text,
+  .photo-index-page .photo-section-lead,
+  .photo-index-page .photo-intro-text p,
+  .research-page .research-positioning,
+  .research-page .research-intro-copy,
+  .research-page .research-card-copy,
+  .research-page .research-output-copy,
+  .cv-policy p,
+  .search-index-page .search-result-excerpt {
+    text-wrap: wrap;
+    word-break: normal;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+
+  .policy,
+  .research-page .research-hero-copy,
+  .research-page .research-hero-panel,
+  .research-project-card,
+  .research-fast-link,
+  .cv-highlight-card,
+  .cv-utility-bar,
+  .search-index-page .search-result-link,
+  .music-index-page .track-row,
+  .math-index-page .math-card,
+  .photo-index-page .photo-feature-card,
+  .music-album-page .album-main,
+  .music-detail-section {
+    padding-left: clamp(16px, 4.4vw, 20px);
+    padding-right: clamp(16px, 4.4vw, 20px);
+  }
+
+  .music-index-page .music-featured-meta,
+  .research-link-row,
+  .search-index-page .search-result-meta,
+  .cv-toc,
+  .player-support {
+    gap: 8px;
+  }
+
+  .music-index-page .track-tags,
+  .music-index-page .music-ia-tabs,
+  .music-index-page .music-ia-filters {
+    gap: 8px;
+  }
+
+  .music-index-page .track-row,
+  .search-index-page .search-result-link,
+  .research-project-card,
+  .cv-highlight-card {
+    border-radius: 14px;
+  }
+}
