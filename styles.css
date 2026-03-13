@@ -8058,7 +8058,7 @@ body {
 }
 
 .player-shell[data-audio-state="ready"] .player-status {
-  color: rgba(53, 92, 61, 0.72);
+  display: none;
 }
 
 .player-shell[data-audio-state="error"] .player-status {
