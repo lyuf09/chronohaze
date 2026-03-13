@@ -7090,6 +7090,14 @@ body {
   border-radius: 0;
 }
 
+/* Keep featured photo cards fully square */
+.photo-index-page .photo-feature-card,
+.photo-index-page .photo-feature-link,
+.photo-index-page .photo-feature-card img,
+.photo-index-page .photo-feature-meta {
+  border-radius: 0;
+}
+
 .music-index-page .track-row:hover,
 .math-index-page .math-card:hover,
 .photo-index-page .photo-feature-card:hover,
