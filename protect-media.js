@@ -10204,7 +10204,8 @@
     });
 
     Array.from(document.querySelectorAll(".footer-note")).forEach(function (note) {
-      var mail = note.querySelector("a[href^='mailto:']");
+      var mail =
+        note.querySelector("a[data-email-link='1']") || note.querySelector("a[href^='mailto:']");
       if (mail) {
         var cloned = mail.cloneNode(true);
         note.textContent = "";
