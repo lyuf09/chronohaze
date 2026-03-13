@@ -4359,6 +4359,10 @@ audio {
   gap: 14px;
 }
 
+.projects-page .research-project-grid > [data-lang-block]:not([hidden]) {
+  display: contents;
+}
+
 .projects-page .research-project-card {
   padding: 16px 16px 14px;
   border-radius: 16px;
