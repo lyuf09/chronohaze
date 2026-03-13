@@ -79,6 +79,10 @@
                 <div class="player-track"><span id="playerProgress"></span></div>
               </div>
               <p class="player-time" id="playerTime">00:00 / 00:00</p>
+              <div class="player-support" id="playerSupport">
+                <span class="player-status" id="playerStatus">准备音频…</span>
+                <a class="player-fallback-link" id="playerFallbackLink" href="music/track-04.html" hidden>去音乐页试听</a>
+              </div>
               <audio
                 id="heroAudio"
                 preload="metadata"
@@ -228,6 +232,8 @@
       const progress = document.getElementById('playerProgress');
       const timeLabel = document.getElementById('playerTime');
       const playerShell = document.getElementById('playerShell');
+      const playerStatus = document.getElementById('playerStatus');
+      const playerFallbackLink = document.getElementById('playerFallbackLink');
       const langButtons = Array.from(document.querySelectorAll('.lang-btn[data-lang]'));
       const mathCards = Array.from(document.querySelectorAll('.math-grid article[data-post-url]'));
       const revealNodes = Array.from(document.querySelectorAll('[data-reveal]'));
@@ -259,10 +265,17 @@
         en: 'Main page | Chronohaze'
       };
 
+      let currentLang = 'zh';
+
       const i18n = {
         zh: {
           menuOpenAria: '菜单 [ + ]',
           audioToggleAria: '播放 / 暂停',
+          playerStatusLoading: '准备音频…',
+          playerStatusReady: '可播放',
+          playerStatusError: '当前设备/网络下暂不可播',
+          playerFallbackLink: '去音乐页试听',
+          playerUnavailableTitle: '当前设备或网络下无法直接播放，可前往音乐页试听。',
           drawerAria: '站点菜单',
           heroTitle: '起点',
           heroIntro: '欢迎来到 CHRONOHAZE.SPACE。<br />时间的薄雾中，理性与浪漫交织。<br />数学、音乐、光影、与时间。<br />一段轨迹，一个宇宙。',
@@ -313,6 +326,11 @@
         en: {
           menuOpenAria: 'Menu [ + ]',
           audioToggleAria: 'Play / Pause',
+          playerStatusLoading: 'Preparing audio…',
+          playerStatusReady: 'Ready to play',
+          playerStatusError: 'Playback unavailable on this device/network',
+          playerFallbackLink: 'Open track page',
+          playerUnavailableTitle: 'Playback is unavailable on this device or network. Open the track page instead.',
           drawerAria: 'Menu',
           heroTitle: 'Origin',
           heroIntro: 'Welcome to Chronohaze.space.<br />In the haze of time, reason intertwines with romance.<br />Mathematics, music, light, and time.<br />A single trajectory, a universe of its own.',
@@ -369,9 +387,32 @@
         openBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
       }
 
+      function getPlayerDict() {
+        return i18n[currentLang] || i18n.zh;
+      }
+
+      function setPlayerState(state) {
+        if (!playerShell || !playerStatus) return;
+        const dict = getPlayerDict();
+        const nextState = state || 'loading';
+        playerShell.dataset.audioState = nextState;
+        playerShell.classList.toggle('is-audio-unavailable', nextState === 'error');
+        playerStatus.textContent = nextState === 'error'
+          ? dict.playerStatusError
+          : nextState === 'ready'
+            ? dict.playerStatusReady
+            : dict.playerStatusLoading;
+        if (playerFallbackLink) {
+          playerFallbackLink.hidden = nextState !== 'error';
+          playerFallbackLink.textContent = dict.playerFallbackLink;
+        }
+        playerShell.setAttribute('title', nextState === 'error' ? dict.playerUnavailableTitle : '');
+      }
+
       function setLanguage(lang) {
         const safeLang = lang === 'en' ? 'en' : 'zh';
         const dict = i18n[safeLang];
+        currentLang = safeLang;
 
         document.documentElement.lang = safeLang === 'en' ? 'en' : 'zh-CN';
         document.title = titleByLang[safeLang];
@@ -400,6 +441,8 @@
           btn.classList.toggle('active', isActive);
           btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
         });
+
+        setPlayerState(playerShell && playerShell.dataset.audioState ? playerShell.dataset.audioState : 'loading');
 
         try {
           window.localStorage.setItem('chronohaze-lang', safeLang);
@@ -498,12 +541,27 @@
         progress.style.width = (ratio * 100).toFixed(2) + '%';
         timeLabel.textContent = fmt(audio.currentTime) + ' / ' + fmt(duration);
         toggle.textContent = audio.paused ? '▶' : '▮▮';
+        if (audio.error) {
+          setPlayerState('error');
+          return;
+        }
+        if ((Number.isFinite(audio.duration) && audio.duration > 0) || audio.readyState >= 2) {
+          setPlayerState('ready');
+        } else {
+          setPlayerState('loading');
+        }
       }
 
       toggle.addEventListener('click', function () {
         if (toggle.disabled) return;
         if (audio.paused) {
-          audio.play();
+          setPlayerState('loading');
+          const playPromise = audio.play();
+          if (playPromise && typeof playPromise.catch === 'function') {
+            playPromise.catch(function () {
+              syncPlayer();
+            });
+          }
         } else {
           audio.pause();
         }
@@ -524,10 +582,7 @@
         toggle.disabled = true;
         toggle.setAttribute('aria-disabled', 'true');
         toggle.textContent = '·';
-        if (playerShell) {
-          playerShell.classList.add('is-audio-unavailable');
-          playerShell.setAttribute('title', 'Audio unavailable on this device/network. Open the track page from 音乐作品集.');
-        }
+        setPlayerState('error');
       });
 
       let initialLang = 'zh';
@@ -539,6 +594,7 @@
       } catch (err) {
       }
 
+      setPlayerState('loading');
       setLanguage(initialLang);
       syncPlayer();
 
