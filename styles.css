@@ -8179,3 +8179,226 @@ body {
     border-radius: 14px;
   }
 }
+
+@media (max-width: 480px) {
+  :root {
+    --touch-target: 44px;
+  }
+
+  .container {
+    padding: 0 max(20px, calc(16px + var(--safe-right))) 0 max(20px, calc(16px + var(--safe-left)));
+  }
+
+  .cv-page .cv-utility-top {
+    gap: 10px;
+  }
+
+  .cv-page .cv-lang-tab,
+  .cv-page .cv-research-link,
+  .cv-page .cv-toc-link,
+  .projects-page .research-hero-panel a,
+  .research-page .research-link-row a,
+  .projects-page .research-link-row a,
+  .music-index-page .music-ia-tab,
+  .search-index-page .search-share-btn,
+  .music-player-nav-link,
+  .music-detail-back,
+  .music-album-page .album-back-link {
+    min-height: var(--touch-target);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cv-page .cv-lang-tab {
+    min-width: 48px;
+    padding: 0 14px;
+  }
+
+  .cv-page .cv-research-link {
+    padding: 0 14px;
+  }
+
+  .cv-page .cv-toc {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    gap: 10px;
+  }
+
+  .cv-page .cv-toc-link {
+    width: 100%;
+    padding: 0 12px;
+    font-size: 12px;
+    letter-spacing: 0.02em;
+  }
+
+  .projects-page .research-hero-panel a {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .music-index-page .music-ia-controls {
+    gap: 12px;
+  }
+
+  .music-index-page .music-ia-tabs {
+    gap: 8px;
+  }
+
+  .music-index-page .music-ia-tab {
+    padding: 0 14px;
+    font-size: 12.5px;
+  }
+
+  .music-index-page .music-ia-filter {
+    gap: 6px;
+  }
+
+  .music-index-page .music-ia-filter-label,
+  .search-index-page .search-field-label {
+    font-size: 10.5px;
+    letter-spacing: 0.07em;
+  }
+
+  .music-index-page .music-ia-filter-select,
+  .search-index-page #site-search-input,
+  .search-index-page #site-search-scope,
+  .search-index-page #site-search-tag,
+  .search-index-page .search-submit {
+    min-height: 46px;
+    padding-top: 11px;
+    padding-bottom: 11px;
+  }
+
+  .search-index-page .search-form {
+    gap: 12px;
+  }
+
+  .search-index-page .search-field {
+    gap: 8px;
+  }
+
+  .search-index-page .search-status-row {
+    gap: 8px;
+  }
+
+  .search-index-page .search-share-tools {
+    width: 100%;
+    gap: 10px;
+  }
+
+  .search-index-page .search-share-btn {
+    padding: 0 12px;
+    font-size: 11px;
+  }
+
+  .search-index-page .search-result-link {
+    padding: 14px 14px 12px;
+    gap: 8px;
+  }
+
+  .search-index-page .search-result-title {
+    line-height: 1.08;
+  }
+
+  .research-page .research-hero {
+    padding-top: 24px;
+  }
+
+  .research-page .research-hero-panel li {
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+  }
+
+  .research-page .research-link-row,
+  .projects-page .research-link-row {
+    gap: 10px;
+  }
+
+  .research-page .research-link-row a,
+  .projects-page .research-link-row a {
+    padding: 0 12px;
+    border-radius: 10px;
+  }
+
+  .music-album-page .album-track-link {
+    min-height: 64px;
+    gap: 12px;
+    padding: 12px;
+    align-items: center;
+  }
+
+  .music-album-page .album-track-name {
+    line-height: 1.2;
+  }
+
+  .music-detail-article {
+    padding-top: 28px;
+  }
+
+  .music-detail-meta {
+    line-height: 1.72;
+  }
+
+  .music-player-row {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 12px;
+    align-items: center;
+  }
+
+  .music-player-play {
+    width: 34px;
+    height: 34px;
+    font-size: 20px;
+  }
+
+  .music-player-scrubber {
+    height: 4px;
+  }
+
+  .music-player-scrubber::-webkit-slider-thumb {
+    width: 14px;
+    height: 14px;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.78);
+  }
+
+  .music-player-scrubber::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.78);
+  }
+
+  .music-player-time {
+    margin-top: 6px;
+    font-size: 12px;
+  }
+
+  .music-player-nav {
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .music-player-nav-link {
+    font-size: 12px;
+  }
+
+  .floating-lang-switch {
+    top: max(14px, calc(var(--safe-top) + 10px));
+    right: max(14px, calc(var(--safe-right) + 12px));
+  }
+
+  .floating-lang-btn {
+    min-width: 48px;
+    height: 30px;
+    padding: 0 12px;
+    font-size: 12px;
+  }
+}
+
+@media only screen and (min-width: 390px) and (max-width: 430px) and (orientation: portrait) {
+  .container {
+    padding-left: max(20px, calc(16px + var(--safe-left)));
+    padding-right: max(20px, calc(16px + var(--safe-right)));
+  }
+}
