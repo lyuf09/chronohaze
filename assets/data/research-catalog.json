@@ -1,64 +1,49 @@
 {
   "hero": {
-    "eyebrow": "Research",
-    "name": "Fay Lyu (HazezZ)",
-    "subtitle": "Optimization · Formal Verification (Isabelle/HOL) · Mathematical Modeling",
-    "positioning": "Current work includes (i) Isabelle/HOL formalization of greedy guarantees for monotone submodular maximization, (ii) duality / lower-bound diagnostics for objectives with invariances (translation / non-identifiability), and (iii) small prototypes that turn signal-like inputs into discrete, checkable structure. This page is a quick faculty entry; see Projects for evidence/demos and CV for application-facing experience.",
-    "chips": [
-      "Optimization",
-      "Formal Methods",
-      "Game Theory",
-      "Submodularity",
-      "Isabelle/HOL",
-      "Data Analytics",
-      "Engineering Systems"
-    ]
+    "eyebrow": "",
+    "name": "研究",
+    "subtitle": "优化 · 形式化验证（Isabelle/HOL） · 数学建模",
+    "positioning": "我是一名数学本科生，目前主要在几条彼此相关的方向上工作：一是对子模贪心算法近似保证的形式化验证；二是研究带有不变性的优化模型中，对偶与下界为什么会失去信息，以及怎样把这种信息恢复回来；三是做一些小型计算原型，把连续信号转成离散结构，并把其中的假设明确写出来。",
+    "chips": []
   },
   "meta": {
     "items": [
       {
         "label": "Last updated",
-        "value": "2026-03-12 · 08:25 PM ET",
-        "datetime": "2026-03-12T20:25:01-04:00",
+        "value": "2026-03-12 · 09:21 PM ET",
+        "datetime": "2026-03-12T21:21:06-04:00",
         "timezone": "America/New_York",
         "date_only": "2026-03-12",
         "display_format": "YYYY-MM-DD · hh:mm A ET"
-      },
-      {
-        "label": "Current focus",
-        "value": "Duality / lower bounds / first-order structure",
-        "datetime": ""
-      },
-      {
-        "label": "Outputs",
-        "value": "2 repos · 1 notes · 1 in prep",
-        "datetime": ""
       }
     ]
   },
   "interests": {
-    "title": "Research interests (current)",
+    "title": "研究兴趣",
     "items": [
-      "Optimization: duality, lower bounds, first-order structure, and modeling under invariances.",
-      "Formal methods: Isabelle/HOL proof engineering (locales, interfaces, reusable lemmas).",
-      "Submodular algorithms: greedy variants, oracle interfaces, and cost-aware proof structure.",
-      "Game/strategic models as a language for structure (when useful for optimization framing).",
-      "Prototypes: signal-to-structure pipelines with explicit assumptions and failure modes."
+      "优化 我关注对偶、下界、一阶结构与数学建模，尤其在平移不变性、对称性或可识别性问题会直接影响模型表达能力的时候，这类问题会更吸引我。",
+      "形式化验证 我使用 Isabelle/HOL 形式化数学论证，重点不仅在于“证明出来”，也在于如何组织 proof structure、reusable interfaces、locales，以及怎样让整个 development 能够自然扩展，而不是只服务于单个定理。",
+      "子模算法 我尤其关注单调子模最大化中的贪心算法、它们的近似保证，以及这些近似分析如何在机器检验环境下被组织成清晰、可复用的形式。",
+      "建模与结构 更广义地说，我对这样的问题很感兴趣：一个数学模型在真正面对对称性、不变性、近似需求或实现约束时，会发生怎样的结构变化。",
+      "Optimization I am interested in duality, lower bounds, first-order structure, and mathematical modeling, especially when invariances or identifiability issues affect what can actually be recovered from a formulation.",
+      "Formal Verification I use Isabelle/HOL to formalize mathematical arguments with an emphasis on proof structure, reusable interfaces, locales, and developments that can be extended beyond a single theorem statement.",
+      "Submodular Algorithms I am especially interested in greedy algorithms for monotone submodular maximization, their approximation guarantees, and how those guarantees can be organized formally in a machine-checked setting.",
+      "Modeling and Structure More broadly, I am interested in how a mathematical formulation changes once it is forced to face symmetry, invariance, approximation, or implementation constraints."
     ]
   },
   "projects_section": {
-    "title": "Current Projects (3 entry points)",
-    "lead": "Editorial summary cards: problem, method, contribution, status, and links. Longer technical context lives in the notes."
+    "title": "当前工作",
+    "lead": ""
   },
   "projects": [
     {
-      "kind": "Formal Methods · Submodular Optimization",
-      "title": "An Ongoing Isabelle Research Project: Formalising Submodular Greedy",
-      "problem": "Machine-check the classical greedy (1−1/e) guarantee for monotone submodular maximization under a cardinality constraint.",
-      "method": "Build a reusable Isabelle/HOL development (locales + step-spec interfaces), separating constructive algorithm structure from approximation analysis.",
-      "status": "Active",
+      "kind": "",
+      "title": "Isabelle/HOL：子模贪心算法形式化",
+      "problem": "",
+      "method": "",
+      "status": "进行中。",
       "current_status": "",
-      "contribution": "A proof skeleton that scales to variants (e.g., LazyGreedy/StochasticGreedy) and keeps assumptions explicit and reusable.",
+      "contribution": "",
       "links": [
         {
           "href": "post/isabelle-submodular-greedy.html",
@@ -67,7 +52,7 @@
         },
         {
           "href": "projects.html#projects-research-formal",
-          "label": "Evidence",
+          "label": "Projects",
           "external": false
         },
         {
@@ -82,13 +67,13 @@
       "status_display": "Active"
     },
     {
-      "kind": "Optimization Research · Duality / Lower Bounds",
-      "title": "Spring 2026 | Duality under Invariances (Cornell ORIE)",
-      "problem": "Find nontrivial lower bounds for a graph-relative-difference distance-fitting objective where natural formulations can collapse due to translation invariance / non-identifiability.",
-      "method": "Diagnose degeneracy first (what makes the dual trivial), then add structure (gauge-fixing / tighter constraints / augmentation) before choosing a dualization route (Fenchel/DC vs. Lagrangian).",
-      "status": "Active",
+      "kind": "",
+      "title": "不变性下的对偶与下界",
+      "problem": "",
+      "method": "",
+      "status": "进行中。",
       "current_status": "",
-      "contribution": "A structure-first roadmap: when/why bounds collapse, plus candidate fixes that restore informative dual signals.",
+      "contribution": "",
       "links": [
         {
           "href": "post/spring-2026.html",
@@ -97,7 +82,7 @@
         },
         {
           "href": "projects.html#projects-research-formal",
-          "label": "Evidence",
+          "label": "Projects",
           "external": false
         },
         {
@@ -112,13 +97,13 @@
       "status_display": "Active"
     },
     {
-      "kind": "Signal / Discretization Prototype · Data-oriented Systems",
-      "title": "Metalcore Piano Lab | From Audio to Chart (WIP)",
-      "problem": "Map continuous audio (or MIDI) into a playable rhythm-game chart as a discretization problem with constraints.",
-      "method": "Onset/beat detection, tempo tracking, segmentation/alignment, then playability-oriented constraints and evaluation targets.",
-      "status": "Active / WIP",
+      "kind": "",
+      "title": "Metalcore Piano Lab｜从音频 / MIDI 到谱面（WIP）",
+      "problem": "",
+      "method": "",
+      "status": "开发中。",
       "current_status": "",
-      "contribution": "A browser-native prototype + notes that document assumptions, failure modes, and next-step heuristics.",
+      "contribution": "",
       "links": [
         {
           "href": "post/metalcore-piano-lab.html",
@@ -127,7 +112,7 @@
         },
         {
           "href": "projects.html#projects-prototype",
-          "label": "Evidence",
+          "label": "Projects",
           "external": false
         },
         {
@@ -138,126 +123,22 @@
       ],
       "status_key": "active",
       "status_label": "Active",
-      "status_detail": "WIP",
-      "status_display": "Active · WIP"
-    }
-  ],
-  "outputs_section": {
-    "title": "Research Outputs (by type)",
-    "lead": "Repos, notes, and in-progress materials organized for quick scanning before deeper reading."
-  },
-  "outputs": [
-    {
-      "href": "https://github.com/lyuf09/isabelle-submodular-greedy/tree/main",
-      "external": true,
-      "type": "repo",
-      "kicker": "Formal Methods",
-      "title": "Isabelle Submodular Greedy (repo)",
-      "status": "Active",
-      "description": "Theory files, constructive/approximation split, and reusable lemmas for submodular greedy formalization.",
-      "status_key": "active",
-      "status_label": "Active",
       "status_detail": "",
       "status_display": "Active"
-    },
-    {
-      "href": "https://github.com/lyuf09/metalcore-piano-lab",
-      "external": true,
-      "type": "repo",
-      "kicker": "Prototype",
-      "title": "Metalcore Piano Lab (repo)",
-      "status": "In prep",
-      "description": "Browser-native prototype turning audio/MIDI into playable chart structures, with explicit failure modes and next steps.",
-      "status_key": "in_prep",
-      "status_label": "In prep",
-      "status_detail": "",
-      "status_display": "In prep"
-    },
-    {
-      "href": "math.html",
-      "external": false,
-      "type": "notes",
-      "kicker": "Research Notes",
-      "title": "Math / Research Archive",
-      "status": "Active",
-      "description": "Optimization notes, Isabelle formalization logs, and ongoing research records with technical context.",
-      "status_key": "active",
-      "status_label": "Active",
-      "status_detail": "",
-      "status_display": "Active"
-    },
-    {
-      "href": "research-summary.html",
-      "external": true,
-      "type": "in_prep",
-      "kicker": "Faculty Summary",
-      "title": "1-page research summary (PDF-ready)",
-      "status": "Draft",
-      "description": "One-page overview of interests, current projects, methods, and entry links for faculty/PhD readers.",
-      "status_key": "draft",
-      "status_label": "Draft",
-      "status_detail": "",
-      "status_display": "Draft"
     }
   ],
-  "now_section": {
-    "title": "What I’m Currently Thinking About",
-    "lead": "Questions and themes I’m actively using to steer reading, proof work, and modeling choices."
-  },
-  "now_items": [
-    "How to restore informative lower bounds under invariances: gauge-fixing vs. augmentation (e.g., augmented Lagrangian / ADMM-style structure).",
-    "How to make Isabelle proofs scale: interface design (locales), step-spec patterns, and reusable lemma libraries.",
-    "When a relaxation is “too loose”: minimal structural constraints that recover signal without breaking tractability.",
-    "How to evaluate discretization quality: objective proxies + constraint design for playability and interpretability.",
-    "How to keep research artifacts legible: short entry points + evidence links (notes/repos) without repeating the CV."
-  ],
-  "links_section": {
-    "title": "Selected Links (1-page entry)",
-    "lead": "Research-first entry points; the CV page carries application-facing experience and engineering summaries."
-  },
-  "links": [
-    {
-      "href": "cv.html?lang=en",
-      "external": false,
-      "kicker": "CV",
-      "title": "Public CV (application-facing)",
-      "description": "Experience, highlights, patent/system summaries, and contact-safe overview."
-    },
-    {
-      "href": "https://github.com/lyuf09",
-      "external": true,
-      "kicker": "Code",
-      "title": "GitHub",
-      "description": "Research code, prototypes, and technical repositories."
-    },
-    {
-      "href": "math.html",
-      "external": false,
-      "kicker": "Notes",
-      "title": "Math / Research Notes",
-      "description": "Optimization, Isabelle formalization, and experimental logs."
-    },
-    {
-      "href": "projects.html",
-      "external": false,
-      "kicker": "Projects",
-      "title": "Evidence-first project map",
-      "description": "Repos, notes, demos, and shipped work grouped by track."
-    },
-    {
-      "href": "research-summary.html",
-      "external": true,
-      "kicker": "Faculty view",
-      "title": "1-page research summary (PDF-ready)",
-      "description": "Print/export-friendly summary for quick faculty review before opening notes/repos."
-    }
-  ],
+  "outputs_section": {},
+  "outputs": [],
+  "now_section": {},
+  "now_items": [],
+  "links_section": {},
+  "links": [],
   "search": {
     "title": "Research | Fay Lyu (HazezZ)",
     "url": "research.html",
     "section": "Site",
     "date": "",
-    "excerpt": "Editorial summary cards: problem, method, contribution, status, and links. Longer technical context lives in the notes.",
+    "excerpt": "优化 · 形式化验证（Isabelle/HOL） · 数学建模",
     "tags": [
       "research",
       "optimization",
@@ -265,85 +146,11 @@
     ],
     "sort": 20260312,
     "scope": "site",
-    "content": "Research Fay Lyu (HazezZ) Optimization · Formal Verification (Isabelle/HOL) · Mathematical Modeling Current work includes (i) Isabelle/HOL formalization of greedy guarantees for monotone submodular maximization, (ii) duality / lower-bound diagnostics for objectives with invariances (translation / non-identifiability), and (iii) small prototypes that turn signal-like inputs into discrete, checkable structure. This page is a quick faculty entry; see Projects for evidence/demos and CV for application-facing experience. Optimization Formal Methods Game Theory Submodularity Isabelle/HOL Data Analytics Engineering Systems {'label': 'Last updated', 'value': '2026-02-26 · 01:19 PM ET', 'datetime': '2026-02-26T13:19:10-05:00'} {'label': 'Current focus', 'value': 'Duality / lower bounds / first-order structure', 'datetime': ''} {'label': 'Outputs', 'value': '2 repos · 1 note · 1 in prep', 'datetime': ''} Research interests (current) Optimization: duality, lower bounds, first-order structure, and modeling under invariances. Formal methods: Isabelle/HOL proof engineering (locales, interfaces, reusable lemmas). Submodular algorithms: greedy variants, oracle interfaces, and cost-aware proof structure. Game/strategic models as a language for structure (when useful for optimization framing). Prototypes: signal-to-structure pipelines with explicit assumptions and failure modes. Current Projects (3 entry points) Editorial summary cards: problem, method, contribution, status, and links. Longer technical context lives in the notes. Research Outputs (by type) Repos, notes, and in-progress materials organized for quick scanning before deeper reading. What I’m Currently Thinking About Questions and themes I’m actively using to steer reading, proof work, and modeling choices. Selected Links (1-page entry) Research-first entry points; the CV page carries application-facing experience and engineering summaries. Formal Methods · Submodular Optimization An Ongoing Isabelle Research Project: Formalising Submodular Greedy Machine-check the classical greedy (1−1/e) guarantee for monotone submodular maximization under a cardinality constraint. Build a reusable Isabelle/HOL development (locales + step-spec interfaces), separating constructive algorithm structure from approximation analysis. A proof skeleton that scales to variants (e.g., LazyGreedy/StochasticGreedy) and keeps assumptions explicit and reusable. Note Evidence Repo Optimization Research · Duality / Lower Bounds Spring 2026 | Duality under Invariances (Cornell ORIE) Find nontrivial lower bounds for a graph-relative-difference distance-fitting objective where natural formulations can collapse due to translation invariance / non-identifiability. Diagnose degeneracy first (what makes the dual trivial), then add structure (gauge-fixing / tighter constraints / augmentation) before choosing a dualization route (Fenchel/DC vs. Lagrangian). A structure-first roadmap: when/why bounds collapse, plus candidate fixes that restore informative dual signals. Note Evidence Archive Signal / Discretization Prototype · Data-oriented Systems Metalcore Piano Lab | From Audio to Chart (WIP) Map continuous audio (or MIDI) into a playable rhythm-game chart as a discretization problem with constraints. Onset/beat detection, tempo tracking, segmentation/alignment, then playability-oriented constraints and evaluation targets. A browser-native prototype + notes that document assumptions, failure modes, and next-step heuristics. Note Evidence Repo Formal Methods Isabelle Submodular Greedy (repo) Active Theory files, constructive/approximation split, and reusable lemmas for submodular greedy formalization. Prototype Metalcore Piano Lab (repo) In prep Browser-native prototype turning audio/MIDI into playable chart structures, with explicit failure modes and next steps. Research Notes Math / Research Archive Active Optimization notes, Isabelle formalization logs, and ongoing research records with technical context. Faculty Summary 1-page research summary (PDF-ready) Draft One-page overview of interests, current projects, methods, and entry links for faculty/PhD readers. How to restore informative lower bounds under invariances: gauge-fixing vs. augmentation (e.g., augmented Lagrangian / ADMM-style structure). How to make Isabelle proofs scale: interface design (locales), step-spec patterns, and reusable lemma libraries. When a relaxation is “too loose”: minimal structural constraints that recover signal without breaking tractability. How to evaluate discretization quality: objective proxies + constraint design for playability and interpretability. How to keep research artifacts legible: short entry points + evidence links (notes/repos) without repeating the CV.",
+    "content": "研究 优化 · 形式化验证（Isabelle/HOL） · 数学建模 我是一名数学本科生，目前主要在几条彼此相关的方向上工作：一是对子模贪心算法近似保证的形式化验证；二是研究带有不变性的优化模型中，对偶与下界为什么会失去信息，以及怎样把这种信息恢复回来；三是做一些小型计算原型，把连续信号转成离散结构，并把其中的假设明确写出来。 研究兴趣 优化 我关注对偶、下界、一阶结构与数学建模，尤其在平移不变性、对称性或可识别性问题会直接影响模型表达能力的时候，这类问题会更吸引我。 形式化验证 我使用 Isabelle/HOL 形式化数学论证，重点不仅在于“证明出来”，也在于如何组织 proof structure、reusable interfaces、locales，以及怎样让整个 development 能够自然扩展，而不是只服务于单个定理。 子模算法 我尤其关注单调子模最大化中的贪心算法、它们的近似保证，以及这些近似分析如何在机器检验环境下被组织成清晰、可复用的形式。 建模与结构 更广义地说，我对这样的问题很感兴趣：一个数学模型在真正面对对称性、不变性、近似需求或实现约束时，会发生怎样的结构变化。 Optimization I am interested in duality, lower bounds, first-order structure, and mathematical modeling, especially when invariances or identifiability issues affect what can actually be recovered from a formulation. Formal Verification I use Isabelle/HOL to formalize mathematical arguments with an emphasis on proof structure, reusable interfaces, locales, and developments that can be extended beyond a single theorem statement. Submodular Algorithms I am especially interested in greedy algorithms for monotone submodular maximization, their approximation guarantees, and how those guarantees can be organized formally in a machine-checked setting. Modeling and Structure More broadly, I am interested in how a mathematical formulation changes once it is forced to face symmetry, invariance, approximation, or implementation constraints. 当前工作 Isabelle/HOL：子模贪心算法形式化 Note Projects Repo 不变性下的对偶与下界 Note Projects Archive Metalcore Piano Lab｜从音频 / MIDI 到谱面（WIP） Note Projects Repo",
     "meta_title": "Research | Fay Lyu (HazezZ) | Chronohaze",
-    "meta_description": "PhD landing page for Fay Lyu (HazezZ): optimization, formal methods, and data-oriented research/engineering work."
+    "meta_description": "Research interests, current work, notes, and repositories by Fay Lyu (HazezZ)."
   },
-  "output_groups": [
-    {
-      "key": "repo",
-      "title": "Repos",
-      "lead": "Codebases and prototype implementations",
-      "items": [
-        {
-          "href": "https://github.com/lyuf09/isabelle-submodular-greedy/tree/main",
-          "external": true,
-          "type": "repo",
-          "kicker": "Formal Methods",
-          "title": "Isabelle Submodular Greedy (repo)",
-          "status": "Active",
-          "description": "Theory files, constructive/approximation split, and reusable lemmas for submodular greedy formalization.",
-          "status_key": "active",
-          "status_label": "Active",
-          "status_detail": "",
-          "status_display": "Active"
-        },
-        {
-          "href": "https://github.com/lyuf09/metalcore-piano-lab",
-          "external": true,
-          "type": "repo",
-          "kicker": "Prototype",
-          "title": "Metalcore Piano Lab (repo)",
-          "status": "In prep",
-          "description": "Browser-native prototype turning audio/MIDI into playable chart structures, with explicit failure modes and next steps.",
-          "status_key": "in_prep",
-          "status_label": "In prep",
-          "status_detail": "",
-          "status_display": "In prep"
-        }
-      ]
-    },
-    {
-      "key": "notes",
-      "title": "Notes",
-      "lead": "Research notes, logs, and technical writeups",
-      "items": [
-        {
-          "href": "math.html",
-          "external": false,
-          "type": "notes",
-          "kicker": "Research Notes",
-          "title": "Math / Research Archive",
-          "status": "Active",
-          "description": "Optimization notes, Isabelle formalization logs, and ongoing research records with technical context.",
-          "status_key": "active",
-          "status_label": "Active",
-          "status_detail": "",
-          "status_display": "Active"
-        }
-      ]
-    },
-    {
-      "key": "in_prep",
-      "title": "In prep",
-      "lead": "Shareable drafts and materials being refined",
-      "items": [
-        {
-          "href": "research-summary.html",
-          "external": true,
-          "type": "in_prep",
-          "kicker": "Faculty Summary",
-          "title": "1-page research summary (PDF-ready)",
-          "status": "Draft",
-          "description": "One-page overview of interests, current projects, methods, and entry links for faculty/PhD readers.",
-          "status_key": "draft",
-          "status_label": "Draft",
-          "status_detail": "",
-          "status_display": "Draft"
-        }
-      ]
-    }
-  ],
+  "output_groups": [],
   "generated_at": "2026-03-12",
   "source": "research.html"
 }

@@ -6,16 +6,16 @@
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico?v=4" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=4" />
   <title>CV | Chronohaze</title>
-  <meta name="description" content="HazezZ / Fay Lyu 的公开简历页面。" />
+  <meta name="description" content="Public academic profile and selected work by Fay Lyu (HazezZ)." />
   <meta property="og:type" content="profile" />
   <meta property="og:site_name" content="Chronohaze" />
   <meta property="og:title" content="CV | Chronohaze" />
-  <meta property="og:description" content="HazezZ / Fay Lyu 的公开简历页面。" />
+  <meta property="og:description" content="Public academic profile and selected work by Fay Lyu (HazezZ)." />
   <meta property="og:url" content="https://lyuf09.github.io/chronohaze/cv.html" />
   <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/cv.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="CV | Chronohaze" />
-  <meta name="twitter:description" content="HazezZ / Fay Lyu 的公开简历页面。" />
+  <meta name="twitter:description" content="Public academic profile and selected work by Fay Lyu (HazezZ)." />
   <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/cv.png" />
   <link rel="canonical" href="https://lyuf09.github.io/chronohaze/cv.html" />
   <!-- GENERATED:hreflang:start -->
@@ -66,182 +66,152 @@
               <button class="cv-lang-tab is-active" type="button" role="tab" aria-selected="true" data-cv-lang-tab="zh">ZH</button>
               <button class="cv-lang-tab" type="button" role="tab" aria-selected="false" data-cv-lang-tab="en">EN</button>
             </div>
-            <a class="cv-research-link" href="research.html" data-i18n="researchLandingCta">Research landing page</a>
+            <a class="cv-research-link" href="research.html" data-i18n="researchLandingCta">Research</a>
           </div>
           <nav class="cv-toc" aria-label="CV section navigation">
-            <a class="cv-toc-link" href="#cv-zh-highlights" data-cv-toc-link="highlights">Highlights</a>
-            <a class="cv-toc-link" href="#cv-zh-projects" data-cv-toc-link="projects">Projects</a>
-            <a class="cv-toc-link" href="#cv-zh-experience" data-cv-toc-link="experience">Experience</a>
+            <a class="cv-toc-link" href="#cv-zh-highlights" data-cv-toc-link="highlights">教育与研究</a>
+            <a class="cv-toc-link" href="#cv-zh-projects" data-cv-toc-link="projects">研究与项目</a>
+            <a class="cv-toc-link" href="#cv-zh-experience" data-cv-toc-link="experience">经历</a>
           </nav>
         </div>
 
         <div data-lang-block="zh">
-  <h1>公开版 CV</h1>
+          <h1>公开版 CV</h1>
 
-  <p>出于隐私与安全考虑：本页仅展示公开联系方式，不公开手机号与详细住址。申请/岗位用途的完整版简历（含更多细节）可邮件索取；本站不提供可直接下载的完整版 CV 文件。</p>
+          <p>出于隐私与安全考虑，本页仅保留公开联系方式。完整版简历可邮件索取。</p>
 
-  <h2>一句话定位（Tagline）</h2>
-  <p class="cv-tagline">优化与形式化证明 · 工程系统建模与参数优化 · 数据分析落地</p>
+          <section id="cv-zh-highlights">
+            <h2>教育背景</h2>
+            <p>爱丁堡大学数学本科<br />现于康奈尔大学交流</p>
 
-  <p class="cv-research-note">
-    研究向入口：<a href="research.html">Research landing page</a>（60 秒：研究问题 / 当前三条主线 / 输出链接）。
-    项目证据与产出：<a href="projects.html">Projects</a>（repo / note / demo / shipped）。
-  </p>
+            <h2>研究兴趣</h2>
+            <p>我目前主要关注优化、形式化验证与数学建模。更具体地说，我感兴趣的问题包括近似保证、带有不变性的对偶与下界，以及 Isabelle/HOL 中形式化证明的组织方式。</p>
+            <p>除此之外，我也很在意技术写作本身：怎样把数学或计算工作写得清楚，同时又不损失结构、精确性和真正有用的内容。</p>
+          </section>
 
-  <section class="cv-highlight-card" id="cv-zh-highlights">
-    <h2>Highlights（重点亮点）</h2>
-    <ul>
-      <li><strong>专利管线：</strong>防止砂石离析（anti-segregation）的布料系统与方法：发明专利在审 + 实用新型已授权（2025-07-04）。</li>
-      <li><strong>工程系统核心开发：</strong>面向真实工况做系统建模与关键参数优化（spreading system / parameter optimization），并参与与大型企业的长期落地推进。</li>
-      <li>
-        <strong>Isabelle/HOL 形式化：</strong>围绕单调子模最大化的贪心算法，构建可复用证明结构并推进 (1−1/e) 近似保证。
-        <br />
-        <a href="research.html">Research page</a> /
-        <a href="projects.html#projects-research-formal">Evidence</a> /
-        <a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">repo</a>
-      </li>
-      <li><strong>数据分析：</strong>转化漏斗、留存与归因分析（funnel / retention / attribution）；定位并修复 UTM 映射导致的归因偏差。</li>
-    </ul>
-  </section>
+          <section id="cv-zh-projects">
+            <h2>代表研究与项目</h2>
+            <ol class="cv-project-list">
+              <li>
+                <h3>Isabelle/HOL：子模贪心算法形式化</h3>
+                <p>我目前正在 Isabelle/HOL 中形式化单调子模最大化以及经典的 (1 - 1/e) 贪心近似保证。这项工作的重点不只是证明单个结论，也包括整理假设、接口和证明组件的组织方式，使后续相关变体能够在同一套结构上继续展开。</p>
+              </li>
+              <li>
+                <h3>不变性下的对偶与下界</h3>
+                <p>我一直在研究带图相对结构的距离拟合目标中的对偶与下界问题，尤其关注平移不变性或不可识别性如何导致自然的对偶形式退化为无信息的结果。最近的工作主要集中在弄清这种退化究竟来自哪里，以及加入什么额外结构之后，才能重新得到有意义的下界。</p>
+              </li>
+              <li>
+                <h3>Metalcore Piano Lab</h3>
+                <p>我做了一个基于浏览器的原型，用来把音频或 MIDI 转换成可玩的节奏游戏谱面事件。这个项目结合了起音与拍点检测、分段、对齐和可玩性约束；同时，我也在记录它的假设、失效模式，以及后续可以如何评估它的效果。</p>
+              </li>
+              <li>
+                <h3>工程系统：防离析布料系统</h3>
+                <p>我参与了一个防离析布料系统的建模与关键参数优化，这项工作始终是在真实工况和实际约束下推进的。</p>
+              </li>
+            </ol>
 
-  <h2>基本信息</h2>
-  <p><strong>Name：</strong>Fay Lyu（HazezZ）</p>
-  <p><strong>Email：</strong><a href="#" data-email-link="1" data-email-key="main" class="obf-email-link">feier530 [at] icloud [dot] com</a></p>
-  <p><strong>Location：</strong>Ithaca, USA / Edinburgh, UK</p>
+            <h2>专利与 IP</h2>
+            <p>Anti-Segregation Spreading Method and Device —— 发明专利在审<br />Anti-Segregation Spreading Device —— 实用新型已于 2025-07-04 授权</p>
+            <p>公开页面不展示专利号。</p>
+          </section>
 
-  <h2>公开链接</h2>
-  <p><strong>LinkedIn：</strong><a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">fay-lyu-uoe</a></p>
-  <p><strong>GitHub：</strong><a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">lyuf09</a></p>
+          <section id="cv-zh-experience">
+            <h2>相关经历</h2>
+            <section class="cv-experience-item">
+              <h3>数据分析</h3>
+              <p>负责转化漏斗、留存与归因分析。<br />排查归因与映射逻辑中的问题，并协助梳理指标定义，使后续汇报口径更一致、结果更可解释。</p>
+            </section>
 
-  <h2 id="cv-zh-projects">代表项目与 IP（Selected Projects &amp; IP）</h2>
-  <ol class="cv-project-list">
-    <li>
-      <h3>防离析布料系统（Patent pipeline）</h3>
-      <p><strong>我做了什么：</strong>参与系统建模与关键参数优化，推动可落地的工程方案迭代。</p>
-      <p><strong>面向的问题：</strong>砂石布料过程中的离析（material segregation）。</p>
-      <p><strong>状态：</strong>发明专利在审；实用新型已授权（2025-07-04）。公开版不写专利号，完整版可邮件索取。</p>
-      <p><strong>公开入口：</strong><a href="projects.html#projects-engineering">Projects（public summary）</a></p>
-    </li>
+            <section class="cv-experience-item">
+              <h3>建模与工程分析</h3>
+              <p>参与砂石相关系统在实际约束下的建模与分析，包括参数调整，以及与实验方案相关的协同工作。</p>
+            </section>
+          </section>
 
-    <li>
-      <h3>Isabelle/HOL：子模贪心算法形式化</h3>
-      <p><strong>目标：</strong>在 Isabelle/HOL 中形式化单调子模最大化的经典 (1−1/e) 近似保证，并把证明拆成可复用的结构化组件（locales / step-spec / reusable lemmas）。</p>
-      <p><strong>当前进展：</strong>主线证明与工程化组织持续推进；后续计划包含 LazyGreedy / StochasticGreedy 等变体的可复用接口化。</p>
-      <p><strong>入口：</strong><a href="research.html">Research page</a> / <a href="post/isabelle-submodular-greedy.html">Note</a> / <a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">repo</a></p>
-    </li>
+          <h2>相关链接</h2>
+          <p>
+            <a href="research.html">Research</a><br />
+            <a href="projects.html">Projects</a><br />
+            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a><br />
+            <a href="math.html">Math / Research Notes</a><br />
+            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          </p>
 
-    <li>
-      <h3>专利（Patents）</h3>
-      <p><strong>发明专利：</strong>Anti-Segregation Spreading Method and Device（已受理/在审）</p>
-      <p><strong>实用新型：</strong>Anti-Segregation Spreading Device（已授权，2025-07-04）</p>
-      <p>（公开版不写专利号；完整版再提供。）</p>
-    </li>
-  </ol>
+          <h2>联系方式</h2>
+          <p>Fay Lyu<br />Email: <a href="#" data-email-link="1" data-email-key="main" class="obf-email-link">feier530 [at] icloud [dot] com</a><br />Location: Ithaca, USA / Edinburgh, UK</p>
 
-  <h2 id="cv-zh-experience">经历（Selected Experience）</h2>
-  <section class="cv-experience-item">
-    <h3>数据分析实习（Data Analyst Intern）</h3>
-    <ul>
-      <li>转化漏斗、留存、归因分析（funnel / retention / attribution），把指标链路做成可决策的口径。</li>
-      <li>数据质量排查：定位并修复 UTM mapping 引起的归因错误，重算并对齐结果。</li>
-    </ul>
-  </section>
-
-  <section class="cv-experience-item">
-    <h3>数学与计算建模实习（Modeling Intern）</h3>
-    <ul>
-      <li>砂石边坡滚动/轨迹建模（rolling / trajectory modeling）。</li>
-      <li>与地灾防治国重实验方案对接，推进可落地的分析与实验计划。</li>
-    </ul>
-  </section>
-
-  <h2>完整版简历（Full CV）</h2>
-  <p>申请学校/岗位可索取完整版简历（含完整经历、项目细节与联系方式），请邮件联系。</p>
-</div>
+          <h2>完整版简历</h2>
+          <p>如需包含更多记录与完整细节的版本，可邮件联系索取。</p>
+        </div>
 
         <div data-lang-block="en" hidden>
-  <h1>Public CV</h1>
+          <h1>Public CV</h1>
 
-  <p>For privacy and safety, this page only shows public contact information and excludes phone number and full address. The full version for applications is available by email request; no downloadable full CV file is hosted on this public site.</p>
+          <p>For privacy and safety, this page lists public contact information only. A fuller CV is available on request by email.</p>
 
-  <h2>Tagline</h2>
-  <p class="cv-tagline">Optimization &amp; Formal Methods · Engineering Modeling · Data Analytics</p>
+          <section id="cv-en-highlights">
+            <h2>Education</h2>
+            <p>BSc Mathematics, University of Edinburgh<br />Current exchange study at Cornell University</p>
 
-  <p class="cv-research-note">
-    Research entry: <a href="research.html">Research landing page</a> (60-sec scan: questions / 3 tracks / links).
-    Evidence &amp; outputs: <a href="projects.html">Projects</a> (repo / note / demo / shipped).
-  </p>
+            <h2>Research Interests</h2>
+            <p>My current interests are mainly in optimization, formal verification, and mathematical modeling. In particular, I am interested in approximation guarantees, duality and lower bounds under invariances, and the organization of formal proofs in Isabelle/HOL.</p>
+            <p>I also care about technical writing: how to present mathematical or computational work clearly, without losing structure, precision, or the actual substance of the work.</p>
+          </section>
 
-  <section class="cv-highlight-card" id="cv-en-highlights">
-    <h2>Highlights</h2>
-    <ul>
-      <li><strong>Patent pipeline:</strong> anti-segregation spreading system &amp; method (invention patent under review + granted utility model, 2025-07-04).</li>
-      <li><strong>Core engineering development:</strong> system modeling and key parameter optimization under real deployment constraints; long-cycle collaboration track with major partners.</li>
-      <li>
-        <strong>Isabelle/HOL formalization:</strong> building reusable proof structure for monotone submodular greedy and the classical (1−1/e) guarantee.
-        <br />
-        <a href="research.html">Research page</a> /
-        <a href="projects.html#projects-research-formal">Evidence</a> /
-        <a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">repo</a>
-      </li>
-      <li><strong>Data analytics:</strong> funnel, retention, and attribution analysis; diagnosed and fixed UTM-mapping attribution errors.</li>
-    </ul>
-  </section>
+          <section id="cv-en-projects">
+            <h2>Selected Research and Projects</h2>
+            <ol class="cv-project-list">
+              <li>
+                <h3>Isabelle/HOL: Formalizing Submodular Greedy</h3>
+                <p>I am currently formalizing monotone submodular maximization and the classical (1 - 1/e) greedy approximation guarantee in Isabelle/HOL. A large part of the work is not only proving individual statements, but also organizing assumptions, interfaces, and proof components so that related variants can be developed on top of the same structure.</p>
+              </li>
+              <li>
+                <h3>Duality and Lower Bounds under Invariances</h3>
+                <p>I have been working on duality and lower-bound questions for distance-fitting objectives with graph-relative structure, especially where translation invariance or non-identifiability causes natural dual formulations to collapse. My recent work has focused on understanding exactly where the degeneration comes from, and what additional structure may recover an informative bound.</p>
+              </li>
+              <li>
+                <h3>Metalcore Piano Lab</h3>
+                <p>I built a browser-based prototype for converting audio or MIDI into playable rhythm-game chart events. The project combines onset and beat detection, segmentation, alignment, and playability constraints, and I have been documenting its assumptions, failure modes, and possible evaluation directions.</p>
+              </li>
+              <li>
+                <h3>Engineering System: Anti-Segregation Spreading</h3>
+                <p>I participated in modeling and parameter tuning for an anti-segregation spreading system designed for aggregate handling under real deployment constraints.</p>
+              </li>
+            </ol>
 
-  <h2>Basic Info</h2>
-  <p><strong>Name:</strong> Fay Lyu (HazezZ)</p>
-  <p><strong>Email:</strong> <a href="#" data-email-link="1" data-email-key="main" class="obf-email-link">feier530 [at] icloud [dot] com</a></p>
-  <p><strong>Location:</strong> Ithaca, USA / Edinburgh, UK</p>
+            <h2>Patents and IP</h2>
+            <p>Anti-Segregation Spreading Method and Device — invention patent under review<br />Anti-Segregation Spreading Device — utility model granted on 2025-07-04</p>
+            <p>Patent numbers are omitted on this public page.</p>
+          </section>
 
-  <h2>Public Links</h2>
-  <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">fay-lyu-uoe</a></p>
-  <p><strong>GitHub:</strong> <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">lyuf09</a></p>
+          <section id="cv-en-experience">
+            <h2>Selected Experience</h2>
+            <section class="cv-experience-item">
+              <h3>Data Analytics</h3>
+              <p>Worked on funnel, retention, and attribution analysis.<br />Diagnosed attribution and mapping issues, and helped clarify metric definitions so that downstream reporting became consistent and interpretable.</p>
+            </section>
 
-  <h2 id="cv-en-projects">Selected Projects &amp; IP</h2>
-  <ol class="cv-project-list">
-    <li>
-      <h3>Anti-segregation Spreading System (Patent pipeline)</h3>
-      <p><strong>What I did:</strong> system modeling and key parameter optimization; iteration under real deployment constraints.</p>
-      <p><strong>Problem:</strong> material segregation during aggregate spreading workflows.</p>
-      <p><strong>Status:</strong> invention patent under review; utility model granted (2025-07-04). Patent numbers omitted in this public version.</p>
-      <p><strong>Public entry:</strong> <a href="projects.html#projects-engineering">Projects (public summary)</a></p>
-    </li>
+            <section class="cv-experience-item">
+              <h3>Modeling and Engineering Analysis</h3>
+              <p>Worked on modeling and analysis related to aggregate systems under practical constraints, including parameter tuning and coordination with experimental considerations.</p>
+            </section>
+          </section>
 
-    <li>
-      <h3>Isabelle/HOL: Formalizing Submodular Greedy</h3>
-      <p><strong>Aim:</strong> machine-check the monotone submodular greedy (1−1/e) guarantee with reusable structure (locales / step-spec / reusable lemmas).</p>
-      <p><strong>Next:</strong> reusable interfaces for LazyGreedy / StochasticGreedy variants.</p>
-      <p><strong>Entry:</strong> <a href="research.html">Research page</a> / <a href="post/isabelle-submodular-greedy.html">Note</a> / <a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">repo</a></p>
-    </li>
+          <h2>Links</h2>
+          <p>
+            <a href="research.html">Research</a><br />
+            <a href="projects.html">Projects</a><br />
+            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a><br />
+            <a href="math.html">Math / Research Notes</a><br />
+            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          </p>
 
-    <li>
-      <h3>Patents</h3>
-      <p><strong>Invention:</strong> Anti-Segregation Spreading Method and Device (accepted / under review)</p>
-      <p><strong>Utility model:</strong> Anti-Segregation Spreading Device (granted, 2025-07-04)</p>
-      <p>Patent numbers are omitted in this public version for safety.</p>
-    </li>
-  </ol>
+          <h2>Contact</h2>
+          <p>Fay Lyu<br />Email: <a href="#" data-email-link="1" data-email-key="main" class="obf-email-link">feier530 [at] icloud [dot] com</a><br />Location: Ithaca, USA / Edinburgh, UK</p>
 
-  <h2 id="cv-en-experience">Selected Experience</h2>
-  <section class="cv-experience-item">
-    <h3>Data Analyst Intern</h3>
-    <ul>
-      <li>Funnel, retention, and attribution analysis; made metric definitions decision-grade.</li>
-      <li>Data-quality troubleshooting; fixed UTM-mapping attribution issues and recomputed results.</li>
-    </ul>
-  </section>
-
-  <section class="cv-experience-item">
-    <h3>Modeling Intern</h3>
-    <ul>
-      <li>Rolling / trajectory modeling for aggregate slope behavior.</li>
-      <li>Coordinated with experimental planning to produce actionable analysis workflows.</li>
-    </ul>
-  </section>
-
-  <h2>Full CV</h2>
-  <p>The full application version (detailed experience, project records, and complete contact information) is available on request by email.</p>
-</div>
+          <h2>Full CV</h2>
+          <p>A fuller version, including additional records and more complete details, is available on request by email.</p>
+        </div>
       </article>
     </main>
 
@@ -288,10 +258,10 @@
           footerCities: '重庆 · Edinburgh · New York',
           siteNotes: '网站说明',
           a11y: '无障碍支持',
-          tocHighlights: '重点亮点',
-          tocProjects: '项目与 IP',
-          tocExperience: '经历',
-          researchLandingCta: 'Research Landing Page'
+          tocHighlights: '教育与研究',
+          tocProjects: '研究与项目',
+          tocExperience: '相关经历',
+          researchLandingCta: 'Research'
         },
         en: {
           htmlLang: 'en',
@@ -306,8 +276,8 @@
           footerCities: 'Chongqing · Edinburgh · New York',
           siteNotes: 'Privacy Policy',
           a11y: 'Accessibility',
-          tocHighlights: 'Highlights',
-          tocProjects: 'Projects',
+          tocHighlights: 'Education',
+          tocProjects: 'Research & Projects',
           tocExperience: 'Experience',
           researchLandingCta: 'Research landing page'
         }

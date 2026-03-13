@@ -7,13 +7,13 @@
       "url": "cv.html",
       "section": "Site",
       "date": "",
-      "excerpt": "Public CV with public contact info, selected projects, and application-facing experience.",
+      "excerpt": "Public CV with education, research interests, selected projects, and experience.",
       "tags": [
         "cv"
       ],
       "sort": 0,
       "scope": "cv",
-      "content": "公开版 CV 公开联系方式 一句话定位 优化与形式化证明 工程系统建模与参数优化 数据分析落地 Research landing page Projects Highlights 专利管线 工程系统核心开发 Isabelle HOL 形式化 数据分析 代表项目与 IP 防离析布料系统 Isabelle HOL 子模贪心算法形式化 Patents 经历 数据分析实习 数学与计算建模实习 Public CV Tagline Optimization and Formal Methods Engineering Modeling Data Analytics Research landing page Projects Highlights Patent pipeline Core engineering development Isabelle HOL formalization Data analytics Selected Projects and IP Anti-segregation Spreading System Formalizing Submodular Greedy Patents Selected Experience Data Analyst Intern Modeling Intern Full CV"
+      "content": "公开版 CV 教育背景 爱丁堡大学数学本科 康奈尔大学交流 研究兴趣 优化 形式化验证 数学建模 Isabelle HOL 子模贪心算法形式化 不变性下的对偶与下界 Metalcore Piano Lab 防离析布料系统 专利与 IP 数据分析 建模与工程分析 联系方式 完整版简历 Public CV Education BSc Mathematics University of Edinburgh Cornell University exchange Research Interests optimization formal verification mathematical modeling Isabelle HOL Formalizing Submodular Greedy Duality and Lower Bounds under Invariances Metalcore Piano Lab Engineering System Anti-Segregation Spreading Patents and IP Data Analytics Modeling and Engineering Analysis Contact Full CV"
     }
   ]
 }

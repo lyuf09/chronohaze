@@ -6,7 +6,7 @@
       "url": "projects.html",
       "section": "Site",
       "date": "2026-03-12",
-      "excerpt": "把研究、原型、工程与数据工作按“证据优先”整理成可快速扫描的项目地图。",
+      "excerpt": "研究、原型、工程与数据分析项目，以及对应的仓库、笔记和公开材料。",
       "tags": [
         "projects",
         "research",
@@ -18,22 +18,22 @@
       ],
       "sort": 20260312,
       "scope": "site",
-      "content": "项目与产出 Evidence-first 主张 证据 下一步 研究与形式化证明 原型 信号到结构 工程系统与 IP 数据分析 这个网站本身 Isabelle HOL Formalising Submodular Greedy 单调子模贪心 1−1/e 对偶 下界 结构诊断 Metalcore Piano Lab 音频 MIDI 谱面事件 防离析布料系统 转化 留存 归因 Chronohaze repo note demo shipped"
+      "content": "选定项目 研究与形式化验证 Isabelle HOL 子模贪心算法形式化 不变性下的对偶与下界 原型与信号处理 Metalcore Piano Lab 工程与 IP 防离析布料系统 数据分析 Funnel Retention Attribution Analysis 这个网站 Chronohaze 项目 笔记 仓库 公开材料 Selected Projects Research and Formal Verification Isabelle HOL Formalizing Submodular Greedy Duality and Lower Bounds under Invariances Prototype and Signal Processing Metalcore Piano Lab Engineering and IP Anti-Segregation Spreading System Data and Analytics Funnel Retention Attribution Analysis This Website Chronohaze repositories notes public materials"
     },
     {
+      "date": "",
+      "excerpt": "优化 · 形式化验证（Isabelle/HOL） · 数学建模",
+      "scope": "site",
+      "title": "Research | Fay Lyu (HazezZ)",
+      "content": "研究 优化 · 形式化验证（Isabelle/HOL） · 数学建模 我是一名数学本科生，目前主要在几条彼此相关的方向上工作：一是对子模贪心算法近似保证的形式化验证；二是研究带有不变性的优化模型中，对偶与下界为什么会失去信息，以及怎样把这种信息恢复回来；三是做一些小型计算原型，把连续信号转成离散结构，并把其中的假设明确写出来。 研究兴趣 优化 我关注对偶、下界、一阶结构与数学建模，尤其在平移不变性、对称性或可识别性问题会直接影响模型表达能力的时候，这类问题会更吸引我。 形式化验证 我使用 Isabelle/HOL 形式化数学论证，重点不仅在于“证明出来”，也在于如何组织 proof structure、reusable interfaces、locales，以及怎样让整个 development 能够自然扩展，而不是只服务于单个定理。 子模算法 我尤其关注单调子模最大化中的贪心算法、它们的近似保证，以及这些近似分析如何在机器检验环境下被组织成清晰、可复用的形式。 建模与结构 更广义地说，我对这样的问题很感兴趣：一个数学模型在真正面对对称性、不变性、近似需求或实现约束时，会发生怎样的结构变化。 Optimization I am interested in duality, lower bounds, first-order structure, and mathematical modeling, especially when invariances or identifiability issues affect what can actually be recovered from a formulation. Formal Verification I use Isabelle/HOL to formalize mathematical arguments with an emphasis on proof structure, reusable interfaces, locales, and developments that can be extended beyond a single theorem statement. Submodular Algorithms I am especially interested in greedy algorithms for monotone submodular maximization, their approximation guarantees, and how those guarantees can be organized formally in a machine-checked setting. Modeling and Structure More broadly, I am interested in how a mathematical formulation changes once it is forced to face symmetry, invariance, approximation, or implementation constraints. 当前工作 Isabelle/HOL：子模贪心算法形式化 Note Projects Repo 不变性下的对偶与下界 Note Projects Archive Metalcore Piano Lab｜从音频 / MIDI 到谱面（WIP） Note Projects Repo",
+      "section": "Site",
       "sort": 20260312,
+      "url": "research.html",
       "tags": [
         "research",
         "optimization",
         "formal-methods"
-      ],
-      "excerpt": "给 faculty 的快速研究入口：问题、当前主线、产出链接与深链接证据。",
-      "title": "Research | Fay Lyu (HazezZ)",
-      "date": "",
-      "scope": "site",
-      "section": "Site",
-      "content": "研究 优化 形式化验证 Isabelle HOL 数学建模 当前主要在做三条线 单调子模最大化 贪心近似保证 对偶 下界 不变性 平移 不可识别性 gauge-fixing 增广 连续信号 映射 离散 可检查结构 当前研究兴趣 当前项目 研究产出 最近在想什么 精选链接 Projects Evidence CV Note Repo",
-      "url": "research.html"
+      ]
     },
     {
       "title": "搜索 / Search",
@@ -957,13 +957,13 @@
       "url": "cv.html",
       "section": "Site",
       "date": "",
-      "excerpt": "Public CV with public contact info, selected projects, and application-facing experience.",
+      "excerpt": "Public CV with education, research interests, selected projects, and experience.",
       "tags": [
         "cv"
       ],
       "sort": 0,
       "scope": "cv",
-      "content": "公开版 CV 公开联系方式 一句话定位 优化与形式化证明 工程系统建模与参数优化 数据分析落地 Research landing page Projects Highlights 专利管线 工程系统核心开发 Isabelle HOL 形式化 数据分析 代表项目与 IP 防离析布料系统 Isabelle HOL 子模贪心算法形式化 Patents 经历 数据分析实习 数学与计算建模实习 Public CV Tagline Optimization and Formal Methods Engineering Modeling Data Analytics Research landing page Projects Highlights Patent pipeline Core engineering development Isabelle HOL formalization Data analytics Selected Projects and IP Anti-segregation Spreading System Formalizing Submodular Greedy Patents Selected Experience Data Analyst Intern Modeling Intern Full CV"
+      "content": "公开版 CV 教育背景 爱丁堡大学数学本科 康奈尔大学交流 研究兴趣 优化 形式化验证 数学建模 Isabelle HOL 子模贪心算法形式化 不变性下的对偶与下界 Metalcore Piano Lab 防离析布料系统 专利与 IP 数据分析 建模与工程分析 联系方式 完整版简历 Public CV Education BSc Mathematics University of Edinburgh Cornell University exchange Research Interests optimization formal verification mathematical modeling Isabelle HOL Formalizing Submodular Greedy Duality and Lower Bounds under Invariances Metalcore Piano Lab Engineering System Anti-Segregation Spreading Patents and IP Data Analytics Modeling and Engineering Analysis Contact Full CV"
     }
   ]
 }

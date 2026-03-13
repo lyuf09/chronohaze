@@ -33,7 +33,7 @@
       "url": "projects.html",
       "section": "Site",
       "date": "2026-03-12",
-      "excerpt": "把研究、原型、工程与数据工作按“证据优先”整理成可快速扫描的项目地图。",
+      "excerpt": "研究、原型、工程与数据分析项目，以及对应的仓库、笔记和公开材料。",
       "tags": [
         "projects",
         "research",
@@ -45,7 +45,7 @@
       ],
       "sort": 20260312,
       "scope": "site",
-      "content": "项目与产出 Evidence-first 主张 证据 下一步 研究与形式化证明 原型 信号到结构 工程系统与 IP 数据分析 这个网站本身 Isabelle HOL Formalising Submodular Greedy 单调子模贪心 1−1/e 对偶 下界 结构诊断 Metalcore Piano Lab 音频 MIDI 谱面事件 防离析布料系统 转化 留存 归因 Chronohaze repo note demo shipped"
+      "content": "选定项目 研究与形式化验证 Isabelle HOL 子模贪心算法形式化 不变性下的对偶与下界 原型与信号处理 Metalcore Piano Lab 工程与 IP 防离析布料系统 数据分析 Funnel Retention Attribution Analysis 这个网站 Chronohaze 项目 笔记 仓库 公开材料 Selected Projects Research and Formal Verification Isabelle HOL Formalizing Submodular Greedy Duality and Lower Bounds under Invariances Prototype and Signal Processing Metalcore Piano Lab Engineering and IP Anti-Segregation Spreading System Data and Analytics Funnel Retention Attribution Analysis This Website Chronohaze repositories notes public materials"
     }
   ]
 }
