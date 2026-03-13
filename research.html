@@ -63,11 +63,11 @@
       <section class="research-hero">
         <div class="container research-hero-inner">
           <div class="research-hero-copy">
-            <p class="research-eyebrow">PhD Landing Page</p>
+            <p class="research-eyebrow">Research</p>
             <h1>Fay Lyu (HazezZ)</h1>
-            <p class="research-subtitle">Optimization · Formal Methods · Game Theory · Data</p>
+            <p class="research-subtitle">Optimization · Formal Verification (Isabelle/HOL) · Mathematical Modeling</p>
             <p class="research-positioning">
-              I’m an undergraduate math student working on optimization theory and formal verification. Right now I’m (1) building a reusable Isabelle/HOL development for submodular greedy guarantees, and (2) studying when duality/lower-bound formulations become trivial under invariances (and how to “fix the gauge” to recover information). This page is a 30-second research entry with links to notes and repos.
+              Current work includes (i) Isabelle/HOL formalization of greedy guarantees for monotone submodular maximization, (ii) duality / lower-bound diagnostics for objectives with invariances (translation / non-identifiability), and (iii) small prototypes that turn signal-like inputs into discrete, checkable structure. This page is a quick faculty entry; see <a href="projects.html">Projects</a> for evidence/demos and <a href="cv.html">CV</a> for application-facing experience.
             </p>
             <div class="research-chip-row" aria-label="Research keywords">
               <span class="research-chip">Optimization</span>
@@ -90,7 +90,7 @@
               </div>
               <div class="research-meta-pill">
                 <span class="research-meta-label">Outputs</span>
-                <span>2 repos · 1 notes · 1 in prep</span>
+                <span>2 repos · 1 note · 1 in prep</span>
               </div>
               <!-- GENERATED:research-meta:end -->
             </div>
@@ -98,16 +98,17 @@
               <a class="research-cta-link" href="research-summary.html" target="_blank" rel="noopener noreferrer">1-page faculty summary (PDF-ready)</a>
               <a class="research-cta-link" href="#research-projects">Current projects</a>
               <a class="research-cta-link" href="#research-outputs">Outputs</a>
+              <a class="research-cta-link" href="projects.html">Projects (evidence)</a>
             </div>
           </div>
           <aside class="research-hero-panel" aria-label="Quick profile">
             <h2>Research interests (current)</h2>
             <ul>
-              <li>Optimization theory (especially algorithmic structure and first-order methods)</li>
-              <li>Game theory (especially as a mathematical modeling language for strategic structure)</li>
-              <li>Formal methods for mathematics (Isabelle/HOL, proof structure, reusability)</li>
-              <li>Data/signal-to-structure problems and prototype design</li>
-              <li>I care about explicit assumptions, reusable abstractions, and verifiable reasoning</li>
+              <li>Optimization: duality, lower bounds, first-order structure, and modeling under invariances.</li>
+              <li>Formal methods: Isabelle/HOL proof engineering (locales, interfaces, reusable lemmas).</li>
+              <li>Submodular algorithms: greedy variants, oracle interfaces, and cost-aware proof structure.</li>
+              <li>Game/strategic models as a language for structure (when useful for optimization framing).</li>
+              <li>Prototypes: signal-to-structure pipelines with explicit assumptions and failure modes.</li>
             </ul>
           </aside>
         </div>
@@ -121,55 +122,64 @@
         <div class="container research-project-grid">
           <!-- GENERATED:research-projects:start -->
           <article class="research-project-card">
-            <p class="research-project-kind">Formal Methods · Optimization Theory</p>
+            <p class="research-project-kind">Formal Methods · Submodular Optimization</p>
             <h3>An Ongoing Isabelle Research Project: Formalising Submodular Greedy</h3>
-            <p class="research-project-line"><strong>Problem:</strong><span class="research-project-line-body">Formalize the classical greedy (1−1/e) approximation guarantee for monotone submodular maximization under a cardinality constraint.</span></p>
-            <p class="research-project-line"><strong>Method:</strong><span class="research-project-line-body">Split the development into constructive and approximation-analysis layers, then encode assumptions and intermediate lemmas explicitly in Isabelle/HOL.</span></p>
-            <p class="research-project-line"><strong>Contribution:</strong><span class="research-project-line-body">Reusable formal scaffolding + proof decomposition notes for a machine-checkable development path.</span></p>
-            <p class="research-project-line research-project-line--status">
-              <strong>Status:</strong>
+
+            <p class="research-project-line"><strong>Problem:</strong> <span class="research-project-line-body">Machine-check the classical greedy (1−1/e) guarantee for monotone submodular maximization under a cardinality constraint.</span></p>
+            <p class="research-project-line"><strong>Method:</strong> <span class="research-project-line-body">Build a reusable Isabelle/HOL development (locales + step-spec interfaces), separating constructive algorithm structure from approximation analysis.</span></p>
+            <p class="research-project-line"><strong>Contribution:</strong> <span class="research-project-line-body">A proof skeleton that scales to variants (e.g., LazyGreedy/StochasticGreedy) and keeps assumptions explicit and reusable.</span></p>
+
+            <p class="research-project-line research-project-line--status"><strong>Status:</strong>
               <span class="research-project-status-wrap">
                 <span class="research-project-status-badge research-project-status-badge--active">Active</span>
               </span>
             </p>
+
             <div class="research-link-row">
               <a href="post/isabelle-submodular-greedy.html">Note</a>
+              <a href="projects.html#projects-research-formal">Evidence</a>
               <a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">Repo</a>
             </div>
           </article>
+
           <article class="research-project-card">
             <p class="research-project-kind">Optimization Research · Duality / Lower Bounds</p>
-            <h3>Spring 2026 | A New Research Direction (Cornell ORIE)</h3>
-            <p class="research-project-line"><strong>Problem:</strong><span class="research-project-line-body">Identify a nontrivial dual / lower-bound framework for a graph-relative-difference distance-fitting objective (B-encoded).</span></p>
-            <p class="research-project-line"><strong>Method:</strong><span class="research-project-line-body">Compare DC/Fenchel dualization with plain Lagrangian duals and diagnose degeneracy from unconstrainedness + translation invariance.</span></p>
-            <p class="research-project-line"><strong>Contribution:</strong><span class="research-project-line-body">Dual-framework comparison, structural diagnosis of trivial bounds, and note-driven refinement of the problem formulation.</span></p>
-            <p class="research-project-line research-project-line--status">
-              <strong>Status:</strong>
+            <h3>Spring 2026 | Duality under Invariances (Cornell ORIE)</h3>
+
+            <p class="research-project-line"><strong>Problem:</strong> <span class="research-project-line-body">Find nontrivial lower bounds for a graph-relative-difference distance-fitting objective where natural formulations can collapse due to translation invariance / non-identifiability.</span></p>
+            <p class="research-project-line"><strong>Method:</strong> <span class="research-project-line-body">Diagnose degeneracy first (what makes the dual trivial), then add structure (gauge-fixing / tighter constraints / augmentation) before choosing a dualization route (Fenchel/DC vs. Lagrangian).</span></p>
+            <p class="research-project-line"><strong>Contribution:</strong> <span class="research-project-line-body">A structure-first roadmap: when/why bounds collapse, plus candidate fixes that restore informative dual signals.</span></p>
+
+            <p class="research-project-line research-project-line--status"><strong>Status:</strong>
               <span class="research-project-status-wrap">
                 <span class="research-project-status-badge research-project-status-badge--active">Active</span>
-                <span class="research-project-status-detail">DC/Fenchel route is informative; next step is tighter relaxations (gauge-fixing / augmented Lagrangian / ADMM).</span>
               </span>
             </p>
+
             <div class="research-link-row">
               <a href="post/spring-2026.html">Note</a>
+              <a href="projects.html#projects-research-formal">Evidence</a>
               <a href="math.html">Archive</a>
             </div>
           </article>
+
           <article class="research-project-card">
             <p class="research-project-kind">Signal / Discretization Prototype · Data-oriented Systems</p>
             <h3>Metalcore Piano Lab | From Audio to Chart (WIP)</h3>
-            <p class="research-project-line"><strong>Problem:</strong><span class="research-project-line-body">Map continuous audio (or MIDI) into a playable rhythm-game chart as a structured discretization problem.</span></p>
-            <p class="research-project-line"><strong>Method:</strong><span class="research-project-line-body">Onset/beat detection, tempo tracking, segmentation, alignment, and playability-oriented constraints.</span></p>
-            <p class="research-project-line"><strong>Contribution:</strong><span class="research-project-line-body">Browser-native prototype + reproducible notes on assumptions, failure modes, and optimization targets.</span></p>
-            <p class="research-project-line research-project-line--status">
-              <strong>Status:</strong>
+
+            <p class="research-project-line"><strong>Problem:</strong> <span class="research-project-line-body">Map continuous audio (or MIDI) into a playable rhythm-game chart as a discretization problem with constraints.</span></p>
+            <p class="research-project-line"><strong>Method:</strong> <span class="research-project-line-body">Onset/beat detection, tempo tracking, segmentation/alignment, then playability-oriented constraints and evaluation targets.</span></p>
+            <p class="research-project-line"><strong>Contribution:</strong> <span class="research-project-line-body">A browser-native prototype + notes that document assumptions, failure modes, and next-step heuristics.</span></p>
+
+            <p class="research-project-line research-project-line--status"><strong>Status:</strong>
               <span class="research-project-status-wrap">
-                <span class="research-project-status-badge research-project-status-badge--active">Active</span>
-                <span class="research-project-status-detail">Browser prototype works end-to-end; chart quality and scaling heuristics are being refined.</span>
+                <span class="research-project-status-badge research-project-status-badge--wip">Active / WIP</span>
               </span>
             </p>
+
             <div class="research-link-row">
               <a href="post/metalcore-piano-lab.html">Note</a>
+              <a href="projects.html#projects-prototype">Evidence</a>
               <a href="https://github.com/lyuf09/metalcore-piano-lab" target="_blank" rel="noopener noreferrer">Repo</a>
             </div>
           </article>
@@ -256,11 +266,11 @@
         <div class="container research-now-panel">
           <ul class="research-now-list">
             <!-- GENERATED:research-now:start -->
-            <li>Which dual formulations remain informative under non-identifiability / translation invariance, and which collapse to trivial lower bounds.</li>
-            <li>How to design reusable proof structure in Isabelle/HOL so formalization artifacts scale beyond one theorem statement.</li>
-            <li>When a “natural” relaxation is too loose: what structural fix (gauge-fixing, constraints, augmentation) restores useful information.</li>
-            <li>How signal-like inputs (audio, temporal traces) can be mapped into discrete, computable structures without losing interpretability.</li>
-            <li>How optimization / formal methods / modeling can share one language of explicit assumptions and reproducible abstractions.</li>
+            <li>How to restore informative lower bounds under invariances: gauge-fixing vs. augmentation (e.g., augmented Lagrangian / ADMM-style structure).</li>
+            <li>How to make Isabelle proofs scale: interface design (locales), step-spec patterns, and reusable lemma libraries.</li>
+            <li>When a relaxation is “too loose”: minimal structural constraints that recover signal without breaking tractability.</li>
+            <li>How to evaluate discretization quality: objective proxies + constraint design for playability and interpretability.</li>
+            <li>How to keep research artifacts legible: short entry points + evidence links (notes/repos) without repeating the CV.</li>
             <!-- GENERATED:research-now:end -->
           </ul>
         </div>
@@ -287,6 +297,11 @@
             <span class="research-fast-link-kicker">Notes</span>
             <strong>Math / Research Notes</strong>
             <span>Optimization, Isabelle formalization, and experimental logs.</span>
+          </a>
+          <a class="research-fast-link" href="projects.html">
+            <span class="research-fast-link-kicker">Projects</span>
+            <strong>Evidence-first project map</strong>
+            <span>Repos, notes, demos, and shipped work grouped by track.</span>
           </a>
           <a class="research-fast-link" href="research-summary.html" target="_blank" rel="noopener noreferrer">
             <span class="research-fast-link-kicker">Faculty view</span>

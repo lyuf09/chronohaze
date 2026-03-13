@@ -33,18 +33,19 @@
       "url": "projects.html",
       "section": "Site",
       "date": "2026-03-12",
-      "excerpt": "A curated set of research and engineering projects with concrete artifacts for quick scanning.",
+      "excerpt": "Evidence-first map of research, prototypes, engineering, data analytics, and site-building work.",
       "tags": [
         "projects",
         "research",
         "optimization",
         "formal-methods",
+        "prototype",
         "data",
         "engineering"
       ],
       "sort": 20260312,
       "scope": "site",
-      "content": "Selected Projects. A curated set of research and engineering projects with concrete artifacts, repos, notes, and write-ups. Formal Methods: Isabelle/HOL submodular greedy guarantees, monotone submodular maximization, cardinality constraint, classical (1 − 1/e) guarantee, reusable gap-recurrence framework, locale structure, theory files, research log, stochastic and lazy variants. Optimization Research: dual certificates that collapse under invariances, translation invariance, symmetry, trivial lower bounds, gauge-fixing, derivation note, meeting summary, benchmark comparison. Data: retention and cohort analysis from production tables, new vs returning users, D1 retention, post-k-th visit retention, inconsistent join keys, reproducible SQL, validation tables and plots, automated checks. Engineering & IP: anti-segregation aggregate spreading system, iterative parameter tuning, field feedback, IP filing, patent documentation, technical summary."
+      "content": "Projects and Artifacts Evidence-first Claim Evidence Next Formal Methods Optimization Signal Processing Engineering Systems Data Analytics Section A Research and Formal Methods Isabelle HOL Formalising Submodular Greedy reusable proof structure monotone submodular greedy 1−1/e guarantee Duality Lower Bounds Structure-first Diagnosis translation-invariant distance-fitting objective gauge-fixing tighter relaxations augmentation Section B Prototypes Signal-to-Structure Metalcore Piano Lab constrained discretization pipeline audio MIDI chart events Section C Engineering Systems and IP Anti-segregation Spreading System modeling parameter optimization patent pipeline Section D Data Analytics Funnel Retention Attribution Debugging metric definitions mapping correctness shipped Section E This Website as a Product Chronohaze research notes projects creative work searchable catalog pages"
     }
   ]
 }
