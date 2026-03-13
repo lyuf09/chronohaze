@@ -33,7 +33,7 @@
       "url": "projects.html",
       "section": "Site",
       "date": "2026-03-12",
-      "excerpt": "Evidence-first map of research, prototypes, engineering, data analytics, and site-building work.",
+      "excerpt": "把研究、原型、工程与数据工作按“证据优先”整理成可快速扫描的项目地图。",
       "tags": [
         "projects",
         "research",
@@ -45,7 +45,7 @@
       ],
       "sort": 20260312,
       "scope": "site",
-      "content": "Projects and Artifacts Evidence-first Claim Evidence Next Formal Methods Optimization Signal Processing Engineering Systems Data Analytics Section A Research and Formal Methods Isabelle HOL Formalising Submodular Greedy reusable proof structure monotone submodular greedy 1−1/e guarantee Duality Lower Bounds Structure-first Diagnosis translation-invariant distance-fitting objective gauge-fixing tighter relaxations augmentation Section B Prototypes Signal-to-Structure Metalcore Piano Lab constrained discretization pipeline audio MIDI chart events Section C Engineering Systems and IP Anti-segregation Spreading System modeling parameter optimization patent pipeline Section D Data Analytics Funnel Retention Attribution Debugging metric definitions mapping correctness shipped Section E This Website as a Product Chronohaze research notes projects creative work searchable catalog pages"
+      "content": "项目与产出 Evidence-first 主张 证据 下一步 研究与形式化证明 原型 信号到结构 工程系统与 IP 数据分析 这个网站本身 Isabelle HOL Formalising Submodular Greedy 单调子模贪心 1−1/e 对偶 下界 结构诊断 Metalcore Piano Lab 音频 MIDI 谱面事件 防离析布料系统 转化 留存 归因 Chronohaze repo note demo shipped"
     }
   ]
 }

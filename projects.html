@@ -44,162 +44,300 @@
           <img src="assets/logo.png" alt="Chronohaze" />
           <span>chronohaze.space</span>
         </a>
-        <nav class="nav" aria-label="Main navigation">
-          <a href="index.html">主页</a>
-          <a href="math.html">数学</a>
-          <a href="portfolio-1.html">摄影</a>
-          <a href="yin-le.html">音乐</a>
-          <a class="active" href="projects.html">Projects</a>
-          <a href="cv.html">CV</a>
-          <a href="research.html">Research</a>
+        <nav class="nav" aria-label="主导航" data-i18n-aria="navAria">
+          <a href="index.html" data-i18n="navHome">主页</a>
+          <a href="math.html" data-i18n="navMath">数学</a>
+          <a href="portfolio-1.html" data-i18n="navPhoto">摄影</a>
+          <a href="yin-le.html" data-i18n="navMusic">音乐</a>
+          <a class="active" href="projects.html" data-i18n="navProjects">项目</a>
+          <a href="cv.html" data-i18n="navCV">CV</a>
+          <a href="research.html" data-i18n="navResearch">研究</a>
         </nav>
       </div>
     </header>
 
     <main class="main">
+      <div class="container">
+        <div class="cv-utility-bar">
+          <div class="cv-utility-top">
+            <div class="cv-lang-tabs" role="tablist" aria-label="Page language tabs">
+              <button class="cv-lang-tab is-active" type="button" role="tab" aria-selected="true" data-page-lang-tab="zh">ZH</button>
+              <button class="cv-lang-tab" type="button" role="tab" aria-selected="false" data-page-lang-tab="en">EN</button>
+            </div>
+            <a class="cv-research-link" href="research.html" data-i18n="utilityLink">Research</a>
+          </div>
+        </div>
+      </div>
+
       <section class="research-hero">
         <div class="container research-hero-inner">
           <div class="research-hero-copy">
-            <p class="research-eyebrow">Projects</p>
-            <h1>Projects &amp; Artifacts (Evidence-first)</h1>
-            <p class="research-subtitle">Claim → Evidence → Next</p>
-            <p class="research-positioning">
-              A compact, evidence-first map of what I build and prove. For a faculty-facing 60-second overview, see <a href="research.html">Research</a>. For application-facing experience, see <a href="cv.html">CV</a>. For longer logs and technical context, see <a href="math.html">Research Notes</a>.
-            </p>
-            <div class="research-chip-row" aria-label="Project focus tags">
-              <span class="research-chip">Formal Methods</span>
-              <span class="research-chip">Optimization</span>
-              <span class="research-chip">Signal Processing</span>
-              <span class="research-chip">Engineering Systems</span>
-              <span class="research-chip">Data Analytics</span>
+            <div data-lang-block="zh">
+              <p class="research-eyebrow">Projects</p>
+              <h1>项目与产出（Evidence-first）</h1>
+              <p class="research-subtitle">主张（Claim）→ 证据（Evidence）→ 下一步（Next）</p>
+              <p class="research-positioning">把我做过/正在做的东西按“证据优先”整理在这里：repo、笔记、demo、已交付结果。想要 60 秒研究入口去 Research；想看申请/经历去 CV；更长的技术记录与推导在 Research Notes。</p>
+              <div class="research-chip-row" aria-label="项目标签">
+                <span class="research-chip">形式化证明</span>
+                <span class="research-chip">优化</span>
+                <span class="research-chip">信号处理</span>
+                <span class="research-chip">工程系统</span>
+                <span class="research-chip">数据分析</span>
+              </div>
+            </div>
+            <div data-lang-block="en" hidden>
+              <p class="research-eyebrow">Projects</p>
+              <h1>Projects &amp; Artifacts (Evidence-first)</h1>
+              <p class="research-subtitle">Claim → Evidence → Next</p>
+              <p class="research-positioning">A compact, evidence-first map of what I build and prove. For a faculty-facing 60-second overview, see <a href="research.html">Research</a>. For application-facing experience, see <a href="cv.html">CV</a>. For longer logs and technical context, see <a href="math.html">Research Notes</a>.</p>
+              <div class="research-chip-row" aria-label="Project focus tags">
+                <span class="research-chip">Formal Methods</span>
+                <span class="research-chip">Optimization</span>
+                <span class="research-chip">Signal Processing</span>
+                <span class="research-chip">Engineering Systems</span>
+                <span class="research-chip">Data Analytics</span>
+              </div>
             </div>
           </div>
           <aside class="research-hero-panel" aria-label="Projects quick map">
-            <h2>Sections</h2>
-            <ul>
-              <li><a href="#projects-research-formal">A. Research &amp; Formal Methods</a></li>
-              <li><a href="#projects-prototype">B. Prototypes / Signal-to-Structure</a></li>
-              <li><a href="#projects-engineering">C. Engineering Systems &amp; IP</a></li>
-              <li><a href="#projects-data">D. Data Analytics (Applied)</a></li>
-              <li><a href="#projects-site">E. This Website as a Product</a></li>
-            </ul>
+            <div data-lang-block="zh">
+              <h2>Sections</h2>
+              <ul>
+                <li><a href="#projects-research-formal">A. 研究与形式化证明</a></li>
+                <li><a href="#projects-prototype">B. 原型 / 信号 → 结构</a></li>
+                <li><a href="#projects-engineering">C. 工程系统与 IP</a></li>
+                <li><a href="#projects-data">D. 数据分析（应用）</a></li>
+                <li><a href="#projects-site">E. 这个网站本身</a></li>
+              </ul>
+            </div>
+            <div data-lang-block="en" hidden>
+              <h2>Sections</h2>
+              <ul>
+                <li><a href="#projects-research-formal">A. Research &amp; Formal Methods</a></li>
+                <li><a href="#projects-prototype">B. Prototypes / Signal-to-Structure</a></li>
+                <li><a href="#projects-engineering">C. Engineering Systems &amp; IP</a></li>
+                <li><a href="#projects-data">D. Data Analytics (Applied)</a></li>
+                <li><a href="#projects-site">E. This Website as a Product</a></li>
+              </ul>
+            </div>
           </aside>
         </div>
       </section>
 
       <section class="section research-projects-section" id="projects-research-formal">
         <div class="container research-section-head">
-          <h2>Section A — Research &amp; Formal Methods</h2>
+          <div data-lang-block="zh"><h2>A. 研究与形式化证明</h2></div>
+          <div data-lang-block="en" hidden><h2>Section A — Research &amp; Formal Methods</h2></div>
         </div>
         <div class="container research-project-grid">
-          <article class="research-project-card">
-            <p class="research-project-kind">Formal Methods · Submodular Optimization</p>
-            <h3>Isabelle/HOL — Formalising Submodular Greedy</h3>
-            <p class="research-project-line"><strong>Core:</strong> <span class="research-project-line-body">Reusable Isabelle/HOL proof structure for monotone submodular greedy and the (1−1/e) guarantee (cardinality constraint).</span></p>
-            <p class="research-project-line"><strong>Why:</strong> <span class="research-project-line-body">turns a classical analysis into checkable, reusable components that can be extended to greedy variants.</span></p>
-            <p class="research-project-line research-project-line--status"><strong>Status:</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">Active</span></span></p>
-            <p class="research-project-line"><strong>Evidence:</strong> <span class="research-project-line-body">public theory repo + note documenting proof decomposition, interfaces (locales/step-spec), and reusable lemmas.</span></p>
-            <div class="research-link-row">
-              <a href="post/isabelle-submodular-greedy.html">Note</a>
-              <a href="research.html">Research</a>
-              <a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">Repo</a>
-            </div>
-          </article>
-          <article class="research-project-card">
-            <p class="research-project-kind">Optimization Theory · Duality / Lower Bounds</p>
-            <h3>Duality / Lower Bounds — Structure-first Diagnosis</h3>
-            <p class="research-project-line"><strong>Core:</strong> <span class="research-project-line-body">lower-bound/duality study for a translation-invariant distance-fitting objective encoded by graph-relative differences.</span></p>
-            <p class="research-project-line"><strong>Why:</strong> <span class="research-project-line-body">identifies exactly when standard dual routes collapse, then narrows to structural fixes that restore informative bounds.</span></p>
-            <p class="research-project-line research-project-line--status"><strong>Status:</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">Active</span></span></p>
-            <p class="research-project-line"><strong>Evidence:</strong> <span class="research-project-line-body">research note with degeneracy diagnosis + candidate fixes (gauge-fixing / tighter relaxations / augmentation).</span></p>
-            <div class="research-link-row">
-              <a href="post/spring-2026.html">Note</a>
-              <a href="research.html">Research</a>
-              <a href="math.html">Archive</a>
-            </div>
-          </article>
+          <div data-lang-block="zh">
+            <article class="research-project-card">
+              <p class="research-project-kind">形式化证明 · 子模优化</p>
+              <h3>Isabelle/HOL — Formalising Submodular Greedy</h3>
+              <p class="research-project-line"><strong>核心：</strong> <span class="research-project-line-body">可复用的 Isabelle/HOL 证明结构：单调子模贪心 + 基数约束下 (1−1/e) 近似保证。</span></p>
+              <p class="research-project-line"><strong>为什么重要：</strong> <span class="research-project-line-body">把经典分析拆成可检查、可复用组件，便于扩展到贪心变体。</span></p>
+              <p class="research-project-line research-project-line--status"><strong>状态：</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">进行中（Active）</span></span></p>
+              <p class="research-project-line"><strong>证据：</strong> <span class="research-project-line-body">公共 theory repo + 说明 proof 分解、接口（locales/step-spec）与复用 lemma 的笔记。</span></p>
+              <div class="research-link-row">
+                <a href="post/isabelle-submodular-greedy.html">Note</a>
+                <a href="research.html">Research</a>
+                <a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">Repo</a>
+              </div>
+            </article>
+            <article class="research-project-card">
+              <p class="research-project-kind">优化理论 · 对偶 / 下界</p>
+              <h3>Duality / Lower Bounds — Structure-first Diagnosis</h3>
+              <p class="research-project-line"><strong>核心：</strong> <span class="research-project-line-body">针对平移不变/不可识别的距离拟合目标，研究何时标准对偶/下界坍塌为无信息。</span></p>
+              <p class="research-project-line"><strong>为什么重要：</strong> <span class="research-project-line-body">先诊断“为什么坍塌”，再收敛到能恢复信息性的结构修复方案。</span></p>
+              <p class="research-project-line research-project-line--status"><strong>状态：</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">进行中（Active）</span></span></p>
+              <p class="research-project-line"><strong>证据：</strong> <span class="research-project-line-body">研究笔记：退化诊断 + 修复候选（gauge-fixing / 更紧 relaxations / 增广）。</span></p>
+              <div class="research-link-row">
+                <a href="post/spring-2026.html">Note</a>
+                <a href="research.html">Research</a>
+                <a href="math.html">Archive</a>
+              </div>
+            </article>
+          </div>
+          <div data-lang-block="en" hidden>
+            <article class="research-project-card">
+              <p class="research-project-kind">Formal Methods · Submodular Optimization</p>
+              <h3>Isabelle/HOL — Formalising Submodular Greedy</h3>
+              <p class="research-project-line"><strong>Core:</strong> <span class="research-project-line-body">Reusable Isabelle/HOL proof structure for monotone submodular greedy and the (1−1/e) guarantee (cardinality constraint).</span></p>
+              <p class="research-project-line"><strong>Why:</strong> <span class="research-project-line-body">turns a classical analysis into checkable, reusable components that can be extended to greedy variants.</span></p>
+              <p class="research-project-line research-project-line--status"><strong>Status:</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">Active</span></span></p>
+              <p class="research-project-line"><strong>Evidence:</strong> <span class="research-project-line-body">public theory repo + note documenting proof decomposition, interfaces (locales/step-spec), and reusable lemmas.</span></p>
+              <div class="research-link-row">
+                <a href="post/isabelle-submodular-greedy.html">Note</a>
+                <a href="research.html">Research</a>
+                <a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">Repo</a>
+              </div>
+            </article>
+            <article class="research-project-card">
+              <p class="research-project-kind">Optimization Theory · Duality / Lower Bounds</p>
+              <h3>Duality / Lower Bounds — Structure-first Diagnosis</h3>
+              <p class="research-project-line"><strong>Core:</strong> <span class="research-project-line-body">lower-bound/duality study for a translation-invariant distance-fitting objective encoded by graph-relative differences.</span></p>
+              <p class="research-project-line"><strong>Why:</strong> <span class="research-project-line-body">identifies exactly when standard dual routes collapse, then narrows to structural fixes that restore informative bounds.</span></p>
+              <p class="research-project-line research-project-line--status"><strong>Status:</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">Active</span></span></p>
+              <p class="research-project-line"><strong>Evidence:</strong> <span class="research-project-line-body">research note with degeneracy diagnosis + candidate fixes (gauge-fixing / tighter relaxations / augmentation).</span></p>
+              <div class="research-link-row">
+                <a href="post/spring-2026.html">Note</a>
+                <a href="research.html">Research</a>
+                <a href="math.html">Archive</a>
+              </div>
+            </article>
+          </div>
         </div>
       </section>
 
       <section class="section research-projects-section" id="projects-prototype">
         <div class="container research-section-head">
-          <h2>Section B — Prototypes / Signal-to-Structure</h2>
+          <div data-lang-block="zh"><h2>B. 原型 / 信号 → 结构</h2></div>
+          <div data-lang-block="en" hidden><h2>Section B — Prototypes / Signal-to-Structure</h2></div>
         </div>
         <div class="container research-project-grid">
-          <article class="research-project-card">
-            <p class="research-project-kind">Signal Processing · Discretization Prototype</p>
-            <h3>Metalcore Piano Lab — From Audio to Chart (WIP)</h3>
-            <p class="research-project-line"><strong>Core:</strong> <span class="research-project-line-body">browser prototype that turns audio/MIDI into rhythm-game chart events (a constrained discretization pipeline).</span></p>
-            <p class="research-project-line"><strong>Why:</strong> <span class="research-project-line-body">makes signal-processing assumptions explicit and optimizable (tempo/onset/segmentation + playability constraints).</span></p>
-            <p class="research-project-line research-project-line--status"><strong>Status:</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--wip">Active / WIP</span></span></p>
-            <p class="research-project-line"><strong>Evidence:</strong> <span class="research-project-line-body">prototype repo + note describing pipeline, failure modes, and measurable next targets.</span></p>
-            <div class="research-link-row">
-              <a href="post/metalcore-piano-lab.html">Note</a>
-              <a href="research.html">Research</a>
-              <a href="https://github.com/lyuf09/metalcore-piano-lab" target="_blank" rel="noopener noreferrer">Repo</a>
-            </div>
-          </article>
+          <div data-lang-block="zh">
+            <article class="research-project-card">
+              <p class="research-project-kind">信号处理 · 离散化原型</p>
+              <h3>Metalcore Piano Lab — From Audio to Chart (WIP)</h3>
+              <p class="research-project-line"><strong>核心：</strong> <span class="research-project-line-body">浏览器原型：把音频/MIDI 转为谱面事件（带约束的离散化流程）。</span></p>
+              <p class="research-project-line"><strong>为什么重要：</strong> <span class="research-project-line-body">把信号处理假设显式化并可优化（tempo/onset/segmentation + 可玩性约束）。</span></p>
+              <p class="research-project-line research-project-line--status"><strong>状态：</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--wip">进行中 / WIP</span></span></p>
+              <p class="research-project-line"><strong>证据：</strong> <span class="research-project-line-body">原型 repo + 记录 pipeline、失效模式与可量化下一步目标的笔记。</span></p>
+              <div class="research-link-row">
+                <a href="post/metalcore-piano-lab.html">Note</a>
+                <a href="research.html">Research</a>
+                <a href="https://github.com/lyuf09/metalcore-piano-lab" target="_blank" rel="noopener noreferrer">Repo</a>
+              </div>
+            </article>
+          </div>
+          <div data-lang-block="en" hidden>
+            <article class="research-project-card">
+              <p class="research-project-kind">Signal Processing · Discretization Prototype</p>
+              <h3>Metalcore Piano Lab — From Audio to Chart (WIP)</h3>
+              <p class="research-project-line"><strong>Core:</strong> <span class="research-project-line-body">browser prototype that turns audio/MIDI into rhythm-game chart events (a constrained discretization pipeline).</span></p>
+              <p class="research-project-line"><strong>Why:</strong> <span class="research-project-line-body">makes signal-processing assumptions explicit and optimizable (tempo/onset/segmentation + playability constraints).</span></p>
+              <p class="research-project-line research-project-line--status"><strong>Status:</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--wip">Active / WIP</span></span></p>
+              <p class="research-project-line"><strong>Evidence:</strong> <span class="research-project-line-body">prototype repo + note describing pipeline, failure modes, and measurable next targets.</span></p>
+              <div class="research-link-row">
+                <a href="post/metalcore-piano-lab.html">Note</a>
+                <a href="research.html">Research</a>
+                <a href="https://github.com/lyuf09/metalcore-piano-lab" target="_blank" rel="noopener noreferrer">Repo</a>
+              </div>
+            </article>
+          </div>
         </div>
       </section>
 
       <section class="section research-projects-section" id="projects-engineering">
         <div class="container research-section-head">
-          <h2>Section C — Engineering Systems &amp; IP</h2>
+          <div data-lang-block="zh"><h2>C. 工程系统与 IP</h2></div>
+          <div data-lang-block="en" hidden><h2>Section C — Engineering Systems &amp; IP</h2></div>
         </div>
         <div class="container research-project-grid">
-          <article class="research-project-card">
-            <p class="research-project-kind">Engineering Systems · Modeling / Parameter Optimization</p>
-            <h3>Anti-segregation Spreading System (Patent pipeline)</h3>
-            <p class="research-project-line"><strong>Core:</strong> <span class="research-project-line-body">engineering system reducing aggregate segregation during spreading; modeling + parameter optimization under real constraints.</span></p>
-            <p class="research-project-line"><strong>Why:</strong> <span class="research-project-line-body">connects mathematical modeling to long-cycle deployment and measurable performance improvement.</span></p>
-            <p class="research-project-line research-project-line--status"><strong>Status:</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--in-prep">Patent pending + utility model granted</span></span></p>
-            <p class="research-project-line"><strong>Evidence:</strong> <span class="research-project-line-body">public-safe summary in CV (full technical details available by request).</span></p>
-            <div class="research-link-row">
-              <a href="cv.html">CV (public)</a>
-              <a href="research.html">Research</a>
-            </div>
-          </article>
+          <div data-lang-block="zh">
+            <article class="research-project-card">
+              <p class="research-project-kind">工程系统 · 建模 / 参数优化</p>
+              <h3>Anti-segregation Spreading System</h3>
+              <p class="research-project-line"><strong>核心：</strong> <span class="research-project-line-body">工程系统：降低砂石布料过程离析；在真实约束下做建模与关键参数优化。</span></p>
+              <p class="research-project-line"><strong>为什么重要：</strong> <span class="research-project-line-body">连接数学建模与长期落地迭代，并可对性能改进进行度量。</span></p>
+              <p class="research-project-line research-project-line--status"><strong>状态：</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--in-prep">发明在审 + 实用新型已授权</span></span></p>
+              <p class="research-project-line"><strong>证据：</strong> <span class="research-project-line-body">CV 的公开版摘要（完整细节按需提供）。</span></p>
+              <div class="research-link-row">
+                <a href="cv.html">CV</a>
+                <a href="research.html">Research</a>
+              </div>
+            </article>
+          </div>
+          <div data-lang-block="en" hidden>
+            <article class="research-project-card">
+              <p class="research-project-kind">Engineering Systems · Modeling / Parameter Optimization</p>
+              <h3>Anti-segregation Spreading System (Patent pipeline)</h3>
+              <p class="research-project-line"><strong>Core:</strong> <span class="research-project-line-body">engineering system reducing aggregate segregation during spreading; modeling + parameter optimization under real constraints.</span></p>
+              <p class="research-project-line"><strong>Why:</strong> <span class="research-project-line-body">connects mathematical modeling to long-cycle deployment and measurable performance improvement.</span></p>
+              <p class="research-project-line research-project-line--status"><strong>Status:</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--in-prep">Patent pending + utility model granted</span></span></p>
+              <p class="research-project-line"><strong>Evidence:</strong> <span class="research-project-line-body">public-safe summary in CV (full technical details available by request).</span></p>
+              <div class="research-link-row">
+                <a href="cv.html">CV</a>
+                <a href="research.html">Research</a>
+              </div>
+            </article>
+          </div>
         </div>
       </section>
 
       <section class="section research-projects-section" id="projects-data">
         <div class="container research-section-head">
-          <h2>Section D — Data Analytics (Applied)</h2>
+          <div data-lang-block="zh"><h2>D. 数据分析（应用）</h2></div>
+          <div data-lang-block="en" hidden><h2>Section D — Data Analytics (Applied)</h2></div>
         </div>
         <div class="container research-project-grid">
-          <article class="research-project-card">
-            <p class="research-project-kind">Data Analytics · Diagnostics</p>
-            <h3>Funnel / Retention / Attribution Debugging</h3>
-            <p class="research-project-line"><strong>Core:</strong> <span class="research-project-line-body">diagnostics for conversion, retention, and attribution pipelines; metric definitions and mapping correctness.</span></p>
-            <p class="research-project-line"><strong>Why:</strong> <span class="research-project-line-body">trustworthy metrics are prerequisites for product/growth decisions and experiment evaluation.</span></p>
-            <p class="research-project-line research-project-line--status"><strong>Status:</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">Shipped</span></span></p>
-            <p class="research-project-line"><strong>Evidence:</strong> <span class="research-project-line-body">public-safe internship summary in CV; details by request.</span></p>
-            <div class="research-link-row">
-              <a href="cv.html">CV (public)</a>
-              <a href="research.html">Research</a>
-            </div>
-          </article>
+          <div data-lang-block="zh">
+            <article class="research-project-card">
+              <p class="research-project-kind">数据分析 · 诊断</p>
+              <h3>Funnel / Retention / Attribution Debugging</h3>
+              <p class="research-project-line"><strong>核心：</strong> <span class="research-project-line-body">转化、留存、归因管线诊断；指标定义与映射正确性排查。</span></p>
+              <p class="research-project-line"><strong>为什么重要：</strong> <span class="research-project-line-body">可信指标是产品/增长决策与实验评估的前置条件。</span></p>
+              <p class="research-project-line research-project-line--status"><strong>状态：</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">已交付（Shipped）</span></span></p>
+              <p class="research-project-line"><strong>证据：</strong> <span class="research-project-line-body">CV 的公开版摘要（完整细节按需提供）。</span></p>
+              <div class="research-link-row">
+                <a href="cv.html">CV</a>
+                <a href="research.html">Research</a>
+              </div>
+            </article>
+          </div>
+          <div data-lang-block="en" hidden>
+            <article class="research-project-card">
+              <p class="research-project-kind">Data Analytics · Diagnostics</p>
+              <h3>Funnel / Retention / Attribution Debugging</h3>
+              <p class="research-project-line"><strong>Core:</strong> <span class="research-project-line-body">diagnostics for conversion, retention, and attribution pipelines; metric definitions and mapping correctness.</span></p>
+              <p class="research-project-line"><strong>Why:</strong> <span class="research-project-line-body">trustworthy metrics are prerequisites for product/growth decisions and experiment evaluation.</span></p>
+              <p class="research-project-line research-project-line--status"><strong>Status:</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">Shipped</span></span></p>
+              <p class="research-project-line"><strong>Evidence:</strong> <span class="research-project-line-body">public-safe internship summary in CV; details by request.</span></p>
+              <div class="research-link-row">
+                <a href="cv.html">CV</a>
+                <a href="research.html">Research</a>
+              </div>
+            </article>
+          </div>
         </div>
       </section>
 
       <section class="section research-projects-section" id="projects-site">
         <div class="container research-section-head">
-          <h2>Section E — This Website as a “Product”</h2>
+          <div data-lang-block="zh"><h2>E. 这个网站本身</h2></div>
+          <div data-lang-block="en" hidden><h2>Section E — This Website as a Product</h2></div>
         </div>
         <div class="container research-project-grid">
-          <article class="research-project-card">
-            <p class="research-project-kind">Personal Infrastructure · Documentation System</p>
-            <h3>Chronohaze — Research + Creative Archive</h3>
-            <p class="research-project-line"><strong>Core:</strong> <span class="research-project-line-body">a static site that keeps research notes, projects, and creative work linkable and maintainable with low overhead.</span></p>
-            <p class="research-project-line"><strong>Why:</strong> <span class="research-project-line-body">supports “30-second entry + deep links” (faculty scan → notes/repos) without duplicating the CV.</span></p>
-            <p class="research-project-line research-project-line--status"><strong>Status:</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">Active maintenance</span></span></p>
-            <p class="research-project-line"><strong>Evidence:</strong> <span class="research-project-line-body">live site + repo + searchable catalog pages.</span></p>
-            <div class="research-link-row">
-              <a href="index.html">Site</a>
-              <a href="research.html">Research</a>
-              <a href="https://github.com/lyuf09/chronohaze" target="_blank" rel="noopener noreferrer">Repo</a>
-            </div>
-          </article>
+          <div data-lang-block="zh">
+            <article class="research-project-card">
+              <p class="research-project-kind">个人基础设施 · 文档系统</p>
+              <h3>Chronohaze — Research + Creative Archive</h3>
+              <p class="research-project-line"><strong>核心：</strong> <span class="research-project-line-body">静态站点：把研究笔记、项目产出、创作内容做成可深链接、可维护的目录。</span></p>
+              <p class="research-project-line"><strong>为什么重要：</strong> <span class="research-project-line-body">支持“30 秒入口 + 深链接”（faculty scan → notes/repos）而不重复 CV。</span></p>
+              <p class="research-project-line research-project-line--status"><strong>状态：</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">持续维护（Active）</span></span></p>
+              <p class="research-project-line"><strong>证据：</strong> <span class="research-project-line-body">在线站点 + repo + 可检索目录页。</span></p>
+              <div class="research-link-row">
+                <a href="index.html">Site</a>
+                <a href="research.html">Research</a>
+                <a href="https://github.com/lyuf09/chronohaze" target="_blank" rel="noopener noreferrer">Repo</a>
+              </div>
+            </article>
+          </div>
+          <div data-lang-block="en" hidden>
+            <article class="research-project-card">
+              <p class="research-project-kind">Personal Infrastructure · Documentation System</p>
+              <h3>Chronohaze — Research + Creative Archive</h3>
+              <p class="research-project-line"><strong>Core:</strong> <span class="research-project-line-body">a static site that keeps research notes, projects, and creative work linkable and maintainable with low overhead.</span></p>
+              <p class="research-project-line"><strong>Why:</strong> <span class="research-project-line-body">supports “30-second entry + deep links” (faculty scan → notes/repos) without duplicating the CV.</span></p>
+              <p class="research-project-line research-project-line--status"><strong>Status:</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">Active maintenance</span></span></p>
+              <p class="research-project-line"><strong>Evidence:</strong> <span class="research-project-line-body">live site + repo + searchable catalog pages.</span></p>
+              <div class="research-link-row">
+                <a href="index.html">Site</a>
+                <a href="research.html">Research</a>
+                <a href="https://github.com/lyuf09/chronohaze" target="_blank" rel="noopener noreferrer">Repo</a>
+              </div>
+            </article>
+          </div>
         </div>
       </section>
     </main>
@@ -208,8 +346,8 @@
       <div class="container footer-grid">
         <div>
           <p class="footer-title">chronohaze.space</p>
-          <p class="footer-note">辗转不同国家无固定号码 请联系邮箱：<a href="#" data-email-link="1" data-email-key="main" class="obf-email-link">feier530 [at] icloud [dot] com</a></p>
-          <p class="footer-note">重庆 · Edinburgh · New York</p>
+          <p class="footer-note"><span data-i18n="footerContactLead">辗转不同国家无固定号码 请联系邮箱：</span><a href="#" data-email-link="1" data-email-key="main" class="obf-email-link">feier530 [at] icloud [dot] com</a></p>
+          <p class="footer-note" data-i18n="footerCities">重庆 · Edinburgh · New York</p>
           <p class="footer-copy">© 2026 by chronohaze.space. Powered and secured by GitHub Pages.</p>
           <div class="social" aria-label="Social links">
             <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -219,11 +357,118 @@
           </div>
         </div>
         <div class="footer-right">
-          <a href="policy.html">网站说明</a>
-          <a href="accessibility.html">无障碍支持</a>
+          <a href="policy.html" data-i18n="siteNotes">网站说明</a>
+          <a href="accessibility.html" data-i18n="a11y">无障碍支持</a>
         </div>
       </div>
     </footer>
   </div>
+  <script>
+    (function () {
+      var i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
+      var i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
+      var langBlocks = Array.from(document.querySelectorAll('[data-lang-block]'));
+      var langTabs = Array.from(document.querySelectorAll('[data-page-lang-tab]'));
+      var i18n = {
+        zh: {
+          htmlLang: 'zh-CN',
+          pageTitle: '项目与产出 | Chronohaze',
+          navAria: '主导航',
+          navHome: '主页',
+          navMath: '数学',
+          navPhoto: '摄影',
+          navMusic: '音乐',
+          navProjects: '项目',
+          navCV: 'CV',
+          navResearch: '研究',
+          utilityLink: 'Research',
+          footerContactLead: '辗转不同国家无固定号码 请联系邮箱：',
+          footerCities: '重庆 · Edinburgh · New York',
+          siteNotes: '网站说明',
+          a11y: '无障碍支持'
+        },
+        en: {
+          htmlLang: 'en',
+          pageTitle: 'Projects | Chronohaze',
+          navAria: 'Main navigation',
+          navHome: 'Main',
+          navMath: 'Mathematics',
+          navPhoto: 'Photography',
+          navMusic: 'Music',
+          navProjects: 'Projects',
+          navCV: 'CV',
+          navResearch: 'Research',
+          utilityLink: 'Research',
+          footerContactLead: 'No fixed phone number while moving across countries. Contact via email: ',
+          footerCities: 'Chongqing · Edinburgh · New York',
+          siteNotes: 'Privacy Policy',
+          a11y: 'Accessibility'
+        }
+      };
+
+      function setLanguage(lang) {
+        var safeLang = lang === 'en' ? 'en' : 'zh';
+        var dict = i18n[safeLang];
+        document.documentElement.lang = dict.htmlLang;
+        document.title = dict.pageTitle;
+
+        i18nNodes.forEach(function (node) {
+          var key = node.getAttribute('data-i18n');
+          if (typeof dict[key] === 'string') {
+            node.textContent = dict[key];
+          }
+        });
+
+        i18nAriaNodes.forEach(function (node) {
+          var key = node.getAttribute('data-i18n-aria');
+          if (typeof dict[key] === 'string') {
+            node.setAttribute('aria-label', dict[key]);
+          }
+        });
+
+        langBlocks.forEach(function (block) {
+          block.hidden = block.getAttribute('data-lang-block') !== safeLang;
+        });
+
+        langTabs.forEach(function (tab) {
+          var active = tab.getAttribute('data-page-lang-tab') === safeLang;
+          tab.classList.toggle('is-active', active);
+          tab.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+
+        try {
+          window.localStorage.setItem('chronohaze-lang', safeLang);
+        } catch (err) {}
+      }
+
+      var initialLang = 'zh';
+      try {
+        var savedLang = window.localStorage.getItem('chronohaze-lang');
+        if (savedLang === 'zh' || savedLang === 'en') {
+          initialLang = savedLang;
+        }
+      } catch (err) {}
+
+      var queryLang = new URLSearchParams(window.location.search).get('lang');
+      if (queryLang === 'zh' || queryLang === 'en') {
+        initialLang = queryLang;
+      }
+
+      langTabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          var nextLang = tab.getAttribute('data-page-lang-tab');
+          if (nextLang !== 'zh' && nextLang !== 'en') {
+            return;
+          }
+          setLanguage(nextLang);
+          var url = new URL(window.location.href);
+          url.searchParams.set('lang', nextLang);
+          window.history.replaceState({}, '', url.toString());
+        });
+      });
+
+      setLanguage(initialLang);
+    })();
+  </script>
 </body>
 </html>
