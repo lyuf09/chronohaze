@@ -33,7 +33,7 @@
         "optimization",
         "formal-methods"
       ],
-      "content": "研究 优化 形式化验证 Isabelle HOL 数学建模 三条相关方向 形式化近似保证 不变性下的对偶与下界 连续对象离散化为可检查结构 研究兴趣 优化 对偶 下界 一阶结构 不变性 形式化验证 Isabelle HOL 假设 接口 扩展 子模算法 单调子模最大化 贪心保证 机器检验 建模 formulation 对称性 近似需求 实现约束 当前工作 Isabelle HOL 子模贪心算法形式化 Note Repo 不变性下的对偶与下界 Note Archive Metalcore Piano Lab 从音频 MIDI 到谱面 Note Repo 建议先看 这些方向为什么连在一起 Research Optimization Formal Verification Isabelle HOL Mathematical Modeling current work submodular greedy duality lower bounds invariances discretization Note Repo Archive"
+      "content": "研究 优化 形式化验证 Isabelle HOL 数学建模 三条相关方向 形式化近似保证 不变性下的对偶与下界 连续对象离散化为可检查结构 Shoham Sabach Wenda Li Cornell ORIE Edinburgh Informatics 研究兴趣 优化 对偶 下界 一阶结构 不变性 形式化验证 Isabelle HOL 假设 接口 扩展 子模算法 单调子模最大化 贪心保证 机器检验 建模 formulation 对称性 近似需求 实现约束 当前工作 Isabelle HOL 子模贪心算法形式化 Note Repo 不变性下的对偶与下界 Note Archive Metalcore Piano Lab 从音频 MIDI 到谱面 Note Repo 建议先看 这些方向为什么连在一起 Research Optimization Formal Verification Isabelle HOL Mathematical Modeling current work submodular greedy duality lower bounds invariances discretization Shoham Sabach Wenda Li Note Repo Archive"
     },
     {
       "title": "搜索 / Search",
@@ -957,13 +957,13 @@
       "url": "cv.html",
       "section": "Site",
       "date": "",
-      "excerpt": "Public CV with education, research directions, selected projects, experience, and contact.",
+      "excerpt": "Public CV with education, research directions, research experience, selected projects, and contact.",
       "tags": [
         "cv"
       ],
       "sort": 0,
       "scope": "cv",
-      "content": "公开版 CV 教育背景 爱丁堡大学数学本科 康奈尔大学交流 研究方向 优化 形式化验证 数学建模 子模贪心近似保证 不变性下的对偶与下界 Isabelle HOL 证明组织 代表项目与专利 Isabelle HOL 子模贪心算法形式化 不变性下的对偶与下界 Metalcore Piano Lab 防离析布料系统 专利与 IP 数据分析 建模与工程分析 相关链接 联系方式 Public CV Education BSc Mathematics University of Edinburgh Cornell University exchange Research Directions optimization formal verification mathematical modeling submodular greedy guarantees duality lower bounds under invariances Isabelle HOL proof organization Selected Projects and Patents Metalcore Piano Lab Anti-Segregation Spreading Data Analytics Modeling and Engineering Analysis Contact"
+      "content": "公开版 CV 教育背景 爱丁堡大学数学本科 康奈尔大学交流 研究方向 优化 形式化验证 数学建模 子模贪心近似保证 不变性下的对偶与下界 Isabelle HOL 证明组织 代表项目与专利 Isabelle HOL 子模贪心算法形式化 不变性下的对偶与下界 Metalcore Piano Lab 防离析布料系统 专利与 IP 研究经历 本科研究助理 优化 康奈尔大学 ORIE Shoham Sabach Nemhauser Wolsey LazyGreedy StochasticGreedy 本科研究助理 面向优化的形式化方法 爱丁堡大学 信息学院 Wenda Li 形式化验证优化算法 子模函数 贪心算法 数据分析 建模与工程分析 相关链接 联系方式 Public CV Education BSc Mathematics University of Edinburgh Cornell University exchange Research Directions optimization formal verification mathematical modeling submodular greedy guarantees duality lower bounds under invariances Isabelle HOL proof organization Selected Projects and Patents Research Experience Undergraduate Researcher Optimization Cornell ORIE Shoham Sabach Nemhauser Wolsey LazyGreedy StochasticGreedy Formal Methods for Optimization Wenda Li submodular functions greedy algorithms Data Analytics Modeling and Engineering Analysis Contact"
     }
   ]
 }
