@@ -149,10 +149,8 @@
 
             <article class="research-project-card">
               <h3>Metalcore Piano Lab｜从音频 / MIDI 到谱面（WIP）</h3>
-              <p class="research-project-line"><strong>问题：</strong> <span class="research-project-line-body">把连续的音频或 MIDI 输入映射成可玩的节奏游戏谱面事件；本质上，这是一个带约束的离散化问题。</span></p>
-              <p class="research-project-line"><strong>方法：</strong> <span class="research-project-line-body">起音检测、拍点跟踪、分段、对齐，以及可玩性约束。</span></p>
-              <p class="research-project-line"><strong>目前阶段：</strong> <span class="research-project-line-body">我已经做了一个浏览器原型，并记录了主要 pipeline、它依赖的假设，以及目前最明显的局限。</span></p>
-              <p class="research-project-line"><strong>下一步：</strong> <span class="research-project-line-body">更仔细地评估谱面质量，以及哪些可玩性约束是真正必要的。</span></p>
+              <p>这个原型在做的事情很直接：把连续的音频或 MIDI 输入，变成可玩的节奏游戏谱面事件。技术上它牵涉起音检测、拍点跟踪、分段、对齐，以及一组并不完全稳定的可玩性约束。</p>
+              <p>我已经做了一个浏览器版本，用来反复测试这些假设在实际输入上会怎样失效。现在更关心的，是谱面质量该怎么评估，以及哪些约束只是方便实现，哪些是真的必要。</p>
               <p class="research-project-line research-project-line--status"><strong>当前状态：</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--wip">开发中。</span></span></p>
               <div class="research-link-row">
                 <a href="post/metalcore-piano-lab.html">Note</a>
@@ -190,10 +188,8 @@
 
             <article class="research-project-card">
               <h3>Metalcore Piano Lab | Audio / MIDI to Chart (WIP)</h3>
-              <p class="research-project-line"><strong>Problem:</strong> <span class="research-project-line-body">Map continuous audio or MIDI input into playable rhythm-game chart events. At its core, this is a constrained discretization problem.</span></p>
-              <p class="research-project-line"><strong>Methods:</strong> <span class="research-project-line-body">Onset detection, beat tracking, segmentation, alignment, and playability constraints.</span></p>
-              <p class="research-project-line"><strong>Current stage:</strong> <span class="research-project-line-body">I built a browser-based prototype and documented the main pipeline, its assumptions, and its most obvious limitations.</span></p>
-              <p class="research-project-line"><strong>Next step:</strong> <span class="research-project-line-body">Evaluate chart quality more carefully and decide which playability constraints are genuinely necessary.</span></p>
+              <p>This prototype is doing something fairly concrete: taking continuous audio or MIDI input and turning it into playable rhythm-game chart events. In practice that means onset detection, beat tracking, segmentation, alignment, and a set of playability constraints that are not yet fully settled.</p>
+              <p>I have built a browser version mainly as a way to test where those assumptions break on real inputs. What interests me most at the moment is how chart quality should be evaluated, and which constraints are genuinely necessary rather than just convenient for implementation.</p>
               <p class="research-project-line research-project-line--status"><strong>Current status:</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--wip">Work in progress.</span></span></p>
               <div class="research-link-row">
                 <a href="post/metalcore-piano-lab.html">Note</a>
