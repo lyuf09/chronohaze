@@ -1244,30 +1244,27 @@
         });
     }
 
-    function loadCombinedFallback() {
-      function parseInlineFallback() {
-        var node = document.getElementById("search-inline-fallback");
-        if (!node) {
-          return [];
-        }
-        var raw = node.textContent || "[]";
-        if (raw.length > 8000) {
-          return [];
-        }
-        try {
-          var payload = JSON.parse(raw);
-          return normalizeItems(payload);
-        } catch (_error) {
-          return [];
-        }
+    function readInlineFallbackItems() {
+      var node = document.getElementById("search-inline-fallback");
+      if (!node) {
+        return [];
       }
+      var raw = node.textContent || "[]";
+      try {
+        var payload = JSON.parse(raw);
+        return normalizeItems(payload);
+      } catch (_error) {
+        return [];
+      }
+    }
 
+    function loadCombinedFallback() {
       return fetchJsonFromCandidates("assets/search-index.json")
         .then(function (payload) {
           return normalizeItems(payload);
         })
         .catch(function () {
-          var inlineItems = parseInlineFallback();
+          var inlineItems = readInlineFallbackItems();
           if (inlineItems.length) {
             return inlineItems;
           }
@@ -1283,16 +1280,30 @@
       usingFallback = false;
 
       var targetScopes = scope === "all" ? allScopes.slice() : [scope];
-      setLoadingState(dict.searchLoading);
+      var inlineSeed = readInlineFallbackItems();
+      var seededFromInline = inlineSeed.length > 0;
+      if (seededFromInline) {
+        allItems = dedupeByUrl(inlineSeed);
+        loaded = true;
+        loadError = false;
+        usingFallback = false;
+        setLoadedState();
+        buildTagOptions();
+        renderResults();
+      } else {
+        setLoadingState(dict.searchLoading);
+      }
 
       var collected = [];
       var chain = Promise.resolve();
       targetScopes.forEach(function (targetScope, index) {
         chain = chain.then(function () {
-          var progressText = dict.searchLoadingProgress
-            .replace("{done}", String(index + 1))
-            .replace("{total}", String(targetScopes.length));
-          setLoadingState(progressText);
+          if (!seededFromInline) {
+            var progressText = dict.searchLoadingProgress
+              .replace("{done}", String(index + 1))
+              .replace("{total}", String(targetScopes.length));
+            setLoadingState(progressText);
+          }
           return fetchScopeIndex(targetScope).then(function (items) {
             collected = collected.concat(items);
           });
@@ -1318,7 +1329,7 @@
             .then(function (items) {
               allItems = dedupeByUrl(items);
               loaded = true;
-              usingFallback = true;
+              usingFallback = false;
               setLoadedState();
               buildTagOptions();
               renderResults();
