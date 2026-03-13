@@ -74,14 +74,14 @@
           <div class="research-hero-copy">
             <div data-lang-block="zh">
               <h1>选定项目</h1>
-              <p class="research-positioning">这里整理的是我目前较重要的几个项目，以及它们对应的笔记、仓库和公开材料。</p>
+              <p class="research-positioning">这里是项目材料与公开产出的索引。每个条目只保留题目、当前状态，以及可以直接查看的材料。</p>
             </div>
             <div data-lang-block="en" hidden>
               <h1>Selected Projects</h1>
-              <p class="research-positioning">This page collects the main projects I have been working on, together with notes, repositories, and public materials where available.</p>
+              <p class="research-positioning">This page is an index of project materials and public outputs. Each entry keeps only the topic, current status, and the materials that can be checked directly.</p>
             </div>
           </div>
-          <aside class="research-hero-panel" aria-label="Projects quick map">
+          <aside class="research-hero-panel" aria-label="Project sections">
             <div data-lang-block="zh">
               <h2>目录</h2>
               <ul>
@@ -106,7 +106,7 @@
         </div>
       </section>
 
-      <section class="section research-projects-section" id="projects-research-formal">
+            <section class="section research-projects-section" id="projects-research-formal">
         <div class="container research-section-head">
           <div data-lang-block="zh"><h2>研究与形式化验证</h2></div>
           <div data-lang-block="en" hidden><h2>Research and Formal Verification</h2></div>
@@ -115,39 +115,31 @@
           <div data-lang-block="zh">
             <article class="research-project-card">
               <h3>Isabelle/HOL：子模贪心算法形式化</h3>
-              <p class="research-project-line"><strong>题目：</strong> <span class="research-project-line-body">在 Isabelle/HOL 中形式化验证单调子模最大化在基数约束下的经典贪心近似保证。</span></p>
-              <p class="research-project-line"><strong>方法：</strong> <span class="research-project-line-body">Isabelle/HOL、基于 locale 的组织方式、分步证明结构，以及围绕贪心步骤和近似分析整理的一组 lemma。</span></p>
-              <p class="research-project-line"><strong>我做了什么：</strong> <span class="research-project-line-body">我一边推进主要证明，一边调整假设与接口的边界，使贪心构造和近似分析能够分开组织，也让后续相关变体更容易接在同一套文件结构上。</span></p>
+              <p class="research-project-line"><strong>题目：</strong> <span class="research-project-line-body">在 Isabelle/HOL 中形式化单调子模最大化在基数约束下的经典贪心近似保证。</span></p>
               <p class="research-project-line research-project-line--status"><strong>当前状态：</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">进行中。</span></span></p>
-              <p class="research-project-line"><strong>相关材料：</strong> <span class="research-project-line-body"><a href="research.html">Research 页面</a> / <a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">Repository</a> / <a href="post/isabelle-submodular-greedy.html">Notes</a></span></p>
+              <p class="research-project-line"><strong>相关材料：</strong> <span class="research-project-line-body"><a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">Repository</a> / <a href="post/isabelle-submodular-greedy.html">Notes</a></span></p>
             </article>
 
             <article class="research-project-card">
               <h3>不变性下的对偶与下界</h3>
-              <p class="research-project-line"><strong>题目：</strong> <span class="research-project-line-body">研究带有图相对结构、同时具有平移不变性的距离拟合目标时，对偶与下界为什么会退化为常数或零下界。</span></p>
-              <p class="research-project-line"><strong>方法：</strong> <span class="research-project-line-body">从 Fenchel/DC 与 Lagrangian 两条路线出发，再逐步检查是哪一个不变性让下界在消元后变成平凡结果。</span></p>
-              <p class="research-project-line"><strong>我做了什么：</strong> <span class="research-project-line-body">我重新推导并核查了主要公式，也更明确地定位了退化发生的步骤。下一步主要是测试 gauge-fixing、增广或更紧约束是否足以恢复非平凡下界。</span></p>
+              <p class="research-project-line"><strong>题目：</strong> <span class="research-project-line-body">带图相对结构的距离拟合目标里，对偶与下界为何会在平移不变性或不可识别性下退化。</span></p>
               <p class="research-project-line research-project-line--status"><strong>当前状态：</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">进行中。</span></span></p>
-              <p class="research-project-line"><strong>相关材料：</strong> <span class="research-project-line-body"><a href="research.html">Research 页面</a> / <a href="post/spring-2026.html">Notes</a> / <a href="math.html">Archive</a></span></p>
+              <p class="research-project-line"><strong>相关材料：</strong> <span class="research-project-line-body"><a href="post/spring-2026.html">Notes</a> / <a href="math.html">Archive</a></span></p>
             </article>
           </div>
           <div data-lang-block="en" hidden>
             <article class="research-project-card">
               <h3>Isabelle/HOL: Formalizing Submodular Greedy</h3>
-              <p class="research-project-line"><strong>Topic:</strong> <span class="research-project-line-body">Formal verification of the classical greedy approximation guarantee for monotone submodular maximization under a cardinality constraint.</span></p>
-              <p class="research-project-line"><strong>Methods:</strong> <span class="research-project-line-body">Isabelle/HOL, locale-based organization, stepwise proof structure, and supporting lemmas for the greedy step and approximation recurrence.</span></p>
-              <p class="research-project-line"><strong>My work:</strong> <span class="research-project-line-body">I have been developing the proof while adjusting the assumptions and interfaces so that the greedy construction and the approximation argument stay separate both on the page and in the theory files. The aim is to leave room for closely related variants without rewriting everything.</span></p>
+              <p class="research-project-line"><strong>Topic:</strong> <span class="research-project-line-body">Formalization of monotone submodular maximization and the classical greedy (1 - 1/e) guarantee in Isabelle/HOL.</span></p>
               <p class="research-project-line research-project-line--status"><strong>Current status:</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">Ongoing.</span></span></p>
-              <p class="research-project-line"><strong>Materials:</strong> <span class="research-project-line-body"><a href="research.html">Research page</a> / <a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">Repository</a> / <a href="post/isabelle-submodular-greedy.html">Notes</a></span></p>
+              <p class="research-project-line"><strong>Materials:</strong> <span class="research-project-line-body"><a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">Repository</a> / <a href="post/isabelle-submodular-greedy.html">Notes</a></span></p>
             </article>
 
             <article class="research-project-card">
               <h3>Duality and Lower Bounds under Invariances</h3>
-              <p class="research-project-line"><strong>Topic:</strong> <span class="research-project-line-body">Duality and lower-bound behavior for translation-invariant distance-fitting objectives with graph-relative structure, especially when the bound collapses to a trivial constant.</span></p>
-              <p class="research-project-line"><strong>Methods:</strong> <span class="research-project-line-body">Fenchel/DC and Lagrangian derivations, followed by a step-by-step diagnosis of where the collapse occurs.</span></p>
-              <p class="research-project-line"><strong>My work:</strong> <span class="research-project-line-body">I re-derived the main formulations, checked the source of the collapse, and narrowed the next step to gauge-fixing, augmentation, or tighter constraints.</span></p>
+              <p class="research-project-line"><strong>Topic:</strong> <span class="research-project-line-body">Notes and ongoing derivations on why natural duals collapse for certain translation-invariant distance-fitting objectives, and what structural modifications may change that.</span></p>
               <p class="research-project-line research-project-line--status"><strong>Current status:</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">Ongoing.</span></span></p>
-              <p class="research-project-line"><strong>Materials:</strong> <span class="research-project-line-body"><a href="research.html">Research page</a> / <a href="post/spring-2026.html">Notes</a> / <a href="math.html">Archive</a></span></p>
+              <p class="research-project-line"><strong>Materials:</strong> <span class="research-project-line-body"><a href="post/spring-2026.html">Notes</a> / <a href="math.html">Archive</a></span></p>
             </article>
           </div>
         </div>
@@ -163,20 +155,16 @@
             <article class="research-project-card">
               <h3>Metalcore Piano Lab｜从音频 / MIDI 到谱面</h3>
               <p class="research-project-line"><strong>题目：</strong> <span class="research-project-line-body">一个把音频或 MIDI 转换成可玩节奏游戏谱面事件的浏览器原型。</span></p>
-              <p class="research-project-line"><strong>方法：</strong> <span class="research-project-line-body">起音与拍点检测、分段、对齐，以及可玩性约束。</span></p>
-              <p class="research-project-line"><strong>我做了什么：</strong> <span class="research-project-line-body">我搭建了原型，写出了主要 pipeline，也把依赖的假设和目前的失效模式明确记录下来，而不是把系统当作一个黑箱。</span></p>
               <p class="research-project-line research-project-line--status"><strong>当前状态：</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--wip">开发中。</span></span></p>
-              <p class="research-project-line"><strong>相关材料：</strong> <span class="research-project-line-body"><a href="research.html">Research 页面</a> / <a href="https://github.com/lyuf09/metalcore-piano-lab" target="_blank" rel="noopener noreferrer">Repository</a> / <a href="post/metalcore-piano-lab.html">Notes</a></span></p>
+              <p class="research-project-line"><strong>相关材料：</strong> <span class="research-project-line-body"><a href="https://github.com/lyuf09/metalcore-piano-lab" target="_blank" rel="noopener noreferrer">Repository</a> / <a href="post/metalcore-piano-lab.html">Notes</a></span></p>
             </article>
           </div>
           <div data-lang-block="en" hidden>
             <article class="research-project-card">
               <h3>Metalcore Piano Lab | Audio / MIDI to Chart</h3>
               <p class="research-project-line"><strong>Topic:</strong> <span class="research-project-line-body">A browser-based prototype for converting audio or MIDI into playable rhythm-game chart events.</span></p>
-              <p class="research-project-line"><strong>Methods:</strong> <span class="research-project-line-body">Onset and beat detection, segmentation, alignment, and playability constraints.</span></p>
-              <p class="research-project-line"><strong>My work:</strong> <span class="research-project-line-body">I built the prototype, wrote out the main pipeline, and documented the assumptions and failure modes rather than treating the system as a black box.</span></p>
               <p class="research-project-line research-project-line--status"><strong>Current status:</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--wip">Work in progress.</span></span></p>
-              <p class="research-project-line"><strong>Materials:</strong> <span class="research-project-line-body"><a href="research.html">Research page</a> / <a href="https://github.com/lyuf09/metalcore-piano-lab" target="_blank" rel="noopener noreferrer">Repository</a> / <a href="post/metalcore-piano-lab.html">Notes</a></span></p>
+              <p class="research-project-line"><strong>Materials:</strong> <span class="research-project-line-body"><a href="https://github.com/lyuf09/metalcore-piano-lab" target="_blank" rel="noopener noreferrer">Repository</a> / <a href="post/metalcore-piano-lab.html">Notes</a></span></p>
             </article>
           </div>
         </div>
@@ -192,8 +180,6 @@
             <article class="research-project-card">
               <h3>防离析布料系统</h3>
               <p class="research-project-line"><strong>题目：</strong> <span class="research-project-line-body">一个面向真实布料场景、用于降低砂石离析的工程系统。</span></p>
-              <p class="research-project-line"><strong>方法：</strong> <span class="research-project-line-body">在实际约束下进行建模与关键参数优化。</span></p>
-              <p class="research-project-line"><strong>我做了什么：</strong> <span class="research-project-line-body">我参与了建模与关键参数调整，而这项工作从头到尾都受到真实条件约束，不是理想化环境下的单独建模。</span></p>
               <p class="research-project-line research-project-line--status"><strong>当前状态：</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--in-prep">发明专利在审；实用新型已授权。</span></span></p>
               <p class="research-project-line"><strong>相关材料：</strong> <span class="research-project-line-body"><a href="cv.html">CV 页面</a> / 公开摘要可见；更完整的技术细节按需提供。</span></p>
             </article>
@@ -202,8 +188,6 @@
             <article class="research-project-card">
               <h3>Anti-Segregation Spreading System</h3>
               <p class="research-project-line"><strong>Topic:</strong> <span class="research-project-line-body">An engineering system designed to reduce aggregate segregation during spreading operations.</span></p>
-              <p class="research-project-line"><strong>Methods:</strong> <span class="research-project-line-body">Modeling and parameter tuning under real deployment constraints.</span></p>
-              <p class="research-project-line"><strong>My work:</strong> <span class="research-project-line-body">I participated in modeling and key parameter optimization, with the work shaped throughout by practical conditions rather than an idealized setting.</span></p>
               <p class="research-project-line research-project-line--status"><strong>Current status:</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--in-prep">Invention patent under review; utility model granted.</span></span></p>
               <p class="research-project-line"><strong>Materials:</strong> <span class="research-project-line-body"><a href="cv.html">CV page</a> / Public summary available; fuller technical details on request.</span></p>
             </article>
@@ -221,8 +205,6 @@
             <article class="research-project-card">
               <h3>Funnel / Retention / Attribution Analysis</h3>
               <p class="research-project-line"><strong>题目：</strong> <span class="research-project-line-body">应用数据分析中的转化、留存与归因诊断。</span></p>
-              <p class="research-project-line"><strong>方法：</strong> <span class="research-project-line-body">检查指标定义、映射与 join key 逻辑，并验证最终汇报口径。</span></p>
-              <p class="research-project-line"><strong>我做了什么：</strong> <span class="research-project-line-body">我参与排查了几条看似合理却得出不一致结果的指标链路，并协助重新梳理逻辑，使最终指标更一致、也更容易解释。</span></p>
               <p class="research-project-line research-project-line--status"><strong>当前状态：</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">已完成。</span></span></p>
               <p class="research-project-line"><strong>相关材料：</strong> <span class="research-project-line-body"><a href="cv.html">CV 页面</a></span></p>
             </article>
@@ -231,8 +213,6 @@
             <article class="research-project-card">
               <h3>Funnel / Retention / Attribution Analysis</h3>
               <p class="research-project-line"><strong>Topic:</strong> <span class="research-project-line-body">Conversion, retention, and attribution diagnostics in applied data analysis.</span></p>
-              <p class="research-project-line"><strong>Methods:</strong> <span class="research-project-line-body">Metric-definition review, mapping and join-key debugging, and validation of reporting logic.</span></p>
-              <p class="research-project-line"><strong>My work:</strong> <span class="research-project-line-body">I worked on diagnosing why seemingly reasonable metric pipelines produced inconsistent results, and helped rebuild the logic so that the final metrics became interpretable and consistent.</span></p>
               <p class="research-project-line research-project-line--status"><strong>Current status:</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">Completed.</span></span></p>
               <p class="research-project-line"><strong>Materials:</strong> <span class="research-project-line-body"><a href="cv.html">CV page</a></span></p>
             </article>
@@ -250,8 +230,6 @@
             <article class="research-project-card">
               <h3>Chronohaze</h3>
               <p class="research-project-line"><strong>题目：</strong> <span class="research-project-line-body">一个将研究笔记、项目材料与创作内容整理在一起的静态网站。</span></p>
-              <p class="research-project-line"><strong>方法：</strong> <span class="research-project-line-body">结构化页面、稳定链接、可检索条目，以及低维护成本的静态发布。</span></p>
-              <p class="research-project-line"><strong>我做了什么：</strong> <span class="research-project-line-body">我把这个站当作一个长期归档系统来搭，让研究、项目与创作能够放在同一个地方，同时又各有自己的入口和上下文。</span></p>
               <p class="research-project-line research-project-line--status"><strong>当前状态：</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">持续维护中。</span></span></p>
               <p class="research-project-line"><strong>相关材料：</strong> <span class="research-project-line-body"><a href="index.html">Site</a> / <a href="https://github.com/lyuf09/chronohaze" target="_blank" rel="noopener noreferrer">Repository</a></span></p>
             </article>
@@ -260,14 +238,13 @@
             <article class="research-project-card">
               <h3>Chronohaze</h3>
               <p class="research-project-line"><strong>Topic:</strong> <span class="research-project-line-body">A static website that keeps research notes, project materials, and creative work organized in one place.</span></p>
-              <p class="research-project-line"><strong>Methods:</strong> <span class="research-project-line-body">Structured pages, stable links, searchable entries, and low-maintenance static publishing.</span></p>
-              <p class="research-project-line"><strong>My work:</strong> <span class="research-project-line-body">I built the site as a long-term archive rather than a single portfolio page, so that research, projects, and creative work can live together while keeping different kinds of material in their own context.</span></p>
               <p class="research-project-line research-project-line--status"><strong>Current status:</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">Ongoing maintenance.</span></span></p>
               <p class="research-project-line"><strong>Materials:</strong> <span class="research-project-line-body"><a href="index.html">Site</a> / <a href="https://github.com/lyuf09/chronohaze" target="_blank" rel="noopener noreferrer">Repository</a></span></p>
             </article>
           </div>
         </div>
       </section>
+
     </main>
 
     <footer class="site-footer">

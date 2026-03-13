@@ -7,13 +7,13 @@
       "url": "cv.html",
       "section": "Site",
       "date": "",
-      "excerpt": "Public CV with education, research interests, selected projects, and experience.",
+      "excerpt": "Public CV with education, research directions, selected projects, experience, and contact.",
       "tags": [
         "cv"
       ],
       "sort": 0,
       "scope": "cv",
-      "content": "公开版 CV 教育背景 爱丁堡大学数学本科 康奈尔大学交流 研究兴趣 优化 形式化验证 数学建模 Isabelle HOL 子模贪心算法形式化 不变性下的对偶与下界 Metalcore Piano Lab 防离析布料系统 专利与 IP 数据分析 建模与工程分析 联系方式 Public CV Education BSc Mathematics University of Edinburgh Cornell University exchange Research Interests optimization formal verification mathematical modeling Isabelle HOL Formalizing Submodular Greedy Duality and Lower Bounds under Invariances Metalcore Piano Lab Engineering System Anti-Segregation Spreading Patents and IP Data Analytics Modeling and Engineering Analysis Contact"
+      "content": "公开版 CV 教育背景 爱丁堡大学数学本科 康奈尔大学交流 研究方向 优化 形式化验证 数学建模 子模贪心近似保证 不变性下的对偶与下界 Isabelle HOL 证明组织 代表项目与专利 Isabelle HOL 子模贪心算法形式化 不变性下的对偶与下界 Metalcore Piano Lab 防离析布料系统 专利与 IP 数据分析 建模与工程分析 相关链接 联系方式 Public CV Education BSc Mathematics University of Edinburgh Cornell University exchange Research Directions optimization formal verification mathematical modeling submodular greedy guarantees duality lower bounds under invariances Isabelle HOL proof organization Selected Projects and Patents Metalcore Piano Lab Anti-Segregation Spreading Data Analytics Modeling and Engineering Analysis Contact"
     }
   ]
 }

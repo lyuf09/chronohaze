@@ -78,33 +78,33 @@
             <div data-lang-block="zh">
               <h1>研究</h1>
               <p class="research-subtitle">优化 · 形式化验证（Isabelle/HOL） · 数学建模</p>
-              <p class="research-positioning">我是一名数学本科生，目前主要在几条彼此相关的方向上工作：一是对子模贪心算法近似保证的形式化验证；二是研究带有不变性的优化模型中，对偶与下界为什么会失去信息，以及怎样把这种信息恢复回来；三是做一些小型计算原型，把连续信号转成离散结构，并把其中的建模假设和失效模式写出来。</p>
-              <p class="research-positioning">这里先给出一个简要概览；更长的技术笔记、仓库和项目材料都在下方链接中。</p>
+              <p class="research-positioning">我目前主要沿三条彼此相关的方向工作：一是在 Isabelle/HOL 中形式化近似保证；二是研究带有不变性的优化模型里，对偶与下界何时会退化；三是做一些把连续对象离散化为可检查结构的小型原型。</p>
+              <p class="research-positioning">把这些线连在一起的，是我对“如何把结构说清楚”这件事的兴趣：无论对象是一个定理、一个下界，还是一个从信号到事件的 pipeline。下面只保留几个主要方向与入口；更长的材料放在笔记和仓库里。</p>
             </div>
             <div data-lang-block="en" hidden>
               <h1>Research</h1>
               <p class="research-subtitle">Optimization · Formal Verification (Isabelle/HOL) · Mathematical Modeling</p>
-              <p class="research-positioning">I am an undergraduate mathematics student currently working across several connected directions: formal verification of approximation guarantees for submodular greedy algorithms, duality and lower-bound questions in optimization models with invariances, and small computational prototypes that turn continuous signals into discrete structures while keeping track of their modeling assumptions and failure modes.</p>
-              <p class="research-positioning">This page gives a concise overview of what I am currently working on. Longer technical notes, repositories, and project materials are linked below.</p>
+              <p class="research-positioning">I am currently working along three connected directions: formal verification of approximation guarantees in Isabelle/HOL, duality and lower-bound questions for optimization models with invariances, and small prototypes that turn continuous objects into discrete structures that can actually be inspected and constrained.</p>
+              <p class="research-positioning">What ties these lines together, for me, is an interest in making structure explicit—whether the object is a theorem, a lower bound, or a pipeline from signal to event. Below I keep only the main directions and entry points; longer material lives in the notes and repositories.</p>
             </div>
           </div>
-          <aside class="research-hero-panel" aria-label="Quick profile">
+          <aside class="research-hero-panel" aria-label="Research themes">
             <div data-lang-block="zh">
               <h2>研究兴趣</h2>
               <ul>
-                <li>优化<br />我关注对偶、下界、一阶结构与数学建模，尤其在平移不变性、对称性或可识别性问题会直接影响模型表达能力的时候，这类问题会更吸引我。</li>
-                <li>形式化验证<br />我使用 Isabelle/HOL 形式化数学论证。除了把定理证出来，我也关心假设怎样打包、lemma 怎样复用，以及一个 development 如何支持后续变体，而不只停在单个结论上。</li>
-                <li>子模算法<br />我尤其关注单调子模最大化中的贪心算法、它们的近似保证，以及这些近似分析如何在机器检验环境下被组织成清晰、可复用的形式。</li>
-                <li>建模与结构<br />更广义地说，我对这样的问题很感兴趣：一个数学模型在真正面对对称性、不变性、近似需求或实现约束时，会发生怎样的结构变化。</li>
+                <li>优化<br />对偶、下界、一阶结构，以及不变性如何改变一个问题真正能恢复出什么。</li>
+                <li>形式化验证<br />用 Isabelle/HOL 组织证明，尤其关心假设、接口与后续扩展如何写得清楚。</li>
+                <li>子模算法<br />主要围绕单调子模最大化中的贪心保证，以及这些分析如何机器检验。</li>
+                <li>建模<br />关心 formulation 在面对对称性、近似需求和实现约束时会发生什么变化。</li>
               </ul>
             </div>
             <div data-lang-block="en" hidden>
               <h2>Research Interests</h2>
               <ul>
-                <li>Optimization<br />I am interested in duality, lower bounds, first-order structure, and mathematical modeling, especially when invariances or identifiability issues affect what can actually be recovered from a formulation.</li>
-                <li>Formal Verification<br />I use Isabelle/HOL to formalize mathematical arguments. Besides proving the theorem itself, I care about how assumptions are packaged, how lemmas are reused, and how a development can support later variants instead of stopping at one statement.</li>
-                <li>Submodular Algorithms<br />I am especially interested in greedy algorithms for monotone submodular maximization, their approximation guarantees, and how those guarantees can be organized formally in a machine-checked setting.</li>
-                <li>Modeling and Structure<br />More broadly, I am interested in how a mathematical formulation changes once it is forced to face symmetry, invariance, approximation, or implementation constraints.</li>
+                <li>Optimization<br />Duality, lower bounds, first-order structure, and what invariances do to the actual content of a formulation.</li>
+                <li>Formal Verification<br />Using Isabelle/HOL to organize proofs, with particular attention to assumptions, interfaces, and later extensibility.</li>
+                <li>Submodular Algorithms<br />Greedy guarantees for monotone submodular maximization and how those arguments look in a machine-checked setting.</li>
+                <li>Modeling<br />How a formulation changes once it has to face symmetry, approximation, or implementation constraints.</li>
               </ul>
             </div>
           </aside>
@@ -123,11 +123,11 @@
               <h3>Isabelle/HOL：子模贪心算法形式化</h3>
               <p class="research-project-line"><strong>问题：</strong> <span class="research-project-line-body">在 Isabelle/HOL 中形式化验证：单调子模最大化在基数约束下，贪心算法满足经典的 (1 - 1/e) 近似保证。</span></p>
               <p class="research-project-line"><strong>方法：</strong> <span class="research-project-line-body">使用 Isabelle/HOL、基于 locale 的组织方式、分步证明结构，以及把贪心步骤和近似递推尽量分开处理。</span></p>
-              <p class="research-project-line"><strong>目前做了什么：</strong> <span class="research-project-line-body">我正在搭建主要的形式化证明，同时也在反复调整假设、lemma 与接口的边界，看看哪些部分能够在相关贪心变体里直接沿用。</span></p>
+              <p class="research-project-line"><strong>目前阶段：</strong> <span class="research-project-line-body">主线证明正在推进，同时也在整理 greedy 步骤、近似分析和假设打包的边界，看看哪些部分可以在后续变体里直接沿用。</span></p>
+              <p class="research-project-line"><strong>下一步：</strong> <span class="research-project-line-body">继续测试这套组织方式能否自然扩展到更接近 LazyGreedy / StochasticGreedy 的变体。</span></p>
               <p class="research-project-line research-project-line--status"><strong>当前状态：</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">进行中。</span></span></p>
               <div class="research-link-row">
                 <a href="post/isabelle-submodular-greedy.html">Note</a>
-                <a href="projects.html#projects-research-formal">Projects</a>
                 <a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">Repo</a>
               </div>
             </article>
@@ -136,11 +136,11 @@
               <h3>不变性下的对偶与下界</h3>
               <p class="research-project-line"><strong>问题：</strong> <span class="research-project-line-body">对于某些由图上的相对差分定义出的距离拟合目标，自然写出的对偶形式会因为平移不变性或相关的不可识别性而退化，最终只能给出无信息的下界。</span></p>
               <p class="research-project-line"><strong>方法：</strong> <span class="research-project-line-body">比较 Fenchel/DC 与 Lagrangian 两条路线，并逐步检查：是哪个不变性让消元后的下界变成平凡结果，以及加入什么约束后情况会改变。</span></p>
-              <p class="research-project-line"><strong>目前做了什么：</strong> <span class="research-project-line-body">我已经把几条主要推导路线重新走通，也比较清楚地看到平凡下界是在哪一步出现的。下一步会继续测试 gauge-fixing、增广或更紧约束是否足以恢复非平凡下界。</span></p>
+              <p class="research-project-line"><strong>目前阶段：</strong> <span class="research-project-line-body">我已经把几条主要推导路线重新走通，也比较清楚地看到平凡下界是在哪一步出现的。</span></p>
+              <p class="research-project-line"><strong>下一步：</strong> <span class="research-project-line-body">继续测试 gauge-fixing、增广或更紧约束是否足以恢复非平凡下界。</span></p>
               <p class="research-project-line research-project-line--status"><strong>当前状态：</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">进行中。</span></span></p>
               <div class="research-link-row">
                 <a href="post/spring-2026.html">Note</a>
-                <a href="projects.html#projects-research-formal">Projects</a>
                 <a href="math.html">Archive</a>
               </div>
             </article>
@@ -149,11 +149,11 @@
               <h3>Metalcore Piano Lab｜从音频 / MIDI 到谱面（WIP）</h3>
               <p class="research-project-line"><strong>问题：</strong> <span class="research-project-line-body">把连续的音频或 MIDI 输入映射成可玩的节奏游戏谱面事件；本质上，这是一个带约束的离散化问题。</span></p>
               <p class="research-project-line"><strong>方法：</strong> <span class="research-project-line-body">起音检测、拍点跟踪、分段、对齐，以及可玩性约束。</span></p>
-              <p class="research-project-line"><strong>目前做了什么：</strong> <span class="research-project-line-body">我已经做了一个浏览器原型，并记录了主要的 pipeline、它依赖的假设、目前的局限，以及下一步想更仔细评估的问题。</span></p>
+              <p class="research-project-line"><strong>目前阶段：</strong> <span class="research-project-line-body">我已经做了一个浏览器原型，并记录了主要 pipeline、它依赖的假设，以及目前最明显的局限。</span></p>
+              <p class="research-project-line"><strong>下一步：</strong> <span class="research-project-line-body">更仔细地评估谱面质量，以及哪些可玩性约束是真正必要的。</span></p>
               <p class="research-project-line research-project-line--status"><strong>当前状态：</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--wip">开发中。</span></span></p>
               <div class="research-link-row">
                 <a href="post/metalcore-piano-lab.html">Note</a>
-                <a href="projects.html#projects-prototype">Projects</a>
                 <a href="https://github.com/lyuf09/metalcore-piano-lab" target="_blank" rel="noopener noreferrer">Repo</a>
               </div>
             </article>
@@ -164,24 +164,24 @@
               <h3>Isabelle/HOL: Formalizing Submodular Greedy</h3>
               <p class="research-project-line"><strong>Problem:</strong> <span class="research-project-line-body">Formally verify the classical greedy (1 - 1/e) approximation guarantee for monotone submodular maximization under a cardinality constraint.</span></p>
               <p class="research-project-line"><strong>Methods:</strong> <span class="research-project-line-body">Isabelle/HOL, locale-based organization, stepwise proof structure, and a split between the greedy step and the approximation recurrence.</span></p>
-              <p class="research-project-line"><strong>What I have done so far:</strong> <span class="research-project-line-body">I have been building the main formal development while also adjusting the boundary between assumptions, lemmas, and interfaces so that closely related greedy variants do not have to start over.</span></p>
+              <p class="research-project-line"><strong>Current stage:</strong> <span class="research-project-line-body">The main proof development is underway, and I have also been refining the boundary between assumptions, lemmas, and interfaces so that closely related greedy variants do not have to start over.</span></p>
+              <p class="research-project-line"><strong>Next step:</strong> <span class="research-project-line-body">Test whether the same organization can be carried into something closer to a lazy or stochastic variant.</span></p>
               <p class="research-project-line research-project-line--status"><strong>Current status:</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">Ongoing.</span></span></p>
               <div class="research-link-row">
                 <a href="post/isabelle-submodular-greedy.html">Note</a>
-                <a href="projects.html#projects-research-formal">Projects</a>
                 <a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">Repo</a>
               </div>
             </article>
 
             <article class="research-project-card">
               <h3>Duality and Lower Bounds under Invariances</h3>
-              <p class="research-project-line"><strong>Problem:</strong> <span class="research-project-line-body">For certain distance-fitting objectives defined through graph-relative differences, natural dual formulations may collapse to trivial constant bounds because of translation invariance or related non-identifiability.</span></p>
-              <p class="research-project-line"><strong>Methods:</strong> <span class="research-project-line-body">Comparison of Fenchel/DC and Lagrangian routes, with attention to exactly which invariance causes the collapse and what added constraint changes the picture.</span></p>
-              <p class="research-project-line"><strong>What I have done so far:</strong> <span class="research-project-line-body">I have worked through the main derivations, identified where the trivial bound appears, and narrowed the next step to gauge-fixing, augmentation, or tighter constraints.</span></p>
+              <p class="research-project-line"><strong>Problem:</strong> <span class="research-project-line-body">For certain distance-fitting objectives defined through graph-relative differences, natural dual formulations may collapse because of translation invariance or related non-identifiability.</span></p>
+              <p class="research-project-line"><strong>Methods:</strong> <span class="research-project-line-body">Comparison of Fenchel/DC and Lagrangian routes, followed by structural analysis of where the degeneration comes from and what extra constraints or modifications may be needed.</span></p>
+              <p class="research-project-line"><strong>Current stage:</strong> <span class="research-project-line-body">I have worked through the main derivations and clarified where the trivial lower bound appears.</span></p>
+              <p class="research-project-line"><strong>Next step:</strong> <span class="research-project-line-body">Test whether gauge-fixing, augmentation, or tighter constraints are enough to recover a nontrivial bound.</span></p>
               <p class="research-project-line research-project-line--status"><strong>Current status:</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">Ongoing.</span></span></p>
               <div class="research-link-row">
                 <a href="post/spring-2026.html">Note</a>
-                <a href="projects.html#projects-research-formal">Projects</a>
                 <a href="math.html">Archive</a>
               </div>
             </article>
@@ -190,11 +190,11 @@
               <h3>Metalcore Piano Lab | Audio / MIDI to Chart (WIP)</h3>
               <p class="research-project-line"><strong>Problem:</strong> <span class="research-project-line-body">Map continuous audio or MIDI input into playable rhythm-game chart events. At its core, this is a constrained discretization problem.</span></p>
               <p class="research-project-line"><strong>Methods:</strong> <span class="research-project-line-body">Onset detection, beat tracking, segmentation, alignment, and playability constraints.</span></p>
-              <p class="research-project-line"><strong>What I have done so far:</strong> <span class="research-project-line-body">I built a browser-based prototype and documented the main pipeline, including its assumptions, limitations, and the questions I want to evaluate more carefully next.</span></p>
+              <p class="research-project-line"><strong>Current stage:</strong> <span class="research-project-line-body">I built a browser-based prototype and documented the main pipeline, its assumptions, and its most obvious limitations.</span></p>
+              <p class="research-project-line"><strong>Next step:</strong> <span class="research-project-line-body">Evaluate chart quality more carefully and decide which playability constraints are genuinely necessary.</span></p>
               <p class="research-project-line research-project-line--status"><strong>Current status:</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--wip">Work in progress.</span></span></p>
               <div class="research-link-row">
                 <a href="post/metalcore-piano-lab.html">Note</a>
-                <a href="projects.html#projects-prototype">Projects</a>
                 <a href="https://github.com/lyuf09/metalcore-piano-lab" target="_blank" rel="noopener noreferrer">Repo</a>
               </div>
             </article>
@@ -204,67 +204,42 @@
 
       <section class="section" id="research-outputs">
         <div class="container research-section-head">
-          <div data-lang-block="zh"><h2>研究产出与材料</h2></div>
-          <div data-lang-block="en" hidden><h2>Outputs and Materials</h2></div>
+          <div data-lang-block="zh"><h2>建议先看</h2></div>
+          <div data-lang-block="en" hidden><h2>Suggested Starting Points</h2></div>
         </div>
         <div class="container research-now-card">
           <div data-lang-block="zh">
-            <h3>仓库</h3>
-            <p><a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">Isabelle Submodular Greedy</a><br /><a href="https://github.com/lyuf09/metalcore-piano-lab" target="_blank" rel="noopener noreferrer">Metalcore Piano Lab</a></p>
-            <h3>笔记</h3>
-            <p><a href="math.html">Math / Research Notes</a><br />优化与形式化相关笔记</p>
-            <h3>整理中</h3>
-            <p><a href="research-summary.html" target="_blank" rel="noopener noreferrer">One-page research summary</a></p>
+            <h3>Isabelle 笔记</h3>
+            <p><a href="post/isabelle-submodular-greedy.html">一个正在进行的 Isabelle 研究项目：Submodular Greedy 的形式化</a></p>
+            <h3>2026 春研究记录</h3>
+            <p><a href="post/spring-2026.html">Spring 2026</a>：围绕对偶、下界与退化诊断的工作笔记。</p>
+            <h3>Projects</h3>
+            <p><a href="projects.html">Projects</a>：集中查看 repo、note、原型与公开材料。</p>
           </div>
           <div data-lang-block="en" hidden>
-            <h3>Repositories</h3>
-            <p><a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">Isabelle Submodular Greedy</a><br /><a href="https://github.com/lyuf09/metalcore-piano-lab" target="_blank" rel="noopener noreferrer">Metalcore Piano Lab</a></p>
-            <h3>Notes</h3>
-            <p><a href="math.html">Math / Research Notes</a><br />Optimization notes and formalization logs</p>
-            <h3>In Progress</h3>
-            <p><a href="research-summary.html" target="_blank" rel="noopener noreferrer">One-page research summary</a></p>
+            <h3>Isabelle note</h3>
+            <p><a href="post/isabelle-submodular-greedy.html">An ongoing Isabelle research project: formalizing Submodular Greedy</a></p>
+            <h3>Spring 2026 notes</h3>
+            <p><a href="post/spring-2026.html">Spring 2026</a>: working notes on duality, lower bounds, and where degeneracy enters.</p>
+            <h3>Projects</h3>
+            <p><a href="projects.html">Projects</a>: repositories, notes, prototypes, and public materials in one place.</p>
           </div>
         </div>
       </section>
 
       <section class="section" id="research-now">
         <div class="container research-section-head">
-          <div data-lang-block="zh"><h2>最近在想的问题</h2></div>
-          <div data-lang-block="en" hidden><h2>Current Questions</h2></div>
+          <div data-lang-block="zh"><h2>这些方向为什么连在一起</h2></div>
+          <div data-lang-block="en" hidden><h2>What ties these directions together</h2></div>
         </div>
         <div class="container research-now-card">
           <div data-lang-block="zh">
-            <ul>
-              <!-- GENERATED:research-now:start -->
-              <li>一个下界究竟是在什么时候因为不变性而失去信息？又需要多小的结构修正，才足以把有用的信息恢复回来？</li>
-              <li>怎样组织 Isabelle development，才能让它不只是证明一个定理，而是真的能够比较自然地支持后续变体？</li>
-              <li>当离散化输出既要可玩、可理解，又不能只是“算法上勉强成立”时，应该如何评估它的质量？</li>
-              <!-- GENERATED:research-now:end -->
-            </ul>
+            <p>这些方向表面上差得很远，但我通常在追同一类问题：一个对象真正有用的结构到底在哪里，以及当它被形式化、对偶化、离散化或实现之后，还剩下多少。</p>
+            <p>在 Isabelle 里，这意味着把证明写成能继续扩展的结构；在对偶问题里，这意味着分辨“下界没信息”究竟是推导问题还是模型本身的问题；在原型里，这意味着决定一个离散输出到底该保留连续输入中的什么。</p>
           </div>
           <div data-lang-block="en" hidden>
-            <ul>
-              <li>When does a lower bound become trivial because of invariance, and what is the smallest structural change that restores useful information?</li>
-              <li>How can an Isabelle development be organized so that it scales beyond a single theorem and supports later variants naturally?</li>
-              <li>How should discretization quality be evaluated when the output is intended to be playable, interpretable, and not merely algorithmically admissible?</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="research-links">
-        <div class="container research-section-head">
-          <div data-lang-block="zh"><h2>相关链接</h2></div>
-          <div data-lang-block="en" hidden><h2>Links</h2></div>
-        </div>
-        <div class="container research-now-card">
-          <div data-lang-block="zh">
-            <!-- GENERATED:research-links:start -->
-            <p><a href="cv.html">CV</a><br /><a href="projects.html">Projects</a><br /><a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a><br /><a href="math.html">Math / Research Notes</a></p>
-            <!-- GENERATED:research-links:end -->
-          </div>
-          <div data-lang-block="en" hidden>
-            <p><a href="cv.html">CV</a><br /><a href="projects.html">Projects</a><br /><a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a><br /><a href="math.html">Math / Research Notes</a></p>
+            <p>On the surface these directions look quite different, but I usually end up asking the same kind of question: where does the useful structure actually live, and how much of it survives once the object has been formalized, dualized, discretized, or implemented.</p>
+            <p>In Isabelle that means writing a proof so it can be extended later; in duality it means deciding whether a trivial lower bound comes from the derivation or from the model itself; in the prototype work it means deciding what a discrete output should preserve from a continuous input.</p>
           </div>
         </div>
       </section>

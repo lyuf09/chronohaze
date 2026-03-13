@@ -3,7 +3,7 @@
     "eyebrow": "",
     "name": "研究",
     "subtitle": "优化 · 形式化验证（Isabelle/HOL） · 数学建模",
-    "positioning": "我是一名数学本科生，目前主要在几条彼此相关的方向上工作：一是对子模贪心算法近似保证的形式化验证；二是研究带有不变性的优化模型中，对偶与下界为什么会失去信息，以及怎样把这种信息恢复回来；三是做一些小型计算原型，把连续信号转成离散结构，并把其中的假设明确写出来。",
+    "positioning": "我目前主要沿三条彼此相关的方向工作：一是在 Isabelle/HOL 中形式化近似保证；二是研究带有不变性的优化模型里，对偶与下界何时会退化；三是做一些把连续对象离散化为可检查结构的小型原型。",
     "chips": []
   },
   "meta": {
@@ -21,19 +21,15 @@
   "interests": {
     "title": "研究兴趣",
     "items": [
-      "优化 我关注对偶、下界、一阶结构与数学建模，尤其在平移不变性、对称性或可识别性问题会直接影响模型表达能力的时候，这类问题会更吸引我。",
-      "形式化验证 我使用 Isabelle/HOL 形式化数学论证，重点不仅在于“证明出来”，也在于如何组织 proof structure、reusable interfaces、locales，以及怎样让整个 development 能够自然扩展，而不是只服务于单个定理。",
-      "子模算法 我尤其关注单调子模最大化中的贪心算法、它们的近似保证，以及这些近似分析如何在机器检验环境下被组织成清晰、可复用的形式。",
-      "建模与结构 更广义地说，我对这样的问题很感兴趣：一个数学模型在真正面对对称性、不变性、近似需求或实现约束时，会发生怎样的结构变化。",
-      "Optimization I am interested in duality, lower bounds, first-order structure, and mathematical modeling, especially when invariances or identifiability issues affect what can actually be recovered from a formulation.",
-      "Formal Verification I use Isabelle/HOL to formalize mathematical arguments with an emphasis on proof structure, reusable interfaces, locales, and developments that can be extended beyond a single theorem statement.",
-      "Submodular Algorithms I am especially interested in greedy algorithms for monotone submodular maximization, their approximation guarantees, and how those guarantees can be organized formally in a machine-checked setting.",
-      "Modeling and Structure More broadly, I am interested in how a mathematical formulation changes once it is forced to face symmetry, invariance, approximation, or implementation constraints."
+      "优化 对偶、下界、一阶结构，以及不变性如何改变一个问题真正能恢复出什么。",
+      "形式化验证 用 Isabelle/HOL 组织证明，尤其关心假设、接口与后续扩展如何写得清楚。",
+      "子模算法 主要围绕单调子模最大化中的贪心保证，以及这些分析如何机器检验。",
+      "建模 关心 formulation 在面对对称性、近似需求和实现约束时会发生什么变化。"
     ]
   },
   "projects_section": {
     "title": "当前工作",
-    "lead": ""
+    "lead": "这里保留几条主要主线、它们目前做到哪里，以及更适合先点开的材料。"
   },
   "projects": [
     {
@@ -48,11 +44,6 @@
         {
           "href": "post/isabelle-submodular-greedy.html",
           "label": "Note",
-          "external": false
-        },
-        {
-          "href": "projects.html#projects-research-formal",
-          "label": "Projects",
           "external": false
         },
         {
@@ -81,11 +72,6 @@
           "external": false
         },
         {
-          "href": "projects.html#projects-research-formal",
-          "label": "Projects",
-          "external": false
-        },
-        {
           "href": "math.html",
           "label": "Archive",
           "external": false
@@ -111,11 +97,6 @@
           "external": false
         },
         {
-          "href": "projects.html#projects-prototype",
-          "label": "Projects",
-          "external": false
-        },
-        {
           "href": "https://github.com/lyuf09/metalcore-piano-lab",
           "label": "Repo",
           "external": true
@@ -127,9 +108,13 @@
       "status_display": "Active"
     }
   ],
-  "outputs_section": {},
+  "outputs_section": {
+    "title": "建议先看"
+  },
   "outputs": [],
-  "now_section": {},
+  "now_section": {
+    "title": "这些方向为什么连在一起"
+  },
   "now_items": [],
   "links_section": {},
   "links": [],
@@ -146,7 +131,7 @@
     ],
     "sort": 20260312,
     "scope": "site",
-    "content": "研究 优化 · 形式化验证（Isabelle/HOL） · 数学建模 我是一名数学本科生，目前主要在几条彼此相关的方向上工作：一是对子模贪心算法近似保证的形式化验证；二是研究带有不变性的优化模型中，对偶与下界为什么会失去信息，以及怎样把这种信息恢复回来；三是做一些小型计算原型，把连续信号转成离散结构，并把其中的假设明确写出来。 研究兴趣 优化 我关注对偶、下界、一阶结构与数学建模，尤其在平移不变性、对称性或可识别性问题会直接影响模型表达能力的时候，这类问题会更吸引我。 形式化验证 我使用 Isabelle/HOL 形式化数学论证，重点不仅在于“证明出来”，也在于如何组织 proof structure、reusable interfaces、locales，以及怎样让整个 development 能够自然扩展，而不是只服务于单个定理。 子模算法 我尤其关注单调子模最大化中的贪心算法、它们的近似保证，以及这些近似分析如何在机器检验环境下被组织成清晰、可复用的形式。 建模与结构 更广义地说，我对这样的问题很感兴趣：一个数学模型在真正面对对称性、不变性、近似需求或实现约束时，会发生怎样的结构变化。 Optimization I am interested in duality, lower bounds, first-order structure, and mathematical modeling, especially when invariances or identifiability issues affect what can actually be recovered from a formulation. Formal Verification I use Isabelle/HOL to formalize mathematical arguments with an emphasis on proof structure, reusable interfaces, locales, and developments that can be extended beyond a single theorem statement. Submodular Algorithms I am especially interested in greedy algorithms for monotone submodular maximization, their approximation guarantees, and how those guarantees can be organized formally in a machine-checked setting. Modeling and Structure More broadly, I am interested in how a mathematical formulation changes once it is forced to face symmetry, invariance, approximation, or implementation constraints. 当前工作 Isabelle/HOL：子模贪心算法形式化 Note Projects Repo 不变性下的对偶与下界 Note Projects Archive Metalcore Piano Lab｜从音频 / MIDI 到谱面（WIP） Note Projects Repo",
+    "content": "研究 优化 形式化验证 Isabelle HOL 数学建模 三条相关方向 形式化近似保证 不变性下的对偶与下界 连续对象离散化为可检查结构 研究兴趣 优化 对偶 下界 一阶结构 不变性 形式化验证 Isabelle HOL 假设 接口 扩展 子模算法 单调子模最大化 贪心保证 机器检验 建模 formulation 对称性 近似需求 实现约束 当前工作 Isabelle HOL 子模贪心算法形式化 Note Repo 不变性下的对偶与下界 Note Archive Metalcore Piano Lab 从音频 MIDI 到谱面 Note Repo 建议先看 从这里开始 Projects 研究 为什么连在一起 Research Optimization Formal Verification Isabelle HOL Mathematical Modeling current work submodular greedy duality lower bounds invariances discretization Note Repo Archive",
     "meta_title": "Research | Fay Lyu (HazezZ) | Chronohaze",
     "meta_description": "Research interests, current work, notes, and repositories by Fay Lyu (HazezZ)."
   },
