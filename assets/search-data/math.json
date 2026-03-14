@@ -1,7 +1,21 @@
 {
-  "generated_at": "2026-02-18",
+  "generated_at": "2026-03-14",
   "scope": "math",
   "items": [
+    {
+      "title": "从一个定理到一套框架：我的 Isabelle 子模优化项目新进展",
+      "url": "post/theorem-to-framework-isabelle-submodular.html",
+      "section": "Mathematics",
+      "date": "3月14日",
+      "excerpt": "从 classical greedy 的 theorem line，走到 LazyGreedy extension、StochasticGreedy skeleton 与一套可继续扩展的 Isabelle/HOL library。",
+      "tags": [
+        "math",
+        "article"
+      ],
+      "sort": 20260314,
+      "scope": "math",
+      "content": "从一个定理到一套框架：我的 Isabelle 子模优化项目新进展 HazezZ · 2026年3月14日 在之前我更关心的是，如何拆分构造与分析，如何把那些在论文里常被一句话带过的步骤，变成真正可以被系统检查的逻辑结构。 这几个月继续往前做以后，我对这个项目的理解也慢慢变了，它现在已经不太像为一个经典定理补上一份形式化版本，而更像是在长成一套可以继续扩展的 Isabelle/HOL library。repo 目前的主线已经不仅包括 classical greedy 的完整 theorem line，也包括一个完成度很高的 stateful LazyGreedy extension。与此同时实例层、可执行小实验和 oracle-cost 这一层也都已经放了进去。换句话说，这个项目的重点开始从“证明某一个结果”转向“搭建一套可以容纳更多 modern submodular greedy variants 的结构”了。 从 classical greedy 到可复用结构 现在回头看，classical greedy 这一部分已经不再只是一个起点，而是整个项目真正的 foundation，围绕它建立起来的不只是 greedy_set 本身的定义，还有 greedy construction 的 structural invariants、可复用的 greedy-step specification，以及最后通向 Nemhauser–Wolsey (1 - 1/e) approximation guarantee 的那条完整 proof line。更关键的是，这一层不是孤立写出来的，而是被放进了一套有明确分层的 architecture 里：抽象假设、算法构造、近似证明、具体实例解释、可执行实验，以及复杂度 / oracle accounting，彼此是分开的。 这种分层对我来说很重要，因为一旦真正做 Isabelle 就会发现，“把一个证明写出来”和“把它写成以后还能继续长东西的系统”完全是两件事。前者更像是把结论钉死，后者则要求你提前考虑接口、依赖关系、以及哪些部分未来应该能被新的算法重用，所以 repo 现在的样子已经明显更接近后者。 LazyGreedy 不再只是一个附加变体 如果说 classical greedy 这一层给了这个项目理论上的主轴，那么 LazyGreedy 的完成则让我第一次觉得这个项目开始碰到 implementation-level formalisation 了。 目前 repo 里的 LazyGreedy development，并不是简单地多写了一个算法名字，它已经包括了显式的 algorithmic state、state-based invariants、把 lazy 过程重新包装回 greedy-style step specification 的 bridge、继承 classical guarantee 的 approximation line，以及初步的 oracle-cost accounting。README 和状态说明里都把它明确描述为 classical greedy foundation 之上的第一个 completed stateful / implementation-level extension。对我来说这一点很关键，它说明这个项目已经不只是在 formalise 一个抽象结论，而是在 formalise 一种更接近真实算法结构的对象。 我很喜欢这一层带来的感觉，因为很多时候“lazy”在论文或代码里看起来像一种实现技巧，但在形式化里它要么成为一个真正被追踪状态和不变量的数学对象，要么就只是一个口头上的直觉。把它做成前者，意味着这个项目的重心开始从 theorem reproduction 走向 algorithm architecture。 项目也开始有了更落地的一层 除了 theorem line 本身，repo 现在还放进了 toy coverage instances、executable exhaustive baselines，以及一些 sanity-check examples。这里面既有 greedy 严格次优但依然不违反 approximation theorem 的例子，也有在非子模情形下 classical guarantee 失效的 counterexample。再往前一步，还有 coverage objective 的 concrete interpretation，以及从 executable exhaustive optimum 到抽象 OPT_k 概念的 bridge。 这些内容未必像主定理那样耀眼，但它们让我越来越确定这个项目值得被理解成一套 library，而不是只看那条最显眼的 theorem。因为真正能持续扩展的形式化开发，往往不是靠一个大结论撑起来的，而是靠这些看起来没那么主角、但实际上负责连通抽象层和可执行层的部分撑起来的。 新阶段：StochasticGreedy 的前置结构已经开始出现 最近这段时间里，这个项目最让我在意的新变化，是它已经正式开始长出 StochasticGreedy 的结构了。ROOT 里现在已经把 Algorithms/Stochastic_Greedy、Proofs/Stochastic_Greedy_Sampling、Proofs/Stochastic_Greedy_Weighted_Sampling、Proofs/Stochastic_Greedy_OneStep、Proofs/Stochastic_Greedy_Approx，以及 Complexity/Stochastic_Greedy_OracleCost 纳入了 session，所以已经进入了理论骨架搭建阶段。 这一部分我觉得最有意思的地方在于，它没有一上来就急着把概率空间和最终期望定理全部压进 Isabelle。相反，Algorithms/Stochastic_Greedy.thy 先引入的是一个 deterministic trace layer：算法先被参数化为一串显式给定的 sampled candidate lists，把采样的执行轨迹和后面的概率分析分开。这样做的好处是算法本身的可执行骨架可以先稳定下来，而随机性则被推迟到后面的理论层去处理。 在此基础上，Stochastic_Greedy_Sampling.thy 又单独抽出了 sampling-event and hit-probability interface，它把 residual optimal set、hit / miss events、以及命中概率下界这种更偏 paper-facing 的对象隔离出来，但刻意还不完全承诺一个具体的 probability formalisation。接着，Stochastic_Greedy_OneStep.thy 处理的是 deterministic one-step bridge，它证明的是如果采样池命中了 residual optimal set，那么 sampled argmax 的 marginal gain 至少不差于 hit residual pool 上的平均 marginal gain，也就是说先把未来 expected-gain proof 里纯 deterministic 的那一半单独剥出来。 而 Stochastic_Greedy_Approx.thy 现在已经把 approximation layer 的 notation 和依赖结构固定下来，并明确说明 final theorem 还没有在这个初始 skeleton 里被证明，文件里写出的 intended route 是从 conditional expected progress inequality 走到 expected gap recurrence，再把它解成 (1 - 1 / exp 1 - eps) 风格的 guarantee，所以说 StochasticGreedy 的证明路线图已经进了 repo 但还没完善。 除此之外，repo 里还已经有了 Stochastic_Greedy_Weighted_Sampling.thy 这类 concrete finite weighted sampling model 的文件，以及 Stochastic_Greedy_OracleCost.thy 这种 cost skeleton，后者目前记录的是 paper-facing 的 sample-size 公式和一个粗粒度的 k * s oracle budget，说明这一条线不仅是在想 approximation guarantee，也已经把 query complexity / oracle accounting 视为后续会一起 formalise 的对象。 我现在怎么理解这个项目 到这一步，我觉得这个项目最值得记录的新变化不是又多了几个 thy 文件，而是它的身份变了。 它现在更像一个小而持续增长的 Isabelle/HOL framework：classical greedy 给出 foundation，LazyGreedy 提供第一个真正完整的 stateful extension，而 StochasticGreedy 则开始打开另一条新的维度，从 deterministic greedy-style reasoning 走向 sampling、expectation 和 query complexity。README 和 status note 里也都在强调这一点，也就是说这个项目现在最好被看作一个 modular Isabelle/HOL library for modern submodular optimisation，而不只是一次性的 theorem formalisation。同时我计划于六月份投 AFP，之后看能不能够到 AAAI，不行的话就试试 ITP 和 CPP。 我有在想，我写下来的到底是一个证明结果还是一个可以继续长出别的结果的结构？前者当然重要，但后者更难我也更喜欢。因为只有当一个项目开始具备可扩展性时，它才真正从一次性的作业式完成变成了一条研究路径。 返回数学栏目"
+    },
     {
       "title": "Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP）",
       "url": "post/metalcore-piano-lab.html",
@@ -69,7 +83,7 @@
       ],
       "sort": 0,
       "scope": "math",
-      "content": "2月7日 Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP） 从连续音频到可玩的谱面：起音检测、节拍网格、段落对齐与可玩性约束。 阅读全文"
+      "content": "3月14日 从一个定理到一套框架：我的 Isabelle 子模优化项目新进展 从 classical greedy 的 theorem line，走到 LazyGreedy extension、StochasticGreedy skeleton 与一套可继续扩展的 Isabelle/HOL library。 阅读全文"
     }
   ]
 }

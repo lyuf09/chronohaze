@@ -5,8 +5,16 @@
     <link>https://lyuf09.github.io/chronohaze/</link>
     <description>Latest updates from Chronohaze: mathematics notes, music releases, and photography archives.</description>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 18 Feb 2026 12:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 14 Mar 2026 12:00:00 +0000</lastBuildDate>
     <generator>Chronohaze static feed</generator>
+
+    <item>
+      <title>从一个定理到一套框架：我的 Isabelle 子模优化项目新进展</title>
+      <link>https://lyuf09.github.io/chronohaze/post/theorem-to-framework-isabelle-submodular.html</link>
+      <guid>https://lyuf09.github.io/chronohaze/post/theorem-to-framework-isabelle-submodular.html</guid>
+      <pubDate>Sat, 14 Mar 2026 08:00:00 +0000</pubDate>
+      <description>从 classical greedy 的 theorem line，走到 LazyGreedy extension、StochasticGreedy skeleton 与一套可继续扩展的 Isabelle/HOL library。</description>
+    </item>
 
     <item>
       <title>Metalcore Piano Lab | From Audio to Chart: A Discretization Experiment (WIP)</title>
