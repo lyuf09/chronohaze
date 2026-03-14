@@ -548,8 +548,23 @@ def site_card_config_for(rel: str) -> Tuple[str, Tuple[int, int, int], Tuple[int
     return label, base, accent
 
 
-def render_site_card_image(rel: str, title: str, desc: str, out_path: Path) -> None:
+def render_site_card_image(
+    rel: str,
+    title: str,
+    desc: str,
+    out_path: Path,
+    *,
+    label_override: str | None = None,
+    base_override: Tuple[int, int, int] | None = None,
+    accent_override: Tuple[int, int, int] | None = None,
+) -> None:
     label, base, accent = site_card_config_for(rel)
+    if label_override is not None:
+        label = label_override
+    if base_override is not None:
+        base = base_override
+    if accent_override is not None:
+        accent = accent_override
     deep = adjust(base, s_mul=0.9, l_mul=0.82)
     dark = adjust(base, s_mul=0.9, l_mul=0.45)
     text_rgb = (240, 244, 250)
@@ -690,7 +705,18 @@ def build_cards_and_patch_heads(root: Path) -> None:
         if not rel_url.startswith("post/") or not rel_url.endswith(".html"):
             continue
         out_rel = f"{MATH_OG_DIR}/{Path(rel_url).stem}.png"
-        render_math_card_image(item, root / out_rel)
+        if rel_url == "post/theorem-to-framework-isabelle-submodular.html":
+            render_site_card_image(
+                rel_url,
+                str(item.get("title") or ""),
+                str(item.get("excerpt") or ""),
+                root / out_rel,
+                label_override="CHRONOHAZE · RESEARCH",
+                base_override=(21, 27, 40),
+                accent_override=(95, 123, 174),
+            )
+        else:
+            render_math_card_image(item, root / out_rel)
         math_image_map[rel_url] = relative_url_to_absolute(out_rel)
 
     music_image_map: Dict[str, str] = {}
