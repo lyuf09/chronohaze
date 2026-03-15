@@ -1249,15 +1249,15 @@ audio {
 
 .photo-index-page .photo-card-link {
   display: grid;
-  grid-template-columns: 196px minmax(0, 1fr);
+  grid-template-columns: 250px minmax(0, 1fr);
   gap: 16px;
   align-items: start;
   padding: 12px;
 }
 
 .photo-index-page .photo-card img {
-  width: 196px;
-  height: 196px;
+  width: 250px;
+  height: 250px;
   aspect-ratio: auto;
   border-radius: 0;
   filter: saturate(0.94) contrast(1.03);
@@ -1291,12 +1291,12 @@ audio {
 }
 
 .photo-index-page .photo-card-film .photo-card-link {
-  grid-template-columns: 196px minmax(0, 1fr);
+  grid-template-columns: 250px minmax(0, 1fr);
 }
 
 .photo-index-page .photo-film-thumb {
-  width: 196px;
-  height: 196px;
+  width: 250px;
+  height: 250px;
   display: grid;
   place-items: center;
   border: 1px solid rgba(245, 247, 252, 0.5);
