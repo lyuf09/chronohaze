@@ -58,6 +58,8 @@
     } catch (_e) {}
     if (queryLang === "zh" || queryLang === "en") return queryLang;
     try {
+      var siteLang = window.localStorage.getItem("siteLang");
+      if (siteLang === "zh" || siteLang === "en") return siteLang;
       var savedLang = window.localStorage.getItem("chronohaze-lang");
       if (savedLang === "zh" || savedLang === "en") return savedLang;
     } catch (_e2) {}
@@ -117,6 +119,20 @@
     list.textContent = "";
     list.appendChild(frag);
     list.dataset.catalogRendered = "1";
+    syncMathPageLanguage();
+  }
+
+  function syncMathPageLanguage() {
+    if (!document.body || !document.body.classList.contains("math-index-page")) return;
+    var lang = getPreferredPageLanguage();
+    Array.from(document.querySelectorAll(".math-index-page [data-copy-zh][data-copy-en]")).forEach(function (node) {
+      var key = lang === "en" ? "data-copy-en" : "data-copy-zh";
+      var value = node.getAttribute(key);
+      if (value) node.textContent = value;
+    });
+    Array.from(document.querySelectorAll(".math-index-page .math-more")).forEach(function (node) {
+      node.textContent = lang === "en" ? "Read More" : "阅读全文";
+    });
   }
 
   function buildPhotoFeaturedCard(item) {
@@ -226,6 +242,7 @@
     if (!document.body || !document.body.classList.contains("math-index-page")) return;
     if (document.body.dataset.mathCatalogBooted === "1") return;
     document.body.dataset.mathCatalogBooted = "1";
+    syncMathPageLanguage();
     fetchJsonWithCandidates("assets/data/math-catalog.json")
       .then(renderMathCatalog)
       .catch(function () {});
