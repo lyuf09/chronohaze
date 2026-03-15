@@ -51,6 +51,19 @@
     return node;
   }
 
+  function getPreferredPageLanguage() {
+    var queryLang = null;
+    try {
+      queryLang = new URLSearchParams(window.location.search).get("lang");
+    } catch (_e) {}
+    if (queryLang === "zh" || queryLang === "en") return queryLang;
+    try {
+      var savedLang = window.localStorage.getItem("chronohaze-lang");
+      if (savedLang === "zh" || savedLang === "en") return savedLang;
+    } catch (_e2) {}
+    return "zh";
+  }
+
   function setBilingualCopy(node, obj) {
     if (!node || !obj || typeof obj !== "object") return;
     if (typeof obj.zh === "string") node.setAttribute("data-copy-zh", obj.zh);
@@ -60,6 +73,11 @@
 
   function buildMathCard(item) {
     var href = (item && (item.url || item.readmore_url)) || "#";
+    var lang = getPreferredPageLanguage();
+    var titleZh = (item && item.title) || "";
+    var titleEn = (item && item.title_en) || titleZh;
+    var excerptZh = (item && item.excerpt) || "";
+    var excerptEn = (item && item.excerpt_en) || excerptZh;
     var article = document.createElement("article");
     article.className = "math-card";
     article.setAttribute("data-href", href);
@@ -69,14 +87,17 @@
     article.appendChild(textNode("p", "math-date", item.date || ""));
 
     var h3 = textNode("h3", "math-title", "");
-    var titleLink = textNode("a", "math-title-link", item.title || "");
+    var titleLink = textNode("a", "math-title-link", lang === "en" ? titleEn : titleZh);
     titleLink.href = href;
+    setBilingualCopy(titleLink, { zh: titleZh, en: titleEn });
     h3.appendChild(titleLink);
     article.appendChild(h3);
 
-    article.appendChild(textNode("p", "math-desc", item.excerpt || ""));
+    var desc = textNode("p", "math-desc", lang === "en" ? excerptEn : excerptZh);
+    setBilingualCopy(desc, { zh: excerptZh, en: excerptEn });
+    article.appendChild(desc);
 
-    var more = textNode("a", "math-more", "阅读全文");
+    var more = textNode("a", "math-more", lang === "en" ? "Read More" : "阅读全文");
     more.href = href;
     article.appendChild(more);
 
