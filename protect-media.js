@@ -11613,11 +11613,21 @@
     }
 
     document.body.classList.add("page-transition-enabled");
+    document.body.classList.add("page-transition-entering");
+
+    window.requestAnimationFrame(function () {
+      window.requestAnimationFrame(function () {
+        if (document.body) {
+          document.body.classList.remove("page-transition-entering");
+        }
+      });
+    });
 
     window.addEventListener("pageshow", function () {
       pageTransitionNavigating = false;
       if (document.body) {
         document.body.classList.remove("page-transition-leaving");
+        document.body.classList.remove("page-transition-entering");
       }
     });
 
@@ -11695,7 +11705,7 @@
         event.preventDefault();
         window.setTimeout(function () {
           window.location.href = url.href;
-        }, 180);
+        }, 120);
       },
       true
     );
