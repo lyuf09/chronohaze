@@ -10393,20 +10393,20 @@
     if (document.body.classList.contains("math-index-page")) {
       var mathTitle = document.querySelector(".page-title");
       var mathIntro = document.querySelector(".page-head p");
-      function setMathCardTitle(card, text) {
-        if (!card) {
-          return;
-        }
-        var titleNode = card.querySelector(".math-title");
-        if (!titleNode) {
-          return;
-        }
-        var titleLink = titleNode.querySelector(".math-title-link");
-        if (titleLink) {
-          titleLink.textContent = text;
-        } else {
-          titleNode.textContent = text;
-        }
+      function syncMathDataCopy() {
+        Array.from(
+          document.querySelectorAll(".math-index-page [data-copy-zh][data-copy-en]")
+        ).forEach(function (node) {
+          var key = safeLang === "en" ? "data-copy-en" : "data-copy-zh";
+          var value = node.getAttribute(key);
+          if (value) {
+            node.textContent = value;
+          }
+        });
+
+        Array.from(document.querySelectorAll(".math-index-page .math-more")).forEach(function (node) {
+          node.textContent = dict.readMore;
+        });
       }
       if (mathTitle) {
         mathTitle.textContent = dict.mathPageTitle;
@@ -10414,59 +10414,11 @@
       if (mathIntro) {
         mathIntro.textContent = dict.mathIntro;
       }
-
-      if (safeLang === "en") {
-        var metalcoreCard = document.querySelector(
-          '.math-card[data-href="post/metalcore-piano-lab.html"]'
-        );
-        var springCard = document.querySelector(
-          '.math-card[data-href="post/spring-2026.html"]'
-        );
-        var firstIsabelleCard = document.querySelector(
-          '.math-card[data-href="post/first-isabelle-proof.html"]'
-        );
-        var submodularCard = document.querySelector(
-          '.math-card[data-href="post/isabelle-submodular-greedy.html"]'
-        );
-        if (metalcoreCard) {
-          var metalcoreDesc = metalcoreCard.querySelector(".math-desc");
-          setMathCardTitle(
-            metalcoreCard,
-            "Metalcore Piano Lab | From Audio to Chart: A Discretization Experiment (WIP)"
-          );
-          if (metalcoreDesc) {
-            metalcoreDesc.textContent =
-              "From continuous audio to playable charts: onset detection, beat grids, section alignment, and playability constraints.";
-          }
-        }
-        if (springCard) {
-          var springDesc = springCard.querySelector(".math-desc");
-          setMathCardTitle(springCard, "Spring 2026 | A New Research Direction");
-          if (springDesc) {
-            springDesc.textContent =
-              "Beginning undergraduate research in Cornell ORIE on first-order methods for constrained and composite optimization.";
-          }
-        }
-        if (firstIsabelleCard) {
-          var cardDesc = firstIsabelleCard.querySelector(".math-desc");
-          setMathCardTitle(firstIsabelleCard, "My First Isabelle Formalization Project");
-          if (cardDesc) {
-            cardDesc.textContent =
-              "Embedding verifiability into proof writing: from motivation to the Nemhauser–Wolsey theorem.";
-          }
-        }
-        if (submodularCard) {
-          var submodularDesc = submodularCard.querySelector(".math-desc");
-          setMathCardTitle(
-            submodularCard,
-            "An Ongoing Isabelle Research Project: Formalising Submodular Greedy"
-          );
-          if (submodularDesc) {
-            submodularDesc.textContent =
-              "Formalising the greedy (1 − 1/e) guarantee for monotone submodular maximisation under cardinality constraints.";
-          }
-        }
+      syncMathDataCopy();
+      if (typeof requestAnimationFrame === "function") {
+        requestAnimationFrame(syncMathDataCopy);
       }
+      setTimeout(syncMathDataCopy, 120);
 
       document.title = safeLang === "en" ? "Mathematics | Chronohaze" : "数学 | Chronohaze";
     }

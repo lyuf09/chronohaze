@@ -242,6 +242,11 @@
     if (!document.body || !document.body.classList.contains("math-index-page")) return;
     if (document.body.dataset.mathCatalogBooted === "1") return;
     document.body.dataset.mathCatalogBooted = "1";
+    if (typeof window !== "undefined" && !window.__chronohazeMathLanguageHooked) {
+      window.__chronohazeMathLanguageHooked = true;
+      window.addEventListener("pageshow", syncMathPageLanguage);
+      window.addEventListener("load", syncMathPageLanguage);
+    }
     syncMathPageLanguage();
     fetchJsonWithCandidates("assets/data/math-catalog.json")
       .then(renderMathCatalog)
