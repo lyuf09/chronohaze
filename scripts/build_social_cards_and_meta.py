@@ -708,8 +708,8 @@ def build_cards_and_patch_heads(root: Path) -> None:
         if rel_url == "post/theorem-to-framework-isabelle-submodular.html":
             render_site_card_image(
                 rel_url,
-                str(item.get("title") or ""),
-                str(item.get("excerpt") or ""),
+                str(item.get("title_en") or item.get("title") or ""),
+                str(item.get("excerpt_en") or item.get("excerpt") or ""),
                 root / out_rel,
                 label_override="CHRONOHAZE · RESEARCH",
                 base_override=(21, 27, 40),
