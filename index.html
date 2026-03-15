@@ -139,8 +139,8 @@
             <!-- GENERATED:home-math-preview:start -->
             <article data-post-url="post/theorem-to-framework-isabelle-submodular.html" tabindex="0" role="link" data-reveal="slide-up" data-reveal-delay="40">
               <p class="author" data-copy-zh="HazezZ" data-copy-en="HazezZ">HazezZ</p>
-              <h3 data-copy-zh="从一个定理到一套框架：我的 Isabelle 子模优化项目新进展" data-copy-en="从一个定理到一套框架：我的 Isabelle 子模优化项目新进展">从一个定理到一套框架：我的 Isabelle 子模优化项目新进展</h3>
-              <p data-copy-zh="从 classical greedy 的 theorem line，走到 LazyGreedy extension、StochasticGreedy skeleton 与一套可继续扩展的 Isabelle/HOL library。" data-copy-en="从 classical greedy 的 theorem line，走到 LazyGreedy extension、StochasticGreedy skeleton 与一套可继续扩展的 Isabelle/HOL library。">从 classical greedy 的 theorem line，走到 LazyGreedy extension、StochasticGreedy skeleton 与一套可继续扩展的 Isabelle/HOL library。</p>
+              <h3 data-copy-zh="从一个定理到一套框架：我的 Isabelle 子模优化项目新进展" data-copy-en="From One Theorem to a Framework: New Progress on My Isabelle Project in Submodular Optimization">从一个定理到一套框架：我的 Isabelle 子模优化项目新进展</h3>
+              <p data-copy-zh="从 classical greedy 的 theorem line，走到 LazyGreedy extension、StochasticGreedy skeleton 与一套可继续扩展的 Isabelle/HOL library。" data-copy-en="From the theorem line for classical greedy to a LazyGreedy extension, a StochasticGreedy skeleton, and an Isabelle/HOL library that can keep growing.">从 classical greedy 的 theorem line，走到 LazyGreedy extension、StochasticGreedy skeleton 与一套可继续扩展的 Isabelle/HOL library。</p>
               <a href="post/theorem-to-framework-isabelle-submodular.html" data-i18n="readMore">Read More</a>
             </article>
             <article data-post-url="post/metalcore-piano-lab.html" tabindex="0" role="link" data-reveal="slide-up" data-reveal-delay="140">
@@ -415,14 +415,16 @@
         const delays = [40, 140, 240, 340];
         homeMathPreview.innerHTML = items.slice(0, 4).map(function (item, idx) {
           const href = item && (item.url || item.readmore_url) ? String(item.url || item.readmore_url) : '#';
-          const title = item && item.title ? String(item.title) : '';
-          const excerpt = item && item.excerpt ? String(item.excerpt) : '';
+          const titleZh = item && item.title ? String(item.title) : '';
+          const titleEn = item && item.title_en ? String(item.title_en) : titleZh;
+          const excerptZh = item && item.excerpt ? String(item.excerpt) : '';
+          const excerptEn = item && item.excerpt_en ? String(item.excerpt_en) : excerptZh;
           const delay = delays[idx] || (40 + idx * 100);
           return [
             '<article data-post-url="' + href.replace(/"/g, '&quot;') + '" tabindex="0" role="link" data-reveal="slide-up" data-reveal-delay="' + delay + '" class="is-visible">',
             '  <p class="author" data-copy-zh="HazezZ" data-copy-en="HazezZ">HazezZ</p>',
-            '  <h3 data-copy-zh="' + title.replace(/"/g, '&quot;') + '" data-copy-en="' + title.replace(/"/g, '&quot;') + '">' + title + '</h3>',
-            '  <p data-copy-zh="' + excerpt.replace(/"/g, '&quot;') + '" data-copy-en="' + excerpt.replace(/"/g, '&quot;') + '">' + excerpt + '</p>',
+            '  <h3 data-copy-zh="' + titleZh.replace(/"/g, '&quot;') + '" data-copy-en="' + titleEn.replace(/"/g, '&quot;') + '">' + titleZh + '</h3>',
+            '  <p data-copy-zh="' + excerptZh.replace(/"/g, '&quot;') + '" data-copy-en="' + excerptEn.replace(/"/g, '&quot;') + '">' + excerptZh + '</p>',
             '  <a href="' + href.replace(/"/g, '&quot;') + '" data-i18n="readMore">' + dict.readMore + '</a>',
             '</article>'
           ].join('');

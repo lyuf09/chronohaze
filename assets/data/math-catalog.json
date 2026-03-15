@@ -12,7 +12,9 @@
       "tags": [
         "math",
         "article"
-      ]
+      ],
+      "title_en": "From One Theorem to a Framework: New Progress on My Isabelle Project in Submodular Optimization",
+      "excerpt_en": "From the theorem line for classical greedy to a LazyGreedy extension, a StochasticGreedy skeleton, and an Isabelle/HOL library that can keep growing."
     },
     {
       "order": 2,
