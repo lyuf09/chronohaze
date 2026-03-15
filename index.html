@@ -243,6 +243,7 @@
       const revealNodes = Array.from(document.querySelectorAll('[data-reveal]'));
       const i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
       const i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
+      let homeMathItems = null;
 
       function fmtClockSeed(sec) {
         if (!Number.isFinite(sec) || sec <= 0) return '00:00';
@@ -411,9 +412,10 @@
 
       function renderHomeMathPreview(items) {
         if (!homeMathPreview || !Array.isArray(items) || !items.length) return;
+        homeMathItems = items.slice(0, 4);
         const dict = i18n[currentLang] || i18n.zh;
         const delays = [40, 140, 240, 340];
-        homeMathPreview.innerHTML = items.slice(0, 4).map(function (item, idx) {
+        homeMathPreview.innerHTML = homeMathItems.map(function (item, idx) {
           const href = item && (item.url || item.readmore_url) ? String(item.url || item.readmore_url) : '#';
           const titleZh = item && item.title ? String(item.title) : '';
           const titleEn = item && item.title_en ? String(item.title_en) : titleZh;
@@ -430,10 +432,18 @@
           ].join('');
         }).join('');
         bindMathCards();
+        syncHomeMathPreviewCopy();
+      }
+
+      function syncHomeMathPreviewCopy() {
+        if (!homeMathPreview) return;
         Array.from(homeMathPreview.querySelectorAll('[data-copy-zh][data-copy-en]')).forEach(function (node) {
           const key = currentLang === 'en' ? 'data-copy-en' : 'data-copy-zh';
           const value = node.getAttribute(key);
           if (value) node.textContent = value;
+        });
+        Array.from(homeMathPreview.querySelectorAll('a[data-i18n="readMore"]')).forEach(function (link) {
+          link.textContent = (i18n[currentLang] || i18n.zh).readMore;
         });
       }
 
@@ -502,9 +512,11 @@
         });
 
         if (homeMathPreview) {
-          Array.from(homeMathPreview.querySelectorAll('a[data-i18n="readMore"]')).forEach(function (link) {
-            link.textContent = dict.readMore;
-          });
+          if (Array.isArray(homeMathItems) && homeMathItems.length) {
+            renderHomeMathPreview(homeMathItems);
+          } else {
+            syncHomeMathPreviewCopy();
+          }
         }
 
         i18nAriaNodes.forEach(function (node) {
@@ -524,6 +536,7 @@
         setPlayerState(playerShell && playerShell.dataset.audioState ? playerShell.dataset.audioState : 'loading');
 
         try {
+          window.localStorage.setItem('siteLang', safeLang);
           window.localStorage.setItem('chronohaze-lang', safeLang);
         } catch (err) {
         }
@@ -654,8 +667,11 @@
 
       let initialLang = 'zh';
       try {
+        const siteLang = window.localStorage.getItem('siteLang');
         const savedLang = window.localStorage.getItem('chronohaze-lang');
-        if (savedLang === 'zh' || savedLang === 'en') {
+        if (siteLang === 'zh' || siteLang === 'en') {
+          initialLang = siteLang;
+        } else if (savedLang === 'zh' || savedLang === 'en') {
           initialLang = savedLang;
         }
       } catch (err) {
