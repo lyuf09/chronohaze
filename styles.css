@@ -51,15 +51,21 @@
   --card-bg: rgba(247, 249, 253, 0.44);
   --card-shadow: 0 12px 22px rgba(16, 21, 31, 0.07);
   --card-shadow-hover: 0 16px 30px rgba(16, 21, 31, 0.1);
-  --motion-duration-base: 420ms;
+  --motion-rhythm-fast: 180ms;
+  --motion-rhythm-base: 280ms;
+  --motion-rhythm-slow: 420ms;
+  --motion-rhythm-ambient: 5200ms;
+  --motion-ease-unified: cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-ease-ambient: cubic-bezier(0.37, 0, 0.2, 1);
+  --motion-duration-base: var(--motion-rhythm-slow);
   --motion-duration-soft: 340ms;
   --motion-duration-card: 500ms;
-  --motion-ease-out: cubic-bezier(0.18, 0.92, 0.3, 1);
+  --motion-ease-out: var(--motion-ease-unified);
   --motion-ease-soft: cubic-bezier(0.2, 0.88, 0.28, 1);
-  --ui-t-fast: 160ms;
-  --ui-t-base: 190ms;
-  --ui-t-slow: 220ms;
-  --ui-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ui-t-fast: var(--motion-rhythm-fast);
+  --ui-t-base: 220ms;
+  --ui-t-slow: var(--motion-rhythm-base);
+  --ui-ease: var(--motion-ease-unified);
   --material-grain-light: rgba(255, 255, 255, 0.045);
   --material-grain-dark: rgba(20, 26, 36, 0.035);
   --material-stroke-hairline: rgba(255, 255, 255, 0.22);
@@ -225,7 +231,7 @@ button {
     pointer-events: none;
     z-index: 2147483000;
     opacity: 0;
-    transition: opacity 180ms ease;
+    transition: opacity var(--motion-rhythm-fast) ease;
   }
 
   .cursor-atmosphere-layer.is-visible {
@@ -245,7 +251,7 @@ button {
     transform: translate3d(calc(var(--spark-x, 0px) - 50%), calc(var(--spark-y, 0px) - 50%), 0) rotate(var(--spark-rot, 0deg));
     opacity: 0;
     will-change: transform, opacity;
-    animation: cursorSparkFade var(--spark-life, 560ms) cubic-bezier(0.16, 0.78, 0.3, 1) forwards;
+    animation: cursorSparkFade var(--spark-life, 620ms) var(--motion-ease-unified) forwards;
   }
 
   .cursor-atmosphere-spark::before,
@@ -399,8 +405,8 @@ body.motion-enhanced .motion-reveal.motion-reveal-card {
 
 body.page-transition-enabled .page {
   transition:
-    opacity 280ms ease,
-    transform 420ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity var(--motion-rhythm-base) ease,
+    transform var(--motion-rhythm-slow) var(--motion-ease-unified);
   transform-origin: 50% 11%;
   will-change: opacity, transform;
   backface-visibility: hidden;
@@ -416,26 +422,26 @@ body.page-transition-enabled::after {
   background:
     radial-gradient(1200px 760px at 18% 10%, rgba(116, 136, 164, 0.05), transparent 62%),
     linear-gradient(180deg, rgba(23, 27, 34, 0.015) 0%, rgba(23, 27, 34, 0.04) 100%);
-  transition: opacity 320ms ease;
+  transition: opacity var(--motion-rhythm-base) ease;
   will-change: opacity;
 }
 
 body.page-transition-enabled.page-transition-entering::after {
-  opacity: 0.12;
+  opacity: 0.1;
 }
 
 body.page-transition-enabled.page-transition-entering .page {
   opacity: 0;
-  transform: translate3d(0, 12px, 0) scale(0.9975);
+  transform: translate3d(0, 10px, 0) scale(0.998);
 }
 
 body.page-transition-enabled.page-transition-leaving::after {
-  opacity: 0.78;
+  opacity: 0.58;
 }
 
 body.page-transition-enabled.page-transition-leaving .page {
-  opacity: 0.16;
-  transform: translate3d(0, -10px, 0) scale(1.004);
+  opacity: 0.26;
+  transform: translate3d(0, -8px, 0) scale(1.0025);
 }
 
 .container {

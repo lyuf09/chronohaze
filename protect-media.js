@@ -10637,15 +10637,15 @@
       var style = document.createElement("style");
       style.id = styleId;
       style.textContent = [
-        ".floating-site-logo{position:fixed;right:max(22px,calc(env(safe-area-inset-right,0px) + 16px));bottom:max(22px,calc(env(safe-area-inset-bottom,0px) + 16px));width:102px;height:102px;border-radius:999px;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:68;background:radial-gradient(circle,rgba(238,244,253,.22) 0%,rgba(238,244,253,.12) 44%,rgba(238,244,253,0) 78%);box-shadow:none;will-change:transform;animation:floatingSiteLogoBreath 4.8s cubic-bezier(.42,0,.2,1) infinite;transition:background 220ms ease,box-shadow 220ms ease,opacity 220ms ease;}",
-        ".floating-site-logo::before{content:'';position:absolute;inset:-24px;border-radius:inherit;background:radial-gradient(circle,rgba(205,216,236,.42) 0%,rgba(205,216,236,.18) 40%,rgba(205,216,236,0) 82%);filter:blur(9px);transition:background 220ms ease,filter 220ms ease,opacity 220ms ease;}",
-        ".floating-site-logo::after{content:'';position:absolute;inset:-4px;border-radius:inherit;background:radial-gradient(circle,rgba(255,255,255,0) 56%,rgba(214,223,240,.32) 70%,rgba(214,223,240,.12) 86%,rgba(214,223,240,0) 100%);filter:blur(4px);transition:background 220ms ease,filter 220ms ease,opacity 220ms ease;}",
-        ".floating-site-logo img{position:relative;z-index:1;width:76%;height:76%;object-fit:contain;opacity:.98;filter:contrast(1.05) saturate(.92) drop-shadow(0 0 1px rgba(255,255,255,.12)) drop-shadow(0 0 6px rgba(94,111,148,.16));transition:filter 220ms ease,opacity 220ms ease;}",
+        ".floating-site-logo{position:fixed;right:max(22px,calc(env(safe-area-inset-right,0px) + 16px));bottom:max(22px,calc(env(safe-area-inset-bottom,0px) + 16px));width:102px;height:102px;border-radius:999px;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:68;background:radial-gradient(circle,rgba(238,244,253,.22) 0%,rgba(238,244,253,.12) 44%,rgba(238,244,253,0) 78%);box-shadow:none;will-change:transform;animation:floatingSiteLogoBreath var(--motion-rhythm-ambient,5200ms) var(--motion-ease-ambient,cubic-bezier(.37,0,.2,1)) infinite;transition:background var(--motion-rhythm-base,280ms) var(--motion-ease-unified,ease),box-shadow var(--motion-rhythm-base,280ms) var(--motion-ease-unified,ease),opacity var(--motion-rhythm-base,280ms) var(--motion-ease-unified,ease);}",
+        ".floating-site-logo::before{content:'';position:absolute;inset:-24px;border-radius:inherit;background:radial-gradient(circle,rgba(205,216,236,.42) 0%,rgba(205,216,236,.18) 40%,rgba(205,216,236,0) 82%);filter:blur(9px);transition:background var(--motion-rhythm-base,280ms) var(--motion-ease-unified,ease),filter var(--motion-rhythm-base,280ms) var(--motion-ease-unified,ease),opacity var(--motion-rhythm-base,280ms) var(--motion-ease-unified,ease);}",
+        ".floating-site-logo::after{content:'';position:absolute;inset:-4px;border-radius:inherit;background:radial-gradient(circle,rgba(255,255,255,0) 56%,rgba(214,223,240,.32) 70%,rgba(214,223,240,.12) 86%,rgba(214,223,240,0) 100%);filter:blur(4px);transition:background var(--motion-rhythm-base,280ms) var(--motion-ease-unified,ease),filter var(--motion-rhythm-base,280ms) var(--motion-ease-unified,ease),opacity var(--motion-rhythm-base,280ms) var(--motion-ease-unified,ease);}",
+        ".floating-site-logo img{position:relative;z-index:1;width:76%;height:76%;object-fit:contain;opacity:.98;filter:contrast(1.05) saturate(.92) drop-shadow(0 0 1px rgba(255,255,255,.12)) drop-shadow(0 0 6px rgba(94,111,148,.16));transition:filter var(--motion-rhythm-base,280ms) var(--motion-ease-unified,ease),opacity var(--motion-rhythm-base,280ms) var(--motion-ease-unified,ease);}",
         ".floating-site-logo.is-contrast{background:radial-gradient(circle,rgba(56,70,101,.36) 0%,rgba(47,61,90,.26) 44%,rgba(44,58,87,0) 82%);}",
         ".floating-site-logo.is-contrast::before{background:radial-gradient(circle,rgba(39,50,76,.54) 0%,rgba(34,45,69,.27) 40%,rgba(34,45,69,0) 84%);filter:blur(10px);}",
         ".floating-site-logo.is-contrast::after{background:radial-gradient(circle,rgba(255,255,255,0) 54%,rgba(60,78,115,.36) 69%,rgba(49,63,94,.18) 86%,rgba(49,63,94,0) 100%);}",
         ".floating-site-logo.is-contrast img{opacity:.995;filter:contrast(1.18) saturate(.9) brightness(.88) drop-shadow(0 0 1px rgba(11,17,31,.66)) drop-shadow(0 0 5px rgba(19,30,50,.48)) drop-shadow(0 0 9px rgba(31,48,77,.26));}",
-        "@keyframes floatingSiteLogoBreath{0%,100%{transform:translate3d(0,0,0) scale(1);}25%{transform:translate3d(.8px,-2.2px,0) scale(1.02);}50%{transform:translate3d(0,-5.8px,0) scale(1.045);}75%{transform:translate3d(-.9px,-2.4px,0) scale(1.024);}}",
+        "@keyframes floatingSiteLogoBreath{0%,100%{transform:translate3d(0,0,0) scale(1);}35%{transform:translate3d(.6px,-1.9px,0) scale(1.014);}65%{transform:translate3d(0,-4.2px,0) scale(1.028);}85%{transform:translate3d(-.55px,-1.8px,0) scale(1.016);}}",
         "@media (prefers-reduced-motion: reduce){.floating-site-logo{animation:none;transform:none;}.floating-site-logo::before,.floating-site-logo::after{filter:none;}}",
         "@media (max-width: 900px){.floating-site-logo{width:76px;height:76px;right:max(12px,calc(env(safe-area-inset-right,0px) + 10px));bottom:max(12px,calc(env(safe-area-inset-bottom,0px) + 10px));}.floating-site-logo::before{inset:-14px;}.floating-site-logo::after{inset:-4px;}}",
         "@media only screen and (min-width:390px) and (max-width:430px) and (orientation:portrait){.floating-site-logo{width:70px;height:70px;right:max(10px,calc(env(safe-area-inset-right,0px) + 8px));bottom:max(10px,calc(env(safe-area-inset-bottom,0px) + 8px));}}",
@@ -11152,7 +11152,7 @@
       if (speed < 6) {
         return;
       }
-      if (ts - state.lastSparkAt < 44) {
+      if (ts - state.lastSparkAt < 52) {
         return;
       }
 
@@ -11166,13 +11166,13 @@
         spark.classList.add("is-star");
       }
 
-      var offsetX = (Math.random() - 0.5) * 10 - dx * 0.08;
-      var offsetY = (Math.random() - 0.5) * 10 - dy * 0.08;
-      var driftX = -dx * (0.12 + Math.random() * 0.1) + (Math.random() - 0.5) * 10;
-      var driftY = -dy * (0.12 + Math.random() * 0.1) + (Math.random() - 0.5) * 10;
+      var offsetX = (Math.random() - 0.5) * 10 - dx * 0.07;
+      var offsetY = (Math.random() - 0.5) * 10 - dy * 0.07;
+      var driftX = -dx * (0.1 + Math.random() * 0.08) + (Math.random() - 0.5) * 10;
+      var driftY = -dy * (0.1 + Math.random() * 0.08) + (Math.random() - 0.5) * 10;
       var size = 2.9 + Math.random() * 2.9;
-      var life = 360 + Math.random() * 240;
-      var opacity = 0.3 + Math.random() * 0.24;
+      var life = 420 + Math.random() * 260;
+      var opacity = 0.32 + Math.random() * 0.2;
       var rot = Math.round(Math.random() * 180 - 90);
 
       spark.style.setProperty("--spark-x", state.targetX + offsetX + "px");
