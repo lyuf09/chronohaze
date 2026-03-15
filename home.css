@@ -184,6 +184,10 @@ html:lang(en) {
   transform: translate3d(0, 16px, 0) scale(0.982);
 }
 
+[data-reveal="entry-panel"] {
+  transform: translate3d(0, 26px, 0) scale(0.986);
+}
+
 [data-reveal="slide-right"] {
   transform: translate3d(16px, 0, 0);
 }
@@ -711,12 +715,16 @@ html:lang(en) {
 }
 
 .entry-card[data-reveal] {
-  --reveal-duration: 760ms;
-  --reveal-ease: cubic-bezier(0.2, 0.86, 0.2, 1);
+  --reveal-duration: 960ms;
+  --reveal-ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .entry-card[data-reveal="zoom"] {
   transform: translate3d(0, 22px, 0) scale(0.972);
+}
+
+.entry-card[data-reveal="entry-panel"] {
+  transform: translate3d(0, 30px, 0) scale(0.984);
 }
 
 .entry-card {
@@ -752,6 +760,15 @@ html:lang(en) {
   transition: transform var(--home-t-slow) var(--home-ease), opacity var(--home-t-slow) ease;
 }
 
+.entry-card[data-reveal="entry-panel"]::before {
+  transform: scale(1.045) translate3d(0, 14px, 0);
+  opacity: 0.74;
+  transition:
+    transform calc(var(--reveal-duration, 960ms) + 220ms) cubic-bezier(0.16, 1, 0.3, 1),
+    opacity calc(var(--reveal-duration, 960ms) + 120ms) ease,
+    filter calc(var(--reveal-duration, 960ms) + 180ms) ease;
+}
+
 .entry-card::after {
   content: "";
   position: absolute;
@@ -762,6 +779,42 @@ html:lang(en) {
     radial-gradient(circle at 22% 20%, rgba(255, 255, 255, 0.06) 0.6px, transparent 1px),
     radial-gradient(circle at 68% 62%, rgba(255, 255, 255, 0.05) 0.55px, transparent 0.95px);
   background-size: auto, auto, 8px 8px, 10px 10px;
+}
+
+.entry-card[data-reveal="entry-panel"]::after {
+  opacity: 0.7;
+  transition:
+    opacity calc(var(--reveal-duration, 960ms) + 120ms) ease,
+    transform calc(var(--reveal-duration, 960ms) + 120ms) cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.entry-card span {
+  transition:
+    opacity 640ms ease,
+    transform 760ms cubic-bezier(0.16, 1, 0.3, 1),
+    letter-spacing 760ms ease;
+}
+
+.entry-card[data-reveal="entry-panel"] span {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  letter-spacing: 0.08em;
+  transition-delay: calc(var(--reveal-delay, 0ms) + 170ms);
+}
+
+.entry-card[data-reveal="entry-panel"].is-visible::before {
+  transform: scale(1.012) translate3d(0, 0, 0);
+  opacity: 1;
+}
+
+.entry-card[data-reveal="entry-panel"].is-visible::after {
+  opacity: 1;
+}
+
+.entry-card[data-reveal="entry-panel"].is-visible span {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  letter-spacing: 0.045em;
 }
 
 .entry-card:hover::before {
