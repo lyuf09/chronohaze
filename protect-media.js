@@ -8577,7 +8577,7 @@
 
     var phraseMap = [
       [/2022年夏天/g, "Summer 2022"],
-      [/2022、夏、某/g, "2022、summer、someday"],
+      [/2022、夏、某/g, "Summer 2022, Somewhere"],
       [/英国奥斯沃斯特里/g, "Oswestry, UK"],
       [/英国爱丁堡/g, "Edinburgh, UK"],
       [/英国韦茅斯/g, "Weymouth, UK"],
@@ -8612,6 +8612,14 @@
       .replace(/\s+,/g, ",")
       .replace(/,\s+/g, ", ")
       .trim();
+  }
+
+  function setMetaTagContent(selector, value) {
+    if (!selector || typeof value !== "string") return;
+    var node = document.querySelector(selector);
+    if (node) {
+      node.setAttribute("content", value);
+    }
   }
 
   function renderFirstIsabellePost(safeLang, dict) {
@@ -10384,10 +10392,36 @@
         });
       }
       document.title = safeLang === "en" ? "Photography | Chronohaze" : "摄影 | Chronohaze";
+      setMetaTagContent('meta[name="description"]', safeLang === "en"
+        ? "Photography archive: visual notes on light, structure, and atmosphere."
+        : "摄影作品集：光线、结构与情绪的视觉记录。");
+      setMetaTagContent('meta[property="og:title"]', safeLang === "en" ? "Photography | Chronohaze" : "摄影 | Chronohaze");
+      setMetaTagContent('meta[property="og:description"]', safeLang === "en"
+        ? "Photography archive: visual notes on light, structure, and atmosphere."
+        : "摄影作品集：光线、结构与情绪的视觉记录。");
+      setMetaTagContent('meta[name="twitter:title"]', safeLang === "en" ? "Photography | Chronohaze" : "摄影 | Chronohaze");
+      setMetaTagContent('meta[name="twitter:description"]', safeLang === "en"
+        ? "Photography archive: visual notes on light, structure, and atmosphere."
+        : "摄影作品集：光线、结构与情绪的视觉记录。");
 
       Array.from(document.querySelectorAll(".photo-subtitle")).forEach(function (node) {
+        if (node.hasAttribute("data-copy-zh") || node.hasAttribute("data-copy-en")) {
+          var subtitleKey = safeLang === "en" ? "data-copy-en" : "data-copy-zh";
+          var subtitleValue = node.getAttribute(subtitleKey);
+          if (subtitleValue) {
+            node.textContent = subtitleValue;
+          }
+          return;
+        }
         node.textContent = dict.readMore;
       });
+
+      if (
+        typeof window !== "undefined" &&
+        typeof window.__chronohazeSyncPhotoCatalogLanguage === "function"
+      ) {
+        window.__chronohazeSyncPhotoCatalogLanguage(safeLang);
+      }
     }
 
     if (document.body.classList.contains("math-index-page")) {
@@ -10561,12 +10595,66 @@
       document.querySelector(".photo-detail-article")
     ) {
       var photoHeading = document.querySelector(".photo-detail-article h1");
+      if (photoHeading) {
+        var photoHeadingZh =
+          photoHeading.getAttribute("data-copy-zh") || (photoHeading.textContent || "").trim();
+        var photoHeadingEn =
+          photoHeading.getAttribute("data-copy-en") ||
+          localizeShortLabelText(photoHeadingZh, "en");
+        photoHeading.setAttribute("data-copy-zh", photoHeadingZh);
+        photoHeading.setAttribute("data-copy-en", photoHeadingEn);
+        photoHeading.textContent = safeLang === "en" ? photoHeadingEn : photoHeadingZh;
+      }
+
+      Array.from(document.querySelectorAll(".photo-detail-article .article-meta")).forEach(function (
+        node
+      ) {
+        var metaZh = node.getAttribute("data-copy-zh") || (node.textContent || "").trim();
+        var metaEn = node.getAttribute("data-copy-en") || localizeShortLabelText(metaZh, "en");
+        node.setAttribute("data-copy-zh", metaZh);
+        node.setAttribute("data-copy-en", metaEn);
+        node.textContent = safeLang === "en" ? metaEn : metaZh;
+      });
+
+      Array.from(document.querySelectorAll(".photo-detail-article .read-more")).forEach(function (
+        node
+      ) {
+        if (/portfolio-1\.html/i.test(node.getAttribute("href") || "")) {
+          node.textContent = safeLang === "en" ? "Back to photography" : "返回摄影栏目";
+        }
+      });
+
+      var photoTitleText = "";
       if (photoHeading && photoHeading.textContent) {
+        photoTitleText = photoHeading.textContent.trim();
+      }
+      if (photoTitleText) {
         document.title =
-          photoHeading.textContent.trim() +
+          photoTitleText +
           " | " +
           (safeLang === "en" ? "Photography" : "摄影") +
           " | Chronohaze";
+        var photoDesc = safeLang === "en"
+          ? "Photo set: " + photoTitleText + "."
+          : "摄影组图页面：" + photoTitleText + "。";
+        setMetaTagContent('meta[name="description"]', photoDesc);
+        setMetaTagContent('meta[property="og:title"]', photoTitleText + " | Chronohaze");
+        setMetaTagContent('meta[property="og:description"]', photoDesc);
+        setMetaTagContent('meta[name="twitter:title"]', photoTitleText + " | Chronohaze");
+        setMetaTagContent('meta[name="twitter:description"]', photoDesc);
+      }
+
+      var videoFallback = document.querySelector(".photo-blue-video");
+      if (videoFallback) {
+        var fallbackText = safeLang === "en" ? "Your browser does not support video playback." : "您的浏览器暂不支持视频播放。";
+        var textNodes = Array.from(videoFallback.childNodes).filter(function (node) {
+          return node && node.nodeType === 3 && normalizeText(node.textContent || "");
+        });
+        if (textNodes.length) {
+          textNodes.forEach(function (node) {
+            node.textContent = fallbackText;
+          });
+        }
       }
     }
 

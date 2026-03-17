@@ -1,6 +1,8 @@
 (function () {
   "use strict";
 
+  var photoCatalogPayload = null;
+
   function fetchJsonWithCandidates(relativePath) {
     var rel = String(relativePath || "").replace(/^\.\//, "");
     var urls = [];
@@ -73,6 +75,21 @@
     node.textContent = typeof obj.zh === "string" ? obj.zh : node.textContent;
   }
 
+  function localizedValue(item, zhKey, enKey, fallback) {
+    var zh = item && item[zhKey];
+    var en = item && item[enKey];
+    if (zh && typeof zh === "object") {
+      return {
+        zh: typeof zh.zh === "string" ? zh.zh : fallback || "",
+        en: typeof zh.en === "string" ? zh.en : typeof zh.zh === "string" ? zh.zh : fallback || "",
+      };
+    }
+    return {
+      zh: typeof zh === "string" ? zh : fallback || "",
+      en: typeof en === "string" ? en : typeof zh === "string" ? zh : fallback || "",
+    };
+  }
+
   function buildMathCard(item) {
     var href = (item && (item.url || item.readmore_url)) || "#";
     var lang = getPreferredPageLanguage();
@@ -136,6 +153,7 @@
   }
 
   function buildPhotoFeaturedCard(item) {
+    var lang = getPreferredPageLanguage();
     var article = document.createElement("article");
     article.className = "photo-feature-card";
 
@@ -145,7 +163,10 @@
 
     var img = document.createElement("img");
     img.src = item.cover || "";
-    img.alt = item.title || "";
+    var themeCopy = item && item.theme && typeof item.theme === "object" ? item.theme : null;
+    img.alt = lang === "en"
+      ? ((item && item.alt_en) || (themeCopy && themeCopy.en) || item.title || "")
+      : ((item && item.alt) || (themeCopy && themeCopy.zh) || item.title || "");
     img.loading = "lazy";
     img.decoding = "async";
     a.appendChild(img);
@@ -153,12 +174,34 @@
     var meta = document.createElement("div");
     meta.className = "photo-feature-meta";
 
-    var theme = textNode("p", "photo-feature-theme", "");
-    var location = textNode("p", "photo-feature-location", "");
-    var concept = textNode("p", "photo-feature-concept", "");
-    setBilingualCopy(theme, item.theme);
-    setBilingualCopy(location, item.location);
-    setBilingualCopy(concept, item.concept);
+    var theme = textNode(
+      "p",
+      "photo-feature-theme",
+      lang === "en" && themeCopy && themeCopy.en ? themeCopy.en : themeCopy && themeCopy.zh ? themeCopy.zh : ""
+    );
+    var locationCopy = item && item.location && typeof item.location === "object" ? item.location : null;
+    var conceptCopy = item && item.concept && typeof item.concept === "object" ? item.concept : null;
+    var location = textNode(
+      "p",
+      "photo-feature-location",
+      lang === "en" && locationCopy && locationCopy.en
+        ? locationCopy.en
+        : locationCopy && locationCopy.zh
+          ? locationCopy.zh
+          : ""
+    );
+    var concept = textNode(
+      "p",
+      "photo-feature-concept",
+      lang === "en" && conceptCopy && conceptCopy.en
+        ? conceptCopy.en
+        : conceptCopy && conceptCopy.zh
+          ? conceptCopy.zh
+          : ""
+    );
+    setBilingualCopy(theme, themeCopy);
+    setBilingualCopy(location, locationCopy);
+    setBilingualCopy(concept, conceptCopy);
     meta.appendChild(theme);
     meta.appendChild(location);
     meta.appendChild(concept);
@@ -169,6 +212,7 @@
   }
 
   function buildPhotoArchiveCard(item) {
+    var lang = getPreferredPageLanguage();
     var isFilm = !!(item && item.is_film);
     var article = document.createElement("article");
     article.className = isFilm ? "photo-card photo-card-film" : "photo-card";
@@ -186,7 +230,10 @@
     } else {
       var img = document.createElement("img");
       img.src = item.cover || "";
-      img.alt = item.alt || item.title || item.date || "";
+      img.alt =
+        lang === "en"
+          ? ((item && item.alt_en) || (item && item.title_en) || item.alt || item.title || item.date || "")
+          : ((item && item.alt) || item.title || item.date || "");
       img.loading = "lazy";
       img.decoding = "async";
       a.appendChild(img);
@@ -194,12 +241,21 @@
 
     var meta = document.createElement("div");
     meta.className = "photo-meta";
-    meta.appendChild(textNode("p", "photo-date", item.date || item.title || ""));
-    var subtitle = (item && item.subtitle) || "";
-    if (typeof subtitle === "string" && subtitle.trim().toLowerCase() === "read more") {
-      subtitle = "阅读全文";
-    }
-    meta.appendChild(textNode("p", "photo-subtitle", subtitle || "阅读全文"));
+    var dateCopy = localizedValue(item, "date", "date_en", (item && item.title) || "");
+    var subtitleCopy = localizedValue(item, "subtitle", "subtitle_en", "阅读全文");
+    var dateNode = textNode("p", "photo-date", lang === "en" ? dateCopy.en : dateCopy.zh);
+    setBilingualCopy(dateNode, dateCopy);
+    meta.appendChild(dateNode);
+    var subtitleNode = textNode(
+      "p",
+      "photo-subtitle",
+      lang === "en" ? subtitleCopy.en || "Read More" : subtitleCopy.zh || "阅读全文"
+    );
+    setBilingualCopy(subtitleNode, {
+      zh: subtitleCopy.zh || "阅读全文",
+      en: subtitleCopy.en || "Read More",
+    });
+    meta.appendChild(subtitleNode);
     a.appendChild(meta);
     article.appendChild(a);
 
@@ -238,6 +294,12 @@
     }
   }
 
+  function syncPhotoCatalogLanguage() {
+    if (!document.body || !document.body.classList.contains("photo-index-page")) return;
+    if (!photoCatalogPayload) return;
+    renderPhotoCatalog(photoCatalogPayload);
+  }
+
   function bootMathCatalogPage() {
     if (!document.body || !document.body.classList.contains("math-index-page")) return;
     if (document.body.dataset.mathCatalogBooted === "1") return;
@@ -257,8 +319,14 @@
     if (!document.body || !document.body.classList.contains("photo-index-page")) return;
     if (document.body.dataset.photoCatalogBooted === "1") return;
     document.body.dataset.photoCatalogBooted = "1";
+    if (typeof window !== "undefined") {
+      window.__chronohazeSyncPhotoCatalogLanguage = syncPhotoCatalogLanguage;
+    }
     fetchJsonWithCandidates("assets/data/photo-catalog.json")
-      .then(renderPhotoCatalog)
+      .then(function (payload) {
+        photoCatalogPayload = payload;
+        renderPhotoCatalog(payload);
+      })
       .catch(function () {});
   }
 

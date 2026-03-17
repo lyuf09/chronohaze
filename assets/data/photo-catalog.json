@@ -22,7 +22,8 @@
       "tags": [
         "photo",
         "featured"
-      ]
+      ],
+      "alt_en": "01/04/2023"
     },
     {
       "order": 2,
@@ -44,7 +45,8 @@
       "tags": [
         "photo",
         "featured"
-      ]
+      ],
+      "alt_en": "09/08/2023"
     },
     {
       "order": 3,
@@ -66,7 +68,8 @@
       "tags": [
         "photo",
         "featured"
-      ]
+      ],
+      "alt_en": "20/04/2024"
     },
     {
       "order": 4,
@@ -88,7 +91,8 @@
       "tags": [
         "photo",
         "featured"
-      ]
+      ],
+      "alt_en": "21/10/2023"
     },
     {
       "order": 5,
@@ -105,12 +109,13 @@
       },
       "concept": {
         "zh": "風の声 光の粒 まどろむ君にそそぐ",
-        "en": "風の声　光の粒　まどろむ君にそそぐ"
+        "en": "The sound of wind, grains of light, falling over someone half-asleep."
       },
       "tags": [
         "photo",
         "featured"
-      ]
+      ],
+      "alt_en": "05/04/2025 - Memories of you"
     },
     {
       "order": 6,
@@ -132,7 +137,8 @@
       "tags": [
         "photo",
         "featured"
-      ]
+      ],
+      "alt_en": "30/08/2025"
     }
   ],
   "archive": [
@@ -147,7 +153,11 @@
       "alt": "12/04/2022",
       "tags": [
         "photo"
-      ]
+      ],
+      "title_en": "12/04/2022",
+      "date_en": "12/04/2022",
+      "subtitle_en": "Read More",
+      "alt_en": "12/04/2022"
     },
     {
       "order": 2,
@@ -160,7 +170,11 @@
       "alt": "01/05/2022",
       "tags": [
         "photo"
-      ]
+      ],
+      "title_en": "01/05/2022",
+      "date_en": "01/05/2022",
+      "subtitle_en": "Read More",
+      "alt_en": "01/05/2022"
     },
     {
       "order": 3,
@@ -173,7 +187,11 @@
       "alt": "01/06/2022",
       "tags": [
         "photo"
-      ]
+      ],
+      "title_en": "01/06/2022",
+      "date_en": "01/06/2022",
+      "subtitle_en": "Read More",
+      "alt_en": "01/06/2022"
     },
     {
       "order": 4,
@@ -186,7 +204,11 @@
       "alt": "14/06/2022",
       "tags": [
         "photo"
-      ]
+      ],
+      "title_en": "14/06/2022",
+      "date_en": "14/06/2022",
+      "subtitle_en": "Read More",
+      "alt_en": "14/06/2022"
     },
     {
       "order": 5,
@@ -199,7 +221,11 @@
       "alt": "2022、夏、某",
       "tags": [
         "photo"
-      ]
+      ],
+      "title_en": "Summer 2022, Somewhere",
+      "date_en": "Summer 2022, Somewhere",
+      "subtitle_en": "Read More",
+      "alt_en": "Summer 2022, Somewhere"
     },
     {
       "order": 6,
@@ -212,7 +238,11 @@
       "alt": "11/03/2023",
       "tags": [
         "photo"
-      ]
+      ],
+      "title_en": "11/03/2023",
+      "date_en": "11/03/2023",
+      "subtitle_en": "Read More",
+      "alt_en": "11/03/2023"
     },
     {
       "order": 7,
@@ -226,7 +256,11 @@
       "tags": [
         "photo",
         "featured"
-      ]
+      ],
+      "title_en": "01/04/2023",
+      "date_en": "01/04/2023",
+      "subtitle_en": "Read More",
+      "alt_en": "01/04/2023"
     },
     {
       "order": 8,
@@ -240,7 +274,11 @@
       "tags": [
         "photo",
         "featured"
-      ]
+      ],
+      "title_en": "09/08/2023",
+      "date_en": "09/08/2023",
+      "subtitle_en": "Read More",
+      "alt_en": "09/08/2023"
     },
     {
       "order": 9,
@@ -253,7 +291,11 @@
       "alt": "17/09/2023",
       "tags": [
         "photo"
-      ]
+      ],
+      "title_en": "17/09/2023",
+      "date_en": "17/09/2023",
+      "subtitle_en": "Read More",
+      "alt_en": "17/09/2023"
     },
     {
       "order": 10,
@@ -267,7 +309,11 @@
       "tags": [
         "photo",
         "featured"
-      ]
+      ],
+      "title_en": "20/04/2024",
+      "date_en": "20/04/2024",
+      "subtitle_en": "Read More",
+      "alt_en": "20/04/2024"
     },
     {
       "order": 11,
@@ -281,7 +327,11 @@
       "tags": [
         "photo",
         "featured"
-      ]
+      ],
+      "title_en": "21/10/2023",
+      "date_en": "21/10/2023",
+      "subtitle_en": "Read More",
+      "alt_en": "21/10/2023"
     },
     {
       "order": 12,
@@ -294,7 +344,11 @@
       "alt": "02/01/2025",
       "tags": [
         "photo"
-      ]
+      ],
+      "title_en": "02/01/2025",
+      "date_en": "02/01/2025",
+      "subtitle_en": "Read More",
+      "alt_en": "02/01/2025"
     },
     {
       "order": 13,
@@ -308,7 +362,11 @@
       "tags": [
         "photo",
         "featured"
-      ]
+      ],
+      "title_en": "05/04/2025 - Memories of you",
+      "date_en": "05/04/2025 - Memories of you",
+      "subtitle_en": "Read More",
+      "alt_en": "05/04/2025 - Memories of you"
     },
     {
       "order": 14,
@@ -322,7 +380,11 @@
       "tags": [
         "photo",
         "featured"
-      ]
+      ],
+      "title_en": "30/08/2025",
+      "date_en": "30/08/2025",
+      "subtitle_en": "Read More",
+      "alt_en": "30/08/2025"
     },
     {
       "order": 15,
@@ -336,7 +398,11 @@
       "tags": [
         "photo",
         "video"
-      ]
+      ],
+      "title_en": "Blue",
+      "date_en": "",
+      "subtitle_en": "A-level photography final piece",
+      "alt_en": ""
     }
   ],
   "items": [
@@ -350,7 +416,9 @@
       "tags": [
         "photo"
       ],
-      "is_film": false
+      "is_film": false,
+      "title_en": "12/04/2022",
+      "excerpt_en": "Read More"
     },
     {
       "order": 2,
@@ -362,7 +430,9 @@
       "tags": [
         "photo"
       ],
-      "is_film": false
+      "is_film": false,
+      "title_en": "01/05/2022",
+      "excerpt_en": "Read More"
     },
     {
       "order": 3,
@@ -374,7 +444,9 @@
       "tags": [
         "photo"
       ],
-      "is_film": false
+      "is_film": false,
+      "title_en": "01/06/2022",
+      "excerpt_en": "Read More"
     },
     {
       "order": 4,
@@ -386,7 +458,9 @@
       "tags": [
         "photo"
       ],
-      "is_film": false
+      "is_film": false,
+      "title_en": "14/06/2022",
+      "excerpt_en": "Read More"
     },
     {
       "order": 5,
@@ -398,7 +472,9 @@
       "tags": [
         "photo"
       ],
-      "is_film": false
+      "is_film": false,
+      "title_en": "Summer 2022, Somewhere",
+      "excerpt_en": "Read More"
     },
     {
       "order": 6,
@@ -410,7 +486,9 @@
       "tags": [
         "photo"
       ],
-      "is_film": false
+      "is_film": false,
+      "title_en": "11/03/2023",
+      "excerpt_en": "Read More"
     },
     {
       "order": 7,
@@ -423,7 +501,9 @@
         "photo",
         "featured"
       ],
-      "is_film": false
+      "is_film": false,
+      "title_en": "Reference Frame",
+      "excerpt_en": "Read More"
     },
     {
       "order": 8,
@@ -436,7 +516,9 @@
         "photo",
         "featured"
       ],
-      "is_film": false
+      "is_film": false,
+      "title_en": "Sliver of Light",
+      "excerpt_en": "Read More"
     },
     {
       "order": 9,
@@ -448,7 +530,9 @@
       "tags": [
         "photo"
       ],
-      "is_film": false
+      "is_film": false,
+      "title_en": "17/09/2023",
+      "excerpt_en": "Read More"
     },
     {
       "order": 10,
@@ -461,7 +545,9 @@
         "photo",
         "featured"
       ],
-      "is_film": false
+      "is_film": false,
+      "title_en": "Framing Study",
+      "excerpt_en": "Read More"
     },
     {
       "order": 11,
@@ -474,7 +560,9 @@
         "photo",
         "featured"
       ],
-      "is_film": false
+      "is_film": false,
+      "title_en": "Iron and Fern",
+      "excerpt_en": "Read More"
     },
     {
       "order": 12,
@@ -486,7 +574,9 @@
       "tags": [
         "photo"
       ],
-      "is_film": false
+      "is_film": false,
+      "title_en": "02/01/2025",
+      "excerpt_en": "Read More"
     },
     {
       "order": 13,
@@ -499,7 +589,9 @@
         "photo",
         "featured"
       ],
-      "is_film": false
+      "is_film": false,
+      "title_en": "Memories of You",
+      "excerpt_en": "Read More"
     },
     {
       "order": 14,
@@ -512,7 +604,9 @@
         "photo",
         "featured"
       ],
-      "is_film": false
+      "is_film": false,
+      "title_en": "Hidden Entrance",
+      "excerpt_en": "Read More"
     },
     {
       "order": 15,
@@ -525,7 +619,9 @@
         "photo",
         "video"
       ],
-      "is_film": true
+      "is_film": true,
+      "title_en": "Blue",
+      "excerpt_en": "A-level photography final piece"
     }
   ]
 }
