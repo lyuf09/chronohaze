@@ -4373,10 +4373,26 @@ audio {
   text-overflow: clip;
 }
 
-.research-page .research-link-row a,
-.research-page .cv-research-link {
+.research-page .research-link-row a {
   background: transparent;
   box-shadow: none;
+}
+
+.research-page .cv-research-link {
+  border-color: rgba(82, 93, 116, 0.26);
+  background: linear-gradient(180deg, rgba(110, 122, 149, 0.9) 0%, rgba(86, 97, 121, 0.9) 100%);
+  color: rgba(247, 249, 252, 0.96);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 8px 18px rgba(31, 39, 55, 0.14);
+}
+
+.research-page .cv-research-link:hover {
+  background: linear-gradient(180deg, rgba(118, 131, 160, 0.94) 0%, rgba(91, 103, 130, 0.94) 100%);
+  color: rgba(255, 255, 255, 0.98);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 10px 20px rgba(31, 39, 55, 0.18);
 }
 
 .research-page .research-now-card {
