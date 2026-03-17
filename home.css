@@ -580,6 +580,18 @@ html:lang(en) {
   color: rgba(228, 233, 241, 0.86);
 }
 
+.about-inline-en {
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-size: 1.14em;
+  font-weight: 400;
+  letter-spacing: 0.012em;
+}
+
+html:lang(en) .about-overlay p {
+  font-size: 16px;
+  line-height: 1.82;
+}
+
 .math-section {
   background:
     radial-gradient(900px 500px at 6% 10%, rgba(255, 255, 255, 0.15), transparent 62%),
@@ -1283,6 +1295,11 @@ html:lang(en) {
     inset: -14px -16px;
   }
 
+  html:lang(en) .about-overlay p {
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
   .math-section {
     margin-top: 24px;
     padding: 50px 24px 60px;
@@ -1441,6 +1458,11 @@ html:lang(en) {
 
   .about-overlay h2 {
     font-size: 27px;
+  }
+
+  html:lang(en) .about-overlay p {
+    font-size: 14.5px;
+    line-height: 1.76;
   }
 
   .about-overlay p {
