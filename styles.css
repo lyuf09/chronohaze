@@ -3060,6 +3060,22 @@ audio {
   font-weight: 300;
 }
 
+html:lang(en) .article p,
+html:lang(en) .article li,
+html:lang(en) .article li p {
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-size: 17.5px;
+  line-height: 1.82;
+  letter-spacing: 0.012em;
+  color: rgba(28, 33, 42, 0.95);
+  font-weight: 400;
+}
+
+html:lang(en) .article-meta {
+  color: rgba(59, 66, 79, 0.78);
+  letter-spacing: 0.06em;
+}
+
 .music-detail-article h1 {
   margin: 0 0 18px;
   font-size: clamp(44px, 4.6vw, 56px);
