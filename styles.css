@@ -2879,9 +2879,9 @@ audio {
 
 .music-album-page .album-track-link {
   display: grid;
-  grid-template-columns: 112px minmax(0, 1fr);
-  gap: 14px;
-  align-items: baseline;
+  grid-template-columns: 136px minmax(0, 1fr);
+  gap: 16px;
+  align-items: center;
   border: 1px solid rgba(58, 58, 58, 0.2);
   background: rgba(250, 252, 255, 0.34);
   padding: 11px 14px;
@@ -2914,33 +2914,44 @@ audio {
 }
 
 .music-album-page .album-track-no {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
   color: rgba(57, 62, 72, 0.74);
   font-size: 13px;
   line-height: 1.2;
   letter-spacing: 0.02em;
   font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
-  white-space: nowrap;
+  white-space: normal;
+  min-width: 0;
 }
 
 .music-album-page .album-track-status {
-  margin-left: 8px;
+  margin-left: 0;
   padding: 2px 7px 3px;
   vertical-align: middle;
+  flex: 0 0 auto;
 }
 
 .music-album-page .album-track-name {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
   color: #232730;
   font-size: clamp(15px, 1.08vw, 19px);
   line-height: 1.2;
   letter-spacing: 0.006em;
   font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  min-width: 0;
 }
 
 .music-album-page .album-track-feature {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  margin-left: 8px;
+  margin-left: 0;
   padding: 1px 8px;
   border: 1px solid color-mix(in srgb, var(--color-accent) 24%, var(--ui-border-mid));
   border-radius: 999px;
@@ -6654,22 +6665,24 @@ html[lang="zh-CN"] .obf-email-link[data-email-copied="1"]::after {
   }
 
   .music-album-page .album-track-link {
-    grid-template-columns: 90px minmax(0, 1fr);
+    grid-template-columns: 116px minmax(0, 1fr);
     gap: 10px;
     padding: 10px 11px;
+    align-items: start;
   }
 
   .music-album-page .album-track-no {
     font-size: 11px;
+    gap: 5px;
   }
 
   .music-album-page .album-track-name {
     font-size: clamp(13px, 5.5vw, 16px);
-    line-height: 1.14;
+    line-height: 1.16;
+    gap: 6px;
   }
 
   .music-album-page .album-track-feature {
-    margin-left: 6px;
     padding: 1px 6px;
     font-size: 10px;
   }
