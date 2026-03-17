@@ -25,10 +25,17 @@
 
     if (element.tagName === "IMG") {
       element.setAttribute("draggable", "false");
+      element.setAttribute("oncontextmenu", "return false");
+      element.setAttribute("ondragstart", "return false");
       element.style.webkitUserDrag = "none";
+      element.style.webkitTouchCallout = "none";
+      element.style.webkitTapHighlightColor = "transparent";
+      element.style.webkitUserSelect = "none";
       element.style.userSelect = "none";
       element.addEventListener("dragstart", stopEvent);
       element.addEventListener("contextmenu", stopEvent);
+      element.addEventListener("selectstart", stopEvent);
+      element.addEventListener("copy", stopEvent);
     }
 
     if (element.tagName === "AUDIO" || element.tagName === "VIDEO") {
@@ -12124,6 +12131,26 @@
 
   document.addEventListener(
     "dragstart",
+    function (event) {
+      if (isMediaTarget(event.target)) {
+        stopEvent(event);
+      }
+    },
+    true
+  );
+
+  document.addEventListener(
+    "selectstart",
+    function (event) {
+      if (isMediaTarget(event.target)) {
+        stopEvent(event);
+      }
+    },
+    true
+  );
+
+  document.addEventListener(
+    "copy",
     function (event) {
       if (isMediaTarget(event.target)) {
         stopEvent(event);
