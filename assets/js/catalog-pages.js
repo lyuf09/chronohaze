@@ -72,7 +72,6 @@
     if (!node || !obj || typeof obj !== "object") return;
     if (typeof obj.zh === "string") node.setAttribute("data-copy-zh", obj.zh);
     if (typeof obj.en === "string") node.setAttribute("data-copy-en", obj.en);
-    node.textContent = typeof obj.zh === "string" ? obj.zh : node.textContent;
   }
 
   function localizedValue(item, zhKey, enKey, fallback) {
