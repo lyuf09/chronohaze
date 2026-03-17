@@ -540,10 +540,21 @@ html:lang(en) {
   z-index: 1;
 }
 
+.about-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.3);
+  pointer-events: none;
+  z-index: 0;
+}
+
 .about-overlay {
   width: 821px;
   text-align: center;
   color: rgba(228, 233, 241, 0.9);
+  position: relative;
+  z-index: 1;
 }
 
 .about-overlay h2 {
@@ -565,32 +576,6 @@ html:lang(en) {
   line-height: 1.78;
   letter-spacing: 0;
   color: rgba(228, 233, 241, 0.86);
-}
-
-html:lang(en) .about-overlay {
-  width: min(92vw, 700px);
-  text-align: left;
-}
-
-html:lang(en) .about-overlay h2 {
-  text-align: left;
-  letter-spacing: -0.01em;
-}
-
-html:lang(en) .about-overlay p {
-  width: 100%;
-  margin-top: 20px;
-  font-family: var(--font-sans-en);
-  font-size: 15px;
-  font-weight: 360;
-  line-height: 1.88;
-  letter-spacing: 0.01em;
-  color: rgba(233, 237, 244, 0.9);
-  text-wrap: pretty;
-}
-
-html:lang(en) .about-overlay p + p {
-  margin-top: 16px;
 }
 
 .math-section {
@@ -1292,16 +1277,6 @@ html:lang(en) .about-overlay p + p {
     width: min(96vw, 821px);
   }
 
-  html:lang(en) .about-overlay {
-    width: min(92vw, 640px);
-  }
-
-  html:lang(en) .about-overlay p {
-    width: 100%;
-    font-size: 14px;
-    line-height: 1.8;
-  }
-
   .math-section {
     margin-top: 24px;
     padding: 50px 24px 60px;
@@ -1466,15 +1441,6 @@ html:lang(en) .about-overlay p + p {
     font-size: 13px;
     font-weight: 300;
     line-height: 1.65;
-  }
-
-  html:lang(en) .about-overlay {
-    width: min(92vw, 560px);
-  }
-
-  html:lang(en) .about-overlay p {
-    font-size: 13.5px;
-    line-height: 1.76;
   }
 
   .math-section h2 {
