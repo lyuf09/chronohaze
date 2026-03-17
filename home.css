@@ -1554,7 +1554,7 @@ html:lang(en) {
 
 @media (max-width: 768px) {
   .home-topbar {
-    height: calc(76px + env(safe-area-inset-top, 0px));
+    height: calc(72px + env(safe-area-inset-top, 0px));
     padding:
       env(safe-area-inset-top, 0px)
       max(16px, calc(12px + env(safe-area-inset-right, 0px)))
@@ -1563,7 +1563,11 @@ html:lang(en) {
   }
 
   .lang-pill {
-    width: min(46vw, 170px);
+    width: min(42vw, 154px);
+    height: 30px;
+    align-self: start;
+    position: relative;
+    top: -2px;
   }
 
   .lang-btn,
@@ -1604,12 +1608,13 @@ html:lang(en) {
   }
 
   .lang-pill {
-    width: clamp(142px, 39vw, 168px);
-    height: 32px;
+    width: clamp(128px, 35vw, 148px);
+    height: 28px;
+    top: -3px;
   }
 
   .lang-btn {
-    font-size: 11px;
+    font-size: 10.5px;
   }
 
   .menu-open {
@@ -1664,7 +1669,7 @@ html:lang(en) {
   }
 
   .lang-pill {
-    width: 170px;
+    width: 150px;
   }
 
   .hero-portrait {
