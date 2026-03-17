@@ -8505,16 +8505,16 @@ body {
 /* Final non-home mobile header safety override */
 @media (max-width: 760px) {
   body:not(.home-body) .floating-lang-switch {
-    top: max(3px, calc(var(--safe-top) + 1px)) !important;
+    top: max(2px, calc(var(--safe-top) + 1px)) !important;
     right: max(4px, calc(var(--safe-right) + 3px)) !important;
-    padding: 1px 2px !important;
+    padding: 0 3px !important;
     gap: 2px !important;
   }
 
   body:not(.home-body) .floating-lang-btn {
-    min-width: 41px !important;
-    height: 16px !important;
-    padding: 0 10px !important;
+    min-width: 50px !important;
+    height: 14px !important;
+    padding: 0 13px !important;
     font-size: 9px !important;
     letter-spacing: 0.03em !important;
   }
@@ -8527,7 +8527,7 @@ body {
 
   body:not(.home-body) .brand {
     max-width: 100% !important;
-    padding-right: max(116px, calc(108px + var(--safe-right))) !important;
+    padding-right: max(132px, calc(124px + var(--safe-right))) !important;
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
@@ -8547,6 +8547,6 @@ body {
 
 @media only screen and (min-width: 390px) and (max-width: 430px) and (orientation: portrait) {
   body:not(.home-body) .brand {
-    padding-right: max(124px, calc(116px + var(--safe-right))) !important;
+    padding-right: max(140px, calc(132px + var(--safe-right))) !important;
   }
 }
