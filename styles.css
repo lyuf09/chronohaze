@@ -13,6 +13,7 @@
   --max-width: var(--max-width-list);
   --font-serif-zh: "Noto Serif SC", "Songti SC", "STSong", serif;
   --font-serif-en: "Cormorant Garamond", "Iowan Old Style", "Times New Roman", serif;
+  --font-academic-en: "Novarese", "Iowan Old Style", "Baskerville", "Cormorant Garamond", "Times New Roman", serif;
   --font-sans-zh: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
   --font-sans-en: "Inter", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
   --font-serif: var(--font-serif-zh);
@@ -3075,12 +3076,26 @@ html:lang(en) .article h1,
 html:lang(en) .article h2,
 html:lang(en) .article h3,
 html:lang(en) .article-meta {
-  font-family: "Novarese", "Iowan Old Style", "Baskerville", "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-academic-en);
 }
 
 html:lang(en) .article-meta {
   color: rgba(59, 66, 79, 0.8);
   letter-spacing: 0.08em;
+}
+
+html:lang(en) .cv-page [data-lang-block="en"] *,
+html:lang(en) .research-page [data-lang-block="en"] *,
+html:lang(en) .projects-page [data-lang-block="en"] * {
+  font-family: var(--font-academic-en);
+}
+
+html:lang(en) .cv-page .cv-research-link,
+html:lang(en) .cv-page .cv-toc-link,
+html:lang(en) .research-page .cv-research-link,
+html:lang(en) .projects-page .cv-research-link,
+html:lang(en) .projects-page .research-hero-panel a {
+  font-family: var(--font-academic-en);
 }
 
 .music-detail-article h1 {
