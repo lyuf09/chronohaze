@@ -8507,34 +8507,34 @@ body {
   body:not(.home-body) .floating-lang-switch {
     top: max(3px, calc(var(--safe-top) + 1px)) !important;
     right: max(4px, calc(var(--safe-right) + 3px)) !important;
-    padding: 1px !important;
-    gap: 1px !important;
+    padding: 1px 2px !important;
+    gap: 2px !important;
   }
 
   body:not(.home-body) .floating-lang-btn {
-    min-width: 27px !important;
-    height: 15px !important;
-    padding: 0 6px !important;
-    font-size: 7px !important;
-    letter-spacing: 0.02em !important;
+    min-width: 41px !important;
+    height: 16px !important;
+    padding: 0 10px !important;
+    font-size: 7.5px !important;
+    letter-spacing: 0.04em !important;
   }
 
   body:not(.home-body) .header-inner {
-    padding-right: max(114px, calc(106px + var(--safe-right))) !important;
+    padding-right: max(146px, calc(138px + var(--safe-right))) !important;
   }
 
   body:not(.home-body) .nav {
     gap: 14px !important;
-    scroll-padding-right: max(124px, calc(114px + var(--safe-right))) !important;
+    scroll-padding-right: max(156px, calc(146px + var(--safe-right))) !important;
   }
 }
 
 @media only screen and (min-width: 390px) and (max-width: 430px) and (orientation: portrait) {
   body:not(.home-body) .header-inner {
-    padding-right: max(122px, calc(114px + var(--safe-right))) !important;
+    padding-right: max(154px, calc(146px + var(--safe-right))) !important;
   }
 
   body:not(.home-body) .nav {
-    scroll-padding-right: max(132px, calc(122px + var(--safe-right))) !important;
+    scroll-padding-right: max(164px, calc(154px + var(--safe-right))) !important;
   }
 }
