@@ -478,7 +478,7 @@ body.page-transition-enabled.page-transition-leaving .page {
   align-items: center;
   color: rgb(232, 234, 240);
   position: relative;
-  top: 2px;
+  top: 5px;
 }
 
 .brand img {
@@ -5223,13 +5223,13 @@ audio {
 
 .floating-lang-switch {
   position: fixed;
-  top: 16px;
-  right: 18px;
+  top: 14px;
+  right: 16px;
   z-index: 1200;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 4px;
+  gap: 3px;
+  padding: 3px;
   border: 1px solid rgba(232, 236, 244, 0.56);
   border-radius: 999px;
   background: rgba(52, 57, 68, 0.84);
@@ -5237,15 +5237,15 @@ audio {
 }
 
 .floating-lang-btn {
-  min-width: 46px;
-  height: 26px;
+  min-width: 42px;
+  height: 24px;
   border: 0;
   border-radius: 999px;
   background: transparent;
   color: rgba(239, 242, 248, 0.86);
   font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
-  font-size: 12px;
-  letter-spacing: 0.08em;
+  font-size: 11px;
+  letter-spacing: 0.06em;
   cursor: pointer;
   transition:
     background-color 180ms ease,
@@ -5653,14 +5653,14 @@ audio {
   }
 
   .floating-lang-switch {
-    top: 12px;
-    right: 12px;
+    top: 8px;
+    right: 10px;
   }
 
   .floating-lang-btn {
-    min-width: 42px;
-    height: 24px;
-    font-size: 11px;
+    min-width: 36px;
+    height: 21px;
+    font-size: 10px;
   }
 }
 
@@ -5681,7 +5681,7 @@ audio {
   .brand {
     font-size: 13px;
     letter-spacing: 0.34em;
-    top: 4px;
+    top: 7px;
   }
 
   .nav {
@@ -6738,8 +6738,8 @@ body {
 }
 
 .floating-lang-switch {
-  top: max(12px, calc(var(--safe-top) + 8px));
-  right: max(12px, calc(var(--safe-right) + 10px));
+  top: max(8px, calc(var(--safe-top) + 4px));
+  right: max(10px, calc(var(--safe-right) + 8px));
 }
 
 .search-index-page .search-skeleton[hidden],
@@ -7973,18 +7973,18 @@ body {
   }
 
   .floating-lang-switch {
-    top: max(10px, calc(var(--safe-top) + 6px));
-    right: max(10px, calc(var(--safe-right) + 8px));
-    padding: 3px;
+    top: max(7px, calc(var(--safe-top) + 3px));
+    right: max(8px, calc(var(--safe-right) + 6px));
+    padding: 2px;
     gap: 2px;
     box-shadow: 0 10px 18px rgba(16, 22, 34, 0.18);
   }
 
   .floating-lang-btn {
-    min-width: 38px;
-    height: 22px;
-    font-size: 10px;
-    letter-spacing: 0.06em;
+    min-width: 34px;
+    height: 19px;
+    font-size: 9px;
+    letter-spacing: 0.05em;
   }
 }
 
