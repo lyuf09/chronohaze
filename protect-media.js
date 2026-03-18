@@ -3051,11 +3051,11 @@
       {
         zh: [
           "行き交う人々の中に昔の面影を探す",
-          "夜の街を歩いてるだけ　ただ適当に",
+          "夜の街をただ適当に歩いてるだけ",
           "今、元気ですかって",
           "そんなことさえ言えないんだ",
-          "あの時スクリーンの向こうは",
-          "手じゃ触れられない距離だった",
+          "あの時　スクリーンの向こうは",
+          "手を伸ばしても触れられない距離だった",
           "雑に撮った写真しか　もう何も残ってない",
         ],
         en: [
@@ -3070,7 +3070,7 @@
         ],
       },
       {
-        zh: ["他の誰かと私を比べたりした？", "聞かせてよ、昔の二人の話を", "あなたのためなら時間を止める"],
+        zh: ["他の誰かと比べたりした？私を", "聞かせてよ　昔の二人のことを", "あなたのためなら時間を止める"],
         en: [
           "Have you ever compared me to someone else?",
           "Tell me. Let me hear the old stories.",
@@ -3081,7 +3081,7 @@
       {
         zh: [
           "以前あなたに抱いていた疑問はもう全部解けた",
-          "軒に白く落ちた花びらは　まだ揺れていた",
+          "軒先に落ちた白い花びらは　まだ揺れていた",
           "でもどんなに頑張ってもあなたにはなれない",
           "今でも覚えてる？　口論したことを",
         ],
@@ -3098,11 +3098,11 @@
     var part2Blocks = [
       {
         zh: [
-          "朝のお茶を飲んで　月光があなたのギターに落ちる",
+          "朝のお茶を飲むころ　月光があなたのギターに落ちる",
           "雨の夜に予報を見る　そっちは晴れだって",
           "似ているのに　あの時の気持ちとは重ならない",
           "一人になるとまた目の前に浮かんでくる",
-          "灰色の瞳にあった失望へ　戻ったみたいだ",
+          "灰色の瞳の奥にあった失望に　戻ったみたいだ",
           "ねえ　本当はこんなはずじゃなかったんだ",
         ],
         en: [
@@ -3119,7 +3119,7 @@
         ],
       },
       {
-        zh: ["また言葉の端の意味を考えていた", "また訳もなく　そっちのニュースを見てた"],
+        zh: ["また言葉の端々の意味を考えていた", "また訳もなく　そっちのニュースを見てた"],
         en: [
           "I start reading into what you said, what you didn’t say.",
           "Without knowing why,",
@@ -3698,7 +3698,7 @@
         ],
       },
       {
-        zh: ["枯れては入れ替わる花", "片隅に打ち捨てられていた", "秋の朔へ踏み出した"],
+        zh: ["枯れてはまた入れ替わる花", "片隅に打ち捨てられていた", "秋の朔に踏み出した"],
         en: [
           "Flowers wither, replaced again and again,",
           "left abandoned in a corner.",
@@ -3708,7 +3708,7 @@
         ],
       },
       {
-        zh: ["色の重なり合い、曇った硝子の反射", "カメラの光に振り返ったこと", "夜明け前の輪郭に縋りついていた"],
+        zh: ["色の重なり合い、曇った硝子の反射", "カメラの光に振り向いたこと", "夜明け前の輪郭に縋りついていた"],
         en: [
           "Layers of colour,",
           "the reflection on fogged glass,",
@@ -3720,7 +3720,7 @@
         ],
       },
       {
-        zh: ["羽よりも軽い心臓", "重くて消えてゆくこと", "感性は水面に浮かんでいた"],
+        zh: ["羽よりも軽い心臓", "重たいものだけ消えてゆく", "感性は水面に浮かんでいた"],
         en: [
           "In a heart lighter than a feather,",
           "things that feels heavy slowly fade away.",
@@ -3729,7 +3729,7 @@
         ],
       },
       {
-        zh: ["色褪せた人たちは", "ほこりのようにどうでもいいんだ", "できると思っていたことも"],
+        zh: ["色褪せた人たちは", "ほこりのようにどうでもいいんだ", "できると思っていたことさえ"],
         en: [
           "Faded people are just",
           "like dust, they hardly matter.",
@@ -3894,7 +3894,7 @@
 
     var part1Blocks = [
       {
-        zh: ["逃げる理由なんてない", "目的はもう否めない", "スクリーンに囲まれた部屋", "行列が軌跡を描く"],
+        zh: ["逃げる理由なんてない", "動機はもう否めない", "スクリーンに囲まれた部屋", "行列が軌跡を描く"],
         en: [
           "No reason to hide,",
           "No reason to deny.",
@@ -3903,7 +3903,7 @@
         ],
       },
       {
-        zh: ["台本通りの出演", "罪と罰を綴る", "夜の街道の煙", "赤い線で結ばれた investigation"],
+        zh: ["台本通りの芝居", "罪と罰を綴る", "夜道に滲む煙", "赤い線で結ばれた investigation"],
         en: [
           "An appearance, exactly as the script demands,",
           "Writing down crime and punishment.",
@@ -3920,10 +3920,10 @@
           "（散った）",
           "砂ぼこりや落ち葉とともに",
           "無秩序な瞳が朱に染まる",
-          "日々築いてきた彼のロジックリンクは崩れた",
+          "日々築いてきた彼の論理の連なりは崩れた",
           "「ようやく触れたような気がした」",
-          "ありふれた思考過程だけ",
-          "過去になったあと",
+          "ありふれた思考過程さえ",
+          "過去になったあとで",
           "彼には自分のため息が聞こえた",
         ],
         en: [
@@ -3950,7 +3950,7 @@
         ],
       },
       {
-        zh: ["裁かれない神の背後で", "その日から停滞した時間", "灯台の光と蒼い空間", "彼の無意識の顔だけが"],
+        zh: ["裁かれない神の背後で", "その日から停滞した時間", "灯台の光と蒼い空間", "彼の無意識の表情だけが"],
         en: [
           "Behind the god who never judges,",
           "and the time that stagnated from that day on,",
@@ -3964,7 +3964,7 @@
           "無秩序な瞳が朱に染まる",
           "日々積み重なってた彼の違和感が弾けた",
           "「ようやく理解できた気がした」",
-          "ありふれた思考回路だけ",
+          "ありふれた思考過程さえ",
           "過去になったあと",
           "彼は笑った",
         ],
@@ -4275,7 +4275,7 @@
         ],
       },
       {
-        zh: ["心が苦しくても、愛を描きたい", "「寒くない、あたしの手を握ってるから」", "暗い道は見えないが　それほど重要ではない", "そのささやき声を覚えていればいい"],
+        zh: ["心が苦しくても、愛を描きたい", "「寒くない、あたしの手を握ってるから」", "暗い道が見えなくても、それほど重要じゃない", "そのささやき声を覚えていればいい"],
         en: [
           "Even if my chest hurts, I want to depict love.",
           "“I’m not cold, because you’re holding my hand.”",
@@ -4303,7 +4303,7 @@
         ],
       },
       {
-        zh: ["心が苦しくても、愛を描きたい", "大人になるあたしはどうすればいいのか", "白昼夢を見てるあたしも実は", "終わらせなければならないことを知ってる"],
+        zh: ["心が苦しくても、愛を描きたい", "大人になっていくあたしは どうすればいいのか", "白昼夢を見てるあたしも実は", "終わらせなければならないことを知ってる"],
         en: [
           "Even if my chest hurts, I want to depict love.",
           "As I grow up, what am I supposed to do?",
@@ -4312,7 +4312,7 @@
         ],
       },
       {
-        zh: ["「さらば、夏に咲くヨルガオ」と言えたら、嗚呼", "もう君がそばにいられなくても", "これから誕生日を忘れてしまうことさえ", "あたしは許せるのでしょう"],
+        zh: ["「さらば、夏に咲くヨルガオ」と言えたら、嗚呼", "もう君がそばにいられなくても", "これから誕生日を忘れてしまっても", "あたしはきっと許せるでしょう"],
         en: [
           "If I could say, “farewell—to the yorugao that blooms in summer,” ah—",
           "even if you can’t stay by my side anymore.",
@@ -6360,145 +6360,43 @@
       {
         zh: ["そのことには何の幻想もないかもしれない", "あれは錯覚か自己欺瞞か", "何度も夢に見たハッピーエンド", "でも、それはとても言えない"],
         en: [
-          "Maybe there was never any illusion in that at all.",
-          "Was it a misperception or self deception?",
-          "A happy ending I saw in dreams, again and again.",
-          "And yet—",
-          "it can’t be said.",
+          "There may have been no illusion in it at all.",
+          "Was it a misperception, or self-deception?",
+          "A happy ending I dreamed of again and again.",
+          "And yet, I can hardly say it.",
         ],
       },
       {
         zh: ["記憶の中の人が入れ替わり続ける", "そういえば花もそうだ", "ただ通りかかっただけだ"],
         en: [
-          "In my memory, people keep swapping places.",
-          "Come to think of it, flowers do that too.",
-          "It was only passing by.",
+          "In memory, people keep changing places.",
+          "Come to think of it, flowers do too.",
+          "It only happened to pass by.",
         ],
       },
       {
         zh: ["窓の外で真っ暗な蝉の鳴き声", "想い溢れる", "こんなに静かでも眠れない"],
         en: [
-          "Outside the window,",
-          "the pitch dark cry of cicadas.",
-          "Feelings overflow.",
-          "Even in this much quiet, sleep won’t come.",
+          "Outside the window, the cicadas cry in full darkness.",
+          "Feelings spill over.",
+          "Even in such quiet, I can’t sleep.",
         ],
-      },
-      {
-        zh: ["夜の青をかきわけて", "目が霧だらけになる", "私が落ちたどん底", "音のない海の底に"],
-        en: [
-          "Parting the blue of night,",
-          "my eyes fill with fog.",
-          "The rock bottom where I fell—",
-          "to the seabed without sound.",
-        ],
-      },
-      {
-        zh: ["記憶の中の"],
-        en: ["In my memory—"],
       },
     ];
 
     var part2Blocks = [
       {
-        zh: ["夢で僕の名前を呼んで", "そして覚めた後にまた", "無限の沈黙で何度も僕を殺す"],
+        zh: ["夜の青をかきわけて", "目が霧だらけになる", "私が落ちたどん底", "音のない海の底に"],
         en: [
-          "Call my name in a dream.",
-          "And when you wake again,",
-          "kill me over and over",
-          "with infinite silence.",
+          "Parting the blue of night,",
+          "my eyes fill with fog.",
+          "the lowest place where I fell,",
+          "to the floor of a soundless sea.",
         ],
       },
       {
-        zh: ["すねを通る水が速くなった", "冷たい、形のない銃", "光のない混沌の中で"],
-        en: [
-          "The water running past my shins quickens.",
-          "Cold—",
-          "a shapeless gun.",
-          "Within lightless chaos—",
-        ],
-      },
-      {
-        zh: ["心臓を射抜く"],
-        en: ["shoots through the heart."],
-      },
-      {
-        zh: ["画面が飛び続けて、君と出会った時に止まる", "振り出しに戻ったようだった。", "残した傷は消えない"],
-        en: [
-          "The screen keeps skipping frames,",
-          "stopping only when I met you.",
-          "It felt like returning to the starting line.",
-          "The wounds left behind don’t fade.",
-        ],
-      },
-      {
-        zh: ["今でも心", "も覚えている、「壊れたTwilight」", "死んでしまいそうだ", "遺言のような"],
-        en: [
-          "Even now, my heart",
-          "still remembers—“Broken Twilight.”",
-          "It feels like I might die.",
-          "Like a last testament.",
-        ],
-      },
-      {
-        zh: ["夢で僕の名前を呼んで", "そして覚めた后にまた", "無限の沈黙で何度も僕を殺す"],
-        en: [
-          "Call my name in a dream.",
-          "And when you wake again,",
-          "kill me over and over",
-          "with infinite silence.",
-        ],
-      },
-      {
-        zh: ["すねを通る水が速くなった", "冷たい、形のない銃", "光のない混沌の中で"],
-        en: [
-          "The water running past my shins quickens.",
-          "Cold—",
-          "a shapeless gun.",
-          "Within lightless chaos—",
-        ],
-      },
-      {
-        zh: ["心臓を射抜く"],
-        en: ["shoots through the heart."],
-      },
-      {
-        zh: ["夢で僕の名前を呼んで", "そして覚めた后にまた", "無限の沈黙で何度も僕を殺す"],
-        en: [
-          "Call my name in a dream.",
-          "And when you wake again,",
-          "kill me over and over",
-          "with infinite silence.",
-        ],
-      },
-      {
-        zh: ["不意に指の間から抜けていく", "答えはどこにもない", "と気づいたのだ", "だから言葉もいらない、", "ちょっと"],
-        en: [
-          "Suddenly slipping through my fingers—",
-          "I realized",
-          "there is no answer anywhere.",
-          "So words aren’t necessary.",
-          "Just—",
-        ],
-      },
-      {
-        zh: ["緋色空の下で", "カラスが走り抜ける", "真っ黒な目を閉じる", "雨の止んだこの街で"],
-        en: [
-          "Beneath a crimson sky,",
-          "a crow runs past.",
-          "I close my pitch-black eyes",
-          "in this city where the rain has stopped.",
-        ],
-      },
-      {
-        zh: ["過去の傷に触れ", "この愛の時代に", "黙って消えてしまった", "君、とっくに沈んでいる"],
-        en: [
-          "Touching old wounds,",
-          "in this era of love,",
-          "you quietly disappeared.",
-          "You—",
-          "long since sunk beneath.",
-        ],
+        zh: ["記憶の中の"],
+        en: ["in memory—"],
       },
     ];
 
@@ -8095,7 +7993,7 @@
 
     var part1Blocks = [
       {
-        zh: ["「いつのまにか心を奪われていた」", "雨上がりの午後にそう書いた", "窓の外、湿った匂いと夕暮れの中の顔を", "私はこう思い描いている"],
+        zh: ["「いつのまにか心を奪われていた」", "雨上がりの午後にそう書いた", "窓の外、湿った匂いと夕暮れの中の顔を", "こんな未来を思い描いている"],
         en: [
           "“Before I knew it, my heart was taken.”",
           "I wrote thaton an afternoon after the rain.",
@@ -8109,7 +8007,7 @@
         en: ["Like the ghost of a word,", "it stays deep in my throat."],
       },
       {
-        zh: ["君がいるから、", "意味のないもののために生きる口実を作る", "この両手で何も掴めなくても", "あとは二人だけでいい"],
+        zh: ["君がいるから、", "意味のないものにさえ 生きる理由を探してる", "この両手で何も掴めなくても", "あとは二人だけでいい"],
         en: [
           "Because of you,",
           "I keep stitching excuses for the meaningless to exist.",
