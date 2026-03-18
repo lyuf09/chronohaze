@@ -8750,6 +8750,14 @@ body {
     line-height: 1.82;
   }
 
+  .lyrics-showcase.is-anim-ready .lyrics-showcase-title,
+  .lyrics-showcase.is-anim-ready .lyrics-column-left,
+  .lyrics-showcase.is-anim-ready .lyrics-column-right {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+
   .search-index-page #site-search-input,
   .search-index-page #site-search-scope,
   .search-index-page #site-search-tag,

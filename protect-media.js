@@ -8219,8 +8219,11 @@
     var reducedMotion =
       typeof window.matchMedia === "function" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var compactViewport =
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(max-width: 760px)").matches;
 
-    if (reducedMotion) {
+    if (reducedMotion || compactViewport) {
       section.classList.add("is-visible");
       return;
     }
