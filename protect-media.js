@@ -8337,6 +8337,25 @@
     article.dataset.lyricsEnhanced = "1";
   }
 
+  function forceMusicLyricsVisibleOnCompactViewport() {
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var compactViewport =
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(max-width: 760px)").matches;
+
+    if (!compactViewport) {
+      return;
+    }
+
+    Array.from(document.querySelectorAll(".lyrics-showcase")).forEach(function (section) {
+      section.classList.remove("is-anim-ready");
+      section.classList.add("is-visible");
+    });
+  }
+
   function detectPreferredLanguage() {
     var query = new URLSearchParams(window.location.search).get("lang");
     if (query === "zh" || query === "en") {
@@ -12026,6 +12045,7 @@
       ensureMusicDetailBackLink,
       enhanceMusicPlayers,
       enhanceMusicLyricsLayout,
+      forceMusicLyricsVisibleOnCompactViewport,
       enableIndexRowLinks,
       bindCollectionLinkAnalytics,
       setupPageTransitions,
@@ -12043,6 +12063,7 @@
     optimizeImages,
     labelPhotoOrientation,
     bindCollectionLinkAnalytics,
+    forceMusicLyricsVisibleOnCompactViewport,
     setupFineMotionPass,
   ];
 
