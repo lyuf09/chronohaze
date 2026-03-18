@@ -2738,6 +2738,64 @@
     part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
   }
 
+  function decorateEnglishBilingualLyrics() {
+    if (detectPreferredLanguage() !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var part1Heading = findLyricHeading(headings, 1);
+    var part2Heading = findLyricHeading(headings, 2);
+    var lyricParagraphs = [part1Heading, part2Heading]
+      .map(function (heading) {
+        return heading ? heading.nextElementSibling : null;
+      })
+      .filter(function (node) {
+        return node && node.tagName === "P";
+      });
+
+    lyricParagraphs.forEach(function (paragraph) {
+      if (
+        paragraph.querySelector(".lyrics-original-block") ||
+        paragraph.querySelector(".lyrics-translation-block")
+      ) {
+        return;
+      }
+
+      var html = (paragraph.innerHTML || "").trim();
+      if (!html) {
+        return;
+      }
+
+      var segments = html
+        .split(/(?:\s*<br\s*\/?>\s*){2,}/i)
+        .map(function (segment) {
+          return segment.trim();
+        })
+        .filter(Boolean);
+
+      if (segments.length < 2) {
+        return;
+      }
+
+      paragraph.innerHTML = segments
+        .map(function (segment, index) {
+          var cls = index % 2 === 0 ? "lyrics-original-block" : "lyrics-translation-block";
+          return '<span class="' + cls + '">' + segment + "</span>";
+        })
+        .join("<br /><br />");
+    });
+  }
+
   function applyMoonlitGardenLyricsInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -10493,6 +10551,7 @@
       applyRainyDaysLyricsInEnglish(safeLang);
       applyRedSandalwoodIntroInEnglish(safeLang);
       applyRedSandalwoodLyricsInEnglish(safeLang);
+      decorateEnglishBilingualLyrics();
     }
 
     if (

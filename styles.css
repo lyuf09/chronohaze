@@ -9022,6 +9022,26 @@ html:lang(en) .music-detail-page .music-detail-article .lyrics-text {
   font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
 }
 
+html:lang(en) .music-detail-page .music-detail-article .lyrics-original-block,
+html:lang(en) .music-detail-page .music-detail-article .lyrics-translation-block {
+  display: block;
+  color: inherit;
+}
+
+html:lang(en) .music-detail-page .music-detail-article .lyrics-original-block {
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-size: 0.88em;
+  line-height: 1.86;
+  letter-spacing: 0.008em;
+}
+
+html:lang(en) .music-detail-page .music-detail-article .lyrics-translation-block {
+  font-family: var(--font-serif-en);
+  font-size: 1em;
+  line-height: 1.82;
+  letter-spacing: 0.012em;
+}
+
 /* Keep English music album/detail body copy on the artistic font stack. */
 html:lang(en) .music-detail-page .music-detail-article,
 html:lang(en) .music-detail-page .music-detail-article p,
