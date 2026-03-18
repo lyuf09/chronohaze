@@ -7464,8 +7464,8 @@
         zh: [
           "なんで3月なのに雪が降るのか",
           "なんで嫌いな人をフォローするのか",
-          "なんで都合の悪いことして後悔するのか",
-          "なんでただ謝って全部なかったことにするのか",
+          "なんで都合の悪いことをして後悔するのか",
+          "なんでただ謝って全部なかったことにしようとするのか",
         ],
         en: [
           "Why does it still snow in March?",
@@ -7479,7 +7479,7 @@
         en: ["I hate everyone."],
       },
       {
-        zh: ["私", "わからない、わからない", "正解なんて私が知るもんか", "「大人になってない」も言い訳", "これも嫌なんだ"],
+        zh: ["私", "わからない、わからない", "正解なんて私が知るもんか", "「大人になってない」なんて言い訳だ", "これも嫌なんだ"],
         en: [
           "Me—",
           "I don’t know, I don’t know.",
@@ -7502,14 +7502,14 @@
 
     var part2Blocks = [
       {
-        zh: ["同級生に間違ったこと言ってもいいのか", "イヤホンしてるから聞こえなくていいのか"],
+        zh: ["同級生に間違ったこと言ってもいいのか", "イヤホンしてるからって　聞こえなくていいのか"],
         en: [
           "Is it okay if I accidentally said the wrong thing to a classmate?",
           "Is it okay to pretend I can’t hear because I’ve got my earphones in?",
         ],
       },
       {
-        zh: ["そもそもみんなと溶け合えないとか", "全部自分で選んだんだ", "人間って俗っぽいんだからね", "全部バカみたい"],
+        zh: ["そもそもみんなと溶け合えないのも", "全部自分で選んだんだ", "人間って俗っぽいんだからね", "全部バカみたい"],
         en: [
           "Maybe I was never going to fit in with everyone in the first place.",
           "I chose all of it myself.",
@@ -7518,7 +7518,7 @@
         ],
       },
       {
-        zh: ["ずっと好きな曲を", "ずっと君だけを"],
+        zh: ["ずっと好きな曲と", "ずっと君だけを"],
         en: ["Always the song I loved,", "always you—only you."],
       },
       {
@@ -7526,7 +7526,7 @@
         en: ["But I want to forget everything!!", "I hate you too!"],
       },
       {
-        zh: ["いつか", "わかるのか、わかるのか", "道筋とかいつかわかるのか", "大人になってから全部知ったら", "怖すぎるな、ああ"],
+        zh: ["いつか", "わかるのか、わかるのか", "道筋なんていつかわかるのか", "大人になってから全部知ったら", "怖すぎるな、ああ"],
         en: [
           "Someday—",
           "Will I understand, will I understand?",
