@@ -132,14 +132,28 @@ a {
   transition: color var(--ui-t-base) ease, opacity var(--ui-t-base) ease;
 }
 
+button,
+input,
+select,
+textarea,
+option {
+  font: inherit;
+  color: inherit;
+}
+
 button {
-  font-family: inherit;
   transition:
     color var(--ui-t-base) ease,
     background-color var(--ui-t-slow) ease,
     border-color var(--ui-t-slow) ease,
     box-shadow var(--ui-t-slow) ease,
     transform var(--ui-t-slow) var(--ui-ease);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-subtle);
+  opacity: 1;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -3064,11 +3078,11 @@ audio {
 html:lang(en) .article p,
 html:lang(en) .article li,
 html:lang(en) .article li p {
-  font-family: "Novarese", "Iowan Old Style", "Baskerville", "Cormorant Garamond", "Times New Roman", serif;
+  font-family: var(--font-academic-en);
   font-size: 16.2px;
   line-height: 1.82;
   letter-spacing: 0.012em;
-  color: rgba(33, 39, 48, 0.93);
+  color: #33373d;
   font-weight: 400;
 }
 
@@ -3080,7 +3094,7 @@ html:lang(en) .article-meta {
 }
 
 html:lang(en) .article-meta {
-  color: rgba(59, 66, 79, 0.8);
+  color: var(--muted);
   letter-spacing: 0.08em;
 }
 
@@ -8595,5 +8609,153 @@ body {
 @media only screen and (min-width: 390px) and (max-width: 430px) and (orientation: portrait) {
   body:not(.home-body) .brand {
     padding-right: max(140px, calc(132px + var(--safe-right))) !important;
+  }
+}
+
+/* Final mobile typography parity pass */
+@media (max-width: 760px) {
+  body:not(.home-body) {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body:not(.home-body),
+  body:not(.home-body) button,
+  body:not(.home-body) input,
+  body:not(.home-body) select,
+  body:not(.home-body) textarea,
+  body:not(.home-body) option {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    color: inherit;
+  }
+
+  html:lang(en) .cv-page [data-lang-block="en"] *,
+  html:lang(en) .research-page [data-lang-block="en"] *,
+  html:lang(en) .projects-page [data-lang-block="en"] *,
+  html:lang(en) .article,
+  html:lang(en) .article p,
+  html:lang(en) .article li,
+  html:lang(en) .article li p,
+  html:lang(en) .article h1,
+  html:lang(en) .article h2,
+  html:lang(en) .article h3,
+  html:lang(en) .article-meta {
+    font-family: var(--font-academic-en);
+  }
+
+  html:lang(en) .music-index-page .main *,
+  html:lang(en) .music-album-page .main *,
+  html:lang(en) .music-detail-page .main *,
+  html:lang(en) .photo-index-page .main *,
+  html:lang(en) .photo-blue-page .main *,
+  html:lang(en) .photo-detail-article * {
+    font-family: var(--font-serif-en);
+  }
+
+  .page-head p,
+  .photo-index-page .page-head p,
+  .math-index-page .page-head p,
+  .music-index-page .page-head p,
+  .search-index-page .page-head p {
+    font-size: 13px;
+    line-height: 1.42;
+    color: #4a4f58;
+  }
+
+  .math-index-page .math-date,
+  .music-index-page .track-date,
+  .music-index-page .track-artist,
+  .music-index-page .music-featured-item-artist,
+  .music-index-page .music-featured-item-copy,
+  .music-index-page .music-ia-subtitle,
+  .music-index-page .music-ia-filter-label,
+  .photo-index-page .photo-feature-location,
+  .photo-index-page .photo-feature-concept,
+  .photo-index-page .photo-feature-caption,
+  .photo-index-page .photo-subtitle,
+  .photo-index-page .photo-section-lead,
+  .search-index-page .search-field-label,
+  .search-index-page .search-result-meta,
+  .search-index-page .search-result-excerpt,
+  .cv-page .policy p,
+  .cv-page .policy li,
+  .research-page .research-intro-copy,
+  .research-page .research-card-copy,
+  .research-page .research-output-copy {
+    color: #4a4f58;
+  }
+
+  .math-index-page .math-title,
+  .music-index-page .music-featured-item-title,
+  .music-index-page .track-title,
+  .photo-index-page .photo-feature-theme,
+  .photo-index-page .photo-title,
+  .search-index-page .search-result-title,
+  .cv-page .policy h2,
+  .research-page .research-project-card h3,
+  .projects-page .research-project-card h3 {
+    color: #232730;
+  }
+
+  .math-index-page .math-date,
+  .music-index-page .track-date,
+  .music-index-page .music-ia-subtitle,
+  .music-index-page .music-ia-filter-label,
+  .photo-index-page .photo-subtitle,
+  .search-index-page .search-field-label,
+  .search-index-page .search-result-meta {
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
+  .math-index-page .math-desc,
+  .music-index-page .music-featured-item-artist,
+  .music-index-page .music-featured-item-copy,
+  .music-index-page .track-artist,
+  .photo-index-page .photo-feature-location,
+  .photo-index-page .photo-feature-concept,
+  .photo-index-page .photo-feature-caption,
+  .photo-index-page .photo-section-lead,
+  .search-index-page .search-result-excerpt,
+  .cv-page .policy p,
+  .cv-page .policy li,
+  .research-page .research-intro-copy,
+  .research-page .research-card-copy,
+  .research-page .research-output-copy {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .music-detail-meta,
+  .music-detail-article p,
+  .music-detail-article li {
+    color: inherit;
+  }
+
+  .music-detail-page .music-detail-article p,
+  .music-detail-page .music-detail-article li {
+    font-size: 15px;
+    line-height: 1.8;
+    color: rgba(33, 39, 48, 0.92);
+  }
+
+  .music-detail-page .music-detail-meta {
+    font-size: 14px;
+    color: #4a4f58;
+  }
+
+  .music-detail-article .lyrics-text {
+    font-size: 13.4px;
+    line-height: 1.82;
+  }
+
+  .search-index-page #site-search-input,
+  .search-index-page #site-search-scope,
+  .search-index-page #site-search-tag,
+  .search-index-page .search-submit,
+  .music-index-page .music-ia-filter-select,
+  .music-index-page .music-ia-tab {
+    color: #2f343d;
   }
 }
