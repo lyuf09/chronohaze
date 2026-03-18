@@ -3098,6 +3098,15 @@ html:lang(en) .projects-page .research-hero-panel a {
   font-family: var(--font-academic-en);
 }
 
+html:lang(en) .music-index-page .main *,
+html:lang(en) .music-album-page .main *,
+html:lang(en) .music-detail-page .main *,
+html:lang(en) .photo-index-page .main *,
+html:lang(en) .photo-blue-page .main *,
+html:lang(en) .photo-detail-article * {
+  font-family: var(--font-serif-en);
+}
+
 .music-detail-article h1 {
   margin: 0 0 18px;
   font-size: clamp(44px, 4.6vw, 56px);
