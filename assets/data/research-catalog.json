@@ -34,12 +34,12 @@
   "projects": [
     {
       "kind": "",
-      "title": "Isabelle/HOL：子模贪心算法形式化",
-      "problem": "",
-      "method": "",
-      "status": "进行中。",
-      "current_status": "",
-      "contribution": "",
+      "title": "Isabelle/HOL：现代子模贪心算法形式化",
+      "problem": "在 Isabelle/HOL 中形式化验证基数约束下单调非负子模最大化的近似算法理论，覆盖 classical greedy、LazyGreedy 与 StochasticGreedy，并组织其近似保证、算法构造与 oracle-cost 分析。",
+      "method": "采用基于 locale 的模块化组织方式，将抽象假设、算法构造、step-spec / recurrence 证明、具体实例解释以及复杂度 / oracle-cost 层分开处理，以保持证明结构清晰且便于后续扩展。",
+      "status": "进行中（核心定理线已完成，正在整理与提升展示质量）。",
+      "current_status": "经典 greedy 基线已完成；LazyGreedy 已形成完整的 stateful、approximation 与 oracle-cost 结构；StochasticGreedy 已完成 concrete uniform with-replacement theorem line，并达到最终近似定理包装这一关键里程碑。",
+      "contribution": "继续进行整理与打磨，包括 stochastic 部分的命名与注释统一、依赖清理、成本比较叙事加强，以及面向 AFP / submission-style 的 presentation refinement。",
       "links": [
         {
           "href": "post/isabelle-submodular-greedy.html",

@@ -46,7 +46,7 @@
       "title": "Research | Fay Lyu (HazezZ)",
       "date": "",
       "section": "Site",
-      "content": "研究 优化 形式化验证 Isabelle HOL 数学建模 三条相关方向 形式化近似保证 不变性下的对偶与下界 连续对象离散化为可检查结构 Shoham Sabach Wenda Li Cornell ORIE Edinburgh Informatics 研究兴趣 优化 对偶 下界 一阶结构 不变性 形式化验证 Isabelle HOL 假设 接口 扩展 子模算法 单调子模最大化 贪心保证 机器检验 建模 formulation 对称性 近似需求 实现约束 当前工作 Isabelle HOL 子模贪心算法形式化 Note Repo 不变性下的对偶与下界 Note Archive Metalcore Piano Lab 从音频 MIDI 到谱面 Note Repo 建议先看 Projects 研究 为什么连在一起 Research Optimization Formal Verification Isabelle HOL Mathematical Modeling current work submodular greedy duality lower bounds invariances discretization Shoham Sabach Wenda Li Note Repo Archive",
+      "content": "研究 优化 形式化验证 Isabelle HOL 数学建模 三条相关方向 形式化近似保证 不变性下的对偶与下界 连续对象离散化为可检查结构 Shoham Sabach Wenda Li Cornell ORIE Edinburgh Informatics 研究兴趣 优化 对偶 下界 一阶结构 不变性 形式化验证 Isabelle HOL 假设 接口 扩展 子模算法 单调非负子模最大化 classical greedy LazyGreedy StochasticGreedy oracle cost locale step spec recurrence 机器检验 建模 formulation 对称性 近似需求 实现约束 当前工作 Isabelle HOL 现代子模贪心算法形式化 Note Repo 不变性下的对偶与下界 Note Archive Metalcore Piano Lab 从音频 MIDI 到谱面 Note Repo 建议先看 Projects 研究 为什么连在一起 Research Optimization Formal Verification Isabelle HOL Mathematical Modeling current work modern submodular greedy algorithms LazyGreedy StochasticGreedy oracle-cost AFP submission Shoham Sabach Wenda Li Note Repo Archive",
       "excerpt": "优化 · 形式化验证（Isabelle/HOL） · 数学建模"
     },
     {

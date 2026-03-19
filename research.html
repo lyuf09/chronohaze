@@ -124,12 +124,12 @@
           <div data-lang-block="zh">
             <!-- GENERATED:research-projects:start -->
             <article class="research-project-card">
-              <h3>Isabelle/HOL：子模贪心算法形式化</h3>
-              <p class="research-project-line"><strong>问题：</strong> <span class="research-project-line-body">在 Isabelle/HOL 中形式化验证：单调子模最大化在基数约束下，贪心算法满足经典的 (1 - 1/e) 近似保证。</span></p>
-              <p class="research-project-line"><strong>方法：</strong> <span class="research-project-line-body">使用 Isabelle/HOL、基于 locale 的组织方式、分步证明结构，以及把贪心步骤和近似递推尽量分开处理。</span></p>
-              <p class="research-project-line"><strong>目前阶段：</strong> <span class="research-project-line-body">主线证明正在推进，同时也在整理 greedy 步骤、近似分析和假设打包的边界，看看哪些部分可以在后续变体里直接沿用。</span></p>
-              <p class="research-project-line"><strong>下一步：</strong> <span class="research-project-line-body">继续测试这套组织方式能否自然扩展到更接近 LazyGreedy / StochasticGreedy 的变体。</span></p>
-              <p class="research-project-line research-project-line--status"><strong>当前状态：</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">进行中。</span></span></p>
+              <h3>Isabelle/HOL：现代子模贪心算法形式化</h3>
+              <p class="research-project-line"><strong>问题：</strong> <span class="research-project-line-body">在 Isabelle/HOL 中形式化验证基数约束下单调非负子模最大化的近似算法理论，覆盖 classical greedy、LazyGreedy 与 StochasticGreedy，并组织其近似保证、算法构造与 oracle-cost 分析。</span></p>
+              <p class="research-project-line"><strong>方法：</strong> <span class="research-project-line-body">采用基于 locale 的模块化组织方式，将抽象假设、算法构造、step-spec / recurrence 证明、具体实例解释以及复杂度 / oracle-cost 层分开处理，以保持证明结构清晰且便于后续扩展。</span></p>
+              <p class="research-project-line"><strong>目前阶段：</strong> <span class="research-project-line-body">经典 greedy 基线已完成；LazyGreedy 已形成完整的 stateful、approximation 与 oracle-cost 结构；StochasticGreedy 已完成 concrete uniform with-replacement theorem line，并达到最终近似定理包装这一关键里程碑。</span></p>
+              <p class="research-project-line"><strong>下一步：</strong> <span class="research-project-line-body">继续进行整理与打磨，包括 stochastic 部分的命名与注释统一、依赖清理、成本比较叙事加强，以及面向 AFP / submission-style 的 presentation refinement。</span></p>
+              <p class="research-project-line research-project-line--status"><strong>当前状态：</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">进行中（核心定理线已完成，正在整理与提升展示质量）。</span></span></p>
               <div class="research-link-row">
                 <a href="post/isabelle-submodular-greedy.html">Note</a>
                 <a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">Repo</a>
@@ -163,12 +163,12 @@
           </div>
           <div data-lang-block="en" hidden>
             <article class="research-project-card">
-              <h3>Isabelle/HOL: Formalizing Submodular Greedy</h3>
-              <p class="research-project-line"><strong>Problem:</strong> <span class="research-project-line-body">Formally verify the classical greedy (1 - 1/e) approximation guarantee for monotone submodular maximization under a cardinality constraint.</span></p>
-              <p class="research-project-line"><strong>Methods:</strong> <span class="research-project-line-body">Isabelle/HOL, locale-based organization, stepwise proof structure, and a split between the greedy step and the approximation recurrence.</span></p>
-              <p class="research-project-line"><strong>Current stage:</strong> <span class="research-project-line-body">The main proof development is underway, and I have also been refining the boundary between assumptions, lemmas, and interfaces so that closely related greedy variants do not have to start over.</span></p>
-              <p class="research-project-line"><strong>Next step:</strong> <span class="research-project-line-body">Test whether the same organization can be carried into something closer to a lazy or stochastic variant.</span></p>
-              <p class="research-project-line research-project-line--status"><strong>Current status:</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">Ongoing.</span></span></p>
+              <h3>Isabelle/HOL: Formalizing Modern Submodular Greedy Algorithms</h3>
+              <p class="research-project-line"><strong>Problem:</strong> <span class="research-project-line-body">Formalize in Isabelle/HOL the approximation theory for monotone nonnegative submodular maximization under a cardinality constraint, covering classical greedy, LazyGreedy, and StochasticGreedy, together with their approximation guarantees, algorithmic constructions, and oracle-cost analyses.</span></p>
+              <p class="research-project-line"><strong>Methods:</strong> <span class="research-project-line-body">A locale-based modular organization that separates abstract assumptions, algorithmic constructions, step-spec / recurrence proofs, concrete instance interpretations, and complexity / oracle-cost layers, so that the proof structure remains clear and extensible.</span></p>
+              <p class="research-project-line"><strong>Current stage:</strong> <span class="research-project-line-body">The classical greedy baseline is complete; LazyGreedy now has a full stateful, approximation, and oracle-cost development; StochasticGreedy has completed a concrete uniform with-replacement theorem line and reached the key milestone of packaging the final approximation theorem.</span></p>
+              <p class="research-project-line"><strong>Next step:</strong> <span class="research-project-line-body">Continue the clean-up and refinement: unifying names and comments in the stochastic part, pruning dependencies, strengthening the cost-comparison narrative, and improving the presentation toward an AFP / submission-style version.</span></p>
+              <p class="research-project-line research-project-line--status"><strong>Current status:</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">Ongoing (the core theorem lines are complete; current work is focused on clean-up and presentation quality).</span></span></p>
               <div class="research-link-row">
                 <a href="post/isabelle-submodular-greedy.html">Note</a>
                 <a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">Repo</a>
