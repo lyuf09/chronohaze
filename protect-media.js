@@ -10098,9 +10098,6 @@
     if (document.body.classList.contains("music-album-page")) {
       targetHost = document.querySelector(".album-head .container");
       pageKind = "album";
-    } else if (/\/?cv\.html(?:$|[?#])/.test((window.location.pathname || "").toLowerCase())) {
-      targetHost = document.querySelector(".cv-utility-bar");
-      pageKind = "cv";
     }
 
     if (!targetHost) {
