@@ -390,6 +390,7 @@
         });
 
         try {
+          window.localStorage.setItem('siteLang', safeLang);
           window.localStorage.setItem('chronohaze-lang', safeLang);
         } catch (err) {
         }
@@ -397,8 +398,11 @@
 
       var initialLang = 'zh';
       try {
+        var siteLang = window.localStorage.getItem('siteLang');
         var savedLang = window.localStorage.getItem('chronohaze-lang');
-        if (savedLang === 'zh' || savedLang === 'en') {
+        if (siteLang === 'zh' || siteLang === 'en') {
+          initialLang = siteLang;
+        } else if (savedLang === 'zh' || savedLang === 'en') {
           initialLang = savedLang;
         }
       } catch (err) {
