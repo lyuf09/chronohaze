@@ -2000,7 +2000,7 @@
         siteNotes: "网站说明",
         a11y: "无障碍支持",
         footerContactLead: "辗转不同国家无固定号码 请联系邮箱：",
-        footerCities: "重庆 · Edinburgh · New York",
+        footerCities: "重庆 · Edinburgh · Ithaca",
         musicPageTitle: "音乐作品集",
         musicIntro: "声音的纹理、情绪的回声、在时间里缓慢成形的片段。",
         musicLead: "仅收录 21 年开始的部分作品（我需要脸面）",
@@ -2145,7 +2145,7 @@
         a11y: "Accessibility",
         footerContactLead:
           "No fixed phone number while moving across countries. Contact by email:",
-        footerCities: "Chongqing · Edinburgh · New York",
+        footerCities: "Chongqing · Edinburgh · Ithaca",
         musicPageTitle: "Music Collection",
         musicIntro:
           "Textures of sound, echoes of emotion, fragments shaped slowly in time.",
