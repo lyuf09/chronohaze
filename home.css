@@ -1019,11 +1019,17 @@ html:lang(en) .about-overlay p {
 
 .now-head {
   display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "kicker freshness"
+    "title freshness";
   gap: 8px;
   margin-bottom: 16px;
+  align-items: start;
 }
 
 .now-kicker {
+  grid-area: kicker;
   margin: 0;
   font-family: var(--home-font-ui);
   font-size: 11px;
@@ -1034,6 +1040,7 @@ html:lang(en) .about-overlay p {
 }
 
 .now-head h2 {
+  grid-area: title;
   margin: 0;
   font-family: var(--home-font-display);
   font-size: clamp(20px, 2vw, 28px);
@@ -1041,6 +1048,38 @@ html:lang(en) .about-overlay p {
   font-weight: 300;
   letter-spacing: -0.02em;
   color: var(--home-ink-strong);
+}
+
+.now-freshness {
+  grid-area: freshness;
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+  padding: 6px 10px 7px;
+  border: 1px solid rgba(57, 66, 82, 0.08);
+  background: rgba(247, 249, 252, 0.34);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+.now-freshness-label,
+.now-freshness-time {
+  display: inline-block;
+  font-family: "Aventa", var(--home-font-ui);
+  font-size: 10px;
+  line-height: 1;
+}
+
+.now-freshness-label {
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(77, 87, 107, 0.6);
+}
+
+.now-freshness-time {
+  letter-spacing: 0.12em;
+  color: rgba(46, 55, 70, 0.78);
 }
 
 .now-intro {
@@ -1492,6 +1531,19 @@ html:lang(en) .about-overlay p {
 
   .now-grid {
     grid-template-columns: 1fr;
+  }
+
+  .now-head {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "kicker"
+      "title"
+      "freshness";
+  }
+
+  .now-freshness {
+    justify-self: start;
+    margin-top: 4px;
   }
 }
 
