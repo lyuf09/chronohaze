@@ -400,8 +400,65 @@ html:lang(en) {
   color: var(--home-ink);
 }
 
+.hero-academic-module {
+  width: 390px;
+  margin-top: 28px;
+}
+
+.hero-academic-kicker {
+  margin: 0 0 10px;
+  width: auto;
+  font-family: "Aventa", var(--home-font-ui);
+  font-size: 10.5px;
+  line-height: 1.1;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(76, 86, 106, 0.72);
+}
+
+.hero-academic-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.hero-academic-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  padding: 6px 12px 7px;
+  border: 1px solid rgba(55, 63, 78, 0.12);
+  background:
+    linear-gradient(180deg, rgba(251, 252, 254, 0.56), rgba(243, 246, 251, 0.42)),
+    radial-gradient(circle at 18% 24%, rgba(255, 255, 255, 0.1) 0.6px, transparent 0.95px);
+  background-size: auto, 8px 8px;
+  box-shadow:
+    0 8px 18px rgba(15, 19, 28, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.34);
+  font-family: var(--home-font-ui-serif);
+  font-size: 13px;
+  line-height: 1;
+  color: rgba(39, 47, 61, 0.82);
+  transition:
+    transform var(--home-t-base) var(--home-ease),
+    border-color var(--home-t-base) ease,
+    background-color var(--home-t-base) ease,
+    box-shadow var(--home-t-base) ease,
+    color var(--home-t-base) ease;
+}
+
+.hero-academic-link:hover {
+  transform: translateY(-1px);
+  border-color: rgba(58, 67, 84, 0.18);
+  box-shadow:
+    0 11px 20px rgba(15, 19, 28, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  color: rgba(25, 32, 45, 0.92);
+}
+
 .contact-btn {
-  margin-top: 40px;
+  margin-top: 28px;
   width: 114px;
   height: 46px;
   display: inline-flex;
@@ -432,7 +489,7 @@ html:lang(en) {
 }
 
 .player-shell {
-  margin-top: 72px;
+  margin-top: 42px;
   width: 246px;
   min-height: 66px;
   background: linear-gradient(180deg, rgba(246, 248, 252, 0.74), rgba(236, 240, 247, 0.62));
@@ -1311,6 +1368,11 @@ html:lang(en) .about-overlay p {
     letter-spacing: 0.012em;
   }
 
+  .hero-academic-module {
+    width: 100%;
+    margin-top: 26px;
+  }
+
   .contact-btn,
   .player-shell {
     margin-top: 34px;
@@ -1469,6 +1531,20 @@ html:lang(en) .about-overlay p {
     font-size: 16px;
     line-height: 1.48;
     letter-spacing: 0.012em;
+  }
+
+  .hero-academic-kicker {
+    font-size: 10px;
+  }
+
+  .hero-academic-links {
+    gap: 7px;
+  }
+
+  .hero-academic-link {
+    min-height: 27px;
+    padding: 6px 11px 7px;
+    font-size: 12px;
   }
 
   .hero-left {
