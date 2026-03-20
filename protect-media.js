@@ -2371,7 +2371,7 @@
       playButton.type = "button";
       playButton.className = "music-player-play";
       playButton.setAttribute("aria-label", dict.playerPlayAria);
-      playButton.textContent = "▶";
+      playButton.textContent = "";
 
       var scrubber = document.createElement("input");
       scrubber.type = "range";
@@ -2401,7 +2401,6 @@
       function syncPlayState() {
         var isPlaying = !audio.paused && !audio.ended;
         playButton.classList.toggle("is-playing", isPlaying);
-        playButton.textContent = isPlaying ? "❚❚" : "▶";
         playButton.setAttribute(
           "aria-label",
           isPlaying ? dict.playerPauseAria : dict.playerPlayAria
