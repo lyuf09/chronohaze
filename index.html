@@ -41,7 +41,7 @@
   <noscript><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet" /></noscript>
   <link rel="preload" as="image" href="assets/template/hero_portrait-1600.webp" type="image/webp" imagesrcset="assets/template/hero_portrait-960.webp 960w, assets/template/hero_portrait-1600.webp 1600w" imagesizes="(max-width: 900px) 92vw, 46vw" />
   <link rel="stylesheet" href="styles.css?v=20260319-mobileplay1" />
-  <link rel="stylesheet" href="home.css?v=20260318-fresh2" />
+  <link rel="stylesheet" href="home.css?v=20260319-menu-lock1" />
   <script defer src="protect-media.js?v=20260319-save7"></script>
 </head>
 <body class="home-body">
@@ -261,6 +261,7 @@
       const i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
       const i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
       let homeMathItems = null;
+      let menuScrollY = 0;
 
       function fmtClockSeed(sec) {
         if (!Number.isFinite(sec) || sec <= 0) return '00:00';
@@ -416,11 +417,32 @@
         }
       };
 
+      function lockMenuScroll() {
+        if (document.body.classList.contains('menu-scroll-locked')) return;
+        menuScrollY = window.scrollY || window.pageYOffset || 0;
+        document.body.style.setProperty('--menu-scroll-top', '-' + String(menuScrollY) + 'px');
+        document.body.classList.add('menu-scroll-locked');
+        document.documentElement.classList.add('menu-scroll-locked');
+      }
+
+      function unlockMenuScroll() {
+        if (!document.body.classList.contains('menu-scroll-locked')) return;
+        document.body.classList.remove('menu-scroll-locked');
+        document.documentElement.classList.remove('menu-scroll-locked');
+        document.body.style.removeProperty('--menu-scroll-top');
+        window.scrollTo(0, menuScrollY);
+      }
+
       function setMenu(open) {
         drawer.classList.toggle('open', open);
         backdrop.hidden = !open;
         drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
         openBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (open) {
+          lockMenuScroll();
+        } else {
+          unlockMenuScroll();
+        }
       }
 
       function bindMathCards() {
@@ -578,6 +600,9 @@
       backdrop.addEventListener('click', function () { setMenu(false); });
       drawer.querySelectorAll('a').forEach(function (link) {
         link.addEventListener('click', function () { setMenu(false); });
+      });
+      window.addEventListener('pagehide', function () {
+        unlockMenuScroll();
       });
       langButtons.forEach(function (btn) {
         btn.addEventListener('click', function () {

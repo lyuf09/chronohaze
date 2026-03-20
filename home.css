@@ -1775,6 +1775,12 @@ html:lang(en) .about-overlay p {
   -webkit-text-size-adjust: 100%;
 }
 
+html.menu-scroll-locked,
+.home-body.menu-scroll-locked {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
 .home-topbar {
   padding-top: env(safe-area-inset-top, 0px);
   height: calc(99px + env(safe-area-inset-top, 0px));
@@ -1801,16 +1807,26 @@ html:lang(en) .about-overlay p {
 
   .drawer {
     padding-top: calc(14px + env(safe-area-inset-top, 0px));
+    overscroll-behavior: contain;
   }
 
   .drawer-nav {
     max-height: calc(100vh - 140px - env(safe-area-inset-top, 0px));
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    touch-action: pan-y;
   }
 
   .home-footer-bottom {
     padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .home-body.menu-scroll-locked {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    top: var(--menu-scroll-top, 0px);
   }
 }
 
