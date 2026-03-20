@@ -649,42 +649,6 @@ html:lang(en) .about-overlay p {
   line-height: 1.82;
 }
 
-.about-freshness {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: auto;
-  margin: 24px auto 0;
-  padding: 8px 14px 9px;
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  background: rgba(8, 11, 17, 0.28);
-  box-shadow: 0 10px 24px rgba(5, 8, 13, 0.14);
-  color: rgba(229, 233, 241, 0.86);
-}
-
-.about-freshness-label,
-.about-freshness-time {
-  display: inline-block;
-}
-
-.about-freshness-label {
-  font-family: "Aventa", var(--home-font-ui);
-  font-size: 10.5px;
-  line-height: 1;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(229, 233, 241, 0.64);
-}
-
-.about-freshness-time {
-  font-family: "Aventa", var(--home-font-ui);
-  font-size: 10.5px;
-  line-height: 1;
-  letter-spacing: 0.14em;
-  color: rgba(238, 241, 247, 0.92);
-}
-
 .math-section {
   background:
     radial-gradient(900px 500px at 6% 10%, rgba(255, 255, 255, 0.15), transparent 62%),
@@ -1437,17 +1401,6 @@ html:lang(en) .about-overlay p {
     line-height: 1.8;
   }
 
-  .about-freshness {
-    margin-top: 22px;
-    padding: 7px 12px 8px;
-    gap: 8px;
-  }
-
-  .about-freshness-label,
-  .about-freshness-time {
-    font-size: 10px;
-  }
-
   .math-section {
     margin-top: 24px;
     padding: 50px 24px 60px;
@@ -1644,16 +1597,6 @@ html:lang(en) .about-overlay p {
     font-size: 13px;
     font-weight: 300;
     line-height: 1.65;
-  }
-
-  .about-freshness {
-    margin-top: 20px;
-    padding: 7px 11px 8px;
-  }
-
-  .about-freshness-label,
-  .about-freshness-time {
-    font-size: 9.5px;
   }
 
   .about-overlay::before {
