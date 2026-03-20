@@ -328,6 +328,19 @@ html:lang(en) {
   transform: translateY(-1px);
 }
 
+.lang-btn:focus-visible,
+.menu-open:focus-visible,
+.contact-btn:focus-visible,
+.player-toggle:focus-visible,
+.hero-academic-link:focus-visible,
+.drawer-close:focus-visible,
+.drawer-nav a:focus-visible,
+.home-footer-social a:focus-visible,
+.home-footer-email:focus-visible {
+  outline: 2px solid rgba(124, 147, 184, 0.9);
+  outline-offset: 3px;
+}
+
 .hero-split {
   min-width: 980px;
   height: 790px;
@@ -397,7 +410,7 @@ html:lang(en) {
   font-size: 18px;
   line-height: 1.7;
   letter-spacing: 0.015em;
-  color: var(--home-ink);
+  color: rgba(33, 38, 47, 0.94);
 }
 
 .hero-academic-module {
@@ -413,7 +426,7 @@ html:lang(en) {
   line-height: 1.1;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--home-ink-muted);
+  color: rgba(56, 65, 81, 0.9);
 }
 
 .hero-academic-links {
@@ -439,7 +452,7 @@ html:lang(en) {
   font-family: var(--home-font-ui-serif);
   font-size: 13px;
   line-height: 1;
-  color: rgba(39, 47, 61, 0.82);
+  color: rgba(31, 37, 48, 0.93);
   transition:
     transform var(--home-t-base) var(--home-ease),
     border-color var(--home-t-base) ease,
@@ -468,7 +481,7 @@ html:lang(en) {
   font-size: var(--home-type-button-size);
   line-height: var(--home-type-button-line);
   letter-spacing: var(--home-type-button-tracking);
-  color: rgba(239, 243, 249, 0.92);
+  color: rgba(245, 247, 252, 0.98);
   border: 1px solid rgba(44, 49, 58, 0.8);
   background: linear-gradient(180deg, rgba(41, 46, 56, 0.98), rgba(34, 38, 46, 0.98));
   border-radius: 0;
@@ -523,7 +536,7 @@ html:lang(en) {
   height: 16px;
   border: 0;
   background: transparent;
-  color: var(--home-ink-muted);
+  color: rgba(44, 50, 61, 0.94);
   font-size: 14px;
   line-height: 1;
   cursor: pointer;
@@ -541,7 +554,7 @@ html:lang(en) {
   font-size: 12px;
   line-height: 1;
   letter-spacing: 0;
-  color: var(--home-ink-muted);
+  color: rgba(44, 50, 61, 0.9);
   text-transform: uppercase;
 }
 
@@ -568,7 +581,7 @@ html:lang(en) {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 10px;
   line-height: 1;
-  color: var(--home-ink-muted);
+  color: rgba(44, 50, 61, 0.9);
   padding-left: 6px;
 }
 
@@ -612,9 +625,11 @@ html:lang(en) {
   content: "";
   position: absolute;
   inset: -18px -24px;
-  background: rgba(10, 13, 19, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow: 0 20px 42px rgba(7, 10, 16, 0.2);
+  background: rgba(10, 13, 19, 0.58);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 42px rgba(7, 10, 16, 0.26);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
   pointer-events: none;
   z-index: -1;
 }
@@ -637,7 +652,7 @@ html:lang(en) {
   font-weight: 300;
   line-height: 1.78;
   letter-spacing: 0;
-  color: rgba(228, 233, 241, 0.86);
+  color: rgba(236, 240, 247, 0.92);
 }
 
 .about-inline-en {

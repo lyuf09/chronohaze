@@ -41,7 +41,7 @@
   <noscript><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet" /></noscript>
   <link rel="preload" as="image" href="assets/template/hero_portrait-1600.webp" type="image/webp" imagesrcset="assets/template/hero_portrait-960.webp 960w, assets/template/hero_portrait-1600.webp 1600w" imagesizes="(max-width: 900px) 92vw, 46vw" />
   <link rel="stylesheet" href="styles.css?v=20260320-image1" />
-  <link rel="stylesheet" href="home.css?v=20260320-image1" />
+  <link rel="stylesheet" href="home.css?v=20260320-a11y1" />
   <script defer src="protect-media.js?v=20260320-pjax3"></script>
 </head>
 <body class="home-body">
@@ -50,8 +50,8 @@
       <a class="home-brand" href="#top" data-reveal="fade" data-reveal-delay="0">chronohaze.space</a>
 
       <div class="lang-pill" aria-label="language switch" data-reveal="fade" data-reveal-delay="40">
-        <button class="lang-btn active" type="button" data-lang="zh">ZH</button>
-        <button class="lang-btn" type="button" data-lang="en">EN</button>
+        <button class="lang-btn active" type="button" data-lang="zh" aria-label="切换网站语言为中文">ZH</button>
+        <button class="lang-btn" type="button" data-lang="en" aria-label="Switch site language to English">EN</button>
       </div>
 
       <button class="menu-open" type="button" aria-controls="drawer" aria-expanded="false" aria-label="菜单 [ + ]" data-i18n-aria="menuOpenAria" id="openMenu" data-reveal="fade" data-reveal-delay="80">+</button>
@@ -63,7 +63,7 @@
           <div class="hero-portrait-frame">
             <picture class="responsive-picture" style="display:block;width:100%;">
               <source type="image/webp" srcset="assets/template/hero_portrait-960.webp 960w, assets/template/hero_portrait-1600.webp 1600w" sizes="(max-width: 900px) 92vw, 46vw" />
-              <img class="hero-portrait" src="assets/template/hero_portrait-1600.jpg" srcset="assets/template/hero_portrait-960.jpg 960w, assets/template/hero_portrait-1600.jpg 1600w" alt="HazezZ portrait" width="3000" height="4000" data-reveal="zoom" data-reveal-delay="40" data-reveal-wait="image-load" data-eager="true" loading="eager" decoding="async" fetchpriority="high" sizes="(max-width: 900px) 92vw, 46vw" />
+              <img class="hero-portrait" src="assets/template/hero_portrait-1600.jpg" srcset="assets/template/hero_portrait-960.jpg 960w, assets/template/hero_portrait-1600.jpg 1600w" alt="HazezZ 个人肖像" width="3000" height="4000" data-reveal="zoom" data-reveal-delay="40" data-reveal-wait="image-load" data-eager="true" loading="eager" decoding="async" fetchpriority="high" sizes="(max-width: 900px) 92vw, 46vw" />
             </picture>
           </div>
         </div>
@@ -260,8 +260,10 @@
       const revealNodes = Array.from(document.querySelectorAll('[data-reveal]'));
       const i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
       const i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
+      const drawerLinks = Array.from(drawer.querySelectorAll('a'));
       let homeMathItems = null;
       let menuScrollY = 0;
+      let lastMenuFocus = null;
 
       function fmtClockSeed(sec) {
         if (!Number.isFinite(sec) || sec <= 0) return '00:00';
@@ -439,9 +441,18 @@
         drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
         openBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
         if (open) {
+          lastMenuFocus = document.activeElement instanceof HTMLElement ? document.activeElement : openBtn;
           lockMenuScroll();
+          window.requestAnimationFrame(function () {
+            closeBtn.focus();
+          });
         } else {
           unlockMenuScroll();
+          if (lastMenuFocus && typeof lastMenuFocus.focus === 'function') {
+            window.requestAnimationFrame(function () {
+              lastMenuFocus.focus();
+            });
+          }
         }
       }
 
@@ -598,8 +609,30 @@
       openBtn.addEventListener('click', function () { setMenu(true); });
       closeBtn.addEventListener('click', function () { setMenu(false); });
       backdrop.addEventListener('click', function () { setMenu(false); });
-      drawer.querySelectorAll('a').forEach(function (link) {
+      drawerLinks.forEach(function (link) {
         link.addEventListener('click', function () { setMenu(false); });
+      });
+      drawer.addEventListener('keydown', function (event) {
+        if (!drawer.classList.contains('open')) return;
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          setMenu(false);
+          return;
+        }
+        if (event.key !== 'Tab') return;
+        const focusables = [closeBtn].concat(drawerLinks).filter(function (node) {
+          return node && !node.hidden && !node.hasAttribute('disabled');
+        });
+        if (!focusables.length) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
       });
       window.addEventListener('pagehide', function () {
         unlockMenuScroll();
