@@ -585,7 +585,10 @@ html:lang(en) {
   background:
     linear-gradient(rgba(39, 43, 52, 0.62), rgba(39, 43, 52, 0.62)),
     linear-gradient(rgba(20, 23, 31, 0.18), rgba(20, 23, 31, 0.18)),
-    url("assets/template/about_branches.jpg") center / cover no-repeat;
+    image-set(
+      url("assets/template/about_branches-960.webp") type("image/webp") 1x,
+      url("assets/template/about_branches.jpg") type("image/jpeg") 1x
+    ) center / cover no-repeat;
   background-blend-mode: multiply;
   display: flex;
   justify-content: center;

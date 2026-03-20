@@ -1338,6 +1338,15 @@ audio {
   justify-content: center;
 }
 
+.photo-index-page .photo-hero-inner .responsive-picture,
+.photo-index-page .photo-intro-figure .responsive-picture,
+.photo-index-page .photo-tail-inner .responsive-picture,
+.music-index-page .music-hero-inner .responsive-picture,
+.music-index-page .music-intro-figure .responsive-picture {
+  display: block;
+  width: 100%;
+}
+
 .photo-index-page .photo-tail img {
   width: min(100%, 760px);
   height: auto;
@@ -1401,6 +1410,10 @@ audio {
   gap: 18px;
   justify-content: center;
   align-items: flex-start;
+}
+
+.music-index-page .music-bottom-gallery .responsive-picture {
+  display: block;
 }
 
 .music-index-page .music-bottom-gallery img {

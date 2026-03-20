@@ -39,7 +39,7 @@
 <noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@300;400;500;700&display=swap" rel="stylesheet" /></noscript>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet" /></noscript>
-<link href="styles.css?v=20260320-pjax8" rel="stylesheet"/>
+<link href="styles.css?v=20260320-image1" rel="stylesheet"/>
 <script defer="" src="protect-media.js?v=20260320-pjax3"></script>
 <script defer="" src="assets/js/catalog-pages.js?v=20260316-photo6"></script>
 </head>
@@ -64,7 +64,10 @@
 <main class="main">
 <section aria-label="摄影作品集主图" class="photo-hero">
 <div class="container photo-hero-inner">
-<img alt="摄影作品集主图" data-eager="true" decoding="async" loading="eager" src="assets/template/photo-top.jpg"/>
+<picture class="responsive-picture" style="display:block;width:100%;">
+<source sizes="(max-width: 900px) 100vw, 980px" srcset="assets/template/photo-top-960.webp 960w, assets/template/photo-top-1600.webp 1600w" type="image/webp"/>
+<img alt="摄影作品集主图" data-eager="true" decoding="async" loading="eager" sizes="(max-width: 900px) 100vw, 980px" src="assets/template/photo-top.jpg"/>
+</picture>
 </div>
 </section>
 <section class="page-head">
@@ -82,7 +85,10 @@
 <p>进入大学后，随着学业与研究重心的转移，系统性拍摄的频率有所降低，但摄影始终没有离开我的生活，我依然会在不同城市、不同时间的光影中按下快门，只是比过去更自由，也更安静。</p>
 </div>
 <figure class="photo-intro-figure">
-<img alt="17岁拿着相机的 HazezZ" data-eager="true" decoding="async" loading="eager" src="assets/template/photographer-17.jpg"/>
+<picture class="responsive-picture" style="display:block;width:100%;">
+<source sizes="(max-width: 760px) 92vw, 420px" srcset="assets/template/photographer-17-960.webp 960w, assets/template/photographer-17-1600.webp 1600w" type="image/webp"/>
+<img alt="17岁拿着相机的 HazezZ" data-eager="true" decoding="async" loading="eager" sizes="(max-width: 760px) 92vw, 420px" src="assets/template/photographer-17.jpg"/>
+</picture>
 </figure>
 </div>
 </section>
@@ -383,7 +389,10 @@
 </section>
 <section aria-label="摄影作品补充图像" class="photo-tail">
 <div class="container photo-tail-inner">
-<img alt="摄影作品补充图像" decoding="async" loading="lazy" src="assets/template/photo-bottom-5710.jpg"/>
+<picture class="responsive-picture" style="display:block;width:100%;">
+<source sizes="(max-width: 900px) 92vw, 760px" srcset="assets/template/photo-bottom-5710-960.webp 960w, assets/template/photo-bottom-5710-1600.webp 1600w" type="image/webp"/>
+<img alt="摄影作品补充图像" decoding="async" loading="lazy" sizes="(max-width: 900px) 92vw, 760px" src="assets/template/photo-bottom-5710.jpg"/>
+</picture>
 </div>
 </section>
 </main>
