@@ -3400,8 +3400,8 @@ html:lang(en) .photo-detail-article * {
   left: max(18px, calc(env(safe-area-inset-left, 0px) + 12px));
   bottom: max(18px, calc(env(safe-area-inset-bottom, 0px) + 12px));
   z-index: 64;
-  width: min(360px, calc(100vw - 36px));
-  padding: 14px 16px 15px;
+  width: min(420px, calc(100vw - 36px));
+  padding: 9px 14px 10px;
   border: 1px solid rgba(64, 72, 88, 0.18);
   background: linear-gradient(180deg, rgba(244, 247, 252, 0.92), rgba(236, 241, 248, 0.88));
   box-shadow:
@@ -3427,7 +3427,7 @@ html:lang(en) .photo-detail-article * {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
 }
 
 .persistent-audio-kicker,
@@ -3435,7 +3435,7 @@ html:lang(en) .photo-detail-article * {
 .persistent-audio-nav,
 .persistent-audio-open {
   font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 0.06em;
 }
 
@@ -3476,36 +3476,36 @@ html:lang(en) .photo-detail-article * {
 }
 
 .persistent-audio-title {
-  margin-top: 8px;
-  font-size: 16px;
-  line-height: 1.14;
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 1.08;
   letter-spacing: 0.05em;
   color: rgba(31, 36, 45, 0.9);
 }
 
 .persistent-audio-artist {
-  margin-top: 3px;
-  font-size: 11px;
+  margin-top: 1px;
+  font-size: 10px;
   line-height: 1.2;
   letter-spacing: 0.12em;
   color: rgba(54, 61, 74, 0.62);
 }
 
 .persistent-audio-row {
-  margin-top: 11px;
+  margin-top: 7px;
 }
 
 .persistent-audio-play {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
 }
 
 .persistent-audio-time {
-  min-width: 88px;
+  min-width: 78px;
 }
 
 .persistent-audio-links {
-  margin-top: 12px;
+  margin-top: 8px;
 }
 
 .persistent-audio-open {
@@ -8626,11 +8626,11 @@ body {
     right: max(14px, calc(env(safe-area-inset-right, 0px) + 10px));
     bottom: max(14px, calc(env(safe-area-inset-bottom, 0px) + 10px));
     width: auto;
-    padding: 12px 14px 13px;
+    padding: 8px 12px 9px;
   }
 
   .persistent-audio-title {
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .persistent-audio-artist,
@@ -8638,11 +8638,11 @@ body {
   .persistent-audio-close,
   .persistent-audio-nav,
   .persistent-audio-open {
-    font-size: 11px;
+    font-size: 10px;
   }
 
   .persistent-audio-time {
-    min-width: 78px;
+    min-width: 70px;
   }
 
   .search-index-page .search-form {
