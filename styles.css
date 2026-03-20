@@ -8661,7 +8661,7 @@ body {
     right: max(10px, calc(env(safe-area-inset-right, 0px) + 8px));
     bottom: max(14px, calc(env(safe-area-inset-bottom, 0px) + 10px));
     width: min(308px, calc(100vw - 20px));
-    padding: 6px 10px 7px;
+    padding: 10px 10px 4px;
   }
 
   .persistent-audio-peek {
@@ -8670,6 +8670,7 @@ body {
 
   .persistent-audio-title {
     font-size: 12px;
+    margin-top: 3px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -8698,11 +8699,11 @@ body {
   }
 
   .persistent-audio-row {
-    margin-top: 4px;
+    margin-top: 2px;
   }
 
   .persistent-audio-links {
-    margin-top: 5px;
+    margin-top: 3px;
     gap: 8px;
   }
 
