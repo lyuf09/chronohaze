@@ -2337,18 +2337,33 @@
     return lang === "en"
       ? {
           kicker: "Now playing",
+          peek: "AUDIO",
+          collapse: "Hide",
           open: "Open track",
           close: "Stop",
           prev: "Prev",
           next: "Next",
+          expandAria: "Expand mini player",
+          collapseAria: "Collapse mini player",
         }
       : {
           kicker: "正在播放",
+          peek: "播放",
+          collapse: "收起",
           open: "打开曲目",
           close: "停止",
           prev: "上一首",
           next: "下一首",
+          expandAria: "展开迷你播放器",
+          collapseAria: "收起迷你播放器",
         };
+  }
+
+  function isCompactMobileAudio() {
+    if (typeof window.matchMedia === "function") {
+      return window.matchMedia("(max-width: 820px)").matches;
+    }
+    return window.innerWidth <= 820;
   }
 
   function persistPersistentAudioSnapshot() {
@@ -2422,6 +2437,10 @@
     );
 
     controller.kicker.textContent = labels.kicker;
+    controller.peekButton.textContent = labels.peek;
+    controller.peekButton.setAttribute("aria-label", labels.expandAria);
+    controller.collapseButton.textContent = labels.collapse;
+    controller.collapseButton.setAttribute("aria-label", labels.collapseAria);
     controller.title.textContent = current ? current.title || "TRACK" : "TRACK";
     controller.artist.textContent = current ? current.artist || "HAZEZZ" : "HAZEZZ";
     controller.openLink.textContent = labels.open;
@@ -2449,6 +2468,31 @@
 
     controller.time.textContent =
       formatDuration(currentTime) + " / " + formatDuration(duration);
+
+    if (!hasTrack) {
+      controller.isCollapsed = false;
+      controller.shell.classList.remove("is-collapsed");
+      controller.panel.removeAttribute("aria-hidden");
+      if ("inert" in controller.panel) {
+        controller.panel.inert = false;
+      }
+    } else if (!isCompactMobileAudio()) {
+      controller.isCollapsed = false;
+      controller.shell.classList.remove("is-collapsed");
+      controller.panel.removeAttribute("aria-hidden");
+      if ("inert" in controller.panel) {
+        controller.panel.inert = false;
+      }
+    } else {
+      if (typeof controller.isCollapsed !== "boolean") {
+        controller.isCollapsed = true;
+      }
+      controller.shell.classList.toggle("is-collapsed", !!controller.isCollapsed);
+      controller.panel.setAttribute("aria-hidden", controller.isCollapsed ? "true" : "false");
+      if ("inert" in controller.panel) {
+        controller.panel.inert = !!controller.isCollapsed;
+      }
+    }
 
     persistPersistentAudioSnapshot();
     dispatchPersistentAudioSync();
@@ -2481,17 +2525,33 @@
     shell.hidden = true;
     shell.setAttribute("aria-live", "polite");
 
+    var peekButton = document.createElement("button");
+    peekButton.type = "button";
+    peekButton.className = "persistent-audio-peek";
+
+    var panel = document.createElement("div");
+    panel.className = "persistent-audio-panel";
+
     var kicker = document.createElement("p");
     kicker.className = "persistent-audio-kicker";
+
+    var collapseButton = document.createElement("button");
+    collapseButton.type = "button";
+    collapseButton.className = "persistent-audio-collapse";
 
     var closeButton = document.createElement("button");
     closeButton.type = "button";
     closeButton.className = "persistent-audio-close";
 
+    var actions = document.createElement("div");
+    actions.className = "persistent-audio-actions";
+    actions.appendChild(collapseButton);
+    actions.appendChild(closeButton);
+
     var head = document.createElement("div");
     head.className = "persistent-audio-head";
     head.appendChild(kicker);
-    head.appendChild(closeButton);
+    head.appendChild(actions);
 
     var title = document.createElement("p");
     title.className = "persistent-audio-title";
@@ -2544,17 +2604,22 @@
     audio.setAttribute("playsinline", "");
     audio.className = "persistent-audio-element";
 
-    shell.appendChild(head);
-    shell.appendChild(title);
-    shell.appendChild(artist);
-    shell.appendChild(row);
-    shell.appendChild(links);
+    panel.appendChild(head);
+    panel.appendChild(title);
+    panel.appendChild(artist);
+    panel.appendChild(row);
+    panel.appendChild(links);
+    shell.appendChild(peekButton);
+    shell.appendChild(panel);
     shell.appendChild(audio);
     document.body.appendChild(shell);
 
     persistentAudioController = {
       shell: shell,
+      panel: panel,
       kicker: kicker,
+      peekButton: peekButton,
+      collapseButton: collapseButton,
       title: title,
       artist: artist,
       playButton: playButton,
@@ -2566,7 +2631,21 @@
       closeButton: closeButton,
       audio: audio,
       current: null,
+      isCollapsed: isCompactMobileAudio(),
     };
+
+    peekButton.addEventListener("click", function () {
+      if (!persistentAudioController.current || !persistentAudioController.current.src) {
+        return;
+      }
+      persistentAudioController.isCollapsed = false;
+      syncPersistentAudioDock();
+    });
+
+    collapseButton.addEventListener("click", function () {
+      persistentAudioController.isCollapsed = true;
+      syncPersistentAudioDock();
+    });
 
     playButton.addEventListener("click", function () {
       if (!persistentAudioController.current || !persistentAudioController.current.src) {
@@ -2636,6 +2715,7 @@
 
     audio.addEventListener("error", syncPersistentAudioDock);
     window.addEventListener("pagehide", persistPersistentAudioSnapshot);
+    window.addEventListener("resize", syncPersistentAudioDock);
 
     document.addEventListener(
       "click",

@@ -3430,7 +3430,22 @@ html:lang(en) .photo-detail-article * {
   gap: 10px;
 }
 
+.persistent-audio-panel {
+  min-width: 0;
+}
+
+.persistent-audio-peek {
+  display: none;
+}
+
+.persistent-audio-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .persistent-audio-kicker,
+.persistent-audio-collapse,
 .persistent-audio-close,
 .persistent-audio-nav,
 .persistent-audio-open {
@@ -3444,6 +3459,7 @@ html:lang(en) .photo-detail-article * {
   color: rgba(56, 63, 77, 0.62);
 }
 
+.persistent-audio-collapse,
 .persistent-audio-close,
 .persistent-audio-nav {
   border: 0;
@@ -3454,6 +3470,7 @@ html:lang(en) .photo-detail-article * {
   transition: opacity 180ms ease, transform 180ms ease;
 }
 
+.persistent-audio-collapse:hover,
 .persistent-audio-close:hover,
 .persistent-audio-nav:hover,
 .persistent-audio-open:hover {
@@ -3461,6 +3478,7 @@ html:lang(en) .photo-detail-article * {
   transform: translateY(-0.5px);
 }
 
+.persistent-audio-collapse:disabled,
 .persistent-audio-close:disabled,
 .persistent-audio-nav:disabled {
   opacity: 0.34;
@@ -8629,6 +8647,10 @@ body {
     padding: 6px 10px 7px;
   }
 
+  .persistent-audio-peek {
+    display: none;
+  }
+
   .persistent-audio-title {
     font-size: 12px;
     white-space: nowrap;
@@ -8638,6 +8660,7 @@ body {
 
   .persistent-audio-artist,
   .persistent-audio-kicker,
+  .persistent-audio-collapse,
   .persistent-audio-close,
   .persistent-audio-nav,
   .persistent-audio-open {
@@ -8659,6 +8682,10 @@ body {
 
   .persistent-audio-links {
     margin-top: 5px;
+    gap: 8px;
+  }
+
+  .persistent-audio-actions {
     gap: 8px;
   }
 
@@ -8693,6 +8720,61 @@ body {
     margin-top: 0;
     min-width: 56px;
     font-size: 9px;
+  }
+
+  .persistent-audio-dock.is-collapsed {
+    width: 34px;
+    min-height: 118px;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 14px 0 0 14px;
+    right: 0;
+    backdrop-filter: blur(18px);
+  }
+
+  .persistent-audio-dock.is-collapsed .persistent-audio-panel {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(10px);
+  }
+
+  .persistent-audio-dock.is-collapsed .persistent-audio-peek {
+    display: flex;
+    position: absolute;
+    inset: 0;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    background: transparent;
+    color: rgba(29, 35, 45, 0.84);
+    font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    cursor: pointer;
+  }
+
+  .persistent-audio-dock.is-collapsed .persistent-audio-peek::before {
+    content: "";
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: rgba(41, 48, 60, 0.72);
+    transform: translateX(-50%);
+  }
+
+  .persistent-audio-dock.is-collapsed .persistent-audio-element {
+    display: none;
+  }
+
+  .persistent-audio-panel {
+    transition:
+      opacity 180ms ease,
+      transform 180ms ease;
   }
 
   .search-index-page .search-form {
