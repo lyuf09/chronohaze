@@ -82,7 +82,7 @@
   --home-surface-2: rgba(248, 250, 253, 0.78);
   --home-ink-strong: rgb(34, 39, 48);
   --home-ink: rgba(43, 49, 60, 0.88);
-  --home-ink-muted: rgba(63, 70, 84, 0.72);
+  --home-ink-muted: rgb(70, 79, 95);
   --home-line-soft: rgba(52, 59, 74, 0.12);
   --home-line-mid: rgba(52, 59, 74, 0.18);
   --home-line-strong: rgba(52, 59, 74, 0.28);
@@ -413,7 +413,7 @@ html:lang(en) {
   line-height: 1.1;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(76, 86, 106, 0.72);
+  color: var(--home-ink-muted);
 }
 
 .hero-academic-links {
@@ -1038,12 +1038,12 @@ html:lang(en) .about-overlay p {
 .now-freshness-label {
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(77, 87, 107, 0.6);
+  color: var(--home-ink-muted);
 }
 
 .now-freshness-time {
   letter-spacing: 0.12em;
-  color: rgba(46, 55, 70, 0.78);
+  color: var(--home-ink);
 }
 
 .now-intro {
