@@ -3470,6 +3470,16 @@ html:lang(en) .photo-detail-article * {
   transition: opacity 180ms ease, transform 180ms ease;
 }
 
+.persistent-audio-collapse,
+.persistent-audio-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 24px;
+  padding: 0 7px;
+  border-radius: 999px;
+}
+
 .persistent-audio-collapse:hover,
 .persistent-audio-close:hover,
 .persistent-audio-nav:hover,
@@ -8686,7 +8696,16 @@ body {
   }
 
   .persistent-audio-actions {
-    gap: 8px;
+    gap: 14px;
+  }
+
+  .persistent-audio-collapse,
+  .persistent-audio-close {
+    min-height: 30px;
+    min-width: 46px;
+    padding: 0 10px;
+    background: rgba(88, 97, 114, 0.08);
+    box-shadow: inset 0 0 0 1px rgba(92, 101, 118, 0.12);
   }
 
   .persistent-audio-dock .music-player-row {
