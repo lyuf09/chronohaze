@@ -3395,6 +3395,129 @@ html:lang(en) .photo-detail-article * {
   pointer-events: none;
 }
 
+.persistent-audio-dock {
+  position: fixed;
+  left: max(18px, calc(env(safe-area-inset-left, 0px) + 12px));
+  bottom: max(18px, calc(env(safe-area-inset-bottom, 0px) + 12px));
+  z-index: 64;
+  width: min(360px, calc(100vw - 36px));
+  padding: 14px 16px 15px;
+  border: 1px solid rgba(64, 72, 88, 0.18);
+  background: linear-gradient(180deg, rgba(244, 247, 252, 0.92), rgba(236, 241, 248, 0.88));
+  box-shadow:
+    0 16px 28px rgba(16, 22, 34, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.56);
+  backdrop-filter: blur(14px);
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition:
+    opacity 220ms ease,
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.persistent-audio-dock.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.persistent-audio-head,
+.persistent-audio-links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.persistent-audio-kicker,
+.persistent-audio-close,
+.persistent-audio-nav,
+.persistent-audio-open {
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+}
+
+.persistent-audio-kicker {
+  margin: 0;
+  color: rgba(56, 63, 77, 0.62);
+}
+
+.persistent-audio-close,
+.persistent-audio-nav {
+  border: 0;
+  background: transparent;
+  color: rgba(42, 48, 58, 0.72);
+  cursor: pointer;
+  padding: 0;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.persistent-audio-close:hover,
+.persistent-audio-nav:hover,
+.persistent-audio-open:hover {
+  opacity: 0.72;
+  transform: translateY(-0.5px);
+}
+
+.persistent-audio-close:disabled,
+.persistent-audio-nav:disabled {
+  opacity: 0.34;
+  cursor: default;
+  transform: none;
+}
+
+.persistent-audio-title,
+.persistent-audio-artist {
+  margin: 0;
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  text-transform: uppercase;
+}
+
+.persistent-audio-title {
+  margin-top: 8px;
+  font-size: 16px;
+  line-height: 1.14;
+  letter-spacing: 0.05em;
+  color: rgba(31, 36, 45, 0.9);
+}
+
+.persistent-audio-artist {
+  margin-top: 3px;
+  font-size: 11px;
+  line-height: 1.2;
+  letter-spacing: 0.12em;
+  color: rgba(54, 61, 74, 0.62);
+}
+
+.persistent-audio-row {
+  margin-top: 11px;
+}
+
+.persistent-audio-play {
+  width: 20px;
+  height: 20px;
+}
+
+.persistent-audio-time {
+  min-width: 88px;
+}
+
+.persistent-audio-links {
+  margin-top: 12px;
+}
+
+.persistent-audio-open {
+  color: rgba(35, 41, 50, 0.74);
+  text-decoration: none;
+}
+
+.persistent-audio-open[aria-disabled="true"] {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
 .music-transcript-details {
   width: min(100%, 720px);
   margin: 10px 0 20px;
@@ -8496,6 +8619,30 @@ body {
     min-height: 46px;
     padding-top: 11px;
     padding-bottom: 11px;
+  }
+
+  .persistent-audio-dock {
+    left: max(14px, calc(env(safe-area-inset-left, 0px) + 10px));
+    right: max(14px, calc(env(safe-area-inset-right, 0px) + 10px));
+    bottom: max(14px, calc(env(safe-area-inset-bottom, 0px) + 10px));
+    width: auto;
+    padding: 12px 14px 13px;
+  }
+
+  .persistent-audio-title {
+    font-size: 14px;
+  }
+
+  .persistent-audio-artist,
+  .persistent-audio-kicker,
+  .persistent-audio-close,
+  .persistent-audio-nav,
+  .persistent-audio-open {
+    font-size: 11px;
+  }
+
+  .persistent-audio-time {
+    min-width: 78px;
   }
 
   .search-index-page .search-form {
