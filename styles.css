@@ -8153,6 +8153,13 @@ body {
 }
 
 @media (max-width: 640px) {
+  body.mobile-audio-dock-expanded .floating-site-logo.is-share-trigger,
+  body.mobile-audio-dock-expanded .floating-site-logo.is-share-open {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: scale(0.9) !important;
+  }
+
   .site-share-shell {
     left: auto;
     right: max(10px, calc(var(--safe-right) + 8px));

@@ -2412,16 +2412,19 @@
     }
 
     var controller = persistentAudioController;
+    var body = document.body;
     var labels = getPersistentAudioLabels();
     var current = controller.current;
     var hasTrack = !!(current && current.src);
     var duration = isFinite(controller.audio.duration) ? controller.audio.duration : 0;
     var currentTime = isFinite(controller.audio.currentTime) ? controller.audio.currentTime : 0;
     var isPlaying = hasTrack && !controller.audio.paused && !controller.audio.ended;
+    var compactMobile = isCompactMobileAudio();
 
-    if (document.body && document.body.classList.contains("home-body")) {
+    if (body && body.classList.contains("home-body")) {
       controller.shell.hidden = true;
       controller.shell.classList.remove("is-visible");
+      body.classList.remove("mobile-audio-dock-expanded");
       return;
     }
 
@@ -2476,7 +2479,7 @@
       if ("inert" in controller.panel) {
         controller.panel.inert = false;
       }
-    } else if (!isCompactMobileAudio()) {
+    } else if (!compactMobile) {
       controller.isCollapsed = false;
       controller.shell.classList.remove("is-collapsed");
       controller.panel.removeAttribute("aria-hidden");
@@ -2492,6 +2495,13 @@
       if ("inert" in controller.panel) {
         controller.panel.inert = !!controller.isCollapsed;
       }
+    }
+
+    if (body) {
+      body.classList.toggle(
+        "mobile-audio-dock-expanded",
+        !!(hasTrack && compactMobile && !controller.isCollapsed)
+      );
     }
 
     persistPersistentAudioSnapshot();
