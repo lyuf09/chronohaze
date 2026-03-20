@@ -62,7 +62,7 @@ def main() -> int:
     album_teen_html = (root / "music" / "album-teenage-best.html").read_text(encoding="utf-8")
     photo_html = (root / "portfolio-1.html").read_text(encoding="utf-8")
 
-    require_contains(index_html, "assets/template/hero_portrait-1600.avif", "index.html hero", errors)
+    require_contains(index_html, "assets/template/hero_portrait-1600.webp", "index.html hero", errors)
     require_contains(
         album_ia_html,
         "../assets/template/ipomoea-alba-album-cover-1600.avif",
@@ -98,4 +98,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

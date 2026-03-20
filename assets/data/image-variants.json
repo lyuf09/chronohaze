@@ -2197,6 +2197,17 @@
         "height": 4000
       },
       "formats": {
+        "jpeg": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/hero_portrait-960.jpg 960w, assets/template/hero_portrait-1600.jpg 1600w",
+          "files": [
+            "assets/template/hero_portrait-960.jpg",
+            "assets/template/hero_portrait-1600.jpg"
+          ]
+        },
         "webp": {
           "widths": [
             960,

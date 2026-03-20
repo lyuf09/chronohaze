@@ -43,7 +43,7 @@ def main() -> int:
             [
                 SmokeCheck("home body", contains('class="home-body"'), "home page body class"),
                 SmokeCheck("hero portrait image", contains('class="hero-portrait"'), "hero image present"),
-                SmokeCheck("hero AVIF source", contains("hero_portrait-1600.avif"), "priority AVIF source reference"),
+                SmokeCheck("hero WEBP source", contains("hero_portrait-1600.webp"), "priority WEBP source reference"),
                 SmokeCheck("player shell", contains('id="playerShell"'), "homepage player container"),
             ],
         ),
