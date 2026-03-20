@@ -1055,12 +1055,34 @@ html:lang(en) .about-overlay p {
 }
 
 .now-grid {
+  position: relative;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+  max-width: 940px;
+  margin-top: 6px;
+  padding-left: 44px;
+}
+
+.now-grid::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  bottom: 6px;
+  left: 17px;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    rgba(113, 131, 164, 0.18) 0%,
+    rgba(113, 131, 164, 0.32) 18%,
+    rgba(113, 131, 164, 0.24) 82%,
+    rgba(113, 131, 164, 0.12) 100%
+  );
+  box-shadow: 0 0 18px rgba(120, 144, 182, 0.08);
 }
 
 .now-card {
+  position: relative;
   padding: 14px 14px 15px;
   border: 1px solid rgba(56, 64, 80, 0.1);
   background:
@@ -1075,6 +1097,23 @@ html:lang(en) .about-overlay p {
     box-shadow var(--home-t-base) ease,
     border-color var(--home-t-base) ease,
     background-color var(--home-t-base) ease;
+}
+
+.now-card::before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  left: -34px;
+  width: 11px;
+  height: 11px;
+  border-radius: 999px;
+  border: 1px solid rgba(124, 147, 184, 0.32);
+  background:
+    radial-gradient(circle at 35% 35%, rgba(246, 249, 255, 0.96) 0 32%, transparent 42%),
+    rgba(124, 147, 184, 0.78);
+  box-shadow:
+    0 0 0 4px rgba(234, 239, 248, 0.32),
+    0 0 16px rgba(122, 142, 178, 0.16);
 }
 
 .now-card:hover {
@@ -1483,7 +1522,9 @@ html:lang(en) .about-overlay p {
   }
 
   .now-grid {
-    grid-template-columns: 1fr;
+    max-width: none;
+    gap: 12px;
+    padding-left: 34px;
   }
 
   .now-head {
@@ -1497,6 +1538,20 @@ html:lang(en) .about-overlay p {
   .now-freshness {
     justify-self: start;
     margin-top: 4px;
+  }
+
+  .now-grid::before {
+    left: 12px;
+  }
+
+  .now-card::before {
+    left: -26px;
+    top: 18px;
+    width: 10px;
+    height: 10px;
+    box-shadow:
+      0 0 0 3px rgba(234, 239, 248, 0.3),
+      0 0 14px rgba(122, 142, 178, 0.14);
   }
 }
 
