@@ -1917,13 +1917,29 @@
     }
 
     var metas = Array.from(article.querySelectorAll(".music-detail-meta"));
-    var staffMeta = metas.length > 1 ? metas[1].textContent || "" : "";
-    var staffText = staffMeta.replace(/\s+/g, " ").trim();
+    var staffMetaNode = metas.length > 1 ? metas[1] : null;
+    var staffHtml = staffMetaNode ? staffMetaNode.innerHTML || "" : "";
+    var staffText = staffHtml
+      .replace(/<br\s*\/?>/gi, "\n")
+      .replace(/<[^>]+>/g, "")
+      .replace(/\u00a0/g, " ");
+    var staffLines = staffText
+      .split(/\n+/)
+      .map(function (line) {
+        return line.replace(/\s+/g, " ").trim();
+      })
+      .filter(Boolean);
+    var primaryCreditLine = staffLines.find(function (line) {
+      return /[：:]/.test(line);
+    }) || "";
 
-    var byline = staffText.match(/[：:]\s*([A-Za-z][A-Za-z0-9_.\-\/&()]*)/);
+    var byline = primaryCreditLine.match(/[：:]\s*([A-Za-z][A-Za-z0-9_.\-\/&() ]*)$/);
     if (byline && byline[1]) {
       return byline[1].trim().toUpperCase();
     }
+
+    var staffMeta = staffMetaNode ? staffMetaNode.textContent || "" : "";
+    staffText = staffMeta.replace(/\s+/g, " ").trim();
 
     var hazezz = staffText.match(/\bHazezZ\b/i);
     if (hazezz) {
