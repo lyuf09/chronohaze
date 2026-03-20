@@ -2093,9 +2093,9 @@
         lyricsPart2: "歌词（Part 2）",
         playerPrev: "上一首",
         playerNext: "下一首",
-        playerPlayAria: "播放",
-        playerPauseAria: "暂停",
-        playerProgressAria: "播放进度",
+        playerPlayAria: "播放曲目",
+        playerPauseAria: "暂停曲目",
+        playerProgressAria: "曲目播放进度",
         shareButton: "分享",
         sharePanelTitle: "分享",
         sharePanelHint: "选择平台（链接会自动带封面与标题）",
@@ -2246,9 +2246,9 @@
         lyricsPart2: "Lyrics (Part 2)",
         playerPrev: "Previous",
         playerNext: "Next",
-        playerPlayAria: "Play",
-        playerPauseAria: "Pause",
-        playerProgressAria: "Playback position",
+        playerPlayAria: "Play track",
+        playerPauseAria: "Pause track",
+        playerProgressAria: "Track playback position",
         shareButton: "Share",
         sharePanelTitle: "Share",
         sharePanelHint: "Choose a platform (link keeps preview card metadata).",
@@ -8404,6 +8404,47 @@
     }
   }
 
+  function ensureAccessibleControlLabels() {
+    Array.from(
+      document.querySelectorAll(".lang-pill, .floating-lang-switch, .cv-lang-tabs")
+    ).forEach(function (panel) {
+      panel.setAttribute("aria-label", "Language switch");
+    });
+
+    Array.from(
+      document.querySelectorAll(
+        ".lang-btn[data-lang], .floating-lang-btn[data-lang], .cv-lang-tab[data-lang], [data-cv-lang-tab][data-lang]"
+      )
+    ).forEach(function (button) {
+      var lang = button.getAttribute("data-lang");
+      if (lang === "zh") {
+        button.setAttribute("aria-label", "Switch site language to Chinese");
+      } else if (lang === "en") {
+        button.setAttribute("aria-label", "Switch site language to English");
+      }
+    });
+
+    Array.from(
+      document.querySelectorAll(".social a[href], .home-footer-social a[href]")
+    ).forEach(function (link) {
+      var href = (link.getAttribute("href") || "").toLowerCase();
+      if (href.indexOf("instagram.com") >= 0) {
+        link.setAttribute("aria-label", "Visit my Instagram profile");
+      } else if (href.indexOf("space.bilibili.com") >= 0) {
+        link.setAttribute("aria-label", "Visit my Bilibili space");
+      } else if (href.indexOf("github.com") >= 0) {
+        link.setAttribute("aria-label", "Visit my GitHub profile");
+      } else if (href.indexOf("linkedin.com") >= 0) {
+        link.setAttribute("aria-label", "Visit my LinkedIn profile");
+      }
+    });
+
+    var featuredAudioToggle = document.getElementById("audioToggle");
+    if (featuredAudioToggle) {
+      featuredAudioToggle.setAttribute("aria-label", "Play or pause featured track");
+    }
+  }
+
   function translateMusicMetaLabels(content, safeLang, dict) {
     if (safeLang !== "en" || !content) {
       return content;
@@ -10656,6 +10697,7 @@
       }
     }
 
+    ensureAccessibleControlLabels();
     renderFirstIsabellePost(safeLang, dict);
     renderSubmodularGreedyPost(safeLang, dict);
     renderSpring2026Post(safeLang, dict);
@@ -11382,6 +11424,10 @@
       btn.type = "button";
       btn.className = "floating-lang-btn";
       btn.setAttribute("data-lang", lang);
+      btn.setAttribute(
+        "aria-label",
+        lang === "zh" ? "Switch site language to Chinese" : "Switch site language to English"
+      );
       btn.textContent = label;
       if (lang === preferred) {
         btn.classList.add("active");
@@ -11399,6 +11445,7 @@
     panel.appendChild(buildButton("zh", "ZH"));
     panel.appendChild(buildButton("en", "EN"));
     document.body.appendChild(panel);
+    ensureAccessibleControlLabels();
   }
 
   function setupPhotoDetailPager() {
@@ -12034,6 +12081,7 @@
     navAndChrome: [
       ensureSearchNavLink,
       dedupeNavLinks,
+      ensureAccessibleControlLabels,
       enhanceObfuscatedEmailLinks,
       ensureSiteSharePanel,
       cacheMusicIntroPaletteSource,
@@ -12067,6 +12115,7 @@
   };
 
   var MUTATION_REFRESH_TASKS = [
+    ensureAccessibleControlLabels,
     enhanceObfuscatedEmailLinks,
     ensureStructuredData,
     ensureUnifiedPageLastUpdatedBadge,
