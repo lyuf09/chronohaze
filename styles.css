@@ -6924,6 +6924,37 @@ h4,
   transform: translateY(var(--ui-hover-lift-soft));
 }
 
+.footer-feed-link {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.footer-feed-link::after {
+  display: none !important;
+}
+
+.footer-feed-icon {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  opacity: 0.7;
+  transition:
+    opacity var(--ui-t-fast) ease,
+    transform var(--ui-t-fast) var(--ui-ease);
+}
+
+.footer-feed-label {
+  letter-spacing: 0.05em;
+}
+
+.footer-feed-link:hover .footer-feed-icon,
+.footer-feed-link:focus-visible .footer-feed-icon {
+  opacity: 0.98;
+  transform: translateY(-0.5px);
+}
+
 .obf-email-inline {
   display: inline-flex;
   align-items: center;

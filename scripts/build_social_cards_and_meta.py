@@ -14,6 +14,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 
 SITE_URL = "https://lyuf09.github.io/chronohaze"
+FEED_URL = f"{SITE_URL}/feed.xml"
 OG_WIDTH = 1200
 OG_HEIGHT = 630
 OG_SIZE = (OG_WIDTH, OG_HEIGHT)
@@ -155,6 +156,29 @@ def upsert_hreflang_block(text: str, canonical_url: str) -> str:
     return text[:insert_at] + "\n" + block + text[insert_at:]
 
 
+def upsert_feed_autodiscovery(text: str) -> str:
+    feed_link = (
+        f'  <link rel="alternate" type="application/rss+xml" '
+        f'title="Chronohaze Notes Feed" href="{FEED_URL}" />'
+    )
+    pattern = re.compile(
+        r'<link rel="alternate"\s+type="application/rss\+xml"\s+title="[^"]*"\s+href="[^"]+"\s*/>',
+        re.I,
+    )
+    if pattern.search(text):
+        return pattern.sub(feed_link.strip(), text, count=1)
+
+    anchor_re = re.compile(
+        r"(\s*<!-- GENERATED:hreflang:end -->\s*$|\s*<link rel=\"canonical\" href=\"[^\"]+\" />\s*$)",
+        re.M,
+    )
+    match = anchor_re.search(text)
+    if not match:
+        return text
+    insert_at = match.end()
+    return text[:insert_at] + "\n" + feed_link + text[insert_at:]
+
+
 def replace_meta_content(text: str, attr_name: str, attr_value: str, content: str) -> str:
     pattern = re.compile(
         rf'(<meta\s+{re.escape(attr_name)}="{re.escape(attr_value)}"\s+content=")([^"]*)("\s*/?>)',
@@ -208,6 +232,8 @@ def patch_page_head(
 
     if canonical_url and (force_hreflang or is_bilingual_page(str(page_path))):
         text = upsert_hreflang_block(text, canonical_url)
+    if canonical_url:
+        text = upsert_feed_autodiscovery(text)
 
     if text != original:
         page_path.write_text(text, encoding="utf-8")

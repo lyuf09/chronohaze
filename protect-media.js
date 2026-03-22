@@ -724,6 +724,49 @@
     });
   }
 
+  function buildFooterFeedLink(lang) {
+    var safeLang = lang === "en" ? "en" : "zh";
+    var label = "RSS";
+    var ariaLabel =
+      safeLang === "en" ? "Subscribe to Chronohaze notes feed" : "通过 RSS 订阅 Chronohaze 更新";
+    var link = document.createElement("a");
+    link.className = "footer-feed-link";
+    link.href = "https://lyuf09.github.io/chronohaze/feed.xml";
+    link.setAttribute("data-feed-link", "1");
+    link.setAttribute("aria-label", ariaLabel);
+    link.setAttribute("title", ariaLabel);
+    link.innerHTML =
+      '<svg class="footer-feed-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">' +
+      '<circle cx="3" cy="13" r="1.55" fill="currentColor"></circle>' +
+      '<path d="M2.65 8.55A4.8 4.8 0 0 1 7.45 13.35" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round"></path>' +
+      '<path d="M2.65 4.3A9.05 9.05 0 0 1 11.7 13.35" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round"></path>' +
+      '</svg>' +
+      '<span class="footer-feed-label">' +
+      label +
+      "</span>";
+    return link;
+  }
+
+  function ensureFooterFeedLinks(lang) {
+    var safeLang = lang === "en" ? "en" : detectPreferredLanguage();
+    Array.from(document.querySelectorAll(".footer-right, .home-footer-policy")).forEach(function (
+      container
+    ) {
+      if (!container) {
+        return;
+      }
+      var existing = container.querySelector(".footer-feed-link");
+      if (!existing) {
+        existing = buildFooterFeedLink(safeLang);
+        container.appendChild(existing);
+      } else {
+        var refreshed = buildFooterFeedLink(safeLang);
+        existing.setAttribute("aria-label", refreshed.getAttribute("aria-label") || "");
+        existing.setAttribute("title", refreshed.getAttribute("title") || "");
+      }
+    });
+  }
+
   function normalizeNavHref(href) {
     if (!href) {
       return "";
@@ -10928,6 +10971,7 @@
         link.textContent = dict.siteNotes;
       }
     });
+    ensureFooterFeedLinks(safeLang);
 
     Array.from(document.querySelectorAll(".footer-note")).forEach(function (note) {
       var mail =
@@ -13105,6 +13149,7 @@
     pagePolish: [
       ensureStructuredData,
       normalizeFooterMeta,
+      ensureFooterFeedLinks,
       bindFooterMetaSync,
       ensureUnifiedPageLastUpdatedBadge,
       labelPhotoOrientation,
@@ -13127,6 +13172,7 @@
     enhanceObfuscatedEmailLinks,
     ensureStructuredData,
     ensureUnifiedPageLastUpdatedBadge,
+    ensureFooterFeedLinks,
     optimizeMediaLoading,
     upgradePhotoImageLoadingStrategy,
     optimizeImages,

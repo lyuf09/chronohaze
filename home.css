@@ -1266,6 +1266,17 @@ html:lang(en) .about-overlay p {
   letter-spacing: 0.01em;
 }
 
+.home-footer-policy .footer-feed-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.home-footer-policy .footer-feed-icon {
+  width: 13px;
+  height: 13px;
+}
+
 .home-footer-bottom {
   min-height: 0;
   padding: 4px 30px 34px;
