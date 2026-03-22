@@ -939,21 +939,70 @@
     return user + "@" + domain;
   }
 
-  function formatObfuscatedEmailDisplay(emailValue) {
-    var value = String(emailValue || "");
-    if (!value || value.indexOf("@") < 0) {
-      return value;
+  function formatMirroredEmailDisplay(emailValue) {
+    return Array.from(String(emailValue || "")).reverse().join("");
+  }
+
+  function ensureEmailCopyButton(link, copyHint, copiedHint, copyFailedHint) {
+    var button =
+      link.nextElementSibling && link.nextElementSibling.classList.contains("obf-email-copy")
+        ? link.nextElementSibling
+        : null;
+
+    if (!button) {
+      button = document.createElement("button");
+      button.type = "button";
+      button.className = "obf-email-copy";
+      link.insertAdjacentElement("afterend", button);
     }
-    var parts = value.split("@");
-    return parts[0] + " [at] " + String(parts[1] || "").replace(/\./g, " [dot] ");
+
+    button.setAttribute("aria-label", copyHint);
+    button.setAttribute("title", copyHint);
+
+    if (button.dataset.emailObfBound === "1") {
+      return button;
+    }
+
+    button.dataset.emailObfBound = "1";
+    button.addEventListener("click", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      var latestEmail = button.getAttribute("data-email-value") || "";
+      if (!latestEmail) {
+        return;
+      }
+
+      copyTextToClipboard(latestEmail).then(function (ok) {
+        button.dataset.emailCopied = ok ? "1" : "0";
+        button.setAttribute("title", ok ? copiedHint : copyFailedHint);
+        button.setAttribute("aria-label", ok ? copiedHint : copyFailedHint);
+        if (ok) {
+          trackAnalyticsEvent("email_copy", {
+            page_path: window.location.pathname || "",
+          });
+        }
+        window.setTimeout(function () {
+          if (!button || !button.isConnected) {
+            return;
+          }
+          button.dataset.emailCopied = "";
+          button.setAttribute("title", copyHint);
+          button.setAttribute("aria-label", copyHint);
+        }, ok ? 1500 : 2200);
+      });
+    });
+
+    return button;
   }
 
   function enhanceObfuscatedEmailLinks() {
     var safeLang = detectPreferredLanguage();
     var dict = getSecondaryPageDictionary(safeLang) || {};
+    var sendHintPrefix = safeLang === "en" ? "Send email to " : "发送邮件至 ";
     var copyHint =
       dict.emailCopyHint ||
-      (safeLang === "en" ? "Click to copy email address" : "点击复制邮箱地址");
+      (safeLang === "en" ? "Copy email address" : "复制邮箱地址");
     var copiedHint = dict.emailCopiedEmail || (safeLang === "en" ? "Email copied" : "邮箱已复制");
     var copyFailedHint =
       dict.emailCopyFailed || (safeLang === "en" ? "Copy failed" : "复制失败，请手动复制");
@@ -969,53 +1018,28 @@
         return;
       }
 
-      link.setAttribute("href", "#");
-      link.setAttribute("role", "button");
+      link.setAttribute("href", "mailto:" + emailAddress);
+      link.removeAttribute("role");
       link.setAttribute("data-email-value", emailAddress);
+      link.setAttribute("title", sendHintPrefix + emailAddress);
+      link.setAttribute("aria-label", sendHintPrefix + emailAddress);
 
-      if (!link.dataset.emailObfInitialized) {
-        var visibleText = String(link.textContent || "").trim();
-        if (!visibleText || visibleText.indexOf("@") >= 0 || visibleText.indexOf("[at]") < 0) {
-          link.textContent = formatObfuscatedEmailDisplay(emailAddress);
-        }
+      var face = link.querySelector(".obf-email-face");
+      if (!face) {
+        link.textContent = "";
+        face = document.createElement("span");
+        face.className = "obf-email-face";
+        link.appendChild(face);
       }
+      face.textContent = formatMirroredEmailDisplay(emailAddress);
 
-      if (link.dataset.emailCopied !== "1") {
-        link.setAttribute("title", copyHint);
-      }
-      link.setAttribute("aria-label", copyHint);
-
-      if (link.dataset.emailObfBound === "1") {
-        return;
-      }
-
-      link.dataset.emailObfBound = "1";
-      link.dataset.emailObfInitialized = "1";
-
-      link.addEventListener("click", function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-
-        var latestEmail = link.getAttribute("data-email-value") || emailAddress;
-        copyTextToClipboard(latestEmail).then(function (ok) {
-          link.dataset.emailCopied = ok ? "1" : "0";
-          link.setAttribute("title", ok ? copiedHint : copyFailedHint);
-          link.setAttribute("aria-label", ok ? copiedHint : copyFailedHint);
-          if (ok) {
-            trackAnalyticsEvent("email_copy", {
-              page_path: window.location.pathname || "",
-            });
-          }
-          window.setTimeout(function () {
-            if (!link || !link.isConnected) {
-              return;
-            }
-            link.dataset.emailCopied = "";
-            link.setAttribute("title", copyHint);
-            link.setAttribute("aria-label", copyHint);
-          }, ok ? 1500 : 2200);
-        });
-      });
+      var button = ensureEmailCopyButton(link, copyHint, copiedHint, copyFailedHint);
+      button.setAttribute("data-email-value", emailAddress);
+      button.setAttribute("title", button.dataset.emailCopied === "1" ? copiedHint : copyHint);
+      button.setAttribute(
+        "aria-label",
+        button.dataset.emailCopied === "1" ? copiedHint : copyHint
+      );
     });
   }
 

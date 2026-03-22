@@ -10,7 +10,7 @@ from typing import Any
 EMAIL_LOCAL = "feier530"
 EMAIL_DOMAIN = "icloud.com"
 RAW_EMAIL = f"{EMAIL_LOCAL}@{EMAIL_DOMAIN}"
-OBFUSCATED_EMAIL = "feier530 [at] icloud [dot] com"
+OBFUSCATED_EMAIL = "moc.duolci@035reief"
 
 
 def sanitize_string(value: str) -> str:
@@ -18,6 +18,7 @@ def sanitize_string(value: str) -> str:
         return value
     text = value.replace(f"mailto:{RAW_EMAIL}", OBFUSCATED_EMAIL)
     text = text.replace(RAW_EMAIL, OBFUSCATED_EMAIL)
+    text = text.replace("feier530 [at] icloud [dot] com", OBFUSCATED_EMAIL)
     return text
 
 
