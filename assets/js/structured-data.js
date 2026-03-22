@@ -97,6 +97,9 @@
       isPartOf: { "@id": CHRONOHAZE_WEBSITE_ID },
       about: { "@id": CHRONOHAZE_PERSON_ID },
     };
+    if (pageType === "ProfilePage") {
+      page.mainEntity = { "@id": CHRONOHAZE_PERSON_ID };
+    }
     if (ogImage) {
       page.primaryImageOfPage = { "@type": "ImageObject", url: absolutizeUrl(ogImage) };
     }
