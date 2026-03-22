@@ -1002,23 +1002,10 @@ html:lang(en) .about-overlay p {
 .now-head {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  grid-template-areas:
-    "kicker freshness"
-    "title freshness";
-  gap: 8px;
-  margin-bottom: 16px;
+  grid-template-areas: "title freshness";
+  gap: 10px;
+  margin-bottom: 14px;
   align-items: start;
-}
-
-.now-kicker {
-  grid-area: kicker;
-  margin: 0;
-  font-family: var(--home-font-ui);
-  font-size: 11px;
-  line-height: 1.2;
-  letter-spacing: var(--home-type-subtitle-tracking);
-  text-transform: uppercase;
-  color: var(--home-ink-muted);
 }
 
 .now-head h2 {
@@ -1140,16 +1127,6 @@ html:lang(en) .about-overlay p {
   box-shadow:
     0 12px 22px rgba(18, 23, 34, 0.06),
     inset 0 1px 0 rgba(255, 255, 255, 0.28);
-}
-
-.now-card-label {
-  margin: 0 0 8px;
-  font-family: var(--home-font-ui);
-  font-size: 10.5px;
-  line-height: 1.2;
-  letter-spacing: var(--home-type-subtitle-tracking);
-  text-transform: uppercase;
-  color: var(--home-ink-muted);
 }
 
 .now-card h3 {
@@ -1548,9 +1525,9 @@ html:lang(en) .about-overlay p {
   .now-head {
     grid-template-columns: 1fr;
     grid-template-areas:
-      "kicker"
       "title"
       "freshness";
+    gap: 6px;
   }
 
   .now-freshness {
