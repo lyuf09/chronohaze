@@ -955,6 +955,33 @@
     return Array.from(String(emailValue || "")).reverse().join("");
   }
 
+  function ensureEmailInlineWrap(link, button) {
+    if (!link) {
+      return null;
+    }
+
+    var existing =
+      link.parentElement && link.parentElement.classList.contains("obf-email-inline")
+        ? link.parentElement
+        : null;
+
+    if (existing) {
+      if (button && button.parentElement !== existing) {
+        existing.appendChild(button);
+      }
+      return existing;
+    }
+
+    var wrap = document.createElement("span");
+    wrap.className = "obf-email-inline";
+    link.insertAdjacentElement("beforebegin", wrap);
+    wrap.appendChild(link);
+    if (button) {
+      wrap.appendChild(button);
+    }
+    return wrap;
+  }
+
   function ensureEmailCopyButton(link, copyHint, copiedHint, copyFailedHint) {
     var button =
       link.nextElementSibling && link.nextElementSibling.classList.contains("obf-email-copy")
@@ -1065,6 +1092,7 @@
         "aria-label",
         button.dataset.emailCopied === "1" ? copiedHint : copyHint
       );
+      ensureEmailInlineWrap(link, button);
     });
   }
 

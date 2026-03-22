@@ -6903,6 +6903,14 @@ h4,
   transform: translateY(var(--ui-hover-lift-soft));
 }
 
+.obf-email-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  vertical-align: baseline;
+  max-width: 100%;
+}
+
 .obf-email-link {
   position: relative;
   display: inline-flex;
@@ -6944,7 +6952,8 @@ h4,
   justify-content: center;
   width: 1.34rem;
   height: 1.34rem;
-  margin-left: 8px;
+  flex: 0 0 auto;
+  margin-left: 0;
   padding: 0;
   border: 0;
   background: transparent;
@@ -6985,13 +6994,18 @@ h4,
 .obf-email-copy .obf-email-copy-tooltip {
   position: absolute;
   left: 50%;
-  bottom: calc(100% + 5px);
-  transform: translate(-50%, 5px);
+  bottom: calc(100% + 8px);
+  transform: translate(-50%, 6px) scale(0.96);
   font-size: 10px;
   line-height: 1;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
   white-space: nowrap;
-  color: rgba(57, 72, 106, 0.66);
+  padding: 6px 8px 5px;
+  border-radius: 999px;
+  border: 1px solid rgba(86, 101, 132, 0.16);
+  background: rgba(247, 249, 253, 0.94);
+  box-shadow: 0 10px 24px rgba(18, 24, 32, 0.09);
+  color: rgba(57, 72, 106, 0.72);
   opacity: 0;
   pointer-events: none;
   transition:
@@ -7016,7 +7030,7 @@ html[lang="zh-CN"] .obf-email-copy .obf-email-copy-tooltip {
 .obf-email-copy[data-email-copied="1"] .obf-email-copy-tooltip,
 .obf-email-copy[data-email-copy-failed="1"] .obf-email-copy-tooltip {
   opacity: 0.92;
-  transform: translate(-50%, 0);
+  transform: translate(-50%, 0) scale(1);
 }
 
 .obf-email-copy[data-email-copied="1"] {
@@ -7027,10 +7041,22 @@ html[lang="zh-CN"] .obf-email-copy .obf-email-copy-tooltip {
 
 .obf-email-copy[data-email-copied="1"] .obf-email-copy-tooltip {
   color: rgba(71, 95, 148, 0.9);
+  animation: email-copy-pop 0.32s var(--ui-ease);
 }
 
 .obf-email-copy[data-email-copy-failed="1"] .obf-email-copy-tooltip {
   color: rgba(108, 78, 78, 0.82);
+}
+
+@keyframes email-copy-pop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 8px) scale(0.92);
+  }
+  100% {
+    opacity: 0.92;
+    transform: translate(-50%, 0) scale(1);
+  }
 }
 
 .social a {
