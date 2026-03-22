@@ -9715,3 +9715,184 @@ html:lang(en) .music-album-page .album-track-feature,
 html:lang(en) .music-album-page .album-back-link {
   font-family: var(--font-serif-en);
 }
+
+@page {
+  margin: 14mm 12mm;
+}
+
+@media print {
+  :root {
+    color-scheme: light !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-shadow: none !important;
+    text-shadow: none !important;
+    filter: none !important;
+  }
+
+  html,
+  body,
+  .page,
+  .main,
+  .container,
+  .policy,
+  .research-hero,
+  .research-project-card,
+  .research-hero-panel,
+  .page-last-updated-pill,
+  .cv-page .cv-project-list > li,
+  .cv-page .cv-experience-item,
+  .site-footer {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  html,
+  body {
+    min-width: 0 !important;
+  }
+
+  body {
+    font-size: 11pt !important;
+    line-height: 1.46 !important;
+    -webkit-print-color-adjust: economy;
+    print-color-adjust: economy;
+  }
+
+  .site-header,
+  .nav,
+  .lang-pill,
+  .floating-lang-switch,
+  .cv-lang-tabs,
+  .cv-utility-top,
+  .cv-toc,
+  .menu-open,
+  .drawer,
+  .drawer-backdrop,
+  .player-shell,
+  .music-player-shell,
+  .persistent-audio-dock,
+  audio,
+  video,
+  .footer-right,
+  .footer-meta,
+  .footer-feed-link,
+  .home-footer-social,
+  .share-fab,
+  #shareFab {
+    display: none !important;
+  }
+
+  .page,
+  .main,
+  .container,
+  .policy,
+  main,
+  section,
+  article {
+    width: auto !important;
+    max-width: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .main,
+  .policy,
+  .research-hero,
+  .research-projects-section,
+  .research-outputs,
+  .research-now,
+  .research-links,
+  .site-footer {
+    padding: 0 !important;
+  }
+
+  .research-hero-inner,
+  .research-project-grid,
+  .research-outputs-grid,
+  .research-links-grid,
+  .home-footer-main {
+    display: block !important;
+    gap: 0 !important;
+  }
+
+  .projects-page .research-project-grid > [data-lang-block] {
+    display: block !important;
+  }
+
+  .research-page .research-hero-copy,
+  .research-page .research-hero-panel,
+  .projects-page .research-hero-copy,
+  .projects-page .research-hero-panel,
+  .cv-page .policy,
+  .cv-page .policy section,
+  .site-footer .footer-shell {
+    width: auto !important;
+    max-width: none !important;
+  }
+
+  .research-hero-panel,
+  .research-project-card,
+  .cv-page .cv-project-list > li,
+  .cv-page .cv-experience-item,
+  .page-last-updated-pill {
+    border: 1px solid #d6d6d6 !important;
+    border-radius: 0 !important;
+    padding: 10pt 12pt !important;
+    margin: 0 0 10pt !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: #000 !important;
+    break-after: avoid-page;
+    page-break-after: avoid;
+  }
+
+  p,
+  li,
+  blockquote {
+    color: #000 !important;
+    orphans: 3;
+    widows: 3;
+  }
+
+  img {
+    max-width: 100% !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  a,
+  a:visited {
+    color: #000 !important;
+    text-decoration: underline !important;
+  }
+
+  .cv-page .main a[href^="http"]:not([href*="lyuf09.github.io/chronohaze"])::after,
+  .research-page .main a[href^="http"]:not([href*="lyuf09.github.io/chronohaze"])::after,
+  .projects-page .main a[href^="http"]:not([href*="lyuf09.github.io/chronohaze"])::after,
+  .research-summary-page .main a[href^="http"]:not([href*="lyuf09.github.io/chronohaze"])::after {
+    content: " (" attr(href) ")";
+    font-size: 0.82em;
+    font-weight: 400;
+    word-break: break-all;
+  }
+
+  .cv-page .policy section,
+  .research-page .research-project-card,
+  .projects-page .research-project-card,
+  .research-page .research-hero-panel,
+  .projects-page .research-hero-panel,
+  .site-footer {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}

@@ -1925,3 +1925,116 @@ html.menu-scroll-locked,
     width: min(100%, 82vw);
   }
 }
+
+@media print {
+  .home-body,
+  .home-page,
+  .about-bg,
+  .about-overlay,
+  .now-strip,
+  .now-shell,
+  .home-footer {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  .lang-pill,
+  .menu-open,
+  .drawer,
+  .drawer-backdrop,
+  .player-shell,
+  .hero-left,
+  .math-section,
+  .entry-split,
+  .home-footer-social,
+  .home-footer-policy,
+  .home-footer-bottom {
+    display: none !important;
+  }
+
+  .hero-split,
+  .home-footer-main,
+  .now-grid {
+    display: block !important;
+  }
+
+  .hero-right,
+  .hero-right-inner,
+  .about-bg,
+  .about-overlay,
+  .now-shell,
+  .home-footer-main,
+  .home-footer-contact {
+    width: auto !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .about-bg {
+    min-height: 0 !important;
+    background-image: none !important;
+  }
+
+  .about-overlay::before,
+  .hero-academic-module::before,
+  .hero-academic-module::after {
+    display: none !important;
+  }
+
+  .hero-right h1,
+  .hero-right-inner > p,
+  .about-overlay h2,
+  .about-overlay p,
+  .now-head h2,
+  .now-card h3,
+  .now-card p,
+  .home-footer p,
+  .home-footer a {
+    color: #000 !important;
+  }
+
+  .hero-academic-module,
+  .about-overlay,
+  .now-shell,
+  .now-card,
+  .home-footer-contact {
+    background: #fff !important;
+    border: 1px solid #d6d6d6 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .hero-academic-module,
+  .about-overlay,
+  .now-shell,
+  .home-footer-contact {
+    padding: 10pt 12pt !important;
+    margin: 0 0 12pt !important;
+  }
+
+  .now-grid {
+    margin-top: 8pt !important;
+  }
+
+  .now-card {
+    padding: 10pt 12pt !important;
+    margin: 0 0 10pt !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .hero-academic-links {
+    display: block !important;
+  }
+
+  .hero-academic-link {
+    display: block !important;
+    padding: 0 !important;
+    margin: 0 0 4pt !important;
+    border: 0 !important;
+    background: transparent !important;
+    color: #000 !important;
+    text-decoration: underline !important;
+  }
+}
