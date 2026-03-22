@@ -956,8 +956,17 @@
       link.insertAdjacentElement("afterend", button);
     }
 
+    var tooltip = button.querySelector(".obf-email-copy-tooltip");
+    if (!tooltip) {
+      tooltip = document.createElement("span");
+      tooltip.className = "obf-email-copy-tooltip";
+      tooltip.setAttribute("aria-hidden", "true");
+      button.appendChild(tooltip);
+    }
+
     button.setAttribute("aria-label", copyHint);
     button.setAttribute("title", copyHint);
+    tooltip.textContent = copyHint;
 
     if (button.dataset.emailObfBound === "1") {
       return button;
@@ -974,9 +983,11 @@
       }
 
       copyTextToClipboard(latestEmail).then(function (ok) {
-        button.dataset.emailCopied = ok ? "1" : "0";
+        button.dataset.emailCopied = ok ? "1" : "";
+        button.dataset.emailCopyFailed = ok ? "" : "1";
         button.setAttribute("title", ok ? copiedHint : copyFailedHint);
         button.setAttribute("aria-label", ok ? copiedHint : copyFailedHint);
+        tooltip.textContent = ok ? copiedHint : copyFailedHint;
         if (ok) {
           trackAnalyticsEvent("email_copy", {
             page_path: window.location.pathname || "",
@@ -987,8 +998,10 @@
             return;
           }
           button.dataset.emailCopied = "";
+          button.dataset.emailCopyFailed = "";
           button.setAttribute("title", copyHint);
           button.setAttribute("aria-label", copyHint);
+          tooltip.textContent = copyHint;
         }, ok ? 1500 : 2200);
       });
     });
