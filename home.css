@@ -2,7 +2,7 @@
   font-family: "cormorantgaramond-light";
   font-style: normal;
   font-weight: 400;
-  src: url("https://static.parastorage.com/tag-bundler/api/v1/fonts-cache/googlefont/woff2/s/cormorantgaramond/v5/iEjm9hVxcattz37Y8gZwVSNMxVe3WGf96EDbCaLCBKE.woff2") format("woff2");
+  src: url("assets/fonts/cormorant-garamond-roman-latin.woff2") format("woff2");
   font-display: swap;
 }
 
@@ -10,7 +10,7 @@
   font-family: "cormorantgaramond";
   font-style: normal;
   font-weight: 400;
-  src: url("https://static.parastorage.com/fonts/v2/1ca3c197-aa89-4e46-9e10-6b0e6617534b/v1/cormorantgaramond.woff2") format("woff2");
+  src: url("assets/fonts/cormorant-garamond-roman-latin.woff2") format("woff2");
   font-display: swap;
 }
 
@@ -18,7 +18,7 @@
   font-family: "cormorant garamond";
   font-style: normal;
   font-weight: 400;
-  src: url("https://static.parastorage.com/tag-bundler/api/v1/fonts-cache/googlefont/woff2/s/cormorantgaramond/v16/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYqXtKky2F7g.woff2") format("woff2");
+  src: url("assets/fonts/cormorant-garamond-roman-latin.woff2") format("woff2");
   font-display: swap;
 }
 
@@ -26,7 +26,7 @@
   font-family: "cinzel";
   font-style: normal;
   font-weight: 400;
-  src: url("https://static.parastorage.com/tag-bundler/api/v1/fonts-cache/googlefont/woff2/s/cinzel/v9/8vIJ7ww63mVu7gt79mT7PkRXMw.woff2") format("woff2");
+  src: url("assets/fonts/cinzel-latin.woff2") format("woff2");
   font-display: swap;
 }
 
@@ -34,7 +34,7 @@
   font-family: "cinzel";
   font-style: normal;
   font-weight: 700;
-  src: url("https://static.parastorage.com/tag-bundler/api/v1/fonts-cache/googlefont/woff2/s/cinzel/v9/8vIK7ww63mVu7gtzTUHuE2ZaGf_4-g.woff2") format("woff2");
+  src: url("assets/fonts/cinzel-latin.woff2") format("woff2");
   font-display: swap;
 }
 
