@@ -1391,15 +1391,28 @@ audio {
   width: 100%;
 }
 
-.photo-index-page .photo-hero-inner .responsive-picture,
 .photo-index-page .photo-intro-figure .responsive-picture,
-.music-index-page .music-hero-inner .responsive-picture,
 .music-index-page .music-intro-figure .responsive-picture {
   display: block;
   padding: 6px;
   border: 1px solid rgba(78, 87, 103, 0.16);
   background: rgba(246, 248, 252, 0.22);
   box-shadow: 0 16px 34px rgba(18, 24, 32, 0.08);
+}
+
+.photo-index-page .photo-hero-inner,
+.music-index-page .music-hero-inner {
+  position: relative;
+}
+
+.photo-index-page .photo-hero-inner .responsive-picture,
+.music-index-page .music-hero-inner .responsive-picture {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
 }
 
 .photo-index-page .photo-tail-inner .responsive-picture {
@@ -1458,6 +1471,13 @@ audio {
   display: block;
   border-radius: 0;
   filter: saturate(0.98) contrast(1.02);
+  -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.08) 0%, #000 8%, #000 92%, rgba(0, 0, 0, 0.08) 100%);
+  mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.08) 0%, #000 8%, #000 92%, rgba(0, 0, 0, 0.08) 100%);
+}
+
+.photo-index-page .photo-hero img {
+  -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.08) 0%, #000 8%, #000 92%, rgba(0, 0, 0, 0.08) 100%);
+  mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.08) 0%, #000 8%, #000 92%, rgba(0, 0, 0, 0.08) 100%);
 }
 
 .music-index-page .music-hero-bottom {
