@@ -1,6 +1,7 @@
 {
   "generated_at": "2026-02-26",
   "variant_widths": [
+    600,
     960,
     1600
   ],
@@ -2199,22 +2200,26 @@
       "formats": {
         "jpeg": {
           "widths": [
+            600,
             960,
             1600
           ],
-          "srcset": "assets/template/hero_portrait-960.jpg 960w, assets/template/hero_portrait-1600.jpg 1600w",
+          "srcset": "assets/template/hero_portrait-600.jpg 600w, assets/template/hero_portrait-960.jpg 960w, assets/template/hero_portrait-1600.jpg 1600w",
           "files": [
+            "assets/template/hero_portrait-600.jpg",
             "assets/template/hero_portrait-960.jpg",
             "assets/template/hero_portrait-1600.jpg"
           ]
         },
         "webp": {
           "widths": [
+            600,
             960,
             1600
           ],
-          "srcset": "assets/template/hero_portrait-960.webp 960w, assets/template/hero_portrait-1600.webp 1600w",
+          "srcset": "assets/template/hero_portrait-600.webp 600w, assets/template/hero_portrait-960.webp 960w, assets/template/hero_portrait-1600.webp 1600w",
           "files": [
+            "assets/template/hero_portrait-600.webp",
             "assets/template/hero_portrait-960.webp",
             "assets/template/hero_portrait-1600.webp"
           ]
