@@ -118,8 +118,8 @@
     var person = {
       "@type": "Person",
       "@id": CHRONOHAZE_PERSON_ID,
-      name: "Fay Lyu",
-      alternateName: "HazezZ",
+      name: "Fay / Feier Lyu",
+      alternateName: ["Fay Lyu", "Feier Lyu", "HazezZ"],
       url: CHRONOHAZE_SITE_URL,
       sameAs: CHRONOHAZE_PERSON_SAME_AS.slice(),
     };
