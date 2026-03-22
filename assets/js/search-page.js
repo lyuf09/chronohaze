@@ -1551,8 +1551,8 @@
       var entries = [
         { href: "research.html", label: uiText.hotResearch, group: "site" },
         { href: "math.html", label: uiText.hotMath, group: "math" },
-        { href: "yin-le.html", label: uiText.hotMusic, group: "music" },
-        { href: "portfolio-1.html", label: uiText.hotPhoto, group: "photo" },
+        { href: "music.html", label: uiText.hotMusic, group: "music" },
+        { href: "photography.html", label: uiText.hotPhoto, group: "photo" },
         { href: "cv.html", label: uiText.hotCV, group: "cv" },
         { href: "search.html", label: uiText.hotSearch, group: "site" },
       ];

@@ -916,7 +916,7 @@
     },
     {
       "title": "音乐 / Music",
-      "url": "yin-le.html",
+      "url": "music.html",
       "section": "Site",
       "date": "",
       "excerpt": "Music index with albums, singles, and filters",
@@ -942,7 +942,7 @@
     },
     {
       "title": "摄影 / Photography",
-      "url": "portfolio-1.html",
+      "url": "photography.html",
       "section": "Site",
       "date": "",
       "excerpt": "Photography index and archive",

@@ -2873,7 +2873,7 @@
     var link = document.createElement("a");
     var dict = getSecondaryPageDictionary(detectPreferredLanguage());
     link.className = "music-detail-back";
-    link.href = "../yin-le.html";
+    link.href = "../music.html";
     link.textContent = dict.detailBack;
     article.insertBefore(link, heading);
   }
@@ -12119,10 +12119,10 @@
     var nextHref = nextRoute ? nextRoute.replace(/^photo\//, "") : "";
 
     nav.appendChild(buildNavNode(dict.photoPrevGroup, prevHref, "prev"));
-    nav.appendChild(buildNavNode(dict.photoBackToArchive, "../portfolio-1.html", "back"));
+    nav.appendChild(buildNavNode(dict.photoBackToArchive, "../photography.html", "back"));
     nav.appendChild(buildNavNode(dict.photoNextGroup, nextHref, "next"));
 
-    var backLink = article.querySelector('a.read-more[href*="portfolio-1.html"]');
+    var backLink = article.querySelector('a.read-more[href*="photography.html"]');
     if (
       backLink &&
       backLink.parentElement &&

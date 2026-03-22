@@ -22,7 +22,7 @@ test("home page renders hero and player shell", async ({ page }) => {
 
 test("music index renders and remains interactive", async ({ page }) => {
   const errors = trackPageErrors(page);
-  await page.goto("yin-le.html", { waitUntil: "domcontentloaded" });
+  await page.goto("music.html", { waitUntil: "domcontentloaded" });
 
   await expect(page.locator("body.music-index-page")).toBeVisible();
   await expect(page.locator(".music-ia-shell")).toBeVisible();
