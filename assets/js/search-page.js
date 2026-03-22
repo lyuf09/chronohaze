@@ -95,10 +95,10 @@
     if (/^post\/|(?:^|\/)math\.html(?:$|[?#])/.test(url)) {
       return "math";
     }
-    if (/^music\/|(?:^|\/)yin-le\.html(?:$|[?#])/.test(url)) {
+    if (/^music\/|(?:^|\/)(?:yin-le|music)\.html(?:$|[?#])/.test(url)) {
       return "music";
     }
-    if (/^photo\/|(?:^|\/)portfolio-1\.html(?:$|[?#])/.test(url)) {
+    if (/^photo\/|(?:^|\/)(?:portfolio-1|photography)\.html(?:$|[?#])/.test(url)) {
       return "photo";
     }
     if (/(?:^|\/)cv\.html(?:$|[?#])/.test(url)) {

@@ -740,6 +740,18 @@
     }
   }
 
+  function isPhotoIndexHref(href) {
+    return /(?:^|\/)(?:portfolio-1|photography)\.html(?:$|[?#])/i.test(String(href || ""));
+  }
+
+  function isMusicIndexHref(href) {
+    return /(?:^|\/)(?:yin-le|music)\.html(?:$|[?#])/i.test(String(href || ""));
+  }
+
+  function isMathIndexHref(href) {
+    return /(?:^|\/)math\.html(?:$|[?#])/i.test(String(href || "")) || /#math/i.test(String(href || ""));
+  }
+
   function dedupeNavLinks() {
     Array.from(document.querySelectorAll(".nav")).forEach(function (nav) {
       var seenByText = new Set();
@@ -779,13 +791,13 @@
         if (!hrefKey) {
           return "";
         }
-        if (/\/math\.html(?:$|[?#])/i.test(hrefKey) || /#math/i.test(hrefKey)) {
+        if (isMathIndexHref(hrefKey)) {
           return "math";
         }
-        if (/\/portfolio-1\.html(?:$|[?#])/i.test(hrefKey)) {
+        if (isPhotoIndexHref(hrefKey)) {
           return "photo";
         }
-        if (/\/yin-le\.html(?:$|[?#])/i.test(hrefKey)) {
+        if (isMusicIndexHref(hrefKey)) {
           return "music";
         }
         if (/\/cv\.html(?:$|[?#])/i.test(hrefKey) || /fay_lyu_cv\.pdf/i.test(hrefKey)) {
@@ -10863,11 +10875,11 @@
 
     Array.from(document.querySelectorAll(".nav a")).forEach(function (link) {
       var href = link.getAttribute("href") || "";
-      if (/math\.html(?:$|[?#])/i.test(href) || /#math/i.test(href)) {
+      if (isMathIndexHref(href)) {
         link.textContent = dict.navMath;
-      } else if (/portfolio-1\.html/i.test(href)) {
+      } else if (isPhotoIndexHref(href)) {
         link.textContent = dict.navPhoto;
-      } else if (/yin-le\.html/i.test(href)) {
+      } else if (isMusicIndexHref(href)) {
         link.textContent = dict.navMusic;
       } else if (/projects\.html(?:$|[?#])/i.test(href)) {
         link.textContent = dict.navProjects || "Projects";
@@ -10934,11 +10946,11 @@
 
     Array.from(document.querySelectorAll("a.read-more")).forEach(function (link) {
       var href = link.getAttribute("href") || "";
-      if (/portfolio-1\.html/i.test(href)) {
+      if (isPhotoIndexHref(href)) {
         link.textContent = dict.backToPhoto;
-      } else if (/yin-le\.html/i.test(href)) {
+      } else if (isMusicIndexHref(href)) {
         link.textContent = dict.backToMusic;
-      } else if (/math\.html/i.test(href)) {
+      } else if (isMathIndexHref(href)) {
         link.textContent = dict.backToMath;
       }
     });
@@ -11298,7 +11310,7 @@
       Array.from(document.querySelectorAll(".photo-detail-article .read-more")).forEach(function (
         node
       ) {
-        if (/portfolio-1\.html/i.test(node.getAttribute("href") || "")) {
+        if (isPhotoIndexHref(node.getAttribute("href") || "")) {
           node.textContent = safeLang === "en" ? "Back to photography" : "返回摄影栏目";
         }
       });
@@ -12327,7 +12339,7 @@
   function isSecondaryPageSwapPath(pathname) {
     var path = String(pathname || "").toLowerCase();
     return (
-      /(?:^|\/)(?:math|research|projects|cv|yin-le|portfolio-1|policy|accessibility|404)\.html$/.test(path) ||
+      /(?:^|\/)(?:math|research|projects|cv|music|photography|yin-le|portfolio-1|policy|accessibility|404)\.html$/.test(path) ||
       /(?:^|\/)music\/[^/]+\.html$/.test(path) ||
       /(?:^|\/)post\/[^/]+\.html$/.test(path) ||
       /(?:^|\/)photo\/[^/]+\.html$/.test(path)
