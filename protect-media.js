@@ -1170,16 +1170,18 @@
         link.href = "#" + id;
         link.textContent = label;
         link.setAttribute("data-target-id", id);
-        link.addEventListener("click", function () {
-          window.setTimeout(updateActive, 120);
-        });
-        nav.appendChild(link);
-
-        return {
+        var entry = {
           id: id,
           node: heading,
           link: link,
         };
+        link.addEventListener("click", function (event) {
+          event.preventDefault();
+          jumpToEntry(entry, index);
+        });
+        nav.appendChild(link);
+
+        return entry;
       });
 
       if (!entries.length) {
@@ -1189,6 +1191,9 @@
 
       var activeIndex = -1;
       var rafId = 0;
+      var prefersReducedMotion =
+        typeof window.matchMedia === "function" &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
       function getStickyOffset() {
         var header = document.querySelector(".site-header");
@@ -1198,6 +1203,43 @@
 
       function syncOffset() {
         shell.style.setProperty("--article-toc-top", getStickyOffset() + "px");
+      }
+
+      function jumpToEntry(entry, index) {
+        if (!entry || !entry.node) {
+          return;
+        }
+
+        syncOffset();
+        var top =
+          window.pageYOffset +
+          entry.node.getBoundingClientRect().top -
+          getStickyOffset() -
+          8;
+
+        window.scrollTo({
+          top: Math.max(0, top),
+          behavior: prefersReducedMotion ? "auto" : "smooth",
+        });
+
+        if (!entry.node.hasAttribute("tabindex")) {
+          entry.node.setAttribute("tabindex", "-1");
+        }
+
+        try {
+          entry.node.focus({ preventScroll: true });
+        } catch (_focusError) {
+          entry.node.focus();
+        }
+
+        try {
+          var nextUrl = new URL(window.location.href);
+          nextUrl.hash = entry.id;
+          window.history.replaceState(window.history.state, "", nextUrl.toString());
+        } catch (_historyError) {}
+
+        setActive(index);
+        window.setTimeout(updateActive, prefersReducedMotion ? 40 : 220);
       }
 
       function setActive(index) {
