@@ -948,6 +948,335 @@
     return (value || "").replace(/\s+/g, "");
   }
 
+  var articleScrollTocState = null;
+
+  function isLongformArticlePage() {
+    var path = (window.location.pathname || "").toLowerCase();
+    return /\/(?:en\/)?post\/[^/?#]+\.html$/.test(path);
+  }
+
+  function getArticleTocLanguage() {
+    var htmlLang = String(document.documentElement.getAttribute("lang") || "").toLowerCase();
+    if (htmlLang.indexOf("en") === 0) {
+      return "en";
+    }
+    return detectPreferredLanguage() === "en" ? "en" : "zh";
+  }
+
+  function getVisibleArticleTocRoot(article) {
+    if (!article) {
+      return null;
+    }
+
+    var langBlocks = Array.from(article.querySelectorAll("[data-lang-block]"));
+    if (!langBlocks.length) {
+      return article;
+    }
+
+    return (
+      langBlocks.find(function (block) {
+        return !block.hidden && !(block.closest("[hidden]") && block.closest("[hidden]") !== block);
+      }) || article
+    );
+  }
+
+  function slugifyHeadingText(value) {
+    var input = String(value || "").trim().toLowerCase();
+    if (!input) {
+      return "";
+    }
+
+    var result = [];
+    var lastWasDash = false;
+
+    for (var i = 0; i < input.length; i += 1) {
+      var char = input.charAt(i);
+      var code = input.charCodeAt(i);
+      var isAsciiAlphaNum =
+        (code >= 48 && code <= 57) || (code >= 97 && code <= 122);
+      var isCjk =
+        (code >= 0x3400 && code <= 0x4dbf) ||
+        (code >= 0x4e00 && code <= 0x9fff) ||
+        (code >= 0xf900 && code <= 0xfaff);
+
+      if (isAsciiAlphaNum || isCjk) {
+        result.push(char);
+        lastWasDash = false;
+      } else if (!lastWasDash) {
+        result.push("-");
+        lastWasDash = true;
+      }
+    }
+
+    return result.join("").replace(/^-+|-+$/g, "");
+  }
+
+  function destroyArticleScrollToc() {
+    if (!articleScrollTocState) {
+      return;
+    }
+
+    var state = articleScrollTocState;
+    if (state.observer) {
+      state.observer.disconnect();
+    }
+    if (state.scrollHandler) {
+      window.removeEventListener("scroll", state.scrollHandler);
+    }
+    if (state.resizeHandler) {
+      window.removeEventListener("resize", state.resizeHandler);
+      window.removeEventListener("orientationchange", state.resizeHandler);
+    }
+
+    if (state.aside && state.aside.parentNode) {
+      state.aside.parentNode.removeChild(state.aside);
+    }
+
+    if (
+      state.shell &&
+      state.article &&
+      state.shell.parentNode &&
+      state.article.parentNode === state.shell
+    ) {
+      state.shell.classList.remove("has-article-toc");
+      state.shell.parentNode.insertBefore(state.article, state.shell);
+      state.shell.parentNode.removeChild(state.shell);
+    }
+
+    articleScrollTocState = null;
+  }
+
+  function setupArticleScrollToc() {
+    if (!document.body) {
+      return;
+    }
+
+    if (!isLongformArticlePage()) {
+      destroyArticleScrollToc();
+      return;
+    }
+
+    var main = document.querySelector(".main");
+    var article = main && main.querySelector(".article");
+    if (
+      !article ||
+      article.classList.contains("music-detail-article") ||
+      article.classList.contains("photo-detail-article") ||
+      article.classList.contains("photo-blue-article")
+    ) {
+      destroyArticleScrollToc();
+      return;
+    }
+
+    var tocRoot = getVisibleArticleTocRoot(article);
+    if (!tocRoot) {
+      destroyArticleScrollToc();
+      return;
+    }
+
+    var candidateHeadings = Array.from(tocRoot.querySelectorAll("h2, h3, h4"))
+      .filter(function (heading) {
+        return heading && normalizeText(heading.textContent || "");
+      });
+
+    if (candidateHeadings.length < 3) {
+      destroyArticleScrollToc();
+      return;
+    }
+
+    var safeLang = getArticleTocLanguage();
+    var tocSignature = candidateHeadings
+      .map(function (heading) {
+        return heading.tagName + ":" + normalizeText(heading.textContent || "");
+      })
+      .join("|");
+
+    if (
+      articleScrollTocState &&
+      articleScrollTocState.article === article &&
+      articleScrollTocState.root === tocRoot &&
+      articleScrollTocState.lang === safeLang &&
+      articleScrollTocState.signature === tocSignature &&
+      articleScrollTocState.aside &&
+      articleScrollTocState.aside.isConnected
+    ) {
+      if (typeof articleScrollTocState.refresh === "function") {
+        articleScrollTocState.refresh();
+      }
+      return;
+    }
+
+    destroyArticleScrollToc();
+
+    withMutationRefreshSuppressed(function () {
+      var shell = document.createElement("div");
+      shell.className = "article-layout has-article-toc";
+      article.parentNode.insertBefore(shell, article);
+      shell.appendChild(article);
+
+      var tocTitle = safeLang === "en" ? "On this page" : "本文目录";
+
+      var aside = document.createElement("aside");
+      aside.className = "article-toc";
+      aside.setAttribute("data-article-toc", "1");
+
+      var title = document.createElement("p");
+      title.className = "article-toc-title";
+      title.textContent = tocTitle;
+      aside.appendChild(title);
+
+      var nav = document.createElement("nav");
+      nav.className = "article-toc-nav";
+      nav.setAttribute("aria-label", tocTitle);
+      aside.appendChild(nav);
+      shell.insertBefore(aside, article);
+
+      var usedIds = new Set(
+        Array.from(article.querySelectorAll("[id]"))
+          .map(function (node) {
+            return node.id;
+          })
+          .filter(Boolean)
+      );
+
+      var baseLevel = candidateHeadings.reduce(function (minLevel, heading) {
+        var level = Number(heading.tagName.slice(1)) || 2;
+        return Math.min(minLevel, level);
+      }, 6);
+
+      var entries = candidateHeadings.map(function (heading, index) {
+        var label = String(heading.textContent || "").replace(/\s+/g, " ").trim();
+        var existingId = heading.getAttribute("id");
+        var id = existingId || "";
+
+        if (!id) {
+          var baseId = slugifyHeadingText(label) || "section";
+          var candidateId = "toc-" + baseId;
+          var suffix = 2;
+          while (usedIds.has(candidateId)) {
+            candidateId = "toc-" + baseId + "-" + suffix;
+            suffix += 1;
+          }
+          id = candidateId;
+          heading.setAttribute("id", id);
+        }
+        usedIds.add(id);
+
+        var level = Number(heading.tagName.slice(1)) || 2;
+        var depth = Math.max(0, level - baseLevel);
+
+        var link = document.createElement("a");
+        link.className = "article-toc-link article-toc-depth-" + depth;
+        link.href = "#" + id;
+        link.textContent = label;
+        link.setAttribute("data-target-id", id);
+        link.addEventListener("click", function () {
+          window.setTimeout(updateActive, 120);
+        });
+        nav.appendChild(link);
+
+        return {
+          id: id,
+          node: heading,
+          link: link,
+        };
+      });
+
+      if (!entries.length) {
+        destroyArticleScrollToc();
+        return;
+      }
+
+      var activeIndex = -1;
+      var rafId = 0;
+
+      function getStickyOffset() {
+        var header = document.querySelector(".site-header");
+        var headerHeight = header ? header.getBoundingClientRect().height : 88;
+        return Math.max(108, Math.round(headerHeight + 22));
+      }
+
+      function syncOffset() {
+        shell.style.setProperty("--article-toc-top", getStickyOffset() + "px");
+      }
+
+      function setActive(index) {
+        var safeIndex = Math.max(0, Math.min(entries.length - 1, index));
+        if (safeIndex === activeIndex) {
+          return;
+        }
+        activeIndex = safeIndex;
+        entries.forEach(function (entry, entryIndex) {
+          var isActive = entryIndex === safeIndex;
+          entry.link.classList.toggle("is-active", isActive);
+          if (isActive) {
+            entry.link.setAttribute("aria-current", "location");
+          } else {
+            entry.link.removeAttribute("aria-current");
+          }
+        });
+      }
+
+      function updateActive() {
+        rafId = 0;
+        syncOffset();
+        var offset = getStickyOffset() + 18;
+        var nextIndex = 0;
+
+        entries.forEach(function (entry, index) {
+          if (entry.node.getBoundingClientRect().top <= offset) {
+            nextIndex = index;
+          }
+        });
+
+        setActive(nextIndex);
+      }
+
+      function scheduleUpdate() {
+        if (rafId) {
+          return;
+        }
+        rafId = window.requestAnimationFrame(updateActive);
+      }
+
+      var observer = null;
+      if ("IntersectionObserver" in window) {
+        observer = new IntersectionObserver(
+          function () {
+            scheduleUpdate();
+          },
+          {
+            threshold: [0, 1],
+            rootMargin: "-18% 0px -62% 0px",
+          }
+        );
+        entries.forEach(function (entry) {
+          observer.observe(entry.node);
+        });
+      }
+
+      window.addEventListener("scroll", scheduleUpdate, { passive: true });
+      window.addEventListener("resize", scheduleUpdate, { passive: true });
+      window.addEventListener("orientationchange", scheduleUpdate, { passive: true });
+
+      syncOffset();
+      updateActive();
+
+      articleScrollTocState = {
+        article: article,
+        root: tocRoot,
+        shell: shell,
+        aside: aside,
+        observer: observer,
+        lang: safeLang,
+        signature: tocSignature,
+        scrollHandler: scheduleUpdate,
+        resizeHandler: scheduleUpdate,
+        refresh: updateActive,
+      };
+    });
+  }
+
   function trackAnalyticsEvent(name, params) {
     if (typeof window.gtag !== "function" || !name) {
       return;
@@ -13248,6 +13577,7 @@
       enhanceMusicPlayers,
       enhanceMusicLyricsLayout,
       forceMusicLyricsVisibleOnCompactViewport,
+      setupArticleScrollToc,
       enableIndexRowLinks,
       bindCollectionLinkAnalytics,
       setupPageTransitions,
@@ -13266,6 +13596,7 @@
     upgradePhotoImageLoadingStrategy,
     optimizeImages,
     labelPhotoOrientation,
+    setupArticleScrollToc,
     bindCollectionLinkAnalytics,
     forceMusicLyricsVisibleOnCompactViewport,
     setupFineMotionPass,
