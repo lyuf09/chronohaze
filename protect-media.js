@@ -795,6 +795,56 @@
     return /(?:^|\/)math\.html(?:$|[?#])/i.test(String(href || "")) || /#math/i.test(String(href || ""));
   }
 
+  function isProjectsIndexHref(href) {
+    return /(?:^|\/)projects\.html(?:$|[?#])/i.test(String(href || ""));
+  }
+
+  function isResearchIndexHref(href) {
+    return /(?:^|\/)research\.html(?:$|[?#])/i.test(String(href || ""));
+  }
+
+  function getPrimaryNavKeyFromHref(href) {
+    var value = String(href || "");
+    var hrefKey = normalizeNavHref(value);
+    if (!hrefKey) {
+      return "";
+    }
+    if (/\/post\//i.test(hrefKey)) {
+      return "math";
+    }
+    if (/\/photo\//i.test(hrefKey)) {
+      return "photo";
+    }
+    if (/\/music\//i.test(hrefKey)) {
+      return "music";
+    }
+    if (isMathIndexHref(hrefKey)) {
+      return "math";
+    }
+    if (isPhotoIndexHref(hrefKey)) {
+      return "photo";
+    }
+    if (isMusicIndexHref(hrefKey)) {
+      return "music";
+    }
+    if (isProjectsIndexHref(hrefKey)) {
+      return "projects";
+    }
+    if (isResearchIndexHref(hrefKey)) {
+      return "research";
+    }
+    if (/\/cv\.html(?:$|[?#])/i.test(hrefKey) || /fay_lyu_cv\.pdf/i.test(hrefKey)) {
+      return "cv";
+    }
+    if (/\/search\.html(?:$|[?#])/i.test(hrefKey)) {
+      return "search";
+    }
+    if (/\/index(?:\.html)?(?:$|[?#])/i.test(hrefKey) || /\/chronohaze$/i.test(hrefKey)) {
+      return "home";
+    }
+    return "";
+  }
+
   function dedupeNavLinks() {
     Array.from(document.querySelectorAll(".nav")).forEach(function (nav) {
       var seenByText = new Set();
@@ -824,39 +874,13 @@
         }
       });
 
-      var desiredOrder = ["home", "math", "photo", "music", "cv", "search"];
+      var desiredOrder = ["home", "math", "photo", "music", "cv", "projects", "research", "search"];
       var links = Array.from(nav.querySelectorAll("a"));
       var keyedFirst = Object.create(null);
       var leftovers = [];
 
-      function getNavKey(link) {
-        var hrefKey = normalizeNavHref(link.getAttribute("href") || "");
-        if (!hrefKey) {
-          return "";
-        }
-        if (isMathIndexHref(hrefKey)) {
-          return "math";
-        }
-        if (isPhotoIndexHref(hrefKey)) {
-          return "photo";
-        }
-        if (isMusicIndexHref(hrefKey)) {
-          return "music";
-        }
-        if (/\/cv\.html(?:$|[?#])/i.test(hrefKey) || /fay_lyu_cv\.pdf/i.test(hrefKey)) {
-          return "cv";
-        }
-        if (/\/search\.html(?:$|[?#])/i.test(hrefKey)) {
-          return "search";
-        }
-        if (/\/index(?:\.html)?(?:$|[?#])/i.test(hrefKey) || /\/chronohaze$/i.test(hrefKey)) {
-          return "home";
-        }
-        return "";
-      }
-
       links.forEach(function (link) {
-        var key = getNavKey(link);
+        var key = getPrimaryNavKeyFromHref(link.getAttribute("href") || "");
         if (key && !keyedFirst[key]) {
           keyedFirst[key] = link;
           return;
@@ -2102,6 +2126,7 @@
         navPhoto: "摄影",
         navMusic: "音乐",
         navProjects: "项目",
+        navResearch: "研究",
         navCV: "CV",
         navSearch: "搜索",
         searchPageTitle: "站内搜索",
@@ -2245,6 +2270,7 @@
         navPhoto: "Photography",
         navMusic: "Music",
         navProjects: "Projects",
+        navResearch: "Research",
         navCV: "CV",
         navSearch: "Search",
         searchPageTitle: "Site Search",
@@ -10792,17 +10818,78 @@
     return "search.html";
   }
 
+  function getPrimaryPageHref(pageKey) {
+    var path = (window.location.pathname || "").toLowerCase();
+    var prefix = /\/(music|photo|post)\//.test(path) ? "../" : "";
+    var hrefMap = {
+      home: "index.html",
+      math: "math.html",
+      photo: "photography.html",
+      music: "music.html",
+      cv: "cv.html",
+      projects: "projects.html",
+      research: "research.html",
+      search: "search.html",
+    };
+    return prefix + (hrefMap[pageKey] || "index.html");
+  }
+
   function ensureSearchNavLink() {
-    var href = getSearchPageHref();
-    Array.from(document.querySelectorAll(".nav")).forEach(function (nav) {
-      if (nav.querySelector('a[href*="search.html"]')) {
-        return;
+    var requiredLinks = [
+      { key: "home", label: "主页" },
+      { key: "math", label: "数学" },
+      { key: "photo", label: "摄影" },
+      { key: "music", label: "音乐" },
+      { key: "cv", label: "CV" },
+      { key: "projects", label: "项目" },
+      { key: "research", label: "研究" },
+      { key: "search", label: "搜索" },
+    ];
+
+    Array.from(document.querySelectorAll(".site-header .nav")).forEach(function (nav) {
+      var existingByKey = Object.create(null);
+      var leftovers = [];
+      Array.from(nav.querySelectorAll("a")).forEach(function (link) {
+        var key = getPrimaryNavKeyFromHref(link.getAttribute("href") || "");
+        if (key && !existingByKey[key]) {
+          link.setAttribute("data-nav-key", key);
+          existingByKey[key] = link;
+          return;
+        }
+        leftovers.push(link);
+      });
+
+      requiredLinks.forEach(function (entry) {
+        if (existingByKey[entry.key]) {
+          return;
+        }
+        var link = document.createElement("a");
+        link.href = getPrimaryPageHref(entry.key);
+        link.textContent = entry.label;
+        link.setAttribute("data-nav-key", entry.key);
+        existingByKey[entry.key] = link;
+      });
+
+      var currentKey = getPrimaryNavKeyFromHref(window.location.pathname || "");
+      if (currentKey && existingByKey[currentKey]) {
+        var hasActive = Object.keys(existingByKey).some(function (key) {
+          return existingByKey[key] && existingByKey[key].classList.contains("active");
+        });
+        if (!hasActive) {
+          existingByKey[currentKey].classList.add("active");
+        }
       }
-      var link = document.createElement("a");
-      link.href = href;
-      link.setAttribute("data-nav-search", "1");
-      link.textContent = "搜索";
-      nav.appendChild(link);
+
+      requiredLinks
+        .map(function (entry) {
+          return existingByKey[entry.key];
+        })
+        .concat(leftovers)
+        .forEach(function (link) {
+          if (link) {
+            nav.appendChild(link);
+          }
+        });
     });
   }
 
@@ -10952,6 +11039,8 @@
         link.textContent = dict.navPhoto;
       } else if (isMusicIndexHref(href)) {
         link.textContent = dict.navMusic;
+      } else if (isResearchIndexHref(href)) {
+        link.textContent = dict.navResearch || "Research";
       } else if (/projects\.html(?:$|[?#])/i.test(href)) {
         link.textContent = dict.navProjects || "Projects";
       } else if (/Fay_Lyu_CV\.pdf|(?:^|\/)cv\.html(?:$|[?#])/i.test(href)) {
