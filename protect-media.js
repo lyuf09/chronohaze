@@ -13173,7 +13173,7 @@
 
     structuredDataModulePromise = new Promise(function (resolve) {
       var script = document.createElement("script");
-      script.src = resolveAssetCandidateUrl("assets/js/structured-data.js?v=20260322-schema1");
+      script.src = resolveAssetCandidateUrl("assets/js/structured-data.js?v=20260322-schema2");
       script.async = true;
       script.onload = function () {
         if (window.ChronohazeStructuredData && typeof window.ChronohazeStructuredData.ensureStructuredData === "function") {

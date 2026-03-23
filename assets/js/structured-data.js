@@ -122,8 +122,37 @@
       "@type": "Person",
       "@id": CHRONOHAZE_PERSON_ID,
       name: "Fay / Feier Lyu",
-      alternateName: ["Fay Lyu", "Feier Lyu", "HazezZ"],
+      alternateName: ["Fay Lyu", "Feier Lyu", "Feier", "HazezZ"],
+      givenName: "Fay",
+      additionalName: "Feier",
+      familyName: "Lyu",
       url: CHRONOHAZE_SITE_URL,
+      image: CHRONOHAZE_SITE_URL + "assets/template/hero_portrait-1600.jpg",
+      description:
+        "Fay / Feier Lyu, also known as HazezZ, is a mathematics student at The University of Edinburgh, currently on exchange at Cornell University, working in Operational Research for Machine Learning with interests in optimization, formal verification, and mathematical modeling.",
+      alumniOf: {
+        "@type": "CollegeOrUniversity",
+        name: "The University of Edinburgh",
+        url: "https://www.ed.ac.uk/",
+      },
+      affiliation: [
+        {
+          "@type": "CollegeOrUniversity",
+          name: "Cornell University",
+          url: "https://www.cornell.edu/",
+        },
+      ],
+      knowsAbout: [
+        "Operational Research",
+        "Operational Research for Machine Learning",
+        "Machine Learning",
+        "Optimization",
+        "Formal Verification",
+        "Mathematical Modeling",
+        "Submodular Optimization",
+        "Isabelle/HOL",
+        "Game Theory",
+      ],
       sameAs: CHRONOHAZE_PERSON_SAME_AS.slice(),
     };
 
