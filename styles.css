@@ -5008,7 +5008,8 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
 }
 
 .projects-page .research-project-line--status .research-project-status-wrap {
-  display: inline-flex;
+  display: block;
+  max-width: 100%;
   margin-top: 2px;
 }
 
@@ -5051,6 +5052,19 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+.projects-page .research-project-status-badge {
+  display: inline-block;
+  max-width: 100%;
+  padding-top: 4px;
+  padding-bottom: 5px;
+  line-height: 1.28;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
 }
 
 .research-project-status-badge--active {
