@@ -1,6 +1,20 @@
 {
-  "generated_at": "2026-03-18",
+  "generated_at": "2026-03-23",
   "items": [
+    {
+      "title": "当一个 dual 路线走不通时，我真正得到的东西",
+      "url": "post/what-i-really-got-when-a-dual-route-failed.html",
+      "section": "Mathematics",
+      "date": "2026-03-23",
+      "excerpt": "当两条最自然的 Lagrangian dual 路线都塌到 trivial 0 bound 之后，留下来的反而是一个和 Range(B)、cycle consistency 与 instance difficulty 相关的 dual-based structural score。",
+      "tags": [
+        "math",
+        "article"
+      ],
+      "sort": 20260323,
+      "scope": "math",
+      "content": "当一个 dual 路线走不通时，我真正得到的东西 HazezZ · 3月23日 我原本以为我要找的是一个 dual bound 这段时间我一直在继续推进和无线传感器网络定位（WSN localization）相关的 dual 研究线。最开始我想弄清楚的是：对于这个目标函数，是否能够在当前 gauge-free formulation 下得到一个 genuinely informative dual lower bound。 结果：两条最自然的 dual 路线都塌了。 我尝试的两条相当自然的 Lagrangian dual 路线最后都会 collapse 到 trivial lower bound 0，但 conjugate-based DC dual 并不是 identically zero，会导出一个和 Range(B) 直接相关的非平凡几何量。 但我还是没白算，留下来了个 score。 Sdual(B, δ) = Σδℓ² − (1/4) · sup over u in V of ||Pu||²。 这个 score 为什么有意思。 它总是非负，在 exactly realizable 的情形下恰好等于 0；forest case 自动退化成 0，一旦图里出现 cycle 就可能 strictly positive。 一个 example。triangle example 在标量情形下可以显式算成 1/3。 接下来我想干啥。 把 dual work 保留下来作为 supporting theoretical result，把它变成一个 dual-based inconsistency score 或 diagnostic surrogate，同时把主要算法推进放在 AM framework 和 escape logic 的结合上。 What I Really Got When a Dual Route Failed WSN localization dual certificate trivial 0 bound Range(B) cycle consistency realizability instance difficulty dual-based score diagnostic surrogate AM framework escape logic"
+    },
     {
       "title": "从一个定理到一套框架：我的 Isabelle 子模优化项目新进展",
       "url": "post/theorem-to-framework-isabelle-submodular.html",
@@ -35,18 +49,18 @@
       "content": "选定项目 项目材料 公开材料 索引 研究与形式化验证 Isabelle HOL 现代子模贪心算法形式化 单调非负子模最大化 classical greedy LazyGreedy StochasticGreedy 近似保证 oracle cost core theorem lines AFP clean up 依赖整理 不变性下的对偶与下界 原型与信号处理 Metalcore Piano Lab 工程与 IP 防离析布料系统 数据分析 Funnel Retention Attribution Analysis 这个网站 Chronohaze 相关材料 Repository Notes Archive CV 页面 Selected Projects project materials public materials Research and Formal Verification Isabelle HOL Formalizing Modern Submodular Greedy Algorithms monotone nonnegative submodular maximization cardinality constraints classical greedy LazyGreedy StochasticGreedy approximation oracle-cost core theorem lines complete AFP-style presentation Duality and Lower Bounds under Invariances Prototype and Signal Processing Metalcore Piano Lab Engineering and IP Anti-Segregation Spreading System Data and Analytics Chronohaze Materials Repository Notes Archive"
     },
     {
+      "content": "研究 优化 形式化验证 Isabelle HOL 数学建模 三条相关方向 形式化近似保证 不变性下的对偶与下界 连续对象离散化为可检查结构 Shoham Sabach Wenda Li Cornell ORIE Edinburgh Informatics 研究兴趣 优化 对偶 下界 一阶结构 不变性 形式化验证 Isabelle HOL 假设 接口 扩展 子模算法 单调子模最大化 贪心保证 机器检验 建模 formulation 对称性 近似需求 实现约束 当前工作 Isabelle HOL 子模贪心算法形式化 Note Repo 不变性下的对偶与下界 Note Archive Metalcore Piano Lab 从音频 MIDI 到谱面 Note Repo 建议先看 Projects 研究 为什么连在一起 Research Optimization Formal Verification Isabelle HOL Mathematical Modeling current work submodular greedy duality lower bounds invariances discretization Shoham Sabach Wenda Li Note Repo Archive",
+      "title": "Research | Fay / Feier Lyu (HazezZ)",
+      "url": "research.html",
+      "sort": 20260312,
+      "scope": "site",
       "tags": [
         "research",
         "optimization",
         "formal-methods"
       ],
-      "sort": 20260312,
-      "url": "research.html",
-      "scope": "site",
-      "title": "Research | Fay / Feier Lyu (HazezZ)",
       "date": "",
       "section": "Site",
-      "content": "研究 优化 形式化验证 Isabelle HOL 数学建模 三条相关方向 形式化近似保证 不变性下的对偶与下界 连续对象离散化为可检查结构 Shoham Sabach Wenda Li Cornell ORIE Edinburgh Informatics 研究兴趣 优化 对偶 下界 一阶结构 不变性 形式化验证 Isabelle HOL 假设 接口 扩展 子模算法 单调非负子模最大化 classical greedy LazyGreedy StochasticGreedy oracle cost locale step spec recurrence 机器检验 建模 formulation 对称性 近似需求 实现约束 当前工作 Isabelle HOL 现代子模贪心算法形式化 Note Repo 不变性下的对偶与下界 Note Archive Metalcore Piano Lab 从音频 MIDI 到谱面 Note Repo 建议先看 Projects 研究 为什么连在一起 Research Optimization Formal Verification Isabelle HOL Mathematical Modeling current work modern submodular greedy algorithms LazyGreedy StochasticGreedy oracle-cost AFP submission Shoham Sabach Wenda Li Note Repo Archive",
       "excerpt": "优化 · 形式化验证（Isabelle/HOL） · 数学建模"
     },
     {
@@ -102,7 +116,7 @@
       ],
       "sort": 20260217,
       "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV Blue 毕业作品视频 您的浏览器暂不支持视频播放。 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · Ithaca © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
+      "content": "chronohaze.space 主页 数学 摄影 音乐 CV Blue 毕业作品视频 您的浏览器暂不支持视频播放。 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
     },
     {
       "title": "Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP）",
@@ -225,7 +239,7 @@
       ],
       "sort": 20250101,
       "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 30/08/2025 美国纽约伊萨卡 · 2025年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · Ithaca © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
+      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 30/08/2025 美国纽约伊萨卡 · 2025年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
     },
     {
       "title": "你的记忆",
@@ -252,7 +266,7 @@
       ],
       "sort": 20250101,
       "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 02/01/2025 英国爱丁堡 · 2025年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · Ithaca © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
+      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 02/01/2025 英国爱丁堡 · 2025年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
     },
     {
       "title": "Affizieren",
@@ -351,7 +365,7 @@
       ],
       "sort": 20240101,
       "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 20/04/2024 英国爱丁堡 · 2024年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · Ithaca © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
+      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 20/04/2024 英国爱丁堡 · 2024年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
     },
     {
       "title": "本格推理",
@@ -539,7 +553,7 @@
       ],
       "sort": 20230101,
       "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 09/08/2023 中国重庆市 · 2023年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · Ithaca © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
+      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 09/08/2023 中国重庆市 · 2023年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
     },
     {
       "title": "铁与蕨",
@@ -553,7 +567,7 @@
       ],
       "sort": 20230101,
       "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 21/10/2023 英国格拉斯哥 · 2023年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · Ithaca © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
+      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 21/10/2023 英国格拉斯哥 · 2023年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
     },
     {
       "title": "参照系",
@@ -567,7 +581,7 @@
       ],
       "sort": 20230101,
       "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 01/04/2023 中国重庆市 · 2023年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · Ithaca © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
+      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 01/04/2023 中国重庆市 · 2023年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
     },
     {
       "title": "17/09/2023",
@@ -580,7 +594,7 @@
       ],
       "sort": 20230101,
       "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 17/09/2023 英国爱丁堡 · 2023年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · Ithaca © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
+      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 17/09/2023 英国爱丁堡 · 2023年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
     },
     {
       "title": "11/03/2023",
@@ -593,7 +607,7 @@
       ],
       "sort": 20230101,
       "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 11/03/2023 英国奥斯沃斯特里 · 2023年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · Ithaca © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
+      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 11/03/2023 英国奥斯沃斯特里 · 2023年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
     },
     {
       "title": "願う（音频待上传）",
@@ -725,7 +739,7 @@
       ],
       "sort": 20220101,
       "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 2022、夏、某 英国韦茅斯 · 2022年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · Ithaca © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
+      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 2022、夏、某 英国韦茅斯 · 2022年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
     },
     {
       "title": "14/06/2022",
@@ -738,7 +752,7 @@
       ],
       "sort": 20220101,
       "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 14/06/2022 英国奥斯沃斯特里 · 2022年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · Ithaca © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
+      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 14/06/2022 英国奥斯沃斯特里 · 2022年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
     },
     {
       "title": "12/04/2022",
@@ -751,7 +765,7 @@
       ],
       "sort": 20220101,
       "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 12/04/2022 英国奥斯沃斯特里 · 2022年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · Ithaca © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
+      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 12/04/2022 英国奥斯沃斯特里 · 2022年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
     },
     {
       "title": "01/06/2022",
@@ -764,7 +778,7 @@
       ],
       "sort": 20220101,
       "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 01/06/2022 英国奥斯沃斯特里 · 2022年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · Ithaca © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
+      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 01/06/2022 英国奥斯沃斯特里 · 2022年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
     },
     {
       "title": "01/05/2022",
@@ -777,7 +791,7 @@
       ],
       "sort": 20220101,
       "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 01/05/2022 英国奥斯沃斯特里 · 2022年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · Ithaca © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
+      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 01/05/2022 英国奥斯沃斯特里 · 2022年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
     },
     {
       "title": "フォーマルハウト/南鱼座α",

@@ -1,7 +1,21 @@
 {
-  "generated_at": "2026-03-14",
+  "generated_at": "2026-03-23",
   "scope": "math",
   "items": [
+    {
+      "title": "当一个 dual 路线走不通时，我真正得到的东西",
+      "url": "post/what-i-really-got-when-a-dual-route-failed.html",
+      "section": "Mathematics",
+      "date": "3月23日",
+      "excerpt": "当两条最自然的 Lagrangian dual 路线都塌到 trivial 0 bound 之后，留下来的反而是一个和 Range(B)、cycle consistency 与 instance difficulty 相关的 dual-based structural score。",
+      "tags": [
+        "math",
+        "article"
+      ],
+      "sort": 20260323,
+      "scope": "math",
+      "content": "当一个 dual 路线走不通时，我真正得到的东西 HazezZ · 3月23日 我原本以为我要找的是一个 dual bound 这段时间我一直在继续推进和无线传感器网络定位（WSN localization）相关的 dual 研究线。最开始我想弄清楚的是：对于这个目标函数，是否能够在当前 gauge-free formulation 下得到一个 genuinely informative dual lower bound。 结果：两条最自然的 dual 路线都塌了。 我尝试的两条相当自然的 Lagrangian dual 路线最后都会 collapse 到 trivial lower bound 0，但 conjugate-based DC dual 并不是 identically zero，会导出一个和 Range(B) 直接相关的非平凡几何量。 但我还是没白算，留下来了个 score。 Sdual(B, δ) = Σδℓ² − (1/4) · sup over u in V of ||Pu||²。 这个 score 为什么有意思。 它总是非负，在 exactly realizable 的情形下恰好等于 0；forest case 自动退化成 0，一旦图里出现 cycle 就可能 strictly positive。 一个 example。triangle example 在标量情形下可以显式算成 1/3。 接下来我想干啥。 把 dual work 保留下来作为 supporting theoretical result，把它变成一个 dual-based inconsistency score 或 diagnostic surrogate，同时把主要算法推进放在 AM framework 和 escape logic 的结合上。 What I Really Got When a Dual Route Failed WSN localization dual certificate trivial 0 bound Range(B) cycle consistency realizability instance difficulty dual-based score diagnostic surrogate AM framework escape logic"
+    },
     {
       "title": "从一个定理到一套框架：我的 Isabelle 子模优化项目新进展",
       "url": "post/theorem-to-framework-isabelle-submodular.html",

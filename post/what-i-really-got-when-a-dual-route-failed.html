@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
+  <title>当一个 dual 路线走不通时，我真正得到的东西</title>
+  <meta name="description" content="当两条最自然的 Lagrangian dual 路线都塌到 trivial 0 bound 之后，留下来的反而是一个和 Range(B)、cycle consistency 与 instance difficulty 相关的 dual-based structural score。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Chronohaze" />
+  <meta property="og:title" content="当一个 dual 路线走不通时，我真正得到的东西 | Chronohaze" />
+  <meta property="og:description" content="当两条最自然的 Lagrangian dual 路线都塌到 trivial 0 bound 之后，留下来的反而是一个和 Range(B)、cycle consistency 与 instance difficulty 相关的 dual-based structural score。" />
+  <meta property="og:url" content="https://lyuf09.github.io/chronohaze/post/what-i-really-got-when-a-dual-route-failed.html" />
+  <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/what-i-really-got-when-a-dual-route-failed.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="当一个 dual 路线走不通时，我真正得到的东西 | Chronohaze" />
+  <meta name="twitter:description" content="当两条最自然的 Lagrangian dual 路线都塌到 trivial 0 bound 之后，留下来的反而是一个和 Range(B)、cycle consistency 与 instance difficulty 相关的 dual-based structural score。" />
+  <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/what-i-really-got-when-a-dual-route-failed.png" />
+  <link rel="canonical" href="https://lyuf09.github.io/chronohaze/post/what-i-really-got-when-a-dual-route-failed.html" />
+
+  <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
+  <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/post/what-i-really-got-when-a-dual-route-failed.html?lang=zh" />
+  <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/post/what-i-really-got-when-a-dual-route-failed.html?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/post/what-i-really-got-when-a-dual-route-failed.html" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JWZY2TVYFZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-JWZY2TVYFZ');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" href="../assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@300;400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@300;400;500;700&display=swap" rel="stylesheet" /></noscript>
+  <link rel="stylesheet" href="../styles.css?v=20260322-print1" />
+  <script defer src="../protect-media.js?v=20260322-feed1"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="../index.html">
+          <img src="../assets/logo.png" alt="Chronohaze" />
+          <span>chronohaze.space</span>
+        </a>
+        <nav class="nav" aria-label="主导航" data-i18n-aria="navAria">
+          <a class="active" href="../index.html" data-i18n="navHome">主页</a>
+          <a href="../math.html" data-i18n="navMath">数学</a>
+          <a href="../photography.html" data-i18n="navPhoto">摄影</a>
+          <a href="../music.html" data-i18n="navMusic">音乐</a>
+          <a href="../cv.html" data-i18n="navCV">CV</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main">
+      <article class="article">
+        <div data-lang-block="zh">
+          <h1>当一个 dual 路线走不通时，我真正得到的东西</h1>
+          <p class="article-meta">HazezZ · 3月23日</p>
+
+          <h2>我原本以为我要找的是一个 dual bound</h2>
+          <p>这段时间我一直在继续推进和无线传感器网络定位（WSN localization）相关的 dual 研究线。最开始我想弄清楚的是：对于这个目标函数，是否能够在当前 gauge-free formulation 下得到一个 genuinely informative dual lower bound。换句话说，我最初想找的其实是一个有内容的 dual certificate，而不是只得到一个形式上存在但实际上什么都没告诉我的下界（trivial 0 bound🥀）</p>
+
+          <h2>结果：两条最自然的 dual 路线都塌了</h2>
+          <p>目前这一阶段经过各种推导我终于把这件事想得比之前清楚了很多，结论是：我尝试的两条相当自然的 Lagrangian dual （也是Prof Sabach上学期教的）路线最后都会 collapse 到 trivial lower bound 0，但与此同时我随便加的现学的 conjugate-based DC dual 却并不是 identically zero，它会导出一个和 realizable edge-difference subspace，也就是 Range(B)，直接相关的非平凡几何量。</p>
+
+          <h2>但我还是没白算，留下来了个 score</h2>
+          <p>更具体地说就是，经过把目标函数写成 DC form 再结合 convex conjugates 和 quadratic conjugate 的结构，我最后得到的对象可以写成一个 projector formula。它本质上衡量的是在由测量距离给出的 blockwise norm budget 之下，到底有多少东西能够真正落在可实现的 edge-difference subspace 里面，也正是因为这个公式，我开始意识到也许这条 dual 线索最自然的归宿并不是一个 standalone dual theory，而是一个 instance-level structural score。</p>
+          <p>基于这个想法，我现在把它暂时 formalize 成一个 dual-based score：</p>
+          <p><strong>Sdual(B, δ) = Σδℓ² − (1/4) · sup over u in V of ||Pu||²。</strong></p>
+          <p>这里的 P 是到 Range(B) 的正交投影，V 是对应每条边上由测量距离诱导出的 blockwise budget set，这个 quantity 的有趣之处在于它不依赖某一个具体 iterate x，而是只依赖 measurement instance 本身，所以至少在当前阶段它更像是一个关于这个实例本身有多不一致或者有多难的结构性指标。</p>
+
+          <h2>这个 score 为什么有意思</h2>
+          <p>到目前为止我已经把它最基本的一些性质理清了。首先它总是非负的，其次，它在 exactly realizable 的情形下恰好等于 0，也就是说当且仅当这些距离数据能够被某个 configuration 同时精确实现时，这个 score 才会消失。再进一步，在 forest case 里，这个 score 会自动退化成 0，不过一旦图里出现 cycle 它就可能变成 strictly positive。这里面最关键的机制是 cycle consistency 会把 Range(B) 压成一个真子空间，于是想把每个 block 都同时完全饱和这件事不一定还能做到。</p>
+          <p>所以如果要总结这段时间 dual 研究真正带给我的东西，大概就是它并没有给我一个漂亮的 ordinary Lagrangian dual bound，但它反而更清楚地告诉我问题里真正非平凡的部分到底在哪里。也就是说 plain dualization 本身太弱，真正留下来的是一个和 cycle consistency、realizability，以及图结构本身密切相关的 diagnostic quantity。</p>
+
+          <h2>一个 example</h2>
+          <p>我还专门算了一个很小但很直观的 triangle example，就是说在标量情形下三角形图会对应一个简单的 cycle equation，正是这个约束（必须连在一起或者说 u1 + u2 + u3 = 0），使得 dual-based score 不再为 0。在这个例子里它甚至可以被显式算成 1/3，这个例子很直观我很喜欢。</p>
+
+          <h2>接下来我想干啥</h2>
+          <p>这也让我对下一步的方向变得更明确了一点，所以我现在不太把继续硬推一个 dual 当作主线了，更自然的方向我感觉就是把这条 dual work 保留下来作为 supporting theoretical result，把它变成一个 dual-based inconsistency score 或 diagnostic surrogate，与此同时把主要的算法推进放在 AM framework 和 escape logic 的结合上。也就是说 dual 在这里更像是在告诉我哪些 instance 可能更难，哪些结构性 obstruction 值得被算法注意。</p>
+          <p>我现在还不想过早夸大这个 score 的作用，至少在当前形式下它并不是 primal objective 的替代品，也不是一个 iterate-level 的 good function。它更像是一个 global、instance-level 的 quantity：不是用来评价某个具体解，而是用来评价这个问题实例本身的结构状态，虽然老师之前某些节点的时候说过觉得 dual 不值得继续研究可以换 topic，但是我还是觉得需要把所有没搞懂的都搞清楚再说，结果也是我搞清楚后还是觉得很有意思。这种不是答案本身但能告诉你问题难在哪里的对象，往往会在真正的算法设计里变得很有用。</p>
+          <p>对我来说，这一阶段最重要的收获不只是写下了一个公式，而是终于把一条原本有点发散的 dual 研究线，收敛成了一个更清楚的判断，也就是什么会 collapse，什么不会，什么只是形式上的 duality，什么才真正触碰到了这个问题的几何结构。接下来我打算把这条 dual-based score 线索和更具体的算法框架连接起来，看看它是否真的能帮助识别 instance difficulty 或者说指导 restart / escape logic，又或者进一步引出更 local 的 graph-based variants。</p>
+          <p>（Btw 我考虑了一下没有把我的研究 note 全部具体放上来，页数有点多，感觉有点太 draft，而且数学公式太多感觉大家都看不下去哈哈哈哈）</p>
+
+          <p><a class="read-more" href="../math.html">返回数学栏目</a></p>
+        </div>
+
+        <div data-lang-block="en" hidden>
+          <h1>What I Really Got When a Dual Route Failed</h1>
+          <p class="article-meta">HazezZ · March 23, 2026</p>
+
+          <h2>I Thought I Was Looking for a Dual Bound</h2>
+          <p>Over the past few weeks, I have been continuing a duality-based line of research related to wireless sensor network localization (WSN localization). What I initially wanted to understand was whether, under the current gauge-free formulation, one could obtain a genuinely informative dual lower bound for the objective function. In other words, I was looking for a dual certificate that actually says something, rather than a bound that exists formally but ends up telling us nothing at all ( the trivial 0 bound 🥀)</p>
+
+          <h2>The Two Most Natural Dual Routes Both Collapsed</h2>
+          <p>At this stage, after working through many derivations, I finally understand the situation much more clearly than before. The conclusion is the following: the two fairly natural Lagrangian dual routes I tried — also the ones Prof. Sabach taught last semester — both collapse to the trivial lower bound 0. At the same time, however, the conjugate-based DC dual that I added while learning this machinery does not vanish identically. Instead, it leads to a nontrivial geometric quantity directly tied to the realizable edge-difference subspace, namely Range(B).</p>
+
+          <h2>What I Actually Got: A Score</h2>
+          <p>More concretely, after rewriting the objective in DC form and combining convex conjugates with the structure of the quadratic conjugate, the object I end up with can be written as a projector formula. Conceptually, it measures how much of the blockwise norm budget induced by the distance measurements can actually lie inside the realizable edge-difference subspace. It was precisely this formula that made me start to feel that the most natural outcome of this dual line may not be a standalone dual theory, but rather an instance-level structural score.</p>
+          <p>Based on this idea, I am currently formalizing it as a dual-based score:</p>
+          <p><strong>Sdual(B, δ) = Σδℓ² − (1/4) · sup over u in V of ||Pu||²。</strong></p>
+          <p>Here, P is the orthogonal projector onto Range(B), and V is the blockwise budget set induced by the measured distances on each edge. What makes this quantity interesting is that it does not depend on a specific iterate x, but only on the measurement instance itself. So at least in its current form, it behaves more like a structural indicator of how inconsistent or difficult the instance is.</p>
+
+          <h2>Why I Think This Score Is Interesting</h2>
+          <p>So far, I have clarified several of its most basic properties. First, it is always nonnegative. Second, it is exactly 0 in the exactly realizable case; that is, the score disappears if and only if the distance data can be simultaneously realized by some configuration. Going one step further, in the forest case the score automatically degenerates to 0, whereas once cycles appear in the graph it can become strictly positive. The key mechanism here is that cycle consistency compresses Range(B) into a proper subspace, so it may no longer be possible to saturate every block simultaneously.</p>
+          <p>So if I had to summarize what this stage of the dual research has actually given me, I would say this: it did not produce a beautiful ordinary Lagrangian dual bound, but it told me much more clearly where the genuinely nontrivial part of the problem really is. In other words, plain dualization is simply too weak here. What survives is a diagnostic quantity closely tied to cycle consistency, realizability, and the graph structure itself.</p>
+
+          <h2>A Example</h2>
+          <p>I also worked out a very small but intuitive triangle example. In the scalar setting, a triangle graph corresponds to a simple cycle equation, and it is precisely this constraint — that the three edges must fit together, or equivalently that u1 + u2 + u3 = 0 — that prevents the dual-based score from being 0. In this example, it can even be computed explicitly as 1/3. I like this example a lot because it makes the phenomenon extremely concrete.</p>
+
+          <h2>Where I Want to Take This Next</h2>
+          <p>This also makes the next direction much clearer to me. I no longer see “pushing harder on the dual itself” as the main path. A more natural direction now seems to be to keep this dual work as a supporting theoretical result, reinterpret it as a dual-based inconsistency score or diagnostic surrogate, and meanwhile place the main algorithmic development on the interaction between the AM framework and escape logic. In that sense, the dual is really telling me which instances may be harder, and which structural obstructions are worth noticing algorithmically.</p>
+          <p>I also do not want to overclaim the role of this score too early. In its current form, it is neither a replacement for the primal objective nor a good iterate-level function. It is better viewed as a global, instance-level quantity: not something that evaluates a particular solution, but something that reflects the structural state of the instance itself. Although at some earlier points my professor had mentioned that the dual direction might not be worth pursuing further and that I could switch topics instead, I still felt that I needed to understand everything that was unclear before letting it go. And after actually working through it, I still find the outcome genuinely interesting. Objects of this kind — not the answer itself, but something that tells you where the difficulty of the problem lives — often turn out to be quite useful in real algorithm design.</p>
+          <p>For me, the most important gain at this stage is not just that I wrote down one formula. It is that I finally managed to turn what had been a somewhat scattered dual research line into a much clearer judgment: what collapses, what does not, what is only formal duality, and what actually touches the geometry of the problem. From here, I plan to connect this dual-based score more concretely with algorithmic frameworks, and see whether it can genuinely help with instance difficulty detection, restart or escape logic, or perhaps even motivate more local graph-based variants.</p>
+          <p>(Btw I decided not to upload all of my research notes in full, there are a bit too many pages, they still feel rather draft-like, and honestly once there are too many formulas I feel like nobody wants to read all that anyway haha.)</p>
+
+          <p><a class="read-more" href="../math.html">Back to Math</a></p>
+        </div>
+      </article>
+    </main>
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <p class="footer-title">chronohaze.space</p>
+          <p class="footer-note"><span data-i18n="footerContactLead">辗转不同国家无固定号码 请联系邮箱：</span><a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a></p>
+          <p class="footer-note" data-i18n="footerCities">重庆 · Edinburgh · Ithaca</p>
+          <p class="footer-copy">© 2026 by chronohaze.space. Powered and secured by GitHub Pages.</p>
+          <div class="social" aria-label="Social links">
+            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://www.instagram.com/lyuf09" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://space.bilibili.com/35902781" target="_blank" rel="noopener noreferrer">Bilibili</a>
+            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+        <div class="footer-right">
+          <a href="../policy.html" data-i18n="siteNotes">网站说明</a>
+          <a href="../accessibility.html" data-i18n="a11y">无障碍支持</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+<script>
+  (function () {
+    const i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
+    const i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
+    const langBlocks = Array.from(document.querySelectorAll('[data-lang-block]'));
+    const queryLang = new URLSearchParams(window.location.search).get('lang');
+
+    const i18n = {
+      zh: {
+        htmlLang: 'zh-CN',
+        pageTitle: '当一个 dual 路线走不通时，我真正得到的东西 | Chronohaze',
+        navAria: '主导航',
+        navHome: '主页',
+        navMath: '数学',
+        navPhoto: '摄影',
+        navMusic: '音乐',
+        navCV: 'CV',
+        footerContactLead: '辗转不同国家无固定号码 请联系邮箱：',
+        footerCities: '重庆 · Edinburgh · Ithaca',
+        siteNotes: '网站说明',
+        a11y: '无障碍支持'
+      },
+      en: {
+        htmlLang: 'en',
+        pageTitle: 'What I Really Got When a Dual Route Failed | Chronohaze',
+        navAria: 'Main navigation',
+        navHome: 'Home',
+        navMath: 'Mathematics',
+        navPhoto: 'Photography',
+        navMusic: 'Music',
+        navCV: 'CV',
+        footerContactLead: 'No fixed phone number while moving across countries. Contact via email: ',
+        footerCities: 'Chongqing · Edinburgh · Ithaca',
+        siteNotes: 'Site Notes',
+        a11y: 'Accessibility'
+      }
+    };
+
+    function setLanguage(lang) {
+      const safeLang = lang === 'en' ? 'en' : 'zh';
+      const dict = i18n[safeLang];
+      document.documentElement.lang = dict.htmlLang;
+      document.title = dict.pageTitle;
+
+      i18nNodes.forEach(function (node) {
+        const key = node.getAttribute('data-i18n');
+        const value = dict[key];
+        if (typeof value === 'string') node.textContent = value;
+      });
+
+      i18nAriaNodes.forEach(function (node) {
+        const key = node.getAttribute('data-i18n-aria');
+        const value = dict[key];
+        if (typeof value === 'string') node.setAttribute('aria-label', value);
+      });
+
+      langBlocks.forEach(function (block) {
+        block.hidden = block.getAttribute('data-lang-block') !== safeLang;
+      });
+
+      try {
+        window.localStorage.setItem('siteLang', safeLang);
+        window.localStorage.setItem('chronohaze-lang', safeLang);
+      } catch (err) {
+      }
+    }
+
+    let initialLang = 'zh';
+    try {
+      const siteLang = window.localStorage.getItem('siteLang');
+      const savedLang = window.localStorage.getItem('chronohaze-lang');
+      if (siteLang === 'zh' || siteLang === 'en') initialLang = siteLang;
+      else if (savedLang === 'zh' || savedLang === 'en') initialLang = savedLang;
+    } catch (err) {
+    }
+    if (queryLang === 'zh' || queryLang === 'en') initialLang = queryLang;
+    setLanguage(initialLang);
+  })();
+</script>
+</body>
+</html>
