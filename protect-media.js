@@ -12590,13 +12590,30 @@
   }
 
   function injectFloatingLanguageSwitch() {
-    if (document.querySelector(".lang-pill") || document.querySelector(".floating-lang-switch")) {
+    if (document.querySelector(".lang-pill")) {
       return;
     }
 
     var preferred = detectPreferredLanguage();
     persistPreferredLanguage(preferred);
     applySecondaryPageLanguage(preferred);
+
+    var existingPanel = document.querySelector(".floating-lang-switch");
+    if (existingPanel) {
+      Array.from(existingPanel.querySelectorAll(".floating-lang-btn[data-lang]")).forEach(function (btn) {
+        var buttonLang = btn.getAttribute("data-lang");
+        btn.classList.toggle("active", buttonLang === preferred);
+        btn.setAttribute(
+          "aria-label",
+          buttonLang === "zh"
+            ? "Switch site language to Chinese"
+            : "Switch site language to English"
+        );
+      });
+      existingPanel.setAttribute("aria-label", "Language switch");
+      ensureAccessibleControlLabels();
+      return;
+    }
 
     var panel = document.createElement("div");
     panel.className = "floating-lang-switch";
@@ -12617,7 +12634,7 @@
         btn.classList.add("active");
       }
       btn.addEventListener("click", function () {
-        if (lang === preferred) {
+        if (lang === detectPreferredLanguage()) {
           return;
         }
         persistPreferredLanguage(lang);
