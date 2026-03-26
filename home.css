@@ -1686,24 +1686,25 @@ html:lang(en) .about-overlay p {
   }
 
   .math-grid {
-    grid-auto-flow: row;
-    grid-template-columns: 1fr;
-    grid-auto-columns: auto;
-    overflow-x: visible;
-    scroll-snap-type: none;
-    width: 100%;
+    grid-auto-flow: column;
+    grid-template-columns: none;
+    grid-auto-columns: minmax(244px, 82vw);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    width: calc(100% + 4px);
   }
 
   .math-grid article {
-    min-height: 0;
+    min-height: 402px;
     padding: 22px 22px 20px;
-    border-right: 0;
-    border-bottom: 1px solid var(--home-line-strong);
-    scroll-snap-align: none;
+    border-right: 1px solid var(--home-line-strong);
+    border-bottom: 0;
+    scroll-snap-align: start;
   }
 
   .math-grid article:last-child {
-    border-bottom: 0;
+    border-right: 0;
   }
 
   .entry-card {
