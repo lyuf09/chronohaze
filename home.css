@@ -1686,12 +1686,24 @@ html:lang(en) .about-overlay p {
   }
 
   .math-grid {
-    grid-auto-columns: minmax(250px, 84vw);
+    grid-auto-flow: row;
+    grid-template-columns: 1fr;
+    grid-auto-columns: auto;
+    overflow-x: visible;
+    scroll-snap-type: none;
+    width: 100%;
   }
 
   .math-grid article {
-    min-height: 420px;
+    min-height: 0;
     padding: 22px 22px 20px;
+    border-right: 0;
+    border-bottom: 1px solid var(--home-line-strong);
+    scroll-snap-align: none;
+  }
+
+  .math-grid article:last-child {
+    border-bottom: 0;
   }
 
   .entry-card {

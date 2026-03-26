@@ -6224,6 +6224,19 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
     padding: 0 16px;
   }
 
+  .photo-grid,
+  .photo-index-page .photo-featured-grid,
+  .photo-index-page .photo-grid,
+  .math-index-page .math-list,
+  .music-index-page .music-featured-grid,
+  .music-index-page .music-ia-filters {
+    grid-template-columns: 1fr;
+  }
+
+  .music-index-page .music-ia-filter:last-child {
+    grid-column: auto;
+  }
+
   .header-inner {
     min-height: 88px;
     gap: 12px;
