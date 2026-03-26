@@ -3,6 +3,45 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    (function () {
+      try {
+        var url = new URL(window.location.href);
+        var queryLang = url.searchParams.get("lang");
+        var valid = function (value) {
+          return value === "zh" || value === "en";
+        };
+        var defaultLang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+        var defaultSafe = defaultLang.indexOf("en") === 0 ? "en" : "zh";
+
+        if (valid(queryLang)) {
+          window.localStorage.setItem("siteLang", queryLang);
+          window.localStorage.setItem("chronohaze-lang", queryLang);
+          window.__chronohazePreferredLang = queryLang;
+          document.documentElement.lang = queryLang === "en" ? "en" : "zh-CN";
+          document.documentElement.setAttribute("data-site-lang", queryLang);
+          return;
+        }
+
+        var storedLang = window.localStorage.getItem("siteLang");
+        if (!valid(storedLang)) {
+          storedLang = window.localStorage.getItem("chronohaze-lang");
+        }
+        if (!valid(storedLang)) {
+          return;
+        }
+
+        window.__chronohazePreferredLang = storedLang;
+        document.documentElement.lang = storedLang === "en" ? "en" : "zh-CN";
+        document.documentElement.setAttribute("data-site-lang", storedLang);
+
+        if (storedLang !== defaultSafe) {
+          url.searchParams.set("lang", storedLang);
+          window.location.replace(url.toString());
+        }
+      } catch (_err) {}
+    })();
+  </script>
   <meta http-equiv="refresh" content="0; url=accessibility.html" />
   <link rel="canonical" href="https://lyuf09.github.io/chronohaze/accessibility.html" />
   <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />

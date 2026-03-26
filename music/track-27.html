@@ -3,6 +3,45 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    (function () {
+      try {
+        var url = new URL(window.location.href);
+        var queryLang = url.searchParams.get("lang");
+        var valid = function (value) {
+          return value === "zh" || value === "en";
+        };
+        var defaultLang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+        var defaultSafe = defaultLang.indexOf("en") === 0 ? "en" : "zh";
+
+        if (valid(queryLang)) {
+          window.localStorage.setItem("siteLang", queryLang);
+          window.localStorage.setItem("chronohaze-lang", queryLang);
+          window.__chronohazePreferredLang = queryLang;
+          document.documentElement.lang = queryLang === "en" ? "en" : "zh-CN";
+          document.documentElement.setAttribute("data-site-lang", queryLang);
+          return;
+        }
+
+        var storedLang = window.localStorage.getItem("siteLang");
+        if (!valid(storedLang)) {
+          storedLang = window.localStorage.getItem("chronohaze-lang");
+        }
+        if (!valid(storedLang)) {
+          return;
+        }
+
+        window.__chronohazePreferredLang = storedLang;
+        document.documentElement.lang = storedLang === "en" ? "en" : "zh-CN";
+        document.documentElement.setAttribute("data-site-lang", storedLang);
+
+        if (storedLang !== defaultSafe) {
+          url.searchParams.set("lang", storedLang);
+          window.location.replace(url.toString());
+        }
+      } catch (_err) {}
+    })();
+  </script>
   <link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
   <title>心臓警報 | 音乐 | Chronohaze</title>
@@ -39,7 +78,7 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@300;400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@300;400;500;700&display=swap" rel="stylesheet" /></noscript>
   <link rel="stylesheet" href="../styles.css?v=20260326-emailcopy2" />
-  <script defer src="../protect-media.js?v=20260326-emailcopy1"></script>
+  <script defer src="../protect-media.js?v=20260326-langpersist1"></script>
 </head>
 <body class="music-detail-page">
   <div class="page">

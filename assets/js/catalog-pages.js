@@ -54,17 +54,30 @@
   }
 
   function getPreferredPageLanguage() {
+    if (window.__chronohazePreferredLang === "zh" || window.__chronohazePreferredLang === "en") {
+      return window.__chronohazePreferredLang;
+    }
     var queryLang = null;
     try {
       queryLang = new URLSearchParams(window.location.search).get("lang");
     } catch (_e) {}
-    if (queryLang === "zh" || queryLang === "en") return queryLang;
+    if (queryLang === "zh" || queryLang === "en") {
+      window.__chronohazePreferredLang = queryLang;
+      return queryLang;
+    }
     try {
       var siteLang = window.localStorage.getItem("siteLang");
-      if (siteLang === "zh" || siteLang === "en") return siteLang;
+      if (siteLang === "zh" || siteLang === "en") {
+        window.__chronohazePreferredLang = siteLang;
+        return siteLang;
+      }
       var savedLang = window.localStorage.getItem("chronohaze-lang");
-      if (savedLang === "zh" || savedLang === "en") return savedLang;
+      if (savedLang === "zh" || savedLang === "en") {
+        window.__chronohazePreferredLang = savedLang;
+        return savedLang;
+      }
     } catch (_e2) {}
+    window.__chronohazePreferredLang = "zh";
     return "zh";
   }
 

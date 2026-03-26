@@ -9541,30 +9541,41 @@
   }
 
   function detectPreferredLanguage() {
+    if (window.__chronohazePreferredLang === "zh" || window.__chronohazePreferredLang === "en") {
+      return window.__chronohazePreferredLang;
+    }
+
     var query = new URLSearchParams(window.location.search).get("lang");
     if (query === "zh" || query === "en") {
+      window.__chronohazePreferredLang = query;
       return query;
     }
 
     try {
       var saved = localStorage.getItem("siteLang");
       if (saved === "zh" || saved === "en") {
+        window.__chronohazePreferredLang = saved;
         return saved;
       }
 
       var homeSaved = localStorage.getItem("chronohaze-lang");
       if (homeSaved === "zh" || homeSaved === "en") {
+        window.__chronohazePreferredLang = homeSaved;
         return homeSaved;
       }
     } catch (_err) {
+      window.__chronohazePreferredLang = "zh";
       return "zh";
     }
 
+    window.__chronohazePreferredLang = "zh";
     return "zh";
   }
 
   function persistPreferredLanguage(lang) {
     var safeLang = lang === "en" ? "en" : "zh";
+    window.__chronohazePreferredLang = safeLang;
+    document.documentElement.setAttribute("data-site-lang", safeLang);
     try {
       localStorage.setItem("siteLang", safeLang);
       localStorage.setItem("chronohaze-lang", safeLang);

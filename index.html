@@ -3,6 +3,45 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    (function () {
+      try {
+        var url = new URL(window.location.href);
+        var queryLang = url.searchParams.get("lang");
+        var valid = function (value) {
+          return value === "zh" || value === "en";
+        };
+        var defaultLang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+        var defaultSafe = defaultLang.indexOf("en") === 0 ? "en" : "zh";
+
+        if (valid(queryLang)) {
+          window.localStorage.setItem("siteLang", queryLang);
+          window.localStorage.setItem("chronohaze-lang", queryLang);
+          window.__chronohazePreferredLang = queryLang;
+          document.documentElement.lang = queryLang === "en" ? "en" : "zh-CN";
+          document.documentElement.setAttribute("data-site-lang", queryLang);
+          return;
+        }
+
+        var storedLang = window.localStorage.getItem("siteLang");
+        if (!valid(storedLang)) {
+          storedLang = window.localStorage.getItem("chronohaze-lang");
+        }
+        if (!valid(storedLang)) {
+          return;
+        }
+
+        window.__chronohazePreferredLang = storedLang;
+        document.documentElement.lang = storedLang === "en" ? "en" : "zh-CN";
+        document.documentElement.setAttribute("data-site-lang", storedLang);
+
+        if (storedLang !== defaultSafe) {
+          url.searchParams.set("lang", storedLang);
+          window.location.replace(url.toString());
+        }
+      } catch (_err) {}
+    })();
+  </script>
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico?v=4" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=4" />
   <title>Chronohaze | Fay / Feier Lyu / HazezZ</title>
@@ -82,7 +121,7 @@
   <link rel="preload" as="image" href="assets/template/hero_portrait-960.webp" type="image/webp" imagesrcset="assets/template/hero_portrait-600.webp 600w, assets/template/hero_portrait-960.webp 960w, assets/template/hero_portrait-1600.webp 1600w" imagesizes="(max-width: 640px) 88vw, (max-width: 900px) 92vw, 46vw" />
   <link rel="stylesheet" href="styles.css?v=20260326-emailcopy2" />
   <link rel="stylesheet" href="home.css?v=20260326-mobilecards2" />
-  <script defer src="protect-media.js?v=20260326-emailcopy1"></script>
+  <script defer src="protect-media.js?v=20260326-langpersist1"></script>
 </head>
 <body class="home-body">
   <div class="home-page" id="top">
