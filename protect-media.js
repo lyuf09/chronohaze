@@ -1455,6 +1455,7 @@
       event.stopPropagation();
 
       var latestEmail = button.getAttribute("data-email-value") || "";
+      var status = ensureEmailCopyStatus(button);
       if (!latestEmail) {
         return;
       }
@@ -1465,6 +1466,11 @@
         button.setAttribute("title", ok ? copiedHint : copyFailedHint);
         button.setAttribute("aria-label", ok ? copiedHint : copyFailedHint);
         tooltip.textContent = ok ? copiedHint : copyFailedHint;
+        if (status) {
+          status.textContent = ok ? copiedHint : copyFailedHint;
+          status.dataset.visible = "1";
+          status.dataset.failed = ok ? "" : "1";
+        }
         if (ok) {
           trackAnalyticsEvent("email_copy", {
             page_path: window.location.pathname || "",
@@ -1479,11 +1485,39 @@
           button.setAttribute("title", copyHint);
           button.setAttribute("aria-label", copyHint);
           tooltip.textContent = copyHint;
+          if (status) {
+            status.textContent = "";
+            status.dataset.visible = "";
+            status.dataset.failed = "";
+          }
         }, ok ? 1500 : 2200);
       });
     });
 
     return button;
+  }
+
+  function ensureEmailCopyStatus(button) {
+    if (!button) {
+      return null;
+    }
+
+    var existing =
+      button.nextElementSibling &&
+      button.nextElementSibling.classList.contains("obf-email-copy-status")
+        ? button.nextElementSibling
+        : null;
+
+    if (existing) {
+      return existing;
+    }
+
+    var status = document.createElement("span");
+    status.className = "obf-email-copy-status";
+    status.setAttribute("aria-live", "polite");
+    status.setAttribute("aria-atomic", "true");
+    button.insertAdjacentElement("afterend", status);
+    return status;
   }
 
   function enhanceObfuscatedEmailLinks() {
@@ -1524,12 +1558,27 @@
       face.textContent = formatMirroredEmailDisplay(emailAddress);
 
       var button = ensureEmailCopyButton(link, copyHint, copiedHint, copyFailedHint);
+      var status = ensureEmailCopyStatus(button);
       button.setAttribute("data-email-value", emailAddress);
       button.setAttribute("title", button.dataset.emailCopied === "1" ? copiedHint : copyHint);
       button.setAttribute(
         "aria-label",
         button.dataset.emailCopied === "1" ? copiedHint : copyHint
       );
+      if (status) {
+        if (button.dataset.emailCopied === "1") {
+          status.textContent = copiedHint;
+          status.dataset.visible = "1";
+        } else if (button.dataset.emailCopyFailed === "1") {
+          status.textContent = copyFailedHint;
+          status.dataset.visible = "1";
+          status.dataset.failed = "1";
+        } else {
+          status.textContent = "";
+          status.dataset.visible = "";
+          status.dataset.failed = "";
+        }
+      }
       ensureEmailInlineWrap(link, button);
     });
   }

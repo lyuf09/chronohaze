@@ -7112,6 +7112,7 @@ h4,
   gap: 8px;
   vertical-align: baseline;
   max-width: 100%;
+  flex-wrap: wrap;
 }
 
 .obf-email-link {
@@ -7248,6 +7249,31 @@ html[lang="zh-CN"] .obf-email-copy .obf-email-copy-tooltip {
 }
 
 .obf-email-copy[data-email-copy-failed="1"] .obf-email-copy-tooltip {
+  color: rgba(108, 78, 78, 0.82);
+}
+
+.obf-email-copy-status {
+  display: inline-block;
+  min-height: 1em;
+  font-size: 0.76rem;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: rgba(71, 95, 148, 0.92);
+  opacity: 0;
+  transform: translateY(2px);
+  transition:
+    opacity var(--ui-t-fast) ease,
+    transform var(--ui-t-fast) var(--ui-ease),
+    color var(--ui-t-fast) ease;
+  pointer-events: none;
+}
+
+.obf-email-copy-status[data-visible="1"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.obf-email-copy-status[data-failed="1"] {
   color: rgba(108, 78, 78, 0.82);
 }
 
