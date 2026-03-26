@@ -8,6 +8,7 @@ import subprocess
 from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
+import re
 from typing import Dict, Iterable, List, Tuple
 
 from PIL import Image
@@ -27,6 +28,11 @@ class SourceImage:
 
 
 def is_variant_path(path: Path) -> bool:
+    numeric_suffix = re.search(r"-(\d{3,4})$", path.stem)
+    if numeric_suffix:
+        width_hint = int(numeric_suffix.group(1))
+        if 320 <= width_hint <= 2400:
+            return True
     return bool(path.stem.endswith("-960") or path.stem.endswith("-1600")) or any(
         path.name.endswith(f"-{w}.{ext}")
         for w in DEFAULT_WIDTHS

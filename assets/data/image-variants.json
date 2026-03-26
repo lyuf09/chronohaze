@@ -1,7 +1,6 @@
 {
-  "generated_at": "2026-02-26",
+  "generated_at": "2026-03-26",
   "variant_widths": [
-    600,
     960,
     1600
   ],
@@ -2116,6 +2115,63 @@
         }
       }
     },
+    "assets/template/affizieren-cover.jpg": {
+      "original": {
+        "width": 2913,
+        "height": 1654
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/affizieren-cover-960.webp 960w, assets/template/affizieren-cover-1600.webp 1600w",
+          "files": [
+            "assets/template/affizieren-cover-960.webp",
+            "assets/template/affizieren-cover-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/afterimage-art-1.jpg": {
+      "original": {
+        "width": 4800,
+        "height": 2100
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/afterimage-art-1-960.webp 960w, assets/template/afterimage-art-1-1600.webp 1600w",
+          "files": [
+            "assets/template/afterimage-art-1-960.webp",
+            "assets/template/afterimage-art-1-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/afterimage-art-2.jpg": {
+      "original": {
+        "width": 4800,
+        "height": 2100
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/afterimage-art-2-960.webp 960w, assets/template/afterimage-art-2-1600.webp 1600w",
+          "files": [
+            "assets/template/afterimage-art-2-960.webp",
+            "assets/template/afterimage-art-2-1600.webp"
+          ]
+        }
+      }
+    },
     "assets/template/dark_branches.png": {
       "original": {
         "width": 2170,
@@ -2173,6 +2229,44 @@
         }
       }
     },
+    "assets/template/epilogue-art.jpg": {
+      "original": {
+        "width": 2496,
+        "height": 1404
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/epilogue-art-960.webp 960w, assets/template/epilogue-art-1600.webp 1600w",
+          "files": [
+            "assets/template/epilogue-art-960.webp",
+            "assets/template/epilogue-art-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/garden-art.jpg": {
+      "original": {
+        "width": 4800,
+        "height": 2266
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/garden-art-960.webp 960w, assets/template/garden-art-1600.webp 1600w",
+          "files": [
+            "assets/template/garden-art-960.webp",
+            "assets/template/garden-art-1600.webp"
+          ]
+        }
+      }
+    },
     "assets/template/green_flowers.jpg": {
       "original": {
         "width": 1724,
@@ -2192,36 +2286,127 @@
         }
       }
     },
+    "assets/template/hakoniwa-art.jpg": {
+      "original": {
+        "width": 2705,
+        "height": 1522
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/hakoniwa-art-960.webp 960w, assets/template/hakoniwa-art-1600.webp 1600w",
+          "files": [
+            "assets/template/hakoniwa-art-960.webp",
+            "assets/template/hakoniwa-art-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/hate-all-art.jpg": {
+      "original": {
+        "width": 2560,
+        "height": 1440
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/hate-all-art-960.webp 960w, assets/template/hate-all-art-1600.webp 1600w",
+          "files": [
+            "assets/template/hate-all-art-960.webp",
+            "assets/template/hate-all-art-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/hate-all-setting.jpg": {
+      "original": {
+        "width": 1110,
+        "height": 658
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/hate-all-setting-960.webp 960w, assets/template/hate-all-setting-1600.webp 1600w",
+          "files": [
+            "assets/template/hate-all-setting-960.webp",
+            "assets/template/hate-all-setting-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/he-and-me-cover.jpg": {
+      "original": {
+        "width": 2400,
+        "height": 1200
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/he-and-me-cover-960.webp 960w, assets/template/he-and-me-cover-1600.webp 1600w",
+          "files": [
+            "assets/template/he-and-me-cover-960.webp",
+            "assets/template/he-and-me-cover-1600.webp"
+          ]
+        }
+      }
+    },
     "assets/template/hero_portrait.jpg": {
       "original": {
         "width": 3000,
         "height": 4000
       },
       "formats": {
-        "jpeg": {
+        "webp": {
           "widths": [
-            600,
             960,
             1600
           ],
-          "srcset": "assets/template/hero_portrait-600.jpg 600w, assets/template/hero_portrait-960.jpg 960w, assets/template/hero_portrait-1600.jpg 1600w",
+          "srcset": "assets/template/hero_portrait-960.webp 960w, assets/template/hero_portrait-1600.webp 1600w",
           "files": [
-            "assets/template/hero_portrait-600.jpg",
+            "assets/template/hero_portrait-960.webp",
+            "assets/template/hero_portrait-1600.webp"
+          ]
+        },
+        "jpg": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/hero_portrait-960.jpg 960w, assets/template/hero_portrait-1600.jpg 1600w",
+          "files": [
             "assets/template/hero_portrait-960.jpg",
             "assets/template/hero_portrait-1600.jpg"
           ]
-        },
+        }
+      }
+    },
+    "assets/template/honkaku-art.jpg": {
+      "original": {
+        "width": 3840,
+        "height": 2160
+      },
+      "formats": {
         "webp": {
           "widths": [
-            600,
             960,
             1600
           ],
-          "srcset": "assets/template/hero_portrait-600.webp 600w, assets/template/hero_portrait-960.webp 960w, assets/template/hero_portrait-1600.webp 1600w",
+          "srcset": "assets/template/honkaku-art-960.webp 960w, assets/template/honkaku-art-1600.webp 1600w",
           "files": [
-            "assets/template/hero_portrait-600.webp",
-            "assets/template/hero_portrait-960.webp",
-            "assets/template/hero_portrait-1600.webp"
+            "assets/template/honkaku-art-960.webp",
+            "assets/template/honkaku-art-1600.webp"
           ]
         }
       }
@@ -2241,6 +2426,63 @@
           "files": [
             "assets/template/ipomoea-alba-album-cover-960.webp",
             "assets/template/ipomoea-alba-album-cover-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/ipomoea-alba-art.jpg": {
+      "original": {
+        "width": 2880,
+        "height": 1620
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/ipomoea-alba-art-960.webp 960w, assets/template/ipomoea-alba-art-1600.webp 1600w",
+          "files": [
+            "assets/template/ipomoea-alba-art-960.webp",
+            "assets/template/ipomoea-alba-art-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/ipomoea-alba-feature-cover.jpg": {
+      "original": {
+        "width": 2400,
+        "height": 1200
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/ipomoea-alba-feature-cover-960.webp 960w, assets/template/ipomoea-alba-feature-cover-1600.webp 1600w",
+          "files": [
+            "assets/template/ipomoea-alba-feature-cover-960.webp",
+            "assets/template/ipomoea-alba-feature-cover-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/mr-idiographic-art.png": {
+      "original": {
+        "width": 3840,
+        "height": 2880
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/mr-idiographic-art-960.webp 960w, assets/template/mr-idiographic-art-1600.webp 1600w",
+          "files": [
+            "assets/template/mr-idiographic-art-960.webp",
+            "assets/template/mr-idiographic-art-1600.webp"
           ]
         }
       }
@@ -2435,6 +2677,63 @@
         }
       }
     },
+    "assets/template/rainy-days-art.png": {
+      "original": {
+        "width": 922,
+        "height": 518
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/rainy-days-art-960.webp 960w, assets/template/rainy-days-art-1600.webp 1600w",
+          "files": [
+            "assets/template/rainy-days-art-960.webp",
+            "assets/template/rainy-days-art-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/sincerely-spring-art.jpg": {
+      "original": {
+        "width": 6000,
+        "height": 3000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/sincerely-spring-art-960.webp 960w, assets/template/sincerely-spring-art-1600.webp 1600w",
+          "files": [
+            "assets/template/sincerely-spring-art-960.webp",
+            "assets/template/sincerely-spring-art-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/supernova-cover.jpg": {
+      "original": {
+        "width": 3744,
+        "height": 1620
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/supernova-cover-960.webp 960w, assets/template/supernova-cover-1600.webp 1600w",
+          "files": [
+            "assets/template/supernova-cover-960.webp",
+            "assets/template/supernova-cover-1600.webp"
+          ]
+        }
+      }
+    },
     "assets/template/teenage-best-album-cover.jpg": {
       "original": {
         "width": 1800,
@@ -2469,6 +2768,25 @@
           "files": [
             "assets/template/winter-960.webp",
             "assets/template/winter-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/zero-art.png": {
+      "original": {
+        "width": 7200,
+        "height": 4100
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/zero-art-960.webp 960w, assets/template/zero-art-1600.webp 1600w",
+          "files": [
+            "assets/template/zero-art-960.webp",
+            "assets/template/zero-art-1600.webp"
           ]
         }
       }

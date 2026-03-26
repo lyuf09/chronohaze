@@ -431,8 +431,8 @@
         img.setAttribute("decoding", "async");
       }
 
-      if (eager && !img.getAttribute("fetchpriority")) {
-        img.setAttribute("fetchpriority", "high");
+      if (!img.getAttribute("fetchpriority")) {
+        img.setAttribute("fetchpriority", eager ? "high" : "low");
       }
 
       enrichImageAlt(img);
