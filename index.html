@@ -192,25 +192,25 @@
             <!-- GENERATED:home-math-preview:start -->
 
             <article data-post-url="post/what-i-really-got-when-a-dual-route-failed.html" tabindex="0" role="link" data-reveal="slide-up" data-reveal-delay="40">
-              <p class="author" data-copy-zh="HazezZ" data-copy-en="HazezZ">HazezZ</p>
+              <p class="author" data-copy-zh="HazezZ · 约 5 分钟" data-copy-en="HazezZ · 6 min read">HazezZ · 约 5 分钟</p>
               <h3 data-copy-zh="当一个 dual 路线走不通时，我真正得到的东西" data-copy-en="What I Really Got When a Dual Route Failed">当一个 dual 路线走不通时，我真正得到的东西</h3>
               <p data-copy-zh="当两条最自然的 Lagrangian dual 路线都塌到 trivial 0 bound 之后，留下来的反而是一个和 Range(B)、cycle consistency 与 instance difficulty 相关的 dual-based structural score。" data-copy-en="When the most natural Lagrangian dual routes collapse to the trivial 0 bound, what remains is a dual-based structural score tied to Range(B), cycle consistency, and instance difficulty.">当两条最自然的 Lagrangian dual 路线都塌到 trivial 0 bound 之后，留下来的反而是一个和 Range(B)、cycle consistency 与 instance difficulty 相关的 dual-based structural score。</p>
               <a href="post/what-i-really-got-when-a-dual-route-failed.html" data-i18n="readMore">Read More</a>
             </article>
             <article data-post-url="post/theorem-to-framework-isabelle-submodular.html" tabindex="0" role="link" data-reveal="slide-up" data-reveal-delay="140">
-              <p class="author" data-copy-zh="HazezZ" data-copy-en="HazezZ">HazezZ</p>
+              <p class="author" data-copy-zh="HazezZ · 约 6 分钟" data-copy-en="HazezZ · 8 min read">HazezZ · 约 6 分钟</p>
               <h3 data-copy-zh="从一个定理到一套框架：我的 Isabelle 子模优化项目新进展" data-copy-en="From One Theorem to a Framework: New Progress on My Isabelle Project in Submodular Optimization">从一个定理到一套框架：我的 Isabelle 子模优化项目新进展</h3>
               <p data-copy-zh="从 classical greedy 的 theorem line，走到 LazyGreedy extension、StochasticGreedy skeleton 与一套可继续扩展的 Isabelle/HOL library。" data-copy-en="From the theorem line for classical greedy to a LazyGreedy extension, a StochasticGreedy skeleton, and an Isabelle/HOL library that can keep growing.">从 classical greedy 的 theorem line，走到 LazyGreedy extension、StochasticGreedy skeleton 与一套可继续扩展的 Isabelle/HOL library。</p>
               <a href="post/theorem-to-framework-isabelle-submodular.html" data-i18n="readMore">Read More</a>
             </article>
             <article data-post-url="post/metalcore-piano-lab.html" tabindex="0" role="link" data-reveal="slide-up" data-reveal-delay="240">
-              <p class="author" data-copy-zh="HazezZ" data-copy-en="HazezZ">HazezZ</p>
+              <p class="author" data-copy-zh="HazezZ · 约 3 分钟" data-copy-en="HazezZ · 3 min read">HazezZ · 约 3 分钟</p>
               <h3 data-copy-zh="Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP）" data-copy-en="Metalcore Piano Lab | From Audio to Chart: A Discretization Experiment (WIP)">Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP）</h3>
               <p data-copy-zh="从连续音频到可玩的谱面：起音检测、节拍网格、段落对齐与可玩性约束。" data-copy-en="From continuous audio to playable charts: onset detection, beat grids, section alignment, and playability constraints.">从连续音频到可玩的谱面：起音检测、节拍网格、段落对齐与可玩性约束。</p>
               <a href="post/metalcore-piano-lab.html" data-i18n="readMore">Read More</a>
             </article>
             <article data-post-url="post/spring-2026.html" tabindex="0" role="link" data-reveal="slide-up" data-reveal-delay="340">
-              <p class="author" data-copy-zh="HazezZ" data-copy-en="HazezZ">HazezZ</p>
+              <p class="author" data-copy-zh="HazezZ · 约 2 分钟" data-copy-en="HazezZ · 2 min read">HazezZ · 约 2 分钟</p>
               <h3 data-copy-zh="Spring 2026｜新科研记录的开始" data-copy-en="Spring 2026 | A New Research Direction">Spring 2026｜新科研记录的开始</h3>
               <p data-copy-zh="从纯数学走向优化研究：一个学期的研究训练与新的问题切入口。" data-copy-en="Beginning undergraduate research in Cornell ORIE on first-order methods for constrained and composite optimization.">从纯数学走向优化研究：一个学期的研究训练与新的问题切入口。</p>
               <a href="post/spring-2026.html" data-i18n="readMore">Read More</a>
@@ -519,16 +519,24 @@
         homeMathItems = items.slice(0, 4);
         const dict = i18n[currentLang] || i18n.zh;
         const delays = [40, 140, 240, 340];
+        const combineMeta = function (primary, secondary) {
+          const first = typeof primary === 'string' ? primary.trim() : '';
+          const second = typeof secondary === 'string' ? secondary.trim() : '';
+          if (first && second) return first + ' · ' + second;
+          return first || second || '';
+        };
         homeMathPreview.innerHTML = homeMathItems.map(function (item, idx) {
           const href = item && (item.url || item.readmore_url) ? String(item.url || item.readmore_url) : '#';
           const titleZh = item && item.title ? String(item.title) : '';
           const titleEn = item && item.title_en ? String(item.title_en) : titleZh;
           const excerptZh = item && item.excerpt ? String(item.excerpt) : '';
           const excerptEn = item && item.excerpt_en ? String(item.excerpt_en) : excerptZh;
+          const metaZh = combineMeta('HazezZ', item && item.reading_time_zh ? String(item.reading_time_zh) : '');
+          const metaEn = combineMeta('HazezZ', item && item.reading_time_en ? String(item.reading_time_en) : '');
           const delay = delays[idx] || (40 + idx * 100);
           return [
             '<article data-post-url="' + href.replace(/"/g, '&quot;') + '" tabindex="0" role="link" data-reveal="slide-up" data-reveal-delay="' + delay + '" class="is-visible">',
-            '  <p class="author" data-copy-zh="HazezZ" data-copy-en="HazezZ">HazezZ</p>',
+            '  <p class="author" data-copy-zh="' + metaZh.replace(/"/g, '&quot;') + '" data-copy-en="' + metaEn.replace(/"/g, '&quot;') + '">' + metaZh + '</p>',
             '  <h3 data-copy-zh="' + titleZh.replace(/"/g, '&quot;') + '" data-copy-en="' + titleEn.replace(/"/g, '&quot;') + '">' + titleZh + '</h3>',
             '  <p data-copy-zh="' + excerptZh.replace(/"/g, '&quot;') + '" data-copy-en="' + excerptEn.replace(/"/g, '&quot;') + '">' + excerptZh + '</p>',
             '  <a href="' + href.replace(/"/g, '&quot;') + '" data-i18n="readMore">' + dict.readMore + '</a>',

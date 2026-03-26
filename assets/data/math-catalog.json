@@ -14,7 +14,9 @@
         "article"
       ],
       "title_en": "What I Really Got When a Dual Route Failed",
-      "excerpt_en": "When the most natural Lagrangian dual routes collapse to the trivial 0 bound, what remains is a dual-based structural score tied to Range(B), cycle consistency, and instance difficulty."
+      "excerpt_en": "When the most natural Lagrangian dual routes collapse to the trivial 0 bound, what remains is a dual-based structural score tied to Range(B), cycle consistency, and instance difficulty.",
+      "reading_time_zh": "约 5 分钟",
+      "reading_time_en": "6 min read"
     },
     {
       "order": 2,
@@ -28,7 +30,9 @@
         "article"
       ],
       "title_en": "From One Theorem to a Framework: New Progress on My Isabelle Project in Submodular Optimization",
-      "excerpt_en": "From the theorem line for classical greedy to a LazyGreedy extension, a StochasticGreedy skeleton, and an Isabelle/HOL library that can keep growing."
+      "excerpt_en": "From the theorem line for classical greedy to a LazyGreedy extension, a StochasticGreedy skeleton, and an Isabelle/HOL library that can keep growing.",
+      "reading_time_zh": "约 6 分钟",
+      "reading_time_en": "8 min read"
     },
     {
       "order": 3,
@@ -42,7 +46,9 @@
       "tags": [
         "math",
         "article"
-      ]
+      ],
+      "reading_time_zh": "约 3 分钟",
+      "reading_time_en": "3 min read"
     },
     {
       "order": 4,
@@ -56,7 +62,9 @@
       "tags": [
         "math",
         "article"
-      ]
+      ],
+      "reading_time_zh": "约 2 分钟",
+      "reading_time_en": "2 min read"
     },
     {
       "order": 5,
@@ -70,7 +78,9 @@
       "tags": [
         "math",
         "article"
-      ]
+      ],
+      "reading_time_zh": "约 4 分钟",
+      "reading_time_en": "4 min read"
     },
     {
       "order": 6,
@@ -84,7 +94,9 @@
       "tags": [
         "math",
         "article"
-      ]
+      ],
+      "reading_time_zh": "约 2 分钟",
+      "reading_time_en": "2 min read"
     }
   ]
 }

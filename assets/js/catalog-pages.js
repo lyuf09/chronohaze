@@ -89,6 +89,13 @@
     };
   }
 
+  function combineMeta(primary, secondary) {
+    var first = typeof primary === "string" ? primary.trim() : "";
+    var second = typeof secondary === "string" ? secondary.trim() : "";
+    if (first && second) return first + " · " + second;
+    return first || second || "";
+  }
+
   function buildMathCard(item) {
     var href = (item && (item.url || item.readmore_url)) || "#";
     var lang = getPreferredPageLanguage();
@@ -96,13 +103,17 @@
     var titleEn = (item && item.title_en) || titleZh;
     var excerptZh = (item && item.excerpt) || "";
     var excerptEn = (item && item.excerpt_en) || excerptZh;
+    var metaZh = combineMeta((item && item.date) || "", (item && item.reading_time_zh) || "");
+    var metaEn = combineMeta((item && item.date) || "", (item && item.reading_time_en) || "");
     var article = document.createElement("article");
     article.className = "math-card";
     article.setAttribute("data-href", href);
     article.setAttribute("tabindex", "0");
     article.setAttribute("role", "link");
 
-    article.appendChild(textNode("p", "math-date", item.date || ""));
+    var dateNode = textNode("p", "math-date", lang === "en" ? metaEn : metaZh);
+    setBilingualCopy(dateNode, { zh: metaZh, en: metaEn });
+    article.appendChild(dateNode);
 
     var h3 = textNode("h3", "math-title", "");
     var titleLink = textNode("a", "math-title-link", lang === "en" ? titleEn : titleZh);
