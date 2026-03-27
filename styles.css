@@ -3755,6 +3755,35 @@ html:lang(en) .photo-detail-article * {
   display: none;
 }
 
+.persistent-audio-dock.is-collapsed {
+  width: 58px;
+  height: 58px;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 999px;
+}
+
+.persistent-audio-dock.is-collapsed .persistent-audio-panel {
+  display: none;
+}
+
+.persistent-audio-dock.is-collapsed .persistent-audio-peek {
+  display: flex;
+  position: absolute;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  cursor: pointer;
+}
+
+.persistent-audio-dock.is-collapsed .persistent-audio-element {
+  display: none;
+}
+
 .persistent-audio-actions {
   display: flex;
   align-items: center;
@@ -9295,16 +9324,9 @@ body {
     width: 34px;
     min-height: 118px;
     padding: 0;
-    overflow: hidden;
     border-radius: 14px 0 0 14px;
     right: 0;
     backdrop-filter: blur(18px);
-  }
-
-  .persistent-audio-dock.is-collapsed .persistent-audio-panel {
-    opacity: 0;
-    pointer-events: none;
-    transform: translateX(10px);
   }
 
   .persistent-audio-dock.is-collapsed .persistent-audio-peek {
@@ -9334,10 +9356,6 @@ body {
     border-radius: 50%;
     background: rgba(41, 48, 60, 0.72);
     transform: translateX(-50%);
-  }
-
-  .persistent-audio-dock.is-collapsed .persistent-audio-element {
-    display: none;
   }
 
   .persistent-audio-panel {

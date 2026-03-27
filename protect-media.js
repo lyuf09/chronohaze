@@ -3272,26 +3272,20 @@
 
     if (!hasTrack) {
       controller.isCollapsed = false;
-      controller.shell.classList.remove("is-collapsed");
-      controller.panel.removeAttribute("aria-hidden");
+    } else if (typeof controller.isCollapsed !== "boolean") {
+      controller.isCollapsed = !!compactMobile;
+    }
+
+    controller.shell.classList.toggle("is-collapsed", !!(hasTrack && controller.isCollapsed));
+    if (hasTrack && controller.isCollapsed) {
+      controller.panel.setAttribute("aria-hidden", "true");
       if ("inert" in controller.panel) {
-        controller.panel.inert = false;
-      }
-    } else if (!compactMobile) {
-      controller.isCollapsed = false;
-      controller.shell.classList.remove("is-collapsed");
-      controller.panel.removeAttribute("aria-hidden");
-      if ("inert" in controller.panel) {
-        controller.panel.inert = false;
+        controller.panel.inert = true;
       }
     } else {
-      if (typeof controller.isCollapsed !== "boolean") {
-        controller.isCollapsed = true;
-      }
-      controller.shell.classList.toggle("is-collapsed", !!controller.isCollapsed);
-      controller.panel.setAttribute("aria-hidden", controller.isCollapsed ? "true" : "false");
+      controller.panel.removeAttribute("aria-hidden");
       if ("inert" in controller.panel) {
-        controller.panel.inert = !!controller.isCollapsed;
+        controller.panel.inert = false;
       }
     }
 
