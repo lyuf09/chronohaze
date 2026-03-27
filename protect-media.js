@@ -1180,36 +1180,59 @@
   }
 
   function destroyArticleScrollToc() {
-    if (!articleScrollTocState) {
-      return;
+    function unwrapArticleTocShell(shell) {
+      if (!shell || !shell.parentNode) {
+        return;
+      }
+
+      Array.from(shell.querySelectorAll("[data-article-toc='1']")).forEach(function (aside) {
+        if (aside.parentNode) {
+          aside.parentNode.removeChild(aside);
+        }
+      });
+
+      var article = shell.querySelector(".article");
+      if (article && article.parentNode === shell) {
+        shell.classList.remove("has-article-toc");
+        shell.parentNode.insertBefore(article, shell);
+      }
+
+      if (shell.parentNode) {
+        shell.parentNode.removeChild(shell);
+      }
     }
 
-    var state = articleScrollTocState;
-    if (state.observer) {
-      state.observer.disconnect();
-    }
-    if (state.scrollHandler) {
-      window.removeEventListener("scroll", state.scrollHandler);
-    }
-    if (state.resizeHandler) {
-      window.removeEventListener("resize", state.resizeHandler);
-      window.removeEventListener("orientationchange", state.resizeHandler);
+    if (articleScrollTocState) {
+      var state = articleScrollTocState;
+      if (state.observer) {
+        state.observer.disconnect();
+      }
+      if (state.scrollHandler) {
+        window.removeEventListener("scroll", state.scrollHandler);
+      }
+      if (state.resizeHandler) {
+        window.removeEventListener("resize", state.resizeHandler);
+        window.removeEventListener("orientationchange", state.resizeHandler);
+      }
+
+      if (state.aside && state.aside.parentNode) {
+        state.aside.parentNode.removeChild(state.aside);
+      }
+
+      if (state.shell) {
+        unwrapArticleTocShell(state.shell);
+      }
     }
 
-    if (state.aside && state.aside.parentNode) {
-      state.aside.parentNode.removeChild(state.aside);
-    }
+    Array.from(document.querySelectorAll(".main .article-layout.has-article-toc")).forEach(function (shell) {
+      unwrapArticleTocShell(shell);
+    });
 
-    if (
-      state.shell &&
-      state.article &&
-      state.shell.parentNode &&
-      state.article.parentNode === state.shell
-    ) {
-      state.shell.classList.remove("has-article-toc");
-      state.shell.parentNode.insertBefore(state.article, state.shell);
-      state.shell.parentNode.removeChild(state.shell);
-    }
+    Array.from(document.querySelectorAll(".main [data-article-toc='1']")).forEach(function (aside) {
+      if (aside.parentNode) {
+        aside.parentNode.removeChild(aside);
+      }
+    });
 
     articleScrollTocState = null;
   }
@@ -1240,6 +1263,18 @@
     if (!tocRoot) {
       destroyArticleScrollToc();
       return;
+    }
+
+    var existingTocShells = document.querySelectorAll(".main .article-layout.has-article-toc").length;
+    var existingTocAsides = document.querySelectorAll(".main [data-article-toc='1']").length;
+    var needsArtifactCleanup =
+      existingTocShells > 1 ||
+      existingTocAsides > 1 ||
+      ((existingTocShells || existingTocAsides) &&
+        (!articleScrollTocState || !articleScrollTocState.aside || !articleScrollTocState.aside.isConnected));
+
+    if (needsArtifactCleanup) {
+      destroyArticleScrollToc();
     }
 
     var candidateHeadings = Array.from(tocRoot.querySelectorAll("h2, h3, h4"))
@@ -13339,6 +13374,7 @@
     }
 
     withMutationRefreshSuppressed(function () {
+      destroyArticleScrollToc();
       syncBodyAttributes(sourceDocument.body);
       currentPage.replaceWith(document.importNode(nextPage, true));
     });
