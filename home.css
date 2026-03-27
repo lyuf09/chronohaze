@@ -829,8 +829,8 @@ html:lang(en) .about-overlay p {
   --entry-hover-t: 120ms;
   --entry-hover-t-slow: 160ms;
   --entry-filter: saturate(0.5) brightness(0.9) contrast(1.04) hue-rotate(12deg) grayscale(0.03);
-  --entry-filter-hover: saturate(0.5) brightness(0.66) contrast(1.08) hue-rotate(12deg) grayscale(0.03);
-  --entry-overlay: rgba(48, 53, 66, 0.32);
+  --entry-filter-hover: saturate(0.5) brightness(0.58) contrast(1.1) hue-rotate(12deg) grayscale(0.03);
+  --entry-overlay: rgba(48, 53, 66, 0.38);
   width: min(100%, 560px);
   aspect-ratio: 1 / 1;
   min-height: 0;
@@ -928,14 +928,14 @@ html:lang(en) .about-overlay p {
 
 .entry-card-photo {
   --entry-filter: saturate(0.52) brightness(0.87) contrast(1.06) hue-rotate(8deg) grayscale(0.04);
-  --entry-filter-hover: saturate(0.52) brightness(0.62) contrast(1.1) hue-rotate(8deg) grayscale(0.04);
-  --entry-overlay: rgba(44, 49, 62, 0.36);
+  --entry-filter-hover: saturate(0.52) brightness(0.54) contrast(1.12) hue-rotate(8deg) grayscale(0.04);
+  --entry-overlay: rgba(44, 49, 62, 0.44);
 }
 
 .entry-card-music {
   --entry-filter: saturate(0.43) brightness(0.91) contrast(1.03) hue-rotate(22deg) grayscale(0.03);
-  --entry-filter-hover: saturate(0.43) brightness(0.64) contrast(1.07) hue-rotate(22deg) grayscale(0.03);
-  --entry-overlay: rgba(50, 56, 72, 0.28);
+  --entry-filter-hover: saturate(0.43) brightness(0.56) contrast(1.09) hue-rotate(22deg) grayscale(0.03);
+  --entry-overlay: rgba(50, 56, 72, 0.36);
 }
 
 .entry-card span {
@@ -979,12 +979,12 @@ html:lang(en) .about-overlay p {
 
 .entry-card:hover span,
 .entry-card:focus-visible span {
-  color: rgba(255, 255, 255, 0.98);
+  color: rgba(255, 255, 255, 1);
   text-shadow:
-    rgba(255, 255, 255, 0.82) 0 0 2px,
-    rgba(231, 238, 252, 0.64) 0 0 12px,
-    rgba(173, 188, 228, 0.42) 0 0 24px,
-    rgba(8, 10, 16, 0.52) 0 2px 10px;
+    rgba(255, 255, 255, 0.9) 0 0 2px,
+    rgba(238, 244, 255, 0.72) 0 0 14px,
+    rgba(184, 198, 236, 0.5) 0 0 26px,
+    rgba(8, 10, 16, 0.58) 0 2px 10px;
 }
 
 .home-footer {
