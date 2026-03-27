@@ -3222,7 +3222,12 @@
     if (body && body.classList.contains("home-body")) {
       controller.shell.hidden = true;
       controller.shell.classList.remove("is-visible");
-      body.classList.remove("mobile-audio-dock-expanded");
+      body.classList.remove(
+        "mobile-audio-dock-expanded",
+        "persistent-audio-dock-active",
+        "persistent-audio-dock-expanded",
+        "persistent-audio-dock-collapsed"
+      );
       return;
     }
 
@@ -3293,6 +3298,15 @@
       body.classList.toggle(
         "mobile-audio-dock-expanded",
         !!(hasTrack && compactMobile && !controller.isCollapsed)
+      );
+      body.classList.toggle("persistent-audio-dock-active", !!hasTrack);
+      body.classList.toggle(
+        "persistent-audio-dock-expanded",
+        !!(hasTrack && !controller.isCollapsed)
+      );
+      body.classList.toggle(
+        "persistent-audio-dock-collapsed",
+        !!(hasTrack && controller.isCollapsed)
       );
     }
 
