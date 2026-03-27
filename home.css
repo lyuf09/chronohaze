@@ -826,8 +826,8 @@ html:lang(en) .about-overlay p {
 
 .entry-card {
   --entry-image: none;
-  --entry-hover-t: 120ms;
-  --entry-hover-t-slow: 160ms;
+  --entry-hover-t: 0ms;
+  --entry-hover-t-slow: 0ms;
   --entry-filter: saturate(0.5) brightness(0.9) contrast(1.04) hue-rotate(12deg) grayscale(0.03);
   --entry-filter-hover: saturate(0.5) brightness(0.58) contrast(1.1) hue-rotate(12deg) grayscale(0.03);
   --entry-overlay: rgba(48, 53, 66, 0.38);
