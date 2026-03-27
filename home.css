@@ -248,7 +248,7 @@ html:lang(en) {
   font-style: italic;
   letter-spacing: 0.44em;
   line-height: normal;
-  color: rgba(232, 236, 243, 0.88);
+  color: rgba(242, 245, 250, 0.96);
   text-transform: uppercase;
 }
 
@@ -270,7 +270,7 @@ html:lang(en) {
 .lang-btn {
   border: 0;
   background: transparent;
-  color: rgba(233, 236, 243, 0.74);
+  color: rgba(240, 244, 249, 0.86);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -309,7 +309,7 @@ html:lang(en) {
   height: 42px;
   border: 0;
   background: transparent;
-  color: rgba(232, 236, 243, 0.86);
+  color: rgba(242, 245, 250, 0.95);
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 42px;
   line-height: 0.55;
@@ -620,7 +620,7 @@ html:lang(en) {
 .about-overlay {
   width: 821px;
   text-align: center;
-  color: rgba(228, 233, 241, 0.9);
+  color: rgba(238, 242, 249, 0.96);
   position: relative;
   z-index: 1;
 }
@@ -629,7 +629,7 @@ html:lang(en) {
   content: "";
   position: absolute;
   inset: -18px -24px;
-  background: rgba(10, 13, 19, 0.58);
+  background: rgba(8, 11, 16, 0.64);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 20px 42px rgba(7, 10, 16, 0.26);
   backdrop-filter: blur(3px);
@@ -645,7 +645,7 @@ html:lang(en) {
   font-weight: 300;
   line-height: var(--home-type-h2-line);
   letter-spacing: -0.02em;
-  color: rgba(236, 240, 247, 0.96);
+  color: rgba(244, 247, 252, 0.98);
 }
 
 .about-overlay p {
@@ -656,7 +656,7 @@ html:lang(en) {
   font-weight: 300;
   line-height: 1.78;
   letter-spacing: 0;
-  color: rgba(236, 240, 247, 0.92);
+  color: rgba(243, 246, 252, 0.96);
 }
 
 .about-inline-en {

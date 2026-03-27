@@ -109,6 +109,67 @@
     return first || second || "";
   }
 
+  function isDateLikeText(value) {
+    var text = typeof value === "string" ? value.trim() : "";
+    if (!text) return false;
+    return /^\d{2}\/\d{2}\/\d{4}(?:\s*-\s*.+)?$/.test(text) || text === "2022、夏、某" || text === "Summer 2022, Somewhere";
+  }
+
+  function firstMeaningfulText(values) {
+    for (var i = 0; i < values.length; i += 1) {
+      var candidate = typeof values[i] === "string" ? values[i].trim() : "";
+      if (!candidate) continue;
+      if (/^(read more|阅读全文)$/i.test(candidate)) continue;
+      if (isDateLikeText(candidate)) continue;
+      return candidate;
+    }
+    return "";
+  }
+
+  function buildPhotoFeaturedAlt(item, lang) {
+    var themeCopy = item && item.theme && typeof item.theme === "object" ? item.theme : null;
+    var locationCopy = item && item.location && typeof item.location === "object" ? item.location : null;
+    var theme = lang === "en"
+      ? ((themeCopy && themeCopy.en) || (themeCopy && themeCopy.zh) || "")
+      : ((themeCopy && themeCopy.zh) || (themeCopy && themeCopy.en) || "");
+    var location = lang === "en"
+      ? ((locationCopy && locationCopy.en) || (locationCopy && locationCopy.zh) || "")
+      : ((locationCopy && locationCopy.zh) || (locationCopy && locationCopy.en) || "");
+    var descriptor = firstMeaningfulText([
+      theme,
+      lang === "en" ? item && item.title_en : item && item.title,
+      item && item.title,
+      item && item.title_en,
+    ]);
+    if (descriptor && location) {
+      return descriptor + " — " + location;
+    }
+    if (descriptor) {
+      return descriptor;
+    }
+    if (location) {
+      return (lang === "en" ? "Photograph from " : "摄影作品：") + location;
+    }
+    return lang === "en" ? "Featured photography preview" : "精选摄影作品预览";
+  }
+
+  function buildPhotoArchiveAlt(item, lang) {
+    var label = firstMeaningfulText([
+      lang === "en" ? item && item.title_en : item && item.title,
+      lang === "en" ? item && item.date_en : item && item.date,
+      item && item.title,
+      item && item.date,
+      item && item.title_en,
+      item && item.date_en,
+    ]);
+    if (label) {
+      return lang === "en"
+        ? "Preview image for the photography series " + label
+        : "摄影系列预览图：" + label;
+    }
+    return lang === "en" ? "Photography archive preview" : "摄影归档预览图";
+  }
+
   function buildMathCard(item) {
     var href = (item && (item.url || item.readmore_url)) || "#";
     var lang = getPreferredPageLanguage();
@@ -187,9 +248,7 @@
     var img = document.createElement("img");
     img.src = item.cover || "";
     var themeCopy = item && item.theme && typeof item.theme === "object" ? item.theme : null;
-    img.alt = lang === "en"
-      ? ((item && item.alt_en) || (themeCopy && themeCopy.en) || item.title || "")
-      : ((item && item.alt) || (themeCopy && themeCopy.zh) || item.title || "");
+    img.alt = buildPhotoFeaturedAlt(item, lang);
     img.loading = "lazy";
     img.decoding = "async";
     a.appendChild(img);
@@ -253,10 +312,7 @@
     } else {
       var img = document.createElement("img");
       img.src = item.cover || "";
-      img.alt =
-        lang === "en"
-          ? ((item && item.alt_en) || (item && item.title_en) || item.alt || item.title || item.date || "")
-          : ((item && item.alt) || item.title || item.date || "");
+      img.alt = buildPhotoArchiveAlt(item, lang);
       img.loading = "lazy";
       img.decoding = "async";
       a.appendChild(img);

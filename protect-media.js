@@ -332,6 +332,68 @@
     return filename;
   }
 
+  function isDateLikeAltText(value) {
+    var text = typeof value === "string" ? value.trim() : "";
+    if (!text) {
+      return false;
+    }
+    return /^\d{2}\/\d{2}\/\d{4}(?:\s*-\s*.+)?$/.test(text) || text === "2022、夏、某" || text === "Summer 2022, Somewhere";
+  }
+
+  function firstUsefulAltText(values) {
+    for (var i = 0; i < values.length; i += 1) {
+      var candidate = typeof values[i] === "string" ? values[i].trim() : "";
+      if (!candidate) {
+        continue;
+      }
+      if (/^(read more|阅读全文)$/i.test(candidate)) {
+        continue;
+      }
+      return candidate;
+    }
+    return "";
+  }
+
+  function isLowSignalAlt(img, currentAlt) {
+    var text = typeof currentAlt === "string" ? currentAlt.trim() : "";
+    if (!text) {
+      return true;
+    }
+    if (/^(image|photo|img)$/i.test(text)) {
+      return true;
+    }
+    if (/^chronohaze$/i.test(text) && img && img.closest(".site-header, .home-topbar, .site-footer")) {
+      return true;
+    }
+    if (img && img.closest(".photo-detail-gallery")) {
+      var detailHeading = document.querySelector(".photo-detail-article h1");
+      var detailTitle = detailHeading ? (detailHeading.textContent || "").trim() : "";
+      if (isDateLikeAltText(text) || (detailTitle && text === detailTitle)) {
+        return true;
+      }
+    }
+    if (img && img.closest(".photo-index-page, .photo-card, .photo-feature-card, .photo-card-link, .photo-feature-link")) {
+      if (isDateLikeAltText(text)) {
+        return true;
+      }
+    }
+    if (img && img.closest(".music-detail-cover")) {
+      var trackHeading = document.querySelector(".music-detail-article h1");
+      var trackTitle = trackHeading ? (trackHeading.textContent || "").trim() : "";
+      if (trackTitle && text === trackTitle) {
+        return true;
+      }
+    }
+    if (img && img.closest(".album-cover")) {
+      var albumHeading = document.querySelector(".album-cover-main h1, .music-album-page h1");
+      var albumTitle = albumHeading ? (albumHeading.textContent || "").trim() : "";
+      if (albumTitle && text === albumTitle) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   function enrichImageAlt(img) {
     if (!img) {
       return;
@@ -342,23 +404,32 @@
     }
 
     var currentAlt = (img.getAttribute("alt") || "").trim();
-    if (currentAlt && !/^(image|photo|img)$/i.test(currentAlt)) {
+    if (!isLowSignalAlt(img, currentAlt)) {
       return;
     }
 
     var nextAlt = "";
 
-    if (img.closest(".photo-detail-gallery")) {
-      var detailTitleNode = document.querySelector(".photo-detail-header h1");
+    if (img.closest(".site-header, .home-topbar, .site-footer")) {
+      nextAlt = "Chronohaze site logo";
+    }
+
+    if (!nextAlt && img.closest(".photo-detail-gallery")) {
+      var detailTitleNode = document.querySelector(".photo-detail-article h1, .photo-detail-header h1");
       var detailTitle = detailTitleNode
         ? (detailTitleNode.textContent || "").trim()
         : "Photography";
+      var detailMetaNode = document.querySelector(".photo-detail-article .article-meta");
+      var detailMeta = detailMetaNode ? (detailMetaNode.textContent || "").trim() : "";
       var frames = Array.from(
         document.querySelectorAll(".photo-detail-gallery img")
       );
       var frameIndex = frames.indexOf(img) + 1;
       if (frameIndex > 0) {
-        nextAlt = detailTitle + " frame " + frameIndex;
+        nextAlt = detailTitle + " photograph " + frameIndex;
+        if (detailMeta) {
+          nextAlt += " — " + detailMeta;
+        }
       }
     }
 
@@ -374,12 +445,46 @@
       }
     }
 
+    if (!nextAlt) {
+      var photoIndexCard = img.closest(".photo-feature-card, .photo-card");
+      if (photoIndexCard) {
+        var themeNode = photoIndexCard.querySelector(".photo-feature-theme");
+        var locationNode = photoIndexCard.querySelector(".photo-feature-location, .photo-date");
+        var descriptor = firstUsefulAltText([
+          themeNode ? themeNode.textContent : "",
+          locationNode ? locationNode.textContent : "",
+        ]);
+        var location = locationNode ? (locationNode.textContent || "").trim() : "";
+        if (descriptor && location && descriptor !== location) {
+          nextAlt = descriptor + " — " + location;
+        } else if (descriptor) {
+          nextAlt = descriptor;
+        }
+      }
+    }
+
     if (!nextAlt && img.closest(".photo-intro-layout")) {
       nextAlt = "Portrait of HazezZ with camera";
     }
 
     if (!nextAlt && img.closest(".music-intro-layout")) {
       nextAlt = "HazezZ in music session";
+    }
+
+    if (!nextAlt && img.closest(".music-detail-cover")) {
+      var trackTitleNode = document.querySelector(".music-detail-article h1");
+      var trackTitleText = trackTitleNode ? (trackTitleNode.textContent || "").trim() : "";
+      if (trackTitleText) {
+        nextAlt = "Artwork for " + trackTitleText;
+      }
+    }
+
+    if (!nextAlt && img.closest(".album-cover")) {
+      var albumTitleNode = document.querySelector(".album-cover-main h1, .music-album-page h1");
+      var albumTitleText = albumTitleNode ? (albumTitleNode.textContent || "").trim() : "";
+      if (albumTitleText) {
+        nextAlt = "Album cover for " + albumTitleText;
+      }
     }
 
     if (!nextAlt) {
