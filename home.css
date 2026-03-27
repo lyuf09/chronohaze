@@ -923,14 +923,14 @@ html:lang(en) .about-overlay p {
 }
 
 .entry-card:hover::before {
-  transform: scale(1.032);
+  transform: scale(1.016);
 }
 
 .entry-card:hover {
   box-shadow:
-    0 22px 36px rgba(14, 18, 29, 0.19),
+    0 16px 28px rgba(14, 18, 29, 0.15),
     0 0 0 1px rgba(245, 247, 252, 0.08) inset;
-  transform: translateY(-3px);
+  transform: translateY(-1.5px);
 }
 
 .entry-card-photo {
@@ -964,7 +964,7 @@ html:lang(en) .about-overlay p {
 }
 
 .entry-card:hover span {
-  transform: translateY(-1px);
+  transform: translateY(-0.5px);
   text-shadow:
     rgba(255, 255, 255, 0.66) 0 0 2px,
     rgba(222, 231, 249, 0.52) 0 0 10px,
