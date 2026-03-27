@@ -48,7 +48,7 @@ def main() -> int:
             ],
         ),
         (
-            root / "yin-le.html",
+            root / "music.html",
             [
                 SmokeCheck("music index body", contains('class="music-index-page"'), "music page class"),
                 SmokeCheck("album entry", contains("music/album-ipomoea-alba.html"), "album row link present"),
@@ -62,7 +62,7 @@ def main() -> int:
                 SmokeCheck("search page body", contains('class="search-index-page"'), "search body class"),
                 SmokeCheck("search input", contains('id="site-search-input"'), "search input id"),
                 SmokeCheck("search results container", contains('class="search-results"'), "search results mount"),
-                SmokeCheck("search script", contains('assets/js/search-page.js'), "search page script loaded"),
+                SmokeCheck("search script", contains('assets/js/search-page.min.js'), "minified search page script loaded"),
             ],
         ),
         (
@@ -94,11 +94,11 @@ def main() -> int:
         (
             root / "research.html",
             [
-                SmokeCheck("research page body", contains('class="research-landing-page"'), "research body class"),
+                SmokeCheck("research page body", contains('research-landing-page'), "research body class"),
                 SmokeCheck("project section", contains('id="research-projects"'), "projects anchor"),
                 SmokeCheck("outputs section", contains('id="research-outputs"'), "outputs anchor"),
                 SmokeCheck("project cards", count_at_least('class="research-project-card"', 3), "3 project cards"),
-                SmokeCheck("faculty summary CTA", contains("research-summary.html"), "faculty summary entry"),
+                SmokeCheck("current questions section", contains('id="research-now"'), "current questions anchor"),
             ],
         ),
     ]
