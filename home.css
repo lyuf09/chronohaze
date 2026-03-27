@@ -1104,11 +1104,7 @@ html:lang(en) .about-overlay p {
   box-shadow:
     0 8px 18px rgba(18, 23, 34, 0.045),
     inset 0 1px 0 rgba(255, 255, 255, 0.24);
-  transition:
-    transform var(--home-t-base) var(--home-ease),
-    box-shadow var(--home-t-base) ease,
-    border-color var(--home-t-base) ease,
-    background-color var(--home-t-base) ease;
+  transition: none;
 }
 
 .now-card::before {
@@ -1126,15 +1122,6 @@ html:lang(en) .about-overlay p {
   box-shadow:
     0 0 0 4px rgba(234, 239, 248, 0.32),
     0 0 16px rgba(122, 142, 178, 0.16);
-}
-
-.now-card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(79, 92, 118, 0.22);
-  background: rgba(250, 252, 255, 0.7);
-  box-shadow:
-    0 16px 28px rgba(18, 23, 34, 0.09),
-    inset 0 1px 0 rgba(255, 255, 255, 0.28);
 }
 
 .now-card h3 {
