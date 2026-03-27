@@ -5,7 +5,7 @@ import argparse
 import re
 from pathlib import Path
 
-VERSION = "20260326-min1"
+VERSION = "20260326-min2"
 
 CSS_FILES = [
     "styles.css",
@@ -97,13 +97,14 @@ def minify_js_conservative(text: str) -> str:
 
 def rewrite_html_refs(text: str) -> str:
     replacements = {
-        r"(?P<prefix>(?:\.\./)?)(styles)\.css\?v=[^\"']+": rf"\g<prefix>styles.min.css?v={VERSION}",
-        r"(?P<prefix>(?:\.\./)?)(home)\.css\?v=[^\"']+": rf"\g<prefix>home.min.css?v={VERSION}",
-        r"(?P<prefix>(?:\.\./)?)(protect-media)\.js\?v=[^\"']+": rf"\g<prefix>protect-media.min.js?v={VERSION}",
-        r"assets/js/search-page\.js\?v=[^\"']+": rf"assets/js/search-page.min.js?v={VERSION}",
-        r"assets/js/catalog-pages\.js\?v=[^\"']+": rf"assets/js/catalog-pages.min.js?v={VERSION}",
-        r"assets/js/research-page\.js(?!\?v=|\.min\.js)": rf"assets/js/research-page.min.js?v={VERSION}",
-    }
+        r"(?P<prefix>(?:\.\./)?)(styles(?:\.min)?)\.css\?v=[^\"']+": rf"\g<prefix>styles.min.css?v={VERSION}",
+        r"(?P<prefix>(?:\.\./)?)(home(?:\.min)?)\.css\?v=[^\"']+": rf"\g<prefix>home.min.css?v={VERSION}",
+        r"(?P<prefix>(?:\.\./)?)(protect-media(?:\.min)?)\.js\?v=[^\"']+": rf"\g<prefix>protect-media.min.js?v={VERSION}",
+        r"assets/js/search-page(?:\.min)?\.js\?v=[^\"']+": rf"assets/js/search-page.min.js?v={VERSION}",
+        r"assets/js/catalog-pages(?:\.min)?\.js\?v=[^\"']+": rf"assets/js/catalog-pages.min.js?v={VERSION}",
+        r"assets/js/research-page(?:\.min)?\.js\?v=[^\"']+": rf"assets/js/research-page.min.js?v={VERSION}",
+        r"assets/js/structured-data(?:\.min)?\.js\?v=[^\"']+": rf"assets/js/structured-data.min.js?v={VERSION}",
+        }
     out = text
     for pattern, repl in replacements.items():
         out = re.sub(pattern, repl, out)

@@ -9625,6 +9625,36 @@
     }
   }
 
+  function ensureExternalLinkTargets() {
+    Array.from(document.querySelectorAll("a[href]")).forEach(function (link) {
+      var href = (link.getAttribute("href") || "").trim();
+      if (!href || href.charAt(0) === "#" || /^mailto:|^tel:/i.test(href)) {
+        return;
+      }
+
+      var url;
+      try {
+        url = new URL(href, window.location.href);
+      } catch (_error) {
+        return;
+      }
+
+      if (!/^https?:$/i.test(url.protocol) || url.origin === window.location.origin) {
+        return;
+      }
+
+      link.setAttribute("target", "_blank");
+      var relTokens = new Set(
+        String(link.getAttribute("rel") || "")
+          .split(/\s+/)
+          .filter(Boolean)
+      );
+      relTokens.add("noopener");
+      relTokens.add("noreferrer");
+      link.setAttribute("rel", Array.from(relTokens).join(" "));
+    });
+  }
+
   function translateMusicMetaLabels(content, safeLang, dict) {
     if (safeLang !== "en" || !content) {
       return content;
@@ -11942,6 +11972,7 @@
     }
 
     ensureAccessibleControlLabels();
+    ensureExternalLinkTargets();
     renderFirstIsabellePost(safeLang, dict);
     renderSubmodularGreedyPost(safeLang, dict);
     renderSpring2026Post(safeLang, dict);
@@ -12672,6 +12703,7 @@
       });
       existingPanel.setAttribute("aria-label", "Language switch");
       ensureAccessibleControlLabels();
+      ensureExternalLinkTargets();
       return;
     }
 
@@ -12707,6 +12739,7 @@
     panel.appendChild(buildButton("en", "EN"));
     document.body.appendChild(panel);
     ensureAccessibleControlLabels();
+    ensureExternalLinkTargets();
   }
 
   function setupPhotoDetailPager() {
