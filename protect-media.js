@@ -3072,6 +3072,35 @@
   var persistentAudioSnapshotKey = "chronohaze:persistent-audio:v1";
   var pendingPersistentTrackHref = "";
 
+  function pauseCompetingAudio(exceptNode) {
+    Array.from(document.querySelectorAll("audio")).forEach(function (node) {
+      if (!node || node === exceptNode) {
+        return;
+      }
+      try {
+        node.pause();
+      } catch (_err) {}
+    });
+  }
+
+  function neutralizeInlineMusicAudio(audioElement) {
+    if (!audioElement || audioElement.dataset.persistentAudioProxy === "1") {
+      return;
+    }
+
+    audioElement.dataset.persistentAudioProxy = "1";
+    audioElement.removeAttribute("autoplay");
+    audioElement.autoplay = false;
+    audioElement.defaultMuted = true;
+    audioElement.muted = true;
+    audioElement.volume = 0;
+    audioElement.tabIndex = -1;
+    audioElement.setAttribute("aria-hidden", "true");
+    try {
+      audioElement.pause();
+    } catch (_err) {}
+  }
+
   function resolveAudioSource(audioElement) {
     if (!audioElement) {
       return "";
@@ -3281,6 +3310,8 @@
     if (!persistentAudioController || !persistentAudioController.audio) {
       return;
     }
+    pendingPersistentTrackHref = "";
+    pauseCompetingAudio(persistentAudioController.audio);
     persistentAudioController.audio.pause();
     persistentAudioController.audio.removeAttribute("src");
     try {
@@ -3492,6 +3523,10 @@
       }
     );
 
+    audio.addEventListener("play", function () {
+      pauseCompetingAudio(audio);
+    });
+
     audio.addEventListener("error", syncPersistentAudioDock);
     window.addEventListener("pagehide", persistPersistentAudioSnapshot);
     window.addEventListener("resize", syncPersistentAudioDock);
@@ -3544,6 +3579,8 @@
     if (!nextSrc) {
       return controller;
     }
+
+    pauseCompetingAudio(controller.audio);
 
     var isSameTrack =
       controller.current && controller.current.src && controller.current.src === nextSrc;
@@ -3667,6 +3704,7 @@
       audio.classList.add("music-player-native");
       audio.removeAttribute("controls");
       audio.controls = false;
+      neutralizeInlineMusicAudio(audio);
 
       var shell = document.createElement("div");
       shell.className = "music-player-shell";
@@ -3776,6 +3814,8 @@
           return;
         }
 
+        pauseCompetingAudio(controller.audio);
+
         if (!isCurrentPersistentTrack()) {
           loadPersistentTrack(
             {
@@ -3822,6 +3862,45 @@
         syncPlayState();
         syncTimeState();
       });
+
+      audio.addEventListener("play", function () {
+        if (!trackSource) {
+          return;
+        }
+        var resumeTime = isFinite(audio.currentTime) ? Number(audio.currentTime) : 0;
+        try {
+          audio.pause();
+        } catch (_err) {}
+        loadPersistentTrack(
+          {
+            src: trackSource,
+            title: trackData.title,
+            artist: trackData.artist,
+            pageHref: window.location.href,
+            prevHref: navData.prevHref,
+            nextHref: navData.nextHref,
+          },
+          { autoplay: true, currentTime: resumeTime }
+        );
+      });
+
+      if (!audio.paused && !audio.ended && trackSource) {
+        var initialTime = isFinite(audio.currentTime) ? Number(audio.currentTime) : 0;
+        try {
+          audio.pause();
+        } catch (_err) {}
+        loadPersistentTrack(
+          {
+            src: trackSource,
+            title: trackData.title,
+            artist: trackData.artist,
+            pageHref: window.location.href,
+            prevHref: navData.prevHref,
+            nextHref: navData.nextHref,
+          },
+          { autoplay: true, currentTime: initialTime }
+        );
+      }
 
       syncPlayState();
       syncTimeState();
