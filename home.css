@@ -826,11 +826,11 @@ html:lang(en) .about-overlay p {
 
 .entry-card {
   --entry-image: none;
-  --entry-hover-t: 420ms;
-  --entry-hover-t-slow: 520ms;
+  --entry-hover-t: 220ms;
+  --entry-hover-t-slow: 300ms;
   --entry-filter: saturate(0.5) brightness(0.9) contrast(1.04) hue-rotate(12deg) grayscale(0.03);
-  --entry-filter-hover: saturate(0.5) brightness(0.78) contrast(1.06) hue-rotate(12deg) grayscale(0.03);
-  --entry-overlay: rgba(48, 53, 66, 0.24);
+  --entry-filter-hover: saturate(0.5) brightness(0.66) contrast(1.08) hue-rotate(12deg) grayscale(0.03);
+  --entry-overlay: rgba(48, 53, 66, 0.32);
   width: min(100%, 560px);
   aspect-ratio: 1 / 1;
   min-height: 0;
@@ -928,14 +928,14 @@ html:lang(en) .about-overlay p {
 
 .entry-card-photo {
   --entry-filter: saturate(0.52) brightness(0.87) contrast(1.06) hue-rotate(8deg) grayscale(0.04);
-  --entry-filter-hover: saturate(0.52) brightness(0.75) contrast(1.08) hue-rotate(8deg) grayscale(0.04);
-  --entry-overlay: rgba(44, 49, 62, 0.26);
+  --entry-filter-hover: saturate(0.52) brightness(0.62) contrast(1.1) hue-rotate(8deg) grayscale(0.04);
+  --entry-overlay: rgba(44, 49, 62, 0.36);
 }
 
 .entry-card-music {
   --entry-filter: saturate(0.43) brightness(0.91) contrast(1.03) hue-rotate(22deg) grayscale(0.03);
-  --entry-filter-hover: saturate(0.43) brightness(0.77) contrast(1.05) hue-rotate(22deg) grayscale(0.03);
-  --entry-overlay: rgba(50, 56, 72, 0.16);
+  --entry-filter-hover: saturate(0.43) brightness(0.64) contrast(1.07) hue-rotate(22deg) grayscale(0.03);
+  --entry-overlay: rgba(50, 56, 72, 0.28);
 }
 
 .entry-card span {
