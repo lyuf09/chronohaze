@@ -3266,6 +3266,14 @@ audio {
   font-weight: 300;
 }
 
+.math-post-page .article,
+.math-post-page .article h1,
+.math-post-page .article h2,
+.math-post-page .article h3,
+.math-post-page .article-meta {
+  font-family: var(--font-serif-zh);
+}
+
 html:lang(en) .article p,
 html:lang(en) .article li,
 html:lang(en) .article li p {
