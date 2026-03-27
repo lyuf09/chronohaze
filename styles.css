@@ -511,6 +511,62 @@ body.page-transition-enabled.page-transition-leaving .page {
   transform: translate3d(0, -8px, 0) scale(1.0025);
 }
 
+body.page-booting::before,
+body.page-boot-ready::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 180;
+  background: linear-gradient(180deg, rgba(244, 247, 252, 0.8) 0%, rgba(235, 240, 247, 0.92) 100%);
+  backdrop-filter: blur(8px) saturate(108%);
+  -webkit-backdrop-filter: blur(8px) saturate(108%);
+  transition: opacity 300ms ease;
+}
+
+body.page-booting::after,
+body.page-boot-ready::after {
+  content: attr(data-boot-label);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 181;
+  padding: 10px 16px;
+  border: 1px solid rgba(88, 103, 128, 0.18);
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(249, 251, 255, 0.8) 0%, rgba(241, 245, 251, 0.78) 100%);
+  box-shadow:
+    0 16px 32px rgba(18, 24, 34, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.42);
+  color: rgba(42, 49, 62, 0.9);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1;
+  letter-spacing: 0.045em;
+  text-align: center;
+  transform: translate3d(-50%, -50%, 0);
+  transition:
+    opacity 300ms ease,
+    transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body.page-boot-ready::before,
+body.page-boot-ready::after {
+  opacity: 0;
+}
+
+body.page-boot-ready::after {
+  transform: translate3d(-50%, -46%, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.page-booting::before,
+  body.page-booting::after,
+  body.page-boot-ready::before,
+  body.page-boot-ready::after {
+    transition: none;
+  }
+}
+
 .container {
   width: min(100%, var(--max-width-list));
   margin: 0 auto;
@@ -7728,9 +7784,9 @@ body {
 }
 
 .ui-btn:hover {
-  border-color: var(--ui-border-strong);
+  border-color: color-mix(in srgb, var(--color-accent) 24%, var(--ui-border-strong));
   background: var(--btn-bg-hover);
-  box-shadow: var(--ui-shadow-1);
+  box-shadow: var(--ui-shadow-2);
   transform: translateY(var(--ui-hover-lift));
 }
 
@@ -7901,6 +7957,57 @@ body {
 .music-index-page .track-artist,
 .search-index-page .search-result-excerpt {
   color: var(--ui-copy-color);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :where(
+    article[role="link"],
+    .photo-index-page .photo-feature-card,
+    .photo-index-page .photo-card-link,
+    .music-index-page .music-featured-link,
+    .music-album-page .album-track-link:not(.is-disabled),
+    .search-index-page .search-result-link,
+    .research-fast-link
+  ):hover {
+    border-color: color-mix(in srgb, var(--color-accent) 28%, var(--ui-border-mid));
+    box-shadow:
+      var(--ui-shadow-3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.24);
+    transform: translateY(calc(var(--ui-hover-lift) * 1.4));
+  }
+
+  :where(
+    .music-player-play,
+    .music-player-nav-link,
+    .persistent-audio-open,
+    .persistent-audio-nav,
+    .persistent-audio-collapse,
+    .persistent-audio-close,
+    .music-transcript-nav-link
+  ):hover {
+    color: color-mix(in srgb, var(--ui-heading-color) 78%, var(--color-accent));
+    transform: translateY(var(--ui-hover-lift-soft));
+  }
+
+  :where(
+    article[role="link"],
+    .photo-index-page .photo-feature-card,
+    .photo-index-page .photo-card-link,
+    .music-index-page .music-featured-link,
+    .music-album-page .album-track-link:not(.is-disabled),
+    .search-index-page .search-result-link,
+    .research-fast-link
+  ):hover :where(
+    .math-title,
+    .photo-title,
+    .track-title,
+    .search-result-title,
+    .album-track-name,
+    h3,
+    strong
+  ) {
+    color: color-mix(in srgb, var(--ui-heading-color) 78%, var(--color-accent));
+  }
 }
 
 .research-project-kind,

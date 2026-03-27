@@ -2,6 +2,69 @@
   "use strict";
 
   var MEDIA_SELECTOR = "img, audio, video";
+  var bootFeedbackArmed = false;
+  var bootFeedbackResolved = false;
+  var bootFeedbackStartedAt = 0;
+
+  function detectInitialBootLanguage() {
+    var candidate =
+      window.__chronohazePreferredLang ||
+      document.documentElement.getAttribute("data-site-lang") ||
+      "";
+    candidate = String(candidate || "").toLowerCase();
+    if (candidate === "zh" || candidate === "en") {
+      return candidate;
+    }
+
+    var langAttr = String(document.documentElement.getAttribute("lang") || "").toLowerCase();
+    return langAttr.indexOf("en") === 0 ? "en" : "zh";
+  }
+
+  function armBootFeedback() {
+    if (bootFeedbackArmed || !document.body) {
+      return;
+    }
+
+    bootFeedbackArmed = true;
+    bootFeedbackResolved = false;
+    bootFeedbackStartedAt = Date.now();
+
+    document.body.classList.add("page-booting");
+    document.body.classList.remove("page-boot-ready");
+    document.body.setAttribute(
+      "data-boot-label",
+      detectInitialBootLanguage() === "en" ? "Preparing page..." : "正在准备页面…"
+    );
+  }
+
+  function resolveBootFeedback() {
+    if (!bootFeedbackArmed || bootFeedbackResolved || !document.body) {
+      return;
+    }
+
+    bootFeedbackResolved = true;
+    var elapsed = Date.now() - bootFeedbackStartedAt;
+    var remaining = Math.max(0, 180 - elapsed);
+
+    window.setTimeout(function () {
+      if (!document.body) {
+        return;
+      }
+
+      document.body.classList.add("page-boot-ready");
+
+      window.requestAnimationFrame(function () {
+        window.requestAnimationFrame(function () {
+          if (!document.body) {
+            return;
+          }
+          document.body.classList.remove("page-booting");
+          document.body.classList.remove("page-boot-ready");
+          document.body.removeAttribute("data-boot-label");
+        });
+      });
+    }, remaining);
+  }
 
   function stopEvent(event) {
     event.preventDefault();
@@ -13781,10 +13844,12 @@
   }
 
   function boot() {
+    armBootFeedback();
     runTaskGroup(BOOT_TASK_GROUPS.navAndChrome);
     runTaskGroup(BOOT_TASK_GROUPS.pageArchitecture);
     runTaskGroup(BOOT_TASK_GROUPS.mediaAndProtection);
     runTaskGroup(BOOT_TASK_GROUPS.pagePolish);
+    resolveBootFeedback();
   }
 
   document.addEventListener(
@@ -13857,6 +13922,15 @@
   } else {
     boot();
   }
+
+  window.addEventListener("pageshow", function () {
+    if (!document.body) {
+      return;
+    }
+    document.body.classList.remove("page-booting");
+    document.body.classList.remove("page-boot-ready");
+    document.body.removeAttribute("data-boot-label");
+  });
 
   var observer = new MutationObserver(function (mutations) {
     mutations.forEach(function (mutation) {

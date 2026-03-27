@@ -462,12 +462,15 @@ html:lang(en) {
 }
 
 .hero-academic-link:hover {
-  transform: translateY(-1px);
-  border-color: rgba(58, 67, 84, 0.18);
+  transform: translateY(-2px);
+  border-color: rgba(80, 93, 118, 0.26);
+  background:
+    linear-gradient(180deg, rgba(252, 253, 255, 0.68), rgba(244, 247, 252, 0.54)),
+    radial-gradient(circle at 18% 24%, rgba(255, 255, 255, 0.12) 0.6px, transparent 0.95px);
   box-shadow:
-    0 11px 20px rgba(15, 19, 28, 0.06),
+    0 14px 24px rgba(15, 19, 28, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.4);
-  color: rgba(25, 32, 45, 0.92);
+  color: rgba(24, 31, 45, 0.98);
 }
 
 .contact-btn {
@@ -495,9 +498,9 @@ html:lang(en) {
 }
 
 .contact-btn:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   box-shadow:
-    0 16px 28px rgba(15, 18, 26, 0.18),
+    0 20px 32px rgba(15, 18, 26, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
@@ -525,9 +528,10 @@ html:lang(en) {
 }
 
 .player-shell:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  border-color: rgba(83, 95, 119, 0.24);
   box-shadow:
-    var(--home-shadow-2),
+    0 18px 30px rgba(15, 19, 28, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
@@ -730,9 +734,11 @@ html:lang(en) .about-overlay p {
 }
 
 .math-grid article:hover {
-  background: rgba(249, 251, 254, 0.28);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16);
-  transform: translateY(-1px);
+  background: rgba(250, 252, 255, 0.36);
+  box-shadow:
+    0 18px 32px rgba(16, 20, 30, 0.12),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+  transform: translateY(-3px);
 }
 
 .math-grid article:last-child {
@@ -917,13 +923,14 @@ html:lang(en) .about-overlay p {
 }
 
 .entry-card:hover::before {
-  transform: scale(1.022);
+  transform: scale(1.032);
 }
 
 .entry-card:hover {
   box-shadow:
-    0 18px 30px rgba(14, 18, 29, 0.16),
-    0 0 0 1px rgba(245, 247, 252, 0.06) inset;
+    0 22px 36px rgba(14, 18, 29, 0.19),
+    0 0 0 1px rgba(245, 247, 252, 0.08) inset;
+  transform: translateY(-3px);
 }
 
 .entry-card-photo {
@@ -1122,10 +1129,11 @@ html:lang(en) .about-overlay p {
 }
 
 .now-card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(61, 70, 89, 0.16);
+  transform: translateY(-3px);
+  border-color: rgba(79, 92, 118, 0.22);
+  background: rgba(250, 252, 255, 0.7);
   box-shadow:
-    0 12px 22px rgba(18, 23, 34, 0.06),
+    0 16px 28px rgba(18, 23, 34, 0.09),
     inset 0 1px 0 rgba(255, 255, 255, 0.28);
 }
 
@@ -1243,10 +1251,10 @@ html:lang(en) .about-overlay p {
 }
 
 .home-footer-social a:hover {
-  transform: translateY(-1px);
-  border-color: var(--home-line-mid);
+  transform: translateY(-2px);
+  border-color: rgba(78, 91, 116, 0.24);
   background: rgba(250, 252, 255, 0.74);
-  box-shadow: 0 10px 18px rgba(14, 18, 26, 0.09);
+  box-shadow: 0 14px 22px rgba(14, 18, 26, 0.1);
 }
 
 .home-footer-policy {
@@ -1295,7 +1303,8 @@ html:lang(en) .about-overlay p {
 }
 
 .home-footer a:hover {
-  opacity: 0.82;
+  opacity: 0.96;
+  color: rgba(27, 34, 48, 0.98);
 }
 
 .drawer-backdrop {
@@ -1359,8 +1368,8 @@ html:lang(en) .about-overlay p {
 }
 
 .drawer-nav a:hover {
-  opacity: 0.82;
-  transform: translateY(-1px);
+  opacity: 0.96;
+  transform: translateX(4px);
 }
 
 @media (max-width: 1400px) {
