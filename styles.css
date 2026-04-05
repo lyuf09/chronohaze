@@ -10357,7 +10357,10 @@ html:lang(en) .music-album-page .album-back-link {
   }
 
   .article-toc-link {
-    padding: 3px 0 3px 16px;
+    width: 100%;
+    min-height: 48px;
+    box-sizing: border-box;
+    padding: 12px 0 12px 18px;
     border: none;
     background: none;
     box-shadow: none;
@@ -10366,6 +10369,7 @@ html:lang(en) .music-album-page .album-back-link {
   }
 
   .article-toc-link::before {
+    top: 50%;
     width: 7px;
     height: 7px;
     box-shadow: 0 0 0 2px rgba(242, 245, 249, 0.82);
