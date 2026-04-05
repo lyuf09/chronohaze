@@ -1590,6 +1590,37 @@
     return mathCatalogMetadataPromise;
   }
 
+  function bindMathPostNavLink(itemNode, href) {
+    if (!itemNode || !href || itemNode.dataset.mathNavBound === "1") {
+      return;
+    }
+    itemNode.dataset.mathNavBound = "1";
+
+    itemNode.addEventListener("click", function (event) {
+      if (!event || event.defaultPrevented) {
+        return;
+      }
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+        return;
+      }
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      navigateChronohazeInternal(href);
+    });
+
+    itemNode.addEventListener("keydown", function (event) {
+      if (!event || event.defaultPrevented) {
+        return;
+      }
+      if (event.key !== "Enter" && event.key !== " ") {
+        return;
+      }
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      navigateChronohazeInternal(href);
+    });
+  }
+
   function createMathPostNavItem(item, direction, lang) {
     var isEnglish = lang === "en";
     var itemNode = item ? document.createElement("a") : document.createElement("span");
@@ -1632,6 +1663,7 @@
         "aria-label",
         (labelNode.textContent || "") + " · " + titleText
       );
+      bindMathPostNavLink(itemNode, href);
       titleNode.textContent = titleText;
     } else {
       titleNode.textContent = isEnglish
