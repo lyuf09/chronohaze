@@ -65,7 +65,9 @@ def load_music_page_rows(root: Path) -> List[dict]:
     except Exception as exc:  # pragma: no cover
         raise RuntimeError(f"Failed to import rebuild_music_catalog.py: {exc}") from exc
 
-    html_path = root / "yin-le.html"
+    html_path = root / "music.html"
+    if not html_path.exists():
+        html_path = root / "yin-le.html"
     html_text = html_path.read_text(encoding="utf-8")
     rows = builder.parse_rows(html_text)
     return rows

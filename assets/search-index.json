@@ -1,6 +1,22 @@
 {
-  "generated_at": "2026-03-23",
+  "generated_at": "2026-04-04",
   "items": [
+    {
+      "title": "Orchid",
+      "url": "music/track-orchid.html",
+      "section": "Music",
+      "date": "12/2025 - 03/2026",
+      "excerpt": "发布日期： / 未定",
+      "tags": [
+        "single"
+      ],
+      "sort": 20260331,
+      "scope": "music",
+      "content": "Orchid 创作时间：12/2025 - 03/2026 发布日期：未定 久久萦绕在心中的过往 着迷着为了感到伤感而被创造的想象 我到底有什么样的向往？ 不可能是可抵达的理想 水流向我应该怎么阻绝？ 记忆却总是被混乱改头换面真假难解 干脆直接用这片空白抹杀我的呼吸 返回音乐栏目 发布日期： / 未定 作品介绍 歌词（Part 1） 歌词（Part 2） 作品介绍 歌词（Part 1） 久久萦绕在心中的过往 着迷着为了感到伤感而被创造的想象 我到底有什么样的向往？ 不可能是可抵达的理想 即使被逃避的冲动驱使 从这里跑出去也是无法抵达任何城市 我明明不是个那样的人 但我又为什么默然应允 已经被弄丢的钥匙 被自己关上的退路 水流向我应该怎么阻绝？ 记忆却总是被混乱改头换面真假难解 某一种短暂幻想的死结 随之捉弄我 背叛我 宣泄 一切都归咎于我 忙碌、重复、空无一物 不在那里、不在那里 为了所谓脑袋里明白的道理 不合时宜、不合时宜 明明下定决心但却无法言意 不在那里、不在那里 想摧毁一切却无法鼓起勇气 不留痕迹、不留痕迹 干脆直接用这片空白抹杀我的呼吸 无论多么困难都会一直 想留下抓痕而目不斜视凝望前方而行 不想输才无动于衷而已 但到底是为了什么意义？ 把它埋起来吧我会遗忘 让雨水冲刷之后藏在兜帽下转身离场 对那些放弃的未来来讲 只是排列琴弦上的悲伤 歌词（Part 2） 不在那里、不在那里 为了所谓脑袋里明白的道理 不合时宜、不合时宜 无数次重复的日常只剩压抑 不再提及、不再提及 曾经以为那就是梦想的意义 不想回忆、不想回忆 干脆直接用这片空白抹杀我的呼吸",
+      "artist": "HazezZ",
+      "status": "available",
+      "subtitle": "发布日期： / 未定"
+    },
     {
       "title": "当一个 dual 路线走不通时，我真正得到的东西",
       "url": "post/what-i-really-got-when-a-dual-route-failed.html",
@@ -49,19 +65,19 @@
       "content": "选定项目 项目材料 公开材料 索引 研究与形式化验证 Isabelle HOL 现代子模贪心算法形式化 单调非负子模最大化 classical greedy LazyGreedy StochasticGreedy 近似保证 oracle cost core theorem lines AFP clean up 依赖整理 不变性下的对偶与下界 原型与信号处理 Metalcore Piano Lab 工程与 IP 防离析布料系统 数据分析 Funnel Retention Attribution Analysis 这个网站 Chronohaze 相关材料 Repository Notes Archive CV 页面 Selected Projects project materials public materials Research and Formal Verification Isabelle HOL Formalizing Modern Submodular Greedy Algorithms monotone nonnegative submodular maximization cardinality constraints classical greedy LazyGreedy StochasticGreedy approximation oracle-cost core theorem lines complete AFP-style presentation Duality and Lower Bounds under Invariances Prototype and Signal Processing Metalcore Piano Lab Engineering and IP Anti-Segregation Spreading System Data and Analytics Chronohaze Materials Repository Notes Archive"
     },
     {
+      "date": "",
+      "excerpt": "优化 · 形式化验证（Isabelle/HOL） · 数学建模",
       "content": "研究 优化 形式化验证 Isabelle HOL 数学建模 三条相关方向 形式化近似保证 不变性下的对偶与下界 连续对象离散化为可检查结构 Shoham Sabach Wenda Li Cornell ORIE Edinburgh Informatics 研究兴趣 优化 对偶 下界 一阶结构 不变性 形式化验证 Isabelle HOL 假设 接口 扩展 子模算法 单调子模最大化 贪心保证 机器检验 建模 formulation 对称性 近似需求 实现约束 当前工作 Isabelle HOL 子模贪心算法形式化 Note Repo 不变性下的对偶与下界 Note Archive Metalcore Piano Lab 从音频 MIDI 到谱面 Note Repo 建议先看 Projects 研究 为什么连在一起 Research Optimization Formal Verification Isabelle HOL Mathematical Modeling current work submodular greedy duality lower bounds invariances discretization Shoham Sabach Wenda Li Note Repo Archive",
-      "title": "Research | Fay / Feier Lyu (HazezZ)",
-      "url": "research.html",
-      "sort": 20260312,
       "scope": "site",
+      "title": "Research | Fay / Feier Lyu (HazezZ)",
       "tags": [
         "research",
         "optimization",
         "formal-methods"
       ],
-      "date": "",
-      "section": "Site",
-      "excerpt": "优化 · 形式化验证（Isabelle/HOL） · 数学建模"
+      "sort": 20260312,
+      "url": "research.html",
+      "section": "Site"
     },
     {
       "title": "搜索 / Search",

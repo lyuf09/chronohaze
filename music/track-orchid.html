@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    (function () {
+      try {
+        var url = new URL(window.location.href);
+        var queryLang = url.searchParams.get("lang");
+        var valid = function (value) {
+          return value === "zh" || value === "en";
+        };
+        var defaultLang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+        var defaultSafe = defaultLang.indexOf("en") === 0 ? "en" : "zh";
+
+        if (valid(queryLang)) {
+          window.localStorage.setItem("siteLang", queryLang);
+          window.localStorage.setItem("chronohaze-lang", queryLang);
+          window.__chronohazePreferredLang = queryLang;
+          document.documentElement.lang = queryLang === "en" ? "en" : "zh-CN";
+          document.documentElement.setAttribute("data-site-lang", queryLang);
+          return;
+        }
+
+        var storedLang = window.localStorage.getItem("siteLang");
+        if (!valid(storedLang)) {
+          storedLang = window.localStorage.getItem("chronohaze-lang");
+        }
+        if (!valid(storedLang)) {
+          return;
+        }
+
+        window.__chronohazePreferredLang = storedLang;
+        document.documentElement.lang = storedLang === "en" ? "en" : "zh-CN";
+        document.documentElement.setAttribute("data-site-lang", storedLang);
+
+        if (storedLang !== defaultSafe) {
+          url.searchParams.set("lang", storedLang);
+          window.location.replace(url.toString());
+        }
+      } catch (_err) {}
+    })();
+  </script>
+  <link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
+  <title>Orchid | 音乐 | Chronohaze</title>
+  <meta name="description" content="音乐作品页面：Orchid。包含音频播放器与歌词内容。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Chronohaze" />
+  <meta property="og:title" content="Orchid | Chronohaze" />
+  <meta property="og:description" content="音乐作品页面：Orchid。包含音频播放器与歌词内容。" />
+  <meta property="og:url" content="https://lyuf09.github.io/chronohaze/music/track-orchid.html" />
+  <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/music/track-orchid.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Orchid | Chronohaze" />
+  <meta name="twitter:description" content="音乐作品页面：Orchid。包含音频播放器与歌词内容。" />
+  <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/music/track-orchid.png" />
+  <link rel="canonical" href="https://lyuf09.github.io/chronohaze/music/track-orchid.html" />
+
+  <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
+  <!-- GENERATED:hreflang:start -->
+  <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/music/track-orchid.html?lang=zh" />
+  <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/music/track-orchid.html?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/music/track-orchid.html" />
+  <!-- GENERATED:hreflang:end -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JWZY2TVYFZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-JWZY2TVYFZ');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" href="../assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@300;400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@300;400;500;700&display=swap" rel="stylesheet" /></noscript>
+  <link rel="stylesheet" href="../styles.min.css?v=20260327-min9" />
+  <script defer src="../protect-media.min.js?v=20260327-min9"></script>
+</head>
+<body class="music-detail-page">
+  <div class="page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="../index.html">
+          <img src="../assets/logo.png" alt="Chronohaze site logo" />
+          <span>chronohaze.space</span>
+        </a>
+        <nav class="nav" aria-label="主导航">
+          <a href="../index.html">主页</a>
+          <a href="../math.html">数学</a>
+          <a href="../photography.html">摄影</a>
+          <a class="active" href="../music.html">音乐</a>
+          <a href="../cv.html">CV</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main">
+      <article class="article music-detail-article" data-track-artist="HazezZ">
+        <h1>Orchid</h1>
+        <p class="music-detail-meta">创作时间：<br />12/2025 - 03/2026</p>
+        <p class="music-detail-meta">发布日期：<br />未定</p>
+        <audio controls controlslist="nodownload noplaybackrate noremoteplayback" disablepictureinpicture oncontextmenu="return false" preload="none" data-track-artist="HazezZ" src="../assets/audio/juke/orchid03.mp3"></audio>
+        <h2>作品介绍</h2><p>​</p>
+        <h2>歌词（Part 1）</h2><p>久久萦绕在心中的过往<br />着迷着为了感到伤感而被创造的想象<br />我到底有什么样的向往？<br />不可能是可抵达的理想<br /><br />即使被逃避的冲动驱使<br />从这里跑出去也是无法抵达任何城市<br />我明明不是个那样的人<br />但我又为什么默然应允<br /><br />已经被弄丢的钥匙<br />被自己关上的退路<br /><br />水流向我应该怎么阻绝？<br />记忆却总是被混乱改头换面真假难解<br />某一种短暂幻想的死结<br />随之捉弄我 背叛我 宣泄<br /><br />一切都归咎于我<br />忙碌、重复、空无一物<br /><br />不在那里、不在那里<br />为了所谓脑袋里明白的道理<br />不合时宜、不合时宜<br />明明下定决心但却无法言意<br />不在那里、不在那里<br />想摧毁一切却无法鼓起勇气<br />不留痕迹、不留痕迹<br />干脆直接用这片空白抹杀我的呼吸<br /><br />无论多么困难都会一直<br />想留下抓痕而目不斜视凝望前方而行<br />不想输才无动于衷而已<br />但到底是为了什么意义？<br /><br />把它埋起来吧我会遗忘<br />让雨水冲刷之后藏在兜帽下转身离场<br />对那些放弃的未来来讲<br />只是排列琴弦上的悲伤</p>
+        <h2>歌词（Part 2）</h2><p>不在那里、不在那里<br />为了所谓脑袋里明白的道理<br />不合时宜、不合时宜<br />无数次重复的日常只剩压抑<br />不再提及、不再提及<br />曾经以为那就是梦想的意义<br />不想回忆、不想回忆<br />干脆直接用这片空白抹杀我的呼吸</p>
+        <p><a class="read-more" href="../music.html">返回音乐栏目</a></p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <p class="footer-title">chronohaze.space</p>
+          <p class="footer-note">辗转不同国家无固定号码 请联系邮箱：<a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a></p>
+          <p class="footer-note">重庆 · Edinburgh · New York</p>
+          <p class="footer-copy">© 2026 by chronohaze.space. Powered and secured by GitHub Pages.</p>
+          <div class="social" aria-label="Social links">
+            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://www.instagram.com/lyuf09" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://space.bilibili.com/35902781" target="_blank" rel="noopener noreferrer">Bilibili</a>
+            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+        <div class="footer-right">
+          <a href="../policy.html">网站说明</a>
+          <a href="../accessibility.html">无障碍支持</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

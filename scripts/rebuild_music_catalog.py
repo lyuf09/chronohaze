@@ -91,12 +91,14 @@ def parse_rows(html_text: str) -> List[Dict[str, object]]:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Build canonical music catalog metadata from yin-le.html")
+    parser = argparse.ArgumentParser(description="Build canonical music catalog metadata from music.html")
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
     args = parser.parse_args()
 
     root = args.root.resolve()
-    source = root / "yin-le.html"
+    source = root / "music.html"
+    if not source.exists():
+        source = root / "yin-le.html"
     out = root / "assets" / "data" / "music-catalog.json"
 
     if not source.exists():
@@ -105,7 +107,7 @@ def main() -> int:
     rows = parse_rows(source.read_text(encoding="utf-8"))
     payload = {
         "generated_at": date.today().isoformat(),
-        "source": "yin-le.html",
+        "source": source.name,
         "items": rows,
     }
     out.parent.mkdir(parents=True, exist_ok=True)
