@@ -82,7 +82,7 @@
   --home-surface-2: rgba(248, 250, 253, 0.78);
   --home-ink-strong: rgb(34, 39, 48);
   --home-ink: rgba(43, 49, 60, 0.88);
-  --home-ink-muted: rgb(70, 79, 95);
+  --home-ink-muted: rgb(56, 65, 81);
   --home-line-soft: rgba(52, 59, 74, 0.12);
   --home-line-mid: rgba(52, 59, 74, 0.18);
   --home-line-strong: rgba(52, 59, 74, 0.28);
@@ -1049,9 +1049,9 @@ html:lang(en) .about-overlay p {
   gap: 8px;
   margin-top: 2px;
   padding: 6px 10px 7px;
-  border: 1px solid rgba(57, 66, 82, 0.08);
-  background: rgba(247, 249, 252, 0.34);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  border: 1px solid rgba(57, 66, 82, 0.12);
+  background: rgba(247, 249, 252, 0.42);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.34);
 }
 
 .now-freshness-label,
@@ -1065,12 +1065,12 @@ html:lang(en) .about-overlay p {
 .now-freshness-label {
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--home-ink-muted);
+  color: rgb(63, 72, 88);
 }
 
 .now-freshness-time {
   letter-spacing: 0.12em;
-  color: var(--home-ink);
+  color: rgb(35, 41, 52);
 }
 
 .now-intro {
@@ -1300,7 +1300,7 @@ html:lang(en) .about-overlay p {
   font-size: 12px;
   line-height: 1.2;
   letter-spacing: 0.03em;
-  color: var(--home-ink-muted);
+  color: rgb(61, 70, 86);
   text-align: left;
 }
 
