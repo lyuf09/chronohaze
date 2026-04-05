@@ -3442,6 +3442,7 @@ html:lang(en) .article-toc-link {
   display: flex;
   flex-direction: column;
   gap: 7px;
+  width: 100%;
   padding: 15px 16px;
   border: 1px solid rgba(172, 184, 202, 0.42);
   border-radius: 14px;
@@ -3449,6 +3450,11 @@ html:lang(en) .article-toc-link {
   box-shadow: 0 14px 36px rgba(168, 179, 195, 0.12);
   color: #2d3642;
   text-decoration: none;
+  text-align: left;
+  font: inherit;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
   pointer-events: auto;
   transition:
     border-color 180ms ease,

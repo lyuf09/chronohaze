@@ -1621,6 +1621,17 @@
       true
     );
 
+    itemNode.onclick = function (event) {
+      if (!event || event.defaultPrevented) {
+        return;
+      }
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+        return;
+      }
+      event.preventDefault();
+      go();
+    };
+
     itemNode.addEventListener(
       "keydown",
       function (event) {
@@ -1640,7 +1651,7 @@
 
   function createMathPostNavItem(item, direction, lang) {
     var isEnglish = lang === "en";
-    var itemNode = item ? document.createElement("a") : document.createElement("span");
+    var itemNode = document.createElement("button");
     itemNode.className = "math-post-nav-item" + (item ? "" : " is-disabled");
     itemNode.setAttribute("data-nav-dir", direction);
 
@@ -1674,8 +1685,7 @@
         isEnglish
           ? item.title_en || item.title || "Untitled note"
           : item.title || item.title_en || "未命名笔记";
-      itemNode.setAttribute("href", href);
-      itemNode.setAttribute("data-no-page-transition", "1");
+      itemNode.setAttribute("type", "button");
       itemNode.setAttribute(
         "aria-label",
         (labelNode.textContent || "") + " · " + titleText
