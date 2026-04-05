@@ -5,7 +5,7 @@ import argparse
 import re
 from pathlib import Path
 
-VERSION = "20260405-min17"
+VERSION = "20260405-min18"
 
 CSS_FILES = [
     "styles.css",

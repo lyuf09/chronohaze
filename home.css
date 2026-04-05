@@ -336,9 +336,12 @@ html:lang(en) {
 .drawer-close:focus-visible,
 .drawer-nav a:focus-visible,
 .home-footer-social a:focus-visible,
-.home-footer-email:focus-visible {
-  outline: 2px solid rgba(124, 147, 184, 0.9);
-  outline-offset: 3px;
+.home-footer-email:focus-visible,
+.home-footer-policy a:focus-visible,
+.entry-card:focus-visible {
+  outline: 2px solid rgba(124, 147, 184, 0.96);
+  outline-offset: 4px;
+  box-shadow: 0 0 0 4px rgba(242, 246, 252, 0.92), 0 12px 28px rgba(74, 93, 128, 0.18);
 }
 
 .hero-split {
