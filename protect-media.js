@@ -1611,12 +1611,23 @@
 
     if (item) {
       var route = normalizeMathPostPath(item.readmore_url || item.url || "");
-      var href = route.replace(/^post\//i, "") || route;
+      var href = "";
+      if (route) {
+        try {
+          href = new URL(
+            getChronohazeRootPath() + route.replace(/^\/+/, ""),
+            window.location.origin
+          ).href;
+        } catch (_error) {
+          href = getChronohazeRootPath() + route.replace(/^\/+/, "");
+        }
+      }
       var titleText =
         isEnglish
           ? item.title_en || item.title || "Untitled note"
           : item.title || item.title_en || "未命名笔记";
       itemNode.setAttribute("href", href);
+      itemNode.setAttribute("data-href", href);
       itemNode.setAttribute(
         "aria-label",
         (labelNode.textContent || "") + " · " + titleText
