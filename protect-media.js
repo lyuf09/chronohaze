@@ -3381,7 +3381,10 @@
     return nav;
   }
 
-  var persistentAudioController = null;
+  window.ChronohazeShared = window.ChronohazeShared || {};
+
+  var persistentAudioController =
+    window.ChronohazeShared.persistentAudioController || null;
   var persistentAudioSnapshotKey = "chronohaze:persistent-audio:v1";
   var pendingPersistentTrackHref = "";
 
@@ -3676,12 +3679,26 @@
 
   function ensurePersistentAudioDock() {
     if (
+      !persistentAudioController &&
+      window.ChronohazeShared &&
+      window.ChronohazeShared.persistentAudioController
+    ) {
+      persistentAudioController = window.ChronohazeShared.persistentAudioController;
+    }
+
+    if (
       persistentAudioController &&
       persistentAudioController.shell &&
       persistentAudioController.shell.isConnected
     ) {
       return persistentAudioController;
     }
+
+    Array.from(document.querySelectorAll(".persistent-audio-dock")).forEach(function (node) {
+      if (node && node.parentNode) {
+        node.parentNode.removeChild(node);
+      }
+    });
 
     var shell = document.createElement("aside");
     shell.className = "persistent-audio-dock";
@@ -3796,6 +3813,8 @@
       current: null,
       isCollapsed: isCompactMobileAudio(),
     };
+
+    window.ChronohazeShared.persistentAudioController = persistentAudioController;
 
     peekButton.addEventListener("click", function () {
       if (!persistentAudioController.current || !persistentAudioController.current.src) {
