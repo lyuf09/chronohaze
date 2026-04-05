@@ -1595,30 +1595,47 @@
       return;
     }
     itemNode.dataset.mathNavBound = "1";
+    itemNode.draggable = false;
 
-    itemNode.addEventListener("click", function (event) {
-      if (!event || event.defaultPrevented) {
-        return;
+    var go = function () {
+      try {
+        window.location.assign(href);
+      } catch (_err) {
+        window.location.href = href;
       }
-      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
-        return;
-      }
-      event.preventDefault();
-      event.stopImmediatePropagation();
-      navigateChronohazeInternal(href);
-    });
+    };
 
-    itemNode.addEventListener("keydown", function (event) {
-      if (!event || event.defaultPrevented) {
-        return;
-      }
-      if (event.key !== "Enter" && event.key !== " ") {
-        return;
-      }
-      event.preventDefault();
-      event.stopImmediatePropagation();
-      navigateChronohazeInternal(href);
-    });
+    itemNode.addEventListener(
+      "click",
+      function (event) {
+        if (!event || event.defaultPrevented) {
+          return;
+        }
+        if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+          return;
+        }
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        go();
+      },
+      true
+    );
+
+    itemNode.addEventListener(
+      "keydown",
+      function (event) {
+        if (!event || event.defaultPrevented) {
+          return;
+        }
+        if (event.key !== "Enter" && event.key !== " ") {
+          return;
+        }
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        go();
+      },
+      true
+    );
   }
 
   function createMathPostNavItem(item, direction, lang) {
@@ -1658,13 +1675,13 @@
           ? item.title_en || item.title || "Untitled note"
           : item.title || item.title_en || "未命名笔记";
       itemNode.setAttribute("href", href);
-      itemNode.setAttribute("data-href", href);
       itemNode.setAttribute("data-no-page-transition", "1");
       itemNode.setAttribute(
         "aria-label",
         (labelNode.textContent || "") + " · " + titleText
       );
       titleNode.textContent = titleText;
+      bindMathPostNavLink(itemNode, href);
     } else {
       titleNode.textContent = isEnglish
         ? direction === "prev"
