@@ -1798,6 +1798,10 @@
       return;
     }
 
+    if (document.querySelector('[data-static-math-post-nav="1"]')) {
+      return;
+    }
+
     var safeLang = lang === "en" ? "en" : detectPreferredLanguage();
     if (Array.isArray(mathCatalogMetadata)) {
       renderMathPostAdjacentNavigation(safeLang);
