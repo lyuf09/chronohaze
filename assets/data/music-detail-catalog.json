@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-04",
+  "generated_at": "2026-04-05",
   "source_glob": "music/track-*.html",
   "items": [
     {
@@ -4639,14 +4639,18 @@
       "title_clean": "Orchid",
       "status": "available",
       "creation_period": "12/2025 - 03/2026",
-      "subtitle": "发布日期： / 2026-04-25",
+      "subtitle": "发布日期：2026-04-25",
       "subtitle_lines": [
-        "发布日期：",
-        "2026-04-25"
+        "发布日期：2026-04-25"
       ],
-      "credit_lines": [],
+      "credit_lines": [
+        "作词作曲编曲：HazezZ"
+      ],
       "extra_meta_lines": [],
-      "credit_alias_tokens": [],
+      "credit_alias_tokens": [
+        "HazezZ",
+        "Haze"
+      ],
       "audio_count": 1,
       "audio_items": [
         {
