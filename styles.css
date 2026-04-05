@@ -3491,6 +3491,10 @@ html:lang(en) .photo-detail-article * {
   background: #cbcccf;
 }
 
+.orchid-track-page .main {
+  background: #d7d8db;
+}
+
 .music-detail-back {
   display: inline-block;
   margin-bottom: 24px;
