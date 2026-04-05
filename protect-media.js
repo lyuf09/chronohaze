@@ -13823,6 +13823,8 @@
   var fineMotionObserver = null;
   var pageTransitionBound = false;
   var pageTransitionNavigating = false;
+  var pageSwapPrefetchTtlMs = 120000;
+  var pageSwapPrefetchMaxEntries = 12;
 
   function isSecondaryPageSwapPath(pathname) {
     var path = String(pathname || "").toLowerCase();
@@ -13845,6 +13847,177 @@
       return false;
     }
     return isChronohazeSwappablePath(url.pathname || "");
+  }
+
+  function getPageSwapPrefetchCache() {
+    window.ChronohazeShared = window.ChronohazeShared || {};
+    if (!(window.ChronohazeShared.pageSwapPrefetchCache instanceof Map)) {
+      window.ChronohazeShared.pageSwapPrefetchCache = new Map();
+    }
+    return window.ChronohazeShared.pageSwapPrefetchCache;
+  }
+
+  function trimPageSwapPrefetchCache() {
+    var cache = getPageSwapPrefetchCache();
+    while (cache.size > pageSwapPrefetchMaxEntries) {
+      var oldestKey = cache.keys().next();
+      if (oldestKey && !oldestKey.done) {
+        cache.delete(oldestKey.value);
+      } else {
+        break;
+      }
+    }
+  }
+
+  function getPageSwapPrefetchEntry(url) {
+    var cache = getPageSwapPrefetchCache();
+    var key = url && url.href ? url.href : "";
+    if (!key || !cache.has(key)) {
+      return null;
+    }
+    var entry = cache.get(key);
+    if (!entry || !entry.createdAt || Date.now() - entry.createdAt > pageSwapPrefetchTtlMs) {
+      cache.delete(key);
+      return null;
+    }
+    return entry;
+  }
+
+  function rememberPageSwapPrefetch(url, promise) {
+    if (!url || !url.href || !promise) {
+      return promise;
+    }
+    var cache = getPageSwapPrefetchCache();
+    cache.set(url.href, {
+      promise: promise,
+      createdAt: Date.now(),
+    });
+    trimPageSwapPrefetchCache();
+    return promise;
+  }
+
+  function fetchPageSwapHtml(url, options) {
+    var opts = options || {};
+    if (!url || !url.href) {
+      return Promise.reject(new Error("invalid-url"));
+    }
+
+    var existing = !opts.forceFresh ? getPageSwapPrefetchEntry(url) : null;
+    if (existing && existing.promise) {
+      return existing.promise;
+    }
+
+    var requestPromise = fetch(url.href, {
+      cache: opts.cacheMode || (opts.prefetch ? "force-cache" : "no-cache"),
+      credentials: "same-origin",
+    })
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error("HTTP " + response.status);
+        }
+        return response.text();
+      })
+      .catch(function (error) {
+        var cache = getPageSwapPrefetchCache();
+        if (cache.get(url.href) && cache.get(url.href).promise === requestPromise) {
+          cache.delete(url.href);
+        }
+        throw error;
+      });
+
+    if (opts.store !== false) {
+      rememberPageSwapPrefetch(url, requestPromise);
+    }
+
+    return requestPromise;
+  }
+
+  function fetchPageSwapDocument(url, options) {
+    return fetchPageSwapHtml(url, options).then(function (html) {
+      var parser = new DOMParser();
+      return parser.parseFromString(html, "text/html");
+    });
+  }
+
+  function preloadPageSwapTarget(href) {
+    var url;
+    try {
+      url = href instanceof URL ? href : new URL(href, window.location.href);
+    } catch (_err) {
+      return Promise.resolve(null);
+    }
+
+    if (!shouldUsePageSwap(url)) {
+      return Promise.resolve(null);
+    }
+
+    var currentHref = "";
+    try {
+      currentHref = new URL(window.location.href).href;
+    } catch (_err) {
+      currentHref = window.location.href;
+    }
+    if (url.href === currentHref) {
+      return Promise.resolve(null);
+    }
+
+    return fetchPageSwapHtml(url, { prefetch: true }).catch(function () {
+      return null;
+    });
+  }
+
+  function resolvePageSwapTarget(target) {
+    if (!target || typeof target.closest !== "function") {
+      return null;
+    }
+
+    var interactiveAncestor = target.closest(
+      "a, button, input, select, textarea, summary, [contenteditable='true']"
+    );
+    var dataLinkTarget = target.closest("[data-post-url], [data-href]");
+    if (dataLinkTarget && !interactiveAncestor) {
+      var dataHref =
+        dataLinkTarget.getAttribute("data-post-url") ||
+        dataLinkTarget.getAttribute("data-href") ||
+        "";
+      if (dataHref) {
+        return {
+          href: dataHref,
+          viaDataTarget: true,
+          node: dataLinkTarget,
+        };
+      }
+    }
+
+    var link = target.closest("a[href]");
+    if (!link) {
+      return null;
+    }
+
+    if (
+      link.dataset.noPageTransition === "1" ||
+      link.hasAttribute("download") ||
+      (link.getAttribute("target") || "").toLowerCase() === "_blank"
+    ) {
+      return null;
+    }
+
+    var rawHref = (link.getAttribute("href") || "").trim();
+    if (!rawHref) {
+      return null;
+    }
+    if (
+      rawHref.charAt(0) === "#" ||
+      /^(?:mailto|tel|javascript|data):/i.test(rawHref)
+    ) {
+      return null;
+    }
+
+    return {
+      href: link.href,
+      viaDataTarget: false,
+      node: link,
+    };
   }
 
   function syncHeadNode(selector, sourceDocument) {
@@ -14089,16 +14262,8 @@
       pendingPersistentTrackHref = opts.autoplayTrackOnArrival;
     }
 
-    return fetch(url.href, { cache: "no-cache" })
-      .then(function (response) {
-        if (!response.ok) {
-          throw new Error("HTTP " + response.status);
-        }
-        return response.text();
-      })
-      .then(function (html) {
-        var parser = new DOMParser();
-        var nextDocument = parser.parseFromString(html, "text/html");
+    return fetchPageSwapDocument(url)
+      .then(function (nextDocument) {
         if (
           !nextDocument.body ||
           !isChronohazeSwappablePath(url.pathname)
@@ -14195,6 +14360,36 @@
     });
 
     document.addEventListener(
+      "pointerover",
+      function (event) {
+        if (!event || !event.target) {
+          return;
+        }
+        var resolved = resolvePageSwapTarget(event.target);
+        if (!resolved || !resolved.href) {
+          return;
+        }
+        preloadPageSwapTarget(resolved.href);
+      },
+      true
+    );
+
+    document.addEventListener(
+      "focusin",
+      function (event) {
+        if (!event || !event.target) {
+          return;
+        }
+        var resolved = resolvePageSwapTarget(event.target);
+        if (!resolved || !resolved.href) {
+          return;
+        }
+        preloadPageSwapTarget(resolved.href);
+      },
+      true
+    );
+
+    document.addEventListener(
       "click",
       function (event) {
         if (pageTransitionNavigating || !event || event.defaultPrevented) {
@@ -14210,51 +14405,22 @@
           return;
         }
 
-        var interactiveAncestor = target.closest(
-          "a, button, input, select, textarea, summary, [contenteditable='true']"
-        );
-        var dataLinkTarget = target.closest("[data-post-url], [data-href]");
-        if (dataLinkTarget && !interactiveAncestor) {
-          var dataHref =
-            dataLinkTarget.getAttribute("data-post-url") ||
-            dataLinkTarget.getAttribute("data-href") ||
-            "";
-          if (dataHref) {
-            event.preventDefault();
-            event.stopImmediatePropagation();
-            navigateChronohazeInternal(dataHref);
-            return;
-          }
-        }
-
-        var link = target.closest("a[href]");
-        if (!link) {
+        var resolved = resolvePageSwapTarget(target);
+        if (!resolved || !resolved.href) {
           return;
         }
 
-        if (
-          link.dataset.noPageTransition === "1" ||
-          link.hasAttribute("download") ||
-          (link.getAttribute("target") || "").toLowerCase() === "_blank"
-        ) {
-          return;
-        }
-
-        var rawHref = (link.getAttribute("href") || "").trim();
-        if (!rawHref) {
-          return;
-        }
-        if (
-          rawHref.charAt(0) === "#" ||
-          /^(?:mailto|tel|javascript|data):/i.test(rawHref)
-        ) {
+        if (resolved.viaDataTarget) {
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          navigateChronohazeInternal(resolved.href);
           return;
         }
 
         var url;
         var current;
         try {
-          url = new URL(link.href, window.location.href);
+          url = new URL(resolved.href, window.location.href);
           current = new URL(window.location.href);
         } catch (_err) {
           return;
