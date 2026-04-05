@@ -3374,6 +3374,20 @@
   var persistentAudioSnapshotKey = "chronohaze:persistent-audio:v1";
   var pendingPersistentTrackHref = "";
 
+  function isHomePageSwapPath(pathname) {
+    var path = String(pathname || "").toLowerCase();
+    return (
+      path === "/" ||
+      path === "/chronohaze" ||
+      path === "/chronohaze/" ||
+      /(?:^|\/)index\.html$/.test(path)
+    );
+  }
+
+  function isChronohazeSwappablePath(pathname) {
+    return isHomePageSwapPath(pathname) || isSecondaryPageSwapPath(pathname);
+  }
+
   function pauseCompetingAudio(exceptNode) {
     Array.from(document.querySelectorAll("audio")).forEach(function (node) {
       if (!node || node === exceptNode) {
@@ -3430,6 +3444,35 @@
       prevHref: navData.prevRoute || "",
       nextHref: navData.nextRoute || "",
     };
+  }
+
+  function getChronohazeRootPath() {
+    var path = String(window.location.pathname || "/");
+    var match = path.match(/^(.*?\/chronohaze\/)/i);
+    if (match && match[1]) {
+      return match[1];
+    }
+    if (/\/chronohaze$/i.test(path)) {
+      return path + "/";
+    }
+    return "/";
+  }
+
+  function toChronohazeAbsoluteUrl(pathOrHref) {
+    if (typeof pathOrHref !== "string" || !pathOrHref.trim()) {
+      return "";
+    }
+
+    var raw = pathOrHref.trim();
+    if (/^https?:\/\//i.test(raw)) {
+      return raw;
+    }
+
+    try {
+      return new URL(getChronohazeRootPath() + raw.replace(/^\//, ""), window.location.origin).href;
+    } catch (_err) {
+      return raw;
+    }
   }
 
   function getPersistentAudioLabels() {
@@ -3521,18 +3564,6 @@
     var isPlaying = hasTrack && !controller.audio.paused && !controller.audio.ended;
     var compactMobile = isCompactMobileAudio();
 
-    if (body && body.classList.contains("home-body")) {
-      controller.shell.hidden = true;
-      controller.shell.classList.remove("is-visible");
-      body.classList.remove(
-        "mobile-audio-dock-expanded",
-        "persistent-audio-dock-active",
-        "persistent-audio-dock-expanded",
-        "persistent-audio-dock-collapsed"
-      );
-      return;
-    }
-
     controller.shell.hidden = !hasTrack;
     controller.shell.classList.toggle("is-visible", hasTrack);
     controller.shell.classList.toggle("is-playing", isPlaying);
@@ -3552,7 +3583,8 @@
     controller.title.textContent = current ? current.title || "TRACK" : "TRACK";
     controller.artist.textContent = current ? current.artist || "HAZEZZ" : "HAZEZZ";
     controller.openLink.textContent = labels.open;
-    controller.openLink.href = current && current.pageHref ? current.pageHref : "#";
+    controller.openLink.href =
+      current && current.pageHref ? toChronohazeAbsoluteUrl(current.pageHref) : "#";
     controller.openLink.setAttribute(
       "aria-disabled",
       current && current.pageHref ? "false" : "true"
@@ -3811,12 +3843,13 @@
         window.ChronohazeShared &&
         typeof window.ChronohazeShared.navigateWithPageSwap === "function"
       ) {
-        window.ChronohazeShared.navigateWithPageSwap(href, {
-          autoplayTrackOnArrival: href,
+        var nextHref = toChronohazeAbsoluteUrl(href);
+        window.ChronohazeShared.navigateWithPageSwap(nextHref, {
+          autoplayTrackOnArrival: nextHref,
         });
         return;
       }
-      window.location.href = href;
+      window.location.href = toChronohazeAbsoluteUrl(href);
     }
 
     prevButton.addEventListener("click", function () {
@@ -3930,6 +3963,195 @@
     }
 
     return controller;
+  }
+
+  function buildTrackNavigationDataForRoute(route) {
+    var currentRoute = normalizeMusicDetailPath(route || "");
+    if (!currentRoute) {
+      return { currentRoute: "", prevRoute: "", nextRoute: "" };
+    }
+
+    var routes = getMusicTrackRoutes();
+    var index = routes.indexOf(currentRoute);
+    if (index === -1) {
+      return { currentRoute: currentRoute, prevRoute: "", nextRoute: "" };
+    }
+
+    return {
+      currentRoute: currentRoute,
+      prevRoute: index > 0 ? routes[index - 1] : "",
+      nextRoute: index < routes.length - 1 ? routes[index + 1] : "",
+    };
+  }
+
+  function enhanceHomeFeaturedPlayer() {
+    if (!document.body || !document.body.classList.contains("home-body")) {
+      return;
+    }
+
+    var shell = document.getElementById("playerShell");
+    var toggle = document.getElementById("audioToggle");
+    var inlineAudio = document.getElementById("heroAudio");
+    var progress = document.getElementById("playerProgress");
+    var timeLabel = document.getElementById("playerTime");
+    var status = document.getElementById("playerStatus");
+    var fallbackLink = document.getElementById("playerFallbackLink");
+    var titleNode = shell ? shell.querySelector(".player-center p") : null;
+
+    if (
+      !shell ||
+      !toggle ||
+      !inlineAudio ||
+      !progress ||
+      !timeLabel ||
+      !status ||
+      !fallbackLink ||
+      !titleNode
+    ) {
+      return;
+    }
+
+    neutralizeInlineMusicAudio(inlineAudio);
+    var controller = ensurePersistentAudioDock();
+    var labelText = (titleNode.textContent || "").trim();
+    var parts = labelText.split(/\s*-\s*/);
+    var featuredPageHref = fallbackLink.getAttribute("href") || "music/track-04.html";
+    var featuredRoute = normalizeMusicDetailPath(featuredPageHref);
+    var navData = buildTrackNavigationDataForRoute(featuredRoute);
+    var featuredTrack = {
+      src: resolveAudioSource(inlineAudio),
+      title: String((parts[0] || "AFFIZIEREN").trim() || "AFFIZIEREN").toUpperCase(),
+      artist: String((parts[1] || "HAZEZZ").trim() || "HAZEZZ").toUpperCase(),
+      pageHref: toChronohazeAbsoluteUrl(featuredRoute || featuredPageHref),
+      prevHref: navData.prevRoute,
+      nextHref: navData.nextRoute,
+      fallbackDuration: Number(inlineAudio.getAttribute("data-fallback-duration") || 0) || 0,
+    };
+
+    function isFeaturedTrackActive() {
+      return !!(
+        controller &&
+        controller.current &&
+        controller.current.src &&
+        controller.current.src === featuredTrack.src
+      );
+    }
+
+    function setHomePlayerVisualState(nextState) {
+      var labels =
+        detectPreferredLanguage() === "en"
+          ? {
+              loading: "Preparing audio…",
+              ready: "",
+              error: "Playback unavailable on this device/network",
+              fallback: "Open track page",
+            }
+          : {
+              loading: "准备音频…",
+              ready: "",
+              error: "当前设备/网络下暂不可播",
+              fallback: "去音乐页试听",
+            };
+      var safeState = nextState || "loading";
+      shell.dataset.audioState = safeState;
+      shell.classList.toggle("is-audio-unavailable", safeState === "error");
+      status.textContent =
+        safeState === "error"
+          ? labels.error
+          : safeState === "ready"
+            ? labels.ready
+            : labels.loading;
+      fallbackLink.textContent = labels.fallback;
+      fallbackLink.hidden = safeState !== "error";
+    }
+
+    function syncFeaturedPlayerFromPersistentAudio() {
+      var active = isFeaturedTrackActive();
+      var duration = 0;
+      var currentTime = 0;
+      var isPlaying = false;
+
+      if (active) {
+        duration = isFinite(controller.audio.duration) ? controller.audio.duration : 0;
+        currentTime = isFinite(controller.audio.currentTime) ? controller.audio.currentTime : 0;
+        isPlaying = !controller.audio.paused && !controller.audio.ended;
+      } else {
+        duration = featuredTrack.fallbackDuration;
+        currentTime = 0;
+      }
+
+      var ratio = duration > 0 ? Math.max(0, Math.min(currentTime / duration, 1)) : 0;
+      progress.style.width = (ratio * 100).toFixed(2) + "%";
+      timeLabel.textContent =
+        formatDuration(currentTime) + " / " + formatDuration(duration);
+      toggle.textContent = isPlaying ? "▮▮" : "▶";
+      toggle.disabled = !featuredTrack.src;
+      toggle.setAttribute("aria-disabled", featuredTrack.src ? "false" : "true");
+
+      if (!featuredTrack.src) {
+        toggle.textContent = "·";
+        setHomePlayerVisualState("error");
+        return;
+      }
+
+      if (controller.audio.error && active) {
+        setHomePlayerVisualState("error");
+        return;
+      }
+
+      setHomePlayerVisualState("ready");
+    }
+
+    if (toggle.dataset.persistentAudioBound !== "1") {
+      toggle.dataset.persistentAudioBound = "1";
+      toggle.addEventListener(
+        "click",
+        function (event) {
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          if (!featuredTrack.src) {
+            syncFeaturedPlayerFromPersistentAudio();
+            return;
+          }
+
+          if (!isFeaturedTrackActive()) {
+            loadPersistentTrack(
+              {
+                src: featuredTrack.src,
+                title: featuredTrack.title,
+                artist: featuredTrack.artist,
+                pageHref: featuredTrack.pageHref,
+                prevHref: featuredTrack.prevHref,
+                nextHref: featuredTrack.nextHref,
+              },
+              { autoplay: true }
+            );
+            return;
+          }
+
+          if (controller.audio.paused || controller.audio.ended) {
+            var playPromise = controller.audio.play();
+            if (playPromise && typeof playPromise.catch === "function") {
+              playPromise.catch(function () {
+                syncFeaturedPlayerFromPersistentAudio();
+              });
+            }
+          } else {
+            controller.audio.pause();
+          }
+        },
+        true
+      );
+    }
+
+    if (shell.dataset.persistentAudioSyncBound !== "1") {
+      shell.dataset.persistentAudioSyncBound = "1";
+      document.addEventListener("chronohaze:persistent-audio-sync", function () {
+        syncFeaturedPlayerFromPersistentAudio();
+      });
+    }
+
+    syncFeaturedPlayerFromPersistentAudio();
   }
 
   function maybeAutoplayPendingPersistentTrack() {
@@ -13583,7 +13805,7 @@
   }
 
   function shouldUsePageSwap(url) {
-    if (!url || !document.body || document.body.classList.contains("home-body")) {
+    if (!url || !document.body) {
       return false;
     }
     if (!/^https?:$/i.test(url.protocol)) {
@@ -13592,7 +13814,7 @@
     if (url.origin !== window.location.origin) {
       return false;
     }
-    return isSecondaryPageSwapPath(url.pathname || "");
+    return isChronohazeSwappablePath(url.pathname || "");
   }
 
   function syncHeadNode(selector, sourceDocument) {
@@ -13758,14 +13980,17 @@
     if (!sourceDocument) {
       return false;
     }
-    var nextPage = sourceDocument.querySelector(".page");
-    var currentPage = document.querySelector(".page");
+    var nextPage = sourceDocument.querySelector(".home-page, .page");
+    var currentPage = document.querySelector(".home-page, .page");
     if (!nextPage || !currentPage) {
       return false;
     }
 
     withMutationRefreshSuppressed(function () {
       destroyArticleScrollToc();
+      document.body.classList.remove("menu-scroll-locked");
+      document.documentElement.classList.remove("menu-scroll-locked");
+      document.body.style.removeProperty("--menu-scroll-top");
       syncBodyAttributes(sourceDocument.body);
       currentPage.replaceWith(document.importNode(nextPage, true));
     });
@@ -13846,8 +14071,7 @@
         var nextDocument = parser.parseFromString(html, "text/html");
         if (
           !nextDocument.body ||
-          nextDocument.body.classList.contains("home-body") ||
-          !isSecondaryPageSwapPath(url.pathname)
+          !isChronohazeSwappablePath(url.pathname)
         ) {
           throw new Error("unsupported-target");
         }
@@ -13877,6 +14101,14 @@
         }
         return false;
       });
+  }
+
+  function navigateChronohazeInternal(href, options) {
+    var nextHref = toChronohazeAbsoluteUrl(href);
+    if (!nextHref) {
+      return Promise.resolve(false);
+    }
+    return navigateWithPageSwap(nextHref, options);
   }
 
   function setupPageTransitions() {
@@ -13943,6 +14175,23 @@
           return;
         }
 
+        var interactiveAncestor = target.closest(
+          "a, button, input, select, textarea, summary, [contenteditable='true']"
+        );
+        var dataLinkTarget = target.closest("[data-post-url], [data-href]");
+        if (dataLinkTarget && !interactiveAncestor) {
+          var dataHref =
+            dataLinkTarget.getAttribute("data-post-url") ||
+            dataLinkTarget.getAttribute("data-href") ||
+            "";
+          if (dataHref) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            navigateChronohazeInternal(dataHref);
+            return;
+          }
+        }
+
         var link = target.closest("a[href]");
         if (!link) {
           return;
@@ -14007,6 +14256,43 @@
 
         event.preventDefault();
         navigateWithPageSwap(url.href);
+      },
+      true
+    );
+
+    document.addEventListener(
+      "keydown",
+      function (event) {
+        if (
+          pageTransitionNavigating ||
+          !event ||
+          event.defaultPrevented ||
+          (event.key !== "Enter" && event.key !== " ")
+        ) {
+          return;
+        }
+
+        var target = event.target;
+        if (!target || typeof target.closest !== "function") {
+          return;
+        }
+
+        var dataLinkTarget = target.closest("[data-post-url], [data-href]");
+        if (!dataLinkTarget) {
+          return;
+        }
+
+        var dataHref =
+          dataLinkTarget.getAttribute("data-post-url") ||
+          dataLinkTarget.getAttribute("data-href") ||
+          "";
+        if (!dataHref) {
+          return;
+        }
+
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        navigateChronohazeInternal(dataHref);
       },
       true
     );
@@ -14321,6 +14607,7 @@
       setupPhotoDetailPager,
       ensureMusicDetailBackLink,
       ensurePersistentAudioDock,
+      enhanceHomeFeaturedPlayer,
       enhanceMusicPlayers,
       enhanceMusicLyricsLayout,
       forceMusicLyricsVisibleOnCompactViewport,
