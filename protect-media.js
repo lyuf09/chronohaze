@@ -1659,11 +1659,11 @@
           : item.title || item.title_en || "未命名笔记";
       itemNode.setAttribute("href", href);
       itemNode.setAttribute("data-href", href);
+      itemNode.setAttribute("data-no-page-transition", "1");
       itemNode.setAttribute(
         "aria-label",
         (labelNode.textContent || "") + " · " + titleText
       );
-      bindMathPostNavLink(itemNode, href);
       titleNode.textContent = titleText;
     } else {
       titleNode.textContent = isEnglish
