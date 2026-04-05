@@ -2627,6 +2627,43 @@
   }
 
   var MUSIC_TRACK_TOTAL = 30;
+  var DEFAULT_MUSIC_TRACK_ROUTES = [
+    "music/track-orchid.html",
+    "music/track-01.html",
+    "music/track-02.html",
+    "music/track-03.html",
+    "music/track-felix.html",
+    "music/track-04.html",
+    "music/track-05.html",
+    "music/track-06.html",
+    "music/track-07.html",
+    "music/track-08.html",
+    "music/track-09.html",
+    "music/track-10.html",
+    "music/track-11.html",
+    "music/track-12.html",
+    "music/track-13.html",
+    "music/track-14.html",
+    "music/track-15.html",
+    "music/track-16.html",
+    "music/track-17.html",
+    "music/track-negau.html",
+    "music/track-seaside-town.html",
+    "music/track-18.html",
+    "music/track-19.html",
+    "music/track-20.html",
+    "music/track-21.html",
+    "music/track-22.html",
+    "music/track-23.html",
+    "music/track-24.html",
+    "music/track-25.html",
+    "music/track-26.html",
+    "music/track-27.html",
+    "music/track-28.html",
+    "music/track-29.html",
+    "music/track-30.html",
+  ];
+  var musicTrackRoutes = DEFAULT_MUSIC_TRACK_ROUTES.slice();
 
   function formatDuration(seconds) {
     if (!isFinite(seconds) || seconds < 0) {
@@ -2658,19 +2695,70 @@
     range.style.setProperty("--range-progress", percent + "%");
   }
 
-  function findTrackIndexFromPath() {
-    var path = window.location.pathname || "";
-    var match = path.match(/track-(\d+)\.html$/i);
-    if (!match) {
-      return null;
-    }
-
-    var value = parseInt(match[1], 10);
-    return isFinite(value) ? value : null;
+  function currentMusicTrackRoute() {
+    return normalizeMusicDetailPath(window.location.href || window.location.pathname || "");
   }
 
-  function trackHref(index) {
-    return "track-" + String(index).padStart(2, "0") + ".html";
+  function getMusicTrackRoutes() {
+    return Array.isArray(musicTrackRoutes) && musicTrackRoutes.length
+      ? musicTrackRoutes.slice()
+      : DEFAULT_MUSIC_TRACK_ROUTES.slice();
+  }
+
+  function updateMusicTrackRoutesFromCatalog(items) {
+    if (!Array.isArray(items) || !items.length) {
+      return;
+    }
+
+    var nextRoutes = [];
+    items.forEach(function (item) {
+      if (!item || typeof item !== "object") {
+        return;
+      }
+      if (String(item.type || "").toLowerCase() === "album") {
+        return;
+      }
+      var route = normalizeMusicDetailPath(item.url || "");
+      if (!/^music\/track-[^/]+\.html$/i.test(route)) {
+        return;
+      }
+      if (nextRoutes.indexOf(route) !== -1) {
+        return;
+      }
+      nextRoutes.push(route);
+    });
+
+    if (nextRoutes.length) {
+      musicTrackRoutes = nextRoutes;
+      MUSIC_TRACK_TOTAL = nextRoutes.length;
+    }
+  }
+
+  function buildTrackNavigationData() {
+    var currentRoute = currentMusicTrackRoute();
+    if (!currentRoute) {
+      return { currentRoute: "", prevRoute: "", nextRoute: "" };
+    }
+
+    var routes = getMusicTrackRoutes();
+    var index = routes.indexOf(currentRoute);
+    if (index === -1) {
+      return { currentRoute: currentRoute, prevRoute: "", nextRoute: "" };
+    }
+
+    return {
+      currentRoute: currentRoute,
+      prevRoute: index > 0 ? routes[index - 1] : "",
+      nextRoute: index < routes.length - 1 ? routes[index + 1] : "",
+    };
+  }
+
+  function toMusicDetailPageHref(route) {
+    var normalized = normalizeMusicDetailPath(route || "");
+    if (!normalized) {
+      return "";
+    }
+    return normalized.replace(/^music\//i, "");
   }
 
   function buildTrackArtist(article, audioElement) {
@@ -3043,11 +3131,12 @@
   }
 
   function buildTrackNavigation(dict) {
-    var current = findTrackIndexFromPath();
+    var navData = buildTrackNavigationData();
     var nav = document.createElement("div");
     nav.className = "music-player-nav";
 
-    function createNavNode(text, href) {
+    function createNavNode(text, route) {
+      var href = toMusicDetailPageHref(route);
       var node = href ? document.createElement("a") : document.createElement("span");
       node.className = "music-player-nav-link";
       node.textContent = text;
@@ -3059,12 +3148,8 @@
       return node;
     }
 
-    var prevHref = current && current > 1 ? trackHref(current - 1) : null;
-    var nextHref =
-      current && current < MUSIC_TRACK_TOTAL ? trackHref(current + 1) : null;
-
-    nav.appendChild(createNavNode(dict.playerPrev, prevHref));
-    nav.appendChild(createNavNode(dict.playerNext, nextHref));
+    nav.appendChild(createNavNode(dict.playerPrev, navData.prevRoute));
+    nav.appendChild(createNavNode(dict.playerNext, navData.nextRoute));
     return nav;
   }
 
@@ -3123,10 +3208,10 @@
   }
 
   function getCurrentTrackNavigation() {
-    var current = findTrackIndexFromPath();
+    var navData = buildTrackNavigationData();
     return {
-      prevHref: current && current > 1 ? trackHref(current - 1) : "",
-      nextHref: current && current < MUSIC_TRACK_TOTAL ? trackHref(current + 1) : "",
+      prevHref: navData.prevRoute || "",
+      nextHref: navData.nextRoute || "",
     };
   }
 
@@ -10756,6 +10841,7 @@
           }
           map[key] = item;
         });
+        updateMusicTrackRoutesFromCatalog(items);
         musicCatalogByHref = map;
         return musicCatalogByHref;
       })
