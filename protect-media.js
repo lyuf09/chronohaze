@@ -13946,7 +13946,7 @@
 
       var src = (scriptNode.getAttribute("src") || "").trim();
       if (src) {
-        if (/googletagmanager|protect-media\.js/i.test(src)) {
+        if (/googletagmanager|protect-media(?:\.min)?\.js/i.test(src)) {
           return;
         }
         chain = chain.then(function () {
@@ -14123,10 +14123,16 @@
   }
 
   function setupPageTransitions() {
-    if (pageTransitionBound || !document.body) {
+    if (
+      pageTransitionBound ||
+      !document.body ||
+      (window.ChronohazeShared && window.ChronohazeShared.__pageTransitionBound)
+    ) {
       return;
     }
     pageTransitionBound = true;
+    window.ChronohazeShared = window.ChronohazeShared || {};
+    window.ChronohazeShared.__pageTransitionBound = true;
 
     var reducedMotion =
       typeof window.matchMedia === "function" &&
@@ -14152,7 +14158,6 @@
       } catch (_err) {}
     }
 
-    window.ChronohazeShared = window.ChronohazeShared || {};
     window.ChronohazeShared.navigateWithPageSwap = navigateWithPageSwap;
 
     window.addEventListener("pageshow", function () {
