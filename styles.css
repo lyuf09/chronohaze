@@ -3933,6 +3933,8 @@ html:lang(en) .photo-detail-article * {
 }
 
 .persistent-audio-close {
+  position: relative;
+  top: -3px;
   font-size: 28px;
   line-height: 1;
   letter-spacing: 0;
