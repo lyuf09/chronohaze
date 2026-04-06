@@ -3667,7 +3667,9 @@
       current && current.pageHref ? "false" : "true"
     );
 
-    controller.closeButton.textContent = labels.close;
+    controller.closeButton.textContent = "×";
+    controller.closeButton.setAttribute("aria-label", labels.close);
+    controller.closeButton.setAttribute("title", labels.close);
     controller.prevButton.textContent = labels.prev;
     controller.nextButton.textContent = labels.next;
 
@@ -14137,6 +14139,77 @@
     }
   }
 
+  function syncPageStylesFromDocument(sourceDocument) {
+    if (!sourceDocument || !document.head) {
+      return Promise.resolve();
+    }
+
+    var managedNames = ["styles.css", "styles.min.css", "home.css", "home.min.css"];
+
+    function isManagedStylesheetHref(href) {
+      var input = String(href || "").toLowerCase();
+      return managedNames.some(function (name) {
+        return input.indexOf(name) !== -1;
+      });
+    }
+
+    function normalizeHref(node, baseUrl) {
+      var raw = (node && node.getAttribute && node.getAttribute("href")) || "";
+      if (!raw) {
+        return "";
+      }
+      try {
+        return new URL(raw, baseUrl || window.location.href).href;
+      } catch (_err) {
+        return raw;
+      }
+    }
+
+    var currentNodes = Array.from(document.head.querySelectorAll('link[rel="stylesheet"][href]')).filter(function (node) {
+      return isManagedStylesheetHref(node.getAttribute("href"));
+    });
+    var nextNodes = Array.from(sourceDocument.head.querySelectorAll('link[rel="stylesheet"][href]')).filter(function (node) {
+      return isManagedStylesheetHref(node.getAttribute("href"));
+    });
+
+    var currentMap = new Map();
+    currentNodes.forEach(function (node) {
+      currentMap.set(normalizeHref(node), node);
+    });
+
+    var nextHrefs = nextNodes.map(function (node) {
+      return normalizeHref(node, sourceDocument.baseURI || window.location.href);
+    }).filter(Boolean);
+
+    currentNodes.forEach(function (node) {
+      var href = normalizeHref(node);
+      if (nextHrefs.indexOf(href) === -1 && node.parentNode) {
+        node.parentNode.removeChild(node);
+      }
+    });
+
+    var loadPromises = [];
+    nextNodes.forEach(function (node) {
+      var href = normalizeHref(node, sourceDocument.baseURI || window.location.href);
+      if (!href || currentMap.has(href)) {
+        return;
+      }
+      var imported = document.importNode(node, true);
+      imported.setAttribute("href", href);
+      loadPromises.push(
+        new Promise(function (resolve) {
+          imported.addEventListener("load", resolve, { once: true });
+          imported.addEventListener("error", resolve, { once: true });
+          document.head.appendChild(imported);
+        })
+      );
+    });
+
+    return Promise.all(loadPromises).then(function () {
+      return true;
+    });
+  }
+
   function syncBodyAttributes(nextBody) {
     if (!document.body || !nextBody) {
       return;
@@ -14257,6 +14330,13 @@
       document.body.classList.remove("menu-scroll-locked");
       document.documentElement.classList.remove("menu-scroll-locked");
       document.body.style.removeProperty("--menu-scroll-top");
+      if (nextPage.classList && nextPage.classList.contains("home-page")) {
+        Array.from(document.querySelectorAll('.floating-lang-switch')).forEach(function (node) {
+          if (node.parentNode) {
+            node.parentNode.removeChild(node);
+          }
+        });
+      }
       syncBodyAttributes(sourceDocument.body);
       currentPage.replaceWith(document.importNode(nextPage, true));
     });
@@ -14335,18 +14415,20 @@
         }
 
         syncHeadMetaFromDocument(nextDocument, url);
-        if (!replacePageShellFromDocument(nextDocument)) {
-          throw new Error("missing-page-shell");
-        }
+        return syncPageStylesFromDocument(nextDocument).then(function () {
+          if (!replacePageShellFromDocument(nextDocument)) {
+            throw new Error("missing-page-shell");
+          }
 
-        if (!opts.fromPopstate) {
-          history.pushState({ chronohazePageSwap: true, href: url.href }, "", url.href);
-        }
+          if (!opts.fromPopstate) {
+            history.pushState({ chronohazePageSwap: true, href: url.href }, "", url.href);
+          }
 
-        return loadPageScriptsFromDocument(nextDocument).then(function () {
-          finalizeSwappedPage(url);
-          maybeAutoplayPendingPersistentTrack();
-          return true;
+          return loadPageScriptsFromDocument(nextDocument).then(function () {
+            finalizeSwappedPage(url);
+            maybeAutoplayPendingPersistentTrack();
+            return true;
+          });
         });
       })
       .catch(function (_error) {

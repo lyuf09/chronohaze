@@ -9361,10 +9361,13 @@ body {
   .persistent-audio-artist,
   .persistent-audio-kicker,
   .persistent-audio-collapse,
-  .persistent-audio-close,
   .persistent-audio-nav,
   .persistent-audio-open {
     font-size: 9px;
+  }
+
+  .persistent-audio-close {
+    font-size: 16px;
   }
 
   .persistent-audio-time {
