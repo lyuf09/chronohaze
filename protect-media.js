@@ -14139,7 +14139,7 @@
     }
   }
 
-  function syncPageStylesFromDocument(sourceDocument) {
+  function syncPageStylesFromDocument(sourceDocument, targetUrl) {
     if (!sourceDocument || !document.head) {
       return Promise.resolve();
     }
@@ -14178,7 +14178,7 @@
     });
 
     var nextHrefs = nextNodes.map(function (node) {
-      return normalizeHref(node, sourceDocument.baseURI || window.location.href);
+      return normalizeHref(node, (targetUrl && targetUrl.href) || sourceDocument.baseURI || window.location.href);
     }).filter(Boolean);
 
     currentNodes.forEach(function (node) {
@@ -14190,7 +14190,7 @@
 
     var loadPromises = [];
     nextNodes.forEach(function (node) {
-      var href = normalizeHref(node, sourceDocument.baseURI || window.location.href);
+      var href = normalizeHref(node, (targetUrl && targetUrl.href) || sourceDocument.baseURI || window.location.href);
       if (!href || currentMap.has(href)) {
         return;
       }
@@ -14251,7 +14251,7 @@
     });
   }
 
-  function loadPageScriptsFromDocument(sourceDocument) {
+  function loadPageScriptsFromDocument(sourceDocument, targetUrl) {
     if (!sourceDocument) {
       return Promise.resolve();
     }
@@ -14284,7 +14284,11 @@
             if (type === "module") {
               script.type = "module";
             }
-            script.src = src;
+            try {
+              script.src = new URL(src, (targetUrl && targetUrl.href) || window.location.href).href;
+            } catch (_err) {
+              script.src = src;
+            }
             script.onload = resolve;
             script.onerror = resolve;
             document.body.appendChild(script);
@@ -14415,16 +14419,16 @@
         }
 
         syncHeadMetaFromDocument(nextDocument, url);
-        return syncPageStylesFromDocument(nextDocument).then(function () {
-          if (!replacePageShellFromDocument(nextDocument)) {
-            throw new Error("missing-page-shell");
-          }
-
+        return syncPageStylesFromDocument(nextDocument, url).then(function () {
           if (!opts.fromPopstate) {
             history.pushState({ chronohazePageSwap: true, href: url.href }, "", url.href);
           }
 
-          return loadPageScriptsFromDocument(nextDocument).then(function () {
+          if (!replacePageShellFromDocument(nextDocument)) {
+            throw new Error("missing-page-shell");
+          }
+
+          return loadPageScriptsFromDocument(nextDocument, url).then(function () {
             finalizeSwappedPage(url);
             maybeAutoplayPendingPersistentTrack();
             return true;
