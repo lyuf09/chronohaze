@@ -3932,6 +3932,12 @@ html:lang(en) .photo-detail-article * {
   border-radius: 999px;
 }
 
+.persistent-audio-close {
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
 .persistent-audio-collapse:hover,
 .persistent-audio-close:hover,
 .persistent-audio-nav:hover,
@@ -9367,7 +9373,8 @@ body {
   }
 
   .persistent-audio-close {
-    font-size: 16px;
+    font-size: 24px;
+    line-height: 1;
   }
 
   .persistent-audio-time {
