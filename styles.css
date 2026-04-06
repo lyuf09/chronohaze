@@ -3932,6 +3932,14 @@ html:lang(en) .photo-detail-article * {
   border-radius: 999px;
 }
 
+.persistent-audio-collapse {
+  position: relative;
+  top: -4px;
+  font-size: 26px;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
 .persistent-audio-close {
   position: relative;
   top: -5px;
@@ -9376,6 +9384,12 @@ body {
 
   .persistent-audio-close {
     font-size: 24px;
+    line-height: 1;
+  }
+
+  .persistent-audio-collapse {
+    top: -3px;
+    font-size: 22px;
     line-height: 1;
   }
 
