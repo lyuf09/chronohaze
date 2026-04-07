@@ -248,6 +248,8 @@ textarea::placeholder {
       .floating-lang-btn
     ) {
     cursor: var(--cursor-hover), var(--cursor-default), auto !important;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(124, 147, 184, 0.14);
   }
 
   :where(
@@ -3927,7 +3929,8 @@ html:lang(en) .photo-detail-article * {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 24px;
+  min-height: 36px;
+  min-width: 36px;
   padding: 0 7px;
   border-radius: 999px;
 }
@@ -4007,6 +4010,29 @@ html:lang(en) .photo-detail-article * {
 .persistent-audio-open {
   color: rgba(35, 41, 50, 0.74);
   text-decoration: none;
+}
+
+.persistent-audio-nav,
+.persistent-audio-open {
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.persistent-audio-peek,
+.persistent-audio-collapse,
+.persistent-audio-close,
+.persistent-audio-nav,
+.persistent-audio-open,
+.persistent-audio-dock .music-player-play,
+.persistent-audio-dock .music-player-scrubber,
+.obf-email-copy,
+.floating-lang-btn,
+.share-panel-toggle,
+.share-action-btn,
+.music-filter-tab {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(124, 147, 184, 0.14);
 }
 
 .persistent-audio-open[aria-disabled="true"] {
@@ -9425,12 +9451,17 @@ body {
 
   .persistent-audio-collapse,
   .persistent-audio-close {
-    min-height: auto;
-    min-width: 0;
+    min-height: 40px;
+    min-width: 40px;
     padding: 0;
     background: transparent;
     box-shadow: none;
     border-radius: 0;
+  }
+
+  .persistent-audio-nav,
+  .persistent-audio-open {
+    min-height: 40px;
   }
 
   .persistent-audio-dock .music-player-row {

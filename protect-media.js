@@ -671,7 +671,7 @@
           "title",
           "Click to load original resolution"
         );
-        figure.addEventListener("click", function (event) {
+        bindResponsivePress(figure, function (event) {
           var targetImg = figure.querySelector("img");
           if (!targetImg || targetImg.dataset.fullResLoaded === "1") {
             return;
@@ -1863,6 +1863,39 @@
     }
   }
 
+  function bindResponsivePress(node, handler) {
+    if (!node || typeof handler !== "function") {
+      return;
+    }
+
+    var lastTouchStamp = 0;
+
+    node.addEventListener(
+      "touchend",
+      function (event) {
+        if (event.defaultPrevented) {
+          return;
+        }
+        lastTouchStamp = Date.now();
+        if (event.cancelable) {
+          event.preventDefault();
+        }
+        handler(event);
+      },
+      { passive: false }
+    );
+
+    node.addEventListener("click", function (event) {
+      if (Date.now() - lastTouchStamp < 700) {
+        if (event.cancelable) {
+          event.preventDefault();
+        }
+        return;
+      }
+      handler(event);
+    });
+  }
+
   var CHRONOHAZE_EMAIL_BOOK = {
     main: {
       userParts: ["fei", "er530"],
@@ -1944,7 +1977,7 @@
     }
 
     button.dataset.emailObfBound = "1";
-    button.addEventListener("click", function (event) {
+    bindResponsivePress(button, function (event) {
       event.preventDefault();
       event.stopPropagation();
 
@@ -2222,7 +2255,7 @@
 
     if (logo.dataset.shareLauncherBound !== "1") {
       logo.dataset.shareLauncherBound = "1";
-      logo.addEventListener("click", function (event) {
+      bindResponsivePress(logo, function (event) {
         if (shell.getAttribute("data-mobile-share-via-logo") !== "1") {
           return;
         }
@@ -2353,17 +2386,7 @@
         });
     }
 
-    launcher.addEventListener("click", function () {
-      var next = shell.getAttribute("data-open") !== "1";
-      setOpen(next);
-      trackAnalyticsEvent("share_panel_toggle", {
-        page_path: window.location.pathname || "",
-        opened: next ? 1 : 0,
-      });
-    });
-
-    panel.addEventListener("click", function (event) {
-      var button = event.target && event.target.closest("[data-share-action]");
+    function handleShareAction(button) {
       if (!button) {
         return;
       }
@@ -2484,6 +2507,24 @@
             share_action: action,
           });
         }
+      });
+    }
+
+    bindResponsivePress(launcher, function () {
+      var next = shell.getAttribute("data-open") !== "1";
+      setOpen(next);
+      trackAnalyticsEvent("share_panel_toggle", {
+        page_path: window.location.pathname || "",
+        opened: next ? 1 : 0,
+      });
+    });
+
+    Array.from(panel.querySelectorAll("[data-share-action]")).forEach(function (button) {
+      bindResponsivePress(button, function (event) {
+        if (event && typeof event.stopPropagation === "function") {
+          event.stopPropagation();
+        }
+        handleShareAction(button);
       });
     });
 
@@ -3882,7 +3923,7 @@
 
     window.ChronohazeShared.persistentAudioController = persistentAudioController;
 
-    peekButton.addEventListener("click", function () {
+    bindResponsivePress(peekButton, function () {
       if (!persistentAudioController.current || !persistentAudioController.current.src) {
         return;
       }
@@ -3890,12 +3931,12 @@
       syncPersistentAudioDock();
     });
 
-    collapseButton.addEventListener("click", function () {
+    bindResponsivePress(collapseButton, function () {
       persistentAudioController.isCollapsed = true;
       syncPersistentAudioDock();
     });
 
-    playButton.addEventListener("click", function () {
+    bindResponsivePress(playButton, function () {
       if (!persistentAudioController.current || !persistentAudioController.current.src) {
         return;
       }
@@ -3919,7 +3960,11 @@
       syncPersistentAudioDock();
     });
 
-    closeButton.addEventListener("click", function () {
+    scrubber.addEventListener("change", function () {
+      syncPersistentAudioDock();
+    });
+
+    bindResponsivePress(closeButton, function () {
       clearPersistentAudio();
     });
 
@@ -3948,11 +3993,11 @@
       window.location.href = toChronohazeAbsoluteUrl(href);
     }
 
-    prevButton.addEventListener("click", function () {
+    bindResponsivePress(prevButton, function () {
       navigateAdjacentTrack("prev");
     });
 
-    nextButton.addEventListener("click", function () {
+    bindResponsivePress(nextButton, function () {
       navigateAdjacentTrack("next");
     });
 
@@ -4436,7 +4481,7 @@
           formatDuration(current) + " / " + formatDuration(duration);
       }
 
-      playButton.addEventListener("click", function () {
+      bindResponsivePress(playButton, function () {
         var controller = ensurePersistentAudioDock();
         if (!trackSource) {
           return;
@@ -4483,6 +4528,10 @@
 
         var next = (Number(scrubber.value) / 1000) * controller.audio.duration;
         controller.audio.currentTime = next;
+        syncTimeState();
+      });
+
+      scrubber.addEventListener("change", function () {
         syncTimeState();
       });
 
@@ -12140,7 +12189,7 @@
 
       if (shell.dataset.musicFiltersBound !== "1") {
         tabs.forEach(function (tab) {
-          tab.addEventListener("click", function () {
+          bindResponsivePress(tab, function () {
             tabs.forEach(function (node) {
               node.classList.remove("is-active");
             });
@@ -13637,7 +13686,7 @@
       if (lang === preferred) {
         btn.classList.add("active");
       }
-      btn.addEventListener("click", function () {
+      bindResponsivePress(btn, function () {
         if (lang === detectPreferredLanguage()) {
           return;
         }
@@ -13827,7 +13876,7 @@
         }
       }
 
-      row.addEventListener("click", function (event) {
+      bindResponsivePress(row, function (event) {
         var target = event.target;
         if (
           target &&
