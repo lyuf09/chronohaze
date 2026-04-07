@@ -12600,8 +12600,8 @@
         if (/album-teenage-best\.html(?:$|[?#])/.test(href)) {
           link.textContent =
             safeLang === "en"
-              ? "HazezZ's teenage years best‘s collection · Album page"
-              : "HazezZ's teenage years best‘s collection · 专辑页";
+              ? "A best-of collection from HazezZ’s teenage years · Album page"
+              : "A best-of collection from HazezZ’s teenage years · 专辑页";
         }
       });
 
@@ -12626,7 +12626,7 @@
         } else if (albumPath === "music/album-teenage-best.html") {
           albumSubtitle.textContent =
             safeLang === "en"
-              ? "HazezZ's teenage years best‘s collection"
+              ? "A best-of collection from HazezZ’s teenage years"
               : "HazezZ 青少年时期精选集";
         }
       }

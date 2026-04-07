@@ -77,7 +77,7 @@ def main() -> int:
         (
             root / "music" / "album-teenage-best.html",
             [
-                SmokeCheck("album title", contains("teenage years best"), "teenage collection subtitle/title block"),
+                SmokeCheck("album title", contains("best-of collection from HazezZ"), "teenage collection subtitle/title block"),
                 SmokeCheck("album tracklist", contains('class="album-tracklist"'), "tracklist container"),
                 SmokeCheck("album cover AVIF", contains("teenage-best-album-cover-1600.avif"), "cover AVIF source"),
             ],
