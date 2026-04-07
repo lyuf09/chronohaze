@@ -14229,6 +14229,8 @@
       'meta[name="twitter:description"]',
       'meta[name="twitter:image"]',
       'link[rel="canonical"]',
+      'link[rel="icon"]',
+      'link[rel="apple-touch-icon"]',
     ].forEach(function (selector) {
       syncHeadNode(selector, sourceDocument);
     });
