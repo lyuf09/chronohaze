@@ -1869,6 +1869,41 @@
     }
 
     var lastTouchStamp = 0;
+    var touchStartX = null;
+    var touchStartY = null;
+    var touchMoved = false;
+    var TOUCH_MOVE_TOLERANCE = 10;
+
+    node.addEventListener(
+      "touchstart",
+      function (event) {
+        var touch = event.changedTouches && event.changedTouches[0];
+        if (!touch) {
+          return;
+        }
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+        touchMoved = false;
+      },
+      { passive: true }
+    );
+
+    node.addEventListener(
+      "touchmove",
+      function (event) {
+        var touch = event.changedTouches && event.changedTouches[0];
+        if (!touch || touchStartX === null || touchStartY === null) {
+          return;
+        }
+        if (
+          Math.abs(touch.clientX - touchStartX) > TOUCH_MOVE_TOLERANCE ||
+          Math.abs(touch.clientY - touchStartY) > TOUCH_MOVE_TOLERANCE
+        ) {
+          touchMoved = true;
+        }
+      },
+      { passive: true }
+    );
 
     node.addEventListener(
       "touchend",
@@ -1876,13 +1911,32 @@
         if (event.defaultPrevented) {
           return;
         }
+        if (touchMoved) {
+          touchStartX = null;
+          touchStartY = null;
+          touchMoved = false;
+          return;
+        }
         lastTouchStamp = Date.now();
         if (event.cancelable) {
           event.preventDefault();
         }
+        touchStartX = null;
+        touchStartY = null;
+        touchMoved = false;
         handler(event);
       },
       { passive: false }
+    );
+
+    node.addEventListener(
+      "touchcancel",
+      function () {
+        touchStartX = null;
+        touchStartY = null;
+        touchMoved = false;
+      },
+      { passive: true }
     );
 
     node.addEventListener("click", function (event) {

@@ -1236,7 +1236,8 @@ html:lang(en) .about-overlay p {
 }
 
 .home-footer-social a {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   font-family: var(--home-font-display);
   font-size: 13px;
   font-weight: 300;
@@ -1753,6 +1754,18 @@ html:lang(en) .about-overlay p {
 
   .drawer-nav a {
     font-size: 26px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(124, 147, 184, 0.14);
+  }
+
+  .home-footer-social a {
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(124, 147, 184, 0.14);
   }
 
   .home-footer {
@@ -1836,6 +1849,24 @@ html.menu-scroll-locked,
   .lang-btn,
   .menu-open {
     min-height: 40px;
+  }
+
+  .lang-btn,
+  .menu-open,
+  .hero-academic-link,
+  .home-footer-social a,
+  .drawer-close,
+  .drawer-nav a,
+  .entry-card {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(124, 147, 184, 0.14);
+  }
+
+  .hero-academic-link,
+  .drawer-close {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
   }
 
   .drawer {

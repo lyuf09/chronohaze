@@ -4026,6 +4026,20 @@ html:lang(en) .photo-detail-article * {
 .persistent-audio-open,
 .persistent-audio-dock .music-player-play,
 .persistent-audio-dock .music-player-scrubber,
+.nav a,
+.footer-right a,
+.footer-feed-link,
+.music-index-page .music-featured-link,
+.music-index-page .music-ia-tab,
+.music-index-page .track-row,
+.math-index-page .math-card,
+.photo-index-page .photo-feature-link,
+.photo-index-page .photo-card-link,
+.article-toc-link,
+.math-post-nav-item,
+.music-detail-back,
+.music-album-page .album-back-link,
+.music-player-nav-link,
 .obf-email-copy,
 .floating-lang-btn,
 .share-panel-toggle,
@@ -6445,8 +6459,8 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
   }
 
   .floating-lang-btn {
-    min-width: 32px;
-    height: 19px;
+    min-width: 36px;
+    height: 24px;
     font-size: 9px;
   }
 }
@@ -6493,10 +6507,14 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
     padding-right: max(18px, calc(14px + var(--safe-right)));
     scroll-padding-right: max(108px, calc(98px + var(--safe-right)));
     font-size: 14px;
+    -webkit-overflow-scrolling: touch;
   }
 
   .nav a {
-    padding: 6px 0;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 8px 0;
   }
 
   .hero {
@@ -6757,7 +6775,8 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
   }
 
   .music-index-page .music-ia-tab {
-    padding: 5px 12px;
+    min-height: 44px;
+    padding: 7px 12px;
     font-size: 12px;
   }
 
@@ -6863,6 +6882,9 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
 
   .page-last-updated-pill {
     padding: 5px 8px 6px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
   }
 
   .page-last-updated-label {
@@ -6891,6 +6913,18 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
   .music-index-page .track-tag {
     font-size: 10px;
     padding: 2px 6px;
+  }
+
+  .footer-right a,
+  .footer-feed-link,
+  .music-player-nav-link,
+  .music-detail-back,
+  .music-album-page .album-back-link,
+  .article-toc-link,
+  .math-post-nav-item {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
   }
 
   .photo-grid {
@@ -9451,8 +9485,8 @@ body {
 
   .persistent-audio-collapse,
   .persistent-audio-close {
-    min-height: 40px;
-    min-width: 40px;
+    min-height: 44px;
+    min-width: 44px;
     padding: 0;
     background: transparent;
     box-shadow: none;
@@ -9461,7 +9495,7 @@ body {
 
   .persistent-audio-nav,
   .persistent-audio-open {
-    min-height: 40px;
+    min-height: 44px;
   }
 
   .persistent-audio-dock .music-player-row {
@@ -10468,9 +10502,21 @@ html:lang(en) .music-album-page .album-back-link {
     font-size: 12.45px;
   }
 
-  .article-toc-depth-2 {
+.article-toc-depth-2 {
     margin-left: 18px;
     font-size: 12.1px;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .music-index-page .track-row:hover,
+  .math-index-page .math-card:hover,
+  .photo-index-page .photo-feature-card:hover,
+  .photo-index-page .photo-card-link:hover,
+  .music-index-page .music-featured-link:hover,
+  .research-fast-link:hover,
+  .footer-right a:hover {
+    transform: none;
   }
 }
 
