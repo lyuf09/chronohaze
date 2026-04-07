@@ -14350,7 +14350,11 @@
 
     var currentMap = new Map();
     currentNodes.forEach(function (node) {
-      currentMap.set(normalizeHref(node), node);
+      var currentHref = normalizeHref(node);
+      if (currentHref) {
+        node.setAttribute("href", currentHref);
+        currentMap.set(currentHref, node);
+      }
     });
 
     var nextHrefs = nextNodes.map(function (node) {
@@ -14361,6 +14365,10 @@
       var href = normalizeHref(node);
       if (nextHrefs.indexOf(href) === -1 && node.parentNode) {
         node.parentNode.removeChild(node);
+        return;
+      }
+      if (href) {
+        node.setAttribute("href", href);
       }
     });
 
