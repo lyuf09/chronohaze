@@ -5,6 +5,9 @@
   var bootFeedbackArmed = false;
   var bootFeedbackResolved = false;
   var bootFeedbackStartedAt = 0;
+  var pageSwapFeedbackArmed = false;
+  var pageSwapFeedbackResolved = false;
+  var pageSwapFeedbackStartedAt = 0;
 
   function detectInitialBootLanguage() {
     var candidate =
@@ -64,6 +67,73 @@
         });
       });
     }, remaining);
+  }
+
+  function armPageSwapFeedback(targetUrl) {
+    if (!document.body) {
+      return;
+    }
+
+    pageSwapFeedbackArmed = true;
+    pageSwapFeedbackResolved = false;
+    pageSwapFeedbackStartedAt = Date.now();
+
+    var lang = detectInitialBootLanguage();
+    if (targetUrl && typeof targetUrl.searchParams !== "undefined") {
+      var queryLang = String(targetUrl.searchParams.get("lang") || "").toLowerCase();
+      if (queryLang === "zh" || queryLang === "en") {
+        lang = queryLang;
+      }
+    }
+
+    document.body.classList.add("page-transition-busy");
+    document.body.classList.remove("page-transition-settled");
+    document.body.setAttribute(
+      "data-transition-label",
+      lang === "en" ? "Preparing page..." : "正在切换页面…"
+    );
+  }
+
+  function resolvePageSwapFeedback() {
+    if (!pageSwapFeedbackArmed || pageSwapFeedbackResolved || !document.body) {
+      return;
+    }
+
+    pageSwapFeedbackResolved = true;
+    var elapsed = Date.now() - pageSwapFeedbackStartedAt;
+    var remaining = Math.max(0, 220 - elapsed);
+
+    window.setTimeout(function () {
+      if (!document.body) {
+        return;
+      }
+
+      document.body.classList.add("page-transition-settled");
+
+      window.requestAnimationFrame(function () {
+        window.requestAnimationFrame(function () {
+          if (!document.body) {
+            return;
+          }
+          document.body.classList.remove("page-transition-busy");
+          document.body.classList.remove("page-transition-settled");
+          document.body.removeAttribute("data-transition-label");
+          pageSwapFeedbackArmed = false;
+          pageSwapFeedbackResolved = false;
+        });
+      });
+    }, remaining);
+  }
+
+  function cancelPageSwapFeedback() {
+    pageSwapFeedbackArmed = false;
+    pageSwapFeedbackResolved = false;
+    if (!document.body) {
+      return;
+    }
+    document.body.classList.remove("page-transition-busy");
+    document.body.classList.remove("page-transition-settled");
+    document.body.removeAttribute("data-transition-label");
   }
 
   function stopEvent(event) {
@@ -14325,6 +14395,8 @@
       pageTransitionEnabled: document.body.classList.contains("page-transition-enabled"),
       pageTransitionEntering: document.body.classList.contains("page-transition-entering"),
       pageTransitionLeaving: document.body.classList.contains("page-transition-leaving"),
+      pageTransitionBusy: document.body.classList.contains("page-transition-busy"),
+      pageTransitionSettled: document.body.classList.contains("page-transition-settled"),
       motionEnhanced: document.body.classList.contains("motion-enhanced"),
     };
 
@@ -14343,6 +14415,12 @@
     }
     if (preserve.pageTransitionLeaving) {
       document.body.classList.add("page-transition-leaving");
+    }
+    if (preserve.pageTransitionBusy) {
+      document.body.classList.add("page-transition-busy");
+    }
+    if (preserve.pageTransitionSettled) {
+      document.body.classList.add("page-transition-settled");
     }
     if (preserve.motionEnhanced) {
       document.body.classList.add("motion-enhanced");
@@ -14489,6 +14567,8 @@
       window.dispatchEvent(new Event("pageshow"));
       document.dispatchEvent(new Event("chronohaze:page-swapped"));
     } catch (_err) {}
+
+    window.setTimeout(resolvePageSwapFeedback, 60);
   }
 
   function navigateWithPageSwap(href, options) {
@@ -14510,6 +14590,7 @@
     if (document.body) {
       document.body.classList.add("page-transition-leaving");
     }
+    armPageSwapFeedback(url);
 
     if (opts.autoplayTrackOnArrival) {
       pendingPersistentTrackHref = opts.autoplayTrackOnArrival;
@@ -14543,6 +14624,7 @@
       })
       .catch(function (_error) {
         pageTransitionNavigating = false;
+        cancelPageSwapFeedback();
         if (document.body) {
           document.body.classList.remove("page-transition-leaving");
         }
@@ -14601,6 +14683,7 @@
 
     window.addEventListener("pageshow", function () {
       pageTransitionNavigating = false;
+      cancelPageSwapFeedback();
       if (document.body) {
         document.body.classList.remove("page-transition-leaving");
         document.body.classList.remove("page-transition-entering");
@@ -15207,6 +15290,9 @@
     document.body.classList.remove("page-booting");
     document.body.classList.remove("page-boot-ready");
     document.body.removeAttribute("data-boot-label");
+    document.body.classList.remove("page-transition-busy");
+    document.body.classList.remove("page-transition-settled");
+    document.body.removeAttribute("data-transition-label");
   });
 
   var observer = new MutationObserver(function (mutations) {
