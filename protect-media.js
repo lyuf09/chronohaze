@@ -10184,6 +10184,58 @@
     intro.innerHTML = paragraphs.join("<br /><br />");
   }
 
+  function applyOrchidIntroInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-orchid.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var workHeading =
+      headings.find(function (heading) {
+        var normalized = normalizeText(heading.textContent).toLowerCase();
+        return (
+          normalized === normalizeText("作品介绍").toLowerCase() ||
+          normalized === normalizeText("About the work").toLowerCase()
+        );
+      }) || null;
+
+    if (!workHeading) {
+      return;
+    }
+
+    var intro = workHeading.nextElementSibling;
+    if (!intro || intro.tagName !== "P") {
+      return;
+    }
+
+    var paragraphs = [
+      '“Orchid” was written for myself.',
+      'It was born during a period when I felt constantly torn between academics and the future. On the surface, I was still trying to maintain restraint and composure, but underneath, I was already being worn away by recurring anxiety, restlessness, and confusion. Here, Orchid is not merely a gentle image, but a symbol of an almost stubborn self-possession: purity, elegance, detachment, and a fierce pride that refuses to collapse easily. Precisely because of that, the sorrow hidden beneath a polished exterior eventually found its way into this song.',
+      'This sense of contradiction is also preserved in the music itself. My writing has always been shaped by both J-rock and prog metalcore, and these two styles have never been easy to truly merge. One leans toward more sensitive, direct, and emotionally exposed lines; the other toward a more tense, oppressive, and tearing sense of motion. In this song, they are not artificially reconciled, but instead left to coexist in an unstable, slightly conflicted way. That, too, mirrors exactly how I felt when facing the future: unable to fully lean toward either side.',
+      'The song was written very quickly, and that speed itself felt like a kind of emotional rupture. At 187 BPM, the verses and main riffs retain a constant sense of tension and inner pulling, while the chorus moves into an atmosphere unlike anything I had written before. Rather than simply pushing forward, it carries a kind of sadness shaped by helplessness, yet still unwilling to stop caring. The melodic line at the end of the chorus, linking the modulation back into the main riff, leaves behind an almost grey-toned sense of uncertainty. The clean guitar solo at the end, the first one I have written, does not try to resolve anything either; instead, it leaves the struggle itself suspended in sound.',
+    ];
+
+    intro.innerHTML = paragraphs.join("<br /><br />");
+  }
+
   function applyIpomoeaAlbaIntroInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -12970,6 +13022,7 @@
       applyDissociativeAmnesiaLyricsInEnglish(safeLang);
       applyLoneStarPreludeIntroInEnglish(safeLang);
       applyMrIdiographicLyricsInEnglish(safeLang);
+      applyOrchidIntroInEnglish(safeLang);
       applyAffizierenIntroInEnglish(safeLang);
       applyAffizierenNotesInEnglish(safeLang);
       applyAffizierenLyricsInEnglish(safeLang);
