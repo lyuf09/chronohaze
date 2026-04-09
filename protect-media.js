@@ -10236,6 +10236,197 @@
     intro.innerHTML = paragraphs.join("<br /><br />");
   }
 
+  function applyOrchidLyricsInEnglish(safeLang) {
+    if (safeLang !== "en") {
+      return;
+    }
+
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+
+    if (detailPath !== "music/track-orchid.html") {
+      return;
+    }
+
+    var article = document.querySelector(".music-detail-article");
+    if (!article) {
+      return;
+    }
+
+    var headings = Array.from(article.querySelectorAll("h2"));
+    var part1Heading = findLyricHeading(headings, 1);
+    var part2Heading = findLyricHeading(headings, 2);
+
+    if (!part1Heading || !part2Heading) {
+      return;
+    }
+
+    var part1Text = part1Heading.nextElementSibling;
+    var part2Text = part2Heading.nextElementSibling;
+
+    if (!part1Text || !part2Text || part1Text.tagName !== "P" || part2Text.tagName !== "P") {
+      return;
+    }
+
+    var part1Blocks = [
+      {
+        zh: [
+          "久久萦绕在心中的过往",
+          "着迷着为了感到伤感而被创造的想象",
+          "我到底有什么样的向往？",
+          "不可能是可抵达的理想",
+        ],
+        en: [
+          "The past that has lingered in my heart for so long",
+          "Enchanted by fantasies created for the sake of feeling sad",
+          "What is it that I even long for?",
+          "Surely not an ideal I could ever reach",
+        ],
+      },
+      {
+        zh: [
+          "即使被逃避的冲动驱使",
+          "从这里跑出去也是无法抵达任何城市",
+          "我明明不是个那样的人",
+          "但我又为什么默然应允",
+        ],
+        en: [
+          "Even when driven by the urge to escape",
+          "Running away from here would still lead to no place at all",
+          "I was never meant to be that kind of person",
+          "So why is it that I silently gave in?",
+        ],
+      },
+      {
+        zh: ["已经被弄丢的钥匙", "被自己关上的退路"],
+        en: [
+          "The key already lost",
+          "The way back I sealed off with my own hands",
+        ],
+      },
+      {
+        zh: [
+          "水流向我应该怎么阻绝？",
+          "记忆却总是被混乱改头换面真假难解",
+          "某一种短暂幻想的死结",
+          "随之捉弄我 背叛我 宣泄",
+        ],
+        en: [
+          "How am I supposed to stop the water rushing toward me?",
+          "Yet memory is always reshaped by chaos, with truth and falsehood impossible to untangle",
+          "A dead knot of some fleeting illusion",
+          "Teases me, betrays me, vents itself through me",
+        ],
+      },
+      {
+        zh: ["一切都归咎于我", "忙碌、重复、空无一物"],
+        en: [
+          "Everything is blamed on me",
+          "Busyness, repetition, and nothing at all",
+        ],
+      },
+      {
+        zh: [
+          "不在那里、不在那里",
+          "为了所谓脑袋里明白的道理",
+          "不合时宜、不合时宜",
+          "明明下定决心但却无法言意",
+          "不在那里、不在那里",
+          "想摧毁一切却无法鼓起勇气",
+          "不留痕迹、不留痕迹",
+          "干脆直接用这片空白抹杀我的呼吸",
+        ],
+        en: [
+          "It isn’t there, it isn’t there",
+          "For the so-called truths my mind claims to understand",
+          "Out of place, out of place",
+          "I had clearly made up my mind, yet still could not put it into words",
+          "It isn’t there, it isn’t there",
+          "I want to destroy everything, yet cannot gather the courage",
+          "Without a trace, without a trace",
+          "I might as well use this blankness to erase my breath altogether",
+        ],
+      },
+    ];
+
+    var part2Blocks = [
+      {
+        zh: [
+          "无论多么困难都会一直",
+          "想留下抓痕而目不斜视凝望前方而行",
+          "不想输才无动于衷而已",
+          "但到底是为了什么意义？",
+        ],
+        en: [
+          "No matter how hard it is, I still keep wanting",
+          "To leave claw marks behind, to walk on with my eyes fixed straight ahead",
+          "I am only numb because I do not want to lose",
+          "But what meaning is any of this for?",
+        ],
+      },
+      {
+        zh: [
+          "把它埋起来吧我会遗忘",
+          "让雨水冲刷之后藏在兜帽下转身离场",
+          "对那些放弃的未来来讲",
+          "只是排列琴弦上的悲伤",
+        ],
+        en: [
+          "Bury it, I will forget",
+          "Let the rain wash over it, then hide beneath my hood and turn away",
+          "As for those futures I abandoned,",
+          "They are nothing but sorrow laid out along the strings",
+        ],
+      },
+      {
+        zh: ["还要我承受多久", "不行、不够、不想认输"],
+        en: [
+          "How much longer must I endure?",
+          "No, not enough, I do not want to lose",
+        ],
+      },
+      {
+        zh: [
+          "不在那里、不在那里",
+          "为了所谓脑袋里明白的道理",
+          "不合时宜、不合时宜",
+          "无数次重复的日常只剩压抑",
+          "不再提及、不再提及",
+          "曾经以为那就是梦想的意义",
+          "不想回忆、不想回忆",
+          "干脆直接用这片空白抹杀我的呼吸",
+        ],
+        en: [
+          "It isn’t there, it isn’t there",
+          "For the so-called truths my mind claims to understand",
+          "Out of place, out of place",
+          "All that remains of those endlessly repeated days is suffocation",
+          "Do not mention it, do not mention it",
+          "What I once believed to be the meaning of dreams",
+          "Do not remember it, do not remember it",
+          "I might as well use this blankness to erase my breath altogether",
+        ],
+      },
+    ];
+
+    function renderBilingualBlocks(blocks) {
+      return blocks
+        .map(function (block) {
+          return block.zh.join("<br />") + "<br /><br />" + block.en.join("<br />");
+        })
+        .join("<br /><br />");
+    }
+
+    part1Text.innerHTML = renderBilingualBlocks(part1Blocks);
+    part2Text.innerHTML = renderBilingualBlocks(part2Blocks);
+  }
+
   function applyIpomoeaAlbaIntroInEnglish(safeLang) {
     if (safeLang !== "en") {
       return;
@@ -13023,6 +13214,7 @@
       applyLoneStarPreludeIntroInEnglish(safeLang);
       applyMrIdiographicLyricsInEnglish(safeLang);
       applyOrchidIntroInEnglish(safeLang);
+      applyOrchidLyricsInEnglish(safeLang);
       applyAffizierenIntroInEnglish(safeLang);
       applyAffizierenNotesInEnglish(safeLang);
       applyAffizierenLyricsInEnglish(safeLang);
