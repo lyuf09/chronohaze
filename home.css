@@ -128,9 +128,6 @@ html:lang(en) {
   --home-type-subtitle-tracking: 0.16em;
 }
 
-html {
-  scrollbar-gutter: stable;
-}
 
 .home-body {
   margin: 0;

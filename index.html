@@ -120,7 +120,7 @@
   <link rel="preload" href="assets/fonts/cinzel-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" as="image" href="assets/template/hero_portrait-960.webp" type="image/webp" imagesrcset="assets/template/hero_portrait-600.webp 600w, assets/template/hero_portrait-960.webp 960w, assets/template/hero_portrait-1600.webp 1600w" imagesizes="(max-width: 640px) 88vw, (max-width: 900px) 92vw, 46vw" />
   <link rel="stylesheet" href="https://lyuf09.github.io/chronohaze/styles.min.css?v=20260405-min20" />
-  <link rel="stylesheet" href="https://lyuf09.github.io/chronohaze/home.min.css?v=20260410-min23" />
+  <link rel="stylesheet" href="https://lyuf09.github.io/chronohaze/home.min.css?v=20260411-min24" />
   <script defer src="https://lyuf09.github.io/chronohaze/protect-media.min.js?v=20260408-min21"></script>
 </head>
 <body class="home-body">
@@ -498,8 +498,12 @@
         }
       };
 
+      function shouldLockMenuScroll() {
+        return window.matchMedia('(max-width: 768px)').matches;
+      }
+
       function lockMenuScroll() {
-        if (document.body.classList.contains('menu-scroll-locked')) return;
+        if (!shouldLockMenuScroll() || document.body.classList.contains('menu-scroll-locked')) return;
         menuScrollY = window.scrollY || window.pageYOffset || 0;
         document.body.style.setProperty('--menu-scroll-top', '-' + String(menuScrollY) + 'px');
         document.body.classList.add('menu-scroll-locked');
@@ -507,11 +511,13 @@
       }
 
       function unlockMenuScroll() {
-        if (!document.body.classList.contains('menu-scroll-locked')) return;
+        const wasLocked = document.body.classList.contains('menu-scroll-locked');
         document.body.classList.remove('menu-scroll-locked');
         document.documentElement.classList.remove('menu-scroll-locked');
         document.body.style.removeProperty('--menu-scroll-top');
-        window.scrollTo(0, menuScrollY);
+        if (wasLocked) {
+          window.scrollTo(0, menuScrollY);
+        }
       }
 
       function setMenu(open) {
