@@ -496,24 +496,17 @@ body.page-transition-enabled::after {
   will-change: opacity;
 }
 
-body.page-transition-enabled.page-transition-entering::after {
-  opacity: 0.1;
+body.page-transition-enabled.page-transition-entering::after,
+body.page-transition-enabled.page-transition-leaving::after {
+  opacity: 0;
 }
 
 body.page-transition-enabled.page-transition-entering .page,
-body.page-transition-enabled.page-transition-entering .home-page {
-  opacity: 0;
-  transform: translate3d(0, 10px, 0) scale(0.998);
-}
-
-body.page-transition-enabled.page-transition-leaving::after {
-  opacity: 0.58;
-}
-
+body.page-transition-enabled.page-transition-entering .home-page,
 body.page-transition-enabled.page-transition-leaving .page,
 body.page-transition-enabled.page-transition-leaving .home-page {
-  opacity: 0.26;
-  transform: translate3d(0, -8px, 0) scale(1.0025);
+  opacity: 1;
+  transform: none;
 }
 
 
@@ -575,6 +568,7 @@ body.page-transition-busy .page,
 body.page-transition-busy .home-page {
   opacity: 0 !important;
   transform: none !important;
+  visibility: hidden;
 }
 
 body.page-booting::before,

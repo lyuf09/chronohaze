@@ -14785,6 +14785,38 @@
     return true;
   }
 
+  function waitForPageSwapStability() {
+    var waits = [
+      new Promise(function (resolve) {
+        window.requestAnimationFrame(function () {
+          window.requestAnimationFrame(resolve);
+        });
+      }),
+      new Promise(function (resolve) {
+        window.setTimeout(resolve, 120);
+      }),
+    ];
+
+    if (
+      document.fonts &&
+      document.fonts.ready &&
+      typeof document.fonts.ready.then === "function"
+    ) {
+      waits.push(
+        Promise.race([
+          document.fonts.ready.catch(function () {
+            return null;
+          }),
+          new Promise(function (resolve) {
+            window.setTimeout(resolve, 360);
+          }),
+        ])
+      );
+    }
+
+    return Promise.allSettled(waits);
+  }
+
   function finalizeSwappedPage(targetUrl) {
     pageTransitionNavigating = false;
     if (document.body) {
@@ -14821,7 +14853,10 @@
       document.dispatchEvent(new Event("chronohaze:page-swapped"));
     } catch (_err) {}
 
-    window.setTimeout(resolvePageSwapFeedback, 60);
+    return waitForPageSwapStability().then(function () {
+      resolvePageSwapFeedback();
+      return true;
+    });
   }
 
   function navigateWithPageSwap(href, options) {
@@ -14869,9 +14904,10 @@
           }
 
           return loadPageScriptsFromDocument(nextDocument, url).then(function () {
-            finalizeSwappedPage(url);
-            maybeAutoplayPendingPersistentTrack();
-            return true;
+            return finalizeSwappedPage(url).then(function () {
+              maybeAutoplayPendingPersistentTrack();
+              return true;
+            });
           });
         });
       })
