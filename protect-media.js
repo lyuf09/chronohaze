@@ -14241,7 +14241,11 @@
               item_href: href,
             });
           }
-          window.location.href = href;
+          if (typeof navigateChronohazeInternal === "function") {
+            navigateChronohazeInternal(href);
+          } else {
+            window.location.href = href;
+          }
         }
       }
 
@@ -14313,7 +14317,7 @@
   function isSecondaryPageSwapPath(pathname) {
     var path = String(pathname || "").toLowerCase();
     return (
-      /(?:^|\/)(?:math|research|projects|cv|music|photography|yin-le|portfolio-1|policy|accessibility|404)\.html$/.test(path) ||
+      /(?:^|\/)(?:math|research|research-summary|projects|cv|music|photography|search|yin-le|portfolio-1|policy|accessibility|404)\.html$/.test(path) ||
       /(?:^|\/)music\/[^/]+\.html$/.test(path) ||
       /(?:^|\/)post\/[^/]+\.html$/.test(path) ||
       /(?:^|\/)photo\/[^/]+\.html$/.test(path)
