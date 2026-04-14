@@ -201,11 +201,44 @@
   function cancelPageSwapFeedback() {
     pageSwapFeedbackArmed = false;
     pageSwapFeedbackResolved = false;
+    clearPendingPrimaryNav();
     if (!document.body) {
       return;
     }
     document.body.classList.remove("page-transition-busy");
     document.body.classList.remove("page-transition-settled");
+  }
+
+  function normalizePrimaryNavHref(href) {
+    if (!href) {
+      return "";
+    }
+    try {
+      var url = new URL(href, window.location.href);
+      url.hash = "";
+      return url.href;
+    } catch (_err) {
+      return String(href || "");
+    }
+  }
+
+  function clearPendingPrimaryNav() {
+    Array.from(document.querySelectorAll(".nav a.is-nav-pending")).forEach(function (link) {
+      link.classList.remove("is-nav-pending");
+    });
+  }
+
+  function markPendingPrimaryNav(href) {
+    clearPendingPrimaryNav();
+    var targetHref = normalizePrimaryNavHref(href);
+    if (!targetHref) {
+      return;
+    }
+    Array.from(document.querySelectorAll(".nav a[href]")).forEach(function (link) {
+      if (normalizePrimaryNavHref(link.href) === targetHref) {
+        link.classList.add("is-nav-pending");
+      }
+    });
   }
 
   function stopEvent(event) {
@@ -14895,6 +14928,7 @@
 
   function finalizeSwappedPage(targetUrl) {
     pageTransitionNavigating = false;
+    clearPendingPrimaryNav();
     if (document.body) {
       document.body.classList.remove("page-transition-leaving");
       document.body.classList.add("page-transition-entering");
@@ -14951,6 +14985,7 @@
     }
 
     pageTransitionNavigating = true;
+    markPendingPrimaryNav(url.href);
     if (document.body) {
       document.body.classList.add("page-transition-leaving");
     }
@@ -15049,6 +15084,7 @@
     window.addEventListener("pageshow", function () {
       pageTransitionNavigating = false;
       cancelPageSwapFeedback();
+      clearPendingPrimaryNav();
       if (document.body) {
         document.body.classList.remove("page-transition-leaving");
         document.body.classList.remove("page-transition-entering");
@@ -15148,6 +15184,7 @@
 
         if (!shouldUsePageSwap(url)) {
           pageTransitionNavigating = true;
+          markPendingPrimaryNav(url.href);
           if (document.body) {
             document.body.classList.add("page-transition-leaving");
           }
