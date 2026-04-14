@@ -8,6 +8,87 @@
   var pageSwapFeedbackArmed = false;
   var pageSwapFeedbackResolved = false;
   var pageSwapFeedbackStartedAt = 0;
+  var feedbackLoaderNode = null;
+  var feedbackLoaderTitleNode = null;
+  var feedbackLoaderMetaNode = null;
+
+  function ensureFeedbackLoader() {
+    if (
+      feedbackLoaderNode &&
+      feedbackLoaderNode.isConnected &&
+      feedbackLoaderTitleNode &&
+      feedbackLoaderMetaNode
+    ) {
+      return feedbackLoaderNode;
+    }
+
+    if (!document.body) {
+      return null;
+    }
+
+    var existing = document.querySelector(".chronohaze-loader");
+    if (existing) {
+      feedbackLoaderNode = existing;
+      feedbackLoaderTitleNode = existing.querySelector(".chronohaze-loader__title");
+      feedbackLoaderMetaNode = existing.querySelector(".chronohaze-loader__meta");
+      return feedbackLoaderNode;
+    }
+
+    var loader = document.createElement("div");
+    loader.className = "chronohaze-loader";
+    loader.setAttribute("aria-hidden", "true");
+    loader.innerHTML =
+      '<div class="chronohaze-loader__veil"></div>' +
+      '<div class="chronohaze-loader__panel">' +
+      '<p class="chronohaze-loader__brand">chronohaze.space</p>' +
+      '<h2 class="chronohaze-loader__title">Preparing the site</h2>' +
+      '<p class="chronohaze-loader__meta">Notes, research, music, and photographs are settling into place.</p>' +
+      '<div class="chronohaze-loader__line" aria-hidden="true"><span></span></div>' +
+      "</div>";
+    document.body.appendChild(loader);
+    feedbackLoaderNode = loader;
+    feedbackLoaderTitleNode = loader.querySelector(".chronohaze-loader__title");
+    feedbackLoaderMetaNode = loader.querySelector(".chronohaze-loader__meta");
+    return feedbackLoaderNode;
+  }
+
+  function getFeedbackCopy(mode, lang) {
+    var language = lang === "en" ? "en" : "zh";
+    if (language === "en") {
+      return mode === "boot"
+        ? {
+            title: "Preparing the site",
+            meta: "Notes, research, music, and photographs are settling into place.",
+          }
+        : {
+            title: "Opening the next page",
+            meta: "Please wait a moment while the next page settles in.",
+          };
+    }
+
+    return mode === "boot"
+      ? {
+          title: "正在准备页面",
+          meta: "研究、笔记、音乐与影像正在轻轻展开。",
+        }
+      : {
+          title: "正在切换页面",
+          meta: "请稍候，下一页正在整理就绪。",
+        };
+  }
+
+  function syncFeedbackLoader(mode, lang) {
+    var loader = ensureFeedbackLoader();
+    if (!loader || !feedbackLoaderTitleNode || !feedbackLoaderMetaNode) {
+      return;
+    }
+
+    var copy = getFeedbackCopy(mode, lang);
+    loader.setAttribute("data-loader-mode", mode);
+    loader.setAttribute("lang", lang === "en" ? "en" : "zh-CN");
+    feedbackLoaderTitleNode.textContent = copy.title;
+    feedbackLoaderMetaNode.textContent = copy.meta;
+  }
 
   function detectInitialBootLanguage() {
     var candidate =
@@ -34,10 +115,7 @@
 
     document.body.classList.add("page-booting");
     document.body.classList.remove("page-boot-ready");
-    document.body.setAttribute(
-      "data-boot-label",
-      detectInitialBootLanguage() === "en" ? "Preparing page..." : "正在准备页面…"
-    );
+    syncFeedbackLoader("boot", detectInitialBootLanguage());
   }
 
   function resolveBootFeedback() {
@@ -47,7 +125,7 @@
 
     bootFeedbackResolved = true;
     var elapsed = Date.now() - bootFeedbackStartedAt;
-    var remaining = Math.max(0, 180 - elapsed);
+    var remaining = Math.max(0, 280 - elapsed);
 
     window.setTimeout(function () {
       if (!document.body) {
@@ -63,7 +141,6 @@
           }
           document.body.classList.remove("page-booting");
           document.body.classList.remove("page-boot-ready");
-          document.body.removeAttribute("data-boot-label");
         });
       });
     }, remaining);
@@ -88,10 +165,7 @@
 
     document.body.classList.add("page-transition-busy");
     document.body.classList.remove("page-transition-settled");
-    document.body.setAttribute(
-      "data-transition-label",
-      lang === "en" ? "Preparing page..." : "正在切换页面…"
-    );
+    syncFeedbackLoader("swap", lang);
   }
 
   function resolvePageSwapFeedback() {
@@ -101,7 +175,7 @@
 
     pageSwapFeedbackResolved = true;
     var elapsed = Date.now() - pageSwapFeedbackStartedAt;
-    var remaining = Math.max(0, 220 - elapsed);
+    var remaining = Math.max(0, 320 - elapsed);
 
     window.setTimeout(function () {
       if (!document.body) {
@@ -117,7 +191,6 @@
           }
           document.body.classList.remove("page-transition-busy");
           document.body.classList.remove("page-transition-settled");
-          document.body.removeAttribute("data-transition-label");
           pageSwapFeedbackArmed = false;
           pageSwapFeedbackResolved = false;
         });
@@ -133,7 +206,6 @@
     }
     document.body.classList.remove("page-transition-busy");
     document.body.classList.remove("page-transition-settled");
-    document.body.removeAttribute("data-transition-label");
   }
 
   function stopEvent(event) {
@@ -14797,7 +14869,7 @@
         });
       }),
       new Promise(function (resolve) {
-        window.setTimeout(resolve, 120);
+        window.setTimeout(resolve, 180);
       }),
     ];
 
@@ -14812,7 +14884,7 @@
             return null;
           }),
           new Promise(function (resolve) {
-            window.setTimeout(resolve, 360);
+            window.setTimeout(resolve, 420);
           }),
         ])
       );
@@ -15582,10 +15654,8 @@
     }
     document.body.classList.remove("page-booting");
     document.body.classList.remove("page-boot-ready");
-    document.body.removeAttribute("data-boot-label");
     document.body.classList.remove("page-transition-busy");
     document.body.classList.remove("page-transition-settled");
-    document.body.removeAttribute("data-transition-label");
   });
 
   var observer = new MutationObserver(function (mutations) {
