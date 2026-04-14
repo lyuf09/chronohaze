@@ -125,7 +125,7 @@
 
     bootFeedbackResolved = true;
     var elapsed = Date.now() - bootFeedbackStartedAt;
-    var remaining = Math.max(0, 280 - elapsed);
+    var remaining = Math.max(0, 360 - elapsed);
 
     window.setTimeout(function () {
       if (!document.body) {
@@ -134,15 +134,17 @@
 
       document.body.classList.add("page-boot-ready");
 
-      window.requestAnimationFrame(function () {
+      window.setTimeout(function () {
         window.requestAnimationFrame(function () {
-          if (!document.body) {
-            return;
-          }
-          document.body.classList.remove("page-booting");
-          document.body.classList.remove("page-boot-ready");
+          window.requestAnimationFrame(function () {
+            if (!document.body) {
+              return;
+            }
+            document.body.classList.remove("page-booting");
+            document.body.classList.remove("page-boot-ready");
+          });
         });
-      });
+      }, 180);
     }, remaining);
   }
 
@@ -175,7 +177,7 @@
 
     pageSwapFeedbackResolved = true;
     var elapsed = Date.now() - pageSwapFeedbackStartedAt;
-    var remaining = Math.max(0, 320 - elapsed);
+    var remaining = Math.max(0, 420 - elapsed);
 
     window.setTimeout(function () {
       if (!document.body) {
@@ -184,17 +186,19 @@
 
       document.body.classList.add("page-transition-settled");
 
-      window.requestAnimationFrame(function () {
+      window.setTimeout(function () {
         window.requestAnimationFrame(function () {
-          if (!document.body) {
-            return;
-          }
-          document.body.classList.remove("page-transition-busy");
-          document.body.classList.remove("page-transition-settled");
-          pageSwapFeedbackArmed = false;
-          pageSwapFeedbackResolved = false;
+          window.requestAnimationFrame(function () {
+            if (!document.body) {
+              return;
+            }
+            document.body.classList.remove("page-transition-busy");
+            document.body.classList.remove("page-transition-settled");
+            pageSwapFeedbackArmed = false;
+            pageSwapFeedbackResolved = false;
+          });
         });
-      });
+      }, 220);
     }, remaining);
   }
 
@@ -14902,7 +14906,7 @@
         });
       }),
       new Promise(function (resolve) {
-        window.setTimeout(resolve, 180);
+        window.setTimeout(resolve, 240);
       }),
     ];
 
@@ -14917,7 +14921,7 @@
             return null;
           }),
           new Promise(function (resolve) {
-            window.setTimeout(resolve, 420);
+            window.setTimeout(resolve, 560);
           }),
         ])
       );
