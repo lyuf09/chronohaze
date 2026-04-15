@@ -12748,79 +12748,32 @@
       cv: "CV",
       search: "搜索",
     };
-    var requiredLinks = navOrder.map(function (key) {
-      return { key: key, label: navLabelMap[key] };
-    });
-    var requiredKeySet = new Set(
-      requiredLinks.map(function (entry) {
-        return entry.key;
-      })
-    );
 
     Array.from(document.querySelectorAll(".site-header .nav")).forEach(function (nav) {
-      var existingByKey = Object.create(null);
-      var leftovers = [];
+      var currentKey = getPrimaryNavKeyFromHref(window.location.pathname || "");
+      var previousByKey = Object.create(null);
+
       Array.from(nav.querySelectorAll("a")).forEach(function (link) {
         var key = getPrimaryNavKeyFromHref(link.getAttribute("href") || "");
-        if (key) {
-          if (!requiredKeySet.has(key)) {
-            if (link.parentNode === nav) {
-              nav.removeChild(link);
-            }
-            return;
-          }
-          if (!existingByKey[key]) {
-            link.setAttribute("data-nav-key", key);
-            existingByKey[key] = link;
-          } else if (link.parentNode === nav) {
-            nav.removeChild(link);
-          }
-          return;
+        if (key && !previousByKey[key]) {
+          previousByKey[key] = link;
         }
-        leftovers.push(link);
       });
 
-      requiredLinks.forEach(function (entry) {
-        if (existingByKey[entry.key]) {
-          return;
-        }
-        var link = document.createElement("a");
-        link.href = getPrimaryPageHref(entry.key);
-        link.textContent = entry.label;
-        link.setAttribute("data-nav-key", entry.key);
-        existingByKey[entry.key] = link;
-      });
+      nav.textContent = "";
 
-      var currentKey = getPrimaryNavKeyFromHref(window.location.pathname || "");
-      if (currentKey && existingByKey[currentKey]) {
-        var hasActive = Object.keys(existingByKey).some(function (key) {
-          return existingByKey[key] && existingByKey[key].classList.contains("active");
-        });
-        if (!hasActive) {
-          existingByKey[currentKey].classList.add("active");
-        }
-      }
-
-      requiredLinks
-        .map(function (entry) {
-          return existingByKey[entry.key];
-        })
-        .concat(leftovers)
-        .forEach(function (link) {
-          if (link) {
-            nav.appendChild(link);
-          }
-        });
-
-      Array.from(nav.querySelectorAll("a")).forEach(function (link, index) {
-        if (index < navOrder.length) {
-          link.style.order = String(index);
-        } else {
-          link.style.order = String(navOrder.length + index);
-        }
+      navOrder.forEach(function (key) {
+        var link = previousByKey[key] || document.createElement("a");
+        link.href = getPrimaryPageHref(key);
+        link.setAttribute("data-nav-key", key);
+        link.textContent = navLabelMap[key] || link.textContent || "";
+        link.classList.toggle("active", currentKey === key);
+        link.classList.remove("is-nav-pending");
+        nav.appendChild(link);
       });
     });
   }
+
 
   function normalizeLastUpdatedDate(value) {
     var raw = normalizeText(value || "");
