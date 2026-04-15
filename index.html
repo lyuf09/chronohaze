@@ -335,10 +335,42 @@
       const revealNodes = Array.from(document.querySelectorAll('[data-reveal]'));
       const i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
       const i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
-      const drawerLinks = Array.from(drawer.querySelectorAll('a'));
+      let drawerLinks = Array.from(drawer.querySelectorAll('a'));
       let homeMathItems = null;
       let menuScrollY = 0;
       let lastMenuFocus = null;
+
+
+      function ensureDrawerNav(lang) {
+        const safeLang = lang === 'en' ? 'en' : 'zh';
+        const dict = i18n[safeLang] || i18n.zh;
+        const nav = drawer.querySelector('.drawer-nav');
+        if (!nav) return;
+        const desired = [
+          { href: '#top', key: 'menuHome' },
+          { href: 'academic.html', key: 'menuAcademic' },
+          { href: 'photography.html', key: 'menuPhoto' },
+          { href: 'music.html', key: 'menuMusic' },
+          { href: 'cv.html', key: 'menuCV' },
+          { href: 'search.html', key: 'menuSearch' }
+        ];
+        const existing = Array.from(nav.querySelectorAll('a'));
+        desired.forEach(function (entry, index) {
+          const link = existing[index] || document.createElement('a');
+          link.setAttribute('href', entry.href);
+          link.setAttribute('data-i18n', entry.key);
+          link.textContent = dict[entry.key] || link.textContent;
+          if (!link.parentNode) {
+            nav.appendChild(link);
+          }
+        });
+        existing.slice(desired.length).forEach(function (link) {
+          if (link.parentNode === nav) {
+            nav.removeChild(link);
+          }
+        });
+        drawerLinks = Array.from(nav.querySelectorAll('a'));
+      }
 
       function fmtClockSeed(sec) {
         if (!Number.isFinite(sec) || sec <= 0) return '00:00';
@@ -651,6 +683,8 @@
 
         document.documentElement.lang = safeLang === 'en' ? 'en' : 'zh-CN';
         document.title = titleByLang[safeLang];
+
+        ensureDrawerNav(safeLang);
 
         i18nNodes.forEach(function (node) {
           const key = node.getAttribute('data-i18n');
