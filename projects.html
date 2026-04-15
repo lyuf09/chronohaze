@@ -79,8 +79,8 @@
   <link rel="preload" href="assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@300;400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@300;400;500;700&display=swap" rel="stylesheet" /></noscript>
-  <link rel="stylesheet" href="https://lyuf09.github.io/chronohaze/styles.min.css?v=20260415-academic6" />
-  <script defer src="https://lyuf09.github.io/chronohaze/protect-media.min.js?v=20260415-academic6"></script>
+  <link rel="stylesheet" href="https://lyuf09.github.io/chronohaze/styles.min.css?v=20260415-academic7" />
+  <script defer src="https://lyuf09.github.io/chronohaze/protect-media.min.js?v=20260415-academic7"></script>
 </head>
 <body class="research-landing-page projects-page">
   <div class="page">
@@ -109,8 +109,13 @@
               <button class="cv-lang-tab is-active" type="button" role="tab" aria-selected="true" data-page-lang-tab="zh">ZH</button>
               <button class="cv-lang-tab" type="button" role="tab" aria-selected="false" data-page-lang-tab="en">EN</button>
             </div>
-            <a class="cv-research-link" href="research.html" data-i18n="utilityLink">Research</a>
           </div>
+          <nav class="academic-local-nav" aria-label="Academic section links" data-i18n-aria="academicSectionAria">
+            <a class="academic-local-link" href="academic.html" data-i18n="utilityOverview">总览</a>
+            <a class="academic-local-link" href="research.html" data-i18n="utilityResearch">研究</a>
+            <a class="academic-local-link is-active" href="projects.html" data-i18n="utilityProjects">项目</a>
+            <a class="academic-local-link" href="math.html" data-i18n="utilityNotes">笔记</a>
+          </nav>
         </div>
       </div>
 
@@ -174,7 +179,7 @@
               <p class="research-project-line research-project-line--status"><strong>当前状态：</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">进行中</span></span></p>
               <div class="research-link-row" aria-label="项目材料">
                 <a href="post/spring-2026.html">打开 Note</a>
-                <a href="math.html">打开 Archive</a>
+                <a href="math.html">打开 Notes</a>
               </div>
             </article>
           </div>
@@ -195,7 +200,7 @@
               <p class="research-project-line research-project-line--status"><strong>Current status:</strong> <span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">Ongoing</span></span></p>
               <div class="research-link-row" aria-label="Project materials">
                 <a href="post/spring-2026.html">Open Note</a>
-                <a href="math.html">Open Archive</a>
+                <a href="math.html">Open Notes</a>
               </div>
             </article>
           </div>
@@ -329,7 +334,7 @@
         <div>
           <p class="footer-title">chronohaze.space</p>
           <p class="footer-note"><span data-i18n="footerContactLead">辗转不同国家无固定号码 请联系邮箱：</span><a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a></p>
-          <p class="footer-note" data-i18n="footerCities">重庆 · Edinburgh · New York</p>
+          <p class="footer-note" data-i18n="footerCities">重庆 · Edinburgh · Ithaca</p>
           <p class="footer-copy">© 2026 by chronohaze.space. Powered and secured by GitHub Pages.</p>
           <div class="social" aria-label="Social links">
             <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -355,6 +360,7 @@
         zh: {
           htmlLang: 'zh-CN',
           pageTitle: '项目 | Chronohaze',
+          academicSectionAria: '学术页面导航',
           navAria: '主导航',
           navHome: '主页',
           navMath: '数学',
@@ -364,15 +370,19 @@
           navCV: 'CV',
           navResearch: '研究',
           navSearch: '搜索',
-          utilityLink: 'Research',
+          utilityOverview: '总览',
+          utilityResearch: '研究',
+          utilityProjects: '项目',
+          utilityNotes: '笔记',
           footerContactLead: '辗转不同国家无固定号码 请联系邮箱：',
-          footerCities: '重庆 · Edinburgh · New York',
+          footerCities: '重庆 · Edinburgh · Ithaca',
           siteNotes: '网站说明',
           a11y: '无障碍支持'
         },
         en: {
           htmlLang: 'en',
           pageTitle: 'Projects | Chronohaze',
+          academicSectionAria: 'Academic section navigation',
           navAria: 'Main navigation',
           navHome: 'Main',
           navMath: 'Mathematics',
@@ -382,9 +392,12 @@
           navCV: 'CV',
           navResearch: 'Research',
           navSearch: 'Search',
-          utilityLink: 'Research',
+          utilityOverview: 'Overview',
+          utilityResearch: 'Research',
+          utilityProjects: 'Projects',
+          utilityNotes: 'Notes',
           footerContactLead: 'No fixed phone number while moving across countries. Contact via email: ',
-          footerCities: 'Chongqing · Edinburgh · New York',
+          footerCities: 'Chongqing · Edinburgh · Ithaca',
           siteNotes: 'Privacy Policy',
           a11y: 'Accessibility'
         }

@@ -4569,6 +4569,44 @@ html:lang(en) .photo-detail-article * {
   filter: brightness(1.02);
 }
 
+.academic-local-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.academic-local-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 6px 12px 7px;
+  border-radius: 999px;
+  border: 1px solid rgba(98, 109, 134, 0.18);
+  background: rgba(255, 255, 255, 0.66);
+  color: rgba(66, 76, 96, 0.82);
+  font-family: var(--font-serif);
+  font-size: 13px;
+  letter-spacing: 0.03em;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  transition: transform 180ms ease, box-shadow 180ms ease, color 180ms ease, background-color 180ms ease, border-color 180ms ease;
+  white-space: nowrap;
+}
+
+.academic-local-link:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(34, 43, 61, 0.08);
+  color: rgba(50, 58, 74, 0.92);
+  border-color: rgba(88, 100, 126, 0.24);
+}
+
+.academic-local-link.is-active {
+  border-color: rgba(83, 94, 118, 0.26);
+  background: linear-gradient(180deg, rgba(110, 122, 149, 0.94) 0%, rgba(84, 95, 118, 0.94) 100%);
+  color: rgba(248, 250, 253, 0.98);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 8px 18px rgba(31, 39, 55, 0.14);
+}
+
 .cv-toc {
   display: flex;
   flex-wrap: wrap;
