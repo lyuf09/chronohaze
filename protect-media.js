@@ -1228,7 +1228,7 @@
         }
       });
 
-      var desiredOrder = ["home", "math", "photo", "music", "cv", "projects", "research", "search"];
+      var desiredOrder = ["home", "academic", "photo", "music", "cv", "search"];
       var links = Array.from(nav.querySelectorAll("a"));
       var keyedFirst = Object.create(null);
       var leftovers = [];
@@ -12764,11 +12764,16 @@
         var key = getPrimaryNavKeyFromHref(link.getAttribute("href") || "");
         if (key) {
           if (!requiredKeySet.has(key)) {
+            if (link.parentNode === nav) {
+              nav.removeChild(link);
+            }
             return;
           }
           if (!existingByKey[key]) {
             link.setAttribute("data-nav-key", key);
             existingByKey[key] = link;
+          } else if (link.parentNode === nav) {
+            nav.removeChild(link);
           }
           return;
         }
@@ -12949,6 +12954,9 @@
   function applySecondaryPageLanguage(lang) {
     var safeLang = lang === "en" ? "en" : "zh";
     var dict = getSecondaryPageDictionary(safeLang);
+
+    ensureSearchNavLink();
+    dedupeNavLinks();
 
     document.documentElement.lang = dict.htmlLang;
     Array.from(document.querySelectorAll(".nav")).forEach(function (nav) {
@@ -14154,6 +14162,8 @@
 
     var preferred = detectPreferredLanguage();
     persistPreferredLanguage(preferred);
+    ensureSearchNavLink();
+    dedupeNavLinks();
     applySecondaryPageLanguage(preferred);
 
     var existingPanel = document.querySelector(".floating-lang-switch");
