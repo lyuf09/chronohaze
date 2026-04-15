@@ -5409,6 +5409,45 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
   padding-bottom: 0;
 }
 
+.academic-page .research-hero-inner {
+  gap: 22px;
+}
+
+.academic-page .research-project-grid--themes {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.academic-page .research-project-grid--entry {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.academic-page .research-project-card p:last-child {
+  margin-bottom: 0;
+}
+
+.academic-tag-row {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.academic-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 9px 5px;
+  border: 1px solid rgba(83, 94, 119, 0.18);
+  background: rgba(255, 255, 255, 0.54);
+  color: rgba(55, 63, 79, 0.84);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+}
+
+.academic-entry-card h3 {
+  margin-bottom: 6px;
+}
+
 .research-project-status-wrap {
   flex: 1 1 auto;
   min-width: 0;

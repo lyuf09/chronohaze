@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    (function () {
+      try {
+        var url = new URL(window.location.href);
+        var queryLang = url.searchParams.get("lang");
+        var valid = function (value) {
+          return value === "zh" || value === "en";
+        };
+        var defaultLang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+        var defaultSafe = defaultLang.indexOf("en") === 0 ? "en" : "zh";
+
+        if (valid(queryLang)) {
+          window.localStorage.setItem("siteLang", queryLang);
+          window.localStorage.setItem("chronohaze-lang", queryLang);
+          window.__chronohazePreferredLang = queryLang;
+          document.documentElement.lang = queryLang === "en" ? "en" : "zh-CN";
+          document.documentElement.setAttribute("data-site-lang", queryLang);
+          return;
+        }
+
+        var storedLang = window.localStorage.getItem("siteLang");
+        if (!valid(storedLang)) {
+          storedLang = window.localStorage.getItem("chronohaze-lang");
+        }
+        if (!valid(storedLang)) {
+          return;
+        }
+
+        window.__chronohazePreferredLang = storedLang;
+        document.documentElement.lang = storedLang === "en" ? "en" : "zh-CN";
+        document.documentElement.setAttribute("data-site-lang", storedLang);
+
+        if (storedLang !== defaultSafe) {
+          url.searchParams.set("lang", storedLang);
+          window.location.replace(url.toString());
+        }
+      } catch (_err) {}
+    })();
+  </script>
+  <link rel="icon" type="image/x-icon" href="https://lyuf09.github.io/chronohaze/assets/favicon.ico?v=4" />
+  <link rel="apple-touch-icon" href="https://lyuf09.github.io/chronohaze/assets/apple-touch-icon.png?v=4" />
+  <title>Academic | Fay / Feier Lyu | Chronohaze</title>
+  <meta name="description" content="Academic overview, research themes, selected projects, and entry points for Fay / Feier Lyu, also known as HazezZ." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Chronohaze" />
+  <meta property="og:title" content="Academic | Fay / Feier Lyu" />
+  <meta property="og:description" content="Academic overview, research themes, selected projects, and entry points for Fay / Feier Lyu, also known as HazezZ." />
+  <meta property="og:url" content="https://lyuf09.github.io/chronohaze/academic.html" />
+  <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/research.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Academic | Fay / Feier Lyu" />
+  <meta name="twitter:description" content="Academic overview, research themes, selected projects, and entry points for Fay / Feier Lyu, also known as HazezZ." />
+  <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/research.png" />
+  <link rel="canonical" href="https://lyuf09.github.io/chronohaze/academic.html" />
+  <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/academic.html?lang=zh" />
+  <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/academic.html?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/academic.html" />
+  <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfilePage",
+      "@id": "https://lyuf09.github.io/chronohaze/academic.html#page",
+      "url": "https://lyuf09.github.io/chronohaze/academic.html",
+      "name": "Academic | Fay / Feier Lyu | Chronohaze",
+      "mainEntity": {
+        "@id": "https://lyuf09.github.io/chronohaze/#person"
+      },
+      "about": {
+        "@id": "https://lyuf09.github.io/chronohaze/#person"
+      }
+    }
+  </script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JWZY2TVYFZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-JWZY2TVYFZ');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" href="assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@300;400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@300;400;500;700&display=swap" rel="stylesheet" /></noscript>
+  <link rel="stylesheet" href="https://lyuf09.github.io/chronohaze/styles.min.css?v=20260415-academic1" />
+  <script defer src="https://lyuf09.github.io/chronohaze/protect-media.min.js?v=20260415-academic1"></script>
+</head>
+<body class="research-landing-page projects-page academic-page">
+  <div class="page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="index.html">
+          <img src="assets/logo.png" alt="Chronohaze site logo" />
+          <span>chronohaze.space</span>
+        </a>
+        <nav class="nav" aria-label="主导航" data-i18n-aria="navAria">
+          <a href="index.html" data-i18n="navHome">主页</a>
+          <a class="active" href="academic.html" data-i18n="navAcademic">学术</a>
+          <a href="photography.html" data-i18n="navPhoto">摄影</a>
+          <a href="music.html" data-i18n="navMusic">音乐</a>
+          <a href="cv.html" data-i18n="navCV">CV</a>
+          <a href="search.html" data-i18n="navSearch">搜索</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="container">
+        <div class="cv-utility-bar">
+          <div class="cv-utility-top">
+            <div class="cv-lang-tabs" role="tablist" aria-label="Page language tabs">
+              <button class="cv-lang-tab is-active" type="button" role="tab" aria-selected="true" data-page-lang-tab="zh">ZH</button>
+              <button class="cv-lang-tab" type="button" role="tab" aria-selected="false" data-page-lang-tab="en">EN</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="research-hero">
+        <div class="container research-hero-inner">
+          <div class="research-hero-copy">
+            <div data-lang-block="zh">
+              <p class="research-eyebrow">Academic Overview</p>
+              <h1>学术</h1>
+              <p class="research-subtitle">优化 · 形式化验证 · 数学写作</p>
+              <p class="research-positioning">纯数学本科生，主要兴趣在优化、形式化验证与机器学习交叉处的问题组织方式。</p>
+              <p class="research-positioning">我目前的工作主线集中在 <span class="about-inline-en">Operational Research for Machine Learning</span>，并持续用 <span class="about-inline-en">Isabelle/HOL</span>、优化理论与技术笔记写作去把这些问题说清楚。</p>
+              <div class="research-chip-row">
+                <span class="research-chip">Operational Research for Machine Learning</span>
+                <span class="research-chip">Isabelle/HOL</span>
+                <span class="research-chip">Optimization Theory</span>
+                <span class="research-chip">Mathematical Writing</span>
+              </div>
+            </div>
+            <div data-lang-block="en" hidden>
+              <p class="research-eyebrow">Academic Overview</p>
+              <h1>Academic</h1>
+              <p class="research-subtitle">Optimization · Formalization · Mathematical Writing</p>
+              <p class="research-positioning">Pure Mathematics undergraduate with interests in optimization, formalization, and machine learning.</p>
+              <p class="research-positioning">My current work is centered on <span class="about-inline-en">Operational Research for Machine Learning</span>, with <span class="about-inline-en">Isabelle/HOL</span>, optimization theory, and mathematical writing as the main ways I try to make the structure of those problems explicit.</p>
+              <div class="research-chip-row">
+                <span class="research-chip">Operational Research for Machine Learning</span>
+                <span class="research-chip">Isabelle/HOL</span>
+                <span class="research-chip">Optimization Theory</span>
+                <span class="research-chip">Mathematical Writing</span>
+              </div>
+            </div>
+          </div>
+          <aside class="research-hero-panel" aria-label="Academic summary panel">
+            <div data-lang-block="zh">
+              <h2>当前聚焦</h2>
+              <ul>
+                <li>把研究方向整理成更稳定的结构：问题、方法、材料与入口。</li>
+                <li>把零散的数学笔记、研究线索与项目产出放进同一个 academic hub 里。</li>
+                <li>保留 <span class="about-inline-en">CV</span> 的独立角色，同时让研究、项目、笔记更容易被一眼看清。</li>
+              </ul>
+            </div>
+            <div data-lang-block="en" hidden>
+              <h2>Current focus</h2>
+              <ul>
+                <li>Turning the academic side of the site into a more stable structure: problems, methods, materials, and entry points.</li>
+                <li>Keeping notes, research lines, and project outputs inside one clearer academic hub.</li>
+                <li>Preserving <span class="about-inline-en">CV</span> as a separate page while making research, projects, and notes easier to scan together.</li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section research-projects-section" id="academic-themes">
+        <div class="container research-section-head">
+          <div data-lang-block="zh"><h2>Research Themes</h2></div>
+          <div data-lang-block="en" hidden><h2>Research Themes</h2></div>
+        </div>
+        <div class="container research-project-grid research-project-grid--themes">
+          <div data-lang-block="zh">
+            <article class="research-project-card">
+              <h3>Optimization / Operations Research</h3>
+              <p>围绕优化、下界、约束结构与 formulation 设计，尤其关注带不变性的问题里，哪些结构是“真的能恢复出来”的。</p>
+            </article>
+            <article class="research-project-card">
+              <h3>Formalization in Isabelle/HOL</h3>
+              <p>把近似保证、算法构造与证明组织成可验证、可复用、可扩展的形式化对象，而不是只停留在纸面推导。</p>
+            </article>
+            <article class="research-project-card">
+              <h3>Mathematical Notes &amp; Technical Writing</h3>
+              <p>把研究过程中的判断、失效点与阶段性结构整理成可以回看、可以连接、也可以被别人快速理解的技术笔记。</p>
+            </article>
+            <article class="research-project-card">
+              <h3>AI for Math / OR for ML</h3>
+              <p>我关心 AI 与数学方法之间更结构性的结合方式，也持续沿着 OR for ML 这条线来组织目前的工作。</p>
+            </article>
+          </div>
+          <div data-lang-block="en" hidden>
+            <article class="research-project-card">
+              <h3>Optimization / Operations Research</h3>
+              <p>Questions about optimization, lower bounds, constrained structure, and formulation design—especially what can genuinely be recovered once invariances enter the model.</p>
+            </article>
+            <article class="research-project-card">
+              <h3>Formalization in Isabelle/HOL</h3>
+              <p>Turning approximation guarantees, algorithmic constructions, and proof structure into machine-checked objects that can be reused and extended.</p>
+            </article>
+            <article class="research-project-card">
+              <h3>Mathematical Notes &amp; Technical Writing</h3>
+              <p>Using technical notes to make judgments, failed routes, and intermediate structures explicit enough to revisit, connect, and communicate clearly.</p>
+            </article>
+            <article class="research-project-card">
+              <h3>AI for Math / OR for ML</h3>
+              <p>I am interested in more structural links between AI and mathematical methods, and much of my current work is organized through an OR-for-ML lens.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section research-projects-section" id="academic-projects">
+        <div class="container research-section-head">
+          <div data-lang-block="zh"><h2>Selected Projects</h2></div>
+          <div data-lang-block="en" hidden><h2>Selected Projects</h2></div>
+        </div>
+        <div class="container research-project-grid">
+          <div data-lang-block="zh">
+            <article class="research-project-card">
+              <h3>Isabelle/HOL：现代子模贪心算法形式化</h3>
+              <p>在 Isabelle/HOL 中形式化 classical greedy、LazyGreedy 与 StochasticGreedy，并把 approximation / oracle-cost 结构组织成可复用的 theorem line。</p>
+              <div class="academic-tag-row">
+                <span class="academic-tag">Isabelle/HOL</span>
+                <span class="academic-tag">Submodular Optimization</span>
+                <span class="academic-tag">Formal Methods</span>
+              </div>
+              <div class="research-link-row">
+                <a href="research.html">详情页</a>
+                <a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">Repo</a>
+              </div>
+            </article>
+            <article class="research-project-card">
+              <h3>不变性下的对偶与下界</h3>
+              <p>围绕 gauge-free / relative formulation 里 dual 为何退化展开的研究线，目前更明确地收敛成了一个和 instance difficulty 相关的 structural score。</p>
+              <div class="academic-tag-row">
+                <span class="academic-tag">Optimization</span>
+                <span class="academic-tag">Duality</span>
+                <span class="academic-tag">Lower Bounds</span>
+              </div>
+              <div class="research-link-row">
+                <a href="research.html">详情页</a>
+                <a href="post/what-i-really-got-when-a-dual-route-failed.html">Note</a>
+              </div>
+            </article>
+            <article class="research-project-card">
+              <h3>Metalcore Piano Lab</h3>
+              <p>一个把音频 / MIDI 转换成可玩谱面事件的离散化原型，持续测试 onset、grid、alignment 与可玩性约束之间的关系。</p>
+              <div class="academic-tag-row">
+                <span class="academic-tag">Prototype</span>
+                <span class="academic-tag">Signal Processing</span>
+                <span class="academic-tag">Browser Tooling</span>
+              </div>
+              <div class="research-link-row">
+                <a href="projects.html">详情页</a>
+                <a href="https://github.com/lyuf09/metalcore-piano-lab" target="_blank" rel="noopener noreferrer">Repo</a>
+              </div>
+            </article>
+            <article class="research-project-card">
+              <h3>数学笔记与技术写作</h3>
+              <p>把 theorem line、研究判断与中间结构保留下来，让它们不是一次性的草稿，而是可回看的 notes / archive。</p>
+              <div class="academic-tag-row">
+                <span class="academic-tag">Notes</span>
+                <span class="academic-tag">Technical Writing</span>
+                <span class="academic-tag">Mathematics</span>
+              </div>
+              <div class="research-link-row">
+                <a href="math.html">打开笔记</a>
+              </div>
+            </article>
+          </div>
+          <div data-lang-block="en" hidden>
+            <article class="research-project-card">
+              <h3>Isabelle/HOL: Formalizing Modern Submodular Greedy Algorithms</h3>
+              <p>An Isabelle/HOL development covering classical greedy, LazyGreedy, and StochasticGreedy, with approximation and oracle-cost structure organized into a reusable theorem line.</p>
+              <div class="academic-tag-row">
+                <span class="academic-tag">Isabelle/HOL</span>
+                <span class="academic-tag">Submodular Optimization</span>
+                <span class="academic-tag">Formal Methods</span>
+              </div>
+              <div class="research-link-row">
+                <a href="research.html">Detail page</a>
+                <a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">Repo</a>
+              </div>
+            </article>
+            <article class="research-project-card">
+              <h3>Duality and Lower Bounds under Invariances</h3>
+              <p>A research line on why dual routes collapse under gauge-free or relative formulations, now converging more clearly into a structural score tied to instance difficulty.</p>
+              <div class="academic-tag-row">
+                <span class="academic-tag">Optimization</span>
+                <span class="academic-tag">Duality</span>
+                <span class="academic-tag">Lower Bounds</span>
+              </div>
+              <div class="research-link-row">
+                <a href="research.html">Detail page</a>
+                <a href="post/what-i-really-got-when-a-dual-route-failed.html">Note</a>
+              </div>
+            </article>
+            <article class="research-project-card">
+              <h3>Metalcore Piano Lab</h3>
+              <p>A discretization prototype that turns audio / MIDI into playable chart events, testing the relationship between onset detection, grids, alignment, and playability constraints.</p>
+              <div class="academic-tag-row">
+                <span class="academic-tag">Prototype</span>
+                <span class="academic-tag">Signal Processing</span>
+                <span class="academic-tag">Browser Tooling</span>
+              </div>
+              <div class="research-link-row">
+                <a href="projects.html">Detail page</a>
+                <a href="https://github.com/lyuf09/metalcore-piano-lab" target="_blank" rel="noopener noreferrer">Repo</a>
+              </div>
+            </article>
+            <article class="research-project-card">
+              <h3>Mathematical Notes &amp; Technical Writing</h3>
+              <p>Keeping theorem lines, research judgments, and intermediate structures in a note archive, so they remain revisitable instead of disappearing as one-off drafts.</p>
+              <div class="academic-tag-row">
+                <span class="academic-tag">Notes</span>
+                <span class="academic-tag">Technical Writing</span>
+                <span class="academic-tag">Mathematics</span>
+              </div>
+              <div class="research-link-row">
+                <a href="math.html">Open notes</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section research-projects-section" id="academic-entry-points">
+        <div class="container research-section-head">
+          <div data-lang-block="zh"><h2>Entry Points</h2></div>
+          <div data-lang-block="en" hidden><h2>Entry Points</h2></div>
+        </div>
+        <div class="container research-project-grid research-project-grid--entry">
+          <div data-lang-block="zh">
+            <article class="research-project-card academic-entry-card">
+              <h3>Research</h3>
+              <p>更完整的研究方向、正在推进的问题线，以及这些方向为什么会连在一起。</p>
+              <div class="research-link-row"><a href="research.html">进入 Research</a></div>
+            </article>
+            <article class="research-project-card academic-entry-card">
+              <h3>Projects</h3>
+              <p>项目卡片式索引，集中查看 repo、note、原型与公开材料。</p>
+              <div class="research-link-row"><a href="projects.html">进入 Projects</a></div>
+            </article>
+            <article class="research-project-card academic-entry-card">
+              <h3>Notes</h3>
+              <p>数学文章与技术笔记的归档页，适合顺着时间线浏览研究记录。</p>
+              <div class="research-link-row"><a href="math.html">进入 Notes</a></div>
+            </article>
+          </div>
+          <div data-lang-block="en" hidden>
+            <article class="research-project-card academic-entry-card">
+              <h3>Research</h3>
+              <p>A fuller view of the research directions, current lines of work, and how those directions connect.</p>
+              <div class="research-link-row"><a href="research.html">Open Research</a></div>
+            </article>
+            <article class="research-project-card academic-entry-card">
+              <h3>Projects</h3>
+              <p>A card-based index of project materials: repositories, notes, prototypes, and public outputs.</p>
+              <div class="research-link-row"><a href="projects.html">Open Projects</a></div>
+            </article>
+            <article class="research-project-card academic-entry-card">
+              <h3>Notes</h3>
+              <p>The archive of math posts and technical notes, best when you want to browse the work chronologically.</p>
+              <div class="research-link-row"><a href="math.html">Open Notes</a></div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <p class="footer-title">chronohaze.space</p>
+          <p class="footer-note"><span data-i18n="footerContactLead">辗转不同国家无固定号码 请联系邮箱：</span><a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a></p>
+          <p class="footer-note" data-i18n="footerCities">重庆 · Edinburgh · Ithaca</p>
+          <p class="footer-copy">© 2026 by chronohaze.space. Powered and secured by GitHub Pages.</p>
+          <div class="social" aria-label="Social links">
+            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://www.instagram.com/lyuf09" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://space.bilibili.com/35902781" target="_blank" rel="noopener noreferrer">Bilibili</a>
+            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+        <div class="footer-right">
+          <a href="policy.html" data-i18n="siteNotes">网站说明</a>
+          <a href="accessibility.html" data-i18n="a11y">无障碍支持</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script>
+    (function () {
+      var i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
+      var i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
+      var langBlocks = Array.from(document.querySelectorAll('[data-lang-block]'));
+      var langTabs = Array.from(document.querySelectorAll('[data-page-lang-tab]'));
+      var i18n = {
+        zh: {
+          htmlLang: 'zh-CN',
+          pageTitle: '学术 | Chronohaze',
+          navAria: '主导航',
+          navHome: '主页',
+          navAcademic: '学术',
+          navPhoto: '摄影',
+          navMusic: '音乐',
+          navCV: 'CV',
+          navSearch: '搜索',
+          footerContactLead: '辗转不同国家无固定号码 请联系邮箱：',
+          footerCities: '重庆 · Edinburgh · Ithaca',
+          siteNotes: '网站说明',
+          a11y: '无障碍支持'
+        },
+        en: {
+          htmlLang: 'en',
+          pageTitle: 'Academic | Chronohaze',
+          navAria: 'Main navigation',
+          navHome: 'Main',
+          navAcademic: 'Academic',
+          navPhoto: 'Photography',
+          navMusic: 'Music',
+          navCV: 'CV',
+          navSearch: 'Search',
+          footerContactLead: 'No fixed phone number while moving across countries. Contact via email: ',
+          footerCities: 'Chongqing · Edinburgh · Ithaca',
+          siteNotes: 'Privacy Policy',
+          a11y: 'Accessibility'
+        }
+      };
+
+      function setLanguage(lang) {
+        var safeLang = lang === 'en' ? 'en' : 'zh';
+        var dict = i18n[safeLang];
+        document.documentElement.lang = dict.htmlLang;
+        document.title = dict.pageTitle;
+
+        i18nNodes.forEach(function (node) {
+          var key = node.getAttribute('data-i18n');
+          if (typeof dict[key] === 'string') {
+            node.textContent = dict[key];
+          }
+        });
+
+        i18nAriaNodes.forEach(function (node) {
+          var key = node.getAttribute('data-i18n-aria');
+          if (typeof dict[key] === 'string') {
+            node.setAttribute('aria-label', dict[key]);
+          }
+        });
+
+        langBlocks.forEach(function (block) {
+          var isHidden = block.getAttribute('data-lang-block') !== safeLang;
+          block.hidden = isHidden;
+          block.setAttribute('aria-hidden', isHidden ? 'true' : 'false');
+          if ('inert' in block) {
+            block.inert = isHidden;
+          }
+        });
+
+        langTabs.forEach(function (tab) {
+          var active = tab.getAttribute('data-page-lang-tab') === safeLang;
+          tab.classList.toggle('is-active', active);
+          tab.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+
+        try {
+          window.localStorage.setItem('siteLang', safeLang);
+          window.localStorage.setItem('chronohaze-lang', safeLang);
+        } catch (_err) {}
+      }
+
+      var initialLang = 'zh';
+      try {
+        var siteLang = window.localStorage.getItem('siteLang');
+        var savedLang = window.localStorage.getItem('chronohaze-lang');
+        if (siteLang === 'zh' || siteLang === 'en') {
+          initialLang = siteLang;
+        } else if (savedLang === 'zh' || savedLang === 'en') {
+          initialLang = savedLang;
+        }
+      } catch (_err) {}
+
+      var queryLang = new URLSearchParams(window.location.search).get('lang');
+      if (queryLang === 'zh' || queryLang === 'en') {
+        initialLang = queryLang;
+      }
+
+      langTabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          var nextLang = tab.getAttribute('data-page-lang-tab');
+          if (nextLang !== 'zh' && nextLang !== 'en') {
+            return;
+          }
+          setLanguage(nextLang);
+          var url = new URL(window.location.href);
+          url.searchParams.set('lang', nextLang);
+          window.history.replaceState({}, '', url.toString());
+        });
+      });
+
+      setLanguage(initialLang);
+    })();
+  </script>
+</body>
+</html>

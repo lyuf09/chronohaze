@@ -1142,6 +1142,10 @@
     return /(?:^|\/)math\.html(?:$|[?#])/i.test(String(href || "")) || /#math/i.test(String(href || ""));
   }
 
+  function isAcademicIndexHref(href) {
+    return /(?:^|\/)academic\.html(?:$|[?#])/i.test(String(href || ""));
+  }
+
   function isProjectsIndexHref(href) {
     return /(?:^|\/)projects\.html(?:$|[?#])/i.test(String(href || ""));
   }
@@ -1157,7 +1161,7 @@
       return "";
     }
     if (/\/post\//i.test(hrefKey)) {
-      return "math";
+      return "academic";
     }
     if (/\/photo\//i.test(hrefKey)) {
       return "photo";
@@ -1165,8 +1169,11 @@
     if (/\/music\//i.test(hrefKey)) {
       return "music";
     }
+    if (isAcademicIndexHref(hrefKey)) {
+      return "academic";
+    }
     if (isMathIndexHref(hrefKey)) {
-      return "math";
+      return "academic";
     }
     if (isPhotoIndexHref(hrefKey)) {
       return "photo";
@@ -1175,10 +1182,10 @@
       return "music";
     }
     if (isProjectsIndexHref(hrefKey)) {
-      return "projects";
+      return "academic";
     }
     if (isResearchIndexHref(hrefKey)) {
-      return "research";
+      return "academic";
     }
     if (/\/cv\.html(?:$|[?#])/i.test(hrefKey) || /fay_lyu_cv\.pdf/i.test(hrefKey)) {
       return "cv";
@@ -3398,6 +3405,7 @@
         htmlLang: "zh-CN",
         navAria: "主导航",
         navHome: "主页",
+        navAcademic: "学术",
         navMath: "数学",
         navPhoto: "摄影",
         navMusic: "音乐",
@@ -3542,6 +3550,7 @@
         htmlLang: "en",
         navAria: "Main navigation",
         navHome: "Main",
+        navAcademic: "Academic",
         navMath: "Mathematics",
         navPhoto: "Photography",
         navMusic: "Music",
@@ -12720,12 +12729,10 @@
     var prefix = /\/(music|photo|post)\//.test(path) ? "../" : "";
     var hrefMap = {
       home: "index.html",
-      math: "math.html",
+      academic: "academic.html",
       photo: "photography.html",
       music: "music.html",
       cv: "cv.html",
-      projects: "projects.html",
-      research: "research.html",
       search: "search.html",
     };
     return prefix + (hrefMap[pageKey] || "index.html");
@@ -12734,23 +12741,31 @@
   function ensureSearchNavLink() {
     var requiredLinks = [
       { key: "home", label: "主页" },
-      { key: "math", label: "数学" },
+      { key: "academic", label: "学术" },
       { key: "photo", label: "摄影" },
       { key: "music", label: "音乐" },
       { key: "cv", label: "CV" },
-      { key: "projects", label: "项目" },
-      { key: "research", label: "研究" },
       { key: "search", label: "搜索" },
     ];
+    var requiredKeySet = new Set(
+      requiredLinks.map(function (entry) {
+        return entry.key;
+      })
+    );
 
     Array.from(document.querySelectorAll(".site-header .nav")).forEach(function (nav) {
       var existingByKey = Object.create(null);
       var leftovers = [];
       Array.from(nav.querySelectorAll("a")).forEach(function (link) {
         var key = getPrimaryNavKeyFromHref(link.getAttribute("href") || "");
-        if (key && !existingByKey[key]) {
-          link.setAttribute("data-nav-key", key);
-          existingByKey[key] = link;
+        if (key) {
+          if (!requiredKeySet.has(key)) {
+            return;
+          }
+          if (!existingByKey[key]) {
+            link.setAttribute("data-nav-key", key);
+            existingByKey[key] = link;
+          }
           return;
         }
         leftovers.push(link);
@@ -12930,16 +12945,17 @@
 
     Array.from(document.querySelectorAll(".nav a")).forEach(function (link) {
       var href = link.getAttribute("href") || "";
-      if (isMathIndexHref(href)) {
-        link.textContent = dict.navMath;
+      if (
+        isAcademicIndexHref(href) ||
+        isMathIndexHref(href) ||
+        isResearchIndexHref(href) ||
+        isProjectsIndexHref(href)
+      ) {
+        link.textContent = dict.navAcademic || "Academic";
       } else if (isPhotoIndexHref(href)) {
         link.textContent = dict.navPhoto;
       } else if (isMusicIndexHref(href)) {
         link.textContent = dict.navMusic;
-      } else if (isResearchIndexHref(href)) {
-        link.textContent = dict.navResearch || "Research";
-      } else if (/projects\.html(?:$|[?#])/i.test(href)) {
-        link.textContent = dict.navProjects || "Projects";
       } else if (/Fay_Lyu_CV\.pdf|(?:^|\/)cv\.html(?:$|[?#])/i.test(href)) {
         link.textContent = dict.navCV;
       } else if (/search\.html(?:$|[?#])/i.test(href)) {
