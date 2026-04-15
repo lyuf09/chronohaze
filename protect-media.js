@@ -12739,14 +12739,18 @@
   }
 
   function ensureSearchNavLink() {
-    var requiredLinks = [
-      { key: "home", label: "主页" },
-      { key: "academic", label: "学术" },
-      { key: "photo", label: "摄影" },
-      { key: "music", label: "音乐" },
-      { key: "cv", label: "CV" },
-      { key: "search", label: "搜索" },
-    ];
+    var navOrder = ["home", "academic", "photo", "music", "cv", "search"];
+    var navLabelMap = {
+      home: "主页",
+      academic: "学术",
+      photo: "摄影",
+      music: "音乐",
+      cv: "CV",
+      search: "搜索",
+    };
+    var requiredLinks = navOrder.map(function (key) {
+      return { key: key, label: navLabelMap[key] };
+    });
     var requiredKeySet = new Set(
       requiredLinks.map(function (entry) {
         return entry.key;
@@ -12802,6 +12806,14 @@
             nav.appendChild(link);
           }
         });
+
+      Array.from(nav.querySelectorAll("a")).forEach(function (link, index) {
+        if (index < navOrder.length) {
+          link.style.order = String(index);
+        } else {
+          link.style.order = String(navOrder.length + index);
+        }
+      });
     });
   }
 
