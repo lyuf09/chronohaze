@@ -32,8 +32,8 @@
       "title": "Academic / 学术",
       "url": "academic.html",
       "section": "Site",
-      "date": "2026-04-15",
-      "excerpt": "Academic hub for research themes, selected projects, and entry points into notes.",
+      "date": "2026-04-16",
+      "excerpt": "Academic hub for research themes, directions, and entry points into research, projects, and notes.",
       "tags": [
         "academic",
         "research",
@@ -42,16 +42,16 @@
         "optimization",
         "formal-methods"
       ],
-      "sort": 20260415,
+      "sort": 20260416,
       "scope": "site",
-      "content": "Academic 学术 Academic Overview Research Themes Selected Projects Entry Points Research Projects Notes Optimization Operations Research Isabelle HOL Mathematical Notes Technical Writing AI for Math OR for ML."
+      "content": "Academic 学术 Academic Overview Research Themes Research Projects Notes Optimization Formal Verification Operational Research for Machine Learning Isabelle HOL Optimization Theory Technical Writing Quick links 代表性工作 当前方向与材料 研究主题 学术入口 OR for ML"
     },
     {
       "title": "Projects / 项目",
       "url": "projects.html",
       "section": "Site",
-      "date": "2026-03-12",
-      "excerpt": "项目材料与公开材料的索引：按方向整理 note、repo、archive 与摘要。",
+      "date": "2026-04-16",
+      "excerpt": "代表性工作与当前方向材料的索引：按方向整理 repo、note、archive 与摘要。",
       "tags": [
         "projects",
         "research",
@@ -61,9 +61,9 @@
         "data",
         "engineering"
       ],
-      "sort": 20260312,
+      "sort": 20260416,
       "scope": "site",
-      "content": "选定项目 项目材料 公开材料 索引 研究与形式化验证 Isabelle HOL 现代子模贪心算法形式化 单调非负子模最大化 classical greedy LazyGreedy StochasticGreedy 近似保证 oracle cost core theorem lines AFP clean up 依赖整理 不变性下的对偶与下界 原型与信号处理 Metalcore Piano Lab 工程与 IP 防离析布料系统 数据分析 Funnel Retention Attribution Analysis 这个网站 Chronohaze 相关材料 Repository Notes Archive CV 页面 Selected Projects project materials public materials Research and Formal Verification Isabelle HOL Formalizing Modern Submodular Greedy Algorithms monotone nonnegative submodular maximization cardinality constraints classical greedy LazyGreedy StochasticGreedy approximation oracle-cost core theorem lines complete AFP-style presentation Duality and Lower Bounds under Invariances Prototype and Signal Processing Metalcore Piano Lab Engineering and IP Anti-Segregation Spreading System Data and Analytics Chronohaze Materials Repository Notes Archive"
+      "content": "代表性工作 当前方向与材料 项目材料 公开材料 索引 研究与形式化验证 Isabelle HOL 现代子模贪心算法形式化 单调非负子模最大化 classical greedy LazyGreedy StochasticGreedy 近似保证 oracle cost core theorem lines AFP clean up 依赖整理 不变性下的对偶与下界 原型与信号处理 Metalcore Piano Lab 工程与 IP 防离析布料系统 数据分析 Funnel Retention Attribution Analysis 这个网站 Chronohaze 相关材料 Repository Notes Archive CV 页面 Representative Work Current Directions and Materials project materials public materials Research and Formal Verification Isabelle HOL Formalizing Modern Submodular Greedy Algorithms monotone nonnegative submodular maximization cardinality constraints classical greedy LazyGreedy StochasticGreedy approximation oracle-cost core theorem lines complete AFP-style presentation Duality and Lower Bounds under Invariances Prototype and Signal Processing Metalcore Piano Lab Engineering and IP Anti-Segregation Spreading System Data and Analytics Chronohaze Materials Repository Notes Archive"
     }
   ]
 }
