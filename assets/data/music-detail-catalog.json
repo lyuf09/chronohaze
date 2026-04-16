@@ -4639,10 +4639,8 @@
       "title_clean": "Orchid",
       "status": "available",
       "creation_period": "12/2025 - 03/2026",
-      "subtitle": "发布日期：2026-04-25",
-      "subtitle_lines": [
-        "发布日期：2026-04-25"
-      ],
+      "subtitle": "",
+      "subtitle_lines": [],
       "credit_lines": [
         "作词作曲编曲吉他混音：HazezZ"
       ],
