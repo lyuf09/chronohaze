@@ -44,6 +44,8 @@
   </script>
   <title>Redirecting to Photography | Chronohaze</title>
   <meta name="robots" content="noindex, follow" />
+  <link rel="icon" type="image/x-icon" href="https://lyuf09.github.io/chronohaze/assets/favicon.ico?v=4" />
+  <link rel="apple-touch-icon" href="https://lyuf09.github.io/chronohaze/assets/apple-touch-icon.png?v=4" />
   <link rel="canonical" href="https://lyuf09.github.io/chronohaze/photography.html" />
   <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
   <!-- GENERATED:hreflang:start -->
@@ -51,27 +53,69 @@
   <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/photography.html?lang=en" />
   <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/photography.html" />
   <!-- GENERATED:hreflang:end -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" href="assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="https://lyuf09.github.io/chronohaze/styles.min.css?v=20260416-loader-sync" />
+  <noscript><meta http-equiv="refresh" content="0; url=photography.html" /></noscript>
+</head>
+<body class="page-transition-busy">
+  <div class="chronohaze-loader" aria-hidden="true">
+    <div class="chronohaze-loader__veil"></div>
+    <div class="chronohaze-loader__mist chronohaze-loader__mist--left"></div>
+    <div class="chronohaze-loader__mist chronohaze-loader__mist--right"></div>
+    <div class="chronohaze-loader__panel">
+      <p class="chronohaze-loader__brand">chronohaze.space</p>
+      <p class="chronohaze-loader__status">Switching</p>
+      <h2 class="chronohaze-loader__title">Opening the next page</h2>
+      <p class="chronohaze-loader__meta">Please wait a moment while the next page arrives.</p>
+      <div class="chronohaze-loader__line" aria-hidden="true"><span></span></div>
+    </div>
+  </div>
+  <main style="position:relative;z-index:1;min-height:100vh;display:grid;place-items:center;padding:24px;">
+    <p id="redirectFallbackPhoto" aria-live="polite" style="margin:0;color:rgba(232,234,237,0.72);font-family:var(--font-sans,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif);font-size:14px;">
+      Redirecting to <a href="photography.html">Photography</a>…
+    </p>
+  </main>
   <script>
     (function () {
+      var safeLang = window.__chronohazePreferredLang === 'en' ? 'en' : 'zh';
+      if (safeLang !== 'en') {
+        var langAttr = String(document.documentElement.getAttribute('lang') || '').toLowerCase();
+        safeLang = langAttr.indexOf('en') === 0 ? 'en' : 'zh';
+      }
+      var copy = safeLang === 'en'
+        ? {
+            status: 'Switching',
+            title: 'Opening the next page',
+            meta: 'Please wait a moment while the next page arrives.',
+            fallback: 'Redirecting to <a href="photography.html">Photography</a>…',
+            lang: 'en'
+          }
+        : {
+            status: '切换中',
+            title: '正在切换页面',
+            meta: '请稍候，下一页正在缓缓展开。',
+            fallback: '正在前往<a href="photography.html">摄影</a>…',
+            lang: 'zh-CN'
+          };
+      var loader = document.querySelector('.chronohaze-loader');
+      if (loader) {
+        loader.setAttribute('lang', copy.lang);
+        var statusNode = loader.querySelector('.chronohaze-loader__status');
+        var titleNode = loader.querySelector('.chronohaze-loader__title');
+        var metaNode = loader.querySelector('.chronohaze-loader__meta');
+        if (statusNode) statusNode.textContent = copy.status;
+        if (titleNode) titleNode.textContent = copy.title;
+        if (metaNode) metaNode.textContent = copy.meta;
+      }
+      var fallback = document.getElementById('redirectFallbackPhoto');
+      if (fallback) fallback.innerHTML = copy.fallback;
       var target = 'photography.html' + window.location.search + window.location.hash;
-      window.location.replace(target);
+      window.setTimeout(function () {
+        window.location.replace(target);
+      }, 140);
     })();
   </script>
-  <meta http-equiv="refresh" content="0; url=photography.html" />
-  <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      background: #0f1319;
-      color: #e8eaed;
-      font: 16px/1.6 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-    a { color: #9db3d2; }
-  </style>
-</head>
-<body>
-  <p>Redirecting to <a href="photography.html">Photography</a>…</p>
 </body>
 </html>
