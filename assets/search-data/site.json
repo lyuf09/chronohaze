@@ -33,7 +33,7 @@
       "url": "academic.html",
       "section": "Site",
       "date": "2026-04-16",
-      "excerpt": "Academic hub for research themes, directions, and entry points into research, projects, and notes.",
+      "excerpt": "Academic hub for research themes, representative work, and entry points into research, projects, and notes.",
       "tags": [
         "academic",
         "research",
@@ -44,7 +44,7 @@
       ],
       "sort": 20260416,
       "scope": "site",
-      "content": "Academic 学术 Academic Overview Research Themes Research Projects Notes Optimization Formal Verification Operational Research for Machine Learning Isabelle HOL Optimization Theory Technical Writing Quick links 代表性工作 当前方向与材料 研究主题 学术入口 OR for ML"
+      "content": "Academic 学术 Academic Overview Research Themes Explore the Academic Side Research Projects Notes Representative Work 代表性工作 Isabelle HOL Modern Submodular Greedy Algorithms Duality and Lower Bounds under Invariances Metalcore Piano Lab Notes and Technical Writing Optimization Formal Verification Operational Research for Machine Learning Isabelle HOL Optimization Theory Technical Writing 研究线 Project materials Open Notes 当前方向与材料 项目材料 研究笔记"
     },
     {
       "title": "Projects / 项目",
