@@ -632,6 +632,25 @@ body.page-transition-enabled.page-transition-leaving .home-page {
   letter-spacing: 0.015em;
 }
 
+.chronohaze-loader[lang^="zh"] .chronohaze-loader__status,
+.chronohaze-loader[lang^="zh-CN"] .chronohaze-loader__status,
+.chronohaze-loader[lang^="zh"] .chronohaze-loader__meta,
+.chronohaze-loader[lang^="zh-CN"] .chronohaze-loader__meta {
+  font-family: var(--font-sans-zh);
+}
+
+.chronohaze-loader[lang^="zh"] .chronohaze-loader__title,
+.chronohaze-loader[lang^="zh-CN"] .chronohaze-loader__title {
+  font-family: var(--font-serif-zh);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.16;
+}
+
+.chronohaze-loader[lang^="en"] .chronohaze-loader__title {
+  font-family: var(--font-serif-en);
+}
+
 .chronohaze-loader__line {
   position: relative;
   width: min(220px, 52vw);
