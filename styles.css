@@ -3722,6 +3722,15 @@ html:lang(en) .article-toc-link {
   margin-top: 10px;
 }
 
+.math-post-hub-links {
+  margin-top: 14px;
+  padding-top: 2px;
+}
+
+.math-post-hub-links .research-link-row {
+  margin-top: 8px;
+}
+
 html:lang(en) .math-post-nav-item,
 html:lang(en) .math-post-nav-label,
 html:lang(en) .math-post-nav-title {
