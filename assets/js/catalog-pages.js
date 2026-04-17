@@ -200,6 +200,23 @@
     setBilingualCopy(desc, { zh: excerptZh, en: excerptEn });
     article.appendChild(desc);
 
+    var tagTexts = Array.isArray(item && item.line_tags) ? item.line_tags : [];
+    if (!tagTexts.length && Array.isArray(item && item.tags)) {
+      tagTexts = item.tags;
+    }
+    if (tagTexts.length) {
+      var tagRow = document.createElement("div");
+      tagRow.className = "math-tag-row";
+      tagTexts.forEach(function (tagText) {
+        if (typeof tagText !== "string" || !tagText.trim()) return;
+        var tag = textNode("span", "math-tag", tagText.trim());
+        tagRow.appendChild(tag);
+      });
+      if (tagRow.childNodes.length) {
+        article.appendChild(tagRow);
+      }
+    }
+
     var more = textNode("a", "math-more", lang === "en" ? "Read More" : "阅读全文");
     more.href = href;
     article.appendChild(more);
