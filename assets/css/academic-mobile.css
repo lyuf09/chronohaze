@@ -39,6 +39,46 @@
     text-wrap: balance;
   }
 
+  .academic-page .research-section-head,
+  .research-page .research-section-head,
+  .projects-page .research-section-head,
+  .academic-page .research-project-grid,
+  .research-page .research-project-grid,
+  .projects-page .research-project-grid {
+    width: 100%;
+  }
+
+  .academic-page .research-project-grid--entry,
+  .research-page .research-project-grid,
+  .projects-page .research-project-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .academic-page .research-project-grid > [data-lang-block],
+  .research-page .research-project-grid > [data-lang-block],
+  .projects-page .research-project-grid > [data-lang-block] {
+    display: none !important;
+  }
+
+  .academic-page .research-project-grid > [data-lang-block="zh"],
+  .research-page .research-project-grid > [data-lang-block="zh"],
+  .projects-page .research-project-grid > [data-lang-block="zh"] {
+    display: contents !important;
+  }
+
+  html:lang(en) .academic-page .research-project-grid > [data-lang-block="zh"],
+  html:lang(en) .research-page .research-project-grid > [data-lang-block="zh"],
+  html:lang(en) .projects-page .research-project-grid > [data-lang-block="zh"] {
+    display: none !important;
+  }
+
+  html:lang(en) .academic-page .research-project-grid > [data-lang-block="en"],
+  html:lang(en) .research-page .research-project-grid > [data-lang-block="en"],
+  html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
+    display: contents !important;
+  }
+
   .academic-page .research-hero-copy,
   .research-page .research-hero-copy,
   .projects-page .research-hero-copy,
@@ -46,8 +86,8 @@
   .research-page .research-project-card,
   .projects-page .research-project-card,
   .math-index-page .math-card {
-    padding-left: 14px;
-    padding-right: 14px;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
   .academic-page .research-subtitle,
@@ -74,6 +114,21 @@
   .research-page .research-project-line-body,
   .projects-page .research-project-line-body {
     line-height: 1.78;
+  }
+
+  .academic-page .research-project-card h3,
+  .research-page .research-project-card h3,
+  .projects-page .research-project-card h3 {
+    -webkit-line-clamp: unset;
+    font-size: clamp(22px, 6.8vw, 26px);
+    line-height: 1.18;
+  }
+
+  .academic-page .research-project-card p,
+  .research-page .research-project-card p,
+  .projects-page .research-project-card p {
+    word-break: normal;
+    overflow-wrap: break-word;
   }
 }
 
