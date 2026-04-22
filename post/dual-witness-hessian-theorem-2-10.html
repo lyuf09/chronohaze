@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    (function () {
+      try {
+        var url = new URL(window.location.href);
+        var queryLang = url.searchParams.get("lang");
+        var valid = function (value) {
+          return value === "zh" || value === "en";
+        };
+        var defaultLang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+        var defaultSafe = defaultLang.indexOf("en") === 0 ? "en" : "zh";
+
+        if (valid(queryLang)) {
+          window.localStorage.setItem("siteLang", queryLang);
+          window.localStorage.setItem("chronohaze-lang", queryLang);
+          window.__chronohazePreferredLang = queryLang;
+          document.documentElement.lang = queryLang === "en" ? "en" : "zh-CN";
+          document.documentElement.setAttribute("data-site-lang", queryLang);
+          return;
+        }
+
+        var storedLang = window.localStorage.getItem("siteLang");
+        if (!valid(storedLang)) {
+          storedLang = window.localStorage.getItem("chronohaze-lang");
+        }
+        if (!valid(storedLang)) {
+          return;
+        }
+
+        window.__chronohazePreferredLang = storedLang;
+        document.documentElement.lang = storedLang === "en" ? "en" : "zh-CN";
+        document.documentElement.setAttribute("data-site-lang", storedLang);
+
+        if (storedLang !== defaultSafe) {
+          url.searchParams.set("lang", storedLang);
+          window.location.replace(url.toString());
+        }
+      } catch (_err) {}
+    })();
+  </script>
+  <link rel="icon" type="image/x-icon" href="https://lyuf09.github.io/chronohaze/assets/favicon.ico?v=4" />
+  <link rel="apple-touch-icon" href="https://lyuf09.github.io/chronohaze/assets/apple-touch-icon.png?v=4" />
+  <title>Dual witness 开始碰到 Hessian 了！：关于新定义的 Theorem 2.10 的这次新进展</title>
+  <meta name="description" content="这次最让我兴奋的新结果，是把 primal Hessian 的正定性翻译成一个定义在 Range(B) 上的 witness-side quadratic form，并由此得到一个 genuinely sufficient 的 local-minimum criterion。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Chronohaze" />
+  <meta property="og:title" content="Dual witness 开始碰到 Hessian 了！：关于新定义的 Theorem 2.10 的这次新进展 | Chronohaze" />
+  <meta property="og:description" content="这次最让我兴奋的新结果，是把 primal Hessian 的正定性翻译成一个定义在 Range(B) 上的 witness-side quadratic form，并由此得到一个 genuinely sufficient 的 local-minimum criterion。" />
+  <meta property="og:url" content="https://lyuf09.github.io/chronohaze/post/dual-witness-hessian-theorem-2-10.html" />
+  <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/math.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Dual witness 开始碰到 Hessian 了！：关于新定义的 Theorem 2.10 的这次新进展 | Chronohaze" />
+  <meta name="twitter:description" content="这次最让我兴奋的新结果，是把 primal Hessian 的正定性翻译成一个定义在 Range(B) 上的 witness-side quadratic form，并由此得到一个 genuinely sufficient 的 local-minimum criterion。" />
+  <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/math.png" />
+  <link rel="canonical" href="https://lyuf09.github.io/chronohaze/post/dual-witness-hessian-theorem-2-10.html" />
+
+  <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
+  <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/post/dual-witness-hessian-theorem-2-10.html?lang=zh" />
+  <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/post/dual-witness-hessian-theorem-2-10.html?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/post/dual-witness-hessian-theorem-2-10.html" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JWZY2TVYFZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-JWZY2TVYFZ');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" href="../assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@300;400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@300;400;500;700&display=swap" rel="stylesheet" /></noscript>
+  <link rel="stylesheet" href="https://lyuf09.github.io/chronohaze/styles.min.css?v=20260415-academic7" />
+  <script defer src="https://lyuf09.github.io/chronohaze/protect-media.min.js?v=20260415-academic7"></script>
+</head>
+<body class="math-post-page">
+  <div class="page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="../index.html">
+          <img src="../assets/logo.png" alt="Chronohaze site logo" />
+          <span>chronohaze.space</span>
+        </a>
+        <nav class="nav" aria-label="主导航" data-i18n-aria="navAria">
+          <a href="../index.html" data-i18n="navHome">主页</a>
+          <a class="active" href="../academic.html" data-i18n="navAcademic">学术</a>
+          <a href="../photography.html" data-i18n="navPhoto">摄影</a>
+          <a href="../music.html" data-i18n="navMusic">音乐</a>
+          <a href="../cv.html" data-i18n="navCV">CV</a>
+          <a href="../search.html" data-i18n="navSearch">搜索</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="container">
+        <div class="cv-utility-bar">
+          <div class="cv-utility-top">
+            <nav class="academic-local-nav" aria-label="Academic section links" data-i18n-aria="academicSectionAria">
+              <a class="academic-local-link" href="../academic.html" data-i18n="utilityOverview">总览</a>
+              <a class="academic-local-link" href="../research.html" data-i18n="utilityResearch">研究</a>
+              <a class="academic-local-link" href="../projects.html" data-i18n="utilityProjects">项目</a>
+              <a class="academic-local-link is-active" href="../math.html" data-i18n="utilityNotes">笔记</a>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <article class="article">
+        <div data-lang-block="zh">
+          <h1>Dual witness 开始碰到 Hessian 了！：关于新定义的 Theorem 2.10 的这次新进展</h1>
+          <p class="article-meta">HazezZ · 2026年4月21日 · 约 8 分钟</p>
+
+          <p>这段时间我在 WSN localization 这条 dual 线又往前推了一点。上一篇我主要写的是 dual-based score，那一版更多是在理解 instance level 的结构，比如什么 dual route 会 collapse，什么东西真正留下来了，以及为什么最后冒出来的是一个和 Range(B)、cycle consistency、realizability 有关的 structural quantity。</p>
+          <p>但那一版其实还留着一个很明显的缺口，就是说它更多是在讲这个 instance 本身长什么样，但还没有真正碰到另一个更尖锐的问题，也就是：当我已经手上有一个 differentiable stationary point 的时候，dual side 到底能不能告诉我，这个点是不是 local minimum？</p>
+          <p>而这次对我来说最重要的新进展，就是我第一次在 dual side 上得到了一个 genuinely sufficient 的 local-minimum criterion。这个结果在我的当前 draft 里是 Theorem 2.10，也是这整份 note 里我目前最喜欢的部分。</p>
+          <p>说实话这个点对我自己主观上的意义也很大，因为前面那一整条 stationary witness 线虽然我已经觉得有内容了，但它们大多还停留在 necessary-side reformulation 或者 structural interpretation，导致我跟 Prof. Sabach 都又不太确定要不要继续做下去 dual 了。不过新推出来的 Theorem 2.10 真的不太一样，它第一次让我感觉 dual witness 不再只是一个静态解释工具，而是真的开始碰到 Hessian、二阶曲率和 local minimality 本身。</p>
+          <p>我把这份 draft 发给 Prof. Sabach 的时候，他其实还没来得及看完整篇，因为我见完他 48 小时不到就写了快 30 页。但看到这个 theorem 之后他说很想赶紧把后面看完。这个反应也让我更确定，这次的推进不是单纯又换了一层说法，而是确实往前跨了一步。</p>
+
+          <h2>先说直觉：这个 theorem 到底在干嘛</h2>
+          <p>前面我已经得到过一个 stationary dual witness 的框架。大致上说，对于一个 differentiable stationary point，我可以把它对应成一个 blockwise saturated 的 dual vector，也就是每一条边上的 dual block 都正好把自己的 budget 用满，这个对象本身已经能把一些一阶信息翻译到 dual side 上。</p>
+          <p>但 local minimum 终究是二阶问题。只知道一个点 stationary，是远远不够的，因为还得知道这个点附近往小扰动走的时候，函数到底是往上弯还是往下弯。</p>
+          <p>所以这次最关键的一步，其实就是把 Hessian 在这个点上的正性也翻译到 witness language 里。</p>
+          <p>Theorem 2.10 做的事情，可以很粗地概括成下面这三步。</p>
+          <p>第一步，从一个满足正向 blockwise compatibility 的 saturated dual vector <code>u</code> 出发，重新构造出对应的 primal point <code>x_u</code>。</p>
+          <p>第二步，把 <code>x_u</code> 处的 Hessian 精确写成一个非常干净的形式：</p>
+          <p><strong>∇²F(x_u) = 2 B^T M(u) B</strong></p>
+          <p>这里 <code>M(u)</code> 是一个按 edge block 拼起来的 block diagonal matrix。也就是说 Hessian 不再只是一个看起来很大的 primal matrix，而是被拆成了一个 “<code>B</code> 负责编码 realizability geometry，<code>M(u)</code> 负责编码 witness-side curvature” 的结构。</p>
+          <p>第三步，给出一个充分条件：只要对 every nonzero <code>z</code> in <code>Range(B)</code> 都有</p>
+          <p><strong>&lt;z, M(u) z&gt; &gt; 0</strong></p>
+          <p>那么 <code>x_u</code> 就是一个 strict local minimum modulo <code>Ker(B)</code>，从而也是 ordinary sense 下的 local minimum。</p>
+          <p>对我来说这个 theorem 真正有意思的地方，是它把这个 sufficient condition 放到了一个很清楚的 dual-side object 上。也就是说你不再只是说 “去看 Hessian 有没有正定”，而是把这个问题改写成：</p>
+          <p><strong>在 realizable edge-difference subspace <code>Range(B)</code> 上，这个由 stationary witness 诱导出来的 blockwise curvature operator <code>M(u)</code>，是不是正的？</strong></p>
+
+          <h2>为什么我觉得这是这条 dual 线第一次真正站起来了</h2>
+          <p>我觉得这里至少有三个层次的有意思。</p>
+          <p><strong>第一，它第一次超过了 purely necessary-side reformulation。</strong> 在这之前，我做出来的很多结果虽然已经不是空话，但逻辑强度上仍然更像是：如果一个点是 local minimum，那么它的 stationary witness 必须满足什么；或者如果某个 witness-side threshold 被违反了，那么这个点不可能是 local minimum。这些都很有用，但本质上仍然是筛除式、单向的。Theorem 2.10 不一样，它给的是一个真正的 sufficient criterion，所以这次 dual side 不再只是帮你排除一些坏点，而是第一次能够正向地告诉你：在这个条件下，你真的拿到了一个 local minimum。</p>
+          <p><strong>第二，它把 primal Hessian 的信息压缩成了一个 witness-side quadratic form。</strong> 核心形式 <code>∇²F(x_u) = 2 B^T M(u) B</code> 特别漂亮，因为 local curvature 的问题被自然分成了两层：一层是 <code>B</code>，它负责编码这个问题里哪些 edge assignments 是 genuinely realizable 的；另一层是 <code>M(u)</code>，它编码的是每个 edge block 上由当前 stationary witness 导出的曲率信息。这样一来，Hessian 正不正的问题，就被翻译成了一个更有结构的问题：这些 edgewise curvatures 在 <code>Range(B)</code> 这个 realizable subspace 上组合起来以后，是否还能保持整体正性。</p>
+          <p><strong>第三，它把 gauge freedom 处理得很自然。</strong> 这个模型本身有平移不变性，所以 <code>Ker(B)</code> 这部分 gauge freedom 永远绕不开。Theorem 2.10 在这一点上我也很喜欢，因为它非常自然地先证明 <code>x_u</code> 是 strict local minimum modulo <code>Ker(B)</code>，然后再利用沿 <code>Ker(B)</code> 方向函数值不变，推出 ordinary local minimum。它没有试图硬把 problem 的对称性抹掉，而是先在真正有内容的方向上建立 strict positivity，再把 gauge direction 单独剥离出来。</p>
+
+          <h2>一个我特别喜欢的解释：每条 edge 上的 curvature 是怎么来的</h2>
+          <p>在 theorem 后面我还写了一个我自己很喜欢的解释。</p>
+          <p>对每个 edge block 来说，<code>M_l(u)</code> 都可以理解成一个各向异性的 curvature matrix。把一个 block vector 分成 “沿 witness 方向” 和 “垂直于 witness 的方向” 之后，会发现：沿 witness 方向的曲率永远是正的，而且恰好等于 <code>1</code>；横向方向的曲率则由 <code>1 - 1 / ρ_l(u)</code> 控制。</p>
+          <p>也就是说问题并不是每一条边自己有没有曲率，而是这些 edgewise anisotropic curvatures 放在一起，再受 <code>Range(B)</code> 这个 realizability constraint 限制以后，整体上还能不能保持正性。</p>
+          <p>这点我觉得非常妙，因为它说明 local minimality 不是某个 edge 的独立性质，而是一个 genuinely global 的 combined effect。单条边上的行为可以看得很清楚，但最终要不要成为 local minimum，还得看这些 block 放在整个 realizable subspace 里以后怎么一起作用。</p>
+
+          <h2>一个小小的 corollary：标量情形会自动变简单</h2>
+          <p>我这次还顺手得到一个小 corollary。</p>
+          <p>如果是 scalar case，也就是 <code>n = 1</code>，那么每个 block 都只有一维，这时候 <code>M_l(u)</code> 会自动退化成标量 <code>1</code>，所以整个 <code>M(u)</code> 直接就是 identity。这样一来，Theorem 2.10 里的 positivity condition 就自动成立了。</p>
+          <p>换句话说，在 scalar setting 下，只要你有一个 <code>u in Ustat</code>，对应构造出来的 <code>x_u</code> 就会自动成为 strict local minimum modulo <code>Ker(B)</code>，也因此是 local minimum。</p>
+          <p>我喜欢这个 corollary 的原因是，它让 Theorem 2.10 立刻给出了一个 genuinely clean 的 special case：在一维里，这件事完全不用额外检查，曲率条件自己就闭合了。</p>
+
+          <h2>当然，它还不是终点</h2>
+          <p>虽然我现在真的觉得 Theorem 2.10 很有意思，但它目前给出的，仍然是一个 dual-side sufficient criterion，而不是 necessary-and-sufficient characterization。也就是说，它还没有把 differentiable local minima 完整刻画掉。</p>
+          <p>更进一步说，它也还不是一个直接的 algorithmic theorem。它说明 dual witness 已经能碰到二阶 local minimality 了，但它还没有直接告诉我们：这个 criterion 能不能被高效地检验，能不能自然地嵌进 AM + EP / EP-D 的 pipeline，或者它能不能进一步预测哪些 stationary points 更 “好”。</p>
+          <p>不过它也是这条线第一次真正碰到二阶 local geometry 的地方。而这件事本身，就已经让我觉得这条路不再只是 preparatory work 了。</p>
+
+          <nav class="math-post-nav" data-static-math-post-nav="1" aria-label="相邻笔记导航"><span class="math-post-nav-item is-disabled" data-nav-dir="prev" aria-disabled="true"><span class="math-post-nav-label">上一篇</span><span class="math-post-nav-title">暂无上一篇</span></span><a class="math-post-nav-item" data-nav-dir="next" href="../post/what-i-really-got-when-a-dual-route-failed.html" data-no-page-transition="1" aria-label="下一篇 · 当一个 dual 路线走不通时，我真正得到的东西"><span class="math-post-nav-label">下一篇</span><span class="math-post-nav-title">当一个 dual 路线走不通时，我真正得到的东西</span></a></nav>
+<div class="academic-hub-links math-post-hub-links">
+  <p class="academic-hub-links-label">继续浏览</p>
+  <div class="research-link-row">
+    <a href="../academic.html">总览</a>
+    <a href="../research.html">研究</a>
+    <a href="../projects.html">项目</a>
+    <a href="../math.html">笔记</a>
+  </div>
+</div>
+        </div>
+
+        <div data-lang-block="en" hidden>
+          <h1>Dual Witness Meets the Hessian: New Progress on My Newly Defined Theorem 2.10</h1>
+          <p class="article-meta">HazezZ · April 21, 2026 · 9 min read</p>
+
+          <p>Over the past few weeks, I pushed the dual line in this WSN localization project a bit further. In the previous note, I mainly wrote about the dual-based score. That version was more about understanding the structure at the instance level: which dual routes collapse, what actually survives, and why the quantity that finally emerges is a structural one tied to <code>Range(B)</code>, cycle consistency, and realizability.</p>
+          <p>But that version still left a very obvious gap. It was saying much more about what the instance itself looks like, without really touching the sharper question: once I already have a differentiable stationary point in hand, can the dual side actually tell me whether this point is a local minimum?</p>
+          <p>For me, the most important new progress this time is that I obtained, for the first time on the dual side, a genuinely sufficient local-minimum criterion. In my current draft, this appears as Theorem 2.10, and it is also my favorite part of the whole note so far.</p>
+          <p>To be honest, this point also matters a lot to me personally. The whole stationary-witness line already felt meaningful to me, but most of those results were still living at the level of necessary-side reformulations or structural interpretations. Because of that, both Prof. Sabach and I were still not entirely sure whether it was worth continuing along the dual direction. But Theorem 2.10 really feels different. For the first time, it made me feel that the dual witness is no longer just a static explanatory tool, but is actually starting to touch the Hessian, second-order curvature, and local minimality itself.</p>
+          <p>When I sent this draft to Prof. Sabach, he had not actually had time to finish the whole thing yet, mostly because I went a little wild and wrote almost 30 pages in less than 48 hours after meeting with him. But after seeing this theorem he said he really wanted to hurry up and read the rest. That reaction also made me feel more certain that this progress is not just another reformulation in different language, but a real step forward.</p>
+
+          <h2>First, the intuition: what is this theorem actually doing?</h2>
+          <p>Earlier, I had already obtained a stationary dual witness framework. Very roughly speaking, for a differentiable stationary point, I can associate to it a blockwise saturated dual vector, meaning that each dual block on each edge uses up its entire budget exactly. This object already lets me translate some first-order information to the dual side.</p>
+          <p>But local minimality is ultimately a second-order question. Knowing only that a point is stationary is far from enough, because one still needs to know whether, under small perturbations nearby, the function bends upward or downward.</p>
+          <p>So the key new step this time is to translate the positivity of the Hessian at that point into witness language as well.</p>
+          <p>Very roughly, Theorem 2.10 does the following in three steps.</p>
+          <p>First, starting from a saturated dual vector <code>u</code> satisfying a positive blockwise compatibility condition, it reconstructs the corresponding primal point <code>x_u</code>.</p>
+          <p>Second, it writes the Hessian at <code>x_u</code> in a very clean form:</p>
+          <p><strong>∇²F(x_u) = 2 B^T M(u) B</strong></p>
+          <p>Here <code>M(u)</code> is a block diagonal matrix assembled edge block by edge block. In other words, the Hessian is no longer just a large-looking primal matrix, but is decomposed into a structure where <code>B</code> carries the realizability geometry, while <code>M(u)</code> carries the witness-side curvature.</p>
+          <p>Third, it gives a sufficient condition: if for every nonzero <code>z</code> in <code>Range(B)</code> one has</p>
+          <p><strong>&lt;z, M(u) z&gt; &gt; 0</strong></p>
+          <p>then <code>x_u</code> is a strict local minimum modulo <code>Ker(B)</code>, and therefore also a local minimum in the ordinary sense.</p>
+          <p>To me, the really interesting part of this theorem is that it places the sufficient condition on a very clear dual-side object. So instead of merely saying “go check whether the Hessian is positive definite,” it rewrites the question as:</p>
+          <p><strong>On the realizable edge-difference subspace <code>Range(B)</code>, is the blockwise curvature operator <code>M(u)</code>, induced by the stationary witness, positive?</strong></p>
+
+          <h2>Why I feel this is the first time the dual line really stands up on its own</h2>
+          <p>I think there are three layers of why this is interesting.</p>
+
+          <h2>For the first time, it goes beyond purely necessary-side reformulation</h2>
+          <p>Before this, many of the results I had obtained were already meaningful, but in logical strength they still looked more like:</p>
+          <ul>
+            <li>if a point is a local minimum, then its stationary witness must satisfy certain conditions,</li>
+            <li>if a certain witness-side threshold is violated, then the point cannot be a local minimum.</li>
+          </ul>
+          <p>These are all useful, but they are fundamentally exclusion-type results. They are one-sided.</p>
+          <p>Theorem 2.10 is different. It gives a genuinely sufficient criterion. So this time the dual side is no longer only helping exclude bad points; for the first time, it can positively tell you that, under this condition, you really do have a local minimum.</p>
+
+          <h2>It compresses the primal Hessian information into a witness-side quadratic form</h2>
+          <p>The core form of the theorem is really beautiful:</p>
+          <p><strong>∇²F(x_u) = 2 B^T M(u) B</strong></p>
+          <p>This means the local-curvature question is split into two layers.</p>
+          <p>One layer is <code>B</code>, which encodes which edge assignments in this problem are genuinely realizable, that is, the geometry of <code>Range(B)</code>.</p>
+          <p>The other layer is <code>M(u)</code>, which encodes the curvature information on each edge block induced by the current stationary witness.</p>
+          <p>So the question of whether the Hessian is positive gets translated into a more structured one: after these edgewise curvatures are assembled together on the realizable subspace <code>Range(B)</code>, do they still remain globally positive?</p>
+
+          <h2>It handles gauge freedom in a very natural way</h2>
+          <p>This model is translation-invariant, so the gauge freedom coming from <code>Ker(B)</code> is unavoidable. I really like Theorem 2.10 on this point as well, because it very naturally first proves that</p>
+          <p><strong>x_u is a strict local minimum modulo Ker(B),</strong></p>
+          <p>and then uses the fact that the function is constant along <code>Ker(B)</code> directions to deduce ordinary local minimality.</p>
+          <p>It does not try to artificially erase the symmetry of the problem. Instead, it first establishes strict positivity along the directions where the real content lives, and then peels off the gauge directions separately.</p>
+
+          <h2>An interpretation I especially like: where does the curvature on each edge come from?</h2>
+          <p>After the theorem, I also wrote an explanation that I personally like a lot.</p>
+          <p>For each edge block, <code>M_l(u)</code> can be understood as an anisotropic curvature matrix. If one decomposes a block vector into the part along the witness direction and the part orthogonal to the witness direction, then one finds:</p>
+          <ul>
+            <li>the curvature along the witness direction is always positive, and in fact exactly equal to <code>1</code>;</li>
+            <li>the transverse curvature is controlled by <code>1 - 1 / ρ_l(u)</code>.</li>
+          </ul>
+          <p>So the issue is not whether each individual edge has curvature on its own. Rather, the real question is whether all these edgewise anisotropic curvatures, once assembled together and constrained by the realizability condition <code>Range(B)</code>, can still remain globally positive.</p>
+          <p>I find this really elegant, because it shows that local minimality is not an independent property of a single edge, but a genuinely global combined effect. One can understand the behavior on each edge quite clearly, but in the end whether the point becomes a local minimum depends on how all these blocks interact after being placed inside the full realizable subspace.</p>
+
+          <h2>A small corollary: the scalar case becomes automatically simpler</h2>
+          <p>This time I also got a small corollary almost for free.</p>
+          <p>If we are in the scalar case, that is, <code>n = 1</code>, then each block is one-dimensional. In that case <code>M_l(u)</code> automatically degenerates to the scalar <code>1</code>, so the whole <code>M(u)</code> simply becomes the identity. As a result, the positivity condition in Theorem 2.10 is automatically satisfied.</p>
+          <p>In other words, in the scalar setting, as soon as one has a <code>u in Ustat</code>, the corresponding <code>x_u</code> automatically becomes a strict local minimum modulo <code>Ker(B)</code>, and hence also a local minimum.</p>
+          <p>I like this corollary because it gives Theorem 2.10 an immediately clean special case. In one dimension, there is no extra condition to check; the curvature condition closes by itself.</p>
+
+          <h2>Of course, it is still not the endpoint</h2>
+          <p>Although I really do think Theorem 2.10 is very interesting, what it currently gives is still a dual-side sufficient criterion, not a necessary-and-sufficient characterization. In other words, it still does not fully characterize differentiable local minima.</p>
+          <p>Going further, it is also not yet a direct algorithmic theorem. It shows that the dual witness has now reached second-order local minimality, but it still does not directly tell us:</p>
+          <ul>
+            <li>whether this criterion can be checked efficiently,</li>
+            <li>whether it can be naturally embedded into the AM + EP / EP-D pipeline,</li>
+            <li>or whether it can further predict which stationary points are “better.”</li>
+          </ul>
+          <p>Still, this is the first point on this line where the dual side genuinely touches second-order local geometry.</p>
+          <p>And that alone already makes me feel that this direction is no longer just preparatory work.</p>
+
+          <nav class="math-post-nav" data-static-math-post-nav="1" aria-label="Adjacent notes"><span class="math-post-nav-item is-disabled" data-nav-dir="prev" aria-disabled="true"><span class="math-post-nav-label">Previous note</span><span class="math-post-nav-title">No previous note</span></span><a class="math-post-nav-item" data-nav-dir="next" href="../post/what-i-really-got-when-a-dual-route-failed.html" data-no-page-transition="1" aria-label="Next note · What I Really Got When a Dual Route Failed"><span class="math-post-nav-label">Next note</span><span class="math-post-nav-title">What I Really Got When a Dual Route Failed</span></a></nav>
+<div class="academic-hub-links math-post-hub-links">
+  <p class="academic-hub-links-label">Continue with</p>
+  <div class="research-link-row">
+    <a href="../academic.html">Overview</a>
+    <a href="../research.html">Research</a>
+    <a href="../projects.html">Projects</a>
+    <a href="../math.html">Notes</a>
+  </div>
+</div>
+        </div>
+      </article>
+    </main>
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <p class="footer-title">chronohaze.space</p>
+          <p class="footer-note"><span data-i18n="footerContactLead">辗转不同国家无固定号码 请联系邮箱：</span><a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a></p>
+          <p class="footer-note" data-i18n="footerCities">重庆 · Edinburgh · Ithaca</p>
+          <p class="footer-copy">© 2026 by chronohaze.space. Powered and secured by GitHub Pages.</p>
+          <div class="social" aria-label="Social links">
+            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://www.instagram.com/lyuf09" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://space.bilibili.com/35902781" target="_blank" rel="noopener noreferrer">Bilibili</a>
+            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+        <div class="footer-right">
+          <a href="../policy.html" data-i18n="siteNotes">网站说明</a>
+          <a href="../accessibility.html" data-i18n="a11y">无障碍支持</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+<script>
+  (function () {
+    const i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
+    const i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
+    const langBlocks = Array.from(document.querySelectorAll('[data-lang-block]'));
+    const queryLang = new URLSearchParams(window.location.search).get('lang');
+
+    const i18n = {
+      zh: {
+        htmlLang: 'zh-CN',
+        pageTitle: 'Dual witness 开始碰到 Hessian 了！：关于新定义的 Theorem 2.10 的这次新进展 | Chronohaze',
+        navAria: '主导航',
+        navHome: '主页',
+        navMath: '数学',
+        navPhoto: '摄影',
+        navMusic: '音乐',
+        navCV: 'CV',
+        academicSectionAria: '学术页面导航',
+        utilityOverview: '总览',
+        utilityResearch: '研究',
+        utilityProjects: '项目',
+        utilityNotes: '笔记',
+        footerContactLead: '辗转不同国家无固定号码 请联系邮箱：',
+        footerCities: '重庆 · Edinburgh · Ithaca',
+        siteNotes: '网站说明',
+        a11y: '无障碍支持'
+      },
+      en: {
+        htmlLang: 'en',
+        pageTitle: 'Dual Witness Meets the Hessian: New Progress on My Newly Defined Theorem 2.10 | Chronohaze',
+        navAria: 'Main navigation',
+        navHome: 'Home',
+        navMath: 'Mathematics',
+        navPhoto: 'Photography',
+        navMusic: 'Music',
+        navCV: 'CV',
+        academicSectionAria: 'Academic section navigation',
+        utilityOverview: 'Overview',
+        utilityResearch: 'Research',
+        utilityProjects: 'Projects',
+        utilityNotes: 'Notes',
+        footerContactLead: 'No fixed phone number while moving across countries. Contact via email: ',
+        footerCities: 'Chongqing · Edinburgh · Ithaca',
+        siteNotes: 'Site Notes',
+        a11y: 'Accessibility'
+      }
+    };
+
+    function setLanguage(lang) {
+      const safeLang = lang === 'en' ? 'en' : 'zh';
+      const dict = i18n[safeLang];
+      document.documentElement.lang = dict.htmlLang;
+      document.title = dict.pageTitle;
+
+      i18nNodes.forEach(function (node) {
+        const key = node.getAttribute('data-i18n');
+        const value = dict[key];
+        if (typeof value === 'string') node.textContent = value;
+      });
+
+      i18nAriaNodes.forEach(function (node) {
+        const key = node.getAttribute('data-i18n-aria');
+        const value = dict[key];
+        if (typeof value === 'string') node.setAttribute('aria-label', value);
+      });
+
+      langBlocks.forEach(function (block) {
+        block.hidden = block.getAttribute('data-lang-block') !== safeLang;
+      });
+
+      try {
+        window.localStorage.setItem('siteLang', safeLang);
+        window.localStorage.setItem('chronohaze-lang', safeLang);
+      } catch (err) {
+      }
+    }
+
+    let initialLang = 'zh';
+    try {
+      const siteLang = window.localStorage.getItem('siteLang');
+      const savedLang = window.localStorage.getItem('chronohaze-lang');
+      if (siteLang === 'zh' || siteLang === 'en') initialLang = siteLang;
+      else if (savedLang === 'zh' || savedLang === 'en') initialLang = savedLang;
+    } catch (err) {
+    }
+    if (queryLang === 'zh' || queryLang === 'en') initialLang = queryLang;
+    setLanguage(initialLang);
+  })();
+</script>
+</body>
+</html>
