@@ -1,13 +1,35 @@
 {
-  "generated_at": "2026-03-23",
+  "generated_at": "2026-04-21",
   "source": "math.html",
   "items": [
     {
       "order": 1,
+      "url": "post/dual-witness-hessian-theorem-2-10.html",
+      "date": "2026-04-21",
+      "title": "Dual witness 开始碰到 Hessian 了！：关于新定义的 Theorem 2.10 的这次新进展",
+      "title_en": "Dual Witness Meets the Hessian: New Progress on My Newly Defined Theorem 2.10",
+      "excerpt": "这次最让我兴奋的新结果，是把 primal Hessian 的正定性翻译成一个定义在 Range(B) 上的 witness-side quadratic form，并由此得到一个 genuinely sufficient 的 local-minimum criterion。",
+      "excerpt_en": "What excites me most in this update is translating positive definiteness of the primal Hessian into a witness-side quadratic form on Range(B), and from it obtaining a genuinely sufficient local-minimum criterion.",
+      "readmore_url": "post/dual-witness-hessian-theorem-2-10.html",
+      "tags": [
+        "math",
+        "article"
+      ],
+      "line_tags": [
+        "Duality",
+        "OR for ML"
+      ],
+      "reading_time_zh": "约 8 分钟",
+      "reading_time_en": "9 min read"
+    },
+    {
+      "order": 2,
       "url": "post/what-i-really-got-when-a-dual-route-failed.html",
       "date": "2026-03-23",
       "title": "当一个 dual 路线走不通时，我真正得到的东西",
+      "title_en": "What I Really Got When a Dual Route Failed",
       "excerpt": "当两条最自然的 Lagrangian dual 路线都塌到 trivial 0 bound 之后，留下来的反而是一个和 Range(B)、cycle consistency 与 instance difficulty 相关的 dual-based structural score。",
+      "excerpt_en": "When the most natural Lagrangian dual routes collapse to the trivial 0 bound, what remains is a dual-based structural score tied to Range(B), cycle consistency, and instance difficulty.",
       "readmore_url": "post/what-i-really-got-when-a-dual-route-failed.html",
       "tags": [
         "math",
@@ -17,17 +39,17 @@
         "Duality",
         "OR for ML"
       ],
-      "title_en": "What I Really Got When a Dual Route Failed",
-      "excerpt_en": "When the most natural Lagrangian dual routes collapse to the trivial 0 bound, what remains is a dual-based structural score tied to Range(B), cycle consistency, and instance difficulty.",
       "reading_time_zh": "约 5 分钟",
       "reading_time_en": "6 min read"
     },
     {
-      "order": 2,
+      "order": 3,
       "url": "post/theorem-to-framework-isabelle-submodular.html",
       "date": "2026-03-14",
       "title": "从一个定理到一套框架：我的 Isabelle 子模优化项目新进展",
+      "title_en": "From One Theorem to a Framework: New Progress on My Isabelle Project in Submodular Optimization",
       "excerpt": "从 classical greedy 的 theorem line，走到 LazyGreedy extension、StochasticGreedy skeleton 与一套可继续扩展的 Isabelle/HOL library。",
+      "excerpt_en": "From the theorem line for classical greedy to a LazyGreedy extension, a StochasticGreedy skeleton, and an Isabelle/HOL library that can keep growing.",
       "readmore_url": "post/theorem-to-framework-isabelle-submodular.html",
       "tags": [
         "math",
@@ -37,13 +59,11 @@
         "Isabelle/HOL",
         "OR for ML"
       ],
-      "title_en": "From One Theorem to a Framework: New Progress on My Isabelle Project in Submodular Optimization",
-      "excerpt_en": "From the theorem line for classical greedy to a LazyGreedy extension, a StochasticGreedy skeleton, and an Isabelle/HOL library that can keep growing.",
       "reading_time_zh": "约 6 分钟",
       "reading_time_en": "8 min read"
     },
     {
-      "order": 3,
+      "order": 4,
       "url": "post/metalcore-piano-lab.html",
       "date": "2026-02-07",
       "title": "Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP）",
@@ -62,7 +82,7 @@
       "reading_time_en": "3 min read"
     },
     {
-      "order": 4,
+      "order": 5,
       "url": "post/spring-2026.html",
       "date": "2026-01-29",
       "title": "Spring 2026｜新科研记录的开始",
@@ -81,7 +101,7 @@
       "reading_time_en": "2 min read"
     },
     {
-      "order": 5,
+      "order": 6,
       "url": "post/isabelle-submodular-greedy.html",
       "date": "2025-12-29",
       "title": "一个正在进行的 Isabelle 研究项目：Submodular Greedy 的形式化",
@@ -101,7 +121,7 @@
       "reading_time_en": "4 min read"
     },
     {
-      "order": 6,
+      "order": 7,
       "url": "post/first-isabelle-proof.html",
       "date": "2025-10-18",
       "title": "我的第一个 Isabelle 形式化证明",

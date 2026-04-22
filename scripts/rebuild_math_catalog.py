@@ -12,6 +12,10 @@ TAG_RE = re.compile(r'<[^>]+>')
 DATE_FULL_ZH_RE = re.compile(r'^\s*(\d{4})年(\d{1,2})月(\d{1,2})日\s*$')
 DATE_MONTH_ZH_RE = re.compile(r'^\s*(\d{4})年(\d{1,2})月\s*$')
 DATE_MD_ZH_RE = re.compile(r'^\s*(\d{1,2})月(\d{1,2})日\s*$')
+CARD_DATE_RE = re.compile(r'<p\s+class="math-date"(?P<attrs>[^>]*)>(?P<body>.*?)</p>', re.S)
+CARD_TITLE_RE = re.compile(r'<a\s+class="math-title-link"(?P<attrs>[^>]*)>(?P<body>.*?)</a>', re.S)
+CARD_DESC_RE = re.compile(r'<p\s+class="math-desc"(?P<attrs>[^>]*)>(?P<body>.*?)</p>', re.S)
+CARD_TAG_RE = re.compile(r'<span\s+class="math-tag"[^>]*>(?P<body>.*?)</span>', re.S)
 
 # Canonical date style for index cards: ISO-like labels
 # (full date: YYYY-MM-DD, month-only: YYYY-MM)
@@ -25,6 +29,18 @@ def clean(fragment: str) -> str:
     txt = fragment.replace('<br />', ' ').replace('<br/>', ' ').replace('<br>', ' ')
     txt = TAG_RE.sub('', txt)
     return re.sub(r'\s+', ' ', html.unescape(txt)).strip()
+
+
+def attrs_dict(fragment: str) -> Dict[str, str]:
+    return {k: v for k, v in ATTR_RE.findall(fragment or "")}
+
+
+def split_meta(raw: str) -> List[str]:
+    text = clean(raw)
+    if not text:
+        return []
+    parts = [part.strip() for part in re.split(r'\s*·\s*', text) if part.strip()]
+    return parts
 
 
 def _zp(n: str) -> str:
@@ -61,18 +77,35 @@ def parse_cards(text: str) -> List[Dict[str, object]]:
         href = (attrs.get('data-href') or '').strip()
         if not href:
             continue
-        date_m = re.search(r'<p\s+class="math-date">(.*?)</p>', body, re.S)
-        title_m = re.search(r'<h3\s+class="math-title">(.*?)</h3>', body, re.S)
-        desc_m = re.search(r'<p\s+class="math-desc">(.*?)</p>', body, re.S)
+        date_m = CARD_DATE_RE.search(body)
+        title_m = CARD_TITLE_RE.search(body)
+        desc_m = CARD_DESC_RE.search(body)
         more_m = re.search(r'<a\s+class="math-more"\s+href="([^"]+)"', body, re.S)
+        date_attrs = attrs_dict(date_m.group('attrs') if date_m else '')
+        title_attrs = attrs_dict(title_m.group('attrs') if title_m else '')
+        desc_attrs = attrs_dict(desc_m.group('attrs') if desc_m else '')
+        date_zh = date_attrs.get('data-copy-zh') or clean(date_m.group('body') if date_m else '')
+        date_en = date_attrs.get('data-copy-en') or date_zh
+        title_zh = title_attrs.get('data-copy-zh') or clean(title_m.group('body') if title_m else '')
+        title_en = title_attrs.get('data-copy-en') or title_zh
+        excerpt_zh = desc_attrs.get('data-copy-zh') or clean(desc_m.group('body') if desc_m else '')
+        excerpt_en = desc_attrs.get('data-copy-en') or excerpt_zh
+        meta_zh = split_meta(date_zh)
+        meta_en = split_meta(date_en)
+        line_tags = [clean(tag.group('body')) for tag in CARD_TAG_RE.finditer(body) if clean(tag.group('body'))]
         items.append({
             'order': idx,
             'url': href,
-            'date': normalize_math_date(clean(date_m.group(1) if date_m else ''), href),
-            'title': clean(title_m.group(1) if title_m else ''),
-            'excerpt': clean(desc_m.group(1) if desc_m else ''),
+            'date': normalize_math_date(meta_zh[0] if meta_zh else '', href),
+            'title': title_zh,
+            'title_en': title_en,
+            'excerpt': excerpt_zh,
+            'excerpt_en': excerpt_en,
             'readmore_url': (more_m.group(1).strip() if more_m else href),
             'tags': ['math', 'article'],
+            'line_tags': line_tags,
+            'reading_time_zh': meta_zh[1] if len(meta_zh) > 1 else '',
+            'reading_time_en': meta_en[1] if len(meta_en) > 1 else '',
         })
     return items
 
