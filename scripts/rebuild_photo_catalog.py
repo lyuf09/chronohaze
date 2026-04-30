@@ -10,6 +10,8 @@ TAG_RE = re.compile(r'<[^>]+>')
 ATTR_RE = re.compile(r'([:\w-]+)="([^"]*)"')
 FEATURE_CARD_RE = re.compile(r'<article\s+class="photo-feature-card">(?P<body>.*?)</article>', re.S)
 ARCHIVE_CARD_RE = re.compile(r'<article\s+class="photo-card(?P<class_extra>[^"]*)">(?P<body>.*?)</article>', re.S)
+GENERATED_VARIANT_RE = re.compile(r'-(?:480|640|720|960|1200|1600)\.(?:avif|webp|jpe?g|png)$', re.I)
+ORIGINAL_IMAGE_EXTENSIONS = ('.jpg', '.jpeg', '.png', '.webp')
 
 
 def clean(fragment: str) -> str:
@@ -24,6 +26,30 @@ def clean(fragment: str) -> str:
 
 def parse_attrs(tag_fragment: str) -> Dict[str, str]:
     return {k: v for k, v in ATTR_RE.findall(tag_fragment or '')}
+
+
+def normalize_generated_image_path(path: str, root: Path) -> str:
+    """Keep catalog covers canonical even when the page uses generated previews."""
+    value = (path or '').strip()
+    if not value or re.match(r'^(?:[a-z]+:|/)', value, re.I):
+        return value
+    clean, sep, suffix = value.partition('?')
+    m = GENERATED_VARIANT_RE.search(clean)
+    if not m:
+        return value
+    base = clean[:m.start()]
+    for ext in ORIGINAL_IMAGE_EXTENSIONS:
+        candidate = f'{base}{ext}'
+        if (root / candidate).exists():
+            return candidate + (sep + suffix if sep else '')
+    return value
+
+
+def normalize_cover_fields(items: List[Dict[str, object]], root: Path) -> None:
+    for item in items:
+        cover = str(item.get('cover', '') or '').strip()
+        if cover:
+            item['cover'] = normalize_generated_image_path(cover, root)
 
 
 def date_from_archive_alt(alt: str) -> str:
@@ -173,6 +199,8 @@ def main() -> int:
     text = src.read_text(encoding='utf-8')
     featured = parse_featured(text)
     archive = parse_archive(text, {str(x['url']) for x in featured})
+    normalize_cover_fields(featured, root)
+    normalize_cover_fields(archive, root)
     items = build_combined_items(featured, archive)
     payload = {
         'generated_at': date.today().isoformat(),

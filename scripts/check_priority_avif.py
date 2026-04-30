@@ -3,8 +3,13 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
+
+
+GENERATED_VARIANT_RE = re.compile(r"-(?:480|640|720|960|1200|1600)\.(?:avif|webp|jpe?g|png)$", re.I)
+ORIGINAL_IMAGE_EXTENSIONS = (".jpg", ".jpeg", ".png", ".webp")
 
 
 def load_json(path: Path) -> Any:
@@ -15,6 +20,22 @@ def load_json(path: Path) -> Any:
 def variant_path(path: str, width: int, ext: str) -> str:
     p = Path(path)
     return str(p.with_name(f"{p.stem}-{width}.{ext}")).replace("\\", "/")
+
+
+def canonical_image_path(path: str, root: Path) -> str:
+    value = (path or "").strip()
+    if not value or re.match(r"^(?:[a-z]+:|/)", value, re.I):
+        return value
+    clean, sep, suffix = value.partition("?")
+    m = GENERATED_VARIANT_RE.search(clean)
+    if not m:
+        return value
+    base = clean[: m.start()]
+    for original_ext in ORIGINAL_IMAGE_EXTENSIONS:
+        candidate = f"{base}{original_ext}"
+        if (root / candidate).exists():
+            return candidate + (sep + suffix if sep else "")
+    return value
 
 
 def require_contains(html_text: str, needle: str, label: str, errors: List[str]) -> None:
@@ -37,7 +58,7 @@ def main() -> int:
         ("assets/template/teenage-best-album-cover.jpg", "album cover: teenage best"),
     ]
     for item in photo_catalog.get("featured") or []:
-        cover = str(item.get("cover") or "").strip()
+        cover = canonical_image_path(str(item.get("cover") or "").strip(), root)
         if cover:
             priority.append((cover, f"photo featured cover: {item.get('title') or cover}"))
 
@@ -80,7 +101,7 @@ def main() -> int:
     )
 
     for item in photo_catalog.get("featured") or []:
-        cover = str(item.get("cover") or "").strip()
+        cover = canonical_image_path(str(item.get("cover") or "").strip(), root)
         if not cover:
             continue
         webp_needle = variant_path(cover, 960, "webp")
