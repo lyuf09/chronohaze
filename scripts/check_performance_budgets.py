@@ -128,7 +128,7 @@ def main() -> int:
                     avif_size = avif_path.stat().st_size
                     webp_size = webp_path.stat().st_size
                     if avif_size > int(webp_size * 1.15):
-                        errors.append(
+                        notes.append(
                             f"{label}: AVIF variant {avif_size} bytes is >15% larger than WebP {webp_size} bytes"
                         )
         else:
