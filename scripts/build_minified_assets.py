@@ -154,15 +154,18 @@ def minify_js_conservative(text: str) -> str:
     return "\n".join(lines).strip() + "\n"
 
 
-def rewrite_html_refs(text: str) -> str:
+def rewrite_html_refs(text: str, page_rel: Path) -> str:
+    depth = max(len(page_rel.parts) - 1, 0)
+    prefix = "../" * depth
+    asset_base = r"(?:https://lyuf09\.github\.io/chronohaze/|/chronohaze/|(?:\.\./)*)"
     replacements = {
-        r"(?P<prefix>(?:\.\./)?)(styles(?:\.min)?)\.css\?v=[^\"']+": rf"\g<prefix>styles.min.css?v={VERSION}",
-        r"(?P<prefix>(?:\.\./)?)(home(?:\.min)?)\.css\?v=[^\"']+": rf"\g<prefix>home.min.css?v={VERSION}",
-        r"(?P<prefix>(?:\.\./)?)(protect-media(?:\.min)?)\.js\?v=[^\"']+": rf"\g<prefix>protect-media.min.js?v={VERSION}",
-        r"assets/js/search-page(?:\.min)?\.js\?v=[^\"']+": rf"assets/js/search-page.min.js?v={VERSION}",
-        r"assets/js/catalog-pages(?:\.min)?\.js\?v=[^\"']+": rf"assets/js/catalog-pages.min.js?v={VERSION}",
-        r"assets/js/research-page(?:\.min)?\.js\?v=[^\"']+": rf"assets/js/research-page.min.js?v={VERSION}",
-        r"assets/js/structured-data(?:\.min)?\.js\?v=[^\"']+": rf"assets/js/structured-data.min.js?v={VERSION}",
+        rf"{asset_base}styles(?:\.min)?\.css\?v=[^\"']+": f"{prefix}styles.min.css?v={VERSION}",
+        rf"{asset_base}home(?:\.min)?\.css\?v=[^\"']+": f"{prefix}home.min.css?v={VERSION}",
+        rf"{asset_base}protect-media(?:\.min)?\.js\?v=[^\"']+": f"{prefix}protect-media.min.js?v={VERSION}",
+        rf"{asset_base}assets/js/search-page(?:\.min)?\.js\?v=[^\"']+": f"{prefix}assets/js/search-page.min.js?v={VERSION}",
+        rf"{asset_base}assets/js/catalog-pages(?:\.min)?\.js\?v=[^\"']+": f"{prefix}assets/js/catalog-pages.min.js?v={VERSION}",
+        rf"{asset_base}assets/js/research-page(?:\.min)?\.js\?v=[^\"']+": f"{prefix}assets/js/research-page.min.js?v={VERSION}",
+        rf"{asset_base}assets/js/structured-data(?:\.min)?\.js\?v=[^\"']+": f"{prefix}assets/js/structured-data.min.js?v={VERSION}",
         }
     out = text
     for pattern, repl in replacements.items():
@@ -212,10 +215,10 @@ def main() -> int:
     for rel in HTML_FILES:
         path = root / rel
         if path.exists():
-            path.write_text(rewrite_html_refs(path.read_text(encoding="utf-8")), encoding="utf-8")
+            path.write_text(rewrite_html_refs(path.read_text(encoding="utf-8"), Path(rel)), encoding="utf-8")
 
     for path in list((root / "music").glob("*.html")) + list((root / "photo").glob("*.html")) + list((root / "post").glob("*.html")):
-        path.write_text(rewrite_html_refs(path.read_text(encoding="utf-8")), encoding="utf-8")
+        path.write_text(rewrite_html_refs(path.read_text(encoding="utf-8"), path.relative_to(root)), encoding="utf-8")
 
     print("Generated minified assets:")
     for item in generated:

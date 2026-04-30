@@ -384,10 +384,17 @@
 
   function resolveAssetCandidateUrl(relativePath) {
     var candidates = getAssetCandidateUrls(relativePath);
-    var preferred = candidates.find(function (url) {
-      return /\/chronohaze\/assets\//.test(url) || /\/assets\//.test(url) && /^https?:\/\//i.test(url);
+    var repoScoped = candidates.find(function (url) {
+      return /\/chronohaze\/assets\//.test(url);
     });
-    return preferred || candidates[candidates.length - 1] || String(relativePath || "");
+    if (repoScoped) {
+      return repoScoped;
+    }
+
+    var originScoped = candidates.find(function (url) {
+      return /^https?:\/\/[^/]+\/assets\//i.test(url);
+    });
+    return originScoped || candidates[candidates.length - 1] || String(relativePath || "");
   }
 
   function ensureImageVariantManifestLoaded() {
