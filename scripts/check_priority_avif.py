@@ -60,7 +60,10 @@ def main() -> int:
     index_html = (root / "index.html").read_text(encoding="utf-8")
     album_ia_html = (root / "music" / "album-ipomoea-alba.html").read_text(encoding="utf-8")
     album_teen_html = (root / "music" / "album-teenage-best.html").read_text(encoding="utf-8")
-    photo_html = (root / "portfolio-1.html").read_text(encoding="utf-8")
+    photo_index = root / "photography.html"
+    if not photo_index.exists():
+        photo_index = root / "portfolio-1.html"
+    photo_html = photo_index.read_text(encoding="utf-8")
 
     require_contains(index_html, "assets/template/hero_portrait-1600.webp", "index.html hero", errors)
     require_contains(

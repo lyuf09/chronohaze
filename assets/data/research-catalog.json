@@ -1,121 +1,116 @@
 {
   "hero": {
     "eyebrow": "",
-    "name": "研究",
-    "subtitle": "优化 · 形式化验证（Isabelle/HOL） · 数学建模",
-    "positioning": "我目前主要沿三条彼此相关的方向工作：一是在 Isabelle/HOL 中形式化近似保证；二是研究带有不变性的优化模型里，对偶与下界何时会退化；三是做一些把连续对象离散化为可检查结构的小型原型。",
+    "name": "研究陈述",
+    "subtitle": "这一页只回答一个问题：我现在怎样理解这些问题。",
+    "positioning": "我现在最有辨识度的研究线，不是一个“兴趣列表”，而是三条可以继续推进的问题主线：Isabelle/HOL、duality under invariance、以及 prototype / discretization。",
     "chips": []
   },
   "meta": {
     "items": [
       {
         "label": "Last updated",
-        "value": "2026-03-12 · 09:21 PM ET",
-        "datetime": "2026-03-12T21:21:06-04:00",
+        "value": "2026-04-30 · 02:25 PM ET",
+        "datetime": "2026-04-30T14:25:59-04:00",
         "timezone": "America/New_York",
-        "date_only": "2026-03-12",
+        "date_only": "2026-04-30",
         "display_format": "YYYY-MM-DD · hh:mm A ET"
       }
     ]
   },
   "interests": {
-    "title": "研究兴趣",
-    "items": [
-      "优化 对偶、下界、一阶结构，以及不变性如何改变一个问题真正能恢复出什么。",
-      "形式化验证 用 Isabelle/HOL 组织证明，尤其关心假设、接口与后续扩展如何写得清楚。",
-      "子模算法 主要围绕单调子模最大化中的贪心保证，以及这些分析如何机器检验。",
-      "建模 关心 formulation 在面对对称性、近似需求和实现约束时会发生什么变化。"
-    ]
+    "title": "",
+    "items": []
   },
   "projects_section": {
-    "title": "当前工作",
-    "lead": "这里保留几条主要主线、它们目前做到哪里，以及更适合先点开的材料。"
+    "title": "Research Lines",
+    "lead": ""
   },
   "projects": [
     {
       "kind": "",
       "title": "Isabelle/HOL：现代子模贪心算法形式化",
-      "problem": "在 Isabelle/HOL 中形式化验证基数约束下单调非负子模最大化的近似算法理论，覆盖 classical greedy、LazyGreedy 与 StochasticGreedy，并组织其近似保证、算法构造与 oracle-cost 分析。",
-      "method": "采用基于 locale 的模块化组织方式，将抽象假设、算法构造、step-spec / recurrence 证明、具体实例解释以及复杂度 / oracle-cost 层分开处理，以保持证明结构清晰且便于后续扩展。",
-      "status": "进行中（核心定理线已完成，正在整理与提升展示质量）。",
-      "current_status": "经典 greedy 基线已完成；LazyGreedy 已形成完整的 stateful、approximation 与 oracle-cost 结构；StochasticGreedy 已完成 concrete uniform with-replacement theorem line，并达到最终近似定理包装这一关键里程碑。",
-      "contribution": "继续进行整理与打磨，包括 stochastic 部分的命名与注释统一、依赖清理、成本比较叙事加强，以及面向 AFP / submission-style 的 presentation refinement。",
-      "links": [
-        {
-          "href": "post/isabelle-submodular-greedy.html",
-          "label": "Note",
-          "external": false
-        },
-        {
-          "href": "https://github.com/lyuf09/isabelle-submodular-greedy/tree/main",
-          "label": "Repo",
-          "external": true
-        }
-      ],
+      "problem": "如何把子模贪心算法的近似保证，连同算法构造、oracle-cost 叙事与后续扩展接口，一起组织成可持续发展的 Isabelle/HOL library？",
+      "method": "我关心的不是“把一个 proof 搬进 proof assistant”这么简单，而是证明的结构、依赖与复用边界怎样在机器检验环境里被真正写清楚。",
+      "status": "",
+      "current_status": "classical greedy、LazyGreedy 与 StochasticGreedy 的核心 theorem line 已经成形；当前重点转向 clean-up、依赖整理与 submission-style presentation。",
+      "contribution": "怎样把现有 development 收束成更稳定的接口，让它既能面向 AFP 风格展示，又不牺牲后续继续长新的能力？",
+      "links": [],
+      "status_key": "",
+      "status_label": "",
+      "status_detail": "classical greedy、LazyGreedy 与 StochasticGreedy 的核心 theorem line 已经成形；当前重点转向 clean-up、依赖整理与 submission-style presentation。",
+      "status_display": "classical greedy、LazyGreedy 与 StochasticGreedy 的核心 theorem line 已经成形；当前重点转向 clean-up、依赖整理与 submission-style presentation。"
+    },
+    {
+      "kind": "",
+      "title": "不变性下的对偶、下界与结构恢复",
+      "problem": "当一个 optimization model 因为 translation / gauge invariance 让最自然的 dual routes collapse 时，问题里到底还有没有可以恢复出来的 nontrivial structure？",
+      "method": "如果 trivial lower bound 不是推导失误，而是模型结构本身导致的，那么真正有信息的对象可能不是 bound 本身，而是 collapse 之后剩下来的 structural score。",
+      "status": "",
+      "current_status": "我已经重新走通主要推导，并更清楚地看见 plain dualization 在哪里失去信息；现在留下来的，是一条和 Range(B)、cycle consistency 与 instance difficulty 相关的结构线索。",
+      "contribution": "什么样的 gauge-fixing、augmentation 或更紧约束，能够把这条结构线索真正变成一个可解释、可比较、可延伸的 lower-bound 或 scoring object？",
+      "links": [],
+      "status_key": "",
+      "status_label": "",
+      "status_detail": "我已经重新走通主要推导，并更清楚地看见 plain dualization 在哪里失去信息；现在留下来的，是一条和 Range(B)、cycle consistency 与 instance difficulty 相关的结构线索。",
+      "status_display": "我已经重新走通主要推导，并更清楚地看见 plain dualization 在哪里失去信息；现在留下来的，是一条和 Range(B)、cycle consistency 与 instance difficulty 相关的结构线索。"
+    },
+    {
+      "kind": "",
+      "title": "Prototype / discretization：从连续对象到可检视结构",
+      "problem": "把连续音频、节奏或事件流映射到可操作的离散对象时，哪些结构必须被保留，哪些约束只是为了方便实现？",
+      "method": "这条线看起来更像 prototype work，但它和前两条其实问的是同一种事：一个对象被 formalize、dualize 或 discretize 之后，真正值得保留下来的结构到底是什么。",
+      "status": "",
+      "current_status": "浏览器原型已经搭起来，正在拿真实输入反复检验 onset、beat grid、alignment 与 playability constraints 这些假设在什么地方会失效。",
+      "contribution": "怎样把“可玩性”从一组实现经验，进一步压缩成更明确的离散化准则与评估方式？",
+      "links": [],
+      "status_key": "",
+      "status_label": "",
+      "status_detail": "浏览器原型已经搭起来，正在拿真实输入反复检验 onset、beat grid、alignment 与 playability constraints 这些假设在什么地方会失效。",
+      "status_display": "浏览器原型已经搭起来，正在拿真实输入反复检验 onset、beat grid、alignment 与 playability constraints 这些假设在什么地方会失效。"
+    }
+  ],
+  "outputs_section": {
+    "title": "建议先看",
+    "lead": "把页面从问题陈述带到可检查的材料，不让研究页只停在目录层。"
+  },
+  "outputs": [
+    {
+      "href": "projects.html",
+      "external": false,
+      "type": "notes",
+      "kicker": "Work",
+      "title": "代表性工作",
+      "status": "Active",
+      "description": "把 Isabelle/HOL、optimization prototype 与相关项目放在同一个可扫描入口里。",
       "status_key": "active",
       "status_label": "Active",
       "status_detail": "",
       "status_display": "Active"
     },
     {
-      "kind": "",
-      "title": "不变性下的对偶与下界",
-      "problem": "",
-      "method": "",
-      "status": "进行中。",
-      "current_status": "",
-      "contribution": "",
-      "links": [
-        {
-          "href": "post/spring-2026.html",
-          "label": "Note",
-          "external": false
-        },
-        {
-          "href": "math.html",
-          "label": "Archive",
-          "external": false
-        }
-      ],
-      "status_key": "active",
-      "status_label": "Active",
-      "status_detail": "",
-      "status_display": "Active"
-    },
-    {
-      "kind": "",
-      "title": "Metalcore Piano Lab｜从音频 / MIDI 到谱面（WIP）",
-      "problem": "",
-      "method": "",
-      "status": "开发中。",
-      "current_status": "",
-      "contribution": "",
-      "links": [
-        {
-          "href": "post/metalcore-piano-lab.html",
-          "label": "Note",
-          "external": false
-        },
-        {
-          "href": "https://github.com/lyuf09/metalcore-piano-lab",
-          "label": "Repo",
-          "external": true
-        }
-      ],
+      "href": "math.html",
+      "external": false,
+      "type": "notes",
+      "kicker": "Notes",
+      "title": "学术笔记",
+      "status": "Active",
+      "description": "保留推导、形式化进展、失败路线和重新组织后的技术记录。",
       "status_key": "active",
       "status_label": "Active",
       "status_detail": "",
       "status_display": "Active"
     }
   ],
-  "outputs_section": {
-    "title": "建议先看"
-  },
-  "outputs": [],
   "now_section": {
-    "title": "这些方向为什么连在一起"
+    "title": "这些方向为什么连在一起",
+    "lead": ""
   },
-  "now_items": [],
+  "now_items": [
+    "我关心的是对象在被形式化、对偶化或离散化之后，哪些结构仍然值得保留。",
+    "Isabelle/HOL 这条线迫使证明接口变清楚；duality 这条线迫使模型不变性变清楚。",
+    "Prototype / discretization 则把同一个问题放回可操作输入里，检验理论描述是否真的抓住了结构。"
+  ],
   "links_section": {},
   "links": [],
   "search": {
@@ -123,19 +118,53 @@
     "url": "research.html",
     "section": "Site",
     "date": "",
-    "excerpt": "优化 · 形式化验证（Isabelle/HOL） · 数学建模",
+    "excerpt": "这一页只回答一个问题：我现在怎样理解这些问题。",
     "tags": [
       "research",
       "optimization",
       "formal-methods"
     ],
-    "sort": 20260312,
+    "sort": 20260430,
     "scope": "site",
-    "content": "研究 优化 形式化验证 Isabelle HOL 数学建模 三条相关方向 形式化近似保证 不变性下的对偶与下界 连续对象离散化为可检查结构 Shoham Sabach Wenda Li Cornell ORIE Edinburgh Informatics 研究兴趣 优化 对偶 下界 一阶结构 不变性 形式化验证 Isabelle HOL 假设 接口 扩展 子模算法 单调子模最大化 贪心保证 机器检验 建模 formulation 对称性 近似需求 实现约束 当前工作 Isabelle HOL 子模贪心算法形式化 Note Repo 不变性下的对偶与下界 Note Archive Metalcore Piano Lab 从音频 MIDI 到谱面 Note Repo 建议先看 Projects 研究 为什么连在一起 Research Optimization Formal Verification Isabelle HOL Mathematical Modeling current work submodular greedy duality lower bounds invariances discretization Shoham Sabach Wenda Li Note Repo Archive",
-    "meta_title": "Research | Fay / Feier Lyu (HazezZ) | Chronohaze",
-    "meta_description": "Research interests, current work, notes, and repositories by Fay / Feier Lyu (HazezZ)."
+    "content": "研究陈述 这一页只回答一个问题：我现在怎样理解这些问题。 我现在最有辨识度的研究线，不是一个“兴趣列表”，而是三条可以继续推进的问题主线：Isabelle/HOL、duality under invariance、以及 prototype / discretization。 Research Lines 建议先看 把页面从问题陈述带到可检查的材料，不让研究页只停在目录层。 这些方向为什么连在一起 Isabelle/HOL：现代子模贪心算法形式化 如何把子模贪心算法的近似保证，连同算法构造、oracle-cost 叙事与后续扩展接口，一起组织成可持续发展的 Isabelle/HOL library？ 我关心的不是“把一个 proof 搬进 proof assistant”这么简单，而是证明的结构、依赖与复用边界怎样在机器检验环境里被真正写清楚。 classical greedy、LazyGreedy 与 StochasticGreedy 的核心 theorem line 已经成形；当前重点转向 clean-up、依赖整理与 submission-style presentation。 怎样把现有 development 收束成更稳定的接口，让它既能面向 AFP 风格展示，又不牺牲后续继续长新的能力？ 不变性下的对偶、下界与结构恢复 当一个 optimization model 因为 translation / gauge invariance 让最自然的 dual routes collapse 时，问题里到底还有没有可以恢复出来的 nontrivial structure？ 如果 trivial lower bound 不是推导失误，而是模型结构本身导致的，那么真正有信息的对象可能不是 bound 本身，而是 collapse 之后剩下来的 structural score。 我已经重新走通主要推导，并更清楚地看见 plain dualization 在哪里失去信息；现在留下来的，是一条和 Range(B)、cycle consistency 与 instance difficulty 相关的结构线索。 什么样的 gauge-fixing、augmentation 或更紧约束，能够把这条结构线索真正变成一个可解释、可比较、可延伸的 lower-bound 或 scoring object？ Prototype / discretization：从连续对象到可检视结构 把连续音频、节奏或事件流映射到可操作的离散对象时，哪些结构必须被保留，哪些约束只是为了方便实现？ 这条线看起来更像 prototype work，但它和前两条其实问的是同一种事：一个对象被 formalize、dualize 或 discretize 之后，真正值得保留下来的结构到底是什么。 浏览器原型已经搭起来，正在拿真实输入反复检验 onset、beat grid、alignment 与 playability constraints 这些假设在什么地方会失效。 怎样把“可玩性”从一组实现经验，进一步压缩成更明确的离散化准则与评估方式？ Work 代表性工作 Active 把 Isabelle/HOL、optimization prototype 与相关项目放在同一个可扫描入口里。 Notes 学术笔记 Active 保留推导、形式化进展、失败路线和重新组织后的技术记录。 我关心的是对象在被形式化、对偶化或离散化之后，哪些结构仍然值得保留。 Isabelle/HOL 这条线迫使证明接口变清楚；duality 这条线迫使模型不变性变清楚。 Prototype / discretization 则把同一个问题放回可操作输入里，检验理论描述是否真的抓住了结构。",
+    "meta_title": "Research | Fay / Feier Lyu | Chronohaze",
+    "meta_description": "Research page organized around three current problem lines by Fay / Feier Lyu, also known as HazezZ."
   },
-  "output_groups": [],
-  "generated_at": "2026-03-12",
+  "output_groups": [
+    {
+      "key": "notes",
+      "title": "Notes",
+      "lead": "Research notes, logs, and technical writeups",
+      "items": [
+        {
+          "href": "projects.html",
+          "external": false,
+          "type": "notes",
+          "kicker": "Work",
+          "title": "代表性工作",
+          "status": "Active",
+          "description": "把 Isabelle/HOL、optimization prototype 与相关项目放在同一个可扫描入口里。",
+          "status_key": "active",
+          "status_label": "Active",
+          "status_detail": "",
+          "status_display": "Active"
+        },
+        {
+          "href": "math.html",
+          "external": false,
+          "type": "notes",
+          "kicker": "Notes",
+          "title": "学术笔记",
+          "status": "Active",
+          "description": "保留推导、形式化进展、失败路线和重新组织后的技术记录。",
+          "status_key": "active",
+          "status_label": "Active",
+          "status_detail": "",
+          "status_display": "Active"
+        }
+      ]
+    }
+  ],
+  "generated_at": "2026-04-30",
   "source": "research.html"
 }

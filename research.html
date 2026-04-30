@@ -3,6 +3,62 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style id="chronohaze-critical-loader-style">
+    html.chronohaze-critical-loading,
+    html.chronohaze-critical-loading body {
+      min-height: 100%;
+      background: #0b0e13;
+    }
+
+    html.chronohaze-critical-loading body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    html.chronohaze-critical-loading body > :not(.chronohaze-loader) {
+      visibility: hidden !important;
+    }
+
+    html.chronohaze-critical-loading::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 2147483000;
+      background:
+        radial-gradient(980px 620px at 16% 18%, rgba(114, 132, 166, 0.18), transparent 62%),
+        radial-gradient(760px 520px at 82% 78%, rgba(102, 118, 151, 0.12), transparent 66%),
+        linear-gradient(180deg, rgba(11, 14, 19, 0.985) 0%, rgba(14, 18, 25, 0.988) 56%, rgba(11, 14, 19, 0.992) 100%);
+    }
+
+    html.chronohaze-critical-loading::after {
+      content: "chronohaze.space\A Loading";
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      z-index: 2147483001;
+      width: min(560px, calc(100vw - 40px));
+      padding: 28px 30px;
+      transform: translate(-50%, -50%);
+      white-space: pre-line;
+      color: rgba(232, 234, 237, 0.96);
+      font: 400 clamp(28px, 5vw, 48px)/1.18 "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+      letter-spacing: 0.02em;
+      border: 1px solid rgba(138, 160, 200, 0.18);
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(18, 23, 31, 0.8) 0%, rgba(14, 19, 27, 0.74) 100%);
+      box-shadow: 0 26px 64px rgba(0, 0, 0, 0.34);
+    }
+  </style>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      root.classList.add("chronohaze-critical-loading");
+      window.__chronohazeReleaseCriticalLoader = function () {
+        root.classList.remove("chronohaze-critical-loading");
+      };
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, 6500);
+    })();
+  </script>
   <script>
     (function () {
       try {
@@ -89,9 +145,9 @@
   <link rel="preload" href="assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@300;400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@300;400;500;700&display=swap" rel="stylesheet" /></noscript>
-  <link rel="stylesheet" href="https://lyuf09.github.io/chronohaze/styles.min.css?v=20260415-academic7" />
+  <link rel="stylesheet" href="https://lyuf09.github.io/chronohaze/styles.min.css?v=20260430-loader-hardening" />
   <link rel="stylesheet" href="assets/css/academic-mobile.css?v=20260418-mobile1" />
-  <script defer src="https://lyuf09.github.io/chronohaze/protect-media.min.js?v=20260415-academic7"></script>
+  <script defer src="https://lyuf09.github.io/chronohaze/protect-media.min.js?v=20260430-loader-hardening"></script>
 </head>
 <body class="research-landing-page research-page" data-research-catalog-ready="1">
   <div class="page">
@@ -144,7 +200,7 @@
         </div>
       </section>
 
-      <section class="section research-projects-section" id="research-lines">
+      <section class="section research-projects-section" id="research-projects">
         <div class="container research-section-head">
           <div data-lang-block="zh"><h2>Research Lines</h2></div>
           <div data-lang-block="en" hidden><h2>Research Lines</h2></div>
@@ -200,6 +256,52 @@
               <p class="research-project-line"><strong>Next question:</strong><span class="research-project-line-body">How can playability be compressed from a bundle of implementation heuristics into a clearer discretization criterion and evaluation scheme?</span></p>
             </article>
           </div>
+        </div>
+      </section>
+
+      <section class="section research-outputs-section" id="research-outputs">
+        <div class="container research-section-head">
+          <h2>建议先看</h2>
+          <p>把页面从问题陈述带到可检查的材料，不让研究页只停在目录层。</p>
+        </div>
+        <div class="container research-outputs-shell">
+          <section class="research-output-group" data-output-group="notes">
+            <div class="research-output-group-head">
+              <h3>Notes and Work</h3>
+              <p>Notes, repositories, and project pages that carry the evidence.</p>
+            </div>
+            <div class="research-outputs-grid">
+              <a class="research-output-card" data-output-type="notes" href="projects.html">
+                <span class="research-output-kicker">Work</span>
+                <strong>代表性工作</strong>
+                <span class="research-output-status">
+                  <span class="research-output-status-badge research-output-status-badge--active">Active</span>
+                </span>
+                <p>把 Isabelle/HOL、optimization prototype 与相关项目放在同一个可扫描入口里。</p>
+              </a>
+              <a class="research-output-card" data-output-type="notes" href="math.html">
+                <span class="research-output-kicker">Notes</span>
+                <strong>学术笔记</strong>
+                <span class="research-output-status">
+                  <span class="research-output-status-badge research-output-status-badge--active">Active</span>
+                </span>
+                <p>保留推导、形式化进展、失败路线和重新组织后的技术记录。</p>
+              </a>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="section research-now-section" id="research-now">
+        <div class="container research-section-head">
+          <h2>这些方向为什么连在一起</h2>
+        </div>
+        <div class="container research-now-panel">
+          <ul class="research-now-list">
+            <li>我关心的是对象在被形式化、对偶化或离散化之后，哪些结构仍然值得保留。</li>
+            <li>Isabelle/HOL 这条线迫使证明接口变清楚；duality 这条线迫使模型不变性变清楚。</li>
+            <li>Prototype / discretization 则把同一个问题放回可操作输入里，检验理论描述是否真的抓住了结构。</li>
+          </ul>
         </div>
       </section>
     </main>

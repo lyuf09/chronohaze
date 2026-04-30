@@ -26,6 +26,17 @@ def parse_attrs(tag_fragment: str) -> Dict[str, str]:
     return {k: v for k, v in ATTR_RE.findall(tag_fragment or '')}
 
 
+def date_from_archive_alt(alt: str) -> str:
+    text = clean(alt)
+    if not text:
+        return ''
+    if '：' in text and ' — ' in text:
+        return text.split('：', 1)[1].split(' — ', 1)[0].strip()
+    if ': ' in text and ' — ' in text:
+        return text.split(': ', 1)[1].split(' — ', 1)[0].strip()
+    return ''
+
+
 def parse_featured(text: str) -> List[Dict[str, object]]:
     items: List[Dict[str, object]] = []
     for idx, m in enumerate(FEATURE_CARD_RE.finditer(text), start=1):
@@ -77,13 +88,15 @@ def parse_archive(text: str, featured_urls: set[str]) -> List[Dict[str, object]]
         img_m = re.search(r'<img\s+([^>]*?)src="([^"]+)"([^>]*)>', body, re.S)
         img_src = img_m.group(2).strip() if img_m else ''
         img_attrs = parse_attrs((img_m.group(1) if img_m else '') + ' ' + (img_m.group(3) if img_m else ''))
-        date_m = re.search(r'<p\s+class="photo-date">(.*?)</p>', body, re.S)
-        sub_m = re.search(r'<p\s+class="photo-subtitle">(.*?)</p>', body, re.S)
+        date_m = re.search(r'<p\s+class="photo-date"[^>]*>(.*?)</p>', body, re.S)
+        sub_m = re.search(r'<p\s+class="photo-subtitle"[^>]*>(.*?)</p>', body, re.S)
         date_text = clean(date_m.group(1) if date_m else '')
         subtitle = clean(sub_m.group(1) if sub_m else '')
         if subtitle.strip().lower() == 'read more':
             subtitle = '阅读全文'
         is_film = 'photo-card-film' in class_extra or href.endswith('/blue.html')
+        if (not date_text or date_text == 'Blue') and not is_film:
+            date_text = date_from_archive_alt(img_attrs.get('alt', '').strip())
         tags = ['photo']
         if href in featured_urls:
             tags.append('featured')
@@ -145,12 +158,17 @@ def build_combined_items(featured: List[Dict[str, object]], archive: List[Dict[s
     return items
 
 
+def photo_index_path(root: Path) -> Path:
+    current = root / 'photography.html'
+    return current if current.exists() else root / 'portfolio-1.html'
+
+
 def main() -> int:
-    ap = argparse.ArgumentParser(description='Build canonical photo catalog metadata from portfolio-1.html')
+    ap = argparse.ArgumentParser(description='Build canonical photo catalog metadata from the photography index page')
     ap.add_argument('--root', type=Path, default=Path(__file__).resolve().parents[1])
     args = ap.parse_args()
     root = args.root.resolve()
-    src = root / 'portfolio-1.html'
+    src = photo_index_path(root)
     out = root / 'assets' / 'data' / 'photo-catalog.json'
     text = src.read_text(encoding='utf-8')
     featured = parse_featured(text)
@@ -158,7 +176,7 @@ def main() -> int:
     items = build_combined_items(featured, archive)
     payload = {
         'generated_at': date.today().isoformat(),
-        'source': 'portfolio-1.html',
+        'source': src.name,
         'featured': featured,
         'archive': archive,
         'items': items,

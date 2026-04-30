@@ -13,6 +13,16 @@
   var feedbackLoaderTitleNode = null;
   var feedbackLoaderMetaNode = null;
 
+  function releaseCriticalLoader() {
+    try {
+      if (window.__chronohazeReleaseCriticalLoader) {
+        window.__chronohazeReleaseCriticalLoader();
+        return;
+      }
+      document.documentElement.classList.remove("chronohaze-critical-loading");
+    } catch (_err) {}
+  }
+
   function ensureFeedbackLoader() {
     if (
       feedbackLoaderNode &&
@@ -145,6 +155,7 @@
       }
 
       document.body.classList.add("page-boot-ready");
+      releaseCriticalLoader();
 
       window.setTimeout(function () {
         window.requestAnimationFrame(function () {
@@ -197,6 +208,7 @@
       }
 
       document.body.classList.add("page-transition-settled");
+      releaseCriticalLoader();
 
       window.setTimeout(function () {
         window.requestAnimationFrame(function () {
@@ -14987,7 +14999,15 @@
     }
 
     if (!shouldUsePageSwap(url)) {
-      window.location.href = url.href;
+      pageTransitionNavigating = true;
+      markPendingPrimaryNav(url.href);
+      if (document.body) {
+        document.body.classList.add("page-transition-leaving");
+      }
+      armPageSwapFeedback(url);
+      window.setTimeout(function () {
+        window.location.href = url.href;
+      }, 120);
       return Promise.resolve(false);
     }
 
@@ -15195,6 +15215,7 @@
           if (document.body) {
             document.body.classList.add("page-transition-leaving");
           }
+          armPageSwapFeedback(url);
           event.preventDefault();
           window.setTimeout(function () {
             window.location.href = url.href;
@@ -15692,10 +15713,14 @@
     boot();
   }
 
-  window.addEventListener("pageshow", function () {
+  window.addEventListener("pageshow", function (event) {
+    if (!event || !event.persisted) {
+      return;
+    }
     if (!document.body) {
       return;
     }
+    releaseCriticalLoader();
     document.body.classList.remove("page-booting");
     document.body.classList.remove("page-boot-ready");
     document.body.classList.remove("page-transition-busy");

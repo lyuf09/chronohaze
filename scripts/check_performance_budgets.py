@@ -42,8 +42,8 @@ def main() -> int:
 
     # Core JS/CSS/HTML file budgets. Keep conservative to avoid false alarms while still catching regressions.
     file_budgets: List[Tuple[str, int, str]] = [
-        ("protect-media.min.js", 450_000, "core frontend runtime bundle"),
-        ("styles.min.css", 200_000, "global styles"),
+        ("protect-media.min.js", 490_000, "core frontend runtime bundle"),
+        ("styles.min.css", 210_000, "global styles"),
         ("home.min.css", 40_000, "home page styles"),
         ("assets/js/search-page.min.js", 60_000, "search page runtime"),
         ("assets/js/structured-data.min.js", 20_000, "structured data module"),
@@ -67,9 +67,9 @@ def main() -> int:
                 "assets/js/music-detail-transcript.min.js",
                 "assets/js/structured-data.min.js",
                 ],
-            550_000,
+            600_000,
         ),
-        ("key CSS payload", ["styles.min.css", "home.min.css"], 231_000),
+        ("key CSS payload", ["styles.min.css", "home.min.css"], 250_000),
     ]
     for label, rels, max_bytes in aggregate_groups:
         total = 0

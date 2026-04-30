@@ -142,7 +142,10 @@ def build_math_page_map(root: Path) -> Dict[str, dict]:
 
 def build_photo_page_map(root: Path) -> Dict[str, dict]:
     builder = import_builder(root, "rebuild_photo_catalog")
-    html_text = (root / "portfolio-1.html").read_text(encoding="utf-8")
+    photo_index = root / "photography.html"
+    if not photo_index.exists():
+        photo_index = root / "portfolio-1.html"
+    html_text = photo_index.read_text(encoding="utf-8")
     featured = builder.parse_featured(html_text)
     archive = builder.parse_archive(html_text, {str(x["url"]) for x in featured})
     items = builder.build_combined_items(featured, archive)

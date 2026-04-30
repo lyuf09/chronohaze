@@ -129,6 +129,21 @@ def marker_block(text: str, marker: str) -> str:
     return text[si + len(start) : ei]
 
 
+def preferred_lang_block(text: str, lang: str = "zh") -> str:
+    marker = f'data-lang-block="{lang}"'
+    start = text.find(marker)
+    if start < 0:
+        return text
+    block_start = text.rfind("<div", 0, start)
+    if block_start < 0:
+        block_start = start
+    next_lang = text.find('data-lang-block="', start + len(marker))
+    if next_lang < 0:
+        return text[block_start:]
+    next_block = text.rfind("<div", 0, next_lang)
+    return text[block_start:next_block if next_block > block_start else next_lang]
+
+
 def parse_links(html_text: str, selector_class: str) -> List[Dict[str, Any]]:
     pattern = re.compile(
         rf'<a\s+class="{re.escape(selector_class)}"([^>]*)href="([^"]+)"([^>]*)>(.*?)</a>',
@@ -250,7 +265,11 @@ def parse_research_page(text: str) -> Dict[str, Any]:
                 else "",
             }
 
-        projects_block = marker_block(text, "research-projects") or block
+        projects_source = marker_block(text, "research-projects")
+        if not projects_source:
+            grid_m = re.search(r'<div class="container research-project-grid">(.*)$', block, re.S)
+            projects_source = grid_m.group(1) if grid_m else block
+        projects_block = preferred_lang_block(projects_source)
         card_pattern = re.compile(r'<article class="research-project-card">(.*?)</article>', re.S)
         for card in card_pattern.finditer(projects_block):
             body = card.group(1) or ""
@@ -283,6 +302,13 @@ def parse_research_page(text: str) -> Dict[str, Any]:
                 if not label_m:
                     continue
                 label = clean(label_m.group(1)).lower().replace(" ", "_")
+                label_aliases = {
+                    "question": "problem",
+                    "why_it_matters": "method",
+                    "current_stage": "current_status",
+                    "next_question": "contribution",
+                }
+                label = label_aliases.get(label, label)
                 field_map[label] = clean(label_m.group(2))
             links_row_m = re.search(r'<div class="research-link-row">(.*?)</div>', body, re.S)
             links = parse_links(links_row_m.group(1), "research-link-row") if links_row_m else []

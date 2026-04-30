@@ -5,7 +5,65 @@ import argparse
 import re
 from pathlib import Path
 
-VERSION = "20260415-academic7"
+VERSION = "20260430-loader-hardening"
+
+CRITICAL_LOADER_MARKER = "chronohaze-critical-loader-style"
+CRITICAL_LOADER_SNIPPET = """  <style id="chronohaze-critical-loader-style">
+    html.chronohaze-critical-loading,
+    html.chronohaze-critical-loading body {
+      min-height: 100%;
+      background: #0b0e13;
+    }
+
+    html.chronohaze-critical-loading body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    html.chronohaze-critical-loading body > :not(.chronohaze-loader) {
+      visibility: hidden !important;
+    }
+
+    html.chronohaze-critical-loading::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 2147483000;
+      background:
+        radial-gradient(980px 620px at 16% 18%, rgba(114, 132, 166, 0.18), transparent 62%),
+        radial-gradient(760px 520px at 82% 78%, rgba(102, 118, 151, 0.12), transparent 66%),
+        linear-gradient(180deg, rgba(11, 14, 19, 0.985) 0%, rgba(14, 18, 25, 0.988) 56%, rgba(11, 14, 19, 0.992) 100%);
+    }
+
+    html.chronohaze-critical-loading::after {
+      content: "chronohaze.space\\A Loading";
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      z-index: 2147483001;
+      width: min(560px, calc(100vw - 40px));
+      padding: 28px 30px;
+      transform: translate(-50%, -50%);
+      white-space: pre-line;
+      color: rgba(232, 234, 237, 0.96);
+      font: 400 clamp(28px, 5vw, 48px)/1.18 "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+      letter-spacing: 0.02em;
+      border: 1px solid rgba(138, 160, 200, 0.18);
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(18, 23, 31, 0.8) 0%, rgba(14, 19, 27, 0.74) 100%);
+      box-shadow: 0 26px 64px rgba(0, 0, 0, 0.34);
+    }
+  </style>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      root.classList.add("chronohaze-critical-loading");
+      window.__chronohazeReleaseCriticalLoader = function () {
+        root.classList.remove("chronohaze-critical-loading");
+      };
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, 6500);
+    })();
+  </script>"""
 
 CSS_FILES = [
     "styles.css",
@@ -25,6 +83,7 @@ HTML_FILES = [
     p for p in [
         "404.html",
         "accessibility.html",
+        "academic.html",
         "blank-1.html",
         "blank.html",
         "cv.html",
@@ -108,7 +167,18 @@ def rewrite_html_refs(text: str) -> str:
     out = text
     for pattern, repl in replacements.items():
         out = re.sub(pattern, repl, out)
-    return out
+    return ensure_critical_loader(out)
+
+
+def ensure_critical_loader(text: str) -> str:
+    if CRITICAL_LOADER_MARKER in text:
+        return text
+    viewport_re = re.compile(r"(^\s*<meta\s+name=[\"']viewport[\"'][^>]*>\s*$)", re.M)
+    match = viewport_re.search(text)
+    if match:
+        return text[:match.end()] + "\n" + CRITICAL_LOADER_SNIPPET + text[match.end():]
+    head_re = re.compile(r"(<head>\s*)", re.I)
+    return head_re.sub(lambda match: match.group(1) + CRITICAL_LOADER_SNIPPET + "\n", text, count=1)
 
 
 def main() -> int:

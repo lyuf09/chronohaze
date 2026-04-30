@@ -109,6 +109,16 @@ def replace_between_markers(text: str, marker: str, body: str) -> str:
     return text[:insert_start] + "\n" + body.rstrip() + "\n" + marker_indent + text[ei:]
 
 
+def replace_between_markers_if_present(text: str, marker: str, body: str) -> str:
+    start = f"<!-- GENERATED:{marker}:start -->"
+    end = f"<!-- GENERATED:{marker}:end -->"
+    has_start = start in text
+    has_end = end in text
+    if not has_start and not has_end:
+        return text
+    return replace_between_markers(text, marker, body)
+
+
 def indent(lines: Iterable[str], prefix: str) -> str:
     return "\n".join(prefix + line if line else prefix.rstrip() for line in lines)
 
@@ -422,36 +432,39 @@ def main() -> int:
     # math.html
     math_html_path = root / "math.html"
     math_html = math_html_path.read_text(encoding="utf-8")
-    math_html = replace_between_markers(math_html, "math-list", render_math_cards(math_catalog.get("items") or []))
+    math_html = replace_between_markers_if_present(math_html, "math-list", render_math_cards(math_catalog.get("items") or []))
     math_html_path.write_text(math_html, encoding="utf-8")
 
-    # portfolio-1.html
-    photo_html_path = root / "portfolio-1.html"
-    photo_html = photo_html_path.read_text(encoding="utf-8")
-    photo_html = replace_between_markers(
-        photo_html, "photo-featured", render_photo_featured(photo_catalog.get("featured") or [], image_manifest)
-    )
-    photo_html = replace_between_markers(
-        photo_html, "photo-archive", render_photo_archive(photo_catalog.get("archive") or [], image_manifest)
-    )
-    photo_html_path.write_text(photo_html, encoding="utf-8")
+    # photography.html is currently hand-authored with bilingual data-copy attributes.
+    # Keep it intact when it is the active photo index; legacy portfolio-1 pages can still be rendered.
+    photo_html_path = root / "photography.html"
+    if not photo_html_path.exists():
+        photo_html_path = root / "portfolio-1.html"
+        photo_html = photo_html_path.read_text(encoding="utf-8")
+        photo_html = replace_between_markers_if_present(
+            photo_html, "photo-featured", render_photo_featured(photo_catalog.get("featured") or [], image_manifest)
+        )
+        photo_html = replace_between_markers_if_present(
+            photo_html, "photo-archive", render_photo_archive(photo_catalog.get("archive") or [], image_manifest)
+        )
+        photo_html_path.write_text(photo_html, encoding="utf-8")
 
     # research.html
     research_html_path = root / "research.html"
     research_html = research_html_path.read_text(encoding="utf-8")
-    research_html = replace_between_markers(
+    research_html = replace_between_markers_if_present(
         research_html, "research-meta", render_research_meta((research_catalog.get("meta") or {}).get("items") or [])
     )
-    research_html = replace_between_markers(
+    research_html = replace_between_markers_if_present(
         research_html, "research-projects", render_research_projects(research_catalog.get("projects") or [])
     )
-    research_html = replace_between_markers(
+    research_html = replace_between_markers_if_present(
         research_html, "research-outputs", render_research_output_groups(research_catalog.get("output_groups") or [])
     )
-    research_html = replace_between_markers(
+    research_html = replace_between_markers_if_present(
         research_html, "research-now", render_research_now(research_catalog.get("now_items") or [])
     )
-    research_html = replace_between_markers(
+    research_html = replace_between_markers_if_present(
         research_html, "research-links", render_research_links(research_catalog.get("links") or [])
     )
     research_html_path.write_text(research_html, encoding="utf-8")
