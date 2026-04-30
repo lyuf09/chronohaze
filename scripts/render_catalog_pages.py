@@ -66,8 +66,9 @@ def render_responsive_picture(
     img_class: str = "",
     fetchpriority: str = "",
 ) -> List[str]:
+    fallback_src = variant_path(path, 960, "webp") if path.lower().endswith((".jpg", ".jpeg", ".png")) else path
     attrs: List[str] = [
-        f'src="{esc(path)}"',
+        f'src="{esc(fallback_src)}"',
         f'alt="{esc(alt)}"',
         f'loading="{esc(loading)}"',
         'decoding="async"',
@@ -86,7 +87,6 @@ def render_responsive_picture(
 
     return [
         '<picture class="responsive-picture" style="display:block;width:100%;">',
-        f'  <source type="image/avif" srcset="{esc(variant_srcset(path, "avif"))}" sizes="{esc(sizes)}" />',
         f'  <source type="image/webp" srcset="{esc(variant_srcset(path, "webp"))}" sizes="{esc(sizes)}" />',
         f"  <img {' '.join(attrs)} />",
         "</picture>",

@@ -52,13 +52,11 @@
     loader.setAttribute("aria-hidden", "true");
     loader.innerHTML =
       '<div class="chronohaze-loader__veil"></div>' +
-      '<div class="chronohaze-loader__mist chronohaze-loader__mist--left"></div>' +
-      '<div class="chronohaze-loader__mist chronohaze-loader__mist--right"></div>' +
       '<div class="chronohaze-loader__panel">' +
       '<p class="chronohaze-loader__brand">chronohaze.space</p>' +
-      '<p class="chronohaze-loader__status">Loading</p>' +
-      '<h2 class="chronohaze-loader__title">Preparing the site</h2>' +
-      '<p class="chronohaze-loader__meta">Notes, research, music, and photographs are settling into place.</p>' +
+      '<p class="chronohaze-loader__status">加载中</p>' +
+      '<h2 class="chronohaze-loader__title">页面加载中</h2>' +
+      '<p class="chronohaze-loader__meta">请稍候，内容正在就位。</p>' +
       '<div class="chronohaze-loader__line" aria-hidden="true"><span></span></div>' +
       "</div>";
     document.body.appendChild(loader);
@@ -70,31 +68,16 @@
   }
 
   function getFeedbackCopy(mode, lang) {
-    var language = lang === "en" ? "en" : "zh";
-    if (language === "en") {
-      return mode === "boot"
-        ? {
-            status: "Loading",
-            title: "Gathering the page",
-            meta: "Please wait a moment while the page settles into place.",
-          }
-        : {
-            status: "Switching",
-            title: "Opening the next page",
-            meta: "Please wait a moment while the next page arrives.",
-          };
-    }
-
     return mode === "boot"
       ? {
           status: "加载中",
-          title: "页面正在展开",
-          meta: "请稍候，内容正在安静地就位。",
+          title: "页面加载中",
+          meta: "请稍候，内容正在就位。",
         }
       : {
           status: "切换中",
-          title: "正在切换页面",
-          meta: "请稍候，下一页正在缓缓展开。",
+          title: "页面切换中",
+          meta: "请稍候，下一页正在就位。",
         };
   }
 
@@ -106,7 +89,7 @@
 
     var copy = getFeedbackCopy(mode, lang);
     loader.setAttribute("data-loader-mode", mode);
-    loader.setAttribute("lang", lang === "en" ? "en" : "zh-CN");
+    loader.setAttribute("lang", "zh-CN");
     feedbackLoaderStatusNode.textContent = copy.status;
     feedbackLoaderTitleNode.textContent = copy.title;
     feedbackLoaderMetaNode.textContent = copy.meta;
@@ -137,7 +120,6 @@
 
     document.body.classList.add("page-booting");
     document.body.classList.remove("page-boot-ready");
-    syncFeedbackLoader("boot", detectInitialBootLanguage());
   }
 
   function resolveBootFeedback() {
@@ -367,7 +349,7 @@
         return Promise.reject(new Error("not found"));
       }
       var url = candidates[idx++];
-      return fetch(url, { cache: "no-cache" })
+      return fetch(url)
         .then(function (response) {
           if (!response.ok) {
             throw new Error("HTTP " + response.status);
@@ -14871,6 +14853,9 @@
 
       var code = (scriptNode.textContent || "").trim();
       if (!code || /gtag\(|dataLayer/.test(code)) {
+        return;
+      }
+      if (/chronohaze-critical-loading|__chronohazeReleaseCriticalLoader/.test(code)) {
         return;
       }
 

@@ -34,7 +34,7 @@
     function next() {
       if (i >= urls.length) return Promise.reject(new Error("not found"));
       var url = urls[i++];
-      return fetch(url, { cache: "no-cache" })
+      return fetch(url)
         .then(function (res) {
           if (!res.ok) throw new Error("HTTP " + res.status);
           return res.json();
@@ -153,6 +153,20 @@
     return lang === "en" ? "Featured photography preview" : "精选摄影作品预览";
   }
 
+  function previewImagePath(path, width) {
+    var source = String(path || "");
+    if (!/\.(jpe?g|png)$/i.test(source)) return source;
+    return source.replace(/\.(jpe?g|png)$/i, "-" + String(width || 960) + ".webp");
+  }
+
+  function primePhotoPreviewImage(img, path, width) {
+    if (!img || !path) return;
+    img.src = previewImagePath(path, width || 960);
+    img.dataset.responsiveBaseSrc = path;
+    img.dataset.fullResSrc = path;
+    img.dataset.photoThumbOptimized = "1";
+  }
+
   function buildPhotoArchiveAlt(item, lang) {
     var label = firstMeaningfulText([
       lang === "en" ? item && item.title_en : item && item.title,
@@ -263,7 +277,7 @@
     a.href = (item && item.url) || "#";
 
     var img = document.createElement("img");
-    img.src = item.cover || "";
+    primePhotoPreviewImage(img, item.cover || "", 960);
     var themeCopy = item && item.theme && typeof item.theme === "object" ? item.theme : null;
     img.alt = buildPhotoFeaturedAlt(item, lang);
     img.loading = "lazy";
@@ -328,7 +342,7 @@
       a.appendChild(filmThumb);
     } else {
       var img = document.createElement("img");
-      img.src = item.cover || "";
+      primePhotoPreviewImage(img, item.cover || "", 960);
       img.alt = buildPhotoArchiveAlt(item, lang);
       img.loading = "lazy";
       img.decoding = "async";
@@ -392,8 +406,24 @@
 
   function syncPhotoCatalogLanguage() {
     if (!document.body || !document.body.classList.contains("photo-index-page")) return;
-    if (!photoCatalogPayload) return;
-    renderPhotoCatalog(photoCatalogPayload);
+    var lang = getPreferredPageLanguage();
+    Array.from(document.querySelectorAll(".photo-index-page [data-copy-zh][data-copy-en]")).forEach(function (node) {
+      var key = lang === "en" ? "data-copy-en" : "data-copy-zh";
+      var value = node.getAttribute(key);
+      if (value) node.textContent = value;
+    });
+    if (photoCatalogPayload) renderPhotoCatalog(photoCatalogPayload);
+  }
+
+  function hasServerRenderedPhotoCatalog() {
+    var featuredGrid = document.querySelector(".photo-index-page .photo-featured-grid");
+    var archiveGrid = document.querySelector(".photo-index-page .photo-grid");
+    return !!(
+      featuredGrid &&
+      archiveGrid &&
+      featuredGrid.querySelector(".photo-feature-card") &&
+      archiveGrid.querySelector(".photo-card")
+    );
   }
 
   function bootMathCatalogPage() {
@@ -417,6 +447,10 @@
     document.body.dataset.photoCatalogBooted = "1";
     if (typeof window !== "undefined") {
       window.__chronohazeSyncPhotoCatalogLanguage = syncPhotoCatalogLanguage;
+    }
+    syncPhotoCatalogLanguage();
+    if (hasServerRenderedPhotoCatalog()) {
+      return;
     }
     fetchJsonWithCandidates("assets/data/photo-catalog.json")
       .then(function (payload) {

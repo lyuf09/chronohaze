@@ -6,7 +6,7 @@
     html.chronohaze-critical-loading,
     html.chronohaze-critical-loading body {
       min-height: 100%;
-      background: #0b0e13;
+      background: #10141b;
     }
 
     html.chronohaze-critical-loading body {
@@ -24,13 +24,14 @@
       inset: 0;
       z-index: 2147483000;
       background:
-        radial-gradient(980px 620px at 16% 18%, rgba(114, 132, 166, 0.18), transparent 62%),
-        radial-gradient(760px 520px at 82% 78%, rgba(102, 118, 151, 0.12), transparent 66%),
-        linear-gradient(180deg, rgba(11, 14, 19, 0.985) 0%, rgba(14, 18, 25, 0.988) 56%, rgba(11, 14, 19, 0.992) 100%);
+        linear-gradient(90deg, rgba(138, 160, 200, 0.09) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(138, 160, 200, 0.07) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(13, 17, 24, 0.992) 0%, rgba(19, 24, 33, 0.992) 55%, rgba(13, 17, 24, 0.996) 100%);
+      background-size: 54px 54px, 54px 54px, 100% 100%;
     }
 
     html.chronohaze-critical-loading::after {
-      content: "chronohaze.space\A Loading";
+      content: "chronohaze.space\A 页面加载中";
       position: fixed;
       left: 50%;
       top: 50%;
@@ -40,12 +41,12 @@
       transform: translate(-50%, -50%);
       white-space: pre-line;
       color: rgba(232, 234, 237, 0.96);
-      font: 400 clamp(28px, 5vw, 48px)/1.18 "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
-      letter-spacing: 0.02em;
-      border: 1px solid rgba(138, 160, 200, 0.18);
-      border-radius: 22px;
-      background: linear-gradient(180deg, rgba(18, 23, 31, 0.8) 0%, rgba(14, 19, 27, 0.74) 100%);
-      box-shadow: 0 26px 64px rgba(0, 0, 0, 0.34);
+      font: 400 clamp(28px, 5vw, 48px)/1.22 "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.035em;
+      border: 1px solid rgba(154, 172, 204, 0.3);
+      border-radius: 0;
+      background: linear-gradient(180deg, rgba(20, 25, 34, 0.84) 0%, rgba(13, 17, 24, 0.82) 100%);
+      box-shadow: 0 24px 58px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.045);
     }
   </style>
   <script>
@@ -93,9 +94,10 @@
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@300;400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
 <noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@300;400;500;700&display=swap" rel="stylesheet" /></noscript>
-<link href="styles.min.css?v=20260430-loader-hardening" rel="stylesheet"/>
-<script defer="" src="protect-media.min.js?v=20260430-loader-hardening"></script>
-<script defer="" src="assets/js/catalog-pages.min.js?v=20260430-loader-hardening"></script>
+<link rel="preload" as="image" href="assets/template/photo-top-960.webp" type="image/webp" imagesrcset="assets/template/photo-top-960.webp 960w, assets/template/photo-top-1600.webp 1600w" imagesizes="(max-width: 900px) 100vw, 980px"/>
+<link href="styles.min.css?v=20260430-photo-loader-smooth" rel="stylesheet"/>
+<script defer="" src="protect-media.min.js?v=20260430-photo-loader-smooth"></script>
+<script defer="" src="assets/js/catalog-pages.min.js?v=20260430-photo-loader-smooth"></script>
 </head>
 <body class="photo-index-page">
 <div class="page">
@@ -120,7 +122,7 @@
 <div class="container photo-hero-inner">
 <picture class="responsive-picture" style="display:block;width:100%;">
 <source sizes="(max-width: 900px) 100vw, 980px" srcset="assets/template/photo-top-960.webp 960w, assets/template/photo-top-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影作品集主图" data-eager="true" decoding="async" loading="eager" sizes="(max-width: 900px) 100vw, 980px" src="assets/template/photo-top.jpg"/>
+<img alt="摄影作品集主图" data-eager="true" decoding="async" fetchpriority="high" loading="eager" sizes="(max-width: 900px) 100vw, 980px" src="assets/template/photo-top-960.webp"/>
 </picture>
 </div>
 </section>
@@ -141,7 +143,7 @@
 <figure class="photo-intro-figure">
 <picture class="responsive-picture" style="display:block;width:100%;">
 <source sizes="(max-width: 760px) 92vw, 420px" srcset="assets/template/photographer-17-960.webp 960w, assets/template/photographer-17-1600.webp 1600w" type="image/webp"/>
-<img alt="17岁拿着相机的 HazezZ" data-eager="true" decoding="async" loading="eager" sizes="(max-width: 760px) 92vw, 420px" src="assets/template/photographer-17.jpg"/>
+<img alt="17岁拿着相机的 HazezZ" decoding="async" loading="lazy" sizes="(max-width: 760px) 92vw, 420px" src="assets/template/photographer-17-960.webp"/>
 </picture>
 </figure>
 </div>
@@ -156,9 +158,8 @@
 <article class="photo-feature-card">
 <a class="photo-feature-link" href="photo/photo-07.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
-<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2-960.avif 960w, assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2-1600.avif 1600w" type="image/avif"/>
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2-960.webp 960w, assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="参照系 — 中国 · 重庆" decoding="async" height="3200" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2.jpg" width="4000"/>
+<img alt="参照系 — 中国 · 重庆" decoding="async" height="3200" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2-960.webp" width="4000"/>
 </picture>
 <div class="photo-feature-meta">
 <p class="photo-feature-theme" data-copy-en="Reference Frame" data-copy-zh="参照系">参照系</p>
@@ -170,9 +171,8 @@
 <article class="photo-feature-card">
 <a class="photo-feature-link" href="photo/photo-08.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
-<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_0f30307d9b61425fa68251b5cb0ec6f3~mv2-960.avif 960w, assets/images/wix/64569d_0f30307d9b61425fa68251b5cb0ec6f3~mv2-1600.avif 1600w" type="image/avif"/>
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_0f30307d9b61425fa68251b5cb0ec6f3~mv2-960.webp 960w, assets/images/wix/64569d_0f30307d9b61425fa68251b5cb0ec6f3~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="隙光 — 中国 · 重庆" decoding="async" height="3857" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_0f30307d9b61425fa68251b5cb0ec6f3~mv2.jpg" width="2571"/>
+<img alt="隙光 — 中国 · 重庆" decoding="async" height="3857" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_0f30307d9b61425fa68251b5cb0ec6f3~mv2-960.webp" width="2571"/>
 </picture>
 <div class="photo-feature-meta">
 <p class="photo-feature-theme" data-copy-en="Sliver of Light" data-copy-zh="隙光">隙光</p>
@@ -184,9 +184,8 @@
 <article class="photo-feature-card">
 <a class="photo-feature-link" href="photo/photo-10.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
-<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_f4a44566b6e540c2b6f4ea143c92a1dd~mv2-960.avif 960w, assets/images/wix/64569d_f4a44566b6e540c2b6f4ea143c92a1dd~mv2-1600.avif 1600w" type="image/avif"/>
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_f4a44566b6e540c2b6f4ea143c92a1dd~mv2-960.webp 960w, assets/images/wix/64569d_f4a44566b6e540c2b6f4ea143c92a1dd~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="框景练习 — 英国 · 爱丁堡" decoding="async" height="2667" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_f4a44566b6e540c2b6f4ea143c92a1dd~mv2.jpg" width="4000"/>
+<img alt="框景练习 — 英国 · 爱丁堡" decoding="async" height="2667" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_f4a44566b6e540c2b6f4ea143c92a1dd~mv2-960.webp" width="4000"/>
 </picture>
 <div class="photo-feature-meta">
 <p class="photo-feature-theme" data-copy-en="Framing Study" data-copy-zh="框景练习">框景练习</p>
@@ -198,9 +197,8 @@
 <article class="photo-feature-card">
 <a class="photo-feature-link" href="photo/photo-11.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
-<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2-960.avif 960w, assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2-1600.avif 1600w" type="image/avif"/>
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2-960.webp 960w, assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="铁与蕨 — 英国 · 格拉斯哥" decoding="async" height="2844" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2.jpg" width="1600"/>
+<img alt="铁与蕨 — 英国 · 格拉斯哥" decoding="async" height="2844" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2-960.webp" width="1600"/>
 </picture>
 <div class="photo-feature-meta">
 <p class="photo-feature-theme" data-copy-en="Iron and Fern" data-copy-zh="铁与蕨">铁与蕨</p>
@@ -212,9 +210,8 @@
 <article class="photo-feature-card">
 <a class="photo-feature-link" href="photo/photo-13.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
-<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2-960.avif 960w, assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2-1600.avif 1600w" type="image/avif"/>
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2-960.webp 960w, assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="你的记忆 — 英国 · 爱丁堡" decoding="async" height="2592" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2.jpg" width="1728"/>
+<img alt="你的记忆 — 英国 · 爱丁堡" decoding="async" height="2592" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2-960.webp" width="1728"/>
 </picture>
 <div class="photo-feature-meta">
 <p class="photo-feature-theme" data-copy-en="Memories of You" data-copy-zh="你的记忆">你的记忆</p>
@@ -226,9 +223,8 @@
 <article class="photo-feature-card">
 <a class="photo-feature-link" href="photo/photo-14.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
-<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_4195bebf7fb244e8b7591015da58bef7~mv2-960.avif 960w, assets/images/wix/64569d_4195bebf7fb244e8b7591015da58bef7~mv2-1600.avif 1600w" type="image/avif"/>
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_4195bebf7fb244e8b7591015da58bef7~mv2-960.webp 960w, assets/images/wix/64569d_4195bebf7fb244e8b7591015da58bef7~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="隐入口 — 美国 · 伊萨卡" decoding="async" height="2592" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_4195bebf7fb244e8b7591015da58bef7~mv2.jpg" width="1728"/>
+<img alt="隐入口 — 美国 · 伊萨卡" decoding="async" height="2592" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_4195bebf7fb244e8b7591015da58bef7~mv2-960.webp" width="1728"/>
 </picture>
 <div class="photo-feature-meta">
 <p class="photo-feature-theme" data-copy-en="Hidden Entrance" data-copy-zh="隐入口">隐入口</p>
@@ -250,9 +246,8 @@
 <article class="photo-card">
 <a class="photo-card-link" href="photo/photo-01.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
-<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_58fc50d6b50e41e9a0b664f30ab32237~mv2-960.avif 960w, assets/images/wix/64569d_58fc50d6b50e41e9a0b664f30ab32237~mv2-1600.avif 1600w" type="image/avif"/>
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_58fc50d6b50e41e9a0b664f30ab32237~mv2-960.webp 960w, assets/images/wix/64569d_58fc50d6b50e41e9a0b664f30ab32237~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影系列预览图：12/04/2022 — 英国奥斯沃斯特里 · 2022年" decoding="async" height="2667" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_58fc50d6b50e41e9a0b664f30ab32237~mv2.jpg" width="4000"/>
+<img alt="摄影系列预览图：12/04/2022 — 英国奥斯沃斯特里 · 2022年" decoding="async" height="2667" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_58fc50d6b50e41e9a0b664f30ab32237~mv2-960.webp" width="4000"/>
 </picture>
 <div class="photo-meta">
 <p class="photo-date" data-copy-en="12/04/2022" data-copy-zh="12/04/2022">12/04/2022</p>
@@ -263,9 +258,8 @@
 <article class="photo-card">
 <a class="photo-card-link" href="photo/photo-02.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
-<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_d7ae8483633d46f0819abd80335c3524~mv2-960.avif 960w, assets/images/wix/64569d_d7ae8483633d46f0819abd80335c3524~mv2-1600.avif 1600w" type="image/avif"/>
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_d7ae8483633d46f0819abd80335c3524~mv2-960.webp 960w, assets/images/wix/64569d_d7ae8483633d46f0819abd80335c3524~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影系列预览图：01/05/2022 — 英国奥斯沃斯特里 · 2022年" decoding="async" height="2667" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_d7ae8483633d46f0819abd80335c3524~mv2.jpg" width="4000"/>
+<img alt="摄影系列预览图：01/05/2022 — 英国奥斯沃斯特里 · 2022年" decoding="async" height="2667" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_d7ae8483633d46f0819abd80335c3524~mv2-960.webp" width="4000"/>
 </picture>
 <div class="photo-meta">
 <p class="photo-date" data-copy-en="01/05/2022" data-copy-zh="01/05/2022">01/05/2022</p>
@@ -276,9 +270,8 @@
 <article class="photo-card">
 <a class="photo-card-link" href="photo/photo-03.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
-<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_1f61221c68ef4c35b613cb2cc6ab4836~mv2-960.avif 960w, assets/images/wix/64569d_1f61221c68ef4c35b613cb2cc6ab4836~mv2-1600.avif 1600w" type="image/avif"/>
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_1f61221c68ef4c35b613cb2cc6ab4836~mv2-960.webp 960w, assets/images/wix/64569d_1f61221c68ef4c35b613cb2cc6ab4836~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影系列预览图：01/06/2022 — 英国奥斯沃斯特里 · 2022年" decoding="async" height="2667" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_1f61221c68ef4c35b613cb2cc6ab4836~mv2.jpg" width="4000"/>
+<img alt="摄影系列预览图：01/06/2022 — 英国奥斯沃斯特里 · 2022年" decoding="async" height="2667" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_1f61221c68ef4c35b613cb2cc6ab4836~mv2-960.webp" width="4000"/>
 </picture>
 <div class="photo-meta">
 <p class="photo-date" data-copy-en="01/06/2022" data-copy-zh="01/06/2022">01/06/2022</p>
@@ -289,9 +282,8 @@
 <article class="photo-card">
 <a class="photo-card-link" href="photo/photo-04.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
-<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_b17cf5f86f28473cbd8435965bb115f9~mv2-960.avif 960w, assets/images/wix/64569d_b17cf5f86f28473cbd8435965bb115f9~mv2-1600.avif 1600w" type="image/avif"/>
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_b17cf5f86f28473cbd8435965bb115f9~mv2-960.webp 960w, assets/images/wix/64569d_b17cf5f86f28473cbd8435965bb115f9~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影系列预览图：14/06/2022 — 英国奥斯沃斯特里 · 2022年" decoding="async" height="2667" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_b17cf5f86f28473cbd8435965bb115f9~mv2.jpg" width="4000"/>
+<img alt="摄影系列预览图：14/06/2022 — 英国奥斯沃斯特里 · 2022年" decoding="async" height="2667" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_b17cf5f86f28473cbd8435965bb115f9~mv2-960.webp" width="4000"/>
 </picture>
 <div class="photo-meta">
 <p class="photo-date" data-copy-en="14/06/2022" data-copy-zh="14/06/2022">14/06/2022</p>
@@ -302,9 +294,8 @@
 <article class="photo-card">
 <a class="photo-card-link" href="photo/photo-05.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
-<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_907e18a111724364af408b96a36d12e3~mv2-960.avif 960w, assets/images/wix/64569d_907e18a111724364af408b96a36d12e3~mv2-1600.avif 1600w" type="image/avif"/>
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_907e18a111724364af408b96a36d12e3~mv2-960.webp 960w, assets/images/wix/64569d_907e18a111724364af408b96a36d12e3~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影系列预览图：2022、夏、某 — 英国韦茅斯 · 2022年" decoding="async" height="4000" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_907e18a111724364af408b96a36d12e3~mv2.jpg" width="2666"/>
+<img alt="摄影系列预览图：2022、夏、某 — 英国韦茅斯 · 2022年" decoding="async" height="4000" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_907e18a111724364af408b96a36d12e3~mv2-960.webp" width="2666"/>
 </picture>
 <div class="photo-meta">
 <p class="photo-date" data-copy-en="Summer 2022, Somewhere" data-copy-zh="2022、夏、某">2022、夏、某</p>
@@ -315,9 +306,8 @@
 <article class="photo-card">
 <a class="photo-card-link" href="photo/photo-06.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
-<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_6abc632673934656beef94d62d3bdc89~mv2-960.avif 960w, assets/images/wix/64569d_6abc632673934656beef94d62d3bdc89~mv2-1600.avif 1600w" type="image/avif"/>
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_6abc632673934656beef94d62d3bdc89~mv2-960.webp 960w, assets/images/wix/64569d_6abc632673934656beef94d62d3bdc89~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影系列预览图：11/03/2023 — 英国奥斯沃斯特里 · 2023年" decoding="async" height="1593" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_6abc632673934656beef94d62d3bdc89~mv2.jpg" width="2832"/>
+<img alt="摄影系列预览图：11/03/2023 — 英国奥斯沃斯特里 · 2023年" decoding="async" height="1593" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_6abc632673934656beef94d62d3bdc89~mv2-960.webp" width="2832"/>
 </picture>
 <div class="photo-meta">
 <p class="photo-date" data-copy-en="11/03/2023" data-copy-zh="11/03/2023">11/03/2023</p>
@@ -328,9 +318,8 @@
 <article class="photo-card">
 <a class="photo-card-link" href="photo/photo-07.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
-<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2-960.avif 960w, assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2-1600.avif 1600w" type="image/avif"/>
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2-960.webp 960w, assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影系列预览图：01/04/2023 — 中国重庆市 · 2023年" decoding="async" height="3200" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2.jpg" width="4000"/>
+<img alt="摄影系列预览图：01/04/2023 — 中国重庆市 · 2023年" decoding="async" height="3200" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2-960.webp" width="4000"/>
 </picture>
 <div class="photo-meta">
 <p class="photo-date" data-copy-en="01/04/2023" data-copy-zh="01/04/2023">01/04/2023</p>
@@ -341,9 +330,8 @@
 <article class="photo-card">
 <a class="photo-card-link" href="photo/photo-08.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
-<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_0f30307d9b61425fa68251b5cb0ec6f3~mv2-960.avif 960w, assets/images/wix/64569d_0f30307d9b61425fa68251b5cb0ec6f3~mv2-1600.avif 1600w" type="image/avif"/>
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_0f30307d9b61425fa68251b5cb0ec6f3~mv2-960.webp 960w, assets/images/wix/64569d_0f30307d9b61425fa68251b5cb0ec6f3~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影系列预览图：09/08/2023 — 中国重庆市 · 2023年" decoding="async" height="3857" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_0f30307d9b61425fa68251b5cb0ec6f3~mv2.jpg" width="2571"/>
+<img alt="摄影系列预览图：09/08/2023 — 中国重庆市 · 2023年" decoding="async" height="3857" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_0f30307d9b61425fa68251b5cb0ec6f3~mv2-960.webp" width="2571"/>
 </picture>
 <div class="photo-meta">
 <p class="photo-date" data-copy-en="09/08/2023" data-copy-zh="09/08/2023">09/08/2023</p>
@@ -354,9 +342,8 @@
 <article class="photo-card">
 <a class="photo-card-link" href="photo/photo-09.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
-<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_06f8f207dc77495c9940089581f9853f~mv2-960.avif 960w, assets/images/wix/64569d_06f8f207dc77495c9940089581f9853f~mv2-1600.avif 1600w" type="image/avif"/>
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_06f8f207dc77495c9940089581f9853f~mv2-960.webp 960w, assets/images/wix/64569d_06f8f207dc77495c9940089581f9853f~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影系列预览图：17/09/2023 — 英国爱丁堡 · 2023年" decoding="async" height="3000" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_06f8f207dc77495c9940089581f9853f~mv2.jpg" width="4000"/>
+<img alt="摄影系列预览图：17/09/2023 — 英国爱丁堡 · 2023年" decoding="async" height="3000" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_06f8f207dc77495c9940089581f9853f~mv2-960.webp" width="4000"/>
 </picture>
 <div class="photo-meta">
 <p class="photo-date" data-copy-en="17/09/2023" data-copy-zh="17/09/2023">17/09/2023</p>
@@ -367,9 +354,8 @@
 <article class="photo-card">
 <a class="photo-card-link" href="photo/photo-10.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
-<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_f4a44566b6e540c2b6f4ea143c92a1dd~mv2-960.avif 960w, assets/images/wix/64569d_f4a44566b6e540c2b6f4ea143c92a1dd~mv2-1600.avif 1600w" type="image/avif"/>
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_f4a44566b6e540c2b6f4ea143c92a1dd~mv2-960.webp 960w, assets/images/wix/64569d_f4a44566b6e540c2b6f4ea143c92a1dd~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影系列预览图：20/04/2024 — 英国爱丁堡 · 2024年" decoding="async" height="2667" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_f4a44566b6e540c2b6f4ea143c92a1dd~mv2.jpg" width="4000"/>
+<img alt="摄影系列预览图：20/04/2024 — 英国爱丁堡 · 2024年" decoding="async" height="2667" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_f4a44566b6e540c2b6f4ea143c92a1dd~mv2-960.webp" width="4000"/>
 </picture>
 <div class="photo-meta">
 <p class="photo-date" data-copy-en="20/04/2024" data-copy-zh="20/04/2024">20/04/2024</p>
@@ -380,9 +366,8 @@
 <article class="photo-card">
 <a class="photo-card-link" href="photo/photo-11.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
-<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2-960.avif 960w, assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2-1600.avif 1600w" type="image/avif"/>
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2-960.webp 960w, assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影系列预览图：21/10/2023 — 英国格拉斯哥 · 2023年" decoding="async" height="2844" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2.jpg" width="1600"/>
+<img alt="摄影系列预览图：21/10/2023 — 英国格拉斯哥 · 2023年" decoding="async" height="2844" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2-960.webp" width="1600"/>
 </picture>
 <div class="photo-meta">
 <p class="photo-date" data-copy-en="21/10/2023" data-copy-zh="21/10/2023">21/10/2023</p>
@@ -393,9 +378,8 @@
 <article class="photo-card">
 <a class="photo-card-link" href="photo/photo-12.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
-<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_454a21afe61843aca2fb15da42e5d073~mv2-960.avif 960w, assets/images/wix/64569d_454a21afe61843aca2fb15da42e5d073~mv2-1600.avif 1600w" type="image/avif"/>
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_454a21afe61843aca2fb15da42e5d073~mv2-960.webp 960w, assets/images/wix/64569d_454a21afe61843aca2fb15da42e5d073~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影系列预览图：02/01/2025 — 英国爱丁堡 · 2025年" decoding="async" height="2557" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_454a21afe61843aca2fb15da42e5d073~mv2.jpg" width="1704"/>
+<img alt="摄影系列预览图：02/01/2025 — 英国爱丁堡 · 2025年" decoding="async" height="2557" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_454a21afe61843aca2fb15da42e5d073~mv2-960.webp" width="1704"/>
 </picture>
 <div class="photo-meta">
 <p class="photo-date" data-copy-en="02/01/2025" data-copy-zh="02/01/2025">02/01/2025</p>
@@ -406,9 +390,8 @@
 <article class="photo-card">
 <a class="photo-card-link" href="photo/photo-13.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
-<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2-960.avif 960w, assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2-1600.avif 1600w" type="image/avif"/>
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2-960.webp 960w, assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影系列预览图：05/04/2025 - Memories of you — 英国爱丁堡 · 2025年" decoding="async" height="2592" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2.jpg" width="1728"/>
+<img alt="摄影系列预览图：05/04/2025 - Memories of you — 英国爱丁堡 · 2025年" decoding="async" height="2592" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2-960.webp" width="1728"/>
 </picture>
 <div class="photo-meta">
 <p class="photo-date" data-copy-en="05/04/2025 - Memories of you" data-copy-zh="05/04/2025 - Memories of you">05/04/2025 - Memories of you</p>
@@ -419,9 +402,8 @@
 <article class="photo-card">
 <a class="photo-card-link" href="photo/photo-14.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
-<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_4195bebf7fb244e8b7591015da58bef7~mv2-960.avif 960w, assets/images/wix/64569d_4195bebf7fb244e8b7591015da58bef7~mv2-1600.avif 1600w" type="image/avif"/>
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_4195bebf7fb244e8b7591015da58bef7~mv2-960.webp 960w, assets/images/wix/64569d_4195bebf7fb244e8b7591015da58bef7~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影系列预览图：30/08/2025 — 美国纽约伊萨卡 · 2025年" decoding="async" height="2592" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_4195bebf7fb244e8b7591015da58bef7~mv2.jpg" width="1728"/>
+<img alt="摄影系列预览图：30/08/2025 — 美国纽约伊萨卡 · 2025年" decoding="async" height="2592" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_4195bebf7fb244e8b7591015da58bef7~mv2-960.webp" width="1728"/>
 </picture>
 <div class="photo-meta">
 <p class="photo-date" data-copy-en="30/08/2025" data-copy-zh="30/08/2025">30/08/2025</p>
@@ -445,7 +427,7 @@
 <div class="container photo-tail-inner">
 <picture class="responsive-picture" style="display:block;width:100%;">
 <source sizes="(max-width: 760px) 82vw, 420px" srcset="assets/template/photo-bottom-5710-960.webp 960w, assets/template/photo-bottom-5710-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影作品补充图像" decoding="async" loading="lazy" sizes="(max-width: 760px) 82vw, 420px" src="assets/template/photo-bottom-5710.jpg"/>
+<img alt="摄影作品补充图像" decoding="async" loading="lazy" sizes="(max-width: 760px) 82vw, 420px" src="assets/template/photo-bottom-5710-960.webp"/>
 </picture>
 </div>
 </section>

@@ -517,24 +517,16 @@ body.page-transition-enabled.page-transition-leaving .home-page {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(980px 620px at 16% 18%, rgba(114, 132, 166, 0.18), transparent 62%),
-    radial-gradient(760px 520px at 82% 78%, rgba(102, 118, 151, 0.12), transparent 66%),
-    linear-gradient(180deg, rgba(11, 14, 19, 0.985) 0%, rgba(14, 18, 25, 0.988) 56%, rgba(11, 14, 19, 0.992) 100%);
-  backdrop-filter: blur(24px) saturate(112%);
-  -webkit-backdrop-filter: blur(24px) saturate(112%);
+    linear-gradient(90deg, rgba(138, 160, 200, 0.09) 0 1px, transparent 1px 100%),
+    linear-gradient(180deg, rgba(138, 160, 200, 0.07) 0 1px, transparent 1px 100%),
+    linear-gradient(180deg, rgba(13, 17, 24, 0.992) 0%, rgba(19, 24, 33, 0.992) 55%, rgba(13, 17, 24, 0.996) 100%);
+  background-size: 54px 54px, 54px 54px, 100% 100%;
+  backdrop-filter: blur(18px) saturate(108%);
+  -webkit-backdrop-filter: blur(18px) saturate(108%);
 }
 
 .chronohaze-loader__mist {
-  position: absolute;
-  top: 50%;
-  width: min(34vw, 420px);
-  height: min(34vw, 420px);
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(124, 147, 184, 0.18) 0%, rgba(124, 147, 184, 0.06) 42%, transparent 74%);
-  filter: blur(26px);
-  opacity: 0.7;
-  transform: translateY(-50%);
-  pointer-events: none;
+  display: none;
 }
 
 .chronohaze-loader__mist--left {
@@ -550,10 +542,8 @@ body.page-transition-enabled.page-transition-leaving .home-page {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(90deg, transparent 0%, rgba(138, 160, 200, 0.06) 50%, transparent 100%),
-    radial-gradient(rgba(154, 164, 178, 0.12) 0.7px, transparent 0.7px);
-  background-size: 100% 100%, 12px 12px;
-  opacity: 0.18;
+    linear-gradient(90deg, transparent 0%, rgba(154, 172, 204, 0.08) 50%, transparent 100%);
+  opacity: 0.16;
 }
 
 .chronohaze-loader__panel {
@@ -561,14 +551,13 @@ body.page-transition-enabled.page-transition-leaving .home-page {
   z-index: 1;
   width: min(560px, calc(100vw - 40px));
   padding: clamp(26px, 4vw, 36px) clamp(24px, 4vw, 38px);
-  border: 1px solid rgba(138, 160, 200, 0.18);
-  border-radius: 22px;
+  border: 1px solid rgba(154, 172, 204, 0.3);
+  border-radius: 0;
   background:
-    linear-gradient(180deg, rgba(18, 23, 31, 0.8) 0%, rgba(14, 19, 27, 0.74) 100%);
+    linear-gradient(180deg, rgba(20, 25, 34, 0.84) 0%, rgba(13, 17, 24, 0.82) 100%);
   box-shadow:
-    0 26px 64px rgba(0, 0, 0, 0.34),
-    0 0 0 1px rgba(255, 255, 255, 0.02) inset,
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    0 24px 58px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.045);
   backdrop-filter: blur(20px) saturate(112%);
   -webkit-backdrop-filter: blur(20px) saturate(112%);
   transform: translate3d(0, 14px, 0) scale(0.992);
@@ -581,9 +570,9 @@ body.page-transition-enabled.page-transition-leaving .home-page {
 .chronohaze-loader__brand {
   margin: 0 0 14px;
   color: rgba(232, 234, 237, 0.74);
-  font-family: var(--font-cinzel);
+  font-family: var(--font-serif-en);
   font-size: 12px;
-  letter-spacing: 0.38em;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
@@ -594,21 +583,20 @@ body.page-transition-enabled.page-transition-leaving .home-page {
   margin: 0 0 14px;
   padding: 6px 11px;
   color: rgba(154, 164, 178, 0.96);
-  font-family: var(--font-sans);
+  font-family: var(--font-sans-zh);
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  border: 1px solid rgba(138, 160, 200, 0.2);
-  border-radius: 999px;
-  background: rgba(124, 147, 184, 0.06);
+  letter-spacing: 0.16em;
+  border: 1px solid rgba(154, 172, 204, 0.24);
+  border-radius: 0;
+  background: rgba(154, 172, 204, 0.07);
 }
 
 .chronohaze-loader__status::before {
   content: "";
   width: 6px;
   height: 6px;
-  border-radius: 50%;
+  border-radius: 0;
   background: rgba(138, 160, 200, 0.88);
   box-shadow: 0 0 14px rgba(138, 160, 200, 0.5);
 }
@@ -616,17 +604,17 @@ body.page-transition-enabled.page-transition-leaving .home-page {
 .chronohaze-loader__title {
   margin: 0;
   color: rgba(232, 234, 237, 0.98);
-  font-family: var(--font-heading);
+  font-family: var(--font-serif-zh);
   font-size: clamp(34px, 4.8vw, 54px);
-  line-height: 0.98;
-  letter-spacing: 0.015em;
+  line-height: 1.16;
+  letter-spacing: 0.035em;
 }
 
 .chronohaze-loader__meta {
   margin: 14px 0 0;
   max-width: 29rem;
   color: rgba(154, 164, 178, 0.9);
-  font-family: var(--font-sans);
+  font-family: var(--font-sans-zh);
   font-size: 14px;
   line-height: 1.8;
   letter-spacing: 0.015em;
@@ -657,7 +645,6 @@ body.page-transition-enabled.page-transition-leaving .home-page {
   height: 1px;
   margin-top: 26px;
   overflow: hidden;
-  border-radius: 999px;
   background: rgba(138, 160, 200, 0.18);
 }
 
@@ -665,7 +652,6 @@ body.page-transition-enabled.page-transition-leaving .home-page {
   display: block;
   width: 38%;
   height: 100%;
-  border-radius: inherit;
   background:
     linear-gradient(90deg, rgba(138, 160, 200, 0) 0%, rgba(138, 160, 200, 0.92) 50%, rgba(138, 160, 200, 0) 100%);
   animation: chronohaze-loader-sweep 1.5s cubic-bezier(0.4, 0.08, 0.22, 0.96) infinite;
@@ -676,7 +662,6 @@ body.page-transition-busy {
   cursor: progress;
 }
 
-body.page-booting .chronohaze-loader,
 body.page-transition-busy .chronohaze-loader,
 body.page-boot-ready .chronohaze-loader,
 body.page-transition-settled .chronohaze-loader {
@@ -684,12 +669,10 @@ body.page-transition-settled .chronohaze-loader {
   transition-delay: 0s;
 }
 
-body.page-booting .chronohaze-loader,
 body.page-transition-busy .chronohaze-loader {
   opacity: 1;
 }
 
-body.page-booting .chronohaze-loader__panel,
 body.page-transition-busy .chronohaze-loader__panel {
   transform: translate3d(0, 0, 0) scale(1);
   opacity: 1;
@@ -706,8 +689,6 @@ body.page-transition-settled .chronohaze-loader__panel {
   opacity: 0;
 }
 
-body.page-booting .page,
-body.page-booting .home-page,
 body.page-transition-busy .page,
 body.page-transition-busy .home-page {
   opacity: 0 !important;
@@ -745,7 +726,7 @@ body.page-transition-busy .home-page {
   .chronohaze-loader__panel {
     width: min(100%, 460px);
     padding: 22px 20px 24px;
-    border-radius: 20px;
+    border-radius: 0;
   }
 
   .chronohaze-loader__brand {
@@ -1500,9 +1481,8 @@ audio {
   background: rgba(246, 248, 252, 0.22);
   box-shadow: 0 16px 34px rgba(18, 24, 32, 0.08);
   border-radius: 0;
-  backdrop-filter: blur(8px) saturate(106%);
-  -webkit-backdrop-filter: blur(8px) saturate(106%);
   overflow: hidden;
+  contain: layout paint;
   transition: box-shadow 240ms ease, transform 240ms ease;
 }
 
@@ -1557,6 +1537,8 @@ audio {
 
 .photo-index-page .photo-archive {
   padding-top: 2px;
+  content-visibility: auto;
+  contain-intrinsic-size: 900px;
 }
 
 .photo-index-page .photo-grid {
@@ -1570,6 +1552,7 @@ audio {
   border: 1px solid rgba(78, 87, 103, 0.16);
   background: rgba(246, 248, 252, 0.22);
   box-shadow: 0 16px 34px rgba(18, 24, 32, 0.08);
+  contain: layout paint;
   transition: box-shadow 240ms ease, transform 240ms ease;
 }
 

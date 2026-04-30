@@ -5,14 +5,14 @@ import argparse
 import re
 from pathlib import Path
 
-VERSION = "20260430-loader-hardening"
+VERSION = "20260430-photo-loader-smooth"
 
 CRITICAL_LOADER_MARKER = "chronohaze-critical-loader-style"
 CRITICAL_LOADER_SNIPPET = """  <style id="chronohaze-critical-loader-style">
     html.chronohaze-critical-loading,
     html.chronohaze-critical-loading body {
       min-height: 100%;
-      background: #0b0e13;
+      background: #10141b;
     }
 
     html.chronohaze-critical-loading body {
@@ -30,13 +30,14 @@ CRITICAL_LOADER_SNIPPET = """  <style id="chronohaze-critical-loader-style">
       inset: 0;
       z-index: 2147483000;
       background:
-        radial-gradient(980px 620px at 16% 18%, rgba(114, 132, 166, 0.18), transparent 62%),
-        radial-gradient(760px 520px at 82% 78%, rgba(102, 118, 151, 0.12), transparent 66%),
-        linear-gradient(180deg, rgba(11, 14, 19, 0.985) 0%, rgba(14, 18, 25, 0.988) 56%, rgba(11, 14, 19, 0.992) 100%);
+        linear-gradient(90deg, rgba(138, 160, 200, 0.09) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(138, 160, 200, 0.07) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(13, 17, 24, 0.992) 0%, rgba(19, 24, 33, 0.992) 55%, rgba(13, 17, 24, 0.996) 100%);
+      background-size: 54px 54px, 54px 54px, 100% 100%;
     }
 
     html.chronohaze-critical-loading::after {
-      content: "chronohaze.space\\A Loading";
+      content: "chronohaze.space\\A 页面加载中";
       position: fixed;
       left: 50%;
       top: 50%;
@@ -46,12 +47,12 @@ CRITICAL_LOADER_SNIPPET = """  <style id="chronohaze-critical-loader-style">
       transform: translate(-50%, -50%);
       white-space: pre-line;
       color: rgba(232, 234, 237, 0.96);
-      font: 400 clamp(28px, 5vw, 48px)/1.18 "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
-      letter-spacing: 0.02em;
-      border: 1px solid rgba(138, 160, 200, 0.18);
-      border-radius: 22px;
-      background: linear-gradient(180deg, rgba(18, 23, 31, 0.8) 0%, rgba(14, 19, 27, 0.74) 100%);
-      box-shadow: 0 26px 64px rgba(0, 0, 0, 0.34);
+      font: 400 clamp(28px, 5vw, 48px)/1.22 "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.035em;
+      border: 1px solid rgba(154, 172, 204, 0.3);
+      border-radius: 0;
+      background: linear-gradient(180deg, rgba(20, 25, 34, 0.84) 0%, rgba(13, 17, 24, 0.82) 100%);
+      box-shadow: 0 24px 58px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.045);
     }
   </style>
   <script>
@@ -170,12 +171,41 @@ def rewrite_html_refs(text: str, page_rel: Path) -> str:
     out = text
     for pattern, repl in replacements.items():
         out = re.sub(pattern, repl, out)
+    out = remove_static_avif_sources(out)
     return ensure_critical_loader(out)
 
 
-def ensure_critical_loader(text: str) -> str:
-    if CRITICAL_LOADER_MARKER in text:
+def remove_static_avif_sources(text: str) -> str:
+    return re.sub(
+        r"^[ \t]*<source\b(?=[^>]*\btype=[\"']image/avif[\"'])[^>]*>\s*\n?",
+        "",
+        text,
+        flags=re.M,
+    )
+
+
+def strip_existing_critical_loader(text: str) -> str:
+    marker = f'<style id="{CRITICAL_LOADER_MARKER}">'
+    start = text.find(marker)
+    if start < 0:
         return text
+    style_end = text.find("</style>", start)
+    if style_end < 0:
+        return text
+    script_start = text.find("<script>", style_end)
+    script_end = text.find("</script>", script_start if script_start >= 0 else style_end)
+    if script_start < 0 or script_end < 0:
+        return text
+    line_start = text.rfind("\n", 0, start)
+    remove_start = line_start + 1 if line_start >= 0 else start
+    remove_end = script_end + len("</script>")
+    if remove_end < len(text) and text[remove_end] == "\n":
+        remove_end += 1
+    return text[:remove_start] + text[remove_end:]
+
+
+def ensure_critical_loader(text: str) -> str:
+    text = strip_existing_critical_loader(text)
     viewport_re = re.compile(r"(^\s*<meta\s+name=[\"']viewport[\"'][^>]*>\s*$)", re.M)
     match = viewport_re.search(text)
     if match:

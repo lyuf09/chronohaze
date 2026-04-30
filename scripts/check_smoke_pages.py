@@ -71,7 +71,7 @@ def main() -> int:
                 SmokeCheck("album title", contains("Ipomoea Alba"), "album title"),
                 SmokeCheck("album tracklist", contains('class="album-tracklist"'), "tracklist container"),
                 SmokeCheck("album tracks count", count_at_least('class="album-track-link"', 10), "track links rendered"),
-                SmokeCheck("album cover AVIF", contains("ipomoea-alba-album-cover-1600.avif"), "cover AVIF source"),
+                SmokeCheck("album cover WEBP", contains("ipomoea-alba-album-cover-1600.webp"), "cover WEBP source"),
             ],
         ),
         (
@@ -79,7 +79,7 @@ def main() -> int:
             [
                 SmokeCheck("album title", contains("best-of collection from HazezZ"), "teenage collection subtitle/title block"),
                 SmokeCheck("album tracklist", contains('class="album-tracklist"'), "tracklist container"),
-                SmokeCheck("album cover AVIF", contains("teenage-best-album-cover-1600.avif"), "cover AVIF source"),
+                SmokeCheck("album cover WEBP", contains("teenage-best-album-cover-1600.webp"), "cover WEBP source"),
             ],
         ),
         (

@@ -68,13 +68,13 @@ def main() -> int:
     require_contains(index_html, "assets/template/hero_portrait-1600.webp", "index.html hero", errors)
     require_contains(
         album_ia_html,
-        "../assets/template/ipomoea-alba-album-cover-1600.avif",
+        "../assets/template/ipomoea-alba-album-cover-1600.webp",
         "album-ipomoea-alba.html cover",
         errors,
     )
     require_contains(
         album_teen_html,
-        "../assets/template/teenage-best-album-cover-1600.avif",
+        "../assets/template/teenage-best-album-cover-1600.webp",
         "album-teenage-best.html cover",
         errors,
     )
@@ -83,17 +83,17 @@ def main() -> int:
         cover = str(item.get("cover") or "").strip()
         if not cover:
             continue
-        avif_needle = variant_path(cover, 960, "avif")
-        require_contains(photo_html, avif_needle, f"portfolio featured `{item.get('title')}`", errors)
+        webp_needle = variant_path(cover, 960, "webp")
+        require_contains(photo_html, webp_needle, f"portfolio featured `{item.get('title')}`", errors)
 
     if errors:
-        print("ERROR: priority AVIF coverage check failed")
+        print("ERROR: priority image variant coverage check failed")
         for err in errors:
             print(f"- {err}")
         return 1
 
     print(
-        "OK: priority images have AVIF references"
+        "OK: priority images have responsive WebP references"
         + (" and manifest AVIF coverage" if avif_encoder_available else " (manifest AVIF generation skipped locally)")
     )
     return 0
