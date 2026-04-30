@@ -549,8 +549,8 @@ body.page-transition-enabled.page-transition-leaving .home-page {
 .chronohaze-loader__panel {
   position: relative;
   z-index: 1;
-  width: min(560px, calc(100vw - 40px));
-  padding: clamp(26px, 4vw, 36px) clamp(24px, 4vw, 38px);
+  width: min(500px, calc(100vw - 40px));
+  padding: clamp(28px, 4vw, 36px) clamp(26px, 4vw, 38px);
   border: 1px solid rgba(154, 172, 204, 0.3);
   border-radius: 0;
   background:
@@ -568,12 +568,12 @@ body.page-transition-enabled.page-transition-leaving .home-page {
 }
 
 .chronohaze-loader__brand {
-  margin: 0 0 14px;
-  color: rgba(232, 234, 237, 0.74);
+  margin: 0 0 16px;
+  color: rgba(232, 234, 237, 0.7);
   font-family: var(--font-serif-en);
   font-size: 12px;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
+  font-weight: 300;
+  letter-spacing: 0.18em;
 }
 
 .chronohaze-loader__status {
@@ -582,11 +582,11 @@ body.page-transition-enabled.page-transition-leaving .home-page {
   gap: 8px;
   margin: 0 0 14px;
   padding: 6px 11px;
-  color: rgba(154, 164, 178, 0.96);
+  color: rgba(170, 181, 202, 0.9);
   font-family: var(--font-sans-zh);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.16em;
+  font-size: 10.5px;
+  font-weight: 300;
+  letter-spacing: 0.18em;
   border: 1px solid rgba(154, 172, 204, 0.24);
   border-radius: 0;
   background: rgba(154, 172, 204, 0.07);
@@ -603,19 +603,21 @@ body.page-transition-enabled.page-transition-leaving .home-page {
 
 .chronohaze-loader__title {
   margin: 0;
-  color: rgba(232, 234, 237, 0.98);
+  color: rgba(232, 234, 237, 0.92);
   font-family: var(--font-serif-zh);
-  font-size: clamp(34px, 4.8vw, 54px);
-  line-height: 1.16;
-  letter-spacing: 0.035em;
+  font-size: clamp(24px, 3.1vw, 36px);
+  font-weight: 300;
+  line-height: 1.32;
+  letter-spacing: 0.055em;
 }
 
 .chronohaze-loader__meta {
   margin: 14px 0 0;
   max-width: 29rem;
-  color: rgba(154, 164, 178, 0.9);
+  color: rgba(166, 178, 200, 0.82);
   font-family: var(--font-sans-zh);
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 300;
   line-height: 1.8;
   letter-spacing: 0.015em;
 }
@@ -630,9 +632,9 @@ body.page-transition-enabled.page-transition-leaving .home-page {
 .chronohaze-loader[lang^="zh"] .chronohaze-loader__title,
 .chronohaze-loader[lang^="zh-CN"] .chronohaze-loader__title {
   font-family: var(--font-serif-zh);
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  line-height: 1.16;
+  font-weight: 300;
+  letter-spacing: 0.055em;
+  line-height: 1.32;
 }
 
 .chronohaze-loader[lang^="en"] .chronohaze-loader__title {
