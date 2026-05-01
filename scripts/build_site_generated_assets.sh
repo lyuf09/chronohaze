@@ -10,8 +10,15 @@ python3 "$ROOT/scripts/rebuild_photo_catalog.py" --root "$ROOT"
 python3 "$ROOT/scripts/rebuild_research_catalog.py" --root "$ROOT"
 python3 "$ROOT/scripts/build_feed.py" --root "$ROOT"
 
-# Build responsive image variants + manifest (AVIF/WebP when encoders are available).
-bash "$ROOT/scripts/build_media_assets.sh" --skip-jpg
+# Build responsive image variants + manifest. The deployed pages currently
+# reference WebP/JPG fallbacks, while generated AVIF files are not uploaded by
+# the Pages workflow; keep AVIF opt-in so CI does not spend minutes generating
+# unused artifacts.
+MEDIA_ARGS=(--skip-jpg)
+if [[ "${CHRONOHAZE_GENERATE_AVIF:-0}" != "1" ]]; then
+  MEDIA_ARGS+=(--skip-avif)
+fi
+bash "$ROOT/scripts/build_media_assets.sh" "${MEDIA_ARGS[@]}"
 
 python3 "$ROOT/scripts/render_catalog_pages.py" --root "$ROOT"
 python3 "$ROOT/scripts/build_social_cards_and_meta.py" --root "$ROOT"
