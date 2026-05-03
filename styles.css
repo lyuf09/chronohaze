@@ -11577,6 +11577,534 @@ html:lang(en) .music-album-page .album-back-link {
   }
 }
 
+@media (max-width: 760px) {
+  .header-inner {
+    min-height: 76px;
+    gap: 8px;
+    padding: 12px 0 6px;
+    padding-right: max(88px, calc(82px + var(--safe-right)));
+  }
+
+  .brand {
+    font-size: 12px;
+    letter-spacing: 0.29em;
+    top: 6px;
+  }
+
+  .nav {
+    gap: 12px;
+    padding-bottom: 2px;
+    padding-right: max(14px, calc(10px + var(--safe-right)));
+    scroll-padding-right: max(96px, calc(86px + var(--safe-right)));
+    font-size: 13px;
+  }
+
+  .nav a {
+    min-height: 38px;
+    padding: 6px 0;
+  }
+
+  .floating-lang-switch {
+    top: 7px;
+    right: 9px;
+    padding: 2px;
+    gap: 2px;
+  }
+
+  .floating-lang-btn {
+    min-width: 33px;
+    height: 22px;
+    font-size: 9.5px;
+    letter-spacing: 0.03em;
+  }
+
+  .music-index-page .page-head,
+  .photo-index-page .page-head,
+  .math-index-page .page-head,
+  .music-album-page .album-head {
+    padding: 20px 0 12px;
+  }
+
+  .music-index-page .page-head .container,
+  .photo-index-page .page-head .container {
+    gap: 8px;
+  }
+
+  .music-index-page .page-head .container::before,
+  .photo-index-page .page-head .container::before {
+    font-size: 9px;
+    letter-spacing: 0.18em;
+  }
+
+  .music-index-page .page-title,
+  .photo-index-page .page-title,
+  .math-index-page .page-title,
+  .music-album-page .album-title {
+    font-size: clamp(24px, 7.6vw, 29px);
+    line-height: 0.99;
+    margin-bottom: 6px;
+  }
+
+  .music-index-page .page-head p,
+  .photo-index-page .page-head p,
+  .math-index-page .page-head p,
+  .music-album-page .album-subtitle {
+    max-width: none;
+    font-size: 11.5px;
+    line-height: 1.38;
+  }
+
+  .music-index-page .music-hero,
+  .photo-index-page .photo-hero {
+    padding: 8px 0 2px;
+  }
+
+  .music-index-page .music-intro,
+  .photo-index-page .photo-intro {
+    padding: 2px 0 12px;
+  }
+
+  .music-index-page .music-intro-layout,
+  .photo-index-page .photo-intro-layout {
+    gap: 12px;
+  }
+
+  .music-index-page .music-intro-figure,
+  .photo-index-page .photo-intro-figure {
+    width: min(100%, 224px);
+  }
+
+  .music-index-page .music-intro-text,
+  .photo-index-page .photo-intro-text {
+    font-size: 13px;
+    line-height: 1.76;
+  }
+
+  .music-index-page .section,
+  .photo-index-page .section,
+  .math-index-page .section {
+    padding: 4px 0 18px;
+  }
+
+  .music-index-page .music-ia-head,
+  .photo-index-page .photo-section-head {
+    margin-bottom: 10px;
+  }
+
+  .music-index-page .music-ia-title,
+  .photo-index-page .photo-section-title {
+    font-size: clamp(18px, 6.6vw, 22px);
+  }
+
+  .music-index-page .music-ia-subtitle,
+  .photo-index-page .photo-section-lead {
+    font-size: 11px;
+    line-height: 1.36;
+  }
+
+  .music-index-page .music-featured-grid,
+  .photo-index-page .photo-featured-grid {
+    gap: 10px;
+  }
+
+  .music-index-page .music-featured-card::before,
+  .photo-index-page .photo-feature-card::before {
+    right: 10px;
+    top: 9px;
+    font-size: 16px;
+  }
+
+  .music-index-page .music-featured-cover {
+    aspect-ratio: 16 / 9.5;
+    padding: 9px;
+  }
+
+  .music-index-page .music-featured-meta,
+  .photo-index-page .photo-feature-meta {
+    padding: 10px 11px 9px;
+    gap: 4px;
+  }
+
+  .music-index-page .music-featured-item-title,
+  .photo-index-page .photo-feature-theme {
+    font-size: 14px;
+    line-height: 1.14;
+  }
+
+  .music-index-page .music-featured-item-artist,
+  .music-index-page .music-featured-item-copy,
+  .photo-index-page .photo-feature-location,
+  .photo-index-page .photo-feature-concept,
+  .photo-index-page .photo-feature-caption {
+    font-size: 10.5px;
+    line-height: 1.4;
+  }
+
+  .music-index-page .music-ia-controls {
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .music-index-page .music-ia-tabs {
+    gap: 6px;
+  }
+
+  .music-index-page .music-ia-tab {
+    min-height: 38px;
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+
+  .music-index-page .music-ia-filters {
+    gap: 7px;
+  }
+
+  .music-index-page .music-ia-filter-label {
+    font-size: 9.5px;
+  }
+
+  .music-index-page .music-ia-filter-select {
+    min-height: 42px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+  }
+
+  .music-index-page .music-group-stack {
+    gap: 12px;
+  }
+
+  .music-index-page .music-group[data-group="single"] .music-list {
+    gap: 10px;
+  }
+
+  .music-index-page .music-year-group {
+    gap: 6px;
+  }
+
+  .music-index-page .music-year-group-head {
+    padding: 0;
+  }
+
+  .music-index-page .music-year-group-title {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  .music-index-page .music-year-group-count {
+    font-size: 9px;
+  }
+
+  .music-index-page .track-row {
+    padding: 9px 10px 8px;
+    grid-template-columns: minmax(70px, 82px) minmax(0, 1fr);
+    gap: 4px 10px;
+  }
+
+  .music-index-page .track-row.track-row-album {
+    padding: 10px 10px 9px;
+  }
+
+  .music-index-page .track-row.track-row-album::before {
+    right: 10px;
+    top: 9px;
+    font-size: 8px;
+    padding: 2px 5px;
+  }
+
+  .music-index-page .track-row.track-row-album > div {
+    padding-right: 50px;
+  }
+
+  .music-index-page .track-date {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+  }
+
+  .music-index-page .track-title {
+    font-size: clamp(13.5px, 5.2vw, 15.5px);
+    line-height: 1.08;
+  }
+
+  .music-index-page .track-artist {
+    margin-top: 2px;
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
+  }
+
+  .music-index-page .track-tags {
+    margin-top: 4px;
+    gap: 4px;
+  }
+
+  .music-index-page .track-tag {
+    font-size: 8.5px;
+    padding: 2px 5px;
+  }
+
+  .photo-index-page .photo-card-link {
+    grid-template-columns: 92px minmax(0, 1fr);
+    gap: 10px;
+    padding: 8px;
+  }
+
+  .photo-index-page .photo-card img,
+  .photo-index-page .photo-film-thumb {
+    width: 92px;
+    height: 92px;
+  }
+
+  .photo-index-page .photo-date {
+    font-size: 13px;
+  }
+
+  .photo-index-page .photo-subtitle {
+    font-size: 10.5px;
+    line-height: 1.35;
+  }
+
+  .photo-index-page .photo-tail {
+    padding: 4px 0 16px;
+  }
+
+  .music-album-page .album-main {
+    padding: 4px 0 24px;
+  }
+
+  .music-album-page .album-layout,
+  .music-album-page .album-layout.with-intro {
+    width: 100%;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "cover"
+      "intro"
+      "tracks";
+    gap: 14px;
+  }
+
+  .music-album-page .album-cover {
+    width: min(100%, 300px);
+    margin: 0 auto;
+  }
+
+  .music-album-page .album-cover-credit {
+    padding: 7px 10px 8px;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+  }
+
+  .music-album-page .album-intro {
+    padding: 0;
+    font-size: 13.2px;
+    line-height: 1.7;
+  }
+
+  .music-album-page .album-track-panel {
+    gap: 10px;
+  }
+
+  .music-album-page .album-tracklist {
+    gap: 8px;
+  }
+
+  .music-album-page .album-track-link {
+    grid-template-columns: 84px minmax(0, 1fr);
+    gap: 10px;
+    padding: 10px 11px;
+  }
+
+  .music-album-page .album-track-no {
+    font-size: 10.5px;
+    line-height: 1.24;
+  }
+
+  .music-album-page .album-track-name {
+    gap: 6px;
+    font-size: 13.5px;
+  }
+
+  .music-album-page .album-track-feature {
+    font-size: 9px;
+    padding: 1px 6px;
+  }
+
+  .music-album-page .album-back-link {
+    margin-top: 0;
+    font-size: 18px;
+  }
+
+  .music-detail-page .music-detail-article {
+    padding-top: 26px;
+    padding-bottom: 24px;
+  }
+
+  .music-detail-page .music-detail-article::before {
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    margin-bottom: 10px;
+  }
+
+  .music-detail-page .music-detail-article::after {
+    left: 14px;
+    right: 14px;
+    top: 78px;
+  }
+
+  .music-detail-page .music-detail-article h1 {
+    margin-bottom: 12px;
+    font-size: clamp(28px, 8vw, 38px);
+    line-height: 0.99;
+  }
+
+  .music-detail-page .music-detail-meta {
+    margin-bottom: 10px;
+    font-size: 10px;
+    line-height: 1.6;
+    letter-spacing: 0.1em;
+  }
+
+  .music-detail-page .music-detail-back {
+    gap: 6px;
+    margin-bottom: 14px;
+    font-size: 11px;
+  }
+
+  .music-detail-page .music-detail-back::before {
+    font-size: 8px;
+  }
+
+  .music-detail-page .music-detail-cover {
+    margin-top: 18px;
+    margin-bottom: 10px;
+  }
+
+  .music-detail-page .music-detail-cover-credit {
+    margin: 0 0 10px;
+    font-size: 9.5px;
+    letter-spacing: 0.08em;
+  }
+
+  .music-detail-page .music-detail-article p,
+  .music-detail-page .music-detail-article li {
+    font-size: 14px;
+    line-height: 1.78;
+  }
+
+  .music-detail-page .lyrics-showcase {
+    margin-top: 40px;
+    padding: 40px 0 52px;
+  }
+
+  .music-detail-page .music-detail-article .lyrics-showcase-title {
+    margin-bottom: 24px;
+    font-size: clamp(26px, 7.4vw, 32px);
+  }
+
+  .photo-detail-page .photo-detail-article,
+  .photo-blue-page .photo-blue-article {
+    width: 100%;
+    padding-top: 30px;
+    padding-bottom: 24px;
+  }
+
+  .photo-detail-page .photo-detail-article::before,
+  .photo-blue-page .photo-blue-article::before {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    margin-bottom: 10px;
+  }
+
+  .photo-detail-page .photo-detail-article::after,
+  .photo-blue-page .photo-blue-article::after {
+    left: 14px;
+    right: 14px;
+    top: 78px;
+  }
+
+  .photo-detail-page .article h1,
+  .photo-blue-page .article h1 {
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: clamp(28px, 8vw, 38px);
+    line-height: 0.99;
+  }
+
+  .photo-detail-page .article-meta,
+  .photo-blue-page .article-meta {
+    margin-bottom: 16px;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+  }
+
+  .photo-detail-page .photo-detail-gallery {
+    width: 100%;
+    margin: 16px auto 20px;
+    gap: 12px;
+    grid-template-columns: 1fr;
+  }
+
+  .photo-detail-page .photo-detail-item,
+  .photo-detail-page .photo-detail-item:nth-child(n) {
+    max-width: none;
+    padding: 6px;
+    transform: none;
+  }
+
+  .photo-detail-page .photo-detail-item:hover {
+    transform: none;
+  }
+
+  .photo-detail-page .photo-detail-pager {
+    width: 100%;
+    margin-top: 10px;
+    gap: 8px;
+  }
+
+  .photo-detail-page .photo-detail-pager-link,
+  .photo-detail-page .read-more,
+  .photo-blue-page .read-more {
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+  }
+
+  .photo-detail-page .read-more,
+  .photo-blue-page .read-more {
+    gap: 6px;
+    padding-bottom: 2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-inner {
+    min-height: 72px;
+    padding-right: max(80px, calc(74px + var(--safe-right)));
+  }
+
+  .brand {
+    font-size: 11px;
+    letter-spacing: 0.26em;
+  }
+
+  .nav {
+    gap: 10px;
+    font-size: 12.5px;
+  }
+
+  .floating-lang-btn {
+    min-width: 30px;
+    height: 20px;
+    font-size: 9px;
+  }
+
+  .music-album-page .album-track-link {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .music-album-page .album-track-no {
+    justify-content: flex-start;
+  }
+}
+
 @media (hover: none) and (pointer: coarse) {
   .music-index-page .track-row:hover,
   .math-index-page .math-card:hover,
