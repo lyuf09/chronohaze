@@ -5,7 +5,7 @@ import argparse
 import re
 from pathlib import Path
 
-VERSION = "20260503-featured-crop-pass7"
+VERSION = "20260503-featured-crop-pass8"
 
 CRITICAL_LOADER_MARKER = "chronohaze-critical-loader-style"
 CRITICAL_LOADER_SNIPPET = """  <style id="chronohaze-critical-loader-style">

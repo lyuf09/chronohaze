@@ -12067,7 +12067,7 @@
         accent: "#2a3657",
         accentSoft: "#121826",
         image: "assets/template/affizieren-cover.jpg",
-        imagePosition: "95% center",
+        imagePosition: "100% center",
         overlayStart: "0",
         overlayMid: "0",
         overlayEnd: "0",
