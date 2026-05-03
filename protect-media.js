@@ -15014,7 +15014,7 @@
       pendingPersistentTrackHref = opts.autoplayTrackOnArrival;
     }
 
-    return fetchPageSwapDocument(url)
+    return fetchPageSwapDocument(url, { forceFresh: true, cacheMode: "no-cache", store: false })
       .then(function (nextDocument) {
         if (
           !nextDocument.body ||
