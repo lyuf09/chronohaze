@@ -12688,3 +12688,315 @@ html:lang(en) .music-album-page .album-back-link {
     line-height: 1.86;
   }
 }
+
+/* Comprehensive sitewide mobile polish pass 2 */
+@media (max-width: 760px) {
+  body:not(.home-body) .main {
+    overflow-x: clip;
+  }
+
+  .policy,
+  .cv-page .policy {
+    max-width: none;
+    padding-top: 24px;
+    padding-bottom: 28px;
+  }
+
+  .policy h1 {
+    font-size: clamp(31px, 8.6vw, 38px);
+    line-height: 1.04;
+  }
+
+  .policy h2 {
+    margin-top: 24px;
+    font-size: clamp(22px, 6.2vw, 27px);
+    line-height: 1.16;
+  }
+
+  .policy p,
+  .policy li {
+    font-size: 14px;
+    line-height: 1.72;
+  }
+
+  .research-landing-page .section,
+  .math-index-page .section,
+  .search-index-page .section,
+  .music-index-page .section,
+  .photo-index-page .section {
+    padding-top: 8px;
+    padding-bottom: 22px;
+  }
+
+  .research-hero,
+  .projects-page .research-hero,
+  .academic-page .research-hero {
+    padding-top: 20px;
+    padding-bottom: 10px;
+  }
+
+  .research-hero-inner,
+  .research-summary-header {
+    gap: 12px;
+  }
+
+  .research-chip-row,
+  .research-meta-row,
+  .research-cta-row,
+  .research-link-row,
+  .page-last-updated-row {
+    gap: 8px;
+  }
+
+  .research-cta-row,
+  .research-page .research-link-row,
+  .projects-page .research-link-row {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .research-cta-link,
+  .research-page .research-link-row a,
+  .projects-page .research-link-row a {
+    width: 100%;
+    min-height: 44px;
+    justify-content: space-between;
+    padding: 10px 12px;
+  }
+
+  .research-page .research-project-grid,
+  .projects-page .research-project-grid,
+  .research-page .research-outputs-grid,
+  .research-page .research-fast-links-grid,
+  .academic-page .research-project-grid--themes,
+  .academic-page .research-project-grid--entry {
+    gap: 12px;
+  }
+
+  .research-page .research-project-card,
+  .projects-page .research-project-card,
+  .research-output-card,
+  .research-now-panel,
+  .research-fast-link {
+    padding: 14px;
+  }
+
+  .research-output-group-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .research-output-group-head h3,
+  .research-summary-output-group h3 {
+    font-size: 18px;
+    line-height: 1.12;
+  }
+
+  .research-now-list,
+  .research-fast-links-grid {
+    gap: 10px;
+  }
+
+  .cv-page .cv-utility-bar,
+  .cv-page .cv-utility-top,
+  .cv-page .cv-lang-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .cv-page .cv-utility-bar {
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+  }
+
+  .cv-page .cv-lang-tab,
+  .cv-page .cv-research-link,
+  .cv-page .cv-toc-link {
+    min-height: 40px;
+  }
+
+  .cv-page .cv-project-list > li,
+  .cv-page .cv-experience-item {
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+  }
+
+  .math-index-page .page-head {
+    padding-top: 18px;
+    padding-bottom: 12px;
+  }
+
+  .math-index-page .math-fractal-highlight {
+    margin-bottom: 14px;
+  }
+
+  .math-index-page .math-list {
+    gap: 10px;
+  }
+
+  .math-index-page .math-card {
+    padding: 13px 13px 14px;
+  }
+
+  .math-index-page .math-desc {
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+  }
+
+  .math-index-page .math-more {
+    min-height: 40px;
+    padding: 0 12px;
+  }
+
+  .search-index-page .page-head {
+    padding-top: 20px;
+    padding-bottom: 12px;
+  }
+
+  .search-index-page .search-shell,
+  .search-index-page .search-controls,
+  .search-index-page .search-results,
+  .search-index-page .search-status {
+    width: 100%;
+  }
+
+  .search-index-page .search-form,
+  .search-index-page .search-controls {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .search-index-page .search-field {
+    gap: 7px;
+  }
+
+  .search-index-page .search-result,
+  .search-index-page .search-result-link {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 14px 14px 13px;
+  }
+
+  .search-index-page .search-result-meta,
+  .search-index-page .search-meta {
+    margin-bottom: 1px;
+  }
+
+  .search-index-page .search-result-group-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .search-index-page .search-result-group-jumps {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    margin-right: -2px;
+  }
+
+  .search-index-page .search-result-group-jump {
+    white-space: nowrap;
+    min-height: 38px;
+  }
+
+  .search-index-page .search-fallback-actions {
+    padding: 12px;
+  }
+
+  .music-index-page .music-featured-link,
+  .music-index-page .music-featured-card:nth-child(even) .music-featured-link,
+  .photo-index-page .photo-feature-link,
+  .photo-index-page .photo-feature-card:nth-child(even) .photo-feature-link {
+    grid-template-columns: 1fr;
+  }
+
+  .music-index-page .music-featured-cover,
+  .photo-index-page .photo-feature-card img {
+    width: 100%;
+  }
+
+  .music-index-page .music-ia-controls,
+  .music-index-page .music-ia-filters {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .music-index-page .music-ia-filter {
+    width: 100%;
+  }
+
+  .research-summary-wrap {
+    padding: 18px 12px 28px;
+  }
+
+  .research-summary-sheet {
+    padding: 14px;
+    gap: 12px;
+  }
+
+  .research-summary-header h1 {
+    font-size: clamp(28px, 8.4vw, 34px);
+    line-height: 1;
+  }
+
+  .research-summary-actions {
+    justify-content: stretch;
+  }
+
+  .research-summary-actions a,
+  .research-summary-actions button {
+    min-height: 44px;
+    justify-content: center;
+    padding: 10px 12px;
+  }
+
+  .research-summary-positioning,
+  .research-summary-project p,
+  .research-summary-output-group li,
+  .research-summary-footer {
+    font-size: 12.5px;
+    line-height: 1.58;
+  }
+
+  .research-summary-block {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .policy {
+    padding-top: 20px;
+  }
+
+  .policy h1 {
+    font-size: clamp(28px, 8.8vw, 34px);
+  }
+
+  .research-page .research-project-card h3,
+  .projects-page .research-project-card h3,
+  .research-fast-link strong {
+    font-size: clamp(20px, 6.8vw, 23px);
+    line-height: 1.14;
+  }
+
+  .research-summary-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .search-index-page .search-submit {
+    width: 100%;
+  }
+
+  .search-index-page .search-result-group-jump {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+
+  .math-index-page .math-card {
+    padding: 12px 12px 13px;
+  }
+}

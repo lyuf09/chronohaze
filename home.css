@@ -1985,6 +1985,221 @@ html.menu-scroll-locked,
   }
 }
 
+/* Comprehensive home mobile polish pass 2 */
+@media (max-width: 768px) {
+  .hero-right-inner {
+    width: min(100%, 420px);
+    padding: 30px 16px 34px;
+  }
+
+  .hero-right-inner > p,
+  .hero-academic-module {
+    width: 100%;
+  }
+
+  .hero-academic-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .hero-academic-link {
+    width: 100%;
+    min-height: 40px;
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  .contact-btn {
+    width: 100%;
+    max-width: 260px;
+    margin-top: 22px;
+    justify-content: center;
+  }
+
+  .about-bg {
+    padding: 52px 16px 50px;
+  }
+
+  .about-overlay {
+    width: min(100%, 720px);
+  }
+
+  .about-overlay::before {
+    inset: -12px -14px;
+  }
+
+  .about-overlay p {
+    width: min(100%, 580px);
+    margin-top: 18px;
+  }
+
+  .now-shell {
+    padding: 20px 16px 22px;
+  }
+
+  .now-head {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "title"
+      "freshness";
+    gap: 8px;
+  }
+
+  .now-freshness {
+    justify-self: start;
+  }
+
+  .now-grid {
+    max-width: none;
+    padding-left: 28px;
+    gap: 12px;
+  }
+
+  .now-grid::before {
+    left: 10px;
+  }
+
+  .now-card::before {
+    left: -22px;
+  }
+
+  .math-grid {
+    width: 100%;
+    scroll-padding-left: 16px;
+  }
+
+  .math-grid article {
+    min-height: 360px;
+    padding: 18px 18px 16px;
+  }
+
+  .entry-card {
+    aspect-ratio: 5 / 4;
+  }
+
+  .home-footer-main {
+    gap: 18px;
+  }
+
+  .home-footer-contact p {
+    max-width: none;
+    font-size: 15px;
+    line-height: 1.45;
+  }
+
+  .home-footer-social {
+    gap: 8px;
+  }
+
+  .home-footer-policy {
+    justify-self: start;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-topbar {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    column-gap: 8px;
+  }
+
+  .home-brand {
+    max-width: 100%;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .lang-pill {
+    width: min(44vw, 154px);
+    height: 30px;
+  }
+
+  .lang-btn {
+    font-size: 10px;
+  }
+
+  .hero-left {
+    padding: 40px 14px 20px;
+  }
+
+  .hero-right-inner {
+    padding: 28px 14px 32px;
+  }
+
+  .hero-right h1 {
+    font-size: clamp(32px, 9.6vw, 38px);
+    margin-bottom: 14px;
+  }
+
+  .hero-right-inner > p {
+    font-size: 14px;
+    line-height: 1.48;
+  }
+
+  .about-overlay h2 {
+    font-size: clamp(24px, 8vw, 30px);
+  }
+
+  .about-overlay p {
+    font-size: 12.6px;
+    line-height: 1.66;
+  }
+
+  .math-section {
+    padding: 28px 14px 38px;
+  }
+
+  .math-section h2 {
+    font-size: 36px;
+    margin-bottom: 24px;
+  }
+
+  .math-grid {
+    grid-auto-columns: minmax(236px, 84vw);
+  }
+
+  .math-grid h3 {
+    font-size: 24px;
+  }
+
+  .entry-split {
+    padding: 28px 14px 42px;
+  }
+
+  .entry-card span {
+    font-size: 18px;
+  }
+
+  .now-strip {
+    padding: 0 14px;
+  }
+
+  .now-shell {
+    padding: 18px 14px 20px;
+  }
+
+  .home-footer-top {
+    padding: 10px 14px 2px;
+  }
+
+  .home-footer-col {
+    padding: 20px 14px 18px;
+  }
+
+  .home-footer-contact p {
+    font-size: 14px;
+  }
+
+  .home-footer-email,
+  .home-footer-policy a {
+    font-size: 13px;
+  }
+}
+
 @media print {
   .home-body,
   .home-page,
