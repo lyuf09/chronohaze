@@ -5,7 +5,7 @@ import argparse
 import re
 from pathlib import Path
 
-VERSION = "20260503-player-mobile-pass3"
+VERSION = "20260503-heandme-cover-fix"
 
 CRITICAL_LOADER_MARKER = "chronohaze-critical-loader-style"
 CRITICAL_LOADER_SNIPPET = """  <style id="chronohaze-critical-loader-style">

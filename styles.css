@@ -2362,6 +2362,7 @@ audio {
     var(--feature-image-url);
   background-size: cover, var(--feature-image-size, cover);
   background-position: center center, var(--feature-image-position, center center);
+  background-repeat: no-repeat, no-repeat;
 }
 
 .music-index-page .music-featured-chip {
