@@ -2355,13 +2355,13 @@ audio {
   background:
     linear-gradient(
       120deg,
-      rgba(16, 22, 34, 0.28) 0%,
-      rgba(16, 22, 34, 0.58) 56%,
-      rgba(16, 22, 34, 0.76) 100%
+      rgba(16, 22, 34, var(--feature-overlay-start, 0.28)) 0%,
+      rgba(16, 22, 34, var(--feature-overlay-mid, 0.58)) 56%,
+      rgba(16, 22, 34, var(--feature-overlay-end, 0.76)) 100%
     ),
     var(--feature-image-url);
-  background-size: cover, cover;
-  background-position: center center, center center;
+  background-size: cover, var(--feature-image-size, cover);
+  background-position: center center, var(--feature-image-position, center center);
 }
 
 .music-index-page .music-featured-chip {

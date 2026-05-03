@@ -12053,6 +12053,9 @@
         accent: "#5f76a0",
         accentSoft: "#1f2a45",
         image: "assets/template/ipomoea-alba-feature-cover.jpg",
+        overlayStart: "0",
+        overlayMid: "0",
+        overlayEnd: "0",
         copyZh:
           "雨季、白色花朵、大海、执念。Ipomoea alba在月光里开放。有些情绪并不发生在同一座城市，它们通过屏幕、时差和偶然对齐的清醒时刻缓慢生长……",
         copyEn:
@@ -12073,6 +12076,8 @@
         accent: "#d8d0bf",
         accentSoft: "#5e5b4f",
         image: "assets/template/he-and-me-cover.jpg",
+        imagePosition: "32% center",
+        imageSize: "148% auto",
         copyZh: "梦醒后还没散尽的对话",
         copyEn: "A warm white-and-pale-grey retrospective with restrained understanding.",
       },
@@ -12142,6 +12147,21 @@
         if (item.image) {
           cover.classList.add("has-image");
           cover.style.setProperty("--feature-image-url", 'url("' + item.image + '")');
+          if (item.imagePosition) {
+            cover.style.setProperty("--feature-image-position", item.imagePosition);
+          }
+          if (item.imageSize) {
+            cover.style.setProperty("--feature-image-size", item.imageSize);
+          }
+          if (item.overlayStart) {
+            cover.style.setProperty("--feature-overlay-start", item.overlayStart);
+          }
+          if (item.overlayMid) {
+            cover.style.setProperty("--feature-overlay-mid", item.overlayMid);
+          }
+          if (item.overlayEnd) {
+            cover.style.setProperty("--feature-overlay-end", item.overlayEnd);
+          }
         }
 
         var chip = document.createElement("span");
