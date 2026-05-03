@@ -13213,3 +13213,172 @@ html:lang(en) .music-album-page .album-back-link {
     font-size: 8.6px;
   }
 }
+
+/* Dedicated mobile featured layout for the music archive */
+@media (max-width: 760px) {
+  .music-index-page .music-featured {
+    gap: 10px;
+    margin: 0 0 18px;
+  }
+
+  .music-index-page .music-featured-head {
+    display: grid;
+    gap: 4px;
+    width: min(100%, 560px);
+    margin: 0 auto 2px;
+  }
+
+  .music-index-page .music-featured-title {
+    margin: 0;
+    color: rgba(31, 37, 48, 0.94);
+    font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+    font-size: clamp(18px, 6vw, 22px);
+    line-height: 1.02;
+    letter-spacing: 0.02em;
+  }
+
+  .music-index-page .music-featured-lead {
+    margin: 0;
+    color: rgba(68, 75, 89, 0.66);
+    font-size: 10.5px;
+    line-height: 1.42;
+    letter-spacing: 0.04em;
+  }
+
+  .music-index-page .music-featured-grid {
+    width: 100%;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .music-index-page .music-featured-card {
+    grid-column: auto;
+    overflow: hidden;
+    background:
+      linear-gradient(180deg, rgba(249, 250, 253, 0.92) 0%, rgba(243, 246, 251, 0.82) 100%),
+      radial-gradient(circle at 18% 16%, rgba(255, 255, 255, 0.32) 0.8px, transparent 1px);
+    box-shadow: 0 16px 32px rgba(18, 24, 32, 0.08);
+  }
+
+  .music-index-page .music-featured-card::before {
+    right: 10px;
+    top: 10px;
+    font-size: 16px;
+    color: rgba(38, 44, 58, 0.18);
+  }
+
+  .music-index-page .music-featured-card.is-hero .music-featured-link,
+  .music-index-page .music-featured-card.is-hero:nth-child(even) .music-featured-link {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .music-index-page .music-featured-card.is-hero .music-featured-cover {
+    order: 0;
+    aspect-ratio: 16 / 10.5;
+    padding: 10px;
+  }
+
+  .music-index-page .music-featured-card.is-hero .music-featured-meta {
+    order: 1;
+    gap: 6px;
+    padding: 14px 14px 13px;
+    border-left: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.24);
+  }
+
+  .music-index-page .music-featured-card.is-hero .music-featured-item-title {
+    font-size: clamp(20px, 6.8vw, 24px);
+    line-height: 1.02;
+  }
+
+  .music-index-page .music-featured-card.is-hero .music-featured-item-artist {
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+  }
+
+  .music-index-page .music-featured-card.is-hero .music-featured-item-copy {
+    font-size: 11px;
+    line-height: 1.55;
+  }
+
+  .music-index-page .music-featured-card[data-feature-kind="track"] .music-featured-link,
+  .music-index-page .music-featured-card[data-feature-kind="track"]:nth-child(even) .music-featured-link {
+    display: grid;
+    grid-template-columns: minmax(108px, 35vw) minmax(0, 1fr);
+    align-items: stretch;
+  }
+
+  .music-index-page .music-featured-card[data-feature-kind="track"] .music-featured-cover {
+    order: 0;
+    aspect-ratio: auto;
+    min-height: 132px;
+    height: 100%;
+    padding: 8px;
+  }
+
+  .music-index-page .music-featured-card[data-feature-kind="track"] .music-featured-meta {
+    order: 1;
+    align-content: center;
+    gap: 5px;
+    min-height: 132px;
+    padding: 14px 14px 12px;
+    border-left: 1px solid rgba(255, 255, 255, 0.22);
+    border-top: 0;
+    border-right: 0;
+  }
+
+  .music-index-page .music-featured-card[data-feature-kind="track"] .music-featured-item-title {
+    font-size: clamp(18px, 6.2vw, 22px);
+    line-height: 1.02;
+  }
+
+  .music-index-page .music-featured-card[data-feature-kind="track"] .music-featured-item-artist {
+    font-size: 10px;
+    letter-spacing: 0.11em;
+  }
+
+  .music-index-page .music-featured-card[data-feature-kind="track"] .music-featured-item-copy {
+    font-size: 10.5px;
+    line-height: 1.48;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+  }
+
+  .music-index-page .music-featured-chip {
+    padding: 3px 7px;
+    font-size: 8.8px;
+    letter-spacing: 0.08em;
+  }
+}
+
+@media (max-width: 480px) {
+  .music-index-page .music-featured-grid {
+    gap: 12px;
+  }
+
+  .music-index-page .music-featured-card.is-hero .music-featured-cover {
+    aspect-ratio: 16 / 10.8;
+    padding: 9px;
+  }
+
+  .music-index-page .music-featured-card.is-hero .music-featured-meta {
+    padding: 12px 12px 11px;
+  }
+
+  .music-index-page .music-featured-card[data-feature-kind="track"] .music-featured-link,
+  .music-index-page .music-featured-card[data-feature-kind="track"]:nth-child(even) .music-featured-link {
+    grid-template-columns: 102px minmax(0, 1fr);
+  }
+
+  .music-index-page .music-featured-card[data-feature-kind="track"] .music-featured-cover,
+  .music-index-page .music-featured-card[data-feature-kind="track"] .music-featured-meta {
+    min-height: 122px;
+  }
+
+  .music-index-page .music-featured-card[data-feature-kind="track"] .music-featured-meta {
+    padding: 12px 12px 11px;
+  }
+}
