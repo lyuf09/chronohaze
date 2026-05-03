@@ -13472,6 +13472,8 @@
         node.textContent = safeLang === "en" ? metaEn : metaZh;
       });
 
+      ensurePhotoDetailContactLayout(safeLang);
+
       Array.from(document.querySelectorAll(".photo-detail-article .read-more")).forEach(function (
         node
       ) {
@@ -14285,6 +14287,204 @@
     document.body.appendChild(panel);
     ensureAccessibleControlLabels();
     ensureExternalLinkTargets();
+  }
+
+  var PHOTO_DETAIL_SERIES_META = {
+    "photo/photo-07.html": {
+      seriesZh: "参照系",
+      seriesEn: "Reference Frame",
+      locationZh: "中国重庆，2023",
+      locationEn: "Chongqing, China · 2023",
+      noteZh: "晃动不是失焦，而是把城市从确定性里移开。",
+      noteEn: "Motion is not blur here, but a way of displacing the city from certainty.",
+    },
+    "photo/photo-08.html": {
+      seriesZh: "隙光",
+      seriesEn: "Slit of Light",
+      locationZh: "中国重庆，2023",
+      locationEn: "Chongqing, China · 2023",
+      noteZh: "光从缝里落下，只留下轮廓和最轻的一层心事。",
+      noteEn:
+        "Light slips through the slit, leaving only outlines and the thinnest remainder of thought.",
+    },
+    "photo/photo-10.html": {
+      seriesZh: "框景练习",
+      seriesEn: "Framing Exercise",
+      locationZh: "英国爱丁堡，2024",
+      locationEn: "Edinburgh, UK · 2024",
+      noteZh: "门洞、窗格与围栏轮流接管视线，春天被框成几何。",
+      noteEn:
+        "Doorways, windows, and railings take turns directing the eye; spring is held inside geometry.",
+    },
+    "photo/photo-11.html": {
+      seriesZh: "铁与蕨",
+      seriesEn: "Iron and Fern",
+      locationZh: "英国格拉斯哥，2023",
+      locationEn: "Glasgow, UK · 2023",
+      noteZh: "人工的骨架和潮湿的植物并排生长，像一场被控制过的季节。",
+      noteEn:
+        "Metal and fern grow side by side, like a season already touched by design.",
+    },
+    "photo/photo-13.html": {
+      seriesZh: "你的记忆",
+      seriesEn: "Memories of You",
+      locationZh: "英国爱丁堡，2025",
+      locationEn: "Edinburgh, UK · 2025",
+      noteZh: "风声和光粒先于叙述出现，记忆比说明更早抵达。",
+      noteEn: "Wind and dusted light arrive before narrative; memory enters first.",
+    },
+    "photo/photo-14.html": {
+      seriesZh: "隐入口",
+      seriesEn: "Hidden Entrance",
+      locationZh: "美国伊萨卡，2025",
+      locationEn: "Ithaca, USA · 2025",
+      noteZh: "潮湿的绿把声音吸走，入口像一段被收起的停留。",
+      noteEn:
+        "Damp greens absorb the sound; the entrance feels like a pause folded out of view.",
+    },
+  };
+
+  function getCurrentChronohazePath() {
+    return (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+  }
+
+  function ensurePhotoDetailContactLayout(lang) {
+    if (
+      !document.body ||
+      (!document.body.classList.contains("photo-detail-page") &&
+        !document.querySelector(".photo-detail-article"))
+    ) {
+      return;
+    }
+
+    var article = document.querySelector(".photo-detail-article");
+    var gallery = article ? article.querySelector(".photo-detail-gallery") : null;
+    if (!article || !gallery) {
+      return;
+    }
+
+    var safeLang = lang === "en" ? "en" : detectPreferredLanguage();
+    safeLang = safeLang === "en" ? "en" : "zh";
+
+    article.classList.add("photo-detail-article--contact-sheet");
+    gallery.classList.add("photo-detail-gallery--contact-sheet");
+
+    if (!gallery.querySelector(".photo-detail-lead-composition")) {
+      var figures = Array.from(gallery.children).filter(function (node) {
+        return node && node.classList && node.classList.contains("photo-detail-item");
+      });
+
+      if (figures.length) {
+        var leadComposition = document.createElement("div");
+        leadComposition.className = "photo-detail-lead-composition";
+
+        var heroFigure = figures.shift();
+        heroFigure.setAttribute("data-photo-slot", "hero");
+        leadComposition.appendChild(heroFigure);
+
+        if (figures.length) {
+          var sideStack = document.createElement("div");
+          sideStack.className = "photo-detail-side-stack";
+
+          var sidePrimary = figures.shift();
+          if (sidePrimary) {
+            sidePrimary.setAttribute("data-photo-slot", "stack-a");
+            sideStack.appendChild(sidePrimary);
+          }
+
+          var sideSecondary = figures.shift();
+          if (sideSecondary) {
+            sideSecondary.setAttribute("data-photo-slot", "stack-b");
+            sideStack.appendChild(sideSecondary);
+          }
+
+          if (sideStack.children.length) {
+            leadComposition.appendChild(sideStack);
+          }
+        }
+
+        gallery.appendChild(leadComposition);
+
+        if (figures.length) {
+          var contactSheet = document.createElement("div");
+          contactSheet.className = "photo-detail-contact-sheet";
+          figures.forEach(function (figure, index) {
+            figure.setAttribute("data-photo-slot", "sheet");
+            figure.setAttribute("data-photo-sheet-index", String(index + 1));
+            contactSheet.appendChild(figure);
+          });
+          gallery.appendChild(contactSheet);
+        }
+      }
+    }
+
+    var currentPath = getCurrentChronohazePath();
+    var seriesMeta = PHOTO_DETAIL_SERIES_META[currentPath] || null;
+    var hero = gallery.querySelector(
+      '.photo-detail-lead-composition .photo-detail-item[data-photo-slot="hero"]'
+    );
+
+    if (!hero) {
+      return;
+    }
+
+    var existingCaption = hero.querySelector(".photo-detail-caption");
+    if (!seriesMeta) {
+      if (existingCaption) {
+        existingCaption.remove();
+      }
+      article.classList.remove("has-photo-detail-series-note");
+      return;
+    }
+
+    article.classList.add("has-photo-detail-series-note");
+
+    var caption = existingCaption;
+    if (!caption) {
+      caption = document.createElement("figcaption");
+      caption.className = "photo-detail-caption";
+
+      var seriesNode = document.createElement("span");
+      seriesNode.className = "photo-detail-caption-series";
+      caption.appendChild(seriesNode);
+
+      var locationNode = document.createElement("span");
+      locationNode.className = "photo-detail-caption-location";
+      caption.appendChild(locationNode);
+
+      var noteNode = document.createElement("p");
+      noteNode.className = "photo-detail-caption-note";
+      caption.appendChild(noteNode);
+
+      hero.appendChild(caption);
+    }
+
+    var seriesLine = caption.querySelector(".photo-detail-caption-series");
+    var locationLine = caption.querySelector(".photo-detail-caption-location");
+    var noteLine = caption.querySelector(".photo-detail-caption-note");
+
+    if (seriesLine) {
+      seriesLine.setAttribute("data-copy-zh", seriesMeta.seriesZh);
+      seriesLine.setAttribute("data-copy-en", seriesMeta.seriesEn);
+      seriesLine.textContent = safeLang === "en" ? seriesMeta.seriesEn : seriesMeta.seriesZh;
+    }
+
+    if (locationLine) {
+      locationLine.setAttribute("data-copy-zh", seriesMeta.locationZh);
+      locationLine.setAttribute("data-copy-en", seriesMeta.locationEn);
+      locationLine.textContent =
+        safeLang === "en" ? seriesMeta.locationEn : seriesMeta.locationZh;
+    }
+
+    if (noteLine) {
+      noteLine.setAttribute("data-copy-zh", seriesMeta.noteZh);
+      noteLine.setAttribute("data-copy-en", seriesMeta.noteEn);
+      noteLine.textContent = safeLang === "en" ? seriesMeta.noteEn : seriesMeta.noteZh;
+      noteLine.hidden = !seriesMeta.noteZh;
+    }
   }
 
   function setupPhotoDetailPager() {
@@ -15667,6 +15867,7 @@
       bindFooterMetaSync,
       ensureUnifiedPageLastUpdatedBadge,
       labelPhotoOrientation,
+      ensurePhotoDetailContactLayout,
       setupPhotoDetailPager,
       ensureMusicDetailBackLink,
       ensurePersistentAudioDock,
@@ -15694,6 +15895,7 @@
     upgradePhotoImageLoadingStrategy,
     optimizeImages,
     labelPhotoOrientation,
+    ensurePhotoDetailContactLayout,
     setupArticleScrollToc,
     ensureMathPostAdjacentNavigation,
     bindCollectionLinkAnalytics,
