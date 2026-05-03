@@ -3518,8 +3518,8 @@
         ],
         mathPageTitle: "数学文章",
         mathIntro: "研究记录、实验笔记与结构化的思考。",
-        photoPageTitle: "摄影作品集",
-        photoIntro: "光的轨迹、线条的结构、人与空间的关系。",
+        photoPageTitle: "摄影 / Selected Works",
+        photoIntro: "光，结构，距离，记忆。",
         readMore: "查看更多",
         backToMusic: "返回音乐栏目",
         backToPhoto: "返回摄影栏目",
@@ -3666,14 +3666,13 @@
         ],
         mathPageTitle: "Mathematics Archive",
         mathIntro: "Research notes, experiments, and structured thoughts.",
-        photoPageTitle: "Photography Collection",
-        photoIntro:
-          "Traces of light, structures of lines, and the relation between people and space.",
+        photoPageTitle: "Photography / Selected Works",
+        photoIntro: "Light, structure, distance, memory.",
         photoLongIntroParagraphs: [
-          "Photography is one of the first creative mediums I learned in a structured way. This sunlit portrait was taken by a classmate during a photography trip at seventeen, when we visited Manchester Art Gallery.",
-          "During my A-levels, I chose Photography as one of my subjects, and it ended up being my highest-scoring one, very close to full marks. For my final project, I created an experimental short film with an improvised piano soundtrack (recorded after I sneaked into the assembly hall to use the grand piano), and the piece ultimately received full marks.",
-          "To me, photography isn’t only about capturing a moment, it’s a way of expressing structure and emotion, and it has become one of the ways I make sense of the world.",
-          "After entering university, as my focus shifted more toward coursework and research, I’ve photographed less systematically. But photography has never really left my life, I still find myself pressing the shutter in different cities, in different light, at different times, only now, it feels freer, and quieter.",
+          "Photography was one of the first creative mediums I studied in a structured way. This sunlit portrait was taken by a classmate when I was seventeen, during a photography trip to Manchester Art Gallery.",
+          "At A-level, photography became one of my formal subjects. My final project was an experimental moving-image piece scored with an improvised piano recording I made after sneaking into the assembly hall to use the grand piano; that work later received full marks.",
+          "To me, photography is not only about recording a moment. It is a way of arranging the world through light, structure, distance, and emotion.",
+          "After entering university, I photographed less systematically, but the practice never really left my life. I still find myself pressing the shutter in different cities, at different hours, under different weather, only now it feels freer and quieter.",
         ],
         readMore: "Read More",
         backToMusic: "Back to music",
@@ -13246,16 +13245,16 @@
       }
       document.title = safeLang === "en" ? "Photography | Chronohaze" : "摄影 | Chronohaze";
       setMetaTagContent('meta[name="description"]', safeLang === "en"
-        ? "Photography archive: visual notes on light, structure, and atmosphere."
-        : "摄影作品集：光线、结构与情绪的视觉记录。");
+        ? "Selected photographic series and a year-based archive: notes on light, structure, distance, and memory."
+        : "摄影精选与按年份归档：关于光、结构、距离与记忆的视觉记录。");
       setMetaTagContent('meta[property="og:title"]', safeLang === "en" ? "Photography | Chronohaze" : "摄影 | Chronohaze");
       setMetaTagContent('meta[property="og:description"]', safeLang === "en"
-        ? "Photography archive: visual notes on light, structure, and atmosphere."
-        : "摄影作品集：光线、结构与情绪的视觉记录。");
+        ? "Selected photographic series and a year-based archive: notes on light, structure, distance, and memory."
+        : "摄影精选与按年份归档：关于光、结构、距离与记忆的视觉记录。");
       setMetaTagContent('meta[name="twitter:title"]', safeLang === "en" ? "Photography | Chronohaze" : "摄影 | Chronohaze");
       setMetaTagContent('meta[name="twitter:description"]', safeLang === "en"
-        ? "Photography archive: visual notes on light, structure, and atmosphere."
-        : "摄影作品集：光线、结构与情绪的视觉记录。");
+        ? "Selected photographic series and a year-based archive: notes on light, structure, distance, and memory."
+        : "摄影精选与按年份归档：关于光、结构、距离与记忆的视觉记录。");
 
       Array.from(document.querySelectorAll(".photo-subtitle")).forEach(function (node) {
         if (node.hasAttribute("data-copy-zh") || node.hasAttribute("data-copy-en")) {
