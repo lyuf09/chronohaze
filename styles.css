@@ -2366,8 +2366,8 @@ audio {
 }
 
 .music-index-page .music-featured-card[data-feature-href="music/track-02.html"] .music-featured-cover.has-image {
-  background-size: cover, 188% auto !important;
-  background-position: center center, 0% center !important;
+  background-size: cover, 232% auto !important;
+  background-position: center center, 34% center !important;
 }
 
 .music-index-page .music-featured-chip {
