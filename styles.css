@@ -12172,3 +12172,490 @@ html:lang(en) .music-album-page .album-back-link {
   text-decoration-thickness: 2px;
   text-underline-offset: 3px;
 }
+
+/* Music detail editorial pass 2 */
+.music-detail-page .main {
+  background:
+    radial-gradient(circle at 14% 5%, rgba(255, 255, 255, 0.64) 0%, transparent 31%),
+    radial-gradient(circle at 84% 14%, rgba(151, 161, 182, 0.16) 0%, transparent 24%),
+    linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 58%,
+      rgba(244, 247, 252, 0.15) 58%,
+      rgba(244, 247, 252, 0.15) 100%
+    ),
+    linear-gradient(180deg, #d8dade 0%, #cfd2d8 31%, #c7cacf 100%);
+}
+
+.music-detail-page .music-detail-article {
+  display: grid;
+  grid-template-columns: minmax(0, 1.06fr) minmax(300px, 0.8fr);
+  column-gap: clamp(34px, 5vw, 86px);
+  row-gap: 0;
+  align-items: start;
+  padding-top: clamp(62px, 6.8vw, 98px);
+  padding-bottom: clamp(40px, 4.4vw, 66px);
+}
+
+.music-detail-page .music-detail-article > * {
+  grid-column: 1;
+  min-width: 0;
+}
+
+.music-detail-page .music-detail-article::before {
+  grid-column: 1 / -1;
+  margin-bottom: 24px;
+  color: rgba(59, 67, 82, 0.6);
+  letter-spacing: 0.36em;
+}
+
+.music-detail-page .music-detail-article::after {
+  left: 22px;
+  right: 22px;
+  top: clamp(122px, 11vw, 158px);
+  border-top-color: rgba(76, 84, 99, 0.15);
+}
+
+.music-detail-page .music-detail-back {
+  grid-column: 1 / -1;
+  margin-bottom: 22px;
+}
+
+.music-detail-page .music-detail-article h1 {
+  width: 100%;
+  max-width: 620px;
+  margin: 0 0 14px;
+  font-size: clamp(58px, 6vw, 84px);
+  line-height: 0.92;
+  letter-spacing: 0.004em;
+  font-weight: 300;
+  color: rgba(24, 30, 41, 0.96);
+  text-wrap: balance;
+}
+
+.music-detail-page .music-detail-meta {
+  width: 100%;
+  margin: 0 0 14px;
+}
+
+.music-detail-page .music-detail-article > .music-detail-meta:first-of-type {
+  grid-column: 2;
+  width: min(100%, 300px);
+  margin: 2px 0 0 auto;
+  padding: 18px 0 0 22px;
+  border-top: 1px solid rgba(74, 82, 97, 0.18);
+  border-left: 1px solid rgba(74, 82, 97, 0.18);
+  color: rgba(59, 66, 80, 0.78);
+  font-size: 11px;
+  line-height: 1.8;
+  letter-spacing: 0.17em;
+}
+
+.music-detail-page .music-detail-article > .music-detail-meta:first-of-type + .music-detail-meta {
+  width: min(100%, 560px);
+  margin-bottom: 28px;
+  color: rgba(39, 45, 55, 0.76);
+  font-size: 13.5px;
+  line-height: 1.82;
+  letter-spacing: 0.05em;
+  text-transform: none;
+}
+
+.music-detail-page .music-detail-cover,
+.music-detail-page .music-detail-cover-credit {
+  grid-column: 2;
+}
+
+.music-detail-page .music-detail-cover {
+  width: 100%;
+  margin: 2px 0 0;
+  justify-self: end;
+  border-color: rgba(255, 255, 255, 0.42);
+  padding: 10px;
+  background:
+    linear-gradient(180deg, rgba(248, 250, 254, 0.42) 0%, rgba(236, 240, 247, 0.22) 100%),
+    radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.22) 0.7px, transparent 1px);
+  box-shadow:
+    0 34px 56px rgba(19, 24, 34, 0.11),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.music-detail-page .music-detail-cover img {
+  border-color: rgba(77, 86, 104, 0.08);
+}
+
+.music-detail-page .music-detail-cover-credit {
+  width: 100%;
+  margin: 12px 0 0;
+  padding-top: 10px;
+  border-top: 1px solid rgba(71, 80, 97, 0.12);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  color: rgba(43, 48, 57, 0.48);
+}
+
+.music-detail-page .music-player-shell,
+.music-detail-page .music-detail-article audio {
+  grid-column: 1;
+  width: min(100%, 560px);
+  margin: 28px 0 18px;
+}
+
+.music-detail-page .music-player-shell {
+  position: relative;
+  overflow: hidden;
+  padding: 14px 16px 14px;
+  border: 1px solid rgba(77, 85, 100, 0.16);
+  background:
+    linear-gradient(180deg, rgba(248, 250, 254, 0.52) 0%, rgba(239, 243, 249, 0.36) 100%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.22) 0, rgba(255, 255, 255, 0) 45%);
+  box-shadow:
+    0 20px 34px rgba(17, 23, 34, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.56);
+}
+
+.music-detail-page .music-player-shell::before {
+  content: "LISTEN / PREVIEW";
+  display: block;
+  margin-bottom: 10px;
+  color: rgba(66, 74, 89, 0.62);
+  font-family: "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  font-size: 10px;
+  line-height: 1.2;
+  letter-spacing: 0.28em;
+}
+
+.music-detail-page .music-player-label {
+  margin-bottom: 10px;
+  font-size: 18px;
+  line-height: 1.12;
+  letter-spacing: 0.08em;
+  color: rgba(33, 38, 47, 0.8);
+}
+
+.music-detail-page .music-player-row {
+  gap: 9px;
+}
+
+.music-detail-page .music-player-time {
+  min-width: 92px;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+}
+
+.music-detail-page .music-player-nav {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(77, 85, 100, 0.12);
+}
+
+.music-detail-page .music-transcript-details {
+  grid-column: 2;
+  width: 100%;
+  margin: 28px 0 8px;
+  border: 1px solid rgba(70, 78, 93, 0.16);
+  border-radius: 0;
+  background:
+    linear-gradient(180deg, rgba(247, 249, 253, 0.44) 0%, rgba(238, 242, 248, 0.3) 100%);
+  box-shadow: 0 16px 30px rgba(18, 24, 35, 0.05);
+}
+
+.music-detail-page .music-transcript-summary {
+  padding: 11px 14px 12px;
+  gap: 7px;
+}
+
+.music-detail-page .music-transcript-summary-main {
+  letter-spacing: 0.06em;
+}
+
+.music-detail-page .music-transcript-caption,
+.music-detail-page .music-transcript-empty {
+  font-size: 11.5px;
+  line-height: 1.62;
+}
+
+.music-detail-page .music-transcript-nav {
+  gap: 7px;
+}
+
+.music-detail-page .music-transcript-nav-link {
+  padding: 5px 9px 6px;
+  font-size: 11.5px;
+}
+
+.music-detail-page .music-detail-article > h2 {
+  width: min(100%, 560px);
+  margin: clamp(50px, 5.5vw, 84px) 0 18px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(77, 85, 100, 0.18);
+  font-size: clamp(29px, 2.8vw, 40px);
+  line-height: 1.02;
+  letter-spacing: 0.03em;
+  font-weight: 300;
+  color: rgba(29, 35, 45, 0.92);
+  position: relative;
+}
+
+.music-detail-page .music-detail-article > h2::before {
+  content: "TEXT";
+  position: absolute;
+  top: -11px;
+  left: 0;
+  padding-right: 10px;
+  background: #d2d5db;
+  color: rgba(73, 81, 96, 0.62);
+  font-family: "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  font-size: 10px;
+  line-height: 1.2;
+  letter-spacing: 0.26em;
+}
+
+.music-detail-page .music-detail-article > h2:first-of-type::before {
+  content: "NOTES";
+}
+
+.music-detail-page .music-detail-article > h2 + p {
+  width: min(100%, 590px);
+}
+
+.music-detail-page .music-detail-article > h2:first-of-type + p {
+  font-size: clamp(17px, 1.45vw, 21px);
+  line-height: 1.96;
+  letter-spacing: 0.012em;
+  color: rgba(28, 34, 43, 0.94);
+}
+
+.music-detail-page .read-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 22px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(77, 85, 100, 0.14);
+  color: rgba(39, 46, 58, 0.74);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.music-detail-page .read-more:hover {
+  color: rgba(26, 33, 43, 0.92);
+}
+
+.music-detail-page .lyrics-showcase {
+  grid-column: 1 / -1;
+  position: relative;
+  overflow: hidden;
+  margin-top: 88px;
+  padding: clamp(90px, 8.4vw, 124px) 0 clamp(102px, 10vw, 142px);
+  box-shadow: 0 26px 52px rgba(19, 24, 35, 0.12);
+}
+
+.music-detail-page .lyrics-showcase::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 14% 16%, rgba(255, 255, 255, 0.11) 0%, transparent 24%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, transparent 34%);
+  pointer-events: none;
+}
+
+.music-detail-page .lyrics-showcase::after {
+  content: "";
+  position: absolute;
+  left: clamp(26px, 4vw, 42px);
+  right: clamp(26px, 4vw, 42px);
+  top: 34px;
+  border-top: 1px solid color-mix(in srgb, var(--lyrics-fg, rgba(233, 236, 242, 0.9)) 18%, transparent);
+  pointer-events: none;
+}
+
+.music-detail-page .lyrics-showcase-inner {
+  width: min(100%, 1140px);
+  padding: 0 clamp(28px, 4vw, 42px);
+}
+
+.music-detail-page .lyrics-showcase-inner::before {
+  margin-bottom: 26px;
+  letter-spacing: 0.32em;
+}
+
+.music-detail-page .music-detail-article .lyrics-showcase-title {
+  margin-bottom: clamp(54px, 5.8vw, 84px);
+  font-size: clamp(42px, 3.8vw, 62px);
+  line-height: 0.96;
+  letter-spacing: 0.18em;
+}
+
+.music-detail-page .lyrics-columns {
+  grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
+  gap: clamp(54px, 7vw, 140px);
+}
+
+.music-detail-page .lyrics-column-right {
+  padding-top: clamp(26px, 3vw, 48px);
+}
+
+.music-detail-page .music-detail-article .lyrics-text {
+  font-size: clamp(14px, 0.92vw, 16.5px);
+  line-height: 1.92;
+}
+
+@media (max-width: 760px) {
+  .music-detail-page .main {
+    background:
+      radial-gradient(circle at 20% 4%, rgba(255, 255, 255, 0.54) 0%, transparent 32%),
+      linear-gradient(180deg, #d7d9dd 0%, #cfd2d8 44%, #c8ccd1 100%);
+  }
+
+  .music-detail-page .music-detail-article {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+    padding-top: 32px;
+    padding-bottom: 30px;
+  }
+
+  .music-detail-page .music-detail-article::before {
+    margin-bottom: 14px;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+  }
+
+  .music-detail-page .music-detail-article::after {
+    left: 14px;
+    right: 14px;
+    top: 84px;
+  }
+
+  .music-detail-page .music-detail-article h1 {
+    max-width: none;
+    margin-bottom: 14px;
+    font-size: clamp(34px, 9vw, 42px);
+    line-height: 0.97;
+  }
+
+  .music-detail-page .music-detail-meta,
+  .music-detail-page .music-detail-cover,
+  .music-detail-page .music-detail-cover-credit,
+  .music-detail-page .music-player-shell,
+  .music-detail-page .music-detail-article audio,
+  .music-detail-page .music-transcript-details,
+  .music-detail-page .music-detail-article > h2,
+  .music-detail-page .music-detail-article > h2 + p {
+    grid-column: 1;
+    width: 100%;
+  }
+
+  .music-detail-page .music-detail-article > .music-detail-meta:first-of-type {
+    width: 100%;
+    margin: 0 0 12px;
+    padding: 10px 0 0;
+    border-left: 0;
+  }
+
+  .music-detail-page .music-detail-article > .music-detail-meta:first-of-type + .music-detail-meta {
+    margin-bottom: 18px;
+    font-size: 12.5px;
+    line-height: 1.76;
+  }
+
+  .music-detail-page .music-detail-cover {
+    margin-top: 4px;
+    padding: 7px;
+  }
+
+  .music-detail-page .music-detail-cover-credit {
+    margin-top: 8px;
+    padding-top: 8px;
+    font-size: 10px;
+  }
+
+  .music-detail-page .music-player-shell,
+  .music-detail-page .music-detail-article audio {
+    margin-top: 18px;
+    margin-bottom: 10px;
+  }
+
+  .music-detail-page .music-player-shell {
+    padding: 11px 12px 10px;
+  }
+
+  .music-detail-page .music-player-shell::before {
+    margin-bottom: 8px;
+    font-size: 8.8px;
+    letter-spacing: 0.2em;
+  }
+
+  .music-detail-page .music-player-label {
+    margin-bottom: 8px;
+    font-size: 12px;
+    line-height: 1.12;
+    letter-spacing: 0.05em;
+  }
+
+  .music-detail-page .music-transcript-details {
+    margin: 16px 0 4px;
+  }
+
+  .music-detail-page .music-detail-article > h2 {
+    margin-top: 28px;
+    margin-bottom: 12px;
+    padding-top: 10px;
+    font-size: clamp(24px, 7.2vw, 30px);
+  }
+
+  .music-detail-page .music-detail-article > h2::before {
+    top: -9px;
+    font-size: 8.8px;
+    letter-spacing: 0.18em;
+  }
+
+  .music-detail-page .music-detail-article > h2:first-of-type + p {
+    font-size: 15.2px;
+    line-height: 1.86;
+  }
+
+  .music-detail-page .read-more {
+    margin-top: 16px;
+    padding-top: 10px;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+  }
+
+  .music-detail-page .lyrics-showcase {
+    margin-top: 54px;
+    padding: 54px 0 68px;
+  }
+
+  .music-detail-page .lyrics-showcase::after {
+    left: 18px;
+    right: 18px;
+    top: 22px;
+  }
+
+  .music-detail-page .lyrics-showcase-inner {
+    padding: 0 20px;
+  }
+
+  .music-detail-page .music-detail-article .lyrics-showcase-title {
+    margin-bottom: 30px;
+    font-size: clamp(30px, 8vw, 36px);
+    line-height: 1;
+  }
+
+  .music-detail-page .lyrics-columns {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .music-detail-page .lyrics-column-right {
+    padding-top: 0;
+  }
+
+  .music-detail-page .music-detail-article .lyrics-text {
+    font-size: 13.8px;
+    line-height: 1.86;
+  }
+}
