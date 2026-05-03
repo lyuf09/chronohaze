@@ -3717,27 +3717,75 @@
     }[safeLang];
   }
 
-  function buildTrackNavigation(dict) {
-    var navData = buildTrackNavigationData();
-    var nav = document.createElement("div");
-    nav.className = "music-player-nav";
+  function createMusicDetailNavNode(text, route, direction) {
+    var href = toMusicDetailPageHref(route);
+    var node = href ? document.createElement("a") : document.createElement("span");
+    node.className = "music-detail-page-nav-link";
+    node.setAttribute("data-track-nav-dir", direction);
+    node.textContent = text;
+    if (href) {
+      node.href = href;
+    } else {
+      node.classList.add("is-disabled");
+    }
+    return node;
+  }
 
-    function createNavNode(text, route) {
-      var href = toMusicDetailPageHref(route);
-      var node = href ? document.createElement("a") : document.createElement("span");
-      node.className = "music-player-nav-link";
-      node.textContent = text;
-      if (href) {
-        node.href = href;
-      } else {
-        node.classList.add("is-disabled");
-      }
-      return node;
+  function buildMusicDetailPageNavigation(dict, options) {
+    var navData = buildTrackNavigationData();
+    var nav = document.createElement("nav");
+    nav.className = "music-detail-page-nav";
+    nav.setAttribute(
+      "aria-label",
+      detectPreferredLanguage() === "en" ? "Track navigation" : "曲目导航"
+    );
+
+    var backHref =
+      options && options.backHref ? options.backHref : "../music.html";
+    var backLabel =
+      options && options.backLabel ? options.backLabel : dict.backToMusic;
+    var backNode = document.createElement("a");
+    backNode.className = "music-detail-page-nav-link is-back";
+    backNode.setAttribute("data-track-nav-dir", "back");
+    backNode.href = backHref;
+    backNode.textContent = backLabel;
+
+    nav.appendChild(createMusicDetailNavNode(dict.playerPrev, navData.prevRoute, "prev"));
+    nav.appendChild(backNode);
+    nav.appendChild(createMusicDetailNavNode(dict.playerNext, navData.nextRoute, "next"));
+    return nav;
+  }
+
+  function ensureMusicDetailPageNavigation(dict) {
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
     }
 
-    nav.appendChild(createNavNode(dict.playerPrev, navData.prevRoute));
-    nav.appendChild(createNavNode(dict.playerNext, navData.nextRoute));
-    return nav;
+    var article = document.querySelector(".music-detail-article");
+    if (!article || article.querySelector(".music-detail-page-nav")) {
+      return;
+    }
+
+    var existingBackLink = article.querySelector("a.read-more[href]");
+    var backHref = existingBackLink
+      ? existingBackLink.getAttribute("href") || "../music.html"
+      : "../music.html";
+    var backLabel = existingBackLink
+      ? (existingBackLink.textContent || "").trim() || dict.backToMusic
+      : dict.backToMusic;
+    var nav = buildMusicDetailPageNavigation(dict, {
+      backHref: backHref,
+      backLabel: backLabel,
+    });
+
+    if (existingBackLink) {
+      var host = existingBackLink.closest("p") || existingBackLink;
+      host.insertAdjacentElement("beforebegin", nav);
+      host.remove();
+      return;
+    }
+
+    article.appendChild(nav);
   }
 
   window.ChronohazeShared = window.ChronohazeShared || {};
@@ -4621,6 +4669,7 @@
       document.querySelectorAll(".music-detail-article audio")
     );
     var dict = getSecondaryPageDictionary(detectPreferredLanguage());
+    ensureMusicDetailPageNavigation(dict);
     ensurePersistentAudioDock();
 
     players.forEach(function (audio) {
@@ -4687,7 +4736,6 @@
       row.appendChild(timeLabel);
       shell.appendChild(label);
       shell.appendChild(row);
-      shell.appendChild(buildTrackNavigation(dict));
       audio.insertAdjacentElement("afterend", shell);
 
       function isCurrentPersistentTrack() {
