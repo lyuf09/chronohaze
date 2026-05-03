@@ -12076,8 +12076,9 @@
         accent: "#d8d0bf",
         accentSoft: "#5e5b4f",
         image: "assets/template/he-and-me-cover.jpg",
-        imagePosition: "20% center",
-        imageSize: "cover",
+        useInlineArt: true,
+        artPosition: "40% center",
+        artScale: "1.18",
         copyZh: "梦醒后还没散尽的对话",
         copyEn: "A warm white-and-pale-grey retrospective with restrained understanding.",
       },
@@ -12145,22 +12146,39 @@
         cover.style.setProperty("--feature-accent", item.accent);
         cover.style.setProperty("--feature-accent-soft", item.accentSoft);
         if (item.image) {
-          cover.classList.add("has-image");
-          cover.style.setProperty("--feature-image-url", 'url("' + item.image + '")');
-          if (item.imagePosition) {
-            cover.style.setProperty("--feature-image-position", item.imagePosition);
-          }
-          if (item.imageSize) {
-            cover.style.setProperty("--feature-image-size", item.imageSize);
-          }
-          if (item.overlayStart) {
-            cover.style.setProperty("--feature-overlay-start", item.overlayStart);
-          }
-          if (item.overlayMid) {
-            cover.style.setProperty("--feature-overlay-mid", item.overlayMid);
-          }
-          if (item.overlayEnd) {
-            cover.style.setProperty("--feature-overlay-end", item.overlayEnd);
+          if (item.useInlineArt) {
+            cover.classList.add("has-inline-art");
+            var art = document.createElement("img");
+            art.className = "music-featured-cover-art";
+            art.src = item.image;
+            art.alt = "";
+            art.decoding = "async";
+            art.loading = item.kind === "album" ? "eager" : "lazy";
+            if (item.artPosition) {
+              art.style.objectPosition = item.artPosition;
+            }
+            if (item.artScale) {
+              art.style.transform = "scale(" + item.artScale + ")";
+            }
+            cover.appendChild(art);
+          } else {
+            cover.classList.add("has-image");
+            cover.style.setProperty("--feature-image-url", 'url("' + item.image + '")');
+            if (item.imagePosition) {
+              cover.style.setProperty("--feature-image-position", item.imagePosition);
+            }
+            if (item.imageSize) {
+              cover.style.setProperty("--feature-image-size", item.imageSize);
+            }
+            if (item.overlayStart) {
+              cover.style.setProperty("--feature-overlay-start", item.overlayStart);
+            }
+            if (item.overlayMid) {
+              cover.style.setProperty("--feature-overlay-mid", item.overlayMid);
+            }
+            if (item.overlayEnd) {
+              cover.style.setProperty("--feature-overlay-end", item.overlayEnd);
+            }
           }
         }
 
