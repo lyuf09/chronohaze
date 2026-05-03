@@ -12074,15 +12074,6 @@
         copyZh: "梦醒后还没散尽的对话",
         copyEn: "A warm white-and-pale-grey retrospective with restrained understanding.",
       },
-      {
-        href: "music/track-20.html",
-        kind: "track",
-        accent: "#275088",
-        accentSoft: "#131f3a",
-        image: "assets/template/supernova-cover.jpg",
-        copyZh: "深蓝、膨胀与内部坍缩",
-        copyEn: "Cosmic deep-blue mixed-meter tension: eruption, expansion, collapse.",
-      },
     ];
     var rowByHref = Object.create(null);
     rows.forEach(function (row) {
