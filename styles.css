@@ -11461,6 +11461,90 @@ html:lang(en) .music-album-page .album-back-link {
   }
 }
 
+@media (max-width: 760px) {
+  .music-detail-page .music-player-shell {
+    width: min(100%, 304px);
+    margin: 14px auto 18px;
+    padding: 9px 10px 9px;
+  }
+
+  .music-detail-page .music-player-label {
+    margin-bottom: 6px;
+    font-size: 12px;
+    line-height: 1.18;
+    letter-spacing: 0.08em;
+  }
+
+  .music-detail-page .music-player-row {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 7px;
+  }
+
+  .music-detail-page .music-player-play {
+    --music-player-icon-size: 9px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .music-detail-page .music-player-scrubber {
+    height: 2px;
+  }
+
+  .music-detail-page .music-player-scrubber::-webkit-slider-thumb {
+    width: 8px;
+    height: 8px;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.72);
+  }
+
+  .music-detail-page .music-player-scrubber::-moz-range-thumb {
+    width: 8px;
+    height: 8px;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.72);
+  }
+
+  .music-detail-page .music-player-time {
+    margin-top: 2px;
+    font-size: 9.5px;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+
+  .music-detail-page .music-player-nav {
+    justify-content: flex-start;
+    gap: 12px;
+    margin-top: 12px;
+  }
+
+  .music-detail-page .music-player-nav-link {
+    min-height: 0;
+    font-size: 10px;
+    letter-spacing: 0.03em;
+  }
+}
+
+@media (max-width: 480px) {
+  .music-detail-page .music-player-shell {
+    width: min(100%, 288px);
+    padding: 8px 9px 8px;
+  }
+
+  .music-detail-page .music-player-label {
+    font-size: 11.5px;
+  }
+
+  .music-detail-page .music-player-time {
+    font-size: 9px;
+  }
+
+  .music-detail-page .music-player-nav {
+    gap: 10px;
+  }
+
+  .music-detail-page .music-player-nav-link {
+    font-size: 9.5px;
+  }
+}
+
 @media (hover: none) and (pointer: coarse) {
   .music-index-page .track-row:hover,
   .math-index-page .math-card:hover,
