@@ -13165,15 +13165,35 @@
       if (photoIntro) {
         photoIntro.textContent = dict.photoIntro;
       }
+      if (photoLongIntroNodes.length) {
+        photoLongIntroNodes.forEach(function (node) {
+          if (!node.hasAttribute("data-photo-intro-zh")) {
+            node.setAttribute("data-photo-intro-zh", node.textContent);
+          }
+        });
+      }
       if (
-        safeLang === "en" &&
         Array.isArray(dict.photoLongIntroParagraphs) &&
         photoLongIntroNodes.length
       ) {
         photoLongIntroNodes.forEach(function (node, index) {
-          if (dict.photoLongIntroParagraphs[index]) {
-            node.textContent = dict.photoLongIntroParagraphs[index];
+          if (safeLang === "en") {
+            if (dict.photoLongIntroParagraphs[index]) {
+              node.textContent = dict.photoLongIntroParagraphs[index];
+              node.hidden = false;
+              node.removeAttribute("aria-hidden");
+            } else {
+              node.hidden = true;
+              node.setAttribute("aria-hidden", "true");
+            }
+            return;
           }
+          var originalZh = node.getAttribute("data-photo-intro-zh");
+          if (originalZh) {
+            node.textContent = originalZh;
+          }
+          node.hidden = false;
+          node.removeAttribute("aria-hidden");
         });
       }
       document.title = safeLang === "en" ? "Photography | Chronohaze" : "摄影 | Chronohaze";
