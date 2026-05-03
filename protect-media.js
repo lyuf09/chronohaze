@@ -3459,9 +3459,26 @@
         a11y: "无障碍支持",
         footerContactLead: "辗转不同国家无固定号码 请联系邮箱：",
         footerCities: "重庆 · Edinburgh · Ithaca",
-        musicPageTitle: "音乐作品集",
-        musicIntro: "声音的纹理、情绪的回声、在时间里缓慢成形的片段。",
-        musicLead: "仅收录 21 年开始的部分作品（我需要脸面）",
+        musicPageTitle: "音乐 / Listening Room",
+        musicIntro: "写在雨、低频和未被解决的时间里的歌。",
+        musicLead: "",
+        musicFeaturedAlbumTitle: "Featured Album",
+        musicFeaturedAlbumLead: "先听主推专辑，再读它留下的 liner notes。",
+        musicSelectedTitle: "Selected Tracks",
+        musicSelectedLead: "先保留几首更像入口的歌，其余收进后面的归档。",
+        musicSoundWorldTitle: "Sound World",
+        musicSoundWorldLead: "不是履历，而是声音里反复出现的气候、结构与未决情绪。",
+        musicArchiveTitle: "Archive",
+        musicArchiveLead: "其余作品作为较冷淡的索引留在后面。",
+        musicArchiveCollectionTitle: "Collections",
+        musicArchiveTrackTitle: "Archive by Year",
+        musicStatusListen: "试听",
+        musicStatusNotes: "手记",
+        musicStatusUnreleased: "未完成",
+        musicStatusWip: "重制中",
+        musicWorldParagraphOne: "我的音乐通常写在前卫核、日系摇滚和私人日记的缝隙之间。",
+        musicWorldParagraphTwo: "雨夜、延迟的消息、低频结构、白色夜花，以及那些没有被说出口的情绪，会反复回到声音里。",
+        musicWorldMotifs: ["雨", "夜", "低频", "白色夜花", "未发出的消息"],
         musicSectionFeaturedTitle: "Featured（精选）",
         musicSectionFeaturedLead: "专辑主线与代表作入口",
         musicFeatureAlbumLabel: "精选专辑",
@@ -3606,10 +3623,29 @@
         footerContactLead:
           "No fixed phone number while moving across countries. Contact by email:",
         footerCities: "Chongqing · Edinburgh · Ithaca",
-        musicPageTitle: "Music Collection",
+        musicPageTitle: "Music / Listening Room",
         musicIntro:
-          "Textures of sound, echoes of emotion, fragments shaped slowly in time.",
-        musicLead: "Selected works since 2021 (I need dignity).",
+          "Songs written through rain, low frequencies, and unresolved time.",
+        musicLead: "",
+        musicFeaturedAlbumTitle: "Featured Album",
+        musicFeaturedAlbumLead: "Start with the central record, then read the liner notes it leaves behind.",
+        musicSelectedTitle: "Selected Tracks",
+        musicSelectedLead: "A few songs kept upfront as entry points; the rest fall back into the archive.",
+        musicSoundWorldTitle: "Sound World",
+        musicSoundWorldLead: "Not a resume, but the climate, structure, and unresolved feeling the music keeps returning to.",
+        musicArchiveTitle: "Archive",
+        musicArchiveLead: "The rest of the catalog remains as a colder, quieter index.",
+        musicArchiveCollectionTitle: "Collections",
+        musicArchiveTrackTitle: "Archive by Year",
+        musicStatusListen: "Listen",
+        musicStatusNotes: "Notes",
+        musicStatusUnreleased: "Unreleased",
+        musicStatusWip: "WIP",
+        musicWorldParagraphOne:
+          "My music sits somewhere between progressive metalcore, Japanese rock, and private diary fragments.",
+        musicWorldParagraphTwo:
+          "I write through rain, night, delayed messages, low-frequency architecture, and white flowers that only open after dark.",
+        musicWorldMotifs: ["Rain", "Night", "Low frequencies", "White flowers", "Delayed messages"],
         musicSectionFeaturedTitle: "Featured",
         musicSectionFeaturedLead: "Album core and representative tracks",
         musicFeatureAlbumLabel: "Featured album",
@@ -12804,6 +12840,463 @@
       });
   }
 
+  function setupMusicIndexListeningRoom() {
+    if (!document.body || !document.body.classList.contains("music-index-page")) {
+      return;
+    }
+
+    var rootSection = document.querySelector(".music-index-page .section");
+    var sourceList = document.querySelector(".music-index-page .section .music-list");
+    if (!rootSection || !sourceList) {
+      return;
+    }
+
+    var preferredLang = detectPreferredLanguage();
+    var lang = preferredLang === "en" ? "en" : "zh";
+    var dict = getSecondaryPageDictionary(preferredLang);
+    var rows = Array.from(sourceList.querySelectorAll(".track-row"));
+    if (!rows.length) {
+      return;
+    }
+
+    var featuredAlbum = {
+      href: "music/album-ipomoea-alba.html",
+      image: "assets/template/ipomoea-alba-album-cover.jpg",
+      eyebrowZh: "主推专辑",
+      eyebrowEn: "Featured album",
+      summaryZh: "雨、海、深蓝色的执念。",
+      summaryEn: "Rain, sea, and a deep-blue persistence.",
+      quoteZh: "不再追问，不再逼近，不再用结局证明意义。",
+      quoteEn: "No more pressing for an ending to prove meaning.",
+      detailZh: "15 首曲目 · 专辑页",
+      detailEn: "15 tracks · album page",
+    };
+
+    var selectedTracks = [
+      {
+        href: "music/track-04.html",
+        image: "assets/template/affizieren-cover.jpg",
+        position: "100% center",
+        tagsZh: ["前卫核", "情绪张力", "蓝灰"],
+        tagsEn: ["progressive", "emotional", "blue-grey"],
+        noteZh: "被雨打碎的愿景，秋天与深蓝灰白的涨潮。",
+        noteEn: "A blue-grey surge after rain-shattered visions.",
+      },
+      {
+        href: "music/track-02.html",
+        image: "assets/template/he-and-me-cover.jpg",
+        position: "78% center",
+        tagsZh: ["叙事", "未决", "私密"],
+        tagsEn: ["narrative", "unresolved", "intimate"],
+        noteZh: "梦醒后还没散尽的对话，理解并不等于和解。",
+        noteEn: "A conversation still hanging in the room after waking.",
+      },
+      {
+        href: "music/track-12.html",
+        image: "assets/template/rainy-days-art.png",
+        position: "center center",
+        tagsZh: ["夏雨", "记忆", "距离"],
+        tagsEn: ["summer rain", "memory", "distance"],
+        noteZh: "夏雨之后，空白早晨仍然留着湿气。",
+        noteEn: "Summer rain, distance, and a morning still left damp.",
+      },
+      {
+        href: "music/track-06.html",
+        image: "assets/template/mr-idiographic-art.png",
+        position: "center center",
+        tagsZh: ["身份", "断裂", "私人语言"],
+        tagsEn: ["identity", "fracture", "private language"],
+        noteZh: "身份、断裂与一种克制的试探。",
+        noteEn: "Identity, fracture, and a question asked too softly.",
+      },
+      {
+        href: "music/track-orchid.html",
+        image: "assets/images/music/orchid/orchid-art-01.jpg",
+        position: "center center",
+        tagsZh: ["新制作", "重制中", "夜花"],
+        tagsEn: ["new production", "WIP", "night flower"],
+        noteZh: "新一轮制作与重混，夜花、焦灼与自持。",
+        noteEn: "Under reconstruction: night flowers, pressure, and self-restraint.",
+      },
+    ];
+
+    var excludedHrefs = Object.create(null);
+    excludedHrefs[normalizeMusicCatalogHref(featuredAlbum.href)] = true;
+    selectedTracks.forEach(function (item) {
+      excludedHrefs[normalizeMusicCatalogHref(item.href)] = true;
+    });
+
+    function textFor(zhValue, enValue) {
+      return lang === "en" ? enValue : zhValue;
+    }
+
+    function createElement(tagName, className, text) {
+      var node = document.createElement(tagName);
+      if (className) {
+        node.className = className;
+      }
+      if (typeof text === "string") {
+        node.textContent = text;
+      }
+      return node;
+    }
+
+    function collapseDisplayText(value) {
+      return String(value || "").replace(/\s+/g, " ").trim();
+    }
+
+    function buildSectionHead(kicker, title, lead) {
+      var head = createElement("div", "music-room-section-head");
+      if (kicker) {
+        head.appendChild(createElement("span", "music-room-section-kicker", kicker));
+      }
+      if (title) {
+        head.appendChild(createElement("h2", "music-room-section-title", title));
+      }
+      if (lead) {
+        head.appendChild(createElement("p", "music-room-section-lead", lead));
+      }
+      return head;
+    }
+
+    function getRowMeta(row) {
+      var href = normalizeMusicCatalogHref(row.getAttribute("data-href") || "");
+      var catalogItem = getMusicCatalogForRowHref(href) || null;
+      var titleNode = row.querySelector(".track-title");
+      var artistNode = row.querySelector(".track-artist");
+      var dateNode = row.querySelector(".track-date");
+      var rawTitle = titleNode ? titleNode.textContent || "" : "";
+      var rawArtist = artistNode ? artistNode.textContent || "" : "";
+      var rawDate = dateNode ? dateNode.textContent || "" : "";
+      var type =
+        (catalogItem && catalogItem.type) ||
+        row.dataset.musicType ||
+        inferMusicRowType(row, rawTitle);
+      var hasAudio =
+        catalogItem && typeof catalogItem.has_audio === "boolean"
+          ? !!catalogItem.has_audio
+          : !/音频待上传|audio pending upload/i.test(rawTitle);
+      return {
+        row: row,
+        href: href,
+        type: type,
+        hasAudio: hasAudio,
+        year:
+          (catalogItem && String(catalogItem.year || "").trim()) ||
+          row.dataset.musicYear ||
+          parseMusicRowYear(row) ||
+          "",
+        date: collapseDisplayText((catalogItem && catalogItem.date) || rawDate),
+        title: collapseDisplayText(rawTitle),
+        artist: collapseDisplayText(rawArtist),
+      };
+    }
+
+    function applyArchiveStatus(row, meta) {
+      var tagsWrap = row.querySelector(".track-tags");
+      if (tagsWrap) {
+        tagsWrap.remove();
+      }
+
+      row.classList.remove(
+        "track-row-pending",
+        "track-row-listen",
+        "track-row-notes",
+        "track-row-unreleased",
+        "track-row-wip"
+      );
+
+      stripPendingAudioMarkerFromTitle(row.querySelector(".track-title"));
+
+      var statusKey = "";
+      var statusLabel = "";
+      if (meta.type === "album") {
+        statusKey = "notes";
+        statusLabel = dict.musicStatusNotes || textFor("手记", "Notes");
+        row.classList.add("track-row-notes");
+      } else if (!meta.hasAudio) {
+        statusKey = "unreleased";
+        statusLabel = dict.musicStatusUnreleased || textFor("未完成", "Unreleased");
+        row.classList.add("track-row-unreleased");
+      } else {
+        statusKey = "listen";
+        statusLabel = dict.musicStatusListen || textFor("试听", "Listen");
+        row.classList.add("track-row-listen");
+      }
+
+      ensureMusicRowStatusBadge(row, statusKey, statusLabel);
+      row.dataset.roomStatus = statusKey;
+      row.dataset.musicType = meta.type;
+      row.dataset.musicYear = meta.year;
+    }
+
+    function buildFeaturedAlbum(rowMeta, blueprint) {
+      var section = createElement("section", "music-room-featured");
+      section.appendChild(
+        buildSectionHead(
+          textFor("FEATURED", "FEATURED"),
+          dict.musicFeaturedAlbumTitle || textFor("Featured Album", "Featured Album"),
+          dict.musicFeaturedAlbumLead ||
+            textFor("先听主推专辑，再读它留下的 liner notes。", "Start with the central record, then read the liner notes it leaves behind.")
+        )
+      );
+
+      var article = createElement("article", "music-room-album");
+      var link = createElement("a", "music-room-album-link");
+      link.href = blueprint.href;
+
+      var cover = createElement("span", "music-room-album-cover");
+      var image = document.createElement("img");
+      image.src = blueprint.image;
+      image.alt = rowMeta.title;
+      image.loading = "eager";
+      image.decoding = "async";
+      cover.appendChild(image);
+
+      var meta = createElement("div", "music-room-album-meta");
+      meta.appendChild(
+        createElement(
+          "span",
+          "music-room-badge",
+          textFor(blueprint.eyebrowZh, blueprint.eyebrowEn)
+        )
+      );
+      meta.appendChild(createElement("h3", "music-room-album-title", rowMeta.title));
+      meta.appendChild(
+        createElement(
+          "p",
+          "music-room-album-detail",
+          textFor(blueprint.detailZh, blueprint.detailEn)
+        )
+      );
+      meta.appendChild(
+        createElement(
+          "p",
+          "music-room-album-summary",
+          textFor(blueprint.summaryZh, blueprint.summaryEn)
+        )
+      );
+      meta.appendChild(
+        createElement(
+          "p",
+          "music-room-album-quote",
+          textFor(blueprint.quoteZh, blueprint.quoteEn)
+        )
+      );
+
+      link.appendChild(cover);
+      link.appendChild(meta);
+      article.appendChild(link);
+      section.appendChild(article);
+      return section;
+    }
+
+    function buildSelectedTracks(rowMetaMap, blueprints) {
+      var section = createElement("section", "music-room-selected");
+      section.appendChild(
+        buildSectionHead(
+          textFor("SELECTED", "SELECTED"),
+          dict.musicSelectedTitle || textFor("Selected Tracks", "Selected Tracks"),
+          dict.musicSelectedLead ||
+            textFor(
+              "先保留几首更像入口的歌，其余收进后面的归档。",
+              "A few songs kept upfront as entry points; the rest fall back into the archive."
+            )
+        )
+      );
+
+      var grid = createElement("div", "music-room-selected-grid");
+
+      blueprints.forEach(function (item) {
+        var rowMeta = rowMetaMap[normalizeMusicCatalogHref(item.href)];
+        if (!rowMeta) {
+          return;
+        }
+
+        var card = createElement("article", "music-room-track-card");
+        var link = createElement("a", "music-room-track-link");
+        link.href = item.href;
+
+        var cover = createElement("span", "music-room-track-cover");
+        var img = document.createElement("img");
+        img.src = item.image;
+        img.alt = rowMeta.title;
+        img.loading = "lazy";
+        img.decoding = "async";
+        if (item.position) {
+          img.style.objectPosition = item.position;
+        }
+        cover.appendChild(img);
+
+        var meta = createElement("span", "music-room-track-meta");
+        meta.appendChild(createElement("strong", "music-room-track-title", rowMeta.title));
+        meta.appendChild(createElement("span", "music-room-track-artist", rowMeta.artist));
+
+        var tags = createElement("span", "music-room-track-tags");
+        (lang === "en" ? item.tagsEn : item.tagsZh).forEach(function (tag) {
+          tags.appendChild(createElement("span", "music-room-track-tag", tag));
+        });
+        meta.appendChild(tags);
+        meta.appendChild(
+          createElement(
+            "span",
+            "music-room-track-note",
+            textFor(item.noteZh, item.noteEn)
+          )
+        );
+
+        link.appendChild(cover);
+        link.appendChild(meta);
+        card.appendChild(link);
+        grid.appendChild(card);
+      });
+
+      section.appendChild(grid);
+      return section;
+    }
+
+    function buildSoundWorld() {
+      var section = createElement("section", "music-room-world");
+      section.appendChild(
+        buildSectionHead(
+          textFor("SOUND WORLD", "SOUND WORLD"),
+          dict.musicSoundWorldTitle || textFor("Sound World", "Sound World"),
+          dict.musicSoundWorldLead ||
+            textFor(
+              "不是履历，而是声音里反复出现的气候、结构与未决情绪。",
+              "Not a resume, but the climate, structure, and unresolved feeling the music keeps returning to."
+            )
+        )
+      );
+
+      var body = createElement("div", "music-room-world-body");
+      body.appendChild(
+        createElement(
+          "p",
+          "music-room-world-lead",
+          dict.musicWorldParagraphOne || ""
+        )
+      );
+      body.appendChild(
+        createElement(
+          "p",
+          "music-room-world-copy",
+          dict.musicWorldParagraphTwo || ""
+        )
+      );
+
+      var motifs = createElement("div", "music-room-world-motifs");
+      var motifList = Array.isArray(dict.musicWorldMotifs) ? dict.musicWorldMotifs : [];
+      motifList.forEach(function (item) {
+        motifs.appendChild(createElement("span", "music-room-world-motif", item));
+      });
+      body.appendChild(motifs);
+      section.appendChild(body);
+      return section;
+    }
+
+    function buildArchive(rowMetaMap) {
+      var section = createElement("section", "music-room-archive");
+      section.appendChild(
+        buildSectionHead(
+          textFor("ARCHIVE", "ARCHIVE"),
+          dict.musicArchiveTitle || textFor("Archive", "Archive"),
+          dict.musicArchiveLead ||
+            textFor("其余作品作为较冷淡的索引留在后面。", "The rest of the catalog remains as a colder, quieter index.")
+        )
+      );
+
+      var stack = createElement("div", "music-room-archive-stack");
+      var albumMetas = [];
+      var singleMetas = [];
+
+      rows.forEach(function (row) {
+        var meta = rowMetaMap[normalizeMusicCatalogHref(row.getAttribute("data-href") || "")];
+        if (!meta || excludedHrefs[meta.href]) {
+          return;
+        }
+        applyArchiveStatus(row, meta);
+        if (meta.type === "album") {
+          albumMetas.push(meta);
+        } else {
+          singleMetas.push(meta);
+        }
+      });
+
+      function buildArchiveGroup(titleText) {
+        var group = createElement("section", "music-room-archive-group");
+        var head = createElement("div", "music-room-archive-group-head");
+        head.appendChild(createElement("h3", "music-room-archive-group-title", titleText));
+        var list = createElement("div", "music-room-archive-list");
+        group.appendChild(head);
+        group.appendChild(list);
+        return { group: group, list: list };
+      }
+
+      if (albumMetas.length) {
+        var albumGroup = buildArchiveGroup(
+          dict.musicArchiveCollectionTitle || textFor("Collections", "Collections")
+        );
+        albumMetas.forEach(function (meta) {
+          albumGroup.list.appendChild(meta.row);
+        });
+        stack.appendChild(albumGroup.group);
+      }
+
+      var yearOrder = [];
+      var yearMap = Object.create(null);
+      singleMetas.forEach(function (meta) {
+        var year = String(meta.year || "").trim() || "Unknown";
+        if (!yearMap[year]) {
+          yearMap[year] = [];
+          yearOrder.push(year);
+        }
+        yearMap[year].push(meta);
+      });
+
+      yearOrder.sort(function (a, b) {
+        if (a === "Unknown") {
+          return 1;
+        }
+        if (b === "Unknown") {
+          return -1;
+        }
+        return Number(b) - Number(a);
+      });
+
+      yearOrder.forEach(function (year) {
+        var yearGroup = buildArchiveGroup(year === "Unknown" ? dict.musicYearUnknown : year);
+        yearMap[year].forEach(function (meta) {
+          yearGroup.list.appendChild(meta.row);
+        });
+        stack.appendChild(yearGroup.group);
+      });
+
+      section.appendChild(stack);
+      return section;
+    }
+
+    var rowMetaMap = Object.create(null);
+    rows.forEach(function (row) {
+      var meta = getRowMeta(row);
+      if (meta.href) {
+        rowMetaMap[meta.href] = meta;
+      }
+    });
+
+    var shell = createElement("div", "container music-room-shell");
+    var featuredMeta = rowMetaMap[normalizeMusicCatalogHref(featuredAlbum.href)];
+    if (featuredMeta) {
+      shell.appendChild(buildFeaturedAlbum(featuredMeta, featuredAlbum));
+    }
+    shell.appendChild(buildSelectedTracks(rowMetaMap, selectedTracks));
+    shell.appendChild(buildSoundWorld());
+    shell.appendChild(buildArchive(rowMetaMap));
+
+    rootSection.textContent = "";
+    rootSection.appendChild(shell);
+  }
+
   function setSamePageLanguageInUrl(lang) {
     var safeLang = lang === "en" ? "en" : "zh";
     var url = new URL(window.location.href);
@@ -13154,7 +13647,7 @@
         var href = String(link.getAttribute("href") || "").toLowerCase();
         if (/album-ipomoea-alba\.html(?:$|[?#])/.test(href)) {
           link.textContent =
-            safeLang === "en" ? "14 tracks · Album page" : "14 首曲目 · 专辑页";
+            safeLang === "en" ? "15 tracks · Album page" : "15 首曲目 · 专辑页";
           return;
         }
         if (/album-teenage-best\.html(?:$|[?#])/.test(href)) {
@@ -13165,7 +13658,40 @@
         }
       });
 
-      document.title = safeLang === "en" ? "Music | Chronohaze" : "音乐 | Chronohaze";
+      document.title =
+        safeLang === "en"
+          ? "Music / Listening Room | Chronohaze"
+          : "音乐 / Listening Room | Chronohaze";
+      setMetaTagContent(
+        'meta[name="description"]',
+        safeLang === "en"
+          ? "A music listening room: featured album, selected tracks, sound world, and a quieter archive."
+          : "音乐 listening room：主推专辑、精选曲目、声音世界与较冷淡的归档索引。"
+      );
+      setMetaTagContent(
+        'meta[property="og:title"]',
+        safeLang === "en"
+          ? "Music / Listening Room | Chronohaze"
+          : "音乐 / Listening Room | Chronohaze"
+      );
+      setMetaTagContent(
+        'meta[property="og:description"]',
+        safeLang === "en"
+          ? "A music listening room: featured album, selected tracks, sound world, and a quieter archive."
+          : "音乐 listening room：主推专辑、精选曲目、声音世界与较冷淡的归档索引。"
+      );
+      setMetaTagContent(
+        'meta[name="twitter:title"]',
+        safeLang === "en"
+          ? "Music / Listening Room | Chronohaze"
+          : "音乐 / Listening Room | Chronohaze"
+      );
+      setMetaTagContent(
+        'meta[name="twitter:description"]',
+        safeLang === "en"
+          ? "A music listening room: featured album, selected tracks, sound world, and a quieter archive."
+          : "音乐 listening room：主推专辑、精选曲目、声音世界与较冷淡的归档索引。"
+      );
     }
 
     if (document.body.classList.contains("music-album-page")) {
@@ -15853,7 +16379,7 @@
       injectFloatingSiteLogo,
       injectFloatingLanguageSwitch,
     ],
-    pageArchitecture: [setupMusicIndexArchitecture],
+    pageArchitecture: [setupMusicIndexListeningRoom],
     mediaAndProtection: [
       protectAllMedia,
       optimizeMediaLoading,
