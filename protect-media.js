@@ -12053,8 +12053,10 @@
         accent: "#5f76a0",
         accentSoft: "#1f2a45",
         image: "assets/template/ipomoea-alba-feature-cover.jpg",
-        copyZh: "雨季、白色花朵、大海、执念",
-        copyEn: "Album axis of rain, sea, deep-blue persistence, and time slices.",
+        copyZh:
+          "雨季、白色花朵、大海、执念。Ipomoea alba在月光里开放。有些情绪并不发生在同一座城市，它们通过屏幕、时差和偶然对齐的清醒时刻缓慢生长……",
+        copyEn:
+          "Rain, white flowers, sea, deep-blue persistence. Ipomoea alba blooms in moonlight; some feelings grow slowly across screens, distance, and misaligned time…",
       },
       {
         href: "music/track-04.html",
