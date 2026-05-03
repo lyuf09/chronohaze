@@ -1339,11 +1339,14 @@ audio {
 }
 
 .photo-index-page .main {
-  background: linear-gradient(180deg, #d7d8db 0%, #cfd1d6 100%);
+  background:
+    radial-gradient(circle at 14% 6%, rgba(255, 255, 255, 0.64) 0%, transparent 30%),
+    radial-gradient(circle at 86% 16%, rgba(157, 169, 191, 0.22) 0%, transparent 28%),
+    linear-gradient(180deg, #dddde0 0%, #d5d6db 24%, #cbcdd3 100%);
 }
 
 .photo-index-page .photo-hero {
-  padding: 18px 0 6px;
+  padding: 22px 0 4px;
 }
 
 .photo-index-page .photo-hero-inner {
@@ -1352,65 +1355,87 @@ audio {
 }
 
 .photo-index-page .photo-hero img {
-  width: min(100%, 980px);
+  width: min(100%, 1040px);
   height: auto;
   display: block;
   border-radius: 0;
-  filter: saturate(0.98) contrast(1.02);
+  filter: saturate(0.92) contrast(1.05) brightness(1.01);
+  box-shadow: 0 26px 56px rgba(18, 23, 31, 0.12);
 }
 
 .photo-index-page .page-head {
-  padding: 44px 0 24px;
+  padding: 56px 0 30px;
   border-bottom: 0;
-  text-align: center;
+  text-align: left;
+}
+
+.photo-index-page .page-head .container {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 300px);
+  gap: 22px 40px;
+  align-items: end;
+}
+
+.photo-index-page .page-head .container::before {
+  content: "PHOTO / ARCHIVE";
+  justify-self: end;
+  align-self: start;
+  color: rgba(67, 75, 90, 0.62);
+  font-size: 11px;
+  letter-spacing: 0.34em;
+  line-height: 1.3;
+  font-family: "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
 }
 
 .photo-index-page .page-title {
   font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
-  font-size: clamp(30px, 2.8vw, 42px);
-  line-height: 0.98;
-  letter-spacing: 0.005em;
+  grid-column: 1;
+  font-size: clamp(40px, 4.2vw, 62px);
+  line-height: 0.92;
+  letter-spacing: 0.01em;
   font-weight: 400;
-  color: #22262f;
-  margin-bottom: 10px;
+  color: #20242d;
+  margin-bottom: 14px;
 }
 
 .photo-index-page .page-head p {
-  max-width: 560px;
-  margin-left: auto;
-  margin-right: auto;
+  grid-column: 1;
+  max-width: 620px;
+  margin-left: 0;
+  margin-right: 0;
   color: rgba(58, 63, 73, 0.9);
-  font-size: clamp(13px, 0.86vw, 15px);
-  line-height: 1.32;
-  letter-spacing: 0.01em;
+  font-size: clamp(14px, 0.98vw, 16px);
+  line-height: 1.44;
+  letter-spacing: 0.012em;
   font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
 }
 
 .photo-index-page .section {
   border-bottom: 0;
-  padding: 8px 0 48px;
+  padding: 14px 0 56px;
 }
 
 .photo-index-page .photo-intro {
-  padding: 2px 0 22px;
+  padding: 10px 0 34px;
 }
 
 .photo-index-page .photo-intro-layout {
   display: grid;
-  grid-template-columns: minmax(320px, 1fr) minmax(0, 360px);
-  gap: 36px;
+  grid-template-columns: minmax(360px, 1fr) minmax(0, 380px);
+  gap: 42px;
   align-items: start;
 }
 
 .photo-index-page .photo-intro-text {
   font-family: var(--font-serif);
-  color: rgba(58, 63, 73, 0.88);
+  color: rgba(55, 61, 73, 0.88);
   font-size: 15px;
-  line-height: 1.86;
-  letter-spacing: 0.01em;
+  line-height: 1.95;
+  letter-spacing: 0.012em;
   width: 100%;
   min-width: 320px;
-  max-width: 620px;
+  max-width: 640px;
   writing-mode: horizontal-tb !important;
   text-orientation: mixed !important;
   white-space: normal;
@@ -1426,32 +1451,51 @@ audio {
   margin: 0 0 16px;
 }
 
+.photo-index-page .photo-intro-text p:first-child {
+  color: rgba(33, 39, 50, 0.94);
+  font-size: clamp(18px, 1.45vw, 22px);
+  line-height: 1.5;
+  letter-spacing: 0.015em;
+}
+
 .photo-index-page .photo-intro-text p:last-child {
   margin-bottom: 0;
 }
 
 .photo-index-page .photo-intro-figure {
-  margin: 0 0 0 auto;
-  width: min(100%, 360px);
+  margin: 8px 0 0 auto;
+  width: min(100%, 380px);
 }
 
 .photo-index-page .photo-intro-figure img {
   width: 100%;
   height: auto;
   display: block;
+  box-shadow: 0 20px 42px rgba(19, 23, 31, 0.11);
 }
 
 .photo-index-page .photo-section-head {
   width: min(100%, 1080px);
-  margin: 0 auto 18px;
+  margin: 0 auto 22px;
+  position: relative;
+  padding-top: 18px;
+}
+
+.photo-index-page .photo-section-head::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  border-top: 1px solid rgba(78, 87, 103, 0.14);
 }
 
 .photo-index-page .photo-section-title {
   margin: 0;
   font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
-  font-size: clamp(23px, 2vw, 30px);
+  font-size: clamp(24px, 2.1vw, 32px);
   line-height: 1.05;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
   font-weight: 400;
   color: rgba(31, 36, 46, 0.94);
 }
