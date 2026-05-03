@@ -12295,6 +12295,31 @@ html:lang(en) .music-album-page .album-back-link {
   color: rgba(43, 48, 57, 0.48);
 }
 
+.orchid-art-block {
+  display: block;
+}
+
+.orchid-art-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.orchid-art-frame {
+  margin: 0;
+}
+
+.orchid-art-block img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+.orchid-art-note {
+  text-transform: uppercase;
+}
+
 .music-detail-page .music-player-shell,
 .music-detail-page .music-detail-article audio {
   grid-column: 1;
@@ -12570,6 +12595,10 @@ html:lang(en) .music-album-page .album-back-link {
     margin-top: 8px;
     padding-top: 8px;
     font-size: 10px;
+  }
+
+  .orchid-art-grid {
+    gap: 8px;
   }
 
   .music-detail-page .music-player-shell,
