@@ -5,7 +5,7 @@ import argparse
 import re
 from pathlib import Path
 
-VERSION = "20260502-featured-copy-fill"
+VERSION = "20260502-music-detail-editorial"
 
 CRITICAL_LOADER_MARKER = "chronohaze-critical-loader-style"
 CRITICAL_LOADER_SNIPPET = """  <style id="chronohaze-critical-loader-style">
