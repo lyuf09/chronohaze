@@ -7268,6 +7268,17 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
     padding: 28px 0 14px;
   }
 
+  .photo-index-page .page-head .container {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .photo-index-page .page-head .container::before {
+    justify-self: start;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+  }
+
   .photo-index-page .page-title {
     font-size: clamp(24px, 8.8vw, 30px);
     line-height: 0.98;
@@ -7275,8 +7286,9 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
   }
 
   .photo-index-page .page-head p {
+    max-width: none;
     font-size: 12px;
-    line-height: 1.28;
+    line-height: 1.42;
   }
 
   .photo-index-page .section {
@@ -7301,20 +7313,63 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
     gap: 12px;
   }
 
+  .photo-index-page .photo-feature-card,
+  .photo-index-page .photo-feature-card:first-child,
+  .photo-index-page .photo-feature-card:last-child {
+    grid-column: auto;
+  }
+
+  .photo-index-page .photo-feature-link,
+  .photo-index-page .photo-feature-card:nth-child(even) .photo-feature-link,
+  .photo-index-page .photo-feature-card:first-child .photo-feature-link,
+  .photo-index-page .photo-feature-card:last-child .photo-feature-link {
+    grid-template-columns: 1fr;
+  }
+
+  .photo-index-page .photo-feature-card:nth-child(even) picture {
+    order: 0;
+  }
+
+  .photo-index-page .photo-feature-card:nth-child(even) .photo-feature-meta {
+    order: 0;
+    border-right: 0;
+    border-left: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.22);
+  }
+
+  .photo-index-page .photo-feature-card::before {
+    right: 12px;
+    top: 10px;
+    font-size: 18px;
+  }
+
+  .photo-index-page .photo-feature-card img {
+    height: auto;
+    aspect-ratio: 4 / 3;
+  }
+
   .photo-index-page .photo-feature-meta {
-    padding: 10px 10px 9px;
-    gap: 3px;
+    padding: 12px 12px 11px;
+    gap: 4px;
+    border-left: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.22);
+    writing-mode: horizontal-tb !important;
+    text-orientation: mixed !important;
   }
 
   .photo-index-page .photo-feature-theme {
-    font-size: 14px;
+    font-size: 15.5px;
+    line-height: 1.16;
   }
 
   .photo-index-page .photo-feature-location,
   .photo-index-page .photo-feature-concept,
   .photo-index-page .photo-feature-caption {
     font-size: 11.5px;
-    line-height: 1.4;
+    line-height: 1.45;
+    writing-mode: horizontal-tb !important;
+    text-orientation: mixed !important;
+    word-break: normal;
   }
 
   .photo-index-page .photo-intro {
@@ -7329,6 +7384,8 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
   .photo-index-page .photo-intro-text {
     min-width: 0;
     max-width: none;
+    font-size: 13.5px;
+    line-height: 1.82;
   }
 
   .photo-index-page .photo-intro-figure {
@@ -7439,8 +7496,9 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
   }
 
   .music-index-page .page-head p {
+    max-width: none;
     font-size: 12px;
-    line-height: 1.28;
+    line-height: 1.42;
   }
 
   .music-index-page .section {
@@ -7472,7 +7530,7 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
 
   .music-index-page .music-featured-grid {
     grid-template-columns: 1fr;
-    gap: 14px;
+    gap: 12px;
   }
 
   .music-index-page .music-featured-card.is-hero {
@@ -7492,17 +7550,26 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
   .music-index-page .music-featured-card:nth-child(even) .music-featured-meta {
     order: 0;
     border-right: 0;
-    border-left: 1px solid rgba(255, 255, 255, 0.22);
+    border-left: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.22);
+  }
+
+  .music-index-page .music-featured-card::before {
+    right: 12px;
+    top: 10px;
+    font-size: 18px;
   }
 
   .music-index-page .music-featured-cover {
-    aspect-ratio: 16 / 7;
+    aspect-ratio: 16 / 8.5;
     padding: 10px;
   }
 
   .music-index-page .music-featured-meta {
     padding: 12px 12px 11px;
-    gap: 3px;
+    gap: 4px;
+    border-left: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.22);
   }
 
   .music-index-page .music-featured-item-title {
@@ -7590,6 +7657,8 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
   .music-index-page .music-intro-text {
     min-width: 0;
     max-width: none;
+    font-size: 13.5px;
+    line-height: 1.82;
   }
 
   .music-index-page .music-intro-figure {
@@ -7599,8 +7668,9 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
 
   .music-index-page .track-row {
     padding: 10px 10px 9px;
-    grid-template-columns: 1fr;
-    gap: 3px;
+    grid-template-columns: minmax(82px, 96px) minmax(0, 1fr);
+    gap: 6px 12px;
+    align-items: start;
   }
 
   .music-index-page .track-row.track-row-album::before {
@@ -7616,6 +7686,8 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
 
   .music-index-page .track-date {
     font-size: 11px;
+    margin-top: 2px;
+    white-space: normal;
   }
 
   .music-index-page .track-status-badge {
