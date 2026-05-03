@@ -11463,27 +11463,50 @@ html:lang(en) .music-album-page .album-back-link {
 
 @media (max-width: 760px) {
   .music-detail-page .music-player-shell {
-    width: min(100%, 304px);
-    margin: 14px auto 18px;
-    padding: 9px 10px 9px;
+    width: min(100%, 292px);
+    margin: 12px auto 16px;
+    padding: 10px 11px 8px;
   }
 
   .music-detail-page .music-player-label {
-    margin-bottom: 6px;
-    font-size: 12px;
-    line-height: 1.18;
-    letter-spacing: 0.08em;
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin-bottom: 7px;
+    font-size: 11px;
+    line-height: 1.1;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .music-detail-page .music-player-track-title,
+  .music-detail-page .music-player-track-artist {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .music-detail-page .music-player-track-artist {
+    font-size: 0.86em;
+  }
+
+  .music-detail-page .music-player-track-sep {
+    flex: none;
+    opacity: 0.52;
   }
 
   .music-detail-page .music-player-row {
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: 7px;
+    grid-template-columns: 16px minmax(0, 1fr) auto;
+    gap: 6px;
+    align-items: center;
   }
 
   .music-detail-page .music-player-play {
-    --music-player-icon-size: 9px;
-    width: 18px;
-    height: 18px;
+    --music-player-icon-size: 8px;
+    width: 16px;
+    height: 16px;
   }
 
   .music-detail-page .music-player-scrubber {
@@ -11503,45 +11526,53 @@ html:lang(en) .music-album-page .album-back-link {
   }
 
   .music-detail-page .music-player-time {
-    margin-top: 2px;
-    font-size: 9.5px;
+    grid-column: auto;
+    margin-top: 0;
+    min-width: 50px;
+    font-size: 8.5px;
     line-height: 1.2;
     letter-spacing: 0.02em;
+    text-align: right;
+    white-space: nowrap;
   }
 
   .music-detail-page .music-player-nav {
-    justify-content: flex-start;
-    gap: 12px;
-    margin-top: 12px;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 8px;
+    padding-top: 7px;
+    border-top: 1px solid rgba(76, 84, 100, 0.12);
   }
 
   .music-detail-page .music-player-nav-link {
     min-height: 0;
-    font-size: 10px;
-    letter-spacing: 0.03em;
+    padding: 0;
+    font-size: 9px;
+    letter-spacing: 0.02em;
   }
 }
 
 @media (max-width: 480px) {
   .music-detail-page .music-player-shell {
-    width: min(100%, 288px);
-    padding: 8px 9px 8px;
+    width: min(100%, 276px);
+    padding: 9px 10px 7px;
   }
 
   .music-detail-page .music-player-label {
-    font-size: 11.5px;
+    font-size: 10.5px;
   }
 
   .music-detail-page .music-player-time {
-    font-size: 9px;
+    min-width: 46px;
+    font-size: 8px;
   }
 
   .music-detail-page .music-player-nav {
-    gap: 10px;
+    gap: 7px;
   }
 
   .music-detail-page .music-player-nav-link {
-    font-size: 9.5px;
+    font-size: 8.5px;
   }
 }
 
