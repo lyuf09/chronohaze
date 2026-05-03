@@ -2365,6 +2365,11 @@ audio {
   background-repeat: no-repeat, no-repeat;
 }
 
+.music-index-page .music-featured-card[data-feature-href="music/track-02.html"] .music-featured-cover.has-image {
+  background-size: cover, 188% auto !important;
+  background-position: center center, 0% center !important;
+}
+
 .music-index-page .music-featured-chip {
   display: inline-flex;
   align-items: center;
