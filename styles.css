@@ -12421,8 +12421,8 @@ html:lang(en) .music-album-page .album-back-link {
 }
 
 .music-detail-page .music-detail-article > h2:first-of-type + p {
-  font-size: clamp(17px, 1.45vw, 21px);
-  line-height: 1.96;
+  font-size: clamp(15.6px, 1.12vw, 17.8px);
+  line-height: 1.9;
   letter-spacing: 0.012em;
   color: rgba(28, 34, 43, 0.94);
 }
