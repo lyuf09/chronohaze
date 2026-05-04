@@ -2242,7 +2242,7 @@ audio {
 }
 
 .music-index-page .page-head .container::before {
-  content: "MUSIC / ARCHIVE";
+  content: none;
   justify-self: end;
   align-self: start;
   color: rgba(67, 75, 90, 0.62);
