@@ -3467,7 +3467,7 @@
         musicSelectedTitle: "Selected Tracks",
         musicSelectedLead: "",
         musicSoundWorldTitle: "Sound World",
-        musicSoundWorldLead: "声音里反复出现的气候、结构与未决情绪。",
+        musicSoundWorldLead: "",
         musicArchiveTitle: "Archive",
         musicArchiveLead: "",
         musicArchiveCollectionTitle: "Collections",
@@ -3477,7 +3477,7 @@
         musicStatusUnreleased: "未完成",
         musicStatusWip: "重制中",
         musicWorldParagraphOne: "我的音乐通常写在前卫核、日系摇滚和私人日记的缝隙之间。",
-        musicWorldParagraphTwo: "雨夜、延迟的消息、低频结构、白色夜花，以及那些没有被说出口的情绪，会反复回到声音里。",
+        musicWorldParagraphTwo: "声音里反复出现的气候、结构与未决情绪。",
         musicWorldMotifs: [],
         musicSectionFeaturedTitle: "Featured（精选）",
         musicSectionFeaturedLead: "专辑主线与代表作入口",
@@ -13161,11 +13161,7 @@
         buildSectionHead(
           textFor("SOUND WORLD", "SOUND WORLD"),
           dict.musicSoundWorldTitle || textFor("Sound World", "Sound World"),
-          dict.musicSoundWorldLead ||
-            textFor(
-              "声音里反复出现的气候、结构与未决情绪。",
-              "The climate, structure, and unresolved feeling the music keeps returning to."
-            )
+          dict.musicSoundWorldLead || ""
         )
       );
 
