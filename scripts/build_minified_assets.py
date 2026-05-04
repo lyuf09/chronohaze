@@ -5,7 +5,7 @@ import argparse
 import re
 from pathlib import Path
 
-VERSION = "20260503-music-title-only-revert1"
+VERSION = "20260504-photo-featured-caption-pass1"
 
 CRITICAL_LOADER_MARKER = "chronohaze-critical-loader-style"
 CRITICAL_LOADER_SNIPPET = """  <style id="chronohaze-critical-loader-style">
