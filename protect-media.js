@@ -12877,6 +12877,7 @@
         href: "music/track-04.html",
         image: "assets/template/affizieren-cover.jpg",
         position: "100% center",
+        scale: 1.2,
         tagsZh: ["前卫核", "情绪张力", "蓝灰"],
         tagsEn: ["progressive", "emotional", "blue-grey"],
         noteZh: "被雨打碎的愿景，秋天与深蓝灰白的涨潮。",
@@ -12886,6 +12887,7 @@
         href: "music/track-02.html",
         image: "assets/template/he-and-me-cover.jpg",
         position: "78% center",
+        scale: 1.22,
         tagsZh: ["叙事", "未决", "私密"],
         tagsEn: ["narrative", "unresolved", "intimate"],
         noteZh: "梦醒后还没散尽的对话，理解并不等于和解。",
@@ -12895,6 +12897,7 @@
         href: "music/track-20.html",
         image: "assets/template/supernova-cover.jpg",
         position: "center center",
+        scale: 1.14,
         tagsZh: ["深蓝", "膨胀", "内部坍缩"],
         tagsEn: ["deep blue", "expansion", "collapse"],
         noteZh: "极深的蓝、膨胀后的失重，以及尚未命名的内部坍缩。",
@@ -12904,6 +12907,7 @@
         href: "music/track-01.html",
         image: "assets/template/sincerely-spring-art.jpg",
         position: "center center",
+        scale: 1.14,
         tagsZh: ["春天", "凝望", "透明蓝"],
         tagsEn: ["spring", "gaze", "clear blue"],
         noteZh: "淡绿与透明蓝空气里的静静凝望，像微风托起的春日重启。",
@@ -12913,6 +12917,7 @@
         href: "music/track-orchid.html",
         image: "assets/images/music/orchid/orchid-art-01.jpg",
         position: "center center",
+        scale: 1.16,
         tagsZh: ["新制作", "重制中", "夜花"],
         tagsEn: ["new production", "WIP", "night flower"],
         noteZh: "新一轮制作与重混，夜花、焦灼与自持。",
@@ -13115,7 +13120,11 @@
         img.loading = "lazy";
         img.decoding = "async";
         if (item.position) {
+          cover.style.setProperty("--music-room-track-cover-position", item.position);
           img.style.objectPosition = item.position;
+        }
+        if (item.scale) {
+          cover.style.setProperty("--music-room-track-cover-scale", String(item.scale));
         }
         cover.appendChild(img);
 
