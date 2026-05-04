@@ -3465,11 +3465,11 @@
         musicFeaturedAlbumTitle: "Featured Album",
         musicFeaturedAlbumLead: "先听主推专辑，再读它留下的 liner notes。",
         musicSelectedTitle: "Selected Tracks",
-        musicSelectedLead: "前面先保留几首更像入口的歌，后面的归档里也保留完整收录。",
+        musicSelectedLead: "",
         musicSoundWorldTitle: "Sound World",
-        musicSoundWorldLead: "不是履历，而是声音里反复出现的气候、结构与未决情绪。",
+        musicSoundWorldLead: "声音里反复出现的气候、结构与未决情绪。",
         musicArchiveTitle: "Archive",
-        musicArchiveLead: "完整目录仍然作为较冷淡的索引留在后面。",
+        musicArchiveLead: "",
         musicArchiveCollectionTitle: "Collections",
         musicArchiveTrackTitle: "Archive by Year",
         musicStatusListen: "试听",
@@ -3630,11 +3630,11 @@
         musicFeaturedAlbumTitle: "Featured Album",
         musicFeaturedAlbumLead: "Start with the central record, then read the liner notes it leaves behind.",
         musicSelectedTitle: "Selected Tracks",
-        musicSelectedLead: "A few songs stay upfront as entry points, while the archive below still keeps the full catalog.",
+        musicSelectedLead: "",
         musicSoundWorldTitle: "Sound World",
-        musicSoundWorldLead: "Not a resume, but the climate, structure, and unresolved feeling the music keeps returning to.",
+        musicSoundWorldLead: "The climate, structure, and unresolved feeling the music keeps returning to.",
         musicArchiveTitle: "Archive",
-        musicArchiveLead: "The full catalog remains below as a colder, quieter index.",
+        musicArchiveLead: "",
         musicArchiveCollectionTitle: "Collections",
         musicArchiveTrackTitle: "Archive by Year",
         musicStatusListen: "Listen",
@@ -13092,10 +13092,7 @@
           textFor("SELECTED", "SELECTED"),
           dict.musicSelectedTitle || textFor("Selected Tracks", "Selected Tracks"),
           dict.musicSelectedLead ||
-            textFor(
-              "先保留几首更像入口的歌，其余收进后面的归档。",
-              "A few songs kept upfront as entry points; the rest fall back into the archive."
-            )
+            ""
         )
       );
 
@@ -13157,8 +13154,8 @@
           dict.musicSoundWorldTitle || textFor("Sound World", "Sound World"),
           dict.musicSoundWorldLead ||
             textFor(
-              "不是履历，而是声音里反复出现的气候、结构与未决情绪。",
-              "Not a resume, but the climate, structure, and unresolved feeling the music keeps returning to."
+              "声音里反复出现的气候、结构与未决情绪。",
+              "The climate, structure, and unresolved feeling the music keeps returning to."
             )
         )
       );
@@ -13196,7 +13193,7 @@
           textFor("ARCHIVE", "ARCHIVE"),
           dict.musicArchiveTitle || textFor("Archive", "Archive"),
           dict.musicArchiveLead ||
-            textFor("其余作品作为较冷淡的索引留在后面。", "The rest of the catalog remains as a colder, quieter index.")
+            ""
         )
       );
 
