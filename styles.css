@@ -14236,6 +14236,16 @@ html:lang(en) .music-album-page .album-back-link {
   gap: 18px;
 }
 
+.music-index-page .music-room-archive-filters {
+  grid-template-columns: minmax(0, 240px);
+  justify-content: end;
+  margin-top: -4px;
+}
+
+.music-index-page .music-room-archive-filter {
+  justify-items: start;
+}
+
 .music-index-page .music-room-archive-stack {
   display: grid;
   gap: 26px;
@@ -14299,7 +14309,18 @@ html:lang(en) .music-album-page .album-back-link {
 }
 
 .music-index-page .music-room-archive .track-tags {
-  display: none !important;
+  display: flex !important;
+  gap: 5px;
+  margin-top: 6px;
+}
+
+.music-index-page .music-room-archive .track-tag {
+  padding: 2px 8px 3px;
+  border-color: rgba(73, 81, 99, 0.18);
+  background: rgba(246, 248, 252, 0.52);
+  color: rgba(61, 68, 83, 0.74);
+  font-size: 10px;
+  letter-spacing: 0.08em;
 }
 
 .music-index-page .music-room-archive .track-date {
@@ -14517,6 +14538,11 @@ html:lang(en) .music-album-page .album-back-link {
     letter-spacing: 0.1em;
   }
 
+  .music-index-page .music-room-archive-filters {
+    grid-template-columns: 1fr;
+    margin-top: -2px;
+  }
+
   .music-index-page .music-room-archive .track-row,
   .music-index-page .music-room-archive .track-row.track-row-album,
   .music-index-page .music-room-archive .track-row.track-row-pending,
@@ -14538,6 +14564,14 @@ html:lang(en) .music-album-page .album-back-link {
 
   .music-index-page .music-room-archive .track-artist {
     font-size: 11px;
+  }
+
+  .music-index-page .music-room-archive .track-tags {
+    margin-top: 4px;
+  }
+
+  .music-index-page .music-room-archive .track-tag {
+    font-size: 9.5px;
   }
 
   .music-index-page .music-background-head {

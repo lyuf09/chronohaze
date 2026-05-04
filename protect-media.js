@@ -3472,6 +3472,8 @@
         musicArchiveLead: "",
         musicArchiveCollectionTitle: "Collections",
         musicArchiveTrackTitle: "Archive by Year",
+        musicArchiveFilterStyle: "曲风",
+        musicArchiveFilterAllStyles: "全部曲风",
         musicStatusListen: "试听",
         musicStatusNotes: "手记",
         musicStatusUnreleased: "未完成",
@@ -3637,6 +3639,8 @@
         musicArchiveLead: "",
         musicArchiveCollectionTitle: "Collections",
         musicArchiveTrackTitle: "Archive by Year",
+        musicArchiveFilterStyle: "Style",
+        musicArchiveFilterAllStyles: "All styles",
         musicStatusListen: "Listen",
         musicStatusNotes: "Notes",
         musicStatusUnreleased: "Unreleased",
@@ -11854,6 +11858,36 @@
     });
   }
 
+  function deriveMusicRowTags(row, catalogItem, type, titleText, artistText) {
+    var tags = sanitizeMusicTags(
+      splitMusicTags(
+        catalogItem && Array.isArray(catalogItem.tags)
+          ? catalogItem.tags.join(",")
+          : row.dataset.tags || ""
+      )
+    );
+
+    if (!tags.length && type === "album") {
+      tags.push("album");
+    }
+    if (!tags.length && type === "single") {
+      tags.push("single");
+    }
+    if (/\//.test(artistText || "") || /feat\.?|ft\.?/i.test(titleText || "")) {
+      tags.push("collab");
+    }
+
+    return uniqueMusicTags(sanitizeMusicTags(tags));
+  }
+
+  function filterArchiveMusicTags(tags) {
+    return uniqueMusicTags(
+      sanitizeMusicTags(tags).filter(function (tag) {
+        return tag !== "album" && tag !== "single";
+      })
+    );
+  }
+
   function inferMusicRowType(row, titleText) {
     if (row.classList.contains("track-row-album")) {
       return "album";
@@ -11899,6 +11933,12 @@
 
     metaWrap.classList.add("track-meta");
     var tagsWrap = metaWrap.querySelector(".track-tags");
+    if (!tags.length) {
+      if (tagsWrap) {
+        tagsWrap.remove();
+      }
+      return;
+    }
     if (!tagsWrap) {
       tagsWrap = document.createElement("div");
       tagsWrap.className = "track-tags";
@@ -12975,6 +13015,7 @@
         catalogItem && typeof catalogItem.has_audio === "boolean"
           ? !!catalogItem.has_audio
           : !/音频待上传|audio pending upload/i.test(rawTitle);
+      var tags = deriveMusicRowTags(row, catalogItem, type, rawTitle, rawArtist);
       return {
         row: row,
         href: href,
@@ -12988,15 +13029,12 @@
         date: collapseDisplayText((catalogItem && catalogItem.date) || rawDate),
         title: collapseDisplayText(rawTitle),
         artist: collapseDisplayText(rawArtist),
+        tags: tags,
+        archiveTags: filterArchiveMusicTags(tags),
       };
     }
 
     function applyArchiveStatus(row, meta) {
-      var tagsWrap = row.querySelector(".track-tags");
-      if (tagsWrap) {
-        tagsWrap.remove();
-      }
-
       row.classList.remove(
         "track-row-pending",
         "track-row-listen",
@@ -13007,26 +13045,22 @@
 
       stripPendingAudioMarkerFromTitle(row.querySelector(".track-title"));
 
+      ensureMusicRowTags(row, meta.archiveTags || [], dict);
+
       var statusKey = "";
       var statusLabel = "";
-      if (meta.type === "album") {
-        statusKey = "notes";
-        statusLabel = dict.musicStatusNotes || textFor("手记", "Notes");
-        row.classList.add("track-row-notes");
-      } else if (!meta.hasAudio) {
+      if (!meta.hasAudio) {
         statusKey = "unreleased";
         statusLabel = dict.musicStatusUnreleased || textFor("未完成", "Unreleased");
         row.classList.add("track-row-unreleased");
-      } else {
-        statusKey = "listen";
-        statusLabel = dict.musicStatusListen || textFor("试听", "Listen");
-        row.classList.add("track-row-listen");
       }
 
       ensureMusicRowStatusBadge(row, statusKey, statusLabel);
       row.dataset.roomStatus = statusKey;
       row.dataset.musicType = meta.type;
       row.dataset.musicYear = meta.year;
+      row.dataset.tags = (meta.tags || []).join(",");
+      row.dataset.archiveTags = (meta.archiveTags || []).join(",");
     }
 
     function buildFeaturedAlbum(rowMeta, blueprint) {
@@ -13207,6 +13241,8 @@
       var stack = createElement("div", "music-room-archive-stack");
       var albumMetas = [];
       var singleMetas = [];
+      var archiveMetas = [];
+      var tagValues = [];
 
       rows.forEach(function (row) {
         var meta = rowMetaMap[normalizeMusicCatalogHref(row.getAttribute("data-href") || "")];
@@ -13214,6 +13250,8 @@
           return;
         }
         applyArchiveStatus(row, meta);
+        archiveMetas.push(meta);
+        tagValues = tagValues.concat(meta.archiveTags || []);
         if (meta.type === "album") {
           albumMetas.push(meta);
         } else {
@@ -13229,6 +13267,88 @@
         group.appendChild(head);
         group.appendChild(list);
         return { group: group, list: list };
+      }
+
+      function fillSelect(selectNode, allLabel, values, displayFn) {
+        var current = selectNode.value || "all";
+        selectNode.textContent = "";
+        var allOption = document.createElement("option");
+        allOption.value = "all";
+        allOption.textContent = allLabel;
+        selectNode.appendChild(allOption);
+
+        values.forEach(function (value) {
+          var option = document.createElement("option");
+          option.value = value;
+          option.textContent = displayFn ? displayFn(value) : value;
+          selectNode.appendChild(option);
+        });
+
+        if (
+          Array.from(selectNode.options).some(function (opt) {
+            return opt.value === current;
+          })
+        ) {
+          selectNode.value = current;
+        } else {
+          selectNode.value = "all";
+        }
+      }
+
+      var tagOrder = [
+        "collab",
+        "instrumental",
+        "jrock",
+        "progcore",
+        "mathrock",
+        "posthardcore",
+        "jazz",
+        "hardrock",
+        "emorock",
+        "postrock",
+        "pop",
+        "indie",
+      ];
+      tagValues = uniqueMusicTags(tagValues).sort(function (a, b) {
+        var ia = tagOrder.indexOf(a);
+        var ib = tagOrder.indexOf(b);
+        if (ia >= 0 && ib >= 0) {
+          return ia - ib;
+        }
+        if (ia >= 0) {
+          return -1;
+        }
+        if (ib >= 0) {
+          return 1;
+        }
+        return a.localeCompare(b);
+      });
+
+      if (tagValues.length) {
+        var controls = createElement("div", "music-ia-filters music-room-archive-filters");
+        var filter = createElement("label", "music-ia-filter music-room-archive-filter");
+        var filterLabel = createElement(
+          "span",
+          "music-ia-filter-label",
+          dict.musicArchiveFilterStyle || textFor("曲风", "Style")
+        );
+        var filterSelect = document.createElement("select");
+        filterSelect.className = "music-ia-filter-select music-room-archive-filter-select";
+        filter.appendChild(filterLabel);
+        filter.appendChild(filterSelect);
+        controls.appendChild(filter);
+        section.appendChild(controls);
+
+        fillSelect(
+          filterSelect,
+          dict.musicArchiveFilterAllStyles || textFor("全部曲风", "All styles"),
+          tagValues,
+          function (tag) {
+            return getMusicTagLabel(tag, dict);
+          }
+        );
+
+        filterSelect.addEventListener("change", applyArchiveFilters);
       }
 
       if (albumMetas.length) {
@@ -13270,7 +13390,29 @@
         stack.appendChild(yearGroup.group);
       });
 
+      function applyArchiveFilters() {
+        var filterSelect = section.querySelector(".music-room-archive-filter-select");
+        var tagFilter = filterSelect ? filterSelect.value || "all" : "all";
+
+        archiveMetas.forEach(function (meta) {
+          var rowTags = meta.archiveTags || [];
+          var visible = tagFilter === "all" || rowTags.indexOf(tagFilter) >= 0;
+          meta.row.hidden = !visible;
+          meta.row.classList.toggle("is-filter-hidden", !visible);
+        });
+
+        Array.from(stack.querySelectorAll(".music-room-archive-group")).forEach(function (group) {
+          var groupRows = Array.from(group.querySelectorAll(".track-row"));
+          var visibleCount = groupRows.filter(function (row) {
+            return !row.hidden;
+          }).length;
+          group.hidden = visibleCount === 0;
+          group.classList.toggle("is-filter-hidden", visibleCount === 0);
+        });
+      }
+
       section.appendChild(stack);
+      applyArchiveFilters();
       return section;
     }
 
