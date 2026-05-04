@@ -3465,11 +3465,11 @@
         musicFeaturedAlbumTitle: "Featured Album",
         musicFeaturedAlbumLead: "先听主推专辑，再读它留下的 liner notes。",
         musicSelectedTitle: "Selected Tracks",
-        musicSelectedLead: "先保留几首更像入口的歌，其余收进后面的归档。",
+        musicSelectedLead: "前面先保留几首更像入口的歌，后面的归档里也保留完整收录。",
         musicSoundWorldTitle: "Sound World",
         musicSoundWorldLead: "不是履历，而是声音里反复出现的气候、结构与未决情绪。",
         musicArchiveTitle: "Archive",
-        musicArchiveLead: "其余作品作为较冷淡的索引留在后面。",
+        musicArchiveLead: "完整目录仍然作为较冷淡的索引留在后面。",
         musicArchiveCollectionTitle: "Collections",
         musicArchiveTrackTitle: "Archive by Year",
         musicStatusListen: "试听",
@@ -3630,11 +3630,11 @@
         musicFeaturedAlbumTitle: "Featured Album",
         musicFeaturedAlbumLead: "Start with the central record, then read the liner notes it leaves behind.",
         musicSelectedTitle: "Selected Tracks",
-        musicSelectedLead: "A few songs kept upfront as entry points; the rest fall back into the archive.",
+        musicSelectedLead: "A few songs stay upfront as entry points, while the archive below still keeps the full catalog.",
         musicSoundWorldTitle: "Sound World",
         musicSoundWorldLead: "Not a resume, but the climate, structure, and unresolved feeling the music keeps returning to.",
         musicArchiveTitle: "Archive",
-        musicArchiveLead: "The rest of the catalog remains as a colder, quieter index.",
+        musicArchiveLead: "The full catalog remains below as a colder, quieter index.",
         musicArchiveCollectionTitle: "Collections",
         musicArchiveTrackTitle: "Archive by Year",
         musicStatusListen: "Listen",
@@ -12920,12 +12920,6 @@
       },
     ];
 
-    var excludedHrefs = Object.create(null);
-    excludedHrefs[normalizeMusicCatalogHref(featuredAlbum.href)] = true;
-    selectedTracks.forEach(function (item) {
-      excludedHrefs[normalizeMusicCatalogHref(item.href)] = true;
-    });
-
     function textFor(zhValue, enValue) {
       return lang === "en" ? enValue : zhValue;
     }
@@ -13212,7 +13206,7 @@
 
       rows.forEach(function (row) {
         var meta = rowMetaMap[normalizeMusicCatalogHref(row.getAttribute("data-href") || "")];
-        if (!meta || excludedHrefs[meta.href]) {
+        if (!meta) {
           return;
         }
         applyArchiveStatus(row, meta);
