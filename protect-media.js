@@ -3459,7 +3459,7 @@
         a11y: "无障碍支持",
         footerContactLead: "辗转不同国家无固定号码 请联系邮箱：",
         footerCities: "重庆 · Edinburgh · Ithaca",
-        musicPageTitle: "音乐 / Selected Works",
+        musicPageTitle: "音乐 / Listening Room",
         musicIntro: "写在雨、低频和未被解决的时间里的歌。",
         musicLead: "",
         musicFeaturedAlbumTitle: "Featured Album",
@@ -3625,7 +3625,7 @@
         footerContactLead:
           "No fixed phone number while moving across countries. Contact by email:",
         footerCities: "Chongqing · Edinburgh · Ithaca",
-        musicPageTitle: "Music / Selected Works",
+        musicPageTitle: "Music / Listening Room",
         musicIntro:
           "Songs written through rain, low frequencies, and unresolved time.",
         musicLead: "",
@@ -13800,37 +13800,37 @@
 
       document.title =
         safeLang === "en"
-          ? "Music | Chronohaze"
-          : "音乐 | Chronohaze";
+          ? "Music / Listening Room | Chronohaze"
+          : "音乐 / Listening Room | Chronohaze";
       setMetaTagContent(
         'meta[name="description"]',
         safeLang === "en"
-          ? "Selected works in music: featured album, selected tracks, sound world, and archive."
-          : "音乐精选：主推专辑、精选曲目、声音世界与按年份归档。"
+          ? "A music listening room: featured album, selected tracks, sound world, and a quieter archive."
+          : "音乐 listening room：主推专辑、精选曲目、声音世界与较冷淡的归档索引。"
       );
       setMetaTagContent(
         'meta[property="og:title"]',
         safeLang === "en"
-          ? "Music | Chronohaze"
-          : "音乐 | Chronohaze"
+          ? "Music / Listening Room | Chronohaze"
+          : "音乐 / Listening Room | Chronohaze"
       );
       setMetaTagContent(
         'meta[property="og:description"]',
         safeLang === "en"
-          ? "Selected works in music: featured album, selected tracks, sound world, and archive."
-          : "音乐精选：主推专辑、精选曲目、声音世界与按年份归档。"
+          ? "A music listening room: featured album, selected tracks, sound world, and a quieter archive."
+          : "音乐 listening room：主推专辑、精选曲目、声音世界与较冷淡的归档索引。"
       );
       setMetaTagContent(
         'meta[name="twitter:title"]',
         safeLang === "en"
-          ? "Music | Chronohaze"
-          : "音乐 | Chronohaze"
+          ? "Music / Listening Room | Chronohaze"
+          : "音乐 / Listening Room | Chronohaze"
       );
       setMetaTagContent(
         'meta[name="twitter:description"]',
         safeLang === "en"
-          ? "Selected works in music: featured album, selected tracks, sound world, and archive."
-          : "音乐精选：主推专辑、精选曲目、声音世界与按年份归档。"
+          ? "A music listening room: featured album, selected tracks, sound world, and a quieter archive."
+          : "音乐 listening room：主推专辑、精选曲目、声音世界与较冷淡的归档索引。"
       );
     }
 
