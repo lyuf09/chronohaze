@@ -1953,28 +1953,28 @@ audio {
 
 .photo-detail-page .photo-detail-gallery.photo-detail-gallery--contact-sheet {
   display: grid;
-  gap: clamp(30px, 4vw, 52px);
+  gap: clamp(24px, 3vw, 40px);
   width: min(100%, 1320px);
   margin: 30px auto 40px;
 }
 
 .photo-detail-page .photo-detail-lead-composition {
   display: grid;
-  grid-template-columns: minmax(0, 1.7fr) minmax(240px, 0.92fr);
-  gap: clamp(18px, 2.8vw, 34px);
+  grid-template-columns: minmax(0, 1.38fr) minmax(320px, 1.02fr);
+  gap: clamp(18px, 2.4vw, 28px);
   align-items: start;
 }
 
 .photo-detail-page .photo-detail-side-stack {
   display: grid;
-  gap: clamp(18px, 2.2vw, 28px);
+  gap: clamp(14px, 1.8vw, 22px);
   align-content: start;
 }
 
 .photo-detail-page .photo-detail-contact-sheet {
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: clamp(18px, 2vw, 24px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(18px, 2vw, 26px);
   align-items: start;
 }
 
@@ -2005,31 +2005,23 @@ audio {
 }
 
 .photo-detail-page .photo-detail-contact-sheet .photo-detail-item {
-  grid-column: span 3;
+  grid-column: auto;
 }
 
 .photo-detail-page .photo-detail-contact-sheet .photo-detail-item.is-landscape {
-  grid-column: span 4;
+  grid-column: auto;
 }
 
 .photo-detail-page .photo-detail-contact-sheet .photo-detail-item.is-portrait {
-  grid-column: span 2;
+  grid-column: auto;
 }
 
 .photo-detail-page .photo-detail-contact-sheet .photo-detail-item.is-square {
-  grid-column: span 3;
+  grid-column: auto;
 }
 
-.photo-detail-page .photo-detail-contact-sheet .photo-detail-item:nth-child(5n + 2) {
-  margin-top: clamp(18px, 2vw, 32px);
-}
-
-.photo-detail-page .photo-detail-contact-sheet .photo-detail-item:nth-child(5n + 4) {
-  margin-top: clamp(10px, 1.4vw, 18px);
-}
-
-.photo-detail-page .photo-detail-contact-sheet .photo-detail-item:nth-child(7n + 6) {
-  margin-top: clamp(24px, 2.4vw, 42px);
+.photo-detail-page .photo-detail-contact-sheet .photo-detail-item:only-child {
+  grid-column: 1 / -1;
 }
 
 .photo-detail-page .photo-detail-caption {
@@ -2080,21 +2072,21 @@ audio {
   }
 
   .photo-detail-page .photo-detail-contact-sheet {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .photo-detail-page .photo-detail-contact-sheet .photo-detail-item {
-    grid-column: span 2;
+    grid-column: auto;
     margin-top: 0;
   }
 
   .photo-detail-page .photo-detail-contact-sheet .photo-detail-item.is-landscape {
-    grid-column: span 3;
+    grid-column: auto;
   }
 
   .photo-detail-page .photo-detail-contact-sheet .photo-detail-item.is-portrait,
   .photo-detail-page .photo-detail-contact-sheet .photo-detail-item.is-square {
-    grid-column: span 2;
+    grid-column: auto;
   }
 }
 
