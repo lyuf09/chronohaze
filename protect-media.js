@@ -3478,7 +3478,7 @@
         musicStatusWip: "重制中",
         musicWorldParagraphOne: "我的音乐通常写在前卫核、日系摇滚和私人日记的缝隙之间。",
         musicWorldParagraphTwo: "雨夜、延迟的消息、低频结构、白色夜花，以及那些没有被说出口的情绪，会反复回到声音里。",
-        musicWorldMotifs: ["雨", "夜", "低频", "白色夜花", "未发出的消息"],
+        musicWorldMotifs: [],
         musicSectionFeaturedTitle: "Featured（精选）",
         musicSectionFeaturedLead: "专辑主线与代表作入口",
         musicFeatureAlbumLabel: "精选专辑",
@@ -3645,7 +3645,7 @@
           "My music sits somewhere between progressive metalcore, Japanese rock, and private diary fragments.",
         musicWorldParagraphTwo:
           "I write through rain, night, delayed messages, low-frequency architecture, and white flowers that only open after dark.",
-        musicWorldMotifs: ["Rain", "Night", "Low frequencies", "White flowers", "Delayed messages"],
+        musicWorldMotifs: [],
         musicSectionFeaturedTitle: "Featured",
         musicSectionFeaturedLead: "Album core and representative tracks",
         musicFeatureAlbumLabel: "Featured album",
@@ -13185,12 +13185,14 @@
         )
       );
 
-      var motifs = createElement("div", "music-room-world-motifs");
       var motifList = Array.isArray(dict.musicWorldMotifs) ? dict.musicWorldMotifs : [];
-      motifList.forEach(function (item) {
-        motifs.appendChild(createElement("span", "music-room-world-motif", item));
-      });
-      body.appendChild(motifs);
+      if (motifList.length) {
+        var motifs = createElement("div", "music-room-world-motifs");
+        motifList.forEach(function (item) {
+          motifs.appendChild(createElement("span", "music-room-world-motif", item));
+        });
+        body.appendChild(motifs);
+      }
       section.appendChild(body);
       return section;
     }
