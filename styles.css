@@ -2176,32 +2176,38 @@ body.photo-lightbox-open {
 .photo-lightbox-viewport {
   position: absolute;
   inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+  overflow: auto;
   cursor: zoom-in;
-  touch-action: none;
+  touch-action: pan-x pan-y;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(214, 223, 235, 0.28) rgba(21, 28, 38, 0.3);
 }
 
 .photo-lightbox-viewport.is-zoomed {
-  cursor: grab;
+  cursor: move;
 }
 
-.photo-lightbox-viewport.is-dragging {
-  cursor: grabbing;
+.photo-lightbox-canvas {
+  position: relative;
+  min-width: 100%;
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
 .photo-lightbox-image {
-  max-width: 100%;
-  max-height: 100%;
+  max-width: none;
+  max-height: none;
+  width: auto;
+  height: auto;
+  flex: 0 0 auto;
   user-select: none;
   -webkit-user-select: none;
   -webkit-user-drag: none;
   -webkit-touch-callout: none;
-  transform-origin: center center;
-  will-change: transform;
-  transition: transform 180ms ease, opacity 180ms ease;
+  transition: opacity 180ms ease, width 180ms ease, height 180ms ease;
 }
 
 .photo-lightbox-loading {

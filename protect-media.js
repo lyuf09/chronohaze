@@ -15021,47 +15021,76 @@
       loading: safeLang === "en" ? "Loading full image" : "正在载入完整图片",
       note:
         safeLang === "en"
-          ? "View only · no direct download entry"
-          : "仅浏览 · 不提供直接下载入口",
+          ? "View only · zoom, then scroll to inspect"
+          : "仅浏览 · 放大后可滚动查看细节",
       metaPrefix: safeLang === "en" ? "Image" : "图片",
       figureTitle: safeLang === "en" ? "Click to open full image" : "点击查看完整图片",
     };
   }
 
-  function clampPhotoDetailLightboxOffset(state) {
-    if (!state || state.scale <= 1) {
-      state.translateX = 0;
-      state.translateY = 0;
-      return;
-    }
-
-    var stageRect = state.stage.getBoundingClientRect();
-    var baseWidth = state.baseWidth || state.image.getBoundingClientRect().width || 0;
-    var baseHeight = state.baseHeight || state.image.getBoundingClientRect().height || 0;
-    var maxX = Math.max(0, (baseWidth * state.scale - stageRect.width) / 2);
-    var maxY = Math.max(0, (baseHeight * state.scale - stageRect.height) / 2);
-
-    state.translateX = Math.max(-maxX, Math.min(maxX, state.translateX));
-    state.translateY = Math.max(-maxY, Math.min(maxY, state.translateY));
+  function getPhotoDetailLightboxViewportPadding() {
+    return window.innerWidth <= 980 ? 12 : 18;
   }
 
-  function syncPhotoDetailLightboxTransform(state) {
+  function syncPhotoDetailLightboxLayout(state, preserveFocus) {
     if (!state) {
       return;
     }
 
-    clampPhotoDetailLightboxOffset(state);
-    state.image.style.transform =
-      "translate(" +
-      state.translateX +
-      "px, " +
-      state.translateY +
-      "px) scale(" +
-      state.scale +
-      ")";
+    if (!state.naturalWidth || !state.naturalHeight) {
+      return;
+    }
+
+    var viewport = state.viewport;
+    var padding = getPhotoDetailLightboxViewportPadding();
+    var availableWidth = Math.max(120, viewport.clientWidth - padding * 2);
+    var availableHeight = Math.max(120, viewport.clientHeight - padding * 2);
+    var previousCanvasWidth = state.canvas.scrollWidth || viewport.clientWidth || 1;
+    var previousCanvasHeight = state.canvas.scrollHeight || viewport.clientHeight || 1;
+    var focusX = preserveFocus
+      ? (viewport.scrollLeft + viewport.clientWidth / 2) / previousCanvasWidth
+      : 0.5;
+    var focusY = preserveFocus
+      ? (viewport.scrollTop + viewport.clientHeight / 2) / previousCanvasHeight
+      : 0.5;
+
+    state.fitScale = Math.min(
+      1,
+      availableWidth / state.naturalWidth,
+      availableHeight / state.naturalHeight
+    );
+    var displayScale = state.fitScale * state.scale;
+    var imageWidth = Math.max(1, Math.round(state.naturalWidth * displayScale));
+    var imageHeight = Math.max(1, Math.round(state.naturalHeight * displayScale));
+    var canvasWidth = Math.max(viewport.clientWidth, imageWidth + padding * 2);
+    var canvasHeight = Math.max(viewport.clientHeight, imageHeight + padding * 2);
+
+    state.image.style.width = imageWidth + "px";
+    state.image.style.height = imageHeight + "px";
+    state.canvas.style.width = canvasWidth + "px";
+    state.canvas.style.height = canvasHeight + "px";
+    state.canvas.style.padding = padding + "px";
     state.viewport.classList.toggle("is-zoomed", state.scale > 1.01);
     state.zoomOutButton.disabled = state.scale <= 1.01;
     state.zoomResetButton.disabled = state.scale <= 1.01;
+
+    window.requestAnimationFrame(function () {
+      if (!state || !state.isOpen) {
+        return;
+      }
+      var nextCanvasWidth = state.canvas.scrollWidth || canvasWidth;
+      var nextCanvasHeight = state.canvas.scrollHeight || canvasHeight;
+      var maxLeft = Math.max(0, nextCanvasWidth - viewport.clientWidth);
+      var maxTop = Math.max(0, nextCanvasHeight - viewport.clientHeight);
+      viewport.scrollLeft = Math.max(
+        0,
+        Math.min(maxLeft, focusX * nextCanvasWidth - viewport.clientWidth / 2)
+      );
+      viewport.scrollTop = Math.max(
+        0,
+        Math.min(maxTop, focusY * nextCanvasHeight - viewport.clientHeight / 2)
+      );
+    });
   }
 
   function resetPhotoDetailLightboxTransform(state) {
@@ -15069,9 +15098,7 @@
       return;
     }
     state.scale = 1;
-    state.translateX = 0;
-    state.translateY = 0;
-    syncPhotoDetailLightboxTransform(state);
+    syncPhotoDetailLightboxLayout(state, false);
   }
 
   function setPhotoDetailLightboxScale(state, nextScale) {
@@ -15079,12 +15106,7 @@
       return;
     }
     state.scale = Math.max(1, Math.min(4.5, nextScale));
-    if (state.scale <= 1.01) {
-      state.scale = 1;
-      state.translateX = 0;
-      state.translateY = 0;
-    }
-    syncPhotoDetailLightboxTransform(state);
+    syncPhotoDetailLightboxLayout(state, true);
   }
 
   function updatePhotoDetailLightboxMeta(state) {
@@ -15108,11 +15130,11 @@
     if (!state || state.requestId !== requestId) {
       return;
     }
-    state.baseWidth = state.image.getBoundingClientRect().width || 0;
-    state.baseHeight = state.image.getBoundingClientRect().height || 0;
+    state.naturalWidth = state.image.naturalWidth || 0;
+    state.naturalHeight = state.image.naturalHeight || 0;
     state.loading.hidden = true;
     state.image.style.opacity = "1";
-    syncPhotoDetailLightboxTransform(state);
+    syncPhotoDetailLightboxLayout(state, false);
   }
 
   function showPhotoDetailLightboxFigure(state, index) {
@@ -15141,6 +15163,8 @@
     state.loading.hidden = false;
     state.loading.textContent = getPhotoDetailLightboxLabels(state.lang).loading;
     state.image.style.opacity = "0.94";
+    state.viewport.scrollTop = 0;
+    state.viewport.scrollLeft = 0;
 
     if (previewSrc) {
       state.image.src = previewSrc;
@@ -15197,8 +15221,6 @@
     state.requestId = "";
     state.root.classList.remove("is-open");
     state.root.setAttribute("aria-hidden", "true");
-    state.viewport.classList.remove("is-dragging");
-    state.activePointerId = null;
     document.documentElement.classList.remove("photo-lightbox-open");
     document.body.classList.remove("photo-lightbox-open");
     resetPhotoDetailLightboxTransform(state);
@@ -15318,12 +15340,16 @@
     var viewport = document.createElement("div");
     viewport.className = "photo-lightbox-viewport";
 
+    var canvas = document.createElement("div");
+    canvas.className = "photo-lightbox-canvas";
+
     var image = document.createElement("img");
     image.className = "photo-lightbox-image";
     image.alt = "";
     image.draggable = false;
     image.setAttribute("oncontextmenu", "return false");
-    viewport.appendChild(image);
+    canvas.appendChild(image);
+    viewport.appendChild(canvas);
     stage.appendChild(viewport);
 
     var loading = document.createElement("div");
@@ -15350,6 +15376,7 @@
       root: root,
       stage: stage,
       viewport: viewport,
+      canvas: canvas,
       image: image,
       loading: loading,
       meta: meta,
@@ -15363,16 +15390,12 @@
       items: [],
       index: -1,
       scale: 1,
-      translateX: 0,
-      translateY: 0,
-      baseWidth: 0,
-      baseHeight: 0,
+      fitScale: 1,
+      naturalWidth: 0,
+      naturalHeight: 0,
       isOpen: false,
       lang: safeLang,
       requestId: "",
-      activePointerId: null,
-      dragStartX: 0,
-      dragStartY: 0,
       triggerFigure: null,
     };
 
@@ -15425,10 +15448,13 @@
       }
     });
 
-    stage.addEventListener(
+    viewport.addEventListener(
       "wheel",
       function (event) {
         if (!photoDetailLightboxState || !photoDetailLightboxState.isOpen) {
+          return;
+        }
+        if (!(event.ctrlKey || event.metaKey)) {
           return;
         }
         stopEvent(event);
@@ -15441,53 +15467,11 @@
       { passive: false }
     );
 
-    viewport.addEventListener("pointerdown", function (event) {
-      if (!photoDetailLightboxState || photoDetailLightboxState.scale <= 1.01) {
-        return;
-      }
-      photoDetailLightboxState.activePointerId = event.pointerId;
-      photoDetailLightboxState.dragStartX = event.clientX - photoDetailLightboxState.translateX;
-      photoDetailLightboxState.dragStartY = event.clientY - photoDetailLightboxState.translateY;
-      photoDetailLightboxState.viewport.classList.add("is-dragging");
-      viewport.setPointerCapture(event.pointerId);
-      stopEvent(event);
-    });
-
-    viewport.addEventListener("pointermove", function (event) {
-      if (
-        !photoDetailLightboxState ||
-        photoDetailLightboxState.activePointerId !== event.pointerId
-      ) {
-        return;
-      }
-      photoDetailLightboxState.translateX = event.clientX - photoDetailLightboxState.dragStartX;
-      photoDetailLightboxState.translateY = event.clientY - photoDetailLightboxState.dragStartY;
-      syncPhotoDetailLightboxTransform(photoDetailLightboxState);
-      stopEvent(event);
-    });
-
-    function endLightboxDrag(event) {
-      if (
-        !photoDetailLightboxState ||
-        photoDetailLightboxState.activePointerId !== event.pointerId
-      ) {
-        return;
-      }
-      photoDetailLightboxState.activePointerId = null;
-      photoDetailLightboxState.viewport.classList.remove("is-dragging");
-      if (viewport.hasPointerCapture(event.pointerId)) {
-        viewport.releasePointerCapture(event.pointerId);
-      }
-    }
-
-    viewport.addEventListener("pointerup", endLightboxDrag);
-    viewport.addEventListener("pointercancel", endLightboxDrag);
-
     window.addEventListener("resize", function () {
       if (!photoDetailLightboxState || !photoDetailLightboxState.isOpen) {
         return;
       }
-      resetPhotoDetailLightboxTransform(photoDetailLightboxState);
+      syncPhotoDetailLightboxLayout(photoDetailLightboxState, true);
     });
 
     document.addEventListener("keydown", function (event) {
