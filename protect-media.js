@@ -15586,8 +15586,6 @@
       }
     }
 
-    var currentPath = getCurrentChronohazePath();
-    var seriesMeta = PHOTO_DETAIL_SERIES_META[currentPath] || null;
     var hero = gallery.querySelector(
       '.photo-detail-lead-composition .photo-detail-item[data-photo-slot="hero"]'
     );
@@ -15596,60 +15594,10 @@
       return;
     }
 
-    var existingCaption = hero.querySelector(".photo-detail-caption");
-    if (!seriesMeta) {
-      if (existingCaption) {
-        existingCaption.remove();
-      }
-      article.classList.remove("has-photo-detail-series-note");
-      return;
-    }
-
-    article.classList.add("has-photo-detail-series-note");
-
-    var caption = existingCaption;
-    if (!caption) {
-      caption = document.createElement("figcaption");
-      caption.className = "photo-detail-caption";
-
-      var seriesNode = document.createElement("span");
-      seriesNode.className = "photo-detail-caption-series";
-      caption.appendChild(seriesNode);
-
-      var locationNode = document.createElement("span");
-      locationNode.className = "photo-detail-caption-location";
-      caption.appendChild(locationNode);
-
-      var noteNode = document.createElement("p");
-      noteNode.className = "photo-detail-caption-note";
-      caption.appendChild(noteNode);
-
-      hero.appendChild(caption);
-    }
-
-    var seriesLine = caption.querySelector(".photo-detail-caption-series");
-    var locationLine = caption.querySelector(".photo-detail-caption-location");
-    var noteLine = caption.querySelector(".photo-detail-caption-note");
-
-    if (seriesLine) {
-      seriesLine.setAttribute("data-copy-zh", seriesMeta.seriesZh);
-      seriesLine.setAttribute("data-copy-en", seriesMeta.seriesEn);
-      seriesLine.textContent = safeLang === "en" ? seriesMeta.seriesEn : seriesMeta.seriesZh;
-    }
-
-    if (locationLine) {
-      locationLine.setAttribute("data-copy-zh", seriesMeta.locationZh);
-      locationLine.setAttribute("data-copy-en", seriesMeta.locationEn);
-      locationLine.textContent =
-        safeLang === "en" ? seriesMeta.locationEn : seriesMeta.locationZh;
-    }
-
-    if (noteLine) {
-      noteLine.setAttribute("data-copy-zh", seriesMeta.noteZh);
-      noteLine.setAttribute("data-copy-en", seriesMeta.noteEn);
-      noteLine.textContent = safeLang === "en" ? seriesMeta.noteEn : seriesMeta.noteZh;
-      noteLine.hidden = !seriesMeta.noteZh;
-    }
+    Array.from(gallery.querySelectorAll(".photo-detail-caption")).forEach(function (caption) {
+      caption.remove();
+    });
+    article.classList.remove("has-photo-detail-series-note");
   }
 
   function setupPhotoDetailPager() {

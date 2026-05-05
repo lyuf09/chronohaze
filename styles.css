@@ -1953,30 +1953,31 @@ audio {
 
 .photo-detail-page .photo-detail-gallery.photo-detail-gallery--contact-sheet {
   display: grid;
-  gap: clamp(24px, 3vw, 40px);
-  width: min(100%, 1420px);
-  margin: 30px auto 40px;
+  gap: clamp(30px, 3vw, 44px);
+  width: min(100%, 1540px);
+  margin: 34px auto 46px;
 }
 
 .photo-detail-page .photo-detail-lead-composition {
   display: grid;
-  grid-template-columns: minmax(0, 1.16fr) minmax(420px, 1fr);
-  gap: clamp(22px, 2.8vw, 36px);
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(24px, 2.6vw, 34px);
   align-items: start;
 }
 
 .photo-detail-page .photo-detail-side-stack {
   display: grid;
-  gap: clamp(18px, 2vw, 28px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(20px, 2vw, 30px);
   align-content: start;
 }
 
 .photo-detail-page .photo-detail-contact-sheet {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: clamp(28px, 3vw, 42px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(22px, 2.4vw, 34px);
   align-items: start;
-  width: min(100%, 1180px);
+  width: min(100%, 1540px);
   margin: 0 auto;
 }
 
@@ -1988,7 +1989,7 @@ audio {
   max-width: none;
   width: 100%;
   justify-self: stretch;
-  padding: clamp(6px, 0.7vw, 10px);
+  padding: clamp(5px, 0.55vw, 8px);
   border: 1px solid rgba(74, 86, 106, 0.14);
   background:
     linear-gradient(180deg, rgba(248, 249, 252, 0.9) 0%, rgba(239, 242, 247, 0.84) 100%);
@@ -2006,16 +2007,20 @@ audio {
   min-width: 0;
   width: 100%;
   max-width: none;
+  justify-self: stretch;
 }
 
 .photo-detail-page .photo-detail-side-stack .photo-detail-item {
   width: 100%;
   max-width: none;
+  justify-self: stretch;
 }
 
 .photo-detail-page .photo-detail-contact-sheet .photo-detail-item {
   grid-column: auto;
-  width: min(100%, 1080px);
+  width: 100%;
+  max-width: none;
+  justify-self: stretch;
 }
 
 .photo-detail-page .photo-detail-contact-sheet .photo-detail-item.is-landscape {
@@ -2032,15 +2037,6 @@ audio {
 
 .photo-detail-page .photo-detail-contact-sheet .photo-detail-item:only-child {
   grid-column: 1 / -1;
-}
-
-.photo-detail-page .photo-detail-contact-sheet .photo-detail-item:nth-child(2n + 1) {
-  justify-self: start;
-}
-
-.photo-detail-page .photo-detail-contact-sheet .photo-detail-item:nth-child(2n) {
-  justify-self: end;
-  width: min(100%, 980px);
 }
 
 .photo-detail-page .photo-detail-caption {
