@@ -121,6 +121,9 @@
   --ui-ease: var(--motion-ease-unified);
   --material-grain-light: rgba(255, 255, 255, 0.045);
   --material-grain-dark: rgba(20, 26, 36, 0.035);
+  --film-grain-opacity: 0.05;
+  --film-grain-size: 176px 176px;
+  --film-grain-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 176 176'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.12' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='176' height='176' filter='url(%23g)' opacity='0.94'/%3E%3C/svg%3E");
   --material-stroke-hairline: rgba(255, 255, 255, 0.22);
   --material-shadow-soft: 0 10px 22px rgba(14, 18, 27, 0.055);
   --material-shadow-soft-hover: 0 14px 28px rgba(14, 18, 27, 0.08);
@@ -156,6 +159,8 @@ body {
   margin: 0;
   font-family: var(--font-sans);
   font-weight: 300;
+  position: relative;
+  isolation: isolate;
   background: var(--bg);
   background-image:
     radial-gradient(circle at 16% 22%, var(--material-grain-light) 0.65px, transparent 1px),
@@ -171,6 +176,19 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   font-kerning: normal;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  opacity: var(--film-grain-opacity);
+  background-image: var(--film-grain-image);
+  background-size: var(--film-grain-size);
+  background-repeat: repeat;
+  mix-blend-mode: soft-light;
 }
 
 ::selection {
