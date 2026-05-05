@@ -457,30 +457,57 @@ img {
 
 body.motion-enhanced .motion-reveal {
   opacity: 0;
-  transform: translate3d(0, var(--motion-offset, 10px), 0) scale(var(--motion-scale, 0.996));
-  filter: saturate(0.94);
+  transform: translate3d(0, var(--motion-offset, 4px), 0);
+  filter: none;
   transition:
-    opacity var(--motion-duration, var(--motion-duration-base)) var(--motion-ease-out),
-    transform var(--motion-duration, var(--motion-duration-base)) var(--motion-ease-soft),
-    filter calc(var(--motion-duration, var(--motion-duration-base)) + 120ms) ease;
-  transition-delay: var(--motion-delay, 0ms);
+    opacity var(--motion-duration, 150ms) linear,
+    transform var(--motion-duration, 150ms) linear;
+  transition-delay: min(var(--motion-delay, 0ms), 72ms);
   will-change: opacity, transform;
 }
 
 body.motion-enhanced .motion-reveal.is-in {
   opacity: 1;
-  transform: translate3d(0, 0, 0) scale(1);
-  filter: saturate(1);
+  transform: translate3d(0, 0, 0);
+  filter: none;
 }
 
 body.motion-enhanced .motion-reveal.motion-reveal-soft {
-  --motion-offset: 6px;
-  --motion-duration: var(--motion-duration-soft);
+  --motion-offset: 2px;
+  --motion-duration: 150ms;
 }
 
 body.motion-enhanced .motion-reveal.motion-reveal-card {
-  --motion-offset: 10px;
-  --motion-duration: var(--motion-duration-card);
+  --motion-offset: 4px;
+  --motion-duration: 150ms;
+}
+
+@keyframes terminalCaretBlink {
+  0%,
+  46% {
+    opacity: 0.84;
+  }
+
+  47%,
+  100% {
+    opacity: 0.14;
+  }
+}
+
+.photo-index-page .photo-head-kicker::after,
+.music-index-page .music-head-kicker::after,
+.music-index-page .music-room-section-kicker::after,
+.music-index-page .music-background-title::after,
+.photo-index-page .photo-section-title::after {
+  content: "";
+  display: inline-block;
+  width: 0.34em;
+  height: 0.88em;
+  margin-left: 0.14em;
+  background: currentColor;
+  opacity: 0.76;
+  vertical-align: -0.08em;
+  animation: terminalCaretBlink 1s steps(1, end) infinite;
 }
 
 .page {
@@ -10407,6 +10434,15 @@ body {
   .site-share-action,
   .site-share-close {
     transition: none !important;
+  }
+
+  .photo-index-page .photo-head-kicker::after,
+  .music-index-page .music-head-kicker::after,
+  .music-index-page .music-room-section-kicker::after,
+  .music-index-page .music-background-title::after,
+  .photo-index-page .photo-section-title::after {
+    animation: none !important;
+    opacity: 0.48 !important;
   }
 
   body.page-transition-enabled .page,
