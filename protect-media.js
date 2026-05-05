@@ -15560,11 +15560,25 @@
         if (figures.length) {
           var contactSheet = document.createElement("div");
           contactSheet.className = "photo-detail-contact-sheet";
+          var leftColumn = document.createElement("div");
+          leftColumn.className = "photo-detail-contact-column photo-detail-contact-column--left";
+          var rightColumn = document.createElement("div");
+          rightColumn.className = "photo-detail-contact-column photo-detail-contact-column--right";
           figures.forEach(function (figure, index) {
             figure.setAttribute("data-photo-slot", "sheet");
             figure.setAttribute("data-photo-sheet-index", String(index + 1));
-            contactSheet.appendChild(figure);
+            if (index % 2 === 0) {
+              leftColumn.appendChild(figure);
+            } else {
+              rightColumn.appendChild(figure);
+            }
           });
+          if (leftColumn.children.length) {
+            contactSheet.appendChild(leftColumn);
+          }
+          if (rightColumn.children.length) {
+            contactSheet.appendChild(rightColumn);
+          }
           gallery.appendChild(contactSheet);
         }
       }

@@ -1981,6 +1981,12 @@ audio {
   margin: 0 auto;
 }
 
+.photo-detail-page .photo-detail-contact-column {
+  display: grid;
+  gap: clamp(22px, 2.4vw, 34px);
+  align-content: start;
+}
+
 .photo-detail-page .photo-detail-gallery--contact-sheet .photo-detail-item,
 .photo-detail-page .photo-detail-gallery--contact-sheet .photo-detail-item:nth-child(n) {
   --photo-detail-shift: 0px;
@@ -2278,6 +2284,10 @@ body.photo-lightbox-open {
   .photo-detail-page .photo-detail-contact-sheet {
     grid-template-columns: 1fr;
     width: 100%;
+  }
+
+  .photo-detail-page .photo-detail-contact-column {
+    gap: 12px;
   }
 
   .photo-detail-page .photo-detail-contact-sheet .photo-detail-item {
