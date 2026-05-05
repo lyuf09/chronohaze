@@ -3427,9 +3427,9 @@
         musicIntro:
           "音乐是我最早开始、也是持续时间最长的创作表达方式。我写作、编曲、演奏并制作自己的作品，将旋律、低频结构、节奏骨架与蓝灰色的情绪意象共同编织成声音。",
         musicLead: "",
-        musicFeaturedAlbumTitle: "Featured Works",
+        musicFeaturedAlbumTitle: "Albums / Concept Projects",
         musicFeaturedAlbumLead: "",
-        musicSelectedTitle: "Selected Tracks",
+        musicSelectedTitle: "Listening Room / Selected Works",
         musicSelectedLead: "",
         musicProductionTitle: "Production Notes",
         musicProductionLead: "",
@@ -3596,9 +3596,9 @@
         musicIntro:
           "Songs built from low-end weight, fragile melodies, progressive structures, and blue-grey memories.",
         musicLead: "",
-        musicFeaturedAlbumTitle: "Featured Works",
+        musicFeaturedAlbumTitle: "Albums / Concept Projects",
         musicFeaturedAlbumLead: "",
-        musicSelectedTitle: "Selected Tracks",
+        musicSelectedTitle: "Listening Room / Selected Works",
         musicSelectedLead: "",
         musicProductionTitle: "Production Notes",
         musicProductionLead: "",
@@ -12864,18 +12864,32 @@
       return;
     }
 
-    var featuredAlbum = {
-      href: "music/album-ipomoea-alba.html",
-      image: "assets/template/ipomoea-alba-album-cover.jpg",
-      eyebrowZh: "主推专辑",
-      eyebrowEn: "Featured album",
-      summaryZh: "雨、海、深蓝色的执念。",
-      summaryEn: "Rain, sea, and a deep-blue persistence.",
-      quoteZh: "不再追问，不再逼近，不再用结局证明意义。",
-      quoteEn: "No more pressing for an ending to prove meaning.",
-      detailZh: "15 首曲目 · 专辑页",
-      detailEn: "15 tracks · album page",
-    };
+    var albumProjects = [
+      {
+        href: "music/album-ipomoea-alba.html",
+        image: "assets/template/ipomoea-alba-album-cover.jpg",
+        eyebrowZh: "专辑",
+        eyebrowEn: "Album",
+        summaryZh: "雨、海、深蓝色的执念。",
+        summaryEn: "Rain, sea, and a deep-blue persistence.",
+        quoteZh: "不再追问，不再逼近，不再用结局证明意义。",
+        quoteEn: "No more pressing for an ending to prove meaning.",
+        detailZh: "15 首曲目 · 专辑页",
+        detailEn: "15 tracks · album page",
+      },
+      {
+        href: "music/album-teenage-best.html",
+        image: "assets/template/teenage-best-album-cover.jpg",
+        eyebrowZh: "概念项目",
+        eyebrowEn: "Concept project",
+        summaryZh: "更早期的写作、旋律与未完成的自我被收进同一册。",
+        summaryEn: "Earlier writing, melody, and unfinished selves gathered into one volume.",
+        quoteZh: "一场还没停雨的剧场，替更早的自己保留对白。",
+        quoteEn: "A theatre where the rain has not stopped yet, keeping dialogue for an earlier self.",
+        detailZh: "HazezZ 青少年时期精选集 · 专辑页",
+        detailEn: "A best-of collection from HazezZ’s teenage years · album page",
+      },
+    ];
 
     var selectedTracks = [
       {
@@ -13033,23 +13047,7 @@
       row.dataset.archiveTags = (meta.archiveTags || []).join(",");
     }
 
-    function buildFeaturedAlbum(rowMeta, blueprint) {
-      var section = createElement("section", "music-room-featured");
-      var featuredLead =
-        typeof dict.musicFeaturedAlbumLead === "string"
-          ? dict.musicFeaturedAlbumLead
-          : textFor(
-              "先听主推专辑，再读它留下的 liner notes。",
-              "Start with the central record, then read the liner notes it leaves behind."
-            );
-      section.appendChild(
-        buildSectionHead(
-          textFor("FEATURED", "FEATURED"),
-          dict.musicFeaturedAlbumTitle || textFor("Featured Album", "Featured Album"),
-          featuredLead
-        )
-      );
-
+    function buildAlbumCard(rowMeta, blueprint) {
       var article = createElement("article", "music-room-album");
       var link = createElement("a", "music-room-album-link");
       link.href = blueprint.href;
@@ -13096,7 +13094,28 @@
       link.appendChild(cover);
       link.appendChild(meta);
       article.appendChild(link);
-      section.appendChild(article);
+      return article;
+    }
+
+    function buildAlbumProjects(rowMetaMap, blueprints) {
+      var section = createElement("section", "music-room-featured");
+      section.appendChild(
+        buildSectionHead(
+          textFor("ALBUMS", "ALBUMS"),
+          dict.musicFeaturedAlbumTitle ||
+            textFor("Albums / Concept Projects", "Albums / Concept Projects"),
+          dict.musicFeaturedAlbumLead || ""
+        )
+      );
+
+      blueprints.forEach(function (item) {
+        var rowMeta = rowMetaMap[normalizeMusicCatalogHref(item.href)];
+        if (!rowMeta) {
+          return;
+        }
+        section.appendChild(buildAlbumCard(rowMeta, item));
+      });
+
       return section;
     }
 
@@ -13104,8 +13123,9 @@
       var section = createElement("section", "music-room-selected");
       section.appendChild(
         buildSectionHead(
-          textFor("SELECTED", "SELECTED"),
-          dict.musicSelectedTitle || textFor("Selected Tracks", "Selected Tracks"),
+          textFor("LISTENING ROOM", "LISTENING ROOM"),
+          dict.musicSelectedTitle ||
+            textFor("Listening Room / Selected Works", "Listening Room / Selected Works"),
           dict.musicSelectedLead ||
             ""
         )
@@ -13396,12 +13416,8 @@
     }
 
     var shell = createElement("div", "container music-room-shell");
-    var featuredMeta = rowMetaMap[normalizeMusicCatalogHref(featuredAlbum.href)];
-    if (featuredMeta) {
-      shell.appendChild(buildFeaturedAlbum(featuredMeta, featuredAlbum));
-    }
     shell.appendChild(buildSelectedTracks(rowMetaMap, selectedTracks));
-    shell.appendChild(buildProductionNotes());
+    shell.appendChild(buildAlbumProjects(rowMetaMap, albumProjects));
 
     rootSection.textContent = "";
     rootSection.appendChild(shell);
@@ -13414,10 +13430,12 @@
     archiveShell.appendChild(buildArchive(rowMetaMap));
     archiveWrapper.appendChild(archiveShell);
 
-    if (backgroundSection && backgroundSection.parentNode) {
+    if (afterwordSection && afterwordSection.parentNode) {
+      afterwordSection.parentNode.insertBefore(archiveWrapper, afterwordSection);
+    } else if (backgroundSection && backgroundSection.parentNode) {
       backgroundSection.parentNode.insertBefore(
         archiveWrapper,
-        afterwordSection || backgroundSection.nextSibling
+        backgroundSection.nextSibling
       );
     } else if (rootSection.parentNode) {
       rootSection.parentNode.insertBefore(
@@ -13795,8 +13813,8 @@
       setMetaTagContent(
         'meta[name="description"]',
         safeLang === "en"
-          ? "A music listening room: featured album, selected tracks, sound world, and a quieter archive."
-          : "音乐 listening room：主推专辑、精选曲目、声音世界与较冷淡的归档索引。"
+          ? "A music listening room with selected works, albums, production language, and a quieter archive."
+          : "音乐 listening room：精选作品、专辑项目、production / performance language 与较冷淡的归档索引。"
       );
       setMetaTagContent(
         'meta[property="og:title"]',
@@ -13807,8 +13825,8 @@
       setMetaTagContent(
         'meta[property="og:description"]',
         safeLang === "en"
-          ? "A music listening room: featured album, selected tracks, sound world, and a quieter archive."
-          : "音乐 listening room：主推专辑、精选曲目、声音世界与较冷淡的归档索引。"
+          ? "A music listening room with selected works, albums, production language, and a quieter archive."
+          : "音乐 listening room：精选作品、专辑项目、production / performance language 与较冷淡的归档索引。"
       );
       setMetaTagContent(
         'meta[name="twitter:title"]',
@@ -13819,8 +13837,8 @@
       setMetaTagContent(
         'meta[name="twitter:description"]',
         safeLang === "en"
-          ? "A music listening room: featured album, selected tracks, sound world, and a quieter archive."
-          : "音乐 listening room：主推专辑、精选曲目、声音世界与较冷淡的归档索引。"
+          ? "A music listening room with selected works, albums, production language, and a quieter archive."
+          : "音乐 listening room：精选作品、专辑项目、production / performance language 与较冷淡的归档索引。"
       );
     }
 
