@@ -14001,6 +14001,27 @@ html:lang(en) .music-album-page .album-back-link {
   padding-top: 12px;
 }
 
+.photo-index-page .photo-formative-note {
+  padding: 2px 0 18px;
+}
+
+.photo-index-page .photo-formative-note-body {
+  width: min(100%, 1100px);
+  margin: 0 auto;
+  display: grid;
+  gap: 10px;
+}
+
+.photo-index-page .photo-formative-note-body p {
+  margin: 0;
+  max-width: 760px;
+  color: rgba(52, 59, 72, 0.84);
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-size: clamp(16px, 1.08vw, 18px);
+  line-height: 1.62;
+  letter-spacing: 0.012em;
+}
+
 .photo-index-page .photo-featured-grid {
   width: min(100%, 1100px);
   margin: 0 auto;
@@ -14259,6 +14280,20 @@ html:lang(en) .music-album-page .album-back-link {
 
   .photo-index-page .photo-featured-grid {
     gap: 24px;
+  }
+
+  .photo-index-page .photo-formative-note {
+    padding: 0 0 16px;
+  }
+
+  .photo-index-page .photo-formative-note-body {
+    gap: 8px;
+  }
+
+  .photo-index-page .photo-formative-note-body p {
+    max-width: none;
+    font-size: 13px;
+    line-height: 1.56;
   }
 
   .photo-index-page .photo-feature-card,
