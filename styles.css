@@ -1926,6 +1926,41 @@ audio {
   letter-spacing: 0.22em;
 }
 
+.photo-detail-page .photo-detail-statement {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 920px);
+  margin: 0 0 30px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(78, 87, 103, 0.14);
+}
+
+.photo-detail-page .photo-detail-statement [data-lang-block] {
+  display: none;
+}
+
+.photo-detail-page .photo-detail-statement [data-lang-block="zh"] {
+  display: block;
+}
+
+html:lang(en) .photo-detail-page .photo-detail-statement [data-lang-block="zh"] {
+  display: none;
+}
+
+html:lang(en) .photo-detail-page .photo-detail-statement [data-lang-block="en"] {
+  display: block;
+}
+
+.photo-detail-page .photo-detail-statement p {
+  margin: 0;
+  max-width: 72ch;
+  color: rgba(45, 52, 64, 0.86);
+  font-size: 15.5px;
+  line-height: 1.92;
+  letter-spacing: 0.012em;
+  text-wrap: pretty;
+}
+
 .photo-detail-page .photo-detail-gallery {
   margin: 26px auto 34px;
   width: min(100%, 1420px);
@@ -12460,6 +12495,17 @@ html:lang(en) .music-album-page .album-back-link {
     margin-bottom: 16px;
     font-size: 10px;
     letter-spacing: 0.12em;
+  }
+
+  .photo-detail-page .photo-detail-statement {
+    width: 100%;
+    margin-bottom: 18px;
+    padding-top: 12px;
+  }
+
+  .photo-detail-page .photo-detail-statement p {
+    font-size: 14px;
+    line-height: 1.82;
   }
 
   .photo-detail-page .photo-detail-gallery {
