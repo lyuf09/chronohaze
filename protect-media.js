@@ -13424,6 +13424,13 @@
       }
     });
 
+    var backgroundSection = document.querySelector(".music-background");
+    var afterwordSection = document.querySelector(".music-afterword");
+    var existingArchiveSection = document.querySelector(".music-room-archive-section");
+    if (existingArchiveSection && existingArchiveSection.parentNode) {
+      existingArchiveSection.parentNode.removeChild(existingArchiveSection);
+    }
+
     var shell = createElement("div", "container music-room-shell");
     var featuredMeta = rowMetaMap[normalizeMusicCatalogHref(featuredAlbum.href)];
     if (featuredMeta) {
@@ -13431,10 +13438,29 @@
     }
     shell.appendChild(buildSelectedTracks(rowMetaMap, selectedTracks));
     shell.appendChild(buildProductionNotes());
-    shell.appendChild(buildArchive(rowMetaMap));
 
     rootSection.textContent = "";
     rootSection.appendChild(shell);
+
+    var archiveWrapper = createElement("section", "section music-room-archive-section");
+    var archiveShell = createElement(
+      "div",
+      "container music-room-shell music-room-archive-shell"
+    );
+    archiveShell.appendChild(buildArchive(rowMetaMap));
+    archiveWrapper.appendChild(archiveShell);
+
+    if (backgroundSection && backgroundSection.parentNode) {
+      backgroundSection.parentNode.insertBefore(
+        archiveWrapper,
+        afterwordSection || backgroundSection.nextSibling
+      );
+    } else if (rootSection.parentNode) {
+      rootSection.parentNode.insertBefore(
+        archiveWrapper,
+        afterwordSection || rootSection.nextSibling
+      );
+    }
   }
 
   function setSamePageLanguageInUrl(lang) {
