@@ -3507,11 +3507,11 @@
         photoPageTitle: "摄影 / Selected Works",
         photoIntro: "城市、窗、花与模糊的光，是镜头量出的距离碎片。",
         readMore: "查看更多",
-        backToMusic: "返回音乐栏目",
-        backToPhoto: "返回摄影栏目",
+        backToMusic: "← 返回音乐",
+        backToPhoto: "← 返回摄影",
         backToMath: "返回数学栏目",
         photoPrevGroup: "上一组",
-        photoBackToArchive: "返回摄影栏目",
+        photoBackToArchive: "← 返回摄影",
         photoNextGroup: "下一组",
         detailBack: "< 返回",
         creationLabel: "创作时间：",
@@ -3680,11 +3680,11 @@
           "These photographs are not meant to document places exactly. They are small attempts to keep the feeling of passing through them: the colour of a day, the shape of a window, and the quiet pressure of light.",
         ],
         readMore: "Read More",
-        backToMusic: "Back to music",
-        backToPhoto: "Back to photography",
+        backToMusic: "← Back to Music",
+        backToPhoto: "← Back to Photography",
         backToMath: "Back to mathematics",
         photoPrevGroup: "Prev",
-        photoBackToArchive: "Back",
+        photoBackToArchive: "← Back to Photography",
         photoNextGroup: "Next",
         detailBack: "< Back",
         creationLabel: "Creation period:",
@@ -11357,8 +11357,10 @@
       [/韦茅斯/g, "Weymouth"],
       [/毕业作品影像/g, "A-level photography final piece"],
       [/毕业作品视频/g, "A-level photography final piece"],
-      [/返回摄影栏目/g, "Back to photography"],
-      [/返回音乐栏目/g, "Back to music"],
+      [/←\s*返回摄影/g, "← Back to Photography"],
+      [/← 返回摄影/g, "← Back to Photography"],
+      [/←\s*返回音乐/g, "← Back to Music"],
+      [/← 返回音乐/g, "← Back to Music"],
       [/返回数学栏目/g, "Back to mathematics"],
       [/阅读全文/g, "Read More"],
     ];
@@ -13860,7 +13862,7 @@
       }
 
       if (albumBackLink) {
-        albumBackLink.textContent = safeLang === "en" ? "Back to music" : "返回音乐作品集";
+        albumBackLink.textContent = dict.backToMusic;
       }
 
       if (albumIntroNode) {
@@ -14146,7 +14148,7 @@
         node
       ) {
         if (isPhotoIndexHref(node.getAttribute("href") || "")) {
-          node.textContent = safeLang === "en" ? "Back to photography" : "返回摄影栏目";
+          node.textContent = dict.backToPhoto;
         }
       });
 
