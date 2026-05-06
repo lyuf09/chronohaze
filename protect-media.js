@@ -13161,12 +13161,6 @@
         var meta = createElement("span", "music-room-track-meta");
         meta.appendChild(createElement("strong", "music-room-track-title", rowMeta.title));
         meta.appendChild(createElement("span", "music-room-track-artist", rowMeta.artist));
-
-        var tags = createElement("span", "music-room-track-tags");
-        (lang === "en" ? item.tagsEn : item.tagsZh).forEach(function (tag) {
-          tags.appendChild(createElement("span", "music-room-track-tag", tag));
-        });
-        meta.appendChild(tags);
         meta.appendChild(
           createElement(
             "span",
