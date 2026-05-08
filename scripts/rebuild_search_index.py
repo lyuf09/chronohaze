@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from datetime import date
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
@@ -292,6 +293,50 @@ def merge_items(search_data_dir: Path, catalogs: Dict[str, Any] | None = None) -
     return collected
 
 
+def refresh_search_data_metadata(search_data_dir: Path, generated_at: str) -> int:
+    updated = 0
+    for path in sorted(search_data_dir.glob("*.json")):
+        data = load_json(path)
+        if not isinstance(data, dict):
+            raise ValueError(f"{path.name} root must be object")
+        items = data.get("items")
+        if not isinstance(items, list):
+            raise ValueError(f"{path.name} items must be array")
+        if str(data.get("generated_at", "")).strip() == generated_at:
+            continue
+        data["generated_at"] = generated_at
+        path.write_text(
+            json.dumps(data, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
+        updated += 1
+    return updated
+
+
+INLINE_FALLBACK_RE = re.compile(
+    r'(<script id="search-inline-fallback" type="application/json">\s*)(\{.*?\})(\s*</script>)',
+    re.S,
+)
+
+
+def sync_search_inline_fallback(root: Path, payload: Dict[str, Any]) -> bool:
+    search_html_path = root / "search.html"
+    html_text = search_html_path.read_text(encoding="utf-8")
+    match = INLINE_FALLBACK_RE.search(html_text)
+    if not match:
+        raise ValueError("search.html is missing #search-inline-fallback payload")
+    rendered_payload = json.dumps(payload, ensure_ascii=False, indent=2)
+    updated_html = (
+        html_text[: match.start(2)]
+        + rendered_payload
+        + html_text[match.end(2) :]
+    )
+    if updated_html == html_text:
+        return False
+    search_html_path.write_text(updated_html, encoding="utf-8")
+    return True
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Rebuild combined search index from assets/search-data/*.json"
@@ -311,6 +356,9 @@ def main() -> int:
     if not search_data_dir.is_dir():
         raise SystemExit(f"Missing search data directory: {search_data_dir}")
 
+    generated_at = date.today().isoformat()
+    refreshed_count = refresh_search_data_metadata(search_data_dir, generated_at)
+
     catalogs = {
         "music": load_music_catalog_map(root),
         "music_detail": load_music_detail_catalog_map(root),
@@ -320,7 +368,7 @@ def main() -> int:
     }
     items = merge_items(search_data_dir, catalogs)
     payload = {
-        "generated_at": date.today().isoformat(),
+        "generated_at": generated_at,
         "items": items,
     }
 
@@ -328,7 +376,11 @@ def main() -> int:
         json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
-    print(f"Rebuilt {out_path} with {len(items)} items from {search_data_dir}")
+    inline_updated = sync_search_inline_fallback(root, payload)
+    print(
+        f"Rebuilt {out_path} with {len(items)} items from {search_data_dir} "
+        f"(metadata refreshed: {refreshed_count}, inline fallback updated: {'yes' if inline_updated else 'no'})"
+    )
     return 0
 
 
