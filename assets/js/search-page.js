@@ -486,7 +486,6 @@
     var loadError = false;
     var usingFallback = false;
     var loadToken = 0;
-    var autoExternalRedirected = false;
     var activeResultIndex = -1;
     var pendingUrlSyncMode = "replace";
     var lastSyncedUrlStateKey = null;
@@ -646,23 +645,6 @@
         }
       }
 
-    }
-
-    function maybeRedirectToExternalSearch(rawQuery) {
-      if (!loadError || autoExternalRedirected) {
-        return false;
-      }
-      var query = String(rawQuery || "").trim();
-      if (!query) {
-        return false;
-      }
-      var externalHref = updateFallbackExternalLink();
-      if (!externalHref) {
-        return false;
-      }
-      autoExternalRedirected = true;
-      window.location.assign(externalHref);
-      return true;
     }
 
     function updateSearchUrl(query, scope, tag) {
@@ -1033,7 +1015,7 @@
       }
 
       var scriptNode = document.querySelector(
-        'script[src*="search-page.js"], script[src*="protect-media.js"]'
+        'script[src*="search-page"], script[src*="protect-media"]'
       );
       if (scriptNode) {
         try {
@@ -1259,15 +1241,16 @@
     }
 
     function loadCombinedFallback() {
+      var inlineItems = readInlineFallbackItems();
+      if (inlineItems.length) {
+        return Promise.resolve(inlineItems);
+      }
+
       return fetchJsonFromCandidates("assets/search-index.json")
         .then(function (payload) {
           return normalizeItems(payload);
         })
         .catch(function () {
-          var inlineItems = readInlineFallbackItems();
-          if (inlineItems.length) {
-            return inlineItems;
-          }
           throw new Error("fallback unavailable");
         });
     }
@@ -1676,16 +1659,6 @@
 
       if (loadError) {
         updateShareToolsVisibility();
-        if (maybeRedirectToExternalSearch(rawQuery)) {
-          statusNode.textContent =
-            dict.searchFallbackRedirecting || dict.searchFallbackText || dict.searchFallbackExternal;
-          emptyNode.hidden = true;
-          emptyNode.textContent = "";
-          listNode.textContent = "";
-          setFallbackVisibility(true);
-          hideNoResultsRecommendations();
-          return;
-        }
         statusNode.textContent =
           dict.searchFallbackModeLabel || dict.searchFallbackText || dict.searchFallbackExternal;
         emptyNode.hidden = true;
@@ -1947,7 +1920,11 @@
     formNode.addEventListener("submit", function (event) {
       event.preventDefault();
       updateFallbackExternalLink();
-      if (maybeRedirectToExternalSearch(String(inputNode.value || "").trim())) {
+      if (loadError) {
+        renderResults();
+        if (fallbackExternalNode && typeof fallbackExternalNode.focus === "function") {
+          fallbackExternalNode.focus();
+        }
         return;
       }
       trackAnalyticsEvent("search_submit", {

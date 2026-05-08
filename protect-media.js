@@ -16232,6 +16232,24 @@
     });
   }
 
+  function syncPageDataScriptsFromDocument(sourceDocument) {
+    var existingSearchFallback = document.getElementById("search-inline-fallback");
+    if (existingSearchFallback && existingSearchFallback.parentNode) {
+      existingSearchFallback.parentNode.removeChild(existingSearchFallback);
+    }
+
+    if (!sourceDocument || typeof sourceDocument.getElementById !== "function") {
+      return;
+    }
+
+    var nextSearchFallback = sourceDocument.getElementById("search-inline-fallback");
+    if (!nextSearchFallback || !document.body) {
+      return;
+    }
+
+    document.body.appendChild(document.importNode(nextSearchFallback, true));
+  }
+
   function loadPageScriptsFromDocument(sourceDocument, targetUrl) {
     if (!sourceDocument) {
       return Promise.resolve();
@@ -16459,6 +16477,8 @@
           if (!replacePageShellFromDocument(nextDocument)) {
             throw new Error("missing-page-shell");
           }
+
+          syncPageDataScriptsFromDocument(nextDocument);
 
           return loadPageScriptsFromDocument(nextDocument, url).then(function () {
             return finalizeSwappedPage(url).then(function () {
