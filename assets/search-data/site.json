@@ -32,38 +32,38 @@
       "title": "Academic / 学术",
       "url": "academic.html",
       "section": "Site",
-      "date": "2026-04-16",
-      "excerpt": "Academic hub for research themes, representative work, and entry points into research and projects.",
+      "date": "2026-05-08",
+      "excerpt": "Academic landing page organized around research directions, selected highlights, and entry points into research, work, and notes.",
       "tags": [
         "academic",
         "research",
-        "projects",
-        "notes",
         "optimization",
-        "formal-methods"
+        "formal-methods",
+        "duality",
+        "prototype"
       ],
-      "sort": 20260416,
+      "sort": 20260508,
       "scope": "site",
-      "content": "Academic 学术 Academic Overview Research Themes Explore the Academic Side Research Projects Notes Representative Work 代表性工作 Isabelle HOL Modern Submodular Greedy Algorithms Duality and Lower Bounds under Invariances Metalcore Piano Lab Optimization Formal Verification Operational Research for Machine Learning Isabelle HOL Optimization Theory Game Theory Strategic Reasoning equilibrium dynamic games incomplete information incentives information structure 研究线 Project materials 当前方向与材料 项目材料 研究笔记 博弈论 策略互动 信息结构 激励机制 均衡 动态博弈 信息不完全"
+      "content": "Academic Landing 学术 Research Directions Selected Highlights Research Work Notes OR for ML optimization formal verification structured modeling Isabelle HOL submodular greedy duality under invariance prototype discretization 研究方向 代表性入口 材料 研究笔记 形式化验证 对偶 下界 原型 离散化"
     },
     {
       "title": "Projects / 项目",
       "url": "projects.html",
       "section": "Site",
-      "date": "2026-04-16",
-      "excerpt": "代表性工作与当前方向材料的索引：按方向整理 repo、note、archive 与摘要。",
+      "date": "2026-05-08",
+      "excerpt": "Selected work page focused on three concrete objects, their current status, and where the materials live.",
       "tags": [
         "projects",
-        "research",
-        "optimization",
+        "work",
         "formal-methods",
         "prototype",
-        "data",
-        "engineering"
+        "duality",
+        "isabelle-hol",
+        "selected-work"
       ],
-      "sort": 20260416,
+      "sort": 20260508,
       "scope": "site",
-      "content": "代表性工作 当前方向与材料 项目材料 公开材料 索引 研究与形式化验证 Isabelle HOL 现代子模贪心算法形式化 单调非负子模最大化 classical greedy LazyGreedy StochasticGreedy 近似保证 oracle cost core theorem lines AFP clean up 依赖整理 不变性下的对偶与下界 原型与信号处理 Metalcore Piano Lab 工程与 IP 防离析布料系统 数据分析 Funnel Retention Attribution Analysis 这个网站 Chronohaze 相关材料 Repository Notes Archive CV 页面 Representative Work Current Directions and Materials project materials public materials Research and Formal Verification Isabelle HOL Formalizing Modern Submodular Greedy Algorithms monotone nonnegative submodular maximization cardinality constraints classical greedy LazyGreedy StochasticGreedy approximation oracle-cost core theorem lines complete AFP-style presentation Duality and Lower Bounds under Invariances Prototype and Signal Processing Metalcore Piano Lab Engineering and IP Anti-Segregation Spreading System Data and Analytics Chronohaze Materials Repository Notes Archive"
+      "content": "代表性工作 Work Selected Work Formal Verification Duality Invariance Prototype Isabelle HOL 现代子模贪心算法形式化 不变性下的对偶与结构分数 Metalcore Piano Lab 对象 状态 材料入口 Repo Note Archive clean-up AFP dual collapse inconsistency score discretization playable chart events"
     }
   ]
 }
