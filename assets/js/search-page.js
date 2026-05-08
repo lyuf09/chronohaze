@@ -151,6 +151,14 @@
     }
     document.body.dataset.searchPageReady = "1";
 
+    var shared = getShared();
+    if (shared && typeof shared.ensureSearchNavLink === "function") {
+      shared.ensureSearchNavLink();
+    }
+    if (shared && typeof shared.dedupeNavLinks === "function") {
+      shared.dedupeNavLinks();
+    }
+
     var lang = detectPreferredLanguage();
     var dict = getSecondaryPageDictionary(lang);
     var SEARCH_STATE_KEY = "chronohaze:search-state:v1";

@@ -16986,6 +16986,8 @@
   window.ChronohazeShared.uniqueMusicTags = uniqueMusicTags;
   window.ChronohazeShared.getMusicTagLabel = getMusicTagLabel;
   window.ChronohazeShared.trackAnalyticsEvent = trackAnalyticsEvent;
+  window.ChronohazeShared.ensureSearchNavLink = ensureSearchNavLink;
+  window.ChronohazeShared.dedupeNavLinks = dedupeNavLinks;
 
   var BOOT_TASK_GROUPS = {
     navAndChrome: [
