@@ -93,6 +93,46 @@ test("album page renders cover and track links", async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
+test("secondary pages keep mobile nav within the viewport", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "iphone13", "mobile-only nav safety check");
+
+  const pages = [
+    "policy.html",
+    "accessibility.html",
+    "search.html",
+    "music/album-ipomoea-alba.html",
+    "music/album-teenage-best.html",
+  ];
+
+  for (const path of pages) {
+    const errors = trackPageErrors(page);
+    await page.goto(path, { waitUntil: "domcontentloaded" });
+
+    await expect(page.locator(".site-header .nav")).toBeVisible();
+    await expect(page.locator(".site-header .nav a")).toHaveCount(6);
+
+    const metrics = await page.evaluate(() => {
+      const nav = document.querySelector(".site-header .nav");
+      const header = document.querySelector(".site-header");
+      const body = document.body;
+      const root = document.documentElement;
+      return {
+        viewport: window.innerWidth,
+        rootScrollWidth: root ? root.scrollWidth : 0,
+        bodyScrollWidth: body ? body.scrollWidth : 0,
+        headerScrollWidth: header ? header.scrollWidth : 0,
+        navScrollWidth: nav ? nav.scrollWidth : 0,
+      };
+    });
+
+    expect(metrics.rootScrollWidth).toBeLessThanOrEqual(metrics.viewport + 2);
+    expect(metrics.bodyScrollWidth).toBeLessThanOrEqual(metrics.viewport + 2);
+    expect(metrics.headerScrollWidth).toBeLessThanOrEqual(metrics.viewport + 2);
+    expect(metrics.navScrollWidth).toBeLessThanOrEqual(metrics.viewport + 2);
+    expect(errors).toEqual([]);
+  }
+});
+
 test("photo detail page supports keyboard prev/next navigation", async ({ page }) => {
   const errors = trackPageErrors(page);
   await page.goto("photo/photo-01.html", { waitUntil: "domcontentloaded" });

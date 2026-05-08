@@ -15254,3 +15254,65 @@ html:lang(en) .music-album-page .album-back-link {
     margin-bottom: 10px;
   }
 }
+
+/* Final secondary-page mobile nav safety pass */
+@media (max-width: 760px) {
+  body:not(.home-body) .site-header {
+    overflow-x: clip;
+  }
+
+  body:not(.home-body) .header-inner {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    align-items: stretch;
+    gap: 8px;
+    padding-top: 12px;
+    padding-bottom: 8px;
+    padding-right: 0 !important;
+  }
+
+  body:not(.home-body) .brand {
+    top: 0;
+    width: 100%;
+    max-width: none;
+    justify-self: start;
+    padding-right: max(96px, calc(90px + var(--safe-right))) !important;
+  }
+
+  body:not(.home-body) .nav {
+    width: 100%;
+    justify-self: stretch;
+    justify-content: flex-start;
+    align-items: center;
+    row-gap: 6px !important;
+    column-gap: 10px !important;
+    padding-right: 0 !important;
+    padding-bottom: 0;
+    white-space: normal !important;
+  }
+
+  body:not(.home-body) .nav a {
+    min-height: 30px;
+    padding: 4px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  body:not(.home-body) .header-inner {
+    gap: 7px;
+    padding-top: 11px;
+    padding-bottom: 7px;
+  }
+
+  body:not(.home-body) .brand {
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    padding-right: max(88px, calc(82px + var(--safe-right))) !important;
+  }
+
+  body:not(.home-body) .nav {
+    font-size: 12px;
+    row-gap: 5px !important;
+    column-gap: 8px !important;
+  }
+}
