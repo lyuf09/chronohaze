@@ -262,8 +262,14 @@
 
       <section class="section research-outputs-section" id="research-outputs">
         <div class="container research-section-head">
-          <h2>建议先看</h2>
-          <p>把页面从问题陈述带到可检查的材料，不让研究页只停在目录层。</p>
+          <div data-lang-block="zh">
+            <h2>建议先看</h2>
+            <p>把页面从问题陈述带到可检查的材料，不让研究页只停在目录层。</p>
+          </div>
+          <div data-lang-block="en" hidden>
+            <h2>Start here</h2>
+            <p>From problem framing to inspectable materials, so the page does not stop at the level of a directory.</p>
+          </div>
         </div>
         <div class="container research-outputs-shell">
           <section class="research-output-group" data-output-group="notes">
@@ -280,19 +286,31 @@
             <div class="research-outputs-grid">
               <a class="research-output-card" data-output-type="notes" href="projects.html">
                 <span class="research-output-kicker">Work</span>
-                <strong>代表性工作</strong>
+                <div data-lang-block="zh">
+                  <strong>代表性工作</strong>
+                  <p>把 Isabelle/HOL、optimization prototype 与相关项目放在同一个可扫描入口里。</p>
+                </div>
+                <div data-lang-block="en" hidden>
+                  <strong>Representative Work</strong>
+                  <p>Projects, formal developments, and prototype work gathered into a single scannable entry point.</p>
+                </div>
                 <span class="research-output-status">
                   <span class="research-output-status-badge research-output-status-badge--active">Active</span>
                 </span>
-                <p>把 Isabelle/HOL、optimization prototype 与相关项目放在同一个可扫描入口里。</p>
               </a>
               <a class="research-output-card" data-output-type="notes" href="math.html">
                 <span class="research-output-kicker">Notes</span>
-                <strong>学术笔记</strong>
+                <div data-lang-block="zh">
+                  <strong>学术笔记</strong>
+                  <p>保留推导、形式化进展、失败路线和重新组织后的技术记录。</p>
+                </div>
+                <div data-lang-block="en" hidden>
+                  <strong>Research Notes</strong>
+                  <p>Derivations, formalization progress, failed routes, and reorganized technical records.</p>
+                </div>
                 <span class="research-output-status">
                   <span class="research-output-status-badge research-output-status-badge--active">Active</span>
                 </span>
-                <p>保留推导、形式化进展、失败路线和重新组织后的技术记录。</p>
               </a>
             </div>
           </section>
@@ -301,14 +319,28 @@
 
       <section class="section research-now-section" id="research-now">
         <div class="container research-section-head">
-          <h2>这些方向为什么连在一起</h2>
+          <div data-lang-block="zh">
+            <h2>这些方向为什么连在一起</h2>
+          </div>
+          <div data-lang-block="en" hidden>
+            <h2>Why these lines belong together</h2>
+          </div>
         </div>
         <div class="container research-now-panel">
-          <ul class="research-now-list">
-            <li>我关心的是对象在被形式化、对偶化或离散化之后，哪些结构仍然值得保留。</li>
-            <li>Isabelle/HOL 这条线迫使证明接口变清楚；duality 这条线迫使模型不变性变清楚。</li>
-            <li>Prototype / discretization 则把同一个问题放回可操作输入里，检验理论描述是否真的抓住了结构。</li>
-          </ul>
+          <div data-lang-block="zh">
+            <ul class="research-now-list">
+              <li>我关心的是对象在被形式化、对偶化或离散化之后，哪些结构仍然值得保留。</li>
+              <li>Isabelle/HOL 这条线迫使证明接口变清楚；duality 这条线迫使模型不变性变清楚。</li>
+              <li>Prototype / discretization 则把同一个问题放回可操作输入里，检验理论描述是否真的抓住了结构。</li>
+            </ul>
+          </div>
+          <div data-lang-block="en" hidden>
+            <ul class="research-now-list">
+              <li>I care about which structures remain worth keeping after an object has been formalized, dualized, or discretized.</li>
+              <li>The Isabelle/HOL line forces proof interfaces to become explicit; the duality line forces model invariance to become explicit.</li>
+              <li>Prototype / discretization puts the same question back into workable inputs and checks whether the theoretical description has actually captured the structure.</li>
+            </ul>
+          </div>
         </div>
       </section>
     </main>

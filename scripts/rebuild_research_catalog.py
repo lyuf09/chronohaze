@@ -346,12 +346,13 @@ def parse_research_page(text: str) -> Dict[str, Any]:
         block = outputs_section_m.group(1)
         head_m = re.search(r'<div class="container research-section-head">(.*?)</div>', block, re.S)
         if head_m:
+            head_text = preferred_lang_block(head_m.group(1), "zh")
             payload["outputs_section"] = {
-                "title": clean(re.search(r"<h2>(.*?)</h2>", head_m.group(1), re.S).group(1))
-                if re.search(r"<h2>(.*?)</h2>", head_m.group(1), re.S)
+                "title": clean(re.search(r"<h2>(.*?)</h2>", head_text, re.S).group(1))
+                if re.search(r"<h2>(.*?)</h2>", head_text, re.S)
                 else "",
-                "lead": clean(re.search(r"<p>(.*?)</p>", head_m.group(1), re.S).group(1))
-                if re.search(r"<p>(.*?)</p>", head_m.group(1), re.S)
+                "lead": clean(re.search(r"<p>(.*?)</p>", head_text, re.S).group(1))
+                if re.search(r"<p>(.*?)</p>", head_text, re.S)
                 else "",
             }
 
@@ -359,6 +360,7 @@ def parse_research_page(text: str) -> Dict[str, Any]:
         for a_m in re.finditer(r'<a\s+class="research-output-card"([^>]*)href="([^"]+)"([^>]*)>(.*?)</a>', outputs_block, re.S):
             attrs = " ".join([(a_m.group(1) or ""), (a_m.group(3) or "")])
             body = a_m.group(4) or ""
+            body_pref = preferred_lang_block(body, "zh")
             type_m = re.search(r'data-output-type="([^"]+)"', attrs)
             payload["outputs"].append(
                 {
@@ -370,16 +372,16 @@ def parse_research_page(text: str) -> Dict[str, Any]:
                     )
                     if re.search(r'<span class="research-output-kicker">(.*?)</span>', body, re.S)
                     else "",
-                    "title": clean(re.search(r"<strong>(.*?)</strong>", body, re.S).group(1))
-                    if re.search(r"<strong>(.*?)</strong>", body, re.S)
+                    "title": clean(re.search(r"<strong>(.*?)</strong>", body_pref, re.S).group(1))
+                    if re.search(r"<strong>(.*?)</strong>", body_pref, re.S)
                     else "",
                     "status": clean(
                         re.search(r'<span class="research-output-status">(.*?)</span>', body, re.S).group(1)
                     )
                     if re.search(r'<span class="research-output-status">(.*?)</span>', body, re.S)
                     else "",
-                    "description": clean(re.search(r"<p>(.*?)</p>", body, re.S).group(1))
-                    if re.search(r"<p>(.*?)</p>", body, re.S)
+                    "description": clean(re.search(r"<p>(.*?)</p>", body_pref, re.S).group(1))
+                    if re.search(r"<p>(.*?)</p>", body_pref, re.S)
                     else "",
                 }
             )
@@ -393,16 +395,23 @@ def parse_research_page(text: str) -> Dict[str, Any]:
         block = now_section_m.group(1)
         head_m = re.search(r'<div class="container research-section-head">(.*?)</div>', block, re.S)
         if head_m:
+            head_text = preferred_lang_block(head_m.group(1), "zh")
             payload["now_section"] = {
-                "title": clean(re.search(r"<h2>(.*?)</h2>", head_m.group(1), re.S).group(1))
-                if re.search(r"<h2>(.*?)</h2>", head_m.group(1), re.S)
+                "title": clean(re.search(r"<h2>(.*?)</h2>", head_text, re.S).group(1))
+                if re.search(r"<h2>(.*?)</h2>", head_text, re.S)
                 else "",
-                "lead": clean(re.search(r"<p>(.*?)</p>", head_m.group(1), re.S).group(1))
-                if re.search(r"<p>(.*?)</p>", head_m.group(1), re.S)
+                "lead": clean(re.search(r"<p>(.*?)</p>", head_text, re.S).group(1))
+                if re.search(r"<p>(.*?)</p>", head_text, re.S)
                 else "",
             }
         now_block = marker_block(text, "research-now") or block
-        payload["now_items"] = [clean(x) for x in re.findall(r"<li>(.*?)</li>", now_block, re.S) if clean(x)]
+        zh_list_m = re.search(
+            r'<div[^>]*data-lang-block="zh"[^>]*>\s*<ul class="research-now-list">(.*?)</ul>\s*</div>',
+            now_block,
+            re.S,
+        )
+        list_block = zh_list_m.group(1) if zh_list_m else now_block
+        payload["now_items"] = [clean(x) for x in re.findall(r"<li>(.*?)</li>", list_block, re.S) if clean(x)]
 
     links_section_m = re.search(
         r'<section[^>]*class="section research-fast-links-section"[^>]*>(.*?)</section>',
