@@ -535,7 +535,7 @@
         return "";
       }
       var query = normalizeText(inputNode.value || "").trim();
-      var q = "site:chronohaze.space";
+      var q = "site:lyuf09.github.io/chronohaze";
       if (query) {
         q += " " + query;
       }
