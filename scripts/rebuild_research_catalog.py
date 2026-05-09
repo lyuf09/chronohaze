@@ -501,7 +501,7 @@ def parse_research_page(text: str) -> Dict[str, Any]:
         item["status_display"] = status_meta["display"]
     type_order = [
         ("repo", "Repos", "Codebases and prototype implementations"),
-        ("notes", "Notes", "Research notes, logs, and technical writeups"),
+        ("notes", "Notes and Work", "Notes, repositories, and project pages that carry the evidence."),
         ("in_prep", "In prep", "Shareable drafts and materials being refined"),
         ("other", "Other", "Supporting links"),
     ]
