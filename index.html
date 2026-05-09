@@ -176,9 +176,9 @@
   <link rel="preload" href="assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/cinzel-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" as="image" href="assets/template/hero_portrait-960.webp" type="image/webp" imagesrcset="assets/template/hero_portrait-600.webp 600w, assets/template/hero_portrait-960.webp 960w, assets/template/hero_portrait-1600.webp 1600w" imagesizes="(max-width: 640px) 88vw, (max-width: 900px) 92vw, 46vw" />
-  <link rel="stylesheet" href="styles.min.css?v=20260509-photo-archive-titles1" />
-  <link rel="stylesheet" href="home.min.css?v=20260509-photo-archive-titles1" />
-  <script defer src="protect-media.min.js?v=20260509-photo-archive-titles1"></script>
+  <link rel="stylesheet" href="styles.min.css?v=20260509-home-evidence1" />
+  <link rel="stylesheet" href="home.min.css?v=20260509-home-evidence1" />
+  <script defer src="protect-media.min.js?v=20260509-home-evidence1"></script>
 </head>
 <body class="home-body">
   <div class="home-page" id="top">
@@ -252,6 +252,37 @@
           <h2 data-i18n="aboutTitle" data-reveal="fade" data-reveal-delay="0">关于我</h2>
           <p data-i18n="aboutP1" data-i18n-html="true" data-reveal="fade" data-reveal-delay="80">我是 HazezZ，2005 年生，就读于 <span class="about-inline-en">The University of Edinburgh</span> 数学专业，目前在 <span class="about-inline-en">Cornell University</span> 交换。</p>
           <p data-i18n="aboutP2" data-i18n-html="true" data-reveal="fade" data-reveal-delay="160">我的研究方向是 <span class="about-inline-en">Operational Research for Machine Learning</span>。<br />除了数学，我也创作清新风格的前卫核音乐，演奏贝斯与吉他，并热爱摄影。<br />这个网站记录了我的生活、思考与创作留下的痕迹。</p>
+        </div>
+      </section>
+
+      <section class="evidence-strip" id="evidence">
+        <div class="evidence-shell">
+          <div class="evidence-head" data-reveal="fade" data-reveal-delay="20">
+            <p class="evidence-kicker">Selected Evidence</p>
+            <h2 data-i18n="evidenceTitle">Selected Evidence</h2>
+          </div>
+          <div class="evidence-grid" aria-label="Selected evidence highlights">
+            <article class="evidence-card" data-reveal="slide-up" data-reveal-delay="50">
+              <p class="evidence-index">01</p>
+              <h3 data-i18n="evidence1Title">形式结构</h3>
+              <p data-i18n="evidence1Body">Isabelle/HOL 下对子模 greedy 算法的形式化。</p>
+            </article>
+            <article class="evidence-card" data-reveal="slide-up" data-reveal-delay="110">
+              <p class="evidence-index">02</p>
+              <h3 data-i18n="evidence2Title">优化结构</h3>
+              <p data-i18n="evidence2Body">对偶、invariance，以及 collapse 之后的 structural scoring。</p>
+            </article>
+            <article class="evidence-card" data-reveal="slide-up" data-reveal-delay="170">
+              <p class="evidence-index">03</p>
+              <h3 data-i18n="evidence3Title">声音结构</h3>
+              <p data-i18n="evidence3Body">前卫摇滚 / metalcore 写作、贝斯与吉他的编排，以及自制曲目。</p>
+            </article>
+            <article class="evidence-card" data-reveal="slide-up" data-reveal-delay="230">
+              <p class="evidence-index">04</p>
+              <h3 data-i18n="evidence4Title">视觉结构</h3>
+              <p data-i18n="evidence4Body">把摄影当作关于光线、距离、天气与记忆的练习。</p>
+            </article>
+          </div>
         </div>
       </section>
 
@@ -478,6 +509,15 @@
           aboutTitle: '关于我',
           aboutP1: '我是 HazezZ（<span class="about-inline-en">Fay / Feier Lyu</span>），2005 年生，就读于 <span class="about-inline-en">The University of Edinburgh</span> 数学专业，目前在 <span class="about-inline-en">Cornell University</span> 交换。',
           aboutP2: '我的研究方向是 <span class="about-inline-en">Operational Research for Machine Learning</span>。<br />除了数学，我也创作清新风格的前卫核音乐，演奏贝斯与吉他，并热爱摄影。<br />这个网站记录了我的生活、思考与创作留下的痕迹。',
+          evidenceTitle: 'Selected Evidence',
+          evidence1Title: '形式结构',
+          evidence1Body: 'Isabelle/HOL 下对子模 greedy 算法的形式化。',
+          evidence2Title: '优化结构',
+          evidence2Body: '对偶、invariance，以及 collapse 之后的 structural scoring。',
+          evidence3Title: '声音结构',
+          evidence3Body: '前卫摇滚 / metalcore 写作、贝斯与吉他的编排，以及自制曲目。',
+          evidence4Title: '视觉结构',
+          evidence4Body: '把摄影当作关于光线、距离、天气与记忆的练习。',
           nowKicker: 'NOW / RECENTLY',
           nowTitle: '最近在做的事',
           nowFreshnessLabel: '近况更新',
@@ -539,6 +579,15 @@
           aboutTitle: 'About me',
           aboutP1: 'I’m HazezZ (<span class="about-inline-en">Fay / Feier Lyu</span>), born in 2005, currently studying Mathematics BSc at The University of Edinburgh and spending an exchange year at Cornell University.',
           aboutP2: 'My research lies in Operational Research for Machine Learning.<br />Beyond math, I write and perform progressive metalcore, play bass and guitar, and capture moments through photography.<br />This site is where my logic, art, and stories meet.',
+          evidenceTitle: 'Selected Evidence',
+          evidence1Title: 'Formal Structure',
+          evidence1Body: 'Isabelle/HOL formalization of submodular greedy algorithms.',
+          evidence2Title: 'Optimization Structure',
+          evidence2Body: 'Duality, invariance, and structural scoring under collapse.',
+          evidence3Title: 'Sonic Structure',
+          evidence3Body: 'Progressive rock / metalcore writing, bass-guitar arrangement, and self-produced tracks.',
+          evidence4Title: 'Visual Structure',
+          evidence4Body: 'Photography as studies of light, distance, weather, and memory.',
           nowKicker: 'NOW / RECENTLY',
           nowTitle: 'Current trajectory',
           nowFreshnessLabel: 'Last updated',
