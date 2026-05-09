@@ -3548,7 +3548,7 @@
       en: {
         htmlLang: "en",
         navAria: "Main navigation",
-        navHome: "Main",
+        navHome: "Home",
         navAcademic: "Academic",
         navMath: "Mathematics",
         navPhoto: "Photography",
