@@ -470,16 +470,18 @@ def main() -> int:
     research_html_path.write_text(research_html, encoding="utf-8")
 
     # research-summary.html (print / PDF-ready one-page brief)
+    # This page may be intentionally parked as an offline stub; in that case
+    # the generated markers are removed and we should leave the file untouched.
     research_summary_path = root / "research-summary.html"
     if research_summary_path.exists():
         research_summary = research_summary_path.read_text(encoding="utf-8")
-        research_summary = replace_between_markers(
+        research_summary = replace_between_markers_if_present(
             research_summary, "research-summary-meta", render_research_summary_meta(research_catalog)
         )
-        research_summary = replace_between_markers(
+        research_summary = replace_between_markers_if_present(
             research_summary, "research-summary-projects", render_research_summary_projects(research_catalog.get("projects") or [])
         )
-        research_summary = replace_between_markers(
+        research_summary = replace_between_markers_if_present(
             research_summary, "research-summary-outputs", render_research_summary_outputs(research_catalog.get("output_groups") or [])
         )
         research_summary_path.write_text(research_summary, encoding="utf-8")

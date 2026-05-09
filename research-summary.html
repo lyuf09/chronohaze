@@ -4,117 +4,33 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
-  <style id="chronohaze-critical-loader-style">
-    html.chronohaze-critical-loading,
-    html.chronohaze-critical-loading body {
-      min-height: 100%;
-      background: #10141b;
-    }
-
-    html.chronohaze-critical-loading body {
-      margin: 0;
-      overflow: hidden;
-    }
-
-    html.chronohaze-critical-loading body > :not(.chronohaze-loader) {
-      visibility: hidden !important;
-    }
-
-    html.chronohaze-critical-loading::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: 2147483000;
-      background:
-        linear-gradient(90deg, rgba(138, 160, 200, 0.09) 0 1px, transparent 1px 100%),
-        linear-gradient(180deg, rgba(138, 160, 200, 0.07) 0 1px, transparent 1px 100%),
-        linear-gradient(180deg, rgba(13, 17, 24, 0.992) 0%, rgba(19, 24, 33, 0.992) 55%, rgba(13, 17, 24, 0.996) 100%);
-      background-size: 54px 54px, 54px 54px, 100% 100%;
-    }
-
-    html.chronohaze-critical-loading::after {
-      content: "chronohaze.space\A 页面加载中";
-      position: fixed;
-      left: 50%;
-      top: 50%;
-      z-index: 2147483001;
-      width: min(500px, calc(100vw - 40px));
-      padding: 30px 32px;
-      transform: translate(-50%, -50%);
-      white-space: pre-line;
-      color: rgba(232, 234, 237, 0.9);
-      font: 300 clamp(22px, 3.2vw, 34px)/1.48 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
-      letter-spacing: 0.055em;
-      border: 1px solid rgba(154, 172, 204, 0.3);
-      border-radius: 0;
-      background: linear-gradient(180deg, rgba(20, 25, 34, 0.84) 0%, rgba(13, 17, 24, 0.82) 100%);
-      box-shadow: 0 24px 58px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.045);
-    }
-  </style>
-  <script>
-    (function () {
-      var root = document.documentElement;
-      root.classList.add("chronohaze-critical-loading");
-      window.__chronohazeReleaseCriticalLoader = function () {
-        root.classList.remove("chronohaze-critical-loading");
-      };
-      window.setTimeout(window.__chronohazeReleaseCriticalLoader, 6500);
-    })();
-  </script>
-  <script>
-    (function () {
-      try {
-        var url = new URL(window.location.href);
-        var queryLang = url.searchParams.get("lang");
-        var valid = function (value) {
-          return value === "zh" || value === "en";
-        };
-        var defaultLang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
-        var defaultSafe = defaultLang.indexOf("en") === 0 ? "en" : "zh";
-
-        if (valid(queryLang)) {
-          window.localStorage.setItem("siteLang", queryLang);
-          window.localStorage.setItem("chronohaze-lang", queryLang);
-          window.__chronohazePreferredLang = queryLang;
-          document.documentElement.lang = queryLang === "en" ? "en" : "zh-CN";
-          document.documentElement.setAttribute("data-site-lang", queryLang);
-          return;
-        }
-
-        var storedLang = window.localStorage.getItem("siteLang");
-        if (!valid(storedLang)) {
-          storedLang = window.localStorage.getItem("chronohaze-lang");
-        }
-        if (!valid(storedLang)) {
-          return;
-        }
-
-        window.__chronohazePreferredLang = storedLang;
-        document.documentElement.lang = storedLang === "en" ? "en" : "zh-CN";
-        document.documentElement.setAttribute("data-site-lang", storedLang);
-
-        if (storedLang !== defaultSafe) {
-          url.searchParams.set("lang", storedLang);
-          window.location.replace(url.toString());
-        }
-      } catch (_err) {}
-    })();
-  </script>
-  <link rel="icon" type="image/x-icon" href="https://lyuf09.github.io/chronohaze/assets/favicon.ico?v=4" />
-  <title>1-page Research Summary | Fay / Feier Lyu (HazezZ)</title>
-  <meta name="description" content="Print/PDF-ready one-page research summary for Fay / Feier Lyu (HazezZ): optimization, formal methods, game theory, and data-oriented research." />
+  <title>Research Summary | Temporarily Offline</title>
+  <meta
+    name="description"
+    content="This one-page research summary is currently offline while the academic materials are being revised."
+  />
   <link rel="canonical" href="https://lyuf09.github.io/chronohaze/research-summary.html" />
-  <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
-  <!-- GENERATED:hreflang:start -->
-  <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/research-summary.html?lang=zh" />
-  <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/research-summary.html?lang=en" />
-  <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/research-summary.html" />
-  <!-- GENERATED:hreflang:end -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" href="assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@300;400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@300;400;500;700&display=swap" rel="stylesheet" /></noscript>
+  <link
+    rel="preload"
+    href="assets/fonts/cormorant-garamond-roman-latin.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin
+  />
+  <link
+    rel="preload"
+    as="style"
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@300;400;500;700&display=swap"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+  <noscript>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </noscript>
   <link rel="stylesheet" href="styles.min.css?v=20260508-mobile-nav-safety-pass1" />
 </head>
 <body class="research-summary-page">
@@ -122,89 +38,29 @@
     <section class="research-summary-sheet" aria-labelledby="research-summary-title">
       <header class="research-summary-header">
         <div>
-          <p class="research-summary-eyebrow">Research Summary (1 page · PDF-ready)</p>
-          <h1 id="research-summary-title">Fay / Feier Lyu (HazezZ)</h1>
-          <p class="research-summary-subtitle">Optimization · Formal Methods · Game Theory · Data</p>
+          <p class="research-summary-eyebrow">Research Summary</p>
+          <h1 id="research-summary-title">Temporarily Offline</h1>
+          <p class="research-summary-subtitle">This PDF-ready one-page summary is being revised and is not currently maintained as a public page.</p>
         </div>
-        <div class="research-summary-actions" aria-label="Quick actions">
-          <a href="research.html">Full research page</a>
+        <div class="research-summary-actions" aria-label="Academic links">
+          <a href="academic.html">Academic</a>
+          <a href="research.html">Research</a>
+          <a href="projects.html">Work</a>
           <a href="cv.html?lang=en">CV</a>
-          <button type="button" onclick="window.print()">Export PDF</button>
         </div>
       </header>
 
       <section class="research-summary-block">
         <p class="research-summary-positioning">
-          I work at the intersection of optimization, formal methods, and data-oriented modeling. Current research-facing work includes Isabelle/HOL formalization of submodular greedy guarantees, duality/lower-bound focused optimization research in ORIE, and prototype-building that turns structured intuition into reproducible pipelines.
+          The academic section is currently organized through the main Academic, Research, Work, and Notes pages rather than this condensed one-page brief.
         </p>
-        <!-- GENERATED:research-summary-meta:start -->
-        <div class="research-summary-meta-grid">
-          <div class="research-summary-meta-card">
-            <span class="research-summary-meta-label">Name</span>
-            <strong>研究陈述</strong>
-          </div>
-          <div class="research-summary-meta-card">
-            <span class="research-summary-meta-label">Focus</span>
-            <strong></strong>
-          </div>
-          <div class="research-summary-meta-card">
-            <span class="research-summary-meta-label">Last updated</span>
-            <strong title="America/New_York">2026-04-30 · 01:47 PM ET</strong>
-          </div>
-        </div>
-        <!-- GENERATED:research-summary-meta:end -->
-      </section>
-
-      <section class="research-summary-block">
-        <h2>Current projects (entry points)</h2>
-        <div class="research-summary-project-grid">
-          <!-- GENERATED:research-summary-projects:start -->
-        <article class="research-summary-project">
-          <p class="research-summary-kicker">Project 1</p>
-          <h3>Isabelle/HOL：现代子模贪心算法形式化</h3>
-          <p><strong>Problem:</strong> </p>
-          <p><strong>Method:</strong> </p>
-        </article>
-        <article class="research-summary-project">
-          <p class="research-summary-kicker">Project 2</p>
-          <h3>不变性下的对偶、下界与结构恢复</h3>
-          <p><strong>Problem:</strong> </p>
-          <p><strong>Method:</strong> </p>
-        </article>
-        <article class="research-summary-project">
-          <p class="research-summary-kicker">Project 3</p>
-          <h3>Prototype / discretization：从连续对象到可检视结构</h3>
-          <p><strong>Problem:</strong> </p>
-          <p><strong>Method:</strong> </p>
-        </article>
-          <!-- GENERATED:research-summary-projects:end -->
-        </div>
-      </section>
-
-      <section class="research-summary-block">
-        <h2>Selected outputs (by type)</h2>
-        <div class="research-summary-output-grid">
-          <!-- GENERATED:research-summary-outputs:start -->
-        <div class="research-summary-output-group">
-          <h3>Notes</h3>
-          <ul>
-            <li><a href="projects.html">代表性工作</a> <span>Active</span></li>
-            <li><a href="math.html">学术笔记</a> <span>Active</span></li>
-          </ul>
-        </div>
-          <!-- GENERATED:research-summary-outputs:end -->
-        </div>
+        <p class="research-summary-positioning">
+          这份一页式 research summary 正在重做，目前不作为公开页面维护。若需查看当前研究方向、问题陈述与代表性工作，请直接使用上面的入口。
+        </p>
       </section>
 
       <footer class="research-summary-footer">
-        <div>
-          <strong>Contact</strong>: <a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a>
-          <span> · </span>
-          <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <span> · </span>
-          <a href="math.html">Research notes</a>
-        </div>
-        <p>For application-facing experience, patents, and internship details, see the public CV page.</p>
+        <p>Noindex stays enabled for this page while it remains offline.</p>
       </footer>
     </section>
   </main>
