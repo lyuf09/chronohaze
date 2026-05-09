@@ -1746,13 +1746,24 @@ audio {
   padding: 1px 0 0;
 }
 
-.photo-index-page .photo-date {
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
-  font-size: clamp(14px, 1vw, 17px);
-  line-height: 1.08;
-  font-weight: 400;
-  letter-spacing: 0.005em;
+.photo-index-page .photo-title {
+  margin: 0;
   color: #232730;
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-size: clamp(19px, 1.35vw, 23px);
+  line-height: 1.02;
+  letter-spacing: 0.012em;
+}
+
+.photo-index-page .photo-date {
+  margin-top: 5px;
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-size: 11.5px;
+  line-height: 1.22;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(67, 73, 85, 0.74);
 }
 
 .photo-index-page .photo-subtitle {
@@ -7424,7 +7435,12 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
   }
 
   .photo-index-page .photo-date {
-    font-size: clamp(14px, 3.8vw, 18px);
+    margin-top: 4px;
+    font-size: 11px;
+  }
+
+  .photo-index-page .photo-title {
+    font-size: clamp(18px, 4.8vw, 22px);
   }
 
   .photo-index-page .photo-subtitle {
@@ -7871,7 +7887,12 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
   }
 
   .photo-index-page .photo-date {
-    font-size: clamp(13px, 5.5vw, 16px);
+    margin-top: 3px;
+    font-size: 10.5px;
+  }
+
+  .photo-index-page .photo-title {
+    font-size: clamp(17px, 6vw, 21px);
   }
 
   .photo-index-page .photo-subtitle {
@@ -11468,10 +11489,17 @@ body {
     aspect-ratio: auto;
   }
 
+  .photo-index-page .photo-title {
+    font-size: 20px;
+    line-height: 1.02;
+  }
+
   .photo-index-page .photo-date {
-    font-size: 14.5px;
-    line-height: 1.08;
-    color: #232730;
+    margin-top: 4px;
+    font-size: 10.8px;
+    line-height: 1.28;
+    color: rgba(67, 73, 85, 0.74);
+    text-transform: uppercase;
   }
 
   .photo-index-page .photo-subtitle {

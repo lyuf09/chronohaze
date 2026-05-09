@@ -1,393 +1,142 @@
 {
-  "generated_at": "2026-02-26",
+  "generated_at": "2026-05-09",
   "source": "photography.html",
   "featured": [
     {
       "order": 1,
       "url": "photo/photo-07.html",
       "cover": "assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2.jpg",
-      "title": "01/04/2023",
+      "title": "参照系 — 中国 · 重庆",
       "theme": {
         "zh": "参照系",
         "en": "Reference Frame"
       },
       "location": {
-        "zh": "中国 · 重庆",
-        "en": "Chongqing, China"
+        "zh": "晃动、玻璃与被切开的城市碎片。",
+        "en": "Motion blur, glass, urban fragments."
       },
       "concept": {
-        "zh": "用晃动代替对焦，同一种不稳定把不同高度写成同一段冷色的余像/ICM",
-        "en": "Replacing focus with motion: the same instability writes different heights into one cool-toned afterimage / ICM"
+        "zh": "一组关于不稳定视角与掠过结构的练习。",
+        "en": "A study of unstable perspective and passing structures."
       },
       "tags": [
         "photo",
         "featured"
-      ],
-      "alt_en": "01/04/2023"
+      ]
     },
     {
       "order": 2,
-      "url": "photo/photo-08.html",
-      "cover": "assets/images/wix/64569d_0f30307d9b61425fa68251b5cb0ec6f3~mv2.jpg",
-      "title": "09/08/2023",
-      "theme": {
-        "zh": "隙光",
-        "en": "Sliver of Light"
-      },
-      "location": {
-        "zh": "中国 · 重庆",
-        "en": "Chongqing, China"
-      },
-      "concept": {
-        "zh": "清晨的树影落下来，光的痕迹，轮廓和心事",
-        "en": "Morning shadows fall: traces of light, outlines, and quiet thoughts"
-      },
-      "tags": [
-        "photo",
-        "featured"
-      ],
-      "alt_en": "09/08/2023"
-    },
-    {
-      "order": 3,
-      "url": "photo/photo-10.html",
-      "cover": "assets/images/wix/64569d_f4a44566b6e540c2b6f4ea143c92a1dd~mv2.jpg",
-      "title": "20/04/2024",
-      "theme": {
-        "zh": "框景练习",
-        "en": "Framing Study"
-      },
-      "location": {
-        "zh": "英国 · 爱丁堡",
-        "en": "Edinburgh, UK"
-      },
-      "concept": {
-        "zh": "门洞把光切开，窗格让建筑变成几何，围栏与枝桠把春天拦在画面里",
-        "en": "Doorways cut the light, window grids turn buildings into geometry, and fences with branches hold spring inside the frame"
-      },
-      "tags": [
-        "photo",
-        "featured"
-      ],
-      "alt_en": "20/04/2024"
-    },
-    {
-      "order": 4,
       "url": "photo/photo-11.html",
       "cover": "assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2.jpg",
-      "title": "21/10/2023",
+      "title": "铁与蕨 — 英国 · 格拉斯哥",
       "theme": {
         "zh": "铁与蕨",
         "en": "Iron and Fern"
       },
       "location": {
-        "zh": "英国 · 格拉斯哥",
-        "en": "Glasgow, UK"
+        "zh": "工业形态与生长中的植物相遇。",
+        "en": "Industrial forms meeting organic growth."
       },
       "concept": {
-        "zh": "湿度，人造季节",
-        "en": "Humidity, artificial seasons"
+        "zh": "金属、阴影与活体肌理之间的对照。",
+        "en": "A contrast between metal, shadow, and living texture."
       },
       "tags": [
         "photo",
         "featured"
-      ],
-      "alt_en": "21/10/2023"
+      ]
     },
     {
-      "order": 5,
+      "order": 3,
       "url": "photo/photo-13.html",
       "cover": "assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2.jpg",
-      "title": "05/04/2025 - Memories of you",
+      "title": "你的记忆 — 英国 · 爱丁堡",
       "theme": {
         "zh": "你的记忆",
         "en": "Memories of You"
       },
       "location": {
-        "zh": "英国 · 爱丁堡",
-        "en": "Edinburgh, UK"
+        "zh": "花、窗与偏浅的光。",
+        "en": "Flowers, windows, pale light."
       },
       "concept": {
-        "zh": "風の声 光の粒 まどろむ君にそそぐ",
-        "en": "The sound of wind, grains of light, falling over someone half-asleep."
+        "zh": "一组更柔软的系列，关于记忆如何慢慢长成空间。",
+        "en": "A softer series about memory becoming architectural."
       },
       "tags": [
         "photo",
         "featured"
-      ],
-      "alt_en": "05/04/2025 - Memories of you"
-    },
-    {
-      "order": 6,
-      "url": "photo/photo-14.html",
-      "cover": "assets/images/wix/64569d_4195bebf7fb244e8b7591015da58bef7~mv2.jpg",
-      "title": "30/08/2025",
-      "theme": {
-        "zh": "隐入口",
-        "en": "Hidden Entrance"
-      },
-      "location": {
-        "zh": "美国 · 伊萨卡",
-        "en": "Ithaca, USA"
-      },
-      "concept": {
-        "zh": "潮湿的绿把声音吸走，不属于我的窗，曾经有人停留",
-        "en": "Damp greens absorb the sound; a window that is not mine, where someone once stayed"
-      },
-      "tags": [
-        "photo",
-        "featured"
-      ],
-      "alt_en": "30/08/2025"
+      ]
     }
   ],
   "archive": [
     {
       "order": 1,
       "url": "photo/photo-01.html",
-      "title": "12/04/2022",
+      "title": "早期光线练习",
       "date": "12/04/2022",
       "subtitle": "阅读全文",
       "cover": "assets/images/wix/64569d_58fc50d6b50e41e9a0b664f30ab32237~mv2.jpg",
       "is_film": false,
-      "alt": "12/04/2022",
+      "alt": "摄影系列预览图：12/04/2022 — 英国奥斯沃斯特里 · 2022年",
       "tags": [
         "photo"
-      ],
-      "title_en": "12/04/2022",
-      "date_en": "12/04/2022",
-      "subtitle_en": "Read More",
-      "alt_en": "12/04/2022"
+      ]
     },
     {
       "order": 2,
       "url": "photo/photo-02.html",
-      "title": "01/05/2022",
+      "title": "田野与距离",
       "date": "01/05/2022",
       "subtitle": "阅读全文",
       "cover": "assets/images/wix/64569d_d7ae8483633d46f0819abd80335c3524~mv2.jpg",
       "is_film": false,
-      "alt": "01/05/2022",
+      "alt": "摄影系列预览图：01/05/2022 — 英国奥斯沃斯特里 · 2022年",
       "tags": [
         "photo"
-      ],
-      "title_en": "01/05/2022",
-      "date_en": "01/05/2022",
-      "subtitle_en": "Read More",
-      "alt_en": "01/05/2022"
+      ]
     },
     {
       "order": 3,
       "url": "photo/photo-03.html",
-      "title": "01/06/2022",
+      "title": "蓝色边缘",
       "date": "01/06/2022",
       "subtitle": "阅读全文",
       "cover": "assets/images/wix/64569d_1f61221c68ef4c35b613cb2cc6ab4836~mv2.jpg",
       "is_film": false,
-      "alt": "01/06/2022",
+      "alt": "摄影系列预览图：01/06/2022 — 英国奥斯沃斯特里 · 2022年",
       "tags": [
         "photo"
-      ],
-      "title_en": "01/06/2022",
-      "date_en": "01/06/2022",
-      "subtitle_en": "Read More",
-      "alt_en": "01/06/2022"
+      ]
     },
     {
       "order": 4,
       "url": "photo/photo-04.html",
-      "title": "14/06/2022",
+      "title": "表面与天气",
       "date": "14/06/2022",
       "subtitle": "阅读全文",
       "cover": "assets/images/wix/64569d_b17cf5f86f28473cbd8435965bb115f9~mv2.jpg",
       "is_film": false,
-      "alt": "14/06/2022",
+      "alt": "摄影系列预览图：14/06/2022 — 英国奥斯沃斯特里 · 2022年",
       "tags": [
         "photo"
-      ],
-      "title_en": "14/06/2022",
-      "date_en": "14/06/2022",
-      "subtitle_en": "Read More",
-      "alt_en": "14/06/2022"
+      ]
     },
     {
       "order": 5,
       "url": "photo/photo-05.html",
       "title": "2022、夏、某",
-      "date": "2022、夏、某",
+      "date": "2022年夏",
       "subtitle": "阅读全文",
       "cover": "assets/images/wix/64569d_907e18a111724364af408b96a36d12e3~mv2.jpg",
       "is_film": false,
-      "alt": "2022、夏、某",
+      "alt": "摄影系列预览图：2022、夏、某 — 英国韦茅斯 · 2022年",
       "tags": [
         "photo"
-      ],
-      "title_en": "Summer 2022, Somewhere",
-      "date_en": "Summer 2022, Somewhere",
-      "subtitle_en": "Read More",
-      "alt_en": "Summer 2022, Somewhere"
+      ]
     },
     {
       "order": 6,
-      "url": "photo/photo-06.html",
-      "title": "11/03/2023",
-      "date": "11/03/2023",
-      "subtitle": "阅读全文",
-      "cover": "assets/images/wix/64569d_6abc632673934656beef94d62d3bdc89~mv2.jpg",
-      "is_film": false,
-      "alt": "11/03/2023",
-      "tags": [
-        "photo"
-      ],
-      "title_en": "11/03/2023",
-      "date_en": "11/03/2023",
-      "subtitle_en": "Read More",
-      "alt_en": "11/03/2023"
-    },
-    {
-      "order": 7,
-      "url": "photo/photo-07.html",
-      "title": "01/04/2023",
-      "date": "01/04/2023",
-      "subtitle": "阅读全文",
-      "cover": "assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2.jpg",
-      "is_film": false,
-      "alt": "01/04/2023",
-      "tags": [
-        "photo",
-        "featured"
-      ],
-      "title_en": "01/04/2023",
-      "date_en": "01/04/2023",
-      "subtitle_en": "Read More",
-      "alt_en": "01/04/2023"
-    },
-    {
-      "order": 8,
-      "url": "photo/photo-08.html",
-      "title": "09/08/2023",
-      "date": "09/08/2023",
-      "subtitle": "阅读全文",
-      "cover": "assets/images/wix/64569d_0f30307d9b61425fa68251b5cb0ec6f3~mv2.jpg",
-      "is_film": false,
-      "alt": "09/08/2023",
-      "tags": [
-        "photo",
-        "featured"
-      ],
-      "title_en": "09/08/2023",
-      "date_en": "09/08/2023",
-      "subtitle_en": "Read More",
-      "alt_en": "09/08/2023"
-    },
-    {
-      "order": 9,
-      "url": "photo/photo-09.html",
-      "title": "17/09/2023",
-      "date": "17/09/2023",
-      "subtitle": "阅读全文",
-      "cover": "assets/images/wix/64569d_06f8f207dc77495c9940089581f9853f~mv2.jpg",
-      "is_film": false,
-      "alt": "17/09/2023",
-      "tags": [
-        "photo"
-      ],
-      "title_en": "17/09/2023",
-      "date_en": "17/09/2023",
-      "subtitle_en": "Read More",
-      "alt_en": "17/09/2023"
-    },
-    {
-      "order": 10,
-      "url": "photo/photo-10.html",
-      "title": "20/04/2024",
-      "date": "20/04/2024",
-      "subtitle": "阅读全文",
-      "cover": "assets/images/wix/64569d_f4a44566b6e540c2b6f4ea143c92a1dd~mv2.jpg",
-      "is_film": false,
-      "alt": "20/04/2024",
-      "tags": [
-        "photo",
-        "featured"
-      ],
-      "title_en": "20/04/2024",
-      "date_en": "20/04/2024",
-      "subtitle_en": "Read More",
-      "alt_en": "20/04/2024"
-    },
-    {
-      "order": 11,
-      "url": "photo/photo-11.html",
-      "title": "21/10/2023",
-      "date": "21/10/2023",
-      "subtitle": "阅读全文",
-      "cover": "assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2.jpg",
-      "is_film": false,
-      "alt": "21/10/2023",
-      "tags": [
-        "photo",
-        "featured"
-      ],
-      "title_en": "21/10/2023",
-      "date_en": "21/10/2023",
-      "subtitle_en": "Read More",
-      "alt_en": "21/10/2023"
-    },
-    {
-      "order": 12,
-      "url": "photo/photo-12.html",
-      "title": "02/01/2025",
-      "date": "02/01/2025",
-      "subtitle": "阅读全文",
-      "cover": "assets/images/wix/64569d_454a21afe61843aca2fb15da42e5d073~mv2.jpg",
-      "is_film": false,
-      "alt": "02/01/2025",
-      "tags": [
-        "photo"
-      ],
-      "title_en": "02/01/2025",
-      "date_en": "02/01/2025",
-      "subtitle_en": "Read More",
-      "alt_en": "02/01/2025"
-    },
-    {
-      "order": 13,
-      "url": "photo/photo-13.html",
-      "title": "05/04/2025 - Memories of you",
-      "date": "05/04/2025 - Memories of you",
-      "subtitle": "阅读全文",
-      "cover": "assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2.jpg",
-      "is_film": false,
-      "alt": "05/04/2025 - Memories of you",
-      "tags": [
-        "photo",
-        "featured"
-      ],
-      "title_en": "05/04/2025 - Memories of you",
-      "date_en": "05/04/2025 - Memories of you",
-      "subtitle_en": "Read More",
-      "alt_en": "05/04/2025 - Memories of you"
-    },
-    {
-      "order": 14,
-      "url": "photo/photo-14.html",
-      "title": "30/08/2025",
-      "date": "30/08/2025",
-      "subtitle": "阅读全文",
-      "cover": "assets/images/wix/64569d_4195bebf7fb244e8b7591015da58bef7~mv2.jpg",
-      "is_film": false,
-      "alt": "30/08/2025",
-      "tags": [
-        "photo",
-        "featured"
-      ],
-      "title_en": "30/08/2025",
-      "date_en": "30/08/2025",
-      "subtitle_en": "Read More",
-      "alt_en": "30/08/2025"
-    },
-    {
-      "order": 15,
       "url": "photo/blue.html",
       "title": "Blue",
       "date": "",
@@ -398,100 +147,217 @@
       "tags": [
         "photo",
         "video"
-      ],
-      "title_en": "Blue",
-      "date_en": "",
-      "subtitle_en": "A-level photography final piece",
-      "alt_en": ""
+      ]
+    },
+    {
+      "order": 7,
+      "url": "photo/photo-06.html",
+      "title": "三月初开",
+      "date": "11/03/2023",
+      "subtitle": "阅读全文",
+      "cover": "assets/images/wix/64569d_6abc632673934656beef94d62d3bdc89~mv2.jpg",
+      "is_film": false,
+      "alt": "摄影系列预览图：11/03/2023 — 英国奥斯沃斯特里 · 2023年",
+      "tags": [
+        "photo"
+      ]
+    },
+    {
+      "order": 8,
+      "url": "photo/photo-07.html",
+      "title": "参照系",
+      "date": "01/04/2023",
+      "subtitle": "阅读全文",
+      "cover": "assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2.jpg",
+      "is_film": false,
+      "alt": "摄影系列预览图：01/04/2023 — 中国重庆市 · 2023年",
+      "tags": [
+        "photo",
+        "featured"
+      ]
+    },
+    {
+      "order": 9,
+      "url": "photo/photo-08.html",
+      "title": "隙光",
+      "date": "09/08/2023",
+      "subtitle": "阅读全文",
+      "cover": "assets/images/wix/64569d_0f30307d9b61425fa68251b5cb0ec6f3~mv2.jpg",
+      "is_film": false,
+      "alt": "摄影系列预览图：09/08/2023 — 中国重庆市 · 2023年",
+      "tags": [
+        "photo"
+      ]
+    },
+    {
+      "order": 10,
+      "url": "photo/photo-09.html",
+      "title": "抵达之前",
+      "date": "17/09/2023",
+      "subtitle": "阅读全文",
+      "cover": "assets/images/wix/64569d_06f8f207dc77495c9940089581f9853f~mv2.jpg",
+      "is_film": false,
+      "alt": "摄影系列预览图：17/09/2023 — 英国爱丁堡 · 2023年",
+      "tags": [
+        "photo"
+      ]
+    },
+    {
+      "order": 11,
+      "url": "photo/photo-11.html",
+      "title": "铁与蕨",
+      "date": "21/10/2023",
+      "subtitle": "阅读全文",
+      "cover": "assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2.jpg",
+      "is_film": false,
+      "alt": "摄影系列预览图：21/10/2023 — 英国格拉斯哥 · 2023年",
+      "tags": [
+        "photo",
+        "featured"
+      ]
+    },
+    {
+      "order": 12,
+      "url": "photo/photo-10.html",
+      "title": "框景练习",
+      "date": "20/04/2024",
+      "subtitle": "阅读全文",
+      "cover": "assets/images/wix/64569d_f4a44566b6e540c2b6f4ea143c92a1dd~mv2.jpg",
+      "is_film": false,
+      "alt": "摄影系列预览图：20/04/2024 — 英国爱丁堡 · 2024年",
+      "tags": [
+        "photo"
+      ]
+    },
+    {
+      "order": 13,
+      "url": "photo/photo-12.html",
+      "title": "雪的边界",
+      "date": "02/01/2025",
+      "subtitle": "阅读全文",
+      "cover": "assets/images/wix/64569d_454a21afe61843aca2fb15da42e5d073~mv2.jpg",
+      "is_film": false,
+      "alt": "摄影系列预览图：02/01/2025 — 英国爱丁堡 · 2025年",
+      "tags": [
+        "photo"
+      ]
+    },
+    {
+      "order": 14,
+      "url": "photo/photo-13.html",
+      "title": "你的记忆",
+      "date": "05/04/2025",
+      "subtitle": "阅读全文",
+      "cover": "assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2.jpg",
+      "is_film": false,
+      "alt": "摄影系列预览图：05/04/2025 - Memories of you — 英国爱丁堡 · 2025年",
+      "tags": [
+        "photo",
+        "featured"
+      ]
+    },
+    {
+      "order": 15,
+      "url": "photo/photo-14.html",
+      "title": "隐入口",
+      "date": "30/08/2025",
+      "subtitle": "阅读全文",
+      "cover": "assets/images/wix/64569d_4195bebf7fb244e8b7591015da58bef7~mv2.jpg",
+      "is_film": false,
+      "alt": "摄影系列预览图：30/08/2025 — 美国纽约伊萨卡 · 2025年",
+      "tags": [
+        "photo"
+      ]
     }
   ],
   "items": [
     {
       "order": 1,
       "url": "photo/photo-01.html",
-      "title": "12/04/2022",
+      "title": "早期光线练习",
       "date": "12/04/2022",
       "excerpt": "阅读全文",
       "cover": "assets/images/wix/64569d_58fc50d6b50e41e9a0b664f30ab32237~mv2.jpg",
       "tags": [
         "photo"
       ],
-      "is_film": false,
-      "title_en": "12/04/2022",
-      "excerpt_en": "Read More"
+      "is_film": false
     },
     {
       "order": 2,
       "url": "photo/photo-02.html",
-      "title": "01/05/2022",
+      "title": "田野与距离",
       "date": "01/05/2022",
       "excerpt": "阅读全文",
       "cover": "assets/images/wix/64569d_d7ae8483633d46f0819abd80335c3524~mv2.jpg",
       "tags": [
         "photo"
       ],
-      "is_film": false,
-      "title_en": "01/05/2022",
-      "excerpt_en": "Read More"
+      "is_film": false
     },
     {
       "order": 3,
       "url": "photo/photo-03.html",
-      "title": "01/06/2022",
+      "title": "蓝色边缘",
       "date": "01/06/2022",
       "excerpt": "阅读全文",
       "cover": "assets/images/wix/64569d_1f61221c68ef4c35b613cb2cc6ab4836~mv2.jpg",
       "tags": [
         "photo"
       ],
-      "is_film": false,
-      "title_en": "01/06/2022",
-      "excerpt_en": "Read More"
+      "is_film": false
     },
     {
       "order": 4,
       "url": "photo/photo-04.html",
-      "title": "14/06/2022",
+      "title": "表面与天气",
       "date": "14/06/2022",
       "excerpt": "阅读全文",
       "cover": "assets/images/wix/64569d_b17cf5f86f28473cbd8435965bb115f9~mv2.jpg",
       "tags": [
         "photo"
       ],
-      "is_film": false,
-      "title_en": "14/06/2022",
-      "excerpt_en": "Read More"
+      "is_film": false
     },
     {
       "order": 5,
       "url": "photo/photo-05.html",
       "title": "2022、夏、某",
-      "date": "2022、夏、某",
+      "date": "2022年夏",
       "excerpt": "阅读全文",
       "cover": "assets/images/wix/64569d_907e18a111724364af408b96a36d12e3~mv2.jpg",
       "tags": [
         "photo"
       ],
-      "is_film": false,
-      "title_en": "Summer 2022, Somewhere",
-      "excerpt_en": "Read More"
+      "is_film": false
     },
     {
       "order": 6,
+      "url": "photo/blue.html",
+      "title": "Blue",
+      "date": "",
+      "excerpt": "毕业作品视频",
+      "cover": "",
+      "tags": [
+        "photo",
+        "video"
+      ],
+      "is_film": true
+    },
+    {
+      "order": 7,
       "url": "photo/photo-06.html",
-      "title": "11/03/2023",
+      "title": "三月初开",
       "date": "11/03/2023",
       "excerpt": "阅读全文",
       "cover": "assets/images/wix/64569d_6abc632673934656beef94d62d3bdc89~mv2.jpg",
       "tags": [
         "photo"
       ],
-      "is_film": false,
-      "title_en": "11/03/2023",
-      "excerpt_en": "Read More"
+      "is_film": false
     },
     {
-      "order": 7,
+      "order": 8,
       "url": "photo/photo-07.html",
       "title": "参照系",
       "date": "01/04/2023",
@@ -501,53 +367,31 @@
         "photo",
         "featured"
       ],
-      "is_film": false,
-      "title_en": "Reference Frame",
-      "excerpt_en": "Read More"
+      "is_film": false
     },
     {
-      "order": 8,
+      "order": 9,
       "url": "photo/photo-08.html",
       "title": "隙光",
       "date": "09/08/2023",
       "excerpt": "阅读全文",
       "cover": "assets/images/wix/64569d_0f30307d9b61425fa68251b5cb0ec6f3~mv2.jpg",
       "tags": [
-        "photo",
-        "featured"
+        "photo"
       ],
-      "is_film": false,
-      "title_en": "Sliver of Light",
-      "excerpt_en": "Read More"
+      "is_film": false
     },
     {
-      "order": 9,
+      "order": 10,
       "url": "photo/photo-09.html",
-      "title": "17/09/2023",
+      "title": "抵达之前",
       "date": "17/09/2023",
       "excerpt": "阅读全文",
       "cover": "assets/images/wix/64569d_06f8f207dc77495c9940089581f9853f~mv2.jpg",
       "tags": [
         "photo"
       ],
-      "is_film": false,
-      "title_en": "17/09/2023",
-      "excerpt_en": "Read More"
-    },
-    {
-      "order": 10,
-      "url": "photo/photo-10.html",
-      "title": "框景练习",
-      "date": "20/04/2024",
-      "excerpt": "阅读全文",
-      "cover": "assets/images/wix/64569d_f4a44566b6e540c2b6f4ea143c92a1dd~mv2.jpg",
-      "tags": [
-        "photo",
-        "featured"
-      ],
-      "is_film": false,
-      "title_en": "Framing Study",
-      "excerpt_en": "Read More"
+      "is_film": false
     },
     {
       "order": 11,
@@ -560,68 +404,56 @@
         "photo",
         "featured"
       ],
-      "is_film": false,
-      "title_en": "Iron and Fern",
-      "excerpt_en": "Read More"
+      "is_film": false
     },
     {
       "order": 12,
+      "url": "photo/photo-10.html",
+      "title": "框景练习",
+      "date": "20/04/2024",
+      "excerpt": "阅读全文",
+      "cover": "assets/images/wix/64569d_f4a44566b6e540c2b6f4ea143c92a1dd~mv2.jpg",
+      "tags": [
+        "photo"
+      ],
+      "is_film": false
+    },
+    {
+      "order": 13,
       "url": "photo/photo-12.html",
-      "title": "02/01/2025",
+      "title": "雪的边界",
       "date": "02/01/2025",
       "excerpt": "阅读全文",
       "cover": "assets/images/wix/64569d_454a21afe61843aca2fb15da42e5d073~mv2.jpg",
       "tags": [
         "photo"
       ],
-      "is_film": false,
-      "title_en": "02/01/2025",
-      "excerpt_en": "Read More"
+      "is_film": false
     },
     {
-      "order": 13,
+      "order": 14,
       "url": "photo/photo-13.html",
       "title": "你的记忆",
-      "date": "05/04/2025 - Memories of you",
+      "date": "05/04/2025",
       "excerpt": "阅读全文",
       "cover": "assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2.jpg",
       "tags": [
         "photo",
         "featured"
       ],
-      "is_film": false,
-      "title_en": "Memories of You",
-      "excerpt_en": "Read More"
+      "is_film": false
     },
     {
-      "order": 14,
+      "order": 15,
       "url": "photo/photo-14.html",
       "title": "隐入口",
       "date": "30/08/2025",
       "excerpt": "阅读全文",
       "cover": "assets/images/wix/64569d_4195bebf7fb244e8b7591015da58bef7~mv2.jpg",
       "tags": [
-        "photo",
-        "featured"
+        "photo"
       ],
-      "is_film": false,
-      "title_en": "Hidden Entrance",
-      "excerpt_en": "Read More"
-    },
-    {
-      "order": 15,
-      "url": "photo/blue.html",
-      "title": "Blue",
-      "date": "",
-      "excerpt": "毕业作品视频",
-      "cover": "",
-      "tags": [
-        "photo",
-        "video"
-      ],
-      "is_film": true,
-      "title_en": "Blue",
-      "excerpt_en": "A-level photography final piece"
+      "is_film": false
     }
   ]
 }

@@ -114,8 +114,10 @@ def parse_archive(text: str, featured_urls: set[str]) -> List[Dict[str, object]]
         img_m = re.search(r'<img\s+([^>]*?)src="([^"]+)"([^>]*)>', body, re.S)
         img_src = img_m.group(2).strip() if img_m else ''
         img_attrs = parse_attrs((img_m.group(1) if img_m else '') + ' ' + (img_m.group(3) if img_m else ''))
+        title_m = re.search(r'<p\s+class="photo-title"[^>]*>(.*?)</p>', body, re.S)
         date_m = re.search(r'<p\s+class="photo-date"[^>]*>(.*?)</p>', body, re.S)
         sub_m = re.search(r'<p\s+class="photo-subtitle"[^>]*>(.*?)</p>', body, re.S)
+        title_text = clean(title_m.group(1) if title_m else '')
         date_text = clean(date_m.group(1) if date_m else '')
         subtitle = clean(sub_m.group(1) if sub_m else '')
         if subtitle.strip().lower() == 'read more':
@@ -131,7 +133,7 @@ def parse_archive(text: str, featured_urls: set[str]) -> List[Dict[str, object]]
         items.append({
             'order': idx,
             'url': href,
-            'title': date_text or 'Blue',
+            'title': title_text or date_text or 'Blue',
             'date': date_text if not is_film else '',
             'subtitle': subtitle,
             'cover': img_src,

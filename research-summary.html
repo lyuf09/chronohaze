@@ -3,6 +3,63 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style id="chronohaze-critical-loader-style">
+    html.chronohaze-critical-loading,
+    html.chronohaze-critical-loading body {
+      min-height: 100%;
+      background: #10141b;
+    }
+
+    html.chronohaze-critical-loading body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    html.chronohaze-critical-loading body > :not(.chronohaze-loader) {
+      visibility: hidden !important;
+    }
+
+    html.chronohaze-critical-loading::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 2147483000;
+      background:
+        linear-gradient(90deg, rgba(138, 160, 200, 0.09) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(138, 160, 200, 0.07) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(13, 17, 24, 0.992) 0%, rgba(19, 24, 33, 0.992) 55%, rgba(13, 17, 24, 0.996) 100%);
+      background-size: 54px 54px, 54px 54px, 100% 100%;
+    }
+
+    html.chronohaze-critical-loading::after {
+      content: "chronohaze.space\A 页面加载中";
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      z-index: 2147483001;
+      width: min(500px, calc(100vw - 40px));
+      padding: 30px 32px;
+      transform: translate(-50%, -50%);
+      white-space: pre-line;
+      color: rgba(232, 234, 237, 0.9);
+      font: 300 clamp(22px, 3.2vw, 34px)/1.48 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.055em;
+      border: 1px solid rgba(154, 172, 204, 0.3);
+      border-radius: 0;
+      background: linear-gradient(180deg, rgba(20, 25, 34, 0.84) 0%, rgba(13, 17, 24, 0.82) 100%);
+      box-shadow: 0 24px 58px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.045);
+    }
+  </style>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      root.classList.add("chronohaze-critical-loading");
+      window.__chronohazeReleaseCriticalLoader = function () {
+        root.classList.remove("chronohaze-critical-loading");
+      };
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, 6500);
+    })();
+  </script>
   <meta name="robots" content="noindex, nofollow" />
   <title>Research Summary | Temporarily Offline</title>
   <meta
@@ -31,7 +88,7 @@
       rel="stylesheet"
     />
   </noscript>
-  <link rel="stylesheet" href="styles.min.css?v=20260508-mobile-nav-safety-pass1" />
+  <link rel="stylesheet" href="styles.min.css?v=20260509-photo-archive-titles1" />
 </head>
 <body class="research-summary-page">
   <main class="research-summary-wrap">
