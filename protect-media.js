@@ -14906,8 +14906,15 @@
     dedupeNavLinks();
     applySecondaryPageLanguage(preferred);
 
+    var headerInner = document.querySelector(".site-header .header-inner");
     var existingPanel = document.querySelector(".floating-lang-switch");
     if (existingPanel) {
+      if (headerInner && existingPanel.parentNode !== headerInner) {
+        headerInner.appendChild(existingPanel);
+      }
+      if (headerInner) {
+        headerInner.classList.add("header-inner--with-lang");
+      }
       Array.from(existingPanel.querySelectorAll(".floating-lang-btn[data-lang]")).forEach(function (btn) {
         var buttonLang = btn.getAttribute("data-lang");
         btn.classList.toggle("active", buttonLang === preferred);
@@ -14954,7 +14961,12 @@
 
     panel.appendChild(buildButton("zh", "ZH"));
     panel.appendChild(buildButton("en", "EN"));
-    document.body.appendChild(panel);
+    if (headerInner) {
+      headerInner.classList.add("header-inner--with-lang");
+      headerInner.appendChild(panel);
+    } else {
+      document.body.appendChild(panel);
+    }
     ensureAccessibleControlLabels();
     ensureExternalLinkTargets();
   }
