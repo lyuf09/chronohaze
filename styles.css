@@ -11639,6 +11639,294 @@ html:lang(en) .music-detail-page .music-detail-article .lyrics-text {
   font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
 }
 
+/* Mobile focus pass for long-form internal pages */
+@media (max-width: 760px) {
+  .research-page .cv-utility-bar,
+  .projects-page .cv-utility-bar,
+  .cv-page .cv-utility-bar {
+    position: static;
+    top: auto;
+    margin-bottom: 14px;
+    padding: 10px 12px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 10px 18px rgba(26, 34, 48, 0.06);
+  }
+
+  .research-page .academic-local-nav,
+  .projects-page .academic-local-nav {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: 100%;
+    gap: 8px;
+  }
+
+  .research-page .academic-local-link,
+  .projects-page .academic-local-link {
+    width: 100%;
+    min-height: 40px;
+    padding: 0 10px;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .research-page .research-hero {
+    padding: 18px 0 10px;
+  }
+
+  .research-page .research-hero-copy {
+    padding: 14px 14px 15px;
+  }
+
+  .research-page .research-positioning,
+  .research-page .research-project-line-body,
+  .research-page .research-output-card p,
+  .research-page .research-output-group-head p,
+  .research-page .research-now-panel p {
+    font-size: 13.5px;
+    line-height: 1.66;
+  }
+
+  .search-index-page .page-head {
+    padding: 18px 0 10px;
+  }
+
+  .search-index-page .search-shell {
+    margin-bottom: 14px;
+  }
+
+  .search-index-page .search-form {
+    gap: 8px;
+  }
+
+  .search-index-page .search-field {
+    gap: 6px;
+  }
+
+  .search-index-page .search-status {
+    margin-bottom: 8px;
+  }
+
+  .search-index-page .search-fallback-actions {
+    padding: 11px 12px;
+  }
+
+  .search-index-page .search-fallback-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .search-index-page .search-fallback-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    text-align: center;
+    line-height: 1.35;
+  }
+
+  .search-index-page .search-result-group {
+    gap: 8px;
+  }
+
+  .search-index-page .search-result-group-list {
+    gap: 8px;
+  }
+
+  .search-index-page .search-result-link {
+    padding: 12px 12px 11px;
+  }
+
+  .search-index-page .search-result-title {
+    font-size: clamp(17px, 5.6vw, 20px);
+  }
+
+  .search-index-page .search-result-excerpt {
+    font-size: 12.5px;
+    line-height: 1.52;
+  }
+
+  .music-index-page .page-head {
+    padding: 24px 0 12px;
+  }
+
+  .music-index-page .music-intro {
+    padding: 0 0 14px;
+  }
+
+  .music-index-page .music-intro-layout {
+    gap: 14px;
+  }
+
+  .music-index-page .music-intro-text {
+    font-size: 13px;
+    line-height: 1.68;
+  }
+
+  .music-index-page .music-featured {
+    margin: 0 0 14px;
+    gap: 8px;
+  }
+
+  .music-index-page .music-featured-grid {
+    gap: 12px;
+  }
+
+  .music-index-page .music-featured-card {
+    box-shadow: 0 12px 24px rgba(18, 24, 32, 0.07);
+  }
+
+  .music-index-page .music-featured-card[data-feature-kind="track"] .music-featured-link,
+  .music-index-page .music-featured-card[data-feature-kind="track"]:nth-child(even) .music-featured-link {
+    grid-template-columns: 96px minmax(0, 1fr);
+  }
+
+  .music-index-page .music-featured-card[data-feature-kind="track"] .music-featured-cover,
+  .music-index-page .music-featured-card[data-feature-kind="track"] .music-featured-meta {
+    min-height: 116px;
+  }
+
+  .music-index-page .music-featured-card[data-feature-kind="track"] .music-featured-item-copy {
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    font-size: 10.2px;
+  }
+
+  .music-index-page .music-ia-controls,
+  .music-index-page .music-ia-filters {
+    gap: 10px;
+  }
+
+  .music-index-page .track-row {
+    grid-template-columns: 1fr;
+    padding: 10px 12px 9px;
+    gap: 6px;
+  }
+
+  .music-index-page .track-date {
+    font-size: 10.5px;
+  }
+
+  .music-index-page .track-title {
+    font-size: clamp(15px, 5.1vw, 18px);
+  }
+
+  .music-index-page .track-artist {
+    font-size: 12.5px;
+  }
+
+  .music-index-page .track-tags {
+    gap: 5px;
+  }
+
+  .photo-index-page .page-head {
+    padding: 24px 0 12px;
+  }
+
+  .photo-index-page .photo-seeing-note {
+    padding: 0 0 14px;
+  }
+
+  .photo-index-page .photo-seeing-note-copy p {
+    font-size: 14px;
+    line-height: 1.46;
+  }
+
+  .photo-index-page .photo-featured {
+    padding-top: 4px;
+  }
+
+  .photo-index-page .photo-featured-grid {
+    gap: 18px;
+  }
+
+  .photo-index-page .photo-feature-meta {
+    margin-top: 8px;
+    gap: 5px;
+  }
+
+  .photo-index-page .photo-feature-theme {
+    font-size: 22px;
+  }
+
+  .photo-index-page .photo-feature-concept {
+    font-size: 12px;
+    line-height: 1.44;
+  }
+
+  .photo-index-page .photo-feature-card img,
+  .photo-index-page .photo-feature-card:first-child img {
+    aspect-ratio: 4 / 4.85;
+  }
+
+  .photo-index-page .photo-archive {
+    padding-top: 12px;
+  }
+
+  .photo-index-page .photo-archive-groups {
+    gap: 16px;
+  }
+
+  .photo-index-page .photo-background .photo-intro-text p,
+  .photo-index-page .photo-background .photo-intro-text p:first-child {
+    font-size: 13.5px;
+    line-height: 1.72;
+  }
+
+  .cv-page .policy {
+    padding-top: 20px;
+  }
+
+  .cv-page .cv-utility-top {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .cv-page .cv-highlight-card {
+    margin: 14px 0 20px;
+    padding: 14px;
+  }
+
+  .cv-page .policy p,
+  .cv-page .policy li {
+    font-size: 13.5px;
+    line-height: 1.72;
+  }
+}
+
+@media (max-width: 480px) {
+  .research-page .academic-local-nav,
+  .projects-page .academic-local-nav,
+  .cv-page .cv-toc,
+  .search-index-page .search-fallback-links {
+    grid-template-columns: 1fr;
+  }
+
+  .search-index-page .search-share-tools {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .music-index-page .music-featured-card[data-feature-kind="track"] .music-featured-link,
+  .music-index-page .music-featured-card[data-feature-kind="track"]:nth-child(even) .music-featured-link {
+    grid-template-columns: 88px minmax(0, 1fr);
+  }
+
+  .music-index-page .music-featured-card[data-feature-kind="track"] .music-featured-cover,
+  .music-index-page .music-featured-card[data-feature-kind="track"] .music-featured-meta {
+    min-height: 108px;
+  }
+
+  .music-index-page .track-row {
+    padding: 10px 11px 9px;
+  }
+
+  .photo-index-page .photo-featured-grid {
+    gap: 16px;
+  }
+}
+
 html:lang(en) .music-detail-page .music-detail-article .lyrics-original-block,
 html:lang(en) .music-detail-page .music-detail-article .lyrics-translation-block {
   display: block;
