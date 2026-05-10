@@ -10371,6 +10371,14 @@ body {
     pointer-events: none;
   }
 
+  .home-body .floating-site-logo.is-share-trigger {
+    top: max(86px, calc(var(--safe-top) + 82px));
+    right: max(10px, calc(var(--safe-right) + 8px));
+    bottom: auto;
+    width: 56px;
+    height: 56px;
+  }
+
   .site-share-fab {
     width: 34px;
     min-width: 34px;

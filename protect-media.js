@@ -14231,6 +14231,7 @@
     img.alt = "";
     img.loading = "lazy";
     img.decoding = "async";
+    img.fetchPriority = "low";
 
     var logoCandidates = getAssetCandidateUrls("assets/logo-float.png");
     if (!Array.isArray(logoCandidates) || !logoCandidates.length) {
@@ -14249,7 +14250,11 @@
       }
     }
     img.addEventListener("error", setNextLogoSource);
-    setNextLogoSource();
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(setNextLogoSource, { timeout: 1800 });
+    } else {
+      window.setTimeout(setNextLogoSource, 900);
+    }
 
     wrapper.appendChild(img);
 

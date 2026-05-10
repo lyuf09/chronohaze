@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <style id="chronohaze-critical-loader-style">
     html.chronohaze-critical-loading,
     html.chronohaze-critical-loading body {
@@ -198,17 +200,43 @@
       ]
     }
   </script>
-
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JWZY2TVYFZ"></script>
+  <!-- Google tag (gtag.js), deferred until idle -->
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-JWZY2TVYFZ');
+    (function () {
+      var measurementId = "G-JWZY2TVYFZ";
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+
+      function shouldSkipAnalytics() {
+        return navigator.doNotTrack === "1" || window.doNotTrack === "1";
+      }
+
+      function loadAnalytics() {
+        if (loadAnalytics.loaded || shouldSkipAnalytics()) return;
+        loadAnalytics.loaded = true;
+        var script = document.createElement("script");
+        script.async = true;
+        script.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(measurementId);
+        document.head.appendChild(script);
+        window.gtag("js", new Date());
+        window.gtag("config", measurementId, { anonymize_ip: true });
+      }
+
+      function scheduleAnalytics() {
+        if ("requestIdleCallback" in window) {
+          window.requestIdleCallback(loadAnalytics, { timeout: 3500 });
+        } else {
+          window.setTimeout(loadAnalytics, 1800);
+        }
+      }
+
+      if (document.readyState === "complete") {
+        scheduleAnalytics();
+      } else {
+        window.addEventListener("load", scheduleAnalytics, { once: true });
+      }
+    })();
   </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" href="assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/cinzel-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" as="image" href="assets/template/hero_portrait-960.webp" type="image/webp" imagesrcset="assets/template/hero_portrait-600.webp 600w, assets/template/hero_portrait-960.webp 960w, assets/template/hero_portrait-1600.webp 1600w" imagesizes="(max-width: 640px) 88vw, (max-width: 900px) 92vw, 46vw" />
@@ -283,7 +311,7 @@
         </div>
       </section>
 
-      <section class="about-bg" id="welcome">
+      <section class="about-bg" id="welcome" data-lazy-bg>
         <div class="about-overlay">
           <h2 data-i18n="aboutTitle" data-reveal="fade" data-reveal-delay="0">关于我</h2>
           <p data-i18n="aboutP1" data-i18n-html="true" data-reveal="fade" data-reveal-delay="80">我是 HazezZ，2005 年生，就读于 <span class="about-inline-en">The University of Edinburgh</span> 数学专业，目前在 <span class="about-inline-en">Cornell University</span> 交换。</p>
@@ -750,8 +778,24 @@
           if (first && second) return first + ' · ' + second;
           return first || second || '';
         };
-        homeMathPreview.innerHTML = homeMathItems.map(function (item, idx) {
-          const href = item && (item.url || item.readmore_url) ? String(item.url || item.readmore_url) : '#';
+
+        const safeHref = function (raw) {
+          const value = typeof raw === 'string' ? raw.trim() : '';
+          if (!value) return '#';
+          try {
+            const url = new URL(value, window.location.href);
+            const postRoot = new URL('post/', window.location.href).pathname;
+            if (url.origin !== window.location.origin) return '#';
+            if (!url.pathname.startsWith(postRoot) || !/\.html$/i.test(url.pathname)) return '#';
+            return url.pathname + url.search + url.hash;
+          } catch (_error) {
+            return '#';
+          }
+        };
+
+        const fragment = document.createDocumentFragment();
+        homeMathItems.forEach(function (item, idx) {
+          const href = safeHref(item && (item.url || item.readmore_url) ? String(item.url || item.readmore_url) : '');
           const titleZh = item && item.title ? String(item.title) : '';
           const titleEn = item && item.title_en ? String(item.title_en) : titleZh;
           const excerptZh = item && item.excerpt ? String(item.excerpt) : '';
@@ -759,15 +803,44 @@
           const metaZh = combineMeta('HazezZ', item && item.reading_time_zh ? String(item.reading_time_zh) : '');
           const metaEn = combineMeta('HazezZ', item && item.reading_time_en ? String(item.reading_time_en) : '');
           const delay = delays[idx] || (40 + idx * 100);
-          return [
-            '<article data-post-url="' + href.replace(/"/g, '&quot;') + '" tabindex="0" role="link" data-reveal="slide-up" data-reveal-delay="' + delay + '" class="is-visible">',
-            '  <p class="author" data-copy-zh="' + metaZh.replace(/"/g, '&quot;') + '" data-copy-en="' + metaEn.replace(/"/g, '&quot;') + '">' + metaZh + '</p>',
-            '  <h3 data-copy-zh="' + titleZh.replace(/"/g, '&quot;') + '" data-copy-en="' + titleEn.replace(/"/g, '&quot;') + '">' + titleZh + '</h3>',
-            '  <p data-copy-zh="' + excerptZh.replace(/"/g, '&quot;') + '" data-copy-en="' + excerptEn.replace(/"/g, '&quot;') + '">' + excerptZh + '</p>',
-            '  <a href="' + href.replace(/"/g, '&quot;') + '" data-i18n="readMore">' + dict.readMore + '</a>',
-            '</article>'
-          ].join('');
-        }).join('');
+
+          const article = document.createElement('article');
+          article.dataset.postUrl = href;
+          article.tabIndex = 0;
+          article.setAttribute('role', 'link');
+          article.setAttribute('data-reveal', 'slide-up');
+          article.setAttribute('data-reveal-delay', String(delay));
+          article.className = 'is-visible';
+
+          const author = document.createElement('p');
+          author.className = 'author';
+          author.setAttribute('data-copy-zh', metaZh);
+          author.setAttribute('data-copy-en', metaEn);
+          author.textContent = metaZh;
+
+          const title = document.createElement('h3');
+          title.setAttribute('data-copy-zh', titleZh);
+          title.setAttribute('data-copy-en', titleEn);
+          title.textContent = titleZh;
+
+          const excerpt = document.createElement('p');
+          excerpt.setAttribute('data-copy-zh', excerptZh);
+          excerpt.setAttribute('data-copy-en', excerptEn);
+          excerpt.textContent = excerptZh;
+
+          const link = document.createElement('a');
+          link.href = href;
+          link.setAttribute('data-i18n', 'readMore');
+          link.textContent = dict.readMore;
+
+          article.appendChild(author);
+          article.appendChild(title);
+          article.appendChild(excerpt);
+          article.appendChild(link);
+          fragment.appendChild(article);
+        });
+
+        homeMathPreview.replaceChildren(fragment);
         bindMathCards();
         syncHomeMathPreviewCopy();
       }
@@ -963,6 +1036,28 @@
         });
         revealNodes.forEach(function (node) { observer.observe(node); });
       })();
+
+      (function setupLazyBackgrounds() {
+        const lazyBackgrounds = Array.from(document.querySelectorAll('[data-lazy-bg]'));
+        if (!lazyBackgrounds.length) return;
+        const reveal = function (node) {
+          node.classList.add('is-bg-ready');
+          node.removeAttribute('data-lazy-bg');
+        };
+        if (typeof window.IntersectionObserver !== 'function') {
+          lazyBackgrounds.forEach(reveal);
+          return;
+        }
+        const observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            reveal(entry.target);
+            observer.unobserve(entry.target);
+          });
+          }, { rootMargin: '120px 0px', threshold: 0.01 });
+        lazyBackgrounds.forEach(function (node) { observer.observe(node); });
+      })();
+
       bindMathCards();
 
       function fmt(sec) {

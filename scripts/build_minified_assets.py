@@ -7,6 +7,48 @@ from pathlib import Path
 
 VERSION = "20260509-mobile-focus-pages1"
 
+SECURITY_META_MARKER = "chronohaze-security-policy"
+SECURITY_META_SNIPPET = """  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />"""
+
+GOOGLE_TAG_SNIPPET = """  <!-- Google tag (gtag.js), deferred until idle -->
+  <script>
+    (function () {
+      var measurementId = "G-JWZY2TVYFZ";
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+
+      function shouldSkipAnalytics() {
+        return navigator.doNotTrack === "1" || window.doNotTrack === "1";
+      }
+
+      function loadAnalytics() {
+        if (loadAnalytics.loaded || shouldSkipAnalytics()) return;
+        loadAnalytics.loaded = true;
+        var script = document.createElement("script");
+        script.async = true;
+        script.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(measurementId);
+        document.head.appendChild(script);
+        window.gtag("js", new Date());
+        window.gtag("config", measurementId, { anonymize_ip: true });
+      }
+
+      function scheduleAnalytics() {
+        if ("requestIdleCallback" in window) {
+          window.requestIdleCallback(loadAnalytics, { timeout: 3500 });
+        } else {
+          window.setTimeout(loadAnalytics, 1800);
+        }
+      }
+
+      if (document.readyState === "complete") {
+        scheduleAnalytics();
+      } else {
+        window.addEventListener("load", scheduleAnalytics, { once: true });
+      }
+    })();
+  </script>"""
+
 CRITICAL_LOADER_MARKER = "chronohaze-critical-loader-style"
 CRITICAL_LOADER_SNIPPET = """  <style id="chronohaze-critical-loader-style">
     html.chronohaze-critical-loading,
@@ -208,7 +250,10 @@ def rewrite_html_refs(text: str, page_rel: Path) -> str:
     for pattern, repl in replacements.items():
         out = re.sub(pattern, repl, out)
     out = remove_static_avif_sources(out)
-    return ensure_critical_loader(out)
+    out = remove_third_party_font_hints(out)
+    out = defer_google_tag(out)
+    out = ensure_critical_loader(out)
+    return ensure_security_meta(out)
 
 
 def remove_static_avif_sources(text: str) -> str:
@@ -218,6 +263,52 @@ def remove_static_avif_sources(text: str) -> str:
         text,
         flags=re.M,
     )
+
+
+def remove_third_party_font_hints(text: str) -> str:
+    text = re.sub(r"^[^\n]*https://fonts\.(?:googleapis|gstatic)\.com[^\n]*\n?", "", text, flags=re.M)
+    return text
+
+
+def defer_google_tag(text: str) -> str:
+    pattern = re.compile(
+        r"\s*(?:<!-- Google tag \(gtag\.js\) -->\s*)?"
+        r"<script\s+async\s+src=[\"']https://www\.googletagmanager\.com/gtag/js\?id=G-JWZY2TVYFZ[\"']></script>\s*"
+        r"<script>\s*"
+        r"window\.dataLayer\s*=\s*window\.dataLayer\s*\|\|\s*\[\];\s*"
+        r"function gtag\(\)\s*\{\s*dataLayer\.push\(arguments\);\s*\}\s*"
+        r"gtag\([\"']js[\"'],\s*new Date\(\)\);\s*"
+        r"gtag\([\"']config[\"'],\s*[\"']G-JWZY2TVYFZ[\"']\);\s*"
+        r"</script>",
+        flags=re.S,
+    )
+    return pattern.sub("\n" + GOOGLE_TAG_SNIPPET, text)
+
+
+def strip_existing_security_meta(text: str) -> str:
+    text = re.sub(
+        rf"^[ \t]*<meta\s+id=[\"']{SECURITY_META_MARKER}[\"'][^>]*>\s*\n?",
+        "",
+        text,
+        flags=re.M,
+    )
+    text = re.sub(
+        r"^[ \t]*<meta\s+name=[\"']referrer[\"']\s+content=[\"']strict-origin-when-cross-origin[\"']\s*/?>\s*\n?",
+        "",
+        text,
+        flags=re.M,
+    )
+    return text
+
+
+def ensure_security_meta(text: str) -> str:
+    text = strip_existing_security_meta(text)
+    viewport_re = re.compile(r"(^\s*<meta\s+name=[\"']viewport[\"'][^>]*>\s*$)", re.M)
+    match = viewport_re.search(text)
+    if match:
+        return text[:match.end()] + "\n" + SECURITY_META_SNIPPET + text[match.end():]
+    head_re = re.compile(r"(<head>\s*)", re.I)
+    return head_re.sub(lambda match: match.group(1) + SECURITY_META_SNIPPET + "\n", text, count=1)
 
 
 def strip_existing_critical_loader(text: str) -> str:

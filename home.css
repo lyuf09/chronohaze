@@ -38,39 +38,13 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: "futura-lt-w01-book";
-  font-style: normal;
-  font-weight: 400;
-  src: url("https://static.parastorage.com/fonts/v2/790166f1-b347-4f16-8a29-f0c4931a7c35/v1/futura-lt-w01-book.woff2") format("woff2");
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "madefor-display";
-  font-style: normal;
-  font-weight: 400;
-  src: url("https://static.parastorage.com/fonts/v2/26656ec7-c27d-4bdc-a9f4-6b498bbfad69/madefor-display.var.original.woff2") format("woff2-variations"),
-    url("https://static.parastorage.com/fonts/v2/26656ec7-c27d-4bdc-a9f4-6b498bbfad69/v1/madefor-display.woff2") format("woff2");
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "madefor-text";
-  font-style: normal;
-  font-weight: 400;
-  src: url("https://static.wixstatic.com/ufonts/a9ff3b_88119413f76a4700a45a5d8cf83cc00e/woff2/file.woff2") format("woff2"),
-    url("https://static.wixstatic.com/ufonts/a9ff3b_88119413f76a4700a45a5d8cf83cc00e/woff/file.woff") format("woff");
-  font-display: swap;
-}
-
 :root {
   --home-font-display-zh: "cormorantgaramond-light", "cormorantgaramond", "cormorant garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
   --home-font-display-en: "Cormorant Garamond", "cormorantgaramond-light", "cormorantgaramond", "Iowan Old Style", "Times New Roman", serif;
-  --home-font-body-zh: "madefor-text", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
-  --home-font-body-en: "Inter", "Avenir Next", "madefor-text", "Helvetica Neue", Arial, sans-serif;
-  --home-font-ui-zh: "futura-lt-w01-book", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
-  --home-font-ui-en: "futura-lt-w01-book", "Inter", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  --home-font-body-zh: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+  --home-font-body-en: "Inter", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  --home-font-ui-zh: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+  --home-font-ui-en: "Inter", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
   --home-font-display: var(--home-font-display-zh);
   --home-font-body: var(--home-font-body-zh);
   --home-font-ui: var(--home-font-ui-zh);
@@ -598,10 +572,7 @@ html:lang(en) {
   background:
     linear-gradient(rgba(39, 43, 52, 0.62), rgba(39, 43, 52, 0.62)),
     linear-gradient(rgba(20, 23, 31, 0.18), rgba(20, 23, 31, 0.18)),
-    image-set(
-      url("assets/template/about_branches-960.webp") type("image/webp") 1x,
-      url("assets/template/about_branches.jpg") type("image/jpeg") 1x
-    ) center / cover no-repeat;
+    linear-gradient(135deg, #282d38 0%, #343b49 52%, #1d222b 100%);
   background-blend-mode: multiply;
   display: flex;
   justify-content: center;
@@ -611,6 +582,16 @@ html:lang(en) {
   box-sizing: border-box;
   position: relative;
   z-index: 1;
+}
+
+.about-bg.is-bg-ready {
+  background:
+    linear-gradient(rgba(39, 43, 52, 0.62), rgba(39, 43, 52, 0.62)),
+    linear-gradient(rgba(20, 23, 31, 0.18), rgba(20, 23, 31, 0.18)),
+    image-set(
+      url("assets/template/about_branches-960.webp") type("image/webp") 1x,
+      url("assets/template/about_branches.jpg") type("image/jpeg") 1x
+    ) center / cover no-repeat;
 }
 
 .about-overlay {
@@ -863,7 +844,7 @@ html:lang(en) .about-overlay p {
 
 .math-grid h3 {
   margin: 11px 0 10px;
-  font-family: "madefor-display", "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: var(--home-font-ui);
   font-size: var(--home-type-h3-size);
   font-weight: 300;
   line-height: var(--home-type-h3-line);
@@ -1460,7 +1441,7 @@ html:lang(en) .about-overlay p {
 }
 
 .drawer-nav a {
-  font-family: "madefor-display", "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: var(--home-font-ui);
   font-size: 35px;
   font-weight: 300;
   line-height: 1.3;
