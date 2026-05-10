@@ -25,23 +25,19 @@ test("music index renders and remains interactive", async ({ page }) => {
   await page.goto("music.html", { waitUntil: "domcontentloaded" });
 
   await expect(page.locator("body.music-index-page")).toBeVisible();
-  await expect(page.locator(".music-ia-shell")).toBeVisible();
-  await expect.poll(async () => page.locator(".music-featured-card").count()).toBeGreaterThan(3);
-  await expect(page.locator(".music-ia-tab")).toHaveCount(2);
-  const initialTrackRows = page.locator(".track-row");
-  await expect.poll(async () => initialTrackRows.count()).toBeGreaterThan(3);
+  await expect(page.locator(".music-room-shell").first()).toBeVisible();
+  await expect(page.locator(".music-room-selected")).toBeVisible();
+  await expect.poll(async () => page.locator(".music-room-track-card").count()).toBeGreaterThan(3);
+  await expect.poll(async () => page.locator(".music-room-album").count()).toBeGreaterThan(1);
+  await expect(page.locator(".music-room-archive-section")).toBeVisible();
+  await expect.poll(async () => page.locator(".music-room-archive-group").count()).toBeGreaterThan(2);
 
-  const singlesTab = page.locator(
-    ".music-ia-tab[data-group-filter='single'], .music-ia-tab[data-group='single']"
-  );
-  await singlesTab.click();
-  await expect(singlesTab).toHaveClass(/is-active/);
-  await expect.poll(async () => page.locator(".music-group").count()).toBeGreaterThan(0);
-
-  const audioSelect = page.locator("select[data-filter='audio']");
-  if ((await audioSelect.count()) > 0) {
-    await audioSelect.selectOption("ready");
-    await expect.poll(async () => page.locator(".track-row:visible").count()).toBeGreaterThan(0);
+  const archiveFilter = page.locator(".music-room-archive-filter-select");
+  if ((await archiveFilter.count()) > 0) {
+    await archiveFilter.selectOption("progcore");
+    await expect
+      .poll(async () => page.locator(".music-room-archive-section .track-row:visible").count())
+      .toBeGreaterThan(0);
   }
 
   expect(errors).toEqual([]);
