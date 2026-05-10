@@ -20,15 +20,15 @@ jobs:
       cancel-in-progress: true
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: "20"
           cache: "npm"
@@ -54,7 +54,9 @@ jobs:
             npx playwright install --with-deps chromium
           fi
 
-      - name: Build generated data and media assets
+      - name: Build generated data and media manifests
+        env:
+          CHRONOHAZE_MEDIA_MANIFEST_ONLY: "1"
         run: bash scripts/build_site_generated_assets.sh
 
       - name: Run consistency and drift checks

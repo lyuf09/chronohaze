@@ -18,6 +18,9 @@ MEDIA_ARGS=(--skip-jpg)
 if [[ "${CHRONOHAZE_GENERATE_AVIF:-0}" != "1" ]]; then
   MEDIA_ARGS+=(--skip-avif)
 fi
+if [[ "${CHRONOHAZE_MEDIA_MANIFEST_ONLY:-0}" == "1" ]]; then
+  MEDIA_ARGS+=(--manifest-only --require-existing-variants)
+fi
 bash "$ROOT/scripts/build_media_assets.sh" "${MEDIA_ARGS[@]}"
 
 python3 "$ROOT/scripts/render_catalog_pages.py" --root "$ROOT"

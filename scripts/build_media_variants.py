@@ -176,6 +176,11 @@ def main() -> int:
     ap.add_argument("--skip-webp", action="store_true", help="Do not generate WEBP variants")
     ap.add_argument("--skip-avif", action="store_true", help="Do not generate AVIF variants")
     ap.add_argument("--manifest-only", action="store_true", help="Do not write new variants, only scan and emit manifest")
+    ap.add_argument(
+        "--require-existing-variants",
+        action="store_true",
+        help="Fail when manifest-only mode finds missing committed variants for enabled formats",
+    )
     ap.add_argument("--quality-webp", type=int, default=88)
     ap.add_argument("--quality-jpg", type=int, default=84)
     args = ap.parse_args()
@@ -189,6 +194,7 @@ def main() -> int:
     generated_counts = {"webp": 0, "jpg": 0, "avif": 0}
     skipped_counts = {"webp": 0, "jpg": 0, "avif": 0}
     manifest_items: Dict[str, Dict[str, object]] = {}
+    missing_required: List[str] = []
 
     for src_path in iter_source_images(root):
         src = measure_source(src_path)
@@ -235,6 +241,10 @@ def main() -> int:
                             pass
                 if out.exists():
                     rels.append(normalize_rel(out, root))
+                elif args.manifest_only and args.require_existing_variants and not (
+                    kind == "jpg" and args.skip_jpg
+                ) and not (kind == "webp" and args.skip_webp) and not (kind == "avif" and args.skip_avif):
+                    missing_required.append(normalize_rel(out, root))
 
             if rels:
                 formats[kind] = {
@@ -261,6 +271,13 @@ def main() -> int:
         print(f"{kind}: generated={generated_counts[kind]} skipped={skipped_counts[kind]}")
     if not avifenc_bin and not args.skip_avif:
         print("Note: AVIF variants not generated (avifenc not installed). Manifest still includes any pre-existing AVIF files.")
+    if missing_required:
+        print("ERROR: required committed media variants are missing")
+        for rel in missing_required[:80]:
+            print(f"- {rel}")
+        if len(missing_required) > 80:
+            print(f"- ... and {len(missing_required) - 80} more")
+        return 1
     return 0
 
 

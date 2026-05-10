@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import subprocess
 import sys
 from dataclasses import dataclass
 from html.parser import HTMLParser
@@ -29,6 +30,42 @@ class Ref:
     url: str
     line: int
     col: int
+
+
+class GitAssetIndex:
+    def __init__(self, root: Path) -> None:
+        self.root = root.resolve()
+        self._paths: Optional[Set[str]] = None
+
+    def _load(self) -> Set[str]:
+        if self._paths is not None:
+            return self._paths
+        try:
+            result = subprocess.run(
+                ["git", "-C", str(self.root), "ls-tree", "-r", "--name-only", "HEAD", "--", "assets"],
+                check=True,
+                text=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.DEVNULL,
+            )
+            self._paths = {line.strip() for line in result.stdout.splitlines() if line.strip()}
+        except Exception:
+            self._paths = set()
+        return self._paths
+
+    def contains(self, target: Path) -> bool:
+        try:
+            rel = target.resolve().relative_to(self.root).as_posix()
+        except ValueError:
+            return False
+        if not rel.startswith("assets/"):
+            return False
+        paths = self._load()
+        if rel in paths:
+            return True
+        if not Path(rel).suffix and f"{rel}.html" in paths:
+            return True
+        return f"{rel.rstrip('/')}/index.html" in paths
 
 
 class RefCollector(HTMLParser):
@@ -119,7 +156,7 @@ def normalize_internal_target(root: Path, page: str, raw_url: str) -> Optional[P
     return candidate.resolve()
 
 
-def internal_target_exists(root: Path, target: Path) -> bool:
+def internal_target_exists(root: Path, target: Path, git_assets: Optional[GitAssetIndex] = None) -> bool:
     try:
         target.relative_to(root.resolve())
     except ValueError:
@@ -131,6 +168,8 @@ def internal_target_exists(root: Path, target: Path) -> bool:
         return True
     # Support extensionless links like "research" -> research.html
     if target.suffix == "" and target.with_suffix(".html").exists():
+        return True
+    if git_assets and git_assets.contains(target):
         return True
     return False
 
@@ -249,6 +288,7 @@ def main() -> int:
 
     refs = parse_refs(root)
     avif_generated = load_avif_generation_state(root)
+    git_assets = GitAssetIndex(root)
     internal_errors: List[str] = []
     key_external_urls: Set[str] = set()
 
@@ -270,7 +310,7 @@ def main() -> int:
         if target.suffix.lower() == ".avif" and not avif_generated:
             # Local dev machines may intentionally skip AVIF generation; CI checks with avifenc enabled.
             continue
-        if not internal_target_exists(root, target):
+        if not internal_target_exists(root, target, git_assets):
             internal_errors.append(
                 f"{ref.page}:{ref.line}:{ref.col} {ref.tag}[{ref.attr}] -> {ref.url}"
             )
