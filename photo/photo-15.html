@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <style id="chronohaze-critical-loader-style">
+    html.chronohaze-critical-loading,
+    html.chronohaze-critical-loading body {
+      min-height: 100%;
+      background: #10141b;
+    }
+
+    html.chronohaze-critical-loading body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    html.chronohaze-critical-loading body > :not(.chronohaze-loader) {
+      visibility: hidden !important;
+    }
+
+    html.chronohaze-critical-loading::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 2147483000;
+      background:
+        linear-gradient(90deg, rgba(138, 160, 200, 0.09) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(138, 160, 200, 0.07) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(13, 17, 24, 0.992) 0%, rgba(19, 24, 33, 0.992) 55%, rgba(13, 17, 24, 0.996) 100%);
+      background-size: 54px 54px, 54px 54px, 100% 100%;
+    }
+
+    html.chronohaze-critical-loading::after {
+      content: "chronohaze.space\A 页面加载中";
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      z-index: 2147483001;
+      width: min(500px, calc(100vw - 40px));
+      padding: 30px 32px;
+      transform: translate(-50%, -50%);
+      white-space: pre-line;
+      color: rgba(232, 234, 237, 0.9);
+      font: 300 clamp(22px, 3.2vw, 34px)/1.48 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.055em;
+      border: 1px solid rgba(154, 172, 204, 0.3);
+      border-radius: 0;
+      background: linear-gradient(180deg, rgba(20, 25, 34, 0.84) 0%, rgba(13, 17, 24, 0.82) 100%);
+      box-shadow: 0 24px 58px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.045);
+    }
+
+    html.chronohaze-critical-loading-mobile body {
+      overflow: auto;
+    }
+
+    html.chronohaze-critical-loading-mobile body > :not(.chronohaze-loader) {
+      visibility: visible !important;
+    }
+
+    html.chronohaze-critical-loading-mobile::before {
+      background: linear-gradient(180deg, rgba(13, 17, 24, 0.18) 0%, rgba(19, 24, 33, 0.22) 100%);
+      pointer-events: none;
+    }
+
+    html.chronohaze-critical-loading-mobile::after {
+      content: "chronohaze.space";
+      left: 16px;
+      top: 16px;
+      width: auto;
+      max-width: calc(100vw - 32px);
+      padding: 10px 12px;
+      transform: none;
+      white-space: normal;
+      color: rgba(232, 234, 237, 0.78);
+      font: 400 12px/1.3 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.18em;
+      border: 1px solid rgba(154, 172, 204, 0.18);
+      background: rgba(16, 20, 27, 0.34);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+      backdrop-filter: blur(2px);
+    }
+  </style>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var isMobile = window.matchMedia && window.matchMedia("(max-width: 760px)").matches;
+      root.classList.add("chronohaze-critical-loading");
+      if (isMobile) {
+        root.classList.add("chronohaze-critical-loading-mobile");
+      }
+      window.__chronohazeReleaseCriticalLoader = function () {
+        root.classList.remove("chronohaze-critical-loading");
+        root.classList.remove("chronohaze-critical-loading-mobile");
+      };
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, isMobile ? 1500 : 6500);
+    })();
+  </script>
+<script>
+    (function () {
+      try {
+        var url = new URL(window.location.href);
+        var queryLang = url.searchParams.get("lang");
+        var valid = function (value) {
+          return value === "zh" || value === "en";
+        };
+        var defaultLang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+        var defaultSafe = defaultLang.indexOf("en") === 0 ? "en" : "zh";
+
+        if (valid(queryLang)) {
+          window.localStorage.setItem("siteLang", queryLang);
+          window.localStorage.setItem("chronohaze-lang", queryLang);
+          window.__chronohazePreferredLang = queryLang;
+          document.documentElement.lang = queryLang === "en" ? "en" : "zh-CN";
+          document.documentElement.setAttribute("data-site-lang", queryLang);
+          return;
+        }
+
+        var storedLang = window.localStorage.getItem("siteLang");
+        if (!valid(storedLang)) {
+          storedLang = window.localStorage.getItem("chronohaze-lang");
+        }
+        if (!valid(storedLang)) {
+          return;
+        }
+
+        window.__chronohazePreferredLang = storedLang;
+        document.documentElement.lang = storedLang === "en" ? "en" : "zh-CN";
+        document.documentElement.setAttribute("data-site-lang", storedLang);
+
+        if (storedLang !== defaultSafe) {
+          url.searchParams.set("lang", storedLang);
+          window.location.replace(url.toString());
+        }
+      } catch (_err) {}
+    })();
+  </script>
+  <link rel="icon" type="image/x-icon" href="https://lyuf09.github.io/chronohaze/assets/favicon.ico?v=4" />
+  <link rel="apple-touch-icon" href="https://lyuf09.github.io/chronohaze/assets/apple-touch-icon.png?v=4" />
+  <title>16/05/2026 | 摄影 | Chronohaze</title>
+  <meta name="description" content="摄影组图页面：16/05/2026，美国伊萨卡。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Chronohaze" />
+  <meta property="og:title" content="16/05/2026 | Chronohaze" />
+  <meta property="og:description" content="摄影组图页面：16/05/2026，美国伊萨卡。" />
+  <meta property="og:url" content="https://lyuf09.github.io/chronohaze/photo/photo-15.html" />
+  <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/photo-15.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="16/05/2026 | Chronohaze" />
+  <meta name="twitter:description" content="摄影组图页面：16/05/2026，美国伊萨卡。" />
+  <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/photo-15.png" />
+  <link rel="canonical" href="https://lyuf09.github.io/chronohaze/photo/photo-15.html" />
+
+  <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
+  <!-- GENERATED:hreflang:start -->
+  <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/photo/photo-15.html?lang=zh" />
+  <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/photo/photo-15.html?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/photo/photo-15.html" />
+  <!-- GENERATED:hreflang:end -->
+  <!-- Google tag (gtag.js), deferred until idle -->
+  <script>
+    (function () {
+      var measurementId = "G-JWZY2TVYFZ";
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+
+      function shouldSkipAnalytics() {
+        return navigator.doNotTrack === "1" || window.doNotTrack === "1";
+      }
+
+      function loadAnalytics() {
+        if (loadAnalytics.loaded || shouldSkipAnalytics()) return;
+        loadAnalytics.loaded = true;
+        var script = document.createElement("script");
+        script.async = true;
+        script.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(measurementId);
+        document.head.appendChild(script);
+        window.gtag("js", new Date());
+        window.gtag("config", measurementId, { anonymize_ip: true });
+      }
+
+      function scheduleAnalytics() {
+        if ("requestIdleCallback" in window) {
+          window.requestIdleCallback(loadAnalytics, { timeout: 3500 });
+        } else {
+          window.setTimeout(loadAnalytics, 1800);
+        }
+      }
+
+      if (document.readyState === "complete") {
+        scheduleAnalytics();
+      } else {
+        window.addEventListener("load", scheduleAnalytics, { once: true });
+      }
+    })();
+  </script>
+  <link rel="preload" href="../assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="../styles.min.css?v=20260509-mobile-focus-pages1" />
+  <script defer src="../protect-media.min.js?v=20260509-mobile-focus-pages1"></script>
+</head>
+<body class="photo-detail-page">
+  <div class="page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="../index.html">
+          <img src="../assets/logo.png" alt="Chronohaze site logo" />
+          <span>chronohaze.space</span>
+        </a>
+        <nav class="nav" aria-label="主导航">
+          <a href="../index.html" data-i18n="navHome">主页</a>
+          <a href="../academic.html" data-i18n="navAcademic">学术</a>
+          <a class="active" href="../photography.html" data-i18n="navPhoto">摄影</a>
+          <a href="../music.html" data-i18n="navMusic">音乐</a>
+          <a href="../cv.html" data-i18n="navCV">CV</a>
+          <a href="../search.html" data-i18n="navSearch">搜索</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main">
+      <article class="article photo-detail-article">
+        <h1>16/05/2026</h1>
+        <p class="article-meta">美国伊萨卡 · 2026年</p>
+        <section class="photo-detail-statement" aria-label="Series statement">
+          <div data-lang-block="zh">
+            <p>这组照片拍摄于美国伊萨卡，时间是2026年5月16日。五月的树叶、花、石阶与水边结构在柔和的日光里连成一段缓慢的步行记录。它们不追求明确的叙事，而保留抵达一个地方时轻微的停顿：看见路径，停在植物前，让绿色和白色的光先组织画面。</p>
+          </div>
+          <div data-lang-block="en">
+            <p>This series was made in Ithaca, United States, on May 16, 2026. Leaves, flowers, stone steps, and waterside structures become a slow walking record under soft spring light. The photographs do not insist on a fixed narrative; they keep the small pause of arriving somewhere, noticing paths, stopping before plants, and letting green and white light arrange the frame first.</p>
+          </div>
+        </section>
+        <div class="photo-detail-gallery">
+          <figure class="photo-detail-item"><img src="../assets/images/wix/ithaca-20260516-01.jpg" alt="16/05/2026 photograph 1 — 美国伊萨卡 · 2026年" loading="lazy" /></figure><figure class="photo-detail-item"><img src="../assets/images/wix/ithaca-20260516-02.jpg" alt="16/05/2026 photograph 2 — 美国伊萨卡 · 2026年" loading="lazy" /></figure><figure class="photo-detail-item"><img src="../assets/images/wix/ithaca-20260516-03.jpg" alt="16/05/2026 photograph 3 — 美国伊萨卡 · 2026年" loading="lazy" /></figure><figure class="photo-detail-item"><img src="../assets/images/wix/ithaca-20260516-04.jpg" alt="16/05/2026 photograph 4 — 美国伊萨卡 · 2026年" loading="lazy" /></figure><figure class="photo-detail-item"><img src="../assets/images/wix/ithaca-20260516-05.jpg" alt="16/05/2026 photograph 5 — 美国伊萨卡 · 2026年" loading="lazy" /></figure><figure class="photo-detail-item"><img src="../assets/images/wix/ithaca-20260516-06.jpg" alt="16/05/2026 photograph 6 — 美国伊萨卡 · 2026年" loading="lazy" /></figure><figure class="photo-detail-item"><img src="../assets/images/wix/ithaca-20260516-07.jpg" alt="16/05/2026 photograph 7 — 美国伊萨卡 · 2026年" loading="lazy" /></figure><figure class="photo-detail-item"><img src="../assets/images/wix/ithaca-20260516-08.jpg" alt="16/05/2026 photograph 8 — 美国伊萨卡 · 2026年" loading="lazy" /></figure><figure class="photo-detail-item"><img src="../assets/images/wix/ithaca-20260516-09.jpg" alt="16/05/2026 photograph 9 — 美国伊萨卡 · 2026年" loading="lazy" /></figure>
+        </div>
+        <p><a class="read-more" href="../photography.html">← 返回摄影</a></p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <p class="footer-title">chronohaze.space</p>
+          <p class="footer-note">辗转不同国家无固定号码 请联系邮箱：<a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a></p>
+          <p class="footer-note">重庆 · Edinburgh · Ithaca</p>
+          <p class="footer-copy">© 2026 by chronohaze.space. Powered and secured by GitHub Pages.</p>
+          <div class="social" aria-label="Social links">
+            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://www.instagram.com/lyuf09" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://space.bilibili.com/35902781" target="_blank" rel="noopener noreferrer">Bilibili</a>
+            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+        <div class="footer-right">
+          <a href="../policy.html">网站说明</a>
+          <a href="../accessibility.html">无障碍支持</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

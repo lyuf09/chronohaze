@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-09",
+  "generated_at": "2026-05-16",
   "source": "photography.html",
   "featured": [
     {
@@ -268,6 +268,19 @@
       "tags": [
         "photo"
       ]
+    },
+    {
+      "order": 16,
+      "url": "photo/photo-15.html",
+      "title": "五月的伊萨卡",
+      "date": "16/05/2026",
+      "subtitle": "阅读全文",
+      "cover": "assets/images/wix/ithaca-20260516-03.jpg",
+      "is_film": false,
+      "alt": "摄影系列预览图：16/05/2026 — 美国伊萨卡 · 2026年",
+      "tags": [
+        "photo"
+      ]
     }
   ],
   "items": [
@@ -450,6 +463,18 @@
       "date": "30/08/2025",
       "excerpt": "阅读全文",
       "cover": "assets/images/wix/64569d_4195bebf7fb244e8b7591015da58bef7~mv2.jpg",
+      "tags": [
+        "photo"
+      ],
+      "is_film": false
+    },
+    {
+      "order": 16,
+      "url": "photo/photo-15.html",
+      "title": "五月的伊萨卡",
+      "date": "16/05/2026",
+      "excerpt": "阅读全文",
+      "cover": "assets/images/wix/ithaca-20260516-03.jpg",
       "tags": [
         "photo"
       ],
