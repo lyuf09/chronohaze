@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-16",
+  "generated_at": "2026-05-17",
   "variant_widths": [
     960,
     1600
@@ -2077,6 +2077,576 @@
         }
       }
     },
+    "assets/images/wix/ithaca-20260516-01.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260516-01-960.webp 960w, assets/images/wix/ithaca-20260516-01-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260516-01-960.webp",
+            "assets/images/wix/ithaca-20260516-01-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260516-02.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260516-02-960.webp 960w, assets/images/wix/ithaca-20260516-02-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260516-02-960.webp",
+            "assets/images/wix/ithaca-20260516-02-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260516-03.jpg": {
+      "original": {
+        "width": 2592,
+        "height": 1728
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260516-03-960.webp 960w, assets/images/wix/ithaca-20260516-03-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260516-03-960.webp",
+            "assets/images/wix/ithaca-20260516-03-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260516-04.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260516-04-960.webp 960w, assets/images/wix/ithaca-20260516-04-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260516-04-960.webp",
+            "assets/images/wix/ithaca-20260516-04-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260516-05.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260516-05-960.webp 960w, assets/images/wix/ithaca-20260516-05-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260516-05-960.webp",
+            "assets/images/wix/ithaca-20260516-05-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260516-06.jpg": {
+      "original": {
+        "width": 2592,
+        "height": 1728
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260516-06-960.webp 960w, assets/images/wix/ithaca-20260516-06-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260516-06-960.webp",
+            "assets/images/wix/ithaca-20260516-06-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260516-07.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260516-07-960.webp 960w, assets/images/wix/ithaca-20260516-07-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260516-07-960.webp",
+            "assets/images/wix/ithaca-20260516-07-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260516-08.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260516-08-960.webp 960w, assets/images/wix/ithaca-20260516-08-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260516-08-960.webp",
+            "assets/images/wix/ithaca-20260516-08-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-01.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-01-960.webp 960w, assets/images/wix/ithaca-20260517-01-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-01-960.webp",
+            "assets/images/wix/ithaca-20260517-01-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-02.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-02-960.webp 960w, assets/images/wix/ithaca-20260517-02-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-02-960.webp",
+            "assets/images/wix/ithaca-20260517-02-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-03.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-03-960.webp 960w, assets/images/wix/ithaca-20260517-03-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-03-960.webp",
+            "assets/images/wix/ithaca-20260517-03-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-04.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-04-960.webp 960w, assets/images/wix/ithaca-20260517-04-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-04-960.webp",
+            "assets/images/wix/ithaca-20260517-04-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-05.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-05-960.webp 960w, assets/images/wix/ithaca-20260517-05-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-05-960.webp",
+            "assets/images/wix/ithaca-20260517-05-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-06.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-06-960.webp 960w, assets/images/wix/ithaca-20260517-06-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-06-960.webp",
+            "assets/images/wix/ithaca-20260517-06-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-07.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-07-960.webp 960w, assets/images/wix/ithaca-20260517-07-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-07-960.webp",
+            "assets/images/wix/ithaca-20260517-07-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-08.jpg": {
+      "original": {
+        "width": 1669,
+        "height": 2504
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-08-960.webp 960w, assets/images/wix/ithaca-20260517-08-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-08-960.webp",
+            "assets/images/wix/ithaca-20260517-08-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-09.jpg": {
+      "original": {
+        "width": 2592,
+        "height": 1728
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-09-960.webp 960w, assets/images/wix/ithaca-20260517-09-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-09-960.webp",
+            "assets/images/wix/ithaca-20260517-09-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-10.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-10-960.webp 960w, assets/images/wix/ithaca-20260517-10-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-10-960.webp",
+            "assets/images/wix/ithaca-20260517-10-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-11.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-11-960.webp 960w, assets/images/wix/ithaca-20260517-11-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-11-960.webp",
+            "assets/images/wix/ithaca-20260517-11-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-12.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-12-960.webp 960w, assets/images/wix/ithaca-20260517-12-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-12-960.webp",
+            "assets/images/wix/ithaca-20260517-12-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-13.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-13-960.webp 960w, assets/images/wix/ithaca-20260517-13-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-13-960.webp",
+            "assets/images/wix/ithaca-20260517-13-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-14.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-14-960.webp 960w, assets/images/wix/ithaca-20260517-14-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-14-960.webp",
+            "assets/images/wix/ithaca-20260517-14-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-15.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-15-960.webp 960w, assets/images/wix/ithaca-20260517-15-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-15-960.webp",
+            "assets/images/wix/ithaca-20260517-15-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-16.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-16-960.webp 960w, assets/images/wix/ithaca-20260517-16-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-16-960.webp",
+            "assets/images/wix/ithaca-20260517-16-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-17.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-17-960.webp 960w, assets/images/wix/ithaca-20260517-17-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-17-960.webp",
+            "assets/images/wix/ithaca-20260517-17-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-18.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-18-960.webp 960w, assets/images/wix/ithaca-20260517-18-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-18-960.webp",
+            "assets/images/wix/ithaca-20260517-18-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-19.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-19-960.webp 960w, assets/images/wix/ithaca-20260517-19-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-19-960.webp",
+            "assets/images/wix/ithaca-20260517-19-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-20.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-20-960.webp 960w, assets/images/wix/ithaca-20260517-20-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-20-960.webp",
+            "assets/images/wix/ithaca-20260517-20-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-21.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-21-960.webp 960w, assets/images/wix/ithaca-20260517-21-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-21-960.webp",
+            "assets/images/wix/ithaca-20260517-21-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-22.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-22-960.webp 960w, assets/images/wix/ithaca-20260517-22-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-22-960.webp",
+            "assets/images/wix/ithaca-20260517-22-1600.webp"
+          ]
+        }
+      }
+    },
     "assets/template/1_DZCQT4IDx-F_FY7KNOL08g.png": {
       "original": {
         "width": 1920,
@@ -2787,158 +3357,6 @@
           "files": [
             "assets/template/zero-art-960.webp",
             "assets/template/zero-art-1600.webp"
-          ]
-        }
-      }
-    },
-    "assets/images/wix/ithaca-20260516-01.jpg": {
-      "original": {
-        "width": 1728,
-        "height": 2592
-      },
-      "formats": {
-        "webp": {
-          "widths": [
-            960,
-            1600
-          ],
-          "srcset": "assets/images/wix/ithaca-20260516-01-960.webp 960w, assets/images/wix/ithaca-20260516-01-1600.webp 1600w",
-          "files": [
-            "assets/images/wix/ithaca-20260516-01-960.webp",
-            "assets/images/wix/ithaca-20260516-01-1600.webp"
-          ]
-        }
-      }
-    },
-    "assets/images/wix/ithaca-20260516-02.jpg": {
-      "original": {
-        "width": 1728,
-        "height": 2592
-      },
-      "formats": {
-        "webp": {
-          "widths": [
-            960,
-            1600
-          ],
-          "srcset": "assets/images/wix/ithaca-20260516-02-960.webp 960w, assets/images/wix/ithaca-20260516-02-1600.webp 1600w",
-          "files": [
-            "assets/images/wix/ithaca-20260516-02-960.webp",
-            "assets/images/wix/ithaca-20260516-02-1600.webp"
-          ]
-        }
-      }
-    },
-    "assets/images/wix/ithaca-20260516-03.jpg": {
-      "original": {
-        "width": 2592,
-        "height": 1728
-      },
-      "formats": {
-        "webp": {
-          "widths": [
-            960,
-            1600
-          ],
-          "srcset": "assets/images/wix/ithaca-20260516-03-960.webp 960w, assets/images/wix/ithaca-20260516-03-1600.webp 1600w",
-          "files": [
-            "assets/images/wix/ithaca-20260516-03-960.webp",
-            "assets/images/wix/ithaca-20260516-03-1600.webp"
-          ]
-        }
-      }
-    },
-    "assets/images/wix/ithaca-20260516-04.jpg": {
-      "original": {
-        "width": 1728,
-        "height": 2592
-      },
-      "formats": {
-        "webp": {
-          "widths": [
-            960,
-            1600
-          ],
-          "srcset": "assets/images/wix/ithaca-20260516-04-960.webp 960w, assets/images/wix/ithaca-20260516-04-1600.webp 1600w",
-          "files": [
-            "assets/images/wix/ithaca-20260516-04-960.webp",
-            "assets/images/wix/ithaca-20260516-04-1600.webp"
-          ]
-        }
-      }
-    },
-    "assets/images/wix/ithaca-20260516-05.jpg": {
-      "original": {
-        "width": 1728,
-        "height": 2592
-      },
-      "formats": {
-        "webp": {
-          "widths": [
-            960,
-            1600
-          ],
-          "srcset": "assets/images/wix/ithaca-20260516-05-960.webp 960w, assets/images/wix/ithaca-20260516-05-1600.webp 1600w",
-          "files": [
-            "assets/images/wix/ithaca-20260516-05-960.webp",
-            "assets/images/wix/ithaca-20260516-05-1600.webp"
-          ]
-        }
-      }
-    },
-    "assets/images/wix/ithaca-20260516-06.jpg": {
-      "original": {
-        "width": 2592,
-        "height": 1728
-      },
-      "formats": {
-        "webp": {
-          "widths": [
-            960,
-            1600
-          ],
-          "srcset": "assets/images/wix/ithaca-20260516-06-960.webp 960w, assets/images/wix/ithaca-20260516-06-1600.webp 1600w",
-          "files": [
-            "assets/images/wix/ithaca-20260516-06-960.webp",
-            "assets/images/wix/ithaca-20260516-06-1600.webp"
-          ]
-        }
-      }
-    },
-    "assets/images/wix/ithaca-20260516-07.jpg": {
-      "original": {
-        "width": 1728,
-        "height": 2592
-      },
-      "formats": {
-        "webp": {
-          "widths": [
-            960,
-            1600
-          ],
-          "srcset": "assets/images/wix/ithaca-20260516-07-960.webp 960w, assets/images/wix/ithaca-20260516-07-1600.webp 1600w",
-          "files": [
-            "assets/images/wix/ithaca-20260516-07-960.webp",
-            "assets/images/wix/ithaca-20260516-07-1600.webp"
-          ]
-        }
-      }
-    },
-    "assets/images/wix/ithaca-20260516-08.jpg": {
-      "original": {
-        "width": 1728,
-        "height": 2592
-      },
-      "formats": {
-        "webp": {
-          "widths": [
-            960,
-            1600
-          ],
-          "srcset": "assets/images/wix/ithaca-20260516-08-960.webp 960w, assets/images/wix/ithaca-20260516-08-1600.webp 1600w",
-          "files": [
-            "assets/images/wix/ithaca-20260516-08-960.webp",
-            "assets/images/wix/ithaca-20260516-08-1600.webp"
           ]
         }
       }
