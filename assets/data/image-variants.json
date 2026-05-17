@@ -2942,25 +2942,6 @@
           ]
         }
       }
-    },
-    "assets/images/wix/ithaca-20260516-09.jpg": {
-      "original": {
-        "width": 1728,
-        "height": 2592
-      },
-      "formats": {
-        "webp": {
-          "widths": [
-            960,
-            1600
-          ],
-          "srcset": "assets/images/wix/ithaca-20260516-09-960.webp 960w, assets/images/wix/ithaca-20260516-09-1600.webp 1600w",
-          "files": [
-            "assets/images/wix/ithaca-20260516-09-960.webp",
-            "assets/images/wix/ithaca-20260516-09-1600.webp"
-          ]
-        }
-      }
     }
   }
 }
