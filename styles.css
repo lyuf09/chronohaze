@@ -2049,6 +2049,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement [data-lang-block="en"] 
 
 .photo-detail-page .photo-detail-gallery.photo-detail-gallery--contact-sheet {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: clamp(30px, 3vw, 44px);
   width: min(100%, 1540px);
   margin: 34px auto 46px;
