@@ -1925,11 +1925,22 @@ audio {
   position: relative;
   z-index: 1;
   width: min(100%, 820px);
-  margin: 0 0 14px;
+  margin: 0 0 10px;
   color: #222730;
   font-size: clamp(38px, 4.5vw, 64px);
   line-height: 0.94;
   letter-spacing: 0.012em;
+}
+
+.photo-detail-page .photo-detail-date,
+.photo-blue-page .photo-detail-date {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 8px;
+  color: rgba(42, 48, 60, 0.86);
+  font-size: 12px;
+  line-height: 1.45;
+  letter-spacing: 0.18em;
 }
 
 .photo-detail-page .article-meta,
@@ -8306,6 +8317,13 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
     line-height: 0.98;
   }
 
+  .photo-detail-page .photo-detail-date,
+  .photo-blue-page .photo-detail-date {
+    margin-bottom: 6px;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+  }
+
   .photo-detail-page .article-meta,
   .photo-blue-page .article-meta {
     margin-bottom: 18px;
@@ -12836,6 +12854,13 @@ html:lang(en) .music-album-page .album-back-link {
     margin-bottom: 10px;
     font-size: clamp(28px, 8vw, 38px);
     line-height: 0.99;
+  }
+
+  .photo-detail-page .photo-detail-date,
+  .photo-blue-page .photo-detail-date {
+    margin-bottom: 6px;
+    font-size: 10px;
+    letter-spacing: 0.12em;
   }
 
   .photo-detail-page .article-meta,
