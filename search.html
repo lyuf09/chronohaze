@@ -217,6 +217,24 @@
   "generated_at": "2026-05-22",
   "items": [
     {
+      "title": "从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL",
+      "url": "post/projected-gradient-descent-isabelle-hol.html",
+      "section": "Mathematics",
+      "date": "2026-05-22",
+      "excerpt": "在等待前一个 AFP 项目流程继续推进期间，我开始整理第二个 Isabelle/HOL optimization 项目：从 smooth convexity、projection geometry、descent estimates 到 projected-gradient mapping 和 residual certificates，尝试把 projected-gradient descent 写成一套可复用的 first-order methods infrastructure。",
+      "tags": [
+        "math",
+        "article",
+        "isabelle-hol",
+        "optimization",
+        "formalisation",
+        "afp"
+      ],
+      "sort": 20260522,
+      "scope": "math",
+      "content": "从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL HazezZ · 2026年5月22日 · 约 5 分钟 Isabelle/HOL Optimization Formalisation AFP 在完成子模优化项目的 AFP cleanup 之后，我开始做另一个 Isabelle/HOL 项目：Projected Gradient Descent in Isabelle/HOL。这个项目从 combinatorial optimization 里的 submodular greedy 转到 smooth convex optimization 里的 first-order methods，目标不是简单证明 projected gradient descent 收敛，而是整理 reusable descent/projection convergence infrastructure。核心内容包括 gradient 和 convex differentiability 接口，smooth upper-bound 和 Lipschitz-smoothness bridge，algorithm-independent descent telescoping averaging lemmas，gradient descent 的 one-step estimates 和 O(1/N) convergence，projection geometry，metric projection 的 variational inequality，projected-gradient descent 的 feasibility preservation、function-value convergence、finite-horizon bound、projected-gradient mapping、residual certificates、epsilon-stationarity complexity，以及 strong convexity 下的 linear-rate convergence。项目还设置 Main_Results.thy 作为 public theorem surface，收集稳定可复用的 theorem aliases，面向 AFP 和未来下游复用。项目链接 https://github.com/lyuf09/projected-gradient-descent Moving Forward After Submodular Optimization Projected Gradient Descent in Isabelle/HOL first-order methods smooth convex optimization projection geometry residual certificate convergence infrastructure"
+    },
+    {
       "title": "最后的常景",
       "url": "photo/photo-17.html",
       "section": "Photography",
