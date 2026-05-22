@@ -5,17 +5,9 @@
     <link>https://lyuf09.github.io/chronohaze/</link>
     <description>Research notes and blog-style updates from Chronohaze, focused on optimization, Isabelle/HOL, and mathematical structure.</description>
     <language>en</language>
-    <lastBuildDate>Tue, 21 Apr 2026 12:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 23 Mar 2026 12:00:00 +0000</lastBuildDate>
     <generator>Chronohaze static feed builder</generator>
     <atom:link href="https://lyuf09.github.io/chronohaze/feed.xml" rel="self" type="application/rss+xml" />
-
-    <item>
-      <title>Dual Witness Meets the Hessian: New Progress on My Newly Defined Theorem 2.10</title>
-      <link>https://lyuf09.github.io/chronohaze/post/dual-witness-hessian-theorem-2-10.html</link>
-      <guid>https://lyuf09.github.io/chronohaze/post/dual-witness-hessian-theorem-2-10.html</guid>
-      <pubDate>Tue, 21 Apr 2026 12:00:00 +0000</pubDate>
-      <description>What excites me most in this update is translating positive definiteness of the primal Hessian into a witness-side quadratic form on Range(B), and from it obtaining a genuinely sufficient local-minimum criterion.</description>
-    </item>
 
     <item>
       <title>What I Really Got When a Dual Route Failed</title>

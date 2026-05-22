@@ -93,20 +93,6 @@
       "content": "代表性工作 Work Selected Work Formal Verification Duality Invariance Prototype Isabelle HOL 现代子模贪心算法形式化 不变性下的对偶与结构分数 Metalcore Piano Lab 对象 状态 材料入口 Repo Note Archive clean-up AFP dual collapse inconsistency score discretization playable chart events"
     },
     {
-      "title": "Dual witness 开始碰到 Hessian 了！：关于新定义的 Theorem 2.10 的这次新进展",
-      "url": "post/dual-witness-hessian-theorem-2-10.html",
-      "section": "Mathematics",
-      "date": "2026-04-21",
-      "excerpt": "这次最让我兴奋的新结果，是把 primal Hessian 的正定性翻译成一个定义在 Range(B) 上的 witness-side quadratic form，并由此得到一个 genuinely sufficient 的 local-minimum criterion。",
-      "tags": [
-        "math",
-        "article"
-      ],
-      "sort": 20260421,
-      "scope": "math",
-      "content": "Dual witness 开始碰到 Hessian 了！：关于新定义的 Theorem 2.10 的这次新进展 HazezZ · 2026年4月21日 这段时间我在 WSN localization 这条 dual 线又往前推了一点。上一篇我主要写的是 dual-based score，那一版更多是在理解 instance level 的结构，比如什么 dual route 会 collapse，什么东西真正留下来了，以及为什么最后冒出来的是一个和 Range(B)、cycle consistency、realizability 有关的 structural quantity。 但那一版其实还留着一个很明显的缺口：当我已经手上有一个 differentiable stationary point 的时候，dual side 到底能不能告诉我，这个点是不是 local minimum？ 这次最重要的新进展，是我第一次在 dual side 上得到了一个 genuinely sufficient 的 local-minimum criterion，在当前 draft 里它是 Theorem 2.10。 核心形式是 ∇²F(x_u) = 2 B^T M(u) B。 这个 theorem 把 primal Hessian 的正定性翻译成定义在 Range(B) 上的 witness-side quadratic form，并给出充分条件：如果对 every nonzero z in Range(B) 都有 <z, M(u) z> > 0，那么 x_u 就是 strict local minimum modulo Ker(B)，因此也是 ordinary local minimum。 我觉得这条 dual 线第一次真正站起来了，因为它第一次超过了 purely necessary-side reformulation，第一次把 primal Hessian 信息压缩成 witness-side quadratic form，也非常自然地处理了 gauge freedom。 对每个 edge block，M_l(u) 可以看成各向异性的 curvature matrix：沿 witness direction 的曲率恰好是 1，横向方向由 1 - 1 / rho_l(u) 控制。 local minimality 因而不是单条边的独立性质，而是 edgewise curvatures 在 realizable subspace Range(B) 上组合后的 genuinely global effect。 scalar case n = 1 时，M(u) 自动退化成 identity，因此曲率条件自动成立。 这还不是终点：它目前仍然是 sufficient criterion，而不是 differentiable local minima 的 necessary-and-sufficient characterization，也还没有直接变成 algorithmic theorem。但这是 dual witness 第一次真正碰到 Hessian、second-order curvature 和 local minimality 本身。 Dual Witness Meets the Hessian Theorem 2.10 witness-side quadratic form stationary witness Hessian local minimum Range(B) Ker(B) gauge freedom scalar case anisotropic curvature WSN localization duality"
-    },
-    {
       "title": "Orchid",
       "url": "music/track-orchid.html",
       "section": "Music",
