@@ -10,6 +10,14 @@
     <atom:link href="https://lyuf09.github.io/chronohaze/feed.xml" rel="self" type="application/rss+xml" />
 
     <item>
+      <title>From Dual Score to Saddle Certificates: A Small New Step</title>
+      <link>https://lyuf09.github.io/chronohaze/post/dual-score-saddle-certificates.html</link>
+      <guid>https://lyuf09.github.io/chronohaze/post/dual-score-saddle-certificates.html</guid>
+      <pubDate>Fri, 22 May 2026 12:00:00 +0000</pubDate>
+      <description>A new step from an instance-level dual score toward stationary witnesses, projected retention, Hessian structure, and cycle-rank saddle certificates for network localization.</description>
+    </item>
+
+    <item>
       <title>Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL</title>
       <link>https://lyuf09.github.io/chronohaze/post/projected-gradient-descent-isabelle-hol.html</link>
       <guid>https://lyuf09.github.io/chronohaze/post/projected-gradient-descent-isabelle-hol.html</guid>

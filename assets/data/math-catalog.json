@@ -4,6 +4,26 @@
   "items": [
     {
       "order": 1,
+      "url": "post/dual-score-saddle-certificates.html",
+      "date": "2026-05-22",
+      "title": "从 dual score 到 saddle certificates 的一点新进展",
+      "title_en": "From Dual Score to Saddle Certificates: A Small New Step",
+      "excerpt": "三月留下来的 dual score 原本只是 instance-level structural score；最近它开始和 differentiable stationary points、stationary dual witness、projected retention、Hessian negative curvature 以及 cycle-rank saddle certificates 接起来。",
+      "excerpt_en": "A new step from an instance-level dual score toward stationary witnesses, projected retention, Hessian structure, and cycle-rank saddle certificates for network localization.",
+      "readmore_url": "post/dual-score-saddle-certificates.html",
+      "tags": [
+        "math",
+        "article"
+      ],
+      "line_tags": [
+        "Duality",
+        "OR for ML"
+      ],
+      "reading_time_zh": "约 10 分钟",
+      "reading_time_en": "10 min read"
+    },
+    {
+      "order": 2,
       "url": "post/projected-gradient-descent-isabelle-hol.html",
       "date": "2026-05-22",
       "title": "从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL",
@@ -23,7 +43,7 @@
       "reading_time_en": "5 min read"
     },
     {
-      "order": 2,
+      "order": 3,
       "url": "post/what-i-really-got-when-a-dual-route-failed.html",
       "date": "2026-03-23",
       "title": "当一个 dual 路线走不通时，我真正得到的东西",
@@ -43,7 +63,7 @@
       "reading_time_en": "6 min read"
     },
     {
-      "order": 3,
+      "order": 4,
       "url": "post/theorem-to-framework-isabelle-submodular.html",
       "date": "2026-03-14",
       "title": "从一个定理到一套框架：我的 Isabelle 子模优化项目新进展",
@@ -63,7 +83,7 @@
       "reading_time_en": "8 min read"
     },
     {
-      "order": 4,
+      "order": 5,
       "url": "post/metalcore-piano-lab.html",
       "date": "2026-02-07",
       "title": "Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP）",
@@ -82,7 +102,7 @@
       "reading_time_en": "3 min read"
     },
     {
-      "order": 5,
+      "order": 6,
       "url": "post/spring-2026.html",
       "date": "2026-01-29",
       "title": "Spring 2026｜新科研记录的开始",
@@ -101,7 +121,7 @@
       "reading_time_en": "2 min read"
     },
     {
-      "order": 6,
+      "order": 7,
       "url": "post/isabelle-submodular-greedy.html",
       "date": "2025-12-29",
       "title": "一个正在进行的 Isabelle 研究项目：Submodular Greedy 的形式化",
@@ -121,7 +141,7 @@
       "reading_time_en": "4 min read"
     },
     {
-      "order": 7,
+      "order": 8,
       "url": "post/first-isabelle-proof.html",
       "date": "2025-10-18",
       "title": "我的第一个 Isabelle 形式化证明",

@@ -2,6 +2,25 @@
   "generated_at": "2026-05-22",
   "items": [
     {
+      "title": "从 dual score 到 saddle certificates 的一点新进展",
+      "url": "post/dual-score-saddle-certificates.html",
+      "section": "Mathematics",
+      "date": "2026-05-22",
+      "excerpt": "三月留下来的 dual score 原本只是 instance-level structural score；最近它开始和 differentiable stationary points、stationary dual witness、projected retention、Hessian negative curvature 以及 cycle-rank saddle certificates 接起来。",
+      "tags": [
+        "math",
+        "article",
+        "optimization",
+        "network-localization",
+        "duality",
+        "nonconvex-optimization",
+        "saddle-points"
+      ],
+      "sort": 20260522,
+      "scope": "math",
+      "content": "从 dual score 到 saddle certificates 的一点新进展 HazezZ · 2026年5月22日 Optimization Network Localization Duality Nonconvex Optimization Saddle Points 三月的时候我写了一篇讲 network localization 里的 duality，两条自然的 Lagrangian dual 路线 collapse 到 0。真正留下来的是 conjugate-based DC dual 里的 projector formula：S_dual(B, delta) = sum(delta_l^2) - 1/4 * sup over u in V of ||P u||^2。它衡量 prescribed edge-length budget 和 realizable edge-difference subspace Range(B) 之间的 incompatibility，是 geometry-aware structural quantity。最近这条线从 static instance-level score 走向 stationary point geometry：对于 differentiable stationary point x，可以定义 saturated stationary dual witness u(x)，并有 projector identity P u(x) = 2 Bx。进一步有 F(x) = sum(delta_l^2) - 1/4 * ||P u(x)||^2，于是 Gap_stat(x) = F(x) - S_dual(B, delta) 可以比较 stationary witness 的 projected compatibility。OJMO local-minimum screening condition 可以翻译成 projected retention condition rho_l(x) = ||(P u(x))_l|| / ||u_l(x)||，local minimality forces the stationary witness not to lose too much mass under projection。二阶方向上，Hessian H(x) = 2 B^T M(x) B，关键不是重写 Hessian，而是从 radial/transverse decomposition、under-retained edges、Range(B) compatibility constraints 里提取 structural saddle certificates。cycle-rank negative-inertia bound 说明 under-retained edges 太多、cycle space 无法吸收 transverse negative directions 时 reduced Hessian 必有 negative eigenvalue，因此 x 是 strict saddle。这个 certificate 和 OJMO degree test 不同：OJMO 更 local，cycle-rank certificate 更 global collective。进一步方向包括 directional signed-Laplacian reduction、cluster-cut certificate，以及 negative epsilon edge 的 local certified escape procedure，把 edge-level negative curvature 变成 node-level descent mechanism。dual score stationary dual witness saddle certificates Hessian negative curvature cycle rank signed Laplacian cluster cut escape procedure"
+    },
+    {
       "title": "从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL",
       "url": "post/projected-gradient-descent-isabelle-hol.html",
       "section": "Mathematics",
