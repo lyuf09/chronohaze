@@ -10396,11 +10396,18 @@ body {
   }
 
   .home-body .floating-site-logo.is-share-trigger {
-    top: max(86px, calc(var(--safe-top) + 82px));
-    right: max(10px, calc(var(--safe-right) + 8px));
-    bottom: auto;
-    width: 56px;
-    height: 56px;
+    top: auto;
+    right: max(14px, calc(var(--safe-right) + 12px));
+    bottom: max(14px, calc(var(--safe-bottom) + 12px));
+    width: 62px;
+    height: 62px;
+    z-index: 72;
+  }
+
+  .home-body.menu-scroll-locked .floating-site-logo.is-share-trigger {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: scale(0.94) !important;
   }
 
   .site-share-fab {

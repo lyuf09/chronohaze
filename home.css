@@ -2335,6 +2335,219 @@ html.menu-scroll-locked,
   }
 }
 
+/* Home mobile UX overhaul */
+@media (max-width: 768px) {
+  :root {
+    --home-space-section-gap: 18px;
+  }
+
+  .home-topbar {
+    height: calc(64px + env(safe-area-inset-top, 0px));
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    column-gap: 10px;
+    padding:
+      env(safe-area-inset-top, 0px)
+      max(14px, calc(10px + env(safe-area-inset-right, 0px)))
+      0
+      max(14px, calc(10px + env(safe-area-inset-left, 0px)));
+  }
+
+  .home-brand {
+    max-width: min(42vw, 154px);
+    font-size: clamp(9.5px, 2.6vw, 11px);
+    letter-spacing: 0.16em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .lang-pill {
+    width: clamp(118px, 34vw, 146px);
+    height: 44px;
+    border-radius: 999px;
+  }
+
+  .lang-btn {
+    min-height: 44px;
+    font-size: 11px;
+  }
+
+  .menu-open {
+    width: 44px;
+    height: 44px;
+    font-size: 32px;
+    line-height: 0.7;
+  }
+
+  .hero-split {
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    padding: 22px max(14px, calc(10px + env(safe-area-inset-right, 0px))) 16px max(14px, calc(10px + env(safe-area-inset-left, 0px)));
+  }
+
+  .hero-portrait {
+    width: min(78vw, 336px);
+    max-height: min(52vh, 388px);
+    height: auto;
+    aspect-ratio: 481 / 587;
+    object-fit: cover;
+  }
+
+  .hero-right-inner {
+    width: min(100%, 420px);
+    padding: 26px 18px 30px;
+  }
+
+  .hero-right h1 {
+    margin-bottom: 12px;
+    font-size: clamp(30px, 8.6vw, 36px);
+    line-height: 1.06;
+  }
+
+  .hero-right-inner > p {
+    font-size: 14.5px;
+    line-height: 1.52;
+  }
+
+  .hero-academic-module {
+    margin-top: 18px;
+  }
+
+  .hero-academic-kicker {
+    margin-bottom: 8px;
+  }
+
+  .hero-academic-links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .hero-academic-link {
+    min-height: 44px;
+    padding: 9px 10px;
+    font-size: 12.5px;
+    border-color: rgba(55, 63, 78, 0.18);
+    background:
+      linear-gradient(180deg, rgba(252, 253, 255, 0.74), rgba(244, 247, 252, 0.62)),
+      radial-gradient(circle at 18% 24%, rgba(255, 255, 255, 0.12) 0.6px, transparent 0.95px);
+    color: rgba(24, 31, 45, 0.96);
+  }
+
+  .contact-btn {
+    width: min(100%, 260px);
+    max-width: 260px;
+    min-height: 48px;
+    height: auto;
+    margin-top: 18px;
+  }
+
+  .player-shell {
+    width: 100%;
+    max-width: none;
+    min-height: 68px;
+    margin-top: 16px;
+    grid-template-columns: 44px minmax(0, 1fr);
+    column-gap: 12px;
+    row-gap: 6px;
+    padding: 10px 12px;
+  }
+
+  .player-toggle {
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(39, 48, 66, 0.14);
+    background: rgba(245, 247, 250, 0.86);
+    font-size: 16px;
+  }
+
+  .player-center {
+    min-width: 0;
+  }
+
+  .player-center p {
+    overflow: hidden;
+    font-size: 11.5px;
+    line-height: 1.15;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .player-time {
+    grid-column: 2 / 3;
+    min-width: 0;
+    padding-left: 0;
+    text-align: left;
+    font-size: 11px;
+  }
+
+  .player-support {
+    grid-column: 1 / -1;
+    margin-top: 0;
+  }
+
+  .about-bg {
+    margin-top: 14px;
+  }
+
+  .evidence-strip,
+  .now-strip {
+    margin-top: 14px;
+  }
+
+  .math-section {
+    margin-top: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-topbar {
+    height: calc(62px + env(safe-area-inset-top, 0px));
+    column-gap: 8px;
+  }
+
+  .home-brand {
+    max-width: min(39vw, 136px);
+    letter-spacing: 0.13em;
+  }
+
+  .lang-pill {
+    width: clamp(108px, 32vw, 132px);
+  }
+
+  .hero-left {
+    padding-top: 18px;
+    padding-bottom: 14px;
+  }
+
+  .hero-portrait {
+    width: min(74vw, 314px);
+    max-height: min(48vh, 360px);
+  }
+
+  .hero-right-inner {
+    padding: 24px 16px 28px;
+  }
+}
+
+@media (max-width: 360px) {
+  .home-brand {
+    max-width: 112px;
+    font-size: 9.5px;
+    letter-spacing: 0.1em;
+  }
+
+  .lang-pill {
+    width: 108px;
+  }
+}
+
 @media print {
   .home-body,
   .home-page,

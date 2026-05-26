@@ -5,7 +5,7 @@ import argparse
 import re
 from pathlib import Path
 
-VERSION = "20260509-mobile-focus-pages1"
+VERSION = "20260526-home-mobile-ux1"
 
 SECURITY_META_MARKER = "chronohaze-security-policy"
 SECURITY_META_SNIPPET = """  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
@@ -142,7 +142,8 @@ CRITICAL_LOADER_SNIPPET = """  <style id="chronohaze-critical-loader-style">
       };
       window.setTimeout(window.__chronohazeReleaseCriticalLoader, isMobile ? 1500 : 6500);
     })();
-  </script>"""
+  </script>
+"""
 
 CSS_FILES = [
     "styles.css",
@@ -326,7 +327,7 @@ def strip_existing_critical_loader(text: str) -> str:
     line_start = text.rfind("\n", 0, start)
     remove_start = line_start + 1 if line_start >= 0 else start
     remove_end = script_end + len("</script>")
-    if remove_end < len(text) and text[remove_end] == "\n":
+    while remove_end < len(text) and text[remove_end] in " \t\r\n":
         remove_end += 1
     return text[:remove_start] + text[remove_end:]
 
@@ -336,7 +337,8 @@ def ensure_critical_loader(text: str) -> str:
     viewport_re = re.compile(r"(^\s*<meta\s+name=[\"']viewport[\"'][^>]*>\s*$)", re.M)
     match = viewport_re.search(text)
     if match:
-        return text[:match.end()] + "\n" + CRITICAL_LOADER_SNIPPET + text[match.end():]
+        tail = re.sub(r"^(?:[ \t]*\r?\n)+", "", text[match.end():])
+        return text[:match.end()] + "\n" + CRITICAL_LOADER_SNIPPET + tail
     head_re = re.compile(r"(<head>\s*)", re.I)
     return head_re.sub(lambda match: match.group(1) + CRITICAL_LOADER_SNIPPET + "\n", text, count=1)
 
