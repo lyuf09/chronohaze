@@ -506,15 +506,41 @@ html:lang(en) {
 }
 
 .player-toggle {
+  --player-icon-color: rgba(44, 50, 61, 0.94);
+  --player-icon-size: 11px;
+  position: relative;
   width: 14px;
   height: 16px;
   border: 0;
   background: transparent;
   color: rgba(44, 50, 61, 0.94);
-  font-size: 14px;
+  font-size: 0;
   line-height: 1;
   cursor: pointer;
   padding: 0;
+  overflow: hidden;
+}
+
+.player-toggle::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  transform: translate(-40%, -50%);
+  border-top: calc(var(--player-icon-size) * 0.52) solid transparent;
+  border-bottom: calc(var(--player-icon-size) * 0.52) solid transparent;
+  border-left: var(--player-icon-size) solid var(--player-icon-color);
+}
+
+.player-toggle.is-playing::before {
+  width: calc(var(--player-icon-size) * 0.24);
+  height: var(--player-icon-size);
+  border: 0;
+  background: var(--player-icon-color);
+  box-shadow: calc(var(--player-icon-size) * 0.58) 0 0 var(--player-icon-color);
+  transform: translate(calc(var(--player-icon-size) * -0.4), -50%);
 }
 
 .player-toggle:disabled {
@@ -2457,6 +2483,7 @@ html.menu-scroll-locked,
   }
 
   .player-toggle {
+    --player-icon-size: 13px;
     width: 44px;
     height: 44px;
     display: inline-flex;
@@ -2464,7 +2491,6 @@ html.menu-scroll-locked,
     justify-content: center;
     border: 1px solid rgba(39, 48, 66, 0.14);
     background: rgba(245, 247, 250, 0.86);
-    font-size: 16px;
   }
 
   .player-center {

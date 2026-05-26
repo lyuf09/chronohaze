@@ -1785,6 +1785,8 @@ audio {
 }
 
 .photo-index-page .photo-film-thumb {
+  --photo-film-icon-size: 20px;
+  position: relative;
   width: 112px;
   height: 112px;
   display: grid;
@@ -1792,9 +1794,20 @@ audio {
   border: 1px solid rgba(245, 247, 252, 0.5);
   background: linear-gradient(145deg, rgba(53, 57, 66, 0.9), rgba(32, 36, 44, 0.92));
   color: rgba(245, 248, 252, 0.92);
-  font-size: 24px;
+  font-size: 0;
   line-height: 1;
   letter-spacing: 0;
+  overflow: hidden;
+}
+
+.photo-index-page .photo-film-thumb::before {
+  content: "";
+  width: 0;
+  height: 0;
+  transform: translateX(8%);
+  border-top: calc(var(--photo-film-icon-size) * 0.55) solid transparent;
+  border-bottom: calc(var(--photo-film-icon-size) * 0.55) solid transparent;
+  border-left: var(--photo-film-icon-size) solid currentColor;
 }
 
 .photo-index-page .photo-card-film .photo-subtitle {
@@ -7466,7 +7479,7 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
   .photo-index-page .photo-film-thumb {
     width: 112px;
     height: 112px;
-    font-size: 20px;
+    --photo-film-icon-size: 18px;
   }
 
   .photo-index-page .photo-date {
@@ -7918,7 +7931,7 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
     width: 100%;
     height: auto;
     aspect-ratio: 1 / 1;
-    font-size: 30px;
+    --photo-film-icon-size: 24px;
   }
 
   .photo-index-page .photo-date {

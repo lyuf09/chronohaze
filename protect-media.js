@@ -4532,12 +4532,14 @@
       progress.style.width = (ratio * 100).toFixed(2) + "%";
       timeLabel.textContent =
         formatDuration(currentTime) + " / " + formatDuration(duration);
-      toggle.textContent = isPlaying ? "▮▮" : "▶";
+      toggle.classList.toggle("is-playing", isPlaying);
+      toggle.setAttribute("aria-pressed", isPlaying ? "true" : "false");
       toggle.disabled = !featuredTrack.src;
       toggle.setAttribute("aria-disabled", featuredTrack.src ? "false" : "true");
 
       if (!featuredTrack.src) {
-        toggle.textContent = "·";
+        toggle.classList.remove("is-playing");
+        toggle.setAttribute("aria-pressed", "false");
         setHomePlayerVisualState("error");
         return;
       }

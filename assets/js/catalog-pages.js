@@ -338,7 +338,6 @@
       var filmThumb = document.createElement("div");
       filmThumb.className = "photo-film-thumb";
       filmThumb.setAttribute("aria-hidden", "true");
-      filmThumb.textContent = "▶";
       a.appendChild(filmThumb);
     } else {
       var img = document.createElement("img");

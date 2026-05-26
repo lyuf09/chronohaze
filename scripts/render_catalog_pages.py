@@ -192,7 +192,7 @@ def render_photo_archive(items: List[Dict[str, Any]], image_manifest: Dict[str, 
         rows.append(f'<article class="{classes}">')
         rows.append(f'  <a class="photo-card-link" href="{esc(item.get("url"))}">')
         if item.get("is_film"):
-            rows.append('    <div class="photo-film-thumb" aria-hidden="true">▶</div>')
+            rows.append('    <div class="photo-film-thumb" aria-hidden="true"></div>')
         else:
             rows.extend(
                 indent(
