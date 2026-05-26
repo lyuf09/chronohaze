@@ -15709,3 +15709,120 @@ html:lang(en) .music-album-page .album-back-link {
     column-gap: 8px !important;
   }
 }
+
+/* Ultra-compact secondary mobile header */
+@media (max-width: 760px) {
+  body:not(.home-body) .site-header {
+    overflow: hidden;
+  }
+
+  body:not(.home-body) .header-inner,
+  body:not(.home-body) .header-inner.header-inner--with-lang {
+    min-height: 0 !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    grid-template-areas:
+      "brand lang"
+      "nav nav";
+    align-items: center !important;
+    gap: 4px 8px !important;
+    padding:
+      max(7px, calc(var(--safe-top) + 5px))
+      max(10px, calc(var(--safe-right) + 8px))
+      5px
+      max(10px, calc(var(--safe-left) + 8px)) !important;
+  }
+
+  body:not(.home-body) .brand {
+    grid-area: brand;
+    top: 0;
+    width: auto !important;
+    min-width: 0;
+    max-width: none !important;
+    padding-right: 0 !important;
+    font-size: clamp(9px, 2.7vw, 10.5px) !important;
+    line-height: 1;
+    letter-spacing: 0.2em !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  body:not(.home-body) .site-header .floating-lang-switch {
+    grid-area: lang;
+    justify-self: end;
+    align-self: center;
+    order: 0;
+    width: auto;
+    min-width: 0;
+    height: 28px;
+    margin: 0 !important;
+    padding: 2px !important;
+    gap: 1px !important;
+    border-color: rgba(236, 240, 247, 0.24);
+  }
+
+  body:not(.home-body) .site-header .floating-lang-btn {
+    min-width: 34px !important;
+    height: 22px !important;
+    min-height: 22px !important;
+    padding: 0 8px !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8.5px !important;
+    line-height: 1 !important;
+    letter-spacing: 0.01em !important;
+  }
+
+  body:not(.home-body) .nav {
+    grid-area: nav;
+    order: 0;
+    width: calc(100vw - max(10px, calc(var(--safe-left) + 8px)) - max(10px, calc(var(--safe-right) + 8px))) !important;
+    max-width: 100%;
+    justify-self: stretch;
+    justify-content: flex-start;
+    flex-wrap: nowrap !important;
+    gap: 14px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding: 2px 0 0 !important;
+    font-size: 11.5px !important;
+    line-height: 1;
+  }
+
+  body:not(.home-body) .nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  body:not(.home-body) .nav a {
+    flex: 0 0 auto;
+    min-height: 28px !important;
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 0 7px !important;
+  }
+
+  body:not(.home-body) .nav a::after {
+    bottom: 1px;
+  }
+}
+
+@media (max-width: 360px) {
+  body:not(.home-body) .header-inner,
+  body:not(.home-body) .header-inner.header-inner--with-lang {
+    gap: 3px 6px !important;
+  }
+
+  body:not(.home-body) .brand {
+    letter-spacing: 0.16em !important;
+  }
+
+  body:not(.home-body) .nav {
+    gap: 12px !important;
+    font-size: 11px !important;
+  }
+}
