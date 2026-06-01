@@ -12173,7 +12173,7 @@
         accentSoft: "#5e5b4f",
         image: "assets/template/he-and-me-cover.jpg",
         useInlineArt: true,
-        artPosition: "78% center",
+        artPosition: "56% center",
         artScale: "1.18",
         copyZh: "梦醒后还没散尽的对话",
         copyEn: "A warm white-and-pale-grey retrospective with restrained understanding.",
@@ -12910,7 +12910,7 @@
       {
         href: "music/track-02.html",
         image: "assets/template/he-and-me-cover.jpg",
-        position: "78% center",
+        position: "56% center",
         scale: 1.22,
         tagsZh: ["叙事", "未决", "私密"],
         tagsEn: ["narrative", "unresolved", "intimate"],
