@@ -63,10 +63,16 @@
   --max-width-copy: 720px;
   --max-width-list: 1100px;
   --max-width: var(--max-width-list);
-  --font-serif-zh: "Noto Serif SC", "Songti SC", "STSong", serif;
+  --font-serif-zh: "Noto Serif SC", "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC", "Songti TC", "Hiragino Mincho ProN", "STSong", "SimSun", serif;
   --font-serif-en: "Cormorant Garamond", "Iowan Old Style", "Times New Roman", serif;
   --font-academic-en: "Novarese", "Iowan Old Style", "Baskerville", "Cormorant Garamond", "Times New Roman", serif;
-  --font-sans-zh: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-editorial-serif: "Cormorant Garamond", "Noto Serif SC", "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC", "Songti TC", "Hiragino Mincho ProN", "STSong", "SimSun", serif;
+  --font-editorial-sans: "Noto Sans SC", "Source Han Sans SC", "Noto Sans CJK SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+  --font-photo-serif: var(--font-editorial-serif);
+  --font-photo-sans: var(--font-editorial-sans);
+  --font-music-serif: var(--font-editorial-serif);
+  --font-music-sans: var(--font-editorial-sans);
+  --font-sans-zh: "Noto Sans SC", "Source Han Sans SC", "Noto Sans CJK SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   --font-sans-en: "Inter", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
   --font-serif: var(--font-serif-zh);
   --font-sans: var(--font-sans-zh);
@@ -12031,6 +12037,70 @@ html:lang(en) .music-album-page .album-back-link {
   font-family: var(--font-serif-en);
 }
 
+/* Keep English photography essays on the same artistic serif stack as music. */
+html:lang(en) .photo-detail-page .photo-detail-article,
+html:lang(en) .photo-detail-page .photo-detail-article h1,
+html:lang(en) .photo-detail-page .photo-detail-article h2,
+html:lang(en) .photo-detail-page .photo-detail-article h3,
+html:lang(en) .photo-detail-page .photo-detail-date,
+html:lang(en) .photo-detail-page .article-meta,
+html:lang(en) .photo-detail-page .photo-detail-statement,
+html:lang(en) .photo-detail-page .photo-detail-statement p,
+html:lang(en) .photo-detail-page .photo-detail-caption,
+html:lang(en) .photo-detail-page .photo-detail-caption-series,
+html:lang(en) .photo-detail-page .photo-detail-caption-location,
+html:lang(en) .photo-detail-page .photo-detail-caption-note,
+html:lang(en) .photo-detail-page .read-more,
+html:lang(en) .photo-blue-page .photo-blue-article,
+html:lang(en) .photo-blue-page .photo-blue-article h1,
+html:lang(en) .photo-blue-page .photo-detail-date,
+html:lang(en) .photo-blue-page .article-meta,
+html:lang(en) .photo-blue-page .read-more {
+  font-family: var(--font-serif-en);
+}
+
+html:lang(en) .photo-detail-page .photo-detail-date,
+html:lang(en) .photo-blue-page .photo-detail-date {
+  font-size: 12px;
+  line-height: 1.45;
+  letter-spacing: 0.18em;
+  font-weight: 300;
+}
+
+html:lang(en) .photo-detail-page .article-meta,
+html:lang(en) .photo-blue-page .article-meta {
+  font-size: 11px;
+  line-height: 1.45;
+  letter-spacing: 0.22em;
+  font-weight: 300;
+}
+
+html:lang(en) .photo-detail-page .photo-detail-statement p {
+  font-size: 15.5px;
+  line-height: 1.92;
+  letter-spacing: 0.012em;
+  font-weight: 300;
+}
+
+@media (max-width: 760px) {
+  html:lang(en) .photo-detail-page .photo-detail-date,
+  html:lang(en) .photo-blue-page .photo-detail-date {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+  }
+
+  html:lang(en) .photo-detail-page .article-meta,
+  html:lang(en) .photo-blue-page .article-meta {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+  }
+
+  html:lang(en) .photo-detail-page .photo-detail-statement p {
+    font-size: 14px;
+    line-height: 1.82;
+  }
+}
+
 @page {
   margin: 14mm 12mm;
 }
@@ -14992,6 +15062,33 @@ html:lang(en) .music-album-page .album-back-link {
   }
 }
 
+@media (max-width: 760px) {
+  .photo-index-page .page-title,
+  .photo-index-page .page-head p,
+  .photo-index-page .photo-section-title,
+  .photo-index-page .photo-section-lead,
+  .photo-index-page .photo-seeing-note-copy p,
+  .photo-index-page .photo-formative-note-body p,
+  .photo-index-page .photo-feature-theme,
+  .photo-index-page .photo-feature-concept,
+  .photo-index-page .photo-archive-year,
+  .photo-index-page .photo-title,
+  .photo-index-page .photo-date,
+  .photo-index-page .photo-subtitle,
+  .photo-index-page .photo-background .photo-intro-text,
+  .photo-index-page .photo-background .photo-intro-text p {
+    font-family: var(--font-photo-serif);
+  }
+
+  .photo-index-page .photo-head-kicker,
+  .photo-index-page .photo-seeing-note-kicker,
+  .photo-index-page .photo-feature-caption,
+  .photo-index-page .photo-feature-location,
+  .photo-index-page .photo-feature-keywords {
+    font-family: var(--font-photo-sans);
+  }
+}
+
 /* Music listening room redesign */
 .music-index-page .music-head-kicker {
   display: block;
@@ -15784,6 +15881,44 @@ html:lang(en) .music-album-page .album-back-link {
     font-size: 12.6px;
     line-height: 1.72;
     margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 760px) {
+  .music-index-page .page-title,
+  .music-index-page .page-head p,
+  .music-index-page .music-ia-title,
+  .music-index-page .music-ia-subtitle,
+  .music-index-page .music-featured-item-title,
+  .music-index-page .track-title,
+  .music-index-page .track-title-link,
+  .music-index-page .track-date,
+  .music-index-page .track-tag,
+  .music-index-page .music-year-group-title,
+  .music-index-page .music-room-section-title,
+  .music-index-page .music-room-section-lead,
+  .music-index-page .music-room-album-title,
+  .music-index-page .music-room-album-summary,
+  .music-index-page .music-room-track-title,
+  .music-index-page .music-room-world-lead,
+  .music-index-page .music-room-archive-group-title,
+  .music-index-page .music-room-archive .track-title,
+  .music-index-page .music-room-archive .track-row.track-row-album .track-title,
+  .music-index-page .music-background-title,
+  .music-index-page .music-afterword-text p,
+  .music-index-page .music-room-production-copy {
+    font-family: var(--font-music-serif);
+  }
+
+  .music-index-page .music-head-kicker,
+  .music-index-page .music-room-section-kicker,
+  .music-index-page .music-room-badge,
+  .music-index-page .music-room-track-artist,
+  .music-index-page .music-room-track-tag,
+  .music-index-page .music-room-track-note,
+  .music-index-page .music-room-album-detail,
+  .music-index-page .music-timeline-mark {
+    font-family: var(--font-music-sans);
   }
 }
 
