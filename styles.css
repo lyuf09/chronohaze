@@ -52,6 +52,22 @@
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
+@font-face {
+  font-family: "Chronohaze Serif SC";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: local("Songti SC"), local("STSong"), local("Noto Serif SC"), local("Source Han Serif SC");
+}
+
+@font-face {
+  font-family: "Chronohaze Sans SC";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: local("PingFang SC"), local("Noto Sans SC"), local("Source Han Sans SC"), local("Microsoft YaHei");
+}
+
 :root {
   --bg: #eceff4;
   --surface: #f4f6fa;
@@ -63,16 +79,16 @@
   --max-width-copy: 720px;
   --max-width-list: 1100px;
   --max-width: var(--max-width-list);
-  --font-serif-zh: "Noto Serif SC", "Songti SC", "STSong", serif;
+  --font-serif-zh: "Chronohaze Serif SC", "Songti SC", "Noto Serif SC", "STSong", serif;
   --font-serif-en: "Cormorant Garamond", "Iowan Old Style", "Times New Roman", serif;
   --font-academic-en: "Novarese", "Iowan Old Style", "Baskerville", "Cormorant Garamond", "Times New Roman", serif;
-  --font-editorial-serif: "Cormorant Garamond", "Noto Serif SC", "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC", "Songti TC", "Hiragino Mincho ProN", "STSong", "SimSun", serif;
-  --font-editorial-sans: "Noto Sans SC", "Source Han Sans SC", "Noto Sans CJK SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+  --font-editorial-serif: "Cormorant Garamond", "Chronohaze Serif SC", "Songti SC", "Noto Serif SC", "Source Han Serif SC", "Noto Serif CJK SC", "STSong", serif;
+  --font-editorial-sans: "Chronohaze Sans SC", "PingFang SC", "Noto Sans SC", "Source Han Sans SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
   --font-photo-serif: var(--font-editorial-serif);
   --font-photo-sans: var(--font-editorial-sans);
   --font-music-serif: var(--font-editorial-serif);
   --font-music-sans: var(--font-editorial-sans);
-  --font-sans-zh: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-sans-zh: "Chronohaze Sans SC", "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
   --font-sans-en: "Inter", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
   --font-serif: var(--font-serif-zh);
   --font-sans: var(--font-sans-zh);
@@ -14929,24 +14945,26 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
     position: relative;
     display: grid;
     min-height: 92px;
-    grid-template-columns: 78px minmax(0, 1fr) 30px;
+    grid-template-columns: 78px minmax(0, 1fr);
     gap: 12px;
     align-items: stretch;
-    padding: 8px 0 8px 8px;
+    padding: 8px 30px 8px 8px;
     overflow: hidden;
     text-decoration: none;
   }
 
   .photo-index-page .photo-archive .photo-card-link::before {
     content: "";
-    grid-column: 3;
-    grid-row: 1;
-    align-self: stretch;
-    width: 100%;
-    min-height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    width: 30px;
     border-left: 1px solid rgba(70, 80, 98, 0.16);
     background:
       linear-gradient(180deg, rgba(232, 237, 245, 0.92) 0%, rgba(214, 222, 235, 0.86) 100%);
+    pointer-events: none;
   }
 
   .photo-index-page .photo-archive .photo-card-link::after {
@@ -14954,11 +14972,13 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
     position: absolute;
     top: 50%;
     right: 12px;
+    z-index: 2;
     width: 7px;
     height: 7px;
     border-top: 1px solid rgba(46, 55, 72, 0.58);
     border-right: 1px solid rgba(46, 55, 72, 0.58);
     transform: translateY(-50%) rotate(45deg);
+    pointer-events: none;
   }
 
   .photo-index-page .photo-archive .photo-card-link > picture,
@@ -15052,14 +15072,13 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
   .photo-index-page .photo-archive .photo-card-link,
   .photo-index-page .photo-archive .photo-card-film .photo-card-link {
     min-height: 84px;
-    grid-template-columns: 66px minmax(0, 1fr) 28px;
+    grid-template-columns: 66px minmax(0, 1fr);
     gap: 10px;
-    padding: 7px 0 7px 7px;
+    padding: 7px 28px 7px 7px;
   }
 
   .photo-index-page .photo-archive .photo-card-link::before {
-    grid-column: 3;
-    width: 100%;
+    width: 28px;
   }
 
   .photo-index-page .photo-archive .photo-card-link::after {
@@ -16148,8 +16167,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
   }
 }
 
-/* Final mobile typography parity pass for Chinese photo/music pages. */
-@media (max-width: 760px) {
+/* Final Chinese typography parity pass for photo/music pages. */
   html:lang(zh) .photo-index-page .page-title,
   html:lang(zh) .photo-index-page .page-head p,
   html:lang(zh) .photo-index-page .photo-section-title,
@@ -16162,12 +16180,12 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
   html:lang(zh) .photo-index-page .photo-title,
   html:lang(zh) .photo-index-page .photo-date,
   html:lang(zh) .photo-index-page .photo-subtitle {
-    font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+    font-family: "Cormorant Garamond", "Chronohaze Serif SC", "Songti SC", "Noto Serif SC", serif;
   }
 
   html:lang(zh) .photo-index-page .photo-background .photo-intro-text,
   html:lang(zh) .photo-index-page .photo-background .photo-intro-text p {
-    font-family: "Noto Serif SC", "Songti SC", "STSong", serif;
+    font-family: "Chronohaze Serif SC", "Songti SC", "Noto Serif SC", "STSong", serif;
   }
 
   html:lang(zh) .photo-index-page .photo-head-kicker,
@@ -16175,11 +16193,11 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
   html:lang(zh) .photo-index-page .photo-feature-caption,
   html:lang(zh) .photo-index-page .photo-feature-location,
   html:lang(zh) .photo-index-page .photo-feature-keywords {
-    font-family: "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+    font-family: "Chronohaze Sans SC", "PingFang SC", "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
   }
 
   html:lang(zh) .music-index-page .page-title {
-    font-family: "Noto Serif SC", "Songti SC", serif;
+    font-family: "Chronohaze Serif SC", "Songti SC", "Noto Serif SC", serif;
   }
 
   html:lang(zh) .music-index-page .music-ia-title,
@@ -16200,7 +16218,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
   html:lang(zh) .music-index-page .music-room-archive .track-title,
   html:lang(zh) .music-index-page .music-room-archive .track-row.track-row-album .track-title,
   html:lang(zh) .music-index-page .music-background-title {
-    font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+    font-family: "Cormorant Garamond", "Chronohaze Serif SC", "Songti SC", "Noto Serif SC", serif;
   }
 
   html:lang(zh) .music-index-page .page-head p,
@@ -16208,16 +16226,16 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
   html:lang(zh) .music-index-page .music-timeline-copy,
   html:lang(zh) .music-index-page .music-afterword-text p,
   html:lang(zh) .music-index-page .music-room-production-copy {
-    font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-family: "Chronohaze Sans SC", "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
   }
 
   html:lang(zh) .music-index-page .music-room-section-kicker,
   html:lang(zh) .music-index-page .music-room-badge {
-    font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-family: "Chronohaze Sans SC", "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
   }
 
   html:lang(zh) .music-index-page .music-head-kicker {
-    font-family: "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+    font-family: "Chronohaze Sans SC", "PingFang SC", "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
   }
 
   html:lang(zh) .music-index-page .music-room-track-artist,
@@ -16225,6 +16243,5 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
   html:lang(zh) .music-index-page .music-room-track-note,
   html:lang(zh) .music-index-page .music-room-album-detail,
   html:lang(zh) .music-index-page .music-timeline-mark {
-    font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-family: "Chronohaze Sans SC", "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
   }
-}
