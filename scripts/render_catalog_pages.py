@@ -123,20 +123,67 @@ def indent(lines: Iterable[str], prefix: str) -> str:
     return "\n".join(prefix + line if line else prefix.rstrip() for line in lines)
 
 
+def copy_attrs(zh: Any, en: Any) -> str:
+    if not zh and not en:
+        return ""
+    en_value = en or zh
+    return attr_if("data-copy-zh", zh) + attr_if("data-copy-en", en_value)
+
+
 def render_math_cards(items: List[Dict[str, Any]]) -> str:
     rows: List[str] = []
     for item in items:
         href = item.get("url") or item.get("readmore_url") or "#"
+        title_zh = item.get("title") or ""
+        title_en = item.get("title_en") or title_zh
+        excerpt_zh = item.get("excerpt") or ""
+        excerpt_en = item.get("excerpt_en") or excerpt_zh
+        date_label_zh = item.get("date_label_zh") or item.get("date") or ""
+        date_label_en = item.get("date_label_en") or date_label_zh
+        link_label_zh = item.get("link_label_zh") or "阅读全文"
+        link_label_en = item.get("link_label_en") or ("Read PDF" if link_label_zh == "Read PDF" else "Read More")
+        target = str(item.get("link_target") or "")
+        rel = str(item.get("link_rel") or ("noopener" if target == "_blank" else ""))
+        article_attrs = [
+            'class="math-card"',
+            f'data-href="{esc(href)}"',
+            'tabindex="0"',
+            'role="link"',
+        ]
+        if item.get("date_label_zh"):
+            article_attrs.append(f'data-catalog-date="{esc(item.get("date"))}"')
+            article_attrs.append(f'data-date-label-zh="{esc(date_label_zh)}"')
+            article_attrs.append(f'data-date-label-en="{esc(date_label_en)}"')
+        if item.get("reading_time_zh"):
+            article_attrs.append(f'data-reading-time-zh="{esc(item.get("reading_time_zh"))}"')
+        if item.get("reading_time_en"):
+            article_attrs.append(f'data-reading-time-en="{esc(item.get("reading_time_en"))}"')
+        if item.get("link_label_zh"):
+            article_attrs.append(f'data-link-label-zh="{esc(link_label_zh)}"')
+        if item.get("link_label_en"):
+            article_attrs.append(f'data-link-label-en="{esc(link_label_en)}"')
+        if target:
+            article_attrs.append(f'data-link-target="{esc(target)}"')
+        if rel:
+            article_attrs.append(f'data-link-rel="{esc(rel)}"')
         rows.extend(
             [
-                f'<article class="math-card" data-href="{esc(href)}" tabindex="0" role="link">',
-                f'  <p class="math-date">{esc_text(item.get("date"))}</p>',
-                f'  <h3 class="math-title"><a class="math-title-link" href="{esc(href)}">{esc_text(item.get("title"))}</a></h3>',
-                f'  <p class="math-desc">{esc_text(item.get("excerpt"))}</p>',
-                f'  <a class="math-more" href="{esc(item.get("readmore_url") or href)}">阅读全文</a>',
-                "</article>",
+                f"<article {' '.join(article_attrs)}>",
+                f'  <p class="math-date"{copy_attrs(date_label_zh, date_label_en)}>{esc_text(date_label_zh)}</p>',
+                f'  <h3 class="math-title"><a class="math-title-link" href="{esc(href)}"{copy_attrs(title_zh, title_en)}{attr_if("target", target)}{attr_if("rel", rel)}>{esc_text(title_zh)}</a></h3>',
+                f'  <p class="math-desc"{copy_attrs(excerpt_zh, excerpt_en)}>{esc_text(excerpt_zh)}</p>',
             ]
         )
+        tag_texts = item.get("line_tags") if isinstance(item.get("line_tags"), list) else []
+        if tag_texts:
+            rows.append('  <div class="math-tag-row">')
+            for tag_text in tag_texts:
+                rows.append(f'    <span class="math-tag">{esc_text(tag_text)}</span>')
+            rows.append("  </div>")
+        rows.extend([
+            f'  <a class="math-more" href="{esc(item.get("readmore_url") or href)}"{copy_attrs(link_label_zh, link_label_en)}{attr_if("target", target)}{attr_if("rel", rel)}>{esc_text(link_label_zh)}</a>',
+            "</article>",
+        ])
     return indent(rows, "          ")
 
 

@@ -16,6 +16,7 @@ CARD_DATE_RE = re.compile(r'<p\s+class="math-date"(?P<attrs>[^>]*)>(?P<body>.*?)
 CARD_TITLE_RE = re.compile(r'<a\s+class="math-title-link"(?P<attrs>[^>]*)>(?P<body>.*?)</a>', re.S)
 CARD_DESC_RE = re.compile(r'<p\s+class="math-desc"(?P<attrs>[^>]*)>(?P<body>.*?)</p>', re.S)
 CARD_TAG_RE = re.compile(r'<span\s+class="math-tag"[^>]*>(?P<body>.*?)</span>', re.S)
+CARD_MORE_RE = re.compile(r'<a\s+class="math-more"(?P<attrs>[^>]*)>(?P<body>.*?)</a>', re.S)
 
 # Canonical date style for index cards: ISO-like labels
 # (full date: YYYY-MM-DD, month-only: YYYY-MM)
@@ -80,10 +81,11 @@ def parse_cards(text: str) -> List[Dict[str, object]]:
         date_m = CARD_DATE_RE.search(body)
         title_m = CARD_TITLE_RE.search(body)
         desc_m = CARD_DESC_RE.search(body)
-        more_m = re.search(r'<a\s+class="math-more"\s+href="([^"]+)"', body, re.S)
         date_attrs = attrs_dict(date_m.group('attrs') if date_m else '')
         title_attrs = attrs_dict(title_m.group('attrs') if title_m else '')
         desc_attrs = attrs_dict(desc_m.group('attrs') if desc_m else '')
+        more_m = CARD_MORE_RE.search(body)
+        more_attrs = attrs_dict(more_m.group('attrs') if more_m else '')
         date_zh = date_attrs.get('data-copy-zh') or clean(date_m.group('body') if date_m else '')
         date_en = date_attrs.get('data-copy-en') or date_zh
         title_zh = title_attrs.get('data-copy-zh') or clean(title_m.group('body') if title_m else '')
@@ -93,20 +95,73 @@ def parse_cards(text: str) -> List[Dict[str, object]]:
         meta_zh = split_meta(date_zh)
         meta_en = split_meta(date_en)
         line_tags = [clean(tag.group('body')) for tag in CARD_TAG_RE.finditer(body) if clean(tag.group('body'))]
-        items.append({
+        catalog_date = attrs.get('data-catalog-date') or (meta_zh[0] if meta_zh else '')
+        item = {
             'order': idx,
             'url': href,
-            'date': normalize_math_date(meta_zh[0] if meta_zh else '', href),
+            'date': normalize_math_date(catalog_date, href),
             'title': title_zh,
             'title_en': title_en,
             'excerpt': excerpt_zh,
             'excerpt_en': excerpt_en,
-            'readmore_url': (more_m.group(1).strip() if more_m else href),
+            'readmore_url': (more_attrs.get('href') or href).strip(),
             'tags': ['math', 'article'],
             'line_tags': line_tags,
-            'reading_time_zh': meta_zh[1] if len(meta_zh) > 1 else '',
-            'reading_time_en': meta_en[1] if len(meta_en) > 1 else '',
-        })
+            'reading_time_zh': attrs.get('data-reading-time-zh') or (meta_zh[1] if len(meta_zh) > 1 else ''),
+            'reading_time_en': attrs.get('data-reading-time-en') or (meta_en[1] if len(meta_en) > 1 else ''),
+        }
+        date_label_zh = attrs.get('data-date-label-zh') or date_zh
+        date_label_en = attrs.get('data-date-label-en') or date_en
+        if date_label_zh and date_label_zh != item['date']:
+            item['date_label_zh'] = date_label_zh
+        if date_label_en and date_label_en != date_label_zh:
+            item['date_label_en'] = date_label_en
+        link_label_zh = attrs.get('data-link-label-zh') or clean(more_m.group('body') if more_m else '')
+        link_label_en = attrs.get('data-link-label-en') or link_label_zh
+        default_link_labels = {'阅读全文', 'Read More'}
+        if link_label_zh and link_label_zh not in default_link_labels:
+            item['link_label_zh'] = link_label_zh
+        if link_label_en and link_label_en != link_label_zh and link_label_en not in default_link_labels:
+            item['link_label_en'] = link_label_en
+        target = more_attrs.get('target') or attrs.get('data-link-target') or ''
+        rel = more_attrs.get('rel') or attrs.get('data-link-rel') or ''
+        if target:
+            item['link_target'] = target
+        if rel:
+            item['link_rel'] = rel
+        items.append(item)
+    return items
+
+
+def merge_existing_metadata(items: List[Dict[str, object]], existing_items: List[Dict[str, object]]) -> List[Dict[str, object]]:
+    existing_by_url = {
+        str(item.get('url') or ''): item
+        for item in existing_items
+        if isinstance(item, dict) and item.get('url')
+    }
+    preserve_keys = (
+        'title_en',
+        'excerpt_en',
+        'reading_time_zh',
+        'reading_time_en',
+        'line_tags',
+    )
+    for item in items:
+        old = existing_by_url.get(str(item.get('url') or ''))
+        if not old:
+            continue
+        for key in preserve_keys:
+            old_value = old.get(key)
+            if old_value in (None, '', []):
+                continue
+            current_value = item.get(key)
+            if current_value in (None, '', []):
+                item[key] = old_value
+                continue
+            if key == 'title_en' and current_value == item.get('title'):
+                item[key] = old_value
+            elif key == 'excerpt_en' and current_value == item.get('excerpt'):
+                item[key] = old_value
     return items
 
 
@@ -118,7 +173,16 @@ def main() -> int:
     src = root / 'math.html'
     out = root / 'assets' / 'data' / 'math-catalog.json'
     text = src.read_text(encoding='utf-8')
+    existing_items: List[Dict[str, object]] = []
+    if out.exists():
+        try:
+            existing_payload = json.loads(out.read_text(encoding='utf-8'))
+            if isinstance(existing_payload, dict) and isinstance(existing_payload.get('items'), list):
+                existing_items = existing_payload.get('items')  # type: ignore[assignment]
+        except Exception:
+            existing_items = []
     items = parse_cards(text)
+    items = merge_existing_metadata(items, existing_items)
     payload = {
         'generated_at': date.today().isoformat(),
         'source': 'math.html',

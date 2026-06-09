@@ -191,8 +191,14 @@
     var titleEn = (item && item.title_en) || titleZh;
     var excerptZh = (item && item.excerpt) || "";
     var excerptEn = (item && item.excerpt_en) || excerptZh;
-    var metaZh = combineMeta((item && item.date) || "", (item && item.reading_time_zh) || "");
-    var metaEn = combineMeta((item && item.date) || "", (item && item.reading_time_en) || "");
+    var dateLabelZh = (item && item.date_label_zh) || "";
+    var dateLabelEn = (item && item.date_label_en) || dateLabelZh;
+    var metaZh = dateLabelZh || combineMeta((item && item.date) || "", (item && item.reading_time_zh) || "");
+    var metaEn = dateLabelEn || combineMeta((item && item.date) || "", (item && item.reading_time_en) || "");
+    var linkLabelZh = (item && item.link_label_zh) || "阅读全文";
+    var linkLabelEn = (item && item.link_label_en) || (linkLabelZh === "Read PDF" ? "Read PDF" : "Read More");
+    var linkTarget = (item && item.link_target) || "";
+    var linkRel = (item && item.link_rel) || (linkTarget === "_blank" ? "noopener" : "");
     var article = document.createElement("article");
     article.className = "math-card";
     article.setAttribute("data-href", href);
@@ -206,6 +212,8 @@
     var h3 = textNode("h3", "math-title", "");
     var titleLink = textNode("a", "math-title-link", lang === "en" ? titleEn : titleZh);
     titleLink.href = href;
+    if (linkTarget) titleLink.target = linkTarget;
+    if (linkRel) titleLink.rel = linkRel;
     setBilingualCopy(titleLink, { zh: titleZh, en: titleEn });
     h3.appendChild(titleLink);
     article.appendChild(h3);
@@ -231,8 +239,11 @@
       }
     }
 
-    var more = textNode("a", "math-more", lang === "en" ? "Read More" : "阅读全文");
-    more.href = href;
+    var more = textNode("a", "math-more", lang === "en" ? linkLabelEn : linkLabelZh);
+    more.href = (item && item.readmore_url) || href;
+    if (linkTarget) more.target = linkTarget;
+    if (linkRel) more.rel = linkRel;
+    setBilingualCopy(more, { zh: linkLabelZh, en: linkLabelEn });
     article.appendChild(more);
 
     return article;
@@ -263,6 +274,7 @@
       if (value) node.textContent = value;
     });
     Array.from(document.querySelectorAll(".math-index-page .math-more")).forEach(function (node) {
+      if (node.hasAttribute("data-copy-zh") || node.hasAttribute("data-copy-en")) return;
       node.textContent = lang === "en" ? "Read More" : "阅读全文";
     });
   }

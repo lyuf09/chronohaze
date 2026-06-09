@@ -1,6 +1,20 @@
 {
-  "generated_at": "2026-05-22",
+  "generated_at": "2026-06-09",
   "items": [
+    {
+      "title": "Schur-Complement Hessian with Two-Timescale Tracking",
+      "url": "notes/ttgda_second_order_tracking_note.pdf",
+      "section": "Mathematics",
+      "date": "2026-06",
+      "excerpt": "关于 TTGDA 的一个短技术笔记：从 value function 的 Schur-complement Hessian 出发，思考 two-timescale tracking 是否可能支持二阶 saddle escaping。",
+      "tags": [
+        "math",
+        "article"
+      ],
+      "sort": 20260600,
+      "scope": "math",
+      "content": "Schur-Complement Hessian with Two-Timescale Tracking Technical note Optimization Minimax Learning June 2026 TTGDA first-order tracking analysis two-timescale tracking second-order saddle-escaping guarantee Schur-complement Hessian value function inexact iterate 关于 TTGDA 的一个短技术笔记 从 value function 的 Schur-complement Hessian 出发 思考 two-timescale tracking 是否可能支持二阶 saddle escaping"
+    },
     {
       "title": "从 dual score 到 saddle certificates 的一点新进展",
       "url": "post/dual-score-saddle-certificates.html",
@@ -9,12 +23,7 @@
       "excerpt": "三月留下来的 dual score 原本只是 instance-level structural score；最近它开始和 differentiable stationary points、stationary dual witness、projected retention、Hessian negative curvature 以及 cycle-rank saddle certificates 接起来。",
       "tags": [
         "math",
-        "article",
-        "optimization",
-        "network-localization",
-        "duality",
-        "nonconvex-optimization",
-        "saddle-points"
+        "article"
       ],
       "sort": 20260522,
       "scope": "math",
@@ -28,11 +37,7 @@
       "excerpt": "在等待前一个 AFP 项目流程继续推进期间，我开始整理第二个 Isabelle/HOL optimization 项目：从 smooth convexity、projection geometry、descent estimates 到 projected-gradient mapping 和 residual certificates，尝试把 projected-gradient descent 写成一套可复用的 first-order methods infrastructure。",
       "tags": [
         "math",
-        "article",
-        "isabelle-hol",
-        "optimization",
-        "formalisation",
-        "afp"
+        "article"
       ],
       "sort": 20260522,
       "scope": "math",
@@ -78,19 +83,19 @@
       "content": "chronohaze.space 主页 数学 摄影 音乐 CV 未成晴日 An Unfinished Clearing 16/05/2026 美国伊萨卡 · 2026年 2026年5月16日 美国伊萨卡 短暂下午散步 考试结束 放晴 植物 房屋 街角 天空 模糊 柔焦 伊萨卡春天 很快消失的晴天 返回摄影栏目 chronohaze.space"
     },
     {
+      "content": "研究陈述 这一页只回答一个问题：我现在怎样理解这些问题。 我目前的研究线索并不是一个松散的兴趣列表，而是三条可以继续推进的问题主线：Isabelle/HOL、duality under invariance、以及 prototype / discretization。 Research Lines 建议先看 把页面从问题陈述带到可检查的材料，不让研究页只停在目录层。 这些方向为什么连在一起 Isabelle/HOL：现代子模贪心算法形式化 如何把子模贪心算法的近似保证，连同算法构造、oracle-cost 叙事与后续扩展接口，一起组织成可持续发展的 Isabelle/HOL library？ 我关心的不是“把一个 proof 搬进 proof assistant”这么简单，而是证明的结构、依赖与复用边界怎样在机器检验环境里被真正写清楚。 classical greedy、LazyGreedy 与 StochasticGreedy 的核心 theorem line 已经成形；当前重点转向 clean-up、依赖整理与 submission-style presentation。 怎样把现有 development 收束成更稳定的接口，让它既能面向 AFP 风格展示，又不牺牲后续继续长新的能力？ 不变性下的对偶、下界与结构恢复 当一个 optimization model 因为 translation / gauge invariance 让最自然的 dual routes collapse 时，问题里到底还有没有可以恢复出来的 nontrivial structure？ 如果 trivial lower bound 不是推导失误，而是模型结构本身导致的，那么真正有信息的对象可能不是 bound 本身，而是 collapse 之后剩下来的 structural score。 我已经重新走通主要推导，并更清楚地看见 plain dualization 在哪里失去信息；现在留下来的，是一条和 Range(B)、cycle consistency 与 instance difficulty 相关的结构线索。 什么样的 gauge-fixing、augmentation 或更紧约束，能够把这条结构线索真正变成一个可解释、可比较、可延伸的 lower-bound 或 scoring object？ Prototype / discretization：从连续对象到可检视结构 把连续音频、节奏或事件流映射到可操作的离散对象时，哪些结构必须被保留，哪些约束只是为了方便实现？ 这条线看起来更像 prototype work，但它和前两条其实问的是同一种事：一个对象被 formalize、dualize 或 discretize 之后，真正值得保留下来的结构到底是什么。 浏览器原型已经搭起来，正在拿真实输入反复检验 onset、beat grid、alignment 与 playability constraints 这些假设在什么地方会失效。 怎样把“可玩性”从一组实现经验，进一步压缩成更明确的离散化准则与评估方式？ Work 代表性工作 Active 把 Isabelle/HOL、optimization prototype 与相关项目放在同一个可扫描入口里。 Notes 学术笔记 Active 保留推导、形式化进展、失败路线和重新组织后的技术记录。 我关心的是对象在被形式化、对偶化或离散化之后，哪些结构仍然值得保留。 Isabelle/HOL 这条线迫使证明接口变清楚；duality 这条线迫使模型不变性变清楚。 Prototype / discretization 则把同一个问题放回可操作输入里，检验理论描述是否真的抓住了结构。",
+      "sort": 20260509,
+      "title": "Research | Fay / Feier Lyu (HazezZ)",
       "tags": [
         "research",
         "optimization",
         "formal-methods"
       ],
-      "url": "research.html",
-      "excerpt": "这一页只回答一个问题：我现在怎样理解这些问题。",
-      "scope": "site",
       "date": "",
-      "title": "Research | Fay / Feier Lyu (HazezZ)",
-      "sort": 20260509,
+      "url": "research.html",
+      "scope": "site",
       "section": "Site",
-      "content": "研究陈述 这一页只回答一个问题：我现在怎样理解这些问题。 我目前的研究线索并不是一个松散的兴趣列表，而是三条可以继续推进的问题主线：Isabelle/HOL、duality under invariance、以及 prototype / discretization。 Research Lines 建议先看 把页面从问题陈述带到可检查的材料，不让研究页只停在目录层。 这些方向为什么连在一起 Isabelle/HOL：现代子模贪心算法形式化 如何把子模贪心算法的近似保证，连同算法构造、oracle-cost 叙事与后续扩展接口，一起组织成可持续发展的 Isabelle/HOL library？ 我关心的不是“把一个 proof 搬进 proof assistant”这么简单，而是证明的结构、依赖与复用边界怎样在机器检验环境里被真正写清楚。 classical greedy、LazyGreedy 与 StochasticGreedy 的核心 theorem line 已经成形；当前重点转向 clean-up、依赖整理与 submission-style presentation。 怎样把现有 development 收束成更稳定的接口，让它既能面向 AFP 风格展示，又不牺牲后续继续长新的能力？ 不变性下的对偶、下界与结构恢复 当一个 optimization model 因为 translation / gauge invariance 让最自然的 dual routes collapse 时，问题里到底还有没有可以恢复出来的 nontrivial structure？ 如果 trivial lower bound 不是推导失误，而是模型结构本身导致的，那么真正有信息的对象可能不是 bound 本身，而是 collapse 之后剩下来的 structural score。 我已经重新走通主要推导，并更清楚地看见 plain dualization 在哪里失去信息；现在留下来的，是一条和 Range(B)、cycle consistency 与 instance difficulty 相关的结构线索。 什么样的 gauge-fixing、augmentation 或更紧约束，能够把这条结构线索真正变成一个可解释、可比较、可延伸的 lower-bound 或 scoring object？ Prototype / discretization：从连续对象到可检视结构 把连续音频、节奏或事件流映射到可操作的离散对象时，哪些结构必须被保留，哪些约束只是为了方便实现？ 这条线看起来更像 prototype work，但它和前两条其实问的是同一种事：一个对象被 formalize、dualize 或 discretize 之后，真正值得保留下来的结构到底是什么。 浏览器原型已经搭起来，正在拿真实输入反复检验 onset、beat grid、alignment 与 playability constraints 这些假设在什么地方会失效。 怎样把“可玩性”从一组实现经验，进一步压缩成更明确的离散化准则与评估方式？ Work 代表性工作 Active 把 Isabelle/HOL、optimization prototype 与相关项目放在同一个可扫描入口里。 Notes 学术笔记 Active 保留推导、形式化进展、失败路线和重新组织后的技术记录。 我关心的是对象在被形式化、对偶化或离散化之后，哪些结构仍然值得保留。 Isabelle/HOL 这条线迫使证明接口变清楚；duality 这条线迫使模型不变性变清楚。 Prototype / discretization 则把同一个问题放回可操作输入里，检验理论描述是否真的抓住了结构。"
+      "excerpt": "这一页只回答一个问题：我现在怎样理解这些问题。"
     },
     {
       "title": "Academic / 学术",
@@ -875,7 +880,7 @@
       ],
       "sort": 20220101,
       "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 14/06/2022 英国奥斯沃斯特里 · 2022年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
+      "content": "场外光 Offstage Light chronohaze.space 主页 数学 摄影 音乐 CV 14/06/2022 英国奥斯沃斯特里 · 2022年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
     },
     {
       "title": "暗场",
@@ -888,7 +893,7 @@
       ],
       "sort": 20220101,
       "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 12/04/2022 英国奥斯沃斯特里 · 2022年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
+      "content": "暗场 Dark Field chronohaze.space 主页 数学 摄影 音乐 CV 12/04/2022 英国奥斯沃斯特里 · 2022年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
     },
     {
       "title": "暗蓝花室",
@@ -901,7 +906,7 @@
       ],
       "sort": 20220101,
       "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 01/06/2022 英国奥斯沃斯特里 · 2022年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
+      "content": "暗蓝花室 Blue Room for Flowers chronohaze.space 主页 数学 摄影 音乐 CV 01/06/2022 英国奥斯沃斯特里 · 2022年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
     },
     {
       "title": "未成花",
@@ -914,7 +919,7 @@
       ],
       "sort": 20220101,
       "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 01/05/2022 英国奥斯沃斯特里 · 2022年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
+      "content": "未成花 Before Bloom chronohaze.space 主页 数学 摄影 音乐 CV 01/05/2022 英国奥斯沃斯特里 · 2022年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
     },
     {
       "title": "フォーマルハウト/南鱼座α",
