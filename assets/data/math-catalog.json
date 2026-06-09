@@ -4,13 +4,13 @@
   "items": [
     {
       "order": 1,
-      "url": "notes/ttgda_second_order_tracking_note.pdf",
+      "url": "notes/ttgda_second_order_tracking_note.html",
       "date": "2026-06",
       "title": "Schur-Complement Hessian with Two-Timescale Tracking",
       "title_en": "Schur-Complement Hessian with Two-Timescale Tracking",
       "excerpt": "关于 TTGDA 的一个短技术笔记：从 value function 的 Schur-complement Hessian 出发，思考 two-timescale tracking 是否可能支持二阶 saddle escaping。",
       "excerpt_en": "A short technical note on whether the first-order tracking analysis of TTGDA can be extended toward a second-order saddle-escaping guarantee via the Schur-complement Hessian of the value function.",
-      "readmore_url": "notes/ttgda_second_order_tracking_note.pdf",
+      "readmore_url": "notes/ttgda_second_order_tracking_note.html",
       "tags": [
         "math",
         "article"
@@ -23,9 +23,8 @@
       "reading_time_zh": "Technical note · Optimization / Minimax Learning · June 2026",
       "reading_time_en": "Technical note · Optimization / Minimax Learning · June 2026",
       "date_label_zh": "Technical note · Optimization / Minimax Learning · June 2026",
-      "link_label_zh": "Read PDF",
-      "link_target": "_blank",
-      "link_rel": "noopener"
+      "link_label_zh": "查看笔记",
+      "link_label_en": "Read Note"
     },
     {
       "order": 2,

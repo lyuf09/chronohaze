@@ -383,11 +383,11 @@
           <div id="homeMathPreview" style="display: contents;">
             <!-- GENERATED:home-math-preview:start -->
 
-            <article data-post-url="notes/ttgda_second_order_tracking_note.pdf" tabindex="0" role="link" data-reveal="slide-up" data-reveal-delay="40">
+            <article data-post-url="notes/ttgda_second_order_tracking_note.html" tabindex="0" role="link" data-reveal="slide-up" data-reveal-delay="40">
               <p class="author" data-copy-zh="HazezZ · Technical note · Optimization / Minimax Learning · June 2026" data-copy-en="HazezZ · Technical note · Optimization / Minimax Learning · June 2026">HazezZ · Technical note · Optimization / Minimax Learning · June 2026</p>
               <h3 data-copy-zh="Schur-Complement Hessian with Two-Timescale Tracking" data-copy-en="Schur-Complement Hessian with Two-Timescale Tracking">Schur-Complement Hessian with Two-Timescale Tracking</h3>
               <p data-copy-zh="关于 TTGDA 的一个短技术笔记：从 value function 的 Schur-complement Hessian 出发，思考 two-timescale tracking 是否可能支持二阶 saddle escaping。" data-copy-en="A short technical note on whether the first-order tracking analysis of TTGDA can be extended toward a second-order saddle-escaping guarantee via the Schur-complement Hessian of the value function.">关于 TTGDA 的一个短技术笔记：从 value function 的 Schur-complement Hessian 出发，思考 two-timescale tracking 是否可能支持二阶 saddle escaping。</p>
-              <a href="notes/ttgda_second_order_tracking_note.pdf" data-copy-zh="Read PDF" data-copy-en="Read PDF">Read PDF</a>
+              <a href="notes/ttgda_second_order_tracking_note.html" data-copy-zh="查看笔记" data-copy-en="Read Note">查看笔记</a>
             </article>
             <article data-post-url="post/dual-score-saddle-certificates.html" tabindex="0" role="link" data-reveal="slide-up" data-reveal-delay="140">
               <p class="author" data-copy-zh="HazezZ · 约 10 分钟" data-copy-en="HazezZ · 10 min read">HazezZ · 约 10 分钟</p>
@@ -787,9 +787,9 @@
             const postRoot = new URL('post/', window.location.href).pathname;
             const notesRoot = new URL('notes/', window.location.href).pathname;
             const isPost = url.pathname.startsWith(postRoot) && /\.html$/i.test(url.pathname);
-            const isNotePdf = url.pathname.startsWith(notesRoot) && /\.pdf$/i.test(url.pathname);
+            const isNote = url.pathname.startsWith(notesRoot) && /\.(?:html|pdf)$/i.test(url.pathname);
             if (url.origin !== window.location.origin) return '#';
-            if (!isPost && !isNotePdf) return '#';
+            if (!isPost && !isNote) return '#';
             return url.pathname + url.search + url.hash;
           } catch (_error) {
             return '#';

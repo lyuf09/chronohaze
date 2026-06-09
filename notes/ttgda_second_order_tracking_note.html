@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'self'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <title>Schur-Complement Hessian with Two-Timescale Tracking | Chronohaze</title>
+  <meta name="description" content="A short technical note on whether TTGDA first-order tracking can be extended toward second-order saddle escaping via the Schur-complement Hessian of the value function." />
+  <link rel="canonical" href="https://lyuf09.github.io/chronohaze/notes/ttgda_second_order_tracking_note.html" />
+  <link rel="stylesheet" href="../styles.min.css?v=20260526-audio-icons1" />
+  <script defer src="../protect-media.min.js?v=20260526-audio-icons1"></script>
+  <style>
+    body.note-detail-page {
+      margin: 0;
+      background: #10141b;
+      color: rgba(232, 234, 237, 0.92);
+    }
+
+    .note-detail-shell {
+      width: min(1120px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: 72px 0 84px;
+    }
+
+    .note-detail-back {
+      display: inline-flex;
+      margin-bottom: 28px;
+      color: rgba(214, 220, 230, 0.78);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .note-detail-title {
+      max-width: 900px;
+      margin: 0;
+      color: rgba(245, 247, 250, 0.96);
+      font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+      font-size: clamp(34px, 5vw, 64px);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .note-detail-meta {
+      margin: 18px 0 0;
+      color: rgba(190, 199, 214, 0.78);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .note-detail-lead {
+      max-width: 760px;
+      margin: 26px 0 0;
+      color: rgba(228, 232, 238, 0.88);
+      font-size: 17px;
+      line-height: 1.82;
+    }
+
+    .note-pdf-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 28px 0 18px;
+    }
+
+    .note-pdf-action {
+      display: inline-flex;
+      align-items: center;
+      min-height: 40px;
+      padding: 0 16px;
+      border: 1px solid rgba(190, 199, 214, 0.28);
+      color: rgba(246, 248, 252, 0.92);
+      background: rgba(255, 255, 255, 0.05);
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .note-pdf-frame-wrap {
+      overflow: hidden;
+      border: 1px solid rgba(190, 199, 214, 0.24);
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.24);
+    }
+
+    .note-pdf-frame {
+      display: block;
+      width: 100%;
+      height: min(78vh, 940px);
+      min-height: 620px;
+      border: 0;
+      background: #151923;
+    }
+
+    .note-pdf-fallback {
+      margin: 14px 0 0;
+      color: rgba(190, 199, 214, 0.72);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 760px) {
+      .note-detail-shell {
+        width: min(100% - 24px, 1120px);
+        padding: 48px 0 56px;
+      }
+
+      .note-detail-lead {
+        font-size: 14px;
+        line-height: 1.72;
+      }
+
+      .note-pdf-frame {
+        height: 72vh;
+        min-height: 440px;
+      }
+    }
+  </style>
+</head>
+<body class="note-detail-page">
+  <main class="note-detail-shell">
+    <a class="note-detail-back" href="../math.html">Back to Notes</a>
+    <h1 class="note-detail-title">Schur-Complement Hessian with Two-Timescale Tracking</h1>
+    <p class="note-detail-meta">Technical note · Optimization / Minimax Learning · June 2026</p>
+    <p class="note-detail-lead">
+      关于 TTGDA 的一个短技术笔记：从 value function 的 Schur-complement Hessian 出发，思考 two-timescale tracking 是否可能支持二阶 saddle escaping。
+    </p>
+    <p class="note-detail-lead" lang="en">
+      A short technical note on whether the first-order tracking analysis of TTGDA can be extended toward a second-order saddle-escaping guarantee via the Schur-complement Hessian of the value function.
+    </p>
+    <div class="note-pdf-actions">
+      <a class="note-pdf-action" href="ttgda_second_order_tracking_note.pdf" target="_blank" rel="noopener">Open PDF</a>
+      <a class="note-pdf-action" href="../math.html">Notes Index</a>
+    </div>
+    <div class="note-pdf-frame-wrap">
+      <iframe class="note-pdf-frame" src="ttgda_second_order_tracking_note.pdf#view=FitH" title="TTGDA second-order tracking note PDF preview"></iframe>
+    </div>
+    <p class="note-pdf-fallback">
+      If the preview does not load in your browser, use <a href="ttgda_second_order_tracking_note.pdf" target="_blank" rel="noopener">Open PDF</a>.
+    </p>
+  </main>
+</body>
+</html>
