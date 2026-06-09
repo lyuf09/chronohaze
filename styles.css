@@ -57,7 +57,13 @@
   font-style: normal;
   font-weight: 300 700;
   font-display: swap;
-  src: local("Songti SC"), local("STSong"), local("Noto Serif SC"), local("Source Han Serif SC");
+  src:
+    local("Songti SC"),
+    local("Songti TC"),
+    local("STSong"),
+    local("Hiragino Mincho ProN"),
+    local("Noto Serif SC"),
+    local("Source Han Serif SC");
 }
 
 @font-face {
@@ -79,10 +85,10 @@
   --max-width-copy: 720px;
   --max-width-list: 1100px;
   --max-width: var(--max-width-list);
-  --font-serif-zh: "Chronohaze Serif SC", "Songti SC", "Noto Serif SC", "STSong", serif;
+  --font-serif-zh: "Chronohaze Serif SC", "Songti SC", "Songti TC", "STSong", "Hiragino Mincho ProN", "Noto Serif SC", serif;
   --font-serif-en: "Cormorant Garamond", "Iowan Old Style", "Times New Roman", serif;
   --font-academic-en: "Novarese", "Iowan Old Style", "Baskerville", "Cormorant Garamond", "Times New Roman", serif;
-  --font-editorial-serif: "Cormorant Garamond", "Chronohaze Serif SC", "Songti SC", "Noto Serif SC", "Source Han Serif SC", "Noto Serif CJK SC", "STSong", serif;
+  --font-editorial-serif: "Cormorant Garamond", "Chronohaze Serif SC", "Songti SC", "Songti TC", "STSong", "Hiragino Mincho ProN", "Noto Serif SC", "Source Han Serif SC", "Noto Serif CJK SC", serif;
   --font-editorial-sans: "Chronohaze Sans SC", "PingFang SC", "Noto Sans SC", "Source Han Sans SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
   --font-photo-serif: var(--font-editorial-serif);
   --font-photo-sans: var(--font-editorial-sans);
@@ -1148,6 +1154,10 @@ audio {
 .photo-card-link {
   display: block;
   color: inherit;
+}
+
+.photo-card-closure {
+  display: none;
 }
 
 .photo-card img {
@@ -14945,39 +14955,36 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
     position: relative;
     display: grid;
     min-height: 92px;
-    grid-template-columns: 78px minmax(0, 1fr);
-    gap: 12px;
+    grid-template-columns: 94px minmax(0, 1fr) 30px;
+    gap: 0;
     align-items: stretch;
-    padding: 8px 30px 8px 8px;
+    padding: 0;
     overflow: hidden;
     text-decoration: none;
+    box-shadow:
+      inset -30px 0 0 rgba(224, 231, 241, 0.92),
+      inset -31px 0 0 rgba(70, 80, 98, 0.18);
   }
 
   .photo-index-page .photo-archive .photo-card-link::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 1;
-    width: 30px;
-    border-left: 1px solid rgba(70, 80, 98, 0.16);
-    background:
-      linear-gradient(180deg, rgba(232, 237, 245, 0.92) 0%, rgba(214, 222, 235, 0.86) 100%);
-    pointer-events: none;
+    content: none;
   }
 
   .photo-index-page .photo-archive .photo-card-link::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    right: 12px;
-    z-index: 2;
-    width: 7px;
-    height: 7px;
-    border-top: 1px solid rgba(46, 55, 72, 0.58);
-    border-right: 1px solid rgba(46, 55, 72, 0.58);
-    transform: translateY(-50%) rotate(45deg);
+    content: none;
+  }
+
+  .photo-index-page .photo-archive .photo-card-closure {
+    grid-column: 3;
+    grid-row: 1;
+    display: block;
+    width: 30px;
+    min-width: 30px;
+    align-self: stretch;
+    justify-self: stretch;
+    border-left: 1px solid rgba(70, 80, 98, 0.18);
+    background:
+      linear-gradient(180deg, rgba(232, 237, 245, 0.96) 0%, rgba(214, 222, 235, 0.9) 100%);
     pointer-events: none;
   }
 
@@ -14985,7 +14992,8 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
   .photo-index-page .photo-archive .photo-card-film .photo-card-link > .photo-film-thumb {
     grid-column: 1;
     grid-row: 1;
-    align-self: stretch;
+    align-self: center;
+    justify-self: center;
     width: 78px !important;
     height: 76px;
     overflow: hidden;
@@ -15007,7 +15015,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
     display: grid;
     align-content: center;
     gap: 2px;
-    padding: 0;
+    padding: 8px 8px 8px 0;
   }
 
   .photo-index-page .photo-archive .photo-title {
@@ -15072,19 +15080,10 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
   .photo-index-page .photo-archive .photo-card-link,
   .photo-index-page .photo-archive .photo-card-film .photo-card-link {
     min-height: 84px;
-    grid-template-columns: 66px minmax(0, 1fr);
-    gap: 10px;
-    padding: 7px 28px 7px 7px;
-  }
-
-  .photo-index-page .photo-archive .photo-card-link::before {
-    width: 28px;
-  }
-
-  .photo-index-page .photo-archive .photo-card-link::after {
-    right: 10px;
-    width: 6px;
-    height: 6px;
+    grid-template-columns: 80px minmax(0, 1fr) 28px;
+    box-shadow:
+      inset -28px 0 0 rgba(224, 231, 241, 0.92),
+      inset -29px 0 0 rgba(70, 80, 98, 0.18);
   }
 
   .photo-index-page .photo-archive .photo-card-link > picture,
@@ -15097,6 +15096,15 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
   .photo-index-page .photo-archive .photo-film-thumb {
     width: 66px;
     height: 70px;
+  }
+
+  .photo-index-page .photo-archive .photo-card-closure {
+    width: 28px;
+    min-width: 28px;
+  }
+
+  .photo-index-page .photo-archive .photo-meta {
+    padding: 7px 7px 7px 0;
   }
 
   .photo-index-page .photo-archive .photo-title {
@@ -16180,12 +16188,12 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
   html:lang(zh) .photo-index-page .photo-title,
   html:lang(zh) .photo-index-page .photo-date,
   html:lang(zh) .photo-index-page .photo-subtitle {
-    font-family: "Cormorant Garamond", "Chronohaze Serif SC", "Songti SC", "Noto Serif SC", serif;
+    font-family: "Cormorant Garamond", "Chronohaze Serif SC", "Songti SC", "Songti TC", "STSong", "Hiragino Mincho ProN", "Noto Serif SC", serif;
   }
 
   html:lang(zh) .photo-index-page .photo-background .photo-intro-text,
   html:lang(zh) .photo-index-page .photo-background .photo-intro-text p {
-    font-family: "Chronohaze Serif SC", "Songti SC", "Noto Serif SC", "STSong", serif;
+    font-family: "Chronohaze Serif SC", "Songti SC", "Songti TC", "STSong", "Hiragino Mincho ProN", "Noto Serif SC", serif;
   }
 
   html:lang(zh) .photo-index-page .photo-head-kicker,
@@ -16197,7 +16205,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
   }
 
   html:lang(zh) .music-index-page .page-title {
-    font-family: "Chronohaze Serif SC", "Songti SC", "Noto Serif SC", serif;
+    font-family: "Chronohaze Serif SC", "Songti SC", "Songti TC", "STSong", "Hiragino Mincho ProN", "Noto Serif SC", serif;
   }
 
   html:lang(zh) .music-index-page .music-ia-title,
@@ -16218,7 +16226,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
   html:lang(zh) .music-index-page .music-room-archive .track-title,
   html:lang(zh) .music-index-page .music-room-archive .track-row.track-row-album .track-title,
   html:lang(zh) .music-index-page .music-background-title {
-    font-family: "Cormorant Garamond", "Chronohaze Serif SC", "Songti SC", "Noto Serif SC", serif;
+    font-family: "Cormorant Garamond", "Chronohaze Serif SC", "Songti SC", "Songti TC", "STSong", "Hiragino Mincho ProN", "Noto Serif SC", serif;
   }
 
   html:lang(zh) .music-index-page .page-head p,
@@ -16245,3 +16253,44 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
   html:lang(zh) .music-index-page .music-timeline-mark {
     font-family: "Chronohaze Sans SC", "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
   }
+
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: 760px) {
+    html:lang(zh) .photo-index-page .page-title,
+    html:lang(zh) .photo-index-page .page-head p,
+    html:lang(zh) .photo-index-page .photo-section-title,
+    html:lang(zh) .photo-index-page .photo-section-lead,
+    html:lang(zh) .photo-index-page .photo-seeing-note-copy p,
+    html:lang(zh) .photo-index-page .photo-formative-note-body p,
+    html:lang(zh) .photo-index-page .photo-feature-theme,
+    html:lang(zh) .photo-index-page .photo-feature-concept,
+    html:lang(zh) .photo-index-page .photo-archive-year,
+    html:lang(zh) .photo-index-page .photo-title,
+    html:lang(zh) .photo-index-page .photo-date,
+    html:lang(zh) .photo-index-page .photo-subtitle,
+    html:lang(zh) .photo-index-page .photo-background .photo-intro-text,
+    html:lang(zh) .photo-index-page .photo-background .photo-intro-text p,
+    html:lang(zh) .music-index-page .page-title,
+    html:lang(zh) .music-index-page .music-ia-title,
+    html:lang(zh) .music-index-page .music-ia-subtitle,
+    html:lang(zh) .music-index-page .music-featured-item-title,
+    html:lang(zh) .music-index-page .track-title,
+    html:lang(zh) .music-index-page .track-title-link,
+    html:lang(zh) .music-index-page .track-date,
+    html:lang(zh) .music-index-page .track-tag,
+    html:lang(zh) .music-index-page .music-year-group-title,
+    html:lang(zh) .music-index-page .music-room-section-title,
+    html:lang(zh) .music-index-page .music-room-section-lead,
+    html:lang(zh) .music-index-page .music-room-album-title,
+    html:lang(zh) .music-index-page .music-room-album-summary,
+    html:lang(zh) .music-index-page .music-room-track-title,
+    html:lang(zh) .music-index-page .music-room-world-lead,
+    html:lang(zh) .music-index-page .music-room-archive-group-title,
+    html:lang(zh) .music-index-page .music-room-archive .track-title,
+    html:lang(zh) .music-index-page .music-room-archive .track-row.track-row-album .track-title,
+    html:lang(zh) .music-index-page .music-background-title {
+      font-family: "Cormorant Garamond", "Songti SC", "Songti TC", "STSong", "Hiragino Mincho ProN", serif !important;
+      font-weight: 300;
+    }
+  }
+}

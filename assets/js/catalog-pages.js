@@ -378,6 +378,12 @@
     });
     meta.appendChild(subtitleNode);
     a.appendChild(meta);
+
+    var closure = document.createElement("span");
+    closure.className = "photo-card-closure";
+    closure.setAttribute("aria-hidden", "true");
+    a.appendChild(closure);
+
     article.appendChild(a);
 
     return article;

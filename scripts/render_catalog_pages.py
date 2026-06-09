@@ -266,6 +266,7 @@ def render_photo_archive(items: List[Dict[str, Any]], image_manifest: Dict[str, 
             subtitle = "阅读全文"
         rows.append(f'      <p class="photo-subtitle">{esc_text(subtitle or "阅读全文")}</p>')
         rows.append('    </div>')
+        rows.append('    <span class="photo-card-closure" aria-hidden="true"></span>')
         rows.append('  </a>')
         rows.append("</article>")
     return indent(rows, "          ")
