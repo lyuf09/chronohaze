@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-22",
+  "generated_at": "2026-06-09",
   "source": "photography.html",
   "featured": [
     {
@@ -319,7 +319,8 @@
       "cover": "assets/images/wix/ithaca-20260518-01.jpg",
       "tags": [
         "photo"
-      ]
+      ],
+      "is_film": false
     },
     {
       "order": 2,
