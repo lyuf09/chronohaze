@@ -228,7 +228,7 @@
           <div class="cv-utility-top">
           </div>
           <nav class="academic-local-nav" aria-label="Academic section links" data-i18n-aria="academicSectionAria">
-            <a class="academic-local-link" href="research.html" data-i18n="utilityResearch">研究陈述</a>
+            <a class="academic-local-link" href="research.html" data-i18n="utilityResearch">研究方向</a>
             <a class="academic-local-link is-active" href="projects.html" data-i18n="utilityProjects">代表性工作</a>
             <a class="academic-local-link" href="math.html" data-i18n="utilityNotes">学术笔记</a>
           </nav>
@@ -240,30 +240,27 @@
           <div class="research-hero-copy">
             <div data-lang-block="zh">
               <h1>代表性工作</h1>
-              <p class="research-subtitle">这一页只回答一个问题：我具体做出了什么对象。</p>
-              <p class="research-positioning">这里不再重复研究叙事，只保留对象、状态和材料入口。Research 负责讲问题线，Work 负责给证据。</p>
+              <p class="research-positioning">这里整理了我目前最主要的几个学术与技术项目。每个条目只保留项目对象、当前状态和相关材料入口，方便快速判断我实际做过什么。</p>
             </div>
             <div data-lang-block="en" hidden>
               <h1>Work</h1>
-              <p class="research-subtitle">This page answers one question: what concrete objects I have made.</p>
-              <p class="research-positioning">The research narrative stays on the Research page. Here the emphasis is only on the object, its current status, and where the materials live.</p>
+              <p class="research-positioning">This page gathers the main academic and technical projects I currently want to point to. Each entry keeps only the object, current status, and relevant material links, so it is easy to see what I have actually built or written.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="section research-projects-section" id="work-index">
+      <section class="section research-projects-section" id="formal-verification-isabelle-hol">
         <div class="container research-section-head">
-          <div data-lang-block="zh"><h2>Selected Work</h2></div>
-          <div data-lang-block="en" hidden><h2>Selected Work</h2></div>
+          <div data-lang-block="zh"><h2>Formal Verification / Isabelle/HOL</h2></div>
+          <div data-lang-block="en" hidden><h2>Formal Verification / Isabelle/HOL</h2></div>
         </div>
         <div class="container research-project-grid">
           <div data-lang-block="zh">
             <article class="research-project-card">
-              <p class="research-project-kind">Formal Verification</p>
-              <h3>Isabelle/HOL：现代子模贪心算法形式化</h3>
-              <p class="research-project-line-body">一个覆盖 classical greedy、LazyGreedy 与 StochasticGreedy 的 Isabelle/HOL formalization 对象。</p>
-              <p class="research-project-line research-project-line--status"><strong>Status:</strong><span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">核心定理线完成</span><span class="research-project-status-detail">正在 clean-up、依赖整理与 AFP 风格打磨</span></span></p>
+              <h3>Isabelle/HOL：子模贪心算法形式化</h3>
+              <p class="research-project-line-body">一个关于 cardinality-constrained monotone submodular maximization 的 Isabelle/HOL 形式化项目，覆盖 classical greedy、LazyGreedy 与 StochasticGreedy 的主要证明结构。</p>
+              <p class="research-project-line research-project-line--status"><strong>当前状态：</strong><span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">核心定理线已经完成</span><span class="research-project-status-detail">正在进行 AFP-facing cleanup、依赖整理与文档打磨</span></span></p>
               <div class="research-link-row">
                 <a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">Repo</a>
                 <a href="post/isabelle-submodular-greedy.html">Note</a>
@@ -271,21 +268,101 @@
             </article>
 
             <article class="research-project-card">
-              <p class="research-project-kind">Duality / Invariance</p>
-              <h3>不变性下的对偶与结构分数</h3>
-              <p class="research-project-line-body">围绕 dual collapse、Range(B) 与 inconsistency score 的一组推导、阶段性笔记与公开归档。</p>
-              <p class="research-project-line research-project-line--status"><strong>Status:</strong><span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">进行中</span><span class="research-project-status-detail">正在把 collapse 后剩下的结构组织成更稳定的对象</span></span></p>
+              <h3>Isabelle/HOL：Smooth Convex Optimization 中的一阶方法</h3>
+              <p class="research-project-line-body">一个关于 gradient descent、projected gradient descent、projected gradient mapping 与 strong convexity 下线性收敛的 Isabelle/HOL 形式化项目。</p>
+              <p class="research-project-line research-project-line--status"><strong>当前状态：</strong><span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">主要理论结构已完成</span><span class="research-project-status-detail">正在整理文档、接口和可复用 lemma</span></span></p>
+              <div class="research-link-row">
+                <a href="https://github.com/lyuf09/projected-gradient-descent" target="_blank" rel="noopener noreferrer">Repo</a>
+                <a href="post/projected-gradient-descent-isabelle-hol.html">Note</a>
+              </div>
+            </article>
+          </div>
+          <div data-lang-block="en" hidden>
+            <article class="research-project-card">
+              <h3>Isabelle/HOL: Submodular Greedy Algorithms</h3>
+              <p class="research-project-line-body">An Isabelle/HOL formalization project for cardinality-constrained monotone submodular maximization, covering the main proof structures for classical greedy, LazyGreedy, and StochasticGreedy.</p>
+              <p class="research-project-line research-project-line--status"><strong>Status:</strong><span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">Core theorem line complete</span><span class="research-project-status-detail">Currently focused on AFP-facing cleanup, dependency organization, and documentation polish</span></span></p>
+              <div class="research-link-row">
+                <a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">Repo</a>
+                <a href="post/isabelle-submodular-greedy.html">Note</a>
+              </div>
+            </article>
+
+            <article class="research-project-card">
+              <h3>Isabelle/HOL: First-Order Methods for Smooth Convex Optimization</h3>
+              <p class="research-project-line-body">An Isabelle/HOL formalization project for gradient descent, projected gradient descent, projected gradient mapping, and linear convergence under strong convexity.</p>
+              <p class="research-project-line research-project-line--status"><strong>Status:</strong><span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">Main theoretical structure complete</span><span class="research-project-status-detail">Currently organizing documentation, interfaces, and reusable lemmas</span></span></p>
+              <div class="research-link-row">
+                <a href="https://github.com/lyuf09/projected-gradient-descent" target="_blank" rel="noopener noreferrer">Repo</a>
+                <a href="post/projected-gradient-descent-isabelle-hol.html">Note</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section research-projects-section" id="optimization-notes">
+        <div class="container research-section-head">
+          <div data-lang-block="zh"><h2>Optimization Notes</h2></div>
+          <div data-lang-block="en" hidden><h2>Optimization Notes</h2></div>
+        </div>
+        <div class="container research-project-grid">
+          <div data-lang-block="zh">
+            <article class="research-project-card">
+              <h3>TTGDA and Second-Order Tracking</h3>
+              <p class="research-project-line-body">一份关于 TTGDA、value function viewpoint 与二阶 tracking 问题的探索性技术笔记。它关注在 nonconvex-strongly-concave minimax setting 下，fast variable tracking 是否也能支持 Hessian / curvature-level 的误差控制。</p>
+              <p class="research-project-line research-project-line--status"><strong>当前状态：</strong><span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--wip">Exploratory note</span><span class="research-project-status-detail">用作进一步讨论和套磁材料</span></span></p>
+              <div class="research-link-row">
+                <a href="notes/ttgda_second_order_tracking_note.html">Note</a>
+                <a href="math.html">Archive</a>
+              </div>
+            </article>
+
+            <article class="research-project-card">
+              <h3>不变性下的对偶退化与结构恢复</h3>
+              <p class="research-project-line-body">一组围绕 dual collapse、Range(B)、cycle consistency 与 structural score 的阶段性推导。这个项目来自我对带有 translation / gauge invariance 的优化模型中，对偶下界为何退化、以及退化之后还剩下什么结构信息的思考。</p>
+              <p class="research-project-line research-project-line--status"><strong>当前状态：</strong><span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--wip">进行中</span><span class="research-project-status-detail">重点是把 collapse 后仍然可解释的部分整理成稳定的数学对象</span></span></p>
               <div class="research-link-row">
                 <a href="post/spring-2026.html">Note</a>
                 <a href="post/what-i-really-got-when-a-dual-route-failed.html">Archive</a>
               </div>
             </article>
+          </div>
+          <div data-lang-block="en" hidden>
+            <article class="research-project-card">
+              <h3>TTGDA and Second-Order Tracking</h3>
+              <p class="research-project-line-body">An exploratory technical note on TTGDA, the value-function viewpoint, and second-order tracking. It asks whether fast-variable tracking can support Hessian- or curvature-level error control in the nonconvex-strongly-concave minimax setting.</p>
+              <p class="research-project-line research-project-line--status"><strong>Status:</strong><span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--wip">Exploratory note</span><span class="research-project-status-detail">Used as a discussion and outreach material</span></span></p>
+              <div class="research-link-row">
+                <a href="notes/ttgda_second_order_tracking_note.html">Note</a>
+                <a href="math.html">Archive</a>
+              </div>
+            </article>
 
             <article class="research-project-card">
-              <p class="research-project-kind">Prototype</p>
+              <h3>Dual Degeneration and Structural Recovery under Invariance</h3>
+              <p class="research-project-line-body">A developing set of derivations around dual collapse, Range(B), cycle consistency, and structural score. It comes from my question about why dual lower bounds degenerate in optimization models with translation or gauge invariance, and what structural information survives after that degeneration.</p>
+              <p class="research-project-line research-project-line--status"><strong>Status:</strong><span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--wip">Ongoing</span><span class="research-project-status-detail">The current focus is to stabilize the interpretable part that remains after collapse</span></span></p>
+              <div class="research-link-row">
+                <a href="post/spring-2026.html">Note</a>
+                <a href="post/what-i-really-got-when-a-dual-route-failed.html">Archive</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section research-projects-section" id="technical-side-project">
+        <div class="container research-section-head">
+          <div data-lang-block="zh"><h2>Technical Side Project</h2></div>
+          <div data-lang-block="en" hidden><h2>Technical Side Project</h2></div>
+        </div>
+        <div class="container research-project-grid">
+          <div data-lang-block="zh">
+            <article class="research-project-card">
               <h3>Metalcore Piano Lab</h3>
-              <p class="research-project-line-body">一个把音频 / MIDI 映射到可玩 chart events 的浏览器原型。</p>
-              <p class="research-project-line research-project-line--status"><strong>Status:</strong><span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--wip">Work in progress</span><span class="research-project-status-detail">持续检验离散化与可玩性约束</span></span></p>
+              <p class="research-project-line-body">一个把音频 / MIDI 映射成可玩 chart events 的浏览器原型。它更偏 creative coding，但和我的研究兴趣有相通之处：连续输入如何被离散化成结构化对象，以及哪些约束来自数学结构，哪些来自实际可玩性。</p>
+              <p class="research-project-line research-project-line--status"><strong>当前状态：</strong><span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--wip">Work in progress</span><span class="research-project-status-detail">仍在调整 discretization、event mapping 与 playability constraints</span></span></p>
               <div class="research-link-row">
                 <a href="https://github.com/lyuf09/metalcore-piano-lab" target="_blank" rel="noopener noreferrer">Repo</a>
                 <a href="post/metalcore-piano-lab.html">Note</a>
@@ -294,32 +371,9 @@
           </div>
           <div data-lang-block="en" hidden>
             <article class="research-project-card">
-              <p class="research-project-kind">Formal Verification</p>
-              <h3>Isabelle/HOL: modern submodular greedy formalization</h3>
-              <p class="research-project-line-body">An Isabelle/HOL object covering classical greedy, LazyGreedy, and StochasticGreedy.</p>
-              <p class="research-project-line research-project-line--status"><strong>Status:</strong><span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">Core theorem lines complete</span><span class="research-project-status-detail">Current work is clean-up, dependency refinement, and AFP-style presentation</span></span></p>
-              <div class="research-link-row">
-                <a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">Repo</a>
-                <a href="post/isabelle-submodular-greedy.html">Note</a>
-              </div>
-            </article>
-
-            <article class="research-project-card">
-              <p class="research-project-kind">Duality / Invariance</p>
-              <h3>Duality and structural scoring under invariance</h3>
-              <p class="research-project-line-body">A developing set of derivations, notes, and public archives around dual collapse, Range(B), and inconsistency scoring.</p>
-              <p class="research-project-line research-project-line--status"><strong>Status:</strong><span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--active">Ongoing</span><span class="research-project-status-detail">The current task is to organize what survives after collapse into a more stable object</span></span></p>
-              <div class="research-link-row">
-                <a href="post/spring-2026.html">Note</a>
-                <a href="post/what-i-really-got-when-a-dual-route-failed.html">Archive</a>
-              </div>
-            </article>
-
-            <article class="research-project-card">
-              <p class="research-project-kind">Prototype</p>
               <h3>Metalcore Piano Lab</h3>
-              <p class="research-project-line-body">A browser prototype that maps audio / MIDI into playable chart events.</p>
-              <p class="research-project-line research-project-line--status"><strong>Status:</strong><span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--wip">Work in progress</span><span class="research-project-status-detail">Still tightening discretization and playability constraints</span></span></p>
+              <p class="research-project-line-body">A browser prototype that maps audio / MIDI into playable chart events. It is closer to creative coding, but it connects to my research interests: how continuous input is discretized into structured objects, and which constraints come from mathematical structure versus practical playability.</p>
+              <p class="research-project-line research-project-line--status"><strong>Status:</strong><span class="research-project-status-wrap"><span class="research-project-status-badge research-project-status-badge--wip">Work in progress</span><span class="research-project-status-detail">Still adjusting discretization, event mapping, and playability constraints</span></span></p>
               <div class="research-link-row">
                 <a href="https://github.com/lyuf09/metalcore-piano-lab" target="_blank" rel="noopener noreferrer">Repo</a>
                 <a href="post/metalcore-piano-lab.html">Note</a>
@@ -368,7 +422,7 @@
           navMusic: "音乐",
           navCV: "CV",
           navSearch: "搜索",
-          utilityResearch: "研究陈述",
+          utilityResearch: "研究方向",
           utilityProjects: "代表性工作",
           utilityNotes: "学术笔记",
           footerContactLead: "辗转不同国家无固定号码 请联系邮箱：",
