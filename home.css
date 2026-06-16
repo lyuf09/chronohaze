@@ -2421,6 +2421,7 @@ html.menu-scroll-locked,
     height: auto;
     aspect-ratio: 481 / 587;
     object-fit: cover;
+    object-position: center top;
   }
 
   .hero-right-inner {
