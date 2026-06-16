@@ -3,7 +3,7 @@
   "scope": "math",
   "items": [
     {
-      "title": "Schur-Complement Hessian with Two-Timescale Tracking",
+      "title": "A Small Exploratory Note on TTGDA and Second-Order Tracking",
       "url": "notes/ttgda_second_order_tracking_note.html",
       "section": "Mathematics",
       "date": "2026-06",
@@ -14,7 +14,7 @@
       ],
       "sort": 20260600,
       "scope": "math",
-      "content": "Schur-Complement Hessian with Two-Timescale Tracking Technical note Optimization Minimax Learning June 2026 TTGDA first-order tracking analysis two-timescale tracking second-order saddle-escaping guarantee Schur-complement Hessian value function inexact iterate 关于 TTGDA 的一个短技术笔记 从 value function 的 Schur-complement Hessian 出发 思考 two-timescale tracking 是否可能支持二阶 saddle escaping PDF preview note page embedded preview Open PDF"
+      "content": "A Small Exploratory Note on TTGDA and Second-Order Tracking Technical note Optimization Minimax Learning June 2026 TTGDA first-order tracking analysis two-timescale tracking second-order saddle-escaping guarantee Schur-complement Hessian value function inexact iterate 关于 TTGDA 的一个短技术笔记 从 value function 的 Schur-complement Hessian 出发 思考 two-timescale tracking 是否可能支持二阶 saddle escaping PDF preview note page embedded preview Open PDF"
     },
     {
       "title": "从 dual score 到 saddle certificates 的一点新进展",
