@@ -7,14 +7,14 @@
       "url": "notes/ttgda_second_order_tracking_note.html",
       "section": "Mathematics",
       "date": "2026-06",
-      "excerpt": "关于 TTGDA 的一个短技术笔记：从 value function 的 Schur-complement Hessian 出发，思考 two-timescale tracking 是否可能支持二阶 saddle escaping。",
+      "excerpt": "关于 TTGDA 的一个短技术笔记。这个问题来自我阅读 value-function 视角时的一个想法：如果一阶分析中 y_t 对 y*(x_t) 的 tracking 可以控制梯度误差，那么类似的 tracking 机制是否也能用于 Schur-complement Hessian，从而支持二阶 saddle escaping？",
       "tags": [
         "math",
         "article"
       ],
       "sort": 20260600,
       "scope": "math",
-      "content": "A Small Exploratory Note on TTGDA and Second-Order Tracking Technical note Optimization Minimax Learning June 2026 TTGDA first-order tracking analysis two-timescale tracking second-order saddle-escaping guarantee Schur-complement Hessian value function inexact iterate 关于 TTGDA 的一个短技术笔记 从 value function 的 Schur-complement Hessian 出发 思考 two-timescale tracking 是否可能支持二阶 saddle escaping PDF preview note page embedded preview Open PDF"
+      "content": "A Small Exploratory Note on TTGDA and Second-Order Tracking Technical note Optimization Minimax Learning June 2026 TTGDA first-order tracking analysis two-timescale tracking second-order saddle-escaping guarantee Schur-complement Hessian value function inexact iterate 关于 TTGDA 的一个短技术笔记 这个问题来自我阅读 value-function 视角时的一个想法 如果一阶分析中 y_t 对 y*(x_t) 的 tracking 可以控制梯度误差 那么类似的 tracking 机制是否也能用于 Schur-complement Hessian 从而支持二阶 saddle escaping This is a short exploratory note based on a question I had while reading the TTGDA analysis if the tracking of y_t toward y*(x_t) controls the first-order error in the value-function viewpoint can an analogous tracking argument control the Schur-complement Hessian well enough for a second-order saddle-escaping analysis PDF preview note page embedded preview Open PDF"
     },
     {
       "title": "从 dual score 到 saddle certificates 的一点新进展",

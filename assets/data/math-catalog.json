@@ -8,8 +8,8 @@
       "date": "2026-06",
       "title": "A Small Exploratory Note on TTGDA and Second-Order Tracking",
       "title_en": "A Small Exploratory Note on TTGDA and Second-Order Tracking",
-      "excerpt": "关于 TTGDA 的一个短技术笔记：从 value function 的 Schur-complement Hessian 出发，思考 two-timescale tracking 是否可能支持二阶 saddle escaping。",
-      "excerpt_en": "A short technical note on whether the first-order tracking analysis of TTGDA can be extended toward a second-order saddle-escaping guarantee via the Schur-complement Hessian of the value function.",
+      "excerpt": "关于 TTGDA 的一个短技术笔记。这个问题来自我阅读 value-function 视角时的一个想法：如果一阶分析中 y_t 对 y*(x_t) 的 tracking 可以控制梯度误差，那么类似的 tracking 机制是否也能用于 Schur-complement Hessian，从而支持二阶 saddle escaping？",
+      "excerpt_en": "This is a short exploratory note based on a question I had while reading the TTGDA analysis: if the tracking of y_t toward y*(x_t) controls the first-order error in the value-function viewpoint, can an analogous tracking argument control the Schur-complement Hessian well enough for a second-order saddle-escaping analysis?",
       "readmore_url": "notes/ttgda_second_order_tracking_note.html",
       "tags": [
         "math",
