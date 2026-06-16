@@ -102,18 +102,19 @@
       "url": "academic.html",
       "section": "Site",
       "date": "2026-05-08",
-      "excerpt": "Academic landing page organized around research directions, selected highlights, and entry points into research, work, and notes.",
+      "excerpt": "Academic landing page for optimization, formalization in Isabelle/HOL, OR for ML, representative work, and technical projects.",
       "tags": [
         "academic",
         "research",
         "optimization",
         "formal-methods",
-        "duality",
-        "prototype"
+        "isabelle-hol",
+        "or-for-ml",
+        "minimax"
       ],
       "sort": 20260508,
       "scope": "site",
-      "content": "Academic Landing 学术 Research Directions Selected Highlights Research Work Notes OR for ML optimization formal verification structured modeling Isabelle HOL submodular greedy duality under invariance prototype discretization 研究方向 代表性入口 材料 研究笔记 形式化验证 对偶 下界 原型 离散化"
+      "content": "Academic Landing 学术 优化 形式化证明 OR for ML Optimization and OR Formalization in Isabelle/HOL AI for Math 研究主题 代表性工作 其他技术项目 Isabelle HOL Submodular Greedy Algorithms First-Order Methods for Smooth Convex Optimization TTGDA Second-Order Tracking Metalcore Piano Lab nonconvex minimax localization projected gradient descent formal methods machine-checkable proofs"
     },
     {
       "title": "Projects / 项目",

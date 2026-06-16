@@ -256,10 +256,10 @@
             <div data-lang-block="zh">
               <p class="research-eyebrow">Academic Landing</p>
               <h1>学术</h1>
-              <p class="research-subtitle">入口页：方向、代表性材料、时间展开</p>
-              <p class="research-positioning">我目前的学术工作主要围绕 OR for ML 展开，关心怎样把优化、形式化验证与结构化建模真正写成可检验、可复用、可继续推进的问题线。</p>
-              <p class="research-positioning">这一部分围绕三层材料组织：当前研究方向、问题陈述与代表性工作。读者可以先从研究主线进入，再根据需要查看具体项目与阶段性笔记。</p>
-              <p class="research-positioning">这里有些工作已经接近成熟的 formal development，有些仍是探索中的研究笔记。我保留这两类材料，是因为我关心的不只是最终结果，也包括一个问题如何逐渐变得可检验、可复用、可继续推进。</p>
+              <p class="research-subtitle">优化 · 形式化证明 · OR for ML</p>
+              <p class="research-positioning">我现在是爱丁堡大学数学本科生。我的主要兴趣在优化理论、形式化证明，以及机器学习问题中可以被数学结构化处理的部分。</p>
+              <p class="research-positioning">目前我主要做两条线：一条是把一阶优化算法和近似算法的证明整理成 Isabelle/HOL 中可检查的形式化对象；另一条是围绕非凸优化、minimax 与 localization 问题，写一些技术笔记，尝试把算法直觉、几何结构和可证明的结论连接起来。</p>
+              <p class="research-positioning">这个页面不是完整的 publication list，更像是我目前学术工作的入口：包括已经形式化的项目、正在整理的研究笔记，以及一些还在发展中的问题。</p>
             </div>
             <div data-lang-block="en" hidden>
               <p class="research-eyebrow">Academic Landing</p>
@@ -276,70 +276,68 @@
       <section class="section research-projects-section" id="academic-directions">
         <div class="container research-section-head">
           <div data-lang-block="zh">
-            <h2>Research Directions</h2>
-            <p>三条目前较清楚地体现我问题意识的研究主线。</p>
+            <h2>研究主题</h2>
           </div>
           <div data-lang-block="en" hidden>
-            <h2>Research Directions</h2>
-            <p>Three directions that currently offer the clearest view of how I frame problems.</p>
+            <h2>Research Themes</h2>
           </div>
         </div>
         <div class="container research-project-grid research-project-grid--entry">
           <div data-lang-block="zh">
             <article class="research-project-card">
               <p class="research-project-kind">Direction 01</p>
-              <h3>Isabelle/HOL 与可扩展的形式化证明结构</h3>
-              <p>围绕子模贪心算法与近似保证，关心的不只是把一个定理证完，而是把证明、接口与后续扩展组织成能继续长大的 library。</p>
-              <div class="research-link-row">
-                <a href="research.html">看问题意识</a>
-                <a href="projects.html">看材料证据</a>
-              </div>
-            </article>
-            <article class="research-project-card">
-              <p class="research-project-kind">Direction 02</p>
-              <h3>不变性下的对偶、下界与结构恢复</h3>
-              <p>当一个优化模型因平移不变性或对称性导致 natural dual collapse 时，我关注 collapse 之后仍可恢复的几何信息，尤其是它能否被组织成可解释的 structural score 或 lower-bound surrogate。</p>
+              <h3>Optimization and OR</h3>
+              <p>我关心的是优化问题里真正起作用的结构：约束、对偶、下界、局部几何，以及 formulation 本身会保留或丢失什么信息。最近的阅读和笔记主要围绕 nonconvex minimax、localization 和一阶/二阶算法展开。</p>
               <div class="research-link-row">
                 <a href="research.html">看问题意识</a>
                 <a href="math.html">看研究笔记</a>
               </div>
             </article>
             <article class="research-project-card">
+              <p class="research-project-kind">Direction 02</p>
+              <h3>Formalization in Isabelle/HOL</h3>
+              <p>我使用 Isabelle/HOL 形式化优化算法与近似算法中的证明结构，包括投影梯度法、子模函数贪心算法及其近似保证。相比把结果重新写一遍，我更关心哪些证明模式可以被拆成可复用的组件。</p>
+              <div class="research-link-row">
+                <a href="projects.html">看形式化项目</a>
+                <a href="math.html">看相关笔记</a>
+              </div>
+            </article>
+            <article class="research-project-card">
               <p class="research-project-kind">Direction 03</p>
-              <h3>从连续对象到可检视结构的 prototype</h3>
-              <p>围绕连续信号与事件流的离散化问题，我关注 prototype 如何保留结构、表达约束，并把直觉性的可操作要求转化为可检验的规则。</p>
+              <h3>AI for Math / OR for ML</h3>
+              <p>我对 AI 和数学之间的关系感兴趣，但更偏向结构化的一面：哪些机器学习问题可以用优化、博弈、OR 或形式化方法重新表达，哪些证明和算法结构可以被更清楚地组织出来。</p>
               <div class="research-link-row">
                 <a href="research.html">看问题意识</a>
-                <a href="projects.html">看材料证据</a>
+                <a href="math.html">看研究笔记</a>
               </div>
             </article>
           </div>
           <div data-lang-block="en" hidden>
             <article class="research-project-card">
               <p class="research-project-kind">Direction 01</p>
-              <h3>Isabelle/HOL and extendable proof structure</h3>
-              <p>Through submodular greedy algorithms and approximation guarantees, I care not only about proving a theorem, but about organizing proofs, interfaces, and later extensions into a library that can keep growing.</p>
-              <div class="research-link-row">
-                <a href="research.html">Problem framing</a>
-                <a href="projects.html">Materials</a>
-              </div>
-            </article>
-            <article class="research-project-card">
-              <p class="research-project-kind">Direction 02</p>
-              <h3>Duality, lower bounds, and structure under invariances</h3>
-              <p>When translation or symmetry causes the most natural dual constructions to collapse, I focus on the geometric information that survives, and whether it can be organized into an interpretable structural score or lower-bound surrogate.</p>
+              <h3>Optimization and OR</h3>
+              <p>I care about the structures that actually do work inside optimization problems: constraints, duality, lower bounds, local geometry, and what a formulation preserves or loses. My recent reading and notes focus on nonconvex minimax, localization, and first- and second-order algorithms.</p>
               <div class="research-link-row">
                 <a href="research.html">Problem framing</a>
                 <a href="math.html">Notes</a>
               </div>
             </article>
             <article class="research-project-card">
+              <p class="research-project-kind">Direction 02</p>
+              <h3>Formalization in Isabelle/HOL</h3>
+              <p>I use Isabelle/HOL to formalize proof structures in optimization and approximation algorithms, including projected gradient methods, submodular greedy algorithms, and approximation guarantees. I am especially interested in which proof patterns can become reusable components.</p>
+              <div class="research-link-row">
+                <a href="projects.html">Formal projects</a>
+                <a href="math.html">Related notes</a>
+              </div>
+            </article>
+            <article class="research-project-card">
               <p class="research-project-kind">Direction 03</p>
-              <h3>Prototypes from continuous objects to inspectable structure</h3>
-              <p>Around discretization problems for continuous signals and event streams, I am interested in how prototypes preserve structure, express constraints, and translate intuitive operational requirements into checkable rules.</p>
+              <h3>AI for Math / OR for ML</h3>
+              <p>I am interested in the relationship between AI and mathematics, especially on the structural side: which machine learning problems can be re-expressed using optimization, games, OR, or formal methods, and which proof or algorithmic structures can be organized more clearly.</p>
               <div class="research-link-row">
                 <a href="research.html">Problem framing</a>
-                <a href="projects.html">Materials</a>
+                <a href="math.html">Notes</a>
               </div>
             </article>
           </div>
@@ -349,38 +347,89 @@
       <section class="section research-projects-section" id="academic-highlights">
         <div class="container research-section-head">
           <div data-lang-block="zh">
-            <h2>Selected Highlights</h2>
-            <p>三个进入当前 academic line 的具体入口对象。</p>
+            <h2>代表性工作</h2>
           </div>
           <div data-lang-block="en" hidden>
-            <h2>Selected Highlights</h2>
-            <p>Three concrete entry points into the current academic line.</p>
+            <h2>Representative Work</h2>
           </div>
         </div>
         <div class="container research-project-grid research-project-grid--entry">
           <div data-lang-block="zh">
             <article class="research-project-card">
-              <p class="research-project-kind">Highlight 01</p>
-              <h3>Isabelle/HOL：现代子模贪心算法形式化</h3>
-              <p>目前最清楚地体现“把证明写成结构”的工作对象。</p>
+              <p class="research-project-kind">Work 01</p>
+              <h3>Isabelle/HOL: Submodular Greedy Algorithms</h3>
+              <p>形式化 cardinality-constrained monotone submodular maximization 中的经典 greedy 方法，并整理 LazyGreedy 与 StochasticGreedy 相关证明结构。目前重点是 AFP-facing cleanup、依赖整理与展示收束。</p>
               <div class="research-link-row">
                 <a href="projects.html">Work</a>
-                <a href="post/isabelle-submodular-greedy.html">Note</a>
+                <a href="post/theorem-to-framework-isabelle-submodular.html">Note</a>
               </div>
             </article>
             <article class="research-project-card">
-              <p class="research-project-kind">Highlight 02</p>
-              <h3>当一个 dual 路线走不通时留下的结构</h3>
-              <p>一条很新的线，正在把 collapse 之后真正留下的东西重新组织出来。</p>
+              <p class="research-project-kind">Work 02</p>
+              <h3>Isabelle/HOL: First-Order Methods for Smooth Convex Optimization</h3>
+              <p>一个关于 smooth convex optimization 中一阶方法的 Isabelle/HOL 形式化项目，覆盖 gradient descent、projected gradient descent、projected gradient mapping、strong convexity 下的线性收敛等结果。</p>
               <div class="research-link-row">
-                <a href="research.html">Research</a>
-                <a href="post/what-i-really-got-when-a-dual-route-failed.html">Archive</a>
+                <a href="projects.html">Work</a>
+                <a href="post/projected-gradient-descent-isabelle-hol.html">Note</a>
               </div>
             </article>
             <article class="research-project-card">
-              <p class="research-project-kind">Highlight 03</p>
+              <p class="research-project-kind">Work 03</p>
+              <h3>TTGDA and Second-Order Tracking</h3>
+              <p>一份关于 TTGDA、value function viewpoint 与二阶 tracking 问题的探索性技术笔记。它不是完成的论文，而是我目前围绕 nonconvex-strongly-concave minimax 问题整理出的一个研究入口。</p>
+              <div class="research-link-row">
+                <a href="math.html">Notes</a>
+                <a href="notes/ttgda_second_order_tracking_note.html">Note</a>
+              </div>
+            </article>
+          </div>
+          <div data-lang-block="en" hidden>
+            <article class="research-project-card">
+              <p class="research-project-kind">Work 01</p>
+              <h3>Isabelle/HOL: Submodular Greedy Algorithms</h3>
+              <p>A formalization of classical greedy methods for cardinality-constrained monotone submodular maximization, together with proof structure around LazyGreedy and StochasticGreedy. The current focus is AFP-facing cleanup, dependency organization, and presentation.</p>
+              <div class="research-link-row">
+                <a href="projects.html">Work</a>
+                <a href="post/theorem-to-framework-isabelle-submodular.html">Note</a>
+              </div>
+            </article>
+            <article class="research-project-card">
+              <p class="research-project-kind">Work 02</p>
+              <h3>Isabelle/HOL: First-Order Methods for Smooth Convex Optimization</h3>
+              <p>An Isabelle/HOL formalization project for first-order methods in smooth convex optimization, covering gradient descent, projected gradient descent, projected gradient mapping, and linear convergence under strong convexity.</p>
+              <div class="research-link-row">
+                <a href="projects.html">Work</a>
+                <a href="post/projected-gradient-descent-isabelle-hol.html">Note</a>
+              </div>
+            </article>
+            <article class="research-project-card">
+              <p class="research-project-kind">Work 03</p>
+              <h3>TTGDA and Second-Order Tracking</h3>
+              <p>An exploratory technical note on TTGDA, the value-function viewpoint, and a second-order tracking question. It is not a finished paper, but a current entry point into my thinking around nonconvex-strongly-concave minimax problems.</p>
+              <div class="research-link-row">
+                <a href="math.html">Notes</a>
+                <a href="notes/ttgda_second_order_tracking_note.html">Note</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section research-projects-section" id="academic-technical-projects">
+        <div class="container research-section-head">
+          <div data-lang-block="zh">
+            <h2>其他技术项目</h2>
+          </div>
+          <div data-lang-block="en" hidden>
+            <h2>Other Technical Projects</h2>
+          </div>
+        </div>
+        <div class="container research-project-grid research-project-grid--entry">
+          <div data-lang-block="zh">
+            <article class="research-project-card">
+              <p class="research-project-kind">Technical Project</p>
               <h3>Metalcore Piano Lab</h3>
-              <p>把 prototype / discretization 这条线落到浏览器对象上的一个公开实验。</p>
+              <p>一个把音频 / MIDI 转成可玩谱面事件的浏览器原型。它更偏 creative coding，但也体现了我对结构化表示、交互系统和音乐技术的兴趣。</p>
               <div class="research-link-row">
                 <a href="projects.html">Work</a>
                 <a href="post/metalcore-piano-lab.html">Note</a>
@@ -389,27 +438,9 @@
           </div>
           <div data-lang-block="en" hidden>
             <article class="research-project-card">
-              <p class="research-project-kind">Highlight 01</p>
-              <h3>Isabelle/HOL: modern submodular greedy formalization</h3>
-              <p>The clearest current public example on the site of how I try to turn proofs into durable structure.</p>
-              <div class="research-link-row">
-                <a href="projects.html">Work</a>
-                <a href="post/isabelle-submodular-greedy.html">Note</a>
-              </div>
-            </article>
-            <article class="research-project-card">
-              <p class="research-project-kind">Highlight 02</p>
-              <h3>What remains when a dual route fails</h3>
-              <p>A newer line that is trying to reorganize what survives after the obvious dual constructions collapse.</p>
-              <div class="research-link-row">
-                <a href="research.html">Research</a>
-                <a href="post/what-i-really-got-when-a-dual-route-failed.html">Archive</a>
-              </div>
-            </article>
-            <article class="research-project-card">
-              <p class="research-project-kind">Highlight 03</p>
+              <p class="research-project-kind">Technical Project</p>
               <h3>Metalcore Piano Lab</h3>
-              <p>A public prototype that turns the prototype / discretization line into a concrete browser object.</p>
+              <p>A browser prototype that turns audio / MIDI into playable chart events. It is closer to creative coding, while still reflecting my interest in structured representation, interactive systems, and music technology.</p>
               <div class="research-link-row">
                 <a href="projects.html">Work</a>
                 <a href="post/metalcore-piano-lab.html">Note</a>
