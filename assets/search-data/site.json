@@ -20,19 +20,18 @@
       "url": "index.html",
       "section": "Site",
       "date": "",
-      "excerpt": "Chronohaze homepage organized around about, selected evidence, current work, mathematics, photography, and music.",
+      "excerpt": "Chronohaze homepage organized around about, current work, mathematics, photography, and music.",
       "tags": [
         "home",
         "about",
         "academic",
         "mathematics",
         "photography",
-        "music",
-        "selected-evidence"
+        "music"
       ],
       "sort": 0,
       "scope": "site",
-      "content": "Chronohaze HazezZ 主页 Home About 关于我 Selected Evidence 最近在做的事 Current trajectory Mathematics 数学 Photography 摄影 Music 音乐 Academic 学术 CV Projects Notes GitHub Operational Research for Machine Learning Isabelle HOL duality invariance structural scoring progressive metalcore bass guitar photography light distance weather memory Cornell Edinburgh Ithaca 形式结构 优化结构 声音结构 视觉结构 数学文章合集 摄影作品集 音乐作品集"
+      "content": "Chronohaze HazezZ 主页 Home About 关于我 最近在做的事 Current trajectory Mathematics 数学 Photography 摄影 Music 音乐 Academic 学术 CV Projects Notes GitHub Operational Research for Machine Learning Cornell Edinburgh Ithaca 数学文章合集 摄影作品集 音乐作品集"
     },
     {
       "title": "Academic / 学术",

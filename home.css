@@ -674,102 +674,6 @@ html:lang(en) .about-overlay p {
   line-height: 1.82;
 }
 
-.evidence-strip {
-  margin-top: var(--home-space-section-gap);
-  padding: 0 40px;
-  position: relative;
-  z-index: 1;
-}
-
-.evidence-shell {
-  max-width: 1320px;
-  margin: 0 auto;
-  padding: 28px 28px 30px;
-  border: 1px solid rgba(243, 247, 253, 0.14);
-  background:
-    linear-gradient(180deg, rgba(241, 244, 249, 0.24), rgba(233, 238, 245, 0.18)),
-    radial-gradient(circle at 20% 26%, rgba(255, 255, 255, 0.06) 0.7px, transparent 1px),
-    radial-gradient(circle at 72% 68%, rgba(21, 27, 38, 0.06) 0.7px, transparent 1px);
-  background-size: auto, 7px 7px, 9px 9px;
-  box-shadow:
-    0 14px 24px rgba(15, 19, 29, 0.07),
-    inset 0 1px 0 rgba(255, 255, 255, 0.22);
-  backdrop-filter: blur(10px) saturate(108%);
-  -webkit-backdrop-filter: blur(10px) saturate(108%);
-}
-
-.evidence-head {
-  display: grid;
-  gap: 4px;
-  margin-bottom: 18px;
-}
-
-.evidence-kicker {
-  margin: 0;
-  font-family: "Aventa", var(--home-font-ui);
-  font-size: 10px;
-  line-height: 1;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(63, 72, 88, 0.9);
-}
-
-.evidence-head h2 {
-  margin: 0;
-  font-family: var(--home-font-display);
-  font-size: clamp(24px, 2.4vw, 34px);
-  line-height: 1.08;
-  font-weight: 300;
-  letter-spacing: -0.02em;
-  color: var(--home-ink-strong);
-}
-
-.evidence-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
-}
-
-.evidence-card {
-  min-height: 172px;
-  padding: 16px 16px 18px;
-  border: 1px solid rgba(56, 64, 80, 0.1);
-  background:
-    linear-gradient(180deg, rgba(249, 251, 254, 0.48), rgba(242, 246, 251, 0.36)),
-    radial-gradient(circle at 22% 28%, rgba(255, 255, 255, 0.08) 0.6px, transparent 0.95px);
-  background-size: auto, 8px 8px;
-  box-shadow:
-    0 8px 18px rgba(18, 23, 34, 0.045),
-    inset 0 1px 0 rgba(255, 255, 255, 0.24);
-}
-
-.evidence-index {
-  margin: 0 0 12px;
-  font-family: "Aventa", var(--home-font-ui);
-  font-size: 10px;
-  line-height: 1;
-  letter-spacing: 0.18em;
-  color: rgba(79, 92, 115, 0.88);
-}
-
-.evidence-card h3 {
-  margin: 0;
-  font-family: var(--home-font-display);
-  font-size: 22px;
-  line-height: 1.14;
-  font-weight: 300;
-  letter-spacing: -0.02em;
-  color: var(--home-ink-strong);
-}
-
-.evidence-card > p:last-child {
-  margin: 10px 0 0;
-  font-family: var(--home-font-body);
-  font-size: 13px;
-  line-height: 1.62;
-  color: var(--home-ink);
-}
-
 .math-section {
   background:
     radial-gradient(900px 500px at 6% 10%, rgba(255, 255, 255, 0.15), transparent 62%),
@@ -1551,23 +1455,6 @@ html:lang(en) .about-overlay p {
     padding: 82px 24px 78px;
   }
 
-  .evidence-strip {
-    padding: 0 18px;
-  }
-
-  .evidence-shell {
-    padding: 22px 18px 24px;
-  }
-
-  .evidence-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-  }
-
-  .evidence-card {
-    min-height: 0;
-  }
-
   .about-overlay,
   .about-overlay p {
     width: min(96vw, 821px);
@@ -1774,23 +1661,6 @@ html:lang(en) .about-overlay p {
     margin-top: 18px;
     min-height: 0;
     padding: 62px 16px 58px;
-  }
-
-  .evidence-strip {
-    margin-top: 18px;
-    padding: 0 16px;
-  }
-
-  .evidence-shell {
-    padding: 20px 16px 22px;
-  }
-
-  .evidence-head h2 {
-    font-size: 28px;
-  }
-
-  .evidence-grid {
-    grid-template-columns: 1fr;
   }
 
   .math-section {
@@ -2158,18 +2028,6 @@ html.menu-scroll-locked,
     padding: 52px 16px 50px;
   }
 
-  .evidence-head h2 {
-    font-size: 26px;
-  }
-
-  .evidence-card h3 {
-    font-size: 20px;
-  }
-
-  .evidence-card > p:last-child {
-    font-size: 12.6px;
-  }
-
   .about-overlay {
     width: min(100%, 720px);
   }
@@ -2300,18 +2158,6 @@ html.menu-scroll-locked,
 
   .math-section {
     padding: 28px 14px 38px;
-  }
-
-  .evidence-strip {
-    padding: 0 14px;
-  }
-
-  .evidence-shell {
-    padding: 18px 14px 20px;
-  }
-
-  .evidence-card {
-    padding: 14px 14px 16px;
   }
 
   .math-section h2 {
@@ -2523,7 +2369,6 @@ html.menu-scroll-locked,
     margin-top: 14px;
   }
 
-  .evidence-strip,
   .now-strip {
     margin-top: 14px;
   }
