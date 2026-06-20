@@ -242,12 +242,12 @@
           <div class="page-last-updated-row" data-page-meta="cv">
             <div class="page-last-updated-pill" data-status-lang="zh">
               <span class="page-last-updated-label" data-i18n="cvLastUpdatedLabel">最近更新</span>
-              <time class="page-last-updated-time" datetime="2026-02-25">2026-02-25</time>
+              <time class="page-last-updated-time" datetime="2026-06-20">2026-06-20</time>
             </div>
           </div>
           <nav class="cv-toc" aria-label="CV section navigation">
             <a class="cv-toc-link" href="#cv-zh-highlights" data-cv-toc-link="highlights">教育与方向</a>
-            <a class="cv-toc-link" href="#cv-zh-projects" data-cv-toc-link="projects">项目与专利</a>
+            <a class="cv-toc-link" href="#cv-zh-projects" data-cv-toc-link="projects">项目与研究笔记</a>
             <a class="cv-toc-link" href="#cv-zh-experience" data-cv-toc-link="experience">经历与联系</a>
           </nav>
         </div>
@@ -259,30 +259,30 @@
 
           <section id="cv-zh-highlights">
             <h2>教育背景</h2>
-            <p>爱丁堡大学数学本科<br />现于康奈尔大学交流</p>
+            <p>爱丁堡大学数学本科<br />2025–2026 康奈尔大学交流学习</p>
 
             <h2>研究方向</h2>
-            <p>优化、形式化验证与数学建模；目前主要围绕子模贪心近似保证、带不变性的对偶与下界，以及 Isabelle/HOL 中的证明组织。</p>
+            <p>优化理论、形式化验证与数学建模。近期兴趣集中在一阶优化方法的机器检查证明、子模优化的近似保证，以及非凸极小极大问题中的 value-function 视角与二阶追踪问题。</p>
           </section>
 
           <section id="cv-zh-projects">
-            <h2>代表项目与专利</h2>
+            <h2>代表项目与研究笔记</h2>
             <ol class="cv-project-list">
               <li>
                 <h3>Isabelle/HOL：子模贪心算法形式化</h3>
-                <p>对象：单调子模最大化的 (1 - 1/e) 贪心保证；结果：持续推进 Isabelle/HOL 形式化与证明组件整理。</p>
+                <p>对象：单调子模最大化中的经典 (1 - 1/e) 贪心近似保证。结果：完成 Isabelle/HOL 形式化整理，并已提交至 Archive of Formal Proofs。</p>
               </li>
               <li>
-                <h3>不变性下的对偶与下界</h3>
-                <p>对象：带图相对结构的距离拟合目标；结果：定位平移不变性/不可识别性导致的下界退化，并测试结构修正。</p>
+                <h3>First-Order Optimization in Isabelle/HOL</h3>
+                <p>对象：光滑凸优化中的投影梯度下降、一阶最优性条件与收敛性证明。结果：在 Isabelle/HOL 中整理投影几何、telescoping argument 与相关收敛结构，为后续优化算法形式化提供可复用组件。</p>
               </li>
               <li>
-                <h3>Metalcore Piano Lab</h3>
-                <p>对象：音频 / MIDI 到谱面的离散化；结果：完成浏览器原型，并记录 pipeline 与主要失效模式。</p>
+                <h3>TTGDA and Second-Order Tracking</h3>
+                <p>对象：非凸-强凹极小极大问题中的 two-timescale GDA、value function 与 Schur-complement Hessian。结果：整理一份探索性研究笔记，讨论从一阶追踪扩展到二阶曲率追踪与逃逸机制时可能出现的问题。</p>
               </li>
               <li>
-                <h3>工程系统：防离析布料系统</h3>
-                <p>对象：防离析布料系统；结果：完成真实工况下的建模与关键参数优化工作。</p>
+                <h3>Duality and Lower Bounds under Invariances</h3>
+                <p>对象：带图相对结构的优化目标。结果：分析平移不变性与不可识别性如何导致自然下界退化，并探索 gauge-fixing、增广等结构修正方案。</p>
               </li>
             </ol>
 
@@ -307,8 +307,8 @@
               <h3>独立研究 —— 面向优化的形式化方法</h3>
               <p>爱丁堡大学信息学院<br />指导老师：Dr. Wenda Li<br />2025–至今</p>
               <ul>
-                <li>在 Isabelle/HOL 中形式化子模函数与贪心算法的近似比证明。</li>
-                <li>整理面向相关贪心变体的证明组件与形式化结构。</li>
+                <li>完成子模函数与贪心算法近似比证明的 Isabelle/HOL 形式化整理，并提交至 Archive of Formal Proofs。</li>
+                <li>继续整理投影梯度下降与一阶优化方法相关的证明组件与形式化结构。</li>
               </ul>
             </section>
 
@@ -344,30 +344,30 @@
 
           <section id="cv-en-highlights">
             <h2>Education</h2>
-            <p>BSc Mathematics, University of Edinburgh<br />Current exchange study at Cornell University</p>
+            <p>BSc Mathematics, University of Edinburgh<br />Exchange study at Cornell University, 2025–2026</p>
 
             <h2>Research Directions</h2>
-            <p>Optimization, formal verification, and mathematical modeling; at the moment I am working mainly on submodular greedy guarantees, duality and lower bounds under invariances, and proof organization in Isabelle/HOL.</p>
+            <p>Optimization theory, formal verification, and mathematical modeling. Recent interests center on machine-checked proofs for first-order optimization methods, approximation guarantees for submodular optimization, and the value-function viewpoint and second-order tracking questions in nonconvex minimax problems.</p>
           </section>
 
           <section id="cv-en-projects">
-            <h2>Selected Projects and Patents</h2>
+            <h2>Selected Projects and Research Notes</h2>
             <ol class="cv-project-list">
               <li>
                 <h3>Isabelle/HOL: Formalizing Submodular Greedy</h3>
-                <p>Object: the classical (1 - 1/e) greedy guarantee for monotone submodular maximization. Result: ongoing Isabelle/HOL formalization and proof-component organization.</p>
+                <p>Object: the classical (1 - 1/e) greedy approximation guarantee in monotone submodular maximization. Result: completed Isabelle/HOL formalization and submitted it to the Archive of Formal Proofs.</p>
+              </li>
+              <li>
+                <h3>First-Order Optimization in Isabelle/HOL</h3>
+                <p>Object: projected gradient descent, first-order optimality conditions, and convergence proofs in smooth convex optimization. Result: organized projection geometry, telescoping arguments, and convergence structures in Isabelle/HOL as reusable components for later optimization-algorithm formalization.</p>
+              </li>
+              <li>
+                <h3>TTGDA and Second-Order Tracking</h3>
+                <p>Object: two-timescale GDA, value functions, and the Schur-complement Hessian in nonconvex-strongly-concave minimax problems. Result: prepared an exploratory research note on possible issues when extending first-order tracking to second-order curvature tracking and escape mechanisms.</p>
               </li>
               <li>
                 <h3>Duality and Lower Bounds under Invariances</h3>
-                <p>Object: graph-relative distance-fitting objectives. Result: diagnosis of lower-bound collapse under invariance and tests of structural fixes.</p>
-              </li>
-              <li>
-                <h3>Metalcore Piano Lab</h3>
-                <p>Object: discretizing audio / MIDI into playable chart events. Result: a browser prototype with documented pipeline and failure modes.</p>
-              </li>
-              <li>
-                <h3>Engineering System: Anti-Segregation Spreading</h3>
-                <p>Object: an anti-segregation spreading system. Result: modeling and parameter tuning under real deployment constraints.</p>
+                <p>Object: optimization objectives with graph-relative structure. Result: analyzed how translation invariance and non-identifiability make natural lower bounds degenerate, and explored structural fixes such as gauge-fixing and augmentation.</p>
               </li>
             </ol>
 
@@ -392,8 +392,8 @@
               <h3>Independent Research — Formal Methods for Optimization</h3>
               <p>University of Edinburgh, School of Informatics<br />Under the guidance of Dr. Wenda Li<br />2025–present</p>
               <ul>
-                <li>Formalization in Isabelle/HOL of approximation guarantees for submodular functions and greedy algorithms.</li>
-                <li>Development of proof components and formal structure for related greedy variants.</li>
+                <li>Completed the Isabelle/HOL formalization of approximation guarantees for submodular functions and greedy algorithms, and submitted it to the Archive of Formal Proofs.</li>
+                <li>Continued development of proof components and formal structure for projected gradient descent and first-order optimization methods.</li>
               </ul>
             </section>
 
@@ -471,7 +471,7 @@
           navSearch: '搜索',
           cvLastUpdatedLabel: '最近更新',
           tocHighlights: '教育与方向',
-          tocProjects: '项目与专利',
+          tocProjects: '项目与研究笔记',
           tocExperience: '研究经历与联系',
           researchLandingCta: 'Research'
         },
@@ -492,7 +492,7 @@
           navSearch: 'Search',
           cvLastUpdatedLabel: 'Last updated',
           tocHighlights: 'Education & Directions',
-          tocProjects: 'Projects & Patents',
+          tocProjects: 'Projects & Research Notes',
           tocExperience: 'Research Experience & Contact',
           researchLandingCta: 'Research'
         }
