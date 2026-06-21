@@ -2,6 +2,9 @@
 const { defineConfig, devices } = require("@playwright/test");
 
 const baseURL = process.env.CHRONOHAZE_SMOKE_BASE_URL || "http://127.0.0.1:4173/chronohaze/";
+const ignoreHTTPSErrors =
+  process.env.CHRONOHAZE_SMOKE_IGNORE_HTTPS_ERRORS === "1" ||
+  /^https:\/\/(?:127\.0\.0\.1|localhost)(?::\d+)?\//.test(baseURL);
 
 module.exports = defineConfig({
   testDir: "./tests",
@@ -16,6 +19,7 @@ module.exports = defineConfig({
   reporter: [["list"]],
   use: {
     baseURL,
+    ignoreHTTPSErrors,
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
     video: "off",
