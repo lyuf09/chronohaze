@@ -12,23 +12,24 @@
       urls.push(url);
     }
 
-    push(rel);
-    push("./" + rel);
-
     try {
       var page = new URL(window.location.href);
       var pageBase = String(page.pathname || "").replace(/[^/]*$/, "/");
-      push(pageBase + rel);
-      push(page.origin + pageBase + rel);
-      push(page.origin + "/" + rel);
       if (/\/chronohaze(?:\/|$)/.test(page.pathname || "")) {
         var repoBase = (page.pathname || "").replace(/^(.*?\/chronohaze)\/.*$/, "$1");
         if (repoBase) {
-          push(repoBase + "/" + rel);
           push(page.origin + repoBase + "/" + rel);
+          push(repoBase + "/" + rel);
         }
       }
+      push(page.origin + "/" + rel);
+      push("/" + rel);
+      push(page.origin + pageBase + rel);
+      push(pageBase + rel);
     } catch (_e) {}
+
+    push(rel);
+    push("./" + rel);
 
     var i = 0;
     function next() {
