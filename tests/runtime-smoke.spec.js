@@ -8,9 +8,16 @@ function trackPageErrors(page) {
   return errors;
 }
 
+async function waitForCriticalLoaderRelease(page) {
+  await page.waitForFunction(() => {
+    return !document.documentElement.classList.contains("chronohaze-critical-loading");
+  });
+}
+
 test("home page renders hero and player shell", async ({ page }) => {
   const errors = trackPageErrors(page);
   await page.goto("index.html", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
 
   await expect(page.locator("body.home-body")).toBeVisible();
   await expect(page.locator(".hero-portrait")).toBeVisible();
@@ -23,6 +30,7 @@ test("home page renders hero and player shell", async ({ page }) => {
 test("music index renders and remains interactive", async ({ page }) => {
   const errors = trackPageErrors(page);
   await page.goto("music.html", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
 
   await expect(page.locator("body.music-index-page")).toBeVisible();
   await expect(page.locator(".music-room-shell").first()).toBeVisible();
@@ -46,6 +54,7 @@ test("music index renders and remains interactive", async ({ page }) => {
 test("search page loads grouped results and query state works", async ({ page }) => {
   const errors = trackPageErrors(page);
   await page.goto("search.html", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
 
   await expect(page.locator("body.search-index-page")).toBeVisible();
   await expect(page.locator("#site-search-input")).toBeVisible();
@@ -64,10 +73,12 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   const errors = trackPageErrors(page);
 
   await page.goto("cv.html", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
   await expect(page.locator(".cv-utility-bar")).toBeVisible();
   await expect(page.locator("a.cv-research-link")).toBeVisible();
 
   await page.goto("research.html", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
   await expect(page.locator("body.research-landing-page")).toBeVisible();
   await expect(page.locator("#research-projects")).toBeVisible();
   await expect(page.locator("#research-outputs")).toBeVisible();
@@ -79,6 +90,7 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
 test("album page renders cover and track links", async ({ page }) => {
   const errors = trackPageErrors(page);
   await page.goto("music/album-ipomoea-alba.html", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
 
   await expect(page.locator(".album-cover img")).toBeVisible();
   await expect.poll(async () => page.locator(".album-tracklist .album-track-link").count()).toBeGreaterThan(10);
@@ -103,6 +115,7 @@ test("secondary pages keep mobile nav within the viewport", async ({ page }, tes
   for (const path of pages) {
     const errors = trackPageErrors(page);
     await page.goto(path, { waitUntil: "domcontentloaded" });
+    await waitForCriticalLoaderRelease(page);
 
     await expect(page.locator(".site-header .nav")).toBeVisible();
     await expect(page.locator(".site-header .nav a")).toHaveCount(6);
@@ -132,6 +145,7 @@ test("secondary pages keep mobile nav within the viewport", async ({ page }, tes
 test("photo detail page supports keyboard prev/next navigation", async ({ page }) => {
   const errors = trackPageErrors(page);
   await page.goto("photo/photo-01.html", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
 
   await expect(page.locator(".photo-detail-article, .photo-blue-article")).toBeVisible();
   await expect(page.locator(".photo-detail-pager")).toBeVisible();
@@ -139,6 +153,7 @@ test("photo detail page supports keyboard prev/next navigation", async ({ page }
 
   await page.keyboard.press("ArrowRight");
   await expect(page).toHaveURL(/photo\/photo-02\.html$/);
+  await waitForCriticalLoaderRelease(page);
   await expect(page.locator(".photo-detail-pager")).toBeVisible();
 
   expect(errors).toEqual([]);

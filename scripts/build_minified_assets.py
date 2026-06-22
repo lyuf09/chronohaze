@@ -8,7 +8,7 @@ from pathlib import Path
 VERSION = "20260621-nested-assets1"
 
 SECURITY_META_MARKER = "chronohaze-security-policy"
-SECURITY_META_SNIPPET = """  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
+SECURITY_META_SNIPPET = """  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />"""
 
 GOOGLE_TAG_SNIPPET = """  <!-- Google tag (gtag.js), deferred until idle -->
@@ -365,9 +365,10 @@ def main() -> int:
     # Keep dynamic structured-data loader on the minified path too.
     protect_path = root / "protect-media.min.js"
     protect_text = protect_path.read_text(encoding="utf-8")
-    protect_text = protect_text.replace(
-        'assets/js/structured-data.js?v=20260322-schema2',
-        f'assets/js/structured-data.min.js?v={VERSION}',
+    protect_text = re.sub(
+        r'assets/js/structured-data(?:\.min)?\.js\?v=[^"]+',
+        f"assets/js/structured-data.min.js?v={VERSION}",
+        protect_text,
     )
     protect_path.write_text(protect_text, encoding="utf-8")
 
