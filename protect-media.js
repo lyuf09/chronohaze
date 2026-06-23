@@ -438,7 +438,7 @@
       return false;
     }
 
-    return !/-\d+\.(jpe?g|png|webp|avif)$/i.test(path);
+    return !/-(?:600|960|1600)\.(jpe?g|png|webp|avif)$/i.test(path);
   }
 
   function buildVariantPath(path, width, extension) {
@@ -843,30 +843,42 @@
       var token = splitSrc(img.getAttribute("src"));
       var path = token.path;
       var suffix = token.suffix || "";
-      if (!isResponsiveImagePath(path)) {
-        return;
-      }
-
       var fullSrc = path + suffix;
       img.dataset.responsiveBaseSrc = fullSrc;
       img.dataset.fullResSrc = fullSrc;
-      img.dataset.fullResLoaded = "0";
-      img.dataset.previewSrc = buildVariantPath(path, 1600, "webp") + suffix;
 
-      // Use a visually lossless preview by default; load original only when the viewer asks for it.
-      img.src = img.dataset.previewSrc;
+      if (isResponsiveImagePath(path)) {
+        img.dataset.fullResLoaded = "0";
+        img.dataset.previewSrc = buildVariantPath(path, 1600, "webp") + suffix;
+
+        // Use a visually lossless preview by default; load original only when the viewer asks for it.
+        img.src = img.dataset.previewSrc;
+      } else {
+        img.dataset.fullResLoaded = "1";
+        img.dataset.previewSrc = fullSrc;
+      }
 
       var figure = img.closest(".photo-detail-item");
       if (figure && figure.dataset.fullResBinder !== "1") {
+        var labels = getPhotoDetailLightboxLabels(detectPreferredLanguage());
         figure.dataset.fullResBinder = "1";
         figure.classList.add("photo-detail-item--progressive");
         figure.setAttribute("role", "button");
         figure.setAttribute("tabindex", "0");
-        figure.setAttribute("title", getPhotoDetailLightboxLabels(detectPreferredLanguage()).figureTitle);
+        figure.setAttribute("title", labels.figureTitle);
+        figure.setAttribute("aria-label", labels.figureTitle);
         bindResponsivePress(figure, function (event) {
           ensurePhotoDetailImageViewer(detectPreferredLanguage());
           openPhotoDetailLightbox(figure, detectPreferredLanguage());
           event.preventDefault();
+        });
+        figure.addEventListener("keydown", function (event) {
+          if (!event || (event.key !== "Enter" && event.key !== " ")) {
+            return;
+          }
+          stopEvent(event);
+          ensurePhotoDetailImageViewer(detectPreferredLanguage());
+          openPhotoDetailLightbox(figure, detectPreferredLanguage());
         });
       }
     });
@@ -15045,10 +15057,11 @@
       zoomReset: safeLang === "en" ? "Reset zoom" : "重置缩放",
       zoomIn: safeLang === "en" ? "Zoom in" : "放大",
       loading: safeLang === "en" ? "Loading full image" : "正在载入完整图片",
+      viewer: safeLang === "en" ? "Photography image viewer" : "摄影图片查看器",
       note:
         safeLang === "en"
-          ? "View only · zoom, then scroll to inspect"
-          : "仅浏览 · 放大后可滚动查看细节",
+          ? "Tap image to zoom · swipe or use arrows to browse"
+          : "点击图片缩放 · 滑动或方向键切换",
       metaPrefix: safeLang === "en" ? "Image" : "图片",
       figureTitle: safeLang === "en" ? "Click to open full image" : "点击查看完整图片",
     };
@@ -15058,7 +15071,58 @@
     return window.innerWidth <= 980 ? 12 : 18;
   }
 
-  function syncPhotoDetailLightboxLayout(state, preserveFocus) {
+  function clampPhotoDetailLightboxValue(value, min, max) {
+    return Math.max(min, Math.min(max, value));
+  }
+
+  function getPhotoDetailLightboxSourceData(sourceImage) {
+    if (!sourceImage) {
+      return { previewSrc: "", fullSrc: "" };
+    }
+
+    var previewSrc = sourceImage.currentSrc || sourceImage.getAttribute("src") || "";
+    var fullSrc =
+      sourceImage.dataset.fullResSrc ||
+      sourceImage.dataset.responsiveBaseSrc ||
+      previewSrc;
+
+    return {
+      previewSrc: previewSrc,
+      fullSrc: fullSrc,
+    };
+  }
+
+  function getPhotoDetailLightboxFocusFromPoint(state, clientX, clientY) {
+    if (!state || typeof clientX !== "number" || typeof clientY !== "number") {
+      return null;
+    }
+
+    var canvasRect = state.canvas.getBoundingClientRect();
+    var canvasWidth = state.canvas.scrollWidth || state.canvas.clientWidth || canvasRect.width || 1;
+    var canvasHeight =
+      state.canvas.scrollHeight || state.canvas.clientHeight || canvasRect.height || 1;
+
+    return {
+      x: clampPhotoDetailLightboxValue((clientX - canvasRect.left) / canvasWidth, 0, 1),
+      y: clampPhotoDetailLightboxValue((clientY - canvasRect.top) / canvasHeight, 0, 1),
+    };
+  }
+
+  function getPhotoDetailLightboxFocusableNodes(state) {
+    if (!state || !state.root) {
+      return [];
+    }
+
+    return Array.from(
+      state.root.querySelectorAll(
+        'button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'
+      )
+    ).filter(function (node) {
+      return !!(node.offsetWidth || node.offsetHeight || node.getClientRects().length);
+    });
+  }
+
+  function syncPhotoDetailLightboxLayout(state, preserveFocus, focusPoint) {
     if (!state) {
       return;
     }
@@ -15073,10 +15137,14 @@
     var availableHeight = Math.max(120, viewport.clientHeight - padding * 2);
     var previousCanvasWidth = state.canvas.scrollWidth || viewport.clientWidth || 1;
     var previousCanvasHeight = state.canvas.scrollHeight || viewport.clientHeight || 1;
-    var focusX = preserveFocus
+    var focusX = focusPoint && typeof focusPoint.x === "number"
+      ? clampPhotoDetailLightboxValue(focusPoint.x, 0, 1)
+      : preserveFocus
       ? (viewport.scrollLeft + viewport.clientWidth / 2) / previousCanvasWidth
       : 0.5;
-    var focusY = preserveFocus
+    var focusY = focusPoint && typeof focusPoint.y === "number"
+      ? clampPhotoDetailLightboxValue(focusPoint.y, 0, 1)
+      : preserveFocus
       ? (viewport.scrollTop + viewport.clientHeight / 2) / previousCanvasHeight
       : 0.5;
 
@@ -15099,6 +15167,7 @@
     state.viewport.classList.toggle("is-zoomed", state.scale > 1.01);
     state.zoomOutButton.disabled = state.scale <= 1.01;
     state.zoomResetButton.disabled = state.scale <= 1.01;
+    state.zoomInButton.disabled = state.scale >= 4.49;
 
     window.requestAnimationFrame(function () {
       if (!state || !state.isOpen) {
@@ -15127,12 +15196,82 @@
     syncPhotoDetailLightboxLayout(state, false);
   }
 
-  function setPhotoDetailLightboxScale(state, nextScale) {
+  function setPhotoDetailLightboxScale(state, nextScale, focusPoint) {
     if (!state) {
       return;
     }
-    state.scale = Math.max(1, Math.min(4.5, nextScale));
-    syncPhotoDetailLightboxLayout(state, true);
+    state.scale = clampPhotoDetailLightboxValue(nextScale, 1, 4.5);
+    syncPhotoDetailLightboxLayout(state, true, focusPoint || null);
+  }
+
+  function togglePhotoDetailLightboxZoom(state, event) {
+    if (!state || !state.isOpen) {
+      return;
+    }
+
+    var focusPoint = event
+      ? getPhotoDetailLightboxFocusFromPoint(state, event.clientX, event.clientY)
+      : null;
+    if (state.scale > 1.01) {
+      resetPhotoDetailLightboxTransform(state);
+      return;
+    }
+    setPhotoDetailLightboxScale(state, window.innerWidth <= 760 ? 1.9 : 2.35, focusPoint);
+  }
+
+  function movePhotoDetailLightbox(state, direction) {
+    if (!state || !state.items.length) {
+      return false;
+    }
+
+    var nextIndex = clampPhotoDetailLightboxValue(
+      state.index + direction,
+      0,
+      state.items.length - 1
+    );
+    if (nextIndex === state.index) {
+      return false;
+    }
+
+    showPhotoDetailLightboxFigure(state, nextIndex);
+    return true;
+  }
+
+  function preloadPhotoDetailLightboxImage(state, index) {
+    if (!state || !state.items || index < 0 || index >= state.items.length) {
+      return;
+    }
+
+    var sourceImage = state.items[index].querySelector("img");
+    var sources = getPhotoDetailLightboxSourceData(sourceImage);
+    var preloadSrc = sources.fullSrc || sources.previewSrc;
+    if (!preloadSrc) {
+      return;
+    }
+
+    state.preloadCache = state.preloadCache || Object.create(null);
+    if (state.preloadCache[preloadSrc]) {
+      return;
+    }
+
+    var loader = new Image();
+    loader.decoding = "async";
+    loader.src = preloadSrc;
+    state.preloadCache[preloadSrc] = loader;
+  }
+
+  function preloadPhotoDetailLightboxNeighbors(state) {
+    if (!state || !state.items.length) {
+      return;
+    }
+
+    window.setTimeout(function () {
+      if (!state || !state.isOpen) {
+        return;
+      }
+      preloadPhotoDetailLightboxImage(state, state.index - 1);
+      preloadPhotoDetailLightboxImage(state, state.index + 1);
+    }, 80);
   }
 
   function updatePhotoDetailLightboxMeta(state) {
@@ -15178,13 +15317,12 @@
     updatePhotoDetailLightboxMeta(state);
     resetPhotoDetailLightboxTransform(state);
 
-    var previewSrc = sourceImage.currentSrc || sourceImage.getAttribute("src") || "";
-    var fullSrc =
-      sourceImage.dataset.fullResSrc ||
-      sourceImage.dataset.responsiveBaseSrc ||
-      previewSrc;
+    var sources = getPhotoDetailLightboxSourceData(sourceImage);
+    var previewSrc = sources.previewSrc;
+    var fullSrc = sources.fullSrc;
     var requestId = String(Date.now()) + "-" + String(Math.random()).slice(2);
     state.requestId = requestId;
+    state.image.onload = null;
     state.image.alt = sourceImage.getAttribute("alt") || "";
     state.loading.hidden = false;
     state.loading.textContent = getPhotoDetailLightboxLabels(state.lang).loading;
@@ -15207,6 +15345,7 @@
           finalizePhotoDetailLightboxImage(state, requestId);
         };
       }
+      preloadPhotoDetailLightboxNeighbors(state);
       return;
     }
 
@@ -15221,6 +15360,8 @@
       };
       state.image.src = fullSrc;
       sourceImage.dataset.fullResLoaded = "1";
+      state.preloadCache = state.preloadCache || Object.create(null);
+      state.preloadCache[fullSrc] = loader;
     };
     loader.onerror = function () {
       if (state.requestId !== requestId) {
@@ -15235,6 +15376,7 @@
       }
     };
     loader.src = fullSrc;
+    preloadPhotoDetailLightboxNeighbors(state);
   }
 
   function closePhotoDetailLightbox() {
@@ -15252,6 +15394,11 @@
     resetPhotoDetailLightboxTransform(state);
     if (state.triggerFigure && typeof state.triggerFigure.focus === "function") {
       state.triggerFigure.focus({ preventScroll: true });
+    } else if (
+      state.previouslyFocusedElement &&
+      typeof state.previouslyFocusedElement.focus === "function"
+    ) {
+      state.previouslyFocusedElement.focus({ preventScroll: true });
     }
   }
 
@@ -15278,13 +15425,21 @@
 
     state.lang = lang === "en" ? "en" : "zh";
     state.triggerFigure = figure;
+    state.previouslyFocusedElement = document.activeElement;
     state.root.classList.add("is-open");
     state.root.setAttribute("aria-hidden", "false");
+    state.root.setAttribute("aria-label", getPhotoDetailLightboxLabels(state.lang).viewer);
     state.isOpen = true;
     document.documentElement.classList.add("photo-lightbox-open");
     document.body.classList.add("photo-lightbox-open");
     state.note.textContent = getPhotoDetailLightboxLabels(state.lang).note;
     showPhotoDetailLightboxFigure(state, index);
+    window.requestAnimationFrame(function () {
+      if (!state.isOpen) {
+        return;
+      }
+      state.closeButton.focus({ preventScroll: true });
+    });
   }
 
   function ensurePhotoDetailImageViewer(lang) {
@@ -15302,6 +15457,7 @@
     if (photoDetailLightboxState && photoDetailLightboxState.root.isConnected) {
       var existingLabels = getPhotoDetailLightboxLabels(safeLang);
       photoDetailLightboxState.lang = safeLang;
+      photoDetailLightboxState.root.setAttribute("aria-label", existingLabels.viewer);
       photoDetailLightboxState.note.textContent = existingLabels.note;
       photoDetailLightboxState.closeButton.setAttribute("aria-label", existingLabels.close);
       photoDetailLightboxState.prevButton.setAttribute("aria-label", existingLabels.previous);
@@ -15316,15 +15472,20 @@
     var root = document.createElement("div");
     root.className = "photo-lightbox";
     root.setAttribute("aria-hidden", "true");
+    root.setAttribute("role", "dialog");
+    root.setAttribute("aria-modal", "true");
+    root.setAttribute("aria-label", labels.viewer);
 
     var backdrop = document.createElement("button");
     backdrop.type = "button";
     backdrop.className = "photo-lightbox-backdrop";
     backdrop.setAttribute("aria-label", labels.close);
+    backdrop.setAttribute("tabindex", "-1");
     root.appendChild(backdrop);
 
     var shell = document.createElement("div");
     shell.className = "photo-lightbox-shell";
+    shell.setAttribute("tabindex", "-1");
 
     var toolbar = document.createElement("div");
     toolbar.className = "photo-lightbox-toolbar";
@@ -15423,6 +15584,12 @@
       lang: safeLang,
       requestId: "",
       triggerFigure: null,
+      previouslyFocusedElement: null,
+      preloadCache: Object.create(null),
+      swipeStartX: null,
+      swipeStartY: null,
+      swipeStartedAt: 0,
+      ignoreImageClickUntil: 0,
     };
 
     bindResponsivePress(backdrop, function () {
@@ -15432,19 +15599,10 @@
       closePhotoDetailLightbox();
     });
     bindResponsivePress(prevButton, function () {
-      if (!photoDetailLightboxState || photoDetailLightboxState.index <= 0) {
-        return;
-      }
-      showPhotoDetailLightboxFigure(photoDetailLightboxState, photoDetailLightboxState.index - 1);
+      movePhotoDetailLightbox(photoDetailLightboxState, -1);
     });
     bindResponsivePress(nextButton, function () {
-      if (
-        !photoDetailLightboxState ||
-        photoDetailLightboxState.index >= photoDetailLightboxState.items.length - 1
-      ) {
-        return;
-      }
-      showPhotoDetailLightboxFigure(photoDetailLightboxState, photoDetailLightboxState.index + 1);
+      movePhotoDetailLightbox(photoDetailLightboxState, 1);
     });
     bindResponsivePress(zoomOutButton, function () {
       if (!photoDetailLightboxState) {
@@ -15462,17 +15620,81 @@
       setPhotoDetailLightboxScale(photoDetailLightboxState, photoDetailLightboxState.scale + 0.28);
     });
 
+    image.addEventListener("click", function (event) {
+      if (!photoDetailLightboxState || !photoDetailLightboxState.isOpen) {
+        return;
+      }
+      if (Date.now() < photoDetailLightboxState.ignoreImageClickUntil) {
+        stopEvent(event);
+        return;
+      }
+      stopEvent(event);
+      togglePhotoDetailLightboxZoom(photoDetailLightboxState, event);
+    });
+
     viewport.addEventListener("dblclick", function (event) {
       if (!photoDetailLightboxState || !photoDetailLightboxState.isOpen) {
         return;
       }
       stopEvent(event);
-      if (photoDetailLightboxState.scale > 1.01) {
-        resetPhotoDetailLightboxTransform(photoDetailLightboxState);
-      } else {
-        setPhotoDetailLightboxScale(photoDetailLightboxState, 2.2);
-      }
+      togglePhotoDetailLightboxZoom(photoDetailLightboxState, event);
     });
+
+    viewport.addEventListener(
+      "touchstart",
+      function (event) {
+        if (!photoDetailLightboxState || !photoDetailLightboxState.isOpen) {
+          return;
+        }
+        var touch = event.changedTouches && event.changedTouches[0];
+        if (!touch) {
+          return;
+        }
+        photoDetailLightboxState.swipeStartX = touch.clientX;
+        photoDetailLightboxState.swipeStartY = touch.clientY;
+        photoDetailLightboxState.swipeStartedAt = Date.now();
+      },
+      { passive: true }
+    );
+
+    viewport.addEventListener(
+      "touchend",
+      function (event) {
+        if (!photoDetailLightboxState || !photoDetailLightboxState.isOpen) {
+          return;
+        }
+        if (photoDetailLightboxState.scale > 1.01) {
+          photoDetailLightboxState.swipeStartX = null;
+          photoDetailLightboxState.swipeStartY = null;
+          return;
+        }
+        var touch = event.changedTouches && event.changedTouches[0];
+        if (
+          !touch ||
+          photoDetailLightboxState.swipeStartX === null ||
+          photoDetailLightboxState.swipeStartY === null
+        ) {
+          return;
+        }
+
+        var dx = touch.clientX - photoDetailLightboxState.swipeStartX;
+        var dy = touch.clientY - photoDetailLightboxState.swipeStartY;
+        var elapsed = Date.now() - photoDetailLightboxState.swipeStartedAt;
+        photoDetailLightboxState.swipeStartX = null;
+        photoDetailLightboxState.swipeStartY = null;
+
+        if (Math.abs(dx) < 52 || Math.abs(dx) < Math.abs(dy) * 1.35 || elapsed > 700) {
+          return;
+        }
+
+        if (event.cancelable) {
+          event.preventDefault();
+        }
+        photoDetailLightboxState.ignoreImageClickUntil = Date.now() + 500;
+        movePhotoDetailLightbox(photoDetailLightboxState, dx < 0 ? 1 : -1);
+      },
+      { passive: false }
+    );
 
     viewport.addEventListener(
       "wheel",
@@ -15504,22 +15726,73 @@
       if (!photoDetailLightboxState || !photoDetailLightboxState.isOpen) {
         return;
       }
+      if (event.key === "Tab") {
+        var focusableNodes = getPhotoDetailLightboxFocusableNodes(photoDetailLightboxState);
+        if (!focusableNodes.length) {
+          stopEvent(event);
+          photoDetailLightboxState.closeButton.focus({ preventScroll: true });
+          return;
+        }
+        var firstFocusable = focusableNodes[0];
+        var lastFocusable = focusableNodes[focusableNodes.length - 1];
+        if (event.shiftKey && document.activeElement === firstFocusable) {
+          stopEvent(event);
+          lastFocusable.focus({ preventScroll: true });
+          return;
+        }
+        if (!event.shiftKey && document.activeElement === lastFocusable) {
+          stopEvent(event);
+          firstFocusable.focus({ preventScroll: true });
+          return;
+        }
+      }
       if (event.key === "Escape") {
         stopEvent(event);
         closePhotoDetailLightbox();
         return;
       }
-      if (event.key === "ArrowLeft" && photoDetailLightboxState.index > 0) {
+      if (event.key === "ArrowLeft") {
         stopEvent(event);
-        showPhotoDetailLightboxFigure(photoDetailLightboxState, photoDetailLightboxState.index - 1);
+        movePhotoDetailLightbox(photoDetailLightboxState, -1);
         return;
       }
-      if (
-        event.key === "ArrowRight" &&
-        photoDetailLightboxState.index < photoDetailLightboxState.items.length - 1
-      ) {
+      if (event.key === "ArrowRight") {
         stopEvent(event);
-        showPhotoDetailLightboxFigure(photoDetailLightboxState, photoDetailLightboxState.index + 1);
+        movePhotoDetailLightbox(photoDetailLightboxState, 1);
+        return;
+      }
+      if (event.key === "Home") {
+        stopEvent(event);
+        showPhotoDetailLightboxFigure(photoDetailLightboxState, 0);
+        return;
+      }
+      if (event.key === "End") {
+        stopEvent(event);
+        showPhotoDetailLightboxFigure(
+          photoDetailLightboxState,
+          photoDetailLightboxState.items.length - 1
+        );
+        return;
+      }
+      if (event.key === "+" || event.key === "=") {
+        stopEvent(event);
+        setPhotoDetailLightboxScale(
+          photoDetailLightboxState,
+          photoDetailLightboxState.scale + 0.28
+        );
+        return;
+      }
+      if (event.key === "-" || event.key === "_") {
+        stopEvent(event);
+        setPhotoDetailLightboxScale(
+          photoDetailLightboxState,
+          photoDetailLightboxState.scale - 0.28
+        );
+        return;
+      }
+      if (event.key === "0") {
+        stopEvent(event);
+        resetPhotoDetailLightboxTransform(photoDetailLightboxState);
       }
     });
 

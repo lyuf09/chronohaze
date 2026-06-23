@@ -2248,6 +2248,7 @@ body.photo-lightbox-open {
   display: none;
   background: rgba(9, 13, 19, 0.9);
   backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .photo-lightbox.is-open {
@@ -2255,8 +2256,13 @@ body.photo-lightbox-open {
 }
 
 .photo-lightbox-backdrop {
+  appearance: none;
   position: absolute;
   inset: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-out;
 }
 
 .photo-lightbox-shell {
@@ -2264,10 +2270,12 @@ body.photo-lightbox-open {
   z-index: 1;
   width: min(calc(100vw - 28px), 1680px);
   height: min(calc(100vh - 28px), 1040px);
+  height: min(calc(100dvh - 28px), 1040px);
   margin: 14px auto;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
   gap: 12px;
+  outline: none;
 }
 
 .photo-lightbox-toolbar,
@@ -2320,6 +2328,7 @@ body.photo-lightbox-open {
 .photo-lightbox-btn:disabled {
   opacity: 0.38;
   cursor: default;
+  pointer-events: none;
 }
 
 .photo-lightbox-stage {
@@ -2338,6 +2347,8 @@ body.photo-lightbox-open {
   overflow: auto;
   cursor: zoom-in;
   touch-action: pan-x pan-y;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
   scrollbar-color: rgba(214, 223, 235, 0.28) rgba(21, 28, 38, 0.3);
 }
@@ -2362,11 +2373,16 @@ body.photo-lightbox-open {
   width: auto;
   height: auto;
   flex: 0 0 auto;
+  cursor: zoom-in;
   user-select: none;
   -webkit-user-select: none;
   -webkit-user-drag: none;
   -webkit-touch-callout: none;
   transition: opacity 180ms ease, width 180ms ease, height 180ms ease;
+}
+
+.photo-lightbox-viewport.is-zoomed .photo-lightbox-image {
+  cursor: zoom-out;
 }
 
 .photo-lightbox-loading {
@@ -2395,6 +2411,7 @@ body.photo-lightbox-open {
   .photo-lightbox-shell {
     width: min(calc(100vw - 14px), 100%);
     height: min(calc(100vh - 14px), 100%);
+    height: min(calc(100dvh - 14px), 100%);
     margin: 7px auto;
     gap: 10px;
   }
@@ -2422,6 +2439,37 @@ body.photo-lightbox-open {
   .photo-lightbox-loading {
     font-size: 10px;
     letter-spacing: 0.11em;
+  }
+}
+
+@media (max-width: 620px) {
+  .photo-lightbox-shell {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    margin: 0;
+    padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right))
+      max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
+    box-sizing: border-box;
+  }
+
+  .photo-lightbox-toolbar {
+    align-items: flex-start;
+  }
+
+  .photo-lightbox-controls {
+    justify-content: space-between;
+    gap: 6px;
+  }
+
+  .photo-lightbox-btn {
+    min-width: 36px;
+    height: 36px;
+    padding: 0 9px;
+  }
+
+  .photo-lightbox-stage {
+    min-height: 220px;
   }
 }
 
