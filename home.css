@@ -674,6 +674,17 @@ html:lang(en) .about-overlay p {
   line-height: 1.82;
 }
 
+.about-overlay p.about-language-note {
+  margin-top: 18px;
+  font-size: 12.5px;
+  line-height: 1.62;
+  color: rgba(238, 242, 249, 0.82);
+}
+
+.about-language-label {
+  color: rgba(245, 248, 252, 0.96);
+}
+
 .math-section {
   background:
     radial-gradient(900px 500px at 6% 10%, rgba(255, 255, 255, 0.15), transparent 62%),
@@ -2440,6 +2451,12 @@ html.menu-scroll-locked,
   .lang-pill {
     width: 108px;
   }
+}
+
+.about-overlay p.about-language-note,
+html:lang(en) .about-overlay p.about-language-note {
+  font-size: 12.5px;
+  line-height: 1.62;
 }
 
 @media print {
