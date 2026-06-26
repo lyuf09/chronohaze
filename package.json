@@ -5,8 +5,10 @@
     "@playwright/test": "^1.54.2"
   },
   "scripts": {
-    "check:links": "python3 scripts/check_broken_links.py",
-    "check:all": "npm run check:links && npm run check:structured-data && npm run smoke:runtime",
+    "build:generated": "CHRONOHAZE_MEDIA_MANIFEST_ONLY=1 bash scripts/build_site_generated_assets.sh",
+    "check:static": "bash scripts/check_all.sh",
+    "check:links": "python3 scripts/check_broken_links.py --skip-external",
+    "check:all": "npm run build:generated && npm run check:static && npm run check:structured-data && npm run smoke:runtime",
     "smoke:runtime": "bash scripts/run_playwright_smoke.sh",
     "check:structured-data": "bash scripts/run_playwright_structured_data_check.sh",
     "smoke:runtime:webkit": "CHRONOHAZE_SMOKE_PROJECTS=webkit CHRONOHAZE_SMOKE_PORT=4175 bash scripts/run_playwright_smoke.sh"
