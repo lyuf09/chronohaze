@@ -58,12 +58,13 @@
       if (!value) return;
       var p = document.createElement("p");
       p.className = "research-project-line" + (extraClass ? " " + extraClass : "");
-      p.innerHTML =
-        "<strong>" +
-        label +
-        ":</strong><span class=\"research-project-line-body\">" +
-        value +
-        "</span>";
+      var strong = document.createElement("strong");
+      strong.textContent = label + ":";
+      var body = document.createElement("span");
+      body.className = "research-project-line-body";
+      body.textContent = value;
+      p.appendChild(strong);
+      p.appendChild(body);
       card.appendChild(p);
     }
 

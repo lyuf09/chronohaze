@@ -198,7 +198,7 @@
       <div class="container footer-grid">
         <div>
           <p class="footer-title">chronohaze.space</p>
-          <p class="footer-note"><span data-i18n="footerContactLead">辗转不同国家无固定号码 请联系邮箱：</span><a href="mailto:feier530@icloud.com">feier530@icloud.com</a></p>
+          <p class="footer-note"><span data-i18n="footerContactLead">辗转不同国家无固定号码 请联系邮箱：</span><a href="#" data-note-email-link="1">moc.duolci@035reief</a></p>
           <p class="footer-note" data-i18n="footerCities">重庆 · Edinburgh · Ithaca</p>
           <p class="footer-copy">© 2026 by chronohaze.space. Powered and secured by GitHub Pages.</p>
           <div class="social" aria-label="Social links">
@@ -274,6 +274,18 @@
       const i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
       const noteNodes = Array.from(document.querySelectorAll('[data-note-i18n]'));
       const langButtons = Array.from(document.querySelectorAll('[data-note-lang]'));
+      const emailLinks = Array.from(document.querySelectorAll('[data-note-email-link="1"]'));
+
+      function enhanceEmailLinks() {
+        const user = 'feier530';
+        const domain = ['icloud', 'com'].join('.');
+        const address = [user, domain].join('@');
+        emailLinks.forEach(function (link) {
+          link.href = 'mailto:' + address;
+          link.textContent = address;
+          link.setAttribute('aria-label', 'Email ' + address);
+        });
+      }
 
       function setLanguage(lang) {
         const safeLang = lang === 'en' ? 'en' : 'zh';
@@ -321,6 +333,7 @@
         });
       });
 
+      enhanceEmailLinks();
       setLanguage(initialLang);
     })();
   </script>

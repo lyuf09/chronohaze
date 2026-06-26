@@ -48,11 +48,20 @@ echo "[9/10] Public contact leak grep"
 EMAIL_LOCAL="feier530"
 EMAIL_DOMAIN_REGEX="icloud\\.com"
 EMAIL_PATTERN="${EMAIL_LOCAL}@${EMAIL_DOMAIN_REGEX}"
+PUBLIC_CONTACT_SCAN_TARGETS=(
+  "$ROOT"/*.html
+  "$ROOT/assets/search-index.json"
+  "$ROOT/assets/search-data"
+  "$ROOT/music"
+  "$ROOT/notes"
+  "$ROOT/photo"
+  "$ROOT/post"
+)
 if rg -n "${EMAIL_PATTERN}|mailto:${EMAIL_PATTERN}" \
-  "$ROOT/assets/search-index.json" "$ROOT/assets/search-data" >/dev/null 2>&1; then
-  echo "ERROR: raw public email found in search artifacts"
+  "${PUBLIC_CONTACT_SCAN_TARGETS[@]}" >/dev/null 2>&1; then
+  echo "ERROR: raw public email found in public site artifacts"
   rg -n "${EMAIL_PATTERN}|mailto:${EMAIL_PATTERN}" \
-    "$ROOT/assets/search-index.json" "$ROOT/assets/search-data"
+    "${PUBLIC_CONTACT_SCAN_TARGETS[@]}"
   exit 1
 fi
 
