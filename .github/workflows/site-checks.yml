@@ -54,12 +54,7 @@ jobs:
             npx playwright install --with-deps chromium
           fi
 
-      - name: Build generated data and media manifests
-        env:
-          CHRONOHAZE_MEDIA_MANIFEST_ONLY: "1"
-        run: bash scripts/build_site_generated_assets.sh
-
-      - name: Run consistency and drift checks
+      - name: Build generated data and run consistency checks
         run: bash scripts/check_all.sh
 
       - name: Run runtime smoke (Playwright)

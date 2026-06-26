@@ -39,12 +39,7 @@ jobs:
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
-      - name: Build generated data and media manifests
-        env:
-          CHRONOHAZE_MEDIA_MANIFEST_ONLY: "1"
-        run: bash scripts/build_site_generated_assets.sh
-
-      - name: Run pre-deploy consistency checks
+      - name: Build generated data and run pre-deploy consistency checks
         run: bash scripts/check_all.sh
 
       - name: Prepare site

@@ -7,6 +7,15 @@ echo "== Chronohaze checks =="
 echo "Root: $ROOT"
 
 echo
+if [[ "${CHRONOHAZE_SKIP_GENERATED_BUILD:-0}" == "1" ]]; then
+  echo "[0/10] Build generated data and assets (skipped)"
+else
+  echo "[0/10] Build generated data and assets"
+  export CHRONOHAZE_MEDIA_MANIFEST_ONLY="${CHRONOHAZE_MEDIA_MANIFEST_ONLY:-1}"
+  bash "$ROOT/scripts/build_site_generated_assets.sh"
+fi
+
+echo
 echo "[1/10] Site consistency"
 python3 "$ROOT/scripts/check_site_consistency.py" --root "$ROOT"
 
