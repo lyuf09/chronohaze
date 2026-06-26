@@ -129,7 +129,7 @@
       url: CHRONOHAZE_SITE_URL,
       image: CHRONOHAZE_SITE_URL + "assets/template/hero_portrait-1600.jpg",
       description:
-        "Fay / Feier Lyu, also known as HazezZ, is a mathematics student at The University of Edinburgh, currently on exchange at Cornell University, working in Operational Research for Machine Learning with interests in optimization, formal verification, and mathematical modeling.",
+        "Fay / Feier Lyu, also known as HazezZ, is a mathematics student at The University of Edinburgh who completed an exchange year at Cornell University in 2025–2026, working in Operational Research for Machine Learning with interests in optimization, formal verification, and mathematical modeling.",
       alumniOf: {
         "@type": "CollegeOrUniversity",
         name: "The University of Edinburgh",
