@@ -142,6 +142,89 @@ test("secondary pages keep mobile nav within the viewport", async ({ page }, tes
   }
 });
 
+test("academic page isolates languages and renders formalization evidence", async ({ page }, testInfo) => {
+  const errors = trackPageErrors(page);
+
+  await page.goto("academic.html?lang=zh", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+
+  const evidence = page.locator("#academic-proof-evidence");
+  await expect(evidence).toBeVisible();
+  await expect(evidence.locator('[data-lang-block="zh"]')).toBeVisible();
+  await expect(evidence.locator('[data-lang-block="en"]')).toBeHidden();
+  await expect(evidence.locator('[data-lang-block="zh"] .academic-evidence-list li')).toHaveCount(3);
+  await expect(page.locator("html")).toHaveAttribute("lang", "zh-CN");
+
+  await page.goto("academic.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+
+  await expect(evidence.locator('[data-lang-block="zh"]')).toBeHidden();
+  await expect(evidence.locator('[data-lang-block="en"]')).toBeVisible();
+  await expect(page.locator("html")).toHaveAttribute("lang", "en");
+  await expect(page.getByText("Formalization evidence", { exact: true })).toBeVisible();
+
+  const metrics = await page.evaluate(() => ({
+    viewport: window.innerWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
+  expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.viewport + 2);
+
+  await evidence.screenshot({
+    path: `/tmp/chronohaze-academic-evidence-${testInfo.project.name}.png`,
+  });
+  expect(errors).toEqual([]);
+});
+
+test("photography vocabulary and Blue still frames render without overflow", async ({ page }, testInfo) => {
+  const errors = trackPageErrors(page);
+
+  await page.goto("photography.html?lang=zh", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+
+  await expect(page.locator(".photo-vocabulary")).toBeVisible();
+  await expect(page.locator(".photo-vocabulary")).toContainText("蓝灰色光线");
+  await expect(page.locator(".photo-feature-why")).toHaveCount(3);
+
+  const photographyMetrics = await page.evaluate(() => ({
+    viewport: window.innerWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
+  expect(photographyMetrics.scrollWidth).toBeLessThanOrEqual(photographyMetrics.viewport + 2);
+
+  await page.locator(".photo-vocabulary").screenshot({
+    path: `/tmp/chronohaze-photo-vocabulary-${testInfo.project.name}.png`,
+  });
+
+  await page.route("**/assets/template/blue.mp4", (route) => route.abort());
+  await page.goto("photo/blue.html?lang=zh", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+
+  await expect(page.locator(".photo-blue-statement")).toContainText("同一个记忆空间");
+  await expect(page.locator(".photo-blue-still-grid img")).toHaveCount(5);
+  await expect
+    .poll(async () => {
+      return page.locator(".photo-blue-still-grid img").evaluateAll((images) => {
+        return images.filter((image) => image.complete && image.naturalWidth > 0).length;
+      });
+    })
+    .toBe(5);
+
+  const blueMetrics = await page.evaluate(() => ({
+    viewport: window.innerWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+    columns: getComputedStyle(document.querySelector(".photo-blue-still-grid")).gridTemplateColumns,
+  }));
+  expect(blueMetrics.scrollWidth).toBeLessThanOrEqual(blueMetrics.viewport + 2);
+  if (testInfo.project.name === "iphone13") {
+    expect(blueMetrics.columns.trim().split(/\s+/)).toHaveLength(1);
+  }
+
+  await page.locator(".photo-blue-stills").screenshot({
+    path: `/tmp/chronohaze-blue-stills-${testInfo.project.name}.png`,
+  });
+  expect(errors).toEqual([]);
+});
+
 test("photo detail page supports keyboard prev/next navigation", async ({ page }) => {
   const errors = trackPageErrors(page);
   await page.goto("photo/photo-01.html", { waitUntil: "domcontentloaded" });

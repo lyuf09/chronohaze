@@ -215,6 +215,7 @@
   </script>
   <link rel="preload" href="assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="styles.min.css?v=20260609-mobile-safari-archive4" />
+  <link rel="stylesheet" href="assets/css/editorial-evidence.css?v=20260627" />
   <link rel="stylesheet" href="assets/css/academic-mobile.css?v=20260418-mobile1" />
   <script defer src="protect-media.min.js?v=20260621-nested-assets1"></script>
 </head>
@@ -256,7 +257,7 @@
             <div data-lang-block="zh">
               <p class="research-eyebrow">Academic Landing</p>
               <h1>学术</h1>
-              <p class="research-subtitle">优化 · 形式化证明 · OR for ML</p>
+              <p class="research-subtitle">优化理论 · 形式化验证 · 机器学习理论</p>
               <p class="research-positioning">我现在是爱丁堡大学数学本科生。我的主要兴趣在优化理论、形式化证明，以及机器学习问题中可以被数学结构化处理的部分。</p>
               <p class="research-positioning">目前我主要做两条线：一条是把一阶优化算法和近似算法的证明整理成 Isabelle/HOL 中可检查的形式化对象；另一条是围绕非凸优化、minimax 与 localization 问题，写一些技术笔记，尝试把算法直觉、几何结构和可证明的结论连接起来。</p>
               <p class="research-positioning">这个页面不是完整的 publication list，更像是我目前学术工作的入口：包括已经形式化的项目、正在整理的研究笔记，以及一些还在发展中的问题。</p>
@@ -264,10 +265,97 @@
             <div data-lang-block="en" hidden>
               <p class="research-eyebrow">Academic Landing</p>
               <h1>Academic</h1>
-              <p class="research-subtitle">A clear entry page: directions, evidence, then notes over time</p>
-              <p class="research-positioning">My current academic work is organized through an OR-for-ML lens, with a recurring interest in making optimization, formal verification, and structured modeling explicit enough to be checked, reused, and extended.</p>
-              <p class="research-positioning">This section is organized around three layers: current research directions, problem framing, and representative work. Readers can begin with the research lines and then move to project materials or technical notes as needed.</p>
+              <p class="research-subtitle">Optimization theory · formal verification · machine learning theory</p>
+              <p class="research-positioning">I am a mathematics undergraduate at the University of Edinburgh. My research interests lie at the intersection of optimization theory, formal verification, and the parts of machine learning that can be treated through explicit mathematical structure.</p>
+              <p class="research-positioning">I currently work along two lines: turning proofs for first-order and approximation algorithms into checkable Isabelle/HOL objects, and developing technical notes around nonconvex optimization, minimax problems, localization, value functions, and second-order tracking.</p>
               <p class="research-positioning">Some of these projects are mature formal developments; others are exploratory research notes. I keep both on the site because I care about showing not only final outputs, but also how a problem becomes structured enough to be checked.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section academic-proof-section" id="academic-proof-evidence">
+        <div class="container">
+          <div data-lang-block="zh">
+            <div class="academic-proof-layout">
+              <div class="academic-proof-note">
+                <p class="academic-proof-kicker">WHAT MAKES THIS UNUSUAL</p>
+                <h2>为什么这条线有点不寻常</h2>
+                <p>我感兴趣的不是只把一个定理重新证明一遍，而是把证明拆成可以复用、可以检查、可以继续生长的结构。</p>
+                <p>在 Isabelle/HOL 里，这意味着把论文中常被一句话带过的推理，变成显式的 definitions、invariants、interfaces 和 reusable lemmas。</p>
+                <p>在子模优化项目中，这条线已经从“证明某一个结果”转向区分 classical greedy、LazyGreedy 与 StochasticGreedy 的分层结构。</p>
+              </div>
+              <div class="academic-evidence">
+                <p class="academic-proof-kicker">PROOF OBJECTS / FORMALIZATION EVIDENCE</p>
+                <h2>形式化证据</h2>
+                <ol class="academic-evidence-list">
+                  <li>
+                    <span class="academic-evidence-index">01</span>
+                    <div>
+                      <h3>Submodular Greedy Algorithms in Isabelle/HOL</h3>
+                      <p>AFP-facing development · classical greedy / LazyGreedy / StochasticGreedy · approximation guarantees</p>
+                      <a href="post/theorem-to-framework-isabelle-submodular.html">查看形式化笔记</a>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="academic-evidence-index">02</span>
+                    <div>
+                      <h3>First-Order Methods for Smooth Convex Optimization</h3>
+                      <p>GD / PGD / projected gradient mapping / linear convergence under strong convexity</p>
+                      <a href="post/projected-gradient-descent-isabelle-hol.html">查看项目笔记</a>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="academic-evidence-index">03</span>
+                    <div>
+                      <h3>Technical Notes</h3>
+                      <p>TTGDA · value-function viewpoint · second-order tracking</p>
+                      <a href="notes/ttgda_second_order_tracking_note.html">查看技术笔记</a>
+                    </div>
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </div>
+          <div data-lang-block="en" hidden>
+            <div class="academic-proof-layout">
+              <div class="academic-proof-note">
+                <p class="academic-proof-kicker">WHAT MAKES THIS UNUSUAL</p>
+                <h2>Why this line is unusual</h2>
+                <p>I am not interested only in proving a theorem again. I want to decompose a proof into structures that can be reused, checked, and extended.</p>
+                <p>In Isabelle/HOL, this means turning reasoning often compressed into a single sentence in a paper into explicit definitions, invariants, interfaces, and reusable lemmas.</p>
+                <p>In the submodular optimization project, this has already shifted the goal from proving one result to building a layered structure for classical greedy, LazyGreedy, and StochasticGreedy.</p>
+              </div>
+              <div class="academic-evidence">
+                <p class="academic-proof-kicker">PROOF OBJECTS / FORMALIZATION EVIDENCE</p>
+                <h2>Formalization evidence</h2>
+                <ol class="academic-evidence-list">
+                  <li>
+                    <span class="academic-evidence-index">01</span>
+                    <div>
+                      <h3>Submodular Greedy Algorithms in Isabelle/HOL</h3>
+                      <p>AFP-facing development · classical greedy / LazyGreedy / StochasticGreedy · approximation guarantees</p>
+                      <a href="post/theorem-to-framework-isabelle-submodular.html">Formalization note</a>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="academic-evidence-index">02</span>
+                    <div>
+                      <h3>First-Order Methods for Smooth Convex Optimization</h3>
+                      <p>GD / PGD / projected gradient mapping / linear convergence under strong convexity</p>
+                      <a href="post/projected-gradient-descent-isabelle-hol.html">Project note</a>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="academic-evidence-index">03</span>
+                    <div>
+                      <h3>Technical Notes</h3>
+                      <p>TTGDA · value-function viewpoint · second-order tracking</p>
+                      <a href="notes/ttgda_second_order_tracking_note.html">Technical note</a>
+                    </div>
+                  </li>
+                </ol>
+              </div>
             </div>
           </div>
         </div>
