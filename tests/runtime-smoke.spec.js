@@ -80,10 +80,10 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   const cvEnglish = page.locator('[data-lang-block="en"]');
   await expect(page.locator(".cv-utility-bar")).toBeVisible();
   await expect(page.locator("a.cv-research-link")).toBeVisible();
-  await expect(cvEnglish.getByText("Expected graduation: 2027", { exact: true })).toBeVisible();
+  await expect(cvEnglish.locator("#cv-en-highlights")).toContainText("Expected graduation: 2027");
   await expect(cvEnglish.getByRole("heading", { name: "Selected Evidence" })).toBeVisible();
   await expect(cvEnglish.getByRole("link", { name: "Isabelle/HOL formalization repo" })).toBeVisible();
-  await expect(cvEnglish.getByText("Location: currently between Chongqing, Edinburgh, and Ithaca", { exact: true })).toBeVisible();
+  await expect(cvEnglish.locator("#cv-en-experience")).toContainText("Location: currently between Chongqing, Edinburgh, and Ithaca");
 
   await page.goto("research.html", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
