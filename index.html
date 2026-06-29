@@ -338,7 +338,7 @@
             <article class="now-card" data-reveal="slide-up" data-reveal-delay="80">
               <h3 data-i18n="nowCard1Title">Isabelle / 子模优化形式化</h3>
               <p data-i18n="nowCard1Body">我的 Isabelle/HOL 形式化项目 Greedy Algorithms for Cardinality-Constrained Submodular Maximization 已正式发表于 Archive of Formal Proofs。这个 entry 形式化了基数约束下单调非负子模最大化的 classical greedy 近似保证，并包含一个基于 cached marginal-gain upper bounds 的 stateful lazy greedy 变体。</p>
-              <nav class="now-card-links" aria-label="AFP publication evidence">
+              <nav class="research-link-row now-card-links" aria-label="AFP publication evidence">
                 <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
                 <span aria-hidden="true">·</span>
                 <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">GitHub repo</a>
@@ -396,7 +396,7 @@
               <h3 data-copy-zh="Greedy Algorithms for Cardinality-Constrained Submodular Maximization" data-copy-en="Greedy Algorithms for Cardinality-Constrained Submodular Maximization">Greedy Algorithms for Cardinality-Constrained Submodular Maximization</h3>
               <p data-copy-zh="A formally verified Isabelle/HOL development of the classical greedy approximation guarantee for monotone non-negative submodular maximization under a cardinality constraint, together with a verified stateful lazy greedy variant." data-copy-en="A formally verified Isabelle/HOL development of the classical greedy approximation guarantee for monotone non-negative submodular maximization under a cardinality constraint, together with a verified stateful lazy greedy variant.">A formally verified Isabelle/HOL development of the classical greedy approximation guarantee for monotone non-negative submodular maximization under a cardinality constraint, together with a verified stateful lazy greedy variant.</p>
               <p class="math-afp-summary-zh">已正式发表于 AFP；包含 classical greedy 近似保证与 verified stateful lazy greedy variant。</p>
-              <nav class="math-evidence-links" aria-label="AFP entry evidence">
+              <nav class="research-link-row math-evidence-links" aria-label="AFP entry evidence">
                 <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">View AFP entry</a>
                 <span aria-hidden="true">·</span>
                 <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf" target="_blank" rel="noopener noreferrer">Proof document</a>
@@ -505,19 +505,6 @@
       const i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
       let drawerLinks = Array.from(drawer.querySelectorAll('a'));
       let homeMathItems = null;
-      const homeAfpEvidenceItem = {
-        kind: 'afp-entry',
-        url: 'https://isa-afp.org/entries/Submodular_Greedy.html#',
-        title: 'Greedy Algorithms for Cardinality-Constrained Submodular Maximization',
-        title_en: 'Greedy Algorithms for Cardinality-Constrained Submodular Maximization',
-        excerpt: 'A formally verified Isabelle/HOL development of the classical greedy approximation guarantee for monotone non-negative submodular maximization under a cardinality constraint, together with a verified stateful lazy greedy variant.',
-        excerpt_en: 'A formally verified Isabelle/HOL development of the classical greedy approximation guarantee for monotone non-negative submodular maximization under a cardinality constraint, together with a verified stateful lazy greedy variant.',
-        summary_zh: '已正式发表于 AFP；包含 classical greedy 近似保证与 verified stateful lazy greedy variant。',
-        reading_time_zh: 'AFP entry · Isabelle/HOL / Approximation Algorithms · May 2026',
-        reading_time_en: 'AFP entry · Isabelle/HOL / Approximation Algorithms · May 2026',
-        proof_document_url: 'https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf',
-        repository_url: 'https://github.com/lyuf09/isabelle-submodular-greedy'
-      };
       let menuScrollY = 0;
       let lastMenuFocus = null;
 
@@ -609,13 +596,10 @@
           nowStatusLabel: 'Now',
           nowStatusBody: '重庆 / Edinburgh / Ithaca 之间。整理 Cornell 交换后的研究材料，推进 Isabelle/HOL 中的优化形式化，继续写 minimax / localization 相关技术笔记；同时准备新的 bass / guitar performance videos 和摄影整理。',
           nowFreshnessLabel: '近况更新',
-          nowCard1Label: 'Now',
           nowCard1Title: 'Isabelle / 子模优化形式化',
           nowCard1Body: '我的 Isabelle/HOL 形式化项目 Greedy Algorithms for Cardinality-Constrained Submodular Maximization 已正式发表于 Archive of Formal Proofs。这个 entry 形式化了基数约束下单调非负子模最大化的 classical greedy 近似保证，并包含一个基于 cached marginal-gain upper bounds 的 stateful lazy greedy 变体。',
-          nowCard2Label: 'Currently working on',
           nowCard2Title: 'Performance Video Plan',
           nowCard2Body: '正在准备一组制作完成度更高的 bass / guitar performance videos，从 ERRA 风格的新派前卫核作品开始，重点提升画面、音色、低频和整体制作质感。',
-          nowCard3Label: 'Recently',
           nowCard3Title: 'Cornell 交换年研究',
           nowCard3Body: '在 Cornell 交换期间，我继续研究一个与 structural score 和 dual certificates 相关的问题：普通 Lagrangian dual 容易退化到 trivial bound，而 conjugate-dual 路线可能保留 nontrivial 信息。',
           selectedEvidenceTitle: 'Selected Evidence',
@@ -630,14 +614,6 @@
           selectedEvidenceCard4Body: '精选视觉系列，以及融合摄影、剪辑、钢琴配乐与实体媒介的 A-Level moving-image final outcome。',
           mathTitle: '数学',
           mathLead: '这里收集我近期关于优化、形式化证明与极小极大问题的研究笔记；有些是正在形成中的想法，也有些是已整理成可公开阅读的技术记录。',
-          card1Title: 'Spring 2026｜新科研记录的开始',
-          card1Body: '2026 年春季，我正式开始在康奈尔大学 ORIE 系进行本科科研项目，导师为 Shoham Sabach 教授。在此之前我已经有过其他方向的研究训练，持续在 Isabelle 等工具支持下探索将严格的数学结构表达为可验证的逻辑体系。虽然相关工作仍在推进之中，但这段经历也让我逐渐熟悉了开放性问题的研究节奏。',
-          card2Title: '一个正在进行的 Isabelle 研究项目：Submodular Greedy 的形式化',
-          card2Body: '在上一篇文章《我的第一个 Isabelle 形式化证明》中，我更多写的是我为什么选择 Isabelle，以及形式化证明对我而言意味着什么。这篇文章我想更具体地记录一个正在进行中的研究项目，单调子模函数下贪心算法的 (1−1/e) 近似保证的 Isabelle 形式化。这不是一个已经完成的成果展示，而是一份阶段性的研究记录。',
-          card3Title: '我的第一个 Isabelle 形式化证明',
-          card3Body: '有些证明想被刻在更坚固的地方。纸上的推导可以泛黄，黑板上的公式终将被擦去，但形式化证明留下的，是可以被反复验证的真理。我在做的主题和 submodular function 以及 greedy algorithm 相关，正在尝试形式化 Nemhauser–Wolsey theorem 的证明。',
-          card4Title: 'Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP）',
-          card4Body: '有时候我会觉得音乐里最数学的部分不是和声或调式，而是节奏如何从连续变成可数。把连续音频映射到离散谱面，本质上是一条结构化的离散化流水线。',
           cardMoreLabel: '查看更多',
           cardMoreTitle: '数学文章合集',
           cardMoreBody: '查看完整的数学栏目文章列表与更新记录。',
@@ -685,13 +661,10 @@
           nowStatusLabel: 'Now',
           nowStatusBody: 'Between Chongqing, Edinburgh, and Ithaca. I’m organizing research materials from my Cornell exchange, advancing optimization formalization in Isabelle/HOL, and continuing technical notes on minimax / localization; in parallel, I’m preparing new bass / guitar performance videos and editing photography work.',
           nowFreshnessLabel: 'Last updated',
-          nowCard1Label: 'Now',
           nowCard1Title: 'Isabelle / Submodular Optimization',
           nowCard1Body: 'My Isabelle/HOL formalization Greedy Algorithms for Cardinality-Constrained Submodular Maximization is now published in the Archive of Formal Proofs. It formalizes the classical greedy approximation guarantee for monotone non-negative submodular maximization under a cardinality constraint and includes a stateful lazy greedy variant based on cached marginal-gain upper bounds.',
-          nowCard2Label: 'Currently working on',
           nowCard2Title: 'Performance Video Plan',
           nowCard2Body: 'I’m preparing a more fully produced series of bass / guitar performance videos, beginning with modern progressive-metalcore pieces in the vein of ERRA, with a focus on stronger visuals, tone, low-end, and overall production.',
-          nowCard3Label: 'Recently',
           nowCard3Title: 'Cornell exchange-year research',
           nowCard3Body: 'During the Cornell exchange, I continued studying a question related to structural scores and dual certificates: ordinary Lagrangian dual routes tend to degenerate to trivial bounds, while a conjugate-dual route may preserve nontrivial information.',
           selectedEvidenceTitle: 'Selected Evidence',
@@ -706,14 +679,6 @@
           selectedEvidenceCard4Body: 'Selected visual series and A-level moving-image final outcome combining photography, editing, piano score, and physical media.',
           mathTitle: 'Mathematics',
           mathLead: 'This section collects my recent research notes on optimization, formal proof, and minimax problems; some are ideas still taking shape, while others have been organized into public technical records.',
-          card1Title: 'Spring 2026 | A New Research Direction',
-          card1Body: 'In Spring 2026, I began an undergraduate research project in the ORIE department at Cornell, under the supervision of Professor Shoham Sabach.',
-          card2Title: 'An Ongoing Isabelle Research Project: Formalising Submodular Greedy',
-          card2Body: 'In my previous post “My First Isabelle Formalization Project”, I mainly wrote about why I chose Isabelle and what formalisation means to me as a way of doing mathematics. This is not a presentation of a finished result, but a record of work in progress.',
-          card3Title: 'My First Isabelle Formalization Project',
-          card3Body: 'Some proofs deserve to be carved into something more solid. What’s written on paper may fade, what’s drawn on the blackboard may be erased,but a formalized proof remains, verifiable and reproducible.',
-          card4Title: 'Metalcore Piano Lab | From Audio to Chart: A Discretization Experiment (WIP)',
-          card4Body: 'Sometimes I feel that the most mathematical part of music isn’t harmony or modality, but how rhythm turns something continuous into something countable.',
           cardMoreLabel: 'View All',
           cardMoreTitle: 'Mathematics Archive',
           cardMoreBody: 'Browse the full list of math posts and updates.',
@@ -808,9 +773,10 @@
 
       function renderHomeMathPreview(items) {
         if (!homeMathPreview || !Array.isArray(items) || !items.length) return;
-        homeMathItems = items.slice(0, 4);
+        homeMathItems = items.slice(0, 3);
+        const afpCard = homeMathPreview.querySelector('.math-afp-card');
         const dict = i18n[currentLang] || i18n.zh;
-        const delays = [40, 140, 240, 340];
+        const delays = [140, 240, 340];
         const combineMeta = function (primary, secondary) {
           const first = typeof primary === 'string' ? primary.trim() : '';
           const second = typeof secondary === 'string' ? secondary.trim() : '';
@@ -827,8 +793,6 @@
             const notesRoot = new URL('notes/', window.location.href).pathname;
             const isPost = url.pathname.startsWith(postRoot) && /\.html$/i.test(url.pathname);
             const isNote = url.pathname.startsWith(notesRoot) && /\.(?:html|pdf)$/i.test(url.pathname);
-            const isAfpEntry = url.origin === 'https://isa-afp.org' && url.pathname === '/entries/Submodular_Greedy.html';
-            if (isAfpEntry) return url.href;
             if (url.origin !== window.location.origin) return '#';
             if (!isPost && !isNote) return '#';
             return url.pathname + url.search + url.hash;
@@ -839,7 +803,6 @@
 
         const fragment = document.createDocumentFragment();
         homeMathItems.forEach(function (item, idx) {
-          const isAfpEntry = item && item.kind === 'afp-entry';
           const href = safeHref(item && (item.url || item.readmore_url) ? String(item.url || item.readmore_url) : '');
           const titleZh = item && item.title ? String(item.title) : '';
           const titleEn = item && item.title_en ? String(item.title_en) : titleZh;
@@ -852,14 +815,12 @@
           const delay = delays[idx] || (40 + idx * 100);
 
           const article = document.createElement('article');
-          if (!isAfpEntry) {
-            article.dataset.postUrl = href;
-            article.tabIndex = 0;
-            article.setAttribute('role', 'link');
-          }
+          article.dataset.postUrl = href;
+          article.tabIndex = 0;
+          article.setAttribute('role', 'link');
           article.setAttribute('data-reveal', 'slide-up');
           article.setAttribute('data-reveal-delay', String(delay));
-          article.className = isAfpEntry ? 'math-afp-card is-visible' : 'is-visible';
+          article.className = 'is-visible';
 
           const author = document.createElement('p');
           author.className = 'author';
@@ -886,40 +847,11 @@
           article.appendChild(author);
           article.appendChild(title);
           article.appendChild(excerpt);
-          if (isAfpEntry) {
-            const summaryZh = document.createElement('p');
-            summaryZh.className = 'math-afp-summary-zh';
-            summaryZh.textContent = item.summary_zh || '';
-            article.appendChild(summaryZh);
-
-            const links = document.createElement('nav');
-            links.className = 'math-evidence-links';
-            links.setAttribute('aria-label', 'AFP entry evidence');
-            [
-              ['View AFP entry', href],
-              ['Proof document', item.proof_document_url],
-              ['Repository', item.repository_url]
-            ].forEach(function (entry, linkIndex) {
-              if (linkIndex > 0) {
-                const separator = document.createElement('span');
-                separator.setAttribute('aria-hidden', 'true');
-                separator.textContent = '·';
-                links.appendChild(separator);
-              }
-              const evidenceLink = document.createElement('a');
-              evidenceLink.href = entry[1];
-              evidenceLink.target = '_blank';
-              evidenceLink.rel = 'noopener noreferrer';
-              evidenceLink.textContent = entry[0];
-              links.appendChild(evidenceLink);
-            });
-            article.appendChild(links);
-          } else {
-            article.appendChild(link);
-          }
+          article.appendChild(link);
           fragment.appendChild(article);
         });
 
+        if (afpCard) fragment.insertBefore(afpCard, fragment.firstChild);
         homeMathPreview.replaceChildren(fragment);
         bindMathCards();
         syncHomeMathPreviewCopy();
@@ -946,10 +878,7 @@
           })
           .then(function (payload) {
             if (!payload || !Array.isArray(payload.items) || !payload.items.length) return;
-            const recentNotes = payload.items
-              .filter(function (item) { return item && item.url !== homeAfpEvidenceItem.url; })
-              .slice(0, 3);
-            renderHomeMathPreview([homeAfpEvidenceItem].concat(recentNotes));
+            renderHomeMathPreview(payload.items.slice(0, 3));
           })
           .catch(function () {
           });
