@@ -23,6 +23,9 @@ test("home page renders hero and player shell", async ({ page }) => {
   await expect(page.locator(".hero-portrait")).toBeVisible();
   await expect(page.locator("#playerShell")).toBeVisible();
   await expect(page.locator("#playerTime")).not.toHaveText(/^$/);
+  await expect(page.locator("#selected-evidence")).toBeVisible();
+  await expect(page.locator(".selected-evidence-card")).toHaveCount(4);
+  await expect(page.getByRole("heading", { name: "Selected Evidence" })).toBeVisible();
 
   expect(errors).toEqual([]);
 });
@@ -72,10 +75,14 @@ test("search page loads grouped results and query state works", async ({ page })
 test("cv and research pages render key faculty-entry nodes", async ({ page }) => {
   const errors = trackPageErrors(page);
 
-  await page.goto("cv.html", { waitUntil: "domcontentloaded" });
+  await page.goto("cv.html?lang=en", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
   await expect(page.locator(".cv-utility-bar")).toBeVisible();
   await expect(page.locator("a.cv-research-link")).toBeVisible();
+  await expect(page.getByText("Expected graduation: 2027", { exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Selected Evidence" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Isabelle/HOL formalization repo" })).toBeVisible();
+  await expect(page.getByText("Location: currently between Chongqing, Edinburgh, and Ithaca", { exact: true })).toBeVisible();
 
   await page.goto("research.html", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
