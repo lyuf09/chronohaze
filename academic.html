@@ -565,6 +565,11 @@
       var i18nNodes = Array.from(document.querySelectorAll("[data-i18n]"));
       var i18nAriaNodes = Array.from(document.querySelectorAll("[data-i18n-aria]"));
       var langBlocks = Array.from(document.querySelectorAll("[data-lang-block]"));
+      var langBlockRecords = langBlocks.map(function (block) {
+        var marker = document.createComment("language-block");
+        block.parentNode.insertBefore(marker, block);
+        return { block: block, marker: marker };
+      });
       var i18n = {
         zh: {
           htmlLang: "zh-CN",
@@ -626,14 +631,23 @@
           }
         });
 
-        langBlocks.forEach(function (block) {
-          var hidden = block.getAttribute("data-lang-block") !== safeLang;
-          block.hidden = hidden;
-          block.setAttribute("aria-hidden", hidden ? "true" : "false");
+        langBlockRecords.forEach(function (record) {
+          var block = record.block;
+          var active = block.getAttribute("data-lang-block") === safeLang;
+          block.hidden = !active;
+          block.setAttribute("aria-hidden", active ? "false" : "true");
           if ("inert" in block) {
-            block.inert = hidden;
+            block.inert = !active;
+          }
+
+          if (active && !block.isConnected && record.marker.parentNode) {
+            record.marker.parentNode.insertBefore(block, record.marker.nextSibling);
+          } else if (!active && block.isConnected) {
+            block.remove();
           }
         });
+
+        document.body.setAttribute("data-rendered-lang", safeLang);
 
         try {
           window.localStorage.setItem("siteLang", safeLang);

@@ -151,16 +151,18 @@ test("academic page isolates languages and renders formalization evidence", asyn
   const evidence = page.locator("#academic-proof-evidence");
   await expect(evidence).toBeVisible();
   await expect(evidence.locator('[data-lang-block="zh"]')).toBeVisible();
-  await expect(evidence.locator('[data-lang-block="en"]')).toBeHidden();
+  await expect(page.locator('main [data-lang-block="en"]')).toHaveCount(0);
   await expect(evidence.locator('[data-lang-block="zh"] .academic-evidence-list li')).toHaveCount(3);
   await expect(page.locator("html")).toHaveAttribute("lang", "zh-CN");
+  await expect(page.locator("body")).toHaveAttribute("data-rendered-lang", "zh");
 
   await page.goto("academic.html?lang=en", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
 
-  await expect(evidence.locator('[data-lang-block="zh"]')).toBeHidden();
+  await expect(page.locator('main [data-lang-block="zh"]')).toHaveCount(0);
   await expect(evidence.locator('[data-lang-block="en"]')).toBeVisible();
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
+  await expect(page.locator("body")).toHaveAttribute("data-rendered-lang", "en");
   await expect(page.getByText("Formalization evidence", { exact: true })).toBeVisible();
 
   const metrics = await page.evaluate(() => ({
