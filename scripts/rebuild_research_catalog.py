@@ -276,6 +276,7 @@ def parse_research_page(text: str) -> Dict[str, Any]:
             kind_m = re.search(r'<p class="research-project-kind">(.*?)</p>', body, re.S)
             title_m = re.search(r"<h3>(.*?)</h3>", body, re.S)
             field_map: Dict[str, str] = {}
+            unlabeled_paragraphs: List[str] = []
             for p_m in re.finditer(r"<p[^>]*>(.*?)</p>", body, re.S):
                 p_body = p_m.group(1) or ""
                 p_full = p_m.group(0) or ""
@@ -300,6 +301,9 @@ def parse_research_page(text: str) -> Dict[str, Any]:
                     continue
                 label_m = re.match(r"\s*<strong>([^<:]+):</strong>\s*(.*)$", p_body, re.S)
                 if not label_m:
+                    paragraph_text = clean(p_body)
+                    if paragraph_text:
+                        unlabeled_paragraphs.append(paragraph_text)
                     continue
                 label = clean(label_m.group(1)).lower().replace(" ", "_")
                 label_aliases = {
@@ -310,6 +314,13 @@ def parse_research_page(text: str) -> Dict[str, Any]:
                 }
                 label = label_aliases.get(label, label)
                 field_map[label] = clean(label_m.group(2))
+            # Newer research cards use concise prose rather than explicit field labels.
+            # Preserve those paragraphs in the canonical catalog and search index.
+            for key, paragraph_text in zip(
+                ("problem", "current_status", "contribution"),
+                unlabeled_paragraphs,
+            ):
+                field_map.setdefault(key, paragraph_text)
             links_row_m = re.search(r'<div class="research-link-row">(.*?)</div>', body, re.S)
             links = parse_links(links_row_m.group(1), "research-link-row") if links_row_m else []
             if links_row_m:
@@ -442,7 +453,11 @@ def parse_research_page(text: str) -> Dict[str, Any]:
     desc_m = re.search(r'<meta\s+name="description"\s+content="([^"]*)"', text, re.S)
     search_excerpt = ""
     if isinstance(payload.get("hero"), dict):
-        search_excerpt = str(payload["hero"].get("subtitle", "") or "").strip()
+        search_excerpt = str(
+            payload["hero"].get("subtitle", "")
+            or payload["hero"].get("positioning", "")
+            or ""
+        ).strip()
     if isinstance(payload.get("projects_section"), dict):
         lead = str(payload["projects_section"].get("lead", "") or "").strip()
         if lead:

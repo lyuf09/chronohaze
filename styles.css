@@ -4398,6 +4398,36 @@ body.photo-lightbox-open {
   font-family: var(--font-serif-zh);
 }
 
+.math-post-update {
+  margin: 20px 0 28px;
+  padding: 18px 20px 19px;
+  border: 1px solid rgba(69, 82, 107, 0.22);
+  border-left: 3px solid rgba(67, 86, 121, 0.62);
+  background: rgba(234, 240, 248, 0.62);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42);
+}
+
+.article .math-post-update p {
+  margin: 0;
+  color: rgba(38, 46, 61, 0.94);
+  font-size: 14px;
+  line-height: 1.72;
+}
+
+.article .math-post-update .math-post-update-label {
+  margin-bottom: 8px;
+  color: rgba(27, 36, 53, 0.98);
+  font-family: "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  font-size: 11px;
+  line-height: 1.3;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.math-post-update .research-link-row {
+  margin-top: 12px;
+}
+
 html:lang(en) .article p,
 html:lang(en) .article li,
 html:lang(en) .article li p {

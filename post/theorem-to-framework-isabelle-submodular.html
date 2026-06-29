@@ -238,6 +238,16 @@
           <h1>从一个定理到一套框架：我的 Isabelle 子模优化项目新进展</h1>
           <p class="article-meta">HazezZ · 2026年3月14日 · 约 6 分钟</p>
 
+          <aside class="math-post-update" aria-label="项目更新：2026年6月">
+            <p class="math-post-update-label">更新 · 2026年6月</p>
+            <p>该项目此后已被 Archive of Formal Proofs 接收，并以 Greedy Algorithms for Cardinality-Constrained Submodular Maximization 正式发表。AFP entry 包含 classical greedy 近似保证的形式化，以及一个 verified stateful lazy greedy variant。下文记录的是最终 AFP-facing 版本完成之前的项目阶段。</p>
+            <div class="research-link-row">
+              <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
+              <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf" target="_blank" rel="noopener noreferrer">Proof document</a>
+              <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">Repository</a>
+            </div>
+          </aside>
+
           <p>在之前我更关心的是，如何拆分构造与分析，如何把那些在论文里常被一句话带过的步骤，变成真正可以被系统检查的逻辑结构。</p>
           <p>这几个月继续往前做以后，我对这个项目的理解也慢慢变了，它现在已经不太像为一个经典定理补上一份形式化版本，而更像是在长成一套可以继续扩展的 Isabelle/HOL library。repo 目前的主线已经不仅包括 classical greedy 的完整 theorem line，也包括一个完成度很高的 stateful LazyGreedy extension。与此同时实例层、可执行小实验和 oracle-cost 这一层也都已经放了进去。换句话说，这个项目的重点开始从“证明某一个结果”转向“搭建一套可以容纳更多 modern submodular greedy variants 的结构”了。</p>
 
@@ -281,6 +291,16 @@
         <div data-lang-block="en" hidden>
           <h1>From One Theorem to a Framework: New Progress on My Isabelle Project in Submodular Optimization</h1>
           <p class="article-meta">HazezZ · March 14, 2026 · 8 min read</p>
+
+          <aside class="math-post-update" aria-label="Project update, June 2026">
+            <p class="math-post-update-label">Update, June 2026.</p>
+            <p>This project has since been accepted and published in the Archive of Formal Proofs as Greedy Algorithms for Cardinality-Constrained Submodular Maximization. The AFP entry contains the formalized classical greedy approximation guarantee and a verified stateful lazy greedy variant. The discussion below records an earlier stage of the project, before the final AFP-facing version was completed.</p>
+            <div class="research-link-row">
+              <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
+              <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf" target="_blank" rel="noopener noreferrer">Proof document</a>
+              <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">Repository</a>
+            </div>
+          </aside>
 
           <p>Earlier on, what I cared about most was how to separate construction from analysis, and how to turn those steps that are often dismissed in papers with a single sentence into logical structures that can actually be checked by the system.</p>
           <p>After continuing this project over the past few months, my understanding of it has gradually changed. It no longer feels like simply adding a formalised version of a classical theorem. Instead, it is starting to grow into an Isabelle/HOL library that can continue to be extended. The main line of the repo now includes not only the full theorem line for classical greedy, but also a fairly mature stateful LazyGreedy extension. At the same time, the instance layer, executable toy experiments, and the oracle-cost layer have also been added. In other words, the focus of the project has gradually shifted from “proving a particular result” to “building a structure that can accommodate more modern submodular greedy variants.”</p>

@@ -828,6 +828,49 @@ html:lang(en) .about-overlay p {
   display: none;
 }
 
+.math-grid article.math-afp-card {
+  background:
+    linear-gradient(180deg, rgba(247, 250, 255, 0.44), rgba(231, 238, 249, 0.32)),
+    radial-gradient(circle at 16% 20%, rgba(255, 255, 255, 0.16) 0.7px, transparent 1px);
+  box-shadow: inset 3px 0 0 rgba(73, 91, 124, 0.42);
+}
+
+.math-grid .math-afp-summary-zh {
+  margin-top: 14px;
+  color: rgb(46, 57, 75);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+html:lang(en) .math-grid .math-afp-summary-zh {
+  display: none;
+}
+
+.math-grid .math-evidence-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  margin-top: 18px;
+  font-family: var(--home-font-ui);
+  font-size: 11px;
+  line-height: 1.4;
+  letter-spacing: 0.025em;
+  color: rgb(52, 64, 84);
+}
+
+.math-grid .math-evidence-links a {
+  display: inline;
+  border-bottom: 1px solid rgba(52, 66, 91, 0.34);
+  color: rgb(34, 47, 70);
+}
+
+.math-grid .math-evidence-links a:hover,
+.math-grid .math-evidence-links a:focus-visible {
+  border-bottom-color: rgba(42, 59, 91, 0.82);
+  color: rgb(20, 34, 59);
+}
+
 .entry-split {
   background:
     radial-gradient(820px 480px at 12% 14%, rgba(255, 255, 255, 0.12), transparent 62%),
@@ -1216,12 +1259,36 @@ html:lang(en) .about-overlay p {
   color: var(--home-ink-strong);
 }
 
-.now-card > p:last-child {
+.now-card > p {
   margin: 10px 0 0;
   font-family: var(--home-font-body);
   font-size: 13px;
   line-height: 1.62;
   color: var(--home-ink);
+}
+
+.now-card-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  margin-top: 11px;
+  font-family: var(--home-font-ui);
+  font-size: 11px;
+  line-height: 1.35;
+  letter-spacing: 0.035em;
+  color: rgb(48, 58, 76);
+}
+
+.now-card-links a {
+  border-bottom: 1px solid rgba(54, 66, 88, 0.32);
+  color: rgb(36, 46, 64);
+}
+
+.now-card-links a:hover,
+.now-card-links a:focus-visible {
+  border-bottom-color: rgba(46, 61, 88, 0.76);
+  color: rgb(24, 34, 52);
 }
 
 .selected-evidence {

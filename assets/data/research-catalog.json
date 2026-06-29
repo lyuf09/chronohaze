@@ -1,19 +1,19 @@
 {
   "hero": {
     "eyebrow": "",
-    "name": "研究陈述",
-    "subtitle": "这一页只回答一个问题：我现在怎样理解这些问题。",
-    "positioning": "我目前的研究线索并不是一个松散的兴趣列表，而是三条可以继续推进的问题主线：Isabelle/HOL、duality under invariance、以及 prototype / discretization。",
+    "name": "研究",
+    "subtitle": "",
+    "positioning": "我现在的研究兴趣主要围绕优化理论、形式化证明，以及数学结构在算法与机器学习问题中的表达方式。",
     "chips": []
   },
   "meta": {
     "items": [
       {
         "label": "Last updated",
-        "value": "2026-06-09 · 06:06 AM ET",
-        "datetime": "2026-06-09T06:06:22-04:00",
+        "value": "2026-06-29 · 11:54 AM ET",
+        "datetime": "2026-06-29T11:54:04-04:00",
         "timezone": "America/New_York",
-        "date_only": "2026-06-09",
+        "date_only": "2026-06-29",
         "display_format": "YYYY-MM-DD · hh:mm A ET"
       }
     ]
@@ -23,79 +23,108 @@
     "items": []
   },
   "projects_section": {
-    "title": "Research Lines",
+    "title": "研究线索",
     "lead": ""
   },
   "projects": [
     {
       "kind": "",
-      "title": "Isabelle/HOL：现代子模贪心算法形式化",
-      "problem": "如何把子模贪心算法的近似保证，连同算法构造、oracle-cost 叙事与后续扩展接口，一起组织成可持续发展的 Isabelle/HOL library？",
-      "method": "我关心的不是“把一个 proof 搬进 proof assistant”这么简单，而是证明的结构、依赖与复用边界怎样在机器检验环境里被真正写清楚。",
+      "title": "Isabelle/HOL 与优化算法形式化",
+      "problem": "我正在使用 Isabelle/HOL 形式化一阶优化方法与子模贪心算法中的经典证明结构。这里我关心的不只是把定理放进 proof assistant，而是如何把证明中的依赖、接口和可复用部分写清楚。",
+      "method": "",
       "status": "",
-      "current_status": "classical greedy、LazyGreedy 与 StochasticGreedy 的核心 theorem line 已经成形；当前重点转向 clean-up、依赖整理与 submission-style presentation。",
-      "contribution": "怎样把现有 development 收束成更稳定的接口，让它既能面向 AFP 风格展示，又不牺牲后续继续长新的能力？",
-      "links": [],
+      "current_status": "其中，Greedy Algorithms for Cardinality-Constrained Submodular Maximization 已正式发表于 Archive of Formal Proofs，发表范围包括 classical greedy 的 1−1/e 近似保证与 verified stateful lazy greedy variant。StochasticGreedy 仍是 future extension / experimental branch；另一条关于 smooth convex optimization 与 projected gradient descent 的形式化项目也在整理中。",
+      "contribution": "接下来我想继续思考的是：怎样把这些形式化结果整理成更稳定的 library，使它们既适合展示和归档，也能支持后续扩展。",
+      "links": [
+        {
+          "href": "https://isa-afp.org/entries/Submodular_Greedy.html#",
+          "label": "AFP entry",
+          "external": true
+        },
+        {
+          "href": "https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf",
+          "label": "Proof document",
+          "external": true
+        },
+        {
+          "href": "https://github.com/lyuf09/isabelle-submodular-greedy",
+          "label": "Repository",
+          "external": true
+        }
+      ],
       "status_key": "",
       "status_label": "",
-      "status_detail": "classical greedy、LazyGreedy 与 StochasticGreedy 的核心 theorem line 已经成形；当前重点转向 clean-up、依赖整理与 submission-style presentation。",
-      "status_display": "classical greedy、LazyGreedy 与 StochasticGreedy 的核心 theorem line 已经成形；当前重点转向 clean-up、依赖整理与 submission-style presentation。"
+      "status_detail": "其中，Greedy Algorithms for Cardinality-Constrained Submodular Maximization 已正式发表于 Archive of Formal Proofs，发表范围包括 classical greedy 的 1−1/e 近似保证与 verified stateful lazy greedy variant。StochasticGreedy 仍是 future extension / experimental branch；另一条关于 smooth convex optimization 与 projected gradient descent 的形式化项目也在整理中。",
+      "status_display": "其中，Greedy Algorithms for Cardinality-Constrained Submodular Maximization 已正式发表于 Archive of Formal Proofs，发表范围包括 classical greedy 的 1−1/e 近似保证与 verified stateful lazy greedy variant。StochasticGreedy 仍是 future extension / experimental branch；另一条关于 smooth convex optimization 与 projected gradient descent 的形式化项目也在整理中。"
     },
     {
       "kind": "",
-      "title": "不变性下的对偶、下界与结构恢复",
-      "problem": "当一个 optimization model 因为 translation / gauge invariance 让最自然的 dual routes collapse 时，问题里到底还有没有可以恢复出来的 nontrivial structure？",
-      "method": "如果 trivial lower bound 不是推导失误，而是模型结构本身导致的，那么真正有信息的对象可能不是 bound 本身，而是 collapse 之后剩下来的 structural score。",
+      "title": "不变性、对偶与结构恢复",
+      "problem": "在一些优化模型中，最自然的对偶路线会因为 translation 或 gauge invariance 而退化，最后只得到 trivial lower bound。我感兴趣的是：这种退化到底说明了推导失败，还是说明模型本身隐藏着另一种结构？",
+      "method": "",
       "status": "",
-      "current_status": "我已经重新走通主要推导，并更清楚地看见 plain dualization 在哪里失去信息；现在留下来的，是一条和 Range(B)、cycle consistency 与 instance difficulty 相关的结构线索。",
-      "contribution": "什么样的 gauge-fixing、augmentation 或更紧约束，能够把这条结构线索真正变成一个可解释、可比较、可延伸的 lower-bound 或 scoring object？",
+      "current_status": "我目前正在重新整理相关推导，尤其关注 Range(B)、cycle consistency 与 instance difficulty 之间的关系。对我来说，这条线的核心不是单纯追求一个更强的 bound，而是理解在对偶信息 collapse 之后，是否还可以恢复出可解释、可比较的 structural score。",
+      "contribution": "",
       "links": [],
       "status_key": "",
       "status_label": "",
-      "status_detail": "我已经重新走通主要推导，并更清楚地看见 plain dualization 在哪里失去信息；现在留下来的，是一条和 Range(B)、cycle consistency 与 instance difficulty 相关的结构线索。",
-      "status_display": "我已经重新走通主要推导，并更清楚地看见 plain dualization 在哪里失去信息；现在留下来的，是一条和 Range(B)、cycle consistency 与 instance difficulty 相关的结构线索。"
+      "status_detail": "我目前正在重新整理相关推导，尤其关注 Range(B)、cycle consistency 与 instance difficulty 之间的关系。对我来说，这条线的核心不是单纯追求一个更强的 bound，而是理解在对偶信息 collapse 之后，是否还可以恢复出可解释、可比较的 structural score。",
+      "status_display": "我目前正在重新整理相关推导，尤其关注 Range(B)、cycle consistency 与 instance difficulty 之间的关系。对我来说，这条线的核心不是单纯追求一个更强的 bound，而是理解在对偶信息 collapse 之后，是否还可以恢复出可解释、可比较的 structural score。"
     },
     {
       "kind": "",
-      "title": "Prototype / discretization：从连续对象到可检视结构",
-      "problem": "把连续音频、节奏或事件流映射到可操作的离散对象时，哪些结构必须被保留，哪些约束只是为了方便实现？",
-      "method": "这条线看起来更像 prototype work，但它和前两条其实问的是同一种事：一个对象被 formalize、dualize 或 discretize 之后，真正值得保留下来的结构到底是什么。",
+      "title": "Structured Representation and Discretization",
+      "problem": "from audio / rhythm streams to inspectable discrete objects. 这条线来自音乐与交互系统：当连续输入被离散化时，哪些结构必须保留，哪些约束只是实现层面的近似？",
+      "method": "",
       "status": "",
-      "current_status": "浏览器原型已经搭起来，正在拿真实输入反复检验 onset、beat grid、alignment 与 playability constraints 这些假设在什么地方会失效。",
-      "contribution": "怎样把“可玩性”从一组实现经验，进一步压缩成更明确的离散化准则与评估方式？",
+      "current_status": "目前我把它作为 structured representation / modeling 问题推进，并用技术项目检验这些抽象约束如何落到可操作的系统中。",
+      "contribution": "",
       "links": [],
       "status_key": "",
       "status_label": "",
-      "status_detail": "浏览器原型已经搭起来，正在拿真实输入反复检验 onset、beat grid、alignment 与 playability constraints 这些假设在什么地方会失效。",
-      "status_display": "浏览器原型已经搭起来，正在拿真实输入反复检验 onset、beat grid、alignment 与 playability constraints 这些假设在什么地方会失效。"
+      "status_detail": "目前我把它作为 structured representation / modeling 问题推进，并用技术项目检验这些抽象约束如何落到可操作的系统中。",
+      "status_display": "目前我把它作为 structured representation / modeling 问题推进，并用技术项目检验这些抽象约束如何落到可操作的系统中。"
     }
   ],
   "outputs_section": {
-    "title": "建议先看",
-    "lead": "把页面从问题陈述带到可检查的材料，不让研究页只停在目录层。"
+    "title": "代表性工作入口",
+    "lead": "几项最能支撑上面研究线索的项目和笔记。"
   },
   "outputs": [
     {
-      "href": "projects.html",
+      "href": "post/isabelle-submodular-greedy.html",
       "external": false,
       "type": "notes",
-      "kicker": "Work",
-      "title": "代表性工作",
-      "status": "Active",
-      "description": "把 Isabelle/HOL、optimization prototype 与相关项目放在同一个可扫描入口里。",
+      "kicker": "Isabelle/HOL",
+      "title": "Submodular Greedy",
+      "status": "Formalization",
+      "description": "子模贪心算法形式化项目与材料入口。",
       "status_key": "active",
       "status_label": "Active",
       "status_detail": "",
       "status_display": "Active"
     },
     {
-      "href": "math.html",
+      "href": "post/projected-gradient-descent-isabelle-hol.html",
       "external": false,
       "type": "notes",
-      "kicker": "Notes",
-      "title": "学术笔记",
-      "status": "Active",
-      "description": "保留推导、形式化进展、失败路线和重新组织后的技术记录。",
+      "kicker": "Isabelle/HOL",
+      "title": "Projected Gradient Descent",
+      "status": "In prep",
+      "description": "smooth convex optimization 中一阶方法形式化项目。",
+      "status_key": "in_prep",
+      "status_label": "In prep",
+      "status_detail": "",
+      "status_display": "In prep"
+    },
+    {
+      "href": "notes/ttgda_second_order_tracking_note.html",
+      "external": false,
+      "type": "notes",
+      "kicker": "Optimization Note",
+      "title": "TTGDA and Second-Order Tracking",
+      "status": "Exploratory",
+      "description": "关于 value-function viewpoint 与二阶 tracking 问题的探索性技术笔记。",
       "status_key": "active",
       "status_label": "Active",
       "status_detail": "",
@@ -103,14 +132,10 @@
     }
   ],
   "now_section": {
-    "title": "这些方向为什么连在一起",
+    "title": "为什么这些方向连在一起",
     "lead": ""
   },
-  "now_items": [
-    "我关心的是对象在被形式化、对偶化或离散化之后，哪些结构仍然值得保留。",
-    "Isabelle/HOL 这条线迫使证明接口变清楚；duality 这条线迫使模型不变性变清楚。",
-    "Prototype / discretization 则把同一个问题放回可操作输入里，检验理论描述是否真的抓住了结构。"
-  ],
+  "now_items": [],
   "links_section": {},
   "links": [],
   "search": {
@@ -118,15 +143,15 @@
     "url": "research.html",
     "section": "Site",
     "date": "",
-    "excerpt": "这一页只回答一个问题：我现在怎样理解这些问题。",
+    "excerpt": "我现在的研究兴趣主要围绕优化理论、形式化证明，以及数学结构在算法与机器学习问题中的表达方式。",
     "tags": [
       "research",
       "optimization",
       "formal-methods"
     ],
-    "sort": 20260609,
+    "sort": 20260629,
     "scope": "site",
-    "content": "研究陈述 这一页只回答一个问题：我现在怎样理解这些问题。 我目前的研究线索并不是一个松散的兴趣列表，而是三条可以继续推进的问题主线：Isabelle/HOL、duality under invariance、以及 prototype / discretization。 Research Lines 建议先看 把页面从问题陈述带到可检查的材料，不让研究页只停在目录层。 这些方向为什么连在一起 Isabelle/HOL：现代子模贪心算法形式化 如何把子模贪心算法的近似保证，连同算法构造、oracle-cost 叙事与后续扩展接口，一起组织成可持续发展的 Isabelle/HOL library？ 我关心的不是“把一个 proof 搬进 proof assistant”这么简单，而是证明的结构、依赖与复用边界怎样在机器检验环境里被真正写清楚。 classical greedy、LazyGreedy 与 StochasticGreedy 的核心 theorem line 已经成形；当前重点转向 clean-up、依赖整理与 submission-style presentation。 怎样把现有 development 收束成更稳定的接口，让它既能面向 AFP 风格展示，又不牺牲后续继续长新的能力？ 不变性下的对偶、下界与结构恢复 当一个 optimization model 因为 translation / gauge invariance 让最自然的 dual routes collapse 时，问题里到底还有没有可以恢复出来的 nontrivial structure？ 如果 trivial lower bound 不是推导失误，而是模型结构本身导致的，那么真正有信息的对象可能不是 bound 本身，而是 collapse 之后剩下来的 structural score。 我已经重新走通主要推导，并更清楚地看见 plain dualization 在哪里失去信息；现在留下来的，是一条和 Range(B)、cycle consistency 与 instance difficulty 相关的结构线索。 什么样的 gauge-fixing、augmentation 或更紧约束，能够把这条结构线索真正变成一个可解释、可比较、可延伸的 lower-bound 或 scoring object？ Prototype / discretization：从连续对象到可检视结构 把连续音频、节奏或事件流映射到可操作的离散对象时，哪些结构必须被保留，哪些约束只是为了方便实现？ 这条线看起来更像 prototype work，但它和前两条其实问的是同一种事：一个对象被 formalize、dualize 或 discretize 之后，真正值得保留下来的结构到底是什么。 浏览器原型已经搭起来，正在拿真实输入反复检验 onset、beat grid、alignment 与 playability constraints 这些假设在什么地方会失效。 怎样把“可玩性”从一组实现经验，进一步压缩成更明确的离散化准则与评估方式？ Work 代表性工作 Active 把 Isabelle/HOL、optimization prototype 与相关项目放在同一个可扫描入口里。 Notes 学术笔记 Active 保留推导、形式化进展、失败路线和重新组织后的技术记录。 我关心的是对象在被形式化、对偶化或离散化之后，哪些结构仍然值得保留。 Isabelle/HOL 这条线迫使证明接口变清楚；duality 这条线迫使模型不变性变清楚。 Prototype / discretization 则把同一个问题放回可操作输入里，检验理论描述是否真的抓住了结构。",
+    "content": "研究 我现在的研究兴趣主要围绕优化理论、形式化证明，以及数学结构在算法与机器学习问题中的表达方式。 研究线索 代表性工作入口 几项最能支撑上面研究线索的项目和笔记。 为什么这些方向连在一起 Isabelle/HOL 与优化算法形式化 我正在使用 Isabelle/HOL 形式化一阶优化方法与子模贪心算法中的经典证明结构。这里我关心的不只是把定理放进 proof assistant，而是如何把证明中的依赖、接口和可复用部分写清楚。 其中，Greedy Algorithms for Cardinality-Constrained Submodular Maximization 已正式发表于 Archive of Formal Proofs，发表范围包括 classical greedy 的 1−1/e 近似保证与 verified stateful lazy greedy variant。StochasticGreedy 仍是 future extension / experimental branch；另一条关于 smooth convex optimization 与 projected gradient descent 的形式化项目也在整理中。 接下来我想继续思考的是：怎样把这些形式化结果整理成更稳定的 library，使它们既适合展示和归档，也能支持后续扩展。 AFP entry Proof document Repository 不变性、对偶与结构恢复 在一些优化模型中，最自然的对偶路线会因为 translation 或 gauge invariance 而退化，最后只得到 trivial lower bound。我感兴趣的是：这种退化到底说明了推导失败，还是说明模型本身隐藏着另一种结构？ 我目前正在重新整理相关推导，尤其关注 Range(B)、cycle consistency 与 instance difficulty 之间的关系。对我来说，这条线的核心不是单纯追求一个更强的 bound，而是理解在对偶信息 collapse 之后，是否还可以恢复出可解释、可比较的 structural score。 Structured Representation and Discretization from audio / rhythm streams to inspectable discrete objects. 这条线来自音乐与交互系统：当连续输入被离散化时，哪些结构必须保留，哪些约束只是实现层面的近似？ 目前我把它作为 structured representation / modeling 问题推进，并用技术项目检验这些抽象约束如何落到可操作的系统中。 Isabelle/HOL Submodular Greedy Formalization 子模贪心算法形式化项目与材料入口。 Isabelle/HOL Projected Gradient Descent In prep smooth convex optimization 中一阶方法形式化项目。 Optimization Note TTGDA and Second-Order Tracking Exploratory 关于 value-function viewpoint 与二阶 tracking 问题的探索性技术笔记。",
     "meta_title": "Research | Fay / Feier Lyu | Chronohaze",
     "meta_description": "Research page organized around three current problem lines by Fay / Feier Lyu, also known as HazezZ."
   },
@@ -137,26 +162,39 @@
       "lead": "Notes, repositories, and project pages that carry the evidence.",
       "items": [
         {
-          "href": "projects.html",
+          "href": "post/isabelle-submodular-greedy.html",
           "external": false,
           "type": "notes",
-          "kicker": "Work",
-          "title": "代表性工作",
-          "status": "Active",
-          "description": "把 Isabelle/HOL、optimization prototype 与相关项目放在同一个可扫描入口里。",
+          "kicker": "Isabelle/HOL",
+          "title": "Submodular Greedy",
+          "status": "Formalization",
+          "description": "子模贪心算法形式化项目与材料入口。",
           "status_key": "active",
           "status_label": "Active",
           "status_detail": "",
           "status_display": "Active"
         },
         {
-          "href": "math.html",
+          "href": "post/projected-gradient-descent-isabelle-hol.html",
           "external": false,
           "type": "notes",
-          "kicker": "Notes",
-          "title": "学术笔记",
-          "status": "Active",
-          "description": "保留推导、形式化进展、失败路线和重新组织后的技术记录。",
+          "kicker": "Isabelle/HOL",
+          "title": "Projected Gradient Descent",
+          "status": "In prep",
+          "description": "smooth convex optimization 中一阶方法形式化项目。",
+          "status_key": "in_prep",
+          "status_label": "In prep",
+          "status_detail": "",
+          "status_display": "In prep"
+        },
+        {
+          "href": "notes/ttgda_second_order_tracking_note.html",
+          "external": false,
+          "type": "notes",
+          "kicker": "Optimization Note",
+          "title": "TTGDA and Second-Order Tracking",
+          "status": "Exploratory",
+          "description": "关于 value-function viewpoint 与二阶 tracking 问题的探索性技术笔记。",
           "status_key": "active",
           "status_label": "Active",
           "status_detail": "",
@@ -165,6 +203,6 @@
       ]
     }
   ],
-  "generated_at": "2026-06-09",
+  "generated_at": "2026-06-29",
   "source": "research.html"
 }

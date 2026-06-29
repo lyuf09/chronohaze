@@ -1,23 +1,20 @@
 {
-  "generated_at": "2026-06-16",
+  "generated_at": "2026-06-29",
   "items": [
     {
-      "url": "research.html",
       "title": "Research | Fay / Feier Lyu (HazezZ)",
-      "scope": "site",
+      "url": "research.html",
+      "section": "Site",
       "date": "",
+      "excerpt": "我现在的研究兴趣主要围绕优化理论、形式化证明，以及数学结构在算法与机器学习问题中的表达方式。",
       "tags": [
         "research",
         "optimization",
-        "formal-methods",
-        "isabelle-hol",
-        "duality",
-        "discretization"
+        "formal-methods"
       ],
-      "section": "Site",
-      "content": "研究 Research 研究方向说明 Research Statement 优化理论 形式化证明 数学结构 算法 机器学习 Isabelle HOL 与优化算法形式化 一阶优化方法 子模贪心算法 cardinality-constrained monotone submodular maximization greedy LazyGreedy StochasticGreedy smooth convex optimization projected gradient descent 不变性 对偶 结构恢复 translation gauge invariance trivial lower bound Range(B) cycle consistency instance difficulty structural score Prototype discretization 技术项目 side project 代表性工作入口 Submodular Greedy Projected Gradient Descent TTGDA and Second-Order Tracking value-function viewpoint 二阶 tracking nonconvex strongly concave minimax 为什么这些方向连在一起 形式化 对偶化 离散化 算法化 结构保留 信息丢失",
-      "sort": 20260609,
-      "excerpt": "我现在的研究兴趣主要围绕优化理论、形式化证明，以及数学结构在算法与机器学习问题中的表达方式。"
+      "sort": 20260629,
+      "scope": "site",
+      "content": "研究 我现在的研究兴趣主要围绕优化理论、形式化证明，以及数学结构在算法与机器学习问题中的表达方式。 研究线索 代表性工作入口 几项最能支撑上面研究线索的项目和笔记。 为什么这些方向连在一起 Isabelle/HOL 与优化算法形式化 我正在使用 Isabelle/HOL 形式化一阶优化方法与子模贪心算法中的经典证明结构。这里我关心的不只是把定理放进 proof assistant，而是如何把证明中的依赖、接口和可复用部分写清楚。 其中，Greedy Algorithms for Cardinality-Constrained Submodular Maximization 已正式发表于 Archive of Formal Proofs，发表范围包括 classical greedy 的 1−1/e 近似保证与 verified stateful lazy greedy variant。StochasticGreedy 仍是 future extension / experimental branch；另一条关于 smooth convex optimization 与 projected gradient descent 的形式化项目也在整理中。 接下来我想继续思考的是：怎样把这些形式化结果整理成更稳定的 library，使它们既适合展示和归档，也能支持后续扩展。 AFP entry Proof document Repository 不变性、对偶与结构恢复 在一些优化模型中，最自然的对偶路线会因为 translation 或 gauge invariance 而退化，最后只得到 trivial lower bound。我感兴趣的是：这种退化到底说明了推导失败，还是说明模型本身隐藏着另一种结构？ 我目前正在重新整理相关推导，尤其关注 Range(B)、cycle consistency 与 instance difficulty 之间的关系。对我来说，这条线的核心不是单纯追求一个更强的 bound，而是理解在对偶信息 collapse 之后，是否还可以恢复出可解释、可比较的 structural score。 Structured Representation and Discretization from audio / rhythm streams to inspectable discrete objects. 这条线来自音乐与交互系统：当连续输入被离散化时，哪些结构必须保留，哪些约束只是实现层面的近似？ 目前我把它作为 structured representation / modeling 问题推进，并用技术项目检验这些抽象约束如何落到可操作的系统中。 Isabelle/HOL Submodular Greedy Formalization 子模贪心算法形式化项目与材料入口。 Isabelle/HOL Projected Gradient Descent In prep smooth convex optimization 中一阶方法形式化项目。 Optimization Note TTGDA and Second-Order Tracking Exploratory 关于 value-function viewpoint 与二阶 tracking 问题的探索性技术笔记。"
     },
     {
       "title": "A Small Exploratory Note on TTGDA and Second-Order Tracking",
@@ -52,14 +49,14 @@
       "url": "post/projected-gradient-descent-isabelle-hol.html",
       "section": "Mathematics",
       "date": "2026-05-22",
-      "excerpt": "在等待前一个 AFP 项目流程继续推进期间，我开始整理第二个 Isabelle/HOL optimization 项目：从 smooth convexity、projection geometry、descent estimates 到 projected-gradient mapping 和 residual certificates，尝试把 projected-gradient descent 写成一套可复用的 first-order methods infrastructure。",
+      "excerpt": "在子模贪心形式化正式发表于 AFP 之后，我继续整理第二个 Isabelle/HOL optimization 项目：从 smooth convexity、projection geometry、descent estimates 到 projected-gradient mapping 和 residual certificates，尝试把 projected-gradient descent 写成一套可复用的 first-order methods infrastructure。",
       "tags": [
         "math",
         "article"
       ],
       "sort": 20260522,
       "scope": "math",
-      "content": "从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL HazezZ · 2026年5月22日 · 约 5 分钟 Isabelle/HOL Optimization Formalisation AFP 在完成子模优化项目的 AFP cleanup 之后，我开始做另一个 Isabelle/HOL 项目：Projected Gradient Descent in Isabelle/HOL。这个项目从 combinatorial optimization 里的 submodular greedy 转到 smooth convex optimization 里的 first-order methods，目标不是简单证明 projected gradient descent 收敛，而是整理 reusable descent/projection convergence infrastructure。核心内容包括 gradient 和 convex differentiability 接口，smooth upper-bound 和 Lipschitz-smoothness bridge，algorithm-independent descent telescoping averaging lemmas，gradient descent 的 one-step estimates 和 O(1/N) convergence，projection geometry，metric projection 的 variational inequality，projected-gradient descent 的 feasibility preservation、function-value convergence、finite-horizon bound、projected-gradient mapping、residual certificates、epsilon-stationarity complexity，以及 strong convexity 下的 linear-rate convergence。项目还设置 Main_Results.thy 作为 public theorem surface，收集稳定可复用的 theorem aliases，面向 AFP 和未来下游复用。项目链接 https://github.com/lyuf09/projected-gradient-descent Moving Forward After Submodular Optimization Projected Gradient Descent in Isabelle/HOL first-order methods smooth convex optimization projection geometry residual certificate convergence infrastructure"
+      "content": "从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL HazezZ · 2026年5月22日 · 约 5 分钟 Isabelle/HOL Optimization Formalisation AFP 在子模贪心形式化正式发表于 AFP 之后，我继续做另一个 Isabelle/HOL 项目：Projected Gradient Descent in Isabelle/HOL。这个项目从 combinatorial optimization 里的 submodular greedy 转到 smooth convex optimization 里的 first-order methods，目标不是简单证明 projected gradient descent 收敛，而是整理 reusable descent/projection convergence infrastructure。核心内容包括 gradient 和 convex differentiability 接口，smooth upper-bound 和 Lipschitz-smoothness bridge，algorithm-independent descent telescoping averaging lemmas，gradient descent 的 one-step estimates 和 O(1/N) convergence，projection geometry，metric projection 的 variational inequality，projected-gradient descent 的 feasibility preservation、function-value convergence、finite-horizon bound、projected-gradient mapping、residual certificates、epsilon-stationarity complexity，以及 strong convexity 下的 linear-rate convergence。项目还设置 Main_Results.thy 作为 public theorem surface，收集稳定可复用的 theorem aliases，面向 AFP 和未来下游复用。项目链接 https://github.com/lyuf09/projected-gradient-descent Moving Forward After Submodular Optimization Projected Gradient Descent in Isabelle/HOL first-order methods smooth convex optimization projection geometry residual certificate convergence infrastructure"
     },
     {
       "title": "最后的常景",
@@ -105,40 +102,37 @@
       "url": "academic.html",
       "section": "Site",
       "date": "2026-05-08",
-      "excerpt": "Academic landing page for optimization, formalization in Isabelle/HOL, OR for ML, representative work, and technical projects.",
+      "excerpt": "Academic landing page organized around research directions, selected highlights, and entry points into research, work, and notes.",
       "tags": [
         "academic",
         "research",
         "optimization",
         "formal-methods",
-        "isabelle-hol",
-        "or-for-ml",
-        "minimax"
+        "duality",
+        "prototype"
       ],
       "sort": 20260508,
       "scope": "site",
-      "content": "Academic Landing 学术 优化 形式化证明 OR for ML Optimization and OR Formalization in Isabelle/HOL AI for Math 研究主题 代表性工作 其他技术项目 Isabelle HOL Submodular Greedy Algorithms First-Order Methods for Smooth Convex Optimization TTGDA Second-Order Tracking Metalcore Piano Lab nonconvex minimax localization projected gradient descent formal methods machine-checkable proofs"
+      "content": "Academic Landing 学术 Research Directions Selected Highlights Research Work Notes OR for ML optimization formal verification structured modeling Isabelle HOL Greedy Algorithms for Cardinality-Constrained Submodular Maximization Archive of Formal Proofs AFP entry published classical greedy stateful lazy greedy approximation guarantee StochasticGreedy future extension experimental branch duality under invariance structured representation discretization 研究方向 代表性入口 材料 研究笔记 形式化验证 对偶 下界 结构化表征 离散化"
     },
     {
       "title": "Projects / 项目",
       "url": "projects.html",
       "section": "Site",
       "date": "2026-05-08",
-      "excerpt": "Representative work page for Isabelle/HOL formalization projects, optimization notes, and a technical side project.",
+      "excerpt": "Selected work page focused on three concrete objects, their current status, and where the materials live.",
       "tags": [
         "projects",
         "work",
         "formal-methods",
+        "prototype",
         "duality",
         "isabelle-hol",
-        "selected-work",
-        "ttgda",
-        "projected-gradient-descent",
-        "prototype"
+        "selected-work"
       ],
       "sort": 20260508,
       "scope": "site",
-      "content": "代表性工作 Work Formal Verification Isabelle HOL 子模贪心算法形式化 cardinality-constrained monotone submodular maximization classical greedy LazyGreedy StochasticGreedy AFP-facing cleanup Smooth Convex Optimization 一阶方法 gradient descent projected gradient descent projected gradient mapping strong convexity 线性收敛 Optimization Notes TTGDA and Second-Order Tracking value function viewpoint second-order tracking Hessian curvature nonconvex strongly concave minimax 不变性下的对偶退化与结构恢复 dual collapse Range(B) cycle consistency structural score translation gauge invariance Technical Side Project Metalcore Piano Lab 音频 MIDI chart events discretization event mapping playability constraints Repo Note Archive"
+      "content": "代表性工作 Work Selected Work Formal Verification Duality Invariance Structured Representation Discretization Isabelle HOL Greedy Algorithms for Cardinality-Constrained Submodular Maximization Archive of Formal Proofs AFP entry published classical greedy stateful lazy greedy approximation guarantee future work stochastic greedy variants oracle accounting submodular optimization infrastructure 不变性下的对偶与结构分数 Metalcore Piano Lab 对象 状态 材料入口 Repository Proof document Project history dual collapse inconsistency score discretization playable chart events"
     },
     {
       "title": "Orchid",
@@ -1117,20 +1111,20 @@
       ],
       "sort": 0,
       "scope": "site",
-      "content": "Chronohaze HazezZ 主页 Home About 关于我 语言 中文 English 日本語 主要以中文和英文写作 日文 歌词 标题 创作表达 最近在做的事 Current trajectory Now 重庆 Edinburgh Ithaca 整理 Cornell 交换后的研究材料 推进 Isabelle HOL 优化形式化 新的技术笔记 音乐 摄影 Mathematics 数学 这里收集我近期关于优化 形式化证明与极小极大问题的研究笔记 正在形成中的想法 公开阅读的技术记录 Photography Music Academic 学术 公开版 CV 项目 笔记 Projects Notes GitHub optimization theory formal verification machine learning theory Isabelle HOL first-order methods submodular optimization nonconvex minimax value-function second-order tracking research notes public technical records languages Chinese English Japanese lyrics titles creative expression Cornell exchange research materials technical notes music photography Cornell Edinburgh Ithaca 数学文章合集 摄影作品集 音乐作品集"
+      "content": "Chronohaze HazezZ 主页 Home About 关于我 语言 中文 English 日本語 主要以中文和英文写作 日文 歌词 标题 创作表达 最近在做的事 Current trajectory Now 重庆 Edinburgh Ithaca Greedy Algorithms for Cardinality-Constrained Submodular Maximization Archive of Formal Proofs AFP entry published Isabelle HOL classical greedy stateful lazy greedy approximation guarantee Selected Evidence 整理 Cornell 交换后的研究材料 推进 Isabelle HOL 优化形式化 新的技术笔记 音乐 摄影 Mathematics 数学 这里收集我近期关于优化 形式化证明与极小极大问题的研究笔记 正在形成中的想法 公开阅读的技术记录 Photography Music Academic 学术 公开版 CV 项目 笔记 Projects Notes GitHub optimization theory formal verification machine learning theory Isabelle HOL first-order methods submodular optimization nonconvex minimax value-function second-order tracking research notes public technical records languages Chinese English Japanese lyrics titles creative expression Cornell exchange research materials technical notes music photography Cornell Edinburgh Ithaca 数学文章合集 摄影作品集 音乐作品集"
     },
     {
       "title": "CV",
       "url": "cv.html",
       "section": "Site",
       "date": "",
-      "excerpt": "Public CV with education, optimization-focused research directions, Isabelle/HOL formalization projects, minimax notes, and contact.",
+      "excerpt": "Public CV with education, research directions, research experience, selected projects, and contact.",
       "tags": [
         "cv"
       ],
       "sort": 0,
       "scope": "cv",
-      "content": "公开版 CV 教育背景 爱丁堡大学数学本科 2025 2026 于康奈尔大学完成交流学习 研究方向 优化理论 形式化验证 数学建模 一阶优化方法 机器检查证明 子模优化 近似保证 非凸极小极大 value-function 二阶追踪 代表项目与研究笔记 Isabelle HOL 子模贪心算法形式化 单调子模最大化 1-1/e 贪心近似保证 Archive of Formal Proofs AFP First-Order Optimization in Isabelle HOL 投影梯度下降 一阶最优性条件 telescoping argument 收敛结构 TTGDA Second-Order Tracking two-timescale GDA Schur-complement Hessian Duality and Lower Bounds under Invariances 图相对结构 平移不变性 不可识别性 gauge fixing augmentation 专利与 IP 研究经历 康奈尔大学 ORIE Shoham Sabach 爱丁堡大学 信息学院 Wenda Li 联系方式 Public CV Education BSc Mathematics University of Edinburgh Completed exchange study at Cornell University 2025 2026 Research Directions optimization theory formal verification mathematical modeling first-order methods machine-checked proofs submodular optimization minimax value-function viewpoint second-order tracking Selected Projects and Research Notes Submitted to the Archive of Formal Proofs projected gradient descent convergence proofs duality lower bounds under invariances Contact"
+      "content": "公开版 CV 教育背景 爱丁堡大学数学本科 2025 2026 于康奈尔大学完成交流学习 Expected graduation 2027 研究方向 优化理论 形式化验证 数学建模 一阶优化方法 机器检查证明 子模优化 近似保证 非凸极小极大 value-function 二阶追踪 代表项目与研究笔记 Isabelle HOL 子模贪心算法形式化 Greedy Algorithms for Cardinality-Constrained Submodular Maximization 单调非负子模最大化 classical greedy 1-1/e 近似保证 stateful lazy greedy Archive of Formal Proofs AFP entry published Proof document Repository First-Order Optimization 投影梯度下降 TTGDA Second-Order Tracking Duality and Lower Bounds under Invariances 研究经历 康奈尔大学 ORIE Shoham Sabach 爱丁堡大学 信息学院 Wenda Li 专利与 IP Selected Evidence 联系方式 Chongqing Edinburgh Ithaca Available by email Public CV Education BSc Mathematics University of Edinburgh Completed exchange study at Cornell University 2025 2026 Expected graduation 2027 Research Directions optimization theory formal verification mathematical modeling first-order methods machine-checked proofs submodular optimization minimax value-function viewpoint second-order tracking Selected Projects and Research Notes Published in the Archive of Formal Proofs as Greedy Algorithms for Cardinality-Constrained Submodular Maximization projected gradient descent convergence proofs TTGDA Schur-complement Hessian duality lower bounds under invariances Contact"
     }
   ]
 }

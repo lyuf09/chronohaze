@@ -26,6 +26,14 @@ test("home page renders hero and player shell", async ({ page }) => {
   await expect(page.locator("#selected-evidence")).toBeVisible();
   await expect(page.locator(".selected-evidence-card")).toHaveCount(4);
   await expect(page.getByRole("heading", { name: "Selected Evidence" })).toBeVisible();
+  await expect(page.locator(".now-card").first()).toContainText("正式发表于 Archive of Formal Proofs");
+  await expect(page.locator(".now-card").first().locator(".now-card-links a")).toHaveCount(3);
+  await expect(page.locator(".math-grid article").first()).toHaveClass(/math-afp-card/);
+  await expect(page.locator(".math-grid article").first()).toContainText(
+    "Greedy Algorithms for Cardinality-Constrained Submodular Maximization"
+  );
+  await expect(page.locator(".math-grid article").first().locator(".math-evidence-links a")).toHaveCount(3);
+  await expect(page.locator(".math-grid article").nth(1)).toContainText("TTGDA");
 
   expect(errors).toEqual([]);
 });
@@ -97,16 +105,30 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   await expect(page.locator(".cv-utility-bar")).toBeVisible();
   await expect(page.locator("a.cv-research-link")).toBeVisible();
   await expect(cvEnglish.locator("#cv-en-highlights")).toContainText("Expected graduation: 2027");
+  await expect(cvEnglish.locator("#cv-en-projects")).toContainText("Published in the Archive of Formal Proofs");
   await expect(cvEnglish.getByRole("heading", { name: "Selected Evidence" })).toBeVisible();
+  await expect(cvEnglish.getByRole("link", { name: "AFP entry" })).toHaveAttribute(
+    "href",
+    "https://isa-afp.org/entries/Submodular_Greedy.html#"
+  );
   await expect(cvEnglish.getByRole("link", { name: "Isabelle/HOL formalization repo" })).toBeVisible();
   await expect(cvEnglish.locator("#cv-en-experience")).toContainText("Location: currently between Chongqing, Edinburgh, and Ithaca");
 
-  await page.goto("research.html", { waitUntil: "domcontentloaded" });
+  await page.goto("research.html?lang=zh", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
   await expect(page.locator("body.research-landing-page")).toBeVisible();
   await expect(page.locator("#research-projects")).toBeVisible();
   await expect(page.locator("#research-outputs")).toBeVisible();
   await expect.poll(async () => page.locator(".research-project-card").count()).toBeGreaterThan(1);
+  const formalizationLine = page.locator(
+    '#research-projects [data-lang-block="zh"] .research-project-card'
+  ).first();
+  await expect(formalizationLine).toContainText("已正式发表于 Archive of Formal Proofs");
+  await expect(formalizationLine).toContainText("future extension / experimental branch");
+  await expect(formalizationLine.getByRole("link", { name: "AFP entry" })).toHaveAttribute(
+    "href",
+    "https://isa-afp.org/entries/Submodular_Greedy.html#"
+  );
 
   expect(errors).toEqual([]);
 });
@@ -186,6 +208,10 @@ test("academic page isolates languages and renders formalization evidence", asyn
   await expect(evidence.locator('[data-lang-block="zh"]')).toBeVisible();
   await expect(page.locator('main [data-lang-block="en"]')).toHaveCount(0);
   await expect(evidence.locator('[data-lang-block="zh"] .academic-evidence-list li')).toHaveCount(3);
+  await expect(evidence.getByRole("link", { name: "AFP entry" })).toHaveAttribute(
+    "href",
+    "https://isa-afp.org/entries/Submodular_Greedy.html#"
+  );
   await expect(page.locator("html")).toHaveAttribute("lang", "zh-CN");
   await expect(page.locator("body")).toHaveAttribute("data-rendered-lang", "zh");
 
@@ -197,6 +223,9 @@ test("academic page isolates languages and renders formalization evidence", asyn
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
   await expect(page.locator("body")).toHaveAttribute("data-rendered-lang", "en");
   await expect(page.getByText("Formalization evidence", { exact: true })).toBeVisible();
+  await expect(page.locator('#academic-highlights [data-lang-block="en"] .research-project-card').first()).toContainText(
+    "published in the Archive of Formal Proofs"
+  );
 
   const metrics = await page.evaluate(() => ({
     viewport: window.innerWidth,
@@ -207,6 +236,35 @@ test("academic page isolates languages and renders formalization evidence", asyn
   await evidence.screenshot({
     path: `/tmp/chronohaze-academic-evidence-${testInfo.project.name}.png`,
   });
+  expect(errors).toEqual([]);
+});
+
+test("AFP publication status stays synchronized across work page and project history", async ({ page }) => {
+  const errors = trackPageErrors(page);
+
+  await page.goto("projects.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+  const publishedProject = page.locator(
+    '#formal-verification-isabelle-hol [data-lang-block="en"] .research-project-card'
+  ).first();
+  await expect(publishedProject).toContainText("Published in the Archive of Formal Proofs");
+  await expect(publishedProject.getByRole("link", { name: "AFP entry" })).toHaveAttribute(
+    "href",
+    "https://isa-afp.org/entries/Submodular_Greedy.html#"
+  );
+
+  await page.goto("post/theorem-to-framework-isabelle-submodular.html?lang=en", {
+    waitUntil: "domcontentloaded",
+  });
+  await waitForCriticalLoaderRelease(page);
+  const update = page.locator('[data-lang-block="en"] .math-post-update');
+  await expect(update).toBeVisible();
+  await expect(update).toContainText("accepted and published in the Archive of Formal Proofs");
+  await expect(update.getByRole("link", { name: "AFP entry" })).toHaveAttribute(
+    "href",
+    "https://isa-afp.org/entries/Submodular_Greedy.html#"
+  );
+
   expect(errors).toEqual([]);
 });
 

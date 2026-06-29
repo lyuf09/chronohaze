@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
 
-REQUIRED_ITEM_KEYS = {
+REQUIRED_ITEM_KEYS = (
     "title",
     "url",
     "section",
@@ -19,7 +19,7 @@ REQUIRED_ITEM_KEYS = {
     "sort",
     "scope",
     "content",
-}
+)
 
 
 def _catalog_items_to_url_map(items: Any) -> Dict[str, Dict[str, Any]]:
@@ -118,7 +118,7 @@ def as_int_sort(value: Any) -> int:
 
 
 def validate_item(item: Dict[str, Any], source: Path, index: int) -> None:
-    missing = REQUIRED_ITEM_KEYS.difference(item.keys())
+    missing = set(REQUIRED_ITEM_KEYS).difference(item.keys())
     if missing:
         raise ValueError(
             f"{source.name} item[{index}] missing keys: {', '.join(sorted(missing))}"
@@ -240,7 +240,7 @@ def synthesize_research_search_item(catalogs: Dict[str, Any]) -> Dict[str, Any] 
     if not isinstance(item, dict):
         return None
     synthetic = {k: item.get(k) for k in REQUIRED_ITEM_KEYS}
-    if set(synthetic.keys()) != REQUIRED_ITEM_KEYS:
+    if set(synthetic.keys()) != set(REQUIRED_ITEM_KEYS):
         return None
     return synthetic
 

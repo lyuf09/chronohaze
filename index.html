@@ -336,8 +336,15 @@
           </div>
           <div class="now-grid" aria-label="Current work highlights">
             <article class="now-card" data-reveal="slide-up" data-reveal-delay="80">
-              <h3 data-i18n="nowCard1Title">Isabelle / Submodular Optimization</h3>
-              <p data-i18n="nowCard1Body">已于 2026 年 5 月 26 日向 Archive of Formal Proofs 提交 Isabelle/HOL 子模贪心算法形式化项目，目前等待处理。这个项目从 classical greedy 近似保证出发，继续整理 LazyGreedy、StochasticGreedy 与 oracle-cost 相关结构。</p>
+              <h3 data-i18n="nowCard1Title">Isabelle / 子模优化形式化</h3>
+              <p data-i18n="nowCard1Body">我的 Isabelle/HOL 形式化项目 Greedy Algorithms for Cardinality-Constrained Submodular Maximization 已正式发表于 Archive of Formal Proofs。这个 entry 形式化了基数约束下单调非负子模最大化的 classical greedy 近似保证，并包含一个基于 cached marginal-gain upper bounds 的 stateful lazy greedy 变体。</p>
+              <nav class="now-card-links" aria-label="AFP publication evidence">
+                <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
+                <span aria-hidden="true">·</span>
+                <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">GitHub repo</a>
+                <span aria-hidden="true">·</span>
+                <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf" target="_blank" rel="noopener noreferrer">Proof document</a>
+              </nav>
             </article>
             <article class="now-card" data-reveal="slide-up" data-reveal-delay="150">
               <h3 data-i18n="nowCard2Title">Performance Video Plan</h3>
@@ -357,9 +364,9 @@
             <h2 id="selectedEvidenceTitle" data-i18n="selectedEvidenceTitle">Selected Evidence</h2>
           </div>
           <div class="selected-evidence-grid" role="list" data-i18n-aria="selectedEvidenceGridAria" aria-label="精选证据">
-            <a class="selected-evidence-card" href="projects.html#formal-verification-isabelle-hol" role="listitem" data-reveal="slide-up" data-reveal-delay="80">
+            <a class="selected-evidence-card" href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer" role="listitem" data-reveal="slide-up" data-reveal-delay="80">
               <h3 data-i18n="selectedEvidenceCard1Title">Formal Proofs</h3>
-              <p data-i18n="selectedEvidenceCard1Body">Isabelle/HOL 子模贪心算法形式化；已提交 AFP。</p>
+              <p data-i18n="selectedEvidenceCard1Body">Isabelle/HOL 子模贪心算法形式化；正式发表于 Archive of Formal Proofs。</p>
             </a>
             <a class="selected-evidence-card" href="math.html" role="listitem" data-reveal="slide-up" data-reveal-delay="140">
               <h3 data-i18n="selectedEvidenceCard2Title">Optimization Notes</h3>
@@ -384,6 +391,19 @@
           <div id="homeMathPreview" style="display: contents;">
             <!-- GENERATED:home-math-preview:start -->
 
+            <article class="math-afp-card" data-reveal="slide-up" data-reveal-delay="40">
+              <p class="author" data-copy-zh="HazezZ · AFP entry · Isabelle/HOL / Approximation Algorithms · May 2026" data-copy-en="HazezZ · AFP entry · Isabelle/HOL / Approximation Algorithms · May 2026">HazezZ · AFP entry · Isabelle/HOL / Approximation Algorithms · May 2026</p>
+              <h3 data-copy-zh="Greedy Algorithms for Cardinality-Constrained Submodular Maximization" data-copy-en="Greedy Algorithms for Cardinality-Constrained Submodular Maximization">Greedy Algorithms for Cardinality-Constrained Submodular Maximization</h3>
+              <p data-copy-zh="A formally verified Isabelle/HOL development of the classical greedy approximation guarantee for monotone non-negative submodular maximization under a cardinality constraint, together with a verified stateful lazy greedy variant." data-copy-en="A formally verified Isabelle/HOL development of the classical greedy approximation guarantee for monotone non-negative submodular maximization under a cardinality constraint, together with a verified stateful lazy greedy variant.">A formally verified Isabelle/HOL development of the classical greedy approximation guarantee for monotone non-negative submodular maximization under a cardinality constraint, together with a verified stateful lazy greedy variant.</p>
+              <p class="math-afp-summary-zh">已正式发表于 AFP；包含 classical greedy 近似保证与 verified stateful lazy greedy variant。</p>
+              <nav class="math-evidence-links" aria-label="AFP entry evidence">
+                <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">View AFP entry</a>
+                <span aria-hidden="true">·</span>
+                <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf" target="_blank" rel="noopener noreferrer">Proof document</a>
+                <span aria-hidden="true">·</span>
+                <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">Repository</a>
+              </nav>
+            </article>
             <article data-post-url="notes/ttgda_second_order_tracking_note.html" tabindex="0" role="link" data-reveal="slide-up" data-reveal-delay="40">
               <p class="author" data-copy-zh="HazezZ · Technical note · Optimization / Minimax Learning · June 2026" data-copy-en="HazezZ · Technical note · Optimization / Minimax Learning · June 2026">HazezZ · Technical note · Optimization / Minimax Learning · June 2026</p>
               <h3 data-copy-zh="Schur-Complement Hessian with Two-Timescale Tracking" data-copy-en="Schur-Complement Hessian with Two-Timescale Tracking">Schur-Complement Hessian with Two-Timescale Tracking</h3>
@@ -399,14 +419,8 @@
             <article data-post-url="post/projected-gradient-descent-isabelle-hol.html" tabindex="0" role="link" data-reveal="slide-up" data-reveal-delay="240">
               <p class="author" data-copy-zh="HazezZ · 约 5 分钟" data-copy-en="HazezZ · 5 min read">HazezZ · 约 5 分钟</p>
               <h3 data-copy-zh="从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL" data-copy-en="Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL">从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL</h3>
-              <p data-copy-zh="在等待前一个 AFP 项目流程继续推进期间，我开始整理第二个 Isabelle/HOL optimization 项目：从 smooth convexity、projection geometry、descent estimates 到 projected-gradient mapping 和 residual certificates，尝试把 projected-gradient descent 写成一套可复用的 first-order methods infrastructure。" data-copy-en="While waiting for the previous AFP project to move forward, I started organizing a second Isabelle/HOL optimization project, from smooth convexity and projection geometry to descent estimates, projected-gradient mappings, and residual certificates.">在等待前一个 AFP 项目流程继续推进期间，我开始整理第二个 Isabelle/HOL optimization 项目：从 smooth convexity、projection geometry、descent estimates 到 projected-gradient mapping 和 residual certificates，尝试把 projected-gradient descent 写成一套可复用的 first-order methods infrastructure。</p>
+              <p data-copy-zh="在子模贪心形式化正式发表于 AFP 之后，我继续整理第二个 Isabelle/HOL optimization 项目：从 smooth convexity、projection geometry、descent estimates 到 projected-gradient mapping 和 residual certificates，尝试把 projected-gradient descent 写成一套可复用的 first-order methods infrastructure。" data-copy-en="Following publication of the submodular-greedy formalization in AFP, I continued organizing a second Isabelle/HOL optimization project, from smooth convexity and projection geometry to descent estimates, projected-gradient mappings, and residual certificates.">在子模贪心形式化正式发表于 AFP 之后，我继续整理第二个 Isabelle/HOL optimization 项目：从 smooth convexity、projection geometry、descent estimates 到 projected-gradient mapping 和 residual certificates，尝试把 projected-gradient descent 写成一套可复用的 first-order methods infrastructure。</p>
               <a href="post/projected-gradient-descent-isabelle-hol.html" data-copy-zh="阅读全文" data-copy-en="Read More">阅读全文</a>
-            </article>
-            <article data-post-url="post/what-i-really-got-when-a-dual-route-failed.html" tabindex="0" role="link" data-reveal="slide-up" data-reveal-delay="340">
-              <p class="author" data-copy-zh="HazezZ · 约 5 分钟" data-copy-en="HazezZ · 6 min read">HazezZ · 约 5 分钟</p>
-              <h3 data-copy-zh="当一个 dual 路线走不通时，我真正得到的东西" data-copy-en="What I Really Got When a Dual Route Failed">当一个 dual 路线走不通时，我真正得到的东西</h3>
-              <p data-copy-zh="当两条最自然的 Lagrangian dual 路线都塌到 trivial 0 bound 之后，留下来的反而是一个和 Range(B)、cycle consistency 与 instance difficulty 相关的 dual-based structural score。" data-copy-en="When the most natural Lagrangian dual routes collapse to the trivial 0 bound, what remains is a dual-based structural score tied to Range(B), cycle consistency, and instance difficulty.">当两条最自然的 Lagrangian dual 路线都塌到 trivial 0 bound 之后，留下来的反而是一个和 Range(B)、cycle consistency 与 instance difficulty 相关的 dual-based structural score。</p>
-              <a href="post/what-i-really-got-when-a-dual-route-failed.html" data-copy-zh="阅读全文" data-copy-en="Read More">阅读全文</a>
             </article>
             <!-- GENERATED:home-math-preview:end -->
           </div>
@@ -491,6 +505,19 @@
       const i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
       let drawerLinks = Array.from(drawer.querySelectorAll('a'));
       let homeMathItems = null;
+      const homeAfpEvidenceItem = {
+        kind: 'afp-entry',
+        url: 'https://isa-afp.org/entries/Submodular_Greedy.html#',
+        title: 'Greedy Algorithms for Cardinality-Constrained Submodular Maximization',
+        title_en: 'Greedy Algorithms for Cardinality-Constrained Submodular Maximization',
+        excerpt: 'A formally verified Isabelle/HOL development of the classical greedy approximation guarantee for monotone non-negative submodular maximization under a cardinality constraint, together with a verified stateful lazy greedy variant.',
+        excerpt_en: 'A formally verified Isabelle/HOL development of the classical greedy approximation guarantee for monotone non-negative submodular maximization under a cardinality constraint, together with a verified stateful lazy greedy variant.',
+        summary_zh: '已正式发表于 AFP；包含 classical greedy 近似保证与 verified stateful lazy greedy variant。',
+        reading_time_zh: 'AFP entry · Isabelle/HOL / Approximation Algorithms · May 2026',
+        reading_time_en: 'AFP entry · Isabelle/HOL / Approximation Algorithms · May 2026',
+        proof_document_url: 'https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf',
+        repository_url: 'https://github.com/lyuf09/isabelle-submodular-greedy'
+      };
       let menuScrollY = 0;
       let lastMenuFocus = null;
 
@@ -583,8 +610,8 @@
           nowStatusBody: '重庆 / Edinburgh / Ithaca 之间。整理 Cornell 交换后的研究材料，推进 Isabelle/HOL 中的优化形式化，继续写 minimax / localization 相关技术笔记；同时准备新的 bass / guitar performance videos 和摄影整理。',
           nowFreshnessLabel: '近况更新',
           nowCard1Label: 'Now',
-          nowCard1Title: 'Isabelle / Submodular Optimization',
-          nowCard1Body: '已于 2026 年 5 月 26 日向 Archive of Formal Proofs 提交 Isabelle/HOL 子模贪心算法形式化项目，目前等待处理。这个项目从 classical greedy 近似保证出发，继续整理 LazyGreedy、StochasticGreedy 与 oracle-cost 相关结构。',
+          nowCard1Title: 'Isabelle / 子模优化形式化',
+          nowCard1Body: '我的 Isabelle/HOL 形式化项目 Greedy Algorithms for Cardinality-Constrained Submodular Maximization 已正式发表于 Archive of Formal Proofs。这个 entry 形式化了基数约束下单调非负子模最大化的 classical greedy 近似保证，并包含一个基于 cached marginal-gain upper bounds 的 stateful lazy greedy 变体。',
           nowCard2Label: 'Currently working on',
           nowCard2Title: 'Performance Video Plan',
           nowCard2Body: '正在准备一组制作完成度更高的 bass / guitar performance videos，从 ERRA 风格的新派前卫核作品开始，重点提升画面、音色、低频和整体制作质感。',
@@ -594,7 +621,7 @@
           selectedEvidenceTitle: 'Selected Evidence',
           selectedEvidenceGridAria: '精选证据',
           selectedEvidenceCard1Title: 'Formal Proofs',
-          selectedEvidenceCard1Body: 'Isabelle/HOL 子模贪心算法形式化；已提交 AFP。',
+          selectedEvidenceCard1Body: 'Isabelle/HOL 子模贪心算法形式化；正式发表于 Archive of Formal Proofs。',
           selectedEvidenceCard2Title: 'Optimization Notes',
           selectedEvidenceCard2Body: 'TTGDA、Schur-complement Hessian、network localization、dual score 与 saddle certificates。',
           selectedEvidenceCard3Title: 'Music Production',
@@ -660,7 +687,7 @@
           nowFreshnessLabel: 'Last updated',
           nowCard1Label: 'Now',
           nowCard1Title: 'Isabelle / Submodular Optimization',
-          nowCard1Body: 'On May 26, 2026, I submitted an Isabelle/HOL formalization project for submodular greedy algorithms to the Archive of Formal Proofs; it is currently awaiting processing. Building on the classical greedy approximation guarantee, the project continues to formalize LazyGreedy, StochasticGreedy, and oracle-cost structures.',
+          nowCard1Body: 'My Isabelle/HOL formalization Greedy Algorithms for Cardinality-Constrained Submodular Maximization is now published in the Archive of Formal Proofs. It formalizes the classical greedy approximation guarantee for monotone non-negative submodular maximization under a cardinality constraint and includes a stateful lazy greedy variant based on cached marginal-gain upper bounds.',
           nowCard2Label: 'Currently working on',
           nowCard2Title: 'Performance Video Plan',
           nowCard2Body: 'I’m preparing a more fully produced series of bass / guitar performance videos, beginning with modern progressive-metalcore pieces in the vein of ERRA, with a focus on stronger visuals, tone, low-end, and overall production.',
@@ -670,7 +697,7 @@
           selectedEvidenceTitle: 'Selected Evidence',
           selectedEvidenceGridAria: 'Selected evidence',
           selectedEvidenceCard1Title: 'Formal Proofs',
-          selectedEvidenceCard1Body: 'Isabelle/HOL formalization of submodular greedy algorithms; AFP-submitted.',
+          selectedEvidenceCard1Body: 'Isabelle/HOL formalization of submodular greedy algorithms; published in the Archive of Formal Proofs.',
           selectedEvidenceCard2Title: 'Optimization Notes',
           selectedEvidenceCard2Body: 'TTGDA, Schur-complement Hessian, network localization, dual score, saddle certificates.',
           selectedEvidenceCard3Title: 'Music Production',
@@ -766,7 +793,8 @@
           const href = card.getAttribute('data-post-url');
           if (!href) return;
           card.dataset.boundNavigation = 'true';
-          card.addEventListener('click', function () {
+          card.addEventListener('click', function (event) {
+            if (event.target && event.target.closest && event.target.closest('a')) return;
             navigateHomeMathCard(href);
           });
           card.addEventListener('keydown', function (event) {
@@ -799,6 +827,8 @@
             const notesRoot = new URL('notes/', window.location.href).pathname;
             const isPost = url.pathname.startsWith(postRoot) && /\.html$/i.test(url.pathname);
             const isNote = url.pathname.startsWith(notesRoot) && /\.(?:html|pdf)$/i.test(url.pathname);
+            const isAfpEntry = url.origin === 'https://isa-afp.org' && url.pathname === '/entries/Submodular_Greedy.html';
+            if (isAfpEntry) return url.href;
             if (url.origin !== window.location.origin) return '#';
             if (!isPost && !isNote) return '#';
             return url.pathname + url.search + url.hash;
@@ -809,6 +839,7 @@
 
         const fragment = document.createDocumentFragment();
         homeMathItems.forEach(function (item, idx) {
+          const isAfpEntry = item && item.kind === 'afp-entry';
           const href = safeHref(item && (item.url || item.readmore_url) ? String(item.url || item.readmore_url) : '');
           const titleZh = item && item.title ? String(item.title) : '';
           const titleEn = item && item.title_en ? String(item.title_en) : titleZh;
@@ -821,12 +852,14 @@
           const delay = delays[idx] || (40 + idx * 100);
 
           const article = document.createElement('article');
-          article.dataset.postUrl = href;
-          article.tabIndex = 0;
-          article.setAttribute('role', 'link');
+          if (!isAfpEntry) {
+            article.dataset.postUrl = href;
+            article.tabIndex = 0;
+            article.setAttribute('role', 'link');
+          }
           article.setAttribute('data-reveal', 'slide-up');
           article.setAttribute('data-reveal-delay', String(delay));
-          article.className = 'is-visible';
+          article.className = isAfpEntry ? 'math-afp-card is-visible' : 'is-visible';
 
           const author = document.createElement('p');
           author.className = 'author';
@@ -853,7 +886,37 @@
           article.appendChild(author);
           article.appendChild(title);
           article.appendChild(excerpt);
-          article.appendChild(link);
+          if (isAfpEntry) {
+            const summaryZh = document.createElement('p');
+            summaryZh.className = 'math-afp-summary-zh';
+            summaryZh.textContent = item.summary_zh || '';
+            article.appendChild(summaryZh);
+
+            const links = document.createElement('nav');
+            links.className = 'math-evidence-links';
+            links.setAttribute('aria-label', 'AFP entry evidence');
+            [
+              ['View AFP entry', href],
+              ['Proof document', item.proof_document_url],
+              ['Repository', item.repository_url]
+            ].forEach(function (entry, linkIndex) {
+              if (linkIndex > 0) {
+                const separator = document.createElement('span');
+                separator.setAttribute('aria-hidden', 'true');
+                separator.textContent = '·';
+                links.appendChild(separator);
+              }
+              const evidenceLink = document.createElement('a');
+              evidenceLink.href = entry[1];
+              evidenceLink.target = '_blank';
+              evidenceLink.rel = 'noopener noreferrer';
+              evidenceLink.textContent = entry[0];
+              links.appendChild(evidenceLink);
+            });
+            article.appendChild(links);
+          } else {
+            article.appendChild(link);
+          }
           fragment.appendChild(article);
         });
 
@@ -883,7 +946,10 @@
           })
           .then(function (payload) {
             if (!payload || !Array.isArray(payload.items) || !payload.items.length) return;
-            renderHomeMathPreview(payload.items);
+            const recentNotes = payload.items
+              .filter(function (item) { return item && item.url !== homeAfpEvidenceItem.url; })
+              .slice(0, 3);
+            renderHomeMathPreview([homeAfpEvidenceItem].concat(recentNotes));
           })
           .catch(function () {
           });
