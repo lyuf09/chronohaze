@@ -32,14 +32,21 @@ test("home page renders hero and player shell", async ({ page }) => {
 
 test("music index renders and remains interactive", async ({ page }) => {
   const errors = trackPageErrors(page);
-  await page.goto("music.html", { waitUntil: "domcontentloaded" });
+  await page.goto("music.html?lang=zh", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
 
   await expect(page.locator("body.music-index-page")).toBeVisible();
   await expect(page.locator(".music-room-shell").first()).toBeVisible();
   await expect(page.locator(".music-room-selected")).toBeVisible();
   await expect.poll(async () => page.locator(".music-room-track-card").count()).toBeGreaterThan(3);
+  await expect(page.locator(".music-room-track-roles")).toHaveCount(5);
+  await expect(page.locator(".music-room-track-card").first().locator(".music-room-track-role")).toHaveCount(6);
+  await expect(page.locator(".music-room-track-card").first().locator(".music-room-track-roles")).toContainText("贝斯");
+  await expect(page.locator(".music-room-track-card").nth(2).locator(".music-room-track-role")).toHaveCount(3);
   await expect.poll(async () => page.locator(".music-room-album").count()).toBeGreaterThan(1);
+  await expect(page.locator(".music-room-album-credit")).toHaveText(
+    "除特别说明外，作品的写作、编曲、演奏、录制与制作均由 HazezZ 完成。"
+  );
   await expect(page.locator(".music-room-archive-section")).toBeVisible();
   await expect.poll(async () => page.locator(".music-room-archive-group").count()).toBeGreaterThan(2);
 
@@ -50,6 +57,15 @@ test("music index renders and remains interactive", async ({ page }) => {
       .poll(async () => page.locator(".music-room-archive-section .track-row:visible").count())
       .toBeGreaterThan(0);
   }
+
+  await page.goto("music.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+  await expect(page.locator(".music-room-track-card").first().locator(".music-room-track-roles")).toContainText(
+    "writing"
+  );
+  await expect(page.locator(".music-room-album-credit")).toHaveText(
+    "Written, arranged, performed and produced by HazezZ, unless otherwise noted."
+  );
 
   expect(errors).toEqual([]);
 });
@@ -101,10 +117,19 @@ test("album page renders cover and track links", async ({ page }) => {
   await waitForCriticalLoaderRelease(page);
 
   await expect(page.locator(".album-cover img")).toBeVisible();
+  await expect(page.locator(".album-authorship")).toHaveText(
+    "除特别说明外，作品的写作、编曲、演奏、录制与制作均由 HazezZ 完成。"
+  );
   await expect.poll(async () => page.locator(".album-tracklist .album-track-link").count()).toBeGreaterThan(10);
   await expect
     .poll(async () => page.locator(".album-tracklist [data-track-status], .album-tracklist .track-status-badge").count())
     .toBeGreaterThan(0);
+
+  await page.goto("music/album-ipomoea-alba.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+  await expect(page.locator(".album-authorship")).toHaveText(
+    "Written, arranged, performed and produced by HazezZ, unless otherwise noted."
+  );
 
   expect(errors).toEqual([]);
 });
@@ -194,6 +219,11 @@ test("photography vocabulary and Blue still frames render without overflow", asy
   await expect(page.locator(".photo-vocabulary")).toBeVisible();
   await expect(page.locator(".photo-vocabulary")).toContainText("蓝灰色光线");
   await expect(page.locator(".photo-feature-why")).toHaveCount(3);
+  await expect(page.locator(".photo-feature-view")).toHaveCount(3);
+  await expect(page.locator(".photo-feature-view").first()).toHaveText("进入系列");
+  await expect(page.getByRole("heading", { name: "Blue / Moving Image Work" })).toBeVisible();
+  await expect(page.locator(".photo-blue-evidence-result")).toContainText("满分");
+  await expect(page.locator(".photo-blue-evidence-stills img")).toHaveCount(5);
 
   const photographyMetrics = await page.evaluate(() => ({
     viewport: window.innerWidth,
@@ -210,6 +240,7 @@ test("photography vocabulary and Blue still frames render without overflow", asy
   await waitForCriticalLoaderRelease(page);
 
   await expect(page.locator(".photo-blue-statement")).toContainText("同一个记忆空间");
+  await expect(page.locator(".photo-blue-award")).toContainText("满分");
   await expect(page.locator(".photo-blue-still-grid img")).toHaveCount(5);
   await expect
     .poll(async () => {

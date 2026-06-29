@@ -10705,6 +10705,7 @@
     }
 
     var paragraphs = [
+      "Written, arranged, performed and produced by HazezZ, unless otherwise noted.",
       "Ipomoea alba blooms in moonlight.",
       "Some emotions do not unfold within the same city.<br />They grow slowly through screens, time zones, and the rare moments when wakefulness aligns,<br />stretched, diluted, kept breathing by promises postponed again and again,<br />until they sink into sea wind and become a tide that resists explanation.",
       "Everything began on a rainy day,<br />between white flowers, damp air, and a black notebook.<br />It belongs neither to daylight nor to interpretation,<br />only to fragments that were never spoken, yet undeniably real.",
@@ -10714,8 +10715,8 @@
       "Note: Some tracks are missing, and some have not been fully re-recorded or revised due to the long time span of the project. Further completion is planned.",
     ];
 
-    intro.innerHTML = paragraphs.map(function (paragraph) {
-      return "<p>" + paragraph + "</p>";
+    intro.innerHTML = paragraphs.map(function (paragraph, index) {
+      return '<p' + (index === 0 ? ' class="album-authorship"' : '') + ">" + paragraph + "</p>";
     }).join("");
   }
 
@@ -12885,6 +12886,8 @@
         quoteEn: "No more pressing for an ending to prove meaning.",
         detailZh: "15 首曲目 · 专辑页",
         detailEn: "15 tracks · album page",
+        creditZh: "除特别说明外，作品的写作、编曲、演奏、录制与制作均由 HazezZ 完成。",
+        creditEn: "Written, arranged, performed and produced by HazezZ, unless otherwise noted.",
       },
       {
         href: "music/album-teenage-best.html",
@@ -12908,6 +12911,8 @@
         scale: 1.2,
         tagsZh: ["前卫核", "情绪张力", "蓝灰"],
         tagsEn: ["progressive", "emotional", "blue-grey"],
+        rolesZh: ["作词", "作曲", "编曲", "吉他", "贝斯", "制作"],
+        rolesEn: ["writing", "composition", "arrangement", "guitar", "bass", "production"],
         noteZh: "奇数拍碎片、低频骨架与情绪化旋律线交错。像被雨打碎的愿景，在深蓝灰白里涨潮。",
         noteEn:
           "Odd-meter fragments, low-end scaffolding, and emotional melody lines crossing each other. A vision shattered by rain, rising in deep blue-grey-white tide.",
@@ -12919,6 +12924,8 @@
         scale: 1.22,
         tagsZh: ["叙事", "未决", "私密"],
         tagsEn: ["narrative", "unresolved", "intimate"],
+        rolesZh: ["作词", "作曲", "编曲", "吉他", "制作"],
+        rolesEn: ["writing", "composition", "arrangement", "guitar", "production"],
         noteZh: "梦醒后仍未散尽的对话。关于理解、距离，以及无法真正完成的和解。",
         noteEn:
           "A conversation still lingering after waking. About understanding, distance, and a reconciliation that can never fully be completed.",
@@ -12930,6 +12937,8 @@
         scale: 1.14,
         tagsZh: ["深蓝", "膨胀", "内部坍缩"],
         tagsEn: ["deep blue", "expansion", "collapse"],
+        rolesZh: ["作词", "作曲", "编曲"],
+        rolesEn: ["writing", "composition", "arrangement"],
         noteZh: "极深的蓝，膨胀后的失重。一次尚未命名的内部坍缩。",
         noteEn:
           "An extremely deep blue, weightlessness after expansion. An inward collapse still unnamed.",
@@ -12941,6 +12950,8 @@
         scale: 1.14,
         tagsZh: ["春天", "凝望", "透明蓝"],
         tagsEn: ["spring", "gaze", "clear blue"],
+        rolesZh: ["作词", "作曲", "编曲", "吉他", "制作"],
+        rolesEn: ["writing", "composition", "arrangement", "guitar", "production"],
         noteZh: "淡绿、透明的蓝色与空气里静静的光。一首关于春日微风的轻轻呢喃。",
         noteEn:
           "Pale green, transparent blue, and quiet light in the air. A soft murmur about spring breeze.",
@@ -12952,6 +12963,8 @@
         scale: 1.16,
         tagsZh: ["新制作", "重制中", "夜花"],
         tagsEn: ["new production", "WIP", "night flower"],
+        rolesZh: ["作词", "作曲", "编曲", "吉他", "制作"],
+        rolesEn: ["writing", "composition", "arrangement", "guitar", "production"],
         noteZh: "焦灼与自持在静默中开放，然后在兰花的克制中缓慢展开。",
         noteEn:
           "Tension and self-restraint opening in silence, then slowly unfolding in the discipline of an orchid.",
@@ -13092,6 +13105,15 @@
           textFor(blueprint.summaryZh, blueprint.summaryEn)
         )
       );
+      if (blueprint.creditZh || blueprint.creditEn) {
+        meta.appendChild(
+          createElement(
+            "p",
+            "music-room-album-credit",
+            textFor(blueprint.creditZh || "", blueprint.creditEn || "")
+          )
+        );
+      }
       meta.appendChild(
         createElement(
           "p",
@@ -13170,6 +13192,18 @@
         var meta = createElement("span", "music-room-track-meta");
         meta.appendChild(createElement("strong", "music-room-track-title", rowMeta.title));
         meta.appendChild(createElement("span", "music-room-track-artist", rowMeta.artist));
+        var roles = lang === "en" ? item.rolesEn || [] : item.rolesZh || [];
+        if (roles.length) {
+          var roleList = createElement("span", "music-room-track-roles");
+          roleList.setAttribute(
+            "aria-label",
+            textFor("HazezZ 在本作中的职责", "HazezZ's roles on this work")
+          );
+          roles.forEach(function (role) {
+            roleList.appendChild(createElement("span", "music-room-track-role", role));
+          });
+          meta.appendChild(roleList);
+        }
         meta.appendChild(
           createElement(
             "span",
