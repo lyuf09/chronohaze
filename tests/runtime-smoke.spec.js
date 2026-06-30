@@ -27,12 +27,12 @@ test("home page renders hero and player shell", async ({ page }) => {
   await expect(page.locator(".selected-evidence-card")).toHaveCount(4);
   await expect(page.getByRole("heading", { name: "Selected Evidence" })).toBeVisible();
   await expect(page.locator(".now-card").first()).toContainText("正式发表于 Archive of Formal Proofs");
-  await expect(page.locator(".now-card").first().locator(".now-card-links a")).toHaveCount(3);
+  await expect(page.locator(".now-card").first().locator(".now-card-links a")).toHaveCount(4);
   await expect(page.locator(".math-grid article").first()).toHaveClass(/math-afp-card/);
   await expect(page.locator(".math-grid article").first()).toContainText(
     "Greedy Algorithms for Cardinality-Constrained Submodular Maximization"
   );
-  await expect(page.locator(".math-grid article").first().locator(".math-evidence-links a")).toHaveCount(3);
+  await expect(page.locator(".math-grid article").first().locator(".math-evidence-links a")).toHaveCount(4);
   await expect(page.locator(".math-grid article").nth(1)).toContainText("TTGDA");
 
   expect(errors).toEqual([]);
@@ -252,6 +252,10 @@ test("AFP publication status stays synchronized across work page and project his
     "href",
     "https://isa-afp.org/entries/Submodular_Greedy.html#"
   );
+  await expect(publishedProject.getByRole("link", { name: "DOI: 10.5281/zenodo.21054718" })).toHaveAttribute(
+    "href",
+    "https://doi.org/10.5281/zenodo.21054718"
+  );
 
   await page.goto("post/theorem-to-framework-isabelle-submodular.html?lang=en", {
     waitUntil: "domcontentloaded",
@@ -263,6 +267,10 @@ test("AFP publication status stays synchronized across work page and project his
   await expect(update.getByRole("link", { name: "AFP entry" })).toHaveAttribute(
     "href",
     "https://isa-afp.org/entries/Submodular_Greedy.html#"
+  );
+  await expect(update.getByRole("link", { name: "DOI: 10.5281/zenodo.21054718" })).toHaveAttribute(
+    "href",
+    "https://doi.org/10.5281/zenodo.21054718"
   );
 
   expect(errors).toEqual([]);
@@ -287,6 +295,10 @@ test("new AFP note leads the math archive and exposes primary evidence", async (
   await expect(zhNote.getByRole("link", { name: "AFP entry" })).toHaveAttribute(
     "href",
     "https://isa-afp.org/entries/Submodular_Greedy.html#"
+  );
+  await expect(zhNote.getByRole("link", { name: "DOI: 10.5281/zenodo.21054718" })).toHaveAttribute(
+    "href",
+    "https://doi.org/10.5281/zenodo.21054718"
   );
   await expect(zhNote.getByRole("link", { name: "GitHub repository" })).toHaveAttribute(
     "href",
