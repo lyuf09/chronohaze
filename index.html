@@ -878,7 +878,10 @@
           })
           .then(function (payload) {
             if (!payload || !Array.isArray(payload.items) || !payload.items.length) return;
-            renderHomeMathPreview(payload.items.slice(0, 3));
+            const recentNotes = payload.items.filter(function (item) {
+              return item && item.url !== 'post/submodular-greedy-formalization-enters-afp.html';
+            });
+            renderHomeMathPreview(recentNotes.slice(0, 3));
           })
           .catch(function () {
           });

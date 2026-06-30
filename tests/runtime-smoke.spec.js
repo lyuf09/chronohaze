@@ -268,6 +268,46 @@ test("AFP publication status stays synchronized across work page and project his
   expect(errors).toEqual([]);
 });
 
+test("new AFP note leads the math archive and exposes primary evidence", async ({ page }) => {
+  const errors = trackPageErrors(page);
+
+  await page.goto("math.html?lang=zh", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+  const firstNote = page.locator(".math-list .math-card").first();
+  await expect(firstNote).toContainText("子模贪心算法形式化正式进入 AFP");
+  await expect(firstNote.locator(".math-date")).toContainText("2026-06-30");
+
+  await page.goto("post/submodular-greedy-formalization-enters-afp.html?lang=zh", {
+    waitUntil: "domcontentloaded",
+  });
+  await waitForCriticalLoaderRelease(page);
+  const zhNote = page.locator('[data-lang-block="zh"]');
+  await expect(zhNote.getByRole("heading", { name: "子模贪心算法形式化正式进入 AFP" })).toBeVisible();
+  await expect(zhNote).toContainText("Isabelle/HOL, submodular maximization, greedy algorithms");
+  await expect(zhNote.getByRole("link", { name: "AFP entry" })).toHaveAttribute(
+    "href",
+    "https://isa-afp.org/entries/Submodular_Greedy.html#"
+  );
+  await expect(zhNote.getByRole("link", { name: "GitHub repository" })).toHaveAttribute(
+    "href",
+    "https://github.com/lyuf09/isabelle-submodular-greedy/tree/afp-cleanup"
+  );
+
+  await page.goto("post/submodular-greedy-formalization-enters-afp.html?lang=en", {
+    waitUntil: "domcontentloaded",
+  });
+  await waitForCriticalLoaderRelease(page);
+  await expect(page.getByRole("heading", { name: "Formalizing Submodular Greedy Is Now in the AFP" })).toBeVisible();
+  await expect(page.locator('[data-lang-block="zh"]')).toBeHidden();
+
+  const metrics = await page.evaluate(() => ({
+    viewport: window.innerWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
+  expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.viewport + 2);
+  expect(errors).toEqual([]);
+});
+
 test("photography vocabulary and Blue still frames render without overflow", async ({ page }, testInfo) => {
   const errors = trackPageErrors(page);
 

@@ -5,9 +5,17 @@
     <link>https://lyuf09.github.io/chronohaze/</link>
     <description>Research notes and blog-style updates from Chronohaze, focused on optimization, Isabelle/HOL, and mathematical structure.</description>
     <language>en</language>
-    <lastBuildDate>Fri, 22 May 2026 12:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 30 Jun 2026 12:00:00 +0000</lastBuildDate>
     <generator>Chronohaze static feed builder</generator>
     <atom:link href="https://lyuf09.github.io/chronohaze/feed.xml" rel="self" type="application/rss+xml" />
+
+    <item>
+      <title>Formalizing Submodular Greedy Is Now in the AFP</title>
+      <link>https://lyuf09.github.io/chronohaze/post/submodular-greedy-formalization-enters-afp.html</link>
+      <guid>https://lyuf09.github.io/chronohaze/post/submodular-greedy-formalization-enters-afp.html</guid>
+      <pubDate>Tue, 30 Jun 2026 12:00:00 +0000</pubDate>
+      <description>A short reflection on the publication of an Isabelle/HOL formalization of submodular greedy algorithms in the Archive of Formal Proofs, and on the proof architecture exposed by formalization.</description>
+    </item>
 
     <item>
       <title>From Dual Score to Saddle Certificates: A Small New Step</title>
@@ -22,7 +30,7 @@
       <link>https://lyuf09.github.io/chronohaze/post/projected-gradient-descent-isabelle-hol.html</link>
       <guid>https://lyuf09.github.io/chronohaze/post/projected-gradient-descent-isabelle-hol.html</guid>
       <pubDate>Fri, 22 May 2026 12:00:00 +0000</pubDate>
-      <description>While waiting for the previous AFP project to move forward, I started organizing a second Isabelle/HOL optimization project, from smooth convexity and projection geometry to descent estimates, projected-gradient mappings, and residual certificates.</description>
+      <description>Following publication of the submodular-greedy formalization in AFP, I continued organizing a second Isabelle/HOL optimization project, from smooth convexity and projection geometry to descent estimates, projected-gradient mappings, and residual certificates.</description>
     </item>
 
     <item>

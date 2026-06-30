@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <style id="chronohaze-critical-loader-style">
+    html.chronohaze-critical-loading,
+    html.chronohaze-critical-loading body {
+      min-height: 100%;
+      background: #10141b;
+    }
+
+    html.chronohaze-critical-loading body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    html.chronohaze-critical-loading body > :not(.chronohaze-loader) {
+      visibility: hidden !important;
+    }
+
+    html.chronohaze-critical-loading::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 2147483000;
+      background:
+        linear-gradient(90deg, rgba(138, 160, 200, 0.09) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(138, 160, 200, 0.07) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(13, 17, 24, 0.992) 0%, rgba(19, 24, 33, 0.992) 55%, rgba(13, 17, 24, 0.996) 100%);
+      background-size: 54px 54px, 54px 54px, 100% 100%;
+    }
+
+    html.chronohaze-critical-loading::after {
+      content: "chronohaze.space\A 页面加载中";
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      z-index: 2147483001;
+      width: min(500px, calc(100vw - 40px));
+      padding: 30px 32px;
+      transform: translate(-50%, -50%);
+      white-space: pre-line;
+      color: rgba(232, 234, 237, 0.9);
+      font: 300 clamp(22px, 3.2vw, 34px)/1.48 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.055em;
+      border: 1px solid rgba(154, 172, 204, 0.3);
+      border-radius: 0;
+      background: linear-gradient(180deg, rgba(20, 25, 34, 0.84) 0%, rgba(13, 17, 24, 0.82) 100%);
+      box-shadow: 0 24px 58px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.045);
+    }
+
+    html.chronohaze-critical-loading-mobile body {
+      overflow: auto;
+    }
+
+    html.chronohaze-critical-loading-mobile body > :not(.chronohaze-loader) {
+      visibility: visible !important;
+    }
+
+    html.chronohaze-critical-loading-mobile::before {
+      background: linear-gradient(180deg, rgba(13, 17, 24, 0.18) 0%, rgba(19, 24, 33, 0.22) 100%);
+      pointer-events: none;
+    }
+
+    html.chronohaze-critical-loading-mobile::after {
+      content: "chronohaze.space";
+      left: 16px;
+      top: 16px;
+      width: auto;
+      max-width: calc(100vw - 32px);
+      padding: 10px 12px;
+      transform: none;
+      white-space: normal;
+      color: rgba(232, 234, 237, 0.78);
+      font: 400 12px/1.3 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.18em;
+      border: 1px solid rgba(154, 172, 204, 0.18);
+      background: rgba(16, 20, 27, 0.34);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+      backdrop-filter: blur(2px);
+    }
+  </style>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var isMobile = window.matchMedia && window.matchMedia("(max-width: 760px)").matches;
+      root.classList.add("chronohaze-critical-loading");
+      if (isMobile) {
+        root.classList.add("chronohaze-critical-loading-mobile");
+      }
+      window.__chronohazeReleaseCriticalLoader = function () {
+        root.classList.remove("chronohaze-critical-loading");
+        root.classList.remove("chronohaze-critical-loading-mobile");
+      };
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, isMobile ? 1500 : 6500);
+    })();
+  </script>
+  <link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
+  <title>子模贪心算法形式化正式进入 AFP | Chronohaze</title>
+  <meta name="description" content="记录 Isabelle/HOL 子模贪心算法形式化正式发表于 Archive of Formal Proofs，以及形式化过程中逐渐显露出的算法证明结构。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Chronohaze" />
+  <meta property="og:title" content="子模贪心算法形式化正式进入 AFP | Chronohaze" />
+  <meta property="og:description" content="记录 Isabelle/HOL 子模贪心算法形式化正式发表于 Archive of Formal Proofs，以及形式化过程中逐渐显露出的算法证明结构。" />
+  <meta property="og:url" content="https://lyuf09.github.io/chronohaze/post/submodular-greedy-formalization-enters-afp.html" />
+  <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/submodular-greedy-formalization-enters-afp.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="子模贪心算法形式化正式进入 AFP | Chronohaze" />
+  <meta name="twitter:description" content="记录 Isabelle/HOL 子模贪心算法形式化正式发表于 Archive of Formal Proofs，以及形式化过程中逐渐显露出的算法证明结构。" />
+  <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/submodular-greedy-formalization-enters-afp.png" />
+  <link rel="canonical" href="https://lyuf09.github.io/chronohaze/post/submodular-greedy-formalization-enters-afp.html" />
+  <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/post/submodular-greedy-formalization-enters-afp.html?lang=zh" />
+  <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/post/submodular-greedy-formalization-enters-afp.html?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/post/submodular-greedy-formalization-enters-afp.html" />
+  <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
+  <!-- Google tag (gtag.js), deferred until idle -->
+  <script>
+    (function () {
+      var measurementId = "G-JWZY2TVYFZ";
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+      function loadAnalytics() {
+        if (loadAnalytics.loaded || navigator.doNotTrack === "1") return;
+        loadAnalytics.loaded = true;
+        var script = document.createElement("script");
+        script.async = true;
+        script.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(measurementId);
+        document.head.appendChild(script);
+        window.gtag("js", new Date());
+        window.gtag("config", measurementId, { anonymize_ip: true });
+      }
+      if (document.readyState === "complete") window.setTimeout(loadAnalytics, 1800);
+      else window.addEventListener("load", function () { window.setTimeout(loadAnalytics, 1800); }, { once: true });
+    })();
+  </script>
+  <link rel="preload" href="../assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="../styles.min.css?v=20260609-mobile-safari-archive4" />
+  <script defer src="../protect-media.min.js?v=20260621-nested-assets1"></script>
+</head>
+<body class="math-post-page">
+  <div class="page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="../index.html">
+          <img src="../assets/logo.png" alt="Chronohaze site logo" />
+          <span>chronohaze.space</span>
+        </a>
+        <nav class="nav" aria-label="主导航" data-i18n-aria="navAria">
+          <a href="../index.html" data-i18n="navHome">主页</a>
+          <a class="active" href="../academic.html" data-i18n="navAcademic">学术</a>
+          <a href="../photography.html" data-i18n="navPhoto">摄影</a>
+          <a href="../music.html" data-i18n="navMusic">音乐</a>
+          <a href="../cv.html" data-i18n="navCV">CV</a>
+          <a href="../search.html" data-i18n="navSearch">搜索</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="container">
+        <div class="cv-utility-bar">
+          <div class="cv-utility-top">
+            <nav class="academic-local-nav" aria-label="学术页面导航" data-i18n-aria="academicSectionAria">
+              <a class="academic-local-link" href="../academic.html" data-i18n="utilityOverview">总览</a>
+              <a class="academic-local-link" href="../research.html" data-i18n="utilityResearch">研究</a>
+              <a class="academic-local-link" href="../projects.html" data-i18n="utilityProjects">项目</a>
+              <a class="academic-local-link is-active" href="../math.html" data-i18n="utilityNotes">笔记</a>
+            </nav>
+          </div>
+        </div>
+      </div>
+
+      <article class="article">
+        <div data-lang-block="zh">
+          <h1>子模贪心算法形式化正式进入 AFP</h1>
+          <p class="article-meta">HazezZ · 2026年6月30日 · 约 6 分钟</p>
+          <p class="article-meta">Isabelle/HOL, submodular maximization, greedy algorithms, approximation guarantees, AFP</p>
+          <div class="research-link-row" aria-label="项目证据链接">
+            <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
+            <a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/afp-cleanup" target="_blank" rel="noopener noreferrer">GitHub repository</a>
+          </div>
+
+          <p>最近，我的 Isabelle/HOL 形式化项目 <em>Greedy Algorithms for Cardinality-Constrained Submodular Maximization</em> 正式发表于 Archive of Formal Proofs。</p>
+
+          <p>这个项目形式化的是基数约束下的单调非负子模最大化问题。更具体地说，它证明了 classical greedy algorithm 的经典近似保证：在选择至多 <em>k</em> 个元素的约束下，贪心算法可以达到最优值的 (1 − 1/e) 近似比例。除此之外，项目中还包含了一个 stateful lazy greedy variant，用 cached marginal-gain upper bounds 来刻画 lazy greedy 的状态更新过程。</p>
+
+          <p>这篇短文不打算重新解释子模函数、边际增益或者贪心算法的全部背景。那些内容我之前已经写过不少了。现在再回头看，我更想记录的是：这个项目从一开始并不只是“把一个定理翻译成 Isabelle”，而是逐渐变成了一个关于算法证明结构的整理过程。</p>
+
+          <p>在纸面证明里，很多东西可以自然地藏在一句话里。比如“每一步选择当前边际增益最大的元素”，“由子模性得到平均意义上的下界”，“把递推式 telescope 起来得到最终比例”。这些在数学上都很熟悉，也很顺滑。但在 Isabelle 里，每一个“显然”都需要有明确的对象、明确的假设和明确的类型。集合是否有限，当前解是否仍然满足基数约束，贪心步骤是否真的存在，边际增益的比较对象是什么，这些细节都不能被跳过。</p>
+
+          <p>这也是这个项目最有意思的地方。形式化证明会迫使我把一个原本很流畅的算法分析拆开：先定义 ground set 和可行解，再定义边际增益，再刻画单步贪心选择，再证明每一步的 progress bound，最后把这个局部进展转化成全局的 approximation guarantee。它不像手写证明那样优雅地“一笔带过”，但它会把证明的骨架暴露得非常清楚。</p>
+
+          <p>我在做这个项目之前，对 classical greedy 的证明当然并不陌生。但真正形式化之后，我才更强烈地意识到：很多算法证明的核心难点不只是某个技巧，而是如何组织那些看似普通的中间结构。一个 approximation theorem 背后，其实有一整套关于状态、可行性、单调性、子模性和递推不等式的 infrastructure。</p>
+
+          <p>后来的 lazy greedy 部分也让我很喜欢。Lazy greedy 在算法实现里是一个非常自然的优化：不必每一次都重新计算所有元素的真实边际增益，而是维护一些上界，用它们来减少不必要的计算。把这个想法放进形式化证明里之后，问题就不只是“算法跑得更快”，而是要说明状态中的 cached values 与真实 marginal gains 之间保持着正确的关系。换句话说，程序状态本身也变成了证明对象。</p>
+
+          <p>对我来说，这个 AFP entry 是一个很重要的节点。它把我过去一段时间关于 optimization、approximation algorithms 和 formal verification 的兴趣真正连在了一起。优化理论里有很多漂亮的证明，而 Isabelle/HOL 让我用另一种方式去看这些证明：不是只看最后的 theorem statement，而是看它需要怎样的定义、怎样的 lemma 层次，以及怎样的 proof architecture 才能被机器完整检查。</p>
+
+          <p>我也很感谢 Wenda Li 老师在这个项目中的指导，以及 Tobias Nipkow 老师在最后阶段帮忙修改和推进 AFP 发布。能看到这个项目作为一个正式 entry 出现在 Archive of Formal Proofs 里，对我来说是一个很特别的时刻。</p>
+
+          <p>接下来，我希望沿着这个方向继续做两件事。第一，是把更多一阶优化和组合优化中的经典证明整理成可复用的 formal libraries。第二，是继续思考形式化验证和优化理论之间更深的关系：哪些证明结构最适合被机器检查？哪些算法分析在形式化过程中会暴露出新的层次？以及，formalization 能不能不仅仅验证已有结果，也帮助我们更清楚地设计新的证明？</p>
+
+          <p>这次进入 AFP 更像是一个起点，而不是终点。它让我更确信，形式化证明并不是把数学变得机械，而是用另一种非常严格的方式，重新看见数学证明内部的结构。</p>
+
+          <nav class="math-post-nav" data-static-math-post-nav="1" aria-label="相邻笔记导航">
+            <a class="math-post-nav-item" data-nav-dir="next" href="../notes/ttgda_second_order_tracking_note.html" data-no-page-transition="1" aria-label="下一篇 · A Small Exploratory Note on TTGDA and Second-Order Tracking">
+              <span class="math-post-nav-label">下一篇</span>
+              <span class="math-post-nav-title">A Small Exploratory Note on TTGDA and Second-Order Tracking</span>
+            </a>
+          </nav>
+          <div class="academic-hub-links math-post-hub-links">
+            <p class="academic-hub-links-label">继续浏览</p>
+            <div class="research-link-row">
+              <a href="../academic.html">总览</a>
+              <a href="../research.html">研究</a>
+              <a href="../projects.html">项目</a>
+              <a href="../math.html">笔记</a>
+            </div>
+          </div>
+        </div>
+
+        <div data-lang-block="en" hidden>
+          <h1>Formalizing Submodular Greedy Is Now in the AFP</h1>
+          <p class="article-meta">HazezZ · June 30, 2026 · 7 min read</p>
+          <p class="article-meta">Isabelle/HOL, submodular maximization, greedy algorithms, approximation guarantees, AFP</p>
+          <div class="research-link-row" aria-label="Project evidence links">
+            <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
+            <a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/afp-cleanup" target="_blank" rel="noopener noreferrer">GitHub repository</a>
+          </div>
+
+          <p>Recently, my Isabelle/HOL formalization project <em>Greedy Algorithms for Cardinality-Constrained Submodular Maximization</em> was formally published in the Archive of Formal Proofs.</p>
+
+          <p>The project formalizes monotone non-negative submodular maximization under a cardinality constraint. More specifically, it verifies the classical approximation guarantee for the greedy algorithm: when at most <em>k</em> elements may be selected, greedy attains a (1 − 1/e) approximation to the optimum. The development also contains a stateful lazy greedy variant, using cached upper bounds on marginal gains to describe the state transitions of lazy greedy.</p>
+
+          <p>This short note is not meant to explain submodular functions, marginal gains, or greedy algorithms all over again. I have already written quite a lot about that background. Looking back now, what I most want to record is that this project did not remain a matter of “translating one theorem into Isabelle.” It gradually became an exercise in organizing the structure of an algorithmic proof.</p>
+
+          <p>On paper, many things can disappear naturally into a sentence: “choose the element with the largest current marginal gain,” “use submodularity to obtain an average lower bound,” or “telescope the recurrence to obtain the final ratio.” These moves are familiar and smooth mathematically. In Isabelle, however, every “obvious” step needs an explicit object, assumption, and type. Is the ground set finite? Does the current solution still satisfy the cardinality constraint? Does the greedy step actually exist? What is the comparison class for marginal gains? None of these details can be skipped.</p>
+
+          <p>That is also what makes the project interesting. Formal proof forces me to take an analysis that originally flows very smoothly and pull it apart: define the ground set and feasible solutions, define marginal gain, characterize a single greedy choice, prove a progress bound for each step, and finally turn that local progress into a global approximation guarantee. It cannot pass over the proof as elegantly as handwritten mathematics sometimes does, but it makes the skeleton remarkably visible.</p>
+
+          <p>I was of course already familiar with the classical greedy proof before starting this project. Formalizing it made me feel much more strongly that the central difficulty in many algorithmic proofs is not only a particular trick, but the organization of apparently ordinary intermediate structures. Behind an approximation theorem lies an entire infrastructure of state, feasibility, monotonicity, submodularity, and recurrence inequalities.</p>
+
+          <p>I also became very fond of the later lazy greedy part. In an implementation, lazy greedy is a natural optimization: instead of recomputing every true marginal gain at every step, maintain upper bounds and use them to avoid unnecessary evaluations. Once this idea enters a formal proof, the question is no longer merely whether the algorithm runs faster. One has to show that the cached values in the state remain correctly related to the true marginal gains. In other words, program state itself becomes a proof object.</p>
+
+          <p>For me, this AFP entry is an important milestone. It connects the interests I have been pursuing in optimization, approximation algorithms, and formal verification. Optimization theory contains many beautiful proofs, and Isabelle/HOL lets me look at them differently: not only at the final theorem statement, but at the definitions, lemma hierarchy, and proof architecture required for a machine to check the whole development.</p>
+
+          <p>I am very grateful to Wenda Li for his guidance on this project, and to Tobias Nipkow for helping revise the development and move the AFP publication forward in its final stage. Seeing the project appear as a formal entry in the Archive of Formal Proofs was a particularly meaningful moment for me.</p>
+
+          <p>Next, I hope to continue in two directions. First, I want to organize more classical proofs from first-order and combinatorial optimization into reusable formal libraries. Second, I want to keep thinking about the deeper relation between formal verification and optimization theory: which proof structures are most suited to machine checking, which new layers become visible when an algorithmic analysis is formalized, and whether formalization can do more than verify existing results—whether it can also help us design new proofs more clearly.</p>
+
+          <p>Entering the AFP feels more like a beginning than an endpoint. It makes me more certain that formal proof does not make mathematics mechanical. It lets us see the internal structure of a mathematical proof again, through another exceptionally rigorous lens.</p>
+
+          <nav class="math-post-nav" data-static-math-post-nav="1" aria-label="Adjacent notes">
+            <a class="math-post-nav-item" data-nav-dir="next" href="../notes/ttgda_second_order_tracking_note.html" data-no-page-transition="1" aria-label="Next note · A Small Exploratory Note on TTGDA and Second-Order Tracking">
+              <span class="math-post-nav-label">Next note</span>
+              <span class="math-post-nav-title">A Small Exploratory Note on TTGDA and Second-Order Tracking</span>
+            </a>
+          </nav>
+          <div class="academic-hub-links math-post-hub-links">
+            <p class="academic-hub-links-label">Continue with</p>
+            <div class="research-link-row">
+              <a href="../academic.html">Overview</a>
+              <a href="../research.html">Research</a>
+              <a href="../projects.html">Projects</a>
+              <a href="../math.html">Notes</a>
+            </div>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <p class="footer-title">chronohaze.space</p>
+          <p class="footer-note"><span data-i18n="footerContactLead">辗转不同国家无固定号码 请联系邮箱：</span><a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a></p>
+          <p class="footer-note" data-i18n="footerCities">重庆 · Edinburgh · Ithaca</p>
+          <p class="footer-copy">© 2026 by chronohaze.space. Powered and secured by GitHub Pages.</p>
+          <div class="social" aria-label="Social links">
+            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://www.instagram.com/lyuf09" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://space.bilibili.com/35902781" target="_blank" rel="noopener noreferrer">Bilibili</a>
+            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+        <div class="footer-right">
+          <a href="../policy.html" data-i18n="siteNotes">网站说明</a>
+          <a href="../accessibility.html" data-i18n="a11y">无障碍支持</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      const i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
+      const i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
+      const langBlocks = Array.from(document.querySelectorAll('[data-lang-block]'));
+      const queryLang = new URLSearchParams(window.location.search).get('lang');
+      const i18n = {
+        zh: {
+          htmlLang: 'zh-CN', pageTitle: '子模贪心算法形式化正式进入 AFP | Chronohaze',
+          navAria: '主导航', navHome: '主页', navAcademic: '学术', navPhoto: '摄影', navMusic: '音乐', navCV: 'CV', navSearch: '搜索',
+          academicSectionAria: '学术页面导航', utilityOverview: '总览', utilityResearch: '研究', utilityProjects: '项目', utilityNotes: '笔记',
+          footerContactLead: '辗转不同国家无固定号码 请联系邮箱：', footerCities: '重庆 · Edinburgh · Ithaca', siteNotes: '网站说明', a11y: '无障碍支持'
+        },
+        en: {
+          htmlLang: 'en', pageTitle: 'Formalizing Submodular Greedy Is Now in the AFP | Chronohaze',
+          navAria: 'Main navigation', navHome: 'Home', navAcademic: 'Academic', navPhoto: 'Photography', navMusic: 'Music', navCV: 'CV', navSearch: 'Search',
+          academicSectionAria: 'Academic section navigation', utilityOverview: 'Overview', utilityResearch: 'Research', utilityProjects: 'Projects', utilityNotes: 'Notes',
+          footerContactLead: 'No fixed phone number while moving across countries. Contact via email: ', footerCities: 'Chongqing · Edinburgh · Ithaca', siteNotes: 'Site Notes', a11y: 'Accessibility'
+        }
+      };
+
+      function setLanguage(lang) {
+        const safeLang = lang === 'en' ? 'en' : 'zh';
+        const dict = i18n[safeLang];
+        document.documentElement.lang = dict.htmlLang;
+        document.title = dict.pageTitle;
+        i18nNodes.forEach(function (node) {
+          const value = dict[node.getAttribute('data-i18n')];
+          if (typeof value === 'string') node.textContent = value;
+        });
+        i18nAriaNodes.forEach(function (node) {
+          const value = dict[node.getAttribute('data-i18n-aria')];
+          if (typeof value === 'string') node.setAttribute('aria-label', value);
+        });
+        langBlocks.forEach(function (block) {
+          block.hidden = block.getAttribute('data-lang-block') !== safeLang;
+        });
+        try {
+          window.localStorage.setItem('siteLang', safeLang);
+          window.localStorage.setItem('chronohaze-lang', safeLang);
+        } catch (_error) {}
+      }
+
+      let initialLang = 'zh';
+      try {
+        const saved = window.localStorage.getItem('siteLang') || window.localStorage.getItem('chronohaze-lang');
+        if (saved === 'zh' || saved === 'en') initialLang = saved;
+      } catch (_error) {}
+      if (queryLang === 'zh' || queryLang === 'en') initialLang = queryLang;
+      setLanguage(initialLang);
+    })();
+  </script>
+</body>
+</html>
