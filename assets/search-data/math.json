@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30",
+  "generated_at": "2026-07-01",
   "scope": "math",
   "items": [
     {
@@ -21,6 +21,25 @@
       "sort": 20260630,
       "scope": "math",
       "content": "子模贪心算法形式化正式进入 AFP Formalizing Submodular Greedy Is Now in the AFP HazezZ 2026年6月30日 Isabelle HOL submodular maximization greedy algorithms approximation guarantees Archive of Formal Proofs AFP Greedy Algorithms for Cardinality-Constrained Submodular Maximization monotone non-negative cardinality constraint classical greedy 1-1/e approximation stateful lazy greedy cached marginal-gain upper bounds 形式化证明会把算法分析拆成 ground set 可行解 边际增益 单步贪心选择 progress bound approximation guarantee 状态 可行性 单调性 子模性 递推不等式 infrastructure Lazy greedy 的 cached values 与真实 marginal gains 之间需要保持正确关系 程序状态本身也成为证明对象 optimization approximation algorithms formal verification proof architecture Wenda Li Tobias Nipkow formal libraries machine-checked proofs AFP entry DOI 10.5281/zenodo.21054718 https://doi.org/10.5281/zenodo.21054718 GitHub repository afp-cleanup"
+    },
+    {
+      "title": "A Small Exploratory Note on Exact Huber GLMs after Sparsification",
+      "url": "notes/huber_glm_sparsification_refinement_note.html",
+      "section": "Mathematics",
+      "date": "2026-07",
+      "excerpt": "关于 exact Huber GLMs after sparsification 的一个短技术笔记。这个问题来自我阅读 Sparsifying Generalized Linear Models 时的一个观察：Huber-type objectives 已经包含在 sparsification 结果中，但 exact Huber endpoint 的 local geometry 同时包含 active quadratic curvature、affine tails 和 kink-switching behavior，因此它似乎是 high-accuracy local refinement template 的一个自然边界情形。",
+      "tags": [
+        "math",
+        "article",
+        "optimization",
+        "sparsification",
+        "glms",
+        "huber-loss",
+        "reading-note"
+      ],
+      "sort": 20260700,
+      "scope": "math",
+      "content": "A Small Exploratory Note on Exact Huber GLMs after Sparsification Technical note Optimization Sparsification GLMs Huber loss Reading note July 2026 exact Huber endpoint local geometry active quadratic curvature affine tails kink-switching behavior high-accuracy local refinement template Sparsifying Generalized Linear Models 关于 exact Huber GLMs after sparsification 的一个短技术笔记 这个问题来自我阅读 Sparsifying Generalized Linear Models 时的一个观察 Huber-type objectives 已经包含在 sparsification 结果中 但 exact Huber endpoint 的 local geometry 同时包含 active quadratic curvature affine tails 和 kink-switching behavior 因此它似乎是 high-accuracy local refinement template 的一个自然边界情形 This short note records a preliminary question about whether a sparsified local refinement step could preserve the active quadratic curvature of exact Huber losses while controlling switching near the Huber kink PDF preview note page embedded preview Open PDF"
     },
     {
       "title": "A Small Exploratory Note on TTGDA and Second-Order Tracking",
