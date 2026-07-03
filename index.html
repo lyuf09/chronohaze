@@ -240,7 +240,7 @@
   <link rel="preload" href="assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/cinzel-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" as="image" href="assets/template/hero_portrait-960.webp" type="image/webp" imagesrcset="assets/template/hero_portrait-600.webp 600w, assets/template/hero_portrait-960.webp 960w, assets/template/hero_portrait-1600.webp 1600w" imagesizes="(max-width: 640px) 88vw, (max-width: 900px) 92vw, 46vw" />
-  <link rel="stylesheet" href="styles.min.css?v=20260609-mobile-safari-archive4" />
+  <link rel="stylesheet" href="styles.min.css?v=20260621-nested-assets1" />
   <link rel="stylesheet" href="home.min.css?v=20260621-nested-assets1" />
   <script defer src="protect-media.min.js?v=20260621-nested-assets1"></script>
 </head>
@@ -481,9 +481,11 @@
       <nav class="drawer-nav" aria-label="站点菜单" data-i18n-aria="drawerAria">
         <a href="#top" data-i18n="menuHome">主页</a>
         <a href="academic.html" data-i18n="menuAcademic">学术</a>
-        <a href="music.html" data-i18n="menuMusic">音乐</a>
         <a href="photography.html" data-i18n="menuPhoto">摄影</a>
+        <a href="music.html" data-i18n="menuMusic">音乐</a>
+        <a href="olfactory.html" data-i18n="menuOlfactory">调香</a>
         <a href="cv.html" data-i18n="menuCV">CV</a>
+        <a href="search.html" data-i18n="menuSearch">搜索</a>
       </nav>
     </aside>
   </div>
@@ -522,6 +524,7 @@
           { href: 'academic.html', key: 'menuAcademic' },
           { href: 'photography.html', key: 'menuPhoto' },
           { href: 'music.html', key: 'menuMusic' },
+          { href: 'olfactory.html', key: 'menuOlfactory' },
           { href: 'cv.html', key: 'menuCV' },
           { href: 'search.html', key: 'menuSearch' }
         ];
@@ -633,6 +636,7 @@
           menuAcademic: '学术',
           menuPhoto: '摄影',
           menuMusic: '音乐',
+          menuOlfactory: '调香',
           menuCV: 'CV',
           menuSearch: '搜索'
         },
@@ -698,6 +702,7 @@
           menuAcademic: 'Academic',
           menuPhoto: 'Photography',
           menuMusic: 'Music',
+          menuOlfactory: 'Olfactory',
           menuCV: 'CV',
           menuSearch: 'Search'
         }

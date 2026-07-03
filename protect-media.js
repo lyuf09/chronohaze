@@ -1114,7 +1114,7 @@
         .replace(/\/+/g, "/")
         .replace(/\/index\.html$/i, "/")
         .replace(/\/$/, "");
-      return path + String(url.search || "") + String(url.hash || "");
+      return (path || "/") + String(url.search || "") + String(url.hash || "");
     } catch (_error) {
       return String(href).trim().toLowerCase();
     }
@@ -1126,6 +1126,10 @@
 
   function isMusicIndexHref(href) {
     return /(?:^|\/)(?:yin-le|music)\.html(?:$|[?#])/i.test(String(href || ""));
+  }
+
+  function isOlfactoryIndexHref(href) {
+    return /(?:^|\/)olfactory\.html(?:$|[?#])/i.test(String(href || ""));
   }
 
   function isMathIndexHref(href) {
@@ -1150,6 +1154,9 @@
     if (!hrefKey) {
       return "";
     }
+    if (hrefKey === "/") {
+      return "home";
+    }
     if (/\/post\//i.test(hrefKey)) {
       return "academic";
     }
@@ -1170,6 +1177,9 @@
     }
     if (isMusicIndexHref(hrefKey)) {
       return "music";
+    }
+    if (isOlfactoryIndexHref(hrefKey)) {
+      return "olfactory";
     }
     if (isProjectsIndexHref(hrefKey)) {
       return "academic";
@@ -1218,7 +1228,7 @@
         }
       });
 
-      var desiredOrder = ["home", "academic", "music", "photo", "cv"];
+      var desiredOrder = ["home", "academic", "photo", "music", "olfactory", "cv", "search"];
       var links = Array.from(nav.querySelectorAll("a"));
       var keyedFirst = Object.create(null);
       var leftovers = [];
@@ -3399,6 +3409,7 @@
         navMath: "Technical Notes",
         navPhoto: "摄影",
         navMusic: "音乐",
+        navOlfactory: "调香",
         navProjects: "项目",
         navResearch: "研究",
         navCV: "CV",
@@ -3566,6 +3577,7 @@
         navMath: "Technical Notes",
         navPhoto: "Photography",
         navMusic: "Music",
+        navOlfactory: "Olfactory",
         navProjects: "Projects",
         navResearch: "Research",
         navCV: "CV",
@@ -13505,6 +13517,7 @@
       academic: "academic.html",
       photo: "photography.html",
       music: "music.html",
+      olfactory: "olfactory.html",
       cv: "cv.html",
       search: "search.html",
     };
@@ -13512,12 +13525,13 @@
   }
 
   function ensureSearchNavLink() {
-    var navOrder = ["home", "academic", "music", "photo", "cv"];
+    var navOrder = ["home", "academic", "photo", "music", "olfactory", "cv", "search"];
     var navLabelMap = {
       home: "主页",
       academic: "学术",
       photo: "摄影",
       music: "音乐",
+      olfactory: "调香",
       cv: "CV",
       search: "搜索",
     };
@@ -13702,6 +13716,8 @@
         link.textContent = dict.navPhoto;
       } else if (isMusicIndexHref(href)) {
         link.textContent = dict.navMusic;
+      } else if (isOlfactoryIndexHref(href)) {
+        link.textContent = dict.navOlfactory;
       } else if (/Fay_Lyu_CV\.pdf|(?:^|\/)cv\.html(?:$|[?#])/i.test(href)) {
         link.textContent = dict.navCV;
       } else if (/search\.html(?:$|[?#])/i.test(href)) {

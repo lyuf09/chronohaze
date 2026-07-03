@@ -170,6 +170,7 @@ HTML_FILES = [
         "index.html",
         "math.html",
         "music.html",
+        "olfactory.html",
         "photography.html",
         "policy.html",
         "portfolio-1.html",

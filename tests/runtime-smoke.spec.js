@@ -96,6 +96,19 @@ test("search page loads grouped results and query state works", async ({ page })
   expect(errors).toEqual([]);
 });
 
+test("olfactory notes page renders its three-part collection", async ({ page }) => {
+  const errors = trackPageErrors(page);
+  await page.goto("olfactory.html", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+
+  await expect(page.locator("body.olfactory-page")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Olfactory Notes / 调香手记" })).toBeVisible();
+  await expect(page.locator(".scent-card")).toHaveCount(5);
+  await expect(page.getByRole("heading", { name: "Scent as Structure" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Scent Archive" })).toBeVisible();
+  expect(errors).toEqual([]);
+});
+
 test("cv and research pages render key faculty-entry nodes", async ({ page }) => {
   const errors = trackPageErrors(page);
 
@@ -166,6 +179,7 @@ test("secondary pages keep mobile nav within the viewport", async ({ page }, tes
   const pages = [
     "policy.html",
     "accessibility.html",
+    "olfactory.html",
     "search.html",
     "music/album-ipomoea-alba.html",
     "music/album-teenage-best.html",
@@ -177,7 +191,7 @@ test("secondary pages keep mobile nav within the viewport", async ({ page }, tes
     await waitForCriticalLoaderRelease(page);
 
     await expect(page.locator(".site-header .nav")).toBeVisible();
-    await expect(page.locator(".site-header .nav a")).toHaveCount(5);
+    await expect(page.locator(".site-header .nav a")).toHaveCount(7);
 
     const navTargets = await page.locator(".site-header .nav a").evaluateAll((links) =>
       links.map((link) => (link.getAttribute("href") || "").replace(/^\.\.\//, ""))
@@ -185,9 +199,11 @@ test("secondary pages keep mobile nav within the viewport", async ({ page }, tes
     expect(navTargets).toEqual([
       "index.html",
       "academic.html",
-      "music.html",
       "photography.html",
+      "music.html",
+      "olfactory.html",
       "cv.html",
+      "search.html",
     ]);
 
     const metrics = await page.evaluate(() => {
