@@ -148,6 +148,7 @@ CRITICAL_LOADER_SNIPPET = """  <style id="chronohaze-critical-loader-style">
 CSS_FILES = [
     "styles.css",
     "home.css",
+    "assets/css/olfactory.css",
 ]
 
 JS_FILES = [
