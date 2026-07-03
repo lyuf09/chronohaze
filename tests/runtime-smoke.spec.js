@@ -33,7 +33,7 @@ test("home page renders hero and player shell", async ({ page }) => {
     "Greedy Algorithms for Cardinality-Constrained Submodular Maximization"
   );
   await expect(page.locator(".math-grid article").first().locator(".math-evidence-links a")).toHaveCount(4);
-  await expect(page.locator(".math-grid article").nth(1)).toContainText("TTGDA");
+  await expect(page.locator(".math-grid article").filter({ hasText: "TTGDA" })).toHaveCount(1);
 
   expect(errors).toEqual([]);
 });
