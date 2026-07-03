@@ -140,16 +140,16 @@
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico?v=4" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=4" />
   <title>Academic | Fay / Feier Lyu | Chronohaze</title>
-  <meta name="description" content="Academic landing page with current research directions and representative highlights by Fay / Feier Lyu, also known as HazezZ." />
+  <meta name="description" content="Academic index for Fay / Feier Lyu: optimization, formal verification, OR for ML, and selected publications, formalizations, and technical notes." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Chronohaze" />
   <meta property="og:title" content="Academic | Fay / Feier Lyu" />
-  <meta property="og:description" content="Academic landing page with current research directions and representative highlights by Fay / Feier Lyu, also known as HazezZ." />
+  <meta property="og:description" content="Academic index for Fay / Feier Lyu: optimization, formal verification, OR for ML, and selected academic work." />
   <meta property="og:url" content="https://lyuf09.github.io/chronohaze/academic.html" />
   <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/academic.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Academic | Fay / Feier Lyu" />
-  <meta name="twitter:description" content="Academic landing page with current research directions and representative highlights by Fay / Feier Lyu, also known as HazezZ." />
+  <meta name="twitter:description" content="Academic index for Fay / Feier Lyu: optimization, formal verification, OR for ML, and selected academic work." />
   <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/academic.png" />
   <link rel="canonical" href="https://lyuf09.github.io/chronohaze/academic.html" />
   <!-- GENERATED:hreflang:start -->
@@ -244,7 +244,7 @@
           <div class="cv-utility-top">
           </div>
           <nav class="academic-local-nav" aria-label="Academic section links" data-i18n-aria="academicSectionAria">
-            <a class="academic-local-link" href="research.html" data-i18n="utilityResearch">研究方向</a>
+            <a class="academic-local-link" href="research.html" data-i18n="utilityResearch">研究陈述</a>
             <a class="academic-local-link" href="projects.html" data-i18n="utilityProjects">代表性工作</a>
             <a class="academic-local-link" href="math.html" data-i18n="utilityNotes">学术笔记</a>
           </nav>
@@ -255,302 +255,136 @@
         <div class="container research-hero-inner">
           <div class="research-hero-copy">
             <div data-lang-block="zh">
-              <p class="research-eyebrow">Academic Landing</p>
+              <p class="research-eyebrow">Academic</p>
               <h1>学术</h1>
-              <p class="research-subtitle">优化理论 · 形式化验证 · 机器学习理论</p>
-              <p class="research-positioning">我现在是爱丁堡大学数学本科生。我的主要兴趣在优化理论、形式化证明，以及机器学习问题中可以被数学结构化处理的部分。</p>
-              <p class="research-positioning">目前我主要做两条线：一条是把一阶优化算法和近似算法的证明整理成 Isabelle/HOL 中可检查的形式化对象；另一条是围绕非凸优化、minimax 与 localization 问题，写一些技术笔记，尝试把算法直觉、几何结构和可证明的结论连接起来。</p>
-              <p class="research-positioning">这个页面不是完整的 publication list，更像是我目前学术工作的入口：包括已经形式化的项目、正在整理的研究笔记，以及一些还在发展中的问题。</p>
+              <p class="research-subtitle">Optimization · Formal Verification · OR for ML</p>
+              <p class="research-positioning">我是爱丁堡大学数学本科生，主要关注优化理论、形式化验证，以及 OR for ML 中的结构化问题。目前最成熟的工作是发表于 Archive of Formal Proofs 的 Isabelle/HOL 形式化项目。</p>
+              <div class="research-link-row" aria-label="Academic exploration links">
+                <a href="research.html">Research Statement</a>
+                <a href="projects.html">Work</a>
+                <a href="math.html">Technical Notes</a>
+              </div>
             </div>
             <div data-lang-block="en" hidden>
-              <p class="research-eyebrow">Academic Landing</p>
+              <p class="research-eyebrow">Academic</p>
               <h1>Academic</h1>
-              <p class="research-subtitle">Optimization theory · formal verification · machine learning theory</p>
-              <p class="research-positioning">I am a mathematics undergraduate at the University of Edinburgh. My research interests lie at the intersection of optimization theory, formal verification, and the parts of machine learning that can be treated through explicit mathematical structure.</p>
-              <p class="research-positioning">I currently work along two lines: turning proofs for first-order and approximation algorithms into checkable Isabelle/HOL objects, and developing technical notes around nonconvex optimization, minimax problems, localization, value functions, and second-order tracking.</p>
-              <p class="research-positioning">Some of these projects are mature formal developments; others are exploratory research notes. I keep both on the site because I care about showing not only final outputs, but also how a problem becomes structured enough to be checked.</p>
+              <p class="research-subtitle">Optimization · Formal Verification · OR for ML</p>
+              <p class="research-positioning">I am an undergraduate mathematics student at the University of Edinburgh, working around optimization, formal verification, and structured problems in OR for ML. My most mature work is an Isabelle/HOL formalization published in the Archive of Formal Proofs.</p>
+              <div class="research-link-row" aria-label="Academic exploration links">
+                <a href="research.html">Research Statement</a>
+                <a href="projects.html">Work</a>
+                <a href="math.html">Technical Notes</a>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="section academic-proof-section" id="academic-proof-evidence">
+      <section class="section academic-proof-section" id="selected-academic-work">
         <div class="container">
           <div data-lang-block="zh">
-            <div class="academic-proof-layout">
-              <div class="academic-proof-note">
-                <p class="academic-proof-kicker">WHAT MAKES THIS UNUSUAL</p>
-                <h2>为什么这条线有点不寻常</h2>
-                <p>我感兴趣的不是只把一个定理重新证明一遍，而是把证明拆成可以复用、可以检查、可以继续生长的结构。</p>
-                <p>在 Isabelle/HOL 里，这意味着把论文中常被一句话带过的推理，变成显式的 definitions、invariants、interfaces 和 reusable lemmas。</p>
-                <p>已发表的 AFP entry 聚焦 classical greedy 与 verified stateful lazy greedy；StochasticGreedy 目前仅作为可能的 future extension / experimental branch。</p>
-              </div>
-              <div class="academic-evidence">
-                <p class="academic-proof-kicker">PROOF OBJECTS / FORMALIZATION EVIDENCE</p>
-                <h2>形式化证据</h2>
-                <ol class="academic-evidence-list">
-                  <li>
-                    <span class="academic-evidence-index">01</span>
-                    <div>
-                      <h3>Submodular Greedy Algorithms in Isabelle/HOL</h3>
-                      <p>AFP entry · Isabelle/HOL · submodular maximization · classical greedy / stateful lazy greedy · approximation guarantees</p>
-                      <div class="research-link-row">
-                        <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
-                        <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a>
-                        <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf" target="_blank" rel="noopener noreferrer">Proof document</a>
-                        <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">Repository</a>
-                      </div>
+            <div class="academic-evidence">
+              <p class="academic-proof-kicker">SELECTED ACADEMIC WORK</p>
+              <h2>代表性学术工作</h2>
+              <ol class="academic-evidence-list">
+                <li>
+                  <span class="academic-evidence-index">01</span>
+                  <div>
+                    <h3>Greedy Algorithms for Cardinality-Constrained Submodular Maximization</h3>
+                    <p>AFP publication · 2026 · Isabelle/HOL formalization of classical greedy and a verified stateful lazy greedy variant.</p>
+                    <div class="research-link-row">
+                      <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
+                      <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI</a>
                     </div>
-                  </li>
-                  <li>
-                    <span class="academic-evidence-index">02</span>
-                    <div>
-                      <h3>First-Order Methods for Smooth Convex Optimization</h3>
-                      <p>GD / PGD / projected gradient mapping / linear convergence under strong convexity</p>
-                      <a href="post/projected-gradient-descent-isabelle-hol.html">查看项目笔记</a>
-                    </div>
-                  </li>
-                  <li>
-                    <span class="academic-evidence-index">03</span>
-                    <div>
-                      <h3>Technical Notes</h3>
-                      <p>TTGDA · value-function viewpoint · second-order tracking</p>
-                      <a href="notes/ttgda_second_order_tracking_note.html">查看技术笔记</a>
-                    </div>
-                  </li>
-                </ol>
-              </div>
-            </div>
-          </div>
-          <div data-lang-block="en" hidden>
-            <div class="academic-proof-layout">
-              <div class="academic-proof-note">
-                <p class="academic-proof-kicker">WHAT MAKES THIS UNUSUAL</p>
-                <h2>Why this line is unusual</h2>
-                <p>I am not interested only in proving a theorem again. I want to decompose a proof into structures that can be reused, checked, and extended.</p>
-                <p>In Isabelle/HOL, this means turning reasoning often compressed into a single sentence in a paper into explicit definitions, invariants, interfaces, and reusable lemmas.</p>
-                <p>The published AFP entry focuses on classical greedy and a verified stateful lazy greedy variant; StochasticGreedy remains a possible future extension / experimental branch.</p>
-              </div>
-              <div class="academic-evidence">
-                <p class="academic-proof-kicker">PROOF OBJECTS / FORMALIZATION EVIDENCE</p>
-                <h2>Formalization evidence</h2>
-                <ol class="academic-evidence-list">
-                  <li>
-                    <span class="academic-evidence-index">01</span>
-                    <div>
-                      <h3>Submodular Greedy Algorithms in Isabelle/HOL</h3>
-                      <p>AFP entry · Isabelle/HOL · submodular maximization · classical greedy / stateful lazy greedy · approximation guarantees</p>
-                      <div class="research-link-row">
-                        <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
-                        <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a>
-                        <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf" target="_blank" rel="noopener noreferrer">Proof document</a>
-                        <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">Repository</a>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <span class="academic-evidence-index">02</span>
-                    <div>
-                      <h3>First-Order Methods for Smooth Convex Optimization</h3>
-                      <p>GD / PGD / projected gradient mapping / linear convergence under strong convexity</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="academic-evidence-index">02</span>
+                  <div>
+                    <h3>First-Order Methods for Smooth Convex Optimization in Isabelle/HOL</h3>
+                    <p>Formalization project · submitted to AFP · awaiting review.</p>
+                    <div class="research-link-row">
+                      <a href="https://github.com/lyuf09/projected-gradient-descent" target="_blank" rel="noopener noreferrer">Repository</a>
                       <a href="post/projected-gradient-descent-isabelle-hol.html">Project note</a>
                     </div>
-                  </li>
-                  <li>
-                    <span class="academic-evidence-index">03</span>
-                    <div>
-                      <h3>Technical Notes</h3>
-                      <p>TTGDA · value-function viewpoint · second-order tracking</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="academic-evidence-index">03</span>
+                  <div>
+                    <h3>TTGDA and Second-Order Tracking</h3>
+                    <p>Exploratory technical note · value-function viewpoint and second-order tracking.</p>
+                    <div class="research-link-row">
                       <a href="notes/ttgda_second_order_tracking_note.html">Technical note</a>
                     </div>
-                  </li>
-                </ol>
-              </div>
+                  </div>
+                </li>
+                <li>
+                  <span class="academic-evidence-index">04</span>
+                  <div>
+                    <h3>Duality under Invariance</h3>
+                    <p>Ongoing research note · dual collapse, structural scores, and saddle certificates.</p>
+                    <div class="research-link-row">
+                      <a href="post/dual-score-saddle-certificates.html">Research note</a>
+                    </div>
+                  </div>
+                </li>
+              </ol>
+            </div>
+          </div>
+          <div data-lang-block="en" hidden>
+            <div class="academic-evidence">
+              <p class="academic-proof-kicker">SELECTED ACADEMIC WORK</p>
+              <h2>Selected Academic Work</h2>
+              <ol class="academic-evidence-list">
+                <li>
+                  <span class="academic-evidence-index">01</span>
+                  <div>
+                    <h3>Greedy Algorithms for Cardinality-Constrained Submodular Maximization</h3>
+                    <p>AFP publication · 2026 · Isabelle/HOL formalization of classical greedy and a verified stateful lazy greedy variant.</p>
+                    <div class="research-link-row">
+                      <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
+                      <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <span class="academic-evidence-index">02</span>
+                  <div>
+                    <h3>First-Order Methods for Smooth Convex Optimization in Isabelle/HOL</h3>
+                    <p>Formalization project · submitted to AFP · awaiting review.</p>
+                    <div class="research-link-row">
+                      <a href="https://github.com/lyuf09/projected-gradient-descent" target="_blank" rel="noopener noreferrer">Repository</a>
+                      <a href="post/projected-gradient-descent-isabelle-hol.html">Project note</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <span class="academic-evidence-index">03</span>
+                  <div>
+                    <h3>TTGDA and Second-Order Tracking</h3>
+                    <p>Exploratory technical note · value-function viewpoint and second-order tracking.</p>
+                    <div class="research-link-row">
+                      <a href="notes/ttgda_second_order_tracking_note.html">Technical note</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <span class="academic-evidence-index">04</span>
+                  <div>
+                    <h3>Duality under Invariance</h3>
+                    <p>Ongoing research note · dual collapse, structural scores, and saddle certificates.</p>
+                    <div class="research-link-row">
+                      <a href="post/dual-score-saddle-certificates.html">Research note</a>
+                    </div>
+                  </div>
+                </li>
+              </ol>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="section research-projects-section" id="academic-directions">
-        <div class="container research-section-head">
-          <div data-lang-block="zh">
-            <h2>研究主题</h2>
-          </div>
-          <div data-lang-block="en" hidden>
-            <h2>Research Themes</h2>
-          </div>
-        </div>
-        <div class="container research-project-grid research-project-grid--entry">
-          <div data-lang-block="zh">
-            <article class="research-project-card">
-              <p class="research-project-kind">Direction 01</p>
-              <h3>Optimization and OR</h3>
-              <p>我关心的是优化问题里真正起作用的结构：约束、对偶、下界、局部几何，以及 formulation 本身会保留或丢失什么信息。最近的阅读和笔记主要围绕 nonconvex minimax、localization 和一阶/二阶算法展开。</p>
-              <div class="research-link-row">
-                <a href="research.html">看问题意识</a>
-                <a href="math.html">看研究笔记</a>
-              </div>
-            </article>
-            <article class="research-project-card">
-              <p class="research-project-kind">Direction 02</p>
-              <h3>Formalization in Isabelle/HOL</h3>
-              <p>我使用 Isabelle/HOL 形式化优化算法与近似算法中的证明结构，包括投影梯度法、子模函数贪心算法及其近似保证。相比把结果重新写一遍，我更关心哪些证明模式可以被拆成可复用的组件。</p>
-              <div class="research-link-row">
-                <a href="projects.html">看形式化项目</a>
-                <a href="math.html">看相关笔记</a>
-              </div>
-            </article>
-            <article class="research-project-card">
-              <p class="research-project-kind">Direction 03</p>
-              <h3>AI for Math / OR for ML</h3>
-              <p>我对 AI 和数学之间的关系感兴趣，但更偏向结构化的一面：哪些机器学习问题可以用优化、博弈、OR 或形式化方法重新表达，哪些证明和算法结构可以被更清楚地组织出来。</p>
-              <div class="research-link-row">
-                <a href="research.html">看问题意识</a>
-                <a href="math.html">看研究笔记</a>
-              </div>
-            </article>
-          </div>
-          <div data-lang-block="en" hidden>
-            <article class="research-project-card">
-              <p class="research-project-kind">Direction 01</p>
-              <h3>Optimization and OR</h3>
-              <p>I care about the structures that actually do work inside optimization problems: constraints, duality, lower bounds, local geometry, and what a formulation preserves or loses. My recent reading and notes focus on nonconvex minimax, localization, and first- and second-order algorithms.</p>
-              <div class="research-link-row">
-                <a href="research.html">Problem framing</a>
-                <a href="math.html">Notes</a>
-              </div>
-            </article>
-            <article class="research-project-card">
-              <p class="research-project-kind">Direction 02</p>
-              <h3>Formalization in Isabelle/HOL</h3>
-              <p>I use Isabelle/HOL to formalize proof structures in optimization and approximation algorithms, including projected gradient methods, submodular greedy algorithms, and approximation guarantees. I am especially interested in which proof patterns can become reusable components.</p>
-              <div class="research-link-row">
-                <a href="projects.html">Formal projects</a>
-                <a href="math.html">Related notes</a>
-              </div>
-            </article>
-            <article class="research-project-card">
-              <p class="research-project-kind">Direction 03</p>
-              <h3>AI for Math / OR for ML</h3>
-              <p>I am interested in the relationship between AI and mathematics, especially on the structural side: which machine learning problems can be re-expressed using optimization, games, OR, or formal methods, and which proof or algorithmic structures can be organized more clearly.</p>
-              <div class="research-link-row">
-                <a href="research.html">Problem framing</a>
-                <a href="math.html">Notes</a>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section research-projects-section" id="academic-highlights">
-        <div class="container research-section-head">
-          <div data-lang-block="zh">
-            <h2>代表性工作</h2>
-          </div>
-          <div data-lang-block="en" hidden>
-            <h2>Representative Work</h2>
-          </div>
-        </div>
-        <div class="container research-project-grid research-project-grid--entry">
-          <div data-lang-block="zh">
-            <article class="research-project-card">
-              <p class="research-project-kind">Work 01</p>
-              <h3>Isabelle/HOL: Submodular Greedy Algorithms</h3>
-              <p>形式化 cardinality-constrained monotone non-negative submodular maximization 中 classical greedy 的 1−1/e 近似保证，并给出一个 verified stateful lazy greedy variant。该 formal proof development 已发表于 Archive of Formal Proofs。</p>
-              <div class="research-link-row">
-                <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
-                <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a>
-                <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf" target="_blank" rel="noopener noreferrer">Proof document</a>
-                <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">Repository</a>
-              </div>
-            </article>
-            <article class="research-project-card">
-              <p class="research-project-kind">Work 02</p>
-              <h3>Isabelle/HOL: First-Order Methods for Smooth Convex Optimization</h3>
-              <p>一个关于 smooth convex optimization 中一阶方法的 Isabelle/HOL 形式化项目，覆盖 gradient descent、projected gradient descent、projected gradient mapping、strong convexity 下的线性收敛等结果。已提交至 Archive of Formal Proofs，目前等待审核。</p>
-              <div class="research-link-row">
-                <a href="projects.html">Work</a>
-                <a href="post/projected-gradient-descent-isabelle-hol.html">Note</a>
-              </div>
-            </article>
-            <article class="research-project-card">
-              <p class="research-project-kind">Work 03</p>
-              <h3>TTGDA and Second-Order Tracking</h3>
-              <p>一份关于 TTGDA、value function viewpoint 与二阶 tracking 问题的探索性技术笔记。它不是完成的论文，而是我目前围绕 nonconvex-strongly-concave minimax 问题整理出的一个研究入口。</p>
-              <div class="research-link-row">
-                <a href="math.html">Notes</a>
-                <a href="notes/ttgda_second_order_tracking_note.html">Note</a>
-              </div>
-            </article>
-          </div>
-          <div data-lang-block="en" hidden>
-            <article class="research-project-card">
-              <p class="research-project-kind">Work 01</p>
-              <h3>Isabelle/HOL: Submodular Greedy Algorithms</h3>
-              <p>A formalization of the classical greedy 1−1/e approximation guarantee for cardinality-constrained monotone non-negative submodular maximization, together with a verified stateful lazy greedy variant. This formal proof development is published in the Archive of Formal Proofs.</p>
-              <div class="research-link-row">
-                <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
-                <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a>
-                <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf" target="_blank" rel="noopener noreferrer">Proof document</a>
-                <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">Repository</a>
-              </div>
-            </article>
-            <article class="research-project-card">
-              <p class="research-project-kind">Work 02</p>
-              <h3>Isabelle/HOL: First-Order Methods for Smooth Convex Optimization</h3>
-              <p>An Isabelle/HOL formalization project for first-order methods in smooth convex optimization, covering gradient descent, projected gradient descent, projected gradient mapping, and linear convergence under strong convexity. Submitted to the Archive of Formal Proofs and awaiting review.</p>
-              <div class="research-link-row">
-                <a href="projects.html">Work</a>
-                <a href="post/projected-gradient-descent-isabelle-hol.html">Note</a>
-              </div>
-            </article>
-            <article class="research-project-card">
-              <p class="research-project-kind">Work 03</p>
-              <h3>TTGDA and Second-Order Tracking</h3>
-              <p>An exploratory technical note on TTGDA, the value-function viewpoint, and a second-order tracking question. It is not a finished paper, but a current entry point into my thinking around nonconvex-strongly-concave minimax problems.</p>
-              <div class="research-link-row">
-                <a href="math.html">Notes</a>
-                <a href="notes/ttgda_second_order_tracking_note.html">Note</a>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section research-projects-section" id="academic-technical-projects">
-        <div class="container research-section-head">
-          <div data-lang-block="zh">
-            <h2>其他技术项目</h2>
-          </div>
-          <div data-lang-block="en" hidden>
-            <h2>Other Technical Projects</h2>
-          </div>
-        </div>
-        <div class="container research-project-grid research-project-grid--entry">
-          <div data-lang-block="zh">
-            <article class="research-project-card">
-              <p class="research-project-kind">Technical Project</p>
-              <h3>Metalcore Piano Lab</h3>
-              <p>一个把音频 / MIDI 转成可玩谱面事件的浏览器原型。它更偏 creative coding，但也体现了我对结构化表示、交互系统和音乐技术的兴趣。</p>
-              <div class="research-link-row">
-                <a href="projects.html">Work</a>
-                <a href="post/metalcore-piano-lab.html">Note</a>
-              </div>
-            </article>
-          </div>
-          <div data-lang-block="en" hidden>
-            <article class="research-project-card">
-              <p class="research-project-kind">Technical Project</p>
-              <h3>Metalcore Piano Lab</h3>
-              <p>A browser prototype that turns audio / MIDI into playable chart events. It is closer to creative coding, while still reflecting my interest in structured representation, interactive systems, and music technology.</p>
-              <div class="research-link-row">
-                <a href="projects.html">Work</a>
-                <a href="post/metalcore-piano-lab.html">Note</a>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
     </main>
 
     <footer class="site-footer">
@@ -596,7 +430,7 @@
           navMusic: "音乐",
           navCV: "CV",
           navSearch: "搜索",
-          utilityResearch: "研究方向",
+          utilityResearch: "研究陈述",
           utilityProjects: "代表性工作",
           utilityNotes: "学术笔记",
           footerContactLead: "辗转不同国家无固定号码 请联系邮箱：",
@@ -615,7 +449,7 @@
           navMusic: "Music",
           navCV: "CV",
           navSearch: "Search",
-          utilityResearch: "Research",
+          utilityResearch: "Research Statement",
           utilityProjects: "Work",
           utilityNotes: "Notes",
           footerContactLead: "No fixed phone number while moving across countries. Contact via email: ",

@@ -38,7 +38,7 @@
       "url": "academic.html",
       "section": "Site",
       "date": "2026-05-08",
-      "excerpt": "Academic landing page organized around research directions, selected highlights, and entry points into research, work, and notes.",
+      "excerpt": "A concise academic index: optimization, formal verification, OR for ML, and selected publications, formalizations, and technical notes.",
       "tags": [
         "academic",
         "research",
@@ -49,7 +49,7 @@
       ],
       "sort": 20260508,
       "scope": "site",
-      "content": "Academic Landing 学术 Research Directions Selected Highlights Research Work Notes OR for ML optimization formal verification structured modeling Isabelle HOL Greedy Algorithms for Cardinality-Constrained Submodular Maximization Archive of Formal Proofs AFP entry published DOI 10.5281/zenodo.21054718 https://doi.org/10.5281/zenodo.21054718 classical greedy stateful lazy greedy approximation guarantee StochasticGreedy future extension experimental branch duality under invariance structured representation discretization 研究方向 代表性入口 材料 研究笔记 形式化验证 对偶 下界 结构化表征 离散化"
+      "content": "Academic 学术 undergraduate mathematics student University of Edinburgh optimization formal verification OR for ML Selected Academic Work Research Statement Work Technical Notes Greedy Algorithms for Cardinality-Constrained Submodular Maximization Archive of Formal Proofs AFP publication 2026 DOI 10.5281/zenodo.21054718 First-Order Methods for Smooth Convex Optimization in Isabelle/HOL submitted awaiting review TTGDA Second-Order Tracking exploratory technical note Duality under Invariance ongoing research note 代表性学术工作 优化理论 形式化验证 技术笔记"
     },
     {
       "title": "Projects / 项目",

@@ -201,17 +201,18 @@ test("secondary pages keep mobile nav within the viewport", async ({ page }, tes
   }
 });
 
-test("academic page isolates languages and renders formalization evidence", async ({ page }, testInfo) => {
+test("academic page isolates languages and renders a concise academic index", async ({ page }, testInfo) => {
   const errors = trackPageErrors(page);
 
   await page.goto("academic.html?lang=zh", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
 
-  const evidence = page.locator("#academic-proof-evidence");
+  const evidence = page.locator("#selected-academic-work");
   await expect(evidence).toBeVisible();
   await expect(evidence.locator('[data-lang-block="zh"]')).toBeVisible();
   await expect(page.locator('main [data-lang-block="en"]')).toHaveCount(0);
-  await expect(evidence.locator('[data-lang-block="zh"] .academic-evidence-list li')).toHaveCount(3);
+  await expect(page.locator('.research-hero [data-lang-block="zh"] .research-link-row a')).toHaveCount(3);
+  await expect(evidence.locator('[data-lang-block="zh"] .academic-evidence-list li')).toHaveCount(4);
   await expect(evidence.getByRole("link", { name: "AFP entry" })).toHaveAttribute(
     "href",
     "https://isa-afp.org/entries/Submodular_Greedy.html#"
@@ -226,9 +227,9 @@ test("academic page isolates languages and renders formalization evidence", asyn
   await expect(evidence.locator('[data-lang-block="en"]')).toBeVisible();
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
   await expect(page.locator("body")).toHaveAttribute("data-rendered-lang", "en");
-  await expect(page.getByText("Formalization evidence", { exact: true })).toBeVisible();
-  await expect(page.locator('#academic-highlights [data-lang-block="en"] .research-project-card').first()).toContainText(
-    "published in the Archive of Formal Proofs"
+  await expect(page.getByText("Selected Academic Work", { exact: true })).toBeVisible();
+  await expect(evidence.locator('[data-lang-block="en"] .academic-evidence-list li').first()).toContainText(
+    "AFP publication"
   );
 
   const metrics = await page.evaluate(() => ({
