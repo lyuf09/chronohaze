@@ -139,17 +139,17 @@
   </script>
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico?v=4" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=4" />
-  <title>Work | Fay / Feier Lyu | Chronohaze</title>
-  <meta name="description" content="Selected academic work, public materials, and current statuses by Fay / Feier Lyu, also known as HazezZ." />
+  <title>Selected Work | Fay / Feier Lyu | Chronohaze</title>
+  <meta name="description" content="Selected academic work by Fay / Feier Lyu: AFP formalizations, optimization notes, research directions, and a supporting computational prototype." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Chronohaze" />
-  <meta property="og:title" content="Work | Fay / Feier Lyu" />
-  <meta property="og:description" content="Selected academic work, public materials, and current statuses by Fay / Feier Lyu, also known as HazezZ." />
+  <meta property="og:title" content="Selected Work | Fay / Feier Lyu" />
+  <meta property="og:description" content="Selected academic work: AFP formalizations, optimization notes, research directions, and a supporting computational prototype." />
   <meta property="og:url" content="https://lyuf09.github.io/chronohaze/projects.html" />
   <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/projects.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Work | Fay / Feier Lyu" />
-  <meta name="twitter:description" content="Selected academic work, public materials, and current statuses by Fay / Feier Lyu, also known as HazezZ." />
+  <meta name="twitter:title" content="Selected Work | Fay / Feier Lyu" />
+  <meta name="twitter:description" content="Selected academic work: AFP formalizations, optimization notes, research directions, and a supporting computational prototype." />
   <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/projects.png" />
   <link rel="canonical" href="https://lyuf09.github.io/chronohaze/projects.html" />
   <!-- GENERATED:hreflang:start -->
@@ -200,6 +200,7 @@
   </script>
   <link rel="preload" href="assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="styles.min.css?v=20260609-mobile-safari-archive4" />
+  <link rel="stylesheet" href="assets/css/editorial-evidence.css?v=20260627" />
   <link rel="stylesheet" href="assets/css/academic-mobile.css?v=20260418-mobile1" />
   <script defer src="protect-media.min.js?v=20260621-nested-assets1"></script>
 </head>
@@ -228,8 +229,8 @@
           <div class="cv-utility-top">
           </div>
           <nav class="academic-local-nav" aria-label="Academic section links" data-i18n-aria="academicSectionAria">
-            <a class="academic-local-link" href="research.html" data-i18n="utilityResearch">研究方向</a>
-            <a class="academic-local-link is-active" href="projects.html" data-i18n="utilityProjects">代表性工作</a>
+            <a class="academic-local-link" href="research.html" data-i18n="utilityResearch">Research Statement</a>
+            <a class="academic-local-link is-active" href="projects.html" data-i18n="utilityProjects">Work</a>
             <a class="academic-local-link" href="math.html" data-i18n="utilityNotes">学术笔记</a>
           </nav>
         </div>
@@ -239,155 +240,172 @@
         <div class="container research-hero-inner">
           <div class="research-hero-copy">
             <div data-lang-block="zh">
-              <h1>代表性工作</h1>
-              <p class="research-positioning">这里整理了我目前最主要的几个学术与技术项目。每个条目只保留项目对象、当前状态和相关材料入口，方便快速判断我实际做过什么。</p>
+              <h1>Selected Work</h1>
+              <p class="research-positioning">这一页只列可核查的学术成果、形式化项目、研究笔记与技术原型；完整的问题线与研究动机放在 Research Statement。</p>
             </div>
             <div data-lang-block="en" hidden>
-              <h1>Work</h1>
-              <p class="research-positioning">This page gathers the main academic and technical projects I currently want to point to. Each entry keeps only the object, current status, and relevant material links, so it is easy to see what I have actually built or written.</p>
+              <h1>Selected Work</h1>
+              <p class="research-positioning">This page lists verifiable academic outputs, formalization projects, research notes, and a supporting technical prototype. The broader problem framing belongs in the Research Statement.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="section research-projects-section" id="formal-verification-isabelle-hol">
-        <div class="container research-section-head">
-          <div data-lang-block="zh"><h2>Formal Verification / Isabelle/HOL</h2></div>
-          <div data-lang-block="en" hidden><h2>Formal Verification / Isabelle/HOL</h2></div>
-        </div>
-        <div class="container research-project-grid">
+      <section class="section academic-proof-section" id="selected-work-list">
+        <div class="container">
           <div data-lang-block="zh">
-            <article class="research-project-card">
-              <h3>Greedy Algorithms for Cardinality-Constrained Submodular Maximization</h3>
-              <p class="research-project-line-body">一个关于 cardinality-constrained monotone non-negative submodular maximization 的 Isabelle/HOL formal proof development，覆盖 classical greedy 的 1−1/e 近似保证与 verified stateful lazy greedy variant。</p>
-              <p class="research-project-line research-project-line--status"><strong>状态：</strong> 已正式发表于 Archive of Formal Proofs。后续可向 stochastic greedy variants、oracle accounting 与更广泛的 submodular-optimization infrastructure 扩展。</p>
-              <div class="research-link-row">
-                <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
-                <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a>
-                <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf" target="_blank" rel="noopener noreferrer">Proof document</a>
-                <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">Repository</a>
-                <a href="post/theorem-to-framework-isabelle-submodular.html">Project history</a>
-              </div>
-            </article>
+            <div class="academic-evidence">
+              <p class="academic-proof-kicker">ACADEMIC WORK</p>
+              <h2>学术工作</h2>
+              <ol class="academic-evidence-list">
+                <li>
+                  <span class="academic-evidence-index">01</span>
+                  <div>
+                    <p class="academic-proof-kicker">FORMAL VERIFICATION</p>
+                    <h3>Greedy Algorithms for Cardinality-Constrained Submodular Maximization</h3>
+                    <p><strong>状态：</strong> Published in the Archive of Formal Proofs, 2026.</p>
+                    <div class="research-link-row">
+                      <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP</a>
+                      <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf" target="_blank" rel="noopener noreferrer">Proof document</a>
+                      <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">GitHub</a>
+                      <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <span class="academic-evidence-index">02</span>
+                  <div>
+                    <p class="academic-proof-kicker">FORMAL VERIFICATION</p>
+                    <h3>First-Order Methods for Smooth Convex Optimization in Isabelle/HOL</h3>
+                    <p><strong>状态：</strong> 形式化项目；已提交至 Archive of Formal Proofs，目前等待审核。</p>
+                    <div class="research-link-row">
+                      <a href="post/projected-gradient-descent-isabelle-hol.html">Project page</a>
+                      <a href="https://github.com/lyuf09/projected-gradient-descent" target="_blank" rel="noopener noreferrer">GitHub</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <span class="academic-evidence-index">03</span>
+                  <div>
+                    <p class="academic-proof-kicker">OPTIMIZATION / MINIMAX LEARNING</p>
+                    <h3>TTGDA and Second-Order Tracking</h3>
+                    <p><strong>状态：</strong> Exploratory technical note.</p>
+                    <div class="research-link-row">
+                      <a href="notes/ttgda_second_order_tracking_note.html">Note</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <span class="academic-evidence-index">04</span>
+                  <div>
+                    <p class="academic-proof-kicker">DUALITY / INVARIANCE</p>
+                    <h3>Duality and Structural Scoring under Invariance</h3>
+                    <p><strong>状态：</strong> Ongoing research direction.</p>
+                    <div class="research-link-row">
+                      <a href="math.html">Note archive</a>
+                    </div>
+                  </div>
+                </li>
+              </ol>
 
-            <article class="research-project-card">
-              <h3>Isabelle/HOL：Smooth Convex Optimization 中的一阶方法</h3>
-              <p class="research-project-line-body">一个关于 gradient descent、projected gradient descent、projected gradient mapping 与 strong convexity 下线性收敛的 Isabelle/HOL 形式化项目。</p>
-              <p class="research-project-line research-project-line--status"><strong>状态：</strong> 已提交至 Archive of Formal Proofs，目前等待审核。</p>
-              <div class="research-link-row">
-                <a href="https://github.com/lyuf09/projected-gradient-descent" target="_blank" rel="noopener noreferrer">Repo</a>
-                <a href="post/projected-gradient-descent-isabelle-hol.html">Note</a>
+              <div class="academic-hub-links">
+                <p class="academic-proof-kicker">SUPPORTING TECHNICAL WORK</p>
+                <h2>Prototype / Computational Experiment</h2>
+                <ol class="academic-evidence-list">
+                  <li>
+                    <span class="academic-evidence-index">05</span>
+                    <div>
+                      <p class="academic-proof-kicker">PROTOTYPE / COMPUTATIONAL EXPERIMENT</p>
+                      <h3>Metalcore Piano Lab</h3>
+                      <p><strong>状态：</strong> Technical prototype / work in progress.</p>
+                      <div class="research-link-row">
+                        <a href="https://github.com/lyuf09/metalcore-piano-lab" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        <a href="post/metalcore-piano-lab.html">Project note</a>
+                      </div>
+                    </div>
+                  </li>
+                </ol>
               </div>
-            </article>
+            </div>
           </div>
           <div data-lang-block="en" hidden>
-            <article class="research-project-card">
-              <h3>Greedy Algorithms for Cardinality-Constrained Submodular Maximization</h3>
-              <p class="research-project-line-body">An Isabelle/HOL formal proof development of the classical greedy 1−1/e approximation guarantee for cardinality-constrained monotone non-negative submodular maximization, together with a verified stateful lazy greedy variant.</p>
-              <p class="research-project-line research-project-line--status"><strong>Status:</strong> Published in the Archive of Formal Proofs. Future work may extend the library toward stochastic greedy variants, oracle accounting, and broader submodular-optimization infrastructure.</p>
-              <div class="research-link-row">
-                <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
-                <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a>
-                <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf" target="_blank" rel="noopener noreferrer">Proof document</a>
-                <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">Repository</a>
-                <a href="post/theorem-to-framework-isabelle-submodular.html">Project history</a>
-              </div>
-            </article>
+            <div class="academic-evidence">
+              <p class="academic-proof-kicker">ACADEMIC WORK</p>
+              <h2>Academic Work</h2>
+              <ol class="academic-evidence-list">
+                <li>
+                  <span class="academic-evidence-index">01</span>
+                  <div>
+                    <p class="academic-proof-kicker">FORMAL VERIFICATION</p>
+                    <h3>Greedy Algorithms for Cardinality-Constrained Submodular Maximization</h3>
+                    <p><strong>Status:</strong> Published in the Archive of Formal Proofs, 2026.</p>
+                    <div class="research-link-row">
+                      <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP</a>
+                      <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf" target="_blank" rel="noopener noreferrer">Proof document</a>
+                      <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">GitHub</a>
+                      <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <span class="academic-evidence-index">02</span>
+                  <div>
+                    <p class="academic-proof-kicker">FORMAL VERIFICATION</p>
+                    <h3>First-Order Methods for Smooth Convex Optimization in Isabelle/HOL</h3>
+                    <p><strong>Status:</strong> Formalization project; submitted to the Archive of Formal Proofs and awaiting review.</p>
+                    <div class="research-link-row">
+                      <a href="post/projected-gradient-descent-isabelle-hol.html">Project page</a>
+                      <a href="https://github.com/lyuf09/projected-gradient-descent" target="_blank" rel="noopener noreferrer">GitHub</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <span class="academic-evidence-index">03</span>
+                  <div>
+                    <p class="academic-proof-kicker">OPTIMIZATION / MINIMAX LEARNING</p>
+                    <h3>TTGDA and Second-Order Tracking</h3>
+                    <p><strong>Status:</strong> Exploratory technical note.</p>
+                    <div class="research-link-row">
+                      <a href="notes/ttgda_second_order_tracking_note.html">Note</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <span class="academic-evidence-index">04</span>
+                  <div>
+                    <p class="academic-proof-kicker">DUALITY / INVARIANCE</p>
+                    <h3>Duality and Structural Scoring under Invariance</h3>
+                    <p><strong>Status:</strong> Ongoing research direction.</p>
+                    <div class="research-link-row">
+                      <a href="math.html">Note archive</a>
+                    </div>
+                  </div>
+                </li>
+              </ol>
 
-            <article class="research-project-card">
-              <h3>Isabelle/HOL: First-Order Methods for Smooth Convex Optimization</h3>
-              <p class="research-project-line-body">An Isabelle/HOL formalization project for gradient descent, projected gradient descent, projected gradient mapping, and linear convergence under strong convexity.</p>
-              <p class="research-project-line research-project-line--status"><strong>Status:</strong> Submitted to the Archive of Formal Proofs and awaiting review.</p>
-              <div class="research-link-row">
-                <a href="https://github.com/lyuf09/projected-gradient-descent" target="_blank" rel="noopener noreferrer">Repo</a>
-                <a href="post/projected-gradient-descent-isabelle-hol.html">Note</a>
+              <div class="academic-hub-links">
+                <p class="academic-proof-kicker">SUPPORTING TECHNICAL WORK</p>
+                <h2>Prototype / Computational Experiment</h2>
+                <ol class="academic-evidence-list">
+                  <li>
+                    <span class="academic-evidence-index">05</span>
+                    <div>
+                      <p class="academic-proof-kicker">PROTOTYPE / COMPUTATIONAL EXPERIMENT</p>
+                      <h3>Metalcore Piano Lab</h3>
+                      <p><strong>Status:</strong> Technical prototype / work in progress.</p>
+                      <div class="research-link-row">
+                        <a href="https://github.com/lyuf09/metalcore-piano-lab" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        <a href="post/metalcore-piano-lab.html">Project note</a>
+                      </div>
+                    </div>
+                  </li>
+                </ol>
               </div>
-            </article>
+            </div>
           </div>
         </div>
       </section>
 
-      <section class="section research-projects-section" id="optimization-notes">
-        <div class="container research-section-head">
-          <div data-lang-block="zh"><h2>Optimization Notes</h2></div>
-          <div data-lang-block="en" hidden><h2>Optimization Notes</h2></div>
-        </div>
-        <div class="container research-project-grid">
-          <div data-lang-block="zh">
-            <article class="research-project-card">
-              <h3>TTGDA and Second-Order Tracking</h3>
-              <p class="research-project-line-body">一份关于 TTGDA、value function viewpoint 与二阶 tracking 问题的探索性技术笔记。它关注在 nonconvex-strongly-concave minimax setting 下，fast variable tracking 是否也能支持 Hessian / curvature-level 的误差控制。</p>
-              <p class="research-project-line research-project-line--status"><strong>状态：</strong> Exploratory note；目前用作进一步讨论与套磁材料。</p>
-              <div class="research-link-row">
-                <a href="notes/ttgda_second_order_tracking_note.html">Note</a>
-                <a href="math.html">Archive</a>
-              </div>
-            </article>
-
-            <article class="research-project-card">
-              <h3>不变性下的对偶退化与结构恢复</h3>
-              <p class="research-project-line-body">一组围绕 dual collapse、Range(B)、cycle consistency 与 structural score 的阶段性推导。这个项目来自我对带有 translation / gauge invariance 的优化模型中，对偶下界为何退化、以及退化之后还剩下什么结构信息的思考。</p>
-              <p class="research-project-line research-project-line--status"><strong>状态：</strong> 进行中；当前重点是把 collapse 后仍然可解释的部分整理成稳定的数学对象。</p>
-              <div class="research-link-row">
-                <a href="post/spring-2026.html">Note</a>
-                <a href="post/what-i-really-got-when-a-dual-route-failed.html">Archive</a>
-              </div>
-            </article>
-          </div>
-          <div data-lang-block="en" hidden>
-            <article class="research-project-card">
-              <h3>TTGDA and Second-Order Tracking</h3>
-              <p class="research-project-line-body">An exploratory technical note on TTGDA, the value-function viewpoint, and second-order tracking. It asks whether fast-variable tracking can support Hessian- or curvature-level error control in the nonconvex-strongly-concave minimax setting.</p>
-              <p class="research-project-line research-project-line--status"><strong>Status:</strong> Exploratory note; currently used as material for discussion and research outreach.</p>
-              <div class="research-link-row">
-                <a href="notes/ttgda_second_order_tracking_note.html">Note</a>
-                <a href="math.html">Archive</a>
-              </div>
-            </article>
-
-            <article class="research-project-card">
-              <h3>Dual Degeneration and Structural Recovery under Invariance</h3>
-              <p class="research-project-line-body">A developing set of derivations around dual collapse, Range(B), cycle consistency, and structural score. It comes from my question about why dual lower bounds degenerate in optimization models with translation or gauge invariance, and what structural information survives after that degeneration.</p>
-              <p class="research-project-line research-project-line--status"><strong>Status:</strong> Ongoing; current work focuses on stabilizing the interpretable structure that remains after collapse.</p>
-              <div class="research-link-row">
-                <a href="post/spring-2026.html">Note</a>
-                <a href="post/what-i-really-got-when-a-dual-route-failed.html">Archive</a>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section research-projects-section" id="technical-side-project">
-        <div class="container research-section-head">
-          <div data-lang-block="zh"><h2>Technical Side Project</h2></div>
-          <div data-lang-block="en" hidden><h2>Technical Side Project</h2></div>
-        </div>
-        <div class="container research-project-grid">
-          <div data-lang-block="zh">
-            <article class="research-project-card">
-              <h3>Metalcore Piano Lab</h3>
-              <p class="research-project-line-body">一个把音频 / MIDI 映射成可玩 chart events 的浏览器原型。它更偏 creative coding，但和我的研究兴趣有相通之处：连续输入如何被离散化成结构化对象，以及哪些约束来自数学结构，哪些来自实际可玩性。</p>
-              <p class="research-project-line research-project-line--status"><strong>状态：</strong> Work in progress；当前重点是 discretization、event mapping 与 playability constraints。</p>
-              <div class="research-link-row">
-                <a href="https://github.com/lyuf09/metalcore-piano-lab" target="_blank" rel="noopener noreferrer">Repo</a>
-                <a href="post/metalcore-piano-lab.html">Note</a>
-              </div>
-            </article>
-          </div>
-          <div data-lang-block="en" hidden>
-            <article class="research-project-card">
-              <h3>Metalcore Piano Lab</h3>
-              <p class="research-project-line-body">A browser prototype that maps audio / MIDI into playable chart events. It is closer to creative coding, but it connects to my research interests: how continuous input is discretized into structured objects, and which constraints come from mathematical structure versus practical playability.</p>
-              <p class="research-project-line research-project-line--status"><strong>Status:</strong> Work in progress; current work focuses on discretization, event mapping, and playability constraints.</p>
-              <div class="research-link-row">
-                <a href="https://github.com/lyuf09/metalcore-piano-lab" target="_blank" rel="noopener noreferrer">Repo</a>
-                <a href="post/metalcore-piano-lab.html">Note</a>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
     </main>
 
     <footer class="site-footer">
@@ -419,7 +437,7 @@
       var i18n = {
         zh: {
           htmlLang: "zh-CN",
-          pageTitle: "代表性工作 | Chronohaze",
+          pageTitle: "Selected Work | Chronohaze",
           academicSectionAria: "学术页面导航",
           navAria: "主导航",
           navHome: "主页",
@@ -428,8 +446,8 @@
           navMusic: "音乐",
           navCV: "CV",
           navSearch: "搜索",
-          utilityResearch: "研究方向",
-          utilityProjects: "代表性工作",
+          utilityResearch: "Research Statement",
+          utilityProjects: "Work",
           utilityNotes: "学术笔记",
           footerContactLead: "辗转不同国家无固定号码 请联系邮箱：",
           footerCities: "重庆 · Edinburgh · Ithaca",
@@ -438,7 +456,7 @@
         },
         en: {
           htmlLang: "en",
-          pageTitle: "Work | Chronohaze",
+          pageTitle: "Selected Work | Chronohaze",
           academicSectionAria: "Academic section navigation",
           navAria: "Main navigation",
           navHome: "Home",
@@ -447,7 +465,7 @@
           navMusic: "Music",
           navCV: "CV",
           navSearch: "Search",
-          utilityResearch: "Research",
+          utilityResearch: "Research Statement",
           utilityProjects: "Work",
           utilityNotes: "Notes",
           footerContactLead: "No fixed phone number while moving across countries. Contact via email: ",

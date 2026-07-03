@@ -250,17 +250,20 @@ test("AFP publication status stays synchronized across work page and project his
   await page.goto("projects.html?lang=en", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
   const publishedProject = page.locator(
-    '#formal-verification-isabelle-hol [data-lang-block="en"] .research-project-card'
+    '#selected-work-list [data-lang-block="en"] > .academic-evidence > .academic-evidence-list li'
   ).first();
-  await expect(publishedProject).toContainText("Published in the Archive of Formal Proofs");
-  await expect(publishedProject.getByRole("link", { name: "AFP entry" })).toHaveAttribute(
+  await expect(publishedProject).toContainText("Published in the Archive of Formal Proofs, 2026");
+  await expect(publishedProject.getByRole("link", { name: "AFP", exact: true })).toHaveAttribute(
     "href",
     "https://isa-afp.org/entries/Submodular_Greedy.html#"
   );
-  await expect(publishedProject.getByRole("link", { name: "DOI: 10.5281/zenodo.21054718" })).toHaveAttribute(
+  await expect(publishedProject.getByRole("link", { name: "DOI", exact: true })).toHaveAttribute(
     "href",
     "https://doi.org/10.5281/zenodo.21054718"
   );
+  await expect(
+    page.locator('#selected-work-list [data-lang-block="en"] .academic-hub-links .academic-evidence-list li')
+  ).toContainText("Metalcore Piano Lab");
 
   await page.goto("post/theorem-to-framework-isabelle-submodular.html?lang=en", {
     waitUntil: "domcontentloaded",
