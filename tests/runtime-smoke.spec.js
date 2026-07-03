@@ -117,6 +117,7 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   await page.goto("research.html?lang=zh", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
   await expect(page.locator("body.research-landing-page")).toBeVisible();
+  await expect(page.locator('.research-hero [data-lang-block="zh"] h1')).toHaveText("研究陈述");
   await expect(page.locator("#research-projects")).toBeVisible();
   await expect(page.locator("#research-outputs")).toBeVisible();
   await expect.poll(async () => page.locator(".research-project-card").count()).toBeGreaterThan(1);
@@ -129,6 +130,9 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
     "href",
     "https://isa-afp.org/entries/Submodular_Greedy.html#"
   );
+  await expect(
+    page.locator('#research-projects [data-lang-block="zh"] .research-project-card').nth(2)
+  ).toContainText("这还不是一条成熟的研究线");
 
   expect(errors).toEqual([]);
 });
