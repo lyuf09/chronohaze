@@ -1063,17 +1063,18 @@
       "content": "Album Ipomoea Alba 14 tracks · Album page"
     },
     {
-      "title": "数学 / Mathematics",
+      "title": "学术笔记 / Technical Notes",
       "url": "math.html",
       "section": "Site",
       "date": "",
-      "excerpt": "Math archive index",
+      "excerpt": "Pinned technical notes and a time-ordered research archive",
       "tags": [
-        "math"
+        "math",
+        "technical notes"
       ],
       "sort": 0,
       "scope": "math",
-      "content": "3月14日 从一个定理到一套框架：我的 Isabelle 子模优化项目新进展 从 classical greedy 的 theorem line，走到 LazyGreedy extension、StochasticGreedy skeleton 与一套可继续扩展的 Isabelle/HOL library。 阅读全文"
+      "content": "Pinned Notes TTGDA and Second-Order Tracking Projected Gradient Descent in Isabelle/HOL Dual Score to Saddle Certificates Isabelle Submodular Greedy Project Archive 2026 学术笔记 技术笔记 归档"
     },
     {
       "title": "摄影 / Photography",

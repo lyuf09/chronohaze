@@ -1218,7 +1218,7 @@
         }
       });
 
-      var desiredOrder = ["home", "academic", "photo", "music", "cv", "search"];
+      var desiredOrder = ["home", "academic", "music", "photo", "cv"];
       var links = Array.from(nav.querySelectorAll("a"));
       var keyedFirst = Object.create(null);
       var leftovers = [];
@@ -3396,7 +3396,7 @@
         navAria: "主导航",
         navHome: "主页",
         navAcademic: "学术",
-        navMath: "数学",
+        navMath: "Technical Notes",
         navPhoto: "摄影",
         navMusic: "音乐",
         navProjects: "项目",
@@ -3410,7 +3410,7 @@
         searchScopeLabel: "范围",
         searchTagLabel: "标签",
         searchScopeAll: "全部",
-        searchScopeMath: "数学",
+        searchScopeMath: "Technical Notes",
         searchScopePhoto: "摄影",
         searchScopeMusic: "音乐",
         searchScopeCV: "CV",
@@ -3424,7 +3424,7 @@
         searchFallbackText: "搜索暂时不可用时，也可以先从这些入口继续浏览：",
         searchFallbackModeLabel: "已切换到快捷入口与站外搜索",
         searchFallbackRedirecting: "正在切换到站外搜索…",
-        searchFallbackMath: "浏览数学",
+        searchFallbackMath: "浏览 Technical Notes",
         searchFallbackPhoto: "浏览摄影",
         searchFallbackMusic: "浏览音乐",
         searchFallbackCV: "浏览 CV",
@@ -3515,14 +3515,14 @@
           "我的个人创作往往围绕一些持续出现的意象展开。夏日的雨季、夜晚、潮湿空气中的光、以及白色夜开花植物。",
           "这些元素逐渐构成了我作品中的情绪母题。关于时间的缓慢流动、在寂静中生长的张力、以及未言明的一切。",
         ],
-        mathPageTitle: "数学文章",
-        mathIntro: "研究记录、实验笔记与结构化的思考。",
+        mathPageTitle: "学术笔记 / Technical Notes",
+        mathIntro: "置顶最能代表当前研究思考的材料，并按时间保留完整笔记归档。",
         photoPageTitle: "摄影 / Selected Works",
         photoIntro: "城市、窗、花与模糊的光，是镜头量出的距离碎片。",
         readMore: "查看更多",
         backToMusic: "← 返回音乐",
         backToPhoto: "← 返回摄影",
-        backToMath: "返回数学栏目",
+        backToMath: "返回 Technical Notes",
         photoPrevGroup: "上一组",
         photoBackToArchive: "← 返回摄影",
         photoNextGroup: "下一组",
@@ -3563,7 +3563,7 @@
         navAria: "Main navigation",
         navHome: "Home",
         navAcademic: "Academic",
-        navMath: "Mathematics",
+        navMath: "Technical Notes",
         navPhoto: "Photography",
         navMusic: "Music",
         navProjects: "Projects",
@@ -3578,7 +3578,7 @@
         searchScopeLabel: "Scope",
         searchTagLabel: "Tag",
         searchScopeAll: "All",
-        searchScopeMath: "Mathematics",
+        searchScopeMath: "Technical Notes",
         searchScopePhoto: "Photography",
         searchScopeMusic: "Music",
         searchScopeCV: "CV",
@@ -3592,7 +3592,7 @@
         searchFallbackText: "If search is temporarily unavailable, you can keep browsing from these entry points:",
         searchFallbackModeLabel: "Using shortcuts and external site search",
         searchFallbackRedirecting: "Redirecting to external site search…",
-        searchFallbackMath: "Browse math",
+        searchFallbackMath: "Browse Technical Notes",
         searchFallbackPhoto: "Browse photography",
         searchFallbackMusic: "Browse music",
         searchFallbackCV: "Browse CV",
@@ -3684,8 +3684,8 @@
           "My work often returns to a set of recurring images: summer rain, nighttime, light suspended in humid air, and white flowers that bloom after dark.",
           "Over time, these elements have become the emotional motifs in my writing, time moving slowly, tension growing in stillness, and everything left unsaid.",
         ],
-        mathPageTitle: "Mathematics Archive",
-        mathIntro: "Research notes, experiments, and structured thoughts.",
+        mathPageTitle: "Technical Notes",
+        mathIntro: "Pinned material that best represents my current research thinking, followed by a complete time-ordered archive.",
         photoPageTitle: "Photography / Selected Works",
         photoIntro:
           "Cities, windows, flowers, and blurred light — fragments of distance measured through a lens.",
@@ -3695,7 +3695,7 @@
         readMore: "Read More",
         backToMusic: "← Back to Music",
         backToPhoto: "← Back to Photography",
-        backToMath: "Back to mathematics",
+        backToMath: "Back to Technical Notes",
         photoPrevGroup: "Prev",
         photoBackToArchive: "← Back to Photography",
         photoNextGroup: "Next",
@@ -13512,7 +13512,7 @@
   }
 
   function ensureSearchNavLink() {
-    var navOrder = ["home", "academic", "photo", "music", "cv", "search"];
+    var navOrder = ["home", "academic", "music", "photo", "cv"];
     var navLabelMap = {
       home: "主页",
       academic: "学术",
@@ -14017,7 +14017,7 @@
       }
       setTimeout(syncMathDataCopy, 120);
 
-      document.title = safeLang === "en" ? "Mathematics | Chronohaze" : "数学 | Chronohaze";
+      document.title = safeLang === "en" ? "Technical Notes | Chronohaze" : "学术笔记 / Technical Notes | Chronohaze";
     }
 
     if (document.body.classList.contains("search-index-page")) {

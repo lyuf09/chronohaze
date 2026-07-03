@@ -217,7 +217,7 @@ def apply_catalog_overlay(path_name: str, item: Dict[str, Any], catalogs: Dict[s
         if catalog_item:
             overlay_fields(item, catalog_item, ("tags", "date", "title", "excerpt"))
         elif url == "math.html":
-            overlay_fields(item, {"tags": ["math"], "title": "数学 / Mathematics"}, ("tags", "title"))
+            overlay_fields(item, {"tags": ["math", "technical notes"], "title": "学术笔记 / Technical Notes"}, ("tags", "title"))
         return
 
     if path_name == "photo.json":

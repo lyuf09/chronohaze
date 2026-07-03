@@ -177,7 +177,18 @@ test("secondary pages keep mobile nav within the viewport", async ({ page }, tes
     await waitForCriticalLoaderRelease(page);
 
     await expect(page.locator(".site-header .nav")).toBeVisible();
-    await expect(page.locator(".site-header .nav a")).toHaveCount(6);
+    await expect(page.locator(".site-header .nav a")).toHaveCount(5);
+
+    const navTargets = await page.locator(".site-header .nav a").evaluateAll((links) =>
+      links.map((link) => (link.getAttribute("href") || "").replace(/^\.\.\//, ""))
+    );
+    expect(navTargets).toEqual([
+      "index.html",
+      "academic.html",
+      "music.html",
+      "photography.html",
+      "cv.html",
+    ]);
 
     const metrics = await page.evaluate(() => {
       const nav = document.querySelector(".site-header .nav");
@@ -289,6 +300,21 @@ test("new AFP note leads the math archive and exposes primary evidence", async (
 
   await page.goto("math.html?lang=zh", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
+  await expect(page.getByRole("heading", { name: "学术笔记 / Technical Notes" })).toBeVisible();
+  await expect(page.locator("#pinned-notes .academic-evidence-list li")).toHaveCount(4);
+  await expect(page.locator("#pinned-notes .academic-evidence-list li").nth(0)).toContainText(
+    "TTGDA and Second-Order Tracking"
+  );
+  await expect(page.locator("#pinned-notes .academic-evidence-list li").nth(1)).toContainText(
+    "Projected Gradient Descent in Isabelle/HOL"
+  );
+  await expect(page.locator("#pinned-notes .academic-evidence-list li").nth(2)).toContainText(
+    "Dual Score to Saddle Certificates"
+  );
+  await expect(page.locator("#pinned-notes .academic-evidence-list li").nth(3)).toContainText(
+    "Isabelle Submodular Greedy Project"
+  );
+  await expect(page.locator("#notes-archive")).toBeVisible();
   const firstNote = page.locator(".math-list .math-card").first();
   await expect(firstNote).toContainText("子模贪心算法形式化正式进入 AFP");
   await expect(firstNote.locator(".math-date")).toContainText("2026-06-30");
