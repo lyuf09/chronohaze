@@ -52,7 +52,10 @@ def canonicalize_output_status(status_text: str) -> Dict[str, str]:
     head = parts[0].lower() if parts else raw.lower()
     tail = parts[1].strip() if len(parts) > 1 else ""
 
-    if head in {"wip", "in prep", "in-prep", "pending"}:
+    if head in {"awaiting review", "under review", "submitted"}:
+        key = "under_review"
+        label = "Awaiting review"
+    elif head in {"wip", "in prep", "in-prep", "pending"}:
         key = "in_prep"
         label = "In prep"
     elif "draft" in head:
@@ -86,7 +89,10 @@ def canonicalize_project_status(status_text: str, fallback_detail: str = "") -> 
     head = parts[0].lower() if parts else raw.lower()
     tail = parts[1].strip() if len(parts) > 1 else detail_fallback
 
-    if head in {"wip", "work in progress"}:
+    if head in {"awaiting review", "under review", "submitted"}:
+        key = "under_review"
+        label = "Awaiting review"
+    elif head in {"wip", "work in progress"}:
         key = "wip"
         label = "WIP"
     elif head in {"in prep", "in-prep", "in preparation", "pending"}:

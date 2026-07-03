@@ -30,7 +30,7 @@
       <link>https://lyuf09.github.io/chronohaze/post/projected-gradient-descent-isabelle-hol.html</link>
       <guid>https://lyuf09.github.io/chronohaze/post/projected-gradient-descent-isabelle-hol.html</guid>
       <pubDate>Fri, 22 May 2026 12:00:00 +0000</pubDate>
-      <description>Following publication of the submodular-greedy formalization in AFP, I continued organizing a second Isabelle/HOL optimization project, from smooth convexity and projection geometry to descent estimates, projected-gradient mappings, and residual certificates.</description>
+      <description>Following publication of the submodular-greedy formalization in AFP, I continued organizing a second Isabelle/HOL optimization project, from smooth convexity and projection geometry to descent estimates, projected-gradient mappings, and residual certificates. The project has now been submitted to AFP and is awaiting review.</description>
     </item>
 
     <item>

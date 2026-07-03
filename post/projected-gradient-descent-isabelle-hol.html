@@ -140,16 +140,16 @@
   <link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
   <title>从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL</title>
-  <meta name="description" content="在等待前一个 AFP 项目流程继续推进期间，我开始整理第二个 Isabelle/HOL optimization 项目：从 smooth convexity、projection geometry、descent estimates 到 projected-gradient mapping 和 residual certificates，尝试把 projected-gradient descent 写成一套可复用的 first-order methods infrastructure。" />
+  <meta name="description" content="Projected Gradient Descent in Isabelle/HOL 已提交至 Archive of Formal Proofs，目前等待审核。项目覆盖 smooth convexity、projection geometry、descent estimates、projected-gradient mapping 和 residual certificates。" />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Chronohaze" />
   <meta property="og:title" content="从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL | Chronohaze" />
-  <meta property="og:description" content="在等待前一个 AFP 项目流程继续推进期间，我开始整理第二个 Isabelle/HOL optimization 项目：从 smooth convexity、projection geometry、descent estimates 到 projected-gradient mapping 和 residual certificates，尝试把 projected-gradient descent 写成一套可复用的 first-order methods infrastructure。" />
+  <meta property="og:description" content="Projected Gradient Descent in Isabelle/HOL 已提交至 Archive of Formal Proofs，目前等待审核。项目覆盖 smooth convexity、projection geometry、descent estimates、projected-gradient mapping 和 residual certificates。" />
   <meta property="og:url" content="https://lyuf09.github.io/chronohaze/post/projected-gradient-descent-isabelle-hol.html" />
   <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/projected-gradient-descent-isabelle-hol.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL | Chronohaze" />
-  <meta name="twitter:description" content="在等待前一个 AFP 项目流程继续推进期间，我开始整理第二个 Isabelle/HOL optimization 项目：从 smooth convexity、projection geometry、descent estimates 到 projected-gradient mapping 和 residual certificates，尝试把 projected-gradient descent 写成一套可复用的 first-order methods infrastructure。" />
+  <meta name="twitter:description" content="Projected Gradient Descent in Isabelle/HOL 已提交至 Archive of Formal Proofs，目前等待审核。项目覆盖 smooth convexity、projection geometry、descent estimates、projected-gradient mapping 和 residual certificates。" />
   <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/projected-gradient-descent-isabelle-hol.png" />
   <link rel="canonical" href="https://lyuf09.github.io/chronohaze/post/projected-gradient-descent-isabelle-hol.html" />
 
@@ -240,6 +240,7 @@
           <h1>从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL</h1>
           <p class="article-meta">HazezZ · 2026年5月22日 · 约 5 分钟</p>
           <p class="article-meta">标签：Isabelle/HOL · Optimization · Formalisation · AFP</p>
+          <p><strong>状态更新（2026年7月2日）：</strong>该项目已提交至 Archive of Formal Proofs，目前等待审核。</p>
 
           <p>在完成子模优化项目的 AFP cleanup 之后，我原本以为下一步会很直接，比如整理+提交+等待 review，然后再慢慢考虑下一个 Isabelle 项目，但实际流程没有这么线性。AFP 那边暂时出现了一些技术性的 blocking issue，我问了负责人之后得到的答复是还需要等一等，于是这段时间变成了一个很微妙的空档，刚好又考完闲得慌。</p>
           <p>我不太想把这段时间完全空掉，于是我开始做另一个 Isabelle/HOL 项目：Projected Gradient Descent in Isabelle/HOL。</p>
@@ -277,6 +278,7 @@
           <p>这也是我越来越喜欢 Isabelle 的地方。它不是只帮我检查最后一步对不对，而是不断迫使我把整条证明路线里的接口、假设和依赖关系都暴露出来。很多时候真正有研究价值的东西并不只是最终 theorem statement，而是在 formalisation 过程中被迫整理出来的那套 architecture。</p>
 
           <h2>当前状态</h2>
+          <p>该项目已于 2026 年 7 月 2 日提交至 Archive of Formal Proofs，目前等待审核。</p>
           <p>目前这个 repo 已经包含 smooth convex first-order methods 的主要基础设施，并以 projected-gradient descent 作为中心应用。当前完成的部分包括：</p>
           <ul>
             <li>gradient 和 convex differentiability 的基础接口；</li>
@@ -314,6 +316,7 @@
           <h1>Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL</h1>
           <p class="article-meta">HazezZ · May 22, 2026 · 5 min read</p>
           <p class="article-meta">Tags: Isabelle/HOL · Optimization · Formalisation · AFP</p>
+          <p><strong>Status update (July 2, 2026):</strong> This project has been submitted to the Archive of Formal Proofs and is awaiting review.</p>
 
           <p>After finishing the AFP cleanup for my submodular optimization project, I thought the next step would be linear: polish, submit, wait for review, and only later think about another Isabelle project. In practice, the process has not been that linear. The AFP side is temporarily blocked by a technical issue, and after asking the maintainer I learned that I need to wait a bit. So this became a strange open interval after exams.</p>
           <p>I did not want that interval to go empty, so I started another Isabelle/HOL project: Projected Gradient Descent in Isabelle/HOL.</p>
@@ -351,6 +354,7 @@
           <p>That is also why I increasingly like Isabelle. It does not only check the final theorem; it forces the interfaces, assumptions, and dependencies of the whole proof route to become visible. Often the research value is not only the final theorem statement, but the architecture that formalisation forces into the open.</p>
 
           <h2>Current status</h2>
+          <p>The project was submitted to the Archive of Formal Proofs on July 2, 2026, and is currently awaiting review.</p>
           <p>The repository currently contains the main infrastructure for smooth convex first-order methods, with projected-gradient descent as the central application. It includes:</p>
           <ul>
             <li>interfaces for gradients and convex differentiability;</li>

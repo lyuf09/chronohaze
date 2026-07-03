@@ -10,10 +10,10 @@
     "items": [
       {
         "label": "Last updated",
-        "value": "2026-06-30 · 06:43 AM ET",
-        "datetime": "2026-06-30T06:43:37-04:00",
+        "value": "2026-07-03 · 05:11 AM ET",
+        "datetime": "2026-07-03T05:11:25-04:00",
         "timezone": "America/New_York",
-        "date_only": "2026-06-30",
+        "date_only": "2026-07-03",
         "display_format": "YYYY-MM-DD · hh:mm A ET"
       }
     ]
@@ -33,7 +33,7 @@
       "problem": "我正在使用 Isabelle/HOL 形式化一阶优化方法与子模贪心算法中的经典证明结构。这里我关心的不只是把定理放进 proof assistant，而是如何把证明中的依赖、接口和可复用部分写清楚。",
       "method": "",
       "status": "",
-      "current_status": "其中，Greedy Algorithms for Cardinality-Constrained Submodular Maximization 已正式发表于 Archive of Formal Proofs，发表范围包括 classical greedy 的 1−1/e 近似保证与 verified stateful lazy greedy variant。StochasticGreedy 仍是 future extension / experimental branch；另一条关于 smooth convex optimization 与 projected gradient descent 的形式化项目也在整理中。",
+      "current_status": "其中，Greedy Algorithms for Cardinality-Constrained Submodular Maximization 已正式发表于 Archive of Formal Proofs，发表范围包括 classical greedy 的 1−1/e 近似保证与 verified stateful lazy greedy variant。StochasticGreedy 仍是 future extension / experimental branch；关于 smooth convex optimization 与 projected gradient descent 的第二个形式化项目已提交至 Archive of Formal Proofs，目前等待审核。",
       "contribution": "接下来我想继续思考的是：怎样把这些形式化结果整理成更稳定的 library，使它们既适合展示和归档，也能支持后续扩展。",
       "links": [
         {
@@ -59,8 +59,8 @@
       ],
       "status_key": "",
       "status_label": "",
-      "status_detail": "其中，Greedy Algorithms for Cardinality-Constrained Submodular Maximization 已正式发表于 Archive of Formal Proofs，发表范围包括 classical greedy 的 1−1/e 近似保证与 verified stateful lazy greedy variant。StochasticGreedy 仍是 future extension / experimental branch；另一条关于 smooth convex optimization 与 projected gradient descent 的形式化项目也在整理中。",
-      "status_display": "其中，Greedy Algorithms for Cardinality-Constrained Submodular Maximization 已正式发表于 Archive of Formal Proofs，发表范围包括 classical greedy 的 1−1/e 近似保证与 verified stateful lazy greedy variant。StochasticGreedy 仍是 future extension / experimental branch；另一条关于 smooth convex optimization 与 projected gradient descent 的形式化项目也在整理中。"
+      "status_detail": "其中，Greedy Algorithms for Cardinality-Constrained Submodular Maximization 已正式发表于 Archive of Formal Proofs，发表范围包括 classical greedy 的 1−1/e 近似保证与 verified stateful lazy greedy variant。StochasticGreedy 仍是 future extension / experimental branch；关于 smooth convex optimization 与 projected gradient descent 的第二个形式化项目已提交至 Archive of Formal Proofs，目前等待审核。",
+      "status_display": "其中，Greedy Algorithms for Cardinality-Constrained Submodular Maximization 已正式发表于 Archive of Formal Proofs，发表范围包括 classical greedy 的 1−1/e 近似保证与 verified stateful lazy greedy variant。StochasticGreedy 仍是 future extension / experimental branch；关于 smooth convex optimization 与 projected gradient descent 的第二个形式化项目已提交至 Archive of Formal Proofs，目前等待审核。"
     },
     {
       "kind": "",
@@ -115,12 +115,12 @@
       "type": "notes",
       "kicker": "Isabelle/HOL",
       "title": "Projected Gradient Descent",
-      "status": "In prep",
-      "description": "smooth convex optimization 中一阶方法形式化项目。",
-      "status_key": "in_prep",
-      "status_label": "In prep",
+      "status": "Awaiting review",
+      "description": "smooth convex optimization 中一阶方法形式化项目；已提交至 AFP，等待审核。",
+      "status_key": "under_review",
+      "status_label": "Awaiting review",
       "status_detail": "",
-      "status_display": "In prep"
+      "status_display": "Awaiting review"
     },
     {
       "href": "notes/ttgda_second_order_tracking_note.html",
@@ -154,9 +154,9 @@
       "optimization",
       "formal-methods"
     ],
-    "sort": 20260630,
+    "sort": 20260703,
     "scope": "site",
-    "content": "研究 我现在的研究兴趣主要围绕优化理论、形式化证明，以及数学结构在算法与机器学习问题中的表达方式。 研究线索 代表性工作入口 几项最能支撑上面研究线索的项目和笔记。 为什么这些方向连在一起 Isabelle/HOL 与优化算法形式化 我正在使用 Isabelle/HOL 形式化一阶优化方法与子模贪心算法中的经典证明结构。这里我关心的不只是把定理放进 proof assistant，而是如何把证明中的依赖、接口和可复用部分写清楚。 其中，Greedy Algorithms for Cardinality-Constrained Submodular Maximization 已正式发表于 Archive of Formal Proofs，发表范围包括 classical greedy 的 1−1/e 近似保证与 verified stateful lazy greedy variant。StochasticGreedy 仍是 future extension / experimental branch；另一条关于 smooth convex optimization 与 projected gradient descent 的形式化项目也在整理中。 接下来我想继续思考的是：怎样把这些形式化结果整理成更稳定的 library，使它们既适合展示和归档，也能支持后续扩展。 AFP entry DOI: 10.5281/zenodo.21054718 Proof document Repository 不变性、对偶与结构恢复 在一些优化模型中，最自然的对偶路线会因为 translation 或 gauge invariance 而退化，最后只得到 trivial lower bound。我感兴趣的是：这种退化到底说明了推导失败，还是说明模型本身隐藏着另一种结构？ 我目前正在重新整理相关推导，尤其关注 Range(B)、cycle consistency 与 instance difficulty 之间的关系。对我来说，这条线的核心不是单纯追求一个更强的 bound，而是理解在对偶信息 collapse 之后，是否还可以恢复出可解释、可比较的 structural score。 Structured Representation and Discretization from audio / rhythm streams to inspectable discrete objects. 这条线来自音乐与交互系统：当连续输入被离散化时，哪些结构必须保留，哪些约束只是实现层面的近似？ 目前我把它作为 structured representation / modeling 问题推进，并用技术项目检验这些抽象约束如何落到可操作的系统中。 Isabelle/HOL Submodular Greedy Formalization 子模贪心算法形式化项目与材料入口。 Isabelle/HOL Projected Gradient Descent In prep smooth convex optimization 中一阶方法形式化项目。 Optimization Note TTGDA and Second-Order Tracking Exploratory 关于 value-function viewpoint 与二阶 tracking 问题的探索性技术笔记。",
+    "content": "研究 我现在的研究兴趣主要围绕优化理论、形式化证明，以及数学结构在算法与机器学习问题中的表达方式。 研究线索 代表性工作入口 几项最能支撑上面研究线索的项目和笔记。 为什么这些方向连在一起 Isabelle/HOL 与优化算法形式化 我正在使用 Isabelle/HOL 形式化一阶优化方法与子模贪心算法中的经典证明结构。这里我关心的不只是把定理放进 proof assistant，而是如何把证明中的依赖、接口和可复用部分写清楚。 其中，Greedy Algorithms for Cardinality-Constrained Submodular Maximization 已正式发表于 Archive of Formal Proofs，发表范围包括 classical greedy 的 1−1/e 近似保证与 verified stateful lazy greedy variant。StochasticGreedy 仍是 future extension / experimental branch；关于 smooth convex optimization 与 projected gradient descent 的第二个形式化项目已提交至 Archive of Formal Proofs，目前等待审核。 接下来我想继续思考的是：怎样把这些形式化结果整理成更稳定的 library，使它们既适合展示和归档，也能支持后续扩展。 AFP entry DOI: 10.5281/zenodo.21054718 Proof document Repository 不变性、对偶与结构恢复 在一些优化模型中，最自然的对偶路线会因为 translation 或 gauge invariance 而退化，最后只得到 trivial lower bound。我感兴趣的是：这种退化到底说明了推导失败，还是说明模型本身隐藏着另一种结构？ 我目前正在重新整理相关推导，尤其关注 Range(B)、cycle consistency 与 instance difficulty 之间的关系。对我来说，这条线的核心不是单纯追求一个更强的 bound，而是理解在对偶信息 collapse 之后，是否还可以恢复出可解释、可比较的 structural score。 Structured Representation and Discretization from audio / rhythm streams to inspectable discrete objects. 这条线来自音乐与交互系统：当连续输入被离散化时，哪些结构必须保留，哪些约束只是实现层面的近似？ 目前我把它作为 structured representation / modeling 问题推进，并用技术项目检验这些抽象约束如何落到可操作的系统中。 Isabelle/HOL Submodular Greedy Formalization 子模贪心算法形式化项目与材料入口。 Isabelle/HOL Projected Gradient Descent Awaiting review smooth convex optimization 中一阶方法形式化项目；已提交至 AFP，等待审核。 Optimization Note TTGDA and Second-Order Tracking Exploratory 关于 value-function viewpoint 与二阶 tracking 问题的探索性技术笔记。",
     "meta_title": "Research | Fay / Feier Lyu | Chronohaze",
     "meta_description": "Research page organized around three current problem lines by Fay / Feier Lyu, also known as HazezZ."
   },
@@ -185,12 +185,12 @@
           "type": "notes",
           "kicker": "Isabelle/HOL",
           "title": "Projected Gradient Descent",
-          "status": "In prep",
-          "description": "smooth convex optimization 中一阶方法形式化项目。",
-          "status_key": "in_prep",
-          "status_label": "In prep",
+          "status": "Awaiting review",
+          "description": "smooth convex optimization 中一阶方法形式化项目；已提交至 AFP，等待审核。",
+          "status_key": "under_review",
+          "status_label": "Awaiting review",
           "status_detail": "",
-          "status_display": "In prep"
+          "status_display": "Awaiting review"
         },
         {
           "href": "notes/ttgda_second_order_tracking_note.html",
@@ -208,6 +208,6 @@
       ]
     }
   ],
-  "generated_at": "2026-06-30",
+  "generated_at": "2026-07-03",
   "source": "research.html"
 }
