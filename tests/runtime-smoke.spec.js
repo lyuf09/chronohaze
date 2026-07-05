@@ -96,14 +96,15 @@ test("search page loads grouped results and query state works", async ({ page })
   expect(errors).toEqual([]);
 });
 
-test("olfactory notes page renders its three-part collection", async ({ page }) => {
+test("olfactory notes page renders its structure and archive", async ({ page }) => {
   const errors = trackPageErrors(page);
   await page.goto("olfactory.html", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
 
   await expect(page.locator("body.olfactory-page")).toBeVisible();
   await expect(page.getByRole("heading", { name: "Olfactory Notes / 调香手记" })).toBeVisible();
-  await expect(page.locator(".scent-card")).toHaveCount(5);
+  await expect(page.getByRole("heading", { name: "Selected Scents" })).toHaveCount(0);
+  await expect(page.locator(".scent-card")).toHaveCount(0);
   await expect(page.getByRole("heading", { name: "Scent as Structure" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Scent Archive" })).toBeVisible();
   expect(errors).toEqual([]);
