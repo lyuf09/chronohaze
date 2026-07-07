@@ -333,6 +333,8 @@
       navRecentEmpty: lang === "zh" ? "还没有最近搜索" : "No recent searches yet",
       navApplyScopeOnly: lang === "zh" ? "只看此栏" : "Browse this section",
       navClearRecent: lang === "zh" ? "清空记录" : "Clear history",
+      shortcutFocus:
+        lang === "zh" ? "/ 或 Ctrl/Cmd+K 聚焦搜索框" : "/ or Ctrl/Cmd+K to focus search",
     };
 
     if (titleNode) {
@@ -1678,6 +1680,23 @@
 
       var scope = scopeNode.value || "all";
       var tag = tagNode.value || "all";
+
+      if (!rawQuery && scope === "all" && tag === "all") {
+        updateSearchUrl(rawQuery, scope, tag);
+        statusNode.textContent = dict.searchEmptyHint;
+        setFallbackVisibility(false);
+        updateShareToolsVisibility();
+        renderSearchNavHub();
+        listNode.textContent = "";
+        emptyNode.hidden = true;
+        emptyNode.textContent = "";
+        hideNoResultsRecommendations();
+        shortcutsHintNode.textContent = uiText.shortcutFocus;
+        lastRenderedItems = [];
+        activeResultIndex = -1;
+        return;
+      }
+
       var terms = rawQuery
         ? rawQuery
             .split(/\s+/)
@@ -1753,13 +1772,15 @@
         lastRenderedItems = [];
         activeResultIndex = -1;
         emptyNode.hidden = false;
-        emptyNode.textContent = rawQuery || tag !== "all" ? dict.searchResultZero : dict.searchEmptyHint;
+        emptyNode.textContent = dict.searchResultZero;
+        shortcutsHintNode.textContent = uiText.shortcutFocus;
         renderNoResultsRecommendations(rawQuery, scope, tag);
         return;
       }
 
       emptyNode.hidden = true;
       hideNoResultsRecommendations();
+      shortcutsHintNode.textContent = dict.searchShortcutHint;
       lastRenderedItems = matched.map(function (entry) { return entry.item; });
       var fragment = document.createDocumentFragment();
       var groupRecords = [];

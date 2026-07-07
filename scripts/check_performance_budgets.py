@@ -43,9 +43,10 @@ def main() -> int:
     # Core JS/CSS/HTML file budgets. These track the generated site baseline with modest
     # headroom so the check catches real bloat instead of failing every content polish pass.
     file_budgets: List[Tuple[str, int, str]] = [
-        ("protect-media.min.js", 560_000, "core frontend runtime bundle"),
+        ("protect-media.min.js", 525_000, "core frontend runtime bundle"),
         ("styles.min.css", 320_000, "global styles"),
         ("home.min.css", 48_000, "home page styles"),
+        ("assets/logo-header.png", 30_000, "header logo"),
         ("assets/js/search-page.min.js", 60_000, "search page runtime"),
         ("assets/js/structured-data.min.js", 20_000, "structured data module"),
         ("assets/js/music-detail-transcript.min.js", 15_000, "music transcript module"),
@@ -68,7 +69,7 @@ def main() -> int:
                 "assets/js/music-detail-transcript.min.js",
                 "assets/js/structured-data.min.js",
                 ],
-            680_000,
+            650_000,
         ),
         ("key CSS payload", ["styles.min.css", "home.min.css"], 365_000),
     ]

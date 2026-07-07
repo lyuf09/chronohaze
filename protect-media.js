@@ -2500,6 +2500,9 @@
           return;
         }
         event.preventDefault();
+        if (typeof event.stopPropagation === "function") {
+          event.stopPropagation();
+        }
         launcher.click();
       });
       logo.addEventListener("keydown", function (event) {
@@ -2571,18 +2574,54 @@
     document.body.appendChild(shell);
 
     var statusNode = panel.querySelector(".site-share-status");
+    var closeButton = panel.querySelector('[data-share-action="close"]');
+    var lastFocusedShareTrigger = null;
 
-    function setOpen(nextOpen) {
+    function setOpen(nextOpen, options) {
       var isOpen = !!nextOpen;
+      var opts = options || {};
+      var logo = document.querySelector(".floating-site-logo.is-share-trigger");
+
+      if (isOpen) {
+        var activeNode = document.activeElement;
+        if (activeNode === launcher || activeNode === logo) {
+          lastFocusedShareTrigger = activeNode;
+        } else {
+          lastFocusedShareTrigger = logo || launcher;
+        }
+      }
+
       shell.setAttribute("data-open", isOpen ? "1" : "0");
       launcher.setAttribute("aria-expanded", isOpen ? "true" : "false");
       if (isOpen) {
         panel.removeAttribute("hidden");
         renderSharePanelLanguage(shell);
+        window.requestAnimationFrame(function () {
+          if (
+            shell.getAttribute("data-open") === "1" &&
+            closeButton &&
+            typeof closeButton.focus === "function"
+          ) {
+            closeButton.focus();
+          }
+        });
       } else {
         panel.setAttribute("hidden", "");
         if (statusNode) {
           statusNode.textContent = "";
+        }
+        if (opts.restoreFocus !== false) {
+          var focusTarget = lastFocusedShareTrigger;
+          window.requestAnimationFrame(function () {
+            if (
+              shell.getAttribute("data-open") !== "1" &&
+              focusTarget &&
+              focusTarget.isConnected &&
+              typeof focusTarget.focus === "function"
+            ) {
+              focusTarget.focus();
+            }
+          });
         }
       }
     }
@@ -2636,7 +2675,7 @@
       var payload = localized.payload || buildPageSharePayload();
 
       if (action === "close") {
-        setOpen(false);
+        setOpen(false, { restoreFocus: true });
         return;
       }
 
@@ -2752,7 +2791,7 @@
 
     bindResponsivePress(launcher, function () {
       var next = shell.getAttribute("data-open") !== "1";
-      setOpen(next);
+      setOpen(next, { restoreFocus: true });
       trackAnalyticsEvent("share_panel_toggle", {
         page_path: window.location.pathname || "",
         opened: next ? 1 : 0,
@@ -2776,12 +2815,12 @@
       if (target && typeof target.closest === "function" && target.closest(".site-share-shell")) {
         return;
       }
-      setOpen(false);
+      setOpen(false, { restoreFocus: false });
     });
 
     document.addEventListener("keydown", function (event) {
       if (event.key === "Escape" && shell.getAttribute("data-open") === "1") {
-        setOpen(false);
+        setOpen(false, { restoreFocus: true });
       }
     });
 
@@ -3427,7 +3466,7 @@
         searchScopeCV: "CV",
         searchTagAll: "全部标签",
         searchSubmit: "搜索",
-        searchEmptyHint: "输入关键词开始搜索。",
+        searchEmptyHint: "输入关键词，或选择范围 / 标签开始搜索。",
         searchLoading: "准备搜索…",
         searchLoadingProgress: "正在准备搜索（{done}/{total}）…",
         searchLoadError: "暂时无法加载搜索结果。",
@@ -3596,7 +3635,7 @@
         searchScopeCV: "CV",
         searchTagAll: "All tags",
         searchSubmit: "Search",
-        searchEmptyHint: "Type a keyword to start searching.",
+        searchEmptyHint: "Enter a keyword, or choose a scope / tag to start searching.",
         searchLoading: "Preparing search…",
         searchLoadingProgress: "Preparing search ({done}/{total})…",
         searchLoadError: "Search is temporarily unavailable.",
@@ -12049,6 +12088,7 @@
     return musicCatalogLoadPromise;
   }
 
+  /* @production-strip-start legacy-music-index */
   function setupMusicIndexArchitecture() {
     if (!document.body || !document.body.classList.contains("music-index-page")) {
       return;
@@ -12867,6 +12907,8 @@
       });
   }
 
+  /* @production-strip-end */
+
   function setupMusicIndexListeningRoom() {
     if (!document.body || !document.body.classList.contains("music-index-page")) {
       return;
@@ -12885,6 +12927,10 @@
     if (!rows.length) {
       return;
     }
+    if (document.body.dataset.musicListeningRoomState) {
+      return;
+    }
+    document.body.dataset.musicListeningRoomState = "building";
 
     var albumProjects = [
       {
@@ -13470,28 +13516,49 @@
 
     rootSection.textContent = "";
     rootSection.appendChild(shell);
+    document.body.dataset.musicListeningRoomState = "core-ready";
 
-    var archiveWrapper = createElement("section", "section music-room-archive-section");
-    var archiveShell = createElement(
-      "div",
-      "container music-room-shell music-room-archive-shell"
-    );
-    archiveShell.appendChild(buildArchive(rowMetaMap));
-    archiveWrapper.appendChild(archiveShell);
+    scheduleIdleWork(function () {
+      if (
+        !document.body ||
+        !document.body.classList.contains("music-index-page") ||
+        !rootSection.isConnected
+      ) {
+        return;
+      }
 
-    if (afterwordSection && afterwordSection.parentNode) {
-      afterwordSection.parentNode.insertBefore(archiveWrapper, afterwordSection);
-    } else if (backgroundSection && backgroundSection.parentNode) {
-      backgroundSection.parentNode.insertBefore(
-        archiveWrapper,
-        backgroundSection.nextSibling
-      );
-    } else if (rootSection.parentNode) {
-      rootSection.parentNode.insertBefore(
-        archiveWrapper,
-        afterwordSection || rootSection.nextSibling
-      );
-    }
+      try {
+        withMutationRefreshSuppressed(function () {
+          var archiveWrapper = createElement("section", "section music-room-archive-section");
+          var archiveShell = createElement(
+            "div",
+            "container music-room-shell music-room-archive-shell"
+          );
+          archiveShell.appendChild(buildArchive(rowMetaMap));
+          archiveWrapper.appendChild(archiveShell);
+
+          if (afterwordSection && afterwordSection.parentNode) {
+            afterwordSection.parentNode.insertBefore(archiveWrapper, afterwordSection);
+          } else if (backgroundSection && backgroundSection.parentNode) {
+            backgroundSection.parentNode.insertBefore(
+              archiveWrapper,
+              backgroundSection.nextSibling
+            );
+          } else if (rootSection.parentNode) {
+            rootSection.parentNode.insertBefore(
+              archiveWrapper,
+              afterwordSection || rootSection.nextSibling
+            );
+          }
+          document.body.dataset.musicListeningRoomState = "ready";
+        });
+      } catch (error) {
+        document.body.dataset.musicListeningRoomState = "core-ready";
+        if (window.console && typeof window.console.error === "function") {
+          window.console.error("[Chronohaze] deferred music archive build failed:", error);
+        }
+      }
+    }, 900);
   }
 
   function setSamePageLanguageInUrl(lang) {
@@ -14274,8 +14341,8 @@
         ".floating-site-logo.is-contrast img{opacity:.995;filter:contrast(1.18) saturate(.9) brightness(.88) drop-shadow(0 0 1px rgba(11,17,31,.66)) drop-shadow(0 0 5px rgba(19,30,50,.48)) drop-shadow(0 0 9px rgba(31,48,77,.26));}",
         "@keyframes floatingSiteLogoBreath{0%,100%{transform:translate3d(0,0,0) scale(1);}35%{transform:translate3d(.6px,-1.9px,0) scale(1.014);}65%{transform:translate3d(0,-4.2px,0) scale(1.028);}85%{transform:translate3d(-.55px,-1.8px,0) scale(1.016);}}",
         "@media (prefers-reduced-motion: reduce){.floating-site-logo{animation:none;transform:none;}.floating-site-logo::before,.floating-site-logo::after{filter:none;}}",
-        "@media (max-width: 900px){.floating-site-logo{width:76px;height:76px;right:max(12px,calc(env(safe-area-inset-right,0px) + 10px));bottom:max(12px,calc(env(safe-area-inset-bottom,0px) + 10px));}.floating-site-logo::before{inset:-14px;}.floating-site-logo::after{inset:-4px;}}",
-        "@media only screen and (min-width:390px) and (max-width:430px) and (orientation:portrait){.floating-site-logo{width:70px;height:70px;right:max(10px,calc(env(safe-area-inset-right,0px) + 8px));bottom:max(10px,calc(env(safe-area-inset-bottom,0px) + 8px));}}",
+        "@media (max-width:900px){.floating-site-logo{width:58px;height:58px;right:max(10px,calc(env(safe-area-inset-right,0px) + 8px));bottom:max(10px,calc(env(safe-area-inset-bottom,0px) + 8px));}.floating-site-logo::before{inset:-10px;filter:blur(7px);}.floating-site-logo::after{inset:-3px;filter:blur(3px);}}",
+        "@media (max-width:640px){.floating-site-logo{width:48px;height:48px;}.floating-site-logo::before{inset:-8px;}.floating-site-logo img{width:72%;height:72%;}}",
       ].join("");
       document.head.appendChild(style);
     }
@@ -14647,6 +14714,14 @@
       return;
     }
     if (!window.matchMedia) {
+      return;
+    }
+    var compactViewport = window.matchMedia("(max-width: 760px)");
+    var coarsePointer = window.matchMedia("(pointer: coarse)");
+    var hasTouchInput =
+      (typeof navigator.maxTouchPoints === "number" && navigator.maxTouchPoints > 0) ||
+      "ontouchstart" in window;
+    if (compactViewport.matches || coarsePointer.matches || hasTouchInput) {
       return;
     }
     var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
@@ -17235,6 +17310,44 @@
     });
   }
 
+  function scheduleIdleWork(task, timeout) {
+    if (typeof task !== "function") {
+      return;
+    }
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(task, { timeout: Number(timeout || 800) });
+      return;
+    }
+    window.setTimeout(task, 60);
+  }
+
+  var musicIndexArchitectureScheduled = false;
+
+  function scheduleMusicIndexListeningRoom() {
+    if (
+      musicIndexArchitectureScheduled ||
+      !document.body ||
+      !document.body.classList.contains("music-index-page") ||
+      document.body.dataset.musicListeningRoomState
+    ) {
+      return;
+    }
+    musicIndexArchitectureScheduled = true;
+    scheduleIdleWork(function () {
+      musicIndexArchitectureScheduled = false;
+      try {
+        withMutationRefreshSuppressed(setupMusicIndexListeningRoom);
+      } catch (error) {
+        if (document.body) {
+          delete document.body.dataset.musicListeningRoomState;
+        }
+        if (window.console && typeof window.console.error === "function") {
+          window.console.error("[Chronohaze] deferred music index build failed:", error);
+        }
+      }
+    }, 700);
+  }
+
   function runTaskGroup(tasks) {
     tasks.forEach(function (task) {
       if (typeof task === "function") {
@@ -17248,7 +17361,6 @@
       }
     });
 
-    ensureSiteSharePanel();
   }
 
   var structuredDataModulePromise = null;
@@ -17321,7 +17433,7 @@
       injectFloatingSiteLogo,
       injectFloatingLanguageSwitch,
     ],
-    pageArchitecture: [setupMusicIndexListeningRoom],
+    pageArchitecture: [scheduleMusicIndexListeningRoom],
     mediaAndProtection: [
       protectAllMedia,
       optimizeMediaLoading,
@@ -17376,10 +17488,19 @@
 
   function withMutationRefreshSuppressed(task) {
     mutationRefreshSuppressed += 1;
+    var didThrow = true;
     try {
-      return typeof task === "function" ? task() : undefined;
+      var result = typeof task === "function" ? task() : undefined;
+      didThrow = false;
+      return result;
     } finally {
-      mutationRefreshSuppressed = Math.max(0, mutationRefreshSuppressed - 1);
+      if (didThrow) {
+        mutationRefreshSuppressed = Math.max(0, mutationRefreshSuppressed - 1);
+      } else {
+        Promise.resolve().then(function () {
+          mutationRefreshSuppressed = Math.max(0, mutationRefreshSuppressed - 1);
+        });
+      }
     }
   }
 
@@ -17388,13 +17509,13 @@
       return;
     }
     mutationRefreshScheduled = true;
-    window.requestAnimationFrame(function () {
+    scheduleIdleWork(function () {
       mutationRefreshScheduled = false;
       if (mutationRefreshSuppressed > 0) {
         return;
       }
       runTaskGroup(MUTATION_REFRESH_TASKS);
-    });
+    }, 900);
   }
 
   function boot() {

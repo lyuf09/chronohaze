@@ -223,6 +223,12 @@ def minify_css(text: str) -> str:
 
 def minify_js_conservative(text: str) -> str:
     text = text.replace("\r\n", "\n").replace("\r", "\n")
+    text = re.sub(
+        r"/\*\s*@production-strip-start\b.*?\*/.*?/\*\s*@production-strip-end\s*\*/",
+        "",
+        text,
+        flags=re.S,
+    )
     lines = []
     previous_blank = False
     for raw_line in text.split("\n"):

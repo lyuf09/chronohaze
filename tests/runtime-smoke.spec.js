@@ -57,6 +57,10 @@ test("music index renders and remains interactive", async ({ page }) => {
   );
   await expect(page.locator(".music-room-archive-section")).toBeVisible();
   await expect.poll(async () => page.locator(".music-room-archive-group").count()).toBeGreaterThan(2);
+  await expect(page.locator("body.music-index-page")).toHaveAttribute(
+    "data-music-listening-room-state",
+    "ready"
+  );
 
   const archiveFilter = page.locator(".music-room-archive-filter-select");
   if ((await archiveFilter.count()) > 0) {
@@ -80,19 +84,62 @@ test("music index renders and remains interactive", async ({ page }) => {
 
 test("search page loads grouped results and query state works", async ({ page }) => {
   const errors = trackPageErrors(page);
-  await page.goto("search.html", { waitUntil: "domcontentloaded" });
+  await page.goto("search.html?lang=en", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
 
   await expect(page.locator("body.search-index-page")).toBeVisible();
   await expect(page.locator("#site-search-input")).toBeVisible();
+  await expect(page.locator(".search-status")).toHaveText(
+    "Enter a keyword, or choose a scope / tag to start searching."
+  );
+  await expect(page.locator(".search-result-link")).toHaveCount(0);
+  await expect(page.locator(".search-empty")).toBeHidden();
+  await expect(page.locator(".search-no-results-panel")).toBeHidden();
+  await expect(page.locator(".search-shortcuts")).toHaveText("/ or Ctrl/Cmd+K to focus search");
 
   await page.fill("#site-search-input", "Affizieren");
   await page.click(".search-submit");
 
   await expect.poll(async () => page.locator(".search-result-link").count()).toBeGreaterThan(0);
   await expect.poll(async () => page.locator(".search-result-group").count()).toBeGreaterThan(0);
+  await expect(page.locator(".search-shortcuts")).toContainText("select");
   await expect(page).toHaveURL(/[\?&]q=Affizieren/);
 
+  await page.fill("#site-search-input", "__chronohaze_no_match__");
+  await page.click(".search-submit");
+  await expect(page.locator(".search-status")).toHaveText("0 results");
+  await expect(page.locator(".search-empty")).toHaveText("No matching results.");
+  await expect(page.locator(".search-no-results-lead")).toHaveText(
+    "No matching results yet. Try these nearby tags or entry points:"
+  );
+  await expect(page.locator(".search-shortcuts")).toHaveText("/ or Ctrl/Cmd+K to focus search");
+
+  expect(errors).toEqual([]);
+});
+
+test("mobile share launcher opens without immediately closing and manages focus", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "iphone13", "mobile-only share interaction check");
+
+  const errors = trackPageErrors(page);
+  await page.goto("index.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+
+  const logo = page.locator(".floating-site-logo.is-share-trigger");
+  const panel = page.locator(".site-share-panel");
+  const closeButton = panel.locator('[data-share-action="close"]');
+
+  await expect(logo).toBeVisible();
+  const logoBox = await logo.boundingBox();
+  expect(logoBox).not.toBeNull();
+  expect(logoBox.width).toBeLessThanOrEqual(50);
+  expect(logoBox.height).toBeLessThanOrEqual(50);
+  await logo.click({ force: true });
+  await expect(panel).toBeVisible();
+  await expect(closeButton).toBeFocused();
+
+  await closeButton.click();
+  await expect(panel).toBeHidden();
+  await expect(logo).toBeFocused();
   expect(errors).toEqual([]);
 });
 
@@ -193,6 +240,11 @@ test("secondary pages keep mobile nav within the viewport", async ({ page }, tes
 
     await expect(page.locator(".site-header .nav")).toBeVisible();
     await expect(page.locator(".site-header .nav a")).toHaveCount(7);
+    await expect(page.locator(".site-header .brand img")).toHaveAttribute(
+      "src",
+      /logo-header\.png$/
+    );
+    await expect(page.locator(".cursor-atmosphere-layer")).toHaveCount(0);
 
     const navTargets = await page.locator(".site-header .nav a").evaluateAll((links) =>
       links.map((link) => (link.getAttribute("href") || "").replace(/^\.\.\//, ""))
@@ -214,6 +266,7 @@ test("secondary pages keep mobile nav within the viewport", async ({ page }, tes
       const root = document.documentElement;
       return {
         viewport: window.innerWidth,
+        filmGrainContent: window.getComputedStyle(document.body, "::before").content,
         rootScrollWidth: root ? root.scrollWidth : 0,
         bodyScrollWidth: body ? body.scrollWidth : 0,
         headerScrollWidth: header ? header.scrollWidth : 0,
@@ -222,6 +275,7 @@ test("secondary pages keep mobile nav within the viewport", async ({ page }, tes
     });
 
     expect(metrics.rootScrollWidth).toBeLessThanOrEqual(metrics.viewport + 2);
+    expect(metrics.filmGrainContent).toBe("none");
     expect(metrics.bodyScrollWidth).toBeLessThanOrEqual(metrics.viewport + 2);
     expect(metrics.headerScrollWidth).toBeLessThanOrEqual(metrics.viewport + 2);
     expect(metrics.navScrollWidth).toBeLessThanOrEqual(metrics.viewport + 2);
