@@ -37,5 +37,29 @@ module.exports = defineConfig({
       name: "iphone13",
       use: { ...devices["iPhone 13"] },
     },
+    {
+      name: "iphone16",
+      use: {
+        ...devices["iPhone 13"],
+        viewport: { width: 393, height: 852 },
+        screen: { width: 393, height: 852 },
+      },
+    },
+    {
+      name: "iphone16promax",
+      use: {
+        ...devices["iPhone 13"],
+        viewport: { width: 440, height: 956 },
+        screen: { width: 440, height: 956 },
+      },
+    },
+    {
+      name: "iphone16promax-landscape",
+      use: {
+        ...devices["iPhone 13"],
+        viewport: { width: 956, height: 440 },
+        screen: { width: 956, height: 440 },
+      },
+    },
   ],
 });

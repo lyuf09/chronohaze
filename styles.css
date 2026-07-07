@@ -9870,6 +9870,10 @@ body {
   flex-wrap: wrap;
 }
 
+.search-index-page .search-share-tools[hidden] {
+  display: none !important;
+}
+
 .search-index-page .search-share-btn {
   border: 1px solid var(--ui-border-soft);
   background: var(--ui-surface-glass);
@@ -10436,7 +10440,7 @@ body {
   .home-body .floating-site-logo.is-share-trigger {
     top: auto;
     right: max(10px, calc(var(--safe-right) + 8px));
-    bottom: max(10px, calc(var(--safe-bottom) + 8px));
+    bottom: calc(max(10px, calc(var(--safe-bottom) + 8px)) + var(--floating-logo-lift, 0px));
     width: 48px;
     height: 48px;
     z-index: 72;
@@ -11338,7 +11342,6 @@ body {
   .search-index-page #site-search-input,
   .search-index-page #site-search-scope,
   .search-index-page #site-search-tag,
-  .search-index-page .search-submit,
   .music-index-page .music-ia-filter-select,
   .music-index-page .music-ia-tab {
     color: #2f343d;
@@ -16151,14 +16154,50 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
 
   body:not(.home-body) .nav a {
     flex: 0 0 auto;
-    min-height: 28px;
+    min-height: 44px;
     display: inline-flex;
     align-items: center;
-    padding: 6px 0 7px;
+    padding: 8px 0;
   }
 
   body:not(.home-body) .nav a::after {
     bottom: 1px;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  body::before {
+    content: none;
+    display: none;
+  }
+
+  .site-share-shell {
+    left: auto;
+    right: max(10px, calc(var(--safe-right) + 8px));
+    bottom: max(10px, calc(var(--safe-bottom) + 8px));
+    align-items: flex-end;
+  }
+
+  .site-share-shell[data-mobile-share-via-logo="1"] .site-share-fab {
+    display: none;
+  }
+
+  .floating-site-logo.is-share-trigger {
+    pointer-events: auto;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  .floating-site-logo.is-share-open {
+    opacity: 0;
+    transform: scale(0.92);
+    pointer-events: none;
+  }
+
+  .site-header .nav a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
   }
 }
 

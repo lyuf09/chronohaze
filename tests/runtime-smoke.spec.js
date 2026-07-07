@@ -1,5 +1,16 @@
 const { test, expect } = require("@playwright/test");
 
+const MOBILE_PROJECTS = new Set([
+  "iphone13",
+  "iphone16",
+  "iphone16promax",
+  "iphone16promax-landscape",
+]);
+
+function isMobileProject(testInfo) {
+  return MOBILE_PROJECTS.has(testInfo.project.name);
+}
+
 function trackPageErrors(page) {
   const errors = [];
   page.on("pageerror", (err) => {
@@ -95,6 +106,8 @@ test("search page loads grouped results and query state works", async ({ page })
   await expect(page.locator(".search-result-link")).toHaveCount(0);
   await expect(page.locator(".search-empty")).toBeHidden();
   await expect(page.locator(".search-no-results-panel")).toBeHidden();
+  await expect(page.locator(".search-share-tools")).toBeHidden();
+  await expect(page.locator(".search-submit")).toHaveCSS("color", "rgba(244, 248, 255, 0.96)");
   await expect(page.locator(".search-shortcuts")).toHaveText("/ or Ctrl/Cmd+K to focus search");
 
   await page.fill("#site-search-input", "Affizieren");
@@ -118,7 +131,7 @@ test("search page loads grouped results and query state works", async ({ page })
 });
 
 test("mobile share launcher opens without immediately closing and manages focus", async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== "iphone13", "mobile-only share interaction check");
+  test.skip(!isMobileProject(testInfo), "mobile-only share interaction check");
 
   const errors = trackPageErrors(page);
   await page.goto("index.html?lang=en", { waitUntil: "domcontentloaded" });
@@ -133,6 +146,32 @@ test("mobile share launcher opens without immediately closing and manages focus"
   expect(logoBox).not.toBeNull();
   expect(logoBox.width).toBeLessThanOrEqual(50);
   expect(logoBox.height).toBeLessThanOrEqual(50);
+
+  if ((page.viewportSize() || {}).height > (page.viewportSize() || {}).width) {
+    await expect
+      .poll(async () => {
+        return page.evaluate(() => {
+          const logoNode = document.querySelector(".floating-site-logo.is-share-trigger");
+          const player = document.querySelector("#playerShell");
+          if (!logoNode || !player) return -1;
+          const logoRect = logoNode.getBoundingClientRect();
+          const playerRect = player.getBoundingClientRect();
+          const width = Math.max(0, Math.min(logoRect.right, playerRect.right) - Math.max(logoRect.left, playerRect.left));
+          const height = Math.max(0, Math.min(logoRect.bottom, playerRect.bottom) - Math.max(logoRect.top, playerRect.top));
+          return Math.round(width * height);
+        });
+      })
+      .toBe(0);
+  }
+
+  if (testInfo.project.name === "iphone16promax") {
+    const brandMetrics = await page.locator(".home-brand").evaluate((brand) => ({
+      clientWidth: brand.clientWidth,
+      scrollWidth: brand.scrollWidth,
+    }));
+    expect(brandMetrics.scrollWidth).toBeLessThanOrEqual(brandMetrics.clientWidth + 1);
+  }
+
   await logo.click({ force: true });
   await expect(panel).toBeVisible();
   await expect(closeButton).toBeFocused();
@@ -222,7 +261,7 @@ test("album page renders cover and track links", async ({ page }) => {
 });
 
 test("secondary pages keep mobile nav within the viewport", async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== "iphone13", "mobile-only nav safety check");
+  test.skip(!isMobileProject(testInfo), "mobile-only nav safety check");
 
   const pages = [
     "policy.html",
@@ -271,6 +310,9 @@ test("secondary pages keep mobile nav within the viewport", async ({ page }, tes
         bodyScrollWidth: body ? body.scrollWidth : 0,
         headerScrollWidth: header ? header.scrollWidth : 0,
         navScrollWidth: nav ? nav.scrollWidth : 0,
+        minNavTargetHeight: nav
+          ? Math.min(...Array.from(nav.querySelectorAll("a"), (link) => link.getBoundingClientRect().height))
+          : 0,
       };
     });
 
@@ -279,6 +321,7 @@ test("secondary pages keep mobile nav within the viewport", async ({ page }, tes
     expect(metrics.bodyScrollWidth).toBeLessThanOrEqual(metrics.viewport + 2);
     expect(metrics.headerScrollWidth).toBeLessThanOrEqual(metrics.viewport + 2);
     expect(metrics.navScrollWidth).toBeLessThanOrEqual(metrics.viewport + 2);
+    expect(metrics.minNavTargetHeight).toBeGreaterThanOrEqual(44);
     expect(errors).toEqual([]);
   }
 });
