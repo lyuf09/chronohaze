@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -137,22 +137,18 @@
 <body class="math-post-page note-detail-page">
   <div class="page">
     <header class="site-header">
-      <div class="container header-inner header-inner--with-lang">
+      <div class="container header-inner">
         <a class="brand" href="../index.html">
           <img src="../assets/logo-header.png" alt="Chronohaze site logo" />
           <span>chronohaze.space</span>
         </a>
-        <nav class="nav" aria-label="主导航" data-i18n-aria="navAria">
-          <a href="../index.html" data-i18n="navHome">主页</a>
-          <a class="active" href="../academic.html" data-i18n="navAcademic">学术</a>
-          <a href="../music.html" data-i18n="navMusic">音乐</a>
-          <a href="../photography.html" data-i18n="navPhoto">摄影</a>
-          <a href="../cv.html" data-i18n="navCV">CV</a>
+        <nav class="nav" aria-label="Main navigation">
+          <a href="../index.html">Home</a>
+          <a class="active" href="../academic.html">Academic</a>
+          <a href="../music.html">Music</a>
+          <a href="../photography.html">Photography</a>
+          <a href="../cv.html">CV</a>
         </nav>
-        <div class="floating-lang-switch" role="group" aria-label="Language switch">
-          <button class="floating-lang-btn active" type="button" data-note-lang="zh" aria-label="Switch site language to Chinese">ZH</button>
-          <button class="floating-lang-btn" type="button" data-note-lang="en" aria-label="Switch site language to English">EN</button>
-        </div>
       </div>
     </header>
 
@@ -160,36 +156,33 @@
       <div class="container">
         <div class="cv-utility-bar">
           <div class="cv-utility-top">
-            <nav class="academic-local-nav" aria-label="Academic section links" data-i18n-aria="academicSectionAria">
-              <a class="academic-local-link" href="../academic.html" data-i18n="utilityOverview">总览</a>
-              <a class="academic-local-link" href="../research.html" data-i18n="utilityResearch">研究</a>
-              <a class="academic-local-link" href="../projects.html" data-i18n="utilityProjects">项目</a>
-              <a class="academic-local-link is-active" href="../math.html" data-i18n="utilityNotes">笔记</a>
+            <nav class="academic-local-nav" aria-label="Academic section links">
+              <a class="academic-local-link" href="../academic.html">Overview</a>
+              <a class="academic-local-link" href="../research.html">Research</a>
+              <a class="academic-local-link" href="../projects.html">Projects</a>
+              <a class="academic-local-link is-active" href="../math.html">Notes</a>
             </nav>
           </div>
         </div>
       </div>
 
       <section class="note-detail-shell">
-        <a class="note-detail-back" href="../math.html" data-note-i18n="back">返回笔记</a>
+        <a class="note-detail-back" href="../math.html">Back to Notes</a>
         <h1 class="note-detail-title">Convexity in the Necessity Direction of Theorem 11</h1>
         <p class="note-detail-meta">Technical note · Learning Theory / Private Learning / Distributional Constraints · July 2026</p>
         <p class="note-detail-lead">
-          关于 Theorem 11 的 necessity direction 中 convexity 问题的 reading note。这个问题来自我阅读 <em>Characterizing Online and Private Learnability under Distributional Constraints via Generalized Smoothness</em> 时的 proof-route check：Theorem 11 的 statement 看起来面向 general distribution class U，但 Appendix F.1 的 lower-bound route 会经过 Lemma 18 和 Theorem 19，而那里 convexity of U 被显式使用；这份 note 记录了我对 convexification、fragmentation obstruction 和 private-learning guarantee lifting 的疑问。
-        </p>
-        <p class="note-detail-lead" lang="en">
           This note traces the necessity direction around Theorem 11, records a convexification check for the envelope submeasure and fragmentation numbers, and isolates the bridge from a general distribution class U to the convex setting used in Lemma 18 and Theorem 19.
         </p>
         <div class="note-pdf-actions">
-          <a class="note-pdf-action" href="theorem11_convexity_note.pdf" target="_blank" rel="noopener" data-note-i18n="openPdf">打开 PDF</a>
-          <a class="note-pdf-action" href="../math.html" data-note-i18n="notesIndex">笔记目录</a>
+          <a class="note-pdf-action" href="theorem11_convexity_note.pdf" target="_blank" rel="noopener">Open PDF</a>
+          <a class="note-pdf-action" href="../math.html">Notes Index</a>
         </div>
         <div class="note-pdf-frame-wrap">
           <iframe class="note-pdf-frame" src="theorem11_convexity_note.pdf#view=FitH" title="Theorem 11 necessity direction note PDF preview"></iframe>
         </div>
         <p class="note-pdf-fallback">
-          <span data-note-i18n="fallbackLead">如果预览没有加载，可以使用</span>
-          <a href="theorem11_convexity_note.pdf" target="_blank" rel="noopener" data-note-i18n="fallbackLink">打开 PDF</a><span data-note-i18n="fallbackEnd">。</span>
+          If the preview does not load in your browser, use
+          <a href="theorem11_convexity_note.pdf" target="_blank" rel="noopener">Open PDF</a>.
         </p>
       </section>
     </main>
@@ -198,8 +191,8 @@
       <div class="container footer-grid">
         <div>
           <p class="footer-title">chronohaze.space</p>
-          <p class="footer-note"><span data-i18n="footerContactLead">辗转不同国家无固定号码 请联系邮箱：</span><a href="#" data-note-email-link="1">moc.duolci@035reief</a></p>
-          <p class="footer-note" data-i18n="footerCities">重庆 · Edinburgh · Ithaca</p>
+          <p class="footer-note"><span>No fixed phone number while moving across countries. Contact via email: </span><a href="#" data-note-email-link="1">moc.duolci@035reief</a></p>
+          <p class="footer-note">Chongqing · Edinburgh · Ithaca</p>
           <p class="footer-copy">© 2026 by chronohaze.space. Powered and secured by GitHub Pages.</p>
           <div class="social" aria-label="Social links">
             <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -209,71 +202,14 @@
           </div>
         </div>
         <div class="footer-right">
-          <a href="../policy.html" data-i18n="siteNotes">网站说明</a>
-          <a href="../accessibility.html" data-i18n="a11y">无障碍支持</a>
+          <a href="../policy.html">Site Notes</a>
+          <a href="../accessibility.html">Accessibility</a>
         </div>
       </div>
     </footer>
   </div>
   <script>
     (function () {
-      const dictionaries = {
-        zh: {
-          htmlLang: 'zh-CN',
-          navAria: '主导航',
-          navHome: '主页',
-          navAcademic: '学术',
-          navPhoto: '摄影',
-          navMusic: '音乐',
-          navCV: 'CV',
-          navSearch: '搜索',
-          academicSectionAria: '学术页面导航',
-          utilityOverview: '总览',
-          utilityResearch: '研究',
-          utilityProjects: '项目',
-          utilityNotes: '笔记',
-          footerContactLead: '辗转不同国家无固定号码 请联系邮箱：',
-          footerCities: '重庆 · Edinburgh · Ithaca',
-          siteNotes: '网站说明',
-          a11y: '无障碍支持',
-          back: '返回笔记',
-          openPdf: '打开 PDF',
-          notesIndex: '笔记目录',
-          fallbackLead: '如果预览没有加载，可以使用',
-          fallbackLink: '打开 PDF',
-          fallbackEnd: '。'
-        },
-        en: {
-          htmlLang: 'en',
-          navAria: 'Main navigation',
-          navHome: 'Home',
-          navAcademic: 'Academic',
-          navPhoto: 'Photography',
-          navMusic: 'Music',
-          navCV: 'CV',
-          navSearch: 'Search',
-          academicSectionAria: 'Academic section navigation',
-          utilityOverview: 'Overview',
-          utilityResearch: 'Research',
-          utilityProjects: 'Projects',
-          utilityNotes: 'Notes',
-          footerContactLead: 'No fixed phone number while moving across countries. Contact via email: ',
-          footerCities: 'Chongqing · Edinburgh · Ithaca',
-          siteNotes: 'Site Notes',
-          a11y: 'Accessibility',
-          back: 'Back to Notes',
-          openPdf: 'Open PDF',
-          notesIndex: 'Notes Index',
-          fallbackLead: 'If the preview does not load in your browser, use',
-          fallbackLink: 'Open PDF',
-          fallbackEnd: '.'
-        }
-      };
-
-      const i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
-      const i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
-      const noteNodes = Array.from(document.querySelectorAll('[data-note-i18n]'));
-      const langButtons = Array.from(document.querySelectorAll('[data-note-lang]'));
       const emailLinks = Array.from(document.querySelectorAll('[data-note-email-link="1"]'));
 
       function enhanceEmailLinks() {
@@ -287,54 +223,7 @@
         });
       }
 
-      function setLanguage(lang) {
-        const safeLang = lang === 'en' ? 'en' : 'zh';
-        const dict = dictionaries[safeLang];
-        document.documentElement.lang = dict.htmlLang;
-
-        i18nNodes.forEach(function (node) {
-          const key = node.getAttribute('data-i18n');
-          if (typeof dict[key] === 'string') node.textContent = dict[key];
-        });
-
-        i18nAriaNodes.forEach(function (node) {
-          const key = node.getAttribute('data-i18n-aria');
-          if (typeof dict[key] === 'string') node.setAttribute('aria-label', dict[key]);
-        });
-
-        noteNodes.forEach(function (node) {
-          const key = node.getAttribute('data-note-i18n');
-          if (typeof dict[key] === 'string') node.textContent = dict[key];
-        });
-
-        langButtons.forEach(function (button) {
-          const active = button.getAttribute('data-note-lang') === safeLang;
-          button.classList.toggle('active', active);
-          button.setAttribute('aria-pressed', active ? 'true' : 'false');
-        });
-
-        try {
-          window.localStorage.setItem('siteLang', safeLang);
-          window.localStorage.setItem('chronohaze-lang', safeLang);
-        } catch (_error) {}
-      }
-
-      let initialLang = 'zh';
-      try {
-        const queryLang = new URLSearchParams(window.location.search).get('lang');
-        const storedLang = window.localStorage.getItem('siteLang') || window.localStorage.getItem('chronohaze-lang');
-        if (storedLang === 'zh' || storedLang === 'en') initialLang = storedLang;
-        if (queryLang === 'zh' || queryLang === 'en') initialLang = queryLang;
-      } catch (_error) {}
-
-      langButtons.forEach(function (button) {
-        button.addEventListener('click', function () {
-          setLanguage(button.getAttribute('data-note-lang'));
-        });
-      });
-
       enhanceEmailLinks();
-      setLanguage(initialLang);
     })();
   </script>
 </body>
