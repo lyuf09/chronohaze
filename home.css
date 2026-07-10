@@ -391,6 +391,41 @@ html:lang(en) {
   color: rgba(33, 38, 47, 0.94);
 }
 
+.hero-poetic-line,
+.hero-identity-line,
+.hero-world-line {
+  display: block;
+}
+
+.hero-poetic-line {
+  margin-bottom: 17px;
+  font-size: 1.08em;
+  line-height: 1.62;
+  letter-spacing: 0.045em;
+  color: rgba(27, 33, 44, 0.98);
+}
+
+.hero-identity-line {
+  margin-bottom: 14px;
+  font-family: var(--home-font-ui-serif);
+  font-size: 0.86em;
+  line-height: 1.78;
+  letter-spacing: 0.018em;
+  color: rgba(47, 55, 69, 0.92);
+}
+
+.hero-identity-line strong {
+  font-weight: 500;
+  color: rgba(25, 31, 42, 0.98);
+}
+
+.hero-world-line {
+  font-size: 0.91em;
+  line-height: 1.68;
+  letter-spacing: 0.035em;
+  color: rgba(65, 73, 88, 0.8);
+}
+
 .hero-academic-module {
   width: 390px;
   margin-top: 28px;

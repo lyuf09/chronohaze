@@ -49,6 +49,30 @@ test("home page renders hero and player shell", async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
+test("home hero keeps distinct Chinese and English identities", async ({ page }) => {
+  const errors = trackPageErrors(page);
+
+  await page.goto("index.html?lang=zh", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+  await expect(page.locator(".hero-right h1")).toHaveText("起点");
+  await expect(page.locator(".hero-poetic-line")).toHaveText("时间的薄雾里，理性与浪漫交织。");
+  await expect(page.locator(".hero-identity-line")).toContainText("Fay / Feier Lyu");
+  await expect(page.locator(".hero-identity-line")).toContainText("爱丁堡大学数学本科生");
+  await expect(page.locator(".hero-identity-line")).toContainText("优化理论与形式化验证");
+  await expect(page.locator('.hero-academic-link[href="projects.html"]')).toHaveText("代表性工作");
+  await expect(page.locator('.hero-academic-link[href="math.html"]')).toHaveText("技术笔记");
+
+  await page.goto("index.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+  await expect(page.locator(".hero-right h1")).toHaveText("Feier Lyu");
+  await expect(page.locator(".hero-right-inner > p").first()).toContainText(
+    "undergraduate student in Mathematics BSc at the University of Edinburgh"
+  );
+  await expect(page.locator(".hero-poetic-line")).toHaveCount(0);
+
+  expect(errors).toEqual([]);
+});
+
 test("music index renders and remains interactive", async ({ page }) => {
   const errors = trackPageErrors(page);
   await page.goto("music.html?lang=zh", { waitUntil: "domcontentloaded" });
