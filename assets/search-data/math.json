@@ -23,57 +23,18 @@
       "content": "子模贪心算法形式化正式进入 AFP Formalizing Submodular Greedy Is Now in the AFP HazezZ 2026年6月30日 Isabelle HOL submodular maximization greedy algorithms approximation guarantees Archive of Formal Proofs AFP Greedy Algorithms for Cardinality-Constrained Submodular Maximization monotone non-negative cardinality constraint classical greedy 1-1/e approximation stateful lazy greedy cached marginal-gain upper bounds 形式化证明会把算法分析拆成 ground set 可行解 边际增益 单步贪心选择 progress bound approximation guarantee 状态 可行性 单调性 子模性 递推不等式 infrastructure Lazy greedy 的 cached values 与真实 marginal gains 之间需要保持正确关系 程序状态本身也成为证明对象 optimization approximation algorithms formal verification proof architecture Wenda Li Tobias Nipkow formal libraries machine-checked proofs AFP entry DOI 10.5281/zenodo.21054718 https://doi.org/10.5281/zenodo.21054718 GitHub repository afp-cleanup"
     },
     {
-      "title": "A Small Exploratory Note on Exact Huber GLMs after Sparsification",
-      "url": "notes/huber_glm_sparsification_refinement_note.html",
-      "section": "Mathematics",
-      "date": "2026-07",
-      "excerpt": "关于 exact Huber GLMs after sparsification 的一个短技术笔记。这个问题来自我阅读 Sparsifying Generalized Linear Models 时的一个观察：Huber-type objectives 已经包含在 sparsification 结果中，但 exact Huber endpoint 的 local geometry 同时包含 active quadratic curvature、affine tails 和 kink-switching behavior，因此它似乎是 high-accuracy local refinement template 的一个自然边界情形。",
-      "tags": [
-        "math",
-        "article",
-        "optimization",
-        "sparsification",
-        "glms",
-        "huber-loss",
-        "reading-note"
-      ],
-      "sort": 20260700,
-      "scope": "math",
-      "content": "A Small Exploratory Note on Exact Huber GLMs after Sparsification Technical note Optimization Sparsification GLMs Huber loss Reading note April 2026 updated July 2026 exact Huber endpoint local geometry active quadratic curvature affine tails kink-switching behavior high-accuracy local refinement template Sparsifying Generalized Linear Models 关于 exact Huber GLMs after sparsification 的一个短技术笔记 这个问题来自我阅读 Sparsifying Generalized Linear Models 时的一个观察 Huber-type objectives 已经包含在 sparsification 结果中 但 exact Huber endpoint 的 local geometry 同时包含 active quadratic curvature affine tails 和 kink-switching behavior 因此它似乎是 high-accuracy local refinement template 的一个自然边界情形 This short note records a preliminary question about whether a sparsified local refinement step could preserve the active quadratic curvature of exact Huber losses while controlling switching near the Huber kink PDF preview note page embedded preview Open PDF"
-    },
-    {
-      "title": "A Short Exploratory Note on a Convexity Step in Theorem 11",
-      "url": "notes/theorem11_convexity_note.html",
-      "section": "Mathematics",
-      "date": "2026-07",
-      "excerpt": "关于 Theorem 11 中 convexity step 的一个短技术笔记。这个问题来自我阅读 Characterizing Online and Private Learnability under Distributional Constraints via Generalized Smoothness 时的 proof-route check：Theorem 11 的 statement 看起来面向 general distribution class U，但 Appendix F.1 的 lower-bound route 会经过 Lemma 18 和 Theorem 19，而那里 convexity of U 被显式使用；这份 note 记录了我对 convexification、fragmentation obstruction 和 private-learning guarantee lifting 的疑问。",
-      "tags": [
-        "math",
-        "article",
-        "learning-theory",
-        "private-learning",
-        "distributional-constraints",
-        "generalized-smoothness",
-        "convexity",
-        "reading-note"
-      ],
-      "sort": 20260710,
-      "scope": "math",
-      "content": "A Short Exploratory Note on a Convexity Step in Theorem 11 Technical note Learning Theory Private Learning Distributional Constraints Generalized Smoothness Convexity Reading note July 2026 Characterizing Online and Private Learnability under Distributional Constraints via Generalized Smoothness Appendix F.1 Lemma 18 Theorem 19 general distribution class U convex distribution class envelope submeasure fragmentation number convexification private-learning guarantee lifting heterogeneous product samples lower-bound route necessity direction private threshold lower bound 关于 Theorem 11 中 convexity step 的一个短技术笔记 这个问题来自阅读 Characterizing Online and Private Learnability under Distributional Constraints via Generalized Smoothness 时的 proof-route check Theorem 11 的 statement 看起来面向 general distribution class U 但 Appendix F.1 的 lower-bound route 会经过 Lemma 18 和 Theorem 19 而那里 convexity of U 被显式使用 这份 note 记录了对 convexification fragmentation obstruction 和 private-learning guarantee lifting 的疑问 This short note traces the necessity direction around Theorem 11 records a convexification check for the envelope submeasure and fragmentation numbers and isolates the step where I do not yet see the bridge from a general distribution class U to the convex setting used in Lemma 18 and Theorem 19 PDF preview note page embedded preview Open PDF"
-    },
-    {
-      "title": "A Small Exploratory Note on TTGDA and Second-Order Tracking",
+      "title": "Schur-Complement Hessian Tracking in TTGDA",
       "url": "notes/ttgda_second_order_tracking_note.html",
       "section": "Mathematics",
       "date": "2026-06",
-      "excerpt": "关于 TTGDA 的一个短技术笔记。这个问题来自我阅读 value-function 视角时的一个想法：如果一阶分析中 y_t 对 y*(x_t) 的 tracking 可以控制梯度误差，那么类似的 tracking 机制是否也能用于 Schur-complement Hessian，从而支持二阶 saddle escaping？",
+      "excerpt": "关于 TTGDA 的技术笔记。这个问题来自我阅读 value-function 视角时的一个想法：如果一阶分析中 y_t 对 y*(x_t) 的 tracking 可以控制梯度误差，那么类似的 tracking 机制是否也能用于 Schur-complement Hessian，从而支持二阶 saddle escaping？",
       "tags": [
         "math",
         "article"
       ],
       "sort": 20260600,
       "scope": "math",
-      "content": "A Small Exploratory Note on TTGDA and Second-Order Tracking Technical note Optimization Minimax Learning June 2026 TTGDA first-order tracking analysis two-timescale tracking second-order saddle-escaping guarantee Schur-complement Hessian value function inexact iterate 关于 TTGDA 的一个短技术笔记 这个问题来自我阅读 value-function 视角时的一个想法 如果一阶分析中 y_t 对 y*(x_t) 的 tracking 可以控制梯度误差 那么类似的 tracking 机制是否也能用于 Schur-complement Hessian 从而支持二阶 saddle escaping This is a short exploratory note based on a question I had while reading the TTGDA analysis if the tracking of y_t toward y*(x_t) controls the first-order error in the value-function viewpoint can an analogous tracking argument control the Schur-complement Hessian well enough for a second-order saddle-escaping analysis PDF preview note page embedded preview Open PDF"
+      "content": "Schur-Complement Hessian Tracking in TTGDA A Note on Possible Second-Order Extensions Technical note Optimization Minimax Learning June 2026 TTGDA two-timescale tracking Schur-complement Hessian value function second-order saddle escaping inexact iterate 关于 TTGDA 的技术笔记 value-function viewpoint Schur-complement Hessian two-timescale tracking second-order extensions saddle escaping A note on possible second-order extensions of TTGDA asking whether two-timescale tracking can control the Schur-complement Hessian well enough for saddle escaping PDF preview note page embedded preview Open PDF"
     },
     {
       "title": "从 dual score 到 saddle certificates 的一点新进展",

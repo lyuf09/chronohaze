@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'self'; upgrade-insecure-requests" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <title>A Short Exploratory Note on a Convexity Step in Theorem 11 | Chronohaze</title>
-  <meta name="description" content="This short note traces a convexity step in the necessity direction around Theorem 11 of Characterizing Online and Private Learnability under Distributional Constraints via Generalized Smoothness." />
+  <meta name="robots" content="noindex,follow" />
+  <title>Convexity in the Necessity Direction of Theorem 11 | Chronohaze</title>
+  <meta name="description" content="A reading note on convexity in the necessity direction of Theorem 11 for private learnability under distributional constraints." />
   <link rel="canonical" href="https://lyuf09.github.io/chronohaze/notes/theorem11_convexity_note.html" />
   <link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
@@ -171,20 +172,20 @@
 
       <section class="note-detail-shell">
         <a class="note-detail-back" href="../math.html" data-note-i18n="back">返回笔记</a>
-        <h1 class="note-detail-title">A Short Exploratory Note on a Convexity Step in Theorem 11</h1>
+        <h1 class="note-detail-title">Convexity in the Necessity Direction of Theorem 11</h1>
         <p class="note-detail-meta">Technical note · Learning Theory / Private Learning / Distributional Constraints · July 2026</p>
         <p class="note-detail-lead">
-          关于 Theorem 11 中 convexity step 的一个短技术笔记。这个问题来自我阅读 <em>Characterizing Online and Private Learnability under Distributional Constraints via Generalized Smoothness</em> 时的 proof-route check：Theorem 11 的 statement 看起来面向 general distribution class U，但 Appendix F.1 的 lower-bound route 会经过 Lemma 18 和 Theorem 19，而那里 convexity of U 被显式使用；这份 note 记录了我对 convexification、fragmentation obstruction 和 private-learning guarantee lifting 的疑问。
+          关于 Theorem 11 的 necessity direction 中 convexity 问题的 reading note。这个问题来自我阅读 <em>Characterizing Online and Private Learnability under Distributional Constraints via Generalized Smoothness</em> 时的 proof-route check：Theorem 11 的 statement 看起来面向 general distribution class U，但 Appendix F.1 的 lower-bound route 会经过 Lemma 18 和 Theorem 19，而那里 convexity of U 被显式使用；这份 note 记录了我对 convexification、fragmentation obstruction 和 private-learning guarantee lifting 的疑问。
         </p>
         <p class="note-detail-lead" lang="en">
-          This short note traces the necessity direction around Theorem 11, records a convexification check for the envelope submeasure and fragmentation numbers, and isolates the step where I do not yet see the bridge from a general distribution class U to the convex setting used in Lemma 18 and Theorem 19.
+          This note traces the necessity direction around Theorem 11, records a convexification check for the envelope submeasure and fragmentation numbers, and isolates the bridge from a general distribution class U to the convex setting used in Lemma 18 and Theorem 19.
         </p>
         <div class="note-pdf-actions">
           <a class="note-pdf-action" href="theorem11_convexity_note.pdf" target="_blank" rel="noopener" data-note-i18n="openPdf">打开 PDF</a>
           <a class="note-pdf-action" href="../math.html" data-note-i18n="notesIndex">笔记目录</a>
         </div>
         <div class="note-pdf-frame-wrap">
-          <iframe class="note-pdf-frame" src="theorem11_convexity_note.pdf#view=FitH" title="Theorem 11 convexity step note PDF preview"></iframe>
+          <iframe class="note-pdf-frame" src="theorem11_convexity_note.pdf#view=FitH" title="Theorem 11 necessity direction note PDF preview"></iframe>
         </div>
         <p class="note-pdf-fallback">
           <span data-note-i18n="fallbackLead">如果预览没有加载，可以使用</span>

@@ -3566,7 +3566,7 @@
           "这些元素逐渐构成了我作品中的情绪母题。关于时间的缓慢流动、在寂静中生长的张力、以及未言明的一切。",
         ],
         mathPageTitle: "学术笔记 / Technical Notes",
-        mathIntro: "置顶最能代表当前研究思考的材料，并按时间保留完整笔记归档。",
+        mathIntro: "置顶最能代表当前研究思考的材料，并按时间整理部分技术笔记与研究记录。",
         photoPageTitle: "摄影 / Selected Works",
         photoIntro: "城市、窗、花与模糊的光，是镜头量出的距离碎片。",
         readMore: "查看更多",
@@ -3736,7 +3736,7 @@
           "Over time, these elements have become the emotional motifs in my writing, time moving slowly, tension growing in stillness, and everything left unsaid.",
         ],
         mathPageTitle: "Technical Notes",
-        mathIntro: "Pinned material that best represents my current research thinking, followed by a complete time-ordered archive.",
+        mathIntro: "Selected technical notes and a time-ordered record of ongoing research and formalization work.",
         photoPageTitle: "Photography / Selected Works",
         photoIntro:
           "Cities, windows, flowers, and blurred light — fragments of distance measured through a lens.",

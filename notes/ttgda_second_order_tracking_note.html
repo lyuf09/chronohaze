@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'self'; upgrade-insecure-requests" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <title>A Small Exploratory Note on TTGDA and Second-Order Tracking | Chronohaze</title>
-  <meta name="description" content="This is a short exploratory note based on a question I had while reading the TTGDA analysis: if the tracking of y_t toward y*(x_t) controls the first-order error in the value-function viewpoint, can an analogous tracking argument control the Schur-complement Hessian well enough for a second-order saddle-escaping analysis?" />
+  <title>Schur-Complement Hessian Tracking in TTGDA | Chronohaze</title>
+  <meta name="description" content="A note on possible second-order extensions of TTGDA via Schur-complement Hessian tracking in the value-function viewpoint." />
   <link rel="canonical" href="https://lyuf09.github.io/chronohaze/notes/ttgda_second_order_tracking_note.html" />
   <link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
@@ -54,6 +54,15 @@
       font-weight: 300;
       line-height: 1.05;
       letter-spacing: 0;
+    }
+
+    .note-detail-subtitle {
+      max-width: 820px;
+      margin: 14px 0 0;
+      color: rgba(214, 220, 230, 0.78);
+      font-size: 18px;
+      font-style: italic;
+      line-height: 1.5;
     }
 
     .note-detail-meta {
@@ -126,6 +135,10 @@
         line-height: 1.72;
       }
 
+      .note-detail-subtitle {
+        font-size: 15px;
+      }
+
       .note-pdf-frame {
         height: 72vh;
         min-height: 440px;
@@ -171,20 +184,21 @@
 
       <section class="note-detail-shell">
         <a class="note-detail-back" href="../math.html" data-note-i18n="back">返回笔记</a>
-        <h1 class="note-detail-title">A Small Exploratory Note on TTGDA and Second-Order Tracking</h1>
+        <h1 class="note-detail-title">Schur-Complement Hessian Tracking in TTGDA</h1>
+        <p class="note-detail-subtitle">A Note on Possible Second-Order Extensions</p>
         <p class="note-detail-meta">Technical note · Optimization / Minimax Learning · June 2026</p>
         <p class="note-detail-lead">
-          关于 TTGDA 的一个短技术笔记。这个问题来自我阅读 value-function 视角时的一个想法：如果一阶分析中 y_t 对 y*(x_t) 的 tracking 可以控制梯度误差，那么类似的 tracking 机制是否也能用于 Schur-complement Hessian，从而支持二阶 saddle escaping？
+          关于 TTGDA 的技术笔记。这个问题来自我阅读 value-function 视角时的一个想法：如果一阶分析中 y_t 对 y*(x_t) 的 tracking 可以控制梯度误差，那么类似的 tracking 机制是否也能用于 Schur-complement Hessian，从而支持二阶 saddle escaping？
         </p>
         <p class="note-detail-lead" lang="en">
-          This is a short exploratory note based on a question I had while reading the TTGDA analysis: if the tracking of y_t toward y*(x_t) controls the first-order error in the value-function viewpoint, can an analogous tracking argument control the Schur-complement Hessian well enough for a second-order saddle-escaping analysis?
+          A note on possible second-order extensions of TTGDA: if tracking y_t toward y*(x_t) controls the first-order error in the value-function viewpoint, can an analogous tracking argument control the Schur-complement Hessian well enough for saddle escaping?
         </p>
         <div class="note-pdf-actions">
           <a class="note-pdf-action" href="ttgda_second_order_tracking_note.pdf" target="_blank" rel="noopener" data-note-i18n="openPdf">打开 PDF</a>
           <a class="note-pdf-action" href="../math.html" data-note-i18n="notesIndex">笔记目录</a>
         </div>
         <div class="note-pdf-frame-wrap">
-          <iframe class="note-pdf-frame" src="ttgda_second_order_tracking_note.pdf#view=FitH" title="TTGDA second-order tracking note PDF preview"></iframe>
+          <iframe class="note-pdf-frame" src="ttgda_second_order_tracking_note.pdf#view=FitH" title="Schur-complement Hessian tracking in TTGDA note PDF preview"></iframe>
         </div>
         <p class="note-pdf-fallback">
           <span data-note-i18n="fallbackLead">如果预览没有加载，可以使用</span>

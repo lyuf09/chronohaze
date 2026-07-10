@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'self'; upgrade-insecure-requests" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <title>A Small Exploratory Note on Exact Huber GLMs after Sparsification | Chronohaze</title>
-  <meta name="description" content="This short note records a preliminary question about whether a sparsified local refinement step could preserve the active quadratic curvature of exact Huber losses while controlling switching near the Huber kink." />
+  <meta name="robots" content="noindex,follow" />
+  <title>Exact Huber GLMs after Sparsification: Active Curvature and Kink Switching | Chronohaze</title>
+  <meta name="description" content="A technical note on exact Huber GLMs after sparsification, focusing on active quadratic curvature, affine tails, and kink switching near the Huber threshold." />
   <link rel="canonical" href="https://lyuf09.github.io/chronohaze/notes/huber_glm_sparsification_refinement_note.html" />
   <link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
@@ -171,13 +172,13 @@
 
       <section class="note-detail-shell">
         <a class="note-detail-back" href="../math.html" data-note-i18n="back">返回笔记</a>
-        <h1 class="note-detail-title">A Small Exploratory Note on Exact Huber GLMs after Sparsification</h1>
+        <h1 class="note-detail-title">Exact Huber GLMs after Sparsification: Active Curvature and Kink Switching</h1>
         <p class="note-detail-meta">Technical note · Optimization / Sparsification / GLMs · April 2026 · updated July 2026</p>
         <p class="note-detail-lead">
-          关于 exact Huber GLMs after sparsification 的一个短技术笔记。这个问题来自我阅读 <em>Sparsifying Generalized Linear Models</em> 时的一个观察：Huber-type objectives 已经包含在 sparsification 结果中，但 exact Huber endpoint 的 local geometry 同时包含 active quadratic curvature、affine tails 和 kink-switching behavior，因此它似乎是 high-accuracy local refinement template 的一个自然边界情形。
+          关于 exact Huber GLMs after sparsification 的技术笔记。这个问题来自我阅读 <em>Sparsifying Generalized Linear Models</em> 时的一个观察：Huber-type objectives 已经包含在 sparsification 结果中，但 exact Huber endpoint 的 local geometry 同时包含 active quadratic curvature、affine tails 和 kink-switching behavior，因此它似乎是 high-accuracy local refinement template 的一个自然边界情形。
         </p>
         <p class="note-detail-lead" lang="en">
-          This short note records a preliminary question about whether a sparsified local refinement step could preserve the active quadratic curvature of exact Huber losses while controlling switching near the Huber kink.
+          This note asks whether a sparsified local refinement step can preserve the active quadratic curvature of exact Huber losses while controlling affine-tail behavior and switching near the Huber kink.
         </p>
         <div class="note-pdf-actions">
           <a class="note-pdf-action" href="huber_glm_sparsification_refinement_note.pdf" target="_blank" rel="noopener" data-note-i18n="openPdf">打开 PDF</a>
