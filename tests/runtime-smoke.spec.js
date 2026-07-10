@@ -237,6 +237,66 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   expect(errors).toEqual([]);
 });
 
+test("academic section navigation stays on the three canonical destinations", async ({ page }) => {
+  const pages = [
+    { path: "academic.html", active: null },
+    { path: "research.html", active: "Research Statement" },
+    { path: "projects.html", active: "Selected Work" },
+    { path: "math.html", active: "Technical Notes" },
+    { path: "notes/huber_glm_sparsification_refinement_note.html", active: "Technical Notes", back: true },
+    { path: "notes/theorem11_convexity_note.html", active: "Technical Notes", back: true },
+    { path: "notes/ttgda_second_order_tracking_note.html", active: "Technical Notes", back: true },
+    { path: "post/dual-score-saddle-certificates.html", active: "Technical Notes", footerNav: true },
+    { path: "post/first-isabelle-proof.html", active: "Technical Notes", footerNav: true },
+    { path: "post/isabelle-submodular-greedy.html", active: "Technical Notes", footerNav: true },
+    { path: "post/metalcore-piano-lab.html", active: "Technical Notes", footerNav: true },
+    { path: "post/projected-gradient-descent-isabelle-hol.html", active: "Technical Notes", footerNav: true },
+    { path: "post/spring-2026.html", active: "Technical Notes", footerNav: true },
+    { path: "post/submodular-greedy-formalization-enters-afp.html", active: "Technical Notes", footerNav: true },
+    { path: "post/theorem-to-framework-isabelle-submodular.html", active: "Technical Notes", footerNav: true },
+    { path: "post/what-i-really-got-when-a-dual-route-failed.html", active: "Technical Notes", footerNav: true },
+  ];
+  const expectedLabels = ["Research Statement", "Selected Work", "Technical Notes"];
+  const expectedPaths = ["/research.html", "/projects.html", "/math.html"];
+
+  for (const item of pages) {
+    await page.goto(`${item.path}?lang=zh`, { waitUntil: "domcontentloaded" });
+    await waitForCriticalLoaderRelease(page);
+
+    const nav = page.locator(".academic-local-nav");
+    const links = nav.locator(".academic-local-link");
+    await expect(links).toHaveCount(3);
+    await expect(links).toHaveText(expectedLabels);
+
+    const destinations = await links.evaluateAll((anchors) =>
+      anchors.map((anchor) => new URL(anchor.href).pathname)
+    );
+    expectedPaths.forEach((expectedPath, index) => {
+      expect(destinations[index]).toMatch(new RegExp(`${expectedPath.replace(".", "\\.")}$`));
+    });
+
+    const activeLinks = nav.locator(".academic-local-link.is-active");
+    if (item.active) {
+      await expect(activeLinks).toHaveCount(1);
+      await expect(activeLinks).toHaveText(item.active);
+    } else {
+      await expect(activeLinks).toHaveCount(0);
+    }
+
+    if (item.back) {
+      await expect(page.locator(".note-detail-back")).toHaveText("Back to Technical Notes");
+    }
+
+    if (item.footerNav) {
+      const footerRows = page.locator(".academic-hub-links-label + .research-link-row");
+      await expect.poll(async () => footerRows.count()).toBeGreaterThan(0);
+      for (let index = 0; index < await footerRows.count(); index += 1) {
+        await expect(footerRows.nth(index).locator("a")).toHaveText(expectedLabels);
+      }
+    }
+  }
+});
+
 test("album page renders cover and track links", async ({ page }) => {
   const errors = trackPageErrors(page);
   await page.goto("music/album-ipomoea-alba.html", { waitUntil: "domcontentloaded" });
