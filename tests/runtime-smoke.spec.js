@@ -39,12 +39,28 @@ test("home page renders hero and player shell", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Selected Evidence" })).toBeVisible();
   await expect(page.locator(".now-card").first()).toContainText("正式发表于 Archive of Formal Proofs");
   await expect(page.locator(".now-card").first().locator(".now-card-links a")).toHaveCount(4);
-  await expect(page.locator(".math-grid article").first()).toHaveClass(/math-afp-card/);
-  await expect(page.locator(".math-grid article").first()).toContainText(
-    "Greedy Algorithms for Cardinality-Constrained Submodular Maximization"
+  const pinnedMathCards = page.locator("#homeMathPreview article");
+  await expect(pinnedMathCards).toHaveCount(4);
+  await expect(pinnedMathCards.nth(0)).toContainText("Schur-Complement Hessian Tracking in TTGDA");
+  await expect(pinnedMathCards.nth(0).locator("a")).toHaveAttribute(
+    "href",
+    /notes\/ttgda_second_order_tracking_note\.html$/
   );
-  await expect(page.locator(".math-grid article").first().locator(".math-evidence-links a")).toHaveCount(4);
-  await expect(page.locator(".math-grid article").filter({ hasText: "TTGDA" })).toHaveCount(1);
+  await expect(pinnedMathCards.nth(1)).toContainText("Projected Gradient Descent in Isabelle/HOL");
+  await expect(pinnedMathCards.nth(1).locator("a")).toHaveAttribute(
+    "href",
+    /post\/projected-gradient-descent-isabelle-hol\.html$/
+  );
+  await expect(pinnedMathCards.nth(2)).toContainText("dual score 到 saddle certificates");
+  await expect(pinnedMathCards.nth(2).locator("a")).toHaveAttribute(
+    "href",
+    /post\/dual-score-saddle-certificates\.html$/
+  );
+  await expect(pinnedMathCards.nth(3)).toContainText("子模贪心算法形式化正式进入 AFP");
+  await expect(pinnedMathCards.nth(3).locator("a")).toHaveAttribute(
+    "href",
+    /post\/submodular-greedy-formalization-enters-afp\.html$/
+  );
 
   expect(errors).toEqual([]);
 });
@@ -55,20 +71,26 @@ test("home hero keeps distinct Chinese and English identities", async ({ page })
   await page.goto("index.html?lang=zh", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
   await expect(page.locator(".hero-right h1")).toHaveText("起点");
-  await expect(page.locator(".hero-poetic-line")).toHaveText("时间的薄雾里，理性与浪漫交织。");
-  await expect(page.locator(".hero-identity-line")).toContainText("Fay / Feier Lyu");
-  await expect(page.locator(".hero-identity-line")).toContainText("爱丁堡大学数学本科生");
-  await expect(page.locator(".hero-identity-line")).toContainText("优化理论与形式化验证");
+  await expect(page.locator(".hero-poetic-line")).toHaveText("在时间的薄雾里，为复杂性寻找结构。");
+  await expect(page.locator(".hero-identity-line")).toHaveText(
+    "证明关心什么可以被确信；音乐与影像关心什么值得被记住。"
+  );
+  await expect(page.locator(".hero-world-line")).toHaveText("这里收录两者之间仍在继续的工作。");
   await expect(page.locator('.hero-academic-link[href="projects.html"]')).toHaveText("代表性工作");
   await expect(page.locator('.hero-academic-link[href="math.html"]')).toHaveText("技术笔记");
 
   await page.goto("index.html?lang=en", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
   await expect(page.locator(".hero-right h1")).toHaveText("Feier Lyu");
-  await expect(page.locator(".hero-right-inner > p").first()).toContainText(
-    "undergraduate student in Mathematics BSc at the University of Edinburgh"
+  await expect(page.locator(".hero-poetic-line")).toContainText(
+    "Undergraduate mathematician at the University of Edinburgh"
   );
-  await expect(page.locator(".hero-poetic-line")).toHaveCount(0);
+  await expect(page.locator(".hero-identity-line")).toContainText(
+    "Author of the Archive of Formal Proofs entry"
+  );
+  await expect(page.locator(".hero-world-line")).toHaveText(
+    "Interested in proofs that are not only correct, but explicit, reusable, and machine-checked."
+  );
 
   expect(errors).toEqual([]);
 });
