@@ -585,9 +585,12 @@ test("photography vocabulary and Blue still frames render without overflow", asy
   await expect(page.locator(".photo-feature-why")).toHaveCount(3);
   await expect(page.locator(".photo-feature-view")).toHaveCount(3);
   await expect(page.locator(".photo-feature-view").first()).toHaveText("进入系列");
-  await expect(page.getByRole("heading", { name: "Blue / Moving Image Work" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Blue / 跨媒介作品" })).toBeVisible();
   await expect(page.locator(".photo-blue-evidence-result")).toContainText("满分");
   await expect(page.locator(".photo-blue-evidence-stills img")).toHaveCount(5);
+  await expect(page.locator("a.photo-blue-evidence-stills")).toHaveCount(1);
+  await expect(page.locator(".photo-archive img[alt=''][aria-hidden='true']")).toHaveCount(17);
+  await expect(page.locator(".nav a.active")).toHaveAttribute("aria-current", "page");
 
   const photographyMetrics = await page.evaluate(() => ({
     viewport: window.innerWidth,

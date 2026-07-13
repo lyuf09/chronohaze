@@ -1,12 +1,16 @@
 {
-  "generated_at": "2026-06-09",
+  "generated_at": "2026-07-13",
   "source": "photography.html",
   "featured": [
     {
       "order": 1,
       "url": "photo/photo-07.html",
       "cover": "assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2.jpg",
-      "title": "参照系 — 中国 · 重庆",
+      "title": "参照系 — 中国重庆",
+      "alt": {
+        "zh": "参照系 — 中国重庆",
+        "en": "Reference Frame — Chongqing, China"
+      },
       "theme": {
         "zh": "参照系",
         "en": "Reference Frame"
@@ -28,7 +32,11 @@
       "order": 2,
       "url": "photo/photo-11.html",
       "cover": "assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2.jpg",
-      "title": "铁与蕨 — 英国 · 格拉斯哥",
+      "title": "铁与蕨 — 英国格拉斯哥",
+      "alt": {
+        "zh": "铁与蕨 — 英国格拉斯哥",
+        "en": "Iron and Fern — Glasgow, UK"
+      },
       "theme": {
         "zh": "铁与蕨",
         "en": "Iron and Fern"
@@ -50,7 +58,11 @@
       "order": 3,
       "url": "photo/photo-13.html",
       "cover": "assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2.jpg",
-      "title": "你的记忆 — 英国 · 爱丁堡",
+      "title": "你的记忆 — 英国爱丁堡",
+      "alt": {
+        "zh": "你的记忆 — 英国爱丁堡",
+        "en": "Memories of You — Edinburgh, UK"
+      },
       "theme": {
         "zh": "你的记忆",
         "en": "Memories of You"
@@ -78,7 +90,7 @@
       "subtitle": "阅读全文",
       "cover": "assets/images/wix/ithaca-20260518-01.jpg",
       "is_film": false,
-      "alt": "摄影系列预览图：最后的常景 — 美国伊萨卡 · 2026年",
+      "alt": "",
       "tags": [
         "photo"
       ]
@@ -91,7 +103,7 @@
       "subtitle": "阅读全文",
       "cover": "assets/images/wix/ithaca-20260517-01.jpg",
       "is_film": false,
-      "alt": "摄影系列预览图：17/05/2026 — 美国伊萨卡 · 2026年",
+      "alt": "",
       "tags": [
         "photo"
       ]
@@ -104,7 +116,7 @@
       "subtitle": "阅读全文",
       "cover": "assets/images/wix/ithaca-20260516-02.jpg",
       "is_film": false,
-      "alt": "摄影系列预览图：16/05/2026 — 美国伊萨卡 · 2026年",
+      "alt": "",
       "tags": [
         "photo"
       ]
@@ -117,7 +129,7 @@
       "subtitle": "阅读全文",
       "cover": "assets/images/wix/64569d_4195bebf7fb244e8b7591015da58bef7~mv2.jpg",
       "is_film": false,
-      "alt": "摄影系列预览图：30/08/2025 — 美国纽约伊萨卡 · 2025年",
+      "alt": "",
       "tags": [
         "photo"
       ]
@@ -130,7 +142,7 @@
       "subtitle": "阅读全文",
       "cover": "assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2.jpg",
       "is_film": false,
-      "alt": "摄影系列预览图：05/04/2025 - Memories of you — 英国爱丁堡 · 2025年",
+      "alt": "",
       "tags": [
         "photo",
         "featured"
@@ -144,7 +156,7 @@
       "subtitle": "阅读全文",
       "cover": "assets/images/wix/64569d_454a21afe61843aca2fb15da42e5d073~mv2.jpg",
       "is_film": false,
-      "alt": "摄影系列预览图：02/01/2025 — 英国爱丁堡 · 2025年",
+      "alt": "",
       "tags": [
         "photo"
       ]
@@ -157,7 +169,7 @@
       "subtitle": "阅读全文",
       "cover": "assets/images/wix/64569d_f4a44566b6e540c2b6f4ea143c92a1dd~mv2.jpg",
       "is_film": false,
-      "alt": "摄影系列预览图：20/04/2024 — 英国爱丁堡 · 2024年",
+      "alt": "",
       "tags": [
         "photo"
       ]
@@ -170,7 +182,7 @@
       "subtitle": "阅读全文",
       "cover": "assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2.jpg",
       "is_film": false,
-      "alt": "摄影系列预览图：21/10/2023 — 英国格拉斯哥 · 2023年",
+      "alt": "",
       "tags": [
         "photo",
         "featured"
@@ -184,7 +196,7 @@
       "subtitle": "阅读全文",
       "cover": "assets/images/wix/64569d_06f8f207dc77495c9940089581f9853f~mv2.jpg",
       "is_film": false,
-      "alt": "摄影系列预览图：17/09/2023 — 英国爱丁堡 · 2023年",
+      "alt": "",
       "tags": [
         "photo"
       ]
@@ -197,7 +209,7 @@
       "subtitle": "阅读全文",
       "cover": "assets/images/wix/64569d_0f30307d9b61425fa68251b5cb0ec6f3~mv2.jpg",
       "is_film": false,
-      "alt": "摄影系列预览图：09/08/2023 — 中国重庆市 · 2023年",
+      "alt": "",
       "tags": [
         "photo"
       ]
@@ -210,7 +222,7 @@
       "subtitle": "阅读全文",
       "cover": "assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2.jpg",
       "is_film": false,
-      "alt": "摄影系列预览图：01/04/2023 — 中国重庆市 · 2023年",
+      "alt": "",
       "tags": [
         "photo",
         "featured"
@@ -224,7 +236,7 @@
       "subtitle": "阅读全文",
       "cover": "assets/images/wix/64569d_6abc632673934656beef94d62d3bdc89~mv2.jpg",
       "is_film": false,
-      "alt": "摄影系列预览图：11/03/2023 — 英国奥斯沃斯特里 · 2023年",
+      "alt": "",
       "tags": [
         "photo"
       ]
@@ -237,7 +249,7 @@
       "subtitle": "阅读全文",
       "cover": "assets/images/wix/64569d_b17cf5f86f28473cbd8435965bb115f9~mv2.jpg",
       "is_film": false,
-      "alt": "摄影系列预览图：14/06/2022 — 英国奥斯沃斯特里 · 2022年",
+      "alt": "",
       "tags": [
         "photo"
       ]
@@ -250,7 +262,7 @@
       "subtitle": "阅读全文",
       "cover": "assets/images/wix/64569d_1f61221c68ef4c35b613cb2cc6ab4836~mv2.jpg",
       "is_film": false,
-      "alt": "摄影系列预览图：01/06/2022 — 英国奥斯沃斯特里 · 2022年",
+      "alt": "",
       "tags": [
         "photo"
       ]
@@ -263,7 +275,7 @@
       "subtitle": "阅读全文",
       "cover": "assets/images/wix/64569d_d7ae8483633d46f0819abd80335c3524~mv2.jpg",
       "is_film": false,
-      "alt": "摄影系列预览图：01/05/2022 — 英国奥斯沃斯特里 · 2022年",
+      "alt": "",
       "tags": [
         "photo"
       ]
@@ -276,7 +288,7 @@
       "subtitle": "阅读全文",
       "cover": "assets/images/wix/64569d_58fc50d6b50e41e9a0b664f30ab32237~mv2.jpg",
       "is_film": false,
-      "alt": "摄影系列预览图：12/04/2022 — 英国奥斯沃斯特里 · 2022年",
+      "alt": "",
       "tags": [
         "photo"
       ]
@@ -289,7 +301,7 @@
       "subtitle": "阅读全文",
       "cover": "assets/images/wix/64569d_907e18a111724364af408b96a36d12e3~mv2.jpg",
       "is_film": false,
-      "alt": "摄影系列预览图：2022、夏、某 — 英国韦茅斯 · 2022年",
+      "alt": "",
       "tags": [
         "photo"
       ]

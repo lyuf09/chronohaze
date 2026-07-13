@@ -128,6 +128,11 @@
   }
 
   function buildPhotoFeaturedAlt(item, lang) {
+    var altCopy = item && item.alt && typeof item.alt === "object" ? item.alt : null;
+    if (altCopy) {
+      var localizedAlt = lang === "en" ? altCopy.en || altCopy.zh : altCopy.zh || altCopy.en;
+      if (localizedAlt) return localizedAlt;
+    }
     var themeCopy = item && item.theme && typeof item.theme === "object" ? item.theme : null;
     var locationCopy = item && item.location && typeof item.location === "object" ? item.location : null;
     var theme = lang === "en"
@@ -355,7 +360,10 @@
     } else {
       var img = document.createElement("img");
       primePhotoPreviewImage(img, item.cover || "", 960);
-      img.alt = buildPhotoArchiveAlt(item, lang);
+      // The adjacent title and date already provide the link name. Keeping the
+      // thumbnail decorative avoids repeating the same series name to screen readers.
+      img.alt = "";
+      img.setAttribute("aria-hidden", "true");
       img.loading = "lazy";
       img.decoding = "async";
       a.appendChild(img);

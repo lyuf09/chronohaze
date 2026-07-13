@@ -2,7 +2,7 @@
 
 <html lang="zh-CN">
 <head>
-                                                                                                                                                <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
+                                                                                                                                                        <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
 <style id="chronohaze-critical-loader-style">
     html.chronohaze-critical-loading,
@@ -147,37 +147,36 @@
           <a href="index.html" data-i18n="navHome">主页</a>
           <a href="academic.html" data-i18n="navAcademic">学术</a>
           <a href="music.html" data-i18n="navMusic">音乐</a>
-          <a class="active" href="photography.html" data-i18n="navPhoto">摄影</a>
+          <a class="active" href="photography.html" data-i18n="navPhoto" aria-current="page">摄影</a>
           <a href="cv.html" data-i18n="navCV">CV</a>
         </nav>
 </div>
 </header>
 <main class="main">
-<section aria-label="摄影作品集主图" class="photo-hero">
+<section aria-label="摄影作品集主图" data-aria-label-en="Photography portfolio hero" data-aria-label-zh="摄影作品集主图" class="photo-hero">
 <div class="container photo-hero-inner">
 <picture class="responsive-picture" style="display:block;width:100%;">
 <source sizes="(max-width: 900px) 100vw, 980px" srcset="assets/template/photo-top-960.webp 960w, assets/template/photo-top-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影作品集主图" data-eager="true" decoding="async" fetchpriority="high" loading="eager" sizes="(max-width: 900px) 100vw, 980px" src="assets/template/photo-top-960.webp"/>
+<img alt="蓝色屏幕光照亮躺卧人物的摄影作品" data-alt-en="A reclining figure illuminated by blue screen light" data-alt-zh="蓝色屏幕光照亮躺卧人物的摄影作品" data-eager="true" decoding="async" fetchpriority="high" loading="eager" sizes="(max-width: 900px) 100vw, 980px" src="assets/template/photo-top-960.webp"/>
 </picture>
 </div>
 </section>
 <section class="page-head">
 <div class="container">
-<span class="photo-head-kicker" data-copy-en="PHOTOGRAPHY / SELECTED WORKS" data-copy-zh="PHOTOGRAPHY / SELECTED WORKS">PHOTOGRAPHY / SELECTED WORKS</span>
+<span class="photo-head-kicker" data-copy-en="PHOTOGRAPHY" data-copy-zh="PHOTOGRAPHY">PHOTOGRAPHY</span>
 <h1 class="page-title">摄影 / Selected Works</h1>
-<p data-copy-en="Image studies around walking, pausing, weather, and light." data-copy-zh="一些关于行走、停留、天气与光线的影像练习。">一些关于行走、停留、天气与光线的影像练习。</p>
 </div>
 </section>
-<section aria-label="Method of Seeing" class="section photo-seeing-note">
+<section aria-label="观看方法" data-aria-label-en="Method of Seeing" data-aria-label-zh="观看方法" class="section photo-seeing-note">
 <div class="container photo-seeing-note-inner">
-<span class="photo-seeing-note-kicker" data-copy-en="METHOD OF SEEING" data-copy-zh="METHOD OF SEEING">METHOD OF SEEING</span>
+<span class="photo-seeing-note-kicker" data-copy-en="METHOD OF SEEING" data-copy-zh="观看方法">观看方法</span>
 <div class="photo-seeing-note-copy">
 <p data-copy-en="I photograph not to preserve places, but to record unstable distances: between cities, windows, bodies, light, and memory." data-copy-zh="我拍摄的不是地点本身，而是地点和记忆之间不稳定的距离。">我拍摄的不是地点本身，而是地点和记忆之间不稳定的距离。</p>
 <p data-copy-en="My images often begin with fragments: reflection, blur, artificial blue, a half-opened flower. They are treated as small structures of time." data-copy-zh="城市、窗、玻璃、花和偏蓝的光，常常只是一些时间留下来的结构碎片。">城市、窗、玻璃、花和偏蓝的光，常常只是一些时间留下来的结构碎片。</p>
 </div>
 </div>
 </section>
-<section aria-label="Visual Vocabulary" class="section photo-vocabulary">
+<section aria-label="视觉词汇" data-aria-label-en="Visual Vocabulary" data-aria-label-zh="视觉词汇" class="section photo-vocabulary">
 <div class="container photo-vocabulary-inner">
 <span class="photo-vocabulary-kicker" data-copy-en="VISUAL VOCABULARY" data-copy-zh="视觉词汇">视觉词汇</span>
 <p data-copy-en="blue-gray light · glass reflection · urban cross-sections · shake and displacement · flowers and windows · memory in weather" data-copy-zh="蓝灰色光线 · 玻璃反射 · 城市切面 · 晃动与位移 · 花与窗 · 天气中的记忆">蓝灰色光线 · 玻璃反射 · 城市切面 · 晃动与位移 · 花与窗 · 天气中的记忆</p>
@@ -185,7 +184,8 @@
 </section>
 <section class="section photo-featured">
 <div class="container photo-section-head">
-<h2 class="photo-section-title" data-copy-en="Featured Series" data-copy-zh="Featured Series">Featured Series</h2>
+<h2 class="photo-section-title" data-copy-en="Curated Highlights" data-copy-zh="精选导览">精选导览</h2>
+<p class="photo-section-lead" data-copy-en="Three entry points into the recurring visual language of the archive. Each series also remains in its year below." data-copy-zh="从三个系列进入这套影像档案反复出现的视觉语言；这些作品也会保留在下方对应年份中。">从三个系列进入这套影像档案反复出现的视觉语言；这些作品也会保留在下方对应年份中。</p>
 </div>
 <div class="container photo-featured-grid">
 <!-- GENERATED:photo-featured:start -->
@@ -193,7 +193,7 @@
 <a class="photo-feature-link" href="photo/photo-07.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2-960.webp 960w, assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="参照系 — 中国 · 重庆" decoding="async" height="3200" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2-960.webp" width="4000"/>
+<img alt="参照系 — 中国重庆" data-alt-en="Reference Frame — Chongqing, China" data-alt-zh="参照系 — 中国重庆" decoding="async" height="3200" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2-960.webp" width="4000"/>
 </picture>
 <div class="photo-feature-meta">
 <p class="photo-feature-theme" data-copy-en="Reference Frame" data-copy-zh="参照系">参照系</p>
@@ -210,7 +210,7 @@
 <a class="photo-feature-link" href="photo/photo-11.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2-960.webp 960w, assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="铁与蕨 — 英国 · 格拉斯哥" decoding="async" height="2844" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2-960.webp" width="1600"/>
+<img alt="铁与蕨 — 英国格拉斯哥" data-alt-en="Iron and Fern — Glasgow, UK" data-alt-zh="铁与蕨 — 英国格拉斯哥" decoding="async" height="2844" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2-960.webp" width="1600"/>
 </picture>
 <div class="photo-feature-meta">
 <p class="photo-feature-theme" data-copy-en="Iron and Fern" data-copy-zh="铁与蕨">铁与蕨</p>
@@ -227,7 +227,7 @@
 <a class="photo-feature-link" href="photo/photo-13.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2-960.webp 960w, assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="你的记忆 — 英国 · 爱丁堡" decoding="async" height="2592" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2-960.webp" width="1728"/>
+<img alt="你的记忆 — 英国爱丁堡" data-alt-en="Memories of You — Edinburgh, UK" data-alt-zh="你的记忆 — 英国爱丁堡" decoding="async" height="2592" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2-960.webp" width="1728"/>
 </picture>
 <div class="photo-feature-meta">
 <p class="photo-feature-theme" data-copy-en="Memories of You" data-copy-zh="你的记忆">你的记忆</p>
@@ -243,30 +243,31 @@
 <!-- GENERATED:photo-featured:end -->
 </div>
 </section>
-<section aria-label="Blue / Moving Image Work" class="section photo-blue-evidence">
+<section aria-label="Blue / 跨媒介作品" data-aria-label-en="Blue / Moving Image Work" data-aria-label-zh="Blue / 跨媒介作品" class="section photo-blue-evidence">
 <div class="container photo-section-head">
-<h2 class="photo-section-title" data-copy-en="Blue / Moving Image Work" data-copy-zh="Blue / Moving Image Work">Blue / Moving Image Work</h2>
+<h2 class="photo-section-title" data-copy-en="Blue / Moving Image Work" data-copy-zh="Blue / 跨媒介作品">Blue / 跨媒介作品</h2>
 </div>
 <div class="container photo-blue-evidence-card">
 <a class="photo-blue-evidence-copy" href="photo/blue.html">
 <span class="photo-blue-evidence-kicker" data-copy-en="CROSS-MEDIA EVIDENCE" data-copy-zh="跨媒介证据">跨媒介证据</span>
 <h3>Blue</h3>
 <p class="photo-blue-evidence-mediums" data-copy-en="Photography / moving image / improvised piano score / DVD object" data-copy-zh="摄影 / 影像 / 即兴钢琴配乐 / DVD 实体作品">摄影 / 影像 / 即兴钢琴配乐 / DVD 实体作品</p>
-<p class="photo-blue-evidence-result" data-copy-en="A-level Photography final outcome, full marks." data-copy-zh="A-level Photography final outcome，满分。">A-level Photography final outcome，满分。</p>
+<p class="photo-blue-evidence-result" data-copy-en="A-level Photography final outcome, awarded full marks." data-copy-zh="A-level 摄影结课作品，获满分。">A-level 摄影结课作品，获满分。</p>
 <span class="photo-blue-evidence-link" data-copy-en="View full work" data-copy-zh="查看完整作品">查看完整作品</span>
 </a>
-<div class="photo-blue-evidence-stills" aria-label="Blue still frames">
-<a href="photo/blue.html"><picture><source type="image/webp" srcset="assets/template/blue-still-01-960.webp 960w, assets/template/blue-still-01-1600.webp 1600w" sizes="(max-width: 760px) 92vw, 32vw"/><img src="assets/template/blue-still-01.jpg" alt="Blue 静帧 01：蓝色光线中的面部" width="640" height="320" loading="lazy" decoding="async"/></picture></a>
-<a href="photo/blue.html"><picture><source type="image/webp" srcset="assets/template/blue-still-02-960.webp 960w, assets/template/blue-still-02-1600.webp 1600w" sizes="(max-width: 760px) 46vw, 16vw"/><img src="assets/template/blue-still-02.jpg" alt="Blue 静帧 02：屏幕反光与人物" width="640" height="320" loading="lazy" decoding="async"/></picture></a>
-<a href="photo/blue.html"><picture><source type="image/webp" srcset="assets/template/blue-still-03-960.webp 960w, assets/template/blue-still-03-1600.webp 1600w" sizes="(max-width: 760px) 46vw, 16vw"/><img src="assets/template/blue-still-03.jpg" alt="Blue 静帧 03：蓝色天气中的树影" width="640" height="320" loading="lazy" decoding="async"/></picture></a>
-<a href="photo/blue.html"><picture><source type="image/webp" srcset="assets/template/blue-still-04-960.webp 960w, assets/template/blue-still-04-1600.webp 1600w" sizes="(max-width: 760px) 46vw, 16vw"/><img src="assets/template/blue-still-04.jpg" alt="Blue 静帧 04：夜色中的道路指示牌" width="640" height="320" loading="lazy" decoding="async"/></picture></a>
-<a href="photo/blue.html"><picture><source type="image/webp" srcset="assets/template/blue-still-05-960.webp 960w, assets/template/blue-still-05-1600.webp 1600w" sizes="(max-width: 760px) 46vw, 16vw"/><img src="assets/template/blue-still-05.jpg" alt="Blue 静帧 05：扶梯与运动模糊" width="640" height="320" loading="lazy" decoding="async"/></picture></a>
-</div>
+<a class="photo-blue-evidence-stills" href="photo/blue.html" aria-label="查看 Blue 的五张静帧与完整作品" data-aria-label-en="View five still frames and the complete Blue project" data-aria-label-zh="查看 Blue 的五张静帧与完整作品">
+<picture><source type="image/webp" srcset="assets/template/blue-still-01-960.webp 960w, assets/template/blue-still-01-1600.webp 1600w" sizes="(max-width: 760px) 92vw, 32vw"/><img src="assets/template/blue-still-01.jpg" alt="" aria-hidden="true" width="640" height="320" loading="lazy" decoding="async"/></picture>
+<picture><source type="image/webp" srcset="assets/template/blue-still-02-960.webp 960w, assets/template/blue-still-02-1600.webp 1600w" sizes="(max-width: 760px) 46vw, 16vw"/><img src="assets/template/blue-still-02.jpg" alt="" aria-hidden="true" width="640" height="320" loading="lazy" decoding="async"/></picture>
+<picture><source type="image/webp" srcset="assets/template/blue-still-03-960.webp 960w, assets/template/blue-still-03-1600.webp 1600w" sizes="(max-width: 760px) 46vw, 16vw"/><img src="assets/template/blue-still-03.jpg" alt="" aria-hidden="true" width="640" height="320" loading="lazy" decoding="async"/></picture>
+<picture><source type="image/webp" srcset="assets/template/blue-still-04-960.webp 960w, assets/template/blue-still-04-1600.webp 1600w" sizes="(max-width: 760px) 46vw, 16vw"/><img src="assets/template/blue-still-04.jpg" alt="" aria-hidden="true" width="640" height="320" loading="lazy" decoding="async"/></picture>
+<picture><source type="image/webp" srcset="assets/template/blue-still-05-960.webp 960w, assets/template/blue-still-05-1600.webp 1600w" sizes="(max-width: 760px) 46vw, 16vw"/><img src="assets/template/blue-still-05.jpg" alt="" aria-hidden="true" width="640" height="320" loading="lazy" decoding="async"/></picture>
+</a>
 </div>
 </section>
 <section class="section photo-archive">
 <div class="container photo-section-head">
-<h2 class="photo-section-title" data-copy-en="Gallery / Archive" data-copy-zh="Gallery / Archive">Gallery / Archive</h2>
+<h2 class="photo-section-title" data-copy-en="Complete Archive" data-copy-zh="完整归档">完整归档</h2>
+<p class="photo-section-lead" data-copy-en="A complete chronological index. Works highlighted above remain here so each year stays intact." data-copy-zh="按时间排列的完整索引；上方精选作品仍保留在这里，以保证每个年份的记录完整。">按时间排列的完整索引；上方精选作品仍保留在这里，以保证每个年份的记录完整。</p>
 </div>
 <div class="container photo-archive-groups">
 <!-- GENERATED:photo-archive:start -->
@@ -277,7 +278,7 @@
 <a class="photo-card-link" href="photo/photo-17.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/ithaca-20260518-01-960.webp 960w, assets/images/wix/ithaca-20260518-01-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影系列预览图：最后的常景 — 美国伊萨卡 · 2026年" decoding="async" height="1728" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/ithaca-20260518-01-960.webp" width="2592"/>
+<img alt="" aria-hidden="true" decoding="async" height="1728" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/ithaca-20260518-01-960.webp" width="2592"/>
 </picture>
 <div class="photo-meta">
 <p class="photo-title" data-copy-en="The Last Ordinary Views" data-copy-zh="最后的常景">最后的常景</p>
@@ -290,7 +291,7 @@
 <a class="photo-card-link" href="photo/photo-16.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/ithaca-20260517-01-960.webp 960w, assets/images/wix/ithaca-20260517-01-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影系列预览图：17/05/2026 — 美国伊萨卡 · 2026年" decoding="async" height="2592" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/ithaca-20260517-01-960.webp" width="1728"/>
+<img alt="" aria-hidden="true" decoding="async" height="2592" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/ithaca-20260517-01-960.webp" width="1728"/>
 </picture>
 <div class="photo-meta">
 <p class="photo-title" data-copy-en="Street Rehabilitation" data-copy-zh="街道复健">街道复健</p>
@@ -303,7 +304,7 @@
 <a class="photo-card-link" href="photo/photo-15.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/ithaca-20260516-02-960.webp 960w, assets/images/wix/ithaca-20260516-02-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影系列预览图：16/05/2026 — 美国伊萨卡 · 2026年" decoding="async" height="2592" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/ithaca-20260516-02-960.webp" width="1728"/>
+<img alt="" aria-hidden="true" decoding="async" height="2592" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/ithaca-20260516-02-960.webp" width="1728"/>
 </picture>
 <div class="photo-meta">
 <p class="photo-title" data-copy-en="An Unfinished Clearing" data-copy-zh="未成晴日">未成晴日</p>
@@ -321,7 +322,7 @@
 <a class="photo-card-link" href="photo/photo-14.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_4195bebf7fb244e8b7591015da58bef7~mv2-960.webp 960w, assets/images/wix/64569d_4195bebf7fb244e8b7591015da58bef7~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影系列预览图：30/08/2025 — 美国纽约伊萨卡 · 2025年" decoding="async" height="2592" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_4195bebf7fb244e8b7591015da58bef7~mv2-960.webp" width="1728"/>
+<img alt="" aria-hidden="true" decoding="async" height="2592" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_4195bebf7fb244e8b7591015da58bef7~mv2-960.webp" width="1728"/>
 </picture>
 <div class="photo-meta">
 <p class="photo-title" data-copy-en="Hidden Entrance" data-copy-zh="隐入口">隐入口</p>
@@ -334,7 +335,7 @@
 <a class="photo-card-link" href="photo/photo-13.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2-960.webp 960w, assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影系列预览图：05/04/2025 - Memories of you — 英国爱丁堡 · 2025年" decoding="async" height="2592" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2-960.webp" width="1728"/>
+<img alt="" aria-hidden="true" decoding="async" height="2592" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2-960.webp" width="1728"/>
 </picture>
 <div class="photo-meta">
 <p class="photo-title" data-copy-en="Memories of You" data-copy-zh="你的记忆">你的记忆</p>
@@ -347,7 +348,7 @@
 <a class="photo-card-link" href="photo/photo-12.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_454a21afe61843aca2fb15da42e5d073~mv2-960.webp 960w, assets/images/wix/64569d_454a21afe61843aca2fb15da42e5d073~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影系列预览图：02/01/2025 — 英国爱丁堡 · 2025年" decoding="async" height="2557" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_454a21afe61843aca2fb15da42e5d073~mv2-960.webp" width="1704"/>
+<img alt="" aria-hidden="true" decoding="async" height="2557" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_454a21afe61843aca2fb15da42e5d073~mv2-960.webp" width="1704"/>
 </picture>
 <div class="photo-meta">
 <p class="photo-title" data-copy-en="Low Sun at the Window" data-copy-zh="低日照窗">低日照窗</p>
@@ -365,7 +366,7 @@
 <a class="photo-card-link" href="photo/photo-10.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_f4a44566b6e540c2b6f4ea143c92a1dd~mv2-960.webp 960w, assets/images/wix/64569d_f4a44566b6e540c2b6f4ea143c92a1dd~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影系列预览图：20/04/2024 — 英国爱丁堡 · 2024年" decoding="async" height="2667" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_f4a44566b6e540c2b6f4ea143c92a1dd~mv2-960.webp" width="4000"/>
+<img alt="" aria-hidden="true" decoding="async" height="2667" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_f4a44566b6e540c2b6f4ea143c92a1dd~mv2-960.webp" width="4000"/>
 </picture>
 <div class="photo-meta">
 <p class="photo-title" data-copy-en="Framing Study" data-copy-zh="框景练习">框景练习</p>
@@ -383,7 +384,7 @@
 <a class="photo-card-link" href="photo/photo-11.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2-960.webp 960w, assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影系列预览图：21/10/2023 — 英国格拉斯哥 · 2023年" decoding="async" height="2844" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2-960.webp" width="1600"/>
+<img alt="" aria-hidden="true" decoding="async" height="2844" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2-960.webp" width="1600"/>
 </picture>
 <div class="photo-meta">
 <p class="photo-title" data-copy-en="Iron and Fern" data-copy-zh="铁与蕨">铁与蕨</p>
@@ -396,7 +397,7 @@
 <a class="photo-card-link" href="photo/photo-09.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_06f8f207dc77495c9940089581f9853f~mv2-960.webp 960w, assets/images/wix/64569d_06f8f207dc77495c9940089581f9853f~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影系列预览图：17/09/2023 — 英国爱丁堡 · 2023年" decoding="async" height="3000" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_06f8f207dc77495c9940089581f9853f~mv2-960.webp" width="4000"/>
+<img alt="" aria-hidden="true" decoding="async" height="3000" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_06f8f207dc77495c9940089581f9853f~mv2-960.webp" width="4000"/>
 </picture>
 <div class="photo-meta">
 <p class="photo-title" data-copy-en="Grey Tide" data-copy-zh="灰潮">灰潮</p>
@@ -409,7 +410,7 @@
 <a class="photo-card-link" href="photo/photo-08.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_0f30307d9b61425fa68251b5cb0ec6f3~mv2-960.webp 960w, assets/images/wix/64569d_0f30307d9b61425fa68251b5cb0ec6f3~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影系列预览图：09/08/2023 — 中国重庆市 · 2023年" decoding="async" height="3857" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_0f30307d9b61425fa68251b5cb0ec6f3~mv2-960.webp" width="2571"/>
+<img alt="" aria-hidden="true" decoding="async" height="3857" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_0f30307d9b61425fa68251b5cb0ec6f3~mv2-960.webp" width="2571"/>
 </picture>
 <div class="photo-meta">
 <p class="photo-title" data-copy-en="Sliver of Light" data-copy-zh="隙光">隙光</p>
@@ -422,7 +423,7 @@
 <a class="photo-card-link" href="photo/photo-07.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2-960.webp 960w, assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影系列预览图：01/04/2023 — 中国重庆市 · 2023年" decoding="async" height="3200" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2-960.webp" width="4000"/>
+<img alt="" aria-hidden="true" decoding="async" height="3200" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2-960.webp" width="4000"/>
 </picture>
 <div class="photo-meta">
 <p class="photo-title" data-copy-en="Reference Frame" data-copy-zh="参照系">参照系</p>
@@ -435,7 +436,7 @@
 <a class="photo-card-link" href="photo/photo-06.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_6abc632673934656beef94d62d3bdc89~mv2-960.webp 960w, assets/images/wix/64569d_6abc632673934656beef94d62d3bdc89~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影系列预览图：11/03/2023 — 英国奥斯沃斯特里 · 2023年" decoding="async" height="1593" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_6abc632673934656beef94d62d3bdc89~mv2-960.webp" width="2832"/>
+<img alt="" aria-hidden="true" decoding="async" height="1593" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_6abc632673934656beef94d62d3bdc89~mv2-960.webp" width="2832"/>
 </picture>
 <div class="photo-meta">
 <p class="photo-title" data-copy-en="Snow Curtain" data-copy-zh="雪幕">雪幕</p>
@@ -453,7 +454,7 @@
 <a class="photo-card-link" href="photo/photo-04.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_b17cf5f86f28473cbd8435965bb115f9~mv2-960.webp 960w, assets/images/wix/64569d_b17cf5f86f28473cbd8435965bb115f9~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影系列预览图：14/06/2022 — 英国奥斯沃斯特里 · 2022年" decoding="async" height="2667" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_b17cf5f86f28473cbd8435965bb115f9~mv2-960.webp" width="4000"/>
+<img alt="" aria-hidden="true" decoding="async" height="2667" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_b17cf5f86f28473cbd8435965bb115f9~mv2-960.webp" width="4000"/>
 </picture>
 <div class="photo-meta">
 <p class="photo-title" data-copy-en="Offstage Light" data-copy-zh="场外光">场外光</p>
@@ -466,7 +467,7 @@
 <a class="photo-card-link" href="photo/photo-03.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_1f61221c68ef4c35b613cb2cc6ab4836~mv2-960.webp 960w, assets/images/wix/64569d_1f61221c68ef4c35b613cb2cc6ab4836~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影系列预览图：01/06/2022 — 英国奥斯沃斯特里 · 2022年" decoding="async" height="2667" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_1f61221c68ef4c35b613cb2cc6ab4836~mv2-960.webp" width="4000"/>
+<img alt="" aria-hidden="true" decoding="async" height="2667" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_1f61221c68ef4c35b613cb2cc6ab4836~mv2-960.webp" width="4000"/>
 </picture>
 <div class="photo-meta">
 <p class="photo-title" data-copy-en="Blue Room for Flowers" data-copy-zh="暗蓝花室">暗蓝花室</p>
@@ -479,7 +480,7 @@
 <a class="photo-card-link" href="photo/photo-02.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_d7ae8483633d46f0819abd80335c3524~mv2-960.webp 960w, assets/images/wix/64569d_d7ae8483633d46f0819abd80335c3524~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影系列预览图：01/05/2022 — 英国奥斯沃斯特里 · 2022年" decoding="async" height="2667" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_d7ae8483633d46f0819abd80335c3524~mv2-960.webp" width="4000"/>
+<img alt="" aria-hidden="true" decoding="async" height="2667" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_d7ae8483633d46f0819abd80335c3524~mv2-960.webp" width="4000"/>
 </picture>
 <div class="photo-meta">
 <p class="photo-title" data-copy-en="Before Bloom" data-copy-zh="未成花">未成花</p>
@@ -492,7 +493,7 @@
 <a class="photo-card-link" href="photo/photo-01.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_58fc50d6b50e41e9a0b664f30ab32237~mv2-960.webp 960w, assets/images/wix/64569d_58fc50d6b50e41e9a0b664f30ab32237~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影系列预览图：12/04/2022 — 英国奥斯沃斯特里 · 2022年" decoding="async" height="2667" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_58fc50d6b50e41e9a0b664f30ab32237~mv2-960.webp" width="4000"/>
+<img alt="" aria-hidden="true" decoding="async" height="2667" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_58fc50d6b50e41e9a0b664f30ab32237~mv2-960.webp" width="4000"/>
 </picture>
 <div class="photo-meta">
 <p class="photo-title" data-copy-en="Dark Field" data-copy-zh="暗场">暗场</p>
@@ -505,7 +506,7 @@
 <a class="photo-card-link" href="photo/photo-05.html">
 <picture class="responsive-picture" style="display:block;width:100%;">
 <source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_907e18a111724364af408b96a36d12e3~mv2-960.webp 960w, assets/images/wix/64569d_907e18a111724364af408b96a36d12e3~mv2-1600.webp 1600w" type="image/webp"/>
-<img alt="摄影系列预览图：2022、夏、某 — 英国韦茅斯 · 2022年" decoding="async" height="4000" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_907e18a111724364af408b96a36d12e3~mv2-960.webp" width="2666"/>
+<img alt="" aria-hidden="true" decoding="async" height="4000" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_907e18a111724364af408b96a36d12e3~mv2-960.webp" width="2666"/>
 </picture>
 <div class="photo-meta">
 <p class="photo-title" data-copy-en="Summer 2022, Somewhere" data-copy-zh="2022、夏、某">2022、夏、某</p>
@@ -529,19 +530,19 @@
 <!-- GENERATED:photo-archive:end -->
 </div>
 </section>
-<section aria-label="摄影者影像与背景说明" class="section photo-background">
+<section aria-label="摄影后记" data-aria-label-en="Photography afterword" data-aria-label-zh="摄影后记" class="section photo-background">
 <div class="container photo-section-head">
-<h2 class="photo-section-title" data-copy-en="Afterword" data-copy-zh="Afterword">Afterword</h2>
+<h2 class="photo-section-title" data-copy-en="Afterword" data-copy-zh="后记">后记</h2>
 </div>
 <div class="container photo-intro-layout">
 <div class="photo-intro-text">
-<p data-copy-en="Photography is one of the first creative mediums I studied in a structured way. This sunlit photograph was taken during a trip to Manchester Art Gallery when I was seventeen, with a classmate capturing the moment for me." data-copy-zh="摄影是我最早系统学习过的创作媒介之一。这张阳光明媚的照片是我十七岁去 Manchester Art Gallery 拍摄 trip 时，同学替我留下的记录。">摄影是我最早系统学习过的创作媒介之一。这张阳光明媚的照片是我十七岁去 Manchester Art Gallery 拍摄 trip 时，同学替我留下的记录。</p>
+<p data-copy-en="Photography is one of the first creative mediums I studied in a structured way. This sunlit photograph was taken during a photography trip to Manchester Art Gallery when I was seventeen, with a classmate capturing the moment for me." data-copy-zh="摄影是我最早系统学习过的创作媒介之一。这张阳光明媚的照片摄于我十七岁参加曼彻斯特美术馆拍摄之旅时，由同学替我留下。">摄影是我最早系统学习过的创作媒介之一。这张阳光明媚的照片摄于我十七岁参加曼彻斯特美术馆拍摄之旅时，由同学替我留下。</p>
 <p data-copy-en="To me, photography is not just about recording a moment. It is a way of organizing the world through light, structure, distance, and emotion. After entering university, I photographed less systematically, but photography never really left my life. I still find myself pressing the shutter in different cities, at different times, and in different kinds of weather, only now with more freedom, and more quiet." data-copy-zh="对我而言，摄影不只是记录瞬间，而是借由光、结构、距离和情绪来组织世界的一种方式。进入大学以后，系统性拍摄的频率下降了，但摄影没有离开我的生活。我依然会在不同城市、不同时间和不同天气里按下快门，只是比过去更自由，也更安静。">对我而言，摄影不只是记录瞬间，而是借由光、结构、距离和情绪来组织世界的一种方式。进入大学以后，系统性拍摄的频率下降了，但摄影没有离开我的生活。我依然会在不同城市、不同时间和不同天气里按下快门，只是比过去更自由，也更安静。</p>
 </div>
 <figure class="photo-intro-figure">
 <picture class="responsive-picture" style="display:block;width:100%;">
 <source sizes="(max-width: 760px) 92vw, 420px" srcset="assets/template/photographer-17-960.webp 960w, assets/template/photographer-17-1600.webp 1600w" type="image/webp"/>
-<img alt="17岁拿着相机的 HazezZ" decoding="async" loading="lazy" sizes="(max-width: 760px) 92vw, 420px" src="assets/template/photographer-17-960.webp"/>
+<img alt="17岁拿着相机的 HazezZ" data-alt-en="HazezZ holding a camera at age seventeen" data-alt-zh="17岁拿着相机的 HazezZ" decoding="async" loading="lazy" sizes="(max-width: 760px) 92vw, 420px" src="assets/template/photographer-17-960.webp"/>
 </picture>
 </figure>
 </div>

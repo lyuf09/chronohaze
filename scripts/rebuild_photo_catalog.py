@@ -42,7 +42,12 @@ def normalize_generated_image_path(path: str, root: Path) -> str:
         candidate = f'{base}{ext}'
         if (root / candidate).exists():
             return candidate + (sep + suffix if sep else '')
-    return value
+    # Media may be absent from a lightweight/sparse checkout even though the
+    # deployed original is a JPEG. Keep the catalog canonical instead of
+    # treating a generated `-960.webp` preview as an original and later
+    # producing invalid paths such as `-960-960.webp`.
+    fallback = f'{base}.jpg'
+    return fallback + (sep + suffix if sep else '')
 
 
 def normalize_cover_fields(items: List[Dict[str, object]], root: Path) -> None:
@@ -94,6 +99,10 @@ def parse_featured(text: str) -> List[Dict[str, object]]:
             'url': href,
             'cover': img_src,
             'title': title,
+            'alt': {
+                'zh': img_attrs.get('data-alt-zh', '').strip() or title,
+                'en': img_attrs.get('data-alt-en', '').strip() or theme_en or title,
+            },
             'theme': {'zh': theme_zh, 'en': theme_en or theme_zh},
             'location': {'zh': loc_zh, 'en': loc_en or loc_zh},
             'concept': {'zh': concept_zh, 'en': concept_en or concept_zh},

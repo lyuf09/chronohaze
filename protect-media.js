@@ -592,6 +592,10 @@
       return;
     }
 
+    if (img.getAttribute("aria-hidden") === "true" && img.hasAttribute("alt") && img.getAttribute("alt") === "") {
+      return;
+    }
+
     if (img.closest(".floating-site-logo")) {
       return;
     }
@@ -3568,7 +3572,7 @@
         mathPageTitle: "学术笔记 / Technical Notes",
         mathIntro: "置顶最能代表当前研究思考的材料，并按时间整理部分技术笔记与研究记录。",
         photoPageTitle: "摄影 / Selected Works",
-        photoIntro: "城市、窗、花与模糊的光，是镜头量出的距离碎片。",
+        photoIntro: "",
         readMore: "查看更多",
         backToMusic: "← 返回音乐",
         backToPhoto: "← 返回摄影",
@@ -3738,10 +3742,10 @@
         mathPageTitle: "Technical Notes",
         mathIntro: "Selected technical notes and a time-ordered record of ongoing research and formalization work.",
         photoPageTitle: "Photography / Selected Works",
-        photoIntro:
-          "Cities, windows, flowers, and blurred light — fragments of distance measured through a lens.",
+        photoIntro: "",
         photoLongIntroParagraphs: [
-          "These photographs are not meant to document places exactly. They are small attempts to keep the feeling of passing through them: the colour of a day, the shape of a window, and the quiet pressure of light.",
+          "Photography is one of the first creative mediums I studied in a structured way. This sunlit photograph was taken during a photography trip to Manchester Art Gallery when I was seventeen, with a classmate capturing the moment for me.",
+          "To me, photography is not just about recording a moment. It is a way of organizing the world through light, structure, distance, and emotion. After entering university, I photographed less systematically, but photography never really left my life. I still find myself pressing the shutter in different cities, at different times, and in different kinds of weather, only now with more freedom, and more quiet.",
         ],
         readMore: "Read More",
         backToMusic: "← Back to Music",
@@ -11161,10 +11165,11 @@
   }
 
   function ensureAccessibleControlLabels() {
+    var safeLang = detectPreferredLanguage() === "en" ? "en" : "zh";
     Array.from(
       document.querySelectorAll(".lang-pill, .floating-lang-switch, .cv-lang-tabs")
     ).forEach(function (panel) {
-      panel.setAttribute("aria-label", "Language switch");
+      panel.setAttribute("aria-label", safeLang === "en" ? "Language switch" : "语言切换");
     });
 
     Array.from(
@@ -11174,9 +11179,15 @@
     ).forEach(function (button) {
       var lang = button.getAttribute("data-lang");
       if (lang === "zh") {
-        button.setAttribute("aria-label", "Switch site language to Chinese");
+        button.setAttribute(
+          "aria-label",
+          safeLang === "en" ? "Switch site language to Chinese" : "切换网站语言为中文"
+        );
       } else if (lang === "en") {
-        button.setAttribute("aria-label", "Switch site language to English");
+        button.setAttribute(
+          "aria-label",
+          safeLang === "en" ? "Switch site language to English" : "切换网站语言为英文"
+        );
       }
     });
 
@@ -11185,13 +11196,13 @@
     ).forEach(function (link) {
       var href = (link.getAttribute("href") || "").toLowerCase();
       if (href.indexOf("instagram.com") >= 0) {
-        link.setAttribute("aria-label", "Visit my Instagram profile");
+        link.setAttribute("aria-label", safeLang === "en" ? "Visit my Instagram profile" : "访问我的 Instagram 主页");
       } else if (href.indexOf("space.bilibili.com") >= 0) {
-        link.setAttribute("aria-label", "Visit my Bilibili space");
+        link.setAttribute("aria-label", safeLang === "en" ? "Visit my Bilibili space" : "访问我的哔哩哔哩空间");
       } else if (href.indexOf("github.com") >= 0) {
-        link.setAttribute("aria-label", "Visit my GitHub profile");
+        link.setAttribute("aria-label", safeLang === "en" ? "Visit my GitHub profile" : "访问我的 GitHub 主页");
       } else if (href.indexOf("linkedin.com") >= 0) {
-        link.setAttribute("aria-label", "Visit my LinkedIn profile");
+        link.setAttribute("aria-label", safeLang === "en" ? "Visit my LinkedIn profile" : "访问我的 LinkedIn 主页");
       }
     });
 
@@ -13827,6 +13838,19 @@
       }
     });
 
+    Array.from(document.querySelectorAll("[data-alt-zh][data-alt-en]")).forEach(function (node) {
+      var key = safeLang === "en" ? "data-alt-en" : "data-alt-zh";
+      node.setAttribute("alt", node.getAttribute(key) || "");
+    });
+
+    Array.from(document.querySelectorAll("[data-aria-label-zh][data-aria-label-en]")).forEach(function (node) {
+      var key = safeLang === "en" ? "data-aria-label-en" : "data-aria-label-zh";
+      var value = node.getAttribute(key);
+      if (value) {
+        node.setAttribute("aria-label", value);
+      }
+    });
+
     Array.from(document.querySelectorAll(".math-more")).forEach(function (node) {
       node.textContent = dict.readMore;
     });
@@ -14049,6 +14073,11 @@
       setMetaTagContent('meta[name="twitter:description"]', safeLang === "en"
         ? "Selected photographic series and a year-based archive: notes on light, structure, distance, and memory."
         : "摄影精选与按年份归档：关于光、结构、距离与记忆的视觉记录。");
+
+      var activePhotoNav = document.querySelector('.nav a.active[href*="photography.html"]');
+      if (activePhotoNav) {
+        activePhotoNav.setAttribute("aria-current", "page");
+      }
 
       Array.from(document.querySelectorAll(".photo-subtitle")).forEach(function (node) {
         if (node.hasAttribute("data-copy-zh") || node.hasAttribute("data-copy-en")) {
