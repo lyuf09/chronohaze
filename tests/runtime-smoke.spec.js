@@ -271,6 +271,16 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   await expect(cvEnglish.locator("#cv-en-highlights")).toContainText("Exchange student at Cornell University, 2025–2026");
   await expect(page.locator("main")).toContainText("Feier Lyu (Fay Lyu)");
   await expect(page.locator("main")).not.toContainText("currently between");
+  const pgdExperience = cvEnglish.locator(".cv-experience-item").filter({
+    has: page.getByRole("heading", { name: "Independent Formalization Project — First-Order Optimization" }),
+  });
+  await expect(pgdExperience).toContainText("Independently completed");
+  await expect(pgdExperience).toContainText("submitted to AFP and awaiting review");
+  const submodularExperience = cvEnglish.locator(".cv-experience-item").filter({
+    has: page.getByRole("heading", { name: "Independent Research — Formalizing Submodular Optimization" }),
+  });
+  await expect(submodularExperience).toContainText("under the supervision of Wenda Li");
+  await expect(submodularExperience).not.toContainText("projected gradient descent");
 
   await page.goto("research.html?lang=zh", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
@@ -321,8 +331,8 @@ test("academic section navigation stays on the three canonical destinations", as
     { path: "post/theorem-to-framework-isabelle-submodular.html", active: "Technical Notes", footerNav: true },
     { path: "post/what-i-really-got-when-a-dual-route-failed.html", active: "Technical Notes", footerNav: true },
   ];
-  const expectedLabels = ["Research Statement", "Selected Work", "Technical Notes"];
-  const expectedPaths = ["/research.html", "/projects.html", "/math.html"];
+  const expectedLabels = ["Selected Work", "Research Statement", "Technical Notes"];
+  const expectedPaths = ["/projects.html", "/research.html", "/math.html"];
 
   for (const item of pages) {
     await page.goto(`${item.path}?lang=zh`, { waitUntil: "domcontentloaded" });
@@ -512,8 +522,12 @@ test("AFP publication status stays synchronized across work page and project his
   const publishedProject = page.locator(
     '#selected-work-list [data-lang-block="en"] > .academic-evidence > .academic-evidence-list li'
   ).first();
-  await expect(publishedProject).toContainText("Published in AFP (2026)");
-  await expect(publishedProject).toContainText("Post-publication extension");
+  await expect(publishedProject).toContainText("Published in AFP, 2026");
+  await expect(publishedProject).toContainText("Question:");
+  await expect(publishedProject).toContainText("My contribution:");
+  await expect(publishedProject).toContainText("Evidence:");
+  await expect(publishedProject).toContainText("under the supervision of Wenda Li");
+  await expect(publishedProject).toContainText("post-publication stochastic-greedy extension");
   await expect(publishedProject.getByRole("link", { name: "AFP", exact: true })).toHaveAttribute(
     "href",
     "https://isa-afp.org/entries/Submodular_Greedy.html#"
@@ -522,6 +536,11 @@ test("AFP publication status stays synchronized across work page and project his
     "href",
     "https://doi.org/10.5281/zenodo.21054718"
   );
+  const pgdProject = page.locator(
+    '#selected-work-list [data-lang-block="en"] > .academic-evidence > .academic-evidence-list li'
+  ).nth(1);
+  await expect(pgdProject).toContainText("I independently designed and completed the entire formalization");
+  await expect(pgdProject).toContainText("This project had no supervisor");
   await expect(
     page.locator('#selected-work-list [data-lang-block="en"] .academic-hub-links .academic-evidence-list li')
   ).toContainText("Metalcore Piano Lab");
@@ -553,6 +572,26 @@ test("AFP publication status stays synchronized across work page and project his
   await expect(page.locator(".math-post-update")).toContainText("Published in AFP (2026)");
   await expect(page.locator(".math-post-update")).toContainText("Post-publication extension");
 
+  expect(errors).toEqual([]);
+});
+
+test("technical notes use explicit status labels and no external fractal", async ({ page }) => {
+  const errors = trackPageErrors(page);
+  await page.goto("math.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+
+  await expect(page.locator(".math-fractal-highlight")).toHaveCount(0);
+  await expect(page.locator("#pinned-notes .math-note-status")).toHaveCount(4);
+  await expect(page.locator("#notes-archive .math-note-status")).toHaveCount(9);
+  const labels = await page.locator(".math-note-status").allTextContents();
+  const allowed = new Set([
+    "Published formalization",
+    "Submitted formalization",
+    "Research note",
+    "Working note",
+    "Expository note",
+  ]);
+  expect(labels.every((label) => allowed.has(label.trim()))).toBe(true);
   expect(errors).toEqual([]);
 });
 

@@ -170,6 +170,12 @@ def render_math_cards(items: List[Dict[str, Any]]) -> str:
             [
                 f"<article {' '.join(article_attrs)}>",
                 f'  <p class="math-date"{copy_attrs(date_label_zh, date_label_en)}>{esc_text(date_label_zh)}</p>',
+            ]
+        )
+        if item.get("note_status"):
+            rows.append(f'  <span class="math-note-status">{esc_text(item.get("note_status"))}</span>')
+        rows.extend(
+            [
                 f'  <h3 class="math-title"><a class="math-title-link" href="{esc(href)}"{copy_attrs(title_zh, title_en)}{attr_if("target", target)}{attr_if("rel", rel)}>{esc_text(title_zh)}</a></h3>',
                 f'  <p class="math-desc"{copy_attrs(excerpt_zh, excerpt_en)}>{esc_text(excerpt_zh)}</p>',
             ]

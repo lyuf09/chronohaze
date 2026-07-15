@@ -21,7 +21,8 @@
         "AFP"
       ],
       "reading_time_zh": "约 6 分钟",
-      "reading_time_en": "7 min read"
+      "reading_time_en": "7 min read",
+      "note_status": "Published formalization"
     },
     {
       "order": 2,
@@ -41,7 +42,8 @@
         "OR for ML"
       ],
       "reading_time_zh": "约 10 分钟",
-      "reading_time_en": "10 min read"
+      "reading_time_en": "10 min read",
+      "note_status": "Research note"
     },
     {
       "order": 3,
@@ -61,7 +63,8 @@
         "OR for ML"
       ],
       "reading_time_zh": "约 5 分钟",
-      "reading_time_en": "5 min read"
+      "reading_time_en": "5 min read",
+      "note_status": "Submitted formalization"
     },
     {
       "order": 4,
@@ -81,7 +84,8 @@
         "OR for ML"
       ],
       "reading_time_zh": "约 5 分钟",
-      "reading_time_en": "6 min read"
+      "reading_time_en": "6 min read",
+      "note_status": "Research note"
     },
     {
       "order": 5,
@@ -101,7 +105,8 @@
         "OR for ML"
       ],
       "reading_time_zh": "约 6 分钟",
-      "reading_time_en": "8 min read"
+      "reading_time_en": "8 min read",
+      "note_status": "Published formalization"
     },
     {
       "order": 6,
@@ -120,7 +125,8 @@
         "Prototype"
       ],
       "reading_time_zh": "约 3 分钟",
-      "reading_time_en": "3 min read"
+      "reading_time_en": "3 min read",
+      "note_status": "Working note"
     },
     {
       "order": 7,
@@ -139,7 +145,8 @@
         "OR for ML"
       ],
       "reading_time_zh": "约 2 分钟",
-      "reading_time_en": "2 min read"
+      "reading_time_en": "2 min read",
+      "note_status": "Working note"
     },
     {
       "order": 8,
@@ -159,7 +166,8 @@
         "OR for ML"
       ],
       "reading_time_zh": "约 4 分钟",
-      "reading_time_en": "4 min read"
+      "reading_time_en": "4 min read",
+      "note_status": "Working note"
     },
     {
       "order": 9,
@@ -178,7 +186,8 @@
         "Isabelle/HOL"
       ],
       "reading_time_zh": "约 2 分钟",
-      "reading_time_en": "2 min read"
+      "reading_time_en": "2 min read",
+      "note_status": "Expository note"
     }
   ]
 }

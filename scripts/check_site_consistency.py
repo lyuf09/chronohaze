@@ -29,6 +29,12 @@ SUBMODULAR_POST_PUBLICATION_SCOPE = (
     "stochastic-greedy line, including sampling, approximation packaging, and "
     "oracle-cost accounting."
 )
+SUBMODULAR_PROJECTS_STATUS_MARKERS = (
+    "Published in AFP, 2026.",
+    "verified stateful lazy-greedy variant",
+    "post-publication stochastic-greedy extension",
+    "sampling, approximation packaging, and oracle-cost accounting",
+)
 LEGACY_SUBMODULAR_STATUS_PATTERNS = (
     "future extension / experimental branch",
     "stochasticgreedy skeleton",
@@ -78,6 +84,10 @@ LEGACY_PGD_INTRO_PATTERNS = (
 LEGACY_HOME_SECTION_TITLES = (
     "三个硬证据",
     "Three points of evidence",
+)
+LEGACY_TECHNICAL_NOTES_VISUAL_PATTERNS = (
+    "math-fractal-highlight",
+    "medium.com/@syedalihamza23",
 )
 
 
@@ -220,7 +230,12 @@ def check_submodular_status(path: Path, text: str, require_canonical: bool = Fal
     if not require_canonical or path.name not in SUBMODULAR_STATUS_PAGES:
         return findings
 
-    for required in (SUBMODULAR_PUBLISHED_SCOPE, SUBMODULAR_POST_PUBLICATION_SCOPE):
+    required_statements = (
+        SUBMODULAR_PROJECTS_STATUS_MARKERS
+        if path.name == "projects.html"
+        else (SUBMODULAR_PUBLISHED_SCOPE, SUBMODULAR_POST_PUBLICATION_SCOPE)
+    )
+    for required in required_statements:
         if required not in text:
             findings.append(
                 Finding(path, "submodular-status", "Canonical AFP/repository scope statement is missing")
@@ -282,6 +297,16 @@ def check_home_section_titles(path: Path, text: str, root: Path) -> List[Finding
     ]
 
 
+def check_technical_notes_visual(path: Path, text: str, root: Path) -> List[Finding]:
+    if path.parent != root or path.name != "math.html":
+        return []
+    return [
+        Finding(path, "technical-notes-visual", f"External fractal visual reference found: {pattern!r}")
+        for pattern in LEGACY_TECHNICAL_NOTES_VISUAL_PATTERNS
+        if pattern.lower() in text.lower()
+    ]
+
+
 def check_files(root: Path) -> List[Finding]:
     findings: List[Finding] = []
     for path in sorted(root.rglob("*.html")):
@@ -297,6 +322,7 @@ def check_files(root: Path) -> List[Finding]:
         findings.extend(check_academic_identity(path, text, root))
         findings.extend(check_pgd_framing(path, text))
         findings.extend(check_home_section_titles(path, text, root))
+        findings.extend(check_technical_notes_visual(path, text, root))
     generated_text_paths = list((root / "assets").rglob("*.json")) + [root / "feed.xml"]
     for path in sorted(p for p in generated_text_paths if p.is_file()):
         findings.extend(check_submodular_status(path, read_text(path)))

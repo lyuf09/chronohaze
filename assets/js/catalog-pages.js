@@ -215,6 +215,11 @@
     setBilingualCopy(dateNode, { zh: metaZh, en: metaEn });
     article.appendChild(dateNode);
 
+    var noteStatus = (item && item.note_status) || "";
+    if (noteStatus) {
+      article.appendChild(textNode("span", "math-note-status", noteStatus));
+    }
+
     var h3 = textNode("h3", "math-title", "");
     var titleLink = textNode("a", "math-title-link", lang === "en" ? titleEn : titleZh);
     titleLink.href = href;

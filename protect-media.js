@@ -13641,6 +13641,26 @@
     });
   }
 
+  function prioritizeSelectedWorkNav() {
+    var navRows = Array.from(document.querySelectorAll(".academic-local-nav"));
+    var continuationRows = Array.from(
+      document.querySelectorAll(".academic-hub-links-label + .research-link-row")
+    );
+    navRows.concat(continuationRows).forEach(function (nav) {
+      var links = Array.from(nav.querySelectorAll("a"));
+      var order = ["projects.html", "research.html", "math.html"];
+      order.forEach(function (target) {
+        var link = links.find(function (candidate) {
+          var href = (candidate.getAttribute("href") || "").split(/[?#]/)[0];
+          return href.endsWith(target);
+        });
+        if (link) {
+          nav.appendChild(link);
+        }
+      });
+    });
+  }
+
 
   function normalizeLastUpdatedDate(value) {
     var raw = normalizeText(value || "");
@@ -17565,6 +17585,7 @@
     navAndChrome: [
       ensureSearchNavLink,
       dedupeNavLinks,
+      prioritizeSelectedWorkNav,
       ensureAccessibleControlLabels,
       enhanceObfuscatedEmailLinks,
       ensureSiteSharePanel,
