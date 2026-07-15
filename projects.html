@@ -242,12 +242,12 @@
             <div data-lang-block="zh">
               <h1>Selected Work</h1>
               <p class="research-positioning"><strong>Feier Lyu</strong>（Fay Lyu）</p>
-              <p class="research-positioning">这一页只列可核查的学术成果、形式化项目、研究笔记与技术原型；完整的问题线与研究动机放在 Research Statement。</p>
+              <p class="research-positioning">这一页集中展示可核查的学术成果、形式化项目与研究笔记；创意计算原型单独列为 side project。完整的问题线与研究动机放在 Research Statement。</p>
             </div>
             <div data-lang-block="en" hidden>
               <h1>Selected Work</h1>
               <p class="research-positioning"><strong>Feier Lyu</strong> (Fay Lyu)</p>
-              <p class="research-positioning">This page lists verifiable academic outputs, formalization projects, research notes, and a supporting technical prototype. The broader problem framing belongs in the Research Statement.</p>
+              <p class="research-positioning">This page presents verifiable academic outputs, formalization projects, and research notes. A creative-computation prototype is listed separately as a side project. The broader problem framing belongs in the Research Statement.</p>
             </div>
           </div>
         </div>
@@ -266,8 +266,8 @@
                     <p class="academic-proof-kicker">FORMAL VERIFICATION</p>
                     <h3>Greedy Algorithms for Cardinality-Constrained Submodular Maximization</h3>
                     <p><strong>状态：</strong> 发表于 AFP，2026。AFP 条目覆盖 classical greedy 与 verified stateful lazy-greedy；当前仓库另含发表后的 stochastic-greedy 扩展，包括 sampling、approximation packaging 与 oracle-cost accounting。</p>
-                    <p><strong>问题：</strong> 如何在可复用的 Isabelle/HOL 框架中表达 classical greedy 与 lazy-greedy 的近似保证？</p>
-                    <p><strong>我的贡献：</strong> 在 Wenda Li 老师指导下独立完成全部形式化，包括子模性基础设施、近似论证，以及可执行与 stateful algorithmic components。</p>
+                    <p><strong>问题：</strong> 形式化基数约束单调子模最大化中 classical greedy 的经典 1−1/e 近似保证。</p>
+                    <p><strong>贡献：</strong> 在 Wenda Li 老师指导下独立完成 Isabelle/HOL development，覆盖 classical greedy 与 verified stateful lazy-greedy variant。</p>
                     <p><strong>证据：</strong></p>
                     <div class="research-link-row project-evidence-links">
                       <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP</a>
@@ -283,8 +283,8 @@
                     <p class="academic-proof-kicker">FORMAL VERIFICATION</p>
                     <h3>First-Order Methods for Smooth Convex Optimization in Isabelle/HOL</h3>
                     <p><strong>状态：</strong> 已提交至 Archive of Formal Proofs，目前等待审核。</p>
-                    <p><strong>问题：</strong> 如何把 projection geometry、smoothness、convexity 与 telescoping argument 组织成 Isabelle/HOL 中可复用的一阶方法基础设施？</p>
-                    <p><strong>我的贡献：</strong> 独立设计并完成全部形式化，包括 projection inequality、projected-gradient mapping、凸收敛、强凸线性收敛与 public theorem interface；该项目没有导师参与。</p>
+                    <p><strong>问题：</strong> 将 projected gradient descent 及其一阶收敛理论组织成可复用的 Isabelle/HOL 基础设施。</p>
+                    <p><strong>贡献：</strong> 独立设计并完成全部形式化，覆盖 projection geometry、projected-gradient mapping、凸收敛与强凸线性收敛率；该项目没有导师参与。</p>
                     <p><strong>证据：</strong></p>
                     <div class="research-link-row project-evidence-links">
                       <a href="post/projected-gradient-descent-isabelle-hol.html">Project page</a>
@@ -299,7 +299,7 @@
                     <h3>TTGDA and Second-Order Tracking</h3>
                     <p><strong>状态：</strong> Working note / exploratory theoretical work.</p>
                     <p><strong>问题：</strong> Two-timescale value-function tracking 是否能通过 Schur-complement Hessian 支持二阶 saddle escaping？</p>
-                    <p><strong>我的贡献：</strong> 整理 value-function viewpoint、二阶 tracking gap 与可继续检验的 theorem-level 路线。</p>
+                    <p><strong>贡献：</strong> 整理 value-function viewpoint、二阶 tracking gap 与可继续检验的 theorem-level 路线。</p>
                     <p><strong>证据：</strong></p>
                     <div class="research-link-row project-evidence-links">
                       <a href="notes/ttgda_second_order_tracking_note.html">Note</a>
@@ -313,7 +313,7 @@
                     <h3>Duality and Structural Scoring under Invariance</h3>
                     <p><strong>状态：</strong> Ongoing theoretical work.</p>
                     <p><strong>问题：</strong> 当 translation 或 gauge invariance 使普通对偶退化时，能否恢复与 localization instance difficulty 相关的结构证书？</p>
-                    <p><strong>我的贡献：</strong> 推导并整理 dual collapse、Range(B)、cycle consistency、structural scores 与 saddle certificates 之间的联系。</p>
+                    <p><strong>贡献：</strong> 推导并整理 dual collapse、Range(B)、cycle consistency、structural scores 与 saddle certificates 之间的联系。</p>
                     <p><strong>证据：</strong></p>
                     <div class="research-link-row project-evidence-links">
                       <a href="post/dual-score-saddle-certificates.html">Research note</a>
@@ -324,17 +324,17 @@
               </ol>
 
               <div class="academic-hub-links">
-                <p class="academic-proof-kicker">SUPPORTING TECHNICAL WORK</p>
-                <h2>Prototype / Computational Experiment</h2>
+                <p class="academic-proof-kicker">CREATIVE COMPUTATION</p>
+                <h2>Experimental Prototype</h2>
                 <ol class="academic-evidence-list">
                   <li>
-                    <span class="academic-evidence-index">05</span>
+                    <span class="academic-evidence-index">SIDE</span>
                     <div>
-                      <p class="academic-proof-kicker">PROTOTYPE / COMPUTATIONAL EXPERIMENT</p>
+                      <p class="academic-proof-kicker">CREATIVE COMPUTATION / EXPERIMENTAL PROTOTYPE</p>
                       <h3>Metalcore Piano Lab</h3>
-                      <p><strong>状态：</strong> Supporting technical prototype / work in progress.</p>
+                      <p><strong>状态：</strong> Side project · experimental prototype · work in progress；不作为 research output。</p>
                       <p><strong>问题：</strong> 如何把连续的 audio / rhythm streams 转换为保留节拍、段落与可玩性约束的离散谱面？</p>
-                      <p><strong>我的贡献：</strong> 设计并实现 browser-native 分析与谱面生成原型，包括 onset、beat-grid、section alignment 与 playability constraints。</p>
+                      <p><strong>贡献：</strong> 设计并实现 browser-native 分析与谱面生成原型，包括 onset、beat-grid、section alignment 与 playability constraints。</p>
                       <p><strong>证据：</strong></p>
                       <div class="research-link-row project-evidence-links">
                         <a href="https://github.com/lyuf09/metalcore-piano-lab" target="_blank" rel="noopener noreferrer">GitHub</a>
@@ -357,8 +357,8 @@
                     <p class="academic-proof-kicker">FORMAL VERIFICATION</p>
                     <h3>Greedy Algorithms for Cardinality-Constrained Submodular Maximization</h3>
                     <p><strong>Status:</strong> Published in AFP, 2026. The AFP entry covers classical greedy and a verified stateful lazy-greedy variant; the current repository additionally contains a post-publication stochastic-greedy extension with sampling, approximation packaging, and oracle-cost accounting.</p>
-                    <p><strong>Question:</strong> How can classical and lazy greedy approximation arguments be represented within a reusable Isabelle/HOL framework?</p>
-                    <p><strong>My contribution:</strong> I independently completed the full formalization under the supervision of Wenda Li, including the submodularity infrastructure, approximation argument, and executable/stateful algorithmic components.</p>
+                    <p><strong>Problem:</strong> Formalize the classical 1−1/e approximation guarantee for cardinality-constrained monotone submodular maximization.</p>
+                    <p><strong>Contribution:</strong> I independently completed the Isabelle/HOL development under the supervision of Wenda Li, covering classical greedy and a verified stateful lazy-greedy variant.</p>
                     <p><strong>Evidence:</strong></p>
                     <div class="research-link-row project-evidence-links">
                       <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP</a>
@@ -374,8 +374,8 @@
                     <p class="academic-proof-kicker">FORMAL VERIFICATION</p>
                     <h3>First-Order Methods for Smooth Convex Optimization in Isabelle/HOL</h3>
                     <p><strong>Status:</strong> Submitted to the Archive of Formal Proofs; awaiting review.</p>
-                    <p><strong>Question:</strong> How can projection geometry, smoothness, convexity, and telescoping arguments be organized as reusable Isabelle/HOL infrastructure for first-order methods?</p>
-                    <p><strong>My contribution:</strong> I independently designed and completed the entire formalization, including the projection inequality, projected-gradient mapping, convex convergence, strongly convex linear convergence, and the public theorem interface. This project had no supervisor.</p>
+                    <p><strong>Problem:</strong> Formalize projected gradient descent and its first-order convergence theory as reusable Isabelle/HOL infrastructure.</p>
+                    <p><strong>Contribution:</strong> I independently designed and completed the development, covering projection geometry, projected-gradient mapping, convex convergence, and a strongly convex linear rate. This project had no supervisor.</p>
                     <p><strong>Evidence:</strong></p>
                     <div class="research-link-row project-evidence-links">
                       <a href="post/projected-gradient-descent-isabelle-hol.html">Project page</a>
@@ -389,8 +389,8 @@
                     <p class="academic-proof-kicker">OPTIMIZATION / MINIMAX LEARNING</p>
                     <h3>TTGDA and Second-Order Tracking</h3>
                     <p><strong>Status:</strong> Working note / exploratory theoretical work.</p>
-                    <p><strong>Question:</strong> Can two-timescale value-function tracking support second-order saddle escaping through the Schur-complement Hessian?</p>
-                    <p><strong>My contribution:</strong> Developed the value-function viewpoint, isolated the second-order tracking gap, and organized a theorem-level route for further verification.</p>
+                    <p><strong>Problem:</strong> Can two-timescale value-function tracking support second-order saddle escaping through the Schur-complement Hessian?</p>
+                    <p><strong>Contribution:</strong> Developed the value-function viewpoint, isolated the second-order tracking gap, and organized a theorem-level route for further verification.</p>
                     <p><strong>Evidence:</strong></p>
                     <div class="research-link-row project-evidence-links">
                       <a href="notes/ttgda_second_order_tracking_note.html">Note</a>
@@ -403,8 +403,8 @@
                     <p class="academic-proof-kicker">DUALITY / INVARIANCE</p>
                     <h3>Duality and Structural Scoring under Invariance</h3>
                     <p><strong>Status:</strong> Ongoing theoretical work.</p>
-                    <p><strong>Question:</strong> When translation or gauge invariance collapses a standard dual, can one recover structural certificates tied to localization instance difficulty?</p>
-                    <p><strong>My contribution:</strong> Developed and organized the connection among dual collapse, Range(B), cycle consistency, structural scores, and saddle certificates.</p>
+                    <p><strong>Problem:</strong> When translation or gauge invariance collapses a standard dual, can one recover structural certificates tied to localization instance difficulty?</p>
+                    <p><strong>Contribution:</strong> Developed and organized the connection among dual collapse, Range(B), cycle consistency, structural scores, and saddle certificates.</p>
                     <p><strong>Evidence:</strong></p>
                     <div class="research-link-row project-evidence-links">
                       <a href="post/dual-score-saddle-certificates.html">Research note</a>
@@ -415,17 +415,17 @@
               </ol>
 
               <div class="academic-hub-links">
-                <p class="academic-proof-kicker">SUPPORTING TECHNICAL WORK</p>
-                <h2>Prototype / Computational Experiment</h2>
+                <p class="academic-proof-kicker">CREATIVE COMPUTATION</p>
+                <h2>Experimental Prototype</h2>
                 <ol class="academic-evidence-list">
                   <li>
-                    <span class="academic-evidence-index">05</span>
+                    <span class="academic-evidence-index">SIDE</span>
                     <div>
-                      <p class="academic-proof-kicker">PROTOTYPE / COMPUTATIONAL EXPERIMENT</p>
+                      <p class="academic-proof-kicker">CREATIVE COMPUTATION / EXPERIMENTAL PROTOTYPE</p>
                       <h3>Metalcore Piano Lab</h3>
-                      <p><strong>Status:</strong> Supporting technical prototype / work in progress.</p>
-                      <p><strong>Question:</strong> How can continuous audio / rhythm streams become discrete charts while preserving beat, section, and playability constraints?</p>
-                      <p><strong>My contribution:</strong> Designed and implemented the browser-native analysis and chart-generation prototype, including onset detection, beat grids, section alignment, and playability constraints.</p>
+                      <p><strong>Status:</strong> Side project · experimental prototype · work in progress; not presented as a research output.</p>
+                      <p><strong>Problem:</strong> How can continuous audio / rhythm streams become discrete charts while preserving beat, section, and playability constraints?</p>
+                      <p><strong>Contribution:</strong> Designed and implemented the browser-native analysis and chart-generation prototype, including onset detection, beat grids, section alignment, and playability constraints.</p>
                       <p><strong>Evidence:</strong></p>
                       <div class="research-link-row project-evidence-links">
                         <a href="https://github.com/lyuf09/metalcore-piano-lab" target="_blank" rel="noopener noreferrer">GitHub</a>

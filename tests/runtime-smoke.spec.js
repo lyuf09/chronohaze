@@ -625,8 +625,8 @@ test("AFP publication status stays synchronized across work page and project his
     '#selected-work-list [data-lang-block="en"] > .academic-evidence > .academic-evidence-list li'
   ).first();
   await expect(publishedProject).toContainText("Published in AFP, 2026");
-  await expect(publishedProject).toContainText("Question:");
-  await expect(publishedProject).toContainText("My contribution:");
+  await expect(publishedProject).toContainText("Problem:");
+  await expect(publishedProject).toContainText("Contribution:");
   await expect(publishedProject).toContainText("Evidence:");
   await expect(publishedProject).toContainText("under the supervision of Wenda Li");
   await expect(publishedProject).toContainText("post-publication stochastic-greedy extension");
@@ -641,11 +641,19 @@ test("AFP publication status stays synchronized across work page and project his
   const pgdProject = page.locator(
     '#selected-work-list [data-lang-block="en"] > .academic-evidence > .academic-evidence-list li'
   ).nth(1);
-  await expect(pgdProject).toContainText("I independently designed and completed the entire formalization");
+  await expect(pgdProject).toContainText("projection geometry");
+  await expect(pgdProject).toContainText("projected-gradient mapping");
+  await expect(pgdProject).toContainText("convex convergence");
+  await expect(pgdProject).toContainText("strongly convex linear rate");
   await expect(pgdProject).toContainText("This project had no supervisor");
-  await expect(
-    page.locator('#selected-work-list [data-lang-block="en"] .academic-hub-links .academic-evidence-list li')
-  ).toContainText("Metalcore Piano Lab");
+  const creativePrototype = page.locator(
+    '#selected-work-list [data-lang-block="en"] .academic-hub-links'
+  );
+  await expect(creativePrototype).toContainText("CREATIVE COMPUTATION");
+  await expect(creativePrototype).toContainText("Experimental Prototype");
+  await expect(creativePrototype).toContainText("Side project");
+  await expect(creativePrototype).toContainText("not presented as a research output");
+  await expect(creativePrototype).toContainText("Metalcore Piano Lab");
 
   await page.goto("post/theorem-to-framework-isabelle-submodular.html?lang=en", {
     waitUntil: "domcontentloaded",
@@ -691,6 +699,10 @@ test("technical notes use explicit status labels and a local Julia fractal", asy
   await expect(page.locator("#notes-archive .math-note-status")).toHaveCount(11);
   const labels = await page.locator(".math-note-status").allTextContents();
   const allowed = new Set([
+    "Published",
+    "Submitted",
+    "Ongoing research",
+    "Exploratory note",
     "Published formalization",
     "Submitted formalization",
     "Research note",
@@ -710,16 +722,16 @@ test("July notes lead the math archive and AFP work exposes primary evidence", a
   await expect(page.locator("main")).toContainText("Feier Lyu（Fay Lyu）");
   await expect(page.locator("#pinned-notes .academic-evidence-list li")).toHaveCount(4);
   await expect(page.locator("#pinned-notes .academic-evidence-list li").nth(0)).toContainText(
-    "TTGDA and Second-Order Tracking"
+    "Isabelle Submodular Greedy Project"
   );
   await expect(page.locator("#pinned-notes .academic-evidence-list li").nth(1)).toContainText(
     "Projected Gradient Descent in Isabelle/HOL"
   );
   await expect(page.locator("#pinned-notes .academic-evidence-list li").nth(2)).toContainText(
-    "Dual Score to Saddle Certificates"
+    "Duality / Localization"
   );
   await expect(page.locator("#pinned-notes .academic-evidence-list li").nth(3)).toContainText(
-    "Isabelle Submodular Greedy Project"
+    "TTGDA and Second-Order Tracking"
   );
   await expect(page.locator("#notes-archive")).toBeVisible();
   const archiveNotes = page.locator(".math-list .math-card");
