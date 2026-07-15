@@ -75,6 +75,10 @@ LEGACY_PGD_INTRO_PATTERNS = (
     "AFP side is temporarily blocked by a technical issue",
     "AFP 那边暂时卡在一个技术问题上",
 )
+LEGACY_HOME_SECTION_TITLES = (
+    "三个硬证据",
+    "Three points of evidence",
+)
 
 
 @dataclass
@@ -268,6 +272,16 @@ def check_pgd_framing(path: Path, text: str) -> List[Finding]:
     return findings
 
 
+def check_home_section_titles(path: Path, text: str, root: Path) -> List[Finding]:
+    if path.parent != root or path.name != "index.html":
+        return []
+    return [
+        Finding(path, "home-section-title", f"Legacy homepage section title found: {pattern!r}")
+        for pattern in LEGACY_HOME_SECTION_TITLES
+        if pattern.lower() in text.lower()
+    ]
+
+
 def check_files(root: Path) -> List[Finding]:
     findings: List[Finding] = []
     for path in sorted(root.rglob("*.html")):
@@ -282,6 +296,7 @@ def check_files(root: Path) -> List[Finding]:
         findings.extend(check_submodular_status(path, text, require_canonical=path.parent == root))
         findings.extend(check_academic_identity(path, text, root))
         findings.extend(check_pgd_framing(path, text))
+        findings.extend(check_home_section_titles(path, text, root))
     generated_text_paths = list((root / "assets").rglob("*.json")) + [root / "feed.xml"]
     for path in sorted(p for p in generated_text_paths if p.is_file()):
         findings.extend(check_submodular_status(path, read_text(path)))

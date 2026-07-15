@@ -140,16 +140,16 @@
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico?v=4" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=4" />
   <title>Academic | Feier Lyu (Fay Lyu) | Chronohaze</title>
-  <meta name="description" content="Academic index for Feier Lyu (Fay Lyu): optimization, formal verification, OR for ML, and selected publications, formalizations, and technical notes." />
+  <meta name="description" content="Academic profile for Feier Lyu (Fay Lyu): optimization and formal verification, centered on reusable machine-checked structures and how structure changes under mathematical and computational transformations." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Chronohaze" />
   <meta property="og:title" content="Academic | Feier Lyu (Fay Lyu)" />
-  <meta property="og:description" content="Academic index for Feier Lyu (Fay Lyu): optimization, formal verification, OR for ML, and selected academic work." />
+  <meta property="og:description" content="Optimization and formal verification, with emphasis on reusable machine-checked structures." />
   <meta property="og:url" content="https://lyuf09.github.io/chronohaze/academic.html" />
   <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/academic.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Academic | Feier Lyu (Fay Lyu)" />
-  <meta name="twitter:description" content="Academic index for Feier Lyu (Fay Lyu): optimization, formal verification, OR for ML, and selected academic work." />
+  <meta name="twitter:description" content="Optimization and formal verification, with emphasis on reusable machine-checked structures." />
   <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/academic.png" />
   <link rel="canonical" href="https://lyuf09.github.io/chronohaze/academic.html" />
   <!-- GENERATED:hreflang:start -->
@@ -257,24 +257,34 @@
               <p class="research-eyebrow">Academic</p>
               <h1>学术</h1>
               <p class="research-positioning"><strong>Feier Lyu</strong>（Fay Lyu）</p>
-              <p class="research-subtitle">Optimization · Formal Verification · OR for ML</p>
-              <p class="research-positioning">爱丁堡大学数学本科；2025–2026 年于康奈尔大学交换学习。主要关注优化理论、形式化验证，以及 OR for ML 中的结构化问题。目前最成熟的工作是发表于 Archive of Formal Proofs 的 Isabelle/HOL 形式化项目。</p>
+              <p class="research-positioning academic-lead">我研究优化与形式化验证，尤其关注如何将算法论证分解为可复用、机器检查的结构。</p>
+              <ul class="academic-snapshot-list">
+                <li><strong>子模最大化形式化</strong><span>发表于 AFP（2026）</span></li>
+                <li><strong>Isabelle/HOL 中的一阶方法</strong><span>Projected Gradient Descent 形式化项目</span></li>
+                <li><strong>非凸极小极大与定位</strong><span>进行中的理论研究</span></li>
+              </ul>
               <div class="research-link-row" aria-label="Academic exploration links">
-                <a href="research.html">Research Statement</a>
                 <a href="projects.html">Selected Work</a>
-                <a href="math.html">Technical Notes</a>
+                <a href="research.html">Research Statement</a>
+                <a href="cv.html">CV</a>
+                <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
               </div>
             </div>
             <div data-lang-block="en" hidden>
               <p class="research-eyebrow">Academic</p>
               <h1>Academic</h1>
               <p class="research-positioning"><strong>Feier Lyu</strong> (Fay Lyu)</p>
-              <p class="research-subtitle">Optimization · Formal Verification · OR for ML</p>
-              <p class="research-positioning">BSc Mathematics, University of Edinburgh. Exchange student at Cornell University, 2025–2026. I work around optimization, formal verification, and structured problems in OR for ML. My most mature work is an Isabelle/HOL formalization published in the Archive of Formal Proofs.</p>
+              <p class="research-positioning academic-lead">I work on optimization and formal verification, with a particular interest in how algorithmic arguments can be decomposed into reusable machine-checked structures.</p>
+              <ul class="academic-snapshot-list">
+                <li><strong>Formalization of submodular maximization</strong><span>Published in AFP (2026)</span></li>
+                <li><strong>First-order methods in Isabelle/HOL</strong><span>Projected Gradient Descent project</span></li>
+                <li><strong>Nonconvex minimax and localization</strong><span>Ongoing theoretical work</span></li>
+              </ul>
               <div class="research-link-row" aria-label="Academic exploration links">
-                <a href="research.html">Research Statement</a>
                 <a href="projects.html">Selected Work</a>
-                <a href="math.html">Technical Notes</a>
+                <a href="research.html">Research Statement</a>
+                <a href="cv.html">CV</a>
+                <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
               </div>
             </div>
           </div>
@@ -285,102 +295,38 @@
         <div class="container">
           <div data-lang-block="zh">
             <div class="academic-evidence">
-              <p class="academic-proof-kicker">SELECTED ACADEMIC WORK</p>
-              <h2>代表性学术工作</h2>
-              <ol class="academic-evidence-list">
-                <li>
-                  <span class="academic-evidence-index">01</span>
-                  <div>
-                    <h3>Greedy Algorithms for Cardinality-Constrained Submodular Maximization</h3>
-                    <p>正式发表于 AFP（2026）：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库还进一步发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。</p>
-                    <div class="research-link-row">
-                      <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
-                      <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI</a>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <span class="academic-evidence-index">02</span>
-                  <div>
-                    <h3>First-Order Methods for Smooth Convex Optimization in Isabelle/HOL</h3>
-                    <p>Formalization project · submitted to AFP · awaiting review.</p>
-                    <div class="research-link-row">
-                      <a href="https://github.com/lyuf09/projected-gradient-descent" target="_blank" rel="noopener noreferrer">Repository</a>
-                      <a href="post/projected-gradient-descent-isabelle-hol.html">Project note</a>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <span class="academic-evidence-index">03</span>
-                  <div>
-                    <h3>TTGDA and Second-Order Tracking</h3>
-                    <p>Exploratory technical note · value-function viewpoint and second-order tracking.</p>
-                    <div class="research-link-row">
-                      <a href="notes/ttgda_second_order_tracking_note.html">Technical note</a>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <span class="academic-evidence-index">04</span>
-                  <div>
-                    <h3>Duality under Invariance</h3>
-                    <p>Ongoing research note · dual collapse, structural scores, and saddle certificates.</p>
-                    <div class="research-link-row">
-                      <a href="post/dual-score-saddle-certificates.html">Research note</a>
-                    </div>
-                  </div>
-                </li>
-              </ol>
+              <p class="academic-proof-kicker">THE RESEARCH LINE</p>
+              <h2>结构在被转写之后如何变化？</h2>
+              <div class="academic-why-copy">
+                <p>我的最高层问题是：数学结构在被形式化、对偶化、离散化与算法化之后如何变化。</p>
+                <p>形式化揭示 theorem dependencies 与可复用接口；对偶与不变性揭示哪些信息仍被保留；离散化则检验哪些约束在计算对象中仍有意义。</p>
+                <p>正式发表于 AFP（2026）：对基数约束单调子模最大化的 classical greedy 与 verified stateful lazy-greedy 进行形式化。</p>
+                <p>发表后扩展：当前仓库进一步发展 stochastic-greedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。</p>
+              </div>
+              <div class="research-link-row academic-proof-links">
+                <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
+                <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/" target="_blank" rel="noopener noreferrer">Theory dependencies</a>
+                <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">Submodular repository</a>
+                <a href="https://github.com/lyuf09/projected-gradient-descent" target="_blank" rel="noopener noreferrer">PGD repository</a>
+              </div>
             </div>
           </div>
           <div data-lang-block="en" hidden>
             <div class="academic-evidence">
-              <p class="academic-proof-kicker">SELECTED ACADEMIC WORK</p>
-              <h2>Selected Academic Work</h2>
-              <ol class="academic-evidence-list">
-                <li>
-                  <span class="academic-evidence-index">01</span>
-                  <div>
-                    <h3>Greedy Algorithms for Cardinality-Constrained Submodular Maximization</h3>
-                    <p>Published in AFP (2026): a formalization of the classical greedy algorithm and a verified stateful lazy-greedy variant for cardinality-constrained monotone submodular maximization. Post-publication extension: the current repository additionally develops a stochastic-greedy line, including sampling, approximation packaging, and oracle-cost accounting.</p>
-                    <div class="research-link-row">
-                      <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
-                      <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI</a>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <span class="academic-evidence-index">02</span>
-                  <div>
-                    <h3>First-Order Methods for Smooth Convex Optimization in Isabelle/HOL</h3>
-                    <p>Formalization project · submitted to AFP · awaiting review.</p>
-                    <div class="research-link-row">
-                      <a href="https://github.com/lyuf09/projected-gradient-descent" target="_blank" rel="noopener noreferrer">Repository</a>
-                      <a href="post/projected-gradient-descent-isabelle-hol.html">Project note</a>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <span class="academic-evidence-index">03</span>
-                  <div>
-                    <h3>TTGDA and Second-Order Tracking</h3>
-                    <p>Exploratory technical note · value-function viewpoint and second-order tracking.</p>
-                    <div class="research-link-row">
-                      <a href="notes/ttgda_second_order_tracking_note.html">Technical note</a>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <span class="academic-evidence-index">04</span>
-                  <div>
-                    <h3>Duality under Invariance</h3>
-                    <p>Ongoing research note · dual collapse, structural scores, and saddle certificates.</p>
-                    <div class="research-link-row">
-                      <a href="post/dual-score-saddle-certificates.html">Research note</a>
-                    </div>
-                  </div>
-                </li>
-              </ol>
+              <p class="academic-proof-kicker">THE RESEARCH LINE</p>
+              <h2>What changes when structure is transformed?</h2>
+              <div class="academic-why-copy">
+                <p>My central question is how mathematical structure changes after formalization, dualization, discretization, and algorithmization.</p>
+                <p>Formalization exposes theorem dependencies and reusable interfaces; duality and invariance reveal which information survives; discretization tests which constraints remain meaningful in computational objects.</p>
+                <p>Published in AFP (2026): a formalization of the classical greedy algorithm and a verified stateful lazy-greedy variant for cardinality-constrained monotone submodular maximization.</p>
+                <p>Post-publication extension: the current repository additionally develops a stochastic-greedy line, including sampling, approximation packaging, and oracle-cost accounting.</p>
+              </div>
+              <div class="research-link-row academic-proof-links">
+                <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
+                <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/" target="_blank" rel="noopener noreferrer">Theory dependencies</a>
+                <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">Submodular repository</a>
+                <a href="https://github.com/lyuf09/projected-gradient-descent" target="_blank" rel="noopener noreferrer">PGD repository</a>
+              </div>
             </div>
           </div>
         </div>

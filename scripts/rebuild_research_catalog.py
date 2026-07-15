@@ -206,7 +206,15 @@ def parse_research_page(text: str) -> Dict[str, Any]:
         eyebrow_m = re.search(r'<p class="research-eyebrow">(.*?)</p>', hero_block, re.S)
         h1_m = re.search(r"<h1>(.*?)</h1>", hero_block, re.S)
         subtitle_m = re.search(r'<p class="research-subtitle">(.*?)</p>', hero_block, re.S)
-        positioning_m = re.search(r'<p class="research-positioning">(.*?)</p>', hero_block, re.S)
+        positioning_m = re.search(
+            r'<p class="[^"]*\bresearch-thesis-line\b[^"]*">(.*?)</p>',
+            hero_block,
+            re.S,
+        ) or re.search(
+            r'<p class="[^"]*\bresearch-positioning\b[^"]*">(.*?)</p>',
+            hero_block,
+            re.S,
+        )
         chips = [
             clean(x)
             for x in re.findall(r'<span class="research-chip">(.*?)</span>', hero_block, re.S)
@@ -273,10 +281,17 @@ def parse_research_page(text: str) -> Dict[str, Any]:
 
         projects_source = marker_block(text, "research-projects")
         if not projects_source:
-            grid_m = re.search(r'<div class="container research-project-grid">(.*)$', block, re.S)
+            grid_m = re.search(
+                r'<div class="[^"]*\bresearch-project-grid\b[^"]*">(.*)$',
+                block,
+                re.S,
+            )
             projects_source = grid_m.group(1) if grid_m else block
         projects_block = preferred_lang_block(projects_source)
-        card_pattern = re.compile(r'<article class="research-project-card">(.*?)</article>', re.S)
+        card_pattern = re.compile(
+            r'<article class="[^"]*\bresearch-project-card\b[^"]*">(.*?)</article>',
+            re.S,
+        )
         for card in card_pattern.finditer(projects_block):
             body = card.group(1) or ""
             kind_m = re.search(r'<p class="research-project-kind">(.*?)</p>', body, re.S)
@@ -286,6 +301,8 @@ def parse_research_page(text: str) -> Dict[str, Any]:
             for p_m in re.finditer(r"<p[^>]*>(.*?)</p>", body, re.S):
                 p_body = p_m.group(1) or ""
                 p_full = p_m.group(0) or ""
+                if "research-project-kind" in p_full:
+                    continue
                 if "research-project-line--status" in p_full:
                     badge_m = re.search(
                         r'class="[^"]*research-project-status-badge[^"]*">(.*?)</span>',

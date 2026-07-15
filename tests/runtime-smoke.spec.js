@@ -36,7 +36,7 @@ test("home page renders hero and player shell", async ({ page }) => {
   await expect(page.locator("#playerTime")).not.toHaveText(/^$/);
   await expect(page.locator("#selected-evidence")).toBeVisible();
   await expect(page.locator(".selected-evidence-card")).toHaveCount(3);
-  await expect(page.getByRole("heading", { name: "三个硬证据" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "当前工作" })).toBeVisible();
   await expect(page.locator(".selected-evidence-card").nth(0)).toContainText("Published in AFP");
   await expect(page.locator(".selected-evidence-card").nth(1)).toContainText("Current research");
   await expect(page.locator(".selected-evidence-card").nth(2)).toContainText("Formalization project");
@@ -78,6 +78,7 @@ test("home hero keeps distinct Chinese and English identities", async ({ page })
   await expect(page.locator(".hero-authority-line")).toContainText(
     "Mathematics at Edinburgh · Cornell 2025–26"
   );
+  await expect(page.getByRole("heading", { name: "Research Snapshot" })).toBeVisible();
 
   expect(errors).toEqual([]);
 });
@@ -275,6 +276,9 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   await waitForCriticalLoaderRelease(page);
   await expect(page.locator("body.research-landing-page")).toBeVisible();
   await expect(page.locator('.research-hero [data-lang-block="zh"] h1')).toHaveText("研究陈述");
+  await expect(page.locator('.research-hero [data-lang-block="zh"]')).toContainText(
+    "形式化、对偶化、离散化与算法化"
+  );
   await expect(page.locator("#research-projects")).toBeVisible();
   await expect(page.locator("#research-outputs")).toBeVisible();
   await expect.poll(async () => page.locator(".research-project-card").count()).toBeGreaterThan(1);
@@ -290,7 +294,10 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   );
   await expect(
     page.locator('#research-projects [data-lang-block="zh"] .research-project-card').nth(2)
-  ).toContainText("这还不是一条成熟的研究线");
+  ).toContainText("不与两条数学主线并列为博士研究方向");
+  await expect(
+    page.locator('#research-projects [data-lang-block="zh"] .research-project-card').nth(2)
+  ).toContainText("Metalcore Piano Lab");
 
   expect(errors).toEqual([]);
 });
@@ -454,11 +461,18 @@ test("academic page isolates languages and renders a concise academic index", as
   await expect(evidence).toBeVisible();
   await expect(evidence.locator('[data-lang-block="zh"]')).toBeVisible();
   await expect(page.locator('main [data-lang-block="en"]')).toHaveCount(0);
-  await expect(page.locator('.research-hero [data-lang-block="zh"] .research-link-row a')).toHaveCount(3);
-  await expect(evidence.locator('[data-lang-block="zh"] .academic-evidence-list li')).toHaveCount(4);
+  await expect(page.locator('.research-hero [data-lang-block="zh"] .research-link-row a')).toHaveCount(4);
+  await expect(page.locator('.research-hero [data-lang-block="zh"] .academic-snapshot-list li')).toHaveCount(3);
+  await expect(page.locator('.research-hero [data-lang-block="zh"]')).toContainText(
+    "如何将算法论证分解为可复用、机器检查的结构"
+  );
   await expect(evidence.getByRole("link", { name: "AFP entry" })).toHaveAttribute(
     "href",
     "https://isa-afp.org/entries/Submodular_Greedy.html#"
+  );
+  await expect(evidence.getByRole("link", { name: "Theory dependencies" })).toHaveAttribute(
+    "href",
+    "https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/"
   );
   await expect(page.locator("html")).toHaveAttribute("lang", "zh-CN");
   await expect(page.locator("body")).toHaveAttribute("data-rendered-lang", "zh");
@@ -470,11 +484,13 @@ test("academic page isolates languages and renders a concise academic index", as
   await expect(evidence.locator('[data-lang-block="en"]')).toBeVisible();
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
   await expect(page.locator("body")).toHaveAttribute("data-rendered-lang", "en");
-  await expect(page.getByText("Selected Academic Work", { exact: true })).toBeVisible();
+  await expect(page.getByText("What changes when structure is transformed?", { exact: true })).toBeVisible();
   await expect(page.locator('.research-hero [data-lang-block="en"]')).toContainText("Feier Lyu (Fay Lyu)");
-  await expect(evidence.locator('[data-lang-block="en"] .academic-evidence-list li').first()).toContainText(
-    "Published in AFP (2026)"
+  await expect(page.locator('.research-hero [data-lang-block="en"]')).toContainText(
+    "algorithmic arguments can be decomposed into reusable machine-checked structures"
   );
+  await expect(evidence.locator('[data-lang-block="en"]')).toContainText("Published in AFP (2026)");
+  await expect(evidence.locator('[data-lang-block="en"]')).toContainText("Post-publication extension");
 
   const metrics = await page.evaluate(() => ({
     viewport: window.innerWidth,
