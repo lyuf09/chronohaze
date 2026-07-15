@@ -140,16 +140,16 @@
   <link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
   <title>从一个定理到一套框架：我的 Isabelle 子模优化项目新进展</title>
-  <meta name="description" content="从 classical greedy 的 theorem line，走到 LazyGreedy extension、StochasticGreedy skeleton 与一套可继续扩展的 Isabelle/HOL library。" />
+  <meta name="description" content="AFP 2026 条目收录 classical greedy 与 verified stateful lazy-greedy；发表后的仓库继续发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。" />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Chronohaze" />
   <meta property="og:title" content="从一个定理到一套框架：我的 Isabelle 子模优化项目新进展 | Chronohaze" />
-  <meta property="og:description" content="从 classical greedy 的 theorem line，走到 LazyGreedy extension、StochasticGreedy skeleton 与一套可继续扩展的 Isabelle/HOL library。" />
+  <meta property="og:description" content="AFP 2026 条目收录 classical greedy 与 verified stateful lazy-greedy；发表后的仓库继续发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。" />
   <meta property="og:url" content="https://lyuf09.github.io/chronohaze/post/theorem-to-framework-isabelle-submodular.html" />
   <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/theorem-to-framework-isabelle-submodular.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="从一个定理到一套框架：我的 Isabelle 子模优化项目新进展 | Chronohaze" />
-  <meta name="twitter:description" content="从 classical greedy 的 theorem line，走到 LazyGreedy extension、StochasticGreedy skeleton 与一套可继续扩展的 Isabelle/HOL library。" />
+  <meta name="twitter:description" content="AFP 2026 条目收录 classical greedy 与 verified stateful lazy-greedy；发表后的仓库继续发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。" />
   <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/theorem-to-framework-isabelle-submodular.png" />
   <link rel="canonical" href="https://lyuf09.github.io/chronohaze/post/theorem-to-framework-isabelle-submodular.html" />
 
@@ -236,9 +236,9 @@
           <h1>从一个定理到一套框架：我的 Isabelle 子模优化项目新进展</h1>
           <p class="article-meta">HazezZ · 2026年3月14日 · 约 6 分钟</p>
 
-          <aside class="math-post-update" aria-label="项目更新：2026年6月">
-            <p class="math-post-update-label">更新 · 2026年6月</p>
-            <p>该项目此后已被 Archive of Formal Proofs 接收，并以 Greedy Algorithms for Cardinality-Constrained Submodular Maximization 正式发表。AFP entry 包含 classical greedy 近似保证的形式化，以及一个 verified stateful lazy greedy variant。下文记录的是最终 AFP-facing 版本完成之前的项目阶段。</p>
+          <aside class="math-post-update" aria-label="项目更新：2026年7月">
+            <p class="math-post-update-label">更新 · 2026年7月</p>
+            <p>正式发表于 AFP（2026）：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库还进一步发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。下文的项目回顾已按这一范围边界更新。</p>
             <div class="research-link-row">
               <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
               <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a>
@@ -263,16 +263,15 @@
           <p>除了 theorem line 本身，repo 现在还放进了 toy coverage instances、executable exhaustive baselines，以及一些 sanity-check examples。这里面既有 greedy 严格次优但依然不违反 approximation theorem 的例子，也有在非子模情形下 classical guarantee 失效的 counterexample。再往前一步，还有 coverage objective 的 concrete interpretation，以及从 executable exhaustive optimum 到抽象 OPT_k 概念的 bridge。</p>
           <p>这些内容未必像主定理那样耀眼，但它们让我越来越确定这个项目值得被理解成一套 library，而不是只看那条最显眼的 theorem。因为真正能持续扩展的形式化开发，往往不是靠一个大结论撑起来的，而是靠这些看起来没那么主角、但实际上负责连通抽象层和可执行层的部分撑起来的。</p>
 
-          <h3><strong>新阶段：StochasticGreedy 的前置结构已经开始出现</strong></h3>
-          <p>最近这段时间里，这个项目最让我在意的新变化，是它已经正式开始长出 StochasticGreedy 的结构了。ROOT 里现在已经把 Algorithms/Stochastic_Greedy、Proofs/Stochastic_Greedy_Sampling、Proofs/Stochastic_Greedy_Weighted_Sampling、Proofs/Stochastic_Greedy_OneStep、Proofs/Stochastic_Greedy_Approx，以及 Complexity/Stochastic_Greedy_OracleCost 纳入了 session，所以已经进入了理论骨架搭建阶段。</p>
-          <p>这一部分我觉得最有意思的地方在于，它没有一上来就急着把概率空间和最终期望定理全部压进 Isabelle。相反，Algorithms/Stochastic_Greedy.thy 先引入的是一个 deterministic trace layer：算法先被参数化为一串显式给定的 sampled candidate lists，把采样的执行轨迹和后面的概率分析分开。这样做的好处是算法本身的可执行骨架可以先稳定下来，而随机性则被推迟到后面的理论层去处理。</p>
-          <p>在此基础上，Stochastic_Greedy_Sampling.thy 又单独抽出了 sampling-event and hit-probability interface，它把 residual optimal set、hit / miss events、以及命中概率下界这种更偏 paper-facing 的对象隔离出来，但刻意还不完全承诺一个具体的 probability formalisation。接着，Stochastic_Greedy_OneStep.thy 处理的是 deterministic one-step bridge，它证明的是如果采样池命中了 residual optimal set，那么 sampled argmax 的 marginal gain 至少不差于 hit residual pool 上的平均 marginal gain，也就是说先把未来 expected-gain proof 里纯 deterministic 的那一半单独剥出来。</p>
-          <p>而 Stochastic_Greedy_Approx.thy 现在已经把 approximation layer 的 notation 和依赖结构固定下来，并明确说明 final theorem 还没有在这个初始 skeleton 里被证明，文件里写出的 intended route 是从 conditional expected progress inequality 走到 expected gap recurrence，再把它解成 (1 - 1 / exp 1 - eps) 风格的 guarantee，所以说 StochasticGreedy 的证明路线图已经进了 repo 但还没完善。</p>
-          <p>除此之外，repo 里还已经有了 Stochastic_Greedy_Weighted_Sampling.thy 这类 concrete finite weighted sampling model 的文件，以及 Stochastic_Greedy_OracleCost.thy 这种 cost skeleton，后者目前记录的是 paper-facing 的 sample-size 公式和一个粗粒度的 k * s oracle budget，说明这一条线不仅是在想 approximation guarantee，也已经把 query complexity / oracle accounting 视为后续会一起 formalise 的对象。</p>
+          <h3><strong>发表后扩展：StochasticGreedy theorem line</strong></h3>
+          <p>AFP 2026 条目的正式范围止于 classical greedy 与 verified stateful lazy-greedy。发表之后，仓库没有停在这里：StochasticGreedy 已从早期结构发展成一条相当完整的 theorem-level line，但它应当被明确标注为 post-publication extension，而不是 AFP entry 的组成部分。</p>
+          <p>当前仓库包含 deterministic trace layer、具体的 uniform with-replacement sampling model、sampling 与 weighted-sampling lemmas、one-step expected-gain lower bounds、gap recurrence 与 approximation packaging，以及最终的 <span lang="en">k</span>-step approximation wrapper。</p>
+          <p>复杂度一侧也不再只是 cost skeleton：仓库已经给出 trace-level exact gain-evaluation counters、sample-size discipline 与 oracle-cost theorems，并用一个 paper-facing wrapper 把 approximation guarantee 和 oracle budget 放在同一套 epsilon-driven 参数约束下。</p>
+          <p>当前 abstraction boundary 仍然保留了 executable deterministic trace 与 abstract probabilistic recurrence 之间的分层；因此仓库把两侧结果并列 packaging，而没有把它们冒充成一个已经完全统一的 probabilistic run semantics。</p>
 
           <h3><strong>我现在怎么理解这个项目</strong></h3>
           <p>到这一步，我觉得这个项目最值得记录的新变化不是又多了几个 thy 文件，而是它的身份变了。</p>
-          <p>它现在更像一个小而持续增长的 Isabelle/HOL framework：classical greedy 给出 foundation，LazyGreedy 提供第一个真正完整的 stateful extension，而 StochasticGreedy 则开始打开另一条新的维度，从 deterministic greedy-style reasoning 走向 sampling、expectation 和 query complexity。README 和 status note 里也都在强调这一点，也就是说这个项目现在最好被看作一个 modular Isabelle/HOL library for modern submodular optimisation，而不只是一次性的 theorem formalisation。同时我计划于六月份投 AFP，之后看能不能够到 AAAI，不行的话就试试 ITP 和 CPP。</p>
+          <p>它现在更像一个小而持续增长的 Isabelle/HOL framework：AFP 2026 已发表的 classical greedy 与 stateful lazy-greedy 构成稳定基础；发表后的 StochasticGreedy theorem line 则把 library 继续推进到 sampling、expectation、approximation packaging 和 query complexity。这样区分发表范围与仓库现状，既准确记录正式成果，也能清楚呈现项目在发表后的继续发展。</p>
           <p>我有在想，我写下来的到底是一个证明结果还是一个可以继续长出别的结果的结构？前者当然重要，但后者更难我也更喜欢。因为只有当一个项目开始具备可扩展性时，它才真正从一次性的作业式完成变成了一条研究路径。</p>
 
           <nav class="math-post-nav" data-static-math-post-nav="1" aria-label="相邻笔记导航"><a class="math-post-nav-item" data-nav-dir="prev" href="../post/what-i-really-got-when-a-dual-route-failed.html" data-no-page-transition="1" aria-label="上一篇 · 当一个 dual 路线走不通时，我真正得到的东西"><span class="math-post-nav-label">上一篇</span><span class="math-post-nav-title">当一个 dual 路线走不通时，我真正得到的东西</span></a><a class="math-post-nav-item" data-nav-dir="next" href="../post/metalcore-piano-lab.html" data-no-page-transition="1" aria-label="下一篇 · Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP）"><span class="math-post-nav-label">下一篇</span><span class="math-post-nav-title">Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP）</span></a></nav>
@@ -290,9 +289,9 @@
           <h1>From One Theorem to a Framework: New Progress on My Isabelle Project in Submodular Optimization</h1>
           <p class="article-meta">HazezZ · March 14, 2026 · 8 min read</p>
 
-          <aside class="math-post-update" aria-label="Project update, June 2026">
-            <p class="math-post-update-label">Update, June 2026.</p>
-            <p>This project has since been accepted and published in the Archive of Formal Proofs as Greedy Algorithms for Cardinality-Constrained Submodular Maximization. The AFP entry contains the formalized classical greedy approximation guarantee and a verified stateful lazy greedy variant. The discussion below records an earlier stage of the project, before the final AFP-facing version was completed.</p>
+          <aside class="math-post-update" aria-label="Project update, July 2026">
+            <p class="math-post-update-label">Update, July 2026.</p>
+            <p>Published in AFP (2026): a formalization of the classical greedy algorithm and a verified stateful lazy-greedy variant for cardinality-constrained monotone submodular maximization. Post-publication extension: the current repository additionally develops a stochastic-greedy line, including sampling, approximation packaging, and oracle-cost accounting. The project review below has been updated to preserve this scope boundary.</p>
             <div class="research-link-row">
               <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
               <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a>
@@ -317,16 +316,15 @@
           <p>Besides the theorem line itself, the repo now also includes toy coverage instances, executable exhaustive baselines, and several sanity-check examples. Among them are examples where greedy is strictly suboptimal while still not violating the approximation theorem, and also counterexamples showing that the classical guarantee fails in the non-submodular setting. Going one step further, there is also a concrete interpretation of the coverage objective, together with a bridge from executable exhaustive optimum to the abstract notion of OPT_k.</p>
           <p>These components may not look as striking as the main theorem, but they increasingly convince me that this project should be understood as a library rather than as a single highlighted theorem. In a genuinely extensible formalisation development, what holds the whole structure together is often not one big result, but rather these less visible pieces that connect the abstract layer to the executable one.</p>
 
-          <h3><strong>A new stage: the preparatory structure for StochasticGreedy has started to appear</strong></h3>
-          <p>The most important recent change in the project, to me, is that it has now officially started to grow a StochasticGreedy line. The ROOT session already includes Algorithms/Stochastic_Greedy, Proofs/Stochastic_Greedy_Sampling, Proofs/Stochastic_Greedy_Weighted_Sampling, Proofs/Stochastic_Greedy_OneStep, Proofs/Stochastic_Greedy_Approx, and Complexity/Stochastic_Greedy_OracleCost. So this is no longer just a vague future plan; it has already entered the stage of building a theoretical skeleton.</p>
-          <p>What I find most interesting here is that this line did not begin by forcing the full probability space and final expectation theorem into Isabelle all at once. Instead, Algorithms/Stochastic_Greedy.thy first introduces a deterministic trace layer: the algorithm is parameterised by an explicitly given sequence of sampled candidate lists, separating the execution trace of sampling from the probabilistic analysis that comes later. The advantage of doing so is that the executable algorithmic skeleton can be stabilised first, while the randomness is deferred to a later theoretical layer.</p>
-          <p>On top of that, Stochastic_Greedy_Sampling.thy isolates a sampling-event and hit-probability interface. It separates out objects such as the residual optimal set, hit / miss events, and lower bounds on hit probability, but deliberately does not yet fully commit to a concrete probability formalisation. Then Stochastic_Greedy_OneStep.thy handles a deterministic one-step bridge: it proves that if the sampled pool hits the residual optimal set, then the marginal gain of the sampled argmax is at least as good as the average marginal gain over the hit residual pool. In other words, it peels off the purely deterministic half of the future expected-gain proof and treats it separately first.</p>
-          <p>As for Stochastic_Greedy_Approx.thy, it has already fixed the notation and dependency structure of the approximation layer, while also making it explicit that the final theorem has not yet been proved in this initial skeleton. The intended route written there is to go from a conditional expected progress inequality to an expected gap recurrence, and then solve that recurrence into a guarantee of the form (1 - 1 / exp 1 - eps). So the proof roadmap for StochasticGreedy has already entered the repo, but it is not yet complete.</p>
-          <p>Beyond that, the repo also already contains files such as Stochastic_Greedy_Weighted_Sampling.thy, which develops a concrete finite weighted sampling model, and Stochastic_Greedy_OracleCost.thy, which provides a cost skeleton. The latter currently records the paper-facing sample-size formula together with a coarse-grained oracle budget of k * s, which suggests that this line is not only concerned with the approximation guarantee, but is also beginning to treat query complexity and oracle accounting as objects to be formalised alongside it.</p>
+          <h3><strong>Post-publication extension: the StochasticGreedy theorem line</strong></h3>
+          <p>The published scope of the AFP 2026 entry ends with classical greedy and verified stateful lazy-greedy. After publication, the repository did not stop there: StochasticGreedy has grown from its early structure into a substantial theorem-level line. It should, however, be identified as a post-publication extension rather than as part of the AFP entry.</p>
+          <p>The current repository includes a deterministic trace layer, a concrete uniform with-replacement sampling model, sampling and weighted-sampling lemmas, one-step expected-gain lower bounds, gap-recurrence and approximation packaging, and a final <span lang="en">k</span>-step approximation wrapper.</p>
+          <p>The complexity side is no longer merely a cost skeleton either. It includes exact trace-level gain-evaluation counters, sample-size disciplines, oracle-cost theorems, and a paper-facing wrapper that places the approximation guarantee and oracle budget under the same epsilon-driven parameter discipline.</p>
+          <p>The current abstraction boundary still separates executable deterministic traces from the abstract probabilistic recurrence. The repository therefore packages the two results side by side without presenting them as a fully unified probabilistic run semantics.</p>
 
           <h3><strong>How I understand this project now</strong></h3>
           <p>At this point, I think the most meaningful new change in the project is not simply that it has gained a few more .thy files. Its identity has changed.</p>
-          <p>It now feels much more like a small but steadily growing Isabelle/HOL framework: classical greedy provides the foundation, LazyGreedy offers the first truly complete stateful extension, and StochasticGreedy begins to open up another dimension, moving from deterministic greedy-style reasoning toward sampling, expectation, and query complexity. The README and status notes also reflect this shift. In other words, the project is now best understood as a modular Isabelle/HOL library for modern submodular optimisation, rather than as a one-off theorem formalisation. At the moment, I am planning to submit it to AFP in June, and then see whether it might reach AAAI; if not, I may instead try ITP or CPP.</p>
+          <p>It now feels much more like a small but steadily growing Isabelle/HOL framework. The classical greedy and stateful lazy-greedy developments published in AFP 2026 provide the stable foundation; the post-publication StochasticGreedy theorem line continues the library into sampling, expectation, approximation packaging, and query complexity. Separating the publication scope from the current repository state records both achievements accurately.</p>
           <p>Lately I have been thinking a lot about the following question: am I writing down a proof result, or am I building a structure from which more results can continue to grow? The former is of course important, but the latter is harder, and also the one I find myself liking more. Only when a project begins to acquire extensibility does it really stop being a one-off assignment-style completion and start becoming a research path.</p>
 
           <nav class="math-post-nav" data-static-math-post-nav="1" aria-label="Adjacent notes"><a class="math-post-nav-item" data-nav-dir="prev" href="../post/what-i-really-got-when-a-dual-route-failed.html" data-no-page-transition="1" aria-label="Previous note · What I Really Got When a Dual Route Failed"><span class="math-post-nav-label">Previous note</span><span class="math-post-nav-title">What I Really Got When a Dual Route Failed</span></a><a class="math-post-nav-item" data-nav-dir="next" href="../post/metalcore-piano-lab.html" data-no-page-transition="1" aria-label="Next note · Metalcore Piano Lab | From Audio to Chart: A Discretization Experiment (WIP)"><span class="math-post-nav-label">Next note</span><span class="math-post-nav-title">Metalcore Piano Lab | From Audio to Chart: A Discretization Experiment (WIP)</span></a></nav>

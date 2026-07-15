@@ -37,7 +37,8 @@ test("home page renders hero and player shell", async ({ page }) => {
   await expect(page.locator("#selected-evidence")).toBeVisible();
   await expect(page.locator(".selected-evidence-card")).toHaveCount(4);
   await expect(page.getByRole("heading", { name: "Selected Evidence" })).toBeVisible();
-  await expect(page.locator(".now-card").first()).toContainText("正式发表于 Archive of Formal Proofs");
+  await expect(page.locator(".now-card").first()).toContainText("正式发表于 AFP（2026）");
+  await expect(page.locator(".now-card").first()).toContainText("发表后扩展");
   await expect(page.locator(".now-card").first().locator(".now-card-links a")).toHaveCount(4);
   const pinnedMathCards = page.locator("#homeMathPreview article");
   await expect(pinnedMathCards).toHaveCount(4);
@@ -251,7 +252,8 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   await expect(page.locator(".cv-utility-bar")).toBeVisible();
   await expect(page.locator("a.cv-research-link")).toBeVisible();
   await expect(cvEnglish.locator("#cv-en-highlights")).toContainText("Expected graduation: 2027");
-  await expect(cvEnglish.locator("#cv-en-projects")).toContainText("Published in the Archive of Formal Proofs");
+  await expect(cvEnglish.locator("#cv-en-projects")).toContainText("Published in AFP (2026)");
+  await expect(cvEnglish.locator("#cv-en-projects")).toContainText("Post-publication extension");
   await expect(cvEnglish.getByRole("heading", { name: "Selected Evidence" })).toBeVisible();
   await expect(cvEnglish.getByRole("link", { name: "AFP entry" })).toHaveAttribute(
     "href",
@@ -270,8 +272,9 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   const formalizationLine = page.locator(
     '#research-projects [data-lang-block="zh"] .research-project-card'
   ).first();
-  await expect(formalizationLine).toContainText("已正式发表于 Archive of Formal Proofs");
-  await expect(formalizationLine).toContainText("future extension / experimental branch");
+  await expect(formalizationLine).toContainText("正式发表于 AFP（2026）");
+  await expect(formalizationLine).toContainText("发表后扩展");
+  await expect(formalizationLine).toContainText("sampling、approximation packaging 与 oracle-cost accounting");
   await expect(formalizationLine.getByRole("link", { name: "AFP entry" })).toHaveAttribute(
     "href",
     "https://isa-afp.org/entries/Submodular_Greedy.html#"
@@ -460,7 +463,7 @@ test("academic page isolates languages and renders a concise academic index", as
   await expect(page.locator("body")).toHaveAttribute("data-rendered-lang", "en");
   await expect(page.getByText("Selected Academic Work", { exact: true })).toBeVisible();
   await expect(evidence.locator('[data-lang-block="en"] .academic-evidence-list li').first()).toContainText(
-    "AFP publication"
+    "Published in AFP (2026)"
   );
 
   const metrics = await page.evaluate(() => ({
@@ -483,7 +486,8 @@ test("AFP publication status stays synchronized across work page and project his
   const publishedProject = page.locator(
     '#selected-work-list [data-lang-block="en"] > .academic-evidence > .academic-evidence-list li'
   ).first();
-  await expect(publishedProject).toContainText("Published in the Archive of Formal Proofs, 2026");
+  await expect(publishedProject).toContainText("Published in AFP (2026)");
+  await expect(publishedProject).toContainText("Post-publication extension");
   await expect(publishedProject.getByRole("link", { name: "AFP", exact: true })).toHaveAttribute(
     "href",
     "https://isa-afp.org/entries/Submodular_Greedy.html#"
@@ -502,7 +506,8 @@ test("AFP publication status stays synchronized across work page and project his
   await waitForCriticalLoaderRelease(page);
   const update = page.locator('[data-lang-block="en"] .math-post-update');
   await expect(update).toBeVisible();
-  await expect(update).toContainText("accepted and published in the Archive of Formal Proofs");
+  await expect(update).toContainText("Published in AFP (2026)");
+  await expect(update).toContainText("Post-publication extension");
   await expect(update.getByRole("link", { name: "AFP entry" })).toHaveAttribute(
     "href",
     "https://isa-afp.org/entries/Submodular_Greedy.html#"
@@ -556,7 +561,7 @@ test("new AFP note leads the math archive and exposes primary evidence", async (
   );
   await expect(zhNote.getByRole("link", { name: "GitHub repository" })).toHaveAttribute(
     "href",
-    "https://github.com/lyuf09/isabelle-submodular-greedy/tree/afp-cleanup"
+    "https://github.com/lyuf09/isabelle-submodular-greedy"
   );
 
   await page.goto("post/submodular-greedy-formalization-enters-afp.html?lang=en", {

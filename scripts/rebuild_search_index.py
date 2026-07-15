@@ -5,6 +5,7 @@ import argparse
 import json
 import re
 from datetime import date
+from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
@@ -20,6 +21,67 @@ REQUIRED_ITEM_KEYS = (
     "scope",
     "content",
 )
+
+HTML_CONTENT_REFRESH_URLS = {
+    "academic.html",
+    "cv.html",
+    "index.html",
+    "projects.html",
+    "post/isabelle-submodular-greedy.html",
+    "post/submodular-greedy-formalization-enters-afp.html",
+    "post/theorem-to-framework-isabelle-submodular.html",
+}
+
+
+class MainContentParser(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.main_depth = 0
+        self.skip_depth = 0
+        self.in_first_h1 = False
+        self.found_h1 = False
+        self.text_parts: List[str] = []
+        self.h1_parts: List[str] = []
+
+    def handle_starttag(self, tag: str, attrs) -> None:
+        tag = tag.lower()
+        if tag == "main":
+            self.main_depth = 1
+            return
+        if not self.main_depth:
+            return
+        self.main_depth += 1
+        if tag in {"script", "style", "noscript", "template"}:
+            self.skip_depth += 1
+        if tag == "h1" and not self.found_h1:
+            self.in_first_h1 = True
+
+    def handle_endtag(self, tag: str) -> None:
+        tag = tag.lower()
+        if not self.main_depth:
+            return
+        if tag == "h1" and self.in_first_h1:
+            self.in_first_h1 = False
+            self.found_h1 = True
+        if tag in {"script", "style", "noscript", "template"} and self.skip_depth:
+            self.skip_depth -= 1
+        if tag == "main":
+            self.main_depth = 0
+        else:
+            self.main_depth -= 1
+
+    def handle_data(self, data: str) -> None:
+        if not self.main_depth or self.skip_depth:
+            return
+        value = " ".join(data.split()).strip()
+        if not value:
+            return
+        self.text_parts.append(value)
+        if self.in_first_h1:
+            self.h1_parts.append(value)
+
+    def result(self) -> Tuple[str, str]:
+        return " ".join(self.text_parts).strip(), " ".join(self.h1_parts).strip()
 
 
 def _catalog_items_to_url_map(items: Any) -> Dict[str, Dict[str, Any]]:
@@ -313,6 +375,52 @@ def refresh_search_data_metadata(search_data_dir: Path, generated_at: str) -> in
     return updated
 
 
+def refresh_selected_html_search_content(
+    root: Path,
+    search_data_dir: Path,
+    math_catalog: Dict[str, Dict[str, Any]],
+) -> int:
+    refreshed = 0
+    for path in sorted(search_data_dir.glob("*.json")):
+        data = load_json(path)
+        if not isinstance(data, dict) or not isinstance(data.get("items"), list):
+            continue
+        changed = False
+        for item in data["items"]:
+            if not isinstance(item, dict):
+                continue
+            url = str(item.get("url", "")).strip()
+            if url not in HTML_CONTENT_REFRESH_URLS:
+                continue
+            html_path = root / url
+            if not html_path.is_file():
+                continue
+            parser = MainContentParser()
+            parser.feed(html_path.read_text(encoding="utf-8", errors="ignore"))
+            content, first_h1 = parser.result()
+            if content and item.get("content") != content:
+                item["content"] = content
+                changed = True
+            if url.startswith("post/") and first_h1 and item.get("title") != first_h1:
+                item["title"] = first_h1
+                changed = True
+            catalog_item = math_catalog.get(url)
+            if catalog_item:
+                for key in ("title", "excerpt"):
+                    value = str(catalog_item.get(key, "")).strip()
+                    if value and item.get(key) != value:
+                        item[key] = value
+                        changed = True
+        if not changed:
+            continue
+        path.write_text(
+            json.dumps(data, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
+        refreshed += 1
+    return refreshed
+
+
 INLINE_FALLBACK_RE = re.compile(
     r'(<script id="search-inline-fallback" type="application/json">\s*)(\{.*?\})(\s*</script>)',
     re.S,
@@ -357,8 +465,6 @@ def main() -> int:
         raise SystemExit(f"Missing search data directory: {search_data_dir}")
 
     generated_at = date.today().isoformat()
-    refreshed_count = refresh_search_data_metadata(search_data_dir, generated_at)
-
     catalogs = {
         "music": load_music_catalog_map(root),
         "music_detail": load_music_detail_catalog_map(root),
@@ -366,6 +472,12 @@ def main() -> int:
         "photo": load_photo_catalog_map(root),
         "research": load_research_catalog(root),
     }
+    refreshed_count = refresh_search_data_metadata(search_data_dir, generated_at)
+    content_refreshed_count = refresh_selected_html_search_content(
+        root,
+        search_data_dir,
+        catalogs["math"],
+    )
     items = merge_items(search_data_dir, catalogs)
     payload = {
         "generated_at": generated_at,
@@ -379,7 +491,8 @@ def main() -> int:
     inline_updated = sync_search_inline_fallback(root, payload)
     print(
         f"Rebuilt {out_path} with {len(items)} items from {search_data_dir} "
-        f"(metadata refreshed: {refreshed_count}, inline fallback updated: {'yes' if inline_updated else 'no'})"
+        f"(metadata refreshed: {refreshed_count}, HTML content sources refreshed: {content_refreshed_count}, "
+        f"inline fallback updated: {'yes' if inline_updated else 'no'})"
     )
     return 0
 

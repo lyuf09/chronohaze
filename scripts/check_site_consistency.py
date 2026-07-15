@@ -13,6 +13,30 @@ SEO_PENDING_PATTERNS = (
     "音频待上传",
     "audio pending upload",
 )
+SUBMODULAR_STATUS_PAGES = {
+    "academic.html",
+    "cv.html",
+    "index.html",
+    "projects.html",
+    "research.html",
+}
+SUBMODULAR_PUBLISHED_SCOPE = (
+    "Published in AFP (2026): a formalization of the classical greedy algorithm "
+    "and a verified stateful lazy-greedy variant for cardinality-constrained "
+    "monotone submodular maximization."
+)
+SUBMODULAR_POST_PUBLICATION_SCOPE = (
+    "Post-publication extension: the current repository additionally develops a "
+    "stochastic-greedy line, including sampling, approximation packaging, and "
+    "oracle-cost accounting."
+)
+LEGACY_SUBMODULAR_STATUS_PATTERNS = (
+    "future extension / experimental branch",
+    "stochasticgreedy skeleton",
+    "stochastic-greedy skeleton",
+    "proof roadmap for stochasticgreedy has already entered the repo, but it is not yet complete",
+    "证明路线图已经进了 repo 但还没完善",
+)
 
 
 @dataclass
@@ -142,17 +166,42 @@ def check_nav_duplicates(path: Path, text: str) -> List[Finding]:
     return findings
 
 
+def check_submodular_status(path: Path, text: str, require_canonical: bool = False) -> List[Finding]:
+    findings: List[Finding] = []
+    lower_text = text.lower()
+    for pattern in LEGACY_SUBMODULAR_STATUS_PATTERNS:
+        if pattern in lower_text:
+            findings.append(
+                Finding(path, "submodular-status", f"Legacy project status found: {pattern!r}")
+            )
+
+    if not require_canonical or path.name not in SUBMODULAR_STATUS_PAGES:
+        return findings
+
+    for required in (SUBMODULAR_PUBLISHED_SCOPE, SUBMODULAR_POST_PUBLICATION_SCOPE):
+        if required not in text:
+            findings.append(
+                Finding(path, "submodular-status", "Canonical AFP/repository scope statement is missing")
+            )
+            break
+    return findings
+
+
 def check_files(root: Path) -> List[Finding]:
     findings: List[Finding] = []
     for path in sorted(root.rglob("*.html")):
         # Skip vendored/generated hidden dirs if ever added.
-        if any(part.startswith(".") for part in path.parts):
+        if "node_modules" in path.parts or any(part.startswith(".") for part in path.parts):
             continue
         text = read_text(path)
         findings.extend(check_footer_years(path, text))
         findings.extend(check_city_case(path, text))
         findings.extend(check_pending_in_seo(path, text))
         findings.extend(check_nav_duplicates(path, text))
+        findings.extend(check_submodular_status(path, text, require_canonical=path.parent == root))
+    generated_text_paths = list((root / "assets").rglob("*.json")) + [root / "feed.xml"]
+    for path in sorted(p for p in generated_text_paths if p.is_file()):
+        findings.extend(check_submodular_status(path, read_text(path)))
     return findings
 
 

@@ -139,17 +139,17 @@
   </script>
   <link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
-  <title>一个正在进行的 Isabelle 研究项目：Submodular Greedy 的形式化</title>
-  <meta name="description" content="进行中的 Isabelle 研究项目：子模贪心算法 (1-1/e) 近似保证形式化。" />
+  <title>早期项目记录：Submodular Greedy 的 Isabelle 形式化</title>
+  <meta name="description" content="2025年12月的阶段记录；项目此后已于 AFP 2026 正式发表，当前仓库另含发表后的 StochasticGreedy 扩展。" />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Chronohaze" />
-  <meta property="og:title" content="一个正在进行的 Isabelle 研究项目：Submodular Greedy 的形式化 | Chronohaze" />
-  <meta property="og:description" content="进行中的 Isabelle 研究项目：子模贪心算法 (1-1/e) 近似保证形式化。" />
+  <meta property="og:title" content="早期项目记录：Submodular Greedy 的 Isabelle 形式化 | Chronohaze" />
+  <meta property="og:description" content="2025年12月的阶段记录；项目此后已于 AFP 2026 正式发表，当前仓库另含发表后的 StochasticGreedy 扩展。" />
   <meta property="og:url" content="https://lyuf09.github.io/chronohaze/post/isabelle-submodular-greedy.html" />
   <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/isabelle-submodular-greedy.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="一个正在进行的 Isabelle 研究项目：Submodular Greedy 的形式化 | Chronohaze" />
-  <meta name="twitter:description" content="进行中的 Isabelle 研究项目：子模贪心算法 (1-1/e) 近似保证形式化。" />
+  <meta name="twitter:title" content="早期项目记录：Submodular Greedy 的 Isabelle 形式化 | Chronohaze" />
+  <meta name="twitter:description" content="2025年12月的阶段记录；项目此后已于 AFP 2026 正式发表，当前仓库另含发表后的 StochasticGreedy 扩展。" />
   <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/isabelle-submodular-greedy.png" />
   <link rel="canonical" href="https://lyuf09.github.io/chronohaze/post/isabelle-submodular-greedy.html" />
 
@@ -231,10 +231,19 @@
         </div>
       </div>
 <article class="article">
-  <h1>一个正在进行的 Isabelle 研究项目：Submodular Greedy 的形式化</h1>
+  <h1>早期项目记录：Submodular Greedy 的 Isabelle 形式化</h1>
   <p class="article-meta">HazezZ · 2025年12月29日 · 约 4 分钟</p>
-  <p>在上一篇文章《我的第一个 Isabelle 形式化证明》中，我更多写的是我为什么选择 Isabelle，以及形式化证明对我而言意味着什么。这篇文章我想更具体地记录一个正在进行中的研究项目，单调子模函数下贪心算法的 (1−1/e) 近似保证的 Isabelle 形式化<strong>。</strong></p>
-      <p>这不是一个已经完成的成果展示而是一份阶段性的研究记录。</p>
+  <aside class="math-post-update" aria-label="项目更新：2026年7月">
+    <p class="math-post-update-label">更新 · 2026年7月</p>
+    <p>正式发表于 AFP（2026）：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库还进一步发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。以下正文保留为 2025年12月的阶段记录。</p>
+    <div class="research-link-row">
+      <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
+      <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a>
+      <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">Repository</a>
+    </div>
+  </aside>
+  <p>在上一篇文章《我的第一个 Isabelle 形式化证明》中，我更多写的是我为什么选择 Isabelle，以及形式化证明对我而言意味着什么。这篇文章记录的是当时仍在推进的研究项目：单调子模函数下贪心算法的 (1−1/e) 近似保证的 Isabelle 形式化<strong>。</strong></p>
+      <p>这是一份写于正式发表之前的阶段性研究记录。</p>
       <h3><strong>我在做什么</strong></h3>
       <p>在组合优化中，单调子模函数的最大化问题有一个非常经典的结论：在基数约束下，简单的贪心算法可以达到 1 − 1/e 的近似比。</p>
       <p>这个结果通常被称为 <strong>Nemhauser–Wolsey 定理</strong>，在机器学习、信息论、覆盖问题等领域被反复使用。</p>
@@ -271,8 +280,8 @@
 <li><p>为了避免证明碎片化，<strong>模块化几乎是必需的，而不是可选项</strong></p></li>
 </ul>
       <p>形式化并不是在“刁难”证明者，而是在迫使我们诚实地面对：<strong>哪些结论是由结构推出的，哪些只是我们习惯性地相信它成立。</strong></p>
-      <h3><strong>当前状态</strong></h3>
-      <p>这是一个<strong>进行中的研究项目</strong>。</p>
+      <h3><strong>写作当时的状态</strong></h3>
+      <p>在 2025年12月，这还是一个<strong>进行中的研究项目</strong>。</p>
       <p>目前已经完成的部分包括：</p>
       <ul>
 <li><p>贪心算法的基本形式化框架</p></li>
@@ -288,8 +297,8 @@
 <br>
 </li>
 </ul>
-      <h3><strong>接下来会做什么</strong></h3>
-      <p>在接下来的阶段，我计划：</p>
+      <h3><strong>当时计划的下一步</strong></h3>
+      <p>当时的后续计划包括：</p>
       <ul>
 <li><p>将子模函数的假设进一步抽象为可复用的 locale</p></li>
 <li><p>尝试具体实例（如覆盖函数）的形式化实例化</p></li>

@@ -46,7 +46,7 @@
       <link>https://lyuf09.github.io/chronohaze/post/theorem-to-framework-isabelle-submodular.html</link>
       <guid>https://lyuf09.github.io/chronohaze/post/theorem-to-framework-isabelle-submodular.html</guid>
       <pubDate>Sat, 14 Mar 2026 12:00:00 +0000</pubDate>
-      <description>From the theorem line for classical greedy to a LazyGreedy extension, a StochasticGreedy skeleton, and an Isabelle/HOL library that can keep growing.</description>
+      <description>The AFP 2026 entry covers classical greedy and verified stateful lazy-greedy; the post-publication repository continues with a StochasticGreedy theorem line spanning sampling, approximation packaging, and oracle-cost accounting.</description>
     </item>
 
     <item>
@@ -66,11 +66,11 @@
     </item>
 
     <item>
-      <title>An Ongoing Isabelle Research Project: Formalising Submodular Greedy</title>
+      <title>Early Project Note: Formalising Submodular Greedy</title>
       <link>https://lyuf09.github.io/chronohaze/post/isabelle-submodular-greedy.html</link>
       <guid>https://lyuf09.github.io/chronohaze/post/isabelle-submodular-greedy.html</guid>
       <pubDate>Mon, 29 Dec 2025 12:00:00 +0000</pubDate>
-      <description>Formalising the greedy (1 − 1/e) guarantee for monotone submodular maximisation under cardinality constraints.</description>
+      <description>A December 2025 stage record; the project was subsequently published in AFP 2026, and the current repository also contains a post-publication StochasticGreedy extension.</description>
     </item>
 
     <item>

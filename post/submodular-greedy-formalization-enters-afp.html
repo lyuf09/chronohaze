@@ -113,6 +113,11 @@
   <meta name="twitter:description" content="记录 Isabelle/HOL 子模贪心算法形式化正式发表于 Archive of Formal Proofs，以及形式化过程中逐渐显露出的算法证明结构。" />
   <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/submodular-greedy-formalization-enters-afp.png" />
   <link rel="canonical" href="https://lyuf09.github.io/chronohaze/post/submodular-greedy-formalization-enters-afp.html" />
+  <!-- GENERATED:hreflang:start -->
+  <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/post/submodular-greedy-formalization-enters-afp.html?lang=zh" />
+  <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/post/submodular-greedy-formalization-enters-afp.html?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/post/submodular-greedy-formalization-enters-afp.html" />
+  <!-- GENERATED:hreflang:end -->
   <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/post/submodular-greedy-formalization-enters-afp.html?lang=zh" />
   <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/post/submodular-greedy-formalization-enters-afp.html?lang=en" />
   <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/post/submodular-greedy-formalization-enters-afp.html" />
@@ -180,12 +185,14 @@
           <div class="research-link-row" aria-label="项目证据链接">
             <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
             <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a>
-            <a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/afp-cleanup" target="_blank" rel="noopener noreferrer">GitHub repository</a>
+            <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">GitHub repository</a>
           </div>
 
           <p>最近，我的 Isabelle/HOL 形式化项目 <em>Greedy Algorithms for Cardinality-Constrained Submodular Maximization</em> 正式发表于 Archive of Formal Proofs。</p>
 
           <p>这个项目形式化的是基数约束下的单调非负子模最大化问题。更具体地说，它证明了 classical greedy algorithm 的经典近似保证：在选择至多 <em>k</em> 个元素的约束下，贪心算法可以达到最优值的 (1 − 1/e) 近似比例。除此之外，项目中还包含了一个 stateful lazy greedy variant，用 cached marginal-gain upper bounds 来刻画 lazy greedy 的状态更新过程。</p>
+
+          <p><strong>范围说明：</strong>以上 classical greedy 与 verified stateful lazy-greedy variant 是 AFP 2026 条目的正式发表范围。发表后，当前仓库继续发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting；这些是 post-publication extension，不属于该 AFP 条目的发表范围。</p>
 
           <p>这篇短文不打算重新解释子模函数、边际增益或者贪心算法的全部背景。那些内容我之前已经写过不少了。现在再回头看，我更想记录的是：这个项目从一开始并不只是“把一个定理翻译成 Isabelle”，而是逐渐变成了一个关于算法证明结构的整理过程。</p>
 
@@ -228,12 +235,14 @@
           <div class="research-link-row" aria-label="Project evidence links">
             <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
             <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a>
-            <a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/afp-cleanup" target="_blank" rel="noopener noreferrer">GitHub repository</a>
+            <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">GitHub repository</a>
           </div>
 
           <p>Recently, my Isabelle/HOL formalization project <em>Greedy Algorithms for Cardinality-Constrained Submodular Maximization</em> was formally published in the Archive of Formal Proofs.</p>
 
           <p>The project formalizes monotone non-negative submodular maximization under a cardinality constraint. More specifically, it verifies the classical approximation guarantee for the greedy algorithm: when at most <em>k</em> elements may be selected, greedy attains a (1 − 1/e) approximation to the optimum. The development also contains a stateful lazy greedy variant, using cached upper bounds on marginal gains to describe the state transitions of lazy greedy.</p>
+
+          <p><strong>Scope note:</strong> The classical greedy algorithm and verified stateful lazy-greedy variant are the published scope of the AFP 2026 entry. After publication, the current repository continued with a StochasticGreedy theorem line, including sampling, approximation packaging, and oracle-cost accounting. This is a post-publication extension and is not part of the published AFP entry.</p>
 
           <p>This short note is not meant to explain submodular functions, marginal gains, or greedy algorithms all over again. I have already written quite a lot about that background. Looking back now, what I most want to record is that this project did not remain a matter of “translating one theorem into Isabelle.” It gradually became an exercise in organizing the structure of an algorithmic proof.</p>
 
