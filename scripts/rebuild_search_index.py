@@ -435,6 +435,23 @@ INLINE_FALLBACK_RE = re.compile(
     r'(<script id="search-inline-fallback" type="application/json">\s*)(\{.*?\})(\s*</script>)',
     re.S,
 )
+INLINE_FALLBACK_CONTENT_LIMIT = 1200
+
+
+def compact_inline_fallback_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
+    compact_items: List[Dict[str, Any]] = []
+    for source_item in payload.get("items", []):
+        if not isinstance(source_item, dict):
+            continue
+        item = dict(source_item)
+        content = str(item.get("content", "") or "")
+        if len(content) > INLINE_FALLBACK_CONTENT_LIMIT:
+            item["content"] = content[:INLINE_FALLBACK_CONTENT_LIMIT].rstrip() + "…"
+        compact_items.append(item)
+    return {
+        "generated_at": payload.get("generated_at", ""),
+        "items": compact_items,
+    }
 
 
 def sync_search_inline_fallback(root: Path, payload: Dict[str, Any]) -> bool:
@@ -498,7 +515,7 @@ def main() -> int:
         json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
-    inline_updated = sync_search_inline_fallback(root, payload)
+    inline_updated = sync_search_inline_fallback(root, compact_inline_fallback_payload(payload))
     print(
         f"Rebuilt {out_path} with {len(items)} items from {search_data_dir} "
         f"(metadata refreshed: {refreshed_count}, HTML content sources refreshed: {content_refreshed_count}, "
