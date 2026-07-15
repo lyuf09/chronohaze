@@ -35,33 +35,15 @@ test("home page renders hero and player shell", async ({ page }) => {
   await expect(page.locator("#playerShell")).toBeVisible();
   await expect(page.locator("#playerTime")).not.toHaveText(/^$/);
   await expect(page.locator("#selected-evidence")).toBeVisible();
-  await expect(page.locator(".selected-evidence-card")).toHaveCount(4);
-  await expect(page.getByRole("heading", { name: "Selected Evidence" })).toBeVisible();
-  await expect(page.locator(".now-card").first()).toContainText("正式发表于 AFP（2026）");
-  await expect(page.locator(".now-card").first()).toContainText("发表后扩展");
-  await expect(page.locator(".now-card").first().locator(".now-card-links a")).toHaveCount(4);
-  const pinnedMathCards = page.locator("#homeMathPreview article");
-  await expect(pinnedMathCards).toHaveCount(4);
-  await expect(pinnedMathCards.nth(0)).toContainText("Schur-Complement Hessian Tracking in TTGDA");
-  await expect(pinnedMathCards.nth(0).locator("a")).toHaveAttribute(
-    "href",
-    /notes\/ttgda_second_order_tracking_note\.html$/
-  );
-  await expect(pinnedMathCards.nth(1)).toContainText("Projected Gradient Descent in Isabelle/HOL");
-  await expect(pinnedMathCards.nth(1).locator("a")).toHaveAttribute(
-    "href",
-    /post\/projected-gradient-descent-isabelle-hol\.html$/
-  );
-  await expect(pinnedMathCards.nth(2)).toContainText("dual score 到 saddle certificates");
-  await expect(pinnedMathCards.nth(2).locator("a")).toHaveAttribute(
-    "href",
-    /post\/dual-score-saddle-certificates\.html$/
-  );
-  await expect(pinnedMathCards.nth(3)).toContainText("子模贪心算法形式化正式进入 AFP");
-  await expect(pinnedMathCards.nth(3).locator("a")).toHaveAttribute(
-    "href",
-    /post\/submodular-greedy-formalization-enters-afp\.html$/
-  );
+  await expect(page.locator(".selected-evidence-card")).toHaveCount(3);
+  await expect(page.getByRole("heading", { name: "三个硬证据" })).toBeVisible();
+  await expect(page.locator(".selected-evidence-card").nth(0)).toContainText("Published in AFP");
+  await expect(page.locator(".selected-evidence-card").nth(1)).toContainText("Current research");
+  await expect(page.locator(".selected-evidence-card").nth(2)).toContainText("Formalization project");
+  await expect(page.locator(".identity-panel-math")).toContainText("ACADEMIC IDENTITY · FEIER LYU");
+  await expect(page.locator(".identity-panel-creative")).toContainText("CREATIVE IDENTITY · HAZEZZ");
+  await expect(page.locator("#homeMathPreview")).toHaveCount(0);
+  await expect(page.locator("#now")).not.toContainText("正式发表于 AFP");
 
   expect(errors).toEqual([]);
 });
@@ -77,21 +59,45 @@ test("home hero keeps distinct Chinese and English identities", async ({ page })
     "证明关心什么可以被确信；音乐与影像关心什么值得被记住。"
   );
   await expect(page.locator(".hero-world-line")).toHaveText("这里收录两者之间仍在继续的工作。");
+  await expect(page.locator(".hero-authority-line")).toContainText("爱丁堡大学数学 · 康奈尔 2025–26 交换");
   await expect(page.locator('.hero-academic-link[href="projects.html"]')).toHaveText("代表性工作");
   await expect(page.locator('.hero-academic-link[href="math.html"]')).toHaveText("技术笔记");
 
   await page.goto("index.html?lang=en", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
   await expect(page.locator(".hero-right h1")).toHaveText("Feier Lyu");
-  await expect(page.locator(".hero-poetic-line")).toContainText(
-    "Undergraduate mathematician at the University of Edinburgh"
+  await expect(page.locator(".hero-poetic-line")).toHaveText(
+    "In the haze of time, I look for structure in complexity."
   );
-  await expect(page.locator(".hero-identity-line")).toContainText(
-    "Author of the Archive of Formal Proofs entry"
+  await expect(page.locator(".hero-identity-line")).toHaveText(
+    "Proof asks what can be trusted; music and image ask what deserves to be remembered."
   );
   await expect(page.locator(".hero-world-line")).toHaveText(
-    "Interested in proofs that are not only correct, but explicit, reusable, and machine-checked."
+    "This site gathers the work that continues between them."
   );
+  await expect(page.locator(".hero-authority-line")).toContainText(
+    "Mathematics at Edinburgh · Cornell 2025–26"
+  );
+
+  expect(errors).toEqual([]);
+});
+
+test("PGD note leads with its mathematical value", async ({ page }) => {
+  const errors = trackPageErrors(page);
+  await page.goto("post/projected-gradient-descent-isabelle-hol.html?lang=en", {
+    waitUntil: "domcontentloaded",
+  });
+  await waitForCriticalLoaderRelease(page);
+
+  const article = page.locator('[data-lang-block="en"]');
+  await expect(article).toContainText(
+    "Projected gradient descent is one of the basic algorithmic templates for constrained smooth optimization."
+  );
+  await expect(article).toContainText("projection inequality");
+  await expect(article).toContainText("projected-gradient mapping");
+  await expect(article).toContainText("linear convergence under strong convexity");
+  await expect(article).not.toContainText("strange open interval after exams");
+  await expect(article).not.toContainText("temporarily blocked by a technical issue");
 
   expect(errors).toEqual([]);
 });

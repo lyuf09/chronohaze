@@ -16,7 +16,6 @@ SEO_PENDING_PATTERNS = (
 SUBMODULAR_STATUS_PAGES = {
     "academic.html",
     "cv.html",
-    "index.html",
     "projects.html",
     "research.html",
 }
@@ -61,6 +60,20 @@ RUNTIME_ACADEMIC_LEGACY_PATTERNS = (
     '<p class="article-meta">HazezZ · Jan 29, 2026</p>',
     "An Ongoing Isabelle Research Project: Formalising Submodular Greedy",
     'name: "Fay / Feier Lyu"',
+)
+PGD_NOTE = "projected-gradient-descent-isabelle-hol.html"
+PGD_REQUIRED_FRAMING = (
+    "Projected gradient descent is one of the basic algorithmic templates for constrained smooth optimization.",
+    "the projection inequality",
+    "the projected-gradient mapping",
+    "linear convergence under strong convexity",
+    "reusable telescoping structures",
+)
+LEGACY_PGD_INTRO_PATTERNS = (
+    "考完闲得慌",
+    "strange open interval after exams",
+    "AFP side is temporarily blocked by a technical issue",
+    "AFP 那边暂时卡在一个技术问题上",
 )
 
 
@@ -240,6 +253,21 @@ def check_academic_identity(path: Path, text: str, root: Path) -> List[Finding]:
     return findings
 
 
+def check_pgd_framing(path: Path, text: str) -> List[Finding]:
+    if path.name != PGD_NOTE or path.parent.name != "post":
+        return []
+
+    findings: List[Finding] = []
+    lower_text = text.lower()
+    for pattern in LEGACY_PGD_INTRO_PATTERNS:
+        if pattern.lower() in lower_text:
+            findings.append(Finding(path, "pgd-framing", f"Legacy development-log framing found: {pattern!r}"))
+    for required in PGD_REQUIRED_FRAMING:
+        if required.lower() not in lower_text:
+            findings.append(Finding(path, "pgd-framing", f"Required mathematical framing is missing: {required!r}"))
+    return findings
+
+
 def check_files(root: Path) -> List[Finding]:
     findings: List[Finding] = []
     for path in sorted(root.rglob("*.html")):
@@ -253,6 +281,7 @@ def check_files(root: Path) -> List[Finding]:
         findings.extend(check_nav_duplicates(path, text))
         findings.extend(check_submodular_status(path, text, require_canonical=path.parent == root))
         findings.extend(check_academic_identity(path, text, root))
+        findings.extend(check_pgd_framing(path, text))
     generated_text_paths = list((root / "assets").rglob("*.json")) + [root / "feed.xml"]
     for path in sorted(p for p in generated_text_paths if p.is_file()):
         findings.extend(check_submodular_status(path, read_text(path)))

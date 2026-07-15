@@ -240,9 +240,9 @@
           <p class="article-meta">标签：Isabelle/HOL · Optimization · Formalisation · AFP</p>
           <p><strong>状态更新（2026年7月2日）：</strong>该项目已提交至 Archive of Formal Proofs，目前等待审核。</p>
 
-          <p>在完成子模优化项目的 AFP cleanup 之后，我原本以为下一步会很直接，比如整理+提交+等待 review，然后再慢慢考虑下一个 Isabelle 项目，但实际流程没有这么线性。AFP 那边暂时出现了一些技术性的 blocking issue，我问了负责人之后得到的答复是还需要等一等，于是这段时间变成了一个很微妙的空档，刚好又考完闲得慌。</p>
-          <p>我不太想把这段时间完全空掉，于是我开始做另一个 Isabelle/HOL 项目：Projected Gradient Descent in Isabelle/HOL。</p>
-          <p>这次的对象从 combinatorial optimization 里的 submodular greedy 转到了 smooth convex optimization 里的 first-order methods。表面上看它像是换了一个方向，从集合函数和贪心算法换成梯度下降、投影、凸性、光滑性和收敛率。但对我来说这两个项目其实在同一条线上，它们都不是简单地把一个定理搬进 Isabelle，而是在问同一个问题：如果一个算法证明要变成真正可复用、可检查、可继续扩展的形式化结构，它需要被拆成哪些层？</p>
+          <p>Projected gradient descent 是带约束光滑优化中最基本的算法模板之一。它的标准收敛证明同时依赖投影几何、光滑性、凸性与 telescoping argument，因此对这一结果进行形式化，是检验如何在 Isabelle/HOL 中构建可复用优化基础设施的一个自然案例。</p>
+          <p>该 formalization 覆盖 projection inequality、projected-gradient mapping、光滑凸情形的收敛结论、强凸情形的线性收敛，以及从具体算法中抽出的可复用 telescoping 结构。项目的目标并不只是复现一条经典定理，而是把这些相互依赖的证明组件整理成可检查、可复用、可继续扩展的 library surface。</p>
+          <p>这也延续了子模优化项目中的同一条问题线：如果一个算法证明要成为真正可复用的形式化结构，它的几何、分析假设、递推论证与最终 theorem interface 应当怎样分层？</p>
 
           <h2>为什么是 projected gradient descent</h2>
           <p>Projected gradient descent 是优化里非常基础但也非常核心的一类方法。无约束的 gradient descent 已经是 first-order optimization 的入口，而 projected gradient descent 则把可行域约束放进了迭代过程里：每一步先沿着负梯度方向走，再投影回可行集合。</p>
@@ -315,9 +315,9 @@
           <p class="article-meta">Tags: Isabelle/HOL · Optimization · Formalisation · AFP</p>
           <p><strong>Status update (July 2, 2026):</strong> This project has been submitted to the Archive of Formal Proofs and is awaiting review.</p>
 
-          <p>After finishing the AFP cleanup for my submodular optimization project, I thought the next step would be linear: polish, submit, wait for review, and only later think about another Isabelle project. In practice, the process has not been that linear. The AFP side is temporarily blocked by a technical issue, and after asking the maintainer I learned that I need to wait a bit. So this became a strange open interval after exams.</p>
-          <p>I did not want that interval to go empty, so I started another Isabelle/HOL project: Projected Gradient Descent in Isabelle/HOL.</p>
-          <p>This time the object moves from submodular greedy in combinatorial optimization to first-order methods in smooth convex optimization. On the surface this looks like a different direction: from set functions and greedy algorithms to gradient descent, projection, convexity, smoothness, and convergence rates. But to me the two projects belong to the same line. They are not just about moving one theorem into Isabelle; they ask how an algorithmic proof should be decomposed if it is meant to become reusable, checkable, and extensible formal infrastructure.</p>
+          <p>Projected gradient descent is one of the basic algorithmic templates for constrained smooth optimization. Its standard convergence proof combines projection geometry, smoothness, convexity, and a telescoping argument; formalizing the result therefore provides a useful test case for building reusable optimization infrastructure in Isabelle/HOL.</p>
+          <p>The formalization covers the projection inequality, the projected-gradient mapping, convergence in the smooth convex setting, linear convergence under strong convexity, and reusable telescoping structures extracted from the concrete algorithm. The aim is not merely to reproduce a classical theorem, but to organize its interdependent proof components into a checkable and extensible library surface.</p>
+          <p>This continues the same question that shaped the submodular project: if an algorithmic proof is meant to become reusable formal infrastructure, how should its geometry, analytic assumptions, recurrence arguments, and public theorem interface be separated?</p>
 
           <h2>Why projected gradient descent</h2>
           <p>Projected gradient descent is one of the basic but central methods in optimization. Unconstrained gradient descent is already the entry point to first-order optimization, and projected gradient descent folds feasibility constraints directly into the iteration: take a negative-gradient step, then project back to the feasible set.</p>
