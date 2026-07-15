@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import re
+import xml.etree.ElementTree as ET
 from dataclasses import dataclass
 from html.parser import HTMLParser
 from pathlib import Path
@@ -88,6 +89,33 @@ LEGACY_HOME_SECTION_TITLES = (
 LEGACY_TECHNICAL_NOTES_VISUAL_PATTERNS = (
     "math-fractal-highlight",
     "medium.com/@syedalihamza23",
+)
+LEGACY_REDIRECT_PAGES = {
+    "blank.html",
+    "blank-1.html",
+    "portfolio-1.html",
+    "yin-le.html",
+    "research-summary.html",
+}
+SEO_LASTMOD = "2026-07-15"
+SEO_LASTMOD_PATHS = {
+    "https://lyuf09.github.io/chronohaze/",
+    "https://lyuf09.github.io/chronohaze/academic.html",
+    "https://lyuf09.github.io/chronohaze/research.html",
+    "https://lyuf09.github.io/chronohaze/projects.html",
+    "https://lyuf09.github.io/chronohaze/cv.html",
+    "https://lyuf09.github.io/chronohaze/math.html",
+    "https://lyuf09.github.io/chronohaze/music.html",
+    "https://lyuf09.github.io/chronohaze/photography.html",
+}
+PUBLIC_NOTE_PATHS = {
+    "notes/ttgda_second_order_tracking_note",
+    "notes/theorem11_convexity_note",
+    "notes/huber_glm_sparsification_refinement_note",
+}
+LEGACY_PUBLIC_COPY_PATTERNS = (
+    "辗转不同国家无固定号码",
+    "No fixed phone number while moving across countries",
 )
 
 
@@ -307,6 +335,93 @@ def check_technical_notes_visual(path: Path, text: str, root: Path) -> List[Find
     ]
 
 
+def check_hreflang_duplicates(path: Path, text: str) -> List[Finding]:
+    values = re.findall(
+        r'<link\b[^>]*\brel=["\']alternate["\'][^>]*\bhreflang=["\']([^"\']+)',
+        text,
+        flags=re.I,
+    )
+    if len(values) == len(set(values)):
+        return []
+    return [Finding(path, "hreflang", f"Duplicate hreflang alternates found: {values}")]
+
+
+def check_legacy_redirect_noindex(path: Path, text: str, root: Path) -> List[Finding]:
+    if path.parent != root or path.name not in LEGACY_REDIRECT_PAGES:
+        return []
+    if re.search(r'<meta\b[^>]*name=["\']robots["\'][^>]*content=["\'][^"\']*noindex', text, re.I):
+        return []
+    return [Finding(path, "legacy-indexing", "Legacy or redirect page is missing a noindex directive")]
+
+
+def check_legacy_public_copy(path: Path, text: str) -> List[Finding]:
+    return [
+        Finding(path, "public-copy", f"Legacy public wording found: {pattern!r}")
+        for pattern in LEGACY_PUBLIC_COPY_PATTERNS
+        if pattern.lower() in text.lower()
+    ]
+
+
+def check_seo_artifacts(root: Path) -> List[Finding]:
+    findings: List[Finding] = []
+    robots_path = root / "robots.txt"
+    if not robots_path.is_file():
+        findings.append(Finding(robots_path, "robots", "robots.txt is missing"))
+    else:
+        robots = read_text(robots_path)
+        if re.search(r"Disallow:\s*/\*?\.pdf", robots, re.I):
+            findings.append(Finding(robots_path, "robots", "Public technical-note PDFs are globally disallowed"))
+
+    sitemap_path = root / "sitemap.xml"
+    if not sitemap_path.is_file():
+        findings.append(Finding(sitemap_path, "sitemap", "sitemap.xml is missing"))
+    else:
+        try:
+            tree = ET.parse(sitemap_path)
+            ns = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+            entries = {
+                node.findtext("s:loc", default="", namespaces=ns): node.findtext(
+                    "s:lastmod", default="", namespaces=ns
+                )
+                for node in tree.getroot().findall("s:url", ns)
+            }
+            for loc in SEO_LASTMOD_PATHS:
+                if entries.get(loc) != SEO_LASTMOD:
+                    findings.append(
+                        Finding(sitemap_path, "sitemap", f"{loc} lastmod is not {SEO_LASTMOD}")
+                    )
+            for stem in PUBLIC_NOTE_PATHS:
+                for suffix in (".html", ".pdf"):
+                    loc = f"https://lyuf09.github.io/chronohaze/{stem}{suffix}"
+                    if entries.get(loc) != SEO_LASTMOD:
+                        findings.append(
+                            Finding(sitemap_path, "sitemap", f"Public note is missing/current lastmod is stale: {loc}")
+                        )
+        except ET.ParseError as exc:
+            findings.append(Finding(sitemap_path, "sitemap", f"Invalid sitemap XML: {exc}"))
+
+    feed_path = root / "feed.xml"
+    if not feed_path.is_file():
+        findings.append(Finding(feed_path, "rss", "feed.xml is missing"))
+    else:
+        try:
+            channel = ET.parse(feed_path).getroot().find("channel")
+            if channel is None:
+                findings.append(Finding(feed_path, "rss", "RSS channel is missing"))
+            else:
+                build_date = channel.findtext("lastBuildDate", default="")
+                if "Jul 2026" not in build_date:
+                    findings.append(Finding(feed_path, "rss", "RSS lastBuildDate does not reflect July 2026"))
+                links = {item.findtext("link", default="") for item in channel.findall("item")}
+                for stem in PUBLIC_NOTE_PATHS:
+                    loc = f"https://lyuf09.github.io/chronohaze/{stem}.html"
+                    if loc not in links:
+                        findings.append(Finding(feed_path, "rss", f"Public note is missing from RSS: {loc}"))
+        except ET.ParseError as exc:
+            findings.append(Finding(feed_path, "rss", f"Invalid RSS XML: {exc}"))
+    return findings
+
+
 def check_files(root: Path) -> List[Finding]:
     findings: List[Finding] = []
     for path in sorted(root.rglob("*.html")):
@@ -323,6 +438,9 @@ def check_files(root: Path) -> List[Finding]:
         findings.extend(check_pgd_framing(path, text))
         findings.extend(check_home_section_titles(path, text, root))
         findings.extend(check_technical_notes_visual(path, text, root))
+        findings.extend(check_hreflang_duplicates(path, text))
+        findings.extend(check_legacy_redirect_noindex(path, text, root))
+        findings.extend(check_legacy_public_copy(path, text))
     generated_text_paths = list((root / "assets").rglob("*.json")) + [root / "feed.xml"]
     for path in sorted(p for p in generated_text_paths if p.is_file()):
         findings.extend(check_submodular_status(path, read_text(path)))
@@ -334,6 +452,7 @@ def check_files(root: Path) -> List[Finding]:
         for pattern in RUNTIME_ACADEMIC_LEGACY_PATTERNS:
             if pattern in text:
                 findings.append(Finding(path, "academic-runtime", f"Legacy runtime identity/status found: {pattern!r}"))
+    findings.extend(check_seo_artifacts(root))
     return findings
 
 

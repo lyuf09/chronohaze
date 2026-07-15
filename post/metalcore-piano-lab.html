@@ -152,13 +152,12 @@
   <meta name="twitter:description" content="Metalcore Piano Lab：从连续音频到离散音游谱面的结构化实验。" />
   <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/metalcore-piano-lab.png" />
   <link rel="canonical" href="https://lyuf09.github.io/chronohaze/post/metalcore-piano-lab.html" />
-
-  <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
   <!-- GENERATED:hreflang:start -->
   <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/post/metalcore-piano-lab.html?lang=zh" />
   <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/post/metalcore-piano-lab.html?lang=en" />
   <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/post/metalcore-piano-lab.html" />
   <!-- GENERATED:hreflang:end -->
+  <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
   <!-- Google tag (gtag.js), deferred until idle -->
   <script>
     (function () {
@@ -238,7 +237,7 @@
   <p><strong>Metalcore Piano Lab</strong> 是我最近做的一个浏览器端原型，上传一首 metalcore / prog-metal 的音频（或者midi），系统会自动分析并生成钢琴式多轨谱面，让它能直接玩起来。它还在开发中，目前谱子的识别还有很多需要优化的地方，但我想先把它作为一篇数学栏目里的研究记录，留下一条清晰的思路。</p>
 
   <h2>我在做什么</h2>
-  <p>这是一个研究导向的 web rhythm game prototype（虽然其实就是我自己做着玩儿的但是说不定之后申请博士可以把这个写进去所以稍微弄得科研了一点）。</p>
+  <p>这是一个研究导向的 web rhythm game prototype，用来测试从连续音频到可玩离散谱面的完整 pipeline。</p>
   <p>使用方式很简单：上传本地音频（mp3 / wav / m4a）或MIDI文件，点击 Analyze，等待系统生成谱面，然后用键盘进行游玩（支持 4/6/8 keys 与多难度）。</p>
 
   <h2>核心思路：从连续信号到离散事件</h2>
@@ -251,8 +250,8 @@
     <li><strong>感知对齐</strong><br />最后要对齐的不只是“数学上的时间点”，还有人的感知，比如哪些音该强调，哪些密度会让手感爆炸，哪些模式会更像可以练出来的谱面。</li>
   </ul>
 
-  <h2>为什么把它放在「数学」栏目</h2>
-  <p>因为这里面最有趣的不是“写了个小游戏”，而是：<strong>你必须把一堆模糊的直觉（听感、重拍、段落、可玩性）变成可计算、可复现的结构。</strong></p>
+  <h2>作为计算实验</h2>
+  <p>这个原型把听感、重拍、段落与可玩性转化为可计算、可复现的约束。</p>
   <p>而金属核前卫核恰好非常适合作为压力测试，节奏密、切分多、等等，它会逼着算法正面回答什么叫“稳定”，什么叫“一致”，什么叫“人类会觉得合理”。</p>
 
   <h2>当前状态（以及它还没完善地方）</h2>
@@ -261,7 +260,7 @@
     <li>目前是 <strong>browser-native</strong> 的轻量实现，没有做深度的 stem separation（所以混音很糊或层次很复杂时会更难）。</li>
     <li>遇到复杂 polymeter 或突然变速（abrupt tempo changes），beat/拍号相关的稳定性可能会下降，导致谱面质量波动。</li>
   </ul>
-  <p>但我并不觉得这是失败，反耳（🤭）更像实验记录里必须留下的边界条件，哪些输入会让系统崩，哪些改动能改善它。</p>
+  <p>这些失效模式构成下一轮迭代的边界条件：哪些输入会使分析失稳，以及哪些改动能够改善结果。</p>
 
   <h2>接下来要优化什么</h2>
   <p>我接下来的重点会放在“自动生成谱面更像人写的”这件事上：</p>

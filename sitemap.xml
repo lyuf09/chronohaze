@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://lyuf09.github.io/chronohaze/</loc>
-    <lastmod>2026-05-08</lastmod>
+    <lastmod>2026-07-15</lastmod>
   </url>
   <url>
     <loc>https://lyuf09.github.io/chronohaze/accessibility.html</loc>
@@ -14,27 +14,27 @@
   </url>
   <url>
     <loc>https://lyuf09.github.io/chronohaze/cv.html</loc>
-    <lastmod>2026-03-05</lastmod>
+    <lastmod>2026-07-15</lastmod>
   </url>
   <url>
     <loc>https://lyuf09.github.io/chronohaze/research.html</loc>
-    <lastmod>2026-05-08</lastmod>
+    <lastmod>2026-07-15</lastmod>
   </url>
   <url>
     <loc>https://lyuf09.github.io/chronohaze/academic.html</loc>
-    <lastmod>2026-05-08</lastmod>
+    <lastmod>2026-07-15</lastmod>
   </url>
   <url>
     <loc>https://lyuf09.github.io/chronohaze/projects.html</loc>
-    <lastmod>2026-05-08</lastmod>
+    <lastmod>2026-07-15</lastmod>
   </url>
   <url>
     <loc>https://lyuf09.github.io/chronohaze/math.html</loc>
-    <lastmod>2026-03-23</lastmod>
+    <lastmod>2026-07-15</lastmod>
   </url>
   <url>
     <loc>https://lyuf09.github.io/chronohaze/search.html</loc>
-    <lastmod>2026-05-08</lastmod>
+    <lastmod>2026-07-15</lastmod>
   </url>
   <url>
     <loc>https://lyuf09.github.io/chronohaze/music/album-ipomoea-alba.html</loc>
@@ -262,39 +262,59 @@
   </url>
   <url>
     <loc>https://lyuf09.github.io/chronohaze/photography.html</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-07-15</lastmod>
   </url>
   <url>
     <loc>https://lyuf09.github.io/chronohaze/notes/ttgda_second_order_tracking_note.html</loc>
-    <lastmod>2026-06-20</lastmod>
+    <lastmod>2026-07-15</lastmod>
+  </url>
+  <url>
+    <loc>https://lyuf09.github.io/chronohaze/notes/ttgda_second_order_tracking_note.pdf</loc>
+    <lastmod>2026-07-15</lastmod>
+  </url>
+  <url>
+    <loc>https://lyuf09.github.io/chronohaze/notes/theorem11_convexity_note.html</loc>
+    <lastmod>2026-07-15</lastmod>
+  </url>
+  <url>
+    <loc>https://lyuf09.github.io/chronohaze/notes/theorem11_convexity_note.pdf</loc>
+    <lastmod>2026-07-15</lastmod>
+  </url>
+  <url>
+    <loc>https://lyuf09.github.io/chronohaze/notes/huber_glm_sparsification_refinement_note.html</loc>
+    <lastmod>2026-07-15</lastmod>
+  </url>
+  <url>
+    <loc>https://lyuf09.github.io/chronohaze/notes/huber_glm_sparsification_refinement_note.pdf</loc>
+    <lastmod>2026-07-15</lastmod>
   </url>
   <url>
     <loc>https://lyuf09.github.io/chronohaze/post/dual-score-saddle-certificates.html</loc>
-    <lastmod>2026-05-22</lastmod>
+    <lastmod>2026-07-15</lastmod>
   </url>
   <url>
     <loc>https://lyuf09.github.io/chronohaze/post/projected-gradient-descent-isabelle-hol.html</loc>
-    <lastmod>2026-05-22</lastmod>
+    <lastmod>2026-07-15</lastmod>
   </url>
   <url>
     <loc>https://lyuf09.github.io/chronohaze/post/what-i-really-got-when-a-dual-route-failed.html</loc>
-    <lastmod>2026-03-23</lastmod>
+    <lastmod>2026-07-15</lastmod>
   </url>
   <url>
     <loc>https://lyuf09.github.io/chronohaze/post/theorem-to-framework-isabelle-submodular.html</loc>
-    <lastmod>2026-03-14</lastmod>
+    <lastmod>2026-07-15</lastmod>
   </url>
   <url>
     <loc>https://lyuf09.github.io/chronohaze/post/first-isabelle-proof.html</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-07-15</lastmod>
   </url>
   <url>
     <loc>https://lyuf09.github.io/chronohaze/post/isabelle-submodular-greedy.html</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-07-15</lastmod>
   </url>
   <url>
     <loc>https://lyuf09.github.io/chronohaze/post/metalcore-piano-lab.html</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-07-15</lastmod>
   </url>
   <url>
     <loc>https://lyuf09.github.io/chronohaze/post/spring-2026.html</loc>
@@ -302,6 +322,6 @@
   </url>
   <url>
     <loc>https://lyuf09.github.io/chronohaze/music.html</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-07-15</lastmod>
   </url>
 </urlset>

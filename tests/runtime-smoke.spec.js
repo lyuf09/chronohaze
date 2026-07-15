@@ -44,6 +44,8 @@ test("home page renders hero and player shell", async ({ page }) => {
   await expect(page.locator(".identity-panel-creative")).toContainText("CREATIVE IDENTITY · HAZEZZ");
   await expect(page.locator("#homeMathPreview")).toHaveCount(0);
   await expect(page.locator("#now")).not.toContainText("正式发表于 AFP");
+  await expect(page.locator(".hero-authority-line")).toContainText("2005 年出生");
+  await expect(page.locator("#welcome")).toContainText("理性与浪漫在这里并置");
 
   expect(errors).toEqual([]);
 });
@@ -76,7 +78,7 @@ test("home hero keeps distinct Chinese and English identities", async ({ page })
     "This site gathers the work that continues between them."
   );
   await expect(page.locator(".hero-authority-line")).toContainText(
-    "Mathematics at Edinburgh · Cornell 2025–26"
+    "Born in 2005 · Mathematics at Edinburgh · Cornell 2025–26"
   );
   await expect(page.getByRole("heading", { name: "Research Snapshot" })).toBeVisible();
 
@@ -143,6 +145,7 @@ test("music index renders and remains interactive", async ({ page }) => {
   await expect(page.locator(".music-room-album-credit")).toHaveText(
     "Written, arranged, performed and produced by HazezZ, unless otherwise noted."
   );
+  await expect(page.locator("main")).toContainText("low-frequency skeleton");
 
   expect(errors).toEqual([]);
 });
@@ -494,13 +497,15 @@ test("academic page isolates languages and renders a concise academic index", as
   await expect(evidence.locator('[data-lang-block="en"]')).toBeVisible();
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
   await expect(page.locator("body")).toHaveAttribute("data-rendered-lang", "en");
-  await expect(page.getByText("What changes when structure is transformed?", { exact: true })).toBeVisible();
+  await expect(page.getByText("Outputs and proof dependencies", { exact: true })).toBeVisible();
   await expect(page.locator('.research-hero [data-lang-block="en"]')).toContainText("Feier Lyu (Fay Lyu)");
   await expect(page.locator('.research-hero [data-lang-block="en"]')).toContainText(
     "algorithmic arguments can be decomposed into reusable machine-checked structures"
   );
   await expect(evidence.locator('[data-lang-block="en"]')).toContainText("Published in AFP (2026)");
   await expect(evidence.locator('[data-lang-block="en"]')).toContainText("Post-publication extension");
+  await expect(page.locator("main")).not.toContainText("Born in 2005");
+  await expect(page.locator("main")).not.toContainText("HazezZ");
 
   const metrics = await page.evaluate(() => ({
     viewport: window.innerWidth,
@@ -582,7 +587,7 @@ test("technical notes use explicit status labels and no external fractal", async
 
   await expect(page.locator(".math-fractal-highlight")).toHaveCount(0);
   await expect(page.locator("#pinned-notes .math-note-status")).toHaveCount(4);
-  await expect(page.locator("#notes-archive .math-note-status")).toHaveCount(9);
+  await expect(page.locator("#notes-archive .math-note-status")).toHaveCount(11);
   const labels = await page.locator(".math-note-status").allTextContents();
   const allowed = new Set([
     "Published formalization",
@@ -595,7 +600,7 @@ test("technical notes use explicit status labels and no external fractal", async
   expect(errors).toEqual([]);
 });
 
-test("new AFP note leads the math archive and exposes primary evidence", async ({ page }) => {
+test("July notes lead the math archive and AFP work exposes primary evidence", async ({ page }) => {
   const errors = trackPageErrors(page);
 
   await page.goto("math.html?lang=zh", { waitUntil: "domcontentloaded" });
@@ -616,9 +621,11 @@ test("new AFP note leads the math archive and exposes primary evidence", async (
     "Isabelle Submodular Greedy Project"
   );
   await expect(page.locator("#notes-archive")).toBeVisible();
-  const firstNote = page.locator(".math-list .math-card").first();
-  await expect(firstNote).toContainText("子模贪心算法形式化正式进入 AFP");
-  await expect(firstNote.locator(".math-date")).toContainText("2026-06-30");
+  const archiveNotes = page.locator(".math-list .math-card");
+  await expect(archiveNotes.nth(0)).toContainText("Theorem 11 必要性方向中的凸性问题");
+  await expect(archiveNotes.nth(1)).toContainText("稀疏化后的 Exact Huber GLMs");
+  await expect(archiveNotes.nth(2)).toContainText("子模贪心算法形式化正式进入 AFP");
+  await expect(archiveNotes.nth(2).locator(".math-date")).toContainText("2026-06-30");
 
   await page.goto("post/submodular-greedy-formalization-enters-afp.html?lang=zh", {
     waitUntil: "domcontentloaded",

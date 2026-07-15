@@ -2,7 +2,7 @@
 
 <html lang="zh-CN">
 <head>
-                                                                                                                                                                                    <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
+                                                                                                                                                                                                    <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
 <style id="chronohaze-critical-loader-style">
     html.chronohaze-critical-loading,
@@ -195,7 +195,7 @@
 <div class="container footer-grid">
 <div>
 <p class="footer-title">chronohaze.space</p>
-<p class="footer-note">辗转不同国家无固定号码 请联系邮箱：<a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a></p>
+<p class="footer-note">联系邮箱：<a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a></p>
 <p class="footer-note">重庆 · Edinburgh · Ithaca</p>
 <p class="footer-copy">© 2026 by chronohaze.space. Powered and secured by GitHub Pages.</p>
 <div aria-label="Social links" class="social">
@@ -217,6 +217,34 @@
   "generated_at": "2026-07-15",
   "items": [
     {
+      "title": "Theorem 11 必要性方向中的凸性问题",
+      "url": "notes/theorem11_convexity_note.html",
+      "section": "Mathematics",
+      "date": "2026-07-15",
+      "excerpt": "梳理 Theorem 11 必要性方向中的凸化步骤，检查 envelope submeasure、fragmentation numbers，以及从一般分布类 U 进入 Lemma 18 与 Theorem 19 所需凸性条件的桥接。",
+      "tags": [
+        "math",
+        "article"
+      ],
+      "sort": 20260715,
+      "scope": "math",
+      "content": "Selected Work Research Statement Technical Notes Back to Technical Notes Convexity in the Necessity Direction of Theorem 11 Feier Lyu · Technical note · Learning Theory / Private Learning / Distributional Constraints · July 2026 This note traces the necessity direction around Theorem 11, records a convexification check for the envelope submeasure and fragmentation numbers, and isolates the bridge from a general distribution class U to the convex setting used in Lemma 18 and Theorem 19. Open PDF Notes Index If the preview does not load in your browser, use Open PDF ."
+    },
+    {
+      "title": "稀疏化后的 Exact Huber GLMs：Active Curvature 与 Kink Switching",
+      "url": "notes/huber_glm_sparsification_refinement_note.html",
+      "section": "Mathematics",
+      "date": "2026-07-15",
+      "excerpt": "研究稀疏化后的局部 refinement 是否能够保留 exact Huber loss 的 active quadratic curvature，同时控制 affine-tail behavior 与 Huber kink 附近的切换。",
+      "tags": [
+        "math",
+        "article"
+      ],
+      "sort": 20260715,
+      "scope": "math",
+      "content": "Selected Work Research Statement Technical Notes Back to Technical Notes Exact Huber GLMs after Sparsification: Active Curvature and Kink Switching Feier Lyu · Technical note · Optimization / Sparsification / GLMs · April 2026 · updated July 2026 This note asks whether a sparsified local refinement step can preserve the active quadratic curvature of exact Huber losses while controlling affine-tail behavior and switching near the Huber kink. Open PDF Notes Index If the preview does not load in your browser, use Open PDF ."
+    },
+    {
       "title": "Research Statement | Feier Lyu (Fay Lyu)",
       "url": "research.html",
       "section": "Site",
@@ -229,7 +257,7 @@
       ],
       "sort": 20260715,
       "scope": "site",
-      "content": "研究陈述 我的核心问题是：一个数学或计算对象在被形式化、对偶化、离散化与算法化之后，其结构如何变化——哪些依赖被暴露、哪些信息被保留、哪些约束仍可计算。 主要研究方向 代表性工作入口 几项最能支撑上面研究线索的项目和笔记。 同一个结构问题 PRIMARY DIRECTION 01 机器检查优化与可复用证明结构 我正在使用 Isabelle/HOL 形式化一阶优化方法与子模贪心算法中的经典证明结构。这里我关心的不只是把定理放进 proof assistant，而是如何把证明中的依赖、接口和可复用部分写清楚。 正式发表于 AFP（2026）：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库还进一步发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。关于 smooth convex optimization 与 projected gradient descent 的第二个形式化项目已提交至 Archive of Formal Proofs，目前等待审核。 接下来我想继续思考的是：怎样把这些形式化结果整理成更稳定的 library，使它们既适合展示和归档，也能支持后续扩展。 AFP entry DOI: 10.5281/zenodo.21054718 Proof document Repository PRIMARY DIRECTION 02 优化中的不变性、对偶与定位 在一些优化模型中，最自然的对偶路线会因为 translation 或 gauge invariance 而退化，最后只得到 trivial lower bound。我感兴趣的是：这种退化到底说明了推导失败，还是说明模型本身隐藏着另一种结构？ 我目前尤其关注 network localization 中 Range(B)、cycle consistency 与 instance difficulty 的关系。这条线的核心不是单纯追求更强的 bound，而是理解在对偶信息 collapse 之后，是否仍能恢复可解释、可比较的 structural score。 SUPPORTING COMPUTATIONAL AND CREATIVE SYSTEMS WORK 节奏、和声与编曲的符号和结构表征 这项旁支工作研究如何把 audio / rhythm streams、和声关系与 arrangement constraints 转换为可检查的离散对象，并观察哪些结构在算法化之后仍然有效。 Metalcore Piano Lab 与相…"
+      "content": "研究陈述 我的核心问题是：一个数学或计算对象在被形式化、对偶化、离散化与算法化之后，其结构如何变化——哪些依赖被暴露、哪些信息被保留、哪些约束仍可计算。 主要研究方向 代表性工作入口 几项最能支撑上面研究线索的项目和笔记。 研究范围 PRIMARY DIRECTION 01 机器检查优化与可复用证明结构 我正在使用 Isabelle/HOL 形式化一阶优化方法与子模贪心算法中的经典证明结构。这里我关心的不只是把定理放进 proof assistant，而是如何把证明中的依赖、接口和可复用部分写清楚。 正式发表于 AFP（2026）：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库还进一步发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。关于 smooth convex optimization 与 projected gradient descent 的第二个形式化项目已提交至 Archive of Formal Proofs，目前等待审核。 接下来我想继续思考的是：怎样把这些形式化结果整理成更稳定的 library，使它们既适合展示和归档，也能支持后续扩展。 AFP entry DOI: 10.5281/zenodo.21054718 Proof document Repository PRIMARY DIRECTION 02 优化中的不变性、对偶与定位 在一些优化模型中，最自然的对偶路线会因为 translation 或 gauge invariance 而退化，最后只得到 trivial lower bound。我感兴趣的是：这种退化到底说明了推导失败，还是说明模型本身隐藏着另一种结构？ 我目前尤其关注 network localization 中 Range(B)、cycle consistency 与 instance difficulty 的关系。这条线的核心不是单纯追求更强的 bound，而是理解在对偶信息 collapse 之后，是否仍能恢复可解释、可比较的 structural score。 SUPPORTING COMPUTATIONAL AND CREATIVE SYSTEMS WORK 节奏、和声与编曲的符号和结构表征 这项旁支工作研究如何把 audio / rhythm streams、和声关系与 arrangement constraints 转换为可检查的离散对象，并测试这些表示在算法处理后的可靠性。 Metalcore Piano Lab 与相关 m…"
     },
     {
       "title": "Olfactory Notes / 调香手记",
@@ -273,7 +301,7 @@
       ],
       "sort": 20260600,
       "scope": "math",
-      "content": "Research Statement Selected Work Technical Notes Back to Technical Notes Schur-Complement Hessian Tracking in TTGDA A Note on Possible Second-Order Extensions Feier Lyu · Technical note · Optimization / Minimax Learning · June 2026 A note on possible second-order extensions of TTGDA: if tracking y_t toward y*(x_t) controls the first-order error in the value-function viewpoint, can an analogous tracking argument control the Schur-complement Hessian well enough for saddle escaping? Open PDF Notes Index If the preview does not load in your browser, use Open PDF ."
+      "content": "Selected Work Research Statement Technical Notes Back to Technical Notes Schur-Complement Hessian Tracking in TTGDA A Note on Possible Second-Order Extensions Feier Lyu · Technical note · Optimization / Minimax Learning · June 2026 A note on possible second-order extensions of TTGDA: if tracking y_t toward y*(x_t) controls the first-order error in the value-function viewpoint, can an analogous tracking argument control the Schur-complement Hessian well enough for saddle escaping? Open PDF Notes Index If the preview does not load in your browser, use Open PDF ."
     },
     {
       "title": "从 dual score 到 saddle certificates 的一点新进展",
@@ -358,7 +386,7 @@
       ],
       "sort": 20260508,
       "scope": "site",
-      "content": "Selected Work Research Statement Technical Notes Academic 学术 Feier Lyu （Fay Lyu） 我研究优化与形式化验证，尤其关注如何将算法论证分解为可复用、机器检查的结构。 子模最大化形式化 发表于 AFP（2026） Isabelle/HOL 中的一阶方法 Projected Gradient Descent 形式化项目 非凸极小极大与定位 进行中的理论研究 Selected Work Research Statement CV GitHub Academic Academic Feier Lyu (Fay Lyu) I work on optimization and formal verification, with a particular interest in how algorithmic arguments can be decomposed into reusable machine-checked structures. Formalization of submodular maximization Published in AFP (2026) First-order methods in Isabelle/HOL Projected Gradient Descent project Nonconvex minimax and localization Ongoing theoretical work Selected Work Research Statement CV GitHub THE RESEARCH LINE 结构在被转写之后如何变化？ 我的最高层问题是：数学结构在被形式化、对偶化、离散化与算法化之后如何变化。 形式化揭示 theorem dependencies 与可复用接口；对偶与不变性揭示哪些信息仍被保留；离散化则检验哪些约束在计算对象中仍有意义。 正式发表于 AFP（2026）：对基数约束单调子模最大化的 classical greedy 与 verified stateful lazy-greedy 进行形式化。 发表后扩展：当前仓库进一步发展 stochastic-greedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。 AFP entry Theory dependencies Submodular repository PGD repository THE RESEARCH LINE What changes when structure is transformed? My central question is how mathema…"
+      "content": "Selected Work Research Statement Technical Notes Academic 学术 Feier Lyu （Fay Lyu） 我研究优化与形式化验证，尤其关注如何将算法论证分解为可复用、机器检查的结构。 子模最大化形式化 发表于 AFP（2026） Isabelle/HOL 中的一阶方法 Projected Gradient Descent 形式化项目 非凸极小极大与定位 进行中的理论研究 Selected Work Research Statement CV GitHub Academic Academic Feier Lyu (Fay Lyu) I work on optimization and formal verification, with a particular interest in how algorithmic arguments can be decomposed into reusable machine-checked structures. Formalization of submodular maximization Published in AFP (2026) First-order methods in Isabelle/HOL Projected Gradient Descent project Nonconvex minimax and localization Ongoing theoretical work Selected Work Research Statement CV GitHub EVIDENCE 成果与证明依赖 这里只保留已发表范围、发表后扩展与可核查入口；完整研究主线见 Research Statement。 正式发表于 AFP（2026）：对基数约束单调子模最大化的 classical greedy 与 verified stateful lazy-greedy 进行形式化。 发表后扩展：当前仓库进一步发展 stochastic-greedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。 AFP entry Theory dependencies Submodular repository PGD repository EVIDENCE Outputs and proof dependencies This section keeps only the published scope, post-publication extension, and verifiable entry points; the full research line is in…"
     },
     {
       "title": "Selected Work",
@@ -492,7 +520,7 @@
       ],
       "sort": 20260217,
       "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV Blue 毕业作品视频 您的浏览器暂不支持视频播放。 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
+      "content": "chronohaze.space 主页 数学 摄影 音乐 CV Blue 毕业作品视频 您的浏览器暂不支持视频播放。 返回摄影栏目 chronohaze.space 联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
     },
     {
       "title": "Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP）",
@@ -506,7 +534,7 @@
       ],
       "sort": 20260207,
       "scope": "math",
-      "content": "Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP） HazezZ · 2月7日 有时候我会觉得音乐里最数学的部分不是和声或调式，而是 节奏如何从连续变成可数 。 一段音频是连续的时间信号，而音游谱面是一串离散事件（notes），把前者映射到后者，本质上就是一次结构化的离散化：检测、估计、分段、对齐，最后再把结果变成可玩的交互。 Metalcore Piano Lab 是我最近做的一个浏览器端原型，上传一首 metalcore / prog-metal 的音频（或者midi），系统会自动分析并生成钢琴式多轨谱面，让它能直接玩起来。它还在开发中，目前谱子的识别还有很多需要优化的地方，但我想先把它作为一篇数学栏目里的研究记录，留下一条清晰的思路。 我在做什么 这是一个研究导向的 web rhythm game prototype（虽然其实就是我自己做着玩儿的但是说不定之后申请博士可以把这个写进去所以稍微弄得科研了一点）。 使用方式很简单：上传本地音频（mp3 / wav / m4a）或MIDI文件，点击 Analyze，等待系统生成谱面，然后用键盘进行游玩（支持 4/6/8 keys 与多难度）。 核心思路：从连续信号到离散事件 目前的流水线大致是这样： 起音/打点检测 哪些时间点“发生了事件”？鼓点、拨弦、重拍……这些瞬间决定了谱面的骨架。 速度估计与节拍跟踪 事件要落到哪里才“像音乐”？这一步给出一个节拍网格，让 notes 可以被量化，避免漂移。 拍号估计 让分组和重音更自然：尤其是在 prog-core 这种容易出现非典型分组的风格里，拍号会影响玩家的“理解成本”。 自适应分段与模板对齐 我很在意的一点是 重复段落的谱面一致性 ，同一个 riff 回来时如果谱面逻辑突然变形，玩家会立刻觉得怪怪的。 所以我更希望系统能识别段落结构，并尽量让重复段对齐，而不是每次都从零生成。 感知对齐 最后要对齐的不只是“数学上的时间点”，还有人的感知，比如哪些音该强调，哪些密度会让手感爆炸，哪些模式会更像可以练出来的谱面。 为什么把它放在「数学」栏目 因为这里面最有趣的不是“写了个小游戏”，而是： 你必须把一堆模糊的直觉（听感、重拍、段落、可玩性）变成可计算、可复现的结构。 而金属核前卫核恰好非常适合作为压力测试，节奏密、切分多、等等，它会逼着算法正面回答什么叫“稳定”，什么叫“一致”，什么叫“人类会觉得合理”。 当前状态（以及它还没完善地方） 这是一个 WIP 原型，所以我也把限制写清楚： 目前是 browser-native 的轻量实现，没有做深度的 stem separation（所以混音很糊或层次很复杂时会更难）。 遇到复杂 polymeter 或突然变速（abrupt tempo changes），beat/拍号相关的稳定性可能会下降…"
+      "content": "Research Statement Selected Work Technical Notes Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP） HazezZ · 2月7日 · 约 3 分钟 有时候我会觉得音乐里最数学的部分不是和声或调式，而是 节奏如何从连续变成可数 。 一段音频是连续的时间信号，而音游谱面是一串离散事件（notes），把前者映射到后者，本质上就是一次结构化的离散化：检测、估计、分段、对齐，最后再把结果变成可玩的交互。 Metalcore Piano Lab 是我最近做的一个浏览器端原型，上传一首 metalcore / prog-metal 的音频（或者midi），系统会自动分析并生成钢琴式多轨谱面，让它能直接玩起来。它还在开发中，目前谱子的识别还有很多需要优化的地方，但我想先把它作为一篇数学栏目里的研究记录，留下一条清晰的思路。 我在做什么 这是一个研究导向的 web rhythm game prototype，用来测试从连续音频到可玩离散谱面的完整 pipeline。 使用方式很简单：上传本地音频（mp3 / wav / m4a）或MIDI文件，点击 Analyze，等待系统生成谱面，然后用键盘进行游玩（支持 4/6/8 keys 与多难度）。 核心思路：从连续信号到离散事件 目前的流水线大致是这样： 起音/打点检测 哪些时间点“发生了事件”？鼓点、拨弦、重拍……这些瞬间决定了谱面的骨架。 速度估计与节拍跟踪 事件要落到哪里才“像音乐”？这一步给出一个节拍网格，让 notes 可以被量化，避免漂移。 拍号估计 让分组和重音更自然：尤其是在 prog-core 这种容易出现非典型分组的风格里，拍号会影响玩家的“理解成本”。 自适应分段与模板对齐 我很在意的一点是 重复段落的谱面一致性 ，同一个 riff 回来时如果谱面逻辑突然变形，玩家会立刻觉得怪怪的。 所以我更希望系统能识别段落结构，并尽量让重复段对齐，而不是每次都从零生成。 感知对齐 最后要对齐的不只是“数学上的时间点”，还有人的感知，比如哪些音该强调，哪些密度会让手感爆炸，哪些模式会更像可以练出来的谱面。 作为计算实验 这个原型把听感、重拍、段落与可玩性转化为可计算、可复现的约束。 而金属核前卫核恰好非常适合作为压力测试，节奏密、切分多、等等，它会逼着算法正面回答什么叫“稳定”，什么叫“一致”，什么叫“人类会觉得合理”。 当前状态（以及它还没完善地方） 这是一个 WIP 原型，所以我也把限制写清楚： 目前是 browser-native 的轻量实现，没有做深度的 stem separation（所以混音很糊或层次很复杂时会更难）。 遇到复杂 polymeter 或突然变速（abrupt tempo changes），beat/拍号相关的稳定性可能…"
     },
     {
       "title": "Spring 2026｜新科研记录的开始",
@@ -940,7 +968,7 @@
       ],
       "sort": 20230101,
       "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 21/10/2023 英国格拉斯哥 · 2023年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
+      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 21/10/2023 英国格拉斯哥 · 2023年 返回摄影栏目 chronohaze.space 联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
     },
     {
       "title": "参照系",
@@ -954,7 +982,7 @@
       ],
       "sort": 20230101,
       "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 01/04/2023 中国重庆市 · 2023年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
+      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 01/04/2023 中国重庆市 · 2023年 返回摄影栏目 chronohaze.space 联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
     },
     {
       "title": "灰潮",
@@ -1112,7 +1140,7 @@
       ],
       "sort": 20220101,
       "scope": "photo",
-      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 2022、夏、某 英国韦茅斯 · 2022年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
+      "content": "chronohaze.space 主页 数学 摄影 音乐 CV 2022、夏、某 英国韦茅斯 · 2022年 返回摄影栏目 chronohaze.space 联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
     },
     {
       "title": "场外光",
@@ -1125,7 +1153,7 @@
       ],
       "sort": 20220101,
       "scope": "photo",
-      "content": "场外光 Offstage Light chronohaze.space 主页 数学 摄影 音乐 CV 14/06/2022 英国奥斯沃斯特里 · 2022年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
+      "content": "场外光 Offstage Light chronohaze.space 主页 数学 摄影 音乐 CV 14/06/2022 英国奥斯沃斯特里 · 2022年 返回摄影栏目 chronohaze.space 联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
     },
     {
       "title": "暗场",
@@ -1138,7 +1166,7 @@
       ],
       "sort": 20220101,
       "scope": "photo",
-      "content": "暗场 Dark Field chronohaze.space 主页 数学 摄影 音乐 CV 12/04/2022 英国奥斯沃斯特里 · 2022年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
+      "content": "暗场 Dark Field chronohaze.space 主页 数学 摄影 音乐 CV 12/04/2022 英国奥斯沃斯特里 · 2022年 返回摄影栏目 chronohaze.space 联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
     },
     {
       "title": "暗蓝花室",
@@ -1151,7 +1179,7 @@
       ],
       "sort": 20220101,
       "scope": "photo",
-      "content": "暗蓝花室 Blue Room for Flowers chronohaze.space 主页 数学 摄影 音乐 CV 01/06/2022 英国奥斯沃斯特里 · 2022年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
+      "content": "暗蓝花室 Blue Room for Flowers chronohaze.space 主页 数学 摄影 音乐 CV 01/06/2022 英国奥斯沃斯特里 · 2022年 返回摄影栏目 chronohaze.space 联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
     },
     {
       "title": "未成花",
@@ -1164,7 +1192,7 @@
       ],
       "sort": 20220101,
       "scope": "photo",
-      "content": "未成花 Before Bloom chronohaze.space 主页 数学 摄影 音乐 CV 01/05/2022 英国奥斯沃斯特里 · 2022年 返回摄影栏目 chronohaze.space 辗转不同国家无固定号码 请联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
+      "content": "未成花 Before Bloom chronohaze.space 主页 数学 摄影 音乐 CV 01/05/2022 英国奥斯沃斯特里 · 2022年 返回摄影栏目 chronohaze.space 联系邮箱： moc.duolci@035reief 重庆 · Edinburgh · New York © 2026 by chronohaze.space. Powered and secured by GitHub Pages. LinkedIn Instagram Bilibili GitHub 网站说明 无障碍支持"
     },
     {
       "title": "フォーマルハウト/南鱼座α",
@@ -1326,7 +1354,7 @@
       ],
       "sort": 0,
       "scope": "math",
-      "content": "Selected Work Research Statement Technical Notes 学术笔记 / Technical Notes Feier Lyu（Fay Lyu） 置顶最能代表当前研究思考的材料，并按时间整理部分技术笔记与研究记录。 Isabelle/HOL Duality OR for ML Prototype PINNED NOTES 置顶笔记 01 Working note TTGDA and Second-Order Tracking Exploratory technical note · Optimization / Minimax Learning 02 Submitted formalization Projected Gradient Descent in Isabelle/HOL Formalization project · submitted to AFP · awaiting review 03 Research note Dual Score to Saddle Certificates Research note · Duality / Invariance / Structural Certificates 04 Published formalization Isabelle Submodular Greedy Project Published formalization · Archive of Formal Proofs · 2026 研究记录归档 2026 — 按时间排列的部分技术笔记与研究记录。 2026-06-30 Published formalization 子模贪心算法形式化正式进入 AFP 记录 Isabelle/HOL 子模贪心算法形式化正式发表于 Archive of Formal Proofs，以及形式化过程中逐渐显露出的算法证明结构。 Isabelle/HOL Approximation Algorithms AFP 阅读全文 2026-05-22 Research note 从 dual score 到 saddle certificates 的一点新进展 三月留下来的 dual score 原本只是 instance-level structural score；最近它开始和 differentiable stationary points、stationary dual witness、projected retention、Hessian negative curvature 以及 cycle-rank saddle certificates 接起来。 Duality OR for ML 阅读全文 2026-05-22 Submitted formalization 从子…"
+      "content": "Selected Work Research Statement Technical Notes 学术笔记 / Technical Notes Feier Lyu（Fay Lyu） 置顶最能代表当前研究思考的材料，并按时间整理部分技术笔记与研究记录。 Isabelle/HOL Duality OR for ML Prototype PINNED NOTES 置顶笔记 01 Working note TTGDA and Second-Order Tracking Exploratory technical note · Optimization / Minimax Learning 02 Submitted formalization Projected Gradient Descent in Isabelle/HOL Formalization project · submitted to AFP · awaiting review 03 Research note Dual Score to Saddle Certificates Research note · Duality / Invariance / Structural Certificates 04 Published formalization Isabelle Submodular Greedy Project Published formalization · Archive of Formal Proofs · 2026 研究记录归档 2026 — 按时间排列的部分技术笔记与研究记录。 2026-07-15 Research note Theorem 11 必要性方向中的凸性问题 梳理 Theorem 11 必要性方向中的凸化步骤，检查 envelope submeasure、fragmentation numbers，以及从一般分布类 U 进入 Lemma 18 与 Theorem 19 所需凸性条件的桥接。 Learning Theory Convexity Private Learning 打开笔记 2026-07-15 · updated Research note 稀疏化后的 Exact Huber GLMs：Active Curvature 与 Kink Switching 研究稀疏化后的局部 refinement 是否能够保留 exact Huber loss 的 active quadratic curvature，同时控制 affine-tail behavior 与 Huber kink 附近的切换。 Optimization Sparsification GLMs 打开笔记 2026-06-30 Published formalization 子模贪心算法形式化正式…"
     },
     {
       "title": "摄影 / Photography",
@@ -1357,7 +1385,7 @@
       ],
       "sort": 0,
       "scope": "site",
-      "content": "起点 在时间的薄雾里，为复杂性寻找结构。 证明关心什么可以被确信；音乐与影像关心什么值得被记住。 这里收录两者之间仍在继续的工作。 爱丁堡大学数学 · 康奈尔 2025–26 交换 · 优化、形式化验证与机器检查证明 快捷入口 学术 公开版 CV 代表性工作 技术笔记 GitHub 联系我 AFFIZIEREN - HAZEZZ 00:00 / 00:00 准备音频… 去音乐页试听 CURRENT WORK 当前工作 Published in AFP 在 Isabelle/HOL 中形式化基数约束单调子模最大化的 classical greedy 与 verified stateful lazy-greedy。 AFP entry Current research 优化、network localization 与 structured nonconvexity；关注 dual collapse、structural scores 与 saddle certificates。 Research statement Formalization project Projected gradient descent 与可复用证明基础设施：projection geometry、gradient mapping、convex convergence 与 linear rates。 Project note TWO PRACTICES 两种身份，两种工作方式 ACADEMIC IDENTITY · FEIER LYU Mathematics Theorems、Isabelle/HOL 与 optimization notes：从机器检查证明到结构化非凸问题。 AFP theorem PGD formalization Technical notes CREATIVE IDENTITY · HAZEZZ Music & Image Performance、作曲与摄影系列；让舞台、声音和影像各自保留完整的叙事空间。 Music / Performance Photography / Moving Image Creative / Now Now Edinburgh · Ithaca · Chongqing —— 塑造这些工作的地方。近期在准备 bass / guitar performance videos、继续写新作品，并整理摄影与 moving-image archive。 近况更新 2026. 07 Performance videos 准备一组制作完成度更高的 bass / guitar performance videos，重点提升画面、音色、低频与整体制作质感。 Music production 继续推进新的写作、编曲与制作，把 riff、旋律、低频设计和叙事…"
+      "content": "起点 在时间的薄雾里，为复杂性寻找结构。 证明关心什么可以被确信；音乐与影像关心什么值得被记住。 这里收录两者之间仍在继续的工作。 2005 年出生 · 爱丁堡大学数学 · 康奈尔 2025–26 交换 · 优化、形式化验证与机器检查证明 快捷入口 学术 公开版 CV 代表性工作 技术笔记 GitHub 联系我 AFFIZIEREN - HAZEZZ 00:00 / 00:00 准备音频… 去音乐页试听 CURRENT WORK 当前工作 Published in AFP 在 Isabelle/HOL 中形式化基数约束单调子模最大化的 classical greedy 与 verified stateful lazy-greedy。 AFP entry Current research 优化、network localization 与 structured nonconvexity；关注 dual collapse、structural scores 与 saddle certificates。 Research statement Formalization project Projected gradient descent 与可复用证明基础设施：projection geometry、gradient mapping、convex convergence 与 linear rates。 Project note TWO PRACTICES 两种身份，两种工作方式 理性与浪漫在这里并置：证明、声音与影像各自保留自己的语言。 ACADEMIC IDENTITY · FEIER LYU Mathematics Theorems、Isabelle/HOL 与 optimization notes：从机器检查证明到结构化非凸问题。 AFP theorem PGD formalization Technical notes CREATIVE IDENTITY · HAZEZZ Music & Image Performance、作曲与摄影系列；让舞台、声音和影像各自保留完整的叙事空间。 Music / Performance Photography / Moving Image Creative / Now Now Edinburgh · Ithaca · Chongqing —— 塑造这些工作的地方。近期在准备 bass / guitar performance videos、继续写新作品，并整理摄影与 moving-image archive。 近况更新 2026. 07 Performance videos 准备一组制作完成度更高的 bass / guitar performance videos，重点提升画面、音色、低频与整体制作质感。 Music pr…"
     },
     {
       "title": "CV",

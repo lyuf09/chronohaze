@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /*.pdf$
+
+# Public PDFs under /notes/ are intentional technical notes and may be indexed.
 Sitemap: https://lyuf09.github.io/chronohaze/sitemap.xml

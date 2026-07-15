@@ -140,13 +140,21 @@ def build_hreflang_block(canonical_url: str) -> str:
 
 def upsert_hreflang_block(text: str, canonical_url: str) -> str:
     block = build_hreflang_block(canonical_url)
-    if HREFLANG_MARKER_START in text and HREFLANG_MARKER_END in text:
-        return re.sub(
-            re.escape(HREFLANG_MARKER_START) + r".*?" + re.escape(HREFLANG_MARKER_END),
-            block.strip(),
-            text,
-            flags=re.S,
-        )
+    link_pattern = re.compile(
+        r'^[ \t]*<link\b(?=[^>]*\brel=["\']alternate["\'])(?=[^>]*\bhreflang=["\'][^"\']+["\'])[^>]*?/?>[ \t]*\n?',
+        flags=re.I | re.M,
+    )
+    marker_pattern = re.compile(
+        r"^[ \t]*" + re.escape(HREFLANG_MARKER_START) + r".*?^[ \t]*" + re.escape(HREFLANG_MARKER_END),
+        flags=re.M | re.S,
+    )
+    marker_match = marker_pattern.search(text)
+    if marker_match:
+        before = link_pattern.sub("", text[: marker_match.start()])
+        after = link_pattern.sub("", text[marker_match.end() :])
+        return before.rstrip() + "\n" + block + "\n" + after.lstrip("\n")
+
+    text = link_pattern.sub("", text)
 
     canonical_re = re.compile(r'(^\s*<link rel="canonical" href="[^"]+" />\s*$)', re.M)
     match = canonical_re.search(text)
@@ -162,14 +170,14 @@ def upsert_feed_autodiscovery(text: str) -> str:
         f'title="Chronohaze Notes Feed" href="{FEED_URL}" />'
     )
     pattern = re.compile(
-        r'<link rel="alternate"\s+type="application/rss\+xml"\s+title="[^"]*"\s+href="[^"]+"\s*/>',
-        re.I,
+        r'^[ \t]*<link rel="alternate"\s+type="application/rss\+xml"\s+title="[^"]*"\s+href="[^"]+"\s*/>',
+        re.I | re.M,
     )
     if pattern.search(text):
-        return pattern.sub(feed_link.strip(), text, count=1)
+        return pattern.sub(feed_link, text, count=1)
 
     anchor_re = re.compile(
-        r"(\s*<!-- GENERATED:hreflang:end -->\s*$|\s*<link rel=\"canonical\" href=\"[^\"]+\" />\s*$)",
+        r"(^[ \t]*<!-- GENERATED:hreflang:end -->[ \t]*$|^[ \t]*<link rel=\"canonical\" href=\"[^\"]+\" />[ \t]*$)",
         re.M,
     )
     match = anchor_re.search(text)
@@ -234,6 +242,7 @@ def patch_page_head(
         text = upsert_hreflang_block(text, canonical_url)
     if canonical_url:
         text = upsert_feed_autodiscovery(text)
+    text = re.sub(r'^<!-- Google tag', '  <!-- Google tag', text, flags=re.M)
 
     if text != original:
         page_path.write_text(text, encoding="utf-8")

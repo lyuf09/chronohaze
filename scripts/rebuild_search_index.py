@@ -35,6 +35,7 @@ HTML_CONTENT_REFRESH_URLS = {
     "post/dual-score-saddle-certificates.html",
     "post/first-isabelle-proof.html",
     "post/isabelle-submodular-greedy.html",
+    "post/metalcore-piano-lab.html",
     "post/projected-gradient-descent-isabelle-hol.html",
     "post/spring-2026.html",
     "post/submodular-greedy-formalization-enters-afp.html",
@@ -396,6 +397,37 @@ def refresh_selected_html_search_content(
         if not isinstance(data, dict) or not isinstance(data.get("items"), list):
             continue
         changed = False
+        if path.name == "math.json":
+            known_urls = {
+                str(item.get("url", "")).strip()
+                for item in data["items"]
+                if isinstance(item, dict)
+            }
+            for url, catalog_item in math_catalog.items():
+                if url in known_urls or not url.startswith(("post/", "notes/")):
+                    continue
+                html_path = root / url
+                if not html_path.is_file():
+                    continue
+                parser = MainContentParser()
+                parser.feed(html_path.read_text(encoding="utf-8", errors="ignore"))
+                content, _ = parser.result()
+                date_text = str(catalog_item.get("date", "")).strip()
+                data["items"].append(
+                    {
+                        "title": str(catalog_item.get("title", "")).strip(),
+                        "url": url,
+                        "section": "Mathematics",
+                        "date": date_text,
+                        "excerpt": str(catalog_item.get("excerpt", "")).strip(),
+                        "tags": list(catalog_item.get("tags", [])),
+                        "sort": as_int_sort(date_text.replace("-", "")),
+                        "scope": "math",
+                        "content": content,
+                    }
+                )
+                known_urls.add(url)
+                changed = True
         for item in data["items"]:
             if not isinstance(item, dict):
                 continue

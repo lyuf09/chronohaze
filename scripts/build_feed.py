@@ -11,6 +11,18 @@ from xml.sax.saxutils import escape
 SITE_URL = 'https://lyuf09.github.io/chronohaze'
 FEED_URL = f'{SITE_URL}/feed.xml'
 
+PINNED_NOTE_ITEMS = (
+    {
+        'url': 'notes/ttgda_second_order_tracking_note.html',
+        'date': '2026-06-20',
+        'title_en': 'TTGDA and Second-Order Tracking',
+        'excerpt_en': (
+            'A technical note on two-timescale GDA, hypergradient tracking, '
+            'and second-order control in nonconvex minimax optimization.'
+        ),
+    },
+)
+
 
 def load_json(path: Path) -> dict:
     with path.open('r', encoding='utf-8') as fh:
@@ -31,7 +43,13 @@ def main() -> int:
 
     root = args.root.resolve()
     catalog = load_json(root / 'assets' / 'data' / 'math-catalog.json')
-    items = [item for item in catalog.get('items', []) if str(item.get('url', '')).startswith('post/')]
+    items = [
+        item
+        for item in catalog.get('items', [])
+        if str(item.get('url', '')).startswith(('post/', 'notes/'))
+    ]
+    known_urls = {str(item.get('url', '')) for item in items}
+    items.extend(item for item in PINNED_NOTE_ITEMS if item['url'] not in known_urls)
     items.sort(key=lambda item: str(item.get('date') or ''), reverse=True)
 
     last_build = rfc2822_from_iso(items[0]['date']) if items else format_datetime(datetime.now(timezone.utc))
@@ -42,7 +60,7 @@ def main() -> int:
         '  <channel>',
         '    <title>Chronohaze Notes Feed</title>',
         f'    <link>{SITE_URL}/</link>',
-        '    <description>Research notes and blog-style updates from Chronohaze, focused on optimization, Isabelle/HOL, and mathematical structure.</description>',
+        '    <description>Research notes and technical updates from Feier Lyu on optimization, Isabelle/HOL, and related mathematical work.</description>',
         '    <language>en</language>',
         f'    <lastBuildDate>{last_build}</lastBuildDate>',
         '    <generator>Chronohaze static feed builder</generator>',
@@ -63,9 +81,13 @@ def main() -> int:
             f'      <guid>{escape(abs_url)}</guid>',
             f'      <pubDate>{pub_date}</pubDate>',
             f'      <description>{escape(desc)}</description>',
-            '    </item>',
-            '',
         ])
+        if rel_url.startswith('notes/'):
+            pdf_url = f'{SITE_URL}/{rel_url[:-5]}.pdf'
+            lines.append(
+                f'      <atom:link href="{escape(pdf_url)}" rel="related" type="application/pdf" />'
+            )
+        lines.extend(['    </item>', ''])
 
     lines.extend(['  </channel>', '</rss>', ''])
     (root / 'feed.xml').write_text('\n'.join(lines), encoding='utf-8')

@@ -3488,11 +3488,11 @@
         searchShortcutHint: "/ 或 Ctrl/Cmd+K 聚焦 · ↑↓ 选择结果 · Enter 打开",
         siteNotes: "网站说明",
         a11y: "无障碍支持",
-        footerContactLead: "辗转不同国家无固定号码 请联系邮箱：",
-        footerCities: "重庆 · Edinburgh · Ithaca",
+        footerContactLead: "联系邮箱：",
+        footerCities: "Feier Lyu · 爱丁堡大学数学本科",
         musicPageTitle: "音乐 / Listening Room",
         musicIntro:
-          "音乐是我最早开始、也是持续时间最长的创作表达方式。我写作、编曲、演奏并制作自己的作品，将旋律、低频结构、节奏骨架与蓝灰色的情绪意象组织成声音。我的写作受 progressive rock / metalcore、日系摇滚与叙事型器乐结构影响，常以 odd-meter fragments、情绪化人声线、细密的 guitar-bass arrangement 和潮湿的夜色意象展开。",
+          "音乐是我最早开始、也是持续时间最长的创作表达方式。我写作、编曲、演奏并制作自己的作品，以低频骨架承载旋律、节奏与蓝灰色的情绪意象。我的写作受 progressive rock / metalcore、日系摇滚与叙事型器乐影响，常以 odd-meter fragments、情绪化人声线、细密的 guitar-bass arrangement 和潮湿的夜色意象展开。",
         musicLead: "",
         musicFeaturedAlbumTitle: "Albums / Concept Projects",
         musicFeaturedAlbumLead: "",
@@ -3501,7 +3501,7 @@
         musicProductionTitle: "Production Notes",
         musicProductionLead: "",
         musicProductionParagraph:
-          "大多数作品都由我独立完成，从写作、编曲到贝斯、吉他、主唱修整、编程与混音。对我而言，制作本身就是作曲的一部分：吉他音色、低频设计、节奏密度与空间感，都会被直接写进歌曲的情绪结构里。",
+          "大多数作品都由我独立完成，从写作、编曲到贝斯、吉他、主唱修整、编程与混音。对我而言，制作本身就是作曲的一部分：吉他音色、低频设计、节奏密度与空间感，都会直接参与歌曲的情绪推进。",
         musicArchiveTitle: "Archive / Discography",
         musicArchiveLead: "",
         musicArchiveCollectionTitle: "Collections",
@@ -3657,12 +3657,11 @@
         searchShortcutHint: "/ or Ctrl/Cmd+K to focus · ↑↓ select · Enter open",
         siteNotes: "Privacy Policy",
         a11y: "Accessibility",
-        footerContactLead:
-          "No fixed phone number while moving across countries. Contact by email:",
-        footerCities: "Chongqing · Edinburgh · Ithaca",
+        footerContactLead: "Contact by email: ",
+        footerCities: "Feier Lyu · BSc Mathematics, University of Edinburgh",
         musicPageTitle: "Music / Listening Room",
         musicIntro:
-          "Music has been my earliest and longest-running form of expression. I write, arrange, perform, and produce my own work, organising melody, low-end architecture, rhythmic scaffolding, and blue-grey emotional imagery into sound. My writing draws on progressive rock / metalcore, Japanese rock, and narrative instrumental structures, often unfolding through odd-meter fragments, emotionally charged vocal lines, intricate guitar-bass arrangement, and the imagery of humid nightfall.",
+          "Music is my earliest and longest-running creative practice. I write, arrange, perform, and produce my own work, using a low-frequency skeleton to carry melody, rhythm, and blue-grey emotional imagery. My writing draws on progressive rock / metalcore, Japanese rock, and narrative instrumental music, often unfolding through odd-meter fragments, emotionally charged vocal lines, intricate guitar-bass arrangement, and humid nightfall.",
         musicLead: "",
         musicFeaturedAlbumTitle: "Albums / Concept Projects",
         musicFeaturedAlbumLead: "",
@@ -3671,7 +3670,7 @@
         musicProductionTitle: "Production Notes",
         musicProductionLead: "",
         musicProductionParagraph:
-          "Most tracks are self-produced, from songwriting and arrangement to bass, guitar, vocal editing, programming, and mixing. I treat production as part of composition: guitar tones, low-end design, rhythm density, and space are written into the emotional structure of the song.",
+          "Most tracks are self-produced, from songwriting and arrangement to bass, guitar, vocal editing, programming, and mixing. I treat production as part of composition: guitar tones, low-end design, rhythm density, and space all shape the song's emotional movement.",
         musicArchiveTitle: "Archive / Discography",
         musicArchiveLead: "",
         musicArchiveCollectionTitle: "Collections",

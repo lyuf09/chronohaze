@@ -152,16 +152,14 @@
   <meta name="twitter:description" content="当两条最自然的 Lagrangian dual 路线都塌到 trivial 0 bound 之后，留下来的反而是一个和 Range(B)、cycle consistency 与 instance difficulty 相关的 dual-based structural score。" />
   <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/what-i-really-got-when-a-dual-route-failed.png" />
   <link rel="canonical" href="https://lyuf09.github.io/chronohaze/post/what-i-really-got-when-a-dual-route-failed.html" />
-
   <!-- GENERATED:hreflang:start -->
   <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/post/what-i-really-got-when-a-dual-route-failed.html?lang=zh" />
   <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/post/what-i-really-got-when-a-dual-route-failed.html?lang=en" />
   <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/post/what-i-really-got-when-a-dual-route-failed.html" />
   <!-- GENERATED:hreflang:end -->
   <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
-  <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/post/what-i-really-got-when-a-dual-route-failed.html?lang=zh" />
-  <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/post/what-i-really-got-when-a-dual-route-failed.html?lang=en" />
-  <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/post/what-i-really-got-when-a-dual-route-failed.html" />
+
+
   <!-- Google tag (gtag.js), deferred until idle -->
   <script>
     (function () {
@@ -261,7 +259,7 @@
           <p>这也让我对下一步的方向变得更明确了一点，所以我现在不太把继续硬推一个 dual 当作主线了，更自然的方向我感觉就是把这条 dual work 保留下来作为 supporting theoretical result，把它变成一个 dual-based inconsistency score 或 diagnostic surrogate，与此同时把主要的算法推进放在 AM framework 和 escape logic 的结合上。也就是说 dual 在这里更像是在告诉我哪些 instance 可能更难，哪些结构性 obstruction 值得被算法注意。</p>
           <p>我现在还不想过早夸大这个 score 的作用，至少在当前形式下它并不是 primal objective 的替代品，也不是一个 iterate-level 的 good function。它更像是一个 global、instance-level 的 quantity：不是用来评价某个具体解，而是用来评价这个问题实例本身的结构状态，虽然老师之前某些节点的时候说过觉得 dual 不值得继续研究可以换 topic，但是我还是觉得需要把所有没搞懂的都搞清楚再说，结果也是我搞清楚后还是觉得很有意思。这种不是答案本身但能告诉你问题难在哪里的对象，往往会在真正的算法设计里变得很有用。</p>
           <p>对我来说，这一阶段最重要的收获不只是写下了一个公式，而是终于把一条原本有点发散的 dual 研究线，收敛成了一个更清楚的判断，也就是什么会 collapse，什么不会，什么只是形式上的 duality，什么才真正触碰到了这个问题的几何结构。接下来我打算把这条 dual-based score 线索和更具体的算法框架连接起来，看看它是否真的能帮助识别 instance difficulty 或者说指导 restart / escape logic，又或者进一步引出更 local 的 graph-based variants。</p>
-          <p>（Btw 我考虑了一下没有把我的研究 note 全部具体放上来，页数有点多，感觉有点太 draft，而且数学公式太多感觉大家都看不下去哈哈哈哈）</p>
+          <p>完整研究笔记暂不公开；本页只保留足以说明推导路线与当前结论的部分。</p>
 
           <nav class="math-post-nav" data-static-math-post-nav="1" aria-label="相邻笔记导航"><a class="math-post-nav-item" data-nav-dir="prev" href="../post/projected-gradient-descent-isabelle-hol.html" data-no-page-transition="1" aria-label="上一篇 · 从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL"><span class="math-post-nav-label">上一篇</span><span class="math-post-nav-title">从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL</span></a><a class="math-post-nav-item" data-nav-dir="next" href="../post/theorem-to-framework-isabelle-submodular.html" data-no-page-transition="1" aria-label="下一篇 · 从一个定理到一套框架：我的 Isabelle 子模优化项目新进展"><span class="math-post-nav-label">下一篇</span><span class="math-post-nav-title">从一个定理到一套框架：我的 Isabelle 子模优化项目新进展</span></a></nav>
 <div class="academic-hub-links math-post-hub-links">
@@ -301,7 +299,7 @@
           <p>This also makes the next direction much clearer to me. I no longer see “pushing harder on the dual itself” as the main path. A more natural direction now seems to be to keep this dual work as a supporting theoretical result, reinterpret it as a dual-based inconsistency score or diagnostic surrogate, and meanwhile place the main algorithmic development on the interaction between the AM framework and escape logic. In that sense, the dual is really telling me which instances may be harder, and which structural obstructions are worth noticing algorithmically.</p>
           <p>I also do not want to overclaim the role of this score too early. In its current form, it is neither a replacement for the primal objective nor a good iterate-level function. It is better viewed as a global, instance-level quantity: not something that evaluates a particular solution, but something that reflects the structural state of the instance itself. Although at some earlier points my professor had mentioned that the dual direction might not be worth pursuing further and that I could switch topics instead, I still felt that I needed to understand everything that was unclear before letting it go. And after actually working through it, I still find the outcome genuinely interesting. Objects of this kind — not the answer itself, but something that tells you where the difficulty of the problem lives — often turn out to be quite useful in real algorithm design.</p>
           <p>For me, the most important gain at this stage is not just that I wrote down one formula. It is that I finally managed to turn what had been a somewhat scattered dual research line into a much clearer judgment: what collapses, what does not, what is only formal duality, and what actually touches the geometry of the problem. From here, I plan to connect this dual-based score more concretely with algorithmic frameworks, and see whether it can genuinely help with instance difficulty detection, restart or escape logic, or perhaps even motivate more local graph-based variants.</p>
-          <p>(Btw I decided not to upload all of my research notes in full, there are a bit too many pages, they still feel rather draft-like, and honestly once there are too many formulas I feel like nobody wants to read all that anyway haha.)</p>
+          <p>The full research notes are not public at this stage; this page keeps only the material needed to explain the derivation and current conclusions.</p>
 
           <nav class="math-post-nav" data-static-math-post-nav="1" aria-label="Adjacent notes"><a class="math-post-nav-item" data-nav-dir="prev" href="../post/projected-gradient-descent-isabelle-hol.html" data-no-page-transition="1" aria-label="Previous note · Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL"><span class="math-post-nav-label">Previous note</span><span class="math-post-nav-title">Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL</span></a><a class="math-post-nav-item" data-nav-dir="next" href="../post/theorem-to-framework-isabelle-submodular.html" data-no-page-transition="1" aria-label="Next note · From One Theorem to a Framework: New Progress on My Isabelle Project in Submodular Optimization"><span class="math-post-nav-label">Next note</span><span class="math-post-nav-title">From One Theorem to a Framework: New Progress on My Isabelle Project in Submodular Optimization</span></a></nav>
 <div class="academic-hub-links math-post-hub-links">
