@@ -37,6 +37,31 @@ LEGACY_SUBMODULAR_STATUS_PATTERNS = (
     "proof roadmap for stochasticgreedy has already entered the repo, but it is not yet complete",
     "证明路线图已经进了 repo 但还没完善",
 )
+ACADEMIC_ROOT_PAGES = {
+    "academic.html",
+    "cv.html",
+    "math.html",
+    "projects.html",
+    "research.html",
+}
+LEGACY_ACADEMIC_IDENTITY_PATTERNS = (
+    "Fay / Feier Lyu",
+    "also known as HazezZ",
+)
+LEGACY_LOCATION_PATTERNS = (
+    "currently between Chongqing, Edinburgh, and Ithaca",
+    "Between Chongqing, Edinburgh, and Ithaca",
+    "重庆 / Edinburgh / Ithaca 之间",
+    "No fixed phone number while moving across countries",
+    "辗转不同国家无固定号码",
+)
+RUNTIME_ACADEMIC_LEGACY_PATTERNS = (
+    '<p class="article-meta">HazezZ · Oct 18, 2025</p>',
+    '<p class="article-meta">HazezZ · Dec 29, 2025</p>',
+    '<p class="article-meta">HazezZ · Jan 29, 2026</p>',
+    "An Ongoing Isabelle Research Project: Formalising Submodular Greedy",
+    'name: "Fay / Feier Lyu"',
+)
 
 
 @dataclass
@@ -187,6 +212,34 @@ def check_submodular_status(path: Path, text: str, require_canonical: bool = Fal
     return findings
 
 
+def check_academic_identity(path: Path, text: str, root: Path) -> List[Finding]:
+    findings: List[Finding] = []
+    is_academic_root = path.parent == root and path.name in ACADEMIC_ROOT_PAGES
+    is_note = path.parent == root / "notes"
+    is_academic_post = path.parent == root / "post" and path.name != "metalcore-piano-lab.html"
+    is_formal_academic = is_academic_root or is_note or is_academic_post
+    is_home = path.parent == root and path.name == "index.html"
+
+    if is_formal_academic or is_home:
+        for pattern in LEGACY_LOCATION_PATTERNS:
+            if pattern.lower() in text.lower():
+                findings.append(Finding(path, "academic-location", f"Ambiguous location wording found: {pattern!r}"))
+
+    if not is_formal_academic:
+        return findings
+
+    for pattern in LEGACY_ACADEMIC_IDENTITY_PATTERNS:
+        if pattern.lower() in text.lower():
+            findings.append(Finding(path, "academic-identity", f"Legacy academic identity found: {pattern!r}"))
+
+    if re.search(r'<p class="article-meta">\s*HazezZ\b', text):
+        findings.append(Finding(path, "academic-identity", "Academic article is credited to HazezZ"))
+
+    if "Feier Lyu" not in text:
+        findings.append(Finding(path, "academic-identity", "Primary academic identity 'Feier Lyu' is missing"))
+    return findings
+
+
 def check_files(root: Path) -> List[Finding]:
     findings: List[Finding] = []
     for path in sorted(root.rglob("*.html")):
@@ -199,9 +252,18 @@ def check_files(root: Path) -> List[Finding]:
         findings.extend(check_pending_in_seo(path, text))
         findings.extend(check_nav_duplicates(path, text))
         findings.extend(check_submodular_status(path, text, require_canonical=path.parent == root))
+        findings.extend(check_academic_identity(path, text, root))
     generated_text_paths = list((root / "assets").rglob("*.json")) + [root / "feed.xml"]
     for path in sorted(p for p in generated_text_paths if p.is_file()):
         findings.extend(check_submodular_status(path, read_text(path)))
+    runtime_paths = [root / "protect-media.js", root / "assets/js/structured-data.js"]
+    for path in runtime_paths:
+        if not path.is_file():
+            continue
+        text = read_text(path)
+        for pattern in RUNTIME_ACADEMIC_LEGACY_PATTERNS:
+            if pattern in text:
+                findings.append(Finding(path, "academic-runtime", f"Legacy runtime identity/status found: {pattern!r}"))
     return findings
 
 

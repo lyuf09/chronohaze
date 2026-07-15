@@ -260,7 +260,10 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
     "https://isa-afp.org/entries/Submodular_Greedy.html#"
   );
   await expect(cvEnglish.getByRole("link", { name: "Isabelle/HOL formalization repo" })).toBeVisible();
-  await expect(cvEnglish.locator("#cv-en-experience")).toContainText("Location: currently between Chongqing, Edinburgh, and Ithaca");
+  await expect(cvEnglish.locator("#cv-en-highlights")).toContainText("BSc Mathematics, University of Edinburgh");
+  await expect(cvEnglish.locator("#cv-en-highlights")).toContainText("Exchange student at Cornell University, 2025–2026");
+  await expect(page.locator("main")).toContainText("Feier Lyu (Fay Lyu)");
+  await expect(page.locator("main")).not.toContainText("currently between");
 
   await page.goto("research.html?lang=zh", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
@@ -462,6 +465,7 @@ test("academic page isolates languages and renders a concise academic index", as
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
   await expect(page.locator("body")).toHaveAttribute("data-rendered-lang", "en");
   await expect(page.getByText("Selected Academic Work", { exact: true })).toBeVisible();
+  await expect(page.locator('.research-hero [data-lang-block="en"]')).toContainText("Feier Lyu (Fay Lyu)");
   await expect(evidence.locator('[data-lang-block="en"] .academic-evidence-list li').first()).toContainText(
     "Published in AFP (2026)"
   );
@@ -517,6 +521,16 @@ test("AFP publication status stays synchronized across work page and project his
     "https://doi.org/10.5281/zenodo.21054718"
   );
 
+  await page.goto("post/isabelle-submodular-greedy.html?lang=en", {
+    waitUntil: "domcontentloaded",
+  });
+  await waitForCriticalLoaderRelease(page);
+  await expect(page.getByRole("heading", { name: "Early Project Note: Formalising Submodular Greedy" })).toBeVisible();
+  await expect(page.locator(".article-meta")).toContainText("Feier Lyu");
+  await expect(page.locator(".article-meta")).not.toContainText("HazezZ");
+  await expect(page.locator(".math-post-update")).toContainText("Published in AFP (2026)");
+  await expect(page.locator(".math-post-update")).toContainText("Post-publication extension");
+
   expect(errors).toEqual([]);
 });
 
@@ -526,6 +540,7 @@ test("new AFP note leads the math archive and exposes primary evidence", async (
   await page.goto("math.html?lang=zh", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
   await expect(page.getByRole("heading", { name: "学术笔记 / Technical Notes" })).toBeVisible();
+  await expect(page.locator("main")).toContainText("Feier Lyu（Fay Lyu）");
   await expect(page.locator("#pinned-notes .academic-evidence-list li")).toHaveCount(4);
   await expect(page.locator("#pinned-notes .academic-evidence-list li").nth(0)).toContainText(
     "TTGDA and Second-Order Tracking"

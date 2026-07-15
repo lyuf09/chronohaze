@@ -26,10 +26,20 @@ HTML_CONTENT_REFRESH_URLS = {
     "academic.html",
     "cv.html",
     "index.html",
+    "math.html",
     "projects.html",
+    "research.html",
+    "notes/huber_glm_sparsification_refinement_note.html",
+    "notes/theorem11_convexity_note.html",
+    "notes/ttgda_second_order_tracking_note.html",
+    "post/dual-score-saddle-certificates.html",
+    "post/first-isabelle-proof.html",
     "post/isabelle-submodular-greedy.html",
+    "post/projected-gradient-descent-isabelle-hol.html",
+    "post/spring-2026.html",
     "post/submodular-greedy-formalization-enters-afp.html",
     "post/theorem-to-framework-isabelle-submodular.html",
+    "post/what-i-really-got-when-a-dual-route-failed.html",
 }
 
 

@@ -565,7 +565,7 @@ def parse_research_page(text: str) -> Dict[str, Any]:
             item["datetime"] = ""
 
     payload["search"] = {
-        "title": "Research Statement | Fay / Feier Lyu (HazezZ)",
+        "title": "Research Statement | Feier Lyu (Fay Lyu)",
         "url": "research.html",
         "section": "Site",
         "date": "",

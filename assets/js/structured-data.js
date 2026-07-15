@@ -121,15 +121,14 @@
     var person = {
       "@type": "Person",
       "@id": CHRONOHAZE_PERSON_ID,
-      name: "Fay / Feier Lyu",
+      name: "Feier Lyu",
       alternateName: ["Fay Lyu", "Feier Lyu", "Feier", "HazezZ"],
-      givenName: "Fay",
-      additionalName: "Feier",
+      givenName: "Feier",
       familyName: "Lyu",
       url: CHRONOHAZE_SITE_URL,
       image: CHRONOHAZE_SITE_URL + "assets/template/hero_portrait-1600.jpg",
       description:
-        "Fay / Feier Lyu, also known as HazezZ, is a mathematics student at The University of Edinburgh who completed an exchange year at Cornell University in 2025–2026, with research interests at the intersection of optimization theory, formal verification, and machine learning theory.",
+        "Feier Lyu (commonly Fay Lyu) is a mathematics student at The University of Edinburgh who was an exchange student at Cornell University in 2025–2026. HazezZ is the name used for music, performance, and cross-media work.",
       alumniOf: {
         "@type": "CollegeOrUniversity",
         name: "The University of Edinburgh",
