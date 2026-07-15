@@ -54,7 +54,7 @@ test("home page renders hero and player shell", async ({ page }) => {
   await expect(page.locator("#homeMathPreview")).toHaveCount(0);
   await expect(page.locator("#now")).not.toContainText("正式发表于 AFP");
   await expect(page.locator(".hero-authority-line")).toHaveText(
-    "爱丁堡大学数学本科 · 康奈尔大学 2025–26 交换 · 预计 2027 年毕业"
+    "University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027"
   );
   await expect(page.locator("main")).not.toContainText("2005 年出生");
   await expect(page.locator("#welcome")).toContainText("理性与浪漫在这里并置");
@@ -70,7 +70,7 @@ test("home hero keeps distinct Chinese and English identities", async ({ page })
   await expect(page.locator(".hero-kicker")).toHaveText("起点 / Chronohaze");
   await expect(page.locator(".hero-right h1")).toHaveText("Fay / Feier Lyu");
   await expect(page.locator(".hero-role-line")).toHaveText(
-    "Mathematics · Optimization · Formal Verification"
+    "OPTIMIZATION · FORMAL VERIFICATION · MACHINE-CHECKED MATHEMATICS"
   );
   await expect(page.locator(".hero-poetic-line")).toHaveText("在时间的薄雾里，为复杂性寻找结构。");
   await expect(page.locator(".hero-identity-line")).toHaveText(
@@ -78,7 +78,7 @@ test("home hero keeps distinct Chinese and English identities", async ({ page })
   );
   await expect(page.locator(".hero-world-line")).toHaveText("这里收录两者之间仍在继续的工作。");
   await expect(page.locator(".hero-authority-line")).toHaveText(
-    "爱丁堡大学数学本科 · 康奈尔大学 2025–26 交换 · 预计 2027 年毕业"
+    "University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027"
   );
   await expect(page.locator('.hero-academic-link[href="projects.html"]')).toHaveText("代表性工作");
   await expect(page.locator('.hero-academic-link[href="math.html"]')).toHaveText("技术笔记");
@@ -88,7 +88,7 @@ test("home hero keeps distinct Chinese and English identities", async ({ page })
   await expect(page.locator(".hero-kicker")).toHaveText("Origin / Chronohaze");
   await expect(page.locator(".hero-right h1")).toHaveText("Feier Lyu / Fay");
   await expect(page.locator(".hero-role-line")).toHaveText(
-    "Mathematics · Optimization · Formal Verification"
+    "OPTIMIZATION · FORMAL VERIFICATION · MACHINE-CHECKED MATHEMATICS"
   );
   await expect(page.locator(".hero-poetic-line")).toHaveText(
     "In the haze of time, I look for structure in complexity."
@@ -100,7 +100,7 @@ test("home hero keeps distinct Chinese and English identities", async ({ page })
     "This site gathers the work that continues between them."
   );
   await expect(page.locator(".hero-authority-line")).toHaveText(
-    "BSc Mathematics, University of Edinburgh · Exchange at Cornell University, 2025–26 · Expected graduation: 2027"
+    "University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027"
   );
   await expect(page.locator("main")).not.toContainText("Born in 2005");
   await expect(page.getByRole("heading", { name: "Research Snapshot" })).toBeVisible();
