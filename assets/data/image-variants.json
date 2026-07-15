@@ -3247,6 +3247,25 @@
         }
       }
     },
+    "assets/template/julia.png": {
+      "original": {
+        "width": 790,
+        "height": 790
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/julia-960.webp 960w, assets/template/julia-1600.webp 1600w",
+          "files": [
+            "assets/template/julia-960.webp",
+            "assets/template/julia-1600.webp"
+          ]
+        }
+      }
+    },
     "assets/template/mr-idiographic-art.png": {
       "original": {
         "width": 3840,
