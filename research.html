@@ -218,7 +218,7 @@
 <body class="research-landing-page research-page" data-research-catalog-ready="1">
   <div class="page">
     <header class="site-header">
-      <div class="container header-inner">
+      <div class="container header-inner header-inner--with-lang">
         <a class="brand" href="index.html">
           <img src="assets/logo-header.png" alt="Chronohaze site logo" />
           <span>chronohaze.space</span>
@@ -230,6 +230,10 @@
           <a href="photography.html" data-i18n="navPhoto">摄影</a>
           <a href="cv.html" data-i18n="navCV">CV</a>
         </nav>
+        <div class="floating-lang-switch" role="group" aria-label="Language switch">
+          <button class="floating-lang-btn" type="button" data-lang="zh" aria-label="Switch site language to Chinese">ZH</button>
+          <button class="floating-lang-btn" type="button" data-lang="en" aria-label="Switch site language to English">EN</button>
+        </div>
       </div>
     </header>
 
@@ -253,13 +257,13 @@
               <h1>研究陈述</h1>
               <p class="research-positioning"><strong>Feier Lyu</strong>（Fay Lyu）</p>
               <p class="research-positioning research-thesis-line">我的核心问题是：一个数学或计算对象在被形式化、对偶化、离散化与算法化之后，其结构如何变化——哪些依赖被暴露、哪些信息被保留、哪些约束仍可计算。</p>
-              <p class="research-positioning">围绕这一问题，我把机器检查优化与可复用证明结构，以及优化中的不变性、对偶与定位，作为两条主要研究方向。节奏、和声与编曲的符号/结构表征属于 supporting computational and creative systems work，而非同等层级的博士研究方向。</p>
+              <p class="research-positioning">围绕这一问题，我把机器检查优化与可复用证明结构，以及优化中的不变性、对偶与定位，作为两条主要研究方向。</p>
             </div>
             <div data-lang-block="en" hidden>
               <h1>Research Statement</h1>
               <p class="research-positioning"><strong>Feier Lyu</strong> (Fay Lyu)</p>
               <p class="research-positioning research-thesis-line">My central question is how structure changes after formalization, dualization, discretization, and algorithmization: which dependencies become explicit, which information survives, and which constraints remain computationally usable.</p>
-              <p class="research-positioning">Around this question, I treat machine-checked optimization and reusable proof structure, and invariance, duality, and localization in optimization, as my two primary research directions. Symbolic representations of rhythm, harmony, and arrangement belong to supporting computational and creative systems work, not to an equally weighted PhD research direction.</p>
+              <p class="research-positioning">Around this question, I treat machine-checked optimization and reusable proof structure, and invariance, duality, and localization in optimization, as my two primary research directions.</p>
             </div>
           </div>
         </div>
@@ -293,16 +297,6 @@
               <p>我目前尤其关注 network localization 中 Range(B)、cycle consistency 与 instance difficulty 的关系。这条线的核心不是单纯追求更强的 bound，而是理解在对偶信息 collapse 之后，是否仍能恢复可解释、可比较的 structural score。</p>
             </article>
 
-            <article class="research-project-card research-project-card--supporting">
-              <p class="research-project-kind">SUPPORTING COMPUTATIONAL AND CREATIVE SYSTEMS WORK</p>
-              <h3>节奏、和声与编曲的符号和结构表征</h3>
-              <p>这项旁支工作研究如何把 audio / rhythm streams、和声关系与 arrangement constraints 转换为可检查的离散对象，并测试这些表示在算法处理后的可靠性。</p>
-              <p>Metalcore Piano Lab 与相关 music-production tooling 是这一思路的计算原型，但不与两条数学主线并列为博士研究方向。</p>
-              <div class="research-link-row">
-                <a href="https://github.com/lyuf09/metalcore-piano-lab" target="_blank" rel="noopener noreferrer">Metalcore Piano Lab</a>
-                <a href="post/metalcore-piano-lab.html">Project note</a>
-              </div>
-            </article>
           </div>
           <div data-lang-block="en" class="research-direction-grid" hidden>
             <article class="research-project-card">
@@ -326,16 +320,6 @@
               <p>I am especially interested in the relation among Range(B), cycle consistency, and instance difficulty in network localization. The point is not only to obtain a stronger bound, but to understand whether interpretable and comparable structural scores remain after dual information collapses.</p>
             </article>
 
-            <article class="research-project-card research-project-card--supporting">
-              <p class="research-project-kind">SUPPORTING COMPUTATIONAL AND CREATIVE SYSTEMS WORK</p>
-              <h3>Symbolic and structural representations of rhythm, harmony, and arrangement</h3>
-              <p>This side work asks how audio / rhythm streams, harmonic relations, and arrangement constraints can be converted into inspectable discrete objects, and how reliably those representations survive algorithmic processing.</p>
-              <p>Metalcore Piano Lab and related music-production tooling are computational prototypes for this idea, not a third PhD direction of equal weight.</p>
-              <div class="research-link-row">
-                <a href="https://github.com/lyuf09/metalcore-piano-lab" target="_blank" rel="noopener noreferrer">Metalcore Piano Lab</a>
-                <a href="post/metalcore-piano-lab.html">Project note</a>
-              </div>
-            </article>
           </div>
         </div>
       </section>
@@ -423,11 +407,9 @@
         <div class="container research-now-panel">
           <div data-lang-block="zh">
             <p>机器检查优化，以及不变性、对偶与定位，是我希望继续深入的两条数学主线。</p>
-            <p>音乐系统保留为 supporting computational and creative systems work，不作为第三条同等层级的博士研究方向。</p>
           </div>
           <div data-lang-block="en" hidden>
             <p>Machine-checked optimization, and invariance, duality, and localization, are the two mathematical directions I want to pursue further.</p>
-            <p>Music systems remain supporting computational and creative systems work, not a third PhD direction of equal weight.</p>
           </div>
         </div>
       </section>
@@ -459,6 +441,12 @@
       var i18nNodes = Array.from(document.querySelectorAll("[data-i18n]"));
       var i18nAriaNodes = Array.from(document.querySelectorAll("[data-i18n-aria]"));
       var langBlocks = Array.from(document.querySelectorAll("[data-lang-block]"));
+      var langBlockRecords = langBlocks.map(function (block) {
+        var marker = document.createComment("language-block");
+        block.parentNode.insertBefore(marker, block);
+        return { block: block, marker: marker };
+      });
+      var pageLangButtons = Array.from(document.querySelectorAll(".floating-lang-btn[data-lang]"));
       var i18n = {
         zh: {
           htmlLang: "zh-CN",
@@ -520,13 +508,35 @@
           }
         });
 
-        langBlocks.forEach(function (block) {
-          var hidden = block.getAttribute("data-lang-block") !== safeLang;
-          block.hidden = hidden;
-          block.setAttribute("aria-hidden", hidden ? "true" : "false");
+        langBlockRecords.forEach(function (record) {
+          var block = record.block;
+          var active = block.getAttribute("data-lang-block") === safeLang;
+          block.hidden = !active;
+          block.setAttribute("aria-hidden", active ? "false" : "true");
           if ("inert" in block) {
-            block.inert = hidden;
+            block.inert = !active;
           }
+
+          if (active && !block.isConnected && record.marker.parentNode) {
+            record.marker.parentNode.insertBefore(block, record.marker.nextSibling);
+          } else if (!active && block.isConnected) {
+            block.remove();
+          }
+        });
+
+        document.body.setAttribute("data-rendered-lang", safeLang);
+
+        pageLangButtons.forEach(function (button) {
+          var buttonLang = button.getAttribute("data-lang");
+          var active = buttonLang === safeLang;
+          button.classList.toggle("active", active);
+          button.setAttribute("aria-pressed", active ? "true" : "false");
+          button.setAttribute(
+            "aria-label",
+            safeLang === "en"
+              ? (buttonLang === "zh" ? "Switch site language to Chinese" : "Switch site language to English")
+              : (buttonLang === "zh" ? "切换网站语言为中文" : "切换网站语言为英文")
+          );
         });
 
         try {
@@ -550,6 +560,19 @@
       if (queryLang === "zh" || queryLang === "en") {
         initialLang = queryLang;
       }
+
+      pageLangButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          var nextLang = button.getAttribute("data-lang");
+          if (nextLang !== "zh" && nextLang !== "en") {
+            return;
+          }
+          setLanguage(nextLang);
+          var url = new URL(window.location.href);
+          url.searchParams.set("lang", nextLang);
+          window.history.replaceState({}, "", url.toString());
+        });
+      });
 
       setLanguage(initialLang);
     })();

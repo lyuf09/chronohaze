@@ -87,7 +87,6 @@ LEGACY_HOME_SECTION_TITLES = (
     "Three points of evidence",
 )
 LEGACY_TECHNICAL_NOTES_VISUAL_PATTERNS = (
-    "math-fractal-highlight",
     "medium.com/@syedalihamza23",
 )
 LEGACY_REDIRECT_PAGES = {

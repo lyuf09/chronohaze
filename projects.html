@@ -204,7 +204,7 @@
 <body class="research-landing-page projects-page">
   <div class="page">
     <header class="site-header">
-      <div class="container header-inner">
+      <div class="container header-inner header-inner--with-lang">
         <a class="brand" href="index.html">
           <img src="assets/logo-header.png" alt="Chronohaze site logo" />
           <span>chronohaze.space</span>
@@ -216,6 +216,10 @@
           <a href="photography.html" data-i18n="navPhoto">摄影</a>
           <a href="cv.html" data-i18n="navCV">CV</a>
         </nav>
+        <div class="floating-lang-switch" role="group" aria-label="Language switch">
+          <button class="floating-lang-btn" type="button" data-lang="zh" aria-label="Switch site language to Chinese">ZH</button>
+          <button class="floating-lang-btn" type="button" data-lang="en" aria-label="Switch site language to English">EN</button>
+        </div>
       </div>
     </header>
 
@@ -464,6 +468,12 @@
       var i18nNodes = Array.from(document.querySelectorAll("[data-i18n]"));
       var i18nAriaNodes = Array.from(document.querySelectorAll("[data-i18n-aria]"));
       var langBlocks = Array.from(document.querySelectorAll("[data-lang-block]"));
+      var langBlockRecords = langBlocks.map(function (block) {
+        var marker = document.createComment("language-block");
+        block.parentNode.insertBefore(marker, block);
+        return { block: block, marker: marker };
+      });
+      var pageLangButtons = Array.from(document.querySelectorAll(".floating-lang-btn[data-lang]"));
       var i18n = {
         zh: {
           htmlLang: "zh-CN",
@@ -525,13 +535,35 @@
           }
         });
 
-        langBlocks.forEach(function (block) {
-          var hidden = block.getAttribute("data-lang-block") !== safeLang;
-          block.hidden = hidden;
-          block.setAttribute("aria-hidden", hidden ? "true" : "false");
+        langBlockRecords.forEach(function (record) {
+          var block = record.block;
+          var active = block.getAttribute("data-lang-block") === safeLang;
+          block.hidden = !active;
+          block.setAttribute("aria-hidden", active ? "false" : "true");
           if ("inert" in block) {
-            block.inert = hidden;
+            block.inert = !active;
           }
+
+          if (active && !block.isConnected && record.marker.parentNode) {
+            record.marker.parentNode.insertBefore(block, record.marker.nextSibling);
+          } else if (!active && block.isConnected) {
+            block.remove();
+          }
+        });
+
+        document.body.setAttribute("data-rendered-lang", safeLang);
+
+        pageLangButtons.forEach(function (button) {
+          var buttonLang = button.getAttribute("data-lang");
+          var active = buttonLang === safeLang;
+          button.classList.toggle("active", active);
+          button.setAttribute("aria-pressed", active ? "true" : "false");
+          button.setAttribute(
+            "aria-label",
+            safeLang === "en"
+              ? (buttonLang === "zh" ? "Switch site language to Chinese" : "Switch site language to English")
+              : (buttonLang === "zh" ? "切换网站语言为中文" : "切换网站语言为英文")
+          );
         });
 
         try {
@@ -555,6 +587,19 @@
       if (queryLang === "zh" || queryLang === "en") {
         initialLang = queryLang;
       }
+
+      pageLangButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          var nextLang = button.getAttribute("data-lang");
+          if (nextLang !== "zh" && nextLang !== "en") {
+            return;
+          }
+          setLanguage(nextLang);
+          var url = new URL(window.location.href);
+          url.searchParams.set("lang", nextLang);
+          window.history.replaceState({}, "", url.toString());
+        });
+      });
 
       setLanguage(initialLang);
     })();
