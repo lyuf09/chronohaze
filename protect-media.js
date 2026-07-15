@@ -3492,8 +3492,8 @@
         footerCities: "Feier Lyu · 爱丁堡大学数学本科",
         musicPageTitle: "音乐 / Listening Room",
         musicIntro:
-          "音乐是我最早开始、也是持续时间最长的创作表达方式。我写作、编曲、演奏并制作自己的作品，以低频骨架承载旋律、节奏与蓝灰色的情绪意象。我的写作受 progressive rock / metalcore、日系摇滚与叙事型器乐影响，常以 odd-meter fragments、情绪化人声线、细密的 guitar-bass arrangement 和潮湿的夜色意象展开。",
-        musicLead: "",
+          "我独立完成自己作品的写作、编曲、演奏、录制与制作，并以贝斯和吉他作为编配中心。我的创作受 progressive metalcore、日系摇滚与叙事型器乐写作影响。",
+        musicLead: "声音常回到蓝灰色的雨夜：低频、潮湿空气与悬在暗处的光。",
         musicFeaturedAlbumTitle: "Albums / Concept Projects",
         musicFeaturedAlbumLead: "",
         musicSelectedTitle: "Listening Room / Selected Works",
@@ -3661,8 +3661,8 @@
         footerCities: "Feier Lyu · BSc Mathematics, University of Edinburgh",
         musicPageTitle: "Music / Listening Room",
         musicIntro:
-          "Music is my earliest and longest-running creative practice. I write, arrange, perform, and produce my own work, using a low-frequency skeleton to carry melody, rhythm, and blue-grey emotional imagery. My writing draws on progressive rock / metalcore, Japanese rock, and narrative instrumental music, often unfolding through odd-meter fragments, emotionally charged vocal lines, intricate guitar-bass arrangement, and humid nightfall.",
-        musicLead: "",
+          "I write, arrange, perform, record, and produce my own music, with bass and guitar at the center of the arrangement. My work draws from progressive metalcore, Japanese rock, and narrative instrumental writing.",
+        musicLead: "The sound often returns to a blue-grey night: low frequencies, humid air, and light suspended in the dark.",
         musicFeaturedAlbumTitle: "Albums / Concept Projects",
         musicFeaturedAlbumLead: "",
         musicSelectedTitle: "Listening Room / Selected Works",
@@ -12219,9 +12219,9 @@
         overlayMid: "0",
         overlayEnd: "0",
         copyZh:
-          "雨季、白色花朵、大海、执念。Ipomoea alba在月光里开放。有些情绪并不发生在同一座城市，它们通过屏幕、时差和偶然对齐的清醒时刻缓慢生长……",
+          "一张由雨、白色花朵、低频写作，以及现实与想象之间的张力构成的专辑。Ipomoea alba 在月光里开放。",
         copyEn:
-          "Rain, white flowers, sea, deep-blue persistence. Ipomoea alba blooms in moonlight; some feelings grow slowly across screens, distance, and misaligned time…",
+          "An album shaped by rain, white flowers, low-end writing, and the tension between imagination and reality. Ipomoea alba blooms in moonlight.",
       },
       {
         href: "music/track-04.html",

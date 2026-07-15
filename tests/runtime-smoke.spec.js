@@ -148,6 +148,10 @@ test("music index renders and remains interactive", async ({ page }) => {
   await expect(page.locator(".music-room-album-credit")).toHaveText(
     "除特别说明外，作品的写作、编曲、演奏、录制与制作均由 HazezZ 完成。"
   );
+  await expect(page.locator(".page-head p").first()).toContainText("写作、编曲、演奏、录制与制作");
+  await expect(page.locator(".page-head p").first()).toContainText("贝斯和吉他作为编配中心");
+  await expect(page.locator(".page-head .lead")).toContainText("蓝灰色的雨夜");
+  await expect(page.locator("main")).not.toContainText("屏幕、时差");
   await expect(page.locator(".music-room-archive-section")).toBeVisible();
   await expect.poll(async () => page.locator(".music-room-archive-group").count()).toBeGreaterThan(2);
   await expect(page.locator("body.music-index-page")).toHaveAttribute(
@@ -171,7 +175,11 @@ test("music index renders and remains interactive", async ({ page }) => {
   await expect(page.locator(".music-room-album-credit")).toHaveText(
     "Written, arranged, performed and produced by HazezZ, unless otherwise noted."
   );
-  await expect(page.locator("main")).toContainText("low-frequency skeleton");
+  await expect(page.locator(".page-head p").first()).toHaveText(
+    "I write, arrange, perform, record, and produce my own music, with bass and guitar at the center of the arrangement. My work draws from progressive metalcore, Japanese rock, and narrative instrumental writing."
+  );
+  await expect(page.locator(".page-head .lead")).toContainText("blue-grey night");
+  await expect(page.locator("main")).not.toContainText("across screens");
 
   expect(errors).toEqual([]);
 });
@@ -447,6 +455,10 @@ test("album page renders cover and track links", async ({ page }) => {
   await expect(page.locator(".album-authorship")).toHaveText(
     "除特别说明外，作品的写作、编曲、演奏、录制与制作均由 HazezZ 完成。"
   );
+  await expect(page.locator(".album-note")).toHaveCount(6);
+  await expect(page.locator(".album-intro")).toContainText("作品本身就是留下来的部分");
+  await expect(page.locator(".album-intro")).not.toContainText("屏幕、时差");
+  await expect(page.locator(".album-intro")).not.toContainText("如果有一天被听见");
   await expect.poll(async () => page.locator(".album-tracklist .album-track-link").count()).toBeGreaterThan(10);
   await expect
     .poll(async () => page.locator(".album-tracklist [data-track-status], .album-tracklist .track-status-badge").count())
@@ -693,7 +705,8 @@ test("technical notes use explicit status labels and a local Julia fractal", asy
   const fractal = page.locator(".math-fractal-highlight");
   await expect(fractal).toBeVisible();
   await expect(fractal.locator("img")).toHaveAttribute("src", "assets/template/julia.png");
-  await expect(fractal.locator("figcaption")).toHaveAttribute("data-copy-en", "Julia fractal");
+  await expect(fractal.locator("figcaption")).toHaveAttribute("data-copy-zh", "我最喜欢的 Julia 分形");
+  await expect(fractal.locator("figcaption")).toHaveAttribute("data-copy-en", "My favorite Julia fractal");
   await expect(fractal.locator("a")).toHaveCount(0);
   await expect(page.locator("#pinned-notes .math-note-status")).toHaveCount(4);
   await expect(page.locator("#notes-archive .math-note-status")).toHaveCount(11);
