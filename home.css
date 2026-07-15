@@ -688,15 +688,18 @@ html:lang(en) {
   margin: 0 auto;
   padding: 24px 28px 26px;
   border: 1px solid rgba(243, 247, 253, 0.14);
-  background-color: #dce3ef;
-  background-image: url("assets/template/about_branches.jpg");
+  background-color: #111722;
   background-image:
+    linear-gradient(110deg, rgba(7, 10, 16, 0.78), rgba(13, 19, 30, 0.58)),
+    url("assets/template/about_branches.jpg");
+  background-image:
+    linear-gradient(110deg, rgba(7, 10, 16, 0.78), rgba(13, 19, 30, 0.58)),
     image-set(
       url("assets/template/about_branches-960.webp") type("image/webp") 1x,
       url("assets/template/about_branches-1600.webp") type("image/webp") 2x
     );
-  background-position: center 36%;
-  background-size: cover;
+  background-position: center, center 36%;
+  background-size: auto, cover;
   background-repeat: no-repeat;
   box-shadow:
     0 14px 24px rgba(15, 19, 29, 0.07),
@@ -724,7 +727,7 @@ html:lang(en) {
   line-height: 1.14;
   font-weight: 300;
   letter-spacing: -0.02em;
-  color: var(--home-ink-strong);
+  color: rgba(249, 251, 255, 0.98);
 }
 
 .now-status-card {
@@ -735,9 +738,9 @@ html:lang(en) {
   gap: 10px;
   max-width: 860px;
   padding: 10px 12px 11px;
-  border: 1px solid rgba(57, 66, 82, 0.12);
-  background: rgba(247, 249, 252, 0.34);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.26);
+  border: 1px solid rgba(237, 243, 252, 0.15);
+  background: rgba(7, 10, 16, 0.68);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .now-status-label {
@@ -749,7 +752,7 @@ html:lang(en) {
   line-height: 1;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgb(35, 41, 52);
+  color: rgba(248, 250, 254, 0.92);
 }
 
 .now-status-card p {
@@ -757,7 +760,7 @@ html:lang(en) {
   font-family: var(--home-font-body);
   font-size: 14px;
   line-height: 1.62;
-  color: var(--home-ink-muted);
+  color: rgba(238, 242, 249, 0.9);
 }
 
 .now-freshness {
@@ -768,9 +771,9 @@ html:lang(en) {
   gap: 8px;
   margin-top: 2px;
   padding: 6px 10px 7px;
-  border: 1px solid rgba(57, 66, 82, 0.12);
-  background: rgba(247, 249, 252, 0.42);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.34);
+  border: 1px solid rgba(237, 243, 252, 0.15);
+  background: rgba(7, 10, 16, 0.72);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .now-freshness-label,
@@ -784,12 +787,12 @@ html:lang(en) {
 .now-freshness-label {
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgb(63, 72, 88);
+  color: rgba(224, 231, 242, 0.78);
 }
 
 .now-freshness-time {
   letter-spacing: 0.12em;
-  color: rgb(35, 41, 52);
+  color: rgba(248, 250, 254, 0.94);
 }
 
 .now-intro {
@@ -819,10 +822,10 @@ html:lang(en) {
   width: 1px;
   background: linear-gradient(
     180deg,
-    rgba(113, 131, 164, 0.18) 0%,
-    rgba(113, 131, 164, 0.32) 18%,
-    rgba(113, 131, 164, 0.24) 82%,
-    rgba(113, 131, 164, 0.12) 100%
+    rgba(218, 229, 247, 0.18) 0%,
+    rgba(218, 229, 247, 0.48) 18%,
+    rgba(218, 229, 247, 0.38) 82%,
+    rgba(218, 229, 247, 0.12) 100%
   );
   box-shadow: 0 0 18px rgba(120, 144, 182, 0.08);
 }
@@ -830,14 +833,14 @@ html:lang(en) {
 .now-card {
   position: relative;
   padding: 14px 14px 15px;
-  border: 1px solid rgba(56, 64, 80, 0.1);
+  border: 1px solid rgba(237, 243, 252, 0.14);
   background:
-    linear-gradient(180deg, rgba(249, 251, 254, 0.46), rgba(242, 246, 251, 0.34)),
-    radial-gradient(circle at 22% 28%, rgba(255, 255, 255, 0.08) 0.6px, transparent 0.95px);
+    linear-gradient(180deg, rgba(8, 11, 18, 0.74), rgba(11, 16, 25, 0.66)),
+    radial-gradient(circle at 22% 28%, rgba(255, 255, 255, 0.035) 0.6px, transparent 0.95px);
   background-size: auto, 8px 8px;
   box-shadow:
-    0 8px 18px rgba(18, 23, 34, 0.045),
-    inset 0 1px 0 rgba(255, 255, 255, 0.24);
+    0 8px 18px rgba(3, 5, 9, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
   transition: none;
 }
 
@@ -849,13 +852,13 @@ html:lang(en) {
   width: 11px;
   height: 11px;
   border-radius: 999px;
-  border: 1px solid rgba(124, 147, 184, 0.32);
+  border: 1px solid rgba(214, 226, 246, 0.58);
   background:
-    radial-gradient(circle at 35% 35%, rgba(246, 249, 255, 0.96) 0 32%, transparent 42%),
-    rgba(124, 147, 184, 0.78);
+    radial-gradient(circle at 35% 35%, rgba(250, 252, 255, 0.98) 0 32%, transparent 42%),
+    rgba(151, 178, 220, 0.88);
   box-shadow:
-    0 0 0 4px rgba(234, 239, 248, 0.32),
-    0 0 16px rgba(122, 142, 178, 0.16);
+    0 0 0 4px rgba(11, 17, 27, 0.52),
+    0 0 16px rgba(189, 210, 242, 0.26);
 }
 
 .now-card h3 {
@@ -865,7 +868,7 @@ html:lang(en) {
   line-height: 1.26;
   font-weight: 300;
   letter-spacing: -0.01em;
-  color: var(--home-ink-strong);
+  color: rgba(249, 251, 255, 0.98);
 }
 
 .now-card > p {
@@ -873,7 +876,7 @@ html:lang(en) {
   font-family: var(--home-font-body);
   font-size: 13px;
   line-height: 1.62;
-  color: var(--home-ink);
+  color: rgba(234, 239, 247, 0.88);
 }
 
 .selected-evidence {
