@@ -62,7 +62,7 @@ test("home page renders hero and player shell", async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
-test("home hero keeps distinct Chinese and English identities", async ({ page }) => {
+test("home hero keeps localized Chinese and English copy", async ({ page }) => {
   const errors = trackPageErrors(page);
 
   await page.goto("index.html?lang=zh", { waitUntil: "domcontentloaded" });
@@ -86,7 +86,7 @@ test("home hero keeps distinct Chinese and English identities", async ({ page })
   await page.goto("index.html?lang=en", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
   await expect(page.locator(".hero-kicker")).toHaveText("Origin / Chronohaze");
-  await expect(page.locator(".hero-right h1")).toHaveText("Feier Lyu / Fay");
+  await expect(page.locator(".hero-right h1")).toHaveText("Fay / Feier Lyu");
   await expect(page.locator(".hero-role-line")).toHaveText(
     "OPTIMIZATION · FORMAL VERIFICATION · MACHINE-CHECKED MATHEMATICS"
   );
