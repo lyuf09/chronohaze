@@ -6,6 +6,7 @@ import re
 from pathlib import Path
 
 VERSION = "20260621-nested-assets1"
+HOME_VERSION = "20260716-now-dark1"
 
 SECURITY_META_MARKER = "chronohaze-security-policy"
 SECURITY_META_SNIPPET = """  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
@@ -248,7 +249,7 @@ def rewrite_html_refs(text: str, page_rel: Path) -> str:
     asset_base = r"(?:https://lyuf09\.github\.io/chronohaze/|/chronohaze/|(?:\.\./)*)"
     replacements = {
         rf"{asset_base}styles(?:\.min)?\.css\?v=[^\"']+": f"{prefix}styles.min.css?v={VERSION}",
-        rf"{asset_base}home(?:\.min)?\.css\?v=[^\"']+": f"{prefix}home.min.css?v={VERSION}",
+        rf"{asset_base}home(?:\.min)?\.css\?v=[^\"']+": f"{prefix}home.min.css?v={HOME_VERSION}",
         rf"{asset_base}protect-media(?:\.min)?\.js\?v=[^\"']+": f"{prefix}protect-media.min.js?v={VERSION}",
         rf"{asset_base}assets/js/search-page(?:\.min)?\.js\?v=[^\"']+": f"{prefix}assets/js/search-page.min.js?v={VERSION}",
         rf"{asset_base}assets/js/catalog-pages(?:\.min)?\.js\?v=[^\"']+": f"{prefix}assets/js/catalog-pages.min.js?v={VERSION}",
