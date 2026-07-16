@@ -47,7 +47,7 @@ test("home page renders hero and player shell", async ({ page }) => {
   await expect(page.locator(".identity-panel-creative")).toContainText("创作身份 · HAZEZZ");
   await expect(page.locator("#now")).toContainText("演奏视频");
   await expect(page.locator("#now")).toContainText("音乐制作");
-  await expect(page.locator("#now")).toContainText("摄影档案");
+  await expect(page.locator("#now")).toContainText("AFP 延伸");
   await expect(page.locator("#selected-evidence")).not.toContainText("Current research");
   await expect(page.locator("#welcome")).not.toContainText("Music & Image");
   await expect(page.locator("#now")).not.toContainText("Performance videos");
