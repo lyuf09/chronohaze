@@ -42,9 +42,9 @@
   --home-font-display-zh: "cormorantgaramond-light", "cormorantgaramond", "cormorant garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
   --home-font-display-en: "Cormorant Garamond", "cormorantgaramond-light", "cormorantgaramond", "Iowan Old Style", "Times New Roman", serif;
   --home-font-body-zh: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
-  --home-font-body-en: "Inter", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  --home-font-body-en: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --home-font-ui-zh: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
-  --home-font-ui-en: "Inter", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  --home-font-ui-en: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --home-font-display: var(--home-font-display-zh);
   --home-font-body: var(--home-font-body-zh);
   --home-font-ui: var(--home-font-ui-zh);
@@ -198,7 +198,7 @@ html:lang(en) {
 }
 
 .home-topbar {
-  height: 99px;
+  height: clamp(78px, 7vw, 99px);
   border-top: 1px solid rgba(152, 171, 201, 0.42);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   background:
@@ -345,8 +345,9 @@ html:lang(en) {
 }
 
 .hero-portrait {
-  width: 366px;
-  height: 448px;
+  width: clamp(318px, 26vw, 366px);
+  height: auto;
+  aspect-ratio: 481 / 587;
   object-fit: cover;
   border: 1px solid rgba(232, 237, 245, 0.12);
   box-shadow:
@@ -1384,7 +1385,7 @@ html:lang(en) {
   }
 
   .hero-portrait {
-    width: min(84vw, 520px);
+    width: clamp(318px, 84vw, 520px);
     height: auto;
     aspect-ratio: 481 / 587;
   }
@@ -1620,7 +1621,7 @@ html:lang(en) {
   }
 
   .hero-portrait {
-    width: min(88vw, 420px);
+    width: clamp(246px, 88vw, 420px);
   }
 
   .hero-right-inner {
@@ -1816,12 +1817,12 @@ html.menu-scroll-locked,
 
 .home-topbar {
   padding-top: env(safe-area-inset-top, 0px);
-  height: calc(99px + env(safe-area-inset-top, 0px));
+  height: calc(clamp(78px, 7vw, 99px) + env(safe-area-inset-top, 0px));
 }
 
 @media (max-width: 768px) {
   .home-topbar {
-    height: calc(76px + env(safe-area-inset-top, 0px));
+    height: calc(clamp(64px, 16vw, 76px) + env(safe-area-inset-top, 0px));
     padding:
       env(safe-area-inset-top, 0px)
       max(16px, calc(12px + env(safe-area-inset-right, 0px)))
@@ -1894,8 +1895,8 @@ html.menu-scroll-locked,
     font-size: 11.5px;
     letter-spacing: 0.2em;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    overflow: visible;
+    text-overflow: clip;
   }
 
   .lang-pill {
@@ -1963,7 +1964,7 @@ html.menu-scroll-locked,
   }
 
   .hero-portrait {
-    width: min(82vw, 430px);
+    width: clamp(246px, 82vw, 430px);
   }
 
   .entry-card {
@@ -2095,8 +2096,8 @@ html.menu-scroll-locked,
     font-size: 11px;
     letter-spacing: 0.18em;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    overflow: visible;
+    text-overflow: clip;
   }
 
   .lang-pill {
@@ -2199,7 +2200,7 @@ html.menu-scroll-locked,
   }
 
   .home-topbar {
-    height: calc(64px + env(safe-area-inset-top, 0px));
+    height: calc(clamp(64px, 16vw, 76px) + env(safe-area-inset-top, 0px));
     grid-template-columns: minmax(0, 1fr) auto auto;
     column-gap: 10px;
     padding:
@@ -2213,8 +2214,8 @@ html.menu-scroll-locked,
     max-width: min(42vw, 154px);
     font-size: clamp(9.5px, 2.6vw, 11px);
     letter-spacing: 0.16em;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    overflow: visible;
+    text-overflow: clip;
     white-space: nowrap;
   }
 
@@ -2247,7 +2248,7 @@ html.menu-scroll-locked,
   }
 
   .hero-portrait {
-    width: min(78vw, 336px);
+    width: clamp(236px, 78vw, 336px);
     max-height: min(52vh, 388px);
     height: auto;
     aspect-ratio: 481 / 587;
@@ -2365,7 +2366,7 @@ html.menu-scroll-locked,
 
 @media (max-width: 480px) {
   .home-topbar {
-    height: calc(62px + env(safe-area-inset-top, 0px));
+    height: calc(clamp(64px, 16vw, 76px) + env(safe-area-inset-top, 0px));
     column-gap: 8px;
   }
 
@@ -2384,7 +2385,7 @@ html.menu-scroll-locked,
   }
 
   .hero-portrait {
-    width: min(74vw, 314px);
+    width: clamp(220px, 74vw, 314px);
     max-height: min(48vh, 360px);
   }
 
@@ -2401,7 +2402,32 @@ html.menu-scroll-locked,
   }
 
   .lang-pill {
-    width: 108px;
+    width: 102px;
+  }
+}
+
+@media (pointer: coarse) {
+  .lang-pill {
+    height: 44px;
+    min-height: 44px;
+  }
+
+  .lang-btn,
+  .menu-open {
+    height: 44px;
+    min-height: 44px;
+  }
+
+  .hero-academic-link,
+  .contact-btn,
+  .drawer-close,
+  .drawer-nav a,
+  .home-footer-email,
+  .home-footer-social a,
+  .home-footer-policy a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
   }
 }
 

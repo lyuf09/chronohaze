@@ -58,6 +58,14 @@ test("home page renders hero and player shell", async ({ page }) => {
   );
   await expect(page.locator("main")).not.toContainText("2005 年出生");
   await expect(page.locator("#welcome")).toContainText("理性与浪漫在这里并置");
+  await expect(page.locator('link[rel="preload"][as="image"]')).toHaveAttribute(
+    "imagesrcset",
+    /hero_portrait-600\.webp 600w.*hero_portrait-960\.webp 960w.*hero_portrait-1600\.webp 1600w/
+  );
+  await expect(page.locator('link[rel="preload"][as="image"]')).toHaveAttribute(
+    "imagesizes",
+    /max-width: 640px/
+  );
 
   expect(errors).toEqual([]);
 });
@@ -107,6 +115,26 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
   await expect(page.locator(".selected-evidence-card").nth(1)).toContainText(
     "Optimization, network localization, and nonconvex structures with invariance; studying dual collapse, structural scores, and their connection to local curvature certificates."
   );
+  await expect(page.locator(".hero-portrait")).toHaveAttribute("alt", "Portrait of HazezZ");
+  await expect(page.locator(".now-grid")).toHaveAttribute("aria-label", "Current creative work");
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+    "content",
+    /Mathematics BSc student at the University of Edinburgh/
+  );
+  await expect(page.locator('meta[property="og:title"]')).toHaveAttribute(
+    "content",
+    "Feier Lyu | Optimization, Formal Verification & Machine-Checked Mathematics"
+  );
+  await expect(page).toHaveURL(/[?&]lang=en(?:&|$)/);
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", /[?&]lang=en$/);
+  await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", /[?&]lang=en$/);
+  await expect(page.locator('.home-footer-policy a[href="accessibility.html"]')).toHaveText(
+    "Accessibility"
+  );
+
+  await page.locator('.lang-btn[data-lang="zh"]').click();
+  await expect(page).toHaveURL(/[?&]lang=zh(?:&|$)/);
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", /[?&]lang=zh$/);
 
   expect(errors).toEqual([]);
 });
@@ -127,6 +155,10 @@ test("PGD note leads with its mathematical value", async ({ page }) => {
   await expect(article).toContainText("linear convergence under strong convexity");
   await expect(article).not.toContainText("strange open interval after exams");
   await expect(article).not.toContainText("temporarily blocked by a technical issue");
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+    "content",
+    /A machine-checked development of projected gradient descent/
+  );
 
   expect(errors).toEqual([]);
 });
@@ -180,6 +212,16 @@ test("music index renders and remains interactive", async ({ page }) => {
   );
   await expect(page.locator(".page-head .lead")).toContainText("blue-grey night");
   await expect(page.locator("main")).not.toContainText("across screens");
+  await expect(page.locator(".music-hero")).toHaveAttribute(
+    "aria-label",
+    "HazezZ music portfolio"
+  );
+  await expect(page.locator(".music-hero img")).toHaveAttribute("alt", "HazezZ");
+  await expect(page.locator(".music-intro img")).toHaveAttribute("alt", "HazezZ");
+  await expect(page.locator(".music-bottom")).toHaveAttribute(
+    "aria-label",
+    "Performance gallery"
+  );
 
   expect(errors).toEqual([]);
 });
@@ -200,6 +242,21 @@ test("search page loads grouped results and query state works", async ({ page })
   await expect(page.locator(".search-share-tools")).toBeHidden();
   await expect(page.locator(".search-submit")).toHaveCSS("color", "rgba(244, 248, 255, 0.96)");
   await expect(page.locator(".search-shortcuts")).toHaveText("/ or Ctrl/Cmd+K to focus search");
+  await expect(page.locator("header .nav")).toHaveAttribute("aria-label", "Main navigation");
+  await expect(page.locator(".search-form")).toHaveAttribute("aria-label", "Site search form");
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+    "content",
+    "Search Chronohaze across mathematics, photography, music, research, and CV content."
+  );
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", /search\.html\?lang=en$/);
+  await expect(page.locator('link[rel="alternate"][hreflang="zh-CN"]')).toHaveAttribute(
+    "href",
+    /search\.html\?lang=zh$/
+  );
+  await expect(page.locator('link[rel="alternate"][hreflang="en"]')).toHaveAttribute(
+    "href",
+    /search\.html\?lang=en$/
+  );
 
   await page.fill("#site-search-input", "Affizieren");
   await page.click(".search-submit");
@@ -208,6 +265,14 @@ test("search page loads grouped results and query state works", async ({ page })
   await expect.poll(async () => page.locator(".search-result-group").count()).toBeGreaterThan(0);
   await expect(page.locator(".search-shortcuts")).toContainText("select");
   await expect(page).toHaveURL(/[\?&]q=Affizieren/);
+  await expect(page).toHaveURL(/[\?&]lang=en/);
+
+  await page.fill("#site-search-input", "projected gradient");
+  await page.click(".search-submit");
+  await expect(page.locator(".search-result-title").first()).toContainText(
+    "Projected Gradient Descent"
+  );
+  await expect(page.locator(".search-result-excerpt").first()).toContainText("Isabelle/HOL");
 
   await page.fill("#site-search-input", "__chronohaze_no_match__");
   await page.click(".search-submit");
@@ -217,6 +282,25 @@ test("search page loads grouped results and query state works", async ({ page })
     "No matching results yet. Try these nearby tags or entry points:"
   );
   await expect(page.locator(".search-shortcuts")).toHaveText("/ or Ctrl/Cmd+K to focus search");
+
+  expect(errors).toEqual([]);
+});
+
+test("English utility and music-detail pages expose English metadata", async ({ page }) => {
+  const errors = trackPageErrors(page);
+  const cases = [
+    ["policy.html?lang=en", "Privacy, data handling, copyright, and content usage information"],
+    ["accessibility.html?lang=en", "Accessibility support, current practices, known limitations"],
+    ["music/track-04.html?lang=en", "Music work page for"],
+  ];
+
+  for (const [url, expectedDescription] of cases) {
+    await page.goto(url, { waitUntil: "domcontentloaded" });
+    await waitForCriticalLoaderRelease(page);
+    const description = await page.locator('meta[name="description"]').getAttribute("content");
+    expect(description).toContain(expectedDescription);
+    expect(description).not.toMatch(/[\u3400-\u9fff]/);
+  }
 
   expect(errors).toEqual([]);
 });
@@ -259,9 +343,27 @@ test("mobile share launcher opens without immediately closing and manages focus"
     const brandMetrics = await page.locator(".home-brand").evaluate((brand) => ({
       clientWidth: brand.clientWidth,
       scrollWidth: brand.scrollWidth,
+      textOverflow: window.getComputedStyle(brand).textOverflow,
+      left: brand.getBoundingClientRect().left,
+      right: brand.getBoundingClientRect().right,
+      viewport: window.innerWidth,
     }));
     expect(brandMetrics.scrollWidth).toBeLessThanOrEqual(brandMetrics.clientWidth + 1);
+    expect(brandMetrics.textOverflow).not.toBe("ellipsis");
+    expect(brandMetrics.left).toBeGreaterThanOrEqual(0);
+    expect(brandMetrics.right).toBeLessThanOrEqual(brandMetrics.viewport + 1);
   }
+
+  const compactTargets = await page
+    .locator(".lang-btn, .menu-open, .hero-academic-link, .home-footer-policy a")
+    .evaluateAll((nodes) =>
+      nodes.map((node) => ({
+        target: `${node.tagName.toLowerCase()}.${node.className || ""}`,
+        text: (node.textContent || "").trim(),
+        height: node.getBoundingClientRect().height,
+      }))
+    );
+  expect(compactTargets.filter((target) => target.height < 44)).toEqual([]);
 
   await logo.click({ force: true });
   await expect(panel).toBeVisible();
@@ -705,6 +807,7 @@ test("technical notes use explicit status labels and a local Julia fractal", asy
   const fractal = page.locator(".math-fractal-highlight");
   await expect(fractal).toBeVisible();
   await expect(fractal.locator("img")).toHaveAttribute("src", "assets/template/julia.png");
+  await expect(fractal.locator("img")).toHaveAttribute("alt", "Julia fractal image");
   await expect(fractal.locator("figcaption")).toHaveAttribute("data-copy-zh", "我最喜欢的 Julia 分形");
   await expect(fractal.locator("figcaption")).toHaveAttribute("data-copy-en", "My favorite Julia fractal");
   await expect(fractal.locator("a")).toHaveCount(0);
@@ -857,7 +960,7 @@ test("photo detail page supports keyboard prev/next navigation", async ({ page }
   await expect(page.locator(".photo-detail-pager [data-photo-nav-label='next']")).toBeVisible();
 
   await page.keyboard.press("ArrowRight");
-  await expect(page).toHaveURL(/photo\/photo-02\.html$/);
+  await expect(page).toHaveURL(/photo\/photo-02\.html\?lang=zh$/);
   await waitForCriticalLoaderRelease(page);
   await expect(page.locator(".photo-detail-pager")).toBeVisible();
 

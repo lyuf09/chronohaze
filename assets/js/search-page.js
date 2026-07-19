@@ -665,7 +665,11 @@
       };
       var stateKey = [state.q, state.scope, state.tag].join("\u0001");
       var url = new URL(window.location.href);
+      var explicitLang = url.searchParams.get("lang");
       url.search = "";
+      if (lang === "en" || explicitLang === "zh") {
+        url.searchParams.set("lang", lang);
+      }
       if (state.q) {
         url.searchParams.set("q", state.q);
       } else {
@@ -709,7 +713,11 @@
 
     function buildSearchUrlForState(query, scope, tag) {
       var url = new URL(window.location.href);
+      var explicitLang = url.searchParams.get("lang");
       url.search = "";
+      if (lang === "en" || explicitLang === "zh") {
+        url.searchParams.set("lang", lang);
+      }
       if (query) {
         url.searchParams.set("q", String(query));
       }
@@ -1465,20 +1473,36 @@
       return excerpt;
     }
 
+    function getLocalizedItemTitle(item) {
+      if (lang === "en" && item && item.title_en) {
+        return String(item.title_en);
+      }
+      return String(item && item.title ? item.title : "");
+    }
+
+    function getLocalizedItemExcerpt(item, rawTerms) {
+      if (lang === "en" && item && item.excerpt_en) {
+        return String(item.excerpt_en);
+      }
+      return resolveExcerptText(item, rawTerms);
+    }
+
     function buildSearchPools(item, itemTags) {
       var titleRaw = String(item.title || "");
+      var titleEnglishRaw = String(item.title_en || "");
       var excerptRaw = String(item.excerpt || "");
+      var excerptEnglishRaw = String(item.excerpt_en || "");
       var contentRaw = String(item.content || "");
       var dateRaw = String(item.date || "");
       var sectionRaw = String(item.section || "");
       var tagsRaw = itemTags.join(" ");
       return {
-        title: normalizeText(titleRaw).toLowerCase(),
-        excerpt: normalizeText(excerptRaw).toLowerCase(),
+        title: normalizeText([titleRaw, titleEnglishRaw].join(" ")).toLowerCase(),
+        excerpt: normalizeText([excerptRaw, excerptEnglishRaw].join(" ")).toLowerCase(),
         content: normalizeText(contentRaw).toLowerCase(),
         meta: normalizeText([sectionRaw, tagsRaw, dateRaw].join(" ")).toLowerCase(),
         all: normalizeText(
-          [titleRaw, excerptRaw, contentRaw, sectionRaw, tagsRaw, dateRaw].join(" ")
+          [titleRaw, titleEnglishRaw, excerptRaw, excerptEnglishRaw, contentRaw, sectionRaw, tagsRaw, dateRaw].join(" ")
         ).toLowerCase(),
       };
     }
@@ -1869,7 +1893,7 @@
 
           var title = document.createElement("h3");
           title.className = "search-result-title";
-          setHighlightedText(title, groupItem.title || "", rawTerms);
+          setHighlightedText(title, getLocalizedItemTitle(groupItem), rawTerms);
 
           var meta = document.createElement("p");
           meta.className = "search-result-meta";
@@ -1882,7 +1906,7 @@
 
           var excerpt = document.createElement("p");
           excerpt.className = "search-result-excerpt";
-          setHighlightedText(excerpt, resolveExcerptText(groupItem, rawTerms), rawTerms);
+          setHighlightedText(excerpt, getLocalizedItemExcerpt(groupItem, rawTerms), rawTerms);
 
           var tagsWrap = document.createElement("div");
           tagsWrap.className = "search-result-tags";

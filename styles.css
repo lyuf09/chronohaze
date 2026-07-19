@@ -95,7 +95,7 @@
   --font-music-serif: var(--font-editorial-serif);
   --font-music-sans: var(--font-editorial-sans);
   --font-sans-zh: "Chronohaze Sans SC", "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
-  --font-sans-en: "Inter", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  --font-sans-en: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-serif: var(--font-serif-zh);
   --font-sans: var(--font-sans-zh);
   --text-strong: #212732;
@@ -843,7 +843,7 @@ body.page-transition-busy .home-page {
 }
 
 .header-inner {
-  min-height: 99px;
+  min-height: clamp(76px, 7vw, 99px);
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
@@ -888,6 +888,30 @@ body.page-transition-busy .home-page {
   color: rgba(241, 244, 250, .92);
   position: relative;
   transition: color var(--ui-t-base) ease, opacity var(--ui-t-base) ease;
+}
+
+@media (pointer: coarse) {
+  .nav a,
+  .footer-right a,
+  .footer-feed-link,
+  .social a,
+  .floating-lang-btn,
+  .search-submit,
+  .search-index-page #site-search-scope,
+  .search-index-page #site-search-tag,
+  .search-share-btn,
+  .music-filter-tab,
+  .music-index-page .music-ia-tab,
+  .article-toc-link,
+  .math-post-nav-item,
+  .music-detail-back,
+  .music-album-page .album-back-link {
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .nav a::after {

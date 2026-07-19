@@ -308,6 +308,7 @@
         zh: {
           htmlLang: 'zh-CN',
           pageTitle: '无障碍支持 | Chronohaze',
+          pageDescription: 'Chronohaze 无障碍支持说明页面，介绍当前实践、已知限制与反馈方式。',
           navAria: '主导航',
           navHome: '主页',
           navAcademic: '学术',
@@ -323,6 +324,7 @@
         en: {
           htmlLang: 'en',
           pageTitle: 'Accessibility | Chronohaze',
+          pageDescription: 'Accessibility support, current practices, known limitations, and feedback options for Chronohaze.',
           navAria: 'Main navigation',
           navHome: 'Home',
           navAcademic: 'Academic',
@@ -342,6 +344,15 @@
         const dict = i18n[safeLang];
         document.documentElement.lang = dict.htmlLang;
         document.title = dict.pageTitle;
+
+        ['meta[name="description"]', 'meta[property="og:description"]', 'meta[name="twitter:description"]'].forEach(function (selector) {
+          const node = document.querySelector(selector);
+          if (node) node.setAttribute('content', dict.pageDescription);
+        });
+        ['meta[property="og:title"]', 'meta[name="twitter:title"]'].forEach(function (selector) {
+          const node = document.querySelector(selector);
+          if (node) node.setAttribute('content', dict.pageTitle);
+        });
 
         i18nNodes.forEach(function (node) {
           const key = node.getAttribute('data-i18n');

@@ -260,7 +260,7 @@
           <div class="hero-portrait-frame">
             <picture class="responsive-picture" style="display:block;width:100%;">
               <source type="image/webp" srcset="assets/template/hero_portrait-600.webp 600w, assets/template/hero_portrait-960.webp 960w, assets/template/hero_portrait-1600.webp 1600w" sizes="(max-width: 640px) 88vw, (max-width: 900px) 92vw, 46vw" />
-              <img class="hero-portrait" src="assets/template/hero_portrait-960.jpg" srcset="assets/template/hero_portrait-600.jpg 600w, assets/template/hero_portrait-960.jpg 960w, assets/template/hero_portrait-1600.jpg 1600w" alt="HazezZ 个人肖像" width="3000" height="4000" data-reveal="zoom" data-reveal-delay="40" data-reveal-wait="image-load" data-eager="true" loading="eager" decoding="async" fetchpriority="high" sizes="(max-width: 640px) 88vw, (max-width: 900px) 92vw, 46vw" />
+              <img class="hero-portrait" src="assets/template/hero_portrait-960.jpg" srcset="assets/template/hero_portrait-600.jpg 600w, assets/template/hero_portrait-960.jpg 960w, assets/template/hero_portrait-1600.jpg 1600w" alt="HazezZ 个人肖像" data-i18n-alt="heroPortraitAlt" width="3000" height="4000" data-reveal="zoom" data-reveal-delay="40" data-reveal-wait="image-load" data-eager="true" loading="eager" decoding="async" fetchpriority="high" sizes="(max-width: 640px) 88vw, (max-width: 900px) 92vw, 46vw" />
             </picture>
           </div>
         </div>
@@ -375,7 +375,7 @@
               <time class="now-freshness-time" datetime="2026-07">2026. 07</time>
             </div>
           </div>
-          <div class="now-grid" aria-label="当前创作工作">
+          <div class="now-grid" aria-label="当前创作工作" data-i18n-aria="nowGridAria">
             <article class="now-card" data-reveal="slide-up" data-reveal-delay="80">
               <h3 data-i18n="nowCard1Title">演奏视频</h3>
               <p data-i18n="nowCard1Body">购入了新相机与镜头，准备拍一些我真正满意的贝斯cover</p>
@@ -455,6 +455,7 @@
       const revealNodes = Array.from(document.querySelectorAll('[data-reveal]'));
       const i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
       const i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
+      const i18nAltNodes = Array.from(document.querySelectorAll('[data-i18n-alt]'));
       let drawerLinks = Array.from(drawer.querySelectorAll('a'));
       let homeMathItems = null;
       let menuScrollY = 0;
@@ -522,6 +523,9 @@
 
       const i18n = {
         zh: {
+          metaDescription: 'Fay / Feier Lyu（HazezZ），爱丁堡大学数学本科生，研究优化理论、形式化验证与 Isabelle/HOL；其子模优化形式化已发表于 Archive of Formal Proofs。',
+          socialTitle: '起点｜Fay / Feier Lyu · Chronohaze',
+          socialDescription: '在时间的薄雾里，为复杂性寻找结构。Fay / Feier Lyu，爱丁堡大学数学本科生，研究优化理论、形式化验证与 Isabelle/HOL。',
           menuOpenAria: '菜单 [ + ]',
           audioToggleAria: '播放或暂停精选音频',
           playerStatusLoading: '准备音频…',
@@ -530,6 +534,7 @@
           playerFallbackLink: '去音乐页试听',
           playerUnavailableTitle: '当前设备或网络下无法直接播放，可前往音乐页试听。',
           drawerAria: '站点菜单',
+          heroPortraitAlt: 'HazezZ 个人肖像',
           heroKicker: '起点 / Chronohaze',
           heroTitle: 'Fay / Feier Lyu',
           heroRole: 'OPTIMIZATION · FORMAL VERIFICATION · MACHINE-CHECKED MATHEMATICS',
@@ -550,6 +555,7 @@
           nowKicker: '最近更新',
           nowTitle: '创作近况',
           nowFreshnessLabel: '近况更新',
+          nowGridAria: '当前创作工作',
           nowCard1Title: '演奏视频',
           nowCard1Body: '购入了新相机与镜头，准备拍一些我真正满意的贝斯cover',
           nowCard2Title: '音乐制作',
@@ -604,6 +610,9 @@
           menuSearch: '搜索'
         },
         en: {
+          metaDescription: 'Feier Lyu (Fay Lyu) is a Mathematics BSc student at the University of Edinburgh working on optimization theory, formal verification, and Isabelle/HOL; the submodular optimization formalization is published in the Archive of Formal Proofs.',
+          socialTitle: 'Feier Lyu | Optimization, Formal Verification & Machine-Checked Mathematics',
+          socialDescription: 'In the haze of time, I look for structure in complexity. Feier Lyu is a Mathematics BSc student at the University of Edinburgh working on optimization, formal verification, and Isabelle/HOL.',
           menuOpenAria: 'Menu [ + ]',
           audioToggleAria: 'Play or pause featured track',
           playerStatusLoading: 'Preparing audio…',
@@ -612,6 +621,7 @@
           playerFallbackLink: 'Open track page',
           playerUnavailableTitle: 'Playback is unavailable on this device or network. Open the track page instead.',
           drawerAria: 'Menu',
+          heroPortraitAlt: 'Portrait of HazezZ',
           heroKicker: 'Origin / Chronohaze',
           heroTitle: 'Fay / Feier Lyu',
           heroRole: 'OPTIMIZATION · FORMAL VERIFICATION · MACHINE-CHECKED MATHEMATICS',
@@ -632,6 +642,7 @@
           nowKicker: 'NOW / RECENTLY',
           nowTitle: 'Creative / Now',
           nowFreshnessLabel: 'Last updated',
+          nowGridAria: 'Current creative work',
           nowCard1Title: 'Performance videos',
           nowCard1Body: 'I bought a new camera and lens, and I’m preparing to film bass covers I’m genuinely happy with.',
           nowCard2Title: 'Music production',
@@ -675,7 +686,7 @@
           footerCities: 'Edinburgh · Ithaca · Chongqing — places that shaped the work.',
           footerCopy: '© 2026 by chronohaze.space. Powered and secured by GitHub Pages.',
           siteNotes: 'Privacy Policy',
-          a11y: 'Terms of Use',
+          a11y: 'Accessibility',
           menuClose: 'Close  [ - ]',
           menuHome: 'Home',
           menuAcademic: 'Academic',
@@ -922,6 +933,38 @@
         document.documentElement.lang = safeLang === 'en' ? 'en' : 'zh-CN';
         document.title = titleByLang[safeLang];
 
+        const setMeta = function (selector, value) {
+          const node = document.querySelector(selector);
+          if (node && typeof value === 'string') node.setAttribute('content', value);
+        };
+        setMeta('meta[name="description"]', dict.metaDescription);
+        setMeta('meta[property="og:title"]', dict.socialTitle);
+        setMeta('meta[property="og:description"]', dict.socialDescription);
+        setMeta('meta[name="twitter:title"]', dict.socialTitle);
+        setMeta('meta[name="twitter:description"]', dict.socialDescription);
+
+        const visibleUrl = new URL(window.location.href);
+        visibleUrl.searchParams.set('lang', safeLang);
+        window.history.replaceState(window.history.state, '', visibleUrl.toString());
+
+        const canonical = document.querySelector('link[rel="canonical"]');
+        const canonicalBase = new URL(canonical ? canonical.href : window.location.href);
+        canonicalBase.search = '';
+        canonicalBase.hash = '';
+        const languageUrl = function (value) {
+          const next = new URL(canonicalBase.toString());
+          next.searchParams.set('lang', value);
+          return next.toString();
+        };
+        if (canonical) canonical.href = languageUrl(safeLang);
+        const zhAlternate = document.querySelector('link[rel="alternate"][hreflang="zh-CN"]');
+        const enAlternate = document.querySelector('link[rel="alternate"][hreflang="en"]');
+        const defaultAlternate = document.querySelector('link[rel="alternate"][hreflang="x-default"]');
+        if (zhAlternate) zhAlternate.href = languageUrl('zh');
+        if (enAlternate) enAlternate.href = languageUrl('en');
+        if (defaultAlternate) defaultAlternate.href = canonicalBase.toString();
+        setMeta('meta[property="og:url"]', languageUrl(safeLang));
+
         ensureDrawerNav(safeLang);
 
         i18nNodes.forEach(function (node) {
@@ -956,6 +999,14 @@
           const value = dict[key];
           if (typeof value === 'string') {
             node.setAttribute('aria-label', value);
+          }
+        });
+
+        i18nAltNodes.forEach(function (node) {
+          const key = node.getAttribute('data-i18n-alt');
+          const value = dict[key];
+          if (typeof value === 'string') {
+            node.setAttribute('alt', value);
           }
         });
 

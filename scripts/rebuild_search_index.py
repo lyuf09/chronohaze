@@ -288,9 +288,17 @@ def apply_catalog_overlay(path_name: str, item: Dict[str, Any], catalogs: Dict[s
     if path_name == "math.json":
         catalog_item = (catalogs.get("math") or {}).get(url)
         if catalog_item:
-            overlay_fields(item, catalog_item, ("tags", "date", "title", "excerpt"))
+            overlay_fields(item, catalog_item, ("tags", "date", "title", "excerpt", "title_en", "excerpt_en"))
         elif url == "math.html":
-            overlay_fields(item, {"tags": ["math", "technical notes"], "title": "学术笔记 / Technical Notes"}, ("tags", "title"))
+            overlay_fields(
+                item,
+                {
+                    "tags": ["math", "technical notes"],
+                    "title": "学术笔记 / Technical Notes",
+                    "title_en": "Technical Notes",
+                },
+                ("tags", "title", "title_en"),
+            )
         return
 
     if path_name == "photo.json":
@@ -302,7 +310,11 @@ def apply_catalog_overlay(path_name: str, item: Dict[str, Any], catalogs: Dict[s
     if path_name == "site.json" and url == "research.html":
         research_search = (catalogs.get("research") or {}).get("search")
         if isinstance(research_search, dict):
-            overlay_fields(item, research_search, ("title", "date", "excerpt", "tags", "scope", "content"))
+            overlay_fields(
+                item,
+                research_search,
+                ("title", "title_en", "date", "excerpt", "excerpt_en", "tags", "scope", "content"),
+            )
 
 
 def synthesize_research_search_item(catalogs: Dict[str, Any]) -> Dict[str, Any] | None:
@@ -315,6 +327,10 @@ def synthesize_research_search_item(catalogs: Dict[str, Any]) -> Dict[str, Any] 
     synthetic = {k: item.get(k) for k in REQUIRED_ITEM_KEYS}
     if set(synthetic.keys()) != set(REQUIRED_ITEM_KEYS):
         return None
+    for key in ("title_en", "excerpt_en"):
+        value = str(item.get(key, "")).strip()
+        if value:
+            synthetic[key] = value
     return synthetic
 
 
@@ -416,10 +432,12 @@ def refresh_selected_html_search_content(
                 data["items"].append(
                     {
                         "title": str(catalog_item.get("title", "")).strip(),
+                        "title_en": str(catalog_item.get("title_en", "")).strip(),
                         "url": url,
                         "section": "Mathematics",
                         "date": date_text,
                         "excerpt": str(catalog_item.get("excerpt", "")).strip(),
+                        "excerpt_en": str(catalog_item.get("excerpt_en", "")).strip(),
                         "tags": list(catalog_item.get("tags", [])),
                         "sort": as_int_sort(date_text.replace("-", "")),
                         "scope": "math",
@@ -448,7 +466,7 @@ def refresh_selected_html_search_content(
                 changed = True
             catalog_item = math_catalog.get(url)
             if catalog_item:
-                for key in ("title", "excerpt"):
+                for key in ("title", "excerpt", "title_en", "excerpt_en"):
                     value = str(catalog_item.get(key, "")).strip()
                     if value and item.get(key) != value:
                         item[key] = value

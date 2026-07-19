@@ -10,10 +10,10 @@
     "items": [
       {
         "label": "Last updated",
-        "value": "2026-07-15 · 09:57 AM ET",
-        "datetime": "2026-07-15T09:57:57-04:00",
+        "value": "2026-07-18 · 10:48 AM ET",
+        "datetime": "2026-07-18T10:48:59-04:00",
         "timezone": "America/New_York",
-        "date_only": "2026-07-15",
+        "date_only": "2026-07-18",
         "display_format": "YYYY-MM-DD · hh:mm A ET"
       }
     ]
@@ -131,16 +131,18 @@
   "links": [],
   "search": {
     "title": "Research Statement | Feier Lyu (Fay Lyu)",
+    "title_en": "Research Statement | Feier Lyu (Fay Lyu)",
     "url": "research.html",
     "section": "Site",
     "date": "",
     "excerpt": "我的核心问题是：一个数学或计算对象在被形式化、对偶化、离散化与算法化之后，其结构如何变化——哪些依赖被暴露、哪些信息被保留、哪些约束仍可计算。",
+    "excerpt_en": "My central question is how the structure of a mathematical or computational object changes under formalization, dualization, discretization, and algorithmization: which dependencies become visible, which information is preserved, and which constraints remain computable.",
     "tags": [
       "research",
       "optimization",
       "formal-methods"
     ],
-    "sort": 20260715,
+    "sort": 20260718,
     "scope": "site",
     "content": "研究陈述 我的核心问题是：一个数学或计算对象在被形式化、对偶化、离散化与算法化之后，其结构如何变化——哪些依赖被暴露、哪些信息被保留、哪些约束仍可计算。 主要研究方向 代表性工作入口 几项最能支撑上面研究线索的项目和笔记。 研究范围 PRIMARY DIRECTION 01 机器检查优化与可复用证明结构 我正在使用 Isabelle/HOL 形式化一阶优化方法与子模贪心算法中的经典证明结构。这里我关心的不只是把定理放进 proof assistant，而是如何把证明中的依赖、接口和可复用部分写清楚。 正式发表于 AFP（2026）：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库还进一步发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。关于 smooth convex optimization 与 projected gradient descent 的第二个形式化项目已提交至 Archive of Formal Proofs，目前等待审核。 接下来我想继续思考的是：怎样把这些形式化结果整理成更稳定的 library，使它们既适合展示和归档，也能支持后续扩展。 AFP entry DOI: 10.5281/zenodo.21054718 Proof document Repository PRIMARY DIRECTION 02 优化中的不变性、对偶与定位 在一些优化模型中，最自然的对偶路线会因为 translation 或 gauge invariance 而退化，最后只得到 trivial lower bound。我感兴趣的是：这种退化到底说明了推导失败，还是说明模型本身隐藏着另一种结构？ 我目前尤其关注 network localization 中 Range(B)、cycle consistency 与 instance difficulty 的关系。这条线的核心不是单纯追求更强的 bound，而是理解在对偶信息 collapse 之后，是否仍能恢复可解释、可比较的 structural score。 Isabelle/HOL Submodular Greedy Formalization 子模贪心算法形式化项目与材料入口。 Isabelle/HOL Projected Gradient Descent Awaiting review smooth convex optimization 中一阶方法形式化项目；已提交至 AFP，等待审核。 Optimization Note TTGDA and Second-Order Tracking Exploratory 关于 value-function viewpoint 与二阶 tracking 问题的探索性技术笔记。",
     "meta_title": "Research Statement | Feier Lyu (Fay Lyu) | Chronohaze",
@@ -194,6 +196,6 @@
       ]
     }
   ],
-  "generated_at": "2026-07-15",
+  "generated_at": "2026-07-18",
   "source": "research.html"
 }

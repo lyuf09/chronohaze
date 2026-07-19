@@ -416,6 +416,7 @@
       zh: {
         htmlLang: 'zh-CN',
         pageTitle: '从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL | Chronohaze',
+        pageDescription: 'Projected Gradient Descent in Isabelle/HOL 已提交至 Archive of Formal Proofs，目前等待审核。项目覆盖 smooth convexity、projection geometry、descent estimates、projected-gradient mapping 和 residual certificates。',
         navAria: '主导航',
         navHome: '主页',
         navAcademic: '学术',
@@ -434,6 +435,7 @@
       en: {
         htmlLang: 'en',
         pageTitle: 'Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL | Chronohaze',
+        pageDescription: 'A machine-checked development of projected gradient descent in Isabelle/HOL, covering smooth convexity, projection geometry, descent estimates, projected-gradient mappings, residual certificates, and linear convergence.',
         navAria: 'Main navigation',
         navHome: 'Home',
         navAcademic: 'Academic',
@@ -456,6 +458,15 @@
       const dict = i18n[safeLang];
       document.documentElement.lang = dict.htmlLang;
       document.title = dict.pageTitle;
+
+      ['meta[name="description"]', 'meta[property="og:description"]', 'meta[name="twitter:description"]'].forEach(function (selector) {
+        const node = document.querySelector(selector);
+        if (node) node.setAttribute('content', dict.pageDescription);
+      });
+      ['meta[property="og:title"]', 'meta[name="twitter:title"]'].forEach(function (selector) {
+        const node = document.querySelector(selector);
+        if (node) node.setAttribute('content', dict.pageTitle);
+      });
 
       i18nNodes.forEach(function (node) {
         const key = node.getAttribute('data-i18n');

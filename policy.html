@@ -300,6 +300,7 @@
         zh: {
           htmlLang: 'zh-CN',
           pageTitle: '网站说明 | Chronohaze',
+          pageDescription: 'Chronohaze 网站说明页面，介绍隐私、数据处理、版权与内容使用规则。',
           navAria: '主导航',
           navHome: '主页',
           navAcademic: '学术',
@@ -315,6 +316,7 @@
         en: {
           htmlLang: 'en',
           pageTitle: 'Privacy Policy | Chronohaze',
+          pageDescription: 'Privacy, data handling, copyright, and content usage information for Chronohaze.',
           navAria: 'Main navigation',
           navHome: 'Home',
           navAcademic: 'Academic',
@@ -334,6 +336,15 @@
         const dict = i18n[safeLang];
         document.documentElement.lang = dict.htmlLang;
         document.title = dict.pageTitle;
+
+        ['meta[name="description"]', 'meta[property="og:description"]', 'meta[name="twitter:description"]'].forEach(function (selector) {
+          const node = document.querySelector(selector);
+          if (node) node.setAttribute('content', dict.pageDescription);
+        });
+        ['meta[property="og:title"]', 'meta[name="twitter:title"]'].forEach(function (selector) {
+          const node = document.querySelector(selector);
+          if (node) node.setAttribute('content', dict.pageTitle);
+        });
 
         i18nNodes.forEach(function (node) {
           const key = node.getAttribute('data-i18n');

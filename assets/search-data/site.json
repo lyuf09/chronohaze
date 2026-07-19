@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-16",
+  "generated_at": "2026-07-18",
   "scope": "site",
   "items": [
     {
@@ -20,6 +20,7 @@
     },
     {
       "title": "搜索 / Search",
+      "title_en": "Search",
       "url": "search.html",
       "section": "Site",
       "date": "",
@@ -33,6 +34,7 @@
     },
     {
       "title": "主页 / Home",
+      "title_en": "Home",
       "url": "index.html",
       "section": "Site",
       "date": "",
@@ -51,6 +53,7 @@
     },
     {
       "title": "Academic / 学术",
+      "title_en": "Academic",
       "url": "academic.html",
       "section": "Site",
       "date": "2026-05-08",

@@ -583,10 +583,17 @@ def parse_research_page(text: str) -> Dict[str, Any]:
 
     payload["search"] = {
         "title": "Research Statement | Feier Lyu (Fay Lyu)",
+        "title_en": "Research Statement | Feier Lyu (Fay Lyu)",
         "url": "research.html",
         "section": "Site",
         "date": "",
         "excerpt": search_excerpt or "Research landing page",
+        "excerpt_en": (
+            "My central question is how the structure of a mathematical or computational object "
+            "changes under formalization, dualization, discretization, and algorithmization: "
+            "which dependencies become visible, which information is preserved, and which "
+            "constraints remain computable."
+        ),
         "tags": ["research", "optimization", "formal-methods"],
         "sort": today_sort,
         "scope": "site",
