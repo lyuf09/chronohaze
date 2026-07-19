@@ -5,8 +5,8 @@ import argparse
 import re
 from pathlib import Path
 
-VERSION = "20260621-nested-assets1"
-HOME_VERSION = "20260716-now-dark1"
+VERSION = "20260719-quality1"
+HOME_VERSION = "20260719-quality1"
 
 SECURITY_META_MARKER = "chronohaze-security-policy"
 SECURITY_META_SNIPPET = """  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
@@ -80,7 +80,7 @@ CRITICAL_LOADER_SNIPPET = """  <style id="chronohaze-critical-loader-style">
     }
 
     html.chronohaze-critical-loading::after {
-      content: "chronohaze.space\\A 页面加载中";
+      content: "chronohaze.space";
       position: fixed;
       left: 50%;
       top: 50%;
@@ -96,6 +96,14 @@ CRITICAL_LOADER_SNIPPET = """  <style id="chronohaze-critical-loader-style">
       border-radius: 0;
       background: linear-gradient(180deg, rgba(20, 25, 34, 0.84) 0%, rgba(13, 17, 24, 0.82) 100%);
       box-shadow: 0 24px 58px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.045);
+    }
+
+    html[lang^="zh"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "chronohaze.space\\A 页面加载中";
+    }
+
+    html[lang^="en"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "chronohaze.space\\A Loading";
     }
 
     html.chronohaze-critical-loading-mobile body {
@@ -234,6 +242,8 @@ def minify_js_conservative(text: str) -> str:
     previous_blank = False
     for raw_line in text.split("\n"):
         line = raw_line.rstrip()
+        if line.lstrip().startswith("//"):
+            continue
         if not line.strip():
             if not previous_blank:
                 previous_blank = True
@@ -243,7 +253,7 @@ def minify_js_conservative(text: str) -> str:
     return "\n".join(lines).strip() + "\n"
 
 
-def rewrite_html_refs(text: str, page_rel: Path) -> str:
+def rewrite_asset_refs(text: str, page_rel: Path) -> str:
     depth = max(len(page_rel.parts) - 1, 0)
     prefix = "../" * depth
     asset_base = r"(?:https://lyuf09\.github\.io/chronohaze/|/chronohaze/|(?:\.\./)*)"
@@ -259,6 +269,11 @@ def rewrite_html_refs(text: str, page_rel: Path) -> str:
     out = text
     for pattern, repl in replacements.items():
         out = re.sub(pattern, repl, out)
+    return out
+
+
+def rewrite_html_refs(text: str, page_rel: Path) -> str:
+    out = rewrite_asset_refs(text, page_rel)
     out = remove_static_avif_sources(out)
     out = remove_third_party_font_hints(out)
     out = defer_google_tag(out)
@@ -386,8 +401,17 @@ def main() -> int:
         if path.exists():
             path.write_text(rewrite_html_refs(path.read_text(encoding="utf-8"), Path(rel)), encoding="utf-8")
 
-    for path in list((root / "music").glob("*.html")) + list((root / "photo").glob("*.html")) + list((root / "post").glob("*.html")):
+    nested_html = []
+    for directory in ("music", "photo", "post"):
+        nested_html.extend((root / directory).glob("*.html"))
+
+    for path in nested_html:
         path.write_text(rewrite_html_refs(path.read_text(encoding="utf-8"), path.relative_to(root)), encoding="utf-8")
+
+    # Standalone noindex reading notes do not load the shared runtime that
+    # releases the critical loader, so only refresh their versioned assets.
+    for path in (root / "notes").glob("*.html"):
+        path.write_text(rewrite_asset_refs(path.read_text(encoding="utf-8"), path.relative_to(root)), encoding="utf-8")
 
     print("Generated minified assets:")
     for item in generated:

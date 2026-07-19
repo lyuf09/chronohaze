@@ -70,6 +70,32 @@ test("home page renders hero and player shell", async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
+test("home drawer keeps state, focus, and Escape handling in sync", async ({ page }) => {
+  const errors = trackPageErrors(page);
+  await page.goto("index.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+
+  const openButton = page.locator("#openMenu");
+  const closeButton = page.locator("#closeMenu");
+  const drawer = page.locator("#drawer");
+  const backdrop = page.locator("#backdrop");
+
+  await openButton.click();
+  await expect(openButton).toHaveAttribute("aria-expanded", "true");
+  await expect(drawer).toHaveClass(/(?:^|\s)open(?:\s|$)/);
+  await expect(drawer).toHaveAttribute("aria-hidden", "false");
+  await expect(backdrop).toBeVisible();
+  await expect(closeButton).toBeFocused();
+
+  await page.keyboard.press("Escape");
+  await expect(openButton).toHaveAttribute("aria-expanded", "false");
+  await expect(drawer).not.toHaveClass(/(?:^|\s)open(?:\s|$)/);
+  await expect(drawer).toHaveAttribute("aria-hidden", "true");
+  await expect(backdrop).toBeHidden();
+  await expect(openButton).toBeFocused();
+  expect(errors).toEqual([]);
+});
+
 test("home hero keeps localized Chinese and English copy", async ({ page }) => {
   const errors = trackPageErrors(page);
 
@@ -136,6 +162,33 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
   await expect(page).toHaveURL(/[?&]lang=zh(?:&|$)/);
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", /[?&]lang=zh$/);
 
+  expect(errors).toEqual([]);
+});
+
+test("English page transitions keep the loading feedback in English", async ({ page }) => {
+  const errors = trackPageErrors(page);
+  await page.goto("index.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+
+  const loaderCopy = await page.evaluate(() => {
+    const target = new URL("policy.html?lang=en", window.location.href).href;
+    window.ChronohazeShared.navigateWithPageSwap(target);
+    const loader = document.querySelector(".chronohaze-loader");
+    return {
+      lang: loader && loader.getAttribute("lang"),
+      status: loader && loader.querySelector(".chronohaze-loader__status")?.textContent,
+      title: loader && loader.querySelector(".chronohaze-loader__title")?.textContent,
+      meta: loader && loader.querySelector(".chronohaze-loader__meta")?.textContent,
+    };
+  });
+
+  expect(loaderCopy).toEqual({
+    lang: "en",
+    status: "Opening",
+    title: "Opening the next page",
+    meta: "Please wait while the next page comes into focus.",
+  });
+  await expect(page).toHaveURL(/policy\.html\?lang=en/);
   expect(errors).toEqual([]);
 });
 
@@ -355,15 +408,33 @@ test("mobile share launcher opens without immediately closing and manages focus"
   }
 
   const compactTargets = await page
-    .locator(".lang-btn, .menu-open, .hero-academic-link, .home-footer-policy a")
+    .locator(
+      ".home-brand, .lang-btn, .menu-open, .hero-academic-link, .selected-evidence-link, " +
+        ".home-footer-brand, .home-footer-email, .home-footer .obf-email-copy, .home-footer-policy a"
+    )
     .evaluateAll((nodes) =>
       nodes.map((node) => ({
         target: `${node.tagName.toLowerCase()}.${node.className || ""}`,
         text: (node.textContent || "").trim(),
+        width: node.getBoundingClientRect().width,
         height: node.getBoundingClientRect().height,
       }))
     );
-  expect(compactTargets.filter((target) => target.height < 44)).toEqual([]);
+  expect(compactTargets.filter((target) => target.width < 44 || target.height < 44)).toEqual([]);
+
+  const authorityMetrics = await page.locator(".hero-authority-line").evaluate((node) => {
+    const rect = node.getBoundingClientRect();
+    return {
+      clientWidth: node.clientWidth,
+      scrollWidth: node.scrollWidth,
+      left: rect.left,
+      right: rect.right,
+      viewport: window.innerWidth,
+    };
+  });
+  expect(authorityMetrics.scrollWidth).toBeLessThanOrEqual(authorityMetrics.clientWidth + 1);
+  expect(authorityMetrics.left).toBeGreaterThanOrEqual(0);
+  expect(authorityMetrics.right).toBeLessThanOrEqual(authorityMetrics.viewport + 1);
 
   await logo.click({ force: true });
   await expect(panel).toBeVisible();
@@ -372,6 +443,35 @@ test("mobile share launcher opens without immediately closing and manages focus"
   await closeButton.click();
   await expect(panel).toBeHidden();
   await expect(logo).toBeFocused();
+  expect(errors).toEqual([]);
+});
+
+test("share launcher rebinds when the viewport crosses the mobile breakpoint", async ({
+  page,
+}, testInfo) => {
+  test.skip(testInfo.project.name !== "chromium", "desktop-to-mobile resize regression check");
+
+  const errors = trackPageErrors(page);
+  await page.goto("index.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+
+  const shell = page.locator(".site-share-shell");
+  const launcher = page.locator(".site-share-fab");
+  const logo = page.locator(".floating-site-logo");
+
+  await expect(shell).not.toHaveAttribute("data-mobile-share-via-logo", "1");
+  await expect(logo).not.toHaveClass(/is-share-trigger/);
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await expect(shell).toHaveAttribute("data-mobile-share-via-logo", "1");
+  await expect(launcher).toBeHidden();
+  await expect(logo).toHaveClass(/is-share-trigger/);
+  await expect(logo).toHaveAttribute("role", "button");
+
+  await page.setViewportSize({ width: 1280, height: 720 });
+  await expect(shell).not.toHaveAttribute("data-mobile-share-via-logo", "1");
+  await expect(launcher).toBeVisible();
+  await expect(logo).not.toHaveClass(/is-share-trigger/);
   expect(errors).toEqual([]);
 });
 

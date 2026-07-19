@@ -10568,12 +10568,25 @@ body {
   }
 
   .site-share-fab {
-    width: 34px;
-    min-width: 34px;
-    height: 34px;
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
     padding: 0;
     border-radius: 10px;
     justify-content: center;
+  }
+
+  .site-share-close,
+  .site-share-action,
+  .obf-email-link,
+  .obf-email-copy {
+    min-height: 44px;
+  }
+
+  .obf-email-copy {
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
   }
 
   .site-share-panel {
@@ -10630,6 +10643,23 @@ body {
 
   .site-share-fab-label {
     display: none;
+  }
+}
+
+@media (pointer: coarse) {
+  .site-share-fab,
+  .site-share-close,
+  .site-share-action,
+  .obf-email-link,
+  .obf-email-copy {
+    min-height: 44px;
+  }
+
+  .site-share-fab,
+  .obf-email-copy {
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
   }
 }
 

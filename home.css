@@ -452,7 +452,7 @@ html:lang(en) {
 }
 
 .hero-right-inner > .hero-authority-line {
-  width: 390px;
+  width: min(390px, 100%);
   margin-top: 20px;
   padding-top: 14px;
   border-top: 1px solid rgba(54, 64, 82, 0.16);
@@ -2212,6 +2212,9 @@ html.menu-scroll-locked,
 
   .home-brand {
     max-width: min(42vw, 154px);
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
     font-size: clamp(9.5px, 2.6vw, 11px);
     letter-spacing: 0.16em;
     overflow: visible;
@@ -2294,6 +2297,21 @@ html.menu-scroll-locked,
       linear-gradient(180deg, rgba(252, 253, 255, 0.74), rgba(244, 247, 252, 0.62)),
       radial-gradient(circle at 18% 24%, rgba(255, 255, 255, 0.12) 0.6px, transparent 0.95px);
     color: rgba(24, 31, 45, 0.96);
+  }
+
+  .selected-evidence-link,
+  .home-footer-brand,
+  .home-footer-email,
+  .home-footer-policy a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .home-footer .obf-email-copy {
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
   }
 
   .contact-btn {
@@ -2418,16 +2436,30 @@ html.menu-scroll-locked,
     min-height: 44px;
   }
 
+  .menu-open {
+    width: 44px;
+    min-width: 44px;
+  }
+
   .hero-academic-link,
   .contact-btn,
   .drawer-close,
   .drawer-nav a,
+  .home-brand,
+  .selected-evidence-link,
+  .home-footer-brand,
   .home-footer-email,
   .home-footer-social a,
-  .home-footer-policy a {
+  .home-footer-policy a,
+  .home-footer .obf-email-copy {
     min-height: 44px;
     display: inline-flex;
     align-items: center;
+  }
+
+  .home-footer .obf-email-copy {
+    width: 44px;
+    min-width: 44px;
   }
 }
 

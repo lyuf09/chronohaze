@@ -34,7 +34,7 @@
     }
 
     html.chronohaze-critical-loading::after {
-      content: "chronohaze.space\A 页面加载中";
+      content: "chronohaze.space";
       position: fixed;
       left: 50%;
       top: 50%;
@@ -50,6 +50,14 @@
       border-radius: 0;
       background: linear-gradient(180deg, rgba(20, 25, 34, 0.84) 0%, rgba(13, 17, 24, 0.82) 100%);
       box-shadow: 0 24px 58px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.045);
+    }
+
+    html[lang^="zh"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "chronohaze.space\A 页面加载中";
+    }
+
+    html[lang^="en"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "chronohaze.space\A Loading";
     }
 
     html.chronohaze-critical-loading-mobile body {
@@ -196,10 +204,10 @@
     })();
   </script>
   <link rel="preload" href="assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="styles.min.css?v=20260621-nested-assets1" />
+<link rel="stylesheet" href="styles.min.css?v=20260719-quality1" />
   <link rel="stylesheet" href="assets/css/editorial-evidence.css?v=20260627" />
   <link rel="stylesheet" href="assets/css/academic-mobile.css?v=20260418-mobile1" />
-  <script defer src="protect-media.min.js?v=20260621-nested-assets1"></script>
+  <script defer src="protect-media.min.js?v=20260719-quality1"></script>
 </head>
 <body class="research-landing-page projects-page">
   <div class="page">

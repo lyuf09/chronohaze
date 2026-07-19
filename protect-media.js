@@ -12,6 +12,7 @@
   var feedbackLoaderStatusNode = null;
   var feedbackLoaderTitleNode = null;
   var feedbackLoaderMetaNode = null;
+  var mobileShareBridgeBound = false;
 
   function releaseCriticalLoader() {
     try {
@@ -54,9 +55,9 @@
       '<div class="chronohaze-loader__veil"></div>' +
       '<div class="chronohaze-loader__panel">' +
       '<p class="chronohaze-loader__brand">chronohaze.space</p>' +
-      '<p class="chronohaze-loader__status">加载中</p>' +
-      '<h2 class="chronohaze-loader__title">页面加载中</h2>' +
-      '<p class="chronohaze-loader__meta">请稍候，内容正在就位。</p>' +
+      '<p class="chronohaze-loader__status"></p>' +
+      '<h2 class="chronohaze-loader__title">chronohaze.space</h2>' +
+      '<p class="chronohaze-loader__meta"></p>' +
       '<div class="chronohaze-loader__line" aria-hidden="true"><span></span></div>' +
       "</div>";
     document.body.appendChild(loader);
@@ -68,6 +69,20 @@
   }
 
   function getFeedbackCopy(mode, lang) {
+    if (lang === "en") {
+      return mode === "boot"
+        ? {
+            status: "Loading",
+            title: "Bringing the page into focus",
+            meta: "Please wait while the content settles into place.",
+          }
+        : {
+            status: "Opening",
+            title: "Opening the next page",
+            meta: "Please wait while the next page comes into focus.",
+          };
+    }
+
     return mode === "boot"
       ? {
           status: "加载中",
@@ -89,7 +104,7 @@
 
     var copy = getFeedbackCopy(mode, lang);
     loader.setAttribute("data-loader-mode", mode);
-    loader.setAttribute("lang", "zh-CN");
+    loader.setAttribute("lang", lang === "en" ? "en" : "zh-CN");
     feedbackLoaderStatusNode.textContent = copy.status;
     feedbackLoaderTitleNode.textContent = copy.title;
     feedbackLoaderMetaNode.textContent = copy.meta;
@@ -2463,6 +2478,14 @@
     );
   }
 
+  function bindResponsiveShareBridge() {
+    if (mobileShareBridgeBound) {
+      return;
+    }
+    mobileShareBridgeBound = true;
+    window.addEventListener("resize", bridgeMobileShareWithFloatingLogo, { passive: true });
+  }
+
   function bridgeMobileShareWithFloatingLogo() {
     var shell = document.querySelector(".site-share-shell");
     var launcher = shell ? shell.querySelector(".site-share-fab") : null;
@@ -2531,6 +2554,7 @@
     if (!document.body) {
       return;
     }
+    bindResponsiveShareBridge();
     if (document.querySelector(".site-share-shell")) {
       renderSharePanelLanguage(document.querySelector(".site-share-shell"));
       return;
@@ -17611,7 +17635,7 @@
 
     structuredDataModulePromise = new Promise(function (resolve) {
       var script = document.createElement("script");
-      script.src = resolveAssetCandidateUrl("assets/js/structured-data.js?v=20260621-nested-assets1");
+      script.src = resolveAssetCandidateUrl("assets/js/structured-data.js?v=20260719-quality1");
       script.async = true;
       script.onload = function () {
         if (window.ChronohazeStructuredData && typeof window.ChronohazeStructuredData.ensureStructuredData === "function") {
