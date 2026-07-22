@@ -467,6 +467,23 @@ test("music index renders and remains interactive", async ({ page }) => {
   await expect(page.locator(".music-room-track-card").first().locator(".music-room-track-role")).toHaveCount(8);
   await expect(page.locator(".music-room-track-play").first()).toHaveText("Play");
   await expect(page.locator(".music-room-track-open").first()).toHaveText("Open Track");
+  const workControlTypography = await page.evaluate(() => {
+    const play = document.querySelector(".music-room-track-play");
+    const open = document.querySelector(".music-room-track-open");
+    const read = (node) => {
+      if (!node) return null;
+      const style = window.getComputedStyle(node);
+      return {
+        fontFamily: style.fontFamily,
+        height: node.getBoundingClientRect().height,
+      };
+    };
+    return { play: read(play), open: read(open) };
+  });
+  expect(workControlTypography.play.fontFamily).toContain("Chronohaze Sans SC");
+  expect(workControlTypography.open.fontFamily).toContain("Chronohaze Sans SC");
+  expect(workControlTypography.play.height).toBeGreaterThanOrEqual(40);
+  expect(workControlTypography.open.height).toBeGreaterThanOrEqual(40);
   await expect(page.locator(".music-room-album-credit")).toHaveText(
     "Written, arranged, performed and produced by HazezZ, unless otherwise noted."
   );

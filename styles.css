@@ -15629,14 +15629,16 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
 .music-index-page .music-room-track-role {
   display: inline-flex;
   align-items: center;
-  padding: 3px 7px 4px;
+  padding: 4px 8px;
   border: 1px solid rgba(64, 76, 98, 0.23);
+  border-radius: 999px;
   background: rgba(232, 238, 247, 0.62);
   color: rgba(39, 49, 68, 0.9);
-  font-family: "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
-  font-size: 9px;
-  line-height: 1;
-  letter-spacing: 0.1em;
+  font-family: var(--font-music-sans);
+  font-size: 9.5px;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
 }
 
@@ -16630,30 +16632,115 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
 
 .music-index-page .music-room-track-actions {
   display: flex;
-  gap: 8px;
-  padding: 0 16px 15px;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  padding: 2px 16px 16px;
 }
 
-.music-index-page .music-room-track-play,
-.music-index-page .music-room-track-open {
-  min-height: 34px;
+.music-index-page .music-room-track-play {
+  min-height: 40px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 7px 12px;
-  border: 1px solid rgba(54, 67, 91, 0.28);
-  color: rgba(34, 44, 63, 0.94);
-  background: rgba(242, 246, 253, 0.74);
-  font: 600 10px/1 "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
-  letter-spacing: 0.12em;
+  padding: 9px 15px;
+  border: 1px solid rgba(40, 50, 69, 0.9);
+  border-radius: 999px;
+  color: rgba(249, 251, 255, 0.98);
+  background: rgba(40, 50, 69, 0.94);
+  box-shadow: 0 7px 16px rgba(25, 33, 47, 0.14);
+  font-family: var(--font-music-sans);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.08em;
   text-decoration: none;
-  text-transform: uppercase;
   cursor: pointer;
+  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.music-index-page .music-room-track-play::before {
+  content: "▶";
+  margin-right: 7px;
+  font-size: 8px;
+  line-height: 1;
+}
+
+.music-index-page .music-room-track-open {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 1px 7px;
+  border: 0;
+  border-bottom: 1px solid rgba(48, 60, 82, 0.32);
+  color: rgba(40, 51, 72, 0.9);
+  background: transparent;
+  font-family: var(--font-music-sans);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  transition: color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.music-index-page .music-room-track-open::after {
+  content: "↗";
+  margin-left: 7px;
+  font-family: var(--font-sans-en);
+  font-size: 12px;
+}
+
+.music-index-page .music-room-track-play:hover,
+.music-index-page .music-room-track-play:focus-visible {
+  border-color: rgba(31, 41, 59, 1);
+  background: rgba(31, 41, 59, 1);
+  box-shadow: 0 9px 20px rgba(25, 33, 47, 0.2);
+  transform: translateY(-1px);
+}
+
+.music-index-page .music-room-track-open:hover,
+.music-index-page .music-room-track-open:focus-visible {
+  border-bottom-color: rgba(40, 51, 72, 0.78);
+  color: rgba(25, 35, 54, 1);
+  transform: translateY(-1px);
 }
 
 .music-index-page .music-room-track-play.is-playing {
   color: rgba(248, 250, 255, 0.98);
-  background: rgba(43, 56, 82, 0.94);
+  border-color: rgba(76, 96, 132, 0.96);
+  background: rgba(76, 96, 132, 0.96);
+}
+
+.music-index-page .music-room-track-play.is-playing::before {
+  content: "Ⅱ";
+}
+
+.music-index-page .music-room-track-year,
+.music-index-page .music-room-track-artist,
+.music-index-page .music-room-track-tag,
+.music-index-page .music-room-track-role,
+.music-index-page .music-room-archive-filter,
+.music-index-page .music-room-archive-filter-select,
+.music-index-page .music-room-archive .track-status-badge,
+.music-index-page .music-room-track-actions {
+  font-family: var(--font-music-sans);
+}
+
+html:lang(en) .music-index-page .main .music-room-section-kicker,
+html:lang(en) .music-index-page .main .music-room-badge,
+html:lang(en) .music-index-page .main .music-room-track-year,
+html:lang(en) .music-index-page .main .music-room-track-artist,
+html:lang(en) .music-index-page .main .music-room-track-tag,
+html:lang(en) .music-index-page .main .music-room-track-role,
+html:lang(en) .music-index-page .main .music-room-track-play,
+html:lang(en) .music-index-page .main .music-room-track-open,
+html:lang(en) .music-index-page .main .music-room-album-detail,
+html:lang(en) .music-index-page .main .music-room-archive-filter,
+html:lang(en) .music-index-page .main .music-room-archive-filter-select,
+html:lang(en) .music-index-page .main .music-room-archive .track-status-badge,
+html:lang(en) .music-index-page .main .music-timeline-mark {
+  font-family: var(--font-music-sans);
 }
 
 .music-index-page .music-room-archive-group.is-collapsible > summary {
