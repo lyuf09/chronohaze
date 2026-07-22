@@ -14697,32 +14697,32 @@
     }
 
     function getDeclaredLuminance(node) {
-      var owner = node && node.closest && node.closest("[data-floating-logo-tone]");
-      var tone = owner && owner.dataset.floatingLogoTone;
-      return tone === "light" ? 1 : tone === "dark" ? 0 : null;
+      var owner=node&&node.closest&&node.closest("[data-floating-logo-tone]");
+      var tone=owner&&owner.dataset.floatingLogoTone;
+      return tone==="light"?1:tone==="dark"?0:null;
     }
 
     function getElementLuminance(node, depth) {
-      if (!node || depth >= 12) {
-        return 0.5;
+      if (!node||depth>=12) {
+        return .5;
       }
 
-      var declared = getDeclaredLuminance(node), parent, styles, lum, color;
-      if (declared !== null) {
+      var declared=getDeclaredLuminance(node),parent,styles,lum,color;
+      if (declared!==null) {
         return declared;
       }
 
-      parent = getElementLuminance(node.parentElement, depth + 1);
+      parent=getElementLuminance(node.parentElement,depth+1);
       try {
         styles = window.getComputedStyle(node);
       } catch (_error) {
         return parent;
       }
 
-      lum = parent;
-      color = parseRgbColor(styles.backgroundColor);
-      if (color && color.a > 0.02) {
-        lum = getRelativeLuminance(color) * color.a + lum * (1 - color.a);
+      lum=parent;
+      color=parseRgbColor(styles.backgroundColor);
+      if (color&&color.a>0.02) {
+        lum=getRelativeLuminance(color)*color.a+lum*(1-color.a);
       }
 
       return lum;
@@ -14872,17 +14872,22 @@
     }
 
     function findSampleTarget(sampleX, sampleY) {
-      var x = Math.min(window.innerWidth - 1, Math.max(0, sampleX));
-      var y = Math.min(window.innerHeight - 1, Math.max(0, sampleY));
-      var stack = document.elementsFromPoint
+      var x=Math.min(window.innerWidth-1,Math.max(0,sampleX));
+      var y=Math.min(window.innerHeight-1,Math.max(0,sampleY));
+      var stack=document.elementsFromPoint
         ? document.elementsFromPoint(x, y)
         : [document.elementFromPoint(x, y)];
-      for (var i = 0; i < stack.length; i += 1) {
-        if (stack[i] && !isLogoOverlay(stack[i])) {
+      var fallback=null;
+      for (var i=0;i<stack.length;i+=1) {
+        if (!stack[i]||isLogoOverlay(stack[i])) {
+          continue;
+        }
+        fallback=fallback||stack[i];
+        if (getDeclaredLuminance(stack[i])!==null) {
           return stack[i];
         }
       }
-      return document.documentElement;
+      return fallback||document.documentElement;
     }
 
     function sampleContrastTarget() {
