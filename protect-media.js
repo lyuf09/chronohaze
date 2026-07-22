@@ -14487,10 +14487,10 @@
         ".floating-site-logo::before{content:'';position:absolute;inset:-24px;border-radius:inherit;background:radial-gradient(circle,rgba(205,216,236,.42) 0%,rgba(205,216,236,.18) 40%,rgba(205,216,236,0) 82%);filter:blur(9px);transition:background var(--motion-rhythm-base,280ms) var(--motion-ease-unified,ease),filter var(--motion-rhythm-base,280ms) var(--motion-ease-unified,ease),opacity var(--motion-rhythm-base,280ms) var(--motion-ease-unified,ease);}",
         ".floating-site-logo::after{content:'';position:absolute;inset:-4px;border-radius:inherit;background:radial-gradient(circle,rgba(255,255,255,0) 56%,rgba(214,223,240,.32) 70%,rgba(214,223,240,.12) 86%,rgba(214,223,240,0) 100%);filter:blur(4px);transition:background var(--motion-rhythm-base,280ms) var(--motion-ease-unified,ease),filter var(--motion-rhythm-base,280ms) var(--motion-ease-unified,ease),opacity var(--motion-rhythm-base,280ms) var(--motion-ease-unified,ease);}",
         ".floating-site-logo img{position:relative;z-index:1;width:76%;height:76%;object-fit:contain;opacity:.98;filter:contrast(1.05) saturate(.92) drop-shadow(0 0 1px rgba(255,255,255,.12)) drop-shadow(0 0 6px rgba(94,111,148,.16));transition:filter var(--motion-rhythm-base,280ms) var(--motion-ease-unified,ease),opacity var(--motion-rhythm-base,280ms) var(--motion-ease-unified,ease);}",
-        ".floating-site-logo.is-contrast{background:radial-gradient(circle,rgba(56,70,101,.36) 0%,rgba(47,61,90,.26) 44%,rgba(44,58,87,0) 82%);}",
-        ".floating-site-logo.is-contrast::before{background:radial-gradient(circle,rgba(39,50,76,.54) 0%,rgba(34,45,69,.27) 40%,rgba(34,45,69,0) 84%);filter:blur(10px);}",
-        ".floating-site-logo.is-contrast::after{background:radial-gradient(circle,rgba(255,255,255,0) 54%,rgba(60,78,115,.36) 69%,rgba(49,63,94,.18) 86%,rgba(49,63,94,0) 100%);}",
-        ".floating-site-logo.is-contrast img{opacity:.995;filter:contrast(1.18) saturate(.9) brightness(.88) drop-shadow(0 0 1px rgba(11,17,31,.66)) drop-shadow(0 0 5px rgba(19,30,50,.48)) drop-shadow(0 0 9px rgba(31,48,77,.26));}",
+        ".floating-site-logo.is-contrast{background:radial-gradient(circle,rgba(248,250,255,.18) 0%,rgba(240,244,251,.08) 44%,rgba(240,244,251,0) 78%);}",
+        ".floating-site-logo.is-contrast::before{background:radial-gradient(circle,rgba(255,255,255,.16) 0%,rgba(255,255,255,.06) 40%,rgba(255,255,255,0) 82%);filter:blur(8px);}",
+        ".floating-site-logo.is-contrast::after{background:radial-gradient(circle,rgba(255,255,255,0) 58%,rgba(43,55,79,.14) 71%,rgba(43,55,79,.05) 86%,rgba(43,55,79,0) 100%);}",
+        ".floating-site-logo.is-contrast img{opacity:.88;filter:brightness(0) saturate(100%) drop-shadow(0 0 1px rgba(255,255,255,.22)) drop-shadow(0 2px 5px rgba(28,36,50,.28));}",
         "@keyframes floatingSiteLogoBreath{0%,100%{transform:translate3d(0,0,0) scale(1);}35%{transform:translate3d(.6px,-1.9px,0) scale(1.014);}65%{transform:translate3d(0,-4.2px,0) scale(1.028);}85%{transform:translate3d(-.55px,-1.8px,0) scale(1.016);}}",
         "@media (prefers-reduced-motion: reduce){.floating-site-logo{animation:none;transform:none;}.floating-site-logo::before,.floating-site-logo::after{filter:none;}}",
         "@media (max-width:900px){.floating-site-logo{width:58px;height:58px;right:max(10px,calc(env(safe-area-inset-right,0px) + 8px));bottom:calc(max(10px,calc(env(safe-area-inset-bottom,0px) + 8px)) + var(--floating-logo-lift,0px));}.floating-site-logo::before{inset:-10px;filter:blur(7px);}.floating-site-logo::after{inset:-3px;filter:blur(3px);}}",
@@ -14696,6 +14696,38 @@
       );
     }
 
+    function getDeclaredLuminance(node) {
+      var owner = node && node.closest && node.closest("[data-floating-logo-tone]");
+      var tone = owner && owner.dataset.floatingLogoTone;
+      return tone === "light" ? 1 : tone === "dark" ? 0 : null;
+    }
+
+    function getElementLuminance(node, depth) {
+      if (!node || depth >= 12) {
+        return 0.5;
+      }
+
+      var declared = getDeclaredLuminance(node), parent, styles, lum, color;
+      if (declared !== null) {
+        return declared;
+      }
+
+      parent = getElementLuminance(node.parentElement, depth + 1);
+      try {
+        styles = window.getComputedStyle(node);
+      } catch (_error) {
+        return parent;
+      }
+
+      lum = parent;
+      color = parseRgbColor(styles.backgroundColor);
+      if (color && color.a > 0.02) {
+        lum = getRelativeLuminance(color) * color.a + lum * (1 - color.a);
+      }
+
+      return lum;
+    }
+
     function sampleImgLuminance(img, viewportX, viewportY) {
       if (!img || !img.complete || !img.naturalWidth || !img.naturalHeight) {
         return null;
@@ -14809,8 +14841,12 @@
       }
     }
 
-    function getSurfaceLuminance(target, sampleX, sampleY) {
+    function getSurfaceLum(target, sampleX, sampleY) {
       var node = target && target.nodeType === 1 ? target : null;
+      var declared = getDeclaredLuminance(node);
+      if (declared !== null) {
+        return declared;
+      }
       if (node && node.closest) {
         var media = node.closest("img,video");
         if (media) {
@@ -14824,33 +14860,10 @@
         }
       }
 
-      var depth = 0;
-      while (node && depth < 12) {
-        var styles = null;
-        try {
-          styles = window.getComputedStyle(node);
-        } catch (_error) {
-          styles = null;
-        }
-        if (styles) {
-          var bgColor = parseRgbColor(styles.backgroundColor);
-          if (bgColor && bgColor.a > 0.04) {
-            return getRelativeLuminance(bgColor);
-          }
-        }
-        node = node.parentElement;
-        depth += 1;
-      }
-      var fallback = null;
-      try {
-        fallback = parseRgbColor(window.getComputedStyle(document.body).backgroundColor);
-      } catch (_error) {
-        fallback = null;
-      }
-      return fallback ? getRelativeLuminance(fallback) : 0.78;
+      return getElementLuminance(node || document.body, 0);
     }
 
-    function isInternalOverlayTarget(node) {
+    function isLogoOverlay(node) {
       return !!(
         node &&
         node.closest &&
@@ -14858,33 +14871,18 @@
       );
     }
 
-    function findSampleTarget(sampleX, sampleY, rect) {
-      var safeX = Math.min(window.innerWidth - 1, Math.max(0, sampleX));
-      var safeY = Math.min(window.innerHeight - 1, Math.max(0, sampleY));
-      var candidate = document.elementFromPoint(safeX, safeY);
-      if (!isInternalOverlayTarget(candidate)) {
-        return {
-          target: candidate,
-          x: safeX,
-          y: safeY,
-        };
+    function findSampleTarget(sampleX, sampleY) {
+      var x = Math.min(window.innerWidth - 1, Math.max(0, sampleX));
+      var y = Math.min(window.innerHeight - 1, Math.max(0, sampleY));
+      var stack = document.elementsFromPoint
+        ? document.elementsFromPoint(x, y)
+        : [document.elementFromPoint(x, y)];
+      for (var i = 0; i < stack.length; i += 1) {
+        if (stack[i] && !isLogoOverlay(stack[i])) {
+          return stack[i];
+        }
       }
-
-      var fallbackY = Math.max(0, safeY - rect.height * 0.66);
-      var fallback = document.elementFromPoint(safeX, fallbackY);
-      if (!isInternalOverlayTarget(fallback)) {
-        return {
-          target: fallback,
-          x: safeX,
-          y: fallbackY,
-        };
-      }
-
-      return {
-        target: candidate,
-        x: safeX,
-        y: safeY,
-      };
+      return document.documentElement;
     }
 
     function sampleContrastTarget() {
@@ -14914,11 +14912,10 @@
 
       for (var i = 0; i < points.length; i += 1) {
         var point = points[i];
-        var picked = findSampleTarget(point.x, point.y, rect);
-        var luminance = getSurfaceLuminance(
-          picked.target || document.documentElement,
-          picked.x,
-          picked.y
+        var luminance = getSurfaceLum(
+          findSampleTarget(point.x, point.y),
+          point.x,
+          point.y
         );
         if (!isFinite(luminance)) {
           continue;

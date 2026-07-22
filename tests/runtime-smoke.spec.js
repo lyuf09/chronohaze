@@ -70,6 +70,56 @@ test("home page renders hero and player shell", async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
+test("floating logo uses a genuinely dark mark over declared light surfaces", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "chromium", "desktop and responsive contrast regression check");
+
+  const errors = trackPageErrors(page);
+  await page.goto("index.html?lang=zh", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+
+  const logo = page.locator(".floating-site-logo");
+  await expect(logo).toBeVisible();
+
+  async function placeLogoOver(selector) {
+    await page.evaluate((targetSelector) => {
+      const target = document.querySelector(targetSelector);
+      const logoNode = document.querySelector(".floating-site-logo");
+      if (!target || !logoNode) return;
+      const targetRect = target.getBoundingClientRect();
+      const logoRect = logoNode.getBoundingClientRect();
+      const targetY = Math.min(
+        targetRect.bottom - Math.min(24, targetRect.height / 4),
+        targetRect.top + targetRect.height / 2
+      );
+      const logoY = logoRect.top + logoRect.height / 2;
+      window.scrollBy(0, targetY - logoY);
+    }, selector);
+  }
+
+  await placeLogoOver(".hero-right");
+  await expect.poll(async () => logo.evaluate((node) => node.classList.contains("is-contrast"))).toBe(true);
+  await expect(logo.locator("img")).toHaveCSS("filter", /brightness\(0\)/);
+
+  await placeLogoOver(".identity-panel-creative");
+  await expect.poll(async () => logo.evaluate((node) => node.classList.contains("is-contrast"))).toBe(false);
+
+  await placeLogoOver(".home-footer");
+  await expect.poll(async () => logo.evaluate((node) => node.classList.contains("is-contrast"))).toBe(true);
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await expect(logo).toHaveClass(/is-share-trigger/);
+  await expect(logo).toHaveAttribute("role", "button");
+
+  await placeLogoOver(".hero-right");
+  await expect.poll(async () => logo.evaluate((node) => node.classList.contains("is-contrast"))).toBe(true);
+  await expect(logo.locator("img")).toHaveCSS("filter", /brightness\(0\)/);
+
+  await placeLogoOver(".identity-panel-creative");
+  await expect.poll(async () => logo.evaluate((node) => node.classList.contains("is-contrast"))).toBe(false);
+
+  expect(errors).toEqual([]);
+});
+
 test("home drawer keeps state, focus, and Escape handling in sync", async ({ page }) => {
   const errors = trackPageErrors(page);
   await page.goto("index.html?lang=en", { waitUntil: "domcontentloaded" });

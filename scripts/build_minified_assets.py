@@ -7,6 +7,7 @@ from pathlib import Path
 
 VERSION = "20260719-quality1"
 HOME_VERSION = "20260719-quality1"
+PROTECT_VERSION = "20260722-logo-contrast1"
 
 SECURITY_META_MARKER = "chronohaze-security-policy"
 SECURITY_META_SNIPPET = """  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
@@ -260,7 +261,7 @@ def rewrite_asset_refs(text: str, page_rel: Path) -> str:
     replacements = {
         rf"{asset_base}styles(?:\.min)?\.css\?v=[^\"']+": f"{prefix}styles.min.css?v={VERSION}",
         rf"{asset_base}home(?:\.min)?\.css\?v=[^\"']+": f"{prefix}home.min.css?v={HOME_VERSION}",
-        rf"{asset_base}protect-media(?:\.min)?\.js\?v=[^\"']+": f"{prefix}protect-media.min.js?v={VERSION}",
+        rf"{asset_base}protect-media(?:\.min)?\.js\?v=[^\"']+": f"{prefix}protect-media.min.js?v={PROTECT_VERSION}",
         rf"{asset_base}assets/js/search-page(?:\.min)?\.js\?v=[^\"']+": f"{prefix}assets/js/search-page.min.js?v={VERSION}",
         rf"{asset_base}assets/js/catalog-pages(?:\.min)?\.js\?v=[^\"']+": f"{prefix}assets/js/catalog-pages.min.js?v={VERSION}",
         rf"{asset_base}assets/js/research-page(?:\.min)?\.js\?v=[^\"']+": f"{prefix}assets/js/research-page.min.js?v={VERSION}",
