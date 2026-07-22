@@ -1564,6 +1564,81 @@ html:lang(en) {
   }
 }
 
+/* Keep laptop and compact-desktop homepages inside the first viewport. */
+@media (min-width: 1101px) and (max-width: 1400px) {
+  .hero-split {
+    height: calc(100svh - 76px);
+    min-height: 700px;
+    max-height: 860px;
+    grid-template-columns: minmax(0, 1fr) minmax(520px, 1fr);
+  }
+
+  .hero-left {
+    padding: clamp(42px, 6vh, 62px) 28px 34px;
+    align-items: flex-start;
+  }
+
+  .hero-portrait {
+    width: clamp(312px, 30vw, 410px);
+    max-height: calc(100svh - 170px);
+    object-fit: cover;
+  }
+
+  .hero-right {
+    border-top: 0;
+    border-left: 1px solid var(--home-line-mid);
+    justify-content: flex-start;
+  }
+
+  .hero-right-inner {
+    width: min(100%, 620px);
+    padding: clamp(34px, 4.5vh, 48px) 34px 34px 44px;
+  }
+
+  .hero-right h1 {
+    margin-bottom: 12px;
+    font-size: clamp(44px, 4vw, 54px);
+  }
+
+  .hero-right-inner > .hero-role-line {
+    margin-bottom: 20px;
+  }
+
+  .hero-right-inner > p {
+    width: min(100%, 500px);
+    font-size: 17px;
+    line-height: 1.5;
+  }
+
+  .hero-poetic-line {
+    margin-bottom: 12px;
+  }
+
+  .hero-identity-line {
+    margin-bottom: 10px;
+    line-height: 1.62;
+  }
+
+  .hero-right-inner > .hero-authority-line {
+    width: min(100%, 500px);
+    margin-top: 15px;
+    padding-top: 11px;
+  }
+
+  .hero-academic-module {
+    width: min(100%, 500px);
+    margin-top: 18px;
+  }
+
+  .contact-btn {
+    margin-top: 20px;
+  }
+
+  .player-shell {
+    margin-top: 20px;
+  }
+}
+
 @media (max-width: 768px) {
   .home-topbar {
     height: 76px;

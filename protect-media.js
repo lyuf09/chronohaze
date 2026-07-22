@@ -11510,8 +11510,8 @@
 
     article.innerHTML = [
       '<h1>My First Isabelle Formalization Project</h1>',
-      '<p class="article-meta">Feier Lyu · Oct 18, 2025</p>',
-      '<aside class="math-post-update"><p class="math-post-update-label">Update · July 2026</p><p>Published in AFP (2026): a formalization of the classical greedy algorithm and a verified stateful lazy-greedy variant for cardinality-constrained monotone submodular maximization. Post-publication extension: the current repository additionally develops a stochastic-greedy line, including sampling, approximation packaging, and oracle-cost accounting. The text below is preserved as an October 2025 stage record.</p></aside>',
+      '<p class="article-meta">Feier Lyu · Originally posted Oct 18, 2025</p>',
+      '<aside class="math-post-update"><p class="math-post-update-label">Updated July 2026 - original post date retained</p><p>Published in AFP on May 26, 2026: a formalization of the classical greedy algorithm and a verified stateful lazy-greedy variant for cardinality-constrained monotone submodular maximization. Post-publication extension: the current repository additionally develops a stochastic-greedy line, including sampling, approximation packaging, and oracle-cost accounting. The text below remains an October 2025 stage record.</p></aside>',
       "<p><strong>Some proofs deserve to be carved into something more solid.</strong></p>",
       "<p>What’s written on paper may fade, what’s drawn on the blackboard may be erased,but a formalized proof remains, verifiable and reproducible.</p>",
       "<h3><strong>What I’m Working On</strong></h3>",
@@ -11578,8 +11578,8 @@
 
     article.innerHTML = [
       "<h1>Early Project Note: Formalising Submodular Greedy</h1>",
-      '<p class="article-meta">Feier Lyu · Dec 29, 2025</p>',
-      '<aside class="math-post-update"><p class="math-post-update-label">Update · July 2026</p><p>Published in AFP (2026): a formalization of the classical greedy algorithm and a verified stateful lazy-greedy variant for cardinality-constrained monotone submodular maximization. Post-publication extension: the current repository additionally develops a stochastic-greedy line, including sampling, approximation packaging, and oracle-cost accounting. The text below is preserved as a December 2025 stage record.</p><div class="research-link-row"><a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a><a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI</a><a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">Repository</a></div></aside>',
+      '<p class="article-meta">Feier Lyu · Originally posted Dec 29, 2025</p>',
+      '<aside class="math-post-update"><p class="math-post-update-label">Updated July 2026 - original post date retained</p><p>Published in AFP on May 26, 2026: a formalization of the classical greedy algorithm and a verified stateful lazy-greedy variant for cardinality-constrained monotone submodular maximization. Post-publication extension: the current repository additionally develops a stochastic-greedy line, including sampling, approximation packaging, and oracle-cost accounting. The text below remains a December 2025 stage record.</p><div class="research-link-row"><a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a><a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI</a><a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">Repository</a></div></aside>',
       "<p>In my previous post “My First Isabelle Formalization Project”, I mainly wrote about why I chose Isabelle and what formalisation means to me as a way of doing mathematics. This article records the project as it stood in December 2025, before its AFP publication.</p>",
       "<h3><strong>What This Project Is About</strong></h3>",
       "<p>In combinatorial optimisation, there is a classical and widely used result:for maximising a monotone submodular function under a cardinality constraint, the simple greedy algorithm achieves an approximation ratio of 1 − 1/e. This result is commonly known as the Nemhauser–Wolsey theorem, and it appears repeatedly in machine learning, information theory, and coverage problems.</p>",
@@ -14491,6 +14491,7 @@
         ".floating-site-logo.is-contrast::before{background:radial-gradient(circle,rgba(255,255,255,.16) 0%,rgba(255,255,255,.06) 40%,rgba(255,255,255,0) 82%);filter:blur(8px);}",
         ".floating-site-logo.is-contrast::after{background:radial-gradient(circle,rgba(255,255,255,0) 58%,rgba(43,55,79,.14) 71%,rgba(43,55,79,.05) 86%,rgba(43,55,79,0) 100%);}",
         ".floating-site-logo.is-contrast img{opacity:.88;filter:brightness(0) saturate(100%) drop-shadow(0 0 1px rgba(255,255,255,.22)) drop-shadow(0 2px 5px rgba(28,36,50,.28));}",
+        ".floating-site-logo:not(.is-contrast-ready){opacity:0;visibility:hidden;pointer-events:none;}",
         "@keyframes floatingSiteLogoBreath{0%,100%{transform:translate3d(0,0,0) scale(1);}35%{transform:translate3d(.6px,-1.9px,0) scale(1.014);}65%{transform:translate3d(0,-4.2px,0) scale(1.028);}85%{transform:translate3d(-.55px,-1.8px,0) scale(1.016);}}",
         "@media (prefers-reduced-motion: reduce){.floating-site-logo{animation:none;transform:none;}.floating-site-logo::before,.floating-site-logo::after{filter:none;}}",
         "@media (max-width:900px){.floating-site-logo{width:58px;height:58px;right:max(10px,calc(env(safe-area-inset-right,0px) + 8px));bottom:calc(max(10px,calc(env(safe-area-inset-bottom,0px) + 8px)) + var(--floating-logo-lift,0px));}.floating-site-logo::before{inset:-10px;filter:blur(7px);}.floating-site-logo::after{inset:-3px;filter:blur(3px);}}",
@@ -14696,33 +14697,323 @@
       );
     }
 
+    function parseCssColor(input) {
+      var value = String(input || "").trim();
+      var hex = null;
+      if (!value) {
+        return null;
+      }
+      if (value === "transparent") {
+        return { r: 0, g: 0, b: 0, a: 0 };
+      }
+      if (value.charAt(0) !== "#") {
+        return parseRgbColor(value);
+      }
+      hex = value.slice(1);
+      if (!/^[0-9a-f]{3,8}$/i.test(hex) || [3, 4, 6, 8].indexOf(hex.length) === -1) {
+        return null;
+      }
+      if (hex.length === 3 || hex.length === 4) {
+        hex = hex
+          .split("")
+          .map(function (part) {
+            return part + part;
+          })
+          .join("");
+      }
+      return {
+        r: parseInt(hex.slice(0, 2), 16),
+        g: parseInt(hex.slice(2, 4), 16),
+        b: parseInt(hex.slice(4, 6), 16),
+        a: hex.length === 8 ? parseInt(hex.slice(6, 8), 16) / 255 : 1,
+      };
+    }
+
+    function splitCssLayers(input) {
+      var value = String(input || "");
+      var layers = [];
+      var depth = 0;
+      var start = 0;
+      for (var i = 0; i < value.length; i += 1) {
+        if (value.charAt(i) === "(") {
+          depth += 1;
+        } else if (value.charAt(i) === ")") {
+          depth = Math.max(0, depth - 1);
+        } else if (value.charAt(i) === "," && depth === 0) {
+          layers.push(value.slice(start, i).trim());
+          start = i + 1;
+        }
+      }
+      if (start < value.length) {
+        layers.push(value.slice(start).trim());
+      }
+      return layers.filter(Boolean);
+    }
+
+    function getGradientColorStops(layer, gradientLength) {
+      var colorPattern = /(rgba?\([^)]*\)|#[0-9a-f]{3,8}|transparent)(?:\s+(-?[\d.]+)(%|px)?)?/gi;
+      var stops = [];
+      var match = null;
+      while ((match = colorPattern.exec(layer))) {
+        var color = parseCssColor(match[1]);
+        var position = null;
+        if (!color) {
+          continue;
+        }
+        if (match[2] !== undefined) {
+          position = Number(match[2]);
+          if (match[3] === "%") {
+            position /= 100;
+          } else if (match[3] === "px") {
+            position /= Math.max(1, gradientLength);
+          }
+        }
+        stops.push({ color: color, position: position });
+      }
+      if (!stops.length) {
+        return stops;
+      }
+      if (stops[0].position === null) {
+        stops[0].position = 0;
+      }
+      if (stops[stops.length - 1].position === null) {
+        stops[stops.length - 1].position = 1;
+      }
+      var runStart = 0;
+      while (runStart < stops.length) {
+        if (stops[runStart].position !== null) {
+          runStart += 1;
+          continue;
+        }
+        var previousPosition = stops[runStart - 1].position;
+        var runEnd = runStart;
+        while (runEnd < stops.length && stops[runEnd].position === null) {
+          runEnd += 1;
+        }
+        var nextPosition = runEnd < stops.length ? stops[runEnd].position : previousPosition;
+        var span = runEnd - runStart + 1;
+        for (var fillIndex = runStart; fillIndex < runEnd; fillIndex += 1) {
+          stops[fillIndex].position =
+            previousPosition + ((nextPosition - previousPosition) * (fillIndex - runStart + 1)) / span;
+        }
+        runStart = runEnd;
+      }
+      for (var stopIndex = 1; stopIndex < stops.length; stopIndex += 1) {
+        stops[stopIndex].position = Math.max(stops[stopIndex - 1].position, stops[stopIndex].position);
+      }
+      return stops;
+    }
+
+    function interpolateGradientColor(stops, progress) {
+      if (!stops.length) {
+        return null;
+      }
+      if (progress <= stops[0].position) {
+        return stops[0].color;
+      }
+      for (var i = 1; i < stops.length; i += 1) {
+        if (progress <= stops[i].position) {
+          var left = stops[i - 1];
+          var right = stops[i];
+          var width = Math.max(0.0001, right.position - left.position);
+          var ratio = Math.max(0, Math.min(1, (progress - left.position) / width));
+          return {
+            r: left.color.r + (right.color.r - left.color.r) * ratio,
+            g: left.color.g + (right.color.g - left.color.g) * ratio,
+            b: left.color.b + (right.color.b - left.color.b) * ratio,
+            a: left.color.a + (right.color.a - left.color.a) * ratio,
+          };
+        }
+      }
+      return stops[stops.length - 1].color;
+    }
+
+    function parseGradientPositionToken(token, axis, rect) {
+      var value = String(token || "").toLowerCase();
+      var size = axis === "x" ? rect.width : rect.height;
+      if (value === "left" || value === "top") {
+        return 0;
+      }
+      if (value === "right" || value === "bottom") {
+        return 1;
+      }
+      if (value === "center") {
+        return 0.5;
+      }
+      if (/^-?[\d.]+%$/.test(value)) {
+        return Number(value.slice(0, -1)) / 100;
+      }
+      if (/^-?[\d.]+px$/.test(value)) {
+        return Number(value.slice(0, -2)) / Math.max(1, size);
+      }
+      return 0.5;
+    }
+
+    function getLinearGradientProgress(layer, localX, localY) {
+      var lower = layer.toLowerCase();
+      var angleMatch = lower.match(/(-?[\d.]+)deg/);
+      if (lower.indexOf("to right") !== -1) {
+        return localX;
+      }
+      if (lower.indexOf("to left") !== -1) {
+        return 1 - localX;
+      }
+      if (lower.indexOf("to top") !== -1 && lower.indexOf("right") === -1 && lower.indexOf("left") === -1) {
+        return 1 - localY;
+      }
+      if (lower.indexOf("to bottom") !== -1 && lower.indexOf("right") === -1 && lower.indexOf("left") === -1) {
+        return localY;
+      }
+      if (lower.indexOf("to bottom right") !== -1 || lower.indexOf("to right bottom") !== -1) {
+        return (localX + localY) / 2;
+      }
+      if (lower.indexOf("to bottom left") !== -1 || lower.indexOf("to left bottom") !== -1) {
+        return (1 - localX + localY) / 2;
+      }
+      if (lower.indexOf("to top right") !== -1 || lower.indexOf("to right top") !== -1) {
+        return (localX + 1 - localY) / 2;
+      }
+      if (lower.indexOf("to top left") !== -1 || lower.indexOf("to left top") !== -1) {
+        return (2 - localX - localY) / 2;
+      }
+      if (angleMatch) {
+        var radians = (Number(angleMatch[1]) * Math.PI) / 180;
+        var directionX = Math.sin(radians);
+        var directionY = -Math.cos(radians);
+        var scale = Math.max(0.0001, Math.abs(directionX) + Math.abs(directionY));
+        return 0.5 + ((localX - 0.5) * directionX + (localY - 0.5) * directionY) / scale;
+      }
+      return localY;
+    }
+
+    function getConicGradientProgress(layer, rect, localX, localY) {
+      var lower = layer.toLowerCase();
+      var fromMatch = lower.match(/\bfrom\s+(-?[\d.]+)deg/);
+      var centerMatch = lower.match(/\bat\s+([^\s,]+)\s+([^\s,]+)/);
+      var centerX = centerMatch ? parseGradientPositionToken(centerMatch[1], "x", rect) : 0.5;
+      var centerY = centerMatch ? parseGradientPositionToken(centerMatch[2], "y", rect) : 0.5;
+      var angle = Math.atan2(localX - centerX, centerY - localY) / (Math.PI * 2);
+      var offset = fromMatch ? Number(fromMatch[1]) / 360 : 0;
+      return ((angle - offset) % 1 + 1) % 1;
+    }
+
+    function getRadialGradientProgress(layer, rect, localX, localY) {
+      var lower = layer.toLowerCase();
+      var centerX = 0.5;
+      var centerY = 0.5;
+      var centerMatch = lower.match(/\bat\s+([^\s,]+)\s+([^\s,]+)/);
+      var radiusMatch = lower.match(/radial-gradient\(\s*([\d.]+)px(?:\s+([\d.]+)px)?\s+at\b/);
+      if (centerMatch) {
+        centerX = parseGradientPositionToken(centerMatch[1], "x", rect);
+        centerY = parseGradientPositionToken(centerMatch[2], "y", rect);
+      }
+      var deltaX = (localX - centerX) * rect.width;
+      var deltaY = (localY - centerY) * rect.height;
+      if (radiusMatch) {
+        var radiusX = Math.max(1, Number(radiusMatch[1]));
+        var radiusY = Math.max(1, Number(radiusMatch[2] || radiusMatch[1]));
+        return Math.sqrt(Math.pow(deltaX / radiusX, 2) + Math.pow(deltaY / radiusY, 2));
+      }
+      var maxX = Math.max(centerX, 1 - centerX) * rect.width;
+      var maxY = Math.max(centerY, 1 - centerY) * rect.height;
+      var maxRadius = Math.max(1, Math.sqrt(maxX * maxX + maxY * maxY));
+      return Math.sqrt(deltaX * deltaX + deltaY * deltaY) / maxRadius;
+    }
+
+    function sampleGradientLayer(layer, rect, viewportX, viewportY) {
+      var lower = String(layer || "").toLowerCase();
+      if (!lower || lower.indexOf("gradient(") === -1 || !rect.width || !rect.height) {
+        return null;
+      }
+      var localX = Math.max(0, Math.min(1, (viewportX - rect.left) / rect.width));
+      var localY = Math.max(0, Math.min(1, (viewportY - rect.top) / rect.height));
+      var isRadial = lower.indexOf("radial-gradient(") !== -1;
+      var isConic = lower.indexOf("conic-gradient(") !== -1;
+      var gradientLength = isRadial
+        ? Math.sqrt(rect.width * rect.width + rect.height * rect.height)
+        : Math.max(rect.width, rect.height);
+      var stops = getGradientColorStops(layer, gradientLength);
+      var progress = isRadial
+        ? getRadialGradientProgress(layer, rect, localX, localY)
+        : isConic
+          ? getConicGradientProgress(layer, rect, localX, localY)
+          : getLinearGradientProgress(layer, localX, localY);
+      var color = interpolateGradientColor(stops, progress);
+      if (!color) {
+        return null;
+      }
+      return {
+        value: getRelativeLuminance(color),
+        alpha: Math.max(0, Math.min(1, color.a)),
+      };
+    }
+
+    function sampleBackgroundImageLuminance(backgroundImage, rect, viewportX, viewportY) {
+      var layers = splitCssLayers(backgroundImage);
+      var value = 0;
+      var alpha = 0;
+      var sampled = false;
+      for (var i = layers.length - 1; i >= 0; i -= 1) {
+        var layerSample = sampleGradientLayer(layers[i], rect, viewportX, viewportY);
+        if (!layerSample) {
+          continue;
+        }
+        sampled = true;
+        value = layerSample.value * layerSample.alpha + value * alpha * (1 - layerSample.alpha);
+        alpha = layerSample.alpha + alpha * (1 - layerSample.alpha);
+        if (alpha > 0.0001) {
+          value /= alpha;
+        }
+      }
+      return sampled ? { value: value, alpha: alpha } : null;
+    }
+
     function getDeclaredLuminance(node) {
       var owner=node&&node.closest&&node.closest("[data-floating-logo-tone]");
       var tone=owner&&owner.dataset.floatingLogoTone;
       return tone==="light"?1:tone==="dark"?0:null;
     }
 
-    function getElementLuminance(node, depth) {
-      if (!node||depth>=12) {
-        return .5;
+    function getElementLuminance(node, depth, sampleX, sampleY) {
+      if (!node) {
+        return { value: 1, reliable: true, source: "canvas" };
+      }
+      if (depth>=12) {
+        return { value: 0.5, reliable: false, source: "fallback" };
       }
 
-      var declared=getDeclaredLuminance(node),parent,styles,lum,color;
+      var declared=getDeclaredLuminance(node),parent,styles,lum,color,rect,gradient;
       if (declared!==null) {
-        return declared;
+        return { value: declared, reliable: true, source: "declared" };
       }
 
-      parent=getElementLuminance(node.parentElement,depth+1);
+      parent=getElementLuminance(node.parentElement,depth+1,sampleX,sampleY);
       try {
         styles = window.getComputedStyle(node);
       } catch (_error) {
         return parent;
       }
 
-      lum=parent;
+      lum={ value: parent.value, reliable: parent.reliable, source: parent.source };
       color=parseRgbColor(styles.backgroundColor);
       if (color&&color.a>0.02) {
-        lum=getRelativeLuminance(color)*color.a+lum*(1-color.a);
+        lum.value=getRelativeLuminance(color)*color.a+lum.value*(1-color.a);
+        if (color.a>=0.96) {
+          lum.reliable=true;
+          lum.source="color";
+        }
+      }
+
+      if (styles.backgroundImage && styles.backgroundImage !== "none") {
+        rect=node.getBoundingClientRect();
+        gradient=sampleBackgroundImageLuminance(styles.backgroundImage,rect,sampleX,sampleY);
+        if (gradient&&gradient.alpha>0.02) {
+          lum.value=gradient.value*gradient.alpha+lum.value*(1-gradient.alpha);
+          if (gradient.alpha>=0.6||lum.reliable) {
+            lum.reliable=true;
+            lum.source="gradient";
+          }
+        }
       }
 
       return lum;
@@ -14845,7 +15136,7 @@
       var node = target && target.nodeType === 1 ? target : null;
       var declared = getDeclaredLuminance(node);
       if (declared !== null) {
-        return declared;
+        return { value: declared, reliable: true, source: "declared" };
       }
       if (node && node.closest) {
         var media = node.closest("img,video");
@@ -14855,12 +15146,12 @@
               ? sampleImgLuminance(media, sampleX, sampleY)
               : sampleVideoLuminance(media, sampleX, sampleY);
           if (mediaLum !== null) {
-            return mediaLum;
+            return { value: mediaLum, reliable: true, source: "media" };
           }
         }
       }
 
-      return getElementLuminance(node || document.body, 0);
+      return getElementLuminance(node || document.body, 0, sampleX, sampleY);
     }
 
     function isLogoOverlay(node) {
@@ -14869,6 +15160,26 @@
         node.closest &&
         node.closest(".floating-site-logo, .cursor-atmosphere-layer, .site-share-shell")
       );
+    }
+
+    function hasSampleableSurface(node) {
+      if (!node || node.nodeType !== 1) {
+        return false;
+      }
+      if (node.matches && node.matches("img,video")) {
+        return true;
+      }
+      try {
+        var styles = window.getComputedStyle(node);
+        var color = parseRgbColor(styles.backgroundColor);
+        var backgroundImage = String(styles.backgroundImage || "").toLowerCase();
+        return Boolean(
+          (color && color.a > 0.02) ||
+          (backgroundImage !== "none" && backgroundImage.indexOf("gradient(") !== -1)
+        );
+      } catch (_error) {
+        return false;
+      }
     }
 
     function findSampleTarget(sampleX, sampleY) {
@@ -14884,6 +15195,9 @@
         }
         fallback=fallback||stack[i];
         if (getDeclaredLuminance(stack[i])!==null) {
+          return stack[i];
+        }
+        if (hasSampleableSurface(stack[i])) {
           return stack[i];
         }
       }
@@ -14914,19 +15228,24 @@
       var weightedLuminance = 0;
       var weightSum = 0;
       var brightestPoint = 0;
+      var reliableWeight = 0;
 
       for (var i = 0; i < points.length; i += 1) {
         var point = points[i];
-        var luminance = getSurfaceLum(
+        var surface = getSurfaceLum(
           findSampleTarget(point.x, point.y),
           point.x,
           point.y
         );
+        var luminance = surface && surface.value;
         if (!isFinite(luminance)) {
           continue;
         }
         weightedLuminance += luminance * point.w;
         weightSum += point.w;
+        if (surface.reliable) {
+          reliableWeight += point.w;
+        }
         if (luminance > brightestPoint) {
           brightestPoint = luminance;
         }
@@ -14945,6 +15264,10 @@
         wrapper.classList.toggle("is-contrast", shouldUseContrast);
         lastContrastState = shouldUseContrast;
       }
+      if (reliableWeight >= 0.5) {
+        wrapper.classList.add("is-contrast-ready");
+        wrapper.dataset.contrastReady = "1";
+      }
     }
 
     function requestSample() {
@@ -14957,7 +15280,44 @@
     window.addEventListener("scroll", requestSample, { passive: true });
     window.addEventListener("resize", requestSample, { passive: true });
     window.addEventListener("orientationchange", requestSample, { passive: true });
+    window.addEventListener("load", requestSample);
+    window.addEventListener("pageshow", requestSample);
+    window.addEventListener("hashchange", requestSample);
     document.addEventListener("visibilitychange", requestSample);
+
+    var logoImage = wrapper.querySelector("img");
+    if (logoImage) {
+      logoImage.addEventListener("load", requestSample);
+    }
+
+    if (document.fonts && document.fonts.ready && typeof document.fonts.ready.then === "function") {
+      document.fonts.ready.then(requestSample).catch(function () {});
+    }
+
+    if (window.ResizeObserver) {
+      var contrastResizeObserver = new ResizeObserver(requestSample);
+      [wrapper, document.body, document.querySelector("main")]
+        .concat(Array.from(document.querySelectorAll("[data-floating-logo-tone]")))
+        .forEach(function (node) {
+          if (node) {
+            contrastResizeObserver.observe(node);
+          }
+        });
+    }
+
+    if (window.MutationObserver) {
+      var contrastMutationObserver = new MutationObserver(requestSample);
+      [document.documentElement, document.body, document.querySelector("main")]
+        .concat(Array.from(document.querySelectorAll("[data-floating-logo-tone]")))
+        .forEach(function (node) {
+          if (node) {
+            contrastMutationObserver.observe(node, {
+              attributes: true,
+              attributeFilter: ["class", "style", "data-floating-logo-tone"],
+            });
+          }
+        });
+    }
 
     intervalId = window.setInterval(function () {
       if (document.hidden || !wrapper.isConnected) {
@@ -14967,7 +15327,9 @@
     }, 900);
 
     requestSample();
-    window.setTimeout(requestSample, 140);
+    [80, 180, 360, 720, 1400].forEach(function (delay) {
+      window.setTimeout(requestSample, delay);
+    });
   }
 
   function setupDesktopCursorAtmosphere() {

@@ -6,8 +6,8 @@ import re
 from pathlib import Path
 
 VERSION = "20260719-quality1"
-HOME_VERSION = "20260719-quality1"
-PROTECT_VERSION = "20260722-logo-contrast1"
+HOME_VERSION = "20260722-home-fold1"
+PROTECT_VERSION = "20260722-logo-contrast2"
 
 SECURITY_META_MARKER = "chronohaze-security-policy"
 SECURITY_META_SNIPPET = """  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
@@ -150,7 +150,12 @@ CRITICAL_LOADER_SNIPPET = """  <style id="chronohaze-critical-loader-style">
         root.classList.remove("chronohaze-critical-loading");
         root.classList.remove("chronohaze-critical-loading-mobile");
       };
-      window.setTimeout(window.__chronohazeReleaseCriticalLoader, isMobile ? 1500 : 6500);
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", window.__chronohazeReleaseCriticalLoader, { once: true });
+      } else {
+        window.requestAnimationFrame(window.__chronohazeReleaseCriticalLoader);
+      }
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, 500);
     })();
   </script>
 """

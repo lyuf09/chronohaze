@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -103,7 +103,12 @@
         root.classList.remove("chronohaze-critical-loading");
         root.classList.remove("chronohaze-critical-loading-mobile");
       };
-      window.setTimeout(window.__chronohazeReleaseCriticalLoader, isMobile ? 1500 : 6500);
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", window.__chronohazeReleaseCriticalLoader, { once: true });
+      } else {
+        window.requestAnimationFrame(window.__chronohazeReleaseCriticalLoader);
+      }
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, 500);
     })();
   </script>
 <script>
@@ -114,9 +119,6 @@
         var valid = function (value) {
           return value === "zh" || value === "en";
         };
-        var defaultLang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
-        var defaultSafe = defaultLang.indexOf("en") === 0 ? "en" : "zh";
-
         if (valid(queryLang)) {
           window.localStorage.setItem("siteLang", queryLang);
           window.localStorage.setItem("chronohaze-lang", queryLang);
@@ -126,38 +128,25 @@
           return;
         }
 
-        var storedLang = window.localStorage.getItem("siteLang");
-        if (!valid(storedLang)) {
-          storedLang = window.localStorage.getItem("chronohaze-lang");
-        }
-        if (!valid(storedLang)) {
-          return;
-        }
-
-        window.__chronohazePreferredLang = storedLang;
-        document.documentElement.lang = storedLang === "en" ? "en" : "zh-CN";
-        document.documentElement.setAttribute("data-site-lang", storedLang);
-
-        if (storedLang !== defaultSafe) {
-          url.searchParams.set("lang", storedLang);
-          window.location.replace(url.toString());
-        }
+        window.__chronohazePreferredLang = "en";
+        document.documentElement.lang = "en";
+        document.documentElement.setAttribute("data-site-lang", "en");
       } catch (_err) {}
     })();
   </script>
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico?v=4" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=4" />
-  <title>起点｜Fay / Feier Lyu｜爱丁堡大学数学 · 优化与形式化验证</title>
-  <meta name="description" content="Fay / Feier Lyu（HazezZ），爱丁堡大学数学本科生，研究优化理论、形式化验证与 Isabelle/HOL；其子模优化形式化已发表于 Archive of Formal Proofs。" />
+  <title>Feier Lyu | Mathematics BSc, University of Edinburgh | AFP Contributor</title>
+  <meta name="description" content="Feier Lyu (Fay Lyu) is a Mathematics BSc student at the University of Edinburgh working on optimization theory, formal verification, and Isabelle/HOL; the submodular optimization formalization is published in the Archive of Formal Proofs." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Chronohaze" />
-  <meta property="og:title" content="起点｜Fay / Feier Lyu · Chronohaze" />
-  <meta property="og:description" content="在时间的薄雾里，为复杂性寻找结构。Fay / Feier Lyu，爱丁堡大学数学本科生，研究优化理论、形式化验证与 Isabelle/HOL。" />
+  <meta property="og:title" content="Feier Lyu | Optimization, Formal Verification &amp; Machine-Checked Mathematics" />
+  <meta property="og:description" content="In the haze of time, I look for structure in complexity. Feier Lyu is a Mathematics BSc student at the University of Edinburgh working on optimization, formal verification, and Isabelle/HOL." />
   <meta property="og:url" content="https://lyuf09.github.io/chronohaze/" />
   <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/index.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="起点｜Fay / Feier Lyu · Chronohaze" />
-  <meta name="twitter:description" content="在时间的薄雾里，为复杂性寻找结构。Fay / Feier Lyu，爱丁堡大学数学本科生，研究优化理论、形式化验证与 Isabelle/HOL。" />
+  <meta name="twitter:title" content="Feier Lyu | Optimization, Formal Verification &amp; Machine-Checked Mathematics" />
+  <meta name="twitter:description" content="In the haze of time, I look for structure in complexity. Feier Lyu is a Mathematics BSc student at the University of Edinburgh working on optimization, formal verification, and Isabelle/HOL." />
   <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/index.png" />
   <link rel="canonical" href="https://lyuf09.github.io/chronohaze/" />
   <!-- GENERATED:hreflang:start -->
@@ -246,17 +235,17 @@
   <link rel="preload" href="assets/fonts/cinzel-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" as="image" href="assets/template/hero_portrait-960.webp" type="image/webp" imagesrcset="assets/template/hero_portrait-600.webp 600w, assets/template/hero_portrait-960.webp 960w, assets/template/hero_portrait-1600.webp 1600w" imagesizes="(max-width: 640px) 88vw, (max-width: 900px) 92vw, 46vw" />
   <link rel="stylesheet" href="styles.min.css?v=20260719-quality1" />
-  <link rel="stylesheet" href="home.min.css?v=20260719-quality1" />
-  <script defer src="protect-media.min.js?v=20260722-logo-contrast1"></script>
+  <link rel="stylesheet" href="home.min.css?v=20260722-home-fold1" />
+  <script defer src="protect-media.min.js?v=20260722-logo-contrast2"></script>
 </head>
 <body class="home-body">
   <div class="home-page" id="top">
     <header class="home-topbar">
       <a class="home-brand" href="#top" data-reveal="fade" data-reveal-delay="0">chronohaze.space</a>
 
-      <div class="lang-pill" aria-label="语言切换" data-reveal="fade" data-reveal-delay="40">
-        <button class="lang-btn active" type="button" data-lang="zh" aria-label="切换网站语言为中文">中</button>
-        <button class="lang-btn" type="button" data-lang="en" aria-label="Switch site language to English">EN</button>
+      <div class="lang-pill" aria-label="Language switch" data-reveal="fade" data-reveal-delay="40">
+        <button class="lang-btn" type="button" data-lang="zh" aria-label="切换网站语言为中文">中</button>
+        <button class="lang-btn active" type="button" data-lang="en" aria-label="Switch site language to English">EN</button>
       </div>
 
       <button class="menu-open" type="button" aria-controls="drawer" aria-expanded="false" aria-label="菜单 [ + ]" data-i18n-aria="menuOpenAria" id="openMenu" data-reveal="fade" data-reveal-delay="80">+</button>
@@ -327,18 +316,18 @@
           </div>
           <div class="selected-evidence-grid" role="list" data-i18n-aria="selectedEvidenceGridAria" aria-label="精选证据">
             <article class="selected-evidence-card" role="listitem" data-reveal="slide-up" data-reveal-delay="80">
-              <h3 data-i18n="selectedEvidenceCard1Title">发表于 AFP</h3>
-              <p data-i18n="selectedEvidenceCard1Body">在 Isabelle/HOL 中形式化基数约束单调子模最大化的经典贪心算法与经验证的有状态惰性贪心变体。</p>
+              <h3 data-i18n="selectedEvidenceCard1Title">AFP 独著条目 · 2026年5月</h3>
+              <p data-i18n="selectedEvidenceCard1Body">在 Isabelle/HOL 中形式化子模最大化的确定性贪心算法与有状态惰性贪心算法。</p>
               <a class="selected-evidence-link" href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer" data-i18n="selectedEvidenceCard1Link">查看 AFP 条目</a>
             </article>
             <article class="selected-evidence-card" role="listitem" data-reveal="slide-up" data-reveal-delay="140">
-              <h3 data-i18n="selectedEvidenceCard2Title">当前研究</h3>
-              <p data-i18n="selectedEvidenceCard2Body">优化、网络定位与带不变性的非凸结构；研究对偶退化、结构评分及其与局部曲率证书的联系。</p>
-              <a class="selected-evidence-link" href="research.html" data-i18n="selectedEvidenceCard2Link">研究陈述</a>
+              <h3 data-i18n="selectedEvidenceCard2Title">当前合作 · 网络定位</h3>
+              <p data-i18n="selectedEvidenceCard2Body">与 Shoham Sabach 合作研究图结构负曲率证书与局部逃逸方向。</p>
+              <a class="selected-evidence-link" href="notes/network_localization_structural_certificates.html" data-i18n="selectedEvidenceCard2Link">英文技术笔记</a>
             </article>
             <article class="selected-evidence-card" role="listitem" data-reveal="slide-up" data-reveal-delay="200">
-              <h3 data-i18n="selectedEvidenceCard3Title">形式化项目</h3>
-              <p data-i18n="selectedEvidenceCard3Body">投影梯度下降与可复用证明基础设施：投影几何、梯度映射、凸收敛与线性收敛率。</p>
+              <h3 data-i18n="selectedEvidenceCard3Title">已提交 AFP · 2026年7月2日</h3>
+              <p data-i18n="selectedEvidenceCard3Body">在 Isabelle/HOL 中形式化投影梯度下降、投影几何、梯度映射与收敛速率。</p>
               <a class="selected-evidence-link" href="post/projected-gradient-descent-isabelle-hol.html" data-i18n="selectedEvidenceCard3Link">项目笔记</a>
             </article>
           </div>
@@ -527,7 +516,7 @@
         en: 'Feier Lyu | Mathematics BSc, University of Edinburgh | AFP Contributor'
       };
 
-      let currentLang = 'zh';
+      let currentLang = 'en';
 
       const i18n = {
         zh: {
@@ -550,7 +539,7 @@
           heroAuthority: 'University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027',
           academicKicker: '快捷入口',
           academicResearch: '学术',
-          academicCV: '公开简历',
+          academicCV: '学术档案',
           academicProjects: '代表性工作',
           academicNotes: '技术笔记',
           academicGitHub: 'GitHub',
@@ -573,14 +562,14 @@
           selectedEvidenceKicker: '研究概览',
           selectedEvidenceTitle: '当前工作',
           selectedEvidenceGridAria: '精选证据',
-          selectedEvidenceCard1Title: '发表于 AFP',
-          selectedEvidenceCard1Body: '在 Isabelle/HOL 中形式化基数约束单调子模最大化的经典贪心算法与经验证的有状态惰性贪心变体。',
+          selectedEvidenceCard1Title: 'AFP 独著条目 · 2026年5月',
+          selectedEvidenceCard1Body: '在 Isabelle/HOL 中形式化子模最大化的确定性贪心算法与有状态惰性贪心算法。',
           selectedEvidenceCard1Link: '查看 AFP 条目',
-          selectedEvidenceCard2Title: '当前研究',
-          selectedEvidenceCard2Body: '优化、网络定位与带不变性的非凸结构；研究对偶退化、结构评分及其与局部曲率证书的联系。',
-          selectedEvidenceCard2Link: '研究陈述',
-          selectedEvidenceCard3Title: '形式化项目',
-          selectedEvidenceCard3Body: '投影梯度下降与可复用证明基础设施：投影几何、梯度映射、凸收敛与线性收敛率。',
+          selectedEvidenceCard2Title: '当前合作 · 网络定位',
+          selectedEvidenceCard2Body: '与 Shoham Sabach 合作研究图结构负曲率证书与局部逃逸方向。',
+          selectedEvidenceCard2Link: '英文技术笔记',
+          selectedEvidenceCard3Title: '已提交 AFP · 2026年7月2日',
+          selectedEvidenceCard3Body: '在 Isabelle/HOL 中形式化投影梯度下降、投影几何、梯度映射与收敛速率。',
           selectedEvidenceCard3Link: '项目笔记',
           identityDualityKicker: '数学与创作',
           identityDualityTitle: '两种身份，两种工作方式',
@@ -637,7 +626,7 @@
           heroAuthority: 'University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027',
           academicKicker: 'Quick links',
           academicResearch: 'Academic',
-          academicCV: 'Public CV',
+          academicCV: 'Academic Profile',
           academicProjects: 'Work',
           academicNotes: 'Notes',
           academicGitHub: 'GitHub',
@@ -660,14 +649,14 @@
           selectedEvidenceKicker: 'CURRENT WORK',
           selectedEvidenceTitle: 'Research Snapshot',
           selectedEvidenceGridAria: 'Selected evidence',
-          selectedEvidenceCard1Title: 'Published in AFP',
-          selectedEvidenceCard1Body: 'Classical greedy and a verified stateful lazy-greedy variant for cardinality-constrained monotone submodular maximization in Isabelle/HOL.',
+          selectedEvidenceCard1Title: 'Sole-author AFP entry · May 2026',
+          selectedEvidenceCard1Body: 'Deterministic and stateful lazy greedy for submodular maximization in Isabelle/HOL.',
           selectedEvidenceCard1Link: 'AFP entry',
-          selectedEvidenceCard2Title: 'Current research',
-          selectedEvidenceCard2Body: 'Optimization, network localization, and nonconvex structures with invariance; studying dual collapse, structural scores, and their connection to local curvature certificates.',
-          selectedEvidenceCard2Link: 'Research statement',
-          selectedEvidenceCard3Title: 'Formalization project',
-          selectedEvidenceCard3Body: 'Projected gradient descent and reusable proof infrastructure: projection geometry, gradient mappings, convex convergence, and linear rates.',
+          selectedEvidenceCard2Title: 'Current collaboration · Network localization',
+          selectedEvidenceCard2Body: 'Graph-structured negative-curvature certificates and local escape directions, with Shoham Sabach.',
+          selectedEvidenceCard2Link: 'English technical note',
+          selectedEvidenceCard3Title: 'Submitted to AFP · 2 July 2026',
+          selectedEvidenceCard3Body: 'Projected gradient descent, projection geometry, gradient mappings, and convergence rates in Isabelle/HOL.',
           selectedEvidenceCard3Link: 'Project note',
           identityDualityKicker: 'TWO PRACTICES',
           identityDualityTitle: 'Two identities, two practices',
@@ -1212,14 +1201,13 @@
         setPlayerState('error');
       });
 
-      let initialLang = 'zh';
+      let initialLang = 'en';
       try {
-        const siteLang = window.localStorage.getItem('siteLang');
-        const savedLang = window.localStorage.getItem('chronohaze-lang');
-        if (siteLang === 'zh' || siteLang === 'en') {
-          initialLang = siteLang;
-        } else if (savedLang === 'zh' || savedLang === 'en') {
-          initialLang = savedLang;
+        const queryLang = new URL(window.location.href).searchParams.get('lang');
+        if (queryLang === 'zh' || queryLang === 'en') {
+          initialLang = queryLang;
+        } else if (window.__chronohazePreferredLang === 'zh' || window.__chronohazePreferredLang === 'en') {
+          initialLang = window.__chronohazePreferredLang;
         }
       } catch (err) {
       }

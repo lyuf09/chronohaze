@@ -73,6 +73,27 @@
       line-height: 1.82;
     }
 
+    .note-detail-citation {
+      max-width: 760px;
+      margin-top: 22px;
+      padding: 15px 17px 16px;
+      border-left: 2px solid rgba(174, 190, 216, 0.58);
+      background: rgba(255, 255, 255, 0.045);
+      color: rgba(224, 229, 238, 0.88);
+      font-size: 14px;
+      line-height: 1.62;
+    }
+
+    .note-detail-citation p {
+      margin: 6px 0 8px;
+    }
+
+    .note-detail-citation a {
+      color: rgba(218, 229, 248, 0.96);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
     .note-pdf-actions {
       display: flex;
       flex-wrap: wrap;
@@ -168,10 +189,15 @@
       <section class="note-detail-shell">
         <a class="note-detail-back" href="../math.html">Back to Technical Notes</a>
         <h1 class="note-detail-title">Convexity in the Necessity Direction of Theorem 11</h1>
-        <p class="note-detail-meta">Feier Lyu · Technical note · Learning Theory / Private Learning / Distributional Constraints · July 2026</p>
+        <p class="note-detail-meta">Feier Lyu · Reading note · Learning Theory / Private Learning / Distributional Constraints · July 2026</p>
         <p class="note-detail-lead">
-          This note traces the necessity direction around Theorem 11, records a convexification check for the envelope submeasure and fragmentation numbers, and isolates the bridge from a general distribution class U to the convex setting used in Lemma 18 and Theorem 19.
+          This note reads Theorem 11 of Blanchard, Shetty, and Rakhlin, traces its private-learnability necessity direction, records a convexification check for the envelope submeasure and fragmentation numbers, and isolates the bridge from a general distribution class U to the convex setting used in Lemma 18 and Theorem 19.
         </p>
+        <aside class="note-detail-citation" aria-label="Source paper citation">
+          <strong>Source paper</strong>
+          <p>M. Blanchard, A. Shetty, and A. Rakhlin. “Characterizing Online and Private Learnability under Distributional Constraints via Generalized Smoothness.” arXiv:2602.20585, 2026.</p>
+          <a href="https://arxiv.org/abs/2602.20585" target="_blank" rel="noopener noreferrer">arXiv:2602.20585</a>
+        </aside>
         <div class="note-pdf-actions">
           <a class="note-pdf-action" href="theorem11_convexity_note.pdf" target="_blank" rel="noopener">Open PDF</a>
           <a class="note-pdf-action" href="../math.html">Notes Index</a>

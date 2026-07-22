@@ -103,7 +103,12 @@
         root.classList.remove("chronohaze-critical-loading");
         root.classList.remove("chronohaze-critical-loading-mobile");
       };
-      window.setTimeout(window.__chronohazeReleaseCriticalLoader, isMobile ? 1500 : 6500);
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", window.__chronohazeReleaseCriticalLoader, { once: true });
+      } else {
+        window.requestAnimationFrame(window.__chronohazeReleaseCriticalLoader);
+      }
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, 500);
     })();
   </script>
 <script>
@@ -205,9 +210,9 @@
   </script>
   <link rel="preload" href="assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="styles.min.css?v=20260719-quality1" />
-  <link rel="stylesheet" href="assets/css/editorial-evidence.css?v=20260627" />
+  <link rel="stylesheet" href="assets/css/editorial-evidence.css?v=20260722-readable1" />
   <link rel="stylesheet" href="assets/css/academic-mobile.css?v=20260418-mobile1" />
-  <script defer src="protect-media.min.js?v=20260722-logo-contrast1"></script>
+  <script defer src="protect-media.min.js?v=20260722-logo-contrast2"></script>
 </head>
 <body class="research-landing-page projects-page">
   <div class="page">
@@ -250,12 +255,12 @@
             <div data-lang-block="zh">
               <h1>Selected Work</h1>
               <p class="research-positioning"><strong>Feier Lyu</strong>（Fay Lyu）</p>
-              <p class="research-positioning">这一页集中展示可核查的学术成果、形式化项目与研究笔记；创意计算原型单独列为 side project。完整的问题线与研究动机放在 Research Statement。</p>
+              <p class="research-positioning">按 Published、Submitted、Ongoing collaboration 与 Exploratory notes 四类展示可核查的学术工作；创意计算原型单独列为 side project。</p>
             </div>
             <div data-lang-block="en" hidden>
               <h1>Selected Work</h1>
               <p class="research-positioning"><strong>Feier Lyu</strong> (Fay Lyu)</p>
-              <p class="research-positioning">This page presents verifiable academic outputs, formalization projects, and research notes. A creative-computation prototype is listed separately as a side project. The broader problem framing belongs in the Research Statement.</p>
+              <p class="research-positioning">Verifiable academic work is separated into Published, Submitted, Ongoing collaboration, and Exploratory notes. A creative-computation prototype is listed separately as a side project.</p>
             </div>
           </div>
         </div>
@@ -269,13 +274,13 @@
               <h2>学术工作</h2>
               <ol class="academic-evidence-list">
                 <li>
-                  <span class="academic-evidence-index">01</span>
+                  <span class="academic-evidence-index">PUB</span>
                   <div>
-                    <p class="academic-proof-kicker">FORMAL VERIFICATION</p>
+                    <p class="academic-proof-kicker">PUBLISHED · FORMAL VERIFICATION</p>
                     <h3>Greedy Algorithms for Cardinality-Constrained Submodular Maximization</h3>
-                    <p><strong>状态：</strong> 发表于 AFP，2026。AFP 条目覆盖 classical greedy 与 verified stateful lazy-greedy；当前仓库另含发表后的 stochastic-greedy 扩展，包括 sampling、approximation packaging 与 oracle-cost accounting。</p>
+                    <p><strong>状态：</strong> 2026 年 5 月 26 日正式发表于 AFP。AFP 条目覆盖 classical greedy 与 verified stateful lazy-greedy；当前仓库另含发表后的 stochastic-greedy 扩展，包括 sampling、approximation packaging 与 oracle-cost accounting。</p>
                     <p><strong>问题：</strong> 形式化基数约束单调子模最大化中 classical greedy 的经典 1−1/e 近似保证。</p>
-                    <p><strong>贡献：</strong> 在 Wenda Li 老师指导下独立完成 Isabelle/HOL development，覆盖 classical greedy 与 verified stateful lazy-greedy variant。</p>
+                    <p><strong>贡献：</strong> 在 Wenda Li 老师指导下，本人负责完整的 Isabelle/HOL development，覆盖 classical greedy 与 verified stateful lazy-greedy variant。</p>
                     <p><strong>证据：</strong></p>
                     <div class="research-link-row project-evidence-links">
                       <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP</a>
@@ -286,13 +291,13 @@
                   </div>
                 </li>
                 <li>
-                  <span class="academic-evidence-index">02</span>
+                  <span class="academic-evidence-index">SUB</span>
                   <div>
-                    <p class="academic-proof-kicker">FORMAL VERIFICATION</p>
+                    <p class="academic-proof-kicker">SUBMITTED · FORMAL VERIFICATION</p>
                     <h3>First-Order Methods for Smooth Convex Optimization in Isabelle/HOL</h3>
-                    <p><strong>状态：</strong> 已提交至 Archive of Formal Proofs，目前等待审核。</p>
+                    <p><strong>状态：</strong> 2026 年 7 月 2 日提交至 Archive of Formal Proofs，目前等待审核。</p>
                     <p><strong>问题：</strong> 将 projected gradient descent 及其一阶收敛理论组织成可复用的 Isabelle/HOL 基础设施。</p>
-                    <p><strong>贡献：</strong> 独立设计并完成全部形式化，覆盖 projection geometry、projected-gradient mapping、凸收敛与强凸线性收敛率；该项目没有导师参与。</p>
+                    <p><strong>贡献：</strong> Independent formalization project；本人负责完整 Isabelle/HOL development，覆盖 projection geometry、projected-gradient mapping、凸收敛与强凸线性收敛率。</p>
                     <p><strong>证据：</strong></p>
                     <div class="research-link-row project-evidence-links">
                       <a href="post/projected-gradient-descent-isabelle-hol.html">Project page</a>
@@ -301,31 +306,32 @@
                   </div>
                 </li>
                 <li>
-                  <span class="academic-evidence-index">03</span>
+                  <span class="academic-evidence-index">JOINT</span>
                   <div>
-                    <p class="academic-proof-kicker">OPTIMIZATION / MINIMAX LEARNING</p>
-                    <h3>TTGDA and Second-Order Tracking</h3>
-                    <p><strong>状态：</strong> Working note / exploratory theoretical work.</p>
-                    <p><strong>问题：</strong> Two-timescale value-function tracking 是否能通过 Schur-complement Hessian 支持二阶 saddle escaping？</p>
-                    <p><strong>贡献：</strong> 整理 value-function viewpoint、二阶 tracking gap 与可继续检验的 theorem-level 路线。</p>
+                    <p class="academic-proof-kicker">ONGOING COLLABORATION · NETWORK LOCALIZATION</p>
+                    <h3>Negative-Curvature Certificates for Network Localization</h3>
+                    <p><strong>状态：</strong> Ongoing collaboration with Shoham Sabach.</p>
+                    <p><strong>问题：</strong> 对网络定位中的非最优驻点，哪些图结构与几何条件能给出负曲率证书和可计算的局部逃逸方向？</p>
+                    <p><strong>贡献：</strong> 当前合作围绕 cycle consistency、projected edge budgets、图的环空间与 Hessian 负曲率之间的联系展开。</p>
                     <p><strong>证据：</strong></p>
                     <div class="research-link-row project-evidence-links">
-                      <a href="notes/ttgda_second_order_tracking_note.html">Note</a>
+                      <a href="notes/network_localization_structural_certificates.html">English technical note</a>
+                      <a href="post/dual-score-saddle-certificates.html">Research note</a>
+                      <a href="post/what-i-really-got-when-a-dual-route-failed.html">Derivation history</a>
                     </div>
                   </div>
                 </li>
                 <li>
-                  <span class="academic-evidence-index">04</span>
+                  <span class="academic-evidence-index">NOTE</span>
                   <div>
-                    <p class="academic-proof-kicker">DUALITY / INVARIANCE</p>
-                    <h3>Duality and Structural Scoring under Invariance</h3>
-                    <p><strong>状态：</strong> Ongoing theoretical work.</p>
-                    <p><strong>问题：</strong> 当 translation 或 gauge invariance 使普通对偶退化时，能否恢复与 localization instance difficulty 相关的结构证书？</p>
-                    <p><strong>贡献：</strong> 推导并整理 dual collapse、Range(B)、cycle consistency、structural scores 与 saddle certificates 之间的联系。</p>
+                    <p class="academic-proof-kicker">EXPLORATORY NOTE · MINIMAX OPTIMIZATION</p>
+                    <h3>TTGDA and Second-Order Tracking</h3>
+                    <p><strong>状态：</strong> Exploratory derivation.</p>
+                    <p><strong>问题：</strong> Two-timescale value-function tracking 是否能通过 Schur-complement Hessian 支持二阶 saddle escaping？</p>
+                    <p><strong>贡献：</strong> 通过已有的 value-function viewpoint 探索 TTGDA，梳理二阶 tracking gap 与可继续检验的 theorem-level 路线。</p>
                     <p><strong>证据：</strong></p>
                     <div class="research-link-row project-evidence-links">
-                      <a href="post/dual-score-saddle-certificates.html">Research note</a>
-                      <a href="post/what-i-really-got-when-a-dual-route-failed.html">Derivation history</a>
+                      <a href="notes/ttgda_second_order_tracking_note.html">Note</a>
                     </div>
                   </div>
                 </li>
@@ -360,13 +366,13 @@
               <h2>Academic Work</h2>
               <ol class="academic-evidence-list">
                 <li>
-                  <span class="academic-evidence-index">01</span>
+                  <span class="academic-evidence-index">PUB</span>
                   <div>
-                    <p class="academic-proof-kicker">FORMAL VERIFICATION</p>
+                    <p class="academic-proof-kicker">PUBLISHED · FORMAL VERIFICATION</p>
                     <h3>Greedy Algorithms for Cardinality-Constrained Submodular Maximization</h3>
-                    <p><strong>Status:</strong> Published in AFP, 2026. The AFP entry covers classical greedy and a verified stateful lazy-greedy variant; the current repository additionally contains a post-publication stochastic-greedy extension with sampling, approximation packaging, and oracle-cost accounting.</p>
+                    <p><strong>Status:</strong> Published in the Archive of Formal Proofs on May 26, 2026. The AFP entry covers classical greedy and a verified stateful lazy-greedy variant; the current repository additionally contains a post-publication stochastic-greedy extension with sampling, approximation packaging, and oracle-cost accounting.</p>
                     <p><strong>Problem:</strong> Formalize the classical 1−1/e approximation guarantee for cardinality-constrained monotone submodular maximization.</p>
-                    <p><strong>Contribution:</strong> I independently completed the Isabelle/HOL development under the supervision of Wenda Li, covering classical greedy and a verified stateful lazy-greedy variant.</p>
+                    <p><strong>Contribution:</strong> I was responsible for the full Isabelle/HOL development under the supervision of Wenda Li, covering classical greedy and a verified stateful lazy-greedy variant.</p>
                     <p><strong>Evidence:</strong></p>
                     <div class="research-link-row project-evidence-links">
                       <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP</a>
@@ -377,13 +383,13 @@
                   </div>
                 </li>
                 <li>
-                  <span class="academic-evidence-index">02</span>
+                  <span class="academic-evidence-index">SUB</span>
                   <div>
-                    <p class="academic-proof-kicker">FORMAL VERIFICATION</p>
+                    <p class="academic-proof-kicker">SUBMITTED · FORMAL VERIFICATION</p>
                     <h3>First-Order Methods for Smooth Convex Optimization in Isabelle/HOL</h3>
-                    <p><strong>Status:</strong> Submitted to the Archive of Formal Proofs; awaiting review.</p>
+                    <p><strong>Status:</strong> Submitted to the Archive of Formal Proofs on July 2, 2026; awaiting review.</p>
                     <p><strong>Problem:</strong> Formalize projected gradient descent and its first-order convergence theory as reusable Isabelle/HOL infrastructure.</p>
-                    <p><strong>Contribution:</strong> I independently designed and completed the development, covering projection geometry, projected-gradient mapping, convex convergence, and a strongly convex linear rate. This project had no supervisor.</p>
+                    <p><strong>Contribution:</strong> Independent formalization project. I was responsible for the full Isabelle/HOL development, covering projection geometry, projected-gradient mapping, convex convergence, and a strongly convex linear rate.</p>
                     <p><strong>Evidence:</strong></p>
                     <div class="research-link-row project-evidence-links">
                       <a href="post/projected-gradient-descent-isabelle-hol.html">Project page</a>
@@ -392,31 +398,32 @@
                   </div>
                 </li>
                 <li>
-                  <span class="academic-evidence-index">03</span>
+                  <span class="academic-evidence-index">JOINT</span>
                   <div>
-                    <p class="academic-proof-kicker">OPTIMIZATION / MINIMAX LEARNING</p>
-                    <h3>TTGDA and Second-Order Tracking</h3>
-                    <p><strong>Status:</strong> Working note / exploratory theoretical work.</p>
-                    <p><strong>Problem:</strong> Can two-timescale value-function tracking support second-order saddle escaping through the Schur-complement Hessian?</p>
-                    <p><strong>Contribution:</strong> Developed the value-function viewpoint, isolated the second-order tracking gap, and organized a theorem-level route for further verification.</p>
+                    <p class="academic-proof-kicker">ONGOING COLLABORATION · NETWORK LOCALIZATION</p>
+                    <h3>Negative-Curvature Certificates for Network Localization</h3>
+                    <p><strong>Status:</strong> Ongoing collaboration with Shoham Sabach.</p>
+                    <p><strong>Problem:</strong> For non-optimal stationary points in network localization, which graph and geometric conditions yield a negative-curvature certificate and a computable local escape direction?</p>
+                    <p><strong>Contribution:</strong> The collaboration currently studies the relation among cycle consistency, projected edge budgets, the graph cycle space, and Hessian negative curvature.</p>
                     <p><strong>Evidence:</strong></p>
                     <div class="research-link-row project-evidence-links">
-                      <a href="notes/ttgda_second_order_tracking_note.html">Note</a>
+                      <a href="notes/network_localization_structural_certificates.html">English technical note</a>
+                      <a href="post/dual-score-saddle-certificates.html">Research note</a>
+                      <a href="post/what-i-really-got-when-a-dual-route-failed.html">Derivation history</a>
                     </div>
                   </div>
                 </li>
                 <li>
-                  <span class="academic-evidence-index">04</span>
+                  <span class="academic-evidence-index">NOTE</span>
                   <div>
-                    <p class="academic-proof-kicker">DUALITY / INVARIANCE</p>
-                    <h3>Duality and Structural Scoring under Invariance</h3>
-                    <p><strong>Status:</strong> Ongoing theoretical work.</p>
-                    <p><strong>Problem:</strong> When translation or gauge invariance collapses a standard dual, can one recover structural certificates tied to localization instance difficulty?</p>
-                    <p><strong>Contribution:</strong> Developed and organized the connection among dual collapse, Range(B), cycle consistency, structural scores, and saddle certificates.</p>
+                    <p class="academic-proof-kicker">EXPLORATORY NOTE · MINIMAX OPTIMIZATION</p>
+                    <h3>TTGDA and Second-Order Tracking</h3>
+                    <p><strong>Status:</strong> Exploratory derivation.</p>
+                    <p><strong>Problem:</strong> Can two-timescale value-function tracking support second-order saddle escaping through the Schur-complement Hessian?</p>
+                    <p><strong>Contribution:</strong> Explored TTGDA through the established value-function viewpoint, isolated the second-order tracking gap, and organized a theorem-level route for further verification.</p>
                     <p><strong>Evidence:</strong></p>
                     <div class="research-link-row project-evidence-links">
-                      <a href="post/dual-score-saddle-certificates.html">Research note</a>
-                      <a href="post/what-i-really-got-when-a-dual-route-failed.html">Derivation history</a>
+                      <a href="notes/ttgda_second_order_tracking_note.html">Note</a>
                     </div>
                   </div>
                 </li>

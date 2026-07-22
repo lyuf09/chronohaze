@@ -103,7 +103,12 @@
         root.classList.remove("chronohaze-critical-loading");
         root.classList.remove("chronohaze-critical-loading-mobile");
       };
-      window.setTimeout(window.__chronohazeReleaseCriticalLoader, isMobile ? 1500 : 6500);
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", window.__chronohazeReleaseCriticalLoader, { once: true });
+      } else {
+        window.requestAnimationFrame(window.__chronohazeReleaseCriticalLoader);
+      }
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, 500);
     })();
   </script>
 <script>
@@ -205,7 +210,7 @@
   </script>
   <link rel="preload" href="../assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="../styles.min.css?v=20260719-quality1" />
-  <script defer src="../protect-media.min.js?v=20260722-logo-contrast1"></script>
+  <script defer src="../protect-media.min.js?v=20260722-logo-contrast2"></script>
 </head>
 <body class="math-post-page">
   <div class="page">
@@ -241,11 +246,11 @@
       <article class="article">
         <div data-lang-block="zh">
           <h1>从一个定理到一套框架：我的 Isabelle 子模优化项目新进展</h1>
-          <p class="article-meta">Feier Lyu · 2026年3月14日 · 约 6 分钟</p>
+          <p class="article-meta">Feier Lyu · Originally posted 2026年3月14日 · 约 6 分钟</p>
 
           <aside class="math-post-update" aria-label="项目更新：2026年7月">
-            <p class="math-post-update-label">更新 · 2026年7月</p>
-            <p>正式发表于 AFP（2026）：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库还进一步发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。下文的项目回顾已按这一范围边界更新。</p>
+            <p class="math-post-update-label">Updated 2026年7月 · 保留原始发布日期</p>
+            <p><strong>Published 2026年5月26日：</strong>AFP 条目对基数约束下的单调子模最大化形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。<strong>发表后扩展：</strong>当前仓库还进一步发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。本状态更新不改变原文 3 月 14 日的发布日期。</p>
             <div class="research-link-row">
               <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
               <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a>
@@ -294,11 +299,11 @@
 
         <div data-lang-block="en" hidden>
           <h1>From One Theorem to a Framework: New Progress on My Isabelle Project in Submodular Optimization</h1>
-          <p class="article-meta">Feier Lyu · March 14, 2026 · 8 min read</p>
+          <p class="article-meta">Feier Lyu · Originally posted March 14, 2026 · 8 min read</p>
 
           <aside class="math-post-update" aria-label="Project update, July 2026">
-            <p class="math-post-update-label">Update, July 2026.</p>
-            <p>Published in AFP (2026): a formalization of the classical greedy algorithm and a verified stateful lazy-greedy variant for cardinality-constrained monotone submodular maximization. Post-publication extension: the current repository additionally develops a stochastic-greedy line, including sampling, approximation packaging, and oracle-cost accounting. The project review below has been updated to preserve this scope boundary.</p>
+            <p class="math-post-update-label">Updated July 2026 - original post date retained.</p>
+            <p><strong>Published May 26, 2026:</strong> the AFP entry formalizes the classical greedy algorithm and a verified stateful lazy-greedy variant for cardinality-constrained monotone submodular maximization. <strong>Post-publication extension:</strong> the current repository additionally develops a stochastic-greedy line, including sampling, approximation packaging, and oracle-cost accounting. This status update does not change the original March 14 date.</p>
             <div class="research-link-row">
               <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
               <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a>

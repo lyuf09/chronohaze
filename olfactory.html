@@ -103,7 +103,12 @@
         root.classList.remove("chronohaze-critical-loading");
         root.classList.remove("chronohaze-critical-loading-mobile");
       };
-      window.setTimeout(window.__chronohazeReleaseCriticalLoader, isMobile ? 1500 : 6500);
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", window.__chronohazeReleaseCriticalLoader, { once: true });
+      } else {
+        window.requestAnimationFrame(window.__chronohazeReleaseCriticalLoader);
+      }
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, 500);
     })();
   </script>
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico?v=4" />
@@ -115,18 +120,21 @@
   <meta property="og:title" content="Olfactory Notes / 调香手记 | Chronohaze" />
   <meta property="og:description" content="Invisible compositions made from tea, wood, flowers, resin, and memory." />
   <meta property="og:url" content="https://lyuf09.github.io/chronohaze/olfactory.html" />
-  <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/logo.png" />
+  <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/olfactory.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Olfactory Notes / 调香手记 | Chronohaze" />
   <meta name="twitter:description" content="Invisible compositions made from tea, wood, flowers, resin, and memory." />
-  <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/logo.png" />
+  <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/olfactory.png" />
   <link rel="canonical" href="https://lyuf09.github.io/chronohaze/olfactory.html" />
+  <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
+  <!-- GENERATED:hreflang:start -->
   <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/olfactory.html?lang=zh" />
   <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/olfactory.html?lang=en" />
   <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/olfactory.html" />
+  <!-- GENERATED:hreflang:end -->
   <link rel="stylesheet" href="styles.min.css?v=20260719-quality1" />
   <link rel="stylesheet" href="assets/css/olfactory.min.css?v=20260703-olfactory1" />
-  <script defer src="protect-media.min.js?v=20260722-logo-contrast1"></script>
+  <script defer src="protect-media.min.js?v=20260722-logo-contrast2"></script>
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",

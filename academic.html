@@ -103,7 +103,12 @@
         root.classList.remove("chronohaze-critical-loading");
         root.classList.remove("chronohaze-critical-loading-mobile");
       };
-      window.setTimeout(window.__chronohazeReleaseCriticalLoader, isMobile ? 1500 : 6500);
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", window.__chronohazeReleaseCriticalLoader, { once: true });
+      } else {
+        window.requestAnimationFrame(window.__chronohazeReleaseCriticalLoader);
+      }
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, 500);
     })();
   </script>
 <script>
@@ -148,7 +153,7 @@
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico?v=4" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=4" />
   <title>Academic | Feier Lyu (Fay Lyu) | Chronohaze</title>
-  <meta name="description" content="Academic profile for Feier Lyu (Fay Lyu): optimization and formal verification, centered on reusable machine-checked structures and how structure changes under mathematical and computational transformations." />
+  <meta name="description" content="Academic profile for Feier Lyu (Fay Lyu): education at Edinburgh and Cornell, current work in formal verification and network localization, and direct links to selected evidence." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Chronohaze" />
   <meta property="og:title" content="Academic | Feier Lyu (Fay Lyu)" />
@@ -220,9 +225,9 @@
   </script>
   <link rel="preload" href="assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="styles.min.css?v=20260719-quality1" />
-  <link rel="stylesheet" href="assets/css/editorial-evidence.css?v=20260627" />
+  <link rel="stylesheet" href="assets/css/editorial-evidence.css?v=20260722-readable1" />
   <link rel="stylesheet" href="assets/css/academic-mobile.css?v=20260418-mobile1" />
-  <script defer src="protect-media.min.js?v=20260722-logo-contrast1"></script>
+  <script defer src="protect-media.min.js?v=20260722-logo-contrast2"></script>
 </head>
 <body class="research-landing-page projects-page academic-page">
   <div class="page">
@@ -266,37 +271,35 @@
               <p class="research-eyebrow">Academic</p>
               <h1>学术</h1>
               <p class="research-positioning"><strong>Feier Lyu</strong>（Fay Lyu）</p>
-              <p class="research-positioning academic-focus-line">Optimization Theory · Formal Verification · Machine-Checked Mathematics</p>
-              <p class="research-positioning academic-lead">我研究优化与形式化验证，尤其关注如何将算法论证分解为可复用、机器检查的结构。</p>
+              <p class="research-positioning academic-focus-line">我研究优化理论与形式化验证。</p>
+              <p class="research-positioning academic-lead">当前工作集中在可复用的 Isabelle/HOL 基础设施，以及网络定位中的图结构负曲率证书。</p>
+              <p class="academic-proof-kicker">教育背景</p>
               <ul class="academic-snapshot-list">
-                <li><strong>子模最大化形式化</strong><span>发表于 AFP（2026）</span></li>
-                <li><strong>Isabelle/HOL 中的一阶方法</strong><span>Projected Gradient Descent 形式化项目</span></li>
-                <li><strong>非凸极小极大与定位</strong><span>进行中的理论研究</span></li>
+                <li><strong>爱丁堡大学</strong><span>数学本科 · 预计 2027 年毕业</span></li>
+                <li><strong>康奈尔大学</strong><span>交换学习 · 2025–2026</span></li>
               </ul>
-              <div class="research-link-row" aria-label="Academic exploration links">
-                <a href="projects.html">Selected Work</a>
-                <a href="research.html">Research Statement</a>
-                <a href="cv.html">CV</a>
-                <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
-              </div>
+              <p class="academic-proof-kicker">主要研究线</p>
+              <ul class="academic-snapshot-list">
+                <li><strong>机器检查优化</strong><span>子模最大化与 projected first-order methods 的 Isabelle/HOL 基础设施</span></li>
+                <li><strong>网络定位</strong><span>与 Shoham Sabach 合作研究负曲率证书与局部逃逸方向</span></li>
+              </ul>
             </div>
             <div data-lang-block="en" hidden>
               <p class="research-eyebrow">Academic</p>
               <h1>Academic</h1>
               <p class="research-positioning"><strong>Feier Lyu</strong> (Fay Lyu)</p>
-              <p class="research-positioning academic-focus-line">Optimization Theory · Formal Verification · Machine-Checked Mathematics</p>
-              <p class="research-positioning academic-lead">I work on optimization and formal verification, with a particular interest in how algorithmic arguments can be decomposed into reusable machine-checked structures.</p>
+              <p class="research-positioning academic-focus-line">I work on optimization theory and formal verification.</p>
+              <p class="research-positioning academic-lead">My current work centers on reusable Isabelle/HOL infrastructure and graph-structured negative-curvature certificates for network localization.</p>
+              <p class="academic-proof-kicker">EDUCATION</p>
               <ul class="academic-snapshot-list">
-                <li><strong>Formalization of submodular maximization</strong><span>Published in AFP (2026)</span></li>
-                <li><strong>First-order methods in Isabelle/HOL</strong><span>Projected Gradient Descent project</span></li>
-                <li><strong>Nonconvex minimax and localization</strong><span>Ongoing theoretical work</span></li>
+                <li><strong>University of Edinburgh</strong><span>BSc Mathematics · expected 2027</span></li>
+                <li><strong>Cornell University</strong><span>Exchange student · 2025–2026</span></li>
               </ul>
-              <div class="research-link-row" aria-label="Academic exploration links">
-                <a href="projects.html">Selected Work</a>
-                <a href="research.html">Research Statement</a>
-                <a href="cv.html">CV</a>
-                <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
-              </div>
+              <p class="academic-proof-kicker">PRIMARY RESEARCH LINES</p>
+              <ul class="academic-snapshot-list">
+                <li><strong>Machine-checked optimization</strong><span>Reusable Isabelle/HOL infrastructure for submodular maximization and projected first-order methods</span></li>
+                <li><strong>Network localization</strong><span>Negative-curvature certificates and local escape directions, with Shoham Sabach</span></li>
+              </ul>
             </div>
           </div>
         </div>
@@ -307,34 +310,36 @@
           <div data-lang-block="zh">
             <div class="academic-evidence">
               <p class="academic-proof-kicker">EVIDENCE</p>
-              <h2>成果与证明依赖</h2>
-              <div class="academic-why-copy">
-                <p>这里只保留已发表范围、发表后扩展与可核查入口；完整研究主线见 Research Statement。</p>
-                <p>正式发表于 AFP（2026）：对基数约束单调子模最大化的 classical greedy 与 verified stateful lazy-greedy 进行形式化。</p>
-                <p>发表后扩展：当前仓库进一步发展 stochastic-greedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。</p>
-              </div>
+              <h2>三项核心证据</h2>
+              <ol class="academic-evidence-list academic-gateway-evidence">
+                <li><span class="academic-evidence-index">01</span><div><h3>AFP 正式条目</h3><p>2026年5月26日发表；本人负责 Wenda Li 指导下的完整 Isabelle/HOL development。</p></div></li>
+                <li><span class="academic-evidence-index">02</span><div><h3>Projected Gradient Descent</h3><p>独立形式化项目；2026年7月2日提交 AFP，目前等待审核。</p></div></li>
+                <li><span class="academic-evidence-index">03</span><div><h3>Network Localization</h3><p>与 Shoham Sabach 进行中的合作，研究图结构负曲率证书与局部逃逸方向。</p></div></li>
+              </ol>
               <div class="research-link-row academic-proof-links">
+                <a href="cv.html">CV</a>
+                <a href="research.html">Research</a>
                 <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
-                <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/" target="_blank" rel="noopener noreferrer">Theory dependencies</a>
-                <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">Submodular repository</a>
-                <a href="https://github.com/lyuf09/projected-gradient-descent" target="_blank" rel="noopener noreferrer">PGD repository</a>
+                <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">邮箱</a>
               </div>
             </div>
           </div>
           <div data-lang-block="en" hidden>
             <div class="academic-evidence">
               <p class="academic-proof-kicker">EVIDENCE</p>
-              <h2>Outputs and proof dependencies</h2>
-              <div class="academic-why-copy">
-                <p>This section keeps only the published scope, post-publication extension, and verifiable entry points; the full research line is in the Research Statement.</p>
-                <p>Published in AFP (2026): a formalization of the classical greedy algorithm and a verified stateful lazy-greedy variant for cardinality-constrained monotone submodular maximization.</p>
-                <p>Post-publication extension: the current repository additionally develops a stochastic-greedy line, including sampling, approximation packaging, and oracle-cost accounting.</p>
-              </div>
+              <h2>Three strongest pieces of evidence</h2>
+              <ol class="academic-evidence-list academic-gateway-evidence">
+                <li><span class="academic-evidence-index">01</span><div><h3>Published AFP entry</h3><p>Published May 26, 2026; I was responsible for the full Isabelle/HOL development under the supervision of Wenda Li.</p></div></li>
+                <li><span class="academic-evidence-index">02</span><div><h3>Projected Gradient Descent</h3><p>Independent formalization project; submitted to AFP on July 2, 2026 and awaiting review.</p></div></li>
+                <li><span class="academic-evidence-index">03</span><div><h3>Network Localization</h3><p>Ongoing collaboration with Shoham Sabach on graph-structured negative-curvature certificates and local escape directions.</p></div></li>
+              </ol>
               <div class="research-link-row academic-proof-links">
+                <a href="cv.html">CV</a>
+                <a href="research.html">Research</a>
                 <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
-                <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/" target="_blank" rel="noopener noreferrer">Theory dependencies</a>
-                <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">Submodular repository</a>
-                <a href="https://github.com/lyuf09/projected-gradient-descent" target="_blank" rel="noopener noreferrer">PGD repository</a>
+                <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">Email</a>
               </div>
             </div>
           </div>

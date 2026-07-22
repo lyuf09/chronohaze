@@ -103,7 +103,12 @@
         root.classList.remove("chronohaze-critical-loading");
         root.classList.remove("chronohaze-critical-loading-mobile");
       };
-      window.setTimeout(window.__chronohazeReleaseCriticalLoader, isMobile ? 1500 : 6500);
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", window.__chronohazeReleaseCriticalLoader, { once: true });
+      } else {
+        window.requestAnimationFrame(window.__chronohazeReleaseCriticalLoader);
+      }
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, 500);
     })();
   </script>
 <script>
@@ -252,9 +257,9 @@
   </script>
   <link rel="preload" href="assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="styles.min.css?v=20260719-quality1" />
-  <link rel="stylesheet" href="assets/css/editorial-evidence.css?v=20260627" />
+  <link rel="stylesheet" href="assets/css/editorial-evidence.css?v=20260722-readable1" />
   <link rel="stylesheet" href="assets/css/academic-mobile.css?v=20260418-mobile1" />
-  <script defer src="protect-media.min.js?v=20260722-logo-contrast1"></script>
+  <script defer src="protect-media.min.js?v=20260722-logo-contrast2"></script>
   <script defer src="assets/js/catalog-pages.min.js?v=20260719-quality1"></script>
   <style>
     .math-tag-overview {
@@ -340,10 +345,6 @@
             <span class="math-tag">OR for ML</span>
             <span class="math-tag">Prototype</span>
           </div>
-          <figure class="math-fractal-highlight">
-            <img src="assets/template/julia.png" alt="Julia 分形图" data-alt-zh="Julia 分形图" data-alt-en="Julia fractal image" data-eager="true" loading="eager" decoding="async" />
-            <figcaption data-copy-zh="我最喜欢的 Julia 分形" data-copy-en="My favorite Julia fractal">我最喜欢的 Julia 分形</figcaption>
-          </figure>
         </div>
       </section>
 
@@ -356,31 +357,31 @@
               <li>
                 <span class="academic-evidence-index">01</span>
                 <div>
-                  <span class="math-note-status">Published</span>
+                  <span class="math-note-status">Published formalization</span>
                   <h3><a href="post/submodular-greedy-formalization-enters-afp.html">Isabelle Submodular Greedy Project</a></h3>
-                  <p data-copy-zh="Published formalization · Archive of Formal Proofs · 2026" data-copy-en="Published formalization · Archive of Formal Proofs · 2026">Published formalization · Archive of Formal Proofs · 2026</p>
+                  <p data-copy-zh="Published formalization · Archive of Formal Proofs · 2026-05-26" data-copy-en="Published formalization · Archive of Formal Proofs · May 26, 2026">Published formalization · Archive of Formal Proofs · 2026-05-26</p>
                 </div>
               </li>
               <li>
                 <span class="academic-evidence-index">02</span>
                 <div>
-                  <span class="math-note-status">Submitted</span>
+                  <span class="math-note-status">Submitted formalization</span>
                   <h3><a href="post/projected-gradient-descent-isabelle-hol.html">Projected Gradient Descent in Isabelle/HOL</a></h3>
-                  <p data-copy-zh="Formalization project · submitted to AFP · awaiting review" data-copy-en="Formalization project · submitted to AFP · awaiting review">Formalization project · submitted to AFP · awaiting review</p>
+                  <p data-copy-zh="Formalization project · submitted to AFP on 2026-07-02 · awaiting review" data-copy-en="Formalization project · submitted to AFP on July 2, 2026 · awaiting review">Formalization project · submitted to AFP on 2026-07-02 · awaiting review</p>
                 </div>
               </li>
               <li>
                 <span class="academic-evidence-index">03</span>
                 <div>
-                  <span class="math-note-status">Ongoing research</span>
-                  <h3><a href="post/dual-score-saddle-certificates.html">Duality / Localization</a></h3>
-                  <p data-copy-zh="Duality · Invariance · Network localization" data-copy-en="Duality · Invariance · Network localization">Duality · Invariance · Network localization</p>
+                  <span class="math-note-status">Ongoing joint research</span>
+                  <h3><a href="notes/network_localization_structural_certificates.html">Duality / Localization</a></h3>
+                  <p data-copy-zh="4-page English technical note · Assumptions / Results / Open questions / Collaboration" data-copy-en="4-page English technical note · Assumptions / Results / Open questions / Collaboration">4-page English technical note · Assumptions / Results / Open questions / Collaboration</p>
                 </div>
               </li>
               <li>
                 <span class="academic-evidence-index">04</span>
                 <div>
-                  <span class="math-note-status">Exploratory note</span>
+                  <span class="math-note-status">Exploratory derivation</span>
                   <h3><a href="notes/ttgda_second_order_tracking_note.html">TTGDA and Second-Order Tracking</a></h3>
                   <p data-copy-zh="Exploratory technical note · Optimization / Minimax Learning" data-copy-en="Exploratory technical note · Optimization / Minimax Learning">Exploratory technical note · Optimization / Minimax Learning</p>
                 </div>
@@ -390,6 +391,15 @@
         </div>
       </section>
 
+      <aside class="math-fractal-banner" aria-label="Creative mathematical visual">
+        <div class="container">
+          <figure class="math-fractal-highlight">
+            <img src="assets/template/julia.png" alt="Julia 分形图" data-alt-zh="Julia 分形图" data-alt-en="Julia fractal image" loading="lazy" decoding="async" />
+            <figcaption data-copy-zh="侧边视觉 · 我最喜欢的 Julia 分形" data-copy-en="Side visual · My favorite Julia fractal">侧边视觉 · 我最喜欢的 Julia 分形</figcaption>
+          </figure>
+        </div>
+      </aside>
+
       <section class="section" id="notes-archive">
         <div class="container research-section-head">
           <h2 data-copy-zh="研究记录归档" data-copy-en="Research Records">研究记录归档</h2>
@@ -397,9 +407,21 @@
         </div>
         <div class="container math-list">
           <!-- GENERATED:math-list:start -->
+          <article class="math-card" data-href="notes/network_localization_structural_certificates.html" tabindex="0" role="link" data-catalog-date="2026-07-22" data-date-label-zh="Technical note · 2026-07-22" data-date-label-en="Technical note · 2026-07-22" data-reading-time-zh="PDF · 4页英文技术笔记" data-reading-time-en="PDF · 4-page English technical note" data-link-label-zh="打开英文笔记" data-link-label-en="Read PDF">
+            <p class="math-date" data-copy-zh="Technical note · 2026-07-22" data-copy-en="Technical note · 2026-07-22">Technical note · 2026-07-22</p>
+            <span class="math-note-status">Ongoing joint research</span>
+            <h3 class="math-title"><a class="math-title-link" href="notes/network_localization_structural_certificates.html" data-copy-zh="网络定位中的对偶退化、投影边预算与鞍点证书" data-copy-en="Dual Collapse, Projected Edge Budgets, and Saddle Certificates">网络定位中的对偶退化、投影边预算与鞍点证书</a></h3>
+            <p class="math-desc" data-copy-zh="独立英文技术笔记，明确整理模型假设、已推导结果、开放问题与合作入口；中文随笔保留为研究过程记录。" data-copy-en="A claim-disciplined English technical note separating model assumptions, derived results, open questions, and concrete collaboration entry points; the Chinese essays remain as the chronological research record.">独立英文技术笔记，明确整理模型假设、已推导结果、开放问题与合作入口；中文随笔保留为研究过程记录。</p>
+            <div class="math-tag-row">
+              <span class="math-tag">Network Localization</span>
+              <span class="math-tag">Duality</span>
+              <span class="math-tag">Saddle Certificates</span>
+            </div>
+            <a class="math-more" href="notes/network_localization_structural_certificates.html" data-copy-zh="打开英文笔记" data-copy-en="Read PDF">打开英文笔记</a>
+          </article>
           <article class="math-card" data-href="notes/theorem11_convexity_note.html" tabindex="0" role="link" data-reading-time-zh="PDF · 2026年7月" data-reading-time-en="PDF · July 2026" data-link-label-zh="打开笔记">
             <p class="math-date" data-copy-zh="2026-07-15" data-copy-en="2026-07-15">2026-07-15</p>
-            <span class="math-note-status">Research note</span>
+            <span class="math-note-status">Reading note</span>
             <h3 class="math-title"><a class="math-title-link" href="notes/theorem11_convexity_note.html" data-copy-zh="Theorem 11 必要性方向中的凸性问题" data-copy-en="Convexity in the Necessity Direction of Theorem 11">Theorem 11 必要性方向中的凸性问题</a></h3>
             <p class="math-desc" data-copy-zh="梳理 Theorem 11 必要性方向中的凸化步骤，检查 envelope submeasure、fragmentation numbers，以及从一般分布类 U 进入 Lemma 18 与 Theorem 19 所需凸性条件的桥接。" data-copy-en="A note on the convexification step in the necessity direction of Theorem 11, including the envelope submeasure, fragmentation numbers, and the bridge from a general distribution class U to the convex setting used in Lemma 18 and Theorem 19.">梳理 Theorem 11 必要性方向中的凸化步骤，检查 envelope submeasure、fragmentation numbers，以及从一般分布类 U 进入 Lemma 18 与 Theorem 19 所需凸性条件的桥接。</p>
             <div class="math-tag-row">
@@ -411,7 +433,7 @@
           </article>
           <article class="math-card" data-href="notes/huber_glm_sparsification_refinement_note.html" tabindex="0" role="link" data-catalog-date="2026-07-15" data-date-label-zh="2026-07-15 · updated" data-date-label-en="2026-07-15 · updated" data-reading-time-zh="PDF · 2026年7月更新" data-reading-time-en="PDF · updated July 2026" data-link-label-zh="打开笔记">
             <p class="math-date" data-copy-zh="2026-07-15 · updated" data-copy-en="2026-07-15 · updated">2026-07-15 · updated</p>
-            <span class="math-note-status">Research note</span>
+            <span class="math-note-status">Exploratory derivation</span>
             <h3 class="math-title"><a class="math-title-link" href="notes/huber_glm_sparsification_refinement_note.html" data-copy-zh="稀疏化后的 Exact Huber GLMs：Active Curvature 与 Kink Switching" data-copy-en="Exact Huber GLMs after Sparsification: Active Curvature and Kink Switching">稀疏化后的 Exact Huber GLMs：Active Curvature 与 Kink Switching</a></h3>
             <p class="math-desc" data-copy-zh="研究稀疏化后的局部 refinement 是否能够保留 exact Huber loss 的 active quadratic curvature，同时控制 affine-tail behavior 与 Huber kink 附近的切换。" data-copy-en="A note on whether sparsified local refinement can preserve the active quadratic curvature of exact Huber losses while controlling affine-tail behavior and switching near the Huber kink.">研究稀疏化后的局部 refinement 是否能够保留 exact Huber loss 的 active quadratic curvature，同时控制 affine-tail behavior 与 Huber kink 附近的切换。</p>
             <div class="math-tag-row">
@@ -421,8 +443,8 @@
             </div>
             <a class="math-more" href="notes/huber_glm_sparsification_refinement_note.html" data-copy-zh="打开笔记" data-copy-en="Read More">打开笔记</a>
           </article>
-          <article class="math-card" data-href="post/submodular-greedy-formalization-enters-afp.html" tabindex="0" role="link" data-reading-time-zh="约 6 分钟" data-reading-time-en="7 min read">
-            <p class="math-date" data-copy-zh="2026-06-30" data-copy-en="2026-06-30">2026-06-30</p>
+          <article class="math-card" data-href="post/submodular-greedy-formalization-enters-afp.html" tabindex="0" role="link" data-catalog-date="2026-06-30" data-date-label-zh="Originally posted · 2026-06-30" data-date-label-en="Originally posted · 2026-06-30" data-reading-time-zh="约 6 分钟" data-reading-time-en="7 min read">
+            <p class="math-date" data-copy-zh="Originally posted · 2026-06-30" data-copy-en="Originally posted · 2026-06-30">Originally posted · 2026-06-30</p>
             <span class="math-note-status">Published formalization</span>
             <h3 class="math-title"><a class="math-title-link" href="post/submodular-greedy-formalization-enters-afp.html" data-copy-zh="子模贪心算法形式化正式进入 AFP" data-copy-en="Formalizing Submodular Greedy Is Now in the AFP">子模贪心算法形式化正式进入 AFP</a></h3>
             <p class="math-desc" data-copy-zh="记录 Isabelle/HOL 子模贪心算法形式化正式发表于 Archive of Formal Proofs，以及形式化过程中逐渐显露出的算法证明结构。" data-copy-en="A short reflection on the publication of an Isabelle/HOL formalization of submodular greedy algorithms in the Archive of Formal Proofs, and on the proof architecture exposed by formalization.">记录 Isabelle/HOL 子模贪心算法形式化正式发表于 Archive of Formal Proofs，以及形式化过程中逐渐显露出的算法证明结构。</p>
@@ -433,9 +455,9 @@
             </div>
             <a class="math-more" href="post/submodular-greedy-formalization-enters-afp.html" data-copy-zh="阅读全文" data-copy-en="Read More">阅读全文</a>
           </article>
-          <article class="math-card" data-href="post/dual-score-saddle-certificates.html" tabindex="0" role="link" data-reading-time-zh="约 10 分钟" data-reading-time-en="10 min read">
-            <p class="math-date" data-copy-zh="2026-05-22" data-copy-en="2026-05-22">2026-05-22</p>
-            <span class="math-note-status">Research note</span>
+          <article class="math-card" data-href="post/dual-score-saddle-certificates.html" tabindex="0" role="link" data-catalog-date="2026-05-22" data-date-label-zh="Originally posted · 2026-05-22" data-date-label-en="Originally posted · 2026-05-22" data-reading-time-zh="约 10 分钟" data-reading-time-en="10 min read">
+            <p class="math-date" data-copy-zh="Originally posted · 2026-05-22" data-copy-en="Originally posted · 2026-05-22">Originally posted · 2026-05-22</p>
+            <span class="math-note-status">Ongoing joint research</span>
             <h3 class="math-title"><a class="math-title-link" href="post/dual-score-saddle-certificates.html" data-copy-zh="从 dual score 到 saddle certificates 的一点新进展" data-copy-en="From Dual Score to Saddle Certificates: A Small New Step">从 dual score 到 saddle certificates 的一点新进展</a></h3>
             <p class="math-desc" data-copy-zh="三月留下来的 dual score 原本只是 instance-level structural score；最近它开始和 differentiable stationary points、stationary dual witness、projected retention、Hessian negative curvature 以及 cycle-rank saddle certificates 接起来。" data-copy-en="A new step from an instance-level dual score toward stationary witnesses, projected retention, Hessian structure, and cycle-rank saddle certificates for network localization.">三月留下来的 dual score 原本只是 instance-level structural score；最近它开始和 differentiable stationary points、stationary dual witness、projected retention、Hessian negative curvature 以及 cycle-rank saddle certificates 接起来。</p>
             <div class="math-tag-row">
@@ -444,20 +466,20 @@
             </div>
             <a class="math-more" href="post/dual-score-saddle-certificates.html" data-copy-zh="阅读全文" data-copy-en="Read More">阅读全文</a>
           </article>
-          <article class="math-card" data-href="post/projected-gradient-descent-isabelle-hol.html" tabindex="0" role="link" data-reading-time-zh="约 5 分钟" data-reading-time-en="5 min read">
-            <p class="math-date" data-copy-zh="2026-05-22" data-copy-en="2026-05-22">2026-05-22</p>
+          <article class="math-card" data-href="post/projected-gradient-descent-isabelle-hol.html" tabindex="0" role="link" data-catalog-date="2026-05-22" data-date-label-zh="Originally posted · 2026-05-22" data-date-label-en="Originally posted · 2026-05-22" data-reading-time-zh="约 5 分钟" data-reading-time-en="5 min read">
+            <p class="math-date" data-copy-zh="Originally posted · 2026-05-22" data-copy-en="Originally posted · 2026-05-22">Originally posted · 2026-05-22</p>
             <span class="math-note-status">Submitted formalization</span>
             <h3 class="math-title"><a class="math-title-link" href="post/projected-gradient-descent-isabelle-hol.html" data-copy-zh="从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL" data-copy-en="Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL">从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL</a></h3>
-            <p class="math-desc" data-copy-zh="在子模贪心形式化正式发表于 AFP 之后，我继续整理第二个 Isabelle/HOL optimization 项目：从 smooth convexity、projection geometry、descent estimates 到 projected-gradient mapping 和 residual certificates，尝试把 projected-gradient descent 写成一套可复用的 first-order methods infrastructure。项目现已提交至 AFP，等待审核。" data-copy-en="Following publication of the submodular-greedy formalization in AFP, I continued organizing a second Isabelle/HOL optimization project, from smooth convexity and projection geometry to descent estimates, projected-gradient mappings, and residual certificates. The project has now been submitted to AFP and is awaiting review.">在子模贪心形式化正式发表于 AFP 之后，我继续整理第二个 Isabelle/HOL optimization 项目：从 smooth convexity、projection geometry、descent estimates 到 projected-gradient mapping 和 residual certificates，尝试把 projected-gradient descent 写成一套可复用的 first-order methods infrastructure。项目现已提交至 AFP，等待审核。</p>
+            <p class="math-desc" data-copy-zh="这篇 5 月 22 日的原始笔记记录第二个 Isabelle/HOL optimization 项目的结构；它早于子模贪心条目 5 月 26 日的 AFP 发表。PGD 项目随后于 7 月 2 日提交 AFP，目前等待审核。" data-copy-en="Originally posted on May 22, this note records the structure of a second Isabelle/HOL optimization project and predates the AFP publication of the submodular entry on May 26. The PGD project was submitted to AFP on July 2 and is awaiting review.">这篇 5 月 22 日的原始笔记记录第二个 Isabelle/HOL optimization 项目的结构；它早于子模贪心条目 5 月 26 日的 AFP 发表。PGD 项目随后于 7 月 2 日提交 AFP，目前等待审核。</p>
             <div class="math-tag-row">
               <span class="math-tag">Isabelle/HOL</span>
               <span class="math-tag">OR for ML</span>
             </div>
             <a class="math-more" href="post/projected-gradient-descent-isabelle-hol.html" data-copy-zh="阅读全文" data-copy-en="Read More">阅读全文</a>
           </article>
-          <article class="math-card" data-href="post/what-i-really-got-when-a-dual-route-failed.html" tabindex="0" role="link" data-reading-time-zh="约 5 分钟" data-reading-time-en="6 min read">
-            <p class="math-date" data-copy-zh="2026-03-23" data-copy-en="2026-03-23">2026-03-23</p>
-            <span class="math-note-status">Research note</span>
+          <article class="math-card" data-href="post/what-i-really-got-when-a-dual-route-failed.html" tabindex="0" role="link" data-catalog-date="2026-03-23" data-date-label-zh="Originally posted · 2026-03-23" data-date-label-en="Originally posted · 2026-03-23" data-reading-time-zh="约 5 分钟" data-reading-time-en="6 min read">
+            <p class="math-date" data-copy-zh="Originally posted · 2026-03-23" data-copy-en="Originally posted · 2026-03-23">Originally posted · 2026-03-23</p>
+            <span class="math-note-status">Exploratory derivation</span>
             <h3 class="math-title"><a class="math-title-link" href="post/what-i-really-got-when-a-dual-route-failed.html" data-copy-zh="当一个 dual 路线走不通时，我真正得到的东西" data-copy-en="What I Really Got When a Dual Route Failed">当一个 dual 路线走不通时，我真正得到的东西</a></h3>
             <p class="math-desc" data-copy-zh="当两条最自然的 Lagrangian dual 路线都塌到 trivial 0 bound 之后，留下来的反而是一个和 Range(B)、cycle consistency 与 instance difficulty 相关的 dual-based structural score。" data-copy-en="When the most natural Lagrangian dual routes collapse to the trivial 0 bound, what remains is a dual-based structural score tied to Range(B), cycle consistency, and instance difficulty.">当两条最自然的 Lagrangian dual 路线都塌到 trivial 0 bound 之后，留下来的反而是一个和 Range(B)、cycle consistency 与 instance difficulty 相关的 dual-based structural score。</p>
             <div class="math-tag-row">
@@ -466,11 +488,11 @@
             </div>
             <a class="math-more" href="post/what-i-really-got-when-a-dual-route-failed.html" data-copy-zh="阅读全文" data-copy-en="Read More">阅读全文</a>
           </article>
-          <article class="math-card" data-href="post/theorem-to-framework-isabelle-submodular.html" tabindex="0" role="link" data-reading-time-zh="约 6 分钟" data-reading-time-en="8 min read">
-            <p class="math-date" data-copy-zh="2026-03-14" data-copy-en="2026-03-14">2026-03-14</p>
+          <article class="math-card" data-href="post/theorem-to-framework-isabelle-submodular.html" tabindex="0" role="link" data-catalog-date="2026-03-14" data-date-label-zh="Originally posted · 2026-03-14" data-date-label-en="Originally posted · 2026-03-14" data-reading-time-zh="约 6 分钟" data-reading-time-en="8 min read">
+            <p class="math-date" data-copy-zh="Originally posted · 2026-03-14" data-copy-en="Originally posted · 2026-03-14">Originally posted · 2026-03-14</p>
             <span class="math-note-status">Published formalization</span>
             <h3 class="math-title"><a class="math-title-link" href="post/theorem-to-framework-isabelle-submodular.html" data-copy-zh="从一个定理到一套框架：我的 Isabelle 子模优化项目新进展" data-copy-en="From One Theorem to a Framework: New Progress on My Isabelle Project in Submodular Optimization">从一个定理到一套框架：我的 Isabelle 子模优化项目新进展</a></h3>
-            <p class="math-desc" data-copy-zh="AFP 2026 条目收录 classical greedy 与 verified stateful lazy-greedy；发表后的仓库继续发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。" data-copy-en="The AFP 2026 entry covers classical greedy and verified stateful lazy-greedy; the post-publication repository continues with a StochasticGreedy theorem line spanning sampling, approximation packaging, and oracle-cost accounting.">AFP 2026 条目收录 classical greedy 与 verified stateful lazy-greedy；发表后的仓库继续发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。</p>
+            <p class="math-desc" data-copy-zh="原文发布于 3 月 14 日；7 月更新仅补充后续状态。子模贪心条目于 5 月 26 日正式发表于 AFP，发表后仓库继续发展 StochasticGreedy theorem line。" data-copy-en="Originally posted on March 14; the July update adds later status without changing the original date. The submodular entry was published in AFP on May 26, and the repository continued afterward with the StochasticGreedy theorem line.">原文发布于 3 月 14 日；7 月更新仅补充后续状态。子模贪心条目于 5 月 26 日正式发表于 AFP，发表后仓库继续发展 StochasticGreedy theorem line。</p>
             <div class="math-tag-row">
               <span class="math-tag">Isabelle/HOL</span>
               <span class="math-tag">OR for ML</span>
@@ -479,7 +501,7 @@
           </article>
           <article class="math-card" data-href="post/metalcore-piano-lab.html" tabindex="0" role="link" data-reading-time-zh="约 3 分钟" data-reading-time-en="3 min read">
             <p class="math-date" data-copy-zh="2026-02-07" data-copy-en="2026-02-07">2026-02-07</p>
-            <span class="math-note-status">Working note</span>
+            <span class="math-note-status">Exploratory derivation</span>
             <h3 class="math-title"><a class="math-title-link" href="post/metalcore-piano-lab.html" data-copy-zh="Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP）" data-copy-en="Metalcore Piano Lab | From Audio to Chart: A Discretization Experiment (WIP)">Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP）</a></h3>
             <p class="math-desc" data-copy-zh="从连续音频到可玩的谱面：起音检测、节拍网格、段落对齐与可玩性约束。" data-copy-en="From continuous audio to playable charts: onset detection, beat grids, section alignment, and playability constraints.">从连续音频到可玩的谱面：起音检测、节拍网格、段落对齐与可玩性约束。</p>
             <div class="math-tag-row">
@@ -489,7 +511,7 @@
           </article>
           <article class="math-card" data-href="post/spring-2026.html" tabindex="0" role="link" data-reading-time-zh="约 2 分钟" data-reading-time-en="2 min read">
             <p class="math-date" data-copy-zh="2026-01-29" data-copy-en="2026-01-29">2026-01-29</p>
-            <span class="math-note-status">Working note</span>
+            <span class="math-note-status">Exploratory derivation</span>
             <h3 class="math-title"><a class="math-title-link" href="post/spring-2026.html" data-copy-zh="Spring 2026｜新科研记录的开始" data-copy-en="Spring 2026 | A New Research Direction">Spring 2026｜新科研记录的开始</a></h3>
             <p class="math-desc" data-copy-zh="从纯数学走向优化研究：一个学期的研究训练与新的问题切入口。" data-copy-en="Beginning undergraduate research in Cornell ORIE on first-order methods for constrained and composite optimization.">从纯数学走向优化研究：一个学期的研究训练与新的问题切入口。</p>
             <div class="math-tag-row">
@@ -499,7 +521,7 @@
           </article>
           <article class="math-card" data-href="post/isabelle-submodular-greedy.html" tabindex="0" role="link" data-reading-time-zh="约 4 分钟" data-reading-time-en="4 min read">
             <p class="math-date" data-copy-zh="2025-12-29" data-copy-en="2025-12-29">2025-12-29</p>
-            <span class="math-note-status">Working note</span>
+            <span class="math-note-status">Published formalization</span>
             <h3 class="math-title"><a class="math-title-link" href="post/isabelle-submodular-greedy.html" data-copy-zh="早期项目记录：Submodular Greedy 的 Isabelle 形式化" data-copy-en="Early Project Note: Formalising Submodular Greedy">早期项目记录：Submodular Greedy 的 Isabelle 形式化</a></h3>
             <p class="math-desc" data-copy-zh="2025年12月的阶段记录；项目此后已于 AFP 2026 正式发表，当前仓库另含发表后的 StochasticGreedy 扩展。" data-copy-en="A December 2025 stage record; the project was subsequently published in AFP 2026, and the current repository also contains a post-publication StochasticGreedy extension.">2025年12月的阶段记录；项目此后已于 AFP 2026 正式发表，当前仓库另含发表后的 StochasticGreedy 扩展。</p>
             <div class="math-tag-row">
@@ -510,7 +532,7 @@
           </article>
           <article class="math-card" data-href="post/first-isabelle-proof.html" tabindex="0" role="link" data-reading-time-zh="约 2 分钟" data-reading-time-en="2 min read">
             <p class="math-date" data-copy-zh="2025-10-18" data-copy-en="2025-10-18">2025-10-18</p>
-            <span class="math-note-status">Expository note</span>
+            <span class="math-note-status">Published formalization</span>
             <h3 class="math-title"><a class="math-title-link" href="post/first-isabelle-proof.html" data-copy-zh="我的第一个 Isabelle 形式化证明" data-copy-en="My First Isabelle Formalization Project">我的第一个 Isabelle 形式化证明</a></h3>
             <p class="math-desc" data-copy-zh="把可验证性嵌进证明过程：从动机到 Nemhauser–Wolsey theorem。" data-copy-en="Embedding verifiability into proof writing: from motivation to the Nemhauser–Wolsey theorem.">把可验证性嵌进证明过程：从动机到 Nemhauser–Wolsey theorem。</p>
             <div class="math-tag-row">

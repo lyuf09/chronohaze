@@ -5,9 +5,18 @@
     <link>https://lyuf09.github.io/chronohaze/</link>
     <description>Research notes and technical updates from Feier Lyu on optimization, Isabelle/HOL, and related mathematical work.</description>
     <language>en</language>
-    <lastBuildDate>Wed, 15 Jul 2026 12:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 22 Jul 2026 12:00:00 +0000</lastBuildDate>
     <generator>Chronohaze static feed builder</generator>
     <atom:link href="https://lyuf09.github.io/chronohaze/feed.xml" rel="self" type="application/rss+xml" />
+
+    <item>
+      <title>Dual Collapse, Projected Edge Budgets, and Saddle Certificates</title>
+      <link>https://lyuf09.github.io/chronohaze/notes/network_localization_structural_certificates.html</link>
+      <guid>https://lyuf09.github.io/chronohaze/notes/network_localization_structural_certificates.html</guid>
+      <pubDate>Wed, 22 Jul 2026 12:00:00 +0000</pubDate>
+      <description>A claim-disciplined English technical note separating model assumptions, derived results, open questions, and concrete collaboration entry points; the Chinese essays remain as the chronological research record.</description>
+      <atom:link href="https://lyuf09.github.io/chronohaze/notes/network_localization_structural_certificates.pdf" rel="related" type="application/pdf" />
+    </item>
 
     <item>
       <title>Convexity in the Necessity Direction of Theorem 11</title>
@@ -57,7 +66,7 @@
       <link>https://lyuf09.github.io/chronohaze/post/projected-gradient-descent-isabelle-hol.html</link>
       <guid>https://lyuf09.github.io/chronohaze/post/projected-gradient-descent-isabelle-hol.html</guid>
       <pubDate>Fri, 22 May 2026 12:00:00 +0000</pubDate>
-      <description>Following publication of the submodular-greedy formalization in AFP, I continued organizing a second Isabelle/HOL optimization project, from smooth convexity and projection geometry to descent estimates, projected-gradient mappings, and residual certificates. The project has now been submitted to AFP and is awaiting review.</description>
+      <description>Originally posted on May 22, this note records the structure of a second Isabelle/HOL optimization project and predates the AFP publication of the submodular entry on May 26. The PGD project was submitted to AFP on July 2 and is awaiting review.</description>
     </item>
 
     <item>
@@ -73,7 +82,7 @@
       <link>https://lyuf09.github.io/chronohaze/post/theorem-to-framework-isabelle-submodular.html</link>
       <guid>https://lyuf09.github.io/chronohaze/post/theorem-to-framework-isabelle-submodular.html</guid>
       <pubDate>Sat, 14 Mar 2026 12:00:00 +0000</pubDate>
-      <description>The AFP 2026 entry covers classical greedy and verified stateful lazy-greedy; the post-publication repository continues with a StochasticGreedy theorem line spanning sampling, approximation packaging, and oracle-cost accounting.</description>
+      <description>Originally posted on March 14; the July update adds later status without changing the original date. The submodular entry was published in AFP on May 26, and the repository continued afterward with the StochasticGreedy theorem line.</description>
     </item>
 
     <item>

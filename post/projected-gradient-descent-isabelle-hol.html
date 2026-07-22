@@ -103,7 +103,12 @@
         root.classList.remove("chronohaze-critical-loading");
         root.classList.remove("chronohaze-critical-loading-mobile");
       };
-      window.setTimeout(window.__chronohazeReleaseCriticalLoader, isMobile ? 1500 : 6500);
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", window.__chronohazeReleaseCriticalLoader, { once: true });
+      } else {
+        window.requestAnimationFrame(window.__chronohazeReleaseCriticalLoader);
+      }
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, 500);
     })();
   </script>
 <script>
@@ -207,7 +212,7 @@
   </script>
   <link rel="preload" href="../assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="../styles.min.css?v=20260719-quality1" />
-  <script defer src="../protect-media.min.js?v=20260722-logo-contrast1"></script>
+  <script defer src="../protect-media.min.js?v=20260722-logo-contrast2"></script>
 </head>
 <body class="math-post-page">
   <div class="page">
@@ -242,9 +247,13 @@
       <article class="article">
         <div data-lang-block="zh">
           <h1>从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL</h1>
-          <p class="article-meta">Feier Lyu · 2026年5月22日 · 约 5 分钟</p>
+          <p class="article-meta">Feier Lyu · Originally posted 2026年5月22日 · 约 5 分钟</p>
           <p class="article-meta">标签：Isabelle/HOL · Optimization · Formalisation · AFP</p>
-          <p><strong>状态更新（2026年7月2日）：</strong>该项目已提交至 Archive of Formal Proofs，目前等待审核。</p>
+          <aside class="math-post-update" aria-label="时间线说明">
+            <p class="math-post-update-label">时间线说明</p>
+            <p><strong>Originally posted:</strong> 2026年5月22日。本笔记早于子模贪心条目在 2026年5月26日正式发表于 AFP，因此“继续往前”指研究项目的延续，不是“发表之后”。</p>
+            <p><strong>Submitted:</strong> PGD 项目于 2026年7月2日提交至 Archive of Formal Proofs，目前等待审核。</p>
+          </aside>
 
           <p>Projected gradient descent 是带约束光滑优化中最基本的算法模板之一。它的标准收敛证明同时依赖投影几何、光滑性、凸性与 telescoping argument，因此对这一结果进行形式化，是检验如何在 Isabelle/HOL 中构建可复用优化基础设施的一个自然案例。</p>
           <p>该 formalization 覆盖 projection inequality、projected-gradient mapping、光滑凸情形的收敛结论、强凸情形的线性收敛，以及从具体算法中抽出的可复用 telescoping 结构。项目的目标并不只是复现一条经典定理，而是把这些相互依赖的证明组件整理成可检查、可复用、可继续扩展的 library surface。</p>
@@ -317,9 +326,13 @@
 
         <div data-lang-block="en" hidden>
           <h1>Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL</h1>
-          <p class="article-meta">Feier Lyu · May 22, 2026 · 5 min read</p>
+          <p class="article-meta">Feier Lyu · Originally posted May 22, 2026 · 5 min read</p>
           <p class="article-meta">Tags: Isabelle/HOL · Optimization · Formalisation · AFP</p>
-          <p><strong>Status update (July 2, 2026):</strong> This project has been submitted to the Archive of Formal Proofs and is awaiting review.</p>
+          <aside class="math-post-update" aria-label="Chronology note">
+            <p class="math-post-update-label">Chronology note</p>
+            <p><strong>Originally posted:</strong> May 22, 2026. This note predates the submodular-greedy entry's AFP publication on May 26, so “moving forward” refers to continuing the research program, not to work begun after publication.</p>
+            <p><strong>Submitted:</strong> The PGD project was submitted to the Archive of Formal Proofs on July 2, 2026 and is awaiting review.</p>
+          </aside>
 
           <p>Projected gradient descent is one of the basic algorithmic templates for constrained smooth optimization. Its standard convergence proof combines projection geometry, smoothness, convexity, and a telescoping argument; formalizing the result therefore provides a useful test case for building reusable optimization infrastructure in Isabelle/HOL.</p>
           <p>The formalization covers the projection inequality, the projected-gradient mapping, convergence in the smooth convex setting, linear convergence under strong convexity, and reusable telescoping structures extracted from the concrete algorithm. The aim is not merely to reproduce a classical theorem, but to organize its interdependent proof components into a checkable and extensible library surface.</p>

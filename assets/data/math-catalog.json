@@ -1,9 +1,34 @@
 {
-  "generated_at": "2026-07-15",
+  "generated_at": "2026-07-22",
   "source": "math.html",
   "items": [
     {
       "order": 1,
+      "url": "notes/network_localization_structural_certificates.html",
+      "date": "2026-07-22",
+      "title": "网络定位中的对偶退化、投影边预算与鞍点证书",
+      "title_en": "Dual Collapse, Projected Edge Budgets, and Saddle Certificates",
+      "excerpt": "独立英文技术笔记，明确整理模型假设、已推导结果、开放问题与合作入口；中文随笔保留为研究过程记录。",
+      "excerpt_en": "A claim-disciplined English technical note separating model assumptions, derived results, open questions, and concrete collaboration entry points; the Chinese essays remain as the chronological research record.",
+      "readmore_url": "notes/network_localization_structural_certificates.html",
+      "tags": [
+        "math",
+        "article"
+      ],
+      "line_tags": [
+        "Network Localization",
+        "Duality",
+        "Saddle Certificates"
+      ],
+      "reading_time_zh": "PDF · 4页英文技术笔记",
+      "reading_time_en": "PDF · 4-page English technical note",
+      "note_status": "Ongoing joint research",
+      "date_label_zh": "Technical note · 2026-07-22",
+      "link_label_zh": "打开英文笔记",
+      "link_label_en": "Read PDF"
+    },
+    {
+      "order": 2,
       "url": "notes/theorem11_convexity_note.html",
       "date": "2026-07-15",
       "title": "Theorem 11 必要性方向中的凸性问题",
@@ -22,11 +47,11 @@
       ],
       "reading_time_zh": "PDF · 2026年7月",
       "reading_time_en": "PDF · July 2026",
-      "note_status": "Research note",
+      "note_status": "Reading note",
       "link_label_zh": "打开笔记"
     },
     {
-      "order": 2,
+      "order": 3,
       "url": "notes/huber_glm_sparsification_refinement_note.html",
       "date": "2026-07-15",
       "title": "稀疏化后的 Exact Huber GLMs：Active Curvature 与 Kink Switching",
@@ -45,12 +70,12 @@
       ],
       "reading_time_zh": "PDF · 2026年7月更新",
       "reading_time_en": "PDF · updated July 2026",
-      "note_status": "Research note",
+      "note_status": "Exploratory derivation",
       "date_label_zh": "2026-07-15 · updated",
       "link_label_zh": "打开笔记"
     },
     {
-      "order": 3,
+      "order": 4,
       "url": "post/submodular-greedy-formalization-enters-afp.html",
       "date": "2026-06-30",
       "title": "子模贪心算法形式化正式进入 AFP",
@@ -69,10 +94,11 @@
       ],
       "reading_time_zh": "约 6 分钟",
       "reading_time_en": "7 min read",
-      "note_status": "Published formalization"
+      "note_status": "Published formalization",
+      "date_label_zh": "Originally posted · 2026-06-30"
     },
     {
-      "order": 4,
+      "order": 5,
       "url": "post/dual-score-saddle-certificates.html",
       "date": "2026-05-22",
       "title": "从 dual score 到 saddle certificates 的一点新进展",
@@ -90,16 +116,17 @@
       ],
       "reading_time_zh": "约 10 分钟",
       "reading_time_en": "10 min read",
-      "note_status": "Research note"
+      "note_status": "Ongoing joint research",
+      "date_label_zh": "Originally posted · 2026-05-22"
     },
     {
-      "order": 5,
+      "order": 6,
       "url": "post/projected-gradient-descent-isabelle-hol.html",
       "date": "2026-05-22",
       "title": "从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL",
       "title_en": "Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL",
-      "excerpt": "在子模贪心形式化正式发表于 AFP 之后，我继续整理第二个 Isabelle/HOL optimization 项目：从 smooth convexity、projection geometry、descent estimates 到 projected-gradient mapping 和 residual certificates，尝试把 projected-gradient descent 写成一套可复用的 first-order methods infrastructure。项目现已提交至 AFP，等待审核。",
-      "excerpt_en": "Following publication of the submodular-greedy formalization in AFP, I continued organizing a second Isabelle/HOL optimization project, from smooth convexity and projection geometry to descent estimates, projected-gradient mappings, and residual certificates. The project has now been submitted to AFP and is awaiting review.",
+      "excerpt": "这篇 5 月 22 日的原始笔记记录第二个 Isabelle/HOL optimization 项目的结构；它早于子模贪心条目 5 月 26 日的 AFP 发表。PGD 项目随后于 7 月 2 日提交 AFP，目前等待审核。",
+      "excerpt_en": "Originally posted on May 22, this note records the structure of a second Isabelle/HOL optimization project and predates the AFP publication of the submodular entry on May 26. The PGD project was submitted to AFP on July 2 and is awaiting review.",
       "readmore_url": "post/projected-gradient-descent-isabelle-hol.html",
       "tags": [
         "math",
@@ -111,10 +138,11 @@
       ],
       "reading_time_zh": "约 5 分钟",
       "reading_time_en": "5 min read",
-      "note_status": "Submitted formalization"
+      "note_status": "Submitted formalization",
+      "date_label_zh": "Originally posted · 2026-05-22"
     },
     {
-      "order": 6,
+      "order": 7,
       "url": "post/what-i-really-got-when-a-dual-route-failed.html",
       "date": "2026-03-23",
       "title": "当一个 dual 路线走不通时，我真正得到的东西",
@@ -132,16 +160,17 @@
       ],
       "reading_time_zh": "约 5 分钟",
       "reading_time_en": "6 min read",
-      "note_status": "Research note"
+      "note_status": "Exploratory derivation",
+      "date_label_zh": "Originally posted · 2026-03-23"
     },
     {
-      "order": 7,
+      "order": 8,
       "url": "post/theorem-to-framework-isabelle-submodular.html",
       "date": "2026-03-14",
       "title": "从一个定理到一套框架：我的 Isabelle 子模优化项目新进展",
       "title_en": "From One Theorem to a Framework: New Progress on My Isabelle Project in Submodular Optimization",
-      "excerpt": "AFP 2026 条目收录 classical greedy 与 verified stateful lazy-greedy；发表后的仓库继续发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。",
-      "excerpt_en": "The AFP 2026 entry covers classical greedy and verified stateful lazy-greedy; the post-publication repository continues with a StochasticGreedy theorem line spanning sampling, approximation packaging, and oracle-cost accounting.",
+      "excerpt": "原文发布于 3 月 14 日；7 月更新仅补充后续状态。子模贪心条目于 5 月 26 日正式发表于 AFP，发表后仓库继续发展 StochasticGreedy theorem line。",
+      "excerpt_en": "Originally posted on March 14; the July update adds later status without changing the original date. The submodular entry was published in AFP on May 26, and the repository continued afterward with the StochasticGreedy theorem line.",
       "readmore_url": "post/theorem-to-framework-isabelle-submodular.html",
       "tags": [
         "math",
@@ -153,10 +182,11 @@
       ],
       "reading_time_zh": "约 6 分钟",
       "reading_time_en": "8 min read",
-      "note_status": "Published formalization"
+      "note_status": "Published formalization",
+      "date_label_zh": "Originally posted · 2026-03-14"
     },
     {
-      "order": 8,
+      "order": 9,
       "url": "post/metalcore-piano-lab.html",
       "date": "2026-02-07",
       "title": "Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP）",
@@ -173,10 +203,10 @@
       ],
       "reading_time_zh": "约 3 分钟",
       "reading_time_en": "3 min read",
-      "note_status": "Working note"
+      "note_status": "Exploratory derivation"
     },
     {
-      "order": 9,
+      "order": 10,
       "url": "post/spring-2026.html",
       "date": "2026-01-29",
       "title": "Spring 2026｜新科研记录的开始",
@@ -193,10 +223,10 @@
       ],
       "reading_time_zh": "约 2 分钟",
       "reading_time_en": "2 min read",
-      "note_status": "Working note"
+      "note_status": "Exploratory derivation"
     },
     {
-      "order": 10,
+      "order": 11,
       "url": "post/isabelle-submodular-greedy.html",
       "date": "2025-12-29",
       "title": "早期项目记录：Submodular Greedy 的 Isabelle 形式化",
@@ -214,10 +244,10 @@
       ],
       "reading_time_zh": "约 4 分钟",
       "reading_time_en": "4 min read",
-      "note_status": "Working note"
+      "note_status": "Published formalization"
     },
     {
-      "order": 11,
+      "order": 12,
       "url": "post/first-isabelle-proof.html",
       "date": "2025-10-18",
       "title": "我的第一个 Isabelle 形式化证明",
@@ -234,7 +264,7 @@
       ],
       "reading_time_zh": "约 2 分钟",
       "reading_time_en": "2 min read",
-      "note_status": "Expository note"
+      "note_status": "Published formalization"
     }
   ]
 }

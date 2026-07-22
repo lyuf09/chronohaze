@@ -2,7 +2,7 @@
 
 <html lang="zh-CN">
 <head>
-                                                                                                                                                                                                                                                                                                <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
+                                                                                                                                                                                                                                                                                                                                <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
 <style id="chronohaze-critical-loader-style">
     html.chronohaze-critical-loading,
@@ -102,7 +102,12 @@
         root.classList.remove("chronohaze-critical-loading");
         root.classList.remove("chronohaze-critical-loading-mobile");
       };
-      window.setTimeout(window.__chronohazeReleaseCriticalLoader, isMobile ? 1500 : 6500);
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", window.__chronohazeReleaseCriticalLoader, { once: true });
+      } else {
+        window.requestAnimationFrame(window.__chronohazeReleaseCriticalLoader);
+      }
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, 500);
     })();
   </script>
 
@@ -125,7 +130,7 @@
 <link href="https://lyuf09.github.io/chronohaze/search.html" rel="canonical"/>
 <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
 <link href="styles.min.css?v=20260719-quality1" rel="stylesheet"/>
-<script defer="" src="protect-media.min.js?v=20260722-logo-contrast1"></script>
+<script defer="" src="protect-media.min.js?v=20260722-logo-contrast2"></script>
 <script defer="" src="assets/js/search-page.min.js?v=20260719-quality1"></script>
 </head>
 <body class="search-index-page">
@@ -222,24 +227,40 @@
 </div>
 <script id="search-inline-fallback" type="application/json">
 {
-  "generated_at": "2026-07-18",
+  "generated_at": "2026-07-22",
   "items": [
+    {
+      "title": "网络定位中的对偶退化、投影边预算与鞍点证书",
+      "title_en": "Dual Collapse, Projected Edge Budgets, and Saddle Certificates",
+      "url": "notes/network_localization_structural_certificates.html",
+      "section": "Mathematics",
+      "date": "2026-07-22",
+      "excerpt": "独立英文技术笔记，明确整理模型假设、已推导结果、开放问题与合作入口；中文随笔保留为研究过程记录。",
+      "excerpt_en": "A claim-disciplined English technical note separating model assumptions, derived results, open questions, and concrete collaboration entry points; the Chinese essays remain as the chronological research record.",
+      "tags": [
+        "math",
+        "article"
+      ],
+      "sort": 20260722,
+      "scope": "math",
+      "content": "Selected Work Research Statement Technical Notes Back to Technical Notes Dual Collapse, Projected Edge Budgets, and Saddle Certificates Feier Lyu · English technical note · Network localization / Nonconvex optimization · July 2026 · 4 pages A compact, claim-disciplined account of the model assumptions, derived projector identities, second-order structure, open questions, and concrete collaboration entry points. The original Chinese essays remain available as the chronological research record. Assumptions Results Open questions Collaboration Open PDF Chinese research essay Derivation history If the preview does not load in your browser, use Open PDF ."
+    },
     {
       "title": "Research Statement | Feier Lyu (Fay Lyu)",
       "url": "research.html",
       "section": "Site",
       "date": "",
-      "excerpt": "我的核心问题是：一个数学或计算对象在被形式化、对偶化、离散化与算法化之后，其结构如何变化——哪些依赖被暴露、哪些信息被保留、哪些约束仍可计算。",
+      "excerpt": "我研究优化理论与形式化验证。目前的项目包括：（i）面向子模最大化与投影一阶方法的可复用 Isabelle/HOL 基础设施；（ii）与 Shoham Sabach 合作研究网络定位中的负曲率结构证书。",
       "tags": [
         "research",
         "optimization",
         "formal-methods"
       ],
-      "sort": 20260718,
+      "sort": 20260722,
       "scope": "site",
-      "content": "研究陈述 我的核心问题是：一个数学或计算对象在被形式化、对偶化、离散化与算法化之后，其结构如何变化——哪些依赖被暴露、哪些信息被保留、哪些约束仍可计算。 主要研究方向 代表性工作入口 几项最能支撑上面研究线索的项目和笔记。 研究范围 PRIMARY DIRECTION 01 机器检查优化与可复用证明结构 我正在使用 Isabelle/HOL 形式化一阶优化方法与子模贪心算法中的经典证明结构。这里我关心的不只是把定理放进 proof assistant，而是如何把证明中的依赖、接口和可复用部分写清楚。 正式发表于 AFP（2026）：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库还进一步发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。关于 smooth convex optimization 与 projected gradient descent 的第二个形式化项目已提交至 Archive of Formal Proofs，目前等待审核。 接下来我想继续思考的是：怎样把这些形式化结果整理成更稳定的 library，使它们既适合展示和归档，也能支持后续扩展。 AFP entry DOI: 10.5281/zenodo.21054718 Proof document Repository PRIMARY DIRECTION 02 优化中的不变性、对偶与定位 在一些优化模型中，最自然的对偶路线会因为 translation 或 gauge invariance 而退化，最后只得到 trivial lower bound。我感兴趣的是：这种退化到底说明了推导失败，还是说明模型本身隐藏着另一种结构？ 我目前尤其关注 network localization 中 Range(B)、cycle consistency 与 instance difficulty 的关系。这条线的核心不是单纯追求更强的 bound，而是理解在对偶信息 collapse 之后，是否仍能恢复可解释、可比较的 structural score。 Isabelle/HOL Submodular Greedy Formalization 子模贪心算法形式化项目与材料入口。 Isabelle/HOL Projected Gradient Descent Awaiting review smooth convex optimization 中一阶方法形式化项目；已提交至 AFP，等待审核。 Optimization Note…",
+      "content": "研究陈述 我研究优化理论与形式化验证。目前的项目包括：（i）面向子模最大化与投影一阶方法的可复用 Isabelle/HOL 基础设施；（ii）与 Shoham Sabach 合作研究网络定位中的负曲率结构证书。 主要研究方向 代表性工作入口 几项最能支撑上面研究线索的项目和笔记。 研究范围 PRIMARY DIRECTION 01 机器检查优化与可复用证明结构 这条研究线把算法假设、状态不变量、关键不等式与收敛结论拆成可复用的 Isabelle/HOL 组件。 2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库还进一步发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。关于 smooth convex optimization 与 projected gradient descent 的第二个形式化项目已于2026年7月2日提交至 Archive of Formal Proofs，目前等待审核。 当前重点是减少不同算法证明之间重复的 projection、telescoping 与 approximation bookkeeping。 AFP entry DOI: 10.5281/zenodo.21054718 Proof document Repository PRIMARY DIRECTION 02 网络定位中的负曲率证书 与 Shoham Sabach 的合作研究图结构如何控制非最优驻点附近的 Hessian 负曲率。 当前目标是从 cycle consistency、projected edge budgets 与图的环空间中构造可验证的局部逃逸方向，并明确这些证书成立所需的几何假设。 Isabelle/HOL Submodular Greedy Formalization 子模贪心算法形式化项目与材料入口。 Isabelle/HOL Projected Gradient Descent Awaiting review smooth convex optimization 中一阶方法形式化项目；已提交至 AFP，等待审核。 Optimization Note TTGDA and Second-Order Tracking Exploratory 关于 value-function viewpoint 与二阶 tracking 问题的探索性技术笔记。",
       "title_en": "Research Statement | Feier Lyu (Fay Lyu)",
-      "excerpt_en": "My central question is how the structure of a mathematical or computational object changes under formalization, dualization, discretization, and algorithmization: which dependencies become visible, which information is preserved, and which constraints remain computable."
+      "excerpt_en": "I work on optimization theory and formal verification through reusable Isabelle/HOL infrastructure for optimization and structural negative-curvature certificates for network localization."
     },
     {
       "title": "Theorem 11 必要性方向中的凸性问题",
@@ -253,7 +274,7 @@
       ],
       "sort": 20260715,
       "scope": "math",
-      "content": "Selected Work Research Statement Technical Notes Back to Technical Notes Convexity in the Necessity Direction of Theorem 11 Feier Lyu · Technical note · Learning Theory / Private Learning / Distributional Constraints · July 2026 This note traces the necessity direction around Theorem 11, records a convexification check for the envelope submeasure and fragmentation numbers, and isolates the bridge from a general distribution class U to the convex setting used in Lemma 18 and Theorem 19. Open PDF Notes Index If the preview does not load in your browser, use Open PDF .",
+      "content": "Selected Work Research Statement Technical Notes Back to Technical Notes Convexity in the Necessity Direction of Theorem 11 Feier Lyu · Reading note · Learning Theory / Private Learning / Distributional Constraints · July 2026 This note reads Theorem 11 of Blanchard, Shetty, and Rakhlin, traces its private-learnability necessity direction, records a convexification check for the envelope submeasure and fragmentation numbers, and isolates the bridge from a general distribution class U to the convex setting used in Lemma 18 and Theorem 19. Source paper M. Blanchard, A. Shetty, and A. Rakhlin. “Characterizing Online and Private Learnability under Distributional Constraints via Generalized Smoothness.” arXiv:2602.20585, 2026. arXiv:2602.20585 Open PDF Notes Index If the preview does not load in your browser, use Open PDF .",
       "title_en": "Convexity in the Necessity Direction of Theorem 11",
       "excerpt_en": "A note on the convexification step in the necessity direction of Theorem 11, including the envelope submeasure, fragmentation numbers, and the bridge from a general distribution class U to the convex setting used in Lemma 18 and Theorem 19."
     },
@@ -269,7 +290,7 @@
       ],
       "sort": 20260715,
       "scope": "math",
-      "content": "Selected Work Research Statement Technical Notes Back to Technical Notes Exact Huber GLMs after Sparsification: Active Curvature and Kink Switching Feier Lyu · Technical note · Optimization / Sparsification / GLMs · April 2026 · updated July 2026 This note asks whether a sparsified local refinement step can preserve the active quadratic curvature of exact Huber losses while controlling affine-tail behavior and switching near the Huber kink. Open PDF Notes Index If the preview does not load in your browser, use Open PDF .",
+      "content": "Selected Work Research Statement Technical Notes Back to Technical Notes Exact Huber GLMs after Sparsification: Active Curvature and Kink Switching Feier Lyu · Exploratory derivation · Optimization / Sparsification / GLMs · April 2026 · updated July 2026 This note asks whether a sparsified local refinement step can preserve the active quadratic curvature of exact Huber losses while controlling affine-tail behavior and switching near the Huber kink. Open PDF Notes Index If the preview does not load in your browser, use Open PDF .",
       "title_en": "Exact Huber GLMs after Sparsification: Active Curvature and Kink Switching",
       "excerpt_en": "A note on whether sparsified local refinement can preserve the active quadratic curvature of exact Huber losses while controlling affine-tail behavior and switching near the Huber kink."
     },
@@ -301,7 +322,7 @@
       ],
       "sort": 20260630,
       "scope": "math",
-      "content": "Research Statement Selected Work Technical Notes 子模贪心算法形式化正式进入 AFP Feier Lyu · 2026年6月30日 · 约 6 分钟 Isabelle/HOL, submodular maximization, greedy algorithms, approximation guarantees, AFP AFP entry DOI: 10.5281/zenodo.21054718 GitHub repository 最近，我的 Isabelle/HOL 形式化项目 Greedy Algorithms for Cardinality-Constrained Submodular Maximization 正式发表于 Archive of Formal Proofs。 这个项目形式化的是基数约束下的单调非负子模最大化问题。更具体地说，它证明了 classical greedy algorithm 的经典近似保证：在选择至多 k 个元素的约束下，贪心算法可以达到最优值的 (1 − 1/e) 近似比例。除此之外，项目中还包含了一个 stateful lazy greedy variant，用 cached marginal-gain upper bounds 来刻画 lazy greedy 的状态更新过程。 范围说明： 以上 classical greedy 与 verified stateful lazy-greedy variant 是 AFP 2026 条目的正式发表范围。发表后，当前仓库继续发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting；这些是 post-publication extension，不属于该 AFP 条目的发表范围。 这篇短文不打算重新解释子模函数、边际增益或者贪心算法的全部背景。那些内容我之前已经写过不少了。现在再回头看，我更想记录的是：这个项目从一开始并不只是“把一个定理翻译成 Isabelle”，而是逐渐变成了一个关于算法证明结构的整理过程。 在纸面证明里，很多东西可以自然地藏在一句话里。比如“每一步选择当前边际增益最大的元素”，“由子模性得到平均意义上的下界”，“把递推式 telescope 起来得到最终比例”。这些在数学上都很熟悉，也很顺滑。但在 Isabelle 里，每一个“显然”都需要有明确的对象、明确的假设和明确的类型。集合是否有限，当前解是否仍然满足基数约束，贪心步骤是否真的存在，边际增益的比较对象是什么，这些细节都不能被跳过。 这也是这个项目最有意思的地方。形式化证明会迫使我把一个原本很流畅的算法分析拆开：先定义 gr…",
+      "content": "Research Statement Selected Work Technical Notes 子模贪心算法形式化正式进入 AFP Feier Lyu · Originally posted 2026年6月30日 · 约 6 分钟 Isabelle/HOL, submodular maximization, greedy algorithms, approximation guarantees, AFP Published: Archive of Formal Proofs · 2026年5月26日。 AFP entry DOI: 10.5281/zenodo.21054718 GitHub repository 最近，我的 Isabelle/HOL 形式化项目 Greedy Algorithms for Cardinality-Constrained Submodular Maximization 正式发表于 Archive of Formal Proofs。 这个项目形式化的是基数约束下的单调非负子模最大化问题。更具体地说，它证明了 classical greedy algorithm 的经典近似保证：在选择至多 k 个元素的约束下，贪心算法可以达到最优值的 (1 − 1/e) 近似比例。除此之外，项目中还包含了一个 stateful lazy greedy variant，用 cached marginal-gain upper bounds 来刻画 lazy greedy 的状态更新过程。 范围说明： 以上 classical greedy 与 verified stateful lazy-greedy variant 是 AFP 2026 条目的正式发表范围。发表后，当前仓库继续发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting；这些是 post-publication extension，不属于该 AFP 条目的发表范围。 这篇短文不打算重新解释子模函数、边际增益或者贪心算法的全部背景。那些内容我之前已经写过不少了。现在再回头看，我更想记录的是：这个项目从一开始并不只是“把一个定理翻译成 Isabelle”，而是逐渐变成了一个关于算法证明结构的整理过程。 在纸面证明里，很多东西可以自然地藏在一句话里。比如“每一步选择当前边际增益最大的元素”，“由子模性得到平均意义上的下界”，“把递推式 telescope 起来得到最终比例”。这些在数学上都很熟悉，也很顺滑。但在 Isabelle 里，每一个“显然”都需要有明确的对象、明确的假设和明确的类型。集合是否有限，当前解是否仍然满足基数约束，贪心步骤是否真的存在，边际增…",
       "title_en": "Formalizing Submodular Greedy Is Now in the AFP",
       "excerpt_en": "A short reflection on the publication of an Isabelle/HOL formalization of submodular greedy algorithms in the Archive of Formal Proofs, and on the proof architecture exposed by formalization."
     },
@@ -317,7 +338,7 @@
       ],
       "sort": 20260600,
       "scope": "math",
-      "content": "Selected Work Research Statement Technical Notes Back to Technical Notes Schur-Complement Hessian Tracking in TTGDA A Note on Possible Second-Order Extensions Feier Lyu · Technical note · Optimization / Minimax Learning · June 2026 A note on possible second-order extensions of TTGDA: if tracking y_t toward y*(x_t) controls the first-order error in the value-function viewpoint, can an analogous tracking argument control the Schur-complement Hessian well enough for saddle escaping? Open PDF Notes Index If the preview does not load in your browser, use Open PDF ."
+      "content": "Selected Work Research Statement Technical Notes Back to Technical Notes Schur-Complement Hessian Tracking in TTGDA A Note on Possible Second-Order Extensions Feier Lyu · Exploratory derivation · Optimization / Minimax Learning · June 2026 A note on possible second-order extensions of TTGDA: if tracking y_t toward y*(x_t) controls the first-order error in the value-function viewpoint, can an analogous tracking argument control the Schur-complement Hessian well enough for saddle escaping? Open PDF Notes Index If the preview does not load in your browser, use Open PDF ."
     },
     {
       "title": "从 dual score 到 saddle certificates 的一点新进展",
@@ -340,16 +361,16 @@
       "url": "post/projected-gradient-descent-isabelle-hol.html",
       "section": "Mathematics",
       "date": "2026-05-22",
-      "excerpt": "在子模贪心形式化正式发表于 AFP 之后，我继续整理第二个 Isabelle/HOL optimization 项目：从 smooth convexity、projection geometry、descent estimates 到 projected-gradient mapping 和 residual certificates，尝试把 projected-gradient descent 写成一套可复用的 first-order methods infrastructure。项目现已提交至 AFP，等待审核。",
+      "excerpt": "这篇 5 月 22 日的原始笔记记录第二个 Isabelle/HOL optimization 项目的结构；它早于子模贪心条目 5 月 26 日的 AFP 发表。PGD 项目随后于 7 月 2 日提交 AFP，目前等待审核。",
       "tags": [
         "math",
         "article"
       ],
       "sort": 20260522,
       "scope": "math",
-      "content": "Research Statement Selected Work Technical Notes 从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL Feier Lyu · 2026年5月22日 · 约 5 分钟 标签：Isabelle/HOL · Optimization · Formalisation · AFP 状态更新（2026年7月2日）： 该项目已提交至 Archive of Formal Proofs，目前等待审核。 Projected gradient descent 是带约束光滑优化中最基本的算法模板之一。它的标准收敛证明同时依赖投影几何、光滑性、凸性与 telescoping argument，因此对这一结果进行形式化，是检验如何在 Isabelle/HOL 中构建可复用优化基础设施的一个自然案例。 该 formalization 覆盖 projection inequality、projected-gradient mapping、光滑凸情形的收敛结论、强凸情形的线性收敛，以及从具体算法中抽出的可复用 telescoping 结构。项目的目标并不只是复现一条经典定理，而是把这些相互依赖的证明组件整理成可检查、可复用、可继续扩展的 library surface。 这也延续了子模优化项目中的同一条问题线：如果一个算法证明要成为真正可复用的形式化结构，它的几何、分析假设、递推论证与最终 theorem interface 应当怎样分层？ 为什么是 projected gradient descent Projected gradient descent 是优化里非常基础但也非常核心的一类方法。无约束的 gradient descent 已经是 first-order optimization 的入口，而 projected gradient descent 则把可行域约束放进了迭代过程里：每一步先沿着负梯度方向走，再投影回可行集合。 纸面上来讲，这个算法的形式其实非常简洁。无约束时是： x_{n+1} = x_n - alpha * G x_n 有约束时是： x_{n+1} = P_C (x_n - alpha * G x_n) 这里 P_C 是到闭凸集 C 上的 metric projection。 但越是这种看起来标准的东西，放进 Isabelle 里越会暴露很多隐藏结构。比如什么叫 gradient-like map？smoothness 要用 Lipschitz gradient 表述，还是用 quadratic upper bound 表述？projection 的 variational inequality 应该放在哪一层？收敛证明里的 telescoping argu…",
+      "content": "Research Statement Selected Work Technical Notes 从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL Feier Lyu · Originally posted 2026年5月22日 · 约 5 分钟 标签：Isabelle/HOL · Optimization · Formalisation · AFP 时间线说明 Originally posted: 2026年5月22日。本笔记早于子模贪心条目在 2026年5月26日正式发表于 AFP，因此“继续往前”指研究项目的延续，不是“发表之后”。 Submitted: PGD 项目于 2026年7月2日提交至 Archive of Formal Proofs，目前等待审核。 Projected gradient descent 是带约束光滑优化中最基本的算法模板之一。它的标准收敛证明同时依赖投影几何、光滑性、凸性与 telescoping argument，因此对这一结果进行形式化，是检验如何在 Isabelle/HOL 中构建可复用优化基础设施的一个自然案例。 该 formalization 覆盖 projection inequality、projected-gradient mapping、光滑凸情形的收敛结论、强凸情形的线性收敛，以及从具体算法中抽出的可复用 telescoping 结构。项目的目标并不只是复现一条经典定理，而是把这些相互依赖的证明组件整理成可检查、可复用、可继续扩展的 library surface。 这也延续了子模优化项目中的同一条问题线：如果一个算法证明要成为真正可复用的形式化结构，它的几何、分析假设、递推论证与最终 theorem interface 应当怎样分层？ 为什么是 projected gradient descent Projected gradient descent 是优化里非常基础但也非常核心的一类方法。无约束的 gradient descent 已经是 first-order optimization 的入口，而 projected gradient descent 则把可行域约束放进了迭代过程里：每一步先沿着负梯度方向走，再投影回可行集合。 纸面上来讲，这个算法的形式其实非常简洁。无约束时是： x_{n+1} = x_n - alpha * G x_n 有约束时是： x_{n+1} = P_C (x_n - alpha * G x_n) 这里 P_C 是到闭凸集 C 上的 metric projection。 但越是这种看起来标准的东西，放进 Isabelle 里越会暴露很多隐藏结构。比如什么叫 gradient-like map？smoothness…",
       "title_en": "Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL",
-      "excerpt_en": "Following publication of the submodular-greedy formalization in AFP, I continued organizing a second Isabelle/HOL optimization project, from smooth convexity and projection geometry to descent estimates, projected-gradient mappings, and residual certificates. The project has now been submitted to AFP and is awaiting review."
+      "excerpt_en": "Originally posted on May 22, this note records the structure of a second Isabelle/HOL optimization project and predates the AFP publication of the submodular entry on May 26. The PGD project was submitted to AFP on July 2 and is awaiting review."
     },
     {
       "title": "最后的常景",
@@ -407,7 +428,7 @@
       ],
       "sort": 20260508,
       "scope": "site",
-      "content": "Selected Work Research Statement Technical Notes Academic 学术 Feier Lyu （Fay Lyu） Optimization Theory · Formal Verification · Machine-Checked Mathematics 我研究优化与形式化验证，尤其关注如何将算法论证分解为可复用、机器检查的结构。 子模最大化形式化 发表于 AFP（2026） Isabelle/HOL 中的一阶方法 Projected Gradient Descent 形式化项目 非凸极小极大与定位 进行中的理论研究 Selected Work Research Statement CV GitHub Academic Academic Feier Lyu (Fay Lyu) Optimization Theory · Formal Verification · Machine-Checked Mathematics I work on optimization and formal verification, with a particular interest in how algorithmic arguments can be decomposed into reusable machine-checked structures. Formalization of submodular maximization Published in AFP (2026) First-order methods in Isabelle/HOL Projected Gradient Descent project Nonconvex minimax and localization Ongoing theoretical work Selected Work Research Statement CV GitHub EVIDENCE 成果与证明依赖 这里只保留已发表范围、发表后扩展与可核查入口；完整研究主线见 Research Statement。 正式发表于 AFP（2026）：对基数约束单调子模最大化的 classical greedy 与 verified stateful lazy-greedy 进行形式化。 发表后扩展：当前仓库进一步发展 stochastic-greedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。 AFP entry Theory dependencies Submodular repository PGD repository EVIDENCE Outputs and proof…"
+      "content": "Selected Work Research Statement Technical Notes Academic 学术 Feier Lyu （Fay Lyu） 我研究优化理论与形式化验证。 当前工作集中在可复用的 Isabelle/HOL 基础设施，以及网络定位中的图结构负曲率证书。 教育背景 爱丁堡大学 数学本科 · 预计 2027 年毕业 康奈尔大学 交换学习 · 2025–2026 主要研究线 机器检查优化 子模最大化与 projected first-order methods 的 Isabelle/HOL 基础设施 网络定位 与 Shoham Sabach 合作研究负曲率证书与局部逃逸方向 Academic Academic Feier Lyu (Fay Lyu) I work on optimization theory and formal verification. My current work centers on reusable Isabelle/HOL infrastructure and graph-structured negative-curvature certificates for network localization. EDUCATION University of Edinburgh BSc Mathematics · expected 2027 Cornell University Exchange student · 2025–2026 PRIMARY RESEARCH LINES Machine-checked optimization Reusable Isabelle/HOL infrastructure for submodular maximization and projected first-order methods Network localization Negative-curvature certificates and local escape directions, with Shoham Sabach EVIDENCE 三项核心证据 01 AFP 正式条目 2026年5月26日发表；本人负责 Wenda Li 指导下的完整 Isabelle/HOL development。 02 Projected Gradient Descent 独立形式化项目；2026年7月2日提交 AFP，目前等待审核。 03 Network Localization 与 Shoham Sabach 进行中的合作，研究图结构负曲率证书与局部逃逸方向。 CV Research AFP entry GitHub 邮箱 EVIDENCE Three strongest pieces of evidence 0…"
     },
     {
       "title": "Selected Work",
@@ -426,7 +447,7 @@
       ],
       "sort": 20260508,
       "scope": "site",
-      "content": "Selected Work Research Statement Technical Notes Selected Work Feier Lyu （Fay Lyu） 这一页集中展示可核查的学术成果、形式化项目与研究笔记；创意计算原型单独列为 side project。完整的问题线与研究动机放在 Research Statement。 Selected Work Feier Lyu (Fay Lyu) This page presents verifiable academic outputs, formalization projects, and research notes. A creative-computation prototype is listed separately as a side project. The broader problem framing belongs in the Research Statement. ACADEMIC WORK 学术工作 01 FORMAL VERIFICATION Greedy Algorithms for Cardinality-Constrained Submodular Maximization 状态： 发表于 AFP，2026。AFP 条目覆盖 classical greedy 与 verified stateful lazy-greedy；当前仓库另含发表后的 stochastic-greedy 扩展，包括 sampling、approximation packaging 与 oracle-cost accounting。 问题： 形式化基数约束单调子模最大化中 classical greedy 的经典 1−1/e 近似保证。 贡献： 在 Wenda Li 老师指导下独立完成 Isabelle/HOL development，覆盖 classical greedy 与 verified stateful lazy-greedy variant。 证据： AFP Proof document GitHub DOI 02 FORMAL VERIFICATION First-Order Methods for Smooth Convex Optimization in Isabelle/HOL 状态： 已提交至 Archive of Formal Proofs，目前等待审核。 问题： 将 projected gradient descent 及其一阶收敛理论组织成可复用的 Isabelle/HOL 基础设施。 贡献： 独立设计并完成全部形式化，覆盖 projection geometry、projected-gradient mapping、凸收敛与强凸线性收敛率；该项目没有导师参与。 证…"
+      "content": "Selected Work Research Statement Technical Notes Selected Work Feier Lyu （Fay Lyu） 按 Published、Submitted、Ongoing collaboration 与 Exploratory notes 四类展示可核查的学术工作；创意计算原型单独列为 side project。 Selected Work Feier Lyu (Fay Lyu) Verifiable academic work is separated into Published, Submitted, Ongoing collaboration, and Exploratory notes. A creative-computation prototype is listed separately as a side project. ACADEMIC WORK 学术工作 PUB PUBLISHED · FORMAL VERIFICATION Greedy Algorithms for Cardinality-Constrained Submodular Maximization 状态： 2026 年 5 月 26 日正式发表于 AFP。AFP 条目覆盖 classical greedy 与 verified stateful lazy-greedy；当前仓库另含发表后的 stochastic-greedy 扩展，包括 sampling、approximation packaging 与 oracle-cost accounting。 问题： 形式化基数约束单调子模最大化中 classical greedy 的经典 1−1/e 近似保证。 贡献： 在 Wenda Li 老师指导下，本人负责完整的 Isabelle/HOL development，覆盖 classical greedy 与 verified stateful lazy-greedy variant。 证据： AFP Proof document GitHub DOI SUB SUBMITTED · FORMAL VERIFICATION First-Order Methods for Smooth Convex Optimization in Isabelle/HOL 状态： 2026 年 7 月 2 日提交至 Archive of Formal Proofs，目前等待审核。 问题： 将 projected gradient descent 及其一阶收敛理论组织成可复用的 Isabelle/HOL 基础设施。 贡献： Independent formalization project；本人负责完整 Isabelle/HOL devel…"
     },
     {
       "title": "Orchid",
@@ -481,16 +502,16 @@
       "url": "post/theorem-to-framework-isabelle-submodular.html",
       "section": "Mathematics",
       "date": "2026-03-14",
-      "excerpt": "AFP 2026 条目收录 classical greedy 与 verified stateful lazy-greedy；发表后的仓库继续发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。",
+      "excerpt": "原文发布于 3 月 14 日；7 月更新仅补充后续状态。子模贪心条目于 5 月 26 日正式发表于 AFP，发表后仓库继续发展 StochasticGreedy theorem line。",
       "tags": [
         "math",
         "article"
       ],
       "sort": 20260314,
       "scope": "math",
-      "content": "Research Statement Selected Work Technical Notes 从一个定理到一套框架：我的 Isabelle 子模优化项目新进展 Feier Lyu · 2026年3月14日 · 约 6 分钟 更新 · 2026年7月 正式发表于 AFP（2026）：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库还进一步发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。下文的项目回顾已按这一范围边界更新。 AFP entry DOI: 10.5281/zenodo.21054718 Proof document Repository 在之前我更关心的是，如何拆分构造与分析，如何把那些在论文里常被一句话带过的步骤，变成真正可以被系统检查的逻辑结构。 这几个月继续往前做以后，我对这个项目的理解也慢慢变了，它现在已经不太像为一个经典定理补上一份形式化版本，而更像是在长成一套可以继续扩展的 Isabelle/HOL library。repo 目前的主线已经不仅包括 classical greedy 的完整 theorem line，也包括一个完成度很高的 stateful LazyGreedy extension。与此同时实例层、可执行小实验和 oracle-cost 这一层也都已经放了进去。换句话说，这个项目的重点开始从“证明某一个结果”转向“搭建一套可以容纳更多 modern submodular greedy variants 的结构”了。 从 classical greedy 到可复用结构 现在回头看，classical greedy 这一部分已经不再只是一个起点，而是整个项目真正的 foundation，围绕它建立起来的不只是 greedy_set 本身的定义，还有 greedy construction 的 structural invariants、可复用的 greedy-step specification，以及最后通向 Nemhauser–Wolsey (1 - 1/e) approximation guarantee 的那条完整 proof line。更关键的是，这一层不是孤立写出来的，而是被放进了一套有明确分层的 architecture 里：抽象假设、算法构造、近似证明、具体实例解释、可执行实验，以及复杂度 / oracle accounting，彼此是分开的。 这种分层对我来说很重要，因为一旦真正做 Isabelle 就会发现，“把一个证明写出…",
+      "content": "Research Statement Selected Work Technical Notes 从一个定理到一套框架：我的 Isabelle 子模优化项目新进展 Feier Lyu · Originally posted 2026年3月14日 · 约 6 分钟 Updated 2026年7月 · 保留原始发布日期 Published 2026年5月26日： AFP 条目对基数约束下的单调子模最大化形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。 发表后扩展： 当前仓库还进一步发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。本状态更新不改变原文 3 月 14 日的发布日期。 AFP entry DOI: 10.5281/zenodo.21054718 Proof document Repository 在之前我更关心的是，如何拆分构造与分析，如何把那些在论文里常被一句话带过的步骤，变成真正可以被系统检查的逻辑结构。 这几个月继续往前做以后，我对这个项目的理解也慢慢变了，它现在已经不太像为一个经典定理补上一份形式化版本，而更像是在长成一套可以继续扩展的 Isabelle/HOL library。repo 目前的主线已经不仅包括 classical greedy 的完整 theorem line，也包括一个完成度很高的 stateful LazyGreedy extension。与此同时实例层、可执行小实验和 oracle-cost 这一层也都已经放了进去。换句话说，这个项目的重点开始从“证明某一个结果”转向“搭建一套可以容纳更多 modern submodular greedy variants 的结构”了。 从 classical greedy 到可复用结构 现在回头看，classical greedy 这一部分已经不再只是一个起点，而是整个项目真正的 foundation，围绕它建立起来的不只是 greedy_set 本身的定义，还有 greedy construction 的 structural invariants、可复用的 greedy-step specification，以及最后通向 Nemhauser–Wolsey (1 - 1/e) approximation guarantee 的那条完整 proof line。更关键的是，这一层不是孤立写出来的，而是被放进了一套有明确分层的 architecture 里：抽象假设、算法构造、近似证明、具体实例解释、可执行实验，以及复杂度 / oracle accountin…",
       "title_en": "From One Theorem to a Framework: New Progress on My Isabelle Project in Submodular Optimization",
-      "excerpt_en": "The AFP 2026 entry covers classical greedy and verified stateful lazy-greedy; the post-publication repository continues with a StochasticGreedy theorem line spanning sampling, approximation packaging, and oracle-cost accounting."
+      "excerpt_en": "Originally posted on March 14; the July update adds later status without changing the original date. The submodular entry was published in AFP on May 26, and the repository continued afterward with the StochasticGreedy theorem line."
     },
     {
       "title": "搜索 / Search",
@@ -592,7 +613,7 @@
       ],
       "sort": 20251229,
       "scope": "math",
-      "content": "Research Statement Selected Work Technical Notes 早期项目记录：Submodular Greedy 的 Isabelle 形式化 Feier Lyu · 2025年12月29日 · 约 4 分钟 更新 · 2026年7月 正式发表于 AFP（2026）：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库还进一步发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。以下正文保留为 2025年12月的阶段记录。 AFP entry DOI: 10.5281/zenodo.21054718 Repository 在上一篇文章《我的第一个 Isabelle 形式化证明》中，我更多写的是我为什么选择 Isabelle，以及形式化证明对我而言意味着什么。这篇文章记录的是当时仍在推进的研究项目：单调子模函数下贪心算法的 (1−1/e) 近似保证的 Isabelle 形式化 。 这是一份写于正式发表之前的阶段性研究记录。 我在做什么 在组合优化中，单调子模函数的最大化问题有一个非常经典的结论：在基数约束下，简单的贪心算法可以达到 1 − 1/e 的近似比。 这个结果通常被称为 Nemhauser–Wolsey 定理 ，在机器学习、信息论、覆盖问题等领域被反复使用。 在纸笔证明中，这个结论往往以一种高度抽象和依赖直觉的方式出现，比如平均化论证、边际增益、递推不等式……但这些看似自然的步骤其实隐含了大量未被显式陈述的结构性假设。 这个项目的目标并不是重新发明这个定理，而是尝试回答一个更基础的问题： 如果把这个证明完整地交给 Isabelle，它究竟需要我们说清楚哪些事情？ 项目结构：从定理到系统 我将目前的 Isabelle 形式化拆分为两个主要部分，对应两个核心文件： Greedy_Submodular_Construct.thy 这一部分负责 算法与结构本身 ： 贪心序列的形式化定义 边际增益的抽象 贪心过程中保持的不变量 在这一层，避免了引入任何近似结论，只关注这个算法在 Isabelle 中到底是什么。 Greedy_Submodular_Approx.thy 这一部分负责 近似分析 ： 平均化论证的形式化版本 gap recurrence 的建立 Nemhauser–Wolsey (1−1/e) 界的推导 这样的拆分并不是为了代码整洁而是为了让证明结构在形式化中保持 可复用性 ，因为构造与分析是两个不同层次的问题。 在 Isabelle 里，这件事为…",
+      "content": "Research Statement Selected Work Technical Notes 早期项目记录：Submodular Greedy 的 Isabelle 形式化 Feier Lyu · Originally posted 2025年12月29日 · 约 4 分钟 Updated 2026年7月 · 保留原始发布日期 2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库还进一步发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。以下正文保留为 2025年12月的阶段记录，状态更新不改变原始发布日期。 AFP entry DOI: 10.5281/zenodo.21054718 Repository 在上一篇文章《我的第一个 Isabelle 形式化证明》中，我更多写的是我为什么选择 Isabelle，以及形式化证明对我而言意味着什么。这篇文章记录的是当时仍在推进的研究项目：单调子模函数下贪心算法的 (1−1/e) 近似保证的 Isabelle 形式化 。 这是一份写于正式发表之前的阶段性研究记录。 我在做什么 在组合优化中，单调子模函数的最大化问题有一个非常经典的结论：在基数约束下，简单的贪心算法可以达到 1 − 1/e 的近似比。 这个结果通常被称为 Nemhauser–Wolsey 定理 ，在机器学习、信息论、覆盖问题等领域被反复使用。 在纸笔证明中，这个结论往往以一种高度抽象和依赖直觉的方式出现，比如平均化论证、边际增益、递推不等式……但这些看似自然的步骤其实隐含了大量未被显式陈述的结构性假设。 这个项目的目标并不是重新发明这个定理，而是尝试回答一个更基础的问题： 如果把这个证明完整地交给 Isabelle，它究竟需要我们说清楚哪些事情？ 项目结构：从定理到系统 我将目前的 Isabelle 形式化拆分为两个主要部分，对应两个核心文件： Greedy_Submodular_Construct.thy 这一部分负责 算法与结构本身 ： 贪心序列的形式化定义 边际增益的抽象 贪心过程中保持的不变量 在这一层，避免了引入任何近似结论，只关注这个算法在 Isabelle 中到底是什么。 Greedy_Submodular_Approx.thy 这一部分负责 近似分析 ： 平均化论证的形式化版本 gap recurrence 的建立 Nemhauser–Wolsey (1−1/e) 界的推导 这样的拆分并不是为了代码整洁而是为了让证明结构…",
       "title_en": "Early Project Note: Formalising Submodular Greedy",
       "excerpt_en": "A December 2025 stage record; the project was subsequently published in AFP 2026, and the current repository also contains a post-publication StochasticGreedy extension."
     },
@@ -626,7 +647,7 @@
       ],
       "sort": 20251018,
       "scope": "math",
-      "content": "Research Statement Selected Work Technical Notes 我的第一个 Isabelle 形式化证明 Feier Lyu · 2025年10月18日 · 约 2 分钟 更新 · 2026年7月 正式发表于 AFP（2026）：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库还进一步发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。以下正文保留为 2025年10月的阶段记录。 有些证明想被刻在更坚固的地方。 纸上的推导可以泛黄，黑板上的公式终将被擦去，但形式化证明留下的，是可以被反复验证的真理。 我在做的主题 我目前研究的方向和 submodular function 以及 greedy algorithm 相关。具体来说，我正在尝试形式化 Nemhauser–Wolsey theorem 的证明，这是一条关于单调子模函数的贪心近似比保证的经典结果。 我要在 Isabelle 里完成： 把数学对象抽象成形式化定义（函数、集合、单调性、子模性…） 搭建推理框架 写出与数学证明完全等价的 machine-checkable version。 就像在对话一样，我要让 Isabelle 听懂我想说的话（但它不会宽容我任何一个跳步或模糊表达XD 为什么我选择 Isabelle（而不是 Lean） 数学本身就是严谨的，但人类的证明往往带着直觉和省略。而 Isabelle 逼着我去把直觉全部拆解成可验证的语句，这个过程虽然痛苦，但很真实（其实是我老师做 Isabelle ） 它让我看到了： 哪些我以为显然的步骤其实需要补充 哪些论证的逻辑关系是我自己没意识到的 证明结构如何在形式化中变得「可复用」 对我而言，这不仅仅是完成一个 formal proof，更像是学习“如何更诚实地写数学”。 目前进展 ✔ 已完成： 定义 filter limit 与 sequential limit 证明 filter limit 蕴含 sequential limit 建立贪心算法的基本形式化骨架 🚧 进行中： 证明两种极限定义的等价性 抽象出子模函数贪心近似的核心逻辑 ❌ 未来计划： 完整复刻并扩展 Nemhauser–Wolsey 的形式化证明 尝试将优化理论与形式化工具结合 上一篇 早期项目记录：Submodular Greedy 的 Isabelle 形式化 下一篇 暂无下一篇 继续浏览 Research Statement Selected Work Technica…",
+      "content": "Research Statement Selected Work Technical Notes 我的第一个 Isabelle 形式化证明 Feier Lyu · Originally posted 2025年10月18日 · 约 2 分钟 Updated 2026年7月 · 保留原始发布日期 2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库还进一步发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。以下正文保留为 2025年10月的阶段记录，状态更新不改变原始发布日期。 有些证明想被刻在更坚固的地方。 纸上的推导可以泛黄，黑板上的公式终将被擦去，但形式化证明留下的，是可以被反复验证的真理。 我在做的主题 我目前研究的方向和 submodular function 以及 greedy algorithm 相关。具体来说，我正在尝试形式化 Nemhauser–Wolsey theorem 的证明，这是一条关于单调子模函数的贪心近似比保证的经典结果。 我要在 Isabelle 里完成： 把数学对象抽象成形式化定义（函数、集合、单调性、子模性…） 搭建推理框架 写出与数学证明完全等价的 machine-checkable version。 就像在对话一样，我要让 Isabelle 听懂我想说的话（但它不会宽容我任何一个跳步或模糊表达XD 为什么我选择 Isabelle（而不是 Lean） 数学本身就是严谨的，但人类的证明往往带着直觉和省略。而 Isabelle 逼着我去把直觉全部拆解成可验证的语句，这个过程虽然痛苦，但很真实（其实是我老师做 Isabelle ） 它让我看到了： 哪些我以为显然的步骤其实需要补充 哪些论证的逻辑关系是我自己没意识到的 证明结构如何在形式化中变得「可复用」 对我而言，这不仅仅是完成一个 formal proof，更像是学习“如何更诚实地写数学”。 目前进展 ✔ 已完成： 定义 filter limit 与 sequential limit 证明 filter limit 蕴含 sequential limit 建立贪心算法的基本形式化骨架 🚧 进行中： 证明两种极限定义的等价性 抽象出子模函数贪心近似的核心逻辑 ❌ 未来计划： 完整复刻并扩展 Nemhauser–Wolsey 的形式化证明 尝试将优化理论与形式化工具结合 上一篇 早期项目记录：Submodular Greedy 的 Isabelle 形式化 下一篇 暂无…",
       "title_en": "My First Isabelle Formalization Project",
       "excerpt_en": "Embedding verifiability into proof writing: from motivation to the Nemhauser–Wolsey theorem."
     },
@@ -1388,7 +1409,7 @@
       ],
       "sort": 0,
       "scope": "math",
-      "content": "Selected Work Research Statement Technical Notes 学术笔记 / Technical Notes Feier Lyu（Fay Lyu） 置顶最能代表当前研究思考的材料，并按时间整理部分技术笔记与研究记录。 Isabelle/HOL Duality OR for ML Prototype 我最喜欢的 Julia 分形 PINNED NOTES 置顶笔记 01 Published Isabelle Submodular Greedy Project Published formalization · Archive of Formal Proofs · 2026 02 Submitted Projected Gradient Descent in Isabelle/HOL Formalization project · submitted to AFP · awaiting review 03 Ongoing research Duality / Localization Duality · Invariance · Network localization 04 Exploratory note TTGDA and Second-Order Tracking Exploratory technical note · Optimization / Minimax Learning 研究记录归档 2026 — 按时间排列的部分技术笔记与研究记录。 2026-07-15 Research note Theorem 11 必要性方向中的凸性问题 梳理 Theorem 11 必要性方向中的凸化步骤，检查 envelope submeasure、fragmentation numbers，以及从一般分布类 U 进入 Lemma 18 与 Theorem 19 所需凸性条件的桥接。 Learning Theory Convexity Private Learning 打开笔记 2026-07-15 · updated Research note 稀疏化后的 Exact Huber GLMs：Active Curvature 与 Kink Switching 研究稀疏化后的局部 refinement 是否能够保留 exact Huber loss 的 active quadratic curvature，同时控制 affine-tail behavior 与 Huber kink 附近的切换。 Optimization Sparsification GLMs 打开笔记 2026-06-30 Published formalization 子模贪心算法形式化正式进入 AFP 记录 Isabelle/HOL 子模贪心算法形式化正式发表…",
+      "content": "Selected Work Research Statement Technical Notes 学术笔记 / Technical Notes Feier Lyu（Fay Lyu） 置顶最能代表当前研究思考的材料，并按时间整理部分技术笔记与研究记录。 Isabelle/HOL Duality OR for ML Prototype PINNED NOTES 置顶笔记 01 Published formalization Isabelle Submodular Greedy Project Published formalization · Archive of Formal Proofs · 2026-05-26 02 Submitted formalization Projected Gradient Descent in Isabelle/HOL Formalization project · submitted to AFP on 2026-07-02 · awaiting review 03 Ongoing joint research Duality / Localization 4-page English technical note · Assumptions / Results / Open questions / Collaboration 04 Exploratory derivation TTGDA and Second-Order Tracking Exploratory technical note · Optimization / Minimax Learning 侧边视觉 · 我最喜欢的 Julia 分形 研究记录归档 2026 — 按时间排列的部分技术笔记与研究记录。 Technical note · 2026-07-22 Ongoing joint research 网络定位中的对偶退化、投影边预算与鞍点证书 独立英文技术笔记，明确整理模型假设、已推导结果、开放问题与合作入口；中文随笔保留为研究过程记录。 Network Localization Duality Saddle Certificates 打开英文笔记 2026-07-15 Reading note Theorem 11 必要性方向中的凸性问题 梳理 Theorem 11 必要性方向中的凸化步骤，检查 envelope submeasure、fragmentation numbers，以及从一般分布类 U 进入 Lemma 18 与 Theorem 19 所需凸性条件的桥接。 Learning Theory Convexity Private Learning 打开笔记 2026-07-15 · updated Exploratory derivation 稀…",
       "title_en": "Technical Notes"
     },
     {
@@ -1421,20 +1442,20 @@
       ],
       "sort": 0,
       "scope": "site",
-      "content": "起点 / Chronohaze Fay / Feier Lyu OPTIMIZATION · FORMAL VERIFICATION · MACHINE-CHECKED MATHEMATICS 在时间的薄雾里，为复杂性寻找结构。 证明关心什么可以被确信；音乐与影像关心什么值得被记住。 这里收录两者之间仍在继续的工作。 University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027 快捷入口 学术 公开简历 代表性工作 技术笔记 GitHub 联系我 AFFIZIEREN - HAZEZZ 00:00 / 00:00 准备音频… 去音乐页试听 研究概览 当前工作 发表于 AFP 在 Isabelle/HOL 中形式化基数约束单调子模最大化的经典贪心算法与经验证的有状态惰性贪心变体。 查看 AFP 条目 当前研究 优化、网络定位与带不变性的非凸结构；研究对偶退化、结构评分及其与局部曲率证书的联系。 研究陈述 形式化项目 投影梯度下降与可复用证明基础设施：投影几何、梯度映射、凸收敛与线性收敛率。 项目笔记 数学与创作 两种身份，两种工作方式 理性与浪漫在这里并置：证明、声音与影像各自保留自己的语言。 学术身份 · FEIER LYU 数学 定理、Isabelle/HOL 与优化笔记：从机器检查证明到结构化非凸问题。 AFP 定理 投影梯度下降形式化 技术笔记 创作身份 · HAZEZZ 音乐与影像 演出、作曲与摄影系列；让舞台、声音和影像各自保留完整的叙事空间。 音乐与演出 摄影与动态影像 创作近况 近况更新 2026. 07 演奏视频 购入了新相机与镜头，准备拍一些我真正满意的贝斯cover 音乐制作 正在准备与很厉害的吉他手朋友的合作单曲，同时受到委托正在写一个地下偶像团体的原创曲 AFP 延伸 正在把我那个afp entry延伸做成投会议的继续的stochastic线"
+      "content": "起点 / Chronohaze Fay / Feier Lyu OPTIMIZATION · FORMAL VERIFICATION · MACHINE-CHECKED MATHEMATICS 在时间的薄雾里，为复杂性寻找结构。 证明关心什么可以被确信；音乐与影像关心什么值得被记住。 这里收录两者之间仍在继续的工作。 University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027 快捷入口 学术 公开简历 代表性工作 技术笔记 GitHub 联系我 AFFIZIEREN - HAZEZZ 00:00 / 00:00 准备音频… 去音乐页试听 研究概览 当前工作 AFP 独著条目 · 2026年5月 在 Isabelle/HOL 中形式化子模最大化的确定性贪心算法与有状态惰性贪心算法。 查看 AFP 条目 当前合作 · 网络定位 与 Shoham Sabach 合作研究图结构负曲率证书与局部逃逸方向。 英文技术笔记 已提交 AFP · 2026年7月2日 在 Isabelle/HOL 中形式化投影梯度下降、投影几何、梯度映射与收敛速率。 项目笔记 数学与创作 两种身份，两种工作方式 理性与浪漫在这里并置：证明、声音与影像各自保留自己的语言。 学术身份 · FEIER LYU 数学 定理、Isabelle/HOL 与优化笔记：从机器检查证明到结构化非凸问题。 AFP 定理 投影梯度下降形式化 技术笔记 创作身份 · HAZEZZ 音乐与影像 演出、作曲与摄影系列；让舞台、声音和影像各自保留完整的叙事空间。 音乐与演出 摄影与动态影像 创作近况 近况更新 2026. 07 演奏视频 购入了新相机与镜头，准备拍一些我真正满意的贝斯cover 音乐制作 正在准备与很厉害的吉他手朋友的合作单曲，同时受到委托正在写一个地下偶像团体的原创曲 AFP 延伸 正在把我那个afp entry延伸做成投会议的继续的stochastic线"
     },
     {
-      "title": "CV",
+      "title": "Academic Profile",
       "url": "cv.html",
       "section": "Site",
       "date": "",
-      "excerpt": "Public CV with education, research collaboration, publications, formal verification projects, selected patents, industry experience, and contact.",
+      "excerpt": "Selected academic record with education, research collaboration, publication, submitted formalization, technical notes, patents, industry experience, and contact.",
       "tags": [
         "cv"
       ],
       "sort": 0,
       "scope": "cv",
-      "content": "Research 最近更新： 2026 年 7 月 教育与方向 研究与成果 行业经历与联系 公开版 CV Feier Lyu （Fay Lyu） 本页仅保留公开联系方式；完整版简历可邮件索取。 教育背景 爱丁堡大学数学本科（BSc Mathematics） 康奈尔大学交换学生，2025–2026 Expected graduation: 2027 研究方向 优化理论、形式化验证与数学建模。近期兴趣集中在一阶优化方法的机器检查证明、子模优化的近似保证，以及非凸极小极大问题中的 value-function 视角与二阶追踪问题。 研究经历 优化研究合作 2026–至今 与 Prof. Shoham Sabach（Cornell University）合作。 合作始于本人在康奈尔大学交换期间，并在交换结束后继续，聚焦优化理论、网络定位与二阶分析。 发表成果 Greedy Algorithms for Cardinality-Constrained Submodular Maximization Archive of Formal Proofs · 2026 正式发表于 AFP（2026）：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库继续发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。 DOI: 10.5281/zenodo.21054718 。 形式化验证项目 First-Order Methods for Smooth Convex Optimization in Isabelle/HOL 独立项目（无导师）· 2026 独立设计并完成投影梯度下降与一阶优化方法的 Isabelle/HOL 形式化，包括 projection inequality、projected-gradient mapping、凸收敛、强凸线性收敛与可复用的 telescoping structure。项目已提交至 Archive of Formal Proofs，目前等待审核。 Greedy Algorithms for Cardinality-Constrained Submodular Maximization 爱丁堡大学信息学院（School of Informatics, University of Edinburgh）· Dr. Wenda Li · 2025–2026 在 Dr. Wenda Li 指导下，独立完成子模函数与贪心算法近似保证的全部 Isabelle/HOL formal pro…"
+      "content": "Research 最近更新： 2026 年 7 月 教育与兴趣 学术记录 行业经历与联系 学术档案 Feier Lyu （Fay Lyu） 教育背景 爱丁堡大学数学本科（BSc Mathematics） 康奈尔大学交换学生，2025–2026 Expected graduation: 2027 研究兴趣 优化理论与形式化验证；当前项目包括面向子模最大化和投影一阶方法的可复用 Isabelle/HOL 基础设施，以及网络定位中的图结构负曲率证书。 研究经历 与 Prof. Shoham Sabach 的研究合作 2026–至今 围绕网络定位中的结构化负曲率证书与局部逃逸方向开展持续合作。当前研究图结构、不变性与边层级曲率如何在 reduced Hessian 中相互作用。 发表成果 Feier Lyu. “Greedy Algorithms for Cardinality-Constrained Submodular Maximization.” Archive of Formal Proofs · 2026年5月 形式化基数约束单调子模最大化的 deterministic greedy 与 verified stateful lazy-greedy implementation。本人在 Wenda Li 指导下负责完整 Isabelle/HOL development。 DOI: 10.5281/zenodo.21054718 。 Submitted Formalization First-Order Methods for Smooth Convex Optimization in Isabelle/HOL Independent formalization project · 2026 设计并完成 Isabelle/HOL development，覆盖 projection geometry、projected-gradient mappings、凸收敛与强凸条件下的线性收敛。项目已于2026年7月2日提交 Archive of Formal Proofs，目前等待审核。 Selected Technical Notes Network Localization: Structural Certificates 与 Shoham Sabach 的 ongoing joint research；英文技术笔记明确区分 assumptions、results 与 open questions。 TTGDA and Second-Order Tracking 通过已有 value-function viewpoint 展开的 exploratory derivation。 Patents Anti-Segregation Spreading Method and…"
     }
   ]
 }

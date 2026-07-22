@@ -21,7 +21,7 @@ SUBMODULAR_STATUS_PAGES = {
     "research.html",
 }
 SUBMODULAR_PUBLISHED_SCOPE = (
-    "Published in AFP (2026): a formalization of the classical greedy algorithm "
+    "Published in AFP on May 26, 2026: a formalization of the classical greedy algorithm "
     "and a verified stateful lazy-greedy variant for cardinality-constrained "
     "monotone submodular maximization."
 )
@@ -31,10 +31,19 @@ SUBMODULAR_POST_PUBLICATION_SCOPE = (
     "oracle-cost accounting."
 )
 SUBMODULAR_PROJECTS_STATUS_MARKERS = (
-    "Published in AFP, 2026.",
+    "Published in the Archive of Formal Proofs on May 26, 2026.",
     "verified stateful lazy-greedy variant",
     "post-publication stochastic-greedy extension",
     "sampling, approximation packaging, and oracle-cost accounting",
+)
+SUBMODULAR_ACADEMIC_STATUS_MARKERS = (
+    "Published May 26, 2026",
+    "full Isabelle/HOL development under the supervision of Wenda Li",
+)
+SUBMODULAR_CV_STATUS_MARKERS = (
+    "Feier Lyu. “Greedy Algorithms for Cardinality-Constrained Submodular Maximization.”",
+    "Formalizes deterministic greedy and a verified stateful lazy-greedy implementation",
+    "full Isabelle/HOL development under the supervision of Wenda Li",
 )
 LEGACY_SUBMODULAR_STATUS_PATTERNS = (
     "future extension / experimental branch",
@@ -257,11 +266,14 @@ def check_submodular_status(path: Path, text: str, require_canonical: bool = Fal
     if not require_canonical or path.name not in SUBMODULAR_STATUS_PAGES:
         return findings
 
-    required_statements = (
-        SUBMODULAR_PROJECTS_STATUS_MARKERS
-        if path.name == "projects.html"
-        else (SUBMODULAR_PUBLISHED_SCOPE, SUBMODULAR_POST_PUBLICATION_SCOPE)
-    )
+    if path.name == "projects.html":
+        required_statements = SUBMODULAR_PROJECTS_STATUS_MARKERS
+    elif path.name == "academic.html":
+        required_statements = SUBMODULAR_ACADEMIC_STATUS_MARKERS
+    elif path.name == "cv.html":
+        required_statements = SUBMODULAR_CV_STATUS_MARKERS
+    else:
+        required_statements = (SUBMODULAR_PUBLISHED_SCOPE, SUBMODULAR_POST_PUBLICATION_SCOPE)
     for required in required_statements:
         if required not in text:
             findings.append(

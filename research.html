@@ -103,7 +103,12 @@
         root.classList.remove("chronohaze-critical-loading");
         root.classList.remove("chronohaze-critical-loading-mobile");
       };
-      window.setTimeout(window.__chronohazeReleaseCriticalLoader, isMobile ? 1500 : 6500);
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", window.__chronohazeReleaseCriticalLoader, { once: true });
+      } else {
+        window.requestAnimationFrame(window.__chronohazeReleaseCriticalLoader);
+      }
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, 500);
     })();
   </script>
 <script>
@@ -148,7 +153,7 @@
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico?v=4" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=4" />
   <title>Research Statement | Feier Lyu (Fay Lyu) | Chronohaze</title>
-  <meta name="description" content="Research statement by Feier Lyu (Fay Lyu), centered on how structure changes under formalization, dualization, discretization, and algorithmization, with two primary directions in optimization." />
+  <meta name="description" content="Research statement by Feier Lyu (Fay Lyu) on reusable Isabelle/HOL infrastructure for optimization and structural negative-curvature certificates for network localization." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Chronohaze" />
   <meta property="og:title" content="Research Statement | Feier Lyu (Fay Lyu)" />
@@ -221,7 +226,7 @@
   <link rel="preload" href="assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="styles.min.css?v=20260719-quality1" />
   <link rel="stylesheet" href="assets/css/academic-mobile.css?v=20260418-mobile1" />
-  <script defer src="protect-media.min.js?v=20260722-logo-contrast1"></script>
+  <script defer src="protect-media.min.js?v=20260722-logo-contrast2"></script>
 </head>
 <body class="research-landing-page research-page" data-research-catalog-ready="1">
   <div class="page">
@@ -264,16 +269,33 @@
             <div data-lang-block="zh">
               <h1>研究陈述</h1>
               <p class="research-positioning"><strong>Feier Lyu</strong>（Fay Lyu）</p>
-              <p class="research-positioning research-thesis-line">我的核心问题是：一个数学或计算对象在被形式化、对偶化、离散化与算法化之后，其结构如何变化——哪些依赖被暴露、哪些信息被保留、哪些约束仍可计算。</p>
-              <p class="research-positioning">围绕这一问题，我把机器检查优化与可复用证明结构，以及优化中的不变性、对偶与定位，作为两条主要研究方向。</p>
+              <p class="research-positioning research-thesis-line">我研究优化理论与形式化验证。目前的项目包括：（i）面向子模最大化与投影一阶方法的可复用 Isabelle/HOL 基础设施；（ii）与 Shoham Sabach 合作研究网络定位中的负曲率结构证书。</p>
             </div>
             <div data-lang-block="en" hidden>
               <h1>Research Statement</h1>
               <p class="research-positioning"><strong>Feier Lyu</strong> (Fay Lyu)</p>
-              <p class="research-positioning research-thesis-line">My central question is how structure changes after formalization, dualization, discretization, and algorithmization: which dependencies become explicit, which information survives, and which constraints remain computationally usable.</p>
-              <p class="research-positioning">Around this question, I treat machine-checked optimization and reusable proof structure, and invariance, duality, and localization in optimization, as my two primary research directions.</p>
+              <p class="research-positioning research-thesis-line">I work on optimization theory and formal verification. My current projects are: (i) reusable Isabelle/HOL infrastructure for submodular maximization and projected first-order methods; and (ii) structural certificates for negative curvature in network localization, in collaboration with Shoham Sabach.</p>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section class="section research-questions-section" id="research-questions">
+        <div class="container research-section-head">
+          <div data-lang-block="zh"><h2>当前正在解决的三个问题</h2></div>
+          <div data-lang-block="en" hidden><h2>Three current questions</h2></div>
+        </div>
+        <div class="container">
+          <ol class="research-question-list" data-lang-block="zh">
+            <li><span>01</span><p>如何把 classical greedy、stateful lazy-greedy 与 stochastic-greedy 的假设、状态不变量和近似保证组织成可复用的 Isabelle/HOL 接口？</p></li>
+            <li><span>02</span><p>如何用一组稳定的 projection geometry 与 projected-gradient mapping 引理，同时支持凸收敛和强凸线性收敛率？</p></li>
+            <li><span>03</span><p>对网络定位中的非最优驻点，哪些图结构与几何条件能给出可计算的负曲率证书和局部逃逸方向？</p></li>
+          </ol>
+          <ol class="research-question-list" data-lang-block="en" hidden>
+            <li><span>01</span><p>How can the assumptions, state invariants, and approximation guarantees for classical greedy, stateful lazy-greedy, and stochastic-greedy be exposed through reusable Isabelle/HOL interfaces?</p></li>
+            <li><span>02</span><p>Which reusable projection-geometry and projected-gradient-mapping lemmas support both convex convergence and a strongly convex linear rate?</p></li>
+            <li><span>03</span><p>For non-optimal stationary points in network localization, which graph and geometric conditions yield a computable negative-curvature certificate and a local escape direction?</p></li>
+          </ol>
         </div>
       </section>
 
@@ -287,9 +309,9 @@
             <article class="research-project-card">
               <p class="research-project-kind">PRIMARY DIRECTION 01</p>
               <h3>机器检查优化与可复用证明结构</h3>
-              <p>我正在使用 Isabelle/HOL 形式化一阶优化方法与子模贪心算法中的经典证明结构。这里我关心的不只是把定理放进 proof assistant，而是如何把证明中的依赖、接口和可复用部分写清楚。</p>
-              <p>正式发表于 AFP（2026）：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库还进一步发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。关于 smooth convex optimization 与 projected gradient descent 的第二个形式化项目已提交至 Archive of Formal Proofs，目前等待审核。</p>
-              <p>接下来我想继续思考的是：怎样把这些形式化结果整理成更稳定的 library，使它们既适合展示和归档，也能支持后续扩展。</p>
+              <p>这条研究线把算法假设、状态不变量、关键不等式与收敛结论拆成可复用的 Isabelle/HOL 组件。</p>
+              <p>2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库还进一步发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。关于 smooth convex optimization 与 projected gradient descent 的第二个形式化项目已于2026年7月2日提交至 Archive of Formal Proofs，目前等待审核。</p>
+              <p>当前重点是减少不同算法证明之间重复的 projection、telescoping 与 approximation bookkeeping。</p>
               <div class="research-link-row">
                 <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
                 <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a>
@@ -300,9 +322,9 @@
 
             <article class="research-project-card">
               <p class="research-project-kind">PRIMARY DIRECTION 02</p>
-              <h3>优化中的不变性、对偶与定位</h3>
-              <p>在一些优化模型中，最自然的对偶路线会因为 translation 或 gauge invariance 而退化，最后只得到 trivial lower bound。我感兴趣的是：这种退化到底说明了推导失败，还是说明模型本身隐藏着另一种结构？</p>
-              <p>我目前尤其关注 network localization 中 Range(B)、cycle consistency 与 instance difficulty 的关系。这条线的核心不是单纯追求更强的 bound，而是理解在对偶信息 collapse 之后，是否仍能恢复可解释、可比较的 structural score。</p>
+              <h3>网络定位中的负曲率证书</h3>
+              <p>与 Shoham Sabach 的合作研究图结构如何控制非最优驻点附近的 Hessian 负曲率。</p>
+              <p>当前目标是从 cycle consistency、projected edge budgets 与图的环空间中构造可验证的局部逃逸方向，并明确这些证书成立所需的几何假设。</p>
             </article>
 
           </div>
@@ -310,9 +332,9 @@
             <article class="research-project-card">
               <p class="research-project-kind">PRIMARY DIRECTION 01</p>
               <h3>Machine-checked optimization and reusable proof structure</h3>
-              <p>I am using Isabelle/HOL to formalize classical proof structures in first-order optimization methods and submodular greedy algorithms. I care not only about putting theorems into a proof assistant, but about making dependencies, interfaces, and reusable proof components explicit.</p>
-              <p>Published in AFP (2026): a formalization of the classical greedy algorithm and a verified stateful lazy-greedy variant for cardinality-constrained monotone submodular maximization. Post-publication extension: the current repository additionally develops a stochastic-greedy line, including sampling, approximation packaging, and oracle-cost accounting. A second formalization project on smooth convex optimization and projected gradient descent has been submitted to the Archive of Formal Proofs and is awaiting review.</p>
-              <p>The next question for me is how to turn these developments into a more stable library that is suitable for presentation and archiving while still supporting later extensions.</p>
+              <p>This line separates algorithmic assumptions, state invariants, key inequalities, and convergence statements into reusable Isabelle/HOL components.</p>
+              <p>Published in AFP on May 26, 2026: a formalization of the classical greedy algorithm and a verified stateful lazy-greedy variant for cardinality-constrained monotone submodular maximization. Post-publication extension: the current repository additionally develops a stochastic-greedy line, including sampling, approximation packaging, and oracle-cost accounting. A second formalization project on smooth convex optimization and projected gradient descent was submitted to the Archive of Formal Proofs on July 2, 2026 and is awaiting review.</p>
+              <p>The current goal is to reduce repeated projection, telescoping, and approximation bookkeeping across different algorithm proofs.</p>
               <div class="research-link-row">
                 <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
                 <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a>
@@ -323,9 +345,9 @@
 
             <article class="research-project-card">
               <p class="research-project-kind">PRIMARY DIRECTION 02</p>
-              <h3>Invariance, duality, and localization in optimization</h3>
-              <p>In some optimization models, the most natural dual routes degenerate because of translation or gauge invariance and only produce a trivial lower bound. I am interested in whether that degeneration means the derivation failed, or whether the model is hiding another kind of structure.</p>
-              <p>I am especially interested in the relation among Range(B), cycle consistency, and instance difficulty in network localization. The point is not only to obtain a stronger bound, but to understand whether interpretable and comparable structural scores remain after dual information collapses.</p>
+              <h3>Negative-curvature certificates in network localization</h3>
+              <p>In collaboration with Shoham Sabach, I study how graph structure controls Hessian negative curvature near non-optimal stationary points.</p>
+              <p>The current goal is to construct verifiable local escape directions from cycle consistency, projected edge budgets, and the graph cycle space, while making the required geometric assumptions explicit.</p>
             </article>
 
           </div>

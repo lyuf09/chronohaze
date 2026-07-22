@@ -92,20 +92,48 @@
 
 .academic-evidence-list p {
   margin: 0 0 5px;
-  color: rgba(56, 63, 77, 0.78);
-  font-size: 11.5px;
-  line-height: 1.55;
+  color: rgba(38, 45, 59, 0.92);
+  font-size: 15px;
+  line-height: 1.62;
   letter-spacing: 0;
   overflow-wrap: anywhere;
 }
 
-.academic-evidence-list a {
-  color: rgba(44, 53, 71, 0.86);
-  font-size: 11px;
+.academic-evidence-list .academic-proof-kicker {
+  color: rgba(55, 64, 82, 0.8);
+  font-size: 10.5px;
   line-height: 1.4;
+}
+
+.academic-evidence-list p strong {
+  color: rgba(27, 33, 44, 0.98);
+  font-weight: 600;
+}
+
+.academic-evidence-list a {
+  color: rgba(34, 43, 61, 0.94);
+  font-size: 13.5px;
+  line-height: 1.45;
   text-decoration: underline;
   text-decoration-color: rgba(66, 77, 98, 0.28);
   text-underline-offset: 3px;
+}
+
+.academic-evidence-list .research-link-row a {
+  color: rgba(31, 40, 58, 0.96);
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+.projects-page:not(.academic-page) #selected-work-list .academic-evidence-list li {
+  grid-template-columns: 54px minmax(0, 1fr);
+  padding: 18px 0;
+}
+
+.projects-page:not(.academic-page) #selected-work-list .academic-evidence-index {
+  color: rgba(50, 63, 86, 0.74);
+  font-weight: 600;
+  letter-spacing: 0.08em;
 }
 
 .photo-index-page .photo-vocabulary {
@@ -254,6 +282,11 @@
   .academic-evidence-list li {
     grid-template-columns: 24px minmax(0, 1fr);
     gap: 8px;
+  }
+
+  .academic-evidence-list p {
+    font-size: 14.5px;
+    line-height: 1.62;
   }
 
   .photo-index-page .photo-vocabulary {

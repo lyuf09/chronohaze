@@ -103,7 +103,12 @@
         root.classList.remove("chronohaze-critical-loading");
         root.classList.remove("chronohaze-critical-loading-mobile");
       };
-      window.setTimeout(window.__chronohazeReleaseCriticalLoader, isMobile ? 1500 : 6500);
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", window.__chronohazeReleaseCriticalLoader, { once: true });
+      } else {
+        window.requestAnimationFrame(window.__chronohazeReleaseCriticalLoader);
+      }
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, 500);
     })();
   </script>
 <script>
@@ -147,16 +152,16 @@
   </script>
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico?v=4" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=4" />
-  <title>CV | Feier Lyu (Fay Lyu) | Chronohaze</title>
+  <title>Academic Profile | Feier Lyu (Fay Lyu) | Chronohaze</title>
   <meta name="description" content="Public academic profile and selected work by Feier Lyu (Fay Lyu)." />
   <meta property="og:type" content="profile" />
   <meta property="og:site_name" content="Chronohaze" />
-  <meta property="og:title" content="CV | Feier Lyu (Fay Lyu) | Chronohaze" />
+  <meta property="og:title" content="Academic Profile | Feier Lyu (Fay Lyu) | Chronohaze" />
   <meta property="og:description" content="Public academic profile and selected work by Feier Lyu (Fay Lyu)." />
   <meta property="og:url" content="https://lyuf09.github.io/chronohaze/cv.html" />
   <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/cv.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="CV | Feier Lyu (Fay Lyu) | Chronohaze" />
+  <meta name="twitter:title" content="Academic Profile | Feier Lyu (Fay Lyu) | Chronohaze" />
   <meta name="twitter:description" content="Public academic profile and selected work by Feier Lyu (Fay Lyu)." />
   <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/cv.png" />
   <link rel="canonical" href="https://lyuf09.github.io/chronohaze/cv.html" />
@@ -172,7 +177,7 @@
       "@type": "ProfilePage",
       "@id": "https://lyuf09.github.io/chronohaze/cv.html#page",
       "url": "https://lyuf09.github.io/chronohaze/cv.html",
-      "name": "CV | Feier Lyu (Fay Lyu) | Chronohaze",
+      "name": "Academic Profile | Feier Lyu (Fay Lyu) | Chronohaze",
       "mainEntity": {
         "@id": "https://lyuf09.github.io/chronohaze/#person"
       },
@@ -220,7 +225,7 @@
   </script>
   <link rel="preload" href="assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="styles.min.css?v=20260719-quality1" />
-  <script defer src="protect-media.min.js?v=20260722-logo-contrast1"></script>
+  <script defer src="protect-media.min.js?v=20260722-logo-contrast2"></script>
 </head>
 <body class="cv-page">
   <div class="page">
@@ -257,72 +262,65 @@
             </div>
           </div>
           <nav class="cv-toc" aria-label="CV section navigation">
-            <a class="cv-toc-link" href="#cv-zh-highlights" data-cv-toc-link="highlights">教育与方向</a>
-            <a class="cv-toc-link" href="#cv-zh-projects" data-cv-toc-link="projects">研究与成果</a>
+            <a class="cv-toc-link" href="#cv-zh-highlights" data-cv-toc-link="highlights">教育与兴趣</a>
+            <a class="cv-toc-link" href="#cv-zh-projects" data-cv-toc-link="projects">学术记录</a>
             <a class="cv-toc-link" href="#cv-zh-experience" data-cv-toc-link="experience">行业经历与联系</a>
           </nav>
         </div>
 
         <div data-lang-block="zh">
-          <h1>公开版 CV</h1>
+          <h1>学术档案</h1>
           <p><strong>Feier Lyu</strong>（Fay Lyu）</p>
-
-          <p>本页仅保留公开联系方式；完整版简历可邮件索取。</p>
 
           <section id="cv-zh-highlights">
             <h2>教育背景</h2>
             <p>爱丁堡大学数学本科（BSc Mathematics）<br />康奈尔大学交换学生，2025–2026<br />Expected graduation: 2027</p>
 
-            <h2>研究方向</h2>
-            <p>优化理论、形式化验证与数学建模。近期兴趣集中在一阶优化方法的机器检查证明、子模优化的近似保证，以及非凸极小极大问题中的 value-function 视角与二阶追踪问题。</p>
+            <h2>研究兴趣</h2>
+            <p>优化理论与形式化验证；当前项目包括面向子模最大化和投影一阶方法的可复用 Isabelle/HOL 基础设施，以及网络定位中的图结构负曲率证书。</p>
           </section>
 
           <section id="cv-zh-projects">
             <h2>研究经历</h2>
             <section class="cv-experience-item">
-              <h3>优化研究合作</h3>
+              <h3>与 Prof. Shoham Sabach 的研究合作</h3>
               <p>2026–至今</p>
-              <p>与 Prof. Shoham Sabach（Cornell University）合作。</p>
-              <p>合作始于本人在康奈尔大学交换期间，并在交换结束后继续，聚焦优化理论、网络定位与二阶分析。</p>
+              <p>围绕网络定位中的结构化负曲率证书与局部逃逸方向开展持续合作。当前研究图结构、不变性与边层级曲率如何在 reduced Hessian 中相互作用。</p>
             </section>
 
             <h2>发表成果</h2>
             <ol class="cv-project-list">
               <li>
-                <h3>Greedy Algorithms for Cardinality-Constrained Submodular Maximization</h3>
-                <p>Archive of Formal Proofs · 2026</p>
-                <p>正式发表于 AFP（2026）：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库继续发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。<a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a>。</p>
+                <h3>Feier Lyu. “Greedy Algorithms for Cardinality-Constrained Submodular Maximization.”</h3>
+                <p>Archive of Formal Proofs · 2026年5月</p>
+                <p>形式化基数约束单调子模最大化的 deterministic greedy 与 verified stateful lazy-greedy implementation。本人在 Wenda Li 指导下负责完整 Isabelle/HOL development。<a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a>。</p>
               </li>
             </ol>
 
-            <h2>形式化验证项目</h2>
+            <h2>Submitted Formalization</h2>
             <ol class="cv-project-list">
               <li>
                 <h3>First-Order Methods for Smooth Convex Optimization in Isabelle/HOL</h3>
-                <p>独立项目（无导师）· 2026</p>
-                <p>独立设计并完成投影梯度下降与一阶优化方法的 Isabelle/HOL 形式化，包括 projection inequality、projected-gradient mapping、凸收敛、强凸线性收敛与可复用的 telescoping structure。项目已提交至 Archive of Formal Proofs，目前等待审核。</p>
-              </li>
-              <li>
-                <h3>Greedy Algorithms for Cardinality-Constrained Submodular Maximization</h3>
-                <p>爱丁堡大学信息学院（School of Informatics, University of Edinburgh）· Dr. Wenda Li · 2025–2026</p>
-                <p>在 Dr. Wenda Li 指导下，独立完成子模函数与贪心算法近似保证的全部 Isabelle/HOL formal proof development。成果已正式发表于 Archive of Formal Proofs；发表后的仓库继续发展 StochasticGreedy theorem line。</p>
+                <p>Independent formalization project · 2026</p>
+                <p>设计并完成 Isabelle/HOL development，覆盖 projection geometry、projected-gradient mappings、凸收敛与强凸条件下的线性收敛。项目已于2026年7月2日提交 Archive of Formal Proofs，目前等待审核。</p>
               </li>
             </ol>
 
-            <h2>Selected Patents</h2>
+            <h2>Selected Technical Notes</h2>
+            <ol class="cv-project-list">
+              <li><h3><a href="notes/network_localization_structural_certificates.html">Network Localization: Structural Certificates</a></h3><p>与 Shoham Sabach 的 ongoing joint research；英文技术笔记明确区分 assumptions、results 与 open questions。</p></li>
+              <li><h3><a href="notes/ttgda_second_order_tracking_note.html">TTGDA and Second-Order Tracking</a></h3><p>通过已有 value-function viewpoint 展开的 exploratory derivation。</p></li>
+            </ol>
+
+            <h2>Patents</h2>
             <ol class="cv-project-list">
               <li>
                 <h3>Anti-Segregation Spreading Method and Device</h3>
-                <p>发明专利在审。</p>
-                <p>开发了一种用于改善工业铺料过程中物料均匀性的机械框架。</p>
-              </li>
-              <li>
-                <h3>Anti-Segregation Spreading Device</h3>
-                <p>实用新型 · 2025 年 7 月 4 日授权。</p>
-                <p>涵盖一种用于工业物料分布的实体装置。</p>
+                <p>中国发明专利申请，申请号 2024112756051，审查中。</p>
+                <p>相关实用新型：Anti-Segregation Spreading Device，专利号 ZL202422234130.3，2025年7月4日授权。</p>
+                <p>设计用于改善工业铺料过程中物料均匀性的机械系统。</p>
               </li>
             </ol>
-            <p>公开页面不展示专利号。</p>
           </section>
 
           <section id="cv-zh-experience">
@@ -349,65 +347,58 @@
         </div>
 
         <div data-lang-block="en" hidden>
-          <h1>Public CV</h1>
+          <h1>Academic Profile</h1>
           <p><strong>Feier Lyu</strong> (Fay Lyu)</p>
-
-          <p>This page lists public contact information only; a fuller CV is available on request by email.</p>
 
           <section id="cv-en-highlights">
             <h2>Education</h2>
             <p>BSc Mathematics, University of Edinburgh<br />Exchange student at Cornell University, 2025–2026<br />Expected graduation: 2027</p>
 
-            <h2>Research Directions</h2>
-            <p>Optimization theory, formal verification, and mathematical modeling. Recent interests center on machine-checked proofs for first-order optimization methods, approximation guarantees for submodular optimization, and the value-function viewpoint and second-order tracking questions in nonconvex minimax problems.</p>
+            <h2>Research Interests</h2>
+            <p>Optimization theory and formal verification. Current projects develop reusable Isabelle/HOL infrastructure for submodular maximization and projected first-order methods, and graph-structured negative-curvature certificates for network localization.</p>
           </section>
 
           <section id="cv-en-projects">
             <h2>Research Experience</h2>
             <section class="cv-experience-item">
-              <h3>Research Collaboration in Optimization</h3>
+              <h3>Research Collaboration with Prof. Shoham Sabach</h3>
               <p>2026–Present</p>
-              <p>Collaborating with Prof. Shoham Sabach (Cornell University).</p>
-              <p>The collaboration began during my exchange study at Cornell University and continues after the completion of the exchange, focusing on optimization theory, network localization, and second-order analysis.</p>
+              <p>Ongoing research collaboration with Prof. Shoham Sabach on structural negative-curvature certificates and local escape directions in network localization. Current work studies how graph structure, invariance, and edge-level curvature interact in the reduced Hessian.</p>
             </section>
 
             <h2>Publications</h2>
             <ol class="cv-project-list">
               <li>
-                <h3>Greedy Algorithms for Cardinality-Constrained Submodular Maximization</h3>
-                <p>Archive of Formal Proofs · 2026</p>
-                <p>Published in AFP (2026): a formalization of the classical greedy algorithm and a verified stateful lazy-greedy variant for cardinality-constrained monotone submodular maximization. Post-publication extension: the current repository additionally develops a stochastic-greedy line, including sampling, approximation packaging, and oracle-cost accounting. <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a>.</p>
+                <h3>Feier Lyu. “Greedy Algorithms for Cardinality-Constrained Submodular Maximization.”</h3>
+                <p>Archive of Formal Proofs · May 2026</p>
+                <p>Formalizes deterministic greedy and a verified stateful lazy-greedy implementation for cardinality-constrained monotone submodular maximization. I was responsible for the full Isabelle/HOL development under the supervision of Wenda Li. <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a>.</p>
               </li>
             </ol>
 
-            <h2>Formal Verification Projects</h2>
+            <h2>Submitted Formalization</h2>
             <ol class="cv-project-list">
               <li>
                 <h3>First-Order Methods for Smooth Convex Optimization in Isabelle/HOL</h3>
-                <p>Independent project (no supervisor) · 2026</p>
-                <p>Independently designed and completed the Isabelle/HOL formalization of projected gradient descent and first-order optimization methods, including the projection inequality, projected-gradient mapping, convex convergence, strongly convex linear convergence, and reusable telescoping structures. The project has been submitted to the Archive of Formal Proofs and is awaiting review.</p>
-              </li>
-              <li>
-                <h3>Greedy Algorithms for Cardinality-Constrained Submodular Maximization</h3>
-                <p>School of Informatics, University of Edinburgh · Dr. Wenda Li · 2025–2026</p>
-                <p>Independently completed the full Isabelle/HOL formal proof development of approximation guarantees for submodular greedy algorithms under the supervision of Dr. Wenda Li. The work was published in the Archive of Formal Proofs; the repository subsequently developed a post-publication StochasticGreedy theorem line.</p>
+                <p>Independent formalization project · 2026</p>
+                <p>I designed and completed the Isabelle/HOL development, covering projection geometry, projected-gradient mappings, convex convergence, and linear convergence under strong convexity. The project was submitted to the Archive of Formal Proofs on July 2, 2026 and is awaiting review.</p>
               </li>
             </ol>
 
-            <h2>Selected Patents</h2>
+            <h2>Selected Technical Notes</h2>
+            <ol class="cv-project-list">
+              <li><h3><a href="notes/network_localization_structural_certificates.html">Network Localization: Structural Certificates</a></h3><p>Ongoing joint research with Shoham Sabach; the English technical note separates assumptions, results, and open questions.</p></li>
+              <li><h3><a href="notes/ttgda_second_order_tracking_note.html">TTGDA and Second-Order Tracking</a></h3><p>An exploratory derivation through the established value-function viewpoint.</p></li>
+            </ol>
+
+            <h2>Patents</h2>
             <ol class="cv-project-list">
               <li>
                 <h3>Anti-Segregation Spreading Method and Device</h3>
-                <p>Invention patent under review.</p>
-                <p>Developed a mechanical framework for improving material homogeneity in industrial spreading processes.</p>
-              </li>
-              <li>
-                <h3>Anti-Segregation Spreading Device</h3>
-                <p>Utility model · granted 4 July 2025.</p>
-                <p>Utility model covering a physical device for industrial material distribution.</p>
+                <p>Chinese invention patent application, Application No. 2024112756051, pending.</p>
+                <p>Related utility model: Anti-Segregation Spreading Device, Patent No. ZL202422234130.3, granted July 4, 2025.</p>
+                <p>Designed a mechanical system to improve material homogeneity in industrial spreading processes.</p>
               </li>
             </ol>
-            <p>Patent numbers are omitted on this public page.</p>
           </section>
 
           <section id="cv-en-experience">
@@ -473,7 +464,7 @@
       var i18n = {
         zh: {
           htmlLang: 'zh-CN',
-          pageTitle: '公开版 CV | Chronohaze',
+          pageTitle: '学术档案 | Chronohaze',
           navAria: '主导航',
           navHome: '主页',
           navAcademic: '学术',
@@ -488,14 +479,14 @@
           navSearch: '搜索',
           cvLastUpdatedLabel: '最近更新：',
           cvLastUpdatedValue: '2026 年 7 月',
-          tocHighlights: '教育与方向',
-          tocProjects: '研究与成果',
+          tocHighlights: '教育与兴趣',
+          tocProjects: '学术记录',
           tocExperience: '行业经历与联系',
           researchLandingCta: 'Research'
         },
         en: {
           htmlLang: 'en',
-          pageTitle: 'Public CV | Chronohaze',
+          pageTitle: 'Academic Profile | Chronohaze',
           navAria: 'Main navigation',
           navHome: 'Home',
           navAcademic: 'Academic',
@@ -510,8 +501,8 @@
           navSearch: 'Search',
           cvLastUpdatedLabel: 'Last updated:',
           cvLastUpdatedValue: 'July 2026',
-          tocHighlights: 'Education & Directions',
-          tocProjects: 'Research & Outputs',
+          tocHighlights: 'Education & Interests',
+          tocProjects: 'Academic Record',
           tocExperience: 'Industry & Contact',
           researchLandingCta: 'Research'
         }

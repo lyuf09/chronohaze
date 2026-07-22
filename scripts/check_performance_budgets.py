@@ -43,7 +43,9 @@ def main() -> int:
     # Core JS/CSS/HTML file budgets. These track the generated site baseline with modest
     # headroom so the check catches real bloat instead of failing every content polish pass.
     file_budgets: List[Tuple[str, int, str]] = [
-        ("protect-media.min.js", 525_000, "core frontend runtime bundle"),
+        # Gradient-aware floating-logo contrast sampling adds about 2.7 KiB gzip
+        # while removing the initial white-on-white visibility window.
+        ("protect-media.min.js", 540_000, "core frontend runtime bundle"),
         ("styles.min.css", 320_000, "global styles"),
         ("home.min.css", 48_000, "home page styles"),
         ("assets/logo-header.png", 30_000, "header logo"),

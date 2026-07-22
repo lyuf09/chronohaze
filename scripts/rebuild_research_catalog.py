@@ -589,10 +589,9 @@ def parse_research_page(text: str) -> Dict[str, Any]:
         "date": "",
         "excerpt": search_excerpt or "Research landing page",
         "excerpt_en": (
-            "My central question is how the structure of a mathematical or computational object "
-            "changes under formalization, dualization, discretization, and algorithmization: "
-            "which dependencies become visible, which information is preserved, and which "
-            "constraints remain computable."
+            "I work on optimization theory and formal verification through reusable Isabelle/HOL "
+            "infrastructure for optimization and structural negative-curvature certificates for "
+            "network localization."
         ),
         "tags": ["research", "optimization", "formal-methods"],
         "sort": today_sort,

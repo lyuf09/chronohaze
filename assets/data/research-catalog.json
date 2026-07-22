@@ -3,17 +3,17 @@
     "eyebrow": "",
     "name": "研究陈述",
     "subtitle": "",
-    "positioning": "我的核心问题是：一个数学或计算对象在被形式化、对偶化、离散化与算法化之后，其结构如何变化——哪些依赖被暴露、哪些信息被保留、哪些约束仍可计算。",
+    "positioning": "我研究优化理论与形式化验证。目前的项目包括：（i）面向子模最大化与投影一阶方法的可复用 Isabelle/HOL 基础设施；（ii）与 Shoham Sabach 合作研究网络定位中的负曲率结构证书。",
     "chips": []
   },
   "meta": {
     "items": [
       {
         "label": "Last updated",
-        "value": "2026-07-18 · 10:48 AM ET",
-        "datetime": "2026-07-18T10:48:59-04:00",
+        "value": "2026-07-22 · 09:10 AM ET",
+        "datetime": "2026-07-22T09:10:24-04:00",
         "timezone": "America/New_York",
-        "date_only": "2026-07-18",
+        "date_only": "2026-07-22",
         "display_format": "YYYY-MM-DD · hh:mm A ET"
       }
     ]
@@ -30,11 +30,11 @@
     {
       "kind": "PRIMARY DIRECTION 01",
       "title": "机器检查优化与可复用证明结构",
-      "problem": "我正在使用 Isabelle/HOL 形式化一阶优化方法与子模贪心算法中的经典证明结构。这里我关心的不只是把定理放进 proof assistant，而是如何把证明中的依赖、接口和可复用部分写清楚。",
+      "problem": "这条研究线把算法假设、状态不变量、关键不等式与收敛结论拆成可复用的 Isabelle/HOL 组件。",
       "method": "",
       "status": "",
-      "current_status": "正式发表于 AFP（2026）：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库还进一步发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。关于 smooth convex optimization 与 projected gradient descent 的第二个形式化项目已提交至 Archive of Formal Proofs，目前等待审核。",
-      "contribution": "接下来我想继续思考的是：怎样把这些形式化结果整理成更稳定的 library，使它们既适合展示和归档，也能支持后续扩展。",
+      "current_status": "2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库还进一步发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。关于 smooth convex optimization 与 projected gradient descent 的第二个形式化项目已于2026年7月2日提交至 Archive of Formal Proofs，目前等待审核。",
+      "contribution": "当前重点是减少不同算法证明之间重复的 projection、telescoping 与 approximation bookkeeping。",
       "links": [
         {
           "href": "https://isa-afp.org/entries/Submodular_Greedy.html#",
@@ -59,22 +59,22 @@
       ],
       "status_key": "",
       "status_label": "",
-      "status_detail": "正式发表于 AFP（2026）：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库还进一步发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。关于 smooth convex optimization 与 projected gradient descent 的第二个形式化项目已提交至 Archive of Formal Proofs，目前等待审核。",
-      "status_display": "正式发表于 AFP（2026）：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库还进一步发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。关于 smooth convex optimization 与 projected gradient descent 的第二个形式化项目已提交至 Archive of Formal Proofs，目前等待审核。"
+      "status_detail": "2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库还进一步发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。关于 smooth convex optimization 与 projected gradient descent 的第二个形式化项目已于2026年7月2日提交至 Archive of Formal Proofs，目前等待审核。",
+      "status_display": "2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库还进一步发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。关于 smooth convex optimization 与 projected gradient descent 的第二个形式化项目已于2026年7月2日提交至 Archive of Formal Proofs，目前等待审核。"
     },
     {
       "kind": "PRIMARY DIRECTION 02",
-      "title": "优化中的不变性、对偶与定位",
-      "problem": "在一些优化模型中，最自然的对偶路线会因为 translation 或 gauge invariance 而退化，最后只得到 trivial lower bound。我感兴趣的是：这种退化到底说明了推导失败，还是说明模型本身隐藏着另一种结构？",
+      "title": "网络定位中的负曲率证书",
+      "problem": "与 Shoham Sabach 的合作研究图结构如何控制非最优驻点附近的 Hessian 负曲率。",
       "method": "",
       "status": "",
-      "current_status": "我目前尤其关注 network localization 中 Range(B)、cycle consistency 与 instance difficulty 的关系。这条线的核心不是单纯追求更强的 bound，而是理解在对偶信息 collapse 之后，是否仍能恢复可解释、可比较的 structural score。",
+      "current_status": "当前目标是从 cycle consistency、projected edge budgets 与图的环空间中构造可验证的局部逃逸方向，并明确这些证书成立所需的几何假设。",
       "contribution": "",
       "links": [],
       "status_key": "",
       "status_label": "",
-      "status_detail": "我目前尤其关注 network localization 中 Range(B)、cycle consistency 与 instance difficulty 的关系。这条线的核心不是单纯追求更强的 bound，而是理解在对偶信息 collapse 之后，是否仍能恢复可解释、可比较的 structural score。",
-      "status_display": "我目前尤其关注 network localization 中 Range(B)、cycle consistency 与 instance difficulty 的关系。这条线的核心不是单纯追求更强的 bound，而是理解在对偶信息 collapse 之后，是否仍能恢复可解释、可比较的 structural score。"
+      "status_detail": "当前目标是从 cycle consistency、projected edge budgets 与图的环空间中构造可验证的局部逃逸方向，并明确这些证书成立所需的几何假设。",
+      "status_display": "当前目标是从 cycle consistency、projected edge budgets 与图的环空间中构造可验证的局部逃逸方向，并明确这些证书成立所需的几何假设。"
     }
   ],
   "outputs_section": {
@@ -135,18 +135,18 @@
     "url": "research.html",
     "section": "Site",
     "date": "",
-    "excerpt": "我的核心问题是：一个数学或计算对象在被形式化、对偶化、离散化与算法化之后，其结构如何变化——哪些依赖被暴露、哪些信息被保留、哪些约束仍可计算。",
-    "excerpt_en": "My central question is how the structure of a mathematical or computational object changes under formalization, dualization, discretization, and algorithmization: which dependencies become visible, which information is preserved, and which constraints remain computable.",
+    "excerpt": "我研究优化理论与形式化验证。目前的项目包括：（i）面向子模最大化与投影一阶方法的可复用 Isabelle/HOL 基础设施；（ii）与 Shoham Sabach 合作研究网络定位中的负曲率结构证书。",
+    "excerpt_en": "I work on optimization theory and formal verification through reusable Isabelle/HOL infrastructure for optimization and structural negative-curvature certificates for network localization.",
     "tags": [
       "research",
       "optimization",
       "formal-methods"
     ],
-    "sort": 20260718,
+    "sort": 20260722,
     "scope": "site",
-    "content": "研究陈述 我的核心问题是：一个数学或计算对象在被形式化、对偶化、离散化与算法化之后，其结构如何变化——哪些依赖被暴露、哪些信息被保留、哪些约束仍可计算。 主要研究方向 代表性工作入口 几项最能支撑上面研究线索的项目和笔记。 研究范围 PRIMARY DIRECTION 01 机器检查优化与可复用证明结构 我正在使用 Isabelle/HOL 形式化一阶优化方法与子模贪心算法中的经典证明结构。这里我关心的不只是把定理放进 proof assistant，而是如何把证明中的依赖、接口和可复用部分写清楚。 正式发表于 AFP（2026）：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库还进一步发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。关于 smooth convex optimization 与 projected gradient descent 的第二个形式化项目已提交至 Archive of Formal Proofs，目前等待审核。 接下来我想继续思考的是：怎样把这些形式化结果整理成更稳定的 library，使它们既适合展示和归档，也能支持后续扩展。 AFP entry DOI: 10.5281/zenodo.21054718 Proof document Repository PRIMARY DIRECTION 02 优化中的不变性、对偶与定位 在一些优化模型中，最自然的对偶路线会因为 translation 或 gauge invariance 而退化，最后只得到 trivial lower bound。我感兴趣的是：这种退化到底说明了推导失败，还是说明模型本身隐藏着另一种结构？ 我目前尤其关注 network localization 中 Range(B)、cycle consistency 与 instance difficulty 的关系。这条线的核心不是单纯追求更强的 bound，而是理解在对偶信息 collapse 之后，是否仍能恢复可解释、可比较的 structural score。 Isabelle/HOL Submodular Greedy Formalization 子模贪心算法形式化项目与材料入口。 Isabelle/HOL Projected Gradient Descent Awaiting review smooth convex optimization 中一阶方法形式化项目；已提交至 AFP，等待审核。 Optimization Note TTGDA and Second-Order Tracking Exploratory 关于 value-function viewpoint 与二阶 tracking 问题的探索性技术笔记。",
+    "content": "研究陈述 我研究优化理论与形式化验证。目前的项目包括：（i）面向子模最大化与投影一阶方法的可复用 Isabelle/HOL 基础设施；（ii）与 Shoham Sabach 合作研究网络定位中的负曲率结构证书。 主要研究方向 代表性工作入口 几项最能支撑上面研究线索的项目和笔记。 研究范围 PRIMARY DIRECTION 01 机器检查优化与可复用证明结构 这条研究线把算法假设、状态不变量、关键不等式与收敛结论拆成可复用的 Isabelle/HOL 组件。 2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库还进一步发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。关于 smooth convex optimization 与 projected gradient descent 的第二个形式化项目已于2026年7月2日提交至 Archive of Formal Proofs，目前等待审核。 当前重点是减少不同算法证明之间重复的 projection、telescoping 与 approximation bookkeeping。 AFP entry DOI: 10.5281/zenodo.21054718 Proof document Repository PRIMARY DIRECTION 02 网络定位中的负曲率证书 与 Shoham Sabach 的合作研究图结构如何控制非最优驻点附近的 Hessian 负曲率。 当前目标是从 cycle consistency、projected edge budgets 与图的环空间中构造可验证的局部逃逸方向，并明确这些证书成立所需的几何假设。 Isabelle/HOL Submodular Greedy Formalization 子模贪心算法形式化项目与材料入口。 Isabelle/HOL Projected Gradient Descent Awaiting review smooth convex optimization 中一阶方法形式化项目；已提交至 AFP，等待审核。 Optimization Note TTGDA and Second-Order Tracking Exploratory 关于 value-function viewpoint 与二阶 tracking 问题的探索性技术笔记。",
     "meta_title": "Research Statement | Feier Lyu (Fay Lyu) | Chronohaze",
-    "meta_description": "Research statement by Feier Lyu (Fay Lyu), centered on how structure changes under formalization, dualization, discretization, and algorithmization, with two primary directions in optimization."
+    "meta_description": "Research statement by Feier Lyu (Fay Lyu) on reusable Isabelle/HOL infrastructure for optimization and structural negative-curvature certificates for network localization."
   },
   "output_groups": [
     {
@@ -196,6 +196,6 @@
       ]
     }
   ],
-  "generated_at": "2026-07-18",
+  "generated_at": "2026-07-22",
   "source": "research.html"
 }

@@ -3911,12 +3911,16 @@ body.photo-lightbox-open {
 }
 
 .math-index-page .math-fractal-highlight {
-  width: min(100%, 340px);
-  margin: 18px auto 0;
+  width: min(100%, 980px);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 
 .math-index-page .math-fractal-highlight img {
-  width: 100%;
+  width: 92px;
+  flex: 0 0 92px;
   aspect-ratio: 1 / 1;
   object-fit: cover;
   display: block;
@@ -3925,12 +3929,16 @@ body.photo-lightbox-open {
 }
 
 .math-index-page .math-fractal-highlight figcaption {
-  margin-top: 8px;
+  margin: 0;
   color: rgba(58, 63, 73, 0.86);
   font-family: "Noto Serif SC", "Songti SC", serif;
   font-size: 13px;
   line-height: 1.35;
   letter-spacing: 0.01em;
+}
+
+.math-index-page .math-fractal-banner {
+  padding: 0 20px 26px;
 }
 
 .math-index-page .section {
@@ -6673,6 +6681,46 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
   line-height: 1.74;
 }
 
+.research-page .research-questions-section {
+  padding-top: 12px;
+}
+
+.research-question-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.research-question-list[hidden] {
+  display: none !important;
+}
+
+.research-question-list li {
+  min-width: 0;
+  padding: 18px 18px 20px;
+  border-top: 2px solid rgba(55, 69, 94, 0.54);
+  background: rgba(249, 250, 253, 0.48);
+}
+
+.research-question-list span {
+  display: block;
+  margin-bottom: 10px;
+  color: rgba(65, 77, 100, 0.68);
+  font-family: "Cormorant Garamond", "Noto Serif SC", serif;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+}
+
+.research-question-list p {
+  margin: 0;
+  color: rgba(38, 45, 58, 0.9);
+  font-size: 14.5px;
+  line-height: 1.65;
+}
+
 .academic-tag-row {
   margin-top: 10px;
   display: flex;
@@ -7242,7 +7290,8 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
   }
 
   .academic-snapshot-list,
-  .research-page .research-direction-grid {
+  .research-page .research-direction-grid,
+  .research-question-list {
     grid-template-columns: 1fr;
   }
 
