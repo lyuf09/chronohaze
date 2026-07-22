@@ -3,15 +3,15 @@
     "eyebrow": "",
     "name": "研究陈述",
     "subtitle": "",
-    "positioning": "我研究优化理论与形式化验证。目前的项目包括：（i）面向子模最大化与投影一阶方法的可复用 Isabelle/HOL 基础设施；（ii）与 Shoham Sabach 合作研究网络定位中的负曲率结构证书。",
+    "positioning": "我研究优化理论与形式化验证。目前的项目包括：（i）面向子模最大化与投影一阶方法的可复用 Isabelle/HOL 基础设施；（ii）与 Prof. Shoham Sabach 合作研究网络定位中的负曲率结构证书。",
     "chips": []
   },
   "meta": {
     "items": [
       {
         "label": "Last updated",
-        "value": "2026-07-22 · 10:10 AM ET",
-        "datetime": "2026-07-22T10:10:24-04:00",
+        "value": "2026-07-22 · 11:34 AM ET",
+        "datetime": "2026-07-22T11:34:37-04:00",
         "timezone": "America/New_York",
         "date_only": "2026-07-22",
         "display_format": "YYYY-MM-DD · hh:mm A ET"
@@ -65,7 +65,7 @@
     {
       "kind": "PRIMARY DIRECTION 02",
       "title": "网络定位中的负曲率证书",
-      "problem": "与 Shoham Sabach 的合作研究图结构如何控制非最优驻点附近的 Hessian 负曲率。",
+      "problem": "与 Prof. Shoham Sabach 的合作研究图结构如何控制非最优驻点附近的 Hessian 负曲率。",
       "method": "",
       "status": "",
       "current_status": "当前目标是从 cycle consistency、projected edge budgets 与图的环空间中构造可验证的局部逃逸方向，并明确这些证书成立所需的几何假设。",
@@ -135,7 +135,7 @@
     "url": "research.html",
     "section": "Site",
     "date": "",
-    "excerpt": "我研究优化理论与形式化验证。目前的项目包括：（i）面向子模最大化与投影一阶方法的可复用 Isabelle/HOL 基础设施；（ii）与 Shoham Sabach 合作研究网络定位中的负曲率结构证书。",
+    "excerpt": "我研究优化理论与形式化验证。目前的项目包括：（i）面向子模最大化与投影一阶方法的可复用 Isabelle/HOL 基础设施；（ii）与 Prof. Shoham Sabach 合作研究网络定位中的负曲率结构证书。",
     "excerpt_en": "I work on optimization theory and formal verification through reusable Isabelle/HOL infrastructure for optimization and structural negative-curvature certificates for network localization.",
     "tags": [
       "research",
@@ -144,7 +144,7 @@
     ],
     "sort": 20260722,
     "scope": "site",
-    "content": "研究陈述 我研究优化理论与形式化验证。目前的项目包括：（i）面向子模最大化与投影一阶方法的可复用 Isabelle/HOL 基础设施；（ii）与 Shoham Sabach 合作研究网络定位中的负曲率结构证书。 主要研究方向 代表性工作入口 几项最能支撑上面研究线索的项目和笔记。 研究范围 PRIMARY DIRECTION 01 机器检查优化与可复用证明结构 这条研究线把算法假设、状态不变量、关键不等式与收敛结论拆成可复用的 Isabelle/HOL 组件。 2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库还进一步发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。关于 smooth convex optimization 与 projected gradient descent 的第二个形式化项目已于2026年7月2日提交至 Archive of Formal Proofs，目前等待审核。 当前重点是减少不同算法证明之间重复的 projection、telescoping 与 approximation bookkeeping。 AFP entry DOI: 10.5281/zenodo.21054718 Proof document Repository PRIMARY DIRECTION 02 网络定位中的负曲率证书 与 Shoham Sabach 的合作研究图结构如何控制非最优驻点附近的 Hessian 负曲率。 当前目标是从 cycle consistency、projected edge budgets 与图的环空间中构造可验证的局部逃逸方向，并明确这些证书成立所需的几何假设。 Isabelle/HOL Submodular Greedy Formalization 子模贪心算法形式化项目与材料入口。 Isabelle/HOL Projected Gradient Descent Awaiting review smooth convex optimization 中一阶方法形式化项目；已提交至 AFP，等待审核。 Optimization Note TTGDA and Second-Order Tracking Exploratory 关于 value-function viewpoint 与二阶 tracking 问题的探索性技术笔记。",
+    "content": "研究陈述 我研究优化理论与形式化验证。目前的项目包括：（i）面向子模最大化与投影一阶方法的可复用 Isabelle/HOL 基础设施；（ii）与 Prof. Shoham Sabach 合作研究网络定位中的负曲率结构证书。 主要研究方向 代表性工作入口 几项最能支撑上面研究线索的项目和笔记。 研究范围 PRIMARY DIRECTION 01 机器检查优化与可复用证明结构 这条研究线把算法假设、状态不变量、关键不等式与收敛结论拆成可复用的 Isabelle/HOL 组件。 2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库还进一步发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。关于 smooth convex optimization 与 projected gradient descent 的第二个形式化项目已于2026年7月2日提交至 Archive of Formal Proofs，目前等待审核。 当前重点是减少不同算法证明之间重复的 projection、telescoping 与 approximation bookkeeping。 AFP entry DOI: 10.5281/zenodo.21054718 Proof document Repository PRIMARY DIRECTION 02 网络定位中的负曲率证书 与 Prof. Shoham Sabach 的合作研究图结构如何控制非最优驻点附近的 Hessian 负曲率。 当前目标是从 cycle consistency、projected edge budgets 与图的环空间中构造可验证的局部逃逸方向，并明确这些证书成立所需的几何假设。 Isabelle/HOL Submodular Greedy Formalization 子模贪心算法形式化项目与材料入口。 Isabelle/HOL Projected Gradient Descent Awaiting review smooth convex optimization 中一阶方法形式化项目；已提交至 AFP，等待审核。 Optimization Note TTGDA and Second-Order Tracking Exploratory 关于 value-function viewpoint 与二阶 tracking 问题的探索性技术笔记。",
     "meta_title": "Research Statement | Feier Lyu (Fay Lyu) | Chronohaze",
     "meta_description": "Research statement by Feier Lyu (Fay Lyu) on reusable Isabelle/HOL infrastructure for optimization and structural negative-curvature certificates for network localization."
   },

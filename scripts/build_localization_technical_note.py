@@ -204,7 +204,7 @@ def build_story(styles):
         [
             ["Author", "Feier Lyu (Fay Lyu)"],
             ["Area", "Nonconvex optimization / network localization / graph structure"],
-            ["Status", "Ongoing collaboration with Shoham Sabach; public technical summary"],
+            ["Status", "Ongoing collaboration with Prof. Shoham Sabach; public technical summary"],
             ["Companion", "Chinese research essay retained at chronohaze.space"],
         ],
         colWidths=[29 * mm, 145 * mm],

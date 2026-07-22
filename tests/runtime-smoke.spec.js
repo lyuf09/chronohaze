@@ -41,7 +41,7 @@ test("home page renders hero and player shell", async ({ page }) => {
   await expect(page.locator(".selected-evidence-card").nth(0)).toContainText("确定性贪心算法与有状态惰性贪心算法");
   await expect(page.locator(".selected-evidence-card").nth(1)).toContainText("当前合作 · 网络定位");
   await expect(page.locator(".selected-evidence-card").nth(1)).toContainText(
-    "与 Shoham Sabach 合作研究图结构负曲率证书与局部逃逸方向。"
+    "与 Prof. Shoham Sabach 合作研究图结构负曲率证书与局部逃逸方向。"
   );
   await expect(page.locator(".selected-evidence-card").nth(2)).toContainText("已提交 AFP · 2026年7月2日");
   await expect(page.locator(".identity-panel-math")).toContainText("学术身份 · FEIER LYU");
@@ -296,7 +296,7 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
   await expect(page.locator("main")).not.toContainText("Born in 2005");
   await expect(page.getByRole("heading", { name: "Research Snapshot" })).toBeVisible();
   await expect(page.locator(".selected-evidence-card").nth(1)).toContainText(
-    "Graph-structured negative-curvature certificates and local escape directions, with Shoham Sabach."
+    "Graph-structured negative-curvature certificates and local escape directions, with Prof. Shoham Sabach."
   );
   await expect(page.locator(".hero-portrait")).toHaveAttribute("alt", "Portrait of HazezZ");
   await expect(page.locator(".now-grid")).toHaveAttribute("aria-label", "Current creative work");
@@ -1066,7 +1066,7 @@ test("academic page isolates languages and renders a concise academic index", as
     "我研究优化理论与形式化验证"
   );
   await expect(page.locator('.research-hero [data-lang-block="zh"]')).toContainText(
-    '与 Shoham Sabach 合作研究负曲率证书与局部逃逸方向'
+    '与 Prof. Shoham Sabach 合作研究负曲率证书与局部逃逸方向'
   );
   await expect(evidence.getByRole("link", { name: "AFP entry" })).toHaveAttribute(
     "href",
@@ -1090,11 +1090,11 @@ test("academic page isolates languages and renders a concise academic index", as
     "My current work centers on reusable Isabelle/HOL infrastructure"
   );
   await expect(page.locator('.research-hero [data-lang-block="en"]')).toContainText(
-    'Negative-curvature certificates and local escape directions, with Shoham Sabach'
+    'Negative-curvature certificates and local escape directions, with Prof. Shoham Sabach'
   );
   await expect(evidence.locator('[data-lang-block="en"]')).toContainText("Published May 26, 2026");
   await expect(evidence.locator('[data-lang-block="en"]')).toContainText("Independent formalization project");
-  await expect(evidence.locator('[data-lang-block="en"]')).toContainText("Ongoing collaboration with Shoham Sabach");
+  await expect(evidence.locator('[data-lang-block="en"]')).toContainText("Ongoing collaboration with Prof. Shoham Sabach");
   await expect(page.locator("main")).not.toContainText("Born in 2005");
   await expect(page.locator("main")).not.toContainText("HazezZ");
 
@@ -1146,7 +1146,7 @@ test("AFP publication status stays synchronized across work page and project his
   const localizationProject = page.locator(
     '#selected-work-list [data-lang-block="en"] > .academic-evidence > .academic-evidence-list li'
   ).nth(2);
-  await expect(localizationProject).toContainText("Ongoing collaboration with Shoham Sabach");
+  await expect(localizationProject).toContainText("Ongoing collaboration with Prof. Shoham Sabach");
   await expect(localizationProject.getByRole("link", { name: "English technical note" })).toHaveAttribute(
     "href",
     "notes/network_localization_structural_certificates.html"
