@@ -103,8 +103,15 @@ test("floating logo uses a genuinely dark mark over declared light surfaces", as
   await placeLogoOver(".identity-panel-creative");
   await expect.poll(async () => logo.evaluate((node) => node.classList.contains("is-contrast"))).toBe(false);
 
+  await page.evaluate(() => {
+    const overlay = document.createElement("div");
+    overlay.dataset.logoSamplingOverlay = "";
+    overlay.style.cssText = "position:fixed;inset:0;z-index:2147483000;background:transparent";
+    document.body.appendChild(overlay);
+  });
   await placeLogoOver(".home-footer");
   await expect.poll(async () => logo.evaluate((node) => node.classList.contains("is-contrast"))).toBe(true);
+  await page.evaluate(() => document.querySelector("[data-logo-sampling-overlay]")?.remove());
 
   await page.setViewportSize({ width: 390, height: 844 });
   await expect(logo).toHaveClass(/is-share-trigger/);
