@@ -426,6 +426,19 @@ test("music index renders and remains interactive", async ({ page }) => {
   );
   await expect(page.locator(".music-hero-copy h1")).toHaveText("HAZEZZ");
   await expect(page.locator(".music-hero-roles")).toContainText("Composer · Arranger · Bassist");
+  const heroLayout = await page.evaluate(() => {
+    const image = document.querySelector(".music-hero img");
+    const copy = document.querySelector(".music-hero-copy");
+    const imageRect = image ? image.getBoundingClientRect() : null;
+    const copyRect = copy ? copy.getBoundingClientRect() : null;
+    return {
+      imageRatio: imageRect && imageRect.height ? imageRect.width / imageRect.height : 0,
+      imageBottom: imageRect ? imageRect.bottom : 0,
+      copyTop: copyRect ? copyRect.top : 0,
+    };
+  });
+  expect(heroLayout.imageRatio).toBeGreaterThan(3.4);
+  expect(heroLayout.copyTop).toBeGreaterThanOrEqual(heroLayout.imageBottom - 1);
   await expect(page.locator(".music-practice-copy")).toContainText("钢琴和小提琴");
   await expect(page.locator("main")).not.toContainText("屏幕、时差");
   await expect(page.locator(".music-room-archive-section")).toBeVisible();

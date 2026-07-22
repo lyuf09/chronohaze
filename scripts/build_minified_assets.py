@@ -8,6 +8,7 @@ from pathlib import Path
 VERSION = "20260722-music-localization1"
 HOME_VERSION = "20260722-home-fold1"
 PROTECT_VERSION = "20260722-music-localization1"
+MUSIC_STYLE_VERSION = "20260722-music-strip1"
 
 SECURITY_META_MARKER = "chronohaze-security-policy"
 SECURITY_META_SNIPPET = """  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
@@ -262,9 +263,10 @@ def minify_js_conservative(text: str) -> str:
 def rewrite_asset_refs(text: str, page_rel: Path) -> str:
     depth = max(len(page_rel.parts) - 1, 0)
     prefix = "../" * depth
+    style_version = MUSIC_STYLE_VERSION if page_rel.as_posix() == "music.html" else VERSION
     asset_base = r"(?:https://lyuf09\.github\.io/chronohaze/|/chronohaze/|(?:\.\./)*)"
     replacements = {
-        rf"{asset_base}styles(?:\.min)?\.css\?v=[^\"']+": f"{prefix}styles.min.css?v={VERSION}",
+        rf"{asset_base}styles(?:\.min)?\.css\?v=[^\"']+": f"{prefix}styles.min.css?v={style_version}",
         rf"{asset_base}home(?:\.min)?\.css\?v=[^\"']+": f"{prefix}home.min.css?v={HOME_VERSION}",
         rf"{asset_base}protect-media(?:\.min)?\.js\?v=[^\"']+": f"{prefix}protect-media.min.js?v={PROTECT_VERSION}",
         rf"{asset_base}assets/js/search-page(?:\.min)?\.js\?v=[^\"']+": f"{prefix}assets/js/search-page.min.js?v={VERSION}",
