@@ -425,7 +425,16 @@ test("music index renders and remains interactive", async ({ page }) => {
     "除特别说明外，作品的写作、编曲、演奏、录制与制作均由 HazezZ 完成。"
   );
   await expect(page.locator(".music-hero-copy h1")).toHaveText("HAZEZZ");
-  await expect(page.locator(".music-hero-roles")).toContainText("Composer · Arranger · Bassist");
+  await expect(page.locator(".music-hero-kicker")).toHaveText("音乐 / 聆听室");
+  await expect(page.locator(".music-hero-roles")).toHaveText("作曲 · 编曲 · 贝斯 · 吉他 · 制作");
+  await expect(page.locator(".music-hero-statement")).toHaveText(
+    "前卫金属核、日系摇滚，以及叙事型器乐创作。"
+  );
+  await expect(page.locator(".music-room-selected .music-room-section-kicker")).toHaveText("聆听室");
+  await expect(page.locator(".music-room-selected .music-room-section-title")).toHaveText("精选作品");
+  await expect(page.locator(".music-room-featured .music-room-section-title")).toHaveText(
+    "专辑 / 概念项目"
+  );
   const heroLayout = await page.evaluate(() => {
     const image = document.querySelector(".music-hero img");
     const copy = document.querySelector(".music-hero-copy");
@@ -440,8 +449,14 @@ test("music index renders and remains interactive", async ({ page }) => {
   expect(heroLayout.imageRatio).toBeGreaterThan(3.4);
   expect(heroLayout.copyTop).toBeGreaterThanOrEqual(heroLayout.imageBottom - 1);
   await expect(page.locator(".music-practice-copy")).toContainText("钢琴和小提琴");
+  await expect(page.locator(".music-practice-path")).toHaveText(
+    /钢琴\s*→\s*小提琴\s*→\s*作曲\s*→\s*贝斯 \/ 吉他\s*→\s*制作/
+  );
+  await expect(page.locator(".music-background-title").last()).toHaveText("演出图集");
   await expect(page.locator("main")).not.toContainText("屏幕、时差");
   await expect(page.locator(".music-room-archive-section")).toBeVisible();
+  await expect(page.locator(".music-room-archive .music-room-section-title")).toHaveText("作品档案");
+  await expect(page.locator(".music-room-archive-group-title").first()).toHaveText("专辑与合集");
   await expect.poll(async () => page.locator(".music-room-archive-group").count()).toBeGreaterThan(2);
   await expect(page.locator('[data-archive-year="2025"] [data-date="2025-03-22"]')).toHaveCount(1);
   await expect(page.locator('[data-archive-year="2024"] [data-date="2024-02-14"]')).toHaveCount(1);
@@ -463,6 +478,13 @@ test("music index renders and remains interactive", async ({ page }) => {
   await waitForCriticalLoaderRelease(page);
   await expect(page.locator(".music-room-track-card").first().locator(".music-room-track-roles")).toContainText(
     "Lyrics"
+  );
+  await expect(page.locator(".music-hero-kicker")).toHaveText("MUSIC / LISTENING ROOM");
+  await expect(page.locator(".music-hero-roles")).toHaveText(
+    "Composer · Arranger · Bassist · Guitarist · Producer"
+  );
+  await expect(page.locator(".music-room-selected .music-room-section-title")).toHaveText(
+    "Listening Room / Selected Works"
   );
   await expect(page.locator(".music-room-track-card").first().locator(".music-room-track-role")).toHaveCount(8);
   await expect(page.locator(".music-room-track-play").first()).toHaveText("Play");

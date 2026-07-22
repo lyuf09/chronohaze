@@ -16794,6 +16794,11 @@ html:lang(en) .music-index-page .main .music-timeline-mark {
   opacity: 0.58;
 }
 
+.music-index-page .music-practice-path .music-practice-step {
+  padding: 0;
+  opacity: 1;
+}
+
 .music-index-page .music-background-details {
   width: min(100%, 660px);
 }
