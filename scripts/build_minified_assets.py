@@ -5,9 +5,9 @@ import argparse
 import re
 from pathlib import Path
 
-VERSION = "20260719-quality1"
+VERSION = "20260722-music-localization1"
 HOME_VERSION = "20260722-home-fold1"
-PROTECT_VERSION = "20260722-logo-contrast2"
+PROTECT_VERSION = "20260722-music-localization1"
 
 SECURITY_META_MARKER = "chronohaze-security-policy"
 SECURITY_META_SNIPPET = """  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />

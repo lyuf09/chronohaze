@@ -4553,6 +4553,10 @@
     }
 
     neutralizeInlineMusicAudio(inlineAudio);
+    inlineAudio.preload = "metadata";
+    try {
+      inlineAudio.load();
+    } catch (_metadataLoadError) {}
     var controller = ensurePersistentAudioDock();
     var labelText = (titleNode.textContent || "").trim();
     var parts = labelText.split(/\s*-\s*/);
@@ -4566,7 +4570,6 @@
       pageHref: toChronohazeAbsoluteUrl(featuredRoute || featuredPageHref),
       prevHref: navData.prevRoute,
       nextHref: navData.nextRoute,
-      fallbackDuration: Number(inlineAudio.getAttribute("data-fallback-duration") || 0) || 0,
     };
 
     function isFeaturedTrackActive() {
@@ -4617,7 +4620,7 @@
         currentTime = isFinite(controller.audio.currentTime) ? controller.audio.currentTime : 0;
         isPlaying = !controller.audio.paused && !controller.audio.ended;
       } else {
-        duration = featuredTrack.fallbackDuration;
+        duration = isFinite(inlineAudio.duration) ? inlineAudio.duration : 0;
         currentTime = 0;
       }
 
@@ -4691,6 +4694,13 @@
       shell.dataset.persistentAudioSyncBound = "1";
       document.addEventListener("chronohaze:persistent-audio-sync", function () {
         syncFeaturedPlayerFromPersistentAudio();
+      });
+    }
+
+    if (shell.dataset.metadataSyncBound !== "1") {
+      shell.dataset.metadataSyncBound = "1";
+      ["loadedmetadata", "durationchange"].forEach(function (eventName) {
+        inlineAudio.addEventListener(eventName, syncFeaturedPlayerFromPersistentAudio);
       });
     }
 
@@ -4781,6 +4791,10 @@
       audio.removeAttribute("controls");
       audio.controls = false;
       neutralizeInlineMusicAudio(audio);
+      audio.preload = "metadata";
+      try {
+        audio.load();
+      } catch (_metadataLoadError) {}
 
       var shell = document.createElement("div");
       shell.className = "music-player-shell";
@@ -4868,6 +4882,8 @@
         if (isCurrentPersistentTrack()) {
           duration = isFinite(controller.audio.duration) ? controller.audio.duration : 0;
           current = isFinite(controller.audio.currentTime) ? controller.audio.currentTime : 0;
+        } else {
+          duration = isFinite(audio.duration) ? audio.duration : 0;
         }
 
         if (duration > 0) {
@@ -4940,6 +4956,10 @@
       document.addEventListener("chronohaze:persistent-audio-sync", function () {
         syncPlayState();
         syncTimeState();
+      });
+
+      ["loadedmetadata", "durationchange"].forEach(function (eventName) {
+        audio.addEventListener(eventName, syncTimeState);
       });
 
       audio.addEventListener("play", function () {
@@ -8155,7 +8175,7 @@
       "In the chorus, the modulation is deliberately pushed toward the dominant,<br />forcing the emotion upward,<br />not into an outburst, but into a tension driven to the edge of a threshold.",
       "The bass slap in the chorus functions as a crucial timbral language.<br />It carries none of the elasticity of traditional funk;<br />instead it reads as a cold, hard counterstrike,<br />short, direct, and almost mercilessly granular,<br />like the last instinctive response that remains when speech has failed.",
       "A systematized condition of the individual,<br />and a sense of detachment under structural pressure.",
-      "The palette is deliberately singular:<br />grey white and charcoal black,<br />a world drained of blood, leaving only structure and contour.",
+      "The palette is deliberately singular:<br />grey-white and charcoal black,<br />a world drained of blood, leaving only structure and contour.",
       "There is no romance narrative, no nostalgia for time,<br />and no seasonal metaphor.",
       "This is a song about how an individual, placed in the position of being convicted,<br />faces their own shadow,<br />cold, hard, silent,<br />yet undeniably real.",
     ];
@@ -9505,12 +9525,12 @@
     }
 
     var paragraphs = [
-      "“Affizieren” was born at the beginning of my autumn at nineteen, the point when everything starts to fade, the temperature drops, and emotions become easier to sink beneath the surface. I found myself looking back on earlier seasons without a sign. When the air turned cold, what remained of those feelings resurfaced, not as intense as before, no longer dazzling enough to be unbearable, but instead as a quiet, almost monotonous sadness in deep blue and grey white tones.",
-      "The psychological state behind the song was one of calm, but constantly rising tide. The images were unusually clear as I wrote, light fractured by autumn wind, the slow swell of surf rising from somewhere deep, and the feeling of walking alone through a long, grey blue alley.",
+      "“Affizieren” began in the autumn of my nineteenth year, when the air grew colder and emotions became easier to hide beneath the surface. Earlier seasons returned without warning—not with their original intensity, but as a quiet, persistent sadness in deep blue, grey, and white.",
+      "The song holds an outward calm while an internal tide continues to rise. As I wrote it, the images were unusually clear: light fractured by autumn wind, a slow swell emerging from somewhere deep, and the feeling of walking alone through a long blue-grey alley.",
       "“vision shattered by rain” a return to the summer when I was seventeen, a youthfully fragile illusion that only rain can completely destroy.",
       "The word “Affizieren” comes from philosophy.<br />It describes the subtle yet profound way emotions and the external world can affect a subject. Like being moved, nudged slightly, having one’s breathing altered by a single moment. I love the word because it isn’t about my choosing to feel something. It is about how certain things, like seasons, memories, a glance, a voice, quietly, passively leave texture inside me.",
-      "For me, “Affizieren” is an emotional memorial to a period of time. Although it arises from personal feeling, it is not written for any specific person. Throughout the writing process, I deliberately removed direct reference and focused only on the core shape of the emotion.",
-      "At its heart, this song is an act of self observation. It wasn’t created to be heard by anyone in particular. Still, if these melodies and words let someone glimpse a faint blue light inside their own feelings, I would consider that a beautiful outcome.",
+      "For me, “Affizieren” is an emotional memorial to a period of time. Although it arises from personal feeling, it is not written for any specific person. Throughout the writing process, I deliberately removed direct references and focused only on the core shape of the emotion.",
+      "At its heart, this song is an act of self-observation. It wasn’t created to be heard by anyone in particular. Still, if these melodies and words let someone glimpse a faint blue light inside their own feelings, I would consider that a beautiful outcome.",
     ];
 
     intro.innerHTML = paragraphs.join("<br /><br />");
@@ -9565,14 +9585,109 @@
       "Pre-chorus: I reintroduce 7/8 against 4/4. The piano line is intentionally restless, an overlap of unease, hesitation, and expectation. The bass suggests the melodic direction first, then the guitars follow, forming a gradual buildup. Elements then peel away to hold the emotion before the chorus.",
       "Chorus design: I deliberately let the chorus begin with vocals + piano alone for eight bars, so the emotion feels suddenly emptied out. Then the full band crashes in, capturing an internal shock in a single surge. Rhythm guitars stay chordal and restrained since I wanted atmosphere over technique. The bass carries continuity through a slap variant of the main riff. There is one piano note choice that sounds slightly outside (at least to me), but it isn’t, it’s there to create a tiny offbeat emotional tension (one of my favorite moments, because it happened almost unintentionally).",
       "Harmony: Interestingly, the harmonic structure is not “progressive” in a technical sense. I intentionally reduced complexity to make the sense of restraint clearer.",
-      "Interlude / second verse: The interlude echoes the intro, but with added melodic fills. The second verse is heavier, with rhythm guitars enter, and the bass switches from slap back to hybrid picking.",
-      "The “spoken” section: After two chill drum only bars comes the most distinctive passage, what I call the “spoken/chanting” section. It contains only the loose, simple drums, the same piano from the intro, sliced vocal fragments (casual humming), samples and ambience, and my spoken voice.",
-      "Solo writing: The instrumental solo is heavily influenced by DualInsomiNa, which the rhythm guitar is almost non repeating and line driven, pushing forward through momentary tension (the bass follows with a pick). Technically it’s not a section I can perform perfectly live. The first two notes are also a deliberate (and slightly amusing) echo of a solo that he once featured on my other song.",
-      "Final chorus and landing: The last chorus contrasts sharply with the first, with guitars become more “orthodox” prog metalcore, with palm mutes, djent articulation, and embellishments, while the bass stays on pick to shadow the guitar lines. After the emotion peaks, the arrangement collapses back to the earlier, cleaner texture. One empty bar, and the song ends with piano + vocals again, layered with seaside ambience, like a tide covering the memory once more.",
+      "Interlude / second verse: The interlude echoes the intro, but with added melodic fills. The second verse is heavier, with the rhythm guitars entering and the bass switching from slap back to hybrid picking.",
+      "The “spoken” section: After two restrained drum-only bars comes the most distinctive passage, what I call the “spoken/chanting” section. It contains only loose, simple drums, the same piano from the intro, sliced vocal fragments (casual humming), samples and ambience, and my spoken voice.",
+      "Solo writing: The instrumental solo is heavily influenced by DualInsomiNa, with the rhythm guitars becoming almost non-repeating and line-driven, pushing forward through momentary tension while the bass follows with a pick. Technically, it isn’t a section I can perform perfectly live. The first two notes are also a deliberate—and slightly amusing—echo of a solo that he once featured on another song of mine.",
+      "Final chorus and landing: The last chorus contrasts sharply with the first, with the guitars becoming more orthodox prog metalcore through palm mutes, djent articulation, and embellishments, while the bass remains pick-driven and closely shadows the guitar lines. After the emotion peaks, the arrangement collapses back to the earlier, cleaner texture. One empty bar, and the song ends with piano and vocals again, layered with seaside ambience, like a tide covering the memory once more.",
       "“And the tide swallows again my rainy season.”",
     ];
 
     target.innerHTML = blocks.join("<br /><br />");
+  }
+
+  function applyAffizierenMetaInEnglish(safeLang) {
+    if (safeLang !== "en" || !document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+    if (detailPath !== "music/track-04.html") {
+      return;
+    }
+    var metas = Array.from(document.querySelectorAll(".music-detail-article .music-detail-meta"));
+    if (metas[0]) {
+      metas[0].textContent = "Creation period · Sep–Dec 2024";
+    }
+    if (metas[1]) {
+      metas[1].innerHTML =
+        "Echoes of Two Years<br /><br />" +
+        "Lyrics · Composition · Arrangement · Guitar · Bass · Mixing · Production — HazezZ";
+    }
+  }
+
+  function enhanceAffizierenProductionNotes(safeLang) {
+    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+      return;
+    }
+    var detailPath = (window.location.pathname || "")
+      .toLowerCase()
+      .replace(/^.*\/chronohaze\//, "")
+      .replace(/^\//, "");
+    if (detailPath !== "music/track-04.html") {
+      return;
+    }
+    var article = document.querySelector(".music-detail-article");
+    if (!article || article.querySelector(".affizieren-production-notes")) {
+      return;
+    }
+    var target = Array.from(article.querySelectorAll("p")).find(function (node) {
+      var text = normalizeText(node.textContent).toLowerCase();
+      return (
+        text.indexOf(normalizeText("音乐上的想法：").toLowerCase()) === 0 ||
+        text.indexOf(normalizeText("Musical notes").toLowerCase()) === 0
+      );
+    });
+    if (!target || !target.parentNode) {
+      return;
+    }
+
+    var isEnglish = safeLang === "en";
+    var cards = [
+      ["TUNING", "调弦", "A♯–E–A–D–G–B–E"],
+      ["METRE", "拍号", "4/4 · 9/8 · 7/8"],
+      ["LOW END", "低频", isEnglish ? "Slap and hybrid-picked bass" : "Slap 与混拨贝斯"],
+      [
+        "PRODUCTION",
+        "制作",
+        isEnglish
+          ? "Atmospheric clean guitars, mechanical piano and vocal fragments"
+          : "氛围清音吉他、机械钢琴与人声碎片",
+      ],
+    ];
+    var section = document.createElement("section");
+    section.className = "affizieren-production-notes";
+    section.setAttribute("aria-label", isEnglish ? "Production and arrangement notes" : "制作与编曲说明");
+
+    var grid = document.createElement("div");
+    grid.className = "affizieren-note-summary-grid";
+    cards.forEach(function (cardData) {
+      var card = document.createElement("article");
+      card.className = "affizieren-note-summary-card";
+      var label = document.createElement("span");
+      label.className = "affizieren-note-summary-label";
+      label.textContent = isEnglish ? cardData[0] : cardData[1];
+      var value = document.createElement("p");
+      value.textContent = cardData[2];
+      card.appendChild(label);
+      card.appendChild(value);
+      grid.appendChild(card);
+    });
+
+    var details = document.createElement("details");
+    details.className = "affizieren-note-details";
+    var summary = document.createElement("summary");
+    summary.textContent = isEnglish
+      ? "Full production and arrangement notes"
+      : "完整制作与编曲说明";
+    details.appendChild(summary);
+    var targetParent = target.parentNode;
+    targetParent.insertBefore(section, target);
+    target.classList.add("affizieren-note-full-copy");
+    details.appendChild(target);
+    section.appendChild(grid);
+    section.appendChild(details);
   }
 
   function applyHeAndMeLyricsInEnglish(safeLang) {
@@ -11169,12 +11284,16 @@
         return homeSaved;
       }
     } catch (_err) {
-      window.__chronohazePreferredLang = "zh";
-      return "zh";
+      window.__chronohazePreferredLang = "en";
+      return "en";
     }
 
-    window.__chronohazePreferredLang = "zh";
-    return "zh";
+    var browserLanguage = String(
+      (navigator.languages && navigator.languages[0]) || navigator.language || ""
+    ).toLowerCase();
+    var preferred = browserLanguage.indexOf("zh") === 0 ? "zh" : "en";
+    window.__chronohazePreferredLang = preferred;
+    return preferred;
   }
 
   function persistPreferredLanguage(lang) {
@@ -11203,6 +11322,9 @@
       )
     ).forEach(function (button) {
       var lang = button.getAttribute("data-lang");
+      var isCurrent = lang === safeLang;
+      button.classList.toggle("active", isCurrent);
+      button.setAttribute("aria-pressed", isCurrent ? "true" : "false");
       if (lang === "zh") {
         button.setAttribute(
           "aria-label",
@@ -11274,9 +11396,9 @@
 
     var replacements = [
       [/创作时间：/g, dict.creationLabel],
-      [/作词作曲编曲吉他贝斯混音：/g, "Lyrics / Composition / Arrangement / Guitar / Bass / Mix: "],
-      [/作词作曲编曲吉他混音：/g, "Lyrics / Composition / Arrangement / Guitar / Mix: "],
-      [/作词作曲编曲混音：/g, "Lyrics / Composition / Arrangement / Mix: "],
+      [/作词作曲编曲吉他贝斯混音：/g, "Lyrics · Composition · Arrangement · Guitar · Bass · Mixing · Production — "],
+      [/作词作曲编曲吉他混音：/g, "Lyrics · Composition · Arrangement · Guitar · Mixing · Production — "],
+      [/作词作曲编曲混音：/g, "Lyrics · Composition · Arrangement · Mixing · Production — "],
       [/作词作曲编曲：/g, "Lyrics, composition & arrangement: "],
       [/作词编曲：/g, "Lyrics & arrangement: "],
       [/作词：/g, "Lyrics: "],
@@ -11295,7 +11417,7 @@
       [/吉他混音：/g, "Guitar & mix: "],
       [/贝斯：/g, "Bass: "],
       [/贝斯录制：/g, "Bass recording: "],
-      [/混音：/g, "Mix: "],
+      [/混音：/g, "Mixing: "],
       [/作者：/g, "Artist: "],
     ];
 
@@ -11310,7 +11432,7 @@
       [/（一个小时）/g, "（finished in one hour）"],
       [/\(一个小时\)/g, "(finished in one hour)"],
       [/过春天，Sincerely/g, "Passing the Spring"],
-      [/两年的回响/g, "Echos of two years"],
+      [/两年的回响/g, "Echoes of Two Years"],
       [/暴雨倾盆所击中的思绪/g, "Thoughts, battered by heavy rain."],
       [/夏日的忧郁/g, "A summer kind of sadness."],
       [/一直魂牵梦绕的那种花朵/g, "A flower that won’t stop returning in dreams,"],
@@ -11968,10 +12090,40 @@
   }
 
   function parseMusicRowYear(row) {
+    var canonicalDate = String(row.dataset.date || "").trim();
+    if (/^20\d{2}(?:-\d{2}(?:-\d{2})?)?$/.test(canonicalDate)) {
+      return canonicalDate.slice(0, 4);
+    }
     var dateNode = row.querySelector(".track-date");
     var dateText = dateNode ? dateNode.textContent || "" : "";
     var match = dateText.match(/(20\d{2})/);
     return match ? match[1] : "";
+  }
+
+  function formatMusicArchiveDate(canonicalDate, row, lang) {
+    var safeDate = String(canonicalDate || "").trim();
+    var safeLang = lang === "en" ? "en" : "zh";
+    var explicitLabel = row
+      ? row.getAttribute(safeLang === "en" ? "data-date-label-en" : "data-date-label-zh")
+      : "";
+    if (explicitLabel) {
+      return explicitLabel;
+    }
+    if (/^20\d{2}-\d{2}-\d{2}$/.test(safeDate)) {
+      if (safeLang === "zh") {
+        var parts = safeDate.split("-");
+        return parts[0] + "年" + Number(parts[1]) + "月" + Number(parts[2]) + "日";
+      }
+      return safeDate;
+    }
+    if (/^20\d{2}-\d{2}$/.test(safeDate)) {
+      if (safeLang === "zh") {
+        var monthParts = safeDate.split("-");
+        return monthParts[0] + "年" + Number(monthParts[1]) + "月";
+      }
+      return safeDate;
+    }
+    return safeDate;
   }
 
   function getMusicTagLabel(tag, dict) {
@@ -12251,6 +12403,7 @@
       },
       {
         href: "music/track-04.html",
+        audio: "assets/audio/juke/ZK8iOaJLM0p2757mXaquFqQ9d36eRqkm.mp3",
         kind: "track",
         accent: "#2a3657",
         accentSoft: "#121826",
@@ -13008,59 +13161,63 @@
         tagsZh: ["前卫核", "情绪张力", "蓝灰"],
         tagsEn: ["progressive", "emotional", "blue-grey"],
         rolesZh: ["作词", "作曲", "编曲", "吉他", "贝斯", "制作"],
-        rolesEn: ["writing", "composition", "arrangement", "guitar", "bass", "production"],
+        rolesEn: ["Lyrics", "Composition", "Arrangement", "Guitar", "Bass", "Programming", "Mixing", "Production"],
         noteZh: "奇数拍碎片、低频骨架与情绪化旋律线交错。像被雨打碎的愿景，在深蓝灰白里涨潮。",
         noteEn:
           "Odd-meter fragments, low-end scaffolding, and emotional melody lines crossing each other. A vision shattered by rain, rising in deep blue-grey-white tide.",
       },
       {
         href: "music/track-02.html",
+        audio: "assets/audio/juke/HaM51513.mp3",
         image: "assets/template/he-and-me-cover.jpg",
         position: "56% center",
         scale: 1.22,
         tagsZh: ["叙事", "未决", "私密"],
         tagsEn: ["narrative", "unresolved", "intimate"],
         rolesZh: ["作词", "作曲", "编曲", "吉他", "制作"],
-        rolesEn: ["writing", "composition", "arrangement", "guitar", "production"],
+        rolesEn: ["Lyrics", "Composition", "Arrangement", "Guitar", "Production"],
         noteZh: "梦醒后仍未散尽的对话。关于理解、距离，以及无法真正完成的和解。",
         noteEn:
           "A conversation still lingering after waking. About understanding, distance, and a reconciliation that can never fully be completed.",
       },
       {
         href: "music/track-20.html",
+        audio: "assets/audio/juke/VT7YkfpcJRtuPmllJp8L77VX1dcG9ly7.mp3",
         image: "assets/template/supernova-cover.jpg",
         position: "center center",
         scale: 1.14,
         tagsZh: ["深蓝", "膨胀", "内部坍缩"],
         tagsEn: ["deep blue", "expansion", "collapse"],
         rolesZh: ["作词", "作曲", "编曲"],
-        rolesEn: ["writing", "composition", "arrangement"],
+        rolesEn: ["Lyrics", "Composition", "Arrangement"],
         noteZh: "极深的蓝，膨胀后的失重。一次尚未命名的内部坍缩。",
         noteEn:
           "An extremely deep blue, weightlessness after expansion. An inward collapse still unnamed.",
       },
       {
         href: "music/track-01.html",
+        audio: "assets/audio/juke/春日和煦26.mp3",
         image: "assets/template/sincerely-spring-art.jpg",
         position: "center center",
         scale: 1.14,
         tagsZh: ["春天", "凝望", "透明蓝"],
         tagsEn: ["spring", "gaze", "clear blue"],
         rolesZh: ["作词", "作曲", "编曲", "吉他", "制作"],
-        rolesEn: ["writing", "composition", "arrangement", "guitar", "production"],
+        rolesEn: ["Lyrics", "Composition", "Arrangement", "Guitar", "Production"],
         noteZh: "淡绿、透明的蓝色与空气里静静的光。一首关于春日微风的轻轻呢喃。",
         noteEn:
           "Pale green, transparent blue, and quiet light in the air. A soft murmur about spring breeze.",
       },
       {
         href: "music/track-orchid.html",
+        audio: "assets/audio/juke/orchid51513.mp3",
         image: "assets/images/music/orchid/orchid-art-01.jpg",
         position: "center center",
         scale: 1.16,
         tagsZh: ["新制作", "重制中", "夜花"],
         tagsEn: ["new production", "WIP", "night flower"],
         rolesZh: ["作词", "作曲", "编曲", "吉他", "制作"],
-        rolesEn: ["writing", "composition", "arrangement", "guitar", "production"],
+        rolesEn: ["Lyrics", "Composition", "Arrangement", "Guitar", "Production"],
         noteZh: "焦灼与自持在静默中开放，然后在兰花的克制中缓慢展开。",
         noteEn:
           "Tension and self-restraint opening in silence, then slowly unfolding in the discipline of an orchid.",
@@ -13109,6 +13266,9 @@
       var rawTitle = titleNode ? titleNode.textContent || "" : "";
       var rawArtist = artistNode ? artistNode.textContent || "" : "";
       var rawDate = dateNode ? dateNode.textContent || "" : "";
+      var canonicalDate = String(
+        (catalogItem && catalogItem.date) || row.dataset.date || ""
+      ).trim();
       var type =
         (catalogItem && catalogItem.type) ||
         row.dataset.musicType ||
@@ -13124,11 +13284,10 @@
         type: type,
         hasAudio: hasAudio,
         year:
-          (catalogItem && String(catalogItem.year || "").trim()) ||
-          row.dataset.musicYear ||
+          (/^20\d{2}/.test(canonicalDate) ? canonicalDate.slice(0, 4) : "") ||
           parseMusicRowYear(row) ||
           "",
-        date: collapseDisplayText((catalogItem && catalogItem.date) || rawDate),
+        date: canonicalDate || collapseDisplayText(rawDate),
         title: collapseDisplayText(rawTitle),
         artist: collapseDisplayText(rawArtist),
         tags: tags,
@@ -13161,6 +13320,18 @@
       row.dataset.roomStatus = statusKey;
       row.dataset.musicType = meta.type;
       row.dataset.musicYear = meta.year;
+      if (meta.date) {
+        row.dataset.date = meta.date;
+        var dateNode = row.querySelector(".track-date");
+        if (dateNode) {
+          var badge = dateNode.querySelector(".track-status-badge");
+          dateNode.textContent = formatMusicArchiveDate(meta.date, row, lang);
+          if (badge) {
+            dateNode.appendChild(document.createTextNode(" "));
+            dateNode.appendChild(badge);
+          }
+        }
+      }
       row.dataset.tags = (meta.tags || []).join(",");
       row.dataset.archiveTags = (meta.archiveTags || []).join(",");
     }
@@ -13287,7 +13458,13 @@
 
         var meta = createElement("span", "music-room-track-meta");
         meta.appendChild(createElement("strong", "music-room-track-title", rowMeta.title));
-        meta.appendChild(createElement("span", "music-room-track-artist", rowMeta.artist));
+        meta.appendChild(
+          createElement(
+            "span",
+            "music-room-track-year",
+            rowMeta.year || (rowMeta.date ? String(rowMeta.date).slice(0, 4) : "")
+          )
+        );
         var roles = lang === "en" ? item.rolesEn || [] : item.rolesZh || [];
         if (roles.length) {
           var roleList = createElement("span", "music-room-track-roles");
@@ -13311,6 +13488,75 @@
         link.appendChild(cover);
         link.appendChild(meta);
         card.appendChild(link);
+
+        var actions = createElement("div", "music-room-track-actions");
+        var playButton = createElement(
+          "button",
+          "music-room-track-play",
+          textFor("播放", "Play")
+        );
+        playButton.type = "button";
+        playButton.setAttribute(
+          "aria-label",
+          textFor("播放 " + rowMeta.title, "Play " + rowMeta.title)
+        );
+        var openLink = createElement(
+          "a",
+          "music-room-track-open",
+          textFor("打开曲目", "Open Track")
+        );
+        openLink.href = item.href;
+        actions.appendChild(playButton);
+        actions.appendChild(openLink);
+        card.appendChild(actions);
+
+        var trackSource = toChronohazeAbsoluteUrl(item.audio || "");
+        var navData = buildTrackNavigationDataForRoute(item.href);
+        function syncCardPlayState() {
+          var controller = ensurePersistentAudioDock();
+          var isCurrent = !!(
+            trackSource &&
+            controller.current &&
+            controller.current.src === trackSource
+          );
+          var isPlaying = isCurrent && !controller.audio.paused && !controller.audio.ended;
+          playButton.classList.toggle("is-playing", isPlaying);
+          playButton.textContent = isPlaying ? textFor("暂停", "Pause") : textFor("播放", "Play");
+          playButton.setAttribute("aria-pressed", isPlaying ? "true" : "false");
+        }
+        bindResponsivePress(playButton, function () {
+          if (!trackSource) {
+            return;
+          }
+          var controller = ensurePersistentAudioDock();
+          var isCurrent = !!(
+            controller.current && controller.current.src === trackSource
+          );
+          if (!isCurrent) {
+            loadPersistentTrack(
+              {
+                src: trackSource,
+                title: rowMeta.title.toUpperCase(),
+                artist: (rowMeta.artist || "HAZEZZ").toUpperCase(),
+                pageHref: toChronohazeAbsoluteUrl(item.href),
+                prevHref: navData.prevRoute,
+                nextHref: navData.nextRoute,
+              },
+              { autoplay: true }
+            );
+            return;
+          }
+          if (controller.audio.paused || controller.audio.ended) {
+            var playPromise = controller.audio.play();
+            if (playPromise && typeof playPromise.catch === "function") {
+              playPromise.catch(syncCardPlayState);
+            }
+          } else {
+            controller.audio.pause();
+          }
+        });
+        document.addEventListener("chronohaze:persistent-audio-sync", syncCardPlayState);
+        syncCardPlayState();
         grid.appendChild(card);
       });
 
@@ -13376,9 +13622,15 @@
         }
       });
 
-      function buildArchiveGroup(titleText) {
-        var group = createElement("section", "music-room-archive-group");
-        var head = createElement("div", "music-room-archive-group-head");
+      function buildArchiveGroup(titleText, collapsible) {
+        var group = createElement(
+          collapsible ? "details" : "section",
+          "music-room-archive-group" + (collapsible ? " is-collapsible" : "")
+        );
+        var head = createElement(
+          collapsible ? "summary" : "div",
+          "music-room-archive-group-head"
+        );
         head.appendChild(createElement("h3", "music-room-archive-group-title", titleText));
         var list = createElement("div", "music-room-archive-list");
         group.appendChild(head);
@@ -13481,7 +13733,10 @@
       var yearOrder = [];
       var yearMap = Object.create(null);
       singleMetas.forEach(function (meta) {
-        var year = String(meta.year || "").trim() || "Unknown";
+        var canonicalDate = String(meta.date || "").trim();
+        var year = /^20\d{2}/.test(canonicalDate)
+          ? canonicalDate.slice(0, 4)
+          : String(meta.year || "").trim() || "Unknown";
         if (!yearMap[year]) {
           yearMap[year] = [];
           yearOrder.push(year);
@@ -13500,7 +13755,12 @@
       });
 
       yearOrder.forEach(function (year) {
-        var yearGroup = buildArchiveGroup(year === "Unknown" ? dict.musicYearUnknown : year);
+        var collapsible = year !== "Unknown" && Number(year) < 2025;
+        var yearGroup = buildArchiveGroup(
+          year === "Unknown" ? dict.musicYearUnknown : year,
+          collapsible
+        );
+        yearGroup.group.dataset.archiveYear = year;
         yearMap[year].forEach(function (meta) {
           yearGroup.list.appendChild(meta.row);
         });
@@ -13525,6 +13785,13 @@
           }).length;
           group.hidden = visibleCount === 0;
           group.classList.toggle("is-filter-hidden", visibleCount === 0);
+          if (
+            tagFilter !== "all" &&
+            visibleCount > 0 &&
+            group.tagName.toLowerCase() === "details"
+          ) {
+            group.open = true;
+          }
         });
       }
 
@@ -14300,6 +14567,7 @@
           meta.innerHTML = translateMusicMetaLabels(meta.innerHTML, safeLang, dict);
         }
       );
+      applyAffizierenMetaInEnglish(safeLang);
 
       Array.from(document.querySelectorAll(".music-detail-article h2")).forEach(function (heading) {
         var normalized = normalizeText(heading.textContent).toLowerCase();
@@ -14375,6 +14643,7 @@
       applyOrchidLyricsInEnglish(safeLang);
       applyAffizierenIntroInEnglish(safeLang);
       applyAffizierenNotesInEnglish(safeLang);
+      enhanceAffizierenProductionNotes(safeLang);
       applyAffizierenLyricsInEnglish(safeLang);
       applyIpomoeaAlbaIntroInEnglish(safeLang);
       applyIpomoeaAlbaLyricsInEnglish(safeLang);
@@ -15678,6 +15947,7 @@
       Array.from(existingPanel.querySelectorAll(".floating-lang-btn[data-lang]")).forEach(function (btn) {
         var buttonLang = btn.getAttribute("data-lang");
         btn.classList.toggle("active", buttonLang === preferred);
+        btn.setAttribute("aria-pressed", buttonLang === preferred ? "true" : "false");
         btn.setAttribute(
           "aria-label",
           buttonLang === "zh"
@@ -15709,6 +15979,7 @@
       if (lang === preferred) {
         btn.classList.add("active");
       }
+      btn.setAttribute("aria-pressed", lang === preferred ? "true" : "false");
       bindResponsivePress(btn, function () {
         if (lang === detectPreferredLanguage()) {
           return;

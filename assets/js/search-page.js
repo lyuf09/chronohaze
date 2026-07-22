@@ -151,6 +151,15 @@
     }
     document.body.dataset.searchPageReady = "1";
 
+    var searchPageActive = true;
+    window.addEventListener(
+      "pagehide",
+      function () {
+        searchPageActive = false;
+      },
+      { once: true }
+    );
+
     var shared = getShared();
     if (shared && typeof shared.ensureSearchNavLink === "function") {
       shared.ensureSearchNavLink();
@@ -1053,6 +1062,9 @@
       var index = 0;
 
       function tryNext() {
+        if (!searchPageActive) {
+          return Promise.resolve(null);
+        }
         if (index >= candidates.length) {
           return Promise.reject(new Error("not found"));
         }
@@ -1068,6 +1080,9 @@
           }),
           8000
         ).catch(function () {
+          if (!searchPageActive) {
+            return null;
+          }
           return tryNext();
         });
       }
@@ -1290,6 +1305,7 @@
         setLoadedState();
         buildTagOptions();
         renderResults();
+        return Promise.resolve(allItems);
       } else {
         setLoadingState(dict.searchLoading);
       }
@@ -1483,6 +1499,27 @@
     function getLocalizedItemExcerpt(item, rawTerms) {
       if (lang === "en" && item && item.excerpt_en) {
         return String(item.excerpt_en);
+      }
+      if (lang === "en") {
+        var candidate = resolveExcerptText(item, rawTerms);
+        if (candidate && !/[\u3400-\u9fff]/.test(candidate)) {
+          return candidate;
+        }
+        var title = getLocalizedItemTitle(item) || "this work";
+        var scope = getSearchItemScope(item);
+        if (scope === "math") {
+          return "Technical note or formalization page for " + title + ".";
+        }
+        if (scope === "music") {
+          return "Music work page for " + title + ".";
+        }
+        if (scope === "photo") {
+          return "Photography series page for " + title + ".";
+        }
+        if (scope === "cv") {
+          return "Selected academic record, research experience, and supporting evidence.";
+        }
+        return "Chronohaze page for " + title + ".";
       }
       return resolveExcerptText(item, rawTerms);
     }

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-15",
+  "generated_at": "2026-07-22",
   "source": "music.html",
   "items": [
     {
@@ -7,7 +7,8 @@
       "url": "music/album-ipomoea-alba.html",
       "type": "album",
       "year": "",
-      "date": "Album",
+      "date": "",
+      "status": "",
       "title": "Ipomoea Alba",
       "artist": "15 首曲目 · 专辑页",
       "tags": [
@@ -20,7 +21,8 @@
       "url": "music/album-teenage-best.html",
       "type": "album",
       "year": "",
-      "date": "Album",
+      "date": "",
+      "status": "",
       "title": "「劇場の雨が止む日のどこかで、 君に話しかけるつもりだ」",
       "artist": "A best-of collection from HazezZ’s teenage years · 专辑页",
       "tags": [
@@ -33,7 +35,8 @@
       "url": "music/track-orchid.html",
       "type": "single",
       "year": "2026",
-      "date": "2026年4月17日",
+      "date": "2026-04-17",
+      "status": "",
       "title": "Orchid",
       "artist": "HazezZ",
       "tags": [
@@ -48,7 +51,8 @@
       "url": "music/track-01.html",
       "type": "single",
       "year": "2025",
-      "date": "2025年10月21日",
+      "date": "2025-10-21",
+      "status": "",
       "title": "春日和煦",
       "artist": "HazezZ",
       "tags": [
@@ -62,8 +66,9 @@
       "order": 5,
       "url": "music/track-02.html",
       "type": "single",
-      "year": "2024",
-      "date": "2025年3月22日",
+      "year": "2025",
+      "date": "2025-03-22",
+      "status": "",
       "title": "He and Me",
       "artist": "HazezZ",
       "tags": [
@@ -76,8 +81,9 @@
       "order": 6,
       "url": "music/track-03.html",
       "type": "single",
-      "year": "2024",
-      "date": "2025年2月1日",
+      "year": "2025",
+      "date": "2025-02-01",
+      "status": "",
       "title": "花园",
       "artist": "HazezZ",
       "tags": [
@@ -92,8 +98,9 @@
       "url": "music/track-felix.html",
       "type": "single",
       "year": "2024",
-      "date": "2024年12月",
-      "title": "Felix（音频待上传）",
+      "date": "2024-12",
+      "status": "unreleased",
+      "title": "Felix",
       "artist": "HazezZ",
       "tags": [
         "single"
@@ -105,7 +112,8 @@
       "url": "music/track-04.html",
       "type": "single",
       "year": "2024",
-      "date": "2024年12月21日",
+      "date": "2024-12-21",
+      "status": "",
       "title": "Affizieren",
       "artist": "HazezZ",
       "tags": [
@@ -119,7 +127,8 @@
       "url": "music/track-05.html",
       "type": "single",
       "year": "2024",
-      "date": "2024年8月29日",
+      "date": "2024-08-29",
+      "status": "",
       "title": "淤",
       "artist": "HazezZ",
       "tags": [
@@ -134,7 +143,8 @@
       "url": "music/track-06.html",
       "type": "single",
       "year": "2024",
-      "date": "2024年7月5日",
+      "date": "2024-07-05",
+      "status": "",
       "title": "Mr.Idiographic",
       "artist": "HazezZ",
       "tags": [
@@ -149,8 +159,9 @@
       "order": 11,
       "url": "music/track-07.html",
       "type": "single",
-      "year": "2023",
-      "date": "2024年2月14日",
+      "year": "2024",
+      "date": "2024-02-14",
+      "status": "",
       "title": "箱庭",
       "artist": "HazezZ",
       "tags": [
@@ -165,7 +176,8 @@
       "url": "music/track-08.html",
       "type": "single",
       "year": "2023",
-      "date": "2023年11月11日",
+      "date": "2023-11-11",
+      "status": "",
       "title": "本格推理",
       "artist": "HazezZ",
       "tags": [
@@ -181,7 +193,8 @@
       "url": "music/track-09.html",
       "type": "single",
       "year": "2023",
-      "date": "2023年8月30日",
+      "date": "2023-08-30",
+      "status": "",
       "title": "Epilogue",
       "artist": "HazezZ",
       "tags": [
@@ -197,8 +210,9 @@
       "url": "music/track-10.html",
       "type": "single",
       "year": "2023",
-      "date": "2023年8月27日",
-      "title": "恋に落ちてしまえない（音频待上传）",
+      "date": "2023-08-27",
+      "status": "unreleased",
+      "title": "恋に落ちてしまえない",
       "artist": "HazezZ",
       "tags": [
         "single",
@@ -211,7 +225,8 @@
       "url": "music/track-11.html",
       "type": "single",
       "year": "2023",
-      "date": "2023年8月23日",
+      "date": "2023-08-23",
+      "status": "",
       "title": "我恨你们所有人",
       "artist": "HazezZ",
       "tags": [
@@ -226,7 +241,8 @@
       "url": "music/track-12.html",
       "type": "single",
       "year": "2023",
-      "date": "2023年8月11日",
+      "date": "2023-08-11",
+      "status": "",
       "title": "Rainy days",
       "artist": "HazezZ",
       "tags": [
@@ -241,7 +257,8 @@
       "url": "music/track-13.html",
       "type": "single",
       "year": "2023",
-      "date": "2023年5月30日",
+      "date": "2023-05-30",
+      "status": "",
       "title": "小葉紫檀",
       "artist": "HazezZ",
       "tags": [
@@ -256,7 +273,8 @@
       "url": "music/track-14.html",
       "type": "single",
       "year": "2023",
-      "date": "2023年4月29日",
+      "date": "2023-04-29",
+      "status": "",
       "title": "柳",
       "artist": "Armeria / HazezZ",
       "tags": [
@@ -272,7 +290,8 @@
       "url": "music/track-15.html",
       "type": "single",
       "year": "2023",
-      "date": "2023年4月21日",
+      "date": "2023-04-21",
+      "status": "",
       "title": "夜顔",
       "artist": "HazezZ",
       "tags": [
@@ -286,8 +305,9 @@
       "order": 20,
       "url": "music/track-16.html",
       "type": "single",
-      "year": "2022",
-      "date": "2023年2月24日",
+      "year": "2023",
+      "date": "2023-02-24",
+      "status": "",
       "title": "現人",
       "artist": "HazezZ",
       "tags": [
@@ -301,8 +321,9 @@
       "order": 21,
       "url": "music/track-17.html",
       "type": "single",
-      "year": "2022",
-      "date": "2023年2月18日",
+      "year": "2023",
+      "date": "2023-02-18",
+      "status": "",
       "title": "Moonlapse (feat. 起子)",
       "artist": "HazezZ",
       "tags": [
@@ -318,8 +339,9 @@
       "url": "music/track-negau.html",
       "type": "single",
       "year": "2022",
-      "date": "2022年12月",
-      "title": "願う（音频待上传）",
+      "date": "2022-12",
+      "status": "unreleased",
+      "title": "願う",
       "artist": "HazezZ",
       "tags": [
         "single"
@@ -331,8 +353,9 @@
       "url": "music/track-seaside-town.html",
       "type": "single",
       "year": "2022",
-      "date": "2022年夏天",
-      "title": "写不下的海边小镇和你（音频待上传）",
+      "date": "2022-07",
+      "status": "unreleased",
+      "title": "写不下的海边小镇和你",
       "artist": "HazezZ",
       "tags": [
         "single"
@@ -344,7 +367,8 @@
       "url": "music/track-18.html",
       "type": "single",
       "year": "2022",
-      "date": "2022年8月30日",
+      "date": "2022-08-30",
+      "status": "",
       "title": "Ipomoea alba",
       "artist": "HazezZ",
       "tags": [
@@ -359,8 +383,9 @@
       "order": 25,
       "url": "music/track-19.html",
       "type": "single",
-      "year": "2021",
-      "date": "2022年7月9日",
+      "year": "2022",
+      "date": "2022-07-09",
+      "status": "",
       "title": "Agny",
       "artist": "湖323 / HazezZ",
       "tags": [
@@ -375,7 +400,8 @@
       "url": "music/track-20.html",
       "type": "single",
       "year": "2022",
-      "date": "2022年5月20日",
+      "date": "2022-05-20",
+      "status": "",
       "title": "スパーノヴァ",
       "artist": "HazezZ",
       "tags": [
@@ -391,7 +417,8 @@
       "url": "music/track-21.html",
       "type": "single",
       "year": "2022",
-      "date": "2022年3月3日",
+      "date": "2022-03-03",
+      "status": "",
       "title": "孤星Prelude",
       "artist": "HazezZ",
       "tags": [
@@ -405,8 +432,9 @@
       "order": 28,
       "url": "music/track-22.html",
       "type": "single",
-      "year": "2021",
-      "date": "2022年2月4日",
+      "year": "2022",
+      "date": "2022-02-04",
+      "status": "",
       "title": "Z（E）RO",
       "artist": "HazezZ",
       "tags": [
@@ -422,7 +450,8 @@
       "url": "music/track-23.html",
       "type": "single",
       "year": "2021",
-      "date": "2021年12月6日",
+      "date": "2021-12-06",
+      "status": "",
       "title": "フォーマルハウト/南鱼座α",
       "artist": "HazezZ",
       "tags": [
@@ -436,7 +465,8 @@
       "url": "music/track-24.html",
       "type": "single",
       "year": "2021",
-      "date": "2021年11月25日",
+      "date": "2021-11-25",
+      "status": "",
       "title": "罪",
       "artist": "HazezZ / iine_p (薛天from灯诱）",
       "tags": [
@@ -453,7 +483,8 @@
       "url": "music/track-25.html",
       "type": "single",
       "year": "2021",
-      "date": "2021年11月19日",
+      "date": "2021-11-19",
+      "status": "",
       "title": "水母与湖",
       "artist": "HazezZ",
       "tags": [
@@ -468,7 +499,8 @@
       "url": "music/track-26.html",
       "type": "single",
       "year": "2021",
-      "date": "2021年10月29日",
+      "date": "2021-10-29",
+      "status": "",
       "title": "夜明け、明暗の境目/凌晨、明暗交界处",
       "artist": "HazezZ",
       "tags": [
@@ -483,7 +515,8 @@
       "url": "music/track-27.html",
       "type": "single",
       "year": "2021",
-      "date": "2021年10月17日",
+      "date": "2021-10-17",
+      "status": "",
       "title": "心臓警報",
       "artist": "HazezZ",
       "tags": [
@@ -498,7 +531,8 @@
       "url": "music/track-28.html",
       "type": "single",
       "year": "2021",
-      "date": "2021年10月9日",
+      "date": "2021-10-09",
+      "status": "",
       "title": "影",
       "artist": "HazezZ",
       "tags": [
@@ -513,7 +547,8 @@
       "url": "music/track-29.html",
       "type": "single",
       "year": "2021",
-      "date": "2021年6月3日",
+      "date": "2021-06-03",
+      "status": "",
       "title": "未来に出会えたらいいな",
       "artist": "HazezZ",
       "tags": [
@@ -527,7 +562,8 @@
       "url": "music/track-30.html",
       "type": "single",
       "year": "2021",
-      "date": "2021年2月2日",
+      "date": "2021-02-02",
+      "status": "",
       "title": "分离性遗忘症",
       "artist": "HazezZ",
       "tags": [

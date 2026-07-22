@@ -43,10 +43,10 @@ def main() -> int:
     # Core JS/CSS/HTML file budgets. These track the generated site baseline with modest
     # headroom so the check catches real bloat instead of failing every content polish pass.
     file_budgets: List[Tuple[str, int, str]] = [
-        # Gradient-aware floating-logo contrast sampling adds about 2.7 KiB gzip
-        # while removing the initial white-on-white visibility window.
-        ("protect-media.min.js", 540_000, "core frontend runtime bundle"),
-        ("styles.min.css", 320_000, "global styles"),
+        # The shared runtime now includes gradient-aware logo sampling plus the
+        # metadata-driven music player/archive; keep only modest growth headroom.
+        ("protect-media.min.js", 550_000, "core frontend runtime bundle"),
+        ("styles.min.css", 330_000, "global styles"),
         ("home.min.css", 48_000, "home page styles"),
         ("assets/logo-header.png", 30_000, "header logo"),
         ("assets/js/search-page.min.js", 60_000, "search page runtime"),
@@ -71,9 +71,9 @@ def main() -> int:
                 "assets/js/music-detail-transcript.min.js",
                 "assets/js/structured-data.min.js",
                 ],
-            650_000,
+            665_000,
         ),
-        ("key CSS payload", ["styles.min.css", "home.min.css"], 365_000),
+        ("key CSS payload", ["styles.min.css", "home.min.css"], 375_000),
     ]
     for label, rels, max_bytes in aggregate_groups:
         total = 0

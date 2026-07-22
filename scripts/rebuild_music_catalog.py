@@ -42,7 +42,9 @@ def split_tags(raw: str) -> List[str]:
     return tags
 
 
-def infer_has_audio(title: str) -> bool:
+def infer_has_audio(title: str, status: str) -> bool:
+    if status.strip().lower() in {"unreleased", "pending-audio", "wip"}:
+        return False
     return not bool(re.search(r"音频待上传|audio pending upload", title or "", re.I))
 
 
@@ -66,7 +68,11 @@ def parse_rows(html_text: str) -> List[Dict[str, object]]:
 
         class_extra = (m.group("class_extra") or "")
         row_type = "album" if "track-row-album" in class_extra else "single"
-        year = (attrs.get("data-music-year") or "").strip()
+        canonical_date = (attrs.get("data-date") or "").strip()
+        if canonical_date and not re.fullmatch(r"20\d{2}(?:-\d{2}(?:-\d{2})?)?", canonical_date):
+            raise ValueError(f"Invalid canonical date for {href}: {canonical_date}")
+        year = canonical_date[:4] if canonical_date else ""
+        status = (attrs.get("data-status") or "").strip().lower()
 
         tags = split_tags(attrs.get("data-tags", ""))
         if not tags:
@@ -80,11 +86,12 @@ def parse_rows(html_text: str) -> List[Dict[str, object]]:
                 "url": href,
                 "type": row_type,
                 "year": year,
-                "date": date_text,
+                "date": canonical_date,
+                "status": status,
                 "title": title_text,
                 "artist": artist_text,
                 "tags": tags,
-                "has_audio": infer_has_audio(title_text),
+                "has_audio": infer_has_audio(title_text, status),
             }
         )
     return rows

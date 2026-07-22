@@ -16531,3 +16531,306 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
     }
   }
 }
+
+/* Music listening room: identity-first hierarchy, playable work cards, and compact archive. */
+@media (min-width: 761px) {
+  .music-index-page .music-hero {
+    padding: 0;
+  }
+
+  .music-index-page .music-hero-inner {
+    position: relative;
+    width: min(100%, 1180px);
+    min-height: min(780px, calc(100svh - 76px));
+    align-items: stretch;
+    overflow: hidden;
+  }
+
+  .music-index-page .music-hero-inner .responsive-picture {
+    width: 100% !important;
+    min-height: inherit;
+  }
+
+  .music-index-page .music-hero img {
+    width: 100%;
+    height: 100%;
+    min-height: inherit;
+    object-fit: cover;
+    object-position: center 42%;
+    filter: saturate(0.82) contrast(1.08) brightness(0.78);
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
+
+.music-index-page .music-hero-copy {
+  position: absolute;
+  left: clamp(28px, 5vw, 72px);
+  bottom: clamp(32px, 6vw, 78px);
+  z-index: 2;
+  width: min(620px, calc(100% - 56px));
+  color: rgba(248, 250, 255, 0.98);
+  text-shadow: 0 2px 28px rgba(4, 8, 14, 0.72);
+}
+
+.music-index-page .music-hero-inner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 34%, rgba(8, 12, 20, 0.14) 58%, rgba(7, 10, 17, 0.78) 100%);
+}
+
+.music-index-page .music-hero-kicker,
+.music-index-page .music-hero-roles {
+  display: block;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.music-index-page .music-hero-kicker {
+  margin-bottom: 12px;
+  font-size: 10px;
+}
+
+.music-index-page .music-hero-copy h1 {
+  margin: 0;
+  font-family: "Cormorant Garamond", "Noto Serif SC", serif;
+  font-size: clamp(58px, 8vw, 112px);
+  font-weight: 300;
+  line-height: 0.82;
+  letter-spacing: 0.035em;
+}
+
+.music-index-page .music-hero-roles {
+  margin: 20px 0 10px;
+  font-size: clamp(10px, 1.15vw, 14px);
+  line-height: 1.55;
+}
+
+.music-index-page .music-hero-statement {
+  margin: 0;
+  font-family: "Cormorant Garamond", "Noto Serif SC", serif;
+  font-size: clamp(22px, 2.5vw, 34px);
+  line-height: 1.16;
+}
+
+.music-index-page .music-room-track-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.music-index-page .music-room-track-link {
+  min-height: 0;
+  flex: 1 1 auto;
+}
+
+.music-index-page .music-room-track-year {
+  color: rgba(69, 78, 96, 0.76);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+}
+
+.music-index-page .music-room-track-actions {
+  display: flex;
+  gap: 8px;
+  padding: 0 16px 15px;
+}
+
+.music-index-page .music-room-track-play,
+.music-index-page .music-room-track-open {
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 12px;
+  border: 1px solid rgba(54, 67, 91, 0.28);
+  color: rgba(34, 44, 63, 0.94);
+  background: rgba(242, 246, 253, 0.74);
+  font: 600 10px/1 "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.music-index-page .music-room-track-play.is-playing {
+  color: rgba(248, 250, 255, 0.98);
+  background: rgba(43, 56, 82, 0.94);
+}
+
+.music-index-page .music-room-archive-group.is-collapsible > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  list-style: none;
+}
+
+.music-index-page .music-room-archive-group.is-collapsible > summary::-webkit-details-marker {
+  display: none;
+}
+
+.music-index-page .music-room-archive-group.is-collapsible > summary::after {
+  content: "+";
+  color: rgba(54, 65, 85, 0.72);
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.music-index-page .music-room-archive-group.is-collapsible[open] > summary::after {
+  content: "−";
+}
+
+.music-index-page .music-practice-copy {
+  display: grid;
+  gap: 13px;
+  width: min(100%, 860px);
+  padding-top: 18px;
+  border-top: 1px solid rgba(75, 84, 102, 0.14);
+}
+
+.music-index-page .music-practice-copy p {
+  margin: 0;
+  color: rgba(43, 51, 66, 0.92);
+  font-size: 15px;
+  line-height: 1.76;
+}
+
+.music-index-page .music-practice-path {
+  padding-top: 10px;
+  color: rgba(56, 67, 88, 0.8) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.music-index-page .music-practice-path span {
+  padding: 0 7px;
+  opacity: 0.58;
+}
+
+.music-index-page .music-background-details {
+  width: min(100%, 660px);
+}
+
+.music-index-page .music-background-details > summary {
+  padding: 11px 0;
+  border-top: 1px solid rgba(75, 84, 102, 0.14);
+  border-bottom: 1px solid rgba(75, 84, 102, 0.14);
+  color: rgba(50, 61, 82, 0.86);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.music-index-page .music-background-details[open] > summary {
+  margin-bottom: 12px;
+}
+
+.music-index-page .music-gallery-head {
+  width: min(100%, 980px);
+  margin: 0 auto 20px;
+}
+
+.music-detail-page .affizieren-production-notes {
+  margin: 30px 0;
+}
+
+.music-detail-page .affizieren-note-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.music-detail-page .affizieren-note-summary-card {
+  padding: 15px 16px;
+  border: 1px solid rgba(86, 99, 124, 0.2);
+  background: rgba(235, 240, 248, 0.54);
+}
+
+.music-detail-page .affizieren-note-summary-label {
+  color: rgba(58, 70, 94, 0.74);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+}
+
+.music-detail-page .affizieren-note-summary-card p {
+  margin: 8px 0 0;
+  color: rgba(28, 38, 57, 0.94);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.music-detail-page .affizieren-note-details > summary {
+  padding: 12px 0;
+  border-top: 1px solid rgba(78, 90, 114, 0.2);
+  border-bottom: 1px solid rgba(78, 90, 114, 0.2);
+  color: rgba(44, 56, 79, 0.9);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.music-detail-page .affizieren-note-full-copy {
+  margin-top: 18px;
+}
+
+@media (max-width: 760px) {
+  .music-index-page .music-hero {
+    padding: 0;
+  }
+
+  .music-index-page .music-hero-inner {
+    position: relative;
+    min-height: 74svh;
+    overflow: hidden;
+  }
+
+  .music-index-page .music-hero-inner .responsive-picture,
+  .music-index-page .music-hero img {
+    width: 100% !important;
+    height: 74svh;
+    object-fit: cover;
+    object-position: 56% center;
+    -webkit-mask-image: none;
+    mask-image: none;
+    filter: saturate(0.84) contrast(1.08) brightness(0.72);
+  }
+
+  .music-index-page .music-hero-copy {
+    left: 20px;
+    bottom: 28px;
+    width: calc(100% - 40px);
+  }
+
+  .music-index-page .music-hero-roles {
+    letter-spacing: 0.1em;
+  }
+
+  .music-index-page .music-room-track-actions {
+    padding: 0 12px 12px;
+  }
+
+  .music-index-page .music-practice-copy p {
+    font-size: 12.8px;
+    line-height: 1.7;
+  }
+
+  .music-index-page .music-practice-path {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .music-index-page .music-practice-path span {
+    padding: 0 2px;
+  }
+
+  .music-detail-page .affizieren-note-summary-grid {
+    grid-template-columns: 1fr;
+  }
+}

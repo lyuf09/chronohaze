@@ -105,7 +105,7 @@ LEGACY_REDIRECT_PAGES = {
     "yin-le.html",
     "research-summary.html",
 }
-SEO_LASTMOD = "2026-07-15"
+SEO_LASTMOD = "2026-07-22"
 SEO_LASTMOD_PATHS = {
     "https://lyuf09.github.io/chronohaze/",
     "https://lyuf09.github.io/chronohaze/academic.html",

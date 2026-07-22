@@ -234,9 +234,9 @@
   <link rel="preload" href="assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/cinzel-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" as="image" href="assets/template/hero_portrait-960.webp" type="image/webp" imagesrcset="assets/template/hero_portrait-600.webp 600w, assets/template/hero_portrait-960.webp 960w, assets/template/hero_portrait-1600.webp 1600w" imagesizes="(max-width: 640px) 88vw, (max-width: 900px) 92vw, 46vw" />
-  <link rel="stylesheet" href="styles.min.css?v=20260719-quality1" />
+  <link rel="stylesheet" href="styles.min.css?v=20260722-music-localization1" />
   <link rel="stylesheet" href="home.min.css?v=20260722-home-fold1" />
-  <script defer src="protect-media.min.js?v=20260722-logo-contrast2"></script>
+  <script defer src="protect-media.min.js?v=20260722-music-localization1"></script>
 </head>
 <body class="home-body">
   <div class="home-page" id="top">
@@ -244,11 +244,11 @@
       <a class="home-brand" href="#top" data-reveal="fade" data-reveal-delay="0">chronohaze.space</a>
 
       <div class="lang-pill" aria-label="Language switch" data-reveal="fade" data-reveal-delay="40">
-        <button class="lang-btn" type="button" data-lang="zh" aria-label="切换网站语言为中文">中</button>
-        <button class="lang-btn active" type="button" data-lang="en" aria-label="Switch site language to English">EN</button>
+        <button class="lang-btn" type="button" data-lang="zh" aria-label="Switch site language to Chinese" aria-pressed="false">中</button>
+        <button class="lang-btn active" type="button" data-lang="en" aria-label="Switch site language to English" aria-pressed="true">EN</button>
       </div>
 
-      <button class="menu-open" type="button" aria-controls="drawer" aria-expanded="false" aria-label="菜单 [ + ]" data-i18n-aria="menuOpenAria" id="openMenu" data-reveal="fade" data-reveal-delay="80">+</button>
+      <button class="menu-open" type="button" aria-controls="drawer" aria-expanded="false" aria-label="Menu [ + ]" data-i18n-aria="menuOpenAria" id="openMenu" data-reveal="fade" data-reveal-delay="80">+</button>
     </header>
 
     <main>
@@ -257,47 +257,46 @@
           <div class="hero-portrait-frame">
             <picture class="responsive-picture" style="display:block;width:100%;">
               <source type="image/webp" srcset="assets/template/hero_portrait-600.webp 600w, assets/template/hero_portrait-960.webp 960w, assets/template/hero_portrait-1600.webp 1600w" sizes="(max-width: 640px) 88vw, (max-width: 900px) 92vw, 46vw" />
-              <img class="hero-portrait" src="assets/template/hero_portrait-960.jpg" srcset="assets/template/hero_portrait-600.jpg 600w, assets/template/hero_portrait-960.jpg 960w, assets/template/hero_portrait-1600.jpg 1600w" alt="HazezZ 个人肖像" data-i18n-alt="heroPortraitAlt" width="3000" height="4000" data-reveal="zoom" data-reveal-delay="40" data-reveal-wait="image-load" data-eager="true" loading="eager" decoding="async" fetchpriority="high" sizes="(max-width: 640px) 88vw, (max-width: 900px) 92vw, 46vw" />
+              <img class="hero-portrait" src="assets/template/hero_portrait-960.jpg" srcset="assets/template/hero_portrait-600.jpg 600w, assets/template/hero_portrait-960.jpg 960w, assets/template/hero_portrait-1600.jpg 1600w" alt="Portrait of HazezZ" data-i18n-alt="heroPortraitAlt" width="3000" height="4000" data-reveal="zoom" data-reveal-delay="40" data-reveal-wait="image-load" data-eager="true" loading="eager" decoding="async" fetchpriority="high" sizes="(max-width: 640px) 88vw, (max-width: 900px) 92vw, 46vw" />
             </picture>
           </div>
         </div>
 
         <div class="hero-right" data-floating-logo-tone="light">
           <div class="hero-right-inner">
-            <p class="hero-kicker" data-i18n="heroKicker" data-reveal="slide-right" data-reveal-delay="30">起点 / Chronohaze</p>
+            <p class="hero-kicker" data-i18n="heroKicker" data-reveal="slide-right" data-reveal-delay="30">Origin / Chronohaze</p>
             <h1 data-i18n="heroTitle" data-reveal="slide-right" data-reveal-delay="60">Fay / Feier Lyu</h1>
             <p class="hero-role-line" data-i18n="heroRole" data-reveal="slide-right" data-reveal-delay="100">OPTIMIZATION · FORMAL VERIFICATION · MACHINE-CHECKED MATHEMATICS</p>
-            <p data-i18n="heroIntro" data-i18n-html="true" data-reveal="slide-right" data-reveal-delay="140"><span class="hero-poetic-line">在时间的薄雾里，为复杂性寻找结构。</span><span class="hero-identity-line">证明关心什么可以被确信；音乐与影像关心什么值得被记住。</span><span class="hero-world-line">这里收录两者之间仍在继续的工作。</span></p>
+            <p data-i18n="heroIntro" data-i18n-html="true" data-reveal="slide-right" data-reveal-delay="140"><span class="hero-poetic-line">In the haze of time, I look for structure in complexity.</span><span class="hero-identity-line">Proof asks what can be trusted; music and image ask what deserves to be remembered.</span><span class="hero-world-line">This site gathers the work that continues between them.</span></p>
             <p class="hero-authority-line" data-i18n="heroAuthority" data-reveal="slide-right" data-reveal-delay="190">University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027</p>
             <div class="hero-academic-module" data-reveal="slide-right" data-reveal-delay="220">
-              <p class="hero-academic-kicker" data-i18n="academicKicker">快捷入口</p>
+              <p class="hero-academic-kicker" data-i18n="academicKicker">Quick links</p>
               <div class="hero-academic-links">
-                <a class="hero-academic-link" href="academic.html" data-i18n="academicResearch">学术</a>
-                <a class="hero-academic-link" href="cv.html" data-i18n="academicCV">公开简历</a>
-                <a class="hero-academic-link" href="projects.html" data-i18n="academicProjects">代表性工作</a>
-                <a class="hero-academic-link" href="math.html" data-i18n="academicNotes">技术笔记</a>
+                <a class="hero-academic-link" href="academic.html" data-i18n="academicResearch">Academic</a>
+                <a class="hero-academic-link" href="cv.html" data-i18n="academicCV">Academic Profile</a>
+                <a class="hero-academic-link" href="projects.html" data-i18n="academicProjects">Work</a>
+                <a class="hero-academic-link" href="math.html" data-i18n="academicNotes">Notes</a>
                 <a class="hero-academic-link" href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer" data-i18n="academicGitHub">GitHub</a>
               </div>
             </div>
 
-            <a class="contact-btn" href="#contact" data-i18n="contactBtn" data-reveal="slide-right" data-reveal-delay="300">联系我</a>
+            <a class="contact-btn" href="#contact" data-i18n="contactBtn" data-reveal="slide-right" data-reveal-delay="300">Contact me</a>
 
             <div class="player-shell" id="playerShell" data-reveal="slide-right" data-reveal-delay="380">
-              <button class="player-toggle" type="button" aria-label="播放或暂停精选音频" aria-pressed="false" data-i18n-aria="audioToggleAria" id="audioToggle"></button>
+              <button class="player-toggle" type="button" aria-label="Play or pause featured track" aria-pressed="false" data-i18n-aria="audioToggleAria" id="audioToggle"></button>
               <div class="player-center">
                 <p>AFFIZIEREN - HAZEZZ</p>
                 <div class="player-track"><span id="playerProgress"></span></div>
               </div>
               <p class="player-time" id="playerTime">00:00 / 00:00</p>
               <div class="player-support" id="playerSupport">
-                <span class="player-status" id="playerStatus">准备音频…</span>
-                <a class="player-fallback-link" id="playerFallbackLink" href="music/track-04.html" hidden>去音乐页试听</a>
+                <span class="player-status" id="playerStatus">Preparing audio…</span>
+                <a class="player-fallback-link" id="playerFallbackLink" href="music/track-04.html" hidden>Open track page</a>
               </div>
               <audio
                 id="heroAudio"
                 preload="metadata"
                 data-eager-media="1"
-                data-fallback-duration="345.91345"
                 playsinline
                 oncontextmenu="return false"
               >
@@ -311,24 +310,24 @@
       <section class="selected-evidence" id="selected-evidence" aria-labelledby="selectedEvidenceTitle" data-floating-logo-tone="light">
         <div class="selected-evidence-shell" data-reveal="fade" data-reveal-delay="40">
           <div class="selected-evidence-head">
-            <p class="selected-evidence-kicker" data-i18n="selectedEvidenceKicker">研究概览</p>
-            <h2 id="selectedEvidenceTitle" data-i18n="selectedEvidenceTitle">当前工作</h2>
+            <p class="selected-evidence-kicker" data-i18n="selectedEvidenceKicker">CURRENT WORK</p>
+            <h2 id="selectedEvidenceTitle" data-i18n="selectedEvidenceTitle">Research Snapshot</h2>
           </div>
-          <div class="selected-evidence-grid" role="list" data-i18n-aria="selectedEvidenceGridAria" aria-label="精选证据">
+          <div class="selected-evidence-grid" role="list" data-i18n-aria="selectedEvidenceGridAria" aria-label="Selected evidence">
             <article class="selected-evidence-card" role="listitem" data-reveal="slide-up" data-reveal-delay="80">
-              <h3 data-i18n="selectedEvidenceCard1Title">AFP 独著条目 · 2026年5月</h3>
-              <p data-i18n="selectedEvidenceCard1Body">在 Isabelle/HOL 中形式化子模最大化的确定性贪心算法与有状态惰性贪心算法。</p>
-              <a class="selected-evidence-link" href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer" data-i18n="selectedEvidenceCard1Link">查看 AFP 条目</a>
+              <h3 data-i18n="selectedEvidenceCard1Title">Sole-author AFP entry · May 2026</h3>
+              <p data-i18n="selectedEvidenceCard1Body">Deterministic and stateful lazy greedy for submodular maximization in Isabelle/HOL.</p>
+              <a class="selected-evidence-link" href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer" data-i18n="selectedEvidenceCard1Link">AFP entry</a>
             </article>
             <article class="selected-evidence-card" role="listitem" data-reveal="slide-up" data-reveal-delay="140">
-              <h3 data-i18n="selectedEvidenceCard2Title">当前合作 · 网络定位</h3>
-              <p data-i18n="selectedEvidenceCard2Body">与 Shoham Sabach 合作研究图结构负曲率证书与局部逃逸方向。</p>
-              <a class="selected-evidence-link" href="notes/network_localization_structural_certificates.html" data-i18n="selectedEvidenceCard2Link">英文技术笔记</a>
+              <h3 data-i18n="selectedEvidenceCard2Title">Current collaboration · Network localization</h3>
+              <p data-i18n="selectedEvidenceCard2Body">Graph-structured negative-curvature certificates and local escape directions, with Shoham Sabach.</p>
+              <a class="selected-evidence-link" href="notes/network_localization_structural_certificates.html" data-i18n="selectedEvidenceCard2Link">English technical note</a>
             </article>
             <article class="selected-evidence-card" role="listitem" data-reveal="slide-up" data-reveal-delay="200">
-              <h3 data-i18n="selectedEvidenceCard3Title">已提交 AFP · 2026年7月2日</h3>
-              <p data-i18n="selectedEvidenceCard3Body">在 Isabelle/HOL 中形式化投影梯度下降、投影几何、梯度映射与收敛速率。</p>
-              <a class="selected-evidence-link" href="post/projected-gradient-descent-isabelle-hol.html" data-i18n="selectedEvidenceCard3Link">项目笔记</a>
+              <h3 data-i18n="selectedEvidenceCard3Title">Submitted to AFP · 2 July 2026</h3>
+              <p data-i18n="selectedEvidenceCard3Body">Projected gradient descent, projection geometry, gradient mappings, and convergence rates in Isabelle/HOL.</p>
+              <a class="selected-evidence-link" href="post/projected-gradient-descent-isabelle-hol.html" data-i18n="selectedEvidenceCard3Link">Project note</a>
             </article>
           </div>
         </div>
@@ -336,28 +335,28 @@
 
       <section class="identity-duality" id="welcome" aria-labelledby="identityDualityTitle" data-floating-logo-tone="light">
         <div class="identity-duality-head" data-reveal="fade" data-reveal-delay="20">
-          <p data-i18n="identityDualityKicker">数学与创作</p>
-          <h2 id="identityDualityTitle" data-i18n="identityDualityTitle">两种身份，两种工作方式</h2>
-          <p class="identity-duality-intro" data-i18n="aboutP3">理性与浪漫在这里并置：证明、声音与影像各自保留自己的语言。</p>
+          <p data-i18n="identityDualityKicker">TWO PRACTICES</p>
+          <h2 id="identityDualityTitle" data-i18n="identityDualityTitle">Two identities, two practices</h2>
+          <p class="identity-duality-intro" data-i18n="aboutP3">Reason and romance sit side by side here: proof, sound, and image each keep their own language.</p>
         </div>
         <div class="identity-duality-grid">
           <article class="identity-panel identity-panel-math" data-reveal="entry-panel" data-reveal-delay="80" data-floating-logo-tone="light">
-            <p class="identity-panel-eyebrow" data-i18n="identityMathEyebrow">学术身份 · FEIER LYU</p>
-            <h3 data-i18n="identityMathTitle">数学</h3>
-            <p data-i18n="identityMathBody">定理、Isabelle/HOL 与优化笔记：从机器检查证明到结构化非凸问题。</p>
+            <p class="identity-panel-eyebrow" data-i18n="identityMathEyebrow">ACADEMIC IDENTITY · FEIER LYU</p>
+            <h3 data-i18n="identityMathTitle">Mathematics</h3>
+            <p data-i18n="identityMathBody">Theorems, Isabelle/HOL, and optimization notes, from machine-checked proofs to structured nonconvex problems.</p>
             <div class="identity-panel-links">
-              <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer" data-i18n="identityMathLink1">AFP 定理</a>
-              <a href="post/projected-gradient-descent-isabelle-hol.html" data-i18n="identityMathLink2">投影梯度下降形式化</a>
-              <a href="math.html" data-i18n="identityMathLink3">技术笔记</a>
+              <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer" data-i18n="identityMathLink1">AFP theorem</a>
+              <a href="post/projected-gradient-descent-isabelle-hol.html" data-i18n="identityMathLink2">PGD formalization</a>
+              <a href="math.html" data-i18n="identityMathLink3">Technical notes</a>
             </div>
           </article>
           <article class="identity-panel identity-panel-creative" data-reveal="entry-panel" data-reveal-delay="150" data-floating-logo-tone="dark">
-            <p class="identity-panel-eyebrow" data-i18n="identityCreativeEyebrow">创作身份 · HAZEZZ</p>
-            <h3 data-i18n="identityCreativeTitle">音乐与影像</h3>
-            <p data-i18n="identityCreativeBody">演出、作曲与摄影系列；让舞台、声音和影像各自保留完整的叙事空间。</p>
+            <p class="identity-panel-eyebrow" data-i18n="identityCreativeEyebrow">CREATIVE IDENTITY · HAZEZZ</p>
+            <h3 data-i18n="identityCreativeTitle">Music &amp; Image</h3>
+            <p data-i18n="identityCreativeBody">Performance, composition, and photographic series, each given its own complete narrative space.</p>
             <div class="identity-visual-links">
-              <a class="identity-visual-link identity-visual-music" href="music.html" style="--identity-image: image-set(url('assets/template/entry-music-5323-1600.webp') type('image/webp') 1x, url('assets/template/entry-music-5323.jpg') type('image/jpeg') 1x);"><span data-i18n="identityCreativeLink1">音乐与演出</span></a>
-              <a class="identity-visual-link identity-visual-photo" href="photography.html" style="--identity-image: image-set(url('assets/template/entry-photo-5322-1600.webp') type('image/webp') 1x, url('assets/template/entry-photo-5322.jpg') type('image/jpeg') 1x);"><span data-i18n="identityCreativeLink2">摄影与动态影像</span></a>
+              <a class="identity-visual-link identity-visual-music" href="music.html" style="--identity-image: image-set(url('assets/template/entry-music-5323-1600.webp') type('image/webp') 1x, url('assets/template/entry-music-5323.jpg') type('image/jpeg') 1x);"><span data-i18n="identityCreativeLink1">Music / Performance</span></a>
+              <a class="identity-visual-link identity-visual-photo" href="photography.html" style="--identity-image: image-set(url('assets/template/entry-photo-5322-1600.webp') type('image/webp') 1x, url('assets/template/entry-photo-5322.jpg') type('image/jpeg') 1x);"><span data-i18n="identityCreativeLink2">Photography / Moving Image</span></a>
             </div>
           </article>
         </div>
@@ -366,24 +365,24 @@
       <section class="now-strip" id="now" data-floating-logo-tone="dark">
         <div class="now-shell" data-reveal="fade" data-reveal-delay="40">
           <div class="now-head">
-            <h2 data-i18n="nowTitle">创作近况</h2>
+            <h2 data-i18n="nowTitle">Creative / Now</h2>
             <div class="now-freshness" data-reveal="fade" data-reveal-delay="80">
-              <span class="now-freshness-label" data-i18n="nowFreshnessLabel">近况更新</span>
+              <span class="now-freshness-label" data-i18n="nowFreshnessLabel">Last updated</span>
               <time class="now-freshness-time" datetime="2026-07">2026. 07</time>
             </div>
           </div>
-          <div class="now-grid" aria-label="当前创作工作" data-i18n-aria="nowGridAria">
+          <div class="now-grid" aria-label="Current creative work" data-i18n-aria="nowGridAria">
             <article class="now-card" data-reveal="slide-up" data-reveal-delay="80">
-              <h3 data-i18n="nowCard1Title">演奏视频</h3>
-              <p data-i18n="nowCard1Body">购入了新相机与镜头，准备拍一些我真正满意的贝斯cover</p>
+              <h3 data-i18n="nowCard1Title">Performance videos</h3>
+              <p data-i18n="nowCard1Body">I bought a new camera and lens, and I’m preparing to film bass covers I’m genuinely happy with.</p>
             </article>
             <article class="now-card" data-reveal="slide-up" data-reveal-delay="150">
-              <h3 data-i18n="nowCard2Title">音乐制作</h3>
-              <p data-i18n="nowCard2Body">正在准备与很厉害的吉他手朋友的合作单曲，同时受到委托正在写一个地下偶像团体的原创曲</p>
+              <h3 data-i18n="nowCard2Title">Music production</h3>
+              <p data-i18n="nowCard2Body">I’m preparing a collaborative single with a brilliant guitarist friend, while also writing an original song commissioned by an underground idol group.</p>
             </article>
             <article class="now-card" data-reveal="slide-up" data-reveal-delay="220">
-              <h3 data-i18n="nowCard3Title">AFP 延伸</h3>
-              <p data-i18n="nowCard3Body">正在把我那个afp entry延伸做成投会议的继续的stochastic线</p>
+              <h3 data-i18n="nowCard3Title">AFP extension</h3>
+              <p data-i18n="nowCard3Body">I’m extending my AFP entry along its stochastic line into a conference submission.</p>
             </article>
           </div>
         </div>
@@ -397,39 +396,39 @@
 
       <div class="home-footer-main">
         <div class="home-footer-col home-footer-contact">
-          <p data-i18n="footerContactLead">联系邮箱：</p>
+          <p data-i18n="footerContactLead">Contact via email:</p>
           <a class="home-footer-email obf-email-link" href="#email-main" data-email-link="1" data-email-key="main">moc.duolci@035reief</a>
-          <p class="home-footer-cities" data-i18n="footerCities">爱丁堡 · 伊萨卡 · 重庆——塑造这些工作的地方。</p>
+          <p class="home-footer-cities" data-i18n="footerCities">Edinburgh · Ithaca · Chongqing — places that shaped the work.</p>
           <div class="home-footer-social" aria-label="Social links">
-            <a href="https://www.instagram.com/lyuf09" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram</a>
-            <a href="https://space.bilibili.com/35902781" target="_blank" rel="noopener noreferrer" aria-label="Bilibili">Bilibili</a>
-            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
-            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
+            <a href="https://www.instagram.com/lyuf09" target="_blank" rel="noopener noreferrer" aria-label="Visit my Instagram profile">Instagram</a>
+            <a href="https://space.bilibili.com/35902781" target="_blank" rel="noopener noreferrer" aria-label="Visit my Bilibili space">Bilibili</a>
+            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer" aria-label="Visit my LinkedIn profile">LinkedIn</a>
+            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer" aria-label="Visit my GitHub profile">GitHub</a>
           </div>
         </div>
 
         <div class="home-footer-col home-footer-policy">
-          <a href="policy.html" data-i18n="siteNotes">网站说明</a>
-          <a href="accessibility.html" data-i18n="a11y">无障碍支持</a>
+          <a href="policy.html" data-i18n="siteNotes">Privacy Policy</a>
+          <a href="accessibility.html" data-i18n="a11y">Accessibility</a>
         </div>
       </div>
 
       <div class="home-footer-bottom">
-        <p data-i18n="footerCopy">© 2026 chronohaze.space。由 GitHub Pages 托管。</p>
+        <p data-i18n="footerCopy">© 2026 by chronohaze.space. Powered and secured by GitHub Pages.</p>
       </div>
     </footer>
 
     <div class="drawer-backdrop" id="backdrop" hidden></div>
     <aside class="drawer" id="drawer" aria-hidden="true">
-      <button class="drawer-close" type="button" data-i18n="menuClose" id="closeMenu">关闭 [ - ]</button>
-      <nav class="drawer-nav" aria-label="站点菜单" data-i18n-aria="drawerAria">
-        <a href="#top" data-i18n="menuHome">主页</a>
-        <a href="academic.html" data-i18n="menuAcademic">学术</a>
-        <a href="photography.html" data-i18n="menuPhoto">摄影</a>
-        <a href="music.html" data-i18n="menuMusic">音乐</a>
-        <a href="olfactory.html" data-i18n="menuOlfactory">调香</a>
-        <a href="cv.html" data-i18n="menuCV">简历</a>
-        <a href="search.html" data-i18n="menuSearch">搜索</a>
+      <button class="drawer-close" type="button" data-i18n="menuClose" id="closeMenu">Close [ - ]</button>
+      <nav class="drawer-nav" aria-label="Menu" data-i18n-aria="drawerAria">
+        <a href="#top" data-i18n="menuHome">Home</a>
+        <a href="academic.html" data-i18n="menuAcademic">Academic</a>
+        <a href="photography.html" data-i18n="menuPhoto">Photography</a>
+        <a href="music.html" data-i18n="menuMusic">Music</a>
+        <a href="olfactory.html" data-i18n="menuOlfactory">Olfactory</a>
+        <a href="cv.html" data-i18n="menuCV">CV</a>
+        <a href="search.html" data-i18n="menuSearch">Search</a>
       </nav>
     </aside>
   </div>
@@ -491,19 +490,7 @@
         drawerLinks = Array.from(nav.querySelectorAll('a'));
       }
 
-      function fmtClockSeed(sec) {
-        if (!Number.isFinite(sec) || sec <= 0) return '00:00';
-        const s = Math.max(0, Math.floor(sec));
-        const m = Math.floor(s / 60);
-        const r = s % 60;
-        return String(m).padStart(2, '0') + ':' + String(r).padStart(2, '0');
-      }
-
       if (audio && timeLabel) {
-        const seededFallbackDuration = Number(audio.getAttribute('data-fallback-duration') || 0);
-        if (seededFallbackDuration > 0) {
-          timeLabel.textContent = '00:00 / ' + fmtClockSeed(seededFallbackDuration);
-        }
         const sourceNode = audio.querySelector('source[src]');
         if ((!audio.getAttribute('src') || !audio.getAttribute('src').trim()) && sourceNode) {
           const sourceSrc = sourceNode.getAttribute('src');
@@ -1142,10 +1129,8 @@
         return String(m).padStart(2, '0') + ':' + String(r).padStart(2, '0');
       }
 
-      const fallbackDuration = Number(audio.getAttribute('data-fallback-duration') || 0);
-
       function getPlayerDuration() {
-        return Number.isFinite(audio.duration) && audio.duration > 0 ? audio.duration : fallbackDuration;
+        return Number.isFinite(audio.duration) && audio.duration > 0 ? audio.duration : 0;
       }
 
       function syncPlayer() {

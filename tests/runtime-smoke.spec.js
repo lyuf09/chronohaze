@@ -424,12 +424,15 @@ test("music index renders and remains interactive", async ({ page }) => {
   await expect(page.locator(".music-room-album-credit")).toHaveText(
     "除特别说明外，作品的写作、编曲、演奏、录制与制作均由 HazezZ 完成。"
   );
-  await expect(page.locator(".page-head p").first()).toContainText("写作、编曲、演奏、录制与制作");
-  await expect(page.locator(".page-head p").first()).toContainText("贝斯和吉他作为编配中心");
-  await expect(page.locator(".page-head .lead")).toContainText("蓝灰色的雨夜");
+  await expect(page.locator(".music-hero-copy h1")).toHaveText("HAZEZZ");
+  await expect(page.locator(".music-hero-roles")).toContainText("Composer · Arranger · Bassist");
+  await expect(page.locator(".music-practice-copy")).toContainText("钢琴和小提琴");
   await expect(page.locator("main")).not.toContainText("屏幕、时差");
   await expect(page.locator(".music-room-archive-section")).toBeVisible();
   await expect.poll(async () => page.locator(".music-room-archive-group").count()).toBeGreaterThan(2);
+  await expect(page.locator('[data-archive-year="2025"] [data-date="2025-03-22"]')).toHaveCount(1);
+  await expect(page.locator('[data-archive-year="2024"] [data-date="2024-02-14"]')).toHaveCount(1);
+  await expect(page.locator('[data-archive-year="2024"]')).not.toHaveAttribute("open", "");
   await expect(page.locator("body.music-index-page")).toHaveAttribute(
     "data-music-listening-room-state",
     "ready"
@@ -446,15 +449,17 @@ test("music index renders and remains interactive", async ({ page }) => {
   await page.goto("music.html?lang=en", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
   await expect(page.locator(".music-room-track-card").first().locator(".music-room-track-roles")).toContainText(
-    "writing"
+    "Lyrics"
   );
+  await expect(page.locator(".music-room-track-card").first().locator(".music-room-track-role")).toHaveCount(8);
+  await expect(page.locator(".music-room-track-play").first()).toHaveText("Play");
+  await expect(page.locator(".music-room-track-open").first()).toHaveText("Open Track");
   await expect(page.locator(".music-room-album-credit")).toHaveText(
     "Written, arranged, performed and produced by HazezZ, unless otherwise noted."
   );
-  await expect(page.locator(".page-head p").first()).toHaveText(
-    "I write, arrange, perform, record, and produce my own music, with bass and guitar at the center of the arrangement. My work draws from progressive metalcore, Japanese rock, and narrative instrumental writing."
+  await expect(page.locator(".music-practice-copy")).toContainText(
+    "My current practice treats songwriting, low-end design"
   );
-  await expect(page.locator(".page-head .lead")).toContainText("blue-grey night");
   await expect(page.locator("main")).not.toContainText("across screens");
   await expect(page.locator(".music-hero")).toHaveAttribute(
     "aria-label",
@@ -466,6 +471,7 @@ test("music index renders and remains interactive", async ({ page }) => {
     "aria-label",
     "Performance gallery"
   );
+  await expect(page.locator(".music-bottom-gallery picture")).toHaveCount(8);
 
   expect(errors).toEqual([]);
 });
@@ -488,6 +494,8 @@ test("search page loads grouped results and query state works", async ({ page })
   await expect(page.locator(".search-shortcuts")).toHaveText("/ or Ctrl/Cmd+K to focus search");
   await expect(page.locator("header .nav")).toHaveAttribute("aria-label", "Main navigation");
   await expect(page.locator(".search-form")).toHaveAttribute("aria-label", "Site search form");
+  await expect(page.locator('.floating-lang-btn[data-lang="en"]')).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator('.floating-lang-btn[data-lang="zh"]')).toHaveAttribute("aria-pressed", "false");
   await expect(page.locator('meta[name="description"]')).toHaveAttribute(
     "content",
     "Search Chronohaze across mathematics, photography, music, research, and CV content."
@@ -518,6 +526,11 @@ test("search page loads grouped results and query state works", async ({ page })
   );
   await expect(page.locator(".search-result-excerpt").first()).toContainText("Isabelle/HOL");
 
+  await page.fill("#site-search-input", "TTGDA");
+  await page.click(".search-submit");
+  const englishExcerpt = await page.locator(".search-result-excerpt").first().innerText();
+  expect(englishExcerpt).not.toMatch(/[\u3400-\u9fff]/);
+
   await page.fill("#site-search-input", "__chronohaze_no_match__");
   await page.click(".search-submit");
   await expect(page.locator(".search-status")).toHaveText("0 results");
@@ -545,6 +558,34 @@ test("English utility and music-detail pages expose English metadata", async ({ 
     expect(description).toContain(expectedDescription);
     expect(description).not.toMatch(/[\u3400-\u9fff]/);
   }
+
+  expect(errors).toEqual([]);
+});
+
+test("Affizieren shows metadata duration and progressive technical disclosure before playback", async ({ page }) => {
+  const errors = trackPageErrors(page);
+  await page.goto("music/track-04.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+
+  const metas = page.locator(".music-detail-meta");
+  await expect(metas.nth(0)).toHaveText("Creation period · Sep–Dec 2024");
+  await expect(metas.nth(1)).toContainText("Echoes of Two Years");
+  await expect(metas.nth(1)).toContainText(
+    "Lyrics · Composition · Arrangement · Guitar · Bass · Mixing · Production — HazezZ"
+  );
+  await expect(page.locator(".music-detail-article h2").first()).toHaveText("About the work");
+  await expect(page.locator(".music-detail-article h2").first().locator("xpath=following-sibling::p[1]")).toContainText(
+    "began in the autumn of my nineteenth year"
+  );
+  await expect(page.locator(".affizieren-note-summary-card")).toHaveCount(4);
+  await expect(page.locator(".affizieren-note-summary-grid")).toContainText("A♯–E–A–D–G–B–E");
+  await expect(page.locator(".affizieren-note-details")).not.toHaveAttribute("open", "");
+  await expect(page.locator(".affizieren-note-details > summary")).toHaveText(
+    "Full production and arrangement notes"
+  );
+  await expect
+    .poll(async () => page.locator(".music-player-time").first().innerText())
+    .not.toBe("00:00 / 00:00");
 
   expect(errors).toEqual([]);
 });
@@ -840,7 +881,7 @@ test("academic section navigation stays on the three canonical destinations", as
 
 test("album page renders cover and track links", async ({ page }) => {
   const errors = trackPageErrors(page);
-  await page.goto("music/album-ipomoea-alba.html", { waitUntil: "domcontentloaded" });
+  await page.goto("music/album-ipomoea-alba.html?lang=zh", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
 
   await expect(page.locator(".album-cover img")).toBeVisible();
@@ -1275,7 +1316,7 @@ test("photography vocabulary and Blue still frames render without overflow", asy
 
 test("photo detail page supports keyboard prev/next navigation", async ({ page }) => {
   const errors = trackPageErrors(page);
-  await page.goto("photo/photo-01.html", { waitUntil: "domcontentloaded" });
+  await page.goto("photo/photo-01.html?lang=zh", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
 
   await expect(page.locator(".photo-detail-article, .photo-blue-article")).toBeVisible();
