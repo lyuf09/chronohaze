@@ -15,7 +15,10 @@ DATE_MD_ZH_RE = re.compile(r'^\s*(\d{1,2})月(\d{1,2})日\s*$')
 CARD_DATE_RE = re.compile(r'<p\s+class="math-date"(?P<attrs>[^>]*)>(?P<body>.*?)</p>', re.S)
 CARD_TITLE_RE = re.compile(r'<a\s+class="math-title-link"(?P<attrs>[^>]*)>(?P<body>.*?)</a>', re.S)
 CARD_DESC_RE = re.compile(r'<p\s+class="math-desc"(?P<attrs>[^>]*)>(?P<body>.*?)</p>', re.S)
-CARD_STATUS_RE = re.compile(r'<span\s+class="math-note-status"[^>]*>(?P<body>.*?)</span>', re.S)
+CARD_STATUS_RE = re.compile(
+    r'<span\s+class="math-note-status"(?P<attrs>[^>]*)>(?P<body>.*?)</span>',
+    re.S,
+)
 CARD_TAG_RE = re.compile(r'<span\s+class="math-tag"[^>]*>(?P<body>.*?)</span>', re.S)
 CARD_MORE_RE = re.compile(r'<a\s+class="math-more"(?P<attrs>[^>]*)>(?P<body>.*?)</a>', re.S)
 
@@ -86,6 +89,7 @@ def parse_cards(text: str) -> List[Dict[str, object]]:
         date_attrs = attrs_dict(date_m.group('attrs') if date_m else '')
         title_attrs = attrs_dict(title_m.group('attrs') if title_m else '')
         desc_attrs = attrs_dict(desc_m.group('attrs') if desc_m else '')
+        status_attrs = attrs_dict(status_m.group('attrs') if status_m else '')
         more_m = CARD_MORE_RE.search(body)
         more_attrs = attrs_dict(more_m.group('attrs') if more_m else '')
         date_zh = date_attrs.get('data-copy-zh') or clean(date_m.group('body') if date_m else '')
@@ -112,7 +116,9 @@ def parse_cards(text: str) -> List[Dict[str, object]]:
             'reading_time_zh': attrs.get('data-reading-time-zh') or (meta_zh[1] if len(meta_zh) > 1 else ''),
             'reading_time_en': attrs.get('data-reading-time-en') or (meta_en[1] if len(meta_en) > 1 else ''),
         }
-        note_status = clean(status_m.group('body') if status_m else '')
+        note_status = status_attrs.get('data-copy-en') or clean(
+            status_m.group('body') if status_m else ''
+        )
         if note_status:
             item['note_status'] = note_status
         date_label_zh = attrs.get('data-date-label-zh') or date_zh

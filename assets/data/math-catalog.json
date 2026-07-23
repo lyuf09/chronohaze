@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-22",
+  "generated_at": "2026-07-23",
   "source": "math.html",
   "items": [
     {
@@ -23,7 +23,8 @@
       "reading_time_zh": "PDF · 4页英文技术笔记",
       "reading_time_en": "PDF · 4-page English technical note",
       "note_status": "Ongoing joint research",
-      "date_label_zh": "Technical note · 2026-07-22",
+      "date_label_zh": "技术笔记 · 2026-07-22",
+      "date_label_en": "Technical note · 2026-07-22",
       "link_label_zh": "打开英文笔记",
       "link_label_en": "Read PDF"
     },
@@ -71,7 +72,8 @@
       "reading_time_zh": "PDF · 2026年7月更新",
       "reading_time_en": "PDF · updated July 2026",
       "note_status": "Exploratory derivation",
-      "date_label_zh": "2026-07-15 · updated",
+      "date_label_zh": "2026-07-15 · 已更新",
+      "date_label_en": "2026-07-15 · updated",
       "link_label_zh": "打开笔记"
     },
     {
@@ -95,7 +97,8 @@
       "reading_time_zh": "约 6 分钟",
       "reading_time_en": "7 min read",
       "note_status": "Published formalization",
-      "date_label_zh": "Originally posted · 2026-06-30"
+      "date_label_zh": "原始发布 · 2026-06-30",
+      "date_label_en": "Originally posted · 2026-06-30"
     },
     {
       "order": 5,
@@ -117,7 +120,8 @@
       "reading_time_zh": "约 10 分钟",
       "reading_time_en": "10 min read",
       "note_status": "Ongoing joint research",
-      "date_label_zh": "Originally posted · 2026-05-22"
+      "date_label_zh": "原始发布 · 2026-05-22",
+      "date_label_en": "Originally posted · 2026-05-22"
     },
     {
       "order": 6,
@@ -139,7 +143,8 @@
       "reading_time_zh": "约 5 分钟",
       "reading_time_en": "5 min read",
       "note_status": "Submitted formalization",
-      "date_label_zh": "Originally posted · 2026-05-22"
+      "date_label_zh": "原始发布 · 2026-05-22",
+      "date_label_en": "Originally posted · 2026-05-22"
     },
     {
       "order": 7,
@@ -161,7 +166,8 @@
       "reading_time_zh": "约 5 分钟",
       "reading_time_en": "6 min read",
       "note_status": "Exploratory derivation",
-      "date_label_zh": "Originally posted · 2026-03-23"
+      "date_label_zh": "原始发布 · 2026-03-23",
+      "date_label_en": "Originally posted · 2026-03-23"
     },
     {
       "order": 8,
@@ -183,7 +189,8 @@
       "reading_time_zh": "约 6 分钟",
       "reading_time_en": "8 min read",
       "note_status": "Published formalization",
-      "date_label_zh": "Originally posted · 2026-03-14"
+      "date_label_zh": "原始发布 · 2026-03-14",
+      "date_label_en": "Originally posted · 2026-03-14"
     },
     {
       "order": 9,
