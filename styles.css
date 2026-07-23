@@ -16935,3 +16935,103 @@ html:lang(en) .music-index-page .main .music-timeline-mark {
     grid-template-columns: 1fr;
   }
 }
+
+/* Music selected works: sharp editorial controls and a roomier action rail. */
+.music-index-page .music-room-track-card {
+  border-radius: 0;
+  box-shadow: 0 16px 34px rgba(18, 24, 32, 0.065);
+}
+
+.music-index-page .music-room-track-meta {
+  padding: 20px 20px 18px;
+}
+
+.music-index-page .music-room-track-roles {
+  gap: 6px;
+  margin: 3px 0 4px;
+}
+
+.music-index-page .music-room-track-role {
+  min-height: 24px;
+  padding: 5px 9px 4px;
+  border-color: rgba(56, 68, 89, 0.24);
+  border-radius: 0;
+  background: rgba(248, 250, 253, 0.34);
+  color: rgba(42, 51, 69, 0.82);
+  font-family: var(--font-music-serif);
+  font-size: 11px;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  text-transform: none;
+}
+
+.music-index-page .music-room-track-actions {
+  position: relative;
+  gap: 20px;
+  margin-top: 8px;
+  padding: 22px 20px 22px;
+  border-top: 1px solid rgba(57, 68, 88, 0.15);
+  background: rgba(244, 247, 251, 0.32);
+}
+
+.music-index-page .music-room-track-play {
+  min-height: 42px;
+  padding: 10px 17px 9px;
+  border-radius: 0;
+  box-shadow: none;
+  font-family: var(--font-music-serif);
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 0.13em;
+}
+
+.music-index-page .music-room-track-play::before {
+  margin-right: 9px;
+  font-family: var(--font-sans-en);
+  font-size: 7px;
+}
+
+.music-index-page .music-room-track-open {
+  min-height: 42px;
+  padding: 10px 2px 8px;
+  font-family: var(--font-music-serif);
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+}
+
+.music-index-page .music-room-track-play:hover,
+.music-index-page .music-room-track-play:focus-visible {
+  box-shadow: none;
+}
+
+html:lang(zh) .music-index-page .music-room-track-role,
+html:lang(zh) .music-index-page .music-room-track-play,
+html:lang(zh) .music-index-page .music-room-track-open {
+  font-family: "Chronohaze Serif SC", "Songti SC", "Songti TC", "STSong", "Hiragino Mincho ProN", "Noto Serif SC", serif;
+}
+
+@media (max-width: 760px) {
+  .music-index-page .music-room-track-meta {
+    padding: 16px 14px 15px;
+  }
+
+  .music-index-page .music-room-track-role {
+    min-height: 22px;
+    padding: 4px 7px 3px;
+    font-size: 10px;
+  }
+
+  .music-index-page .music-room-track-actions {
+    gap: 18px;
+    margin-top: 6px;
+    padding: 18px 14px 18px;
+  }
+
+  .music-index-page .music-room-track-play,
+  .music-index-page .music-room-track-open {
+    min-height: 40px;
+    font-size: 12px;
+  }
+}
