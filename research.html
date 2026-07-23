@@ -224,9 +224,9 @@
     })();
   </script>
   <link rel="preload" href="assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="styles.min.css?v=20260722-music-localization1" />
+<link rel="stylesheet" href="styles.min.css?v=20260723-information-architecture1" />
   <link rel="stylesheet" href="assets/css/academic-mobile.css?v=20260418-mobile1" />
-  <script defer src="protect-media.min.js?v=20260722-music-localization1"></script>
+  <script defer src="protect-media.min.js?v=20260723-information-architecture1"></script>
 </head>
 <body class="research-landing-page research-page" data-research-catalog-ready="1">
   <div class="page">
@@ -256,9 +256,9 @@
           <div class="cv-utility-top">
           </div>
           <nav class="academic-local-nav" aria-label="Academic section links" data-i18n-aria="academicSectionAria">
-            <a class="academic-local-link" href="projects.html" data-i18n="utilityProjects">Selected Work</a>
-            <a class="academic-local-link is-active" href="research.html" data-i18n="utilityResearch">Research Statement</a>
-            <a class="academic-local-link" href="math.html" data-i18n="utilityNotes">Technical Notes</a>
+            <a class="academic-local-link" href="projects.html" data-i18n="utilityProjects">代表性工作</a>
+            <a class="academic-local-link is-active" href="research.html" data-i18n="utilityResearch">研究陈述</a>
+            <a class="academic-local-link" href="math.html" data-i18n="utilityNotes">技术笔记</a>
           </nav>
         </div>
       </div>
@@ -287,8 +287,8 @@
         </div>
         <div class="container">
           <ol class="research-question-list" data-lang-block="zh">
-            <li><span>01</span><p>如何把 classical greedy、stateful lazy-greedy 与 stochastic-greedy 的假设、状态不变量和近似保证组织成可复用的 Isabelle/HOL 接口？</p></li>
-            <li><span>02</span><p>如何用一组稳定的 projection geometry 与 projected-gradient mapping 引理，同时支持凸收敛和强凸线性收敛率？</p></li>
+            <li><span>01</span><p>如何把经典贪心、有状态惰性贪心与 StochasticGreedy 的假设、状态不变量和近似保证组织成可复用的 Isabelle/HOL 接口？</p></li>
+            <li><span>02</span><p>如何用一组稳定的投影几何与投影梯度映射引理，同时支持凸收敛和强凸线性收敛率？</p></li>
             <li><span>03</span><p>对网络定位中的非最优驻点，哪些图结构与几何条件能给出可计算的负曲率证书和局部逃逸方向？</p></li>
           </ol>
           <ol class="research-question-list" data-lang-block="en" hidden>
@@ -307,24 +307,24 @@
         <div class="container research-project-grid research-direction-hierarchy">
           <div data-lang-block="zh" class="research-direction-grid">
             <article class="research-project-card">
-              <p class="research-project-kind">PRIMARY DIRECTION 01</p>
+              <p class="research-project-kind">主要方向 01</p>
               <h3>机器检查优化与可复用证明结构</h3>
               <p>这条研究线把算法假设、状态不变量、关键不等式与收敛结论拆成可复用的 Isabelle/HOL 组件。</p>
-              <p>2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库还进一步发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。关于 smooth convex optimization 与 projected gradient descent 的第二个形式化项目已于2026年7月2日提交至 Archive of Formal Proofs，目前等待审核。</p>
-              <p>当前重点是减少不同算法证明之间重复的 projection、telescoping 与 approximation bookkeeping。</p>
+              <p>2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化经典贪心算法与经验证的有状态惰性贪心变体。发表后，当前仓库继续发展 StochasticGreedy 定理线，包括采样模型、近似证明与预言机调用复杂度界。关于光滑凸优化与投影梯度下降的第二个形式化项目已于2026年7月2日提交至 Archive of Formal Proofs，目前等待审核。</p>
+              <p>当前重点是减少不同算法证明之间重复的投影、望远镜求和与近似保证整理工作。</p>
               <div class="research-link-row">
-                <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
+                <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP 条目</a>
                 <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a>
-                <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf" target="_blank" rel="noopener noreferrer">Proof document</a>
-                <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">Repository</a>
+                <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf" target="_blank" rel="noopener noreferrer">证明文档</a>
+                <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">代码仓库</a>
               </div>
             </article>
 
             <article class="research-project-card">
-              <p class="research-project-kind">PRIMARY DIRECTION 02</p>
+              <p class="research-project-kind">主要方向 02</p>
               <h3>网络定位中的负曲率证书</h3>
               <p>与 Prof. Shoham Sabach 的合作研究图结构如何控制非最优驻点附近的 Hessian 负曲率。</p>
-              <p>当前目标是从 cycle consistency、projected edge budgets 与图的环空间中构造可验证的局部逃逸方向，并明确这些证书成立所需的几何假设。</p>
+              <p>当前目标是从环一致性、投影边预算与图的环空间中构造可验证的局部逃逸方向，并明确这些证书成立所需的几何假设。</p>
             </article>
 
           </div>
@@ -333,7 +333,7 @@
               <p class="research-project-kind">PRIMARY DIRECTION 01</p>
               <h3>Machine-checked optimization and reusable proof structure</h3>
               <p>This line separates algorithmic assumptions, state invariants, key inequalities, and convergence statements into reusable Isabelle/HOL components.</p>
-              <p>Published in AFP on May 26, 2026: a formalization of the classical greedy algorithm and a verified stateful lazy-greedy variant for cardinality-constrained monotone submodular maximization. Post-publication extension: the current repository additionally develops a stochastic-greedy line, including sampling, approximation packaging, and oracle-cost accounting. A second formalization project on smooth convex optimization and projected gradient descent was submitted to the Archive of Formal Proofs on July 2, 2026 and is awaiting review.</p>
+              <p>Published in AFP on May 26, 2026: a formalization of the classical greedy algorithm and a verified stateful lazy-greedy variant for cardinality-constrained monotone submodular maximization. Post-publication extension: the current repository additionally develops a stochastic-greedy line, including the sampling model, approximation proof, and oracle-cost bounds. A second formalization project on smooth convex optimization and projected gradient descent was submitted to the Archive of Formal Proofs on July 2, 2026 and is awaiting review.</p>
               <p>The current goal is to reduce repeated projection, telescoping, and approximation bookkeeping across different algorithm proofs.</p>
               <div class="research-link-row">
                 <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
@@ -389,35 +389,49 @@
                   <p>Formalization project and materials for submodular greedy algorithms.</p>
                 </div>
                 <span class="research-output-status">
-                  <span class="research-output-status-badge research-output-status-badge--active">Formalization</span>
+                  <span class="research-output-status-badge research-output-status-badge--active" data-copy-zh="形式化项目" data-copy-en="Formalization">形式化项目</span>
                 </span>
               </a>
               <a class="research-output-card" data-output-type="notes" href="post/projected-gradient-descent-isabelle-hol.html">
                 <span class="research-output-kicker">Isabelle/HOL</span>
                 <div data-lang-block="zh">
                   <strong>Projected Gradient Descent</strong>
-                  <p>smooth convex optimization 中一阶方法形式化项目；已提交至 AFP，等待审核。</p>
+                  <p>光滑凸优化中的一阶方法形式化项目；已提交至 AFP，等待审核。</p>
                 </div>
                 <div data-lang-block="en" hidden>
                   <strong>Projected Gradient Descent</strong>
                   <p>Formalization project for first-order methods in smooth convex optimization; submitted to AFP and awaiting review.</p>
                 </div>
                 <span class="research-output-status">
-                  <span class="research-output-status-badge research-output-status-badge--active">Awaiting review</span>
+                  <span class="research-output-status-badge research-output-status-badge--active" data-copy-zh="等待审核" data-copy-en="Awaiting review">等待审核</span>
+                </span>
+              </a>
+              <a class="research-output-card" data-output-type="notes" href="notes/network_localization_structural_certificates.html">
+                <span class="research-output-kicker" data-copy-zh="非凸优化" data-copy-en="Nonconvex Optimization">非凸优化</span>
+                <div data-lang-block="zh">
+                  <strong>Negative-Curvature Certificates for Network Localization</strong>
+                  <p>关于投影边预算、Hessian 结构与局部逃逸方向的合作研究技术笔记。</p>
+                </div>
+                <div data-lang-block="en" hidden>
+                  <strong>Negative-Curvature Certificates for Network Localization</strong>
+                  <p>A joint-research technical note on projected edge budgets, Hessian structure, and local escape directions.</p>
+                </div>
+                <span class="research-output-status">
+                  <span class="research-output-status-badge research-output-status-badge--active" data-copy-zh="合作研究" data-copy-en="Joint research">合作研究</span>
                 </span>
               </a>
               <a class="research-output-card" data-output-type="notes" href="notes/ttgda_second_order_tracking_note.html">
-                <span class="research-output-kicker">Optimization Note</span>
+                <span class="research-output-kicker" data-copy-zh="优化笔记" data-copy-en="Optimization Note">优化笔记</span>
                 <div data-lang-block="zh">
                   <strong>TTGDA and Second-Order Tracking</strong>
-                  <p>关于 value-function viewpoint 与二阶 tracking 问题的探索性技术笔记。</p>
+                  <p>关于值函数视角与二阶跟踪问题的探索性技术笔记。</p>
                 </div>
                 <div data-lang-block="en" hidden>
                   <strong>TTGDA and Second-Order Tracking</strong>
                   <p>An exploratory note on the value-function viewpoint and second-order tracking.</p>
                 </div>
                 <span class="research-output-status">
-                  <span class="research-output-status-badge research-output-status-badge--draft">Exploratory</span>
+                  <span class="research-output-status-badge research-output-status-badge--draft" data-copy-zh="探索性" data-copy-en="Exploratory">探索性</span>
                 </span>
               </a>
             </div>
@@ -436,10 +450,10 @@
         </div>
         <div class="container research-now-panel">
           <div data-lang-block="zh">
-            <p>机器检查优化，以及不变性、对偶与定位，是我希望继续深入的两条数学主线。</p>
+            <p>我计划继续推进两条相互关联的方向：机器检查优化，以及通过不变性与对偶研究非凸定位问题的结构。</p>
           </div>
           <div data-lang-block="en" hidden>
-            <p>Machine-checked optimization, and invariance, duality, and localization, are the two mathematical directions I want to pursue further.</p>
+            <p>I plan to pursue two connected directions: machine-checked optimization, and structural analysis of nonconvex localization problems through invariance and duality.</p>
           </div>
         </div>
       </section>
@@ -489,9 +503,9 @@
           navMusic: "音乐",
           navCV: "CV",
           navSearch: "搜索",
-          utilityResearch: "Research Statement",
-          utilityProjects: "Selected Work",
-          utilityNotes: "Technical Notes",
+          utilityResearch: "研究陈述",
+          utilityProjects: "代表性工作",
+          utilityNotes: "技术笔记",
           footerContactLead: "学术联系邮箱：",
           footerCities: "Feier Lyu · 爱丁堡大学数学本科",
           siteNotes: "网站说明",

@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import colorsys
 import hashlib
+import html
 import json
 import math
 import re
@@ -540,7 +541,7 @@ def extract_meta(text: str, attr_name: str, attr_value: str) -> str:
         text,
         flags=re.I,
     )
-    return m.group(1).strip() if m else ""
+    return html.unescape(m.group(1).strip()) if m else ""
 
 
 def extract_title_and_description(page_path: Path) -> Tuple[str, str]:
@@ -644,22 +645,40 @@ def render_site_card_image(
     draw.rounded_rectangle((86, 90, 322, 132), radius=18, fill=(*mix(accent, dark, 0.35), 225))
     draw.text((102, 99), label, font=label_font, fill=(242, 246, 252, 255))
 
-    clean_title = re.sub(r"\s+", " ", title or "").strip() or "Chronohaze"
-    title_lines = fit_text_lines(draw, clean_title, title_font, max_width=930, max_lines=4)
-    y = draw_text_lines(draw, title_lines, x=90, y=170, font=title_font, fill=(24, 29, 40, 255), line_gap=7)
-
-    clean_desc = re.sub(r"\s+", " ", desc or "").strip()
-    if clean_desc:
-        desc_lines = fit_text_lines(draw, clean_desc, body_font, max_width=920, max_lines=4)
-        y = draw_text_lines(
-            draw,
-            desc_lines,
-            x=92,
-            y=y + 16,
-            font=body_font,
-            fill=(89, 99, 120, 255),
-            line_gap=5,
+    if rel == "index.html":
+        name_font = load_font(HEADLINE_FONT_CANDIDATES, 68)
+        focus_font = load_font(SANS_FONT_CANDIDATES, 36)
+        authority_font = load_font(SANS_FONT_CANDIDATES, 28)
+        draw.text((90, 176), "Feier Lyu", font=name_font, fill=(24, 29, 40, 255))
+        draw.text(
+            (92, 286),
+            "Optimization · Formal Verification · Isabelle/HOL",
+            font=focus_font,
+            fill=(48, 59, 82, 255),
         )
+        draw.text(
+            (92, 356),
+            "University of Edinburgh · AFP Author",
+            font=authority_font,
+            fill=(89, 99, 120, 255),
+        )
+    else:
+        clean_title = re.sub(r"\s+", " ", title or "").strip() or "Chronohaze"
+        title_lines = fit_text_lines(draw, clean_title, title_font, max_width=930, max_lines=4)
+        y = draw_text_lines(draw, title_lines, x=90, y=170, font=title_font, fill=(24, 29, 40, 255), line_gap=7)
+
+        clean_desc = re.sub(r"\s+", " ", desc or "").strip()
+        if clean_desc:
+            desc_lines = fit_text_lines(draw, clean_desc, body_font, max_width=920, max_lines=4)
+            draw_text_lines(
+                draw,
+                desc_lines,
+                x=92,
+                y=y + 16,
+                font=body_font,
+                fill=(89, 99, 120, 255),
+                line_gap=5,
+            )
 
     rail_y = OG_HEIGHT - 96
     draw.line((90, rail_y, OG_WIDTH - 90, rail_y), fill=(154, 168, 195, 100), width=2)

@@ -153,16 +153,16 @@
   <link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
   <title>从一个定理到一套框架：我的 Isabelle 子模优化项目新进展</title>
-  <meta name="description" content="AFP 2026 条目收录 classical greedy 与 verified stateful lazy-greedy；发表后的仓库继续发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。" />
+  <meta name="description" content="AFP 2026 条目收录 classical greedy 与 verified stateful lazy-greedy；发表后的仓库继续发展 StochasticGreedy theorem line，包括采样模型、近似证明与预言机调用复杂度界。" />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Chronohaze" />
   <meta property="og:title" content="从一个定理到一套框架：我的 Isabelle 子模优化项目新进展 | Chronohaze" />
-  <meta property="og:description" content="AFP 2026 条目收录 classical greedy 与 verified stateful lazy-greedy；发表后的仓库继续发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。" />
+  <meta property="og:description" content="AFP 2026 条目收录 classical greedy 与 verified stateful lazy-greedy；发表后的仓库继续发展 StochasticGreedy theorem line，包括采样模型、近似证明与预言机调用复杂度界。" />
   <meta property="og:url" content="https://lyuf09.github.io/chronohaze/post/theorem-to-framework-isabelle-submodular.html" />
   <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/theorem-to-framework-isabelle-submodular.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="从一个定理到一套框架：我的 Isabelle 子模优化项目新进展 | Chronohaze" />
-  <meta name="twitter:description" content="AFP 2026 条目收录 classical greedy 与 verified stateful lazy-greedy；发表后的仓库继续发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。" />
+  <meta name="twitter:description" content="AFP 2026 条目收录 classical greedy 与 verified stateful lazy-greedy；发表后的仓库继续发展 StochasticGreedy theorem line，包括采样模型、近似证明与预言机调用复杂度界。" />
   <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/theorem-to-framework-isabelle-submodular.png" />
   <link rel="canonical" href="https://lyuf09.github.io/chronohaze/post/theorem-to-framework-isabelle-submodular.html" />
   <!-- GENERATED:hreflang:start -->
@@ -209,8 +209,8 @@
     })();
   </script>
   <link rel="preload" href="../assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="../styles.min.css?v=20260722-music-localization1" />
-  <script defer src="../protect-media.min.js?v=20260722-music-localization1"></script>
+<link rel="stylesheet" href="../styles.min.css?v=20260723-information-architecture1" />
+  <script defer src="../protect-media.min.js?v=20260723-information-architecture1"></script>
 </head>
 <body class="math-post-page">
   <div class="page">
@@ -250,7 +250,7 @@
 
           <aside class="math-post-update" aria-label="项目更新：2026年7月">
             <p class="math-post-update-label">Updated 2026年7月 · 保留原始发布日期</p>
-            <p><strong>Published 2026年5月26日：</strong>AFP 条目对基数约束下的单调子模最大化形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。<strong>发表后扩展：</strong>当前仓库还进一步发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting。本状态更新不改变原文 3 月 14 日的发布日期。</p>
+            <p><strong>Published 2026年5月26日：</strong>AFP 条目对基数约束下的单调子模最大化形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。<strong>发表后扩展：</strong>当前仓库还进一步发展 StochasticGreedy theorem line，包括采样模型、近似证明与预言机调用复杂度界。本状态更新不改变原文 3 月 14 日的发布日期。</p>
             <div class="research-link-row">
               <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
               <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a>
@@ -277,13 +277,13 @@
 
           <h3><strong>发表后扩展：StochasticGreedy theorem line</strong></h3>
           <p>AFP 2026 条目的正式范围止于 classical greedy 与 verified stateful lazy-greedy。发表之后，仓库没有停在这里：StochasticGreedy 已从早期结构发展成一条相当完整的 theorem-level line，但它应当被明确标注为 post-publication extension，而不是 AFP entry 的组成部分。</p>
-          <p>当前仓库包含 deterministic trace layer、具体的 uniform with-replacement sampling model、sampling 与 weighted-sampling lemmas、one-step expected-gain lower bounds、gap recurrence 与 approximation packaging，以及最终的 <span lang="en">k</span>-step approximation wrapper。</p>
+          <p>当前仓库包含 deterministic trace layer、具体的 uniform with-replacement sampling model、sampling 与 weighted-sampling lemmas、one-step expected-gain lower bounds、gap recurrence 与近似证明，以及最终的 <span lang="en">k</span>-step approximation wrapper。</p>
           <p>复杂度一侧也不再只是 cost skeleton：仓库已经给出 trace-level exact gain-evaluation counters、sample-size discipline 与 oracle-cost theorems，并用一个 paper-facing wrapper 把 approximation guarantee 和 oracle budget 放在同一套 epsilon-driven 参数约束下。</p>
           <p>当前 abstraction boundary 仍然保留了 executable deterministic trace 与 abstract probabilistic recurrence 之间的分层；因此仓库把两侧结果并列 packaging，而没有把它们冒充成一个已经完全统一的 probabilistic run semantics。</p>
 
           <h3><strong>我现在怎么理解这个项目</strong></h3>
           <p>到这一步，我觉得这个项目最值得记录的新变化不是又多了几个 thy 文件，而是它的身份变了。</p>
-          <p>它现在更像一个小而持续增长的 Isabelle/HOL framework：AFP 2026 已发表的 classical greedy 与 stateful lazy-greedy 构成稳定基础；发表后的 StochasticGreedy theorem line 则把 library 继续推进到 sampling、expectation、approximation packaging 和 query complexity。这样区分发表范围与仓库现状，既准确记录正式成果，也能清楚呈现项目在发表后的继续发展。</p>
+          <p>它现在更像一个小而持续增长的 Isabelle/HOL framework：AFP 2026 已发表的 classical greedy 与 stateful lazy-greedy 构成稳定基础；发表后的 StochasticGreedy theorem line 则把 library 继续推进到采样模型、期望界、近似证明与查询复杂度。这样区分发表范围与仓库现状，既准确记录正式成果，也能清楚呈现项目在发表后的继续发展。</p>
           <p>我有在想，我写下来的到底是一个证明结果还是一个可以继续长出别的结果的结构？前者当然重要，但后者更难我也更喜欢。因为只有当一个项目开始具备可扩展性时，它才真正从一次性的作业式完成变成了一条研究路径。</p>
 
           <nav class="math-post-nav" data-static-math-post-nav="1" aria-label="相邻笔记导航"><a class="math-post-nav-item" data-nav-dir="prev" href="../post/what-i-really-got-when-a-dual-route-failed.html" data-no-page-transition="1" aria-label="上一篇 · 当一个 dual 路线走不通时，我真正得到的东西"><span class="math-post-nav-label">上一篇</span><span class="math-post-nav-title">当一个 dual 路线走不通时，我真正得到的东西</span></a><a class="math-post-nav-item" data-nav-dir="next" href="../post/metalcore-piano-lab.html" data-no-page-transition="1" aria-label="下一篇 · Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP）"><span class="math-post-nav-label">下一篇</span><span class="math-post-nav-title">Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP）</span></a></nav>
@@ -303,7 +303,7 @@
 
           <aside class="math-post-update" aria-label="Project update, July 2026">
             <p class="math-post-update-label">Updated July 2026 - original post date retained.</p>
-            <p><strong>Published May 26, 2026:</strong> the AFP entry formalizes the classical greedy algorithm and a verified stateful lazy-greedy variant for cardinality-constrained monotone submodular maximization. <strong>Post-publication extension:</strong> the current repository additionally develops a stochastic-greedy line, including sampling, approximation packaging, and oracle-cost accounting. This status update does not change the original March 14 date.</p>
+            <p><strong>Published May 26, 2026:</strong> the AFP entry formalizes the classical greedy algorithm and a verified stateful lazy-greedy variant for cardinality-constrained monotone submodular maximization. <strong>Post-publication extension:</strong> the current repository additionally develops a stochastic-greedy line, including the sampling model, approximation proof, and oracle-cost bounds. This status update does not change the original March 14 date.</p>
             <div class="research-link-row">
               <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
               <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a>
@@ -330,13 +330,13 @@
 
           <h3><strong>Post-publication extension: the StochasticGreedy theorem line</strong></h3>
           <p>The published scope of the AFP 2026 entry ends with classical greedy and verified stateful lazy-greedy. After publication, the repository did not stop there: StochasticGreedy has grown from its early structure into a substantial theorem-level line. It should, however, be identified as a post-publication extension rather than as part of the AFP entry.</p>
-          <p>The current repository includes a deterministic trace layer, a concrete uniform with-replacement sampling model, sampling and weighted-sampling lemmas, one-step expected-gain lower bounds, gap-recurrence and approximation packaging, and a final <span lang="en">k</span>-step approximation wrapper.</p>
+          <p>The current repository includes a deterministic trace layer, a concrete uniform with-replacement sampling model, sampling and weighted-sampling lemmas, one-step expected-gain lower bounds, gap recurrences and the approximation proof, and a final <span lang="en">k</span>-step approximation wrapper.</p>
           <p>The complexity side is no longer merely a cost skeleton either. It includes exact trace-level gain-evaluation counters, sample-size disciplines, oracle-cost theorems, and a paper-facing wrapper that places the approximation guarantee and oracle budget under the same epsilon-driven parameter discipline.</p>
           <p>The current abstraction boundary still separates executable deterministic traces from the abstract probabilistic recurrence. The repository therefore packages the two results side by side without presenting them as a fully unified probabilistic run semantics.</p>
 
           <h3><strong>How I understand this project now</strong></h3>
           <p>At this point, I think the most meaningful new change in the project is not simply that it has gained a few more .thy files. Its identity has changed.</p>
-          <p>It now feels much more like a small but steadily growing Isabelle/HOL framework. The classical greedy and stateful lazy-greedy developments published in AFP 2026 provide the stable foundation; the post-publication StochasticGreedy theorem line continues the library into sampling, expectation, approximation packaging, and query complexity. Separating the publication scope from the current repository state records both achievements accurately.</p>
+          <p>It now feels much more like a small but steadily growing Isabelle/HOL framework. The classical greedy and stateful lazy-greedy developments published in AFP 2026 provide the stable foundation; the post-publication StochasticGreedy theorem line continues the library into sampling models, expectation bounds, approximation proofs, and query complexity. Separating the publication scope from the current repository state records both achievements accurately.</p>
           <p>Lately I have been thinking a lot about the following question: am I writing down a proof result, or am I building a structure from which more results can continue to grow? The former is of course important, but the latter is harder, and also the one I find myself liking more. Only when a project begins to acquire extensibility does it really stop being a one-off assignment-style completion and start becoming a research path.</p>
 
           <nav class="math-post-nav" data-static-math-post-nav="1" aria-label="Adjacent notes"><a class="math-post-nav-item" data-nav-dir="prev" href="../post/what-i-really-got-when-a-dual-route-failed.html" data-no-page-transition="1" aria-label="Previous note · What I Really Got When a Dual Route Failed"><span class="math-post-nav-label">Previous note</span><span class="math-post-nav-title">What I Really Got When a Dual Route Failed</span></a><a class="math-post-nav-item" data-nav-dir="next" href="../post/metalcore-piano-lab.html" data-no-page-transition="1" aria-label="Next note · Metalcore Piano Lab | From Audio to Chart: A Discretization Experiment (WIP)"><span class="math-post-nav-label">Next note</span><span class="math-post-nav-title">Metalcore Piano Lab | From Audio to Chart: A Discretization Experiment (WIP)</span></a></nav>

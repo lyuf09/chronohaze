@@ -36,14 +36,26 @@ test("home page renders hero and player shell", async ({ page }) => {
   await expect(page.locator("#playerTime")).not.toHaveText(/^$/);
   await expect(page.locator("#selected-evidence")).toBeVisible();
   await expect(page.locator(".selected-evidence-card")).toHaveCount(3);
+  await expect(
+    page.locator(".selected-evidence-card > .selected-evidence-status + h3")
+  ).toHaveCount(3);
   await expect(page.getByRole("heading", { name: "当前工作" })).toBeVisible();
-  await expect(page.locator(".selected-evidence-card").nth(0)).toContainText("AFP 独著条目 · 2026年5月");
+  await expect(page.locator(".selected-evidence-status")).toHaveText([
+    "已发表 · AFP · 独著",
+    "进行中 · 合作研究",
+    "已提交 · AFP · 2026年7月2日",
+  ]);
+  await expect(page.getByRole("heading", { name: "Isabelle/HOL 中的子模贪心" })).toBeVisible();
   await expect(page.locator(".selected-evidence-card").nth(0)).toContainText("确定性贪心算法与有状态惰性贪心算法");
-  await expect(page.locator(".selected-evidence-card").nth(1)).toContainText("当前合作 · 网络定位");
+  await expect(
+    page.getByRole("heading", { name: "网络定位中的负曲率证书" })
+  ).toBeVisible();
   await expect(page.locator(".selected-evidence-card").nth(1)).toContainText(
     "与 Prof. Shoham Sabach 合作研究图结构负曲率证书与局部逃逸方向。"
   );
-  await expect(page.locator(".selected-evidence-card").nth(2)).toContainText("已提交 AFP · 2026年7月2日");
+  await expect(
+    page.getByRole("heading", { name: "Isabelle/HOL 中的投影梯度下降" })
+  ).toBeVisible();
   await expect(page.locator(".identity-panel-math")).toContainText("学术身份 · FEIER LYU");
   await expect(page.locator(".identity-panel-creative")).toContainText("创作身份 · HAZEZZ");
   await expect(page.locator("#now")).toContainText("演奏视频");
@@ -85,11 +97,24 @@ test("bare home URL defaults to English and releases the critical loader at DOM 
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
   await expect(page.locator('.lang-btn[data-lang="en"]')).toHaveClass(/active/);
   await expect(page.locator(".hero-kicker")).toHaveText("Origin / Chronohaze");
-  await expect(page.locator(".selected-evidence-card").nth(0)).toContainText("Sole-author AFP entry · May 2026");
-  await expect(page.locator(".selected-evidence-card").nth(1)).toContainText("Current collaboration · Network localization");
-  await expect(page.locator(".selected-evidence-card").nth(2)).toContainText("Submitted to AFP · 2 July 2026");
+  await expect(page.locator(".selected-evidence-status")).toHaveText([
+    "PUBLISHED · AFP · SOLE AUTHOR",
+    "ONGOING · JOINT RESEARCH",
+    "SUBMITTED · AFP · 2 JULY 2026",
+  ]);
+  await expect(page.getByRole("heading", { name: "Submodular Greedy in Isabelle/HOL" })).toBeVisible();
+  await expect(
+    page.getByRole("heading", {
+      name: "Negative-Curvature Certificates for Network Localization",
+    })
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Projected Gradient Descent in Isabelle/HOL" })
+  ).toBeVisible();
   await expect(page).toHaveURL(/[?&]lang=en(?:&|$)/);
-  await expect(page).toHaveTitle(/Feier Lyu \| Mathematics BSc/);
+  await expect(page).toHaveTitle(
+    "Feier Lyu | Optimization & Formal Verification | AFP Author"
+  );
 
   expect(errors).toEqual([]);
 });
@@ -126,6 +151,52 @@ test("compact desktop home keeps portrait, identity, and actions in the first vi
   expect(geometry.links.bottom).toBeLessThan(936);
   expect(geometry.contact.bottom).toBeLessThan(936);
 
+  expect(errors).toEqual([]);
+});
+
+test("home keeps core first-view content readable outside the reveal sequence", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "chromium", "first-view reveal contract check");
+  const errors = trackPageErrors(page);
+
+  await page.goto("index.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+
+  const revealContract = await page.evaluate(() => {
+    const selectors = [
+      ".home-brand",
+      ".lang-pill",
+      ".menu-open",
+      ".hero-kicker",
+      ".hero-right h1",
+      ".hero-role-line",
+      ".hero-authority-line",
+      ".hero-academic-module",
+      ".contact-btn",
+      "#playerShell",
+    ];
+    return {
+      core: selectors.map((selector) => {
+        const node = document.querySelector(selector);
+        const style = node ? window.getComputedStyle(node) : null;
+        return {
+          selector,
+          exists: Boolean(node),
+          reveal: node ? node.hasAttribute("data-reveal") : null,
+          opacity: style ? Number(style.opacity) : null,
+          visibility: style ? style.visibility : null,
+        };
+      }),
+      portraitReveal: document.querySelector(".hero-portrait")?.getAttribute("data-reveal"),
+    };
+  });
+
+  revealContract.core.forEach((item) => {
+    expect(item.exists, item.selector).toBe(true);
+    expect(item.reveal, item.selector).toBe(false);
+    expect(item.opacity, item.selector).toBe(1);
+    expect(item.visibility, item.selector).toBe("visible");
+  });
+  expect(revealContract.portraitReveal).toBe("zoom");
   expect(errors).toEqual([]);
 });
 
@@ -243,6 +314,19 @@ test("home drawer keeps state, focus, and Escape handling in sync", async ({ pag
   await expect(drawer).toHaveAttribute("aria-hidden", "false");
   await expect(backdrop).toBeVisible();
   await expect(closeButton).toBeFocused();
+  await expect(drawer.locator(".drawer-nav > a")).toHaveText([
+    "Home",
+    "Academic",
+    "Work",
+    "Profile",
+    "Search",
+  ]);
+  await expect(drawer.locator(".drawer-studio-label")).toHaveText("Studio");
+  await expect(drawer.locator(".drawer-studio-links a")).toHaveText([
+    "Music",
+    "Photography",
+    "Olfactory",
+  ]);
 
   await page.keyboard.press("Escape");
   await expect(openButton).toHaveAttribute("aria-expanded", "false");
@@ -273,6 +357,16 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
   );
   await expect(page.locator('.hero-academic-link[href="projects.html"]')).toHaveText("代表性工作");
   await expect(page.locator('.hero-academic-link[href="math.html"]')).toHaveText("技术笔记");
+  await expect(page.locator('[data-i18n="nowCard1Body"]')).toHaveText(
+    "正在使用新购入的相机与镜头制作贝斯演奏视频。"
+  );
+  await expect(page.locator('[data-i18n="nowCard2Body"]')).toHaveText(
+    "正在制作一首合作单曲，并为一个地下偶像团体创作原创曲目。"
+  );
+  await expect(page.locator('[data-i18n="nowCard3Body"]')).toHaveText(
+    "正在将已发表的子模贪心形式化工作扩展到 StochasticGreedy，并整理面向会议论文的理论与实现框架。"
+  );
+  await expect(page.locator('[data-i18n="nowTitle"]')).toHaveText("近况 / 2026年7月");
 
   await page.goto("index.html?lang=en", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
@@ -290,6 +384,7 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
   await expect(page.locator(".hero-world-line")).toHaveText(
     "This site gathers the work that continues between them."
   );
+  await expect(page.locator('[data-i18n="nowTitle"]')).toHaveText("Now / July 2026");
   await expect(page.locator(".hero-authority-line")).toHaveText(
     "University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027"
   );
@@ -299,14 +394,17 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
     "Graph-structured negative-curvature certificates and local escape directions, with Prof. Shoham Sabach."
   );
   await expect(page.locator(".hero-portrait")).toHaveAttribute("alt", "Portrait of HazezZ");
-  await expect(page.locator(".now-grid")).toHaveAttribute("aria-label", "Current creative work");
+  await expect(page.locator(".now-grid")).toHaveAttribute(
+    "aria-label",
+    "Current research and studio work in July 2026"
+  );
   await expect(page.locator('meta[name="description"]')).toHaveAttribute(
     "content",
     /Mathematics BSc student at the University of Edinburgh/
   );
   await expect(page.locator('meta[property="og:title"]')).toHaveAttribute(
     "content",
-    "Feier Lyu | Optimization, Formal Verification & Machine-Checked Mathematics"
+    "Feier Lyu | Optimization & Formal Verification | AFP Author"
   );
   await expect(page).toHaveURL(/[?&]lang=en(?:&|$)/);
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", /[?&]lang=en$/);
@@ -518,7 +616,10 @@ test("music index renders and remains interactive", async ({ page }) => {
     "HazezZ music portfolio"
   );
   await expect(page.locator(".music-hero img")).toHaveAttribute("alt", "HazezZ");
-  await expect(page.locator(".music-intro img")).toHaveAttribute("alt", "HazezZ");
+  await expect(page.locator(".music-intro img")).toHaveAttribute(
+    "alt",
+    "HazezZ playing guitar under blue and violet stage lights"
+  );
   await expect(page.locator(".music-bottom")).toHaveAttribute(
     "aria-label",
     "Performance gallery"
@@ -545,12 +646,36 @@ test("search page loads grouped results and query state works", async ({ page })
   await expect(page.locator(".search-submit")).toHaveCSS("color", "rgba(244, 248, 255, 0.96)");
   await expect(page.locator(".search-shortcuts")).toHaveText("/ or Ctrl/Cmd+K to focus search");
   await expect(page.locator("header .nav")).toHaveAttribute("aria-label", "Main navigation");
+  await expect(page.locator("header .nav > a")).toHaveText([
+    "Home",
+    "Academic",
+    "Work",
+    "Profile",
+    "Search",
+  ]);
+  await expect(page.locator("header .nav .nav-studio-trigger")).toHaveText("Studio");
+  await expect(page.locator("header .nav .nav-studio-panel a")).toHaveText([
+    "Music",
+    "Photography",
+    "Olfactory",
+  ]);
+  await expect(page.locator("#site-search-scope option")).toHaveText([
+    "All",
+    "Technical Notes",
+    "Photography",
+    "Music",
+    "Academic Profile",
+  ]);
+  await expect(page.locator(".site-share-fab")).toHaveAttribute(
+    "aria-label",
+    "Share this page"
+  );
   await expect(page.locator(".search-form")).toHaveAttribute("aria-label", "Site search form");
   await expect(page.locator('.floating-lang-btn[data-lang="en"]')).toHaveAttribute("aria-pressed", "true");
   await expect(page.locator('.floating-lang-btn[data-lang="zh"]')).toHaveAttribute("aria-pressed", "false");
   await expect(page.locator('meta[name="description"]')).toHaveAttribute(
     "content",
-    "Search Chronohaze across mathematics, photography, music, research, and CV content."
+    "Search Chronohaze across Technical Notes, photography, music, research, and Academic Profile content."
   );
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", /search\.html\?lang=en$/);
   await expect(page.locator('link[rel="alternate"][hreflang="zh-CN"]')).toHaveAttribute(
@@ -635,9 +760,30 @@ test("Affizieren shows metadata duration and progressive technical disclosure be
   await expect(page.locator(".affizieren-note-details > summary")).toHaveText(
     "Full production and arrangement notes"
   );
+  await page.locator(".affizieren-note-details > summary").click();
+  await expect(page.locator(".affizieren-note-full-copy")).toContainText(
+    "The non-repeating guitar line makes this section deliberately difficult to reproduce live."
+  );
+  await expect(page.locator(".affizieren-note-full-copy")).toContainText(
+    "the piano sound from Guitar Pro"
+  );
+  await expect(page.locator(".affizieren-note-full-copy")).not.toContainText(
+    "isn’t a section I can perform perfectly live"
+  );
+  await expect(page.locator(".affizieren-note-full-copy")).not.toContainText("-bar");
   await expect
     .poll(async () => page.locator(".music-player-time").first().innerText())
     .not.toBe("00:00 / 00:00");
+
+  await page.goto("music/track-20.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+  const supernovaMetas = page.locator(".music-detail-meta");
+  await expect(supernovaMetas.nth(0)).toHaveText("Creation period · Mar–May 2022");
+  await expect(supernovaMetas.nth(1)).toContainText(
+    "Lyrics · Composition · Arrangement — HazezZ"
+  );
+  await expect(supernovaMetas.nth(1)).toContainText("Guitar — Franklimn Zhang");
+  await expect(supernovaMetas.nth(1)).toContainText("Mixing — Rinya");
 
   expect(errors).toEqual([]);
 });
@@ -654,6 +800,7 @@ test("mobile share launcher opens without immediately closing and manages focus"
   const closeButton = panel.locator('[data-share-action="close"]');
 
   await expect(logo).toBeVisible();
+  await expect(logo).toHaveAttribute("aria-label", "Share this page");
   const logoBox = await logo.boundingBox();
   expect(logoBox).not.toBeNull();
   expect(logoBox.width).toBeLessThanOrEqual(50);
@@ -759,17 +906,24 @@ test("share launcher rebinds when the viewport crosses the mobile breakpoint", a
   expect(errors).toEqual([]);
 });
 
-test("olfactory notes page renders its structure and archive", async ({ page }) => {
+test("olfactory notes page keeps Chinese and English content separated", async ({ page }) => {
   const errors = trackPageErrors(page);
-  await page.goto("olfactory.html", { waitUntil: "domcontentloaded" });
+  await page.goto("olfactory.html?lang=en", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
 
   await expect(page.locator("body.olfactory-page")).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Olfactory Notes / 调香手记" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Olfactory Notes" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Selected Scents" })).toHaveCount(0);
   await expect(page.locator(".scent-card")).toHaveCount(0);
   await expect(page.getByRole("heading", { name: "Scent as Structure" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Scent Archive" })).toBeVisible();
+  await expect(page.locator("main")).not.toContainText(/[\u3400-\u9fff]/);
+
+  await page.goto("olfactory.html?lang=zh", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+  await expect(page.getByRole("heading", { name: "调香手记" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "气味作为结构" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "气味档案" })).toBeVisible();
   expect(errors).toEqual([]);
 });
 
@@ -788,12 +942,15 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   await expect(cvEnglish.locator("#cv-en-highlights")).toContainText("Expected graduation: 2027");
   await expect(cvEnglish.getByRole("heading", { name: "Academic Profile" })).toBeVisible();
   await expect(cvEnglish.locator("#cv-en-projects")).toContainText("Archive of Formal Proofs · May 2026");
-  await expect(cvEnglish.getByRole("heading", { name: "Selected Evidence" })).toBeVisible();
+  await expect(cvEnglish.getByRole("heading", { name: "Selected Evidence" })).toHaveCount(0);
   await expect(cvEnglish.getByRole("link", { name: "AFP entry" })).toHaveAttribute(
     "href",
     "https://isa-afp.org/entries/Submodular_Greedy.html#"
   );
-  await expect(cvEnglish.getByRole("link", { name: "Isabelle/HOL formalization repo" })).toBeVisible();
+  await expect(cvEnglish.getByRole("link", { name: "Proof document" })).toHaveAttribute(
+    "href",
+    "https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf"
+  );
   await expect(cvEnglish.locator("#cv-en-highlights")).toContainText("BSc Mathematics, University of Edinburgh");
   await expect(cvEnglish.locator("#cv-en-highlights")).toContainText("Exchange student at Cornell University, 2025–2026");
   await expect(page.locator("main")).toContainText("Feier Lyu (Fay Lyu)");
@@ -817,11 +974,14 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   });
   await expect(industry).toContainText("Liblib AI (Beijing Qidian Xingyu Technology Co., Ltd.)");
   await expect(industry).toContainText("Jun 2025 – Jul 2025");
-  await expect(industry).toContainText("SQL queries on Alibaba Cloud's data platform");
+  await expect(industry).toContainText(
+    "Wrote SQL in Alibaba Cloud DataWorks to answer data requests from the operations team"
+  );
   await expect(cvEnglish.getByRole("heading", { name: "Patents" })).toBeVisible();
   await expect(cvEnglish.locator("#cv-en-projects")).toContainText(
-    "Application No. 2024112756051, pending"
+    "Application No. 202411275605.1, pending"
   );
+  await expect(cvEnglish.locator("#cv-en-projects")).toContainText("Role: Co-inventor");
   await expect(cvEnglish.locator("#cv-en-projects")).toContainText(
     "Patent No. ZL202422234130.3, granted July 4, 2025"
   );
@@ -836,10 +996,18 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   await expect(cvChinese.locator("#cv-zh-projects")).toContainText(
     "项目已于2026年7月2日提交 Archive of Formal Proofs，目前等待审核。"
   );
-  await expect(cvChinese.locator("#cv-zh-projects")).toContainText("在 Wenda Li 指导下负责完整 Isabelle/HOL development");
+  await expect(cvChinese.locator("#cv-zh-projects")).toContainText(
+    "在 Wenda Li 指导下负责完整的 Isabelle/HOL 形式化开发"
+  );
+  await expect(cvChinese.locator("#cv-zh-projects")).not.toContainText(
+    /Selected Work|Submitted Formalization|Patents|development/
+  );
   await expect(cvChinese.locator("#cv-zh-projects")).toContainText("图结构、不变性与边层级曲率");
   await expect(cvChinese.locator("#cv-zh-experience")).toContainText("数据工程实习生");
   await expect(cvChinese.locator("#cv-zh-experience")).toContainText("2025 年 6 月–7 月");
+  await expect(page.locator(".footer-copy")).toHaveText(
+    "© 2026 chronohaze.space。由 GitHub Pages 托管。"
+  );
 
   await page.goto("research.html?lang=zh", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
@@ -859,9 +1027,15 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
     '#research-projects [data-lang-block="zh"] .research-project-card'
   ).first();
   await expect(formalizationLine).toContainText("2026年5月26日正式发表于 AFP");
-  await expect(formalizationLine).toContainText("发表后扩展");
-  await expect(formalizationLine).toContainText("sampling、approximation packaging 与 oracle-cost accounting");
-  await expect(formalizationLine.getByRole("link", { name: "AFP entry" })).toHaveAttribute(
+  await expect(formalizationLine).toContainText("发表后，当前仓库继续发展");
+  await expect(formalizationLine).toContainText("采样模型、近似证明与预言机调用复杂度界");
+  await expect(page.locator("#research-outputs .research-output-card").nth(2)).toContainText(
+    "Negative-Curvature Certificates for Network Localization"
+  );
+  await expect(page.locator("#research-now")).toContainText(
+    "机器检查优化，以及通过不变性与对偶研究非凸定位问题的结构"
+  );
+  await expect(formalizationLine.getByRole("link", { name: "AFP 条目" })).toHaveAttribute(
     "href",
     "https://isa-afp.org/entries/Submodular_Greedy.html#"
   );
@@ -871,26 +1045,40 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   expect(errors).toEqual([]);
 });
 
+test("Chinese academic surfaces do not expose English interface labels", async ({ page }) => {
+  const bannedInterfaceCopy =
+    /Selected Work|Submitted Formalization|Patents|PUBLISHED|ONGOING COLLABORATION|EXPLORATORY NOTE|full Isabelle\/HOL development/;
+
+  for (const path of ["academic.html", "projects.html", "cv.html"]) {
+    await page.goto(`${path}?lang=zh`, { waitUntil: "domcontentloaded" });
+    await waitForCriticalLoaderRelease(page);
+    const chineseBlocks = await page
+      .locator('main [data-lang-block="zh"]')
+      .allInnerTexts();
+    expect(chineseBlocks.join(" ")).not.toMatch(bannedInterfaceCopy);
+  }
+});
+
 test("academic section navigation stays on the three canonical destinations", async ({ page }) => {
   const pages = [
     { path: "academic.html", active: null },
-    { path: "research.html", active: "Research Statement" },
-    { path: "projects.html", active: "Selected Work" },
-    { path: "math.html", active: "Technical Notes" },
-    { path: "notes/huber_glm_sparsification_refinement_note.html", active: "Technical Notes", back: true },
-    { path: "notes/theorem11_convexity_note.html", active: "Technical Notes", back: true },
-    { path: "notes/ttgda_second_order_tracking_note.html", active: "Technical Notes", back: true },
-    { path: "post/dual-score-saddle-certificates.html", active: "Technical Notes", footerNav: true },
-    { path: "post/first-isabelle-proof.html", active: "Technical Notes", footerNav: true },
-    { path: "post/isabelle-submodular-greedy.html", active: "Technical Notes", footerNav: true },
-    { path: "post/metalcore-piano-lab.html", active: "Technical Notes", footerNav: true },
-    { path: "post/projected-gradient-descent-isabelle-hol.html", active: "Technical Notes", footerNav: true },
-    { path: "post/spring-2026.html", active: "Technical Notes", footerNav: true },
-    { path: "post/submodular-greedy-formalization-enters-afp.html", active: "Technical Notes", footerNav: true },
-    { path: "post/theorem-to-framework-isabelle-submodular.html", active: "Technical Notes", footerNav: true },
-    { path: "post/what-i-really-got-when-a-dual-route-failed.html", active: "Technical Notes", footerNav: true },
+    { path: "research.html", active: "研究陈述" },
+    { path: "projects.html", active: "代表性工作" },
+    { path: "math.html", active: "技术笔记" },
+    { path: "notes/huber_glm_sparsification_refinement_note.html", active: "技术笔记", back: true },
+    { path: "notes/theorem11_convexity_note.html", active: "技术笔记", back: true },
+    { path: "notes/ttgda_second_order_tracking_note.html", active: "技术笔记", back: true },
+    { path: "post/dual-score-saddle-certificates.html", active: "技术笔记", footerNav: true },
+    { path: "post/first-isabelle-proof.html", active: "技术笔记", footerNav: true },
+    { path: "post/isabelle-submodular-greedy.html", active: "技术笔记", footerNav: true },
+    { path: "post/metalcore-piano-lab.html", active: "技术笔记", footerNav: true },
+    { path: "post/projected-gradient-descent-isabelle-hol.html", active: "技术笔记", footerNav: true },
+    { path: "post/spring-2026.html", active: "技术笔记", footerNav: true },
+    { path: "post/submodular-greedy-formalization-enters-afp.html", active: "技术笔记", footerNav: true },
+    { path: "post/theorem-to-framework-isabelle-submodular.html", active: "技术笔记", footerNav: true },
+    { path: "post/what-i-really-got-when-a-dual-route-failed.html", active: "技术笔记", footerNav: true },
   ];
-  const expectedLabels = ["Selected Work", "Research Statement", "Technical Notes"];
+  const expectedLabels = ["代表性工作", "研究陈述", "技术笔记"];
   const expectedPaths = ["/projects.html", "/research.html", "/math.html"];
 
   for (const item of pages) {
@@ -918,7 +1106,7 @@ test("academic section navigation stays on the three canonical destinations", as
     }
 
     if (item.back) {
-      await expect(page.locator(".note-detail-back")).toHaveText("Back to Technical Notes");
+      await expect(page.locator(".note-detail-back")).toHaveText("返回技术笔记");
     }
 
     if (item.footerNav) {
@@ -954,6 +1142,18 @@ test("album page renders cover and track links", async ({ page }) => {
   await expect(page.locator(".album-authorship")).toHaveText(
     "Written, arranged, performed and produced by HazezZ, unless otherwise noted."
   );
+  await expect(page.locator(".album-note")).toHaveText(
+    "This evolving album gathers rain, sea air, deep-blue persistence, imagined futures, and the distance between reality and ideal."
+  );
+  await expect(page.locator(".album-production-note")).toHaveText(
+    "This is an evolving archive; several tracks are being re-recorded and revised."
+  );
+  await expect(page.locator(".album-intro")).not.toContainText("This albu");
+  await expect(page.locator(".album-intro")).not.toContainText(
+    "or more like a collection for now"
+  );
+  await expect(page.locator(".page-last-updated-row")).toHaveCount(0);
+  await expect(page.locator("main")).not.toContainText("最近更新");
 
   expect(errors).toEqual([]);
 });
@@ -976,7 +1176,7 @@ test("secondary pages keep mobile nav within the viewport", async ({ page }, tes
     await waitForCriticalLoaderRelease(page);
 
     await expect(page.locator(".site-header .nav")).toBeVisible();
-    await expect(page.locator(".site-header .nav a")).toHaveCount(7);
+    await expect(page.locator(".site-header .nav a")).toHaveCount(8);
     await expect(page.locator(".site-header .brand img")).toHaveAttribute(
       "src",
       /logo-header\.png$/
@@ -989,10 +1189,11 @@ test("secondary pages keep mobile nav within the viewport", async ({ page }, tes
     expect(navTargets).toEqual([
       "index.html",
       "academic.html",
-      "photography.html",
-      "music.html",
-      "olfactory.html",
+      "projects.html",
       "cv.html",
+      "music.html",
+      "photography.html",
+      "olfactory.html",
       "search.html",
     ]);
 
@@ -1001,6 +1202,11 @@ test("secondary pages keep mobile nav within the viewport", async ({ page }, tes
       const header = document.querySelector(".site-header");
       const body = document.body;
       const root = document.documentElement;
+      const visibleTargetHeights = nav
+        ? Array.from(nav.querySelectorAll("a, .nav-studio-trigger"))
+            .map((target) => target.getBoundingClientRect().height)
+            .filter((height) => height > 0)
+        : [];
       return {
         viewport: window.innerWidth,
         filmGrainContent: window.getComputedStyle(document.body, "::before").content,
@@ -1008,8 +1214,8 @@ test("secondary pages keep mobile nav within the viewport", async ({ page }, tes
         bodyScrollWidth: body ? body.scrollWidth : 0,
         headerScrollWidth: header ? header.scrollWidth : 0,
         navScrollWidth: nav ? nav.scrollWidth : 0,
-        minNavTargetHeight: nav
-          ? Math.min(...Array.from(nav.querySelectorAll("a"), (link) => link.getBoundingClientRect().height))
+        minNavTargetHeight: visibleTargetHeights.length
+          ? Math.min(...visibleTargetHeights)
           : 0,
       };
     });
@@ -1020,6 +1226,15 @@ test("secondary pages keep mobile nav within the viewport", async ({ page }, tes
     expect(metrics.headerScrollWidth).toBeLessThanOrEqual(metrics.viewport + 2);
     expect(metrics.navScrollWidth).toBeLessThanOrEqual(metrics.viewport + 2);
     expect(metrics.minNavTargetHeight).toBeGreaterThanOrEqual(44);
+
+    const studioMenu = page.locator(".site-header .nav-studio-menu");
+    await studioMenu.locator(".nav-studio-trigger").click();
+    await expect(studioMenu).toHaveAttribute("open", "");
+    const studioTargetHeights = await studioMenu
+      .locator(".nav-studio-panel a")
+      .evaluateAll((links) => links.map((link) => link.getBoundingClientRect().height));
+    expect(studioTargetHeights.every((height) => height >= 44)).toBe(true);
+
     expect(errors).toEqual([]);
   }
 });
@@ -1068,12 +1283,15 @@ test("academic page isolates languages and renders a concise academic index", as
   await expect(page.locator('.research-hero [data-lang-block="zh"]')).toContainText(
     '与 Prof. Shoham Sabach 合作研究负曲率证书与局部逃逸方向'
   );
-  await expect(evidence.getByRole("link", { name: "AFP entry" })).toHaveAttribute(
+  await expect(evidence.getByRole("link", { name: "AFP 条目" }).first()).toHaveAttribute(
     "href",
     "https://isa-afp.org/entries/Submodular_Greedy.html#"
   );
-  await expect(evidence.getByRole("link", { name: "CV" })).toHaveAttribute("href", "cv.html");
-  await expect(evidence.getByRole("link", { name: "Research" })).toHaveAttribute("href", "research.html");
+  await expect(evidence.getByRole("link", { name: "个人档案" })).toHaveAttribute("href", "cv.html");
+  await expect(evidence.getByRole("link", { name: "研究陈述" })).toHaveAttribute(
+    "href",
+    "research.html"
+  );
   await expect(page.locator("html")).toHaveAttribute("lang", "zh-CN");
   await expect(page.locator("body")).toHaveAttribute("data-rendered-lang", "zh");
 
@@ -1147,6 +1365,9 @@ test("AFP publication status stays synchronized across work page and project his
     '#selected-work-list [data-lang-block="en"] > .academic-evidence > .academic-evidence-list li'
   ).nth(2);
   await expect(localizationProject).toContainText("Ongoing collaboration with Prof. Shoham Sabach");
+  await expect(localizationProject).toContainText(
+    "My current work develops and checks projected-edge budget conditions"
+  );
   await expect(localizationProject.getByRole("link", { name: "English technical note" })).toHaveAttribute(
     "href",
     "notes/network_localization_structural_certificates.html"
@@ -1248,7 +1469,7 @@ test("July notes lead the math archive and AFP work exposes primary evidence", a
 
   await page.goto("math.html?lang=zh", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
-  await expect(page.getByRole("heading", { name: "学术笔记 / Technical Notes" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "技术笔记" })).toBeVisible();
   await expect(page.locator("main")).toContainText("Feier Lyu（Fay Lyu）");
   await expect(page.locator("#pinned-notes .academic-evidence-list li")).toHaveCount(4);
   await expect(page.locator("#pinned-notes .academic-evidence-list li").nth(0)).toContainText(
@@ -1258,7 +1479,7 @@ test("July notes lead the math archive and AFP work exposes primary evidence", a
     "Projected Gradient Descent in Isabelle/HOL"
   );
   await expect(page.locator("#pinned-notes .academic-evidence-list li").nth(2)).toContainText(
-    "Duality / Localization"
+    "Negative-Curvature Certificates for Network Localization"
   );
   await expect(page.locator("#pinned-notes .academic-evidence-list li").nth(3)).toContainText(
     "TTGDA and Second-Order Tracking"
@@ -1266,11 +1487,11 @@ test("July notes lead the math archive and AFP work exposes primary evidence", a
   await expect(page.locator("#notes-archive")).toBeVisible();
   const archiveNotes = page.locator(".math-list .math-card");
   await expect(archiveNotes.nth(0)).toContainText("网络定位中的对偶退化、投影边预算与鞍点证书");
-  await expect(archiveNotes.nth(0)).toContainText("Ongoing joint research");
+  await expect(archiveNotes.nth(0)).toContainText("进行中的合作研究");
   await expect(archiveNotes.nth(1)).toContainText("Theorem 11 必要性方向中的凸性问题");
   await expect(archiveNotes.nth(2)).toContainText("稀疏化后的 Exact Huber GLMs");
   await expect(archiveNotes.nth(3)).toContainText("子模贪心算法形式化正式进入 AFP");
-  await expect(archiveNotes.nth(3).locator(".math-date")).toContainText("Originally posted · 2026-06-30");
+  await expect(archiveNotes.nth(3).locator(".math-date")).toContainText("原始发布 · 2026-06-30");
 
   await page.goto("post/submodular-greedy-formalization-enters-afp.html?lang=zh", {
     waitUntil: "domcontentloaded",

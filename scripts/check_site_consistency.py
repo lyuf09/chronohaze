@@ -27,14 +27,14 @@ SUBMODULAR_PUBLISHED_SCOPE = (
 )
 SUBMODULAR_POST_PUBLICATION_SCOPE = (
     "Post-publication extension: the current repository additionally develops a "
-    "stochastic-greedy line, including sampling, approximation packaging, and "
-    "oracle-cost accounting."
+    "stochastic-greedy line, including the sampling model, approximation proof, "
+    "and oracle-cost bounds."
 )
 SUBMODULAR_PROJECTS_STATUS_MARKERS = (
     "Published in the Archive of Formal Proofs on May 26, 2026.",
     "verified stateful lazy-greedy variant",
     "post-publication stochastic-greedy extension",
-    "sampling, approximation packaging, and oracle-cost accounting",
+    "the sampling model, approximation proof, and oracle-cost bounds",
 )
 SUBMODULAR_ACADEMIC_STATUS_MARKERS = (
     "Published May 26, 2026",

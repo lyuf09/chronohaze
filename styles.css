@@ -890,6 +890,77 @@ body.page-transition-busy .home-page {
   transition: color var(--ui-t-base) ease, opacity var(--ui-t-base) ease;
 }
 
+.nav-studio-menu {
+  position: relative;
+  color: rgba(241, 244, 250, .92);
+}
+
+.nav-studio-trigger {
+  position: relative;
+  list-style: none;
+  cursor: pointer;
+  transition: color var(--ui-t-base) ease, opacity var(--ui-t-base) ease;
+}
+
+.nav-studio-trigger::-webkit-details-marker {
+  display: none;
+}
+
+.nav-studio-trigger::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -8px;
+  height: 1px;
+  background: rgba(233, 240, 251, 0.68);
+  transform: scaleX(0);
+  transform-origin: left;
+  opacity: 0;
+  transition: transform var(--ui-t-slow) var(--ui-ease), opacity var(--ui-t-slow) ease;
+}
+
+.nav-studio-menu.active > .nav-studio-trigger::after,
+.nav-studio-menu[open] > .nav-studio-trigger::after,
+.nav-studio-menu:hover > .nav-studio-trigger::after,
+.nav-studio-menu:focus-within > .nav-studio-trigger::after {
+  transform: scaleX(1);
+  opacity: 0.7;
+}
+
+.nav-studio-panel {
+  display: none;
+  position: absolute;
+  top: calc(100% + 18px);
+  right: -18px;
+  min-width: 164px;
+  padding: 10px;
+  flex-direction: column;
+  gap: 2px;
+  border: 1px solid rgba(228, 235, 247, 0.16);
+  background: rgba(31, 36, 47, 0.98);
+  box-shadow: 0 18px 34px rgba(8, 12, 20, 0.28);
+}
+
+.nav-studio-menu[open] > .nav-studio-panel,
+.nav-studio-menu:hover > .nav-studio-panel,
+.nav-studio-menu:focus-within > .nav-studio-panel {
+  display: flex;
+}
+
+.nav-studio-panel a {
+  min-height: 38px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+}
+
+.nav-studio-panel a::after {
+  bottom: 4px;
+  left: 12px;
+  right: 12px;
+}
+
 @media (pointer: coarse) {
   .nav a,
   .footer-right a,
@@ -4005,6 +4076,11 @@ body.photo-lightbox-open {
   line-height: 1.2;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.math-index-page #pinned-notes .academic-evidence-list h3 {
+  font-size: clamp(18px, 1.45vw, 20px);
+  line-height: 1.3;
 }
 
 .projects-page .project-evidence-links {
@@ -16352,6 +16428,42 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
     min-height: 44px;
     display: inline-flex;
     align-items: center;
+    padding: 8px 0;
+  }
+
+  body:not(.home-body) .nav-studio-menu {
+    flex: 0 0 auto;
+  }
+
+  body:not(.home-body) .nav-studio-trigger {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 0;
+  }
+
+  body:not(.home-body) .nav-studio-trigger::after {
+    bottom: 1px;
+  }
+
+  body:not(.home-body) .nav-studio-panel {
+    position: static;
+    min-width: 0;
+    padding: 0 0 0 14px;
+    flex-direction: row;
+    gap: 14px;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  body:not(.home-body) .nav-studio-menu[open] {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  body:not(.home-body) .nav-studio-panel a {
+    min-height: 44px;
     padding: 8px 0;
   }
 

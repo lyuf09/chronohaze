@@ -218,7 +218,7 @@
 
 .scent-archive-year li {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 24px;
   padding: 18px 0;
   border-bottom: 1px solid var(--olfactory-line);

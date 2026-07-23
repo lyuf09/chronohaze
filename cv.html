@@ -224,8 +224,8 @@
     })();
   </script>
   <link rel="preload" href="assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="styles.min.css?v=20260722-music-localization1" />
-  <script defer src="protect-media.min.js?v=20260722-music-localization1"></script>
+<link rel="stylesheet" href="styles.min.css?v=20260723-information-architecture1" />
+  <script defer src="protect-media.min.js?v=20260723-information-architecture1"></script>
 </head>
 <body class="cv-page">
   <div class="page">
@@ -253,7 +253,7 @@
       <article class="policy cv-policy">
         <div class="cv-utility-bar">
           <div class="cv-utility-top">
-            <a class="cv-research-link" href="research.html" data-i18n="researchLandingCta">Research</a>
+            <a class="cv-research-link" href="research.html" data-i18n="researchLandingCta">研究陈述</a>
           </div>
           <div class="page-last-updated-row" data-page-meta="cv">
             <div class="page-last-updated-pill" data-status-lang="zh">
@@ -274,50 +274,51 @@
 
           <section id="cv-zh-highlights">
             <h2>教育背景</h2>
-            <p>爱丁堡大学数学本科（BSc Mathematics）<br />康奈尔大学交换学生，2025–2026<br />Expected graduation: 2027</p>
+            <p>爱丁堡大学数学本科（BSc Mathematics）<br />康奈尔大学交换学生，2025–2026<br />预计 2027 年毕业</p>
 
             <h2>研究兴趣</h2>
             <p>优化理论与形式化验证；当前项目包括面向子模最大化和投影一阶方法的可复用 Isabelle/HOL 基础设施，以及网络定位中的图结构负曲率证书。</p>
           </section>
 
           <section id="cv-zh-projects">
-            <h2>研究经历</h2>
-            <section class="cv-experience-item">
-              <h3>与 Prof. Shoham Sabach 的研究合作</h3>
-              <p>2026–至今</p>
-              <p>围绕网络定位中的结构化负曲率证书与局部逃逸方向开展持续合作。当前研究图结构、不变性与边层级曲率如何在 reduced Hessian 中相互作用。</p>
-            </section>
-
             <h2>发表成果</h2>
             <ol class="cv-project-list">
               <li>
                 <h3>Feier Lyu. “Greedy Algorithms for Cardinality-Constrained Submodular Maximization.”</h3>
                 <p>Archive of Formal Proofs · 2026年5月</p>
-                <p>形式化基数约束单调子模最大化的 deterministic greedy 与 verified stateful lazy-greedy implementation。本人在 Wenda Li 指导下负责完整 Isabelle/HOL development。<a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a>。</p>
+                <p>形式化基数约束单调子模最大化的确定性贪心算法与经验证的有状态惰性贪心实现。本人在 Wenda Li 指导下负责完整的 Isabelle/HOL 形式化开发。</p>
+                <p class="cv-entry-links"><a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP 条目</a> · <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf" target="_blank" rel="noopener noreferrer">证明文档</a> · <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI</a></p>
               </li>
             </ol>
 
-            <h2>Submitted Formalization</h2>
+            <h2>已提交的形式化项目</h2>
             <ol class="cv-project-list">
               <li>
                 <h3>First-Order Methods for Smooth Convex Optimization in Isabelle/HOL</h3>
-                <p>Independent formalization project · 2026</p>
-                <p>设计并完成 Isabelle/HOL development，覆盖 projection geometry、projected-gradient mappings、凸收敛与强凸条件下的线性收敛。项目已于2026年7月2日提交 Archive of Formal Proofs，目前等待审核。</p>
+                <p>独立形式化项目 · 2026</p>
+                <p>设计并完成 Isabelle/HOL 形式化开发，覆盖投影几何、投影梯度映射、凸收敛与强凸条件下的线性收敛。项目已于2026年7月2日提交 Archive of Formal Proofs，目前等待审核。</p>
               </li>
             </ol>
 
-            <h2>Selected Technical Notes</h2>
+            <h2>研究经历</h2>
+            <section class="cv-experience-item">
+              <h3>与 Prof. Shoham Sabach 的研究合作</h3>
+              <p>2026–至今</p>
+              <p>围绕网络定位中的结构化负曲率证书与局部逃逸方向开展持续合作。当前研究图结构、不变性与边层级曲率如何在约化 Hessian 中相互作用。</p>
+            </section>
+
+            <h2>精选技术笔记</h2>
             <ol class="cv-project-list">
-              <li><h3><a href="notes/network_localization_structural_certificates.html">Network Localization: Structural Certificates</a></h3><p>与 Prof. Shoham Sabach 的 ongoing joint research；英文技术笔记明确区分 assumptions、results 与 open questions。</p></li>
-              <li><h3><a href="notes/ttgda_second_order_tracking_note.html">TTGDA and Second-Order Tracking</a></h3><p>通过已有 value-function viewpoint 展开的 exploratory derivation。</p></li>
+              <li><h3><a href="notes/network_localization_structural_certificates.html">Network Localization: Structural Certificates</a></h3><p>与 Prof. Shoham Sabach 开展中的合作研究；英文技术笔记明确区分假设、结果与开放问题。</p></li>
+              <li><h3><a href="notes/ttgda_second_order_tracking_note.html">TTGDA and Second-Order Tracking</a></h3><p>基于既有值函数视角展开的探索性推导。</p></li>
             </ol>
 
-            <h2>Patents</h2>
+            <h2>专利</h2>
             <ol class="cv-project-list">
               <li>
-                <h3>Anti-Segregation Spreading Method and Device</h3>
-                <p>中国发明专利申请，申请号 2024112756051，审查中。</p>
-                <p>相关实用新型：Anti-Segregation Spreading Device，专利号 ZL202422234130.3，2025年7月4日授权。</p>
+                <h3>Anti-Segregation Spreading Method and Device（说明性英译）</h3>
+                <p>法定角色：共同发明人（Co-inventor）。中国发明专利申请，申请号 202411275605.1，审查中。</p>
+                <p>相关实用新型：Anti-Segregation Spreading Device（说明性英译）；法定角色：共同发明人（Co-inventor）；专利号 ZL202422234130.3，2025年7月4日授权。</p>
                 <p>设计用于改善工业铺料过程中物料均匀性的机械系统。</p>
               </li>
             </ol>
@@ -328,21 +329,11 @@
             <section class="cv-experience-item">
               <h3>数据工程实习生</h3>
               <p>Liblib AI（Beijing Qidian Xingyu Technology Co., Ltd.）<br />2025 年 6 月–7 月</p>
-              <p>通过阿里云数据平台编写 SQL 查询，为运营团队的内部业务需求检索、筛选和转换数据；协助跨多个数据源完成数据提取、聚合与验证，为运营分析提供支持。</p>
+              <p>在阿里云 DataWorks 中编写 SQL，响应运营团队的数据需求，包括多源连接、筛选、聚合与结果验证。</p>
             </section>
 
-            <h2>Selected Evidence</h2>
-            <p>
-              <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a> ·
-              <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a> ·
-              <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf" target="_blank" rel="noopener noreferrer">Proof document</a> ·
-              <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">Isabelle/HOL formalization repo</a> ·
-              <a href="post/projected-gradient-descent-isabelle-hol.html">PGD formalization note</a> ·
-              <a href="notes/ttgda_second_order_tracking_note.html">TTGDA exploratory note</a>
-            </p>
-
             <h2>联系方式</h2>
-            <p>Feier Lyu (Fay Lyu)<br />Email: <a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a><br />Available by email</p>
+            <p>Feier Lyu（Fay Lyu）<br />邮箱：<a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a><br />可通过邮件联系</p>
           </section>
         </div>
 
@@ -359,19 +350,13 @@
           </section>
 
           <section id="cv-en-projects">
-            <h2>Research Experience</h2>
-            <section class="cv-experience-item">
-              <h3>Research Collaboration with Prof. Shoham Sabach</h3>
-              <p>2026–Present</p>
-              <p>Ongoing research collaboration with Prof. Shoham Sabach on structural negative-curvature certificates and local escape directions in network localization. Current work studies how graph structure, invariance, and edge-level curvature interact in the reduced Hessian.</p>
-            </section>
-
             <h2>Publications</h2>
             <ol class="cv-project-list">
               <li>
                 <h3>Feier Lyu. “Greedy Algorithms for Cardinality-Constrained Submodular Maximization.”</h3>
                 <p>Archive of Formal Proofs · May 2026</p>
-                <p>Formalizes deterministic greedy and a verified stateful lazy-greedy implementation for cardinality-constrained monotone submodular maximization. I was responsible for the full Isabelle/HOL development under the supervision of Wenda Li. <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a>.</p>
+                <p>Formalizes deterministic greedy and a verified stateful lazy-greedy implementation for cardinality-constrained monotone submodular maximization. I was responsible for the full Isabelle/HOL development under the supervision of Wenda Li.</p>
+                <p class="cv-entry-links"><a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a> · <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf" target="_blank" rel="noopener noreferrer">Proof document</a> · <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI</a></p>
               </li>
             </ol>
 
@@ -384,6 +369,13 @@
               </li>
             </ol>
 
+            <h2>Research Experience</h2>
+            <section class="cv-experience-item">
+              <h3>Research Collaboration with Prof. Shoham Sabach</h3>
+              <p>2026–Present</p>
+              <p>Ongoing research collaboration with Prof. Shoham Sabach on structural negative-curvature certificates and local escape directions in network localization. Current work studies how graph structure, invariance, and edge-level curvature interact in the reduced Hessian.</p>
+            </section>
+
             <h2>Selected Technical Notes</h2>
             <ol class="cv-project-list">
               <li><h3><a href="notes/network_localization_structural_certificates.html">Network Localization: Structural Certificates</a></h3><p>Ongoing joint research with Prof. Shoham Sabach; the English technical note separates assumptions, results, and open questions.</p></li>
@@ -393,9 +385,9 @@
             <h2>Patents</h2>
             <ol class="cv-project-list">
               <li>
-                <h3>Anti-Segregation Spreading Method and Device</h3>
-                <p>Chinese invention patent application, Application No. 2024112756051, pending.</p>
-                <p>Related utility model: Anti-Segregation Spreading Device, Patent No. ZL202422234130.3, granted July 4, 2025.</p>
+                <h3>Anti-Segregation Spreading Method and Device <span class="cv-title-qualifier">(descriptive English translation)</span></h3>
+                <p>Role: Co-inventor. Chinese invention patent application, Application No. 202411275605.1, pending.</p>
+                <p>Related utility model: Anti-Segregation Spreading Device <span class="cv-title-qualifier">(descriptive English translation)</span>; role: Co-inventor; Patent No. ZL202422234130.3, granted July 4, 2025.</p>
                 <p>Designed a mechanical system to improve material homogeneity in industrial spreading processes.</p>
               </li>
             </ol>
@@ -406,18 +398,8 @@
             <section class="cv-experience-item">
               <h3>Data Engineering Intern</h3>
               <p>Liblib AI (Beijing Qidian Xingyu Technology Co., Ltd.)<br />Jun 2025 – Jul 2025</p>
-              <p>Supported the operations team by writing SQL queries on Alibaba Cloud's data platform to retrieve, filter, and transform datasets for internal business requests. Assisted in data extraction, aggregation, and validation across multiple data sources for operational analysis.</p>
+              <p>Wrote SQL in Alibaba Cloud DataWorks to answer data requests from the operations team, including multi-source joins, filtering, aggregation, and result validation.</p>
             </section>
-
-            <h2>Selected Evidence</h2>
-            <p>
-              <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a> ·
-              <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a> ·
-              <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf" target="_blank" rel="noopener noreferrer">Proof document</a> ·
-              <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">Isabelle/HOL formalization repo</a> ·
-              <a href="post/projected-gradient-descent-isabelle-hol.html">PGD formalization note</a> ·
-              <a href="notes/ttgda_second_order_tracking_note.html">TTGDA exploratory note</a>
-            </p>
 
             <h2>Contact</h2>
             <p>Feier Lyu (Fay Lyu)<br />Email: <a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a><br />Available by email</p>
@@ -482,7 +464,7 @@
           tocHighlights: '教育与兴趣',
           tocProjects: '学术记录',
           tocExperience: '行业经历与联系',
-          researchLandingCta: 'Research'
+          researchLandingCta: '研究陈述'
         },
         en: {
           htmlLang: 'en',

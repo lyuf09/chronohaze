@@ -144,9 +144,9 @@ html:lang(en) {
   transform: translate3d(0, 18px, 0);
   filter: saturate(0.95);
   transition:
-    opacity var(--reveal-duration, 520ms) var(--reveal-ease, ease),
-    transform var(--reveal-duration, 520ms) var(--reveal-ease, var(--home-ease)),
-    filter calc(var(--reveal-duration, 520ms) + 120ms) ease;
+    opacity var(--reveal-duration, 420ms) var(--reveal-ease, ease),
+    transform var(--reveal-duration, 420ms) var(--reveal-ease, var(--home-ease)),
+    filter calc(var(--reveal-duration, 420ms) + 80ms) ease;
   transition-delay: var(--reveal-delay, 0ms);
   will-change: opacity, transform, filter;
 }
@@ -907,12 +907,29 @@ html:lang(en) {
   color: var(--home-ink-strong);
 }
 
+.selected-evidence-card .selected-evidence-status {
+  margin: 0 0 9px;
+  font-family: var(--home-font-ui);
+  font-size: 9px;
+  line-height: 1.35;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: rgba(58, 76, 106, 0.78);
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+}
+
 .selected-evidence-card p {
   margin: 12px 0 0;
   font-family: var(--home-font-body);
   font-size: 13px;
   line-height: 1.64;
   color: var(--home-ink);
+}
+
+.selected-evidence-card .selected-evidence-status + h3 + p {
+  margin-top: 12px;
 }
 
 .selected-evidence-link {
@@ -1358,6 +1375,35 @@ html:lang(en) {
 .drawer-nav a:hover {
   opacity: 0.96;
   transform: translate3d(-4px, 0, 0);
+}
+
+.drawer-studio-group {
+  padding: 14px 0 12px;
+  border-top: 1px solid var(--home-line-mid);
+  border-bottom: 1px solid var(--home-line-mid);
+}
+
+.drawer-studio-label {
+  margin: 0 0 12px;
+  font-family: var(--home-font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--home-ink-soft);
+}
+
+.drawer-studio-links {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, auto));
+  justify-content: start;
+  gap: 10px 22px;
+}
+
+.drawer-nav .drawer-studio-links a {
+  font-size: 17px;
+  line-height: 1.25;
 }
 
 @media (max-width: 1400px) {
@@ -1822,6 +1868,16 @@ html:lang(en) {
     align-items: center;
     touch-action: manipulation;
     -webkit-tap-highlight-color: rgba(124, 147, 184, 0.14);
+  }
+
+  .drawer-studio-links {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+
+  .drawer-nav .drawer-studio-links a {
+    min-height: 40px;
+    font-size: 18px;
   }
 
   .home-footer-social a {

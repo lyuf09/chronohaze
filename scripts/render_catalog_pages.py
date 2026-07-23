@@ -130,6 +130,23 @@ def copy_attrs(zh: Any, en: Any) -> str:
     return attr_if("data-copy-zh", zh) + attr_if("data-copy-en", en_value)
 
 
+MATH_STATUS_ZH = {
+    "Published formalization": "已发表的形式化项目",
+    "Submitted formalization": "已提交的形式化项目",
+    "Ongoing joint research": "进行中的合作研究",
+    "Exploratory derivation": "探索性推导",
+    "Reading note": "阅读笔记",
+}
+
+
+def localize_math_date_label_zh(value: Any) -> str:
+    label = str(value or "")
+    label = label.replace("Technical note ·", "技术笔记 ·")
+    label = label.replace("Originally posted ·", "原始发布 ·")
+    label = label.replace(" · updated", " · 已更新")
+    return label
+
+
 def render_math_cards(items: List[Dict[str, Any]]) -> str:
     rows: List[str] = []
     for item in items:
@@ -138,8 +155,9 @@ def render_math_cards(items: List[Dict[str, Any]]) -> str:
         title_en = item.get("title_en") or title_zh
         excerpt_zh = item.get("excerpt") or ""
         excerpt_en = item.get("excerpt_en") or excerpt_zh
-        date_label_zh = item.get("date_label_zh") or item.get("date") or ""
-        date_label_en = item.get("date_label_en") or date_label_zh
+        raw_date_label_zh = item.get("date_label_zh") or item.get("date") or ""
+        date_label_zh = localize_math_date_label_zh(raw_date_label_zh)
+        date_label_en = item.get("date_label_en") or raw_date_label_zh
         link_label_zh = item.get("link_label_zh") or "阅读全文"
         link_label_en = item.get("link_label_en") or ("Read PDF" if link_label_zh == "Read PDF" else "Read More")
         target = str(item.get("link_target") or "")
@@ -173,7 +191,11 @@ def render_math_cards(items: List[Dict[str, Any]]) -> str:
             ]
         )
         if item.get("note_status"):
-            rows.append(f'  <span class="math-note-status">{esc_text(item.get("note_status"))}</span>')
+            status_en = str(item.get("note_status"))
+            status_zh = MATH_STATUS_ZH.get(status_en, status_en)
+            rows.append(
+                f'  <span class="math-note-status"{copy_attrs(status_zh, status_en)}>{esc_text(status_zh)}</span>'
+            )
         rows.extend(
             [
                 f'  <h3 class="math-title"><a class="math-title-link" href="{esc(href)}"{copy_attrs(title_zh, title_en)}{attr_if("target", target)}{attr_if("rel", rel)}>{esc_text(title_zh)}</a></h3>',

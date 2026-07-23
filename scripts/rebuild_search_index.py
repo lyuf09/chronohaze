@@ -27,8 +27,12 @@ HTML_CONTENT_REFRESH_URLS = {
     "cv.html",
     "index.html",
     "math.html",
+    "photography.html",
     "projects.html",
     "research.html",
+    "photo/photo-15.html",
+    "photo/photo-16.html",
+    "photo/photo-17.html",
     "notes/huber_glm_sparsification_refinement_note.html",
     "notes/theorem11_convexity_note.html",
     "notes/ttgda_second_order_tracking_note.html",
@@ -92,7 +96,18 @@ class MainContentParser(HTMLParser):
             self.h1_parts.append(value)
 
     def result(self) -> Tuple[str, str]:
-        return " ".join(self.text_parts).strip(), " ".join(self.h1_parts).strip()
+        content = " ".join(self.text_parts).strip()
+        for fragment in (
+            "Preparing audio…",
+            "Preparing audio...",
+            "Open track page",
+            "准备音频…",
+            "准备音频...",
+            "去音乐页试听",
+        ):
+            content = content.replace(fragment, "")
+        content = " ".join(content.split())
+        return content, " ".join(self.h1_parts).strip()
 
 
 def _catalog_items_to_url_map(items: Any) -> Dict[str, Dict[str, Any]]:
@@ -364,6 +379,10 @@ def merge_items(search_data_dir: Path, catalogs: Dict[str, Any] | None = None) -
             if not url:
                 continue
             apply_catalog_overlay(path.name, item, catalogs)
+            if str(item.get("scope", "")).strip() == "math":
+                item["section"] = "Technical Notes"
+            elif str(item.get("scope", "")).strip() == "cv":
+                item["section"] = "Academic Profile"
             if url in seen_urls:
                 # Keep first occurrence to avoid unstable search duplicates.
                 continue
@@ -434,7 +453,7 @@ def refresh_selected_html_search_content(
                         "title": str(catalog_item.get("title", "")).strip(),
                         "title_en": str(catalog_item.get("title_en", "")).strip(),
                         "url": url,
-                        "section": "Mathematics",
+                        "section": "Technical Notes",
                         "date": date_text,
                         "excerpt": str(catalog_item.get("excerpt", "")).strip(),
                         "excerpt_en": str(catalog_item.get("excerpt_en", "")).strip(),
@@ -449,6 +468,13 @@ def refresh_selected_html_search_content(
         for item in data["items"]:
             if not isinstance(item, dict):
                 continue
+            scope = str(item.get("scope", "")).strip()
+            if scope == "math" and item.get("section") != "Technical Notes":
+                item["section"] = "Technical Notes"
+                changed = True
+            elif scope == "cv" and item.get("section") != "Academic Profile":
+                item["section"] = "Academic Profile"
+                changed = True
             url = str(item.get("url", "")).strip()
             if url not in HTML_CONTENT_REFRESH_URLS:
                 continue

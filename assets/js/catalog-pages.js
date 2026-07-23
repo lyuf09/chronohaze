@@ -110,6 +110,21 @@
     return first || second || "";
   }
 
+  var MATH_STATUS_ZH = {
+    "Published formalization": "已发表的形式化项目",
+    "Submitted formalization": "已提交的形式化项目",
+    "Ongoing joint research": "进行中的合作研究",
+    "Exploratory derivation": "探索性推导",
+    "Reading note": "阅读笔记",
+  };
+
+  function localizeMathDateLabelZh(value) {
+    return String(value || "")
+      .replace("Technical note ·", "技术笔记 ·")
+      .replace("Originally posted ·", "原始发布 ·")
+      .replace(" · updated", " · 已更新");
+  }
+
   function isDateLikeText(value) {
     var text = typeof value === "string" ? value.trim() : "";
     if (!text) return false;
@@ -197,7 +212,7 @@
     var titleEn = (item && item.title_en) || titleZh;
     var excerptZh = (item && item.excerpt) || "";
     var excerptEn = (item && item.excerpt_en) || excerptZh;
-    var dateLabelZh = (item && item.date_label_zh) || "";
+    var dateLabelZh = localizeMathDateLabelZh((item && item.date_label_zh) || "");
     var dateLabelEn = (item && item.date_label_en) || dateLabelZh;
     var metaZh = dateLabelZh || combineMeta((item && item.date) || "", (item && item.reading_time_zh) || "");
     var metaEn = dateLabelEn || combineMeta((item && item.date) || "", (item && item.reading_time_en) || "");
@@ -215,9 +230,17 @@
     setBilingualCopy(dateNode, { zh: metaZh, en: metaEn });
     article.appendChild(dateNode);
 
-    var noteStatus = (item && item.note_status) || "";
-    if (noteStatus) {
-      article.appendChild(textNode("span", "math-note-status", noteStatus));
+    var noteStatusEn = (item && (item.note_status_en || item.note_status)) || "";
+    var noteStatusZh =
+      (item && item.note_status_zh) || MATH_STATUS_ZH[noteStatusEn] || noteStatusEn;
+    if (noteStatusEn || noteStatusZh) {
+      var statusNode = textNode(
+        "span",
+        "math-note-status",
+        lang === "en" ? noteStatusEn : noteStatusZh
+      );
+      setBilingualCopy(statusNode, { zh: noteStatusZh, en: noteStatusEn });
+      article.appendChild(statusNode);
     }
 
     var h3 = textNode("h3", "math-title", "");

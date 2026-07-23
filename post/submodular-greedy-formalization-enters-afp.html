@@ -153,8 +153,8 @@
     })();
   </script>
   <link rel="preload" href="../assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="../styles.min.css?v=20260722-music-localization1" />
-  <script defer src="../protect-media.min.js?v=20260722-music-localization1"></script>
+  <link rel="stylesheet" href="../styles.min.css?v=20260723-information-architecture1" />
+  <script defer src="../protect-media.min.js?v=20260723-information-architecture1"></script>
 </head>
 <body class="math-post-page">
   <div class="page">
@@ -203,7 +203,7 @@
 
           <p>这个项目形式化的是基数约束下的单调非负子模最大化问题。更具体地说，它证明了 classical greedy algorithm 的经典近似保证：在选择至多 <em>k</em> 个元素的约束下，贪心算法可以达到最优值的 (1 − 1/e) 近似比例。除此之外，项目中还包含了一个 stateful lazy greedy variant，用 cached marginal-gain upper bounds 来刻画 lazy greedy 的状态更新过程。</p>
 
-          <p><strong>范围说明：</strong>以上 classical greedy 与 verified stateful lazy-greedy variant 是 AFP 2026 条目的正式发表范围。发表后，当前仓库继续发展 StochasticGreedy theorem line，包括 sampling、approximation packaging 与 oracle-cost accounting；这些是 post-publication extension，不属于该 AFP 条目的发表范围。</p>
+          <p><strong>范围说明：</strong>以上 classical greedy 与 verified stateful lazy-greedy variant 是 AFP 2026 条目的正式发表范围。发表后，当前仓库继续发展 StochasticGreedy theorem line，包括采样模型、近似证明与预言机调用复杂度界；这些是 post-publication extension，不属于该 AFP 条目的发表范围。</p>
 
           <p>这篇短文不打算重新解释子模函数、边际增益或者贪心算法的全部背景。那些内容我之前已经写过不少了。现在再回头看，我更想记录的是：这个项目从一开始并不只是“把一个定理翻译成 Isabelle”，而是逐渐变成了一个关于算法证明结构的整理过程。</p>
 
@@ -254,7 +254,7 @@
 
           <p>The project formalizes monotone non-negative submodular maximization under a cardinality constraint. More specifically, it verifies the classical approximation guarantee for the greedy algorithm: when at most <em>k</em> elements may be selected, greedy attains a (1 − 1/e) approximation to the optimum. The development also contains a stateful lazy greedy variant, using cached upper bounds on marginal gains to describe the state transitions of lazy greedy.</p>
 
-          <p><strong>Scope note:</strong> The classical greedy algorithm and verified stateful lazy-greedy variant are the published scope of the AFP 2026 entry. After publication, the current repository continued with a StochasticGreedy theorem line, including sampling, approximation packaging, and oracle-cost accounting. This is a post-publication extension and is not part of the published AFP entry.</p>
+          <p><strong>Scope note:</strong> The classical greedy algorithm and verified stateful lazy-greedy variant are the published scope of the AFP 2026 entry. After publication, the current repository continued with a StochasticGreedy theorem line, including the sampling model, approximation proof, and oracle-cost bounds. This is a post-publication extension and is not part of the published AFP entry.</p>
 
           <p>This short note is not meant to explain submodular functions, marginal gains, or greedy algorithms all over again. I have already written quite a lot about that background. Looking back now, what I most want to record is that this project did not remain a matter of “translating one theorem into Isabelle.” It gradually became an exercise in organizing the structure of an algorithmic proof.</p>
 

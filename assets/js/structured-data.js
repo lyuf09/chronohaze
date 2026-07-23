@@ -142,15 +142,13 @@
         },
       ],
       knowsAbout: [
-        "Operational Research",
         "Optimization Theory",
-        "Machine Learning Theory",
         "Formal Verification",
         "First-Order Optimization",
         "Submodular Optimization",
-        "Nonconvex Minimax Optimization",
+        "Network Localization",
+        "Nonconvex Optimization",
         "Isabelle/HOL",
-        "Game Theory",
       ],
       sameAs: CHRONOHAZE_PERSON_SAME_AS.slice(),
     };
