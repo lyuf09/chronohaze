@@ -1177,7 +1177,7 @@
       return "home";
     }
     if (/\/post\//i.test(hrefKey)) {
-      return "work";
+      return "academic";
     }
     if (/\/notes\//i.test(hrefKey)) {
       return "academic";
@@ -1204,7 +1204,7 @@
       return "studio";
     }
     if (isProjectsIndexHref(hrefKey)) {
-      return "work";
+      return "academic";
     }
     if (isResearchIndexHref(hrefKey)) {
       return "academic";
@@ -3491,7 +3491,6 @@
         navAria: "主导航",
         navHome: "主页",
         navAcademic: "学术",
-        navWork: "代表性工作",
         navProfile: "个人档案",
         navStudio: "工作室",
         navMath: "技术笔记",
@@ -3669,7 +3668,6 @@
         navAria: "Main navigation",
         navHome: "Home",
         navAcademic: "Academic",
-        navWork: "Work",
         navProfile: "Profile",
         navStudio: "Studio",
         navMath: "Technical Notes",
@@ -11338,14 +11336,14 @@
   }
 
   function detectPreferredLanguage() {
-    if (window.__chronohazePreferredLang === "zh" || window.__chronohazePreferredLang === "en") {
-      return window.__chronohazePreferredLang;
-    }
-
     var query = new URLSearchParams(window.location.search).get("lang");
     if (query === "zh" || query === "en") {
       window.__chronohazePreferredLang = query;
       return query;
+    }
+
+    if (window.__chronohazePreferredLang === "zh" || window.__chronohazePreferredLang === "en") {
+      return window.__chronohazePreferredLang;
     }
 
     try {
@@ -14015,7 +14013,6 @@
     var hrefMap = {
       home: "index.html",
       academic: "academic.html",
-      work: "projects.html",
       profile: "cv.html",
       studio: "music.html",
       photo: "photography.html",
@@ -14027,13 +14024,13 @@
     return prefix + (hrefMap[pageKey] || "index.html");
   }
 
-  function ensureSearchNavLink() {
-    var navOrder = ["home", "academic", "work", "profile", "studio", "search"];
-    var dict = getSecondaryPageDictionary(detectPreferredLanguage());
+  function ensureSearchNavLink(lang) {
+    var safeLang = lang === "en" || lang === "zh" ? lang : detectPreferredLanguage();
+    var navOrder = ["home", "academic", "profile", "studio", "search"];
+    var dict = getSecondaryPageDictionary(safeLang);
     var navLabelMap = {
       home: dict.navHome,
       academic: dict.navAcademic,
-      work: dict.navWork,
       profile: dict.navProfile,
       studio: dict.navStudio,
       photo: dict.navPhoto,
@@ -14281,7 +14278,7 @@
     var safeLang = lang === "en" ? "en" : "zh";
     var dict = getSecondaryPageDictionary(safeLang);
 
-    ensureSearchNavLink();
+    ensureSearchNavLink(safeLang);
     dedupeNavLinks();
 
     document.documentElement.lang = dict.htmlLang;
@@ -14296,18 +14293,15 @@
     Array.from(document.querySelectorAll(".nav a")).forEach(function (link) {
       var href = link.getAttribute("href") || "";
       var navKey = link.getAttribute("data-nav-key") || "";
-      if (navKey === "work") {
-        link.textContent = dict.navWork;
-      } else if (navKey === "profile") {
+      if (navKey === "profile") {
         link.textContent = dict.navProfile;
       } else if (
         isAcademicIndexHref(href) ||
+        isProjectsIndexHref(href) ||
         isMathIndexHref(href) ||
         isResearchIndexHref(href)
       ) {
         link.textContent = dict.navAcademic || "Academic";
-      } else if (isProjectsIndexHref(href)) {
-        link.textContent = dict.navWork;
       } else if (isPhotoIndexHref(href)) {
         link.textContent = dict.navPhoto;
       } else if (isMusicIndexHref(href)) {
@@ -16127,7 +16121,7 @@
 
     var preferred = detectPreferredLanguage();
     persistPreferredLanguage(preferred);
-    ensureSearchNavLink();
+    ensureSearchNavLink(preferred);
     dedupeNavLinks();
     applySecondaryPageLanguage(preferred);
 
@@ -16150,6 +16144,18 @@
             ? "Switch site language to Chinese"
             : "Switch site language to English"
         );
+        if (btn.dataset.chronohazeLanguageSync !== "1") {
+          btn.dataset.chronohazeLanguageSync = "1";
+          btn.addEventListener("click", function () {
+            var nextLang = btn.getAttribute("data-lang");
+            if (nextLang !== "zh" && nextLang !== "en") {
+              return;
+            }
+            persistPreferredLanguage(nextLang);
+            applySecondaryPageLanguage(nextLang);
+            ensureAccessibleControlLabels();
+          });
+        }
       });
       existingPanel.setAttribute("aria-label", "Language switch");
       ensureAccessibleControlLabels();

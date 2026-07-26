@@ -648,7 +648,6 @@ test("search page loads grouped results and query state works", async ({ page })
   await expect(page.locator("header .nav > a")).toHaveText([
     "Home",
     "Academic",
-    "Work",
     "Profile",
     "Search",
   ]);
@@ -1058,6 +1057,36 @@ test("Chinese academic surfaces do not expose English interface labels", async (
   }
 });
 
+test("selected work page primary navigation omits Work and follows the language switch", async ({ page }) => {
+  await page.goto("projects.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+
+  const primaryLinks = page.locator(".site-header .nav > a");
+  await expect(primaryLinks).toHaveText(["Home", "Academic", "Profile", "Search"]);
+  await expect(primaryLinks.filter({ hasText: "Work" })).toHaveCount(0);
+  await expect(page.locator('.site-header .nav > a[data-nav-key="academic"]')).toHaveClass(
+    /active/
+  );
+
+  await page.locator('.floating-lang-btn[data-lang="zh"]').click();
+  await expect(page).toHaveURL(/(?:\?|&)lang=zh(?:&|$)/);
+  await expect(primaryLinks).toHaveText(["主页", "学术", "个人档案", "搜索"]);
+  await expect(page.locator(".site-header .nav .nav-studio-trigger")).toHaveText("工作室");
+  await expect(page.locator('.floating-lang-btn[data-lang="zh"]')).toHaveAttribute(
+    "aria-pressed",
+    "true"
+  );
+
+  await page.reload({ waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+  await expect(page.locator(".site-header .nav > a")).toHaveText([
+    "主页",
+    "学术",
+    "个人档案",
+    "搜索",
+  ]);
+});
+
 test("academic section navigation stays on the three canonical destinations", async ({ page }) => {
   const pages = [
     { path: "academic.html", active: null },
@@ -1175,7 +1204,7 @@ test("secondary pages keep mobile nav within the viewport", async ({ page }, tes
     await waitForCriticalLoaderRelease(page);
 
     await expect(page.locator(".site-header .nav")).toBeVisible();
-    await expect(page.locator(".site-header .nav a")).toHaveCount(8);
+    await expect(page.locator(".site-header .nav a")).toHaveCount(7);
     await expect(page.locator(".site-header .brand img")).toHaveAttribute(
       "src",
       /logo-header\.png$/
@@ -1188,7 +1217,6 @@ test("secondary pages keep mobile nav within the viewport", async ({ page }, tes
     expect(navTargets).toEqual([
       "index.html",
       "academic.html",
-      "projects.html",
       "cv.html",
       "music.html",
       "photography.html",
