@@ -317,7 +317,6 @@ test("home drawer keeps state, focus, and Escape handling in sync", async ({ pag
   await expect(drawer.locator(".drawer-nav > a")).toHaveText([
     "Home",
     "Academic",
-    "Work",
     "Profile",
     "Search",
   ]);
