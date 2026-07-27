@@ -17144,9 +17144,13 @@ html:lang(zh) .music-index-page .music-room-track-open {
     aspect-ratio: 4 / 3;
   }
 
-  .music-index-page .music-room-album[data-cover-orientation="landscape"] .music-room-album-cover {
+  [data-cover-orientation="landscape"] .music-room-album-cover {
     min-height: 0;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: auto;
+  }
+
+  [data-cover-orientation="landscape"] .music-room-album-cover img {
+    height: auto;
   }
 
   .music-index-page .music-room-track-meta {
