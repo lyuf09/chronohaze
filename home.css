@@ -2383,11 +2383,11 @@ html.menu-scroll-locked,
 
   .hero-portrait {
     width: clamp(236px, 78vw, 336px);
-    max-height: min(52vh, 388px);
+    max-height: none;
     height: auto;
-    aspect-ratio: 481 / 587;
-    object-fit: cover;
-    object-position: center top;
+    aspect-ratio: auto;
+    object-fit: contain;
+    object-position: center;
   }
 
   .hero-right-inner {
@@ -2535,7 +2535,7 @@ html.menu-scroll-locked,
 
   .hero-portrait {
     width: clamp(220px, 74vw, 314px);
-    max-height: min(48vh, 360px);
+    max-height: none;
   }
 
   .hero-right-inner {
