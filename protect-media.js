@@ -13202,6 +13202,7 @@
       {
         href: "music/album-ipomoea-alba.html",
         image: "assets/template/ipomoea-alba-album-cover.jpg",
+        coverOrientation: "landscape",
         eyebrowZh: "专辑",
         eyebrowEn: "Album",
         summaryZh: "雨、海、深蓝色的执念。",
@@ -13287,6 +13288,7 @@
         href: "music/track-orchid.html",
         audio: "assets/audio/juke/orchid51513.mp3",
         image: "assets/images/music/orchid/orchid-art-01.jpg",
+        coverOrientation: "portrait",
         position: "center center",
         scale: 1.16,
         tagsZh: ["新制作", "重制中", "夜花"],
@@ -13413,6 +13415,9 @@
 
     function buildAlbumCard(rowMeta, blueprint) {
       var article = createElement("article", "music-room-album");
+      if (blueprint.coverOrientation) {
+        article.dataset.coverOrientation = blueprint.coverOrientation;
+      }
       var link = createElement("a", "music-room-album-link");
       link.href = blueprint.href;
 
@@ -13513,6 +13518,9 @@
         }
 
         var card = createElement("article", "music-room-track-card");
+        if (item.coverOrientation) {
+          card.dataset.coverOrientation = item.coverOrientation;
+        }
         var link = createElement("a", "music-room-track-link");
         link.href = item.href;
 

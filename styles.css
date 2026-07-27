@@ -17125,6 +17125,35 @@ html:lang(zh) .music-index-page .music-room-track-open {
 }
 
 @media (max-width: 760px) {
+  .music-index-page .music-room-track-link {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .music-index-page .music-room-track-cover {
+    min-height: 0;
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, rgba(24, 30, 42, 0.98), rgba(11, 15, 23, 0.98));
+  }
+
+  .music-index-page .music-room-track-cover img {
+    object-fit: contain;
+    transform: none;
+  }
+
+  .music-index-page .music-room-track-card[data-cover-orientation="portrait"] .music-room-track-cover {
+    aspect-ratio: 4 / 3;
+  }
+
+  .music-index-page .music-room-album[data-cover-orientation="landscape"] .music-room-album-cover {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+
+  .music-index-page .music-room-album[data-cover-orientation="landscape"] .music-room-album-cover img {
+    height: 100%;
+  }
+
   .music-index-page .music-room-track-meta {
     padding: 16px 14px 15px;
   }
