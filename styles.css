@@ -17127,13 +17127,12 @@ html:lang(zh) .music-index-page .music-room-track-open {
 @media (max-width: 760px) {
   .music-index-page .music-room-track-link {
     grid-template-columns: 1fr;
-    grid-template-rows: auto auto;
   }
 
   .music-index-page .music-room-track-cover {
     min-height: 0;
     aspect-ratio: 16 / 9;
-    background: linear-gradient(135deg, rgba(24, 30, 42, 0.98), rgba(11, 15, 23, 0.98));
+    background: #111722;
   }
 
   .music-index-page .music-room-track-cover img {
@@ -17148,10 +17147,6 @@ html:lang(zh) .music-index-page .music-room-track-open {
   .music-index-page .music-room-album[data-cover-orientation="landscape"] .music-room-album-cover {
     min-height: 0;
     aspect-ratio: 4 / 3;
-  }
-
-  .music-index-page .music-room-album[data-cover-orientation="landscape"] .music-room-album-cover img {
-    height: 100%;
   }
 
   .music-index-page .music-room-track-meta {
