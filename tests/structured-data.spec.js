@@ -23,6 +23,21 @@ function collectTypes(value, set) {
   });
 }
 
+function collectNodesByType(value, expectedType, nodes) {
+  if (!value) return;
+  if (Array.isArray(value)) {
+    value.forEach((item) => collectNodesByType(item, expectedType, nodes));
+    return;
+  }
+  if (typeof value !== "object") return;
+
+  const types = Array.isArray(value["@type"]) ? value["@type"] : [value["@type"]];
+  if (types.includes(expectedType)) {
+    nodes.push(value);
+  }
+  Object.values(value).forEach((child) => collectNodesByType(child, expectedType, nodes));
+}
+
 async function readStructuredData(page) {
   const script = page.locator('script#chronohaze-structured-data[type="application/ld+json"]');
   await expect(script).toHaveCount(1);
@@ -64,4 +79,128 @@ test("structured data JSON-LD is parseable and page-specific types are present",
   await expectStructuredTypes(page, "music/track-04.html", ["MusicRecording"]);
   await expectStructuredTypes(page, "music/track-18.html", ["MusicPlaylist", "MusicRecording"]);
   await expectStructuredTypes(page, "post/metalcore-piano-lab.html", ["BlogPosting"]);
+});
+
+test("each page exposes one canonical Person with the current and past institutions in the right fields", async ({
+  page,
+}) => {
+  for (const url of [
+    "index.html?lang=en",
+    "olfactory.html?lang=en",
+    "music/album-ipomoea-alba.html?lang=en",
+    "music/track-18.html?lang=en",
+  ]) {
+    await page.goto(url, { waitUntil: "domcontentloaded" });
+    await expect
+      .poll(async () => page.locator('script#chronohaze-structured-data[type="application/ld+json"]').count())
+      .toBe(1);
+
+    const payloads = await page
+      .locator('script[type="application/ld+json"]')
+      .evaluateAll((scripts) => scripts.map((script) => JSON.parse(script.textContent)));
+    const people = [];
+    collectNodesByType(payloads, "Person", people);
+
+    expect(people).toHaveLength(1);
+    expect(people[0]["@id"]).toBe("https://lyuf09.github.io/chronohaze/#person");
+    expect(people[0].affiliation.name).toBe("The University of Edinburgh");
+    expect(people[0].alumniOf.name).toBe("Cornell University");
+  }
+});
+
+test("structured-data cleanup preserves spaces inside English strings", async ({ page }) => {
+  await page.goto("research.html?lang=en", { waitUntil: "domcontentloaded" });
+  await expect
+    .poll(async () => page.locator('script#chronohaze-structured-data[type="application/ld+json"]').count())
+    .toBe(1);
+
+  const raw = await page
+    .locator('script#chronohaze-structured-data[type="application/ld+json"]')
+    .textContent();
+  expect(raw).toContain("Research Statement");
+  expect(raw).toContain("Research statement by Feier Lyu");
+  expect(raw).toContain("Machine-checked optimization and reusable proof structure");
+  expect(raw).not.toContain("Researchstatementby");
+});
+
+test("localized descriptions and social metadata stay in the selected language", async ({ page }) => {
+  const cases = [
+    ["academic.html?lang=zh", "Feier Lyu（Fay Lyu）的学术主页"],
+    ["cv.html?lang=zh", "Feier Lyu（Fay Lyu）的公开学术档案"],
+    ["research.html?lang=zh", "Feier Lyu（Fay Lyu）的研究陈述"],
+    ["projects.html?lang=zh", "Feier Lyu（Fay Lyu）的代表性学术工作"],
+    ["music/album-ipomoea-alba.html?lang=en", "Ipomoea Alba album page by HazezZ"],
+    [
+      "music/album-teenage-best.html?lang=en",
+      "A best-of collection from HazezZ's teenage years",
+    ],
+    [
+      "post/dual-score-saddle-certificates.html?lang=en",
+      "An update connecting an instance-level dual score",
+    ],
+    [
+      "post/first-isabelle-proof.html?lang=en",
+      "My first Isabelle formalization project",
+    ],
+    [
+      "post/isabelle-submodular-greedy.html?lang=en",
+      "A December 2025 project note",
+    ],
+    ["post/metalcore-piano-lab.html?lang=en", "Metalcore Piano Lab is a structured experiment"],
+    ["post/spring-2026.html?lang=en", "A Spring 2026 research note"],
+    [
+      "post/submodular-greedy-formalization-enters-afp.html?lang=en",
+      "A record of the Isabelle/HOL submodular greedy formalization",
+    ],
+    [
+      "post/theorem-to-framework-isabelle-submodular.html?lang=en",
+      "The AFP 2026 entry covers classical greedy",
+    ],
+    [
+      "post/what-i-really-got-when-a-dual-route-failed.html?lang=en",
+      "What remained after two natural Lagrangian dual routes",
+    ],
+  ];
+
+  for (const [url, expectedDescriptionStart] of cases) {
+    await page.goto(url, { waitUntil: "domcontentloaded" });
+    await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+      "content",
+      new RegExp(`^${expectedDescriptionStart.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`)
+    );
+    const description = await page.locator('meta[name="description"]').getAttribute("content");
+    await expect(page.locator('meta[property="og:description"]')).toHaveAttribute(
+      "content",
+      description
+    );
+    await expect(page.locator('meta[name="twitter:description"]')).toHaveAttribute(
+      "content",
+      description
+    );
+  }
+
+  for (const [url, expectedTitle] of [
+    ["academic.html?lang=en", "Academic | Feier Lyu — Optimization & Formal Verification"],
+    ["research.html?lang=en", "Research Statement | Feier Lyu"],
+    ["projects.html?lang=en", "Selected Work | Feier Lyu"],
+    ["cv.html?lang=en", "Academic Profile | Feier Lyu"],
+  ]) {
+    await page.goto(url, { waitUntil: "domcontentloaded" });
+    await expect(page).toHaveTitle(expectedTitle);
+    await expect(page.locator('meta[property="og:title"]')).toHaveAttribute(
+      "content",
+      expectedTitle
+    );
+    await expect(page.locator('meta[name="twitter:title"]')).toHaveAttribute(
+      "content",
+      expectedTitle
+    );
+  }
+
+  await page.goto("photo/blue.html?lang=en", { waitUntil: "domcontentloaded" });
+  await expect(page).toHaveTitle("Blue | Photography | Chronohaze");
+  await expect(page.locator('meta[property="og:title"]')).toHaveAttribute(
+    "content",
+    "Blue | Photography | Chronohaze"
+  );
 });

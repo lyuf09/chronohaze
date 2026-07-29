@@ -155,43 +155,6 @@
   <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/" />
   <!-- GENERATED:hreflang:end -->
   <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "@id": "https://lyuf09.github.io/chronohaze/#person",
-      "name": "Feier Lyu",
-      "alternateName": ["Fay Lyu", "Feier Lyu", "Feier", "HazezZ"],
-      "givenName": "Feier",
-      "familyName": "Lyu",
-      "url": "https://lyuf09.github.io/chronohaze/",
-      "image": "https://lyuf09.github.io/chronohaze/assets/template/hero_portrait-1600.jpg",
-      "description": "Feier Lyu (commonly Fay Lyu) is a mathematics student at The University of Edinburgh who was an exchange student at Cornell University in 2025–2026. HazezZ is the name used for music, performance, and cross-media work.",
-      "affiliation": {
-        "@type": "CollegeOrUniversity",
-        "name": "The University of Edinburgh",
-        "url": "https://www.ed.ac.uk/"
-      },
-      "alumniOf": {
-        "@type": "CollegeOrUniversity",
-        "name": "Cornell University",
-        "url": "https://www.cornell.edu/"
-      },
-      "knowsAbout": [
-        "Optimization Theory",
-        "Formal Verification",
-        "First-Order Optimization",
-        "Submodular Optimization",
-        "Network Localization",
-        "Nonconvex Optimization",
-        "Isabelle/HOL"
-      ],
-      "sameAs": [
-        "https://github.com/lyuf09",
-        "https://www.linkedin.com/in/fay-lyu-uoe/"
-      ]
-    }
-  </script>
   <!-- Google tag (gtag.js), deferred until idle -->
   <script>
     (function () {
@@ -267,7 +230,7 @@
             <p class="hero-role-line" data-i18n="heroRole">OPTIMIZATION · FORMAL VERIFICATION · MACHINE-CHECKED MATHEMATICS</p>
             <p data-i18n="heroIntro" data-i18n-html="true"><span class="hero-poetic-line">In the haze of time, I look for structure in complexity.</span><span class="hero-identity-line">Proof asks what can be trusted; music and image ask what deserves to be remembered.</span><span class="hero-world-line">This site gathers the work that continues between them.</span></p>
             <p class="hero-authority-line" data-i18n="heroAuthority">University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027</p>
-            <div class="hero-academic-module">
+            <div class="hero-academic-module" data-search-ignore>
               <p class="hero-academic-kicker" data-i18n="academicKicker">Quick links</p>
               <div class="hero-academic-links">
                 <a class="hero-academic-link" href="academic.html" data-i18n="academicResearch">Academic</a>
@@ -280,7 +243,7 @@
 
             <a class="contact-btn" href="#contact" data-i18n="contactBtn">Contact me</a>
 
-            <div class="player-shell" id="playerShell">
+            <div class="player-shell" id="playerShell" data-search-ignore>
               <button class="player-toggle" type="button" aria-label="Play or pause featured track" aria-pressed="false" data-i18n-aria="audioToggleAria" id="audioToggle"></button>
               <div class="player-center">
                 <p>AFFIZIEREN - HAZEZZ</p>
@@ -375,15 +338,15 @@
           <div class="now-grid" aria-label="Current work in July 2026" data-i18n-aria="nowGridAria">
             <article class="now-card" data-reveal="slide-up" data-reveal-delay="80">
               <h3 data-i18n="nowCard1Title">Performance videos</h3>
-              <p data-i18n="nowCard1Body">I bought a new camera and lens, and I’m preparing to film bass covers I’m genuinely happy with.</p>
+              <p data-i18n="nowCard1Body">Producing a new series of bass-performance videos with an upgraded camera setup.</p>
             </article>
             <article class="now-card" data-reveal="slide-up" data-reveal-delay="150">
               <h3 data-i18n="nowCard2Title">Music production</h3>
-              <p data-i18n="nowCard2Body">I’m preparing a collaborative single with a brilliant guitarist friend, while also writing an original song commissioned by an underground idol group.</p>
+              <p data-i18n="nowCard2Body">Producing a collaborative single and composing an original track commissioned by an underground idol group.</p>
             </article>
             <article class="now-card" data-reveal="slide-up" data-reveal-delay="220">
               <h3 data-i18n="nowCard3Title">AFP extension</h3>
-              <p data-i18n="nowCard3Body">I’m extending my AFP entry along its stochastic line into a conference submission.</p>
+              <p data-i18n="nowCard3Body">Extending the published AFP formalization toward StochasticGreedy and developing the accompanying theory and implementation for a future conference paper.</p>
             </article>
           </div>
         </div>
@@ -431,7 +394,6 @@
           <div class="drawer-studio-links">
             <a href="music.html" data-i18n="menuMusic">Music</a>
             <a href="photography.html" data-i18n="menuPhoto">Photography</a>
-            <a href="olfactory.html" data-i18n="menuOlfactory">Olfactory</a>
           </div>
         </div>
         <a href="search.html" data-i18n="menuSearch">Search</a>
@@ -493,8 +455,7 @@
         studioLinks.className = 'drawer-studio-links';
         [
           { href: 'music.html', key: 'menuMusic' },
-          { href: 'photography.html', key: 'menuPhoto' },
-          { href: 'olfactory.html', key: 'menuOlfactory' }
+          { href: 'photography.html', key: 'menuPhoto' }
         ].forEach(function (entry) {
           const link = document.createElement('a');
           link.setAttribute('href', entry.href);
@@ -658,11 +619,11 @@
           nowFreshnessLabel: 'Last updated',
           nowGridAria: 'Current research and studio work in July 2026',
           nowCard1Title: 'Performance videos',
-          nowCard1Body: 'I bought a new camera and lens, and I’m preparing to film bass covers I’m genuinely happy with.',
+          nowCard1Body: 'Producing a new series of bass-performance videos with an upgraded camera setup.',
           nowCard2Title: 'Music production',
-          nowCard2Body: 'I’m preparing a collaborative single with a brilliant guitarist friend, while also writing an original song commissioned by an underground idol group.',
+          nowCard2Body: 'Producing a collaborative single and composing an original track commissioned by an underground idol group.',
           nowCard3Title: 'AFP extension',
-          nowCard3Body: 'I’m extending my AFP entry along its stochastic line into a conference submission.',
+          nowCard3Body: 'Extending the published AFP formalization toward StochasticGreedy and developing the accompanying theory and implementation for a future conference paper.',
           selectedEvidenceKicker: 'CURRENT WORK',
           selectedEvidenceTitle: 'Research Snapshot',
           selectedEvidenceGridAria: 'Selected evidence',

@@ -45,6 +45,41 @@
     return tag;
   }
 
+  var VISIBLE_SEARCH_TAGS = {
+    academic: { zh: "学术", en: "Academic" },
+    research: { zh: "研究", en: "Research" },
+    optimization: { zh: "优化", en: "Optimization" },
+    "formal-methods": { zh: "形式化方法", en: "Formal methods" },
+    "isabelle-hol": { zh: "Isabelle/HOL", en: "Isabelle/HOL" },
+    "machine-checked-mathematics": { zh: "机器检查数学", en: "Machine-checked mathematics" },
+    duality: { zh: "对偶理论", en: "Duality" },
+    "technical notes": { zh: "技术笔记", en: "Technical notes" },
+    album: { zh: "专辑", en: "Album" },
+    single: { zh: "单曲", en: "Single" },
+    instrumental: { zh: "器乐", en: "Instrumental" },
+    collab: { zh: "合作", en: "Collaboration" },
+    progcore: { zh: "前卫核", en: "Progressive metalcore" },
+    mathrock: { zh: "数学摇滚", en: "Math rock" },
+    postrock: { zh: "后摇", en: "Post-rock" },
+    posthardcore: { zh: "后硬核", en: "Post-hardcore" },
+    jrock: { zh: "日系摇滚", en: "J-rock" },
+    hardrock: { zh: "硬摇滚", en: "Hard rock" },
+    emorock: { zh: "情绪摇滚", en: "Emo rock" },
+    indie: { zh: "独立音乐", en: "Indie" },
+    jazz: { zh: "爵士", en: "Jazz" },
+    pop: { zh: "流行", en: "Pop" },
+    featured: { zh: "精选", en: "Featured" },
+  };
+
+  function getVisibleSearchTagLabel(tag, lang, dict) {
+    var key = String(tag || "").trim().toLowerCase();
+    var labels = VISIBLE_SEARCH_TAGS[key];
+    if (labels) {
+      return lang === "en" ? labels.en : labels.zh;
+    }
+    return getMusicTagLabel(key, dict);
+  }
+
   function trackAnalyticsEvent(name, params) {
     var shared = getShared();
     if (shared && typeof shared.trackAnalyticsEvent === "function") {
@@ -942,7 +977,9 @@
         .map(function (tag) {
           return String(tag || "").trim().toLowerCase();
         })
-        .filter(Boolean);
+        .filter(function (tag) {
+          return !!VISIBLE_SEARCH_TAGS[tag];
+        });
     }
 
     function buildTagOptions() {
@@ -966,7 +1003,7 @@
       tags.forEach(function (tag) {
         var option = document.createElement("option");
         option.value = tag;
-        option.textContent = getMusicTagLabel(tag, dict);
+        option.textContent = getVisibleSearchTagLabel(tag, lang, dict);
         tagNode.appendChild(option);
       });
 
@@ -1818,7 +1855,7 @@
         status += " · " + scopeLabels[scope];
       }
       if (tag !== "all") {
-        status += " · #" + getMusicTagLabel(tag, dict);
+        status += " · #" + getVisibleSearchTagLabel(tag, lang, dict);
       }
       if (usingFallback) {
         status += " · " + dict.searchFallbackNotice;
@@ -1950,7 +1987,7 @@
           getItemTagLabels(groupItem).slice(0, 4).forEach(function (tagText) {
             var chip = document.createElement("span");
             chip.className = "search-result-tag";
-            chip.textContent = getMusicTagLabel(tagText, dict);
+            chip.textContent = getVisibleSearchTagLabel(tagText, lang, dict);
             tagsWrap.appendChild(chip);
           });
 

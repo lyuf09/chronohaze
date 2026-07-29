@@ -47,12 +47,30 @@ HTML_CONTENT_REFRESH_URLS = {
     "post/what-i-really-got-when-a-dual-route-failed.html",
 }
 
+HTML_VOID_ELEMENTS = {
+    "area",
+    "base",
+    "br",
+    "col",
+    "embed",
+    "hr",
+    "img",
+    "input",
+    "link",
+    "meta",
+    "param",
+    "source",
+    "track",
+    "wbr",
+}
+
 
 class MainContentParser(HTMLParser):
     def __init__(self) -> None:
         super().__init__()
         self.main_depth = 0
         self.skip_depth = 0
+        self.search_ignore_depth = 0
         self.in_first_h1 = False
         self.found_h1 = False
         self.text_parts: List[str] = []
@@ -66,6 +84,11 @@ class MainContentParser(HTMLParser):
         if not self.main_depth:
             return
         self.main_depth += 1
+        attr_names = {str(name).lower() for name, _value in attrs}
+        if self.search_ignore_depth and tag not in HTML_VOID_ELEMENTS:
+            self.search_ignore_depth += 1
+        elif "data-search-ignore" in attr_names:
+            self.search_ignore_depth = 1
         if tag in {"script", "style", "noscript", "template"}:
             self.skip_depth += 1
         if tag == "h1" and not self.found_h1:
@@ -80,13 +103,15 @@ class MainContentParser(HTMLParser):
             self.found_h1 = True
         if tag in {"script", "style", "noscript", "template"} and self.skip_depth:
             self.skip_depth -= 1
+        if self.search_ignore_depth and tag not in HTML_VOID_ELEMENTS:
+            self.search_ignore_depth -= 1
         if tag == "main":
             self.main_depth = 0
         else:
             self.main_depth -= 1
 
     def handle_data(self, data: str) -> None:
-        if not self.main_depth or self.skip_depth:
+        if not self.main_depth or self.skip_depth or self.search_ignore_depth:
             return
         value = " ".join(data.split()).strip()
         if not value:

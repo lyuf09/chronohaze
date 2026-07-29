@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-23",
+  "generated_at": "2026-07-29",
   "scope": "site",
   "items": [
     {
@@ -38,7 +38,8 @@
       "url": "index.html",
       "section": "Site",
       "date": "",
-      "excerpt": "Chronohaze homepage organized around about, current work, mathematics, photography, and music.",
+      "excerpt": "Chronohaze 汇集 Feier Lyu 在优化理论、形式化验证、音乐制作与摄影方面的当前工作。",
+      "excerpt_en": "Chronohaze brings together Feier Lyu’s current work in optimization, formal verification, music production, and photography.",
       "tags": [
         "home",
         "about",
@@ -49,7 +50,7 @@
       ],
       "sort": 0,
       "scope": "site",
-      "content": "Origin / Chronohaze Fay / Feier Lyu OPTIMIZATION · FORMAL VERIFICATION · MACHINE-CHECKED MATHEMATICS In the haze of time, I look for structure in complexity. Proof asks what can be trusted; music and image ask what deserves to be remembered. This site gathers the work that continues between them. University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027 Quick links Academic Academic Profile Work Notes GitHub Contact me AFFIZIEREN - HAZEZZ 00:00 / 00:00 CURRENT WORK Research Snapshot PUBLISHED · AFP · SOLE AUTHOR Submodular Greedy in Isabelle/HOL Deterministic and stateful lazy greedy for submodular maximization in Isabelle/HOL. AFP entry ONGOING · JOINT RESEARCH Negative-Curvature Certificates for Network Localization Graph-structured negative-curvature certificates and local escape directions, with Prof. Shoham Sabach. English technical note SUBMITTED · AFP · 2 JULY 2026 Projected Gradient Descent in Isabelle/HOL Projected gradient descent, projection geometry, gradient mappings, and convergence rates in Isabelle/HOL. Project note TWO PRACTICES Two identities, two practices Reason and romance sit side by side here: proof, sound, and image each keep their own language. ACADEMIC IDENTITY · FEIER LYU Mathematics Theorems, Isabelle/HOL, and optimization notes, from machine-checked proofs to structured nonconvex problems. AFP theorem PGD formalization Technical notes CREATIVE IDENTITY · HAZEZZ Music & Image Performance, composition, and photographic series, each given its own complete narrative space. Music / Performance Photography / Moving Image Now / July 2026 Last updated 2026. 07 Performance videos I bought a new camera and lens, and I’m preparing to film bass covers I’m genuinely happy with. Music production I’m preparing a collaborative single with a brilliant guitarist friend, while also writing an original song commissioned by an underground idol group. AFP extension I’m extending my AFP entry along its stochastic line into a conference submission."
+      "content": "Origin / Chronohaze Fay / Feier Lyu OPTIMIZATION · FORMAL VERIFICATION · MACHINE-CHECKED MATHEMATICS In the haze of time, I look for structure in complexity. Proof asks what can be trusted; music and image ask what deserves to be remembered. This site gathers the work that continues between them. University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027 Contact me CURRENT WORK Research Snapshot PUBLISHED · AFP · SOLE AUTHOR Submodular Greedy in Isabelle/HOL Deterministic and stateful lazy greedy for submodular maximization in Isabelle/HOL. AFP entry ONGOING · JOINT RESEARCH Negative-Curvature Certificates for Network Localization Graph-structured negative-curvature certificates and local escape directions, with Prof. Shoham Sabach. English technical note SUBMITTED · AFP · 2 JULY 2026 Projected Gradient Descent in Isabelle/HOL Projected gradient descent, projection geometry, gradient mappings, and convergence rates in Isabelle/HOL. Project note TWO PRACTICES Two identities, two practices Reason and romance sit side by side here: proof, sound, and image each keep their own language. ACADEMIC IDENTITY · FEIER LYU Mathematics Theorems, Isabelle/HOL, and optimization notes, from machine-checked proofs to structured nonconvex problems. AFP theorem PGD formalization Technical notes CREATIVE IDENTITY · HAZEZZ Music & Image Performance, composition, and photographic series, each given its own complete narrative space. Music / Performance Photography / Moving Image Now / July 2026 Last updated 2026. 07 Performance videos Producing a new series of bass-performance videos with an upgraded camera setup. Music production Producing a collaborative single and composing an original track commissioned by an underground idol group. AFP extension Extending the published AFP formalization toward StochasticGreedy and developing the accompanying theory and implementation for a future conference paper."
     },
     {
       "title": "Academic / 学术",
@@ -57,7 +58,8 @@
       "url": "academic.html",
       "section": "Site",
       "date": "2026-05-08",
-      "excerpt": "A concise academic index: optimization theory, formal verification, machine-checked mathematics, and selected publications, formalizations, and technical notes.",
+      "excerpt": "Feier Lyu 的学术入口：优化理论、形式化验证、机器检查数学，以及精选发表成果、形式化项目与技术笔记。",
+      "excerpt_en": "Feier Lyu’s academic overview: optimization theory, formal verification, machine-checked mathematics, and selected publications, formalizations, and technical notes.",
       "tags": [
         "academic",
         "research",
@@ -75,7 +77,8 @@
       "url": "projects.html",
       "section": "Site",
       "date": "2026-05-08",
-      "excerpt": "Selected formalizations, optimization notes, research directions, and a supporting computational prototype.",
+      "excerpt": "精选形式化项目、优化研究笔记、合作研究方向，以及作为侧项目展示的创意计算原型。",
+      "excerpt_en": "Selected formalizations, optimization research notes, collaborative research directions, and a supporting creative-computation prototype.",
       "tags": [
         "projects",
         "work",

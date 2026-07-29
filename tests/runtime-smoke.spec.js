@@ -384,6 +384,15 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
     "This site gathers the work that continues between them."
   );
   await expect(page.locator('[data-i18n="nowTitle"]')).toHaveText("Now / July 2026");
+  await expect(page.locator('[data-i18n="nowCard1Body"]')).toHaveText(
+    "Producing a new series of bass-performance videos with an upgraded camera setup."
+  );
+  await expect(page.locator('[data-i18n="nowCard2Body"]')).toHaveText(
+    "Producing a collaborative single and composing an original track commissioned by an underground idol group."
+  );
+  await expect(page.locator('[data-i18n="nowCard3Body"]')).toHaveText(
+    "Extending the published AFP formalization toward StochasticGreedy and developing the accompanying theory and implementation for a future conference paper."
+  );
   await expect(page.locator(".hero-authority-line")).toHaveText(
     "University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027"
   );
@@ -514,8 +523,10 @@ test("music index renders and remains interactive", async ({ page }) => {
   await expect(page.locator(".music-room-selected")).toBeVisible();
   await expect.poll(async () => page.locator(".music-room-track-card").count()).toBeGreaterThan(3);
   await expect(page.locator(".music-room-track-roles")).toHaveCount(5);
-  await expect(page.locator(".music-room-track-card").first().locator(".music-room-track-role")).toHaveCount(6);
+  await expect(page.locator(".music-room-track-card").first().locator(".music-room-track-role")).toHaveCount(8);
   await expect(page.locator(".music-room-track-card").first().locator(".music-room-track-roles")).toContainText("贝斯");
+  await expect(page.locator(".music-room-track-card").first().locator(".music-room-track-roles")).toContainText("编程");
+  await expect(page.locator(".music-room-track-card").first().locator(".music-room-track-roles")).toContainText("混音");
   await expect(page.locator(".music-room-track-card").nth(2).locator(".music-room-track-role")).toHaveCount(3);
   await expect.poll(async () => page.locator(".music-room-album").count()).toBeGreaterThan(1);
   await expect(page.locator(".music-room-album-credit")).toHaveText(
@@ -624,6 +635,7 @@ test("music index renders and remains interactive", async ({ page }) => {
     "Performance gallery"
   );
   await expect(page.locator(".music-bottom-gallery picture")).toHaveCount(8);
+  await expect(page.locator(".music-bottom-gallery img[alt='']")).toHaveCount(0);
 
   expect(errors).toEqual([]);
 });
@@ -655,7 +667,6 @@ test("search page loads grouped results and query state works", async ({ page })
   await expect(page.locator("header .nav .nav-studio-panel a")).toHaveText([
     "Music",
     "Photography",
-    "Olfactory",
   ]);
   await expect(page.locator("#site-search-scope option")).toHaveText([
     "All",
@@ -684,6 +695,8 @@ test("search page loads grouped results and query state works", async ({ page })
     "href",
     /search\.html\?lang=en$/
   );
+  const visibleTagLabels = await page.locator("#site-search-tag option").allTextContents();
+  expect(visibleTagLabels).not.toEqual(expect.arrayContaining(["home", "work", "cv", "调香"]));
 
   await page.fill("#site-search-input", "Affizieren");
   await page.click(".search-submit");
@@ -705,6 +718,18 @@ test("search page loads grouped results and query state works", async ({ page })
   await page.click(".search-submit");
   const englishExcerpt = await page.locator(".search-result-excerpt").first().innerText();
   expect(englishExcerpt).not.toMatch(/[\u3400-\u9fff]/);
+
+  await page.fill("#site-search-input", "AFP");
+  await page.click(".search-submit");
+  const homeResult = page.locator('.search-result-link[href="index.html"]');
+  await expect(homeResult).toContainText(
+    "Chronohaze brings together Feier Lyu’s current work in optimization"
+  );
+  await expect(homeResult).not.toContainText("AFFIZIEREN");
+  await expect(homeResult).not.toContainText("00:00 / 00:00");
+  await expect(page.locator(".search-results")).not.toContainText(
+    "Chronohaze page for Academic"
+  );
 
   await page.fill("#site-search-input", "__chronohaze_no_match__");
   await page.click(".search-submit");
@@ -746,11 +771,14 @@ test("Affizieren shows metadata duration and progressive technical disclosure be
   await expect(metas.nth(0)).toHaveText("Creation period · Sep–Dec 2024");
   await expect(metas.nth(1)).toContainText("Echoes of Two Years");
   await expect(metas.nth(1)).toContainText(
-    "Lyrics · Composition · Arrangement · Guitar · Bass · Mixing · Production — HazezZ"
+    "Lyrics · Composition · Arrangement · Guitar · Bass · Programming · Mixing · Production — HazezZ"
   );
   await expect(page.locator(".music-detail-article h2").first()).toHaveText("About the work");
   await expect(page.locator(".music-detail-article h2").first().locator("xpath=following-sibling::p[1]")).toContainText(
     "began in the autumn of my nineteenth year"
+  );
+  await expect(page.locator(".music-detail-article h2").first().locator("xpath=following-sibling::p[1]")).toContainText(
+    "The line “vision shattered by rain” returns to the summer when I was seventeen"
   );
   await expect(page.locator(".affizieren-note-summary-card")).toHaveCount(4);
   await expect(page.locator(".affizieren-note-summary-grid")).toContainText("A♯–E–A–D–G–B–E");
@@ -782,6 +810,27 @@ test("Affizieren shows metadata duration and progressive technical disclosure be
   );
   await expect(supernovaMetas.nth(1)).toContainText("Guitar — Franklimn Zhang");
   await expect(supernovaMetas.nth(1)).toContainText("Mixing — Rinya");
+  await expect(page.locator(".music-detail-article")).toContainText("mixed time signatures");
+  await expect(page.locator(".music-detail-article")).not.toContainText(
+    "The lyrics point to no specific person, instead"
+  );
+
+  await page.goto("music/track-18.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+  await expect(page.locator(".music-detail-article")).toContainText(
+    "I wrote that on an afternoon after the rain."
+  );
+  await expect(page.locator(".music-detail-article")).not.toContainText("thaton");
+
+  await page.goto("music/album-teenage-best.html?lang=en", {
+    waitUntil: "domcontentloaded",
+  });
+  await waitForCriticalLoaderRelease(page);
+  await expect(page.locator(".album-intro")).toContainText("2022–2024");
+  await expect(page.locator(".album-intro")).toContainText("HazezZ composed every track");
+  await expect(page.locator(".album-intro")).toContainText(
+    "leaving the older songs scattered"
+  );
 
   expect(errors).toEqual([]);
 });
@@ -1627,6 +1676,44 @@ test("photo detail page supports keyboard prev/next navigation", async ({ page }
   await expect(page).toHaveURL(/photo\/photo-02\.html\?lang=zh$/);
   await waitForCriticalLoaderRelease(page);
   await expect(page.locator(".photo-detail-pager")).toBeVisible();
+
+  expect(errors).toEqual([]);
+});
+
+test("photo detail metadata localizes dates, places, statements, and image alt text", async ({
+  page,
+}) => {
+  const errors = trackPageErrors(page);
+
+  await page.goto("photo/photo-17.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+  await expect(page.locator(".photo-detail-date")).toHaveText("18 May 2026");
+  await expect(page.locator(".photo-detail-article .article-meta")).toHaveText(
+    "Ithaca, USA · 2026"
+  );
+  await expect(page.locator(".photo-detail-statement")).toContainText(
+    "one of my last ordinary walks in Ithaca"
+  );
+  const englishPhotoAlts = await page
+    .locator(".photo-detail-gallery img")
+    .evaluateAll((images) => images.map((image) => image.getAttribute("alt") || ""));
+  expect(englishPhotoAlts.every((alt) => alt.includes("Ithaca, USA · 2026"))).toBe(true);
+  expect(englishPhotoAlts.join(" ")).not.toMatch(/[\u3400-\u9fff]/);
+
+  await page.goto("photo/photo-17.html?lang=zh", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+  await expect(page.locator(".photo-detail-date")).toHaveText("2026 年 5 月 18 日");
+  await expect(page.locator(".photo-detail-statement")).toContainText(
+    "观察普通景象怎样慢慢变成记忆"
+  );
+
+  await page.goto("photo/photo-14.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+  await expect(page.locator(".photo-detail-date")).toHaveText("30 August 2025");
+
+  await page.goto("photo/photo-14.html?lang=zh", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+  await expect(page.locator(".photo-detail-date")).toHaveText("2025 年 8 月 30 日");
 
   expect(errors).toEqual([]);
 });
