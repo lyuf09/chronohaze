@@ -324,7 +324,6 @@ test("home drawer keeps state, focus, and Escape handling in sync", async ({ pag
   await expect(drawer.locator(".drawer-studio-links a")).toHaveText([
     "Music",
     "Photography",
-    "Olfactory",
   ]);
 
   await page.keyboard.press("Escape");
