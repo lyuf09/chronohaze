@@ -34,6 +34,7 @@ HTML_CONTENT_REFRESH_URLS = {
     "photo/photo-16.html",
     "photo/photo-17.html",
     "notes/huber_glm_sparsification_refinement_note.html",
+    "notes/network_localization_structural_certificates.html",
     "notes/theorem11_convexity_note.html",
     "notes/ttgda_second_order_tracking_note.html",
     "post/dual-score-saddle-certificates.html",

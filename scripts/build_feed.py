@@ -82,7 +82,7 @@ def main() -> int:
             f'      <pubDate>{pub_date}</pubDate>',
             f'      <description>{escape(desc)}</description>',
         ])
-        if rel_url.startswith('notes/'):
+        if rel_url.startswith('notes/') and item.get('pdf', True):
             pdf_url = f'{SITE_URL}/{rel_url[:-5]}.pdf'
             lines.append(
                 f'      <atom:link href="{escape(pdf_url)}" rel="related" type="application/pdf" />'

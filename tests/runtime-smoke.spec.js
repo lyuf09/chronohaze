@@ -482,32 +482,58 @@ test("PGD note leads with its mathematical value", async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
-test("English localization technical note exposes its four-part scope and PDF", async ({ page }) => {
+test("network-localization research record is bilingual and contains no public PDF shell", async ({ page }) => {
   const errors = trackPageErrors(page);
-  await page.goto("notes/network_localization_structural_certificates.html", {
+  await page.goto("notes/network_localization_structural_certificates.html?lang=en", {
     waitUntil: "domcontentloaded",
   });
 
   await expect(page.getByRole("heading", {
-    name: "Dual Collapse, Projected Edge Budgets, and Saddle Certificates",
+    name: "One Negative Residual Is Not Enough",
+    exact: true,
   })).toBeVisible();
-  await expect(page.locator(".note-scope-grid span")).toHaveCount(4);
-  await expect(page.locator(".note-scope-grid")).toContainText("Assumptions");
-  await expect(page.locator(".note-scope-grid")).toContainText("Results");
-  await expect(page.locator(".note-scope-grid")).toContainText("Open questions");
-  await expect(page.locator(".note-scope-grid")).toContainText("Collaboration");
-  await expect(page.getByRole("link", { name: "Open PDF", exact: true }).first()).toHaveAttribute(
+  const englishRecord = page.locator('[data-lang-block="en"]');
+  await expect(englishRecord).toContainText("From Projected Budgets to Negative Curvature");
+  await expect(englishRecord).toContainText("exactly one edge has negative residual");
+  await expect(englishRecord).toContainText("Current draft · Not yet promoted to a theorem");
+  await expect(englishRecord).toContainText("Three questions in the current draft");
+  await expect(page.locator("iframe")).toHaveCount(0);
+  await expect(page.locator('a[href$=".pdf"]')).toHaveCount(0);
+
+  await page.goto("notes/network_localization_structural_certificates.html?lang=zh", {
+    waitUntil: "domcontentloaded",
+  });
+  const chineseRecord = page.locator('[data-lang-block="zh"]');
+  await expect(chineseRecord.getByRole("heading", {
+    name: "一条负残差并不够",
+    exact: true,
+  })).toBeVisible();
+  await expect(chineseRecord).toContainText("从投影预算到负曲率");
+  await expect(chineseRecord).toContainText("当前工作稿 · 尚未升级为定理");
+  await expect(page.locator('[data-lang-block="en"]')).toBeHidden();
+  await expect(page.locator(".academic-local-nav a").first()).toHaveAttribute(
     "href",
-    "network_localization_structural_certificates.pdf"
+    /projects\.html\?lang=zh/
   );
-  await expect(page.getByRole("link", { name: "Chinese research essay" })).toHaveAttribute(
-    "href",
-    "../post/dual-score-saddle-certificates.html?lang=zh"
-  );
-  const pdfResponse = await page.request.get("notes/network_localization_structural_certificates.pdf");
-  expect(pdfResponse.ok()).toBe(true);
-  expect(pdfResponse.headers()["content-type"]).toContain("application/pdf");
-  expect((await pdfResponse.body()).byteLength).toBeGreaterThan(10000);
+  await page.setViewportSize({ width: 390, height: 844 });
+  const mobileRecordLayout = await page.evaluate(() => {
+    const visibleRecord = document.querySelector('[data-lang-block="zh"]:not([hidden])');
+    const recordRect = visibleRecord.getBoundingClientRect();
+    const paragraphFonts = Array.from(visibleRecord.querySelectorAll("p")).map(
+      (node) => window.getComputedStyle(node).fontFamily
+    );
+    return {
+      viewportWidth: window.innerWidth,
+      documentWidth: document.documentElement.scrollWidth,
+      recordLeft: recordRect.left,
+      recordRight: recordRect.right,
+      paragraphFonts,
+    };
+  });
+  expect(mobileRecordLayout.documentWidth).toBeLessThanOrEqual(mobileRecordLayout.viewportWidth);
+  expect(mobileRecordLayout.recordLeft).toBeGreaterThanOrEqual(0);
+  expect(mobileRecordLayout.recordRight).toBeLessThanOrEqual(mobileRecordLayout.viewportWidth);
+  expect(mobileRecordLayout.paragraphFonts.every((font) => !/Cormorant/i.test(font))).toBe(true);
 
   expect(errors).toEqual([]);
 });
@@ -1314,6 +1340,74 @@ test("secondary pages keep mobile nav within the viewport", async ({ page }, tes
   }
 });
 
+test("music detail lyrics span the full mobile viewport", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "chromium", "single-engine geometry regression check");
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  const errors = trackPageErrors(page);
+  await page.goto("music/track-04.html?lang=zh", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+
+  const lyrics = page.locator(".music-detail-article > .lyrics-showcase");
+  await expect(lyrics).toBeVisible();
+
+  const geometry = await lyrics.evaluate((node) => {
+    const rect = node.getBoundingClientRect();
+    return {
+      left: rect.left,
+      right: rect.right,
+      width: rect.width,
+      viewport: window.innerWidth,
+      rootScrollWidth: document.documentElement.scrollWidth,
+    };
+  });
+
+  expect(Math.abs(geometry.left)).toBeLessThanOrEqual(1);
+  expect(Math.abs(geometry.right - geometry.viewport)).toBeLessThanOrEqual(1);
+  expect(Math.abs(geometry.width - geometry.viewport)).toBeLessThanOrEqual(1);
+  expect(geometry.rootScrollWidth).toBeLessThanOrEqual(geometry.viewport + 1);
+  expect(errors).toEqual([]);
+});
+
+test("Chinese mobile pages avoid mixed Latin and CJK font stacks", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "chromium", "single-engine font cascade regression check");
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  const pages = [
+    "academic.html?lang=zh",
+    "music.html?lang=zh",
+    "music/track-04.html?lang=zh",
+    "photography.html?lang=zh",
+  ];
+
+  for (const path of pages) {
+    const errors = trackPageErrors(page);
+    await page.goto(path, { waitUntil: "domcontentloaded" });
+    await waitForCriticalLoaderRelease(page);
+
+    const mixedRuns = await page.locator("body *").evaluateAll((nodes) =>
+      nodes
+        .filter((node) =>
+          Array.from(node.childNodes).some(
+            (child) => child.nodeType === Node.TEXT_NODE && child.textContent.trim()
+          )
+        )
+        .filter((node) => window.getComputedStyle(node).fontFamily.includes("Cormorant Garamond"))
+        .map((node) => (node.textContent || "").replace(/\s+/g, " ").trim().slice(0, 80))
+    );
+
+    expect(mixedRuns).toEqual([]);
+    expect(errors).toEqual([]);
+  }
+
+  await page.goto("music/track-04.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+  await expect(page.locator(".music-detail-article h1")).toHaveCSS(
+    "font-family",
+    /Cormorant Garamond/
+  );
+});
+
 test("academic gateway pages mount only the selected language", async ({ page }) => {
   const pages = [
     { path: "academic.html?lang=zh", active: "zh", inactive: "en" },
@@ -1443,9 +1537,9 @@ test("AFP publication status stays synchronized across work page and project his
   await expect(localizationProject).toContainText(
     "My current work develops and checks projected-edge budget conditions"
   );
-  await expect(localizationProject.getByRole("link", { name: "English technical note" })).toHaveAttribute(
+  await expect(localizationProject.getByRole("link", { name: "Research record" })).toHaveAttribute(
     "href",
-    "notes/network_localization_structural_certificates.html"
+    "notes/network_localization_structural_certificates.html?lang=en"
   );
   const bodyReadability = await publishedProject.locator("p:not(.academic-proof-kicker)").first().evaluate((node) => {
     const style = window.getComputedStyle(node);
@@ -1554,14 +1648,17 @@ test("July notes lead the math archive and AFP work exposes primary evidence", a
     "Projected Gradient Descent in Isabelle/HOL"
   );
   await expect(page.locator("#pinned-notes .academic-evidence-list li").nth(2)).toContainText(
-    "Negative-Curvature Certificates for Network Localization"
+    "一条负残差并不够"
+  );
+  await expect(page.locator("#pinned-notes .academic-evidence-list li").nth(2)).toContainText(
+    "2026 年 7 月研究记录 · 持续合作"
   );
   await expect(page.locator("#pinned-notes .academic-evidence-list li").nth(3)).toContainText(
     "TTGDA and Second-Order Tracking"
   );
   await expect(page.locator("#notes-archive")).toBeVisible();
   const archiveNotes = page.locator(".math-list .math-card");
-  await expect(archiveNotes.nth(0)).toContainText("网络定位中的对偶退化、投影边预算与鞍点证书");
+  await expect(archiveNotes.nth(0)).toContainText("一条负残差并不够：网络定位中负曲率的结构");
   await expect(archiveNotes.nth(0)).toContainText("进行中的合作研究");
   await expect(archiveNotes.nth(1)).toContainText("Theorem 11 必要性方向中的凸性问题");
   await expect(archiveNotes.nth(2)).toContainText("稀疏化后的 Exact Huber GLMs");

@@ -10,12 +10,11 @@
     <atom:link href="https://lyuf09.github.io/chronohaze/feed.xml" rel="self" type="application/rss+xml" />
 
     <item>
-      <title>Dual Collapse, Projected Edge Budgets, and Saddle Certificates</title>
+      <title>One Negative Residual Is Not Enough: The Structure of Negative Curvature in Network Localization</title>
       <link>https://lyuf09.github.io/chronohaze/notes/network_localization_structural_certificates.html</link>
       <guid>https://lyuf09.github.io/chronohaze/notes/network_localization_structural_certificates.html</guid>
       <pubDate>Wed, 22 Jul 2026 12:00:00 +0000</pubDate>
-      <description>A claim-disciplined English technical note separating model assumptions, derived results, open questions, and concrete collaboration entry points; the Chinese essays remain as the chronological research record.</description>
-      <atom:link href="https://lyuf09.github.io/chronohaze/notes/network_localization_structural_certificates.pdf" rel="related" type="application/pdf" />
+      <description>A July 2026 research record on how a failed dual lower-bound route led from projected edge budgets to stress-rigidity structure, multi-edge coupling, and dimension-dependent saddles.</description>
     </item>
 
     <item>

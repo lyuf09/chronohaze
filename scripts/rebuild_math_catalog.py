@@ -157,6 +157,7 @@ def merge_existing_metadata(items: List[Dict[str, object]], existing_items: List
         'reading_time_en',
         'line_tags',
         'note_status',
+        'pdf',
     )
     for item in items:
         old = existing_by_url.get(str(item.get('url') or ''))

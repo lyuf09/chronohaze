@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-07-23",
+  "generated_at": "2026-07-30",
   "source": "math.html",
   "items": [
     {
       "order": 1,
       "url": "notes/network_localization_structural_certificates.html",
       "date": "2026-07-22",
-      "title": "网络定位中的对偶退化、投影边预算与鞍点证书",
-      "title_en": "Dual Collapse, Projected Edge Budgets, and Saddle Certificates",
-      "excerpt": "独立英文技术笔记，明确整理模型假设、已推导结果、开放问题与合作入口；中文随笔保留为研究过程记录。",
-      "excerpt_en": "A claim-disciplined English technical note separating model assumptions, derived results, open questions, and concrete collaboration entry points; the Chinese essays remain as the chronological research record.",
+      "title": "一条负残差并不够：网络定位中负曲率的结构",
+      "title_en": "One Negative Residual Is Not Enough: The Structure of Negative Curvature in Network Localization",
+      "excerpt": "记录一条退化的对偶下界路线如何经由投影边预算、应力-刚度分解与多边耦合，转向驻点附近的负曲率问题。",
+      "excerpt_en": "A July 2026 research record on how a failed dual lower-bound route led from projected edge budgets to stress-rigidity structure, multi-edge coupling, and dimension-dependent saddles.",
       "readmore_url": "notes/network_localization_structural_certificates.html",
       "tags": [
         "math",
@@ -17,16 +17,17 @@
       ],
       "line_tags": [
         "Network Localization",
-        "Duality",
-        "Saddle Certificates"
+        "Stress-Rigidity",
+        "Multi-edge Coupling"
       ],
-      "reading_time_zh": "PDF · 4页英文技术笔记",
-      "reading_time_en": "PDF · 4-page English technical note",
+      "reading_time_zh": "2026 年 7 月研究记录 · 持续合作",
+      "reading_time_en": "July 2026 research record · Ongoing collaboration",
       "note_status": "Ongoing joint research",
-      "date_label_zh": "技术笔记 · 2026-07-22",
-      "date_label_en": "Technical note · 2026-07-22",
-      "link_label_zh": "打开英文笔记",
-      "link_label_en": "Read PDF"
+      "date_label_zh": "研究记录 · 2026-07-22",
+      "date_label_en": "Research record · 2026-07-22",
+      "link_label_zh": "阅读研究记录",
+      "link_label_en": "Read research record",
+      "pdf": false
     },
     {
       "order": 2,

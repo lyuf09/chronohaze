@@ -14195,7 +14195,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
 
   .music-detail-page .music-detail-article > * {
     grid-column: auto !important;
-    width: 100% !important;
+    width: auto !important;
     max-width: none !important;
     min-width: 0;
     justify-self: stretch !important;
@@ -16526,123 +16526,44 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
   }
 }
 
-/* Final Chinese typography parity pass for photo/music pages. */
-  html:lang(zh) .photo-index-page .page-title,
-  html:lang(zh) .photo-index-page .page-head p,
-  html:lang(zh) .photo-index-page .photo-section-title,
-  html:lang(zh) .photo-index-page .photo-section-lead,
-  html:lang(zh) .photo-index-page .photo-seeing-note-copy p,
-  html:lang(zh) .photo-index-page .photo-formative-note-body p,
-  html:lang(zh) .photo-index-page .photo-feature-theme,
-  html:lang(zh) .photo-index-page .photo-feature-concept,
-  html:lang(zh) .photo-index-page .photo-archive-year,
-  html:lang(zh) .photo-index-page .photo-title,
-  html:lang(zh) .photo-index-page .photo-date,
-  html:lang(zh) .photo-index-page .photo-subtitle {
-    font-family: "Cormorant Garamond", "Chronohaze Serif SC", "Songti SC", "Songti TC", "STSong", "Hiragino Mincho ProN", "Noto Serif SC", serif;
+/* Stable mobile Chinese typography: never split one text run across Latin-only
+   display fonts and device-dependent CJK fallbacks. */
+@media (max-width: 760px) {
+  html:lang(zh) {
+    --font-mobile-serif-zh: "Songti SC", "STSong", "Noto Serif CJK SC", "Noto Serif SC", "Source Han Serif SC", serif;
+    --font-mobile-sans-zh: "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Noto Sans SC", "Source Han Sans SC", "Microsoft YaHei", sans-serif;
+    --font-serif-zh: var(--font-mobile-serif-zh);
+    --font-sans-zh: var(--font-mobile-sans-zh);
+    --font-serif: var(--font-mobile-serif-zh);
+    --font-sans: var(--font-mobile-sans-zh);
+    --font-editorial-serif: var(--font-mobile-serif-zh);
+    --font-editorial-sans: var(--font-mobile-sans-zh);
+    --font-photo-serif: var(--font-mobile-serif-zh);
+    --font-photo-sans: var(--font-mobile-sans-zh);
+    --font-music-serif: var(--font-mobile-serif-zh);
+    --font-music-sans: var(--font-mobile-sans-zh);
   }
 
-  html:lang(zh) .photo-index-page .photo-background .photo-intro-text,
-  html:lang(zh) .photo-index-page .photo-background .photo-intro-text p {
-    font-family: "Chronohaze Serif SC", "Songti SC", "Songti TC", "STSong", "Hiragino Mincho ProN", "Noto Serif SC", serif;
+  html:lang(zh) body,
+  html:lang(zh) body * {
+    font-family: var(--font-mobile-sans-zh) !important;
   }
 
-  html:lang(zh) .photo-index-page .photo-head-kicker,
-  html:lang(zh) .photo-index-page .photo-seeing-note-kicker,
-  html:lang(zh) .photo-index-page .photo-feature-caption,
-  html:lang(zh) .photo-index-page .photo-feature-location,
-  html:lang(zh) .photo-index-page .photo-feature-keywords {
-    font-family: "Chronohaze Sans SC", "PingFang SC", "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
-  }
-
-  html:lang(zh) .music-index-page .page-title {
-    font-family: "Chronohaze Serif SC", "Songti SC", "Songti TC", "STSong", "Hiragino Mincho ProN", "Noto Serif SC", serif;
-  }
-
-  html:lang(zh) .music-index-page .music-ia-title,
-  html:lang(zh) .music-index-page .music-ia-subtitle,
-  html:lang(zh) .music-index-page .music-featured-item-title,
-  html:lang(zh) .music-index-page .track-title,
-  html:lang(zh) .music-index-page .track-title-link,
-  html:lang(zh) .music-index-page .track-date,
-  html:lang(zh) .music-index-page .track-tag,
-  html:lang(zh) .music-index-page .music-year-group-title,
-  html:lang(zh) .music-index-page .music-room-section-title,
-  html:lang(zh) .music-index-page .music-room-section-lead,
-  html:lang(zh) .music-index-page .music-room-album-title,
-  html:lang(zh) .music-index-page .music-room-album-summary,
-  html:lang(zh) .music-index-page .music-room-track-title,
-  html:lang(zh) .music-index-page .music-room-world-lead,
-  html:lang(zh) .music-index-page .music-room-archive-group-title,
-  html:lang(zh) .music-index-page .music-room-archive .track-title,
-  html:lang(zh) .music-index-page .music-room-archive .track-row.track-row-album .track-title,
-  html:lang(zh) .music-index-page .music-background-title {
-    font-family: "Cormorant Garamond", "Chronohaze Serif SC", "Songti SC", "Songti TC", "STSong", "Hiragino Mincho ProN", "Noto Serif SC", serif;
-  }
-
-  html:lang(zh) .music-index-page .page-head p,
-  html:lang(zh) .music-index-page .music-room-world-copy,
-  html:lang(zh) .music-index-page .music-timeline-copy,
-  html:lang(zh) .music-index-page .music-afterword-text p,
-  html:lang(zh) .music-index-page .music-room-production-copy {
-    font-family: "Chronohaze Sans SC", "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
-  }
-
-  html:lang(zh) .music-index-page .music-room-section-kicker,
-  html:lang(zh) .music-index-page .music-room-badge {
-    font-family: "Chronohaze Sans SC", "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
-  }
-
-  html:lang(zh) .music-index-page .music-head-kicker {
-    font-family: "Chronohaze Sans SC", "PingFang SC", "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
-  }
-
-  html:lang(zh) .music-index-page .music-room-track-artist,
-  html:lang(zh) .music-index-page .music-room-track-tag,
-  html:lang(zh) .music-index-page .music-room-track-note,
-  html:lang(zh) .music-index-page .music-room-album-detail,
-  html:lang(zh) .music-index-page .music-timeline-mark {
-    font-family: "Chronohaze Sans SC", "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
-  }
-
-@supports (-webkit-touch-callout: none) {
-  @media (max-width: 760px) {
-    html:lang(zh) .photo-index-page .page-title,
-    html:lang(zh) .photo-index-page .page-head p,
-    html:lang(zh) .photo-index-page .photo-section-title,
-    html:lang(zh) .photo-index-page .photo-section-lead,
-    html:lang(zh) .photo-index-page .photo-seeing-note-copy p,
-    html:lang(zh) .photo-index-page .photo-formative-note-body p,
-    html:lang(zh) .photo-index-page .photo-feature-theme,
-    html:lang(zh) .photo-index-page .photo-feature-concept,
-    html:lang(zh) .photo-index-page .photo-archive-year,
-    html:lang(zh) .photo-index-page .photo-title,
-    html:lang(zh) .photo-index-page .photo-date,
-    html:lang(zh) .photo-index-page .photo-subtitle,
-    html:lang(zh) .photo-index-page .photo-background .photo-intro-text,
-    html:lang(zh) .photo-index-page .photo-background .photo-intro-text p,
-    html:lang(zh) .music-index-page .page-title,
-    html:lang(zh) .music-index-page .music-ia-title,
-    html:lang(zh) .music-index-page .music-ia-subtitle,
-    html:lang(zh) .music-index-page .music-featured-item-title,
-    html:lang(zh) .music-index-page .track-title,
-    html:lang(zh) .music-index-page .track-title-link,
-    html:lang(zh) .music-index-page .track-date,
-    html:lang(zh) .music-index-page .track-tag,
-    html:lang(zh) .music-index-page .music-year-group-title,
-    html:lang(zh) .music-index-page .music-room-section-title,
-    html:lang(zh) .music-index-page .music-room-section-lead,
-    html:lang(zh) .music-index-page .music-room-album-title,
-    html:lang(zh) .music-index-page .music-room-album-summary,
-    html:lang(zh) .music-index-page .music-room-track-title,
-    html:lang(zh) .music-index-page .music-room-world-lead,
-    html:lang(zh) .music-index-page .music-room-archive-group-title,
-    html:lang(zh) .music-index-page .music-room-archive .track-title,
-    html:lang(zh) .music-index-page .music-room-archive .track-row.track-row-album .track-title,
-    html:lang(zh) .music-index-page .music-background-title {
-      font-family: "Cormorant Garamond", "Songti SC", "Songti TC", "STSong", "Hiragino Mincho ProN", serif !important;
-      font-weight: 300;
-    }
+  html:lang(zh) body.home-body .main,
+  html:lang(zh) body.home-body .main *,
+  html:lang(zh) body.music-index-page .main,
+  html:lang(zh) body.music-index-page .main *,
+  html:lang(zh) body.music-album-page .main,
+  html:lang(zh) body.music-album-page .main *,
+  html:lang(zh) body.music-detail-page .main,
+  html:lang(zh) body.music-detail-page .main *,
+  html:lang(zh) body.photo-index-page .main,
+  html:lang(zh) body.photo-index-page .main *,
+  html:lang(zh) body.photo-blue-page .main,
+  html:lang(zh) body.photo-blue-page .main *,
+  html:lang(zh) body.photo-detail-page .main,
+  html:lang(zh) body.photo-detail-page .main * {
+    font-family: var(--font-mobile-serif-zh) !important;
   }
 }
 
