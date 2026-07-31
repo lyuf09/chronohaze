@@ -1604,7 +1604,7 @@ test("technical notes use explicit status labels and a local Julia fractal", asy
   await expect(fractal.locator("figcaption")).toHaveAttribute("data-copy-en", "Side visual · My favorite Julia fractal");
   await expect(fractal.locator("a")).toHaveCount(0);
   await expect(page.locator("#pinned-notes .math-note-status")).toHaveCount(4);
-  await expect(page.locator("#notes-archive .math-note-status")).toHaveCount(12);
+  await expect(page.locator("#notes-archive .math-note-status")).toHaveCount(10);
   const labels = await page.locator(".math-note-status").allTextContents();
   const allowed = new Set([
     "Published formalization",
@@ -1633,6 +1633,55 @@ test("technical notes use explicit status labels and a local Julia fractal", asy
   expect(errors).toEqual([]);
 });
 
+test("shared modal-invariants note is formal, direct-link only, and non-indexable", async ({ page }) => {
+  const errors = trackPageErrors(page);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("shared/modal_invariants_symplectic_euler.html", {
+    waitUntil: "domcontentloaded",
+  });
+
+  await expect(
+    page.getByRole("heading", {
+      name: "Modal Invariants and a Sharp Stability Threshold for Quadratic Symplectic Euler",
+    })
+  ).toBeVisible();
+  await expect(page.locator("main article > section")).toHaveCount(5);
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+    "content",
+    "noindex, noarchive, nosnippet"
+  );
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+    "href",
+    "https://lyuf09.github.io/chronohaze/shared/modal_invariants_symplectic_euler.html"
+  );
+  await expect(page.getByText("Back to Technical Notes")).toHaveCount(0);
+  await expect(page.locator('a[href="modal_invariants_symplectic_euler.pdf"]')).toHaveCount(2);
+  await expect(page.getByRole("link", { name: "Academic Profile", exact: true })).toHaveAttribute(
+    "href",
+    "../academic.html"
+  );
+  await expect(page.getByRole("link", { name: "View at JMLR" })).toHaveAttribute(
+    "href",
+    "https://jmlr.org/papers/v27/24-0792.html"
+  );
+
+  const discoveryData = await page.evaluate(async () => {
+    const [search, sitemap] = await Promise.all([
+      fetch("../assets/search-index.json").then((response) => response.text()),
+      fetch("../sitemap.xml").then((response) => response.text()),
+    ]);
+    return { search, sitemap };
+  });
+  expect(discoveryData.search).not.toContain("shared/modal_invariants_symplectic_euler");
+  expect(discoveryData.sitemap).not.toContain("shared/modal_invariants_symplectic_euler");
+
+  const hasOverflow = await page.evaluate(
+    () => document.documentElement.scrollWidth > document.documentElement.clientWidth
+  );
+  expect(hasOverflow).toBe(false);
+  expect(errors).toEqual([]);
+});
+
 test("July notes lead the math archive and AFP work exposes primary evidence", async ({ page }) => {
   const errors = trackPageErrors(page);
 
@@ -1658,12 +1707,13 @@ test("July notes lead the math archive and AFP work exposes primary evidence", a
   );
   await expect(page.locator("#notes-archive")).toBeVisible();
   const archiveNotes = page.locator(".math-list .math-card");
+  await expect(archiveNotes).toHaveCount(10);
   await expect(archiveNotes.nth(0)).toContainText("一条负残差并不够：网络定位中负曲率的结构");
   await expect(archiveNotes.nth(0)).toContainText("进行中的合作研究");
-  await expect(archiveNotes.nth(1)).toContainText("Theorem 11 必要性方向中的凸性问题");
-  await expect(archiveNotes.nth(2)).toContainText("稀疏化后的 Exact Huber GLMs");
-  await expect(archiveNotes.nth(3)).toContainText("子模贪心算法形式化正式进入 AFP");
-  await expect(archiveNotes.nth(3).locator(".math-date")).toContainText("原始发布 · 2026-06-30");
+  await expect(archiveNotes.nth(1)).toContainText("子模贪心算法形式化正式进入 AFP");
+  await expect(archiveNotes.nth(1).locator(".math-date")).toContainText("原始发布 · 2026-06-30");
+  await expect(page.locator('a[href="notes/theorem11_convexity_note.html"]')).toHaveCount(0);
+  await expect(page.locator('a[href="notes/huber_glm_sparsification_refinement_note.html"]')).toHaveCount(0);
 
   await page.goto("post/submodular-greedy-formalization-enters-afp.html?lang=zh", {
     waitUntil: "domcontentloaded",

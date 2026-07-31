@@ -18,24 +18,6 @@
     </item>
 
     <item>
-      <title>Convexity in the Necessity Direction of Theorem 11</title>
-      <link>https://lyuf09.github.io/chronohaze/notes/theorem11_convexity_note.html</link>
-      <guid>https://lyuf09.github.io/chronohaze/notes/theorem11_convexity_note.html</guid>
-      <pubDate>Wed, 15 Jul 2026 12:00:00 +0000</pubDate>
-      <description>A note on the convexification step in the necessity direction of Theorem 11, including the envelope submeasure, fragmentation numbers, and the bridge from a general distribution class U to the convex setting used in Lemma 18 and Theorem 19.</description>
-      <atom:link href="https://lyuf09.github.io/chronohaze/notes/theorem11_convexity_note.pdf" rel="related" type="application/pdf" />
-    </item>
-
-    <item>
-      <title>Exact Huber GLMs after Sparsification: Active Curvature and Kink Switching</title>
-      <link>https://lyuf09.github.io/chronohaze/notes/huber_glm_sparsification_refinement_note.html</link>
-      <guid>https://lyuf09.github.io/chronohaze/notes/huber_glm_sparsification_refinement_note.html</guid>
-      <pubDate>Wed, 15 Jul 2026 12:00:00 +0000</pubDate>
-      <description>A note on whether sparsified local refinement can preserve the active quadratic curvature of exact Huber losses while controlling affine-tail behavior and switching near the Huber kink.</description>
-      <atom:link href="https://lyuf09.github.io/chronohaze/notes/huber_glm_sparsification_refinement_note.pdf" rel="related" type="application/pdf" />
-    </item>
-
-    <item>
       <title>Formalizing Submodular Greedy Is Now in the AFP</title>
       <link>https://lyuf09.github.io/chronohaze/post/submodular-greedy-formalization-enters-afp.html</link>
       <guid>https://lyuf09.github.io/chronohaze/post/submodular-greedy-formalization-enters-afp.html</guid>

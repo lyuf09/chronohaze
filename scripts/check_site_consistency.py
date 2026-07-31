@@ -118,8 +118,6 @@ SEO_LASTMOD_PATHS = {
 }
 PUBLIC_NOTE_PATHS = {
     "notes/ttgda_second_order_tracking_note",
-    "notes/theorem11_convexity_note",
-    "notes/huber_glm_sparsification_refinement_note",
 }
 LEGACY_PUBLIC_COPY_PATTERNS = (
     "辗转不同国家无固定号码",

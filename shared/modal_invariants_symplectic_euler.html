@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="robots" content="noindex, noarchive, nosnippet" />
+  <title>Modal Invariants and a Sharp Stability Threshold for Quadratic Symplectic Euler | Feier Lyu</title>
+  <meta name="description" content="A technical note on canonical modal reduction, a sharp stability threshold, and spectral anisotropy for positive-definite quadratic symplectic Euler." />
+  <link rel="canonical" href="https://lyuf09.github.io/chronohaze/shared/modal_invariants_symplectic_euler.html" />
+  <link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
+  <link rel="preload" href="../assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="../styles.min.css?v=20260723-information-architecture1" />
+  <style>
+    :root {
+      color-scheme: dark;
+      --shared-ink: rgba(241, 244, 248, 0.94);
+      --shared-muted: rgba(194, 203, 217, 0.76);
+      --shared-line: rgba(183, 197, 219, 0.2);
+      --shared-accent: #b7c8e3;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body.shared-note-page {
+      margin: 0;
+      min-width: 320px;
+      background: #0f141c;
+      color: var(--shared-ink);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .shared-note-page a {
+      color: inherit;
+    }
+
+    .shared-header {
+      border-bottom: 1px solid rgba(183, 197, 219, 0.12);
+      background: rgba(13, 18, 25, 0.88);
+    }
+
+    .shared-header-inner {
+      display: flex;
+      width: min(1080px, calc(100% - 40px));
+      min-height: 76px;
+      margin: 0 auto;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .shared-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: rgba(241, 244, 248, 0.9);
+      text-decoration: none;
+    }
+
+    .shared-brand img {
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
+    }
+
+    .shared-brand span {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 20px;
+      letter-spacing: 0.02em;
+    }
+
+    .shared-nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: rgba(207, 215, 227, 0.78);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .shared-nav a {
+      text-decoration: none;
+    }
+
+    .shared-nav a:hover,
+    .shared-nav a:focus-visible {
+      color: #f4f6fa;
+    }
+
+    .shared-main {
+      min-height: calc(100vh - 76px);
+      background:
+        radial-gradient(circle at 16% 5%, rgba(108, 129, 165, 0.13), transparent 31%),
+        radial-gradient(circle at 88% 28%, rgba(157, 176, 207, 0.08), transparent 29%),
+        linear-gradient(180deg, #111821 0%, #0f141c 58%, #10151d 100%);
+    }
+
+    .shared-shell {
+      width: min(920px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 74px 0 88px;
+    }
+
+    .shared-section + .shared-section {
+      margin-top: 42px;
+    }
+
+    .shared-kicker {
+      margin: 0;
+      color: var(--shared-accent);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .shared-title {
+      max-width: 880px;
+      margin: 14px 0 0;
+      color: rgba(248, 249, 251, 0.98);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(43px, 7vw, 76px);
+      font-weight: 300;
+      line-height: 0.98;
+      letter-spacing: -0.015em;
+    }
+
+    .shared-identity {
+      margin-top: 26px;
+      padding-left: 18px;
+      border-left: 2px solid rgba(183, 200, 227, 0.52);
+    }
+
+    .shared-author {
+      margin: 0;
+      color: rgba(245, 247, 250, 0.96);
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    .shared-affiliation {
+      margin: 5px 0 0;
+      color: var(--shared-muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .shared-section-label {
+      margin: 0 0 14px;
+      color: rgba(183, 200, 227, 0.82);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .shared-abstract {
+      max-width: 790px;
+      margin: 0;
+      color: rgba(228, 233, 240, 0.9);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(22px, 3vw, 29px);
+      line-height: 1.48;
+    }
+
+    .shared-math {
+      white-space: nowrap;
+      font-style: italic;
+    }
+
+    .shared-results {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin: 0;
+      padding: 0;
+      border-top: 1px solid var(--shared-line);
+      list-style: none;
+    }
+
+    .shared-results li {
+      min-height: 218px;
+      padding: 24px 23px 22px;
+      border-bottom: 1px solid var(--shared-line);
+    }
+
+    .shared-results li + li {
+      border-left: 1px solid var(--shared-line);
+    }
+
+    .shared-result-number {
+      display: block;
+      margin-bottom: 28px;
+      color: rgba(183, 200, 227, 0.66);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 18px;
+    }
+
+    .shared-result-title {
+      display: block;
+      margin-bottom: 10px;
+      color: rgba(242, 245, 249, 0.95);
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .shared-result-copy {
+      margin: 0;
+      color: var(--shared-muted);
+      font-size: 13px;
+      line-height: 1.68;
+    }
+
+    .shared-reading {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.35fr);
+      gap: 42px;
+      padding: 30px;
+      border: 1px solid var(--shared-line);
+      background: rgba(255, 255, 255, 0.035);
+      box-shadow: 0 24px 72px rgba(0, 0, 0, 0.18);
+    }
+
+    .shared-reading h2 {
+      margin: 0;
+      color: rgba(247, 249, 252, 0.97);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 31px;
+      font-weight: 400;
+      line-height: 1.1;
+    }
+
+    .shared-reading-note {
+      margin: 12px 0 22px;
+      color: var(--shared-muted);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .shared-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .shared-action {
+      display: inline-flex;
+      min-height: 42px;
+      padding: 0 16px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(189, 204, 226, 0.3);
+      color: rgba(244, 247, 251, 0.94);
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .shared-action-primary {
+      border-color: rgba(194, 211, 236, 0.68);
+      background: rgba(177, 198, 229, 0.15);
+    }
+
+    .shared-source {
+      padding-left: 30px;
+      border-left: 1px solid var(--shared-line);
+    }
+
+    .shared-source-label {
+      margin: 0 0 10px;
+      color: rgba(183, 200, 227, 0.76);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .shared-source-citation {
+      margin: 0;
+      color: rgba(225, 230, 237, 0.88);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 20px;
+      line-height: 1.5;
+    }
+
+    .shared-source-link {
+      display: inline-block;
+      margin-top: 14px;
+      color: rgba(210, 224, 245, 0.94);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-underline-offset: 4px;
+      text-transform: uppercase;
+    }
+
+    .shared-footer {
+      padding: 22px 20px 25px;
+      border-top: 1px solid rgba(183, 197, 219, 0.1);
+      color: rgba(178, 188, 202, 0.62);
+      background: #0d1219;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 760px) {
+      .shared-header-inner {
+        width: min(100% - 28px, 1080px);
+        min-height: 66px;
+      }
+
+      .shared-brand span,
+      .shared-nav-email {
+        display: none;
+      }
+
+      .shared-nav {
+        gap: 14px;
+        font-size: 10px;
+      }
+
+      .shared-shell {
+        width: min(100% - 28px, 920px);
+        padding: 52px 0 64px;
+      }
+
+      .shared-section + .shared-section {
+        margin-top: 34px;
+      }
+
+      .shared-title {
+        font-size: clamp(40px, 13vw, 58px);
+        line-height: 1;
+      }
+
+      .shared-abstract {
+        font-size: 22px;
+        line-height: 1.52;
+      }
+
+      .shared-results {
+        display: block;
+      }
+
+      .shared-results li {
+        min-height: 0;
+        padding: 22px 4px 24px;
+      }
+
+      .shared-results li + li {
+        border-left: 0;
+      }
+
+      .shared-result-number {
+        margin-bottom: 12px;
+      }
+
+      .shared-reading {
+        display: block;
+        padding: 23px 20px;
+      }
+
+      .shared-source {
+        margin-top: 30px;
+        padding: 27px 0 0;
+        border-top: 1px solid var(--shared-line);
+        border-left: 0;
+      }
+
+      .shared-action {
+        flex: 1 1 150px;
+      }
+    }
+  </style>
+</head>
+<body class="shared-note-page">
+  <header class="shared-header">
+    <div class="shared-header-inner">
+      <a class="shared-brand" href="../academic.html" aria-label="Feier Lyu academic profile">
+        <img src="../assets/logo-header.png" alt="" />
+        <span>chronohaze.space</span>
+      </a>
+      <nav class="shared-nav" aria-label="Profile links">
+        <a href="../academic.html">Academic Profile</a>
+        <a class="shared-nav-email" href="#" data-shared-email="1">Email</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="shared-main">
+    <article class="shared-shell">
+      <section class="shared-section" aria-label="Type and date">
+        <p class="shared-kicker">Technical Note · July 2026</p>
+      </section>
+
+      <section class="shared-section" aria-labelledby="shared-note-title">
+        <h1 class="shared-title" id="shared-note-title">Modal Invariants and a Sharp Stability Threshold for Quadratic Symplectic Euler</h1>
+        <div class="shared-identity">
+          <p class="shared-author">Feier Lyu</p>
+          <p class="shared-affiliation">BSc Mathematics, University of Edinburgh</p>
+        </div>
+      </section>
+
+      <section class="shared-section" aria-labelledby="shared-abstract-label">
+        <p class="shared-section-label" id="shared-abstract-label">Abstract</p>
+        <p class="shared-abstract">
+          This three-page note, followed by references, gives a canonical modal reduction of positive-definite quadratic symplectic Euler. It identifies
+          <span class="shared-math">η<sup>2</sup>ρ(BC) &lt; 1</span>
+          as the exact threshold for both absolute convergence of the modified-Hamiltonian series and power-boundedness of the discrete dynamics. It also shows that spectral anisotropy—rather than dimension alone—governs the functional independence of the modified and elementary conserved quantities.
+        </p>
+      </section>
+
+      <section class="shared-section" aria-labelledby="shared-results-label">
+        <p class="shared-section-label" id="shared-results-label">Three Core Results</p>
+        <ol class="shared-results">
+          <li>
+            <span class="shared-result-number">01</span>
+            <strong class="shared-result-title">Canonical modal reduction</strong>
+            <p class="shared-result-copy">A linear canonical transformation separates the positive-definite quadratic dynamics into independent two-dimensional modes, each carrying an explicit quadratic invariant.</p>
+          </li>
+          <li>
+            <span class="shared-result-number">02</span>
+            <strong class="shared-result-title">One sharp threshold</strong>
+            <p class="shared-result-copy">The condition <span class="shared-math">η<sup>2</sup>ρ(BC) &lt; 1</span> is simultaneously the convergence threshold for the modified-Hamiltonian series and the power-boundedness threshold for the discrete update.</p>
+          </li>
+          <li>
+            <span class="shared-result-number">03</span>
+            <strong class="shared-result-title">Spectral anisotropy</strong>
+            <p class="shared-result-copy">Functional independence of the conserved quantities is governed by variation among the modal eigenvalues; an isotropic spectrum keeps the two invariants proportional.</p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="shared-section shared-reading" aria-labelledby="shared-reading-title">
+        <div>
+          <p class="shared-section-label">PDF</p>
+          <h2 id="shared-reading-title">Read the note</h2>
+          <p class="shared-reading-note">Three pages of analysis, followed by a one-page reference list.</p>
+          <div class="shared-actions">
+            <a class="shared-action shared-action-primary" href="modal_invariants_symplectic_euler.pdf" target="_blank" rel="noopener">Read the note</a>
+            <a class="shared-action" href="modal_invariants_symplectic_euler.pdf" download>Download PDF</a>
+          </div>
+        </div>
+        <div class="shared-source">
+          <p class="shared-source-label">Source paper</p>
+          <p class="shared-source-citation">
+            Jonas E. Katona, Xiuyuan Wang, and Andre Wibisono. “A Symplectic Analysis of Alternating Mirror Descent.” <em>Journal of Machine Learning Research</em> 27(44):1–61, 2026.
+          </p>
+          <a class="shared-source-link" href="https://jmlr.org/papers/v27/24-0792.html" target="_blank" rel="noopener noreferrer">View at JMLR</a>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <footer class="shared-footer">
+    Feier Lyu · Mathematics and Optimization · 2026
+  </footer>
+
+  <script>
+    (function () {
+      const links = Array.from(document.querySelectorAll('[data-shared-email="1"]'));
+      const user = 'feier530';
+      const domain = ['icloud', 'com'].join('.');
+      const address = [user, domain].join('@');
+
+      links.forEach(function (link) {
+        link.href = 'mailto:' + address;
+        link.textContent = address;
+        link.setAttribute('aria-label', 'Email ' + address);
+      });
+    })();
+  </script>
+</body>
+</html>
