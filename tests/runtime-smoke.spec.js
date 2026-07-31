@@ -1645,6 +1645,21 @@ test("shared modal-invariants note is formal, direct-link only, and non-indexabl
       name: "Modal Invariants and a Sharp Stability Threshold for Quadratic Symplectic Euler",
     })
   ).toBeVisible();
+  await expect(page.locator(".shared-affiliation")).toHaveText(
+    "BSc Mathematics (expected 2027), University of Edinburgh"
+  );
+  await expect(page.locator(".shared-abstract")).toContainText(
+    "symplectic Euler applied to a positive-definite separable quadratic Hamiltonian"
+  );
+  await expect(page.locator(".shared-abstract")).toContainText(
+    "power-boundedness of the linear symplectic Euler update"
+  );
+  await expect(page.locator(".site-header .nav a")).toHaveCount(5);
+  await expect(page.locator(".academic-local-nav a")).toHaveCount(3);
+  await expect(page.getByRole("link", { name: "Back to Academic" })).toHaveAttribute(
+    "href",
+    "../academic.html"
+  );
   await expect(page.locator("main article > section")).toHaveCount(5);
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
     "content",
@@ -1656,6 +1671,10 @@ test("shared modal-invariants note is formal, direct-link only, and non-indexabl
   );
   await expect(page.getByText("Back to Technical Notes")).toHaveCount(0);
   await expect(page.locator('a[href="modal_invariants_symplectic_euler.pdf"]')).toHaveCount(2);
+  await expect(page.locator(".shared-pdf-frame")).toHaveAttribute(
+    "src",
+    "modal_invariants_symplectic_euler.pdf#view=FitH"
+  );
   await expect(page.getByRole("link", { name: "Academic Profile", exact: true })).toHaveAttribute(
     "href",
     "../academic.html"
