@@ -1565,6 +1565,9 @@ test("AFP publication status stays synchronized across work page and project his
   await waitForCriticalLoaderRelease(page);
   await expect(page.locator('main [data-lang-block="zh"]')).toHaveCount(0);
   await expect(page.locator('body')).toHaveAttribute('data-rendered-lang', 'en');
+  await expect(
+    page.locator('#selected-work-list [data-lang-block="en"] > .academic-evidence > .academic-evidence-list li')
+  ).toHaveCount(3);
   const publishedProject = page.locator(
     '#selected-work-list [data-lang-block="en"] > .academic-evidence > .academic-evidence-list li'
   ).first();
@@ -1602,6 +1605,10 @@ test("AFP publication status stays synchronized across work page and project his
     "href",
     "notes/network_localization_structural_certificates.html?lang=en"
   );
+  const exploratoryArchive = page.locator("#exploratory-work-en");
+  await expect(exploratoryArchive).toContainText("Exploratory Archive");
+  await expect(exploratoryArchive).toContainText("TTGDA and Second-Order Tracking");
+  await expect(exploratoryArchive).toContainText("not part of the primary Selected Work sequence");
   const bodyReadability = await publishedProject.locator("p:not(.academic-proof-kicker)").first().evaluate((node) => {
     const style = window.getComputedStyle(node);
     return {
@@ -1612,7 +1619,7 @@ test("AFP publication status stays synchronized across work page and project his
   expect(bodyReadability.fontSize).toBeGreaterThanOrEqual(14);
   expect(bodyReadability.lineHeight / bodyReadability.fontSize).toBeGreaterThanOrEqual(1.55);
   const creativePrototype = page.locator(
-    '#selected-work-list [data-lang-block="en"] .academic-hub-links'
+    '#selected-work-list [data-lang-block="en"] .academic-hub-links:not(#exploratory-work-en)'
   );
   await expect(creativePrototype).toContainText("CREATIVE COMPUTATION");
   await expect(creativePrototype).toContainText("Experimental Prototype");
@@ -1664,7 +1671,8 @@ test("technical notes use explicit status labels and a local Julia fractal", asy
   await expect(fractal.locator("figcaption")).toHaveAttribute("data-copy-zh", "侧边视觉 · 我最喜欢的 Julia 分形");
   await expect(fractal.locator("figcaption")).toHaveAttribute("data-copy-en", "Side visual · My favorite Julia fractal");
   await expect(fractal.locator("a")).toHaveCount(0);
-  await expect(page.locator("#pinned-notes .math-note-status")).toHaveCount(4);
+  await expect(page.locator("#pinned-notes .math-note-status")).toHaveCount(3);
+  await expect(page.locator("#exploratory-archive .math-note-status")).toHaveCount(1);
   await expect(page.locator("#notes-archive .math-note-status")).toHaveCount(10);
   const labels = await page.locator(".math-note-status").allTextContents();
   const allowed = new Set([
@@ -1769,7 +1777,7 @@ test("July notes lead the math archive and AFP work exposes primary evidence", a
   await waitForCriticalLoaderRelease(page);
   await expect(page.getByRole("heading", { name: "技术笔记" })).toBeVisible();
   await expect(page.locator("main")).toContainText("Feier Lyu（Fay Lyu）");
-  await expect(page.locator("#pinned-notes .academic-evidence-list li")).toHaveCount(4);
+  await expect(page.locator("#pinned-notes .academic-evidence-list li")).toHaveCount(3);
   await expect(page.locator("#pinned-notes .academic-evidence-list li").nth(0)).toContainText(
     "Isabelle Submodular Greedy Project"
   );
@@ -1782,9 +1790,8 @@ test("July notes lead the math archive and AFP work exposes primary evidence", a
   await expect(page.locator("#pinned-notes .academic-evidence-list li").nth(2)).toContainText(
     "2026 年 7 月研究记录 · 持续合作"
   );
-  await expect(page.locator("#pinned-notes .academic-evidence-list li").nth(3)).toContainText(
-    "TTGDA and Second-Order Tracking"
-  );
+  await expect(page.locator("#exploratory-archive")).toContainText("TTGDA and Second-Order Tracking");
+  await expect(page.locator("#exploratory-archive")).toContainText("探索性归档");
   await expect(page.locator("#notes-archive")).toBeVisible();
   const archiveNotes = page.locator(".math-list .math-card");
   await expect(archiveNotes).toHaveCount(10);

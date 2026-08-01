@@ -105,16 +105,15 @@ LEGACY_REDIRECT_PAGES = {
     "yin-le.html",
     "research-summary.html",
 }
-SEO_LASTMOD = "2026-07-22"
-SEO_LASTMOD_PATHS = {
-    "https://lyuf09.github.io/chronohaze/",
-    "https://lyuf09.github.io/chronohaze/academic.html",
-    "https://lyuf09.github.io/chronohaze/research.html",
-    "https://lyuf09.github.io/chronohaze/projects.html",
-    "https://lyuf09.github.io/chronohaze/cv.html",
-    "https://lyuf09.github.io/chronohaze/math.html",
-    "https://lyuf09.github.io/chronohaze/music.html",
-    "https://lyuf09.github.io/chronohaze/photography.html",
+SEO_LASTMOD_MINIMUMS = {
+    "https://lyuf09.github.io/chronohaze/": "2026-08-01",
+    "https://lyuf09.github.io/chronohaze/academic.html": "2026-08-01",
+    "https://lyuf09.github.io/chronohaze/research.html": "2026-08-01",
+    "https://lyuf09.github.io/chronohaze/projects.html": "2026-08-01",
+    "https://lyuf09.github.io/chronohaze/math.html": "2026-08-01",
+    "https://lyuf09.github.io/chronohaze/notes/network_localization_structural_certificates.html": "2026-08-01",
+    "https://lyuf09.github.io/chronohaze/post/projected-gradient-descent-isabelle-hol.html": "2026-08-01",
+    "https://lyuf09.github.io/chronohaze/photography.html": "2026-08-01",
 }
 PUBLIC_NOTE_PATHS = {
     "notes/ttgda_second_order_tracking_note",
@@ -394,17 +393,17 @@ def check_seo_artifacts(root: Path) -> List[Finding]:
                 )
                 for node in tree.getroot().findall("s:url", ns)
             }
-            for loc in SEO_LASTMOD_PATHS:
-                if entries.get(loc) != SEO_LASTMOD:
+            for loc, minimum in SEO_LASTMOD_MINIMUMS.items():
+                if entries.get(loc, "") < minimum:
                     findings.append(
-                        Finding(sitemap_path, "sitemap", f"{loc} lastmod is not {SEO_LASTMOD}")
+                        Finding(sitemap_path, "sitemap", f"{loc} lastmod is older than {minimum}")
                     )
             for stem in PUBLIC_NOTE_PATHS:
                 for suffix in (".html", ".pdf"):
                     loc = f"https://lyuf09.github.io/chronohaze/{stem}{suffix}"
-                    if entries.get(loc) != SEO_LASTMOD:
+                    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", entries.get(loc, "")):
                         findings.append(
-                            Finding(sitemap_path, "sitemap", f"Public note is missing/current lastmod is stale: {loc}")
+                            Finding(sitemap_path, "sitemap", f"Public note is missing a valid lastmod: {loc}")
                         )
         except ET.ParseError as exc:
             findings.append(Finding(sitemap_path, "sitemap", f"Invalid sitemap XML: {exc}"))

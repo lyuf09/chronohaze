@@ -54,9 +54,12 @@ async function readStructuredData(page) {
   expect(Array.isArray(parsed["@graph"])).toBeTruthy();
   expect(parsed["@graph"].length).toBeGreaterThan(0);
 
+  const payloads = await page
+    .locator('script[type="application/ld+json"]')
+    .evaluateAll((scripts) => scripts.map((node) => JSON.parse(node.textContent)));
   const types = new Set();
-  collectTypes(parsed["@graph"], types);
-  return { parsed, types };
+  collectTypes(payloads, types);
+  return { parsed, payloads, types };
 }
 
 async function expectStructuredTypes(page, url, expectedTypes) {
@@ -79,6 +82,114 @@ test("structured data JSON-LD is parseable and page-specific types are present",
   await expectStructuredTypes(page, "music/track-04.html", ["MusicRecording"]);
   await expectStructuredTypes(page, "music/track-18.html", ["MusicPlaylist", "MusicRecording"]);
   await expectStructuredTypes(page, "post/metalcore-piano-lab.html", ["BlogPosting"]);
+});
+
+test("bilingual research posts expose one localized BlogPosting with real metadata", async ({ page }) => {
+  const cases = [
+    {
+      url: "post/projected-gradient-descent-isabelle-hol.html?lang=en",
+      headline: "Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL",
+      bodyIncludes: "Projected gradient descent is one of the basic algorithmic templates",
+      bodyExcludes: "带约束光滑优化",
+      published: "2026-05-22",
+      modified: "2026-08-01",
+      keywords: ["Isabelle/HOL", "Optimization", "Formalisation", "AFP"],
+    },
+    {
+      url: "notes/network_localization_structural_certificates.html?lang=en",
+      headline: "One Negative Residual Is Not Enough",
+      bodyIncludes: "Ongoing research collaboration with Prof. Shoham Sabach.",
+      bodyExcludes: "一条负残差并不够",
+      published: "2026-07-22",
+      modified: "2026-08-01",
+      keywords: ["Network Localization", "Nonconvex Optimization", "Negative Curvature", "Stress-Rigidity"],
+    },
+  ];
+
+  for (const expected of cases) {
+    await page.goto(expected.url, { waitUntil: "domcontentloaded" });
+    await expect
+      .poll(async () => page.locator('script#chronohaze-structured-data[type="application/ld+json"]').count())
+      .toBe(1);
+    const { payloads } = await readStructuredData(page);
+    const posts = [];
+    collectNodesByType(payloads, "BlogPosting", posts);
+    expect(posts).toHaveLength(1);
+    expect(posts[0].headline).toBe(expected.headline);
+    expect(posts[0].name).toBe(expected.headline);
+    expect(posts[0].articleBody).toContain(expected.bodyIncludes);
+    expect(posts[0].articleBody).not.toContain(expected.bodyExcludes);
+    expect(posts[0].author).toEqual({ "@id": "https://lyuf09.github.io/chronohaze/#person" });
+    expect(posts[0].datePublished).toBe(expected.published);
+    expect(posts[0].dateModified).toBe(expected.modified);
+    expect(posts[0].keywords).toEqual(expected.keywords);
+    expect(JSON.stringify(posts[0].keywords)).not.toContain("Feier Lyu");
+    expect(JSON.stringify(posts[0].keywords)).not.toContain("min read");
+  }
+
+  await page.goto("post/projected-gradient-descent-isabelle-hol.html?lang=zh", {
+    waitUntil: "domcontentloaded",
+  });
+  const { payloads } = await readStructuredData(page);
+  const posts = [];
+  collectNodesByType(payloads, "BlogPosting", posts);
+  expect(posts).toHaveLength(1);
+  expect(posts[0].headline).toBe("从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL");
+  expect(posts[0].articleBody).toContain("带约束光滑优化");
+  expect(posts[0].articleBody).not.toContain("Projected gradient descent is one of the basic algorithmic templates");
+});
+
+test("Academic and Research expose one page entity instead of duplicate AboutPage nodes", async ({ page }) => {
+  for (const [url, expectedType] of [
+    ["academic.html?lang=en", "ProfilePage"],
+    ["research.html?lang=en", "AboutPage"],
+  ]) {
+    await page.goto(url, { waitUntil: "domcontentloaded" });
+    await expect
+      .poll(async () => page.locator('script#chronohaze-structured-data[type="application/ld+json"]').count())
+      .toBe(1);
+    const { payloads } = await readStructuredData(page);
+    const pageNodes = [];
+    collectNodesByType(payloads, expectedType, pageNodes);
+    expect(pageNodes).toHaveLength(1);
+    const aboutPages = [];
+    collectNodesByType(payloads, "AboutPage", aboutPages);
+    expect(aboutPages).toHaveLength(expectedType === "AboutPage" ? 1 : 0);
+  }
+});
+
+test("x-default HTML and sitemap remain useful without JavaScript", async ({ request }) => {
+  for (const [url, title, descriptionStart] of [
+    [
+      "post/projected-gradient-descent-isabelle-hol.html",
+      "Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL | Chronohaze",
+      "A machine-checked development of projected gradient descent",
+    ],
+    [
+      "photography.html",
+      "Photography | Chronohaze",
+      "Selected photography and yearly archives",
+    ],
+  ]) {
+    const response = await request.get(url);
+    expect(response.ok()).toBeTruthy();
+    const html = await response.text();
+    expect(html).toContain(`>${title}</title>`);
+    expect(html).toContain(`content=\"${descriptionStart}`);
+    expect(html).toContain(title);
+  }
+
+  const sitemap = await (await request.get("sitemap.xml")).text();
+  for (const url of [
+    "https://lyuf09.github.io/chronohaze/",
+    "https://lyuf09.github.io/chronohaze/academic.html",
+    "https://lyuf09.github.io/chronohaze/projects.html",
+    "https://lyuf09.github.io/chronohaze/research.html",
+    "https://lyuf09.github.io/chronohaze/math.html",
+    "https://lyuf09.github.io/chronohaze/notes/network_localization_structural_certificates.html",
+  ]) {
+    expect(sitemap).toContain(`<loc>${url}</loc>\n    <lastmod>2026-08-01</lastmod>`);
+  }
 });
 
 test("each page exposes one canonical Person with the current and past institutions in the right fields", async ({

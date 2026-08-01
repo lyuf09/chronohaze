@@ -10,7 +10,17 @@
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Chronohaze" />
   <meta property="og:title" content="One Negative Residual Is Not Enough: The Structure of Negative Curvature in Network Localization" />
-  <meta property="og:description" content="A July 2026 research record on stress-rigidity decomposition, multi-edge coupling, and dimension-dependent saddles." />
+  <meta property="og:description" content="A July 2026 research record on how a failed dual lower-bound route led from projected edge budgets to stress-rigidity structure, multi-edge coupling, and dimension-dependent saddles in network localization." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="One Negative Residual Is Not Enough: The Structure of Negative Curvature in Network Localization" />
+  <meta name="twitter:description" content="A July 2026 research record on how a failed dual lower-bound route led from projected edge budgets to stress-rigidity structure, multi-edge coupling, and dimension-dependent saddles in network localization." />
+  <meta property="article:published_time" content="2026-07-22" />
+  <meta property="article:modified_time" content="2026-08-01" />
+  <meta property="article:author" content="Feier Lyu" />
+  <meta property="article:tag" content="Network Localization" />
+  <meta property="article:tag" content="Nonconvex Optimization" />
+  <meta property="article:tag" content="Negative Curvature" />
+  <meta property="article:tag" content="Stress-Rigidity" />
   <meta property="og:url" content="https://lyuf09.github.io/chronohaze/notes/network_localization_structural_certificates.html" />
   <link rel="canonical" href="https://lyuf09.github.io/chronohaze/notes/network_localization_structural_certificates.html" />
   <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/notes/network_localization_structural_certificates.html?lang=zh" />
@@ -21,7 +31,7 @@
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
   <link rel="preload" href="../assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="../styles.min.css?v=20260723-information-architecture1" />
-  <script defer src="../protect-media.min.js?v=20260801-footer-copy1"></script>
+  <script defer src="../protect-media.min.js?v=20260801-bilingual-seo1"></script>
   <style>
     body.note-detail-page {
       margin: 0;
@@ -88,6 +98,22 @@
       font-size: clamp(25px, 3.2vw, 38px);
       font-weight: 400;
       line-height: 1.18;
+    }
+
+    .note-detail-page .article.research-record .research-record-collaboration {
+      max-width: 760px;
+      margin: 18px 0 0;
+      color: rgba(214, 223, 237, 0.92);
+      font: 500 14px/1.55 Arial, sans-serif;
+      letter-spacing: 0.015em;
+    }
+
+    .note-detail-page .article.research-record .research-record-dates {
+      max-width: 760px;
+      margin: 7px 0 0;
+      color: rgba(167, 184, 209, 0.84);
+      font: 400 13px/1.55 Arial, sans-serif;
+      letter-spacing: 0.015em;
     }
 
     .note-detail-page .article.research-record .research-record-subtitle {
@@ -453,8 +479,10 @@
         <div data-lang-block="zh" hidden>
           <a class="research-record-back" href="../math.html" data-preserve-lang="1">返回技术笔记</a>
           <header class="research-record-hero">
-            <p class="research-record-kicker">研究记录 · 网络定位 · 2026 年 7 月</p>
+            <p class="research-record-kicker">研究记录 · 网络定位</p>
             <h1>一条负残差并不够</h1>
+            <p class="research-record-collaboration">与 Prof. Shoham Sabach 持续合作研究。</p>
+            <p class="research-record-dates">最初发布于 2026 年 7 月 22 日 · 更新于 2026 年 8 月 1 日</p>
             <p class="research-record-deck">从投影预算到负曲率</p>
             <p class="research-record-subtitle">网络定位研究的 2026 年 7 月阶段记录：应力-刚度分解、多边耦合与依赖环境维数的鞍点。</p>
             <p class="research-record-lead">同一个正五边形构型，在二维空间中可以是一个严格局部极小点（模刚体运动）；将所有点原样补零嵌入三维后，它却会变成一个具有恰好两个负曲率方向的严格鞍点。坐标之间没有发生变化，目标距离也没有改变，改变的只是允许扰动的环境维数。</p>
@@ -592,14 +620,29 @@
                 <li>把由特征向量给出的存在性方向变成可计算、带下降保证的 escape step。</li>
               </ol>
             </section>
+
+            <section class="research-record-section">
+              <span class="research-record-section-label">08 · 语境与文献</span>
+              <h2>Context and references</h2>
+              <p>这份研究记录沿用网络定位、刚度与应力矩阵文献中的基本语言，并把当前二阶问题放在非凸优化地形的语境中。工作稿目前主要使用以下文献：</p>
+              <ol>
+                <li>C. Criscitiello, A. D. McRae, Q. Rebjock, and N. Boumal, <a href="https://arxiv.org/abs/2507.15662" target="_blank" rel="noopener noreferrer">Sensor network localization has a benign landscape after low-dimensional relaxation</a>, Mathematical Programming (2026).</li>
+                <li>S. J. Gortler, A. D. Healy, and D. P. Thurston, <a href="https://doi.org/10.1353/ajm.0.0132" target="_blank" rel="noopener noreferrer">Characterizing Generic Global Rigidity</a>, American Journal of Mathematics 132(4), 897–939 (2010).</li>
+                <li>A. M.-C. So and Y. Ye, <a href="https://doi.org/10.1007/s10107-006-0040-1" target="_blank" rel="noopener noreferrer">Theory of Semidefinite Programming for Sensor Network Localization</a>, Mathematical Programming 109, 367–384 (2007).</li>
+                <li>A. Y. Alfakih, N. Taheri, and Y. Ye, <a href="https://doi.org/10.1007/s10107-011-0480-0" target="_blank" rel="noopener noreferrer">On Stress Matrices of (d + 1)-Lateration Frameworks in General Position</a>, Mathematical Programming 137, 1–17 (2013).</li>
+                <li>B. D. O. Anderson, I. Shames, G. Mao, and B. Fidan, <a href="https://doi.org/10.1137/100792366" target="_blank" rel="noopener noreferrer">Formal Theory of Noisy Sensor Network Localization</a>, SIAM Journal on Discrete Mathematics 24(2), 684–698 (2010).</li>
+              </ol>
+            </section>
           </div>
         </div>
 
         <div data-lang-block="en">
           <a class="research-record-back" href="../math.html" data-preserve-lang="1">Back to Technical Notes</a>
           <header class="research-record-hero">
-            <p class="research-record-kicker">Research record · Network localization · July 2026</p>
+            <p class="research-record-kicker">Research record · Network localization</p>
             <h1>One Negative Residual Is Not Enough</h1>
+            <p class="research-record-collaboration">Ongoing research collaboration with Prof. Shoham Sabach.</p>
+            <p class="research-record-dates">Originally posted July 22, 2026 · Updated August 1, 2026</p>
             <p class="research-record-deck">From Projected Budgets to Negative Curvature</p>
             <p class="research-record-subtitle">A July 2026 research note on stress-rigidity decomposition, multi-edge coupling, and dimension-dependent saddles.</p>
             <p class="research-record-lead">The same regular-pentagon configuration can be a strict local minimum in two dimensions, modulo rigid motions, and become a strict saddle with exactly two negative-curvature directions after the unchanged coordinates are embedded in three dimensions by appending zeros. The target distances do not change. Only the ambient perturbation space does.</p>
@@ -737,6 +780,19 @@
                 <li>Turn the existential direction recovered from an eigenvector into a computable escape step with a quantitative decrease guarantee.</li>
               </ol>
             </section>
+
+            <section class="research-record-section">
+              <span class="research-record-section-label">08 · Context and references</span>
+              <h2>Context and references</h2>
+              <p>This research record uses the standard language of network localization, rigidity, and stress matrices, and places the current second-order questions in the literature on nonconvex optimization landscapes. The working draft currently draws chiefly on:</p>
+              <ol>
+                <li>C. Criscitiello, A. D. McRae, Q. Rebjock, and N. Boumal, <a href="https://arxiv.org/abs/2507.15662" target="_blank" rel="noopener noreferrer">Sensor network localization has a benign landscape after low-dimensional relaxation</a>, Mathematical Programming (2026).</li>
+                <li>S. J. Gortler, A. D. Healy, and D. P. Thurston, <a href="https://doi.org/10.1353/ajm.0.0132" target="_blank" rel="noopener noreferrer">Characterizing Generic Global Rigidity</a>, American Journal of Mathematics 132(4), 897–939 (2010).</li>
+                <li>A. M.-C. So and Y. Ye, <a href="https://doi.org/10.1007/s10107-006-0040-1" target="_blank" rel="noopener noreferrer">Theory of Semidefinite Programming for Sensor Network Localization</a>, Mathematical Programming 109, 367–384 (2007).</li>
+                <li>A. Y. Alfakih, N. Taheri, and Y. Ye, <a href="https://doi.org/10.1007/s10107-011-0480-0" target="_blank" rel="noopener noreferrer">On Stress Matrices of (d + 1)-Lateration Frameworks in General Position</a>, Mathematical Programming 137, 1–17 (2013).</li>
+                <li>B. D. O. Anderson, I. Shames, G. Mao, and B. Fidan, <a href="https://doi.org/10.1137/100792366" target="_blank" rel="noopener noreferrer">Formal Theory of Noisy Sensor Network Localization</a>, SIAM Journal on Discrete Mathematics 24(2), 684–698 (2010).</li>
+              </ol>
+            </section>
           </div>
         </div>
       </article>
@@ -842,6 +898,20 @@
             descriptionNode.getAttribute('data-content-' + safeLang) || descriptionNode.getAttribute('content')
           );
         }
+        const localizedTitle = titleNode
+          ? titleNode.getAttribute('data-title-' + safeLang) || document.title
+          : document.title;
+        const localizedDescription = descriptionNode
+          ? descriptionNode.getAttribute('data-content-' + safeLang) || descriptionNode.getAttribute('content')
+          : '';
+        ['meta[property="og:title"]', 'meta[name="twitter:title"]'].forEach(function (selector) {
+          const node = document.querySelector(selector);
+          if (node) node.setAttribute('content', localizedTitle.replace(/ \| Chronohaze$/, ''));
+        });
+        ['meta[property="og:description"]', 'meta[name="twitter:description"]'].forEach(function (selector) {
+          const node = document.querySelector(selector);
+          if (node) node.setAttribute('content', localizedDescription);
+        });
 
         try {
           window.localStorage.setItem('siteLang', safeLang);

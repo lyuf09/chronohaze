@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -152,17 +152,24 @@
   </script>
   <link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
-  <title>从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL</title>
-  <meta name="description" content="Projected Gradient Descent in Isabelle/HOL 已提交至 Archive of Formal Proofs，目前等待审核。项目覆盖 smooth convexity、projection geometry、descent estimates、projected-gradient mapping 和 residual certificates。" />
+  <title data-title-zh="从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL | Chronohaze" data-title-en="Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL | Chronohaze">Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL | Chronohaze</title>
+  <meta name="description" content="A machine-checked development of projected gradient descent in Isabelle/HOL, covering smooth convexity, projection geometry, descent estimates, projected-gradient mappings, residual certificates, and linear convergence." data-content-zh="Projected Gradient Descent in Isabelle/HOL 已提交至 Archive of Formal Proofs，目前等待审核。项目覆盖 smooth convexity、projection geometry、descent estimates、projected-gradient mapping 和 residual certificates。" data-content-en="A machine-checked development of projected gradient descent in Isabelle/HOL, covering smooth convexity, projection geometry, descent estimates, projected-gradient mappings, residual certificates, and linear convergence." />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Chronohaze" />
-  <meta property="og:title" content="从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL | Chronohaze" />
-  <meta property="og:description" content="Projected Gradient Descent in Isabelle/HOL 已提交至 Archive of Formal Proofs，目前等待审核。项目覆盖 smooth convexity、projection geometry、descent estimates、projected-gradient mapping 和 residual certificates。" />
+  <meta property="og:title" content="Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL | Chronohaze" />
+  <meta property="og:description" content="A machine-checked development of projected gradient descent in Isabelle/HOL, covering smooth convexity, projection geometry, descent estimates, projected-gradient mappings, residual certificates, and linear convergence." />
   <meta property="og:url" content="https://lyuf09.github.io/chronohaze/post/projected-gradient-descent-isabelle-hol.html" />
   <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/projected-gradient-descent-isabelle-hol.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL | Chronohaze" />
-  <meta name="twitter:description" content="Projected Gradient Descent in Isabelle/HOL 已提交至 Archive of Formal Proofs，目前等待审核。项目覆盖 smooth convexity、projection geometry、descent estimates、projected-gradient mapping 和 residual certificates。" />
+  <meta name="twitter:title" content="Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL | Chronohaze" />
+  <meta name="twitter:description" content="A machine-checked development of projected gradient descent in Isabelle/HOL, covering smooth convexity, projection geometry, descent estimates, projected-gradient mappings, residual certificates, and linear convergence." />
+  <meta property="article:published_time" content="2026-05-22" />
+  <meta property="article:modified_time" content="2026-08-01" />
+  <meta property="article:author" content="Feier Lyu" />
+  <meta property="article:tag" content="Isabelle/HOL" />
+  <meta property="article:tag" content="Optimization" />
+  <meta property="article:tag" content="Formalisation" />
+  <meta property="article:tag" content="AFP" />
   <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/projected-gradient-descent-isabelle-hol.png" />
   <link rel="canonical" href="https://lyuf09.github.io/chronohaze/post/projected-gradient-descent-isabelle-hol.html" />
   <!-- GENERATED:hreflang:start -->
@@ -212,7 +219,7 @@
   </script>
   <link rel="preload" href="../assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="../styles.min.css?v=20260723-information-architecture1" />
-  <script defer src="../protect-media.min.js?v=20260801-footer-copy1"></script>
+  <script defer src="../protect-media.min.js?v=20260801-bilingual-seo1"></script>
 </head>
 <body class="math-post-page">
   <div class="page">
@@ -245,7 +252,7 @@
         </div>
       </div>
       <article class="article">
-        <div data-lang-block="zh">
+        <div data-lang-block="zh" hidden>
           <h1>从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL</h1>
           <p class="article-meta">Feier Lyu · Originally posted 2026年5月22日 · 约 5 分钟</p>
           <p class="article-meta">标签：Isabelle/HOL · Optimization · Formalisation · AFP</p>
@@ -324,7 +331,7 @@
 </div>
         </div>
 
-        <div data-lang-block="en" hidden>
+        <div data-lang-block="en">
           <h1>Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL</h1>
           <p class="article-meta">Feier Lyu · Originally posted May 22, 2026 · 5 min read</p>
           <p class="article-meta">Tags: Isabelle/HOL · Optimization · Formalisation · AFP</p>
@@ -512,7 +519,7 @@
       }
     }
 
-    let initialLang = 'zh';
+    let initialLang = 'en';
     try {
       const siteLang = window.localStorage.getItem('siteLang');
       const savedLang = window.localStorage.getItem('chronohaze-lang');

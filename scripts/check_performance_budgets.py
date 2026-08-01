@@ -71,7 +71,9 @@ def main() -> int:
                 "assets/js/music-detail-transcript.min.js",
                 "assets/js/structured-data.min.js",
                 ],
-            665_000,
+            # Localized article extraction and publication metadata add a small,
+            # bounded cost to the shared structured-data module.
+            670_000,
         ),
         ("key CSS payload", ["styles.min.css", "home.min.css"], 375_000),
     ]

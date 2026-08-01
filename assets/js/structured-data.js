@@ -21,7 +21,14 @@
   function getCanonicalPageUrl() {
     var canonical = document.querySelector('link[rel="canonical"]');
     if (canonical && canonical.href) {
-      return canonical.href;
+      try {
+        var canonicalUrl = new URL(canonical.href, window.location.href);
+        canonicalUrl.hash = "";
+        canonicalUrl.search = "";
+        return canonicalUrl.toString();
+      } catch (_canonicalError) {
+        return canonical.href;
+      }
     }
     try {
       var url = new URL(window.location.href);
@@ -60,6 +67,40 @@
     return node && node.getAttribute ? normalizeText(node.getAttribute("content") || "") : "";
   }
 
+  function getLanguageKey() {
+    var root = document.documentElement;
+    var explicit = root && root.getAttribute("data-site-lang");
+    if (explicit === "zh" || explicit === "en") return explicit;
+    var lang = String((root && root.lang) || "").toLowerCase();
+    return lang.indexOf("zh") === 0 ? "zh" : "en";
+  }
+
+  function isNodeInSelectedLanguage(node) {
+    if (!node || !node.closest) return !!node;
+    var block = node.closest("[data-lang-block]");
+    return !block || block.getAttribute("data-lang-block") === getLanguageKey();
+  }
+
+  function localizedQuery(root, selector) {
+    var scope = root || document;
+    var nodes = Array.prototype.slice.call(scope.querySelectorAll(selector));
+    return nodes.find(isNodeInSelectedLanguage) || null;
+  }
+
+  function localizedQueryAll(root, selector) {
+    var scope = root || document;
+    return Array.prototype.slice.call(scope.querySelectorAll(selector)).filter(isNodeInSelectedLanguage);
+  }
+
+  function removeStaticPageEntity(canonical) {
+    var targetId = canonical + "#page";
+    Array.prototype.slice
+      .call(document.querySelectorAll('script[type="application/ld+json"]:not(#chronohaze-structured-data)'))
+      .forEach(function (script) {
+        if ((script.textContent || "").indexOf(targetId) !== -1) script.remove();
+      });
+  }
+
   function buildBaseWebGraph() {
     var canonical = getCanonicalPageUrl();
     var pathname = "";
@@ -72,7 +113,7 @@
     var metaDescription = contentAttr('meta[name="description"]');
     var ogImage = contentAttr('meta[property="og:image"]');
     var pageTitle = normalizeText(document.title || "");
-    var h1 = textContentOf(document.querySelector("h1"));
+    var h1 = textContentOf(localizedQuery(document, "h1"));
     var pageName = h1 || pageTitle || "Chronohaze";
     var pageType = "WebPage";
     var body = document.body;
@@ -84,11 +125,10 @@
       else if (body.classList.contains("music-index-page")) pageType = "CollectionPage";
       else if (body.classList.contains("music-album-page")) pageType = "CollectionPage";
       else if (body.classList.contains("music-detail-page")) pageType = "WebPage";
-      else if (body.classList.contains("research-landing-page")) pageType = "AboutPage";
+      else if (body.classList.contains("academic-page")) pageType = "ProfilePage";
+      else if (body.classList.contains("research-page")) pageType = "AboutPage";
+      else if (body.classList.contains("projects-page")) pageType = "CollectionPage";
       else if (body.classList.contains("search-index-page")) pageType = "SearchResultsPage";
-    }
-    if (/\/post\/[^/]+\.html$/i.test(pathname)) {
-      pageType = "BlogPosting";
     }
     if (/\/cv\.html$/i.test(pathname)) {
       pageType = "ProfilePage";
@@ -238,7 +278,7 @@
     if (!document.body || !document.body.classList.contains("research-landing-page")) {
       return null;
     }
-    var projectCards = Array.prototype.slice.call(document.querySelectorAll(".research-project-card"));
+    var projectCards = localizedQueryAll(document, ".research-project-card");
     var itemList = null;
     if (projectCards.length) {
       itemList = {
@@ -261,18 +301,7 @@
       };
     }
 
-    var aboutPage = {
-      "@type": "AboutPage",
-      "@id": base.canonical + "#research-about",
-      url: base.canonical,
-      name: base.pageName,
-      description: base.metaDescription || undefined,
-      about: { "@id": CHRONOHAZE_PERSON_ID },
-      mainEntity: { "@id": CHRONOHAZE_PERSON_ID },
-      inLanguage: base.htmlLang,
-      isPartOf: { "@id": CHRONOHAZE_WEBSITE_ID },
-    };
-    return itemList ? [aboutPage, itemList] : [aboutPage];
+    return itemList ? [itemList] : [];
   }
 
   function buildMusicAlbumStructuredData(base) {
@@ -357,13 +386,16 @@
   }
 
   function buildPostStructuredData(base) {
-    if (!/\/post\/[^/]+\.html$/i.test(base.pathname || "")) {
+    if (!/\/(?:post|notes)\/[^/]+\.html$/i.test(base.pathname || "")) {
       return null;
     }
     var article = document.querySelector("article.article");
     if (!article) return null;
-    var headline = textContentOf(article.querySelector("h1")) || base.pageName;
-    var paras = Array.prototype.slice.call(article.querySelectorAll("p"));
+    var languageBlock = localizedQuery(article, "[data-lang-block]") || article;
+    var headline = textContentOf(localizedQuery(languageBlock, "h1")) || base.pageName;
+    var paras = localizedQueryAll(languageBlock, "p").filter(function (p) {
+      return !p.closest(".article-meta, nav, footer, .academic-hub-links");
+    });
     var articleText = normalizeText(
       paras
         .map(function (p) {
@@ -371,7 +403,54 @@
         })
         .join(" ")
     );
-    var metaText = textContentOf(article.querySelector(".article-meta"));
+    var keywords = Array.prototype.slice
+      .call(document.querySelectorAll('meta[property="article:tag"]'))
+      .map(function (node) {
+        return normalizeText(node.getAttribute("content") || "");
+      })
+      .filter(Boolean);
+    var metaLines = localizedQueryAll(languageBlock, ".article-meta").map(textContentOf);
+    if (!keywords.length) {
+      var tagLine = metaLines.find(function (text) {
+        return /^(?:Tags|标签)\s*[:：]/i.test(text);
+      });
+      if (!tagLine) {
+        tagLine = metaLines.find(function (text) {
+          return !/(?:Feier Lyu|HazezZ|posted|read|分钟|\d{4}[年-]|\d{1,2}月\d{1,2}日)/i.test(text);
+        });
+      }
+      keywords = normalizeText((tagLine || "").replace(/^(?:Tags|标签)\s*[:：]\s*/i, ""))
+        .split(/\s*[·,，]\s*/)
+        .filter(Boolean);
+    }
+    var datePublished = contentAttr('meta[property="article:published_time"]');
+    if (!datePublished) {
+      var dateText = metaLines.join(" ");
+      var isoMatch = dateText.match(/(20\d{2})[年-](\d{1,2})[月-](\d{1,2})日?/);
+      var englishMatch = dateText.match(
+        /(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2}),\s*(20\d{2})/i
+      );
+      var shortChineseMatch = dateText.match(/(?:^|\s|·)(\d{1,2})月(\d{1,2})日/);
+      var monthNames = [
+        "january", "february", "march", "april", "may", "june",
+        "july", "august", "september", "october", "november", "december",
+      ];
+      if (isoMatch) {
+        datePublished =
+          isoMatch[1] + "-" + isoMatch[2].padStart(2, "0") + "-" + isoMatch[3].padStart(2, "0");
+      } else if (englishMatch) {
+        datePublished =
+          englishMatch[3] +
+          "-" +
+          String(monthNames.indexOf(englishMatch[1].toLowerCase()) + 1).padStart(2, "0") +
+          "-" +
+          englishMatch[2].padStart(2, "0");
+      } else if (shortChineseMatch) {
+        datePublished =
+          "2026-" + shortChineseMatch[1].padStart(2, "0") + "-" + shortChineseMatch[2].padStart(2, "0");
+      }
+    }
+    var dateModified = contentAttr('meta[property="article:modified_time"]') || datePublished;
     return [
       {
         "@type": "BlogPosting",
@@ -381,12 +460,26 @@
         name: headline,
         description: base.metaDescription || undefined,
         articleBody: articleText || undefined,
-        articleSection: "Mathematics",
+        articleSection: /^\/chronohaze\/notes\//i.test(base.pathname || "") ? "Research" : "Mathematics",
         author: { "@id": CHRONOHAZE_PERSON_ID },
+        contributor: /\/notes\/network_localization_structural_certificates\.html$/i.test(
+          base.pathname || ""
+        )
+          ? {
+              "@type": "Person",
+              name: "Shoham Sabach",
+              affiliation: {
+                "@type": "CollegeOrUniversity",
+                name: "Cornell University",
+              },
+            }
+          : undefined,
         publisher: { "@id": CHRONOHAZE_PERSON_ID },
+        datePublished: datePublished || undefined,
+        dateModified: dateModified || undefined,
         url: base.canonical,
         inLanguage: base.htmlLang,
-        keywords: metaText || undefined,
+        keywords: keywords.length ? keywords : undefined,
       },
     ];
   }
@@ -432,6 +525,7 @@
 
   function buildStructuredDataGraph() {
     var base = buildBaseWebGraph();
+    removeStaticPageEntity(base.canonical);
     var graph = [base.website, base.person, base.page];
     var extras = [];
 

@@ -78,8 +78,8 @@
         return savedLang;
       }
     } catch (_e2) {}
-    window.__chronohazePreferredLang = "zh";
-    return "zh";
+    window.__chronohazePreferredLang = "en";
+    return "en";
   }
 
   function setBilingualCopy(node, obj) {
