@@ -1128,9 +1128,12 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   await expect(page.locator("body.research-landing-page")).toBeVisible();
   await expect(page.locator('.research-hero [data-lang-block="zh"] h1')).toHaveText("研究陈述");
   await expect(page.locator('.research-hero [data-lang-block="zh"]')).toContainText(
-    "面向子模最大化与投影一阶方法的可复用 Isabelle/HOL 基础设施"
+    "结构性假设如何决定优化算法的保证"
   );
   await expect(page.locator('#research-questions [data-lang-block="zh"] li')).toHaveCount(3);
+  await expect(page.locator('#research-questions ol[data-lang-block="zh"]')).toContainText(
+    "统一的概率运行语义"
+  );
   await expect(page.locator('#research-questions ol[data-lang-block="zh"]')).toContainText("可计算的负曲率证书和局部逃逸方向");
   await expect(page.locator("#research-projects")).toBeVisible();
   await expect(page.locator("#research-outputs")).toBeVisible();
@@ -1143,9 +1146,9 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   await expect(formalizationLine).toContainText("2026年5月26日正式发表于 AFP");
   await expect(formalizationLine).toContainText("发表后，当前仓库继续发展");
   await expect(formalizationLine).toContainText("采样模型、近似证明与预言机调用复杂度界");
-  await expect(page.locator("#research-outputs .research-output-card").nth(2)).toContainText(
-    "Negative-Curvature Certificates for Network Localization"
-  );
+  await expect(page.locator("#research-outputs .research-output-card")).toHaveCount(0);
+  await expect(page.locator("#research-outputs a")).toHaveText("查看代表性工作");
+  await expect(page.locator("#research-outputs a")).toHaveAttribute("href", "projects.html");
   await expect(page.locator("#research-now")).toContainText(
     "机器检查优化，以及通过不变性与对偶研究非凸定位问题的结构"
   );
@@ -1155,6 +1158,17 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   );
   await expect(page.locator('main')).not.toContainText('Metalcore Piano Lab');
   await expect(page.locator('main')).not.toContainText('SUPPORTING COMPUTATIONAL');
+
+  await page.goto("research.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+  await expect(page.locator(".research-thesis-line")).toHaveText(
+    "My work asks how structural assumptions determine the guarantees of optimization algorithms. In Isabelle/HOL, I study how state invariants and geometric lemmas can be organized into reusable proof interfaces; in network localization, I study how graph and stress structure govern negative curvature near non-optimal stationary points. These projects share a common aim: to make the mathematical dependencies behind algorithmic guarantees explicit enough to analyze, verify, and reuse."
+  );
+  await expect(page.locator("#research-questions .research-question-list")).toContainText(
+    "How can the expected approximation guarantee and the executable trace-level oracle-cost guarantee be unified within a single probabilistic run semantics?"
+  );
+  await expect(page.locator("#research-outputs .research-output-card")).toHaveCount(0);
+  await expect(page.locator("#research-outputs a")).toHaveText("View Selected Work");
 
   expect(errors).toEqual([]);
 });
@@ -1512,7 +1526,7 @@ test("academic page isolates languages and renders a concise academic index", as
   await expect(evidence.locator('[data-lang-block="en"]')).toBeVisible();
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
   await expect(page.locator("body")).toHaveAttribute("data-rendered-lang", "en");
-  await expect(page.getByText("Three strongest pieces of evidence", { exact: true })).toBeVisible();
+  await expect(page.getByText("Selected Research Outputs", { exact: true })).toBeVisible();
   await expect(page.locator('.research-hero [data-lang-block="en"]')).toContainText("Feier Lyu (Fay Lyu)");
   await expect(page.locator('.research-hero [data-lang-block="en"]')).toContainText(
     "My current work centers on reusable Isabelle/HOL infrastructure"
@@ -1557,7 +1571,7 @@ test("AFP publication status stays synchronized across work page and project his
   await expect(publishedProject).toContainText("Published in the Archive of Formal Proofs on May 26, 2026");
   await expect(publishedProject).toContainText("Problem:");
   await expect(publishedProject).toContainText("Contribution:");
-  await expect(publishedProject).toContainText("Evidence:");
+  await expect(publishedProject).toContainText("Links:");
   await expect(publishedProject).toContainText("under the supervision of Wenda Li");
   await expect(publishedProject).toContainText("post-publication stochastic-greedy extension");
   await expect(publishedProject.getByRole("link", { name: "AFP", exact: true })).toHaveAttribute(

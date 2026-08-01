@@ -230,23 +230,6 @@
   "generated_at": "2026-08-01",
   "items": [
     {
-      "title": "Research Statement | Feier Lyu (Fay Lyu)",
-      "url": "research.html",
-      "section": "Site",
-      "date": "",
-      "excerpt": "我研究优化理论与形式化验证。目前的项目包括：（i）面向子模最大化与投影一阶方法的可复用 Isabelle/HOL 基础设施；（ii）与 Prof. Shoham Sabach 合作研究网络定位中的负曲率结构证书。",
-      "tags": [
-        "research",
-        "optimization",
-        "formal-methods"
-      ],
-      "sort": 20260801,
-      "scope": "site",
-      "content": "研究陈述 我研究优化理论与形式化验证。目前的项目包括：（i）面向子模最大化与投影一阶方法的可复用 Isabelle/HOL 基础设施；（ii）与 Prof. Shoham Sabach 合作研究网络定位中的负曲率结构证书。 主要研究方向 代表性工作入口 几项最能支撑上面研究线索的项目和笔记。 研究范围 主要方向 01 机器检查优化与可复用证明结构 这条研究线把算法假设、状态不变量、关键不等式与收敛结论拆成可复用的 Isabelle/HOL 组件。 2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化经典贪心算法与经验证的有状态惰性贪心变体。发表后，当前仓库继续发展 StochasticGreedy 定理线，包括采样模型、近似证明与预言机调用复杂度界。关于光滑凸优化与投影梯度下降的第二个形式化项目已于2026年7月2日提交至 Archive of Formal Proofs，目前等待审核。 当前重点是减少不同算法证明之间重复的投影、望远镜求和与近似保证整理工作。 AFP 条目 DOI: 10.5281/zenodo.21054718 证明文档 代码仓库 主要方向 02 网络定位中的负曲率证书 与 Prof. Shoham Sabach 的合作研究图结构如何控制非最优驻点附近的 Hessian 负曲率。 当前目标是从环一致性、投影边预算与图的环空间中构造可验证的局部逃逸方向，并明确这些证书成立所需的几何假设。 Isabelle/HOL Submodular Greedy 形式化项目 子模贪心算法形式化项目与材料入口。 Isabelle/HOL Projected Gradient Descent 等待审核 光滑凸优化中的一阶方法形式化项目；已提交至 AFP，等待审核。 Negative-Curvature Certificates for Network Localization 合作研究 关于投影边预算、Hessian 结构与局部逃逸方向的合作研究技术笔记。 TTGDA and Second-Order Tracking 探索性 关于值函数视角与二阶跟踪问题的探索性技术笔记。",
-      "title_en": "Research Statement | Feier Lyu (Fay Lyu)",
-      "excerpt_en": "I work on optimization theory and formal verification through reusable Isabelle/HOL infrastructure for optimization and structural negative-curvature certificates for network localization."
-    },
-    {
       "title": "一条负残差并不够：网络定位中负曲率的结构",
       "title_en": "One Negative Residual Is Not Enough: The Structure of Negative Curvature in Network Localization",
       "url": "notes/network_localization_structural_certificates.html",
@@ -261,6 +244,23 @@
       "sort": 20260722,
       "scope": "math",
       "content": "Selected Work Research Statement Technical Notes 返回技术笔记 研究记录 · 网络定位 · 2026 年 7 月 一条负残差并不够 从投影预算到负曲率 网络定位研究的 2026 年 7 月阶段记录：应力-刚度分解、多边耦合与依赖环境维数的鞍点。 同一个正五边形构型，在二维空间中可以是一个严格局部极小点（模刚体运动）；将所有点原样补零嵌入三维后，它却会变成一个具有恰好两个负曲率方向的严格鞍点。坐标之间没有发生变化，目标距离也没有改变，改变的只是允许扰动的环境维数。 这个例子来自我最近对网络定位非凸地形的一次重新整理。我最初试图从单条残差为负的边出发构造逃逸方向。对单边目标而言，这种边确实在垂直于当前边的方向上产生负二阶曲率；但网络中的节点扰动由所有相邻边共享，驻点条件又迫使不同边的残差达到力学平衡。局部的负曲率因此不一定能够扩展成整个网络的下降方向。 最先出现的结论反而是否定性的：在一个可微驻点处，恰好一条负残差边永远不足以产生负 Hessian 特征值。 真正决定鞍点的是多条负残差边在横向方向上的联合耦合。这篇页面记录这条思路在 2026 年 7 月如何从投影恒等式转向驻点附近的二阶几何。 01 · 起点 这条问题是怎么开始的 最初的问题来自一条对偶下界路线。我希望从 Lagrangian dual 得到一个非平凡的全局下界，用来描述网络定位实例的困难程度。但目标函数在整体平移下不变，普通的对偶计算很容易退化为平凡的零下界。 失败的下界并没有让整条推导失去信息。把边预算投影到可实现的边位移空间 Range(B) 后，仍然留下了一个由测量图和目标距离共同决定的结构量。它最初看起来像一个静态的实例分数，后来却提供了可微驻点上的饱和 witness，并把问题从“能否得到全局下界”引向“驻点附近的二阶几何是什么”。 这条研究路线因此不是从一组预先排好的定理开始，而是从一个没有成功的目标中逐步提炼出仍然稳定的结构。 02 · 稳定结构 已经明确的恒等式 设测量图为 G=(V,E) ，节点位置 x i ∈ℝ d ，目标距离 δ e ≥0。本文只讨论所有测量边当前长度都非零的可微构型。只保留一个目标函数： F ( x ) = ∑ e =( i , j )∈ E (‖ x i − x j ‖−δ e ) 2 . 记 r e =‖ x i − x j ‖，残差 ε e = r e −δ e ，归一化应力系数 a e =ε e / r e 。负残差意味着当前边比目标长度短，像一根被压缩的弹簧。 投影边预算 令 P B 表示到 Range(B) 的正交投影， V δ ={ u : ‖ u e ‖≤2δ e }。下面的量是精确的： S dual ( B ,δ) = ∑ e ∈ E δ e 2 − ¼ max u ∈ V δ ‖ P B…"
+    },
+    {
+      "title": "Research Statement | Feier Lyu (Fay Lyu)",
+      "url": "research.html",
+      "section": "Site",
+      "date": "",
+      "excerpt": "我研究优化理论与形式化验证。目前的项目包括：（i）面向子模最大化与投影一阶方法的可复用 Isabelle/HOL 基础设施；（ii）与 Prof. Shoham Sabach 合作研究网络定位中的负曲率结构证书。",
+      "tags": [
+        "research",
+        "optimization",
+        "formal-methods"
+      ],
+      "sort": 20260722,
+      "scope": "site",
+      "content": "研究陈述 我研究优化理论与形式化验证。目前的项目包括：（i）面向子模最大化与投影一阶方法的可复用 Isabelle/HOL 基础设施；（ii）与 Prof. Shoham Sabach 合作研究网络定位中的负曲率结构证书。 主要研究方向 代表性工作入口 几项最能支撑上面研究线索的项目和笔记。 研究范围 PRIMARY DIRECTION 01 机器检查优化与可复用证明结构 这条研究线把算法假设、状态不变量、关键不等式与收敛结论拆成可复用的 Isabelle/HOL 组件。 2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库还进一步发展 StochasticGreedy theorem line，包括采样模型、近似证明与预言机调用复杂度界。关于 smooth convex optimization 与 projected gradient descent 的第二个形式化项目已于2026年7月2日提交至 Archive of Formal Proofs，目前等待审核。 当前重点是减少不同算法证明之间重复的 projection、telescoping 与 approximation bookkeeping。 AFP entry DOI: 10.5281/zenodo.21054718 Proof document Repository PRIMARY DIRECTION 02 网络定位中的负曲率证书 与 Prof. Shoham Sabach 的合作研究图结构如何控制非最优驻点附近的 Hessian 负曲率。 当前目标是从 cycle consistency、projected edge budgets 与图的环空间中构造可验证的局部逃逸方向，并明确这些证书成立所需的几何假设。 Isabelle/HOL Submodular Greedy Formalization 子模贪心算法形式化项目与材料入口。 Isabelle/HOL Projected Gradient Descent Awaiting review smooth convex optimization 中一阶方法形式化项目；已提交至 AFP，等待审核。 Optimization Note TTGDA and Second-Order Tracking Exploratory 关于 value-function viewpoint 与二阶 tracking 问题的探索性技术笔记。",
+      "title_en": "Research Statement | Feier Lyu (Fay Lyu)",
+      "excerpt_en": "I work on optimization theory and formal verification through reusable Isabelle/HOL infrastructure for optimization and structural negative-curvature certificates for network localization."
     },
     {
       "title": "Theorem 11 必要性方向中的凸性问题",
@@ -429,7 +429,7 @@
       ],
       "sort": 20260508,
       "scope": "site",
-      "content": "代表性工作 研究陈述 技术笔记 学术概览 学术 Feier Lyu （Fay Lyu） 我研究优化理论与形式化验证。 当前工作集中在可复用的 Isabelle/HOL 基础设施，以及网络定位中的图结构负曲率证书。 教育背景 爱丁堡大学 数学本科 · 预计 2027 年毕业 康奈尔大学 交换学习 · 2025–2026 主要研究线 机器检查优化 面向子模最大化与投影一阶方法的 Isabelle/HOL 基础设施 网络定位 与 Prof. Shoham Sabach 合作研究负曲率证书与局部逃逸方向 Academic Academic Feier Lyu (Fay Lyu) I work on optimization theory and formal verification. My current work centers on reusable Isabelle/HOL infrastructure and graph-structured negative-curvature certificates for network localization. EDUCATION University of Edinburgh BSc Mathematics · expected 2027 Cornell University Exchange student · 2025–2026 PRIMARY RESEARCH LINES Machine-checked optimization Reusable Isabelle/HOL infrastructure for submodular maximization and projected first-order methods Network localization Negative-curvature certificates and local escape directions, with Prof. Shoham Sabach 核心证据 三项核心证据 01 AFP 正式条目 2026年5月26日发表；本人在 Wenda Li 指导下负责完整的 Isabelle/HOL 形式化开发。 AFP 条目 · 证明文档 02 Projected Gradient Descent 独立形式化项目；2026年7月2日提交 AFP，目前等待审核。 项目页面 · 代码仓库 03 Network Localization 与 Prof. Shoham Sabach 进行中的合作，研究图结构负曲率证书与局部逃逸方向。 技术笔记 个人档案 研究陈述 AFP 条目 GitHub 邮箱 EVIDENCE Three strongest pieces of evidence 01 Published AFP entry Pub…"
+      "content": "代表性工作 研究陈述 技术笔记 学术概览 学术 Feier Lyu （Fay Lyu） 我研究优化理论与形式化验证。 当前工作集中在可复用的 Isabelle/HOL 基础设施，以及网络定位中的图结构负曲率证书。 教育背景 爱丁堡大学 数学本科 · 预计 2027 年毕业 康奈尔大学 交换学习 · 2025–2026 主要研究线 机器检查优化 面向子模最大化与投影一阶方法的 Isabelle/HOL 基础设施 网络定位 与 Prof. Shoham Sabach 合作研究负曲率证书与局部逃逸方向 Academic Academic Feier Lyu (Fay Lyu) I work on optimization theory and formal verification. My current work centers on reusable Isabelle/HOL infrastructure and graph-structured negative-curvature certificates for network localization. EDUCATION University of Edinburgh BSc Mathematics · expected 2027 Cornell University Exchange student · 2025–2026 PRIMARY RESEARCH LINES Machine-checked optimization Reusable Isabelle/HOL infrastructure for submodular maximization and projected first-order methods Network localization Negative-curvature certificates and local escape directions, with Prof. Shoham Sabach 代表性研究成果 代表性研究成果 01 AFP 正式条目 2026年5月26日发表；本人在 Wenda Li 指导下负责完整的 Isabelle/HOL 形式化开发。 AFP 条目 · 证明文档 02 Projected Gradient Descent 独立形式化项目；2026年7月2日提交 AFP，目前等待审核。 项目页面 · 代码仓库 03 Network Localization 与 Prof. Shoham Sabach 进行中的合作，研究图结构负曲率证书与局部逃逸方向。 技术笔记 个人档案 研究陈述 AFP 条目 GitHub 邮箱 SELECTED RESEARCH OUTPUTS Selected Research Outputs 01 Published A…"
     },
     {
       "title": "Selected Work",
@@ -449,7 +449,7 @@
       ],
       "sort": 20260508,
       "scope": "site",
-      "content": "代表性工作 研究陈述 技术笔记 代表性工作 Feier Lyu （Fay Lyu） 可核查的学术工作按“已发表”“已提交”“合作研究”与“探索性笔记”分类展示；创意计算原型单独列为侧项目。 Selected Work Feier Lyu (Fay Lyu) Verifiable academic work is separated into Published, Submitted, Ongoing collaboration, and Exploratory notes. A creative-computation prototype is listed separately as a side project. 学术工作 学术工作 PUB 已发表 · 形式化验证 Greedy Algorithms for Cardinality-Constrained Submodular Maximization 状态： 2026 年 5 月 26 日正式发表于 AFP。AFP 条目覆盖经典贪心算法与经验证的有状态惰性贪心变体；当前仓库另含发表后的 StochasticGreedy 扩展，包括采样模型、近似证明与预言机调用复杂度界。 问题： 形式化基数约束单调子模最大化中经典贪心算法的 1−1/e 近似保证。 贡献： 在 Wenda Li 老师指导下，本人负责完整的 Isabelle/HOL 形式化开发，覆盖经典贪心算法与经验证的有状态惰性贪心变体。 证据： AFP 证明文档 GitHub DOI SUB 已提交 · 形式化验证 First-Order Methods for Smooth Convex Optimization in Isabelle/HOL 状态： 2026 年 7 月 2 日提交至 Archive of Formal Proofs，目前等待审核。 问题： 将投影梯度下降及其一阶收敛理论组织成可复用的 Isabelle/HOL 基础设施。 贡献： 独立形式化项目；本人负责完整的 Isabelle/HOL 形式化开发，覆盖投影几何、投影梯度映射、凸收敛与强凸线性收敛率。 证据： 项目页面 GitHub JOINT 合作研究 · 网络定位 Negative-Curvature Certificates for Network Localization 状态： 与 Prof. Shoham Sabach 开展中的合作研究。 问题： 对网络定位中的非最优驻点，哪些图结构与几何条件能给出负曲率证书和可计算的局部逃逸方向？ 贡献： 我目前的工作是构造并检查投影边预算条件、基于能量的逃逸方向，以及用于检验负曲率的 Hessian 分解。 证据： 研究记录 推导过程（一） 推导过程（二） NOTE 探索性笔记 · 极小极大优化 TTGDA and Second-…"
+      "content": "代表性工作 研究陈述 技术笔记 代表性工作 Feier Lyu （Fay Lyu） 以下条目区分已发表、已提交、进行中与探索性工作；创意计算原型作为侧项目单独列出。 Selected Work Feier Lyu (Fay Lyu) The entries below distinguish published, submitted, ongoing, and exploratory work. A creative-computation prototype appears separately as a side project. 代表性工作 代表性工作 PUB 已发表 · 形式化验证 Greedy Algorithms for Cardinality-Constrained Submodular Maximization 状态： 2026 年 5 月 26 日正式发表于 AFP。AFP 条目覆盖经典贪心算法与经验证的有状态惰性贪心变体；当前仓库另含发表后的 StochasticGreedy 扩展，包括采样模型、近似证明与预言机调用复杂度界。 问题： 形式化基数约束单调子模最大化中经典贪心算法的 1−1/e 近似保证。 贡献： 在 Wenda Li 老师指导下，本人负责完整的 Isabelle/HOL 形式化开发，覆盖经典贪心算法与经验证的有状态惰性贪心变体。 链接： AFP 证明文档 GitHub DOI SUB 已提交 · 形式化验证 First-Order Methods for Smooth Convex Optimization in Isabelle/HOL 状态： 2026 年 7 月 2 日提交至 Archive of Formal Proofs，目前等待审核。 问题： 将投影梯度下降及其一阶收敛理论组织成可复用的 Isabelle/HOL 基础设施。 贡献： 独立形式化项目；本人负责完整的 Isabelle/HOL 形式化开发，覆盖投影几何、投影梯度映射、凸收敛与强凸线性收敛率。 链接： 项目页面 GitHub JOINT 合作研究 · 网络定位 Negative-Curvature Certificates for Network Localization 状态： 与 Prof. Shoham Sabach 开展中的合作研究。 问题： 对网络定位中的非最优驻点，哪些图结构与几何条件能给出负曲率证书和可计算的局部逃逸方向？ 贡献： 我目前的工作是构造并检查投影边预算条件、基于能量的逃逸方向，以及用于检验负曲率的 Hessian 分解。 链接： 研究记录 推导过程（一） 推导过程（二） NOTE 探索性笔记 · 极小极大优化 TTGDA and Second-Order Tracking 状态： 探索性推导。 问题： 双时间尺度值函数跟踪…"
     },
     {
       "title": "Orchid",

@@ -269,12 +269,12 @@
             <div data-lang-block="zh">
               <h1>研究陈述</h1>
               <p class="research-positioning"><strong>Feier Lyu</strong>（Fay Lyu）</p>
-              <p class="research-positioning research-thesis-line">我研究优化理论与形式化验证。目前的项目包括：（i）面向子模最大化与投影一阶方法的可复用 Isabelle/HOL 基础设施；（ii）与 Prof. Shoham Sabach 合作研究网络定位中的负曲率结构证书。</p>
+              <p class="research-positioning research-thesis-line">我的工作关注结构性假设如何决定优化算法的保证。在 Isabelle/HOL 中，我研究如何把状态不变量与几何引理组织成可复用的证明接口；在网络定位中，我研究图结构与应力结构如何控制非最优驻点附近的负曲率。这些项目共享同一个目标：让算法保证背后的数学依赖足够明确，从而能够被分析、验证与复用。</p>
             </div>
             <div data-lang-block="en" hidden>
               <h1>Research Statement</h1>
               <p class="research-positioning"><strong>Feier Lyu</strong> (Fay Lyu)</p>
-              <p class="research-positioning research-thesis-line">I work on optimization theory and formal verification. My current projects are: (i) reusable Isabelle/HOL infrastructure for submodular maximization and projected first-order methods; and (ii) structural certificates for negative curvature in network localization, in collaboration with Prof. Shoham Sabach.</p>
+              <p class="research-positioning research-thesis-line">My work asks how structural assumptions determine the guarantees of optimization algorithms. In Isabelle/HOL, I study how state invariants and geometric lemmas can be organized into reusable proof interfaces; in network localization, I study how graph and stress structure govern negative curvature near non-optimal stationary points. These projects share a common aim: to make the mathematical dependencies behind algorithmic guarantees explicit enough to analyze, verify, and reuse.</p>
             </div>
           </div>
         </div>
@@ -288,12 +288,12 @@
         <div class="container">
           <ol class="research-question-list" data-lang-block="zh">
             <li><span>01</span><p>如何把经典贪心、有状态惰性贪心与 StochasticGreedy 的假设、状态不变量和近似保证组织成可复用的 Isabelle/HOL 接口？</p></li>
-            <li><span>02</span><p>如何用一组稳定的投影几何与投影梯度映射引理，同时支持凸收敛和强凸线性收敛率？</p></li>
+            <li><span>02</span><p>如何在统一的概率运行语义中结合期望近似保证与可执行轨迹层面的预言机调用复杂度保证？</p></li>
             <li><span>03</span><p>对网络定位中的非最优驻点，哪些图结构与几何条件能给出可计算的负曲率证书和局部逃逸方向？</p></li>
           </ol>
           <ol class="research-question-list" data-lang-block="en" hidden>
             <li><span>01</span><p>How can the assumptions, state invariants, and approximation guarantees for classical greedy, stateful lazy-greedy, and stochastic-greedy be exposed through reusable Isabelle/HOL interfaces?</p></li>
-            <li><span>02</span><p>Which reusable projection-geometry and projected-gradient-mapping lemmas support both convex convergence and a strongly convex linear rate?</p></li>
+            <li><span>02</span><p>How can the expected approximation guarantee and the executable trace-level oracle-cost guarantee be unified within a single probabilistic run semantics?</p></li>
             <li><span>03</span><p>For non-optimal stationary points in network localization, which graph and geometric conditions yield a computable negative-curvature certificate and a local escape direction?</p></li>
           </ol>
         </div>
@@ -354,88 +354,14 @@
         </div>
       </section>
 
-      <section class="section research-outputs-section" id="research-outputs">
-        <div class="container research-section-head">
-          <div data-lang-block="zh">
-            <h2>代表性工作入口</h2>
-            <p>几项最能支撑上面研究线索的项目和笔记。</p>
-          </div>
-          <div data-lang-block="en" hidden>
-            <h2>Representative Work</h2>
-            <p>A few projects and notes that give concrete evidence for the research lines above.</p>
-          </div>
-        </div>
+      <section class="section research-selected-work-cta" id="research-outputs">
         <div class="container research-outputs-shell">
-          <section class="research-output-group" data-output-group="notes">
-            <div class="research-output-group-head">
-              <div data-lang-block="zh">
-                <h3>材料入口</h3>
-                <p>形式化项目、优化笔记与进一步材料。</p>
-              </div>
-              <div data-lang-block="en" hidden>
-                <h3>Notes and Work</h3>
-                <p>Formalization projects, optimization notes, and supporting materials.</p>
-              </div>
-            </div>
-            <div class="research-outputs-grid">
-              <a class="research-output-card" data-output-type="notes" href="post/isabelle-submodular-greedy.html">
-                <span class="research-output-kicker">Isabelle/HOL</span>
-                <div data-lang-block="zh">
-                  <strong>Submodular Greedy</strong>
-                  <p>子模贪心算法形式化项目与材料入口。</p>
-                </div>
-                <div data-lang-block="en" hidden>
-                  <strong>Submodular Greedy</strong>
-                  <p>Formalization project and materials for submodular greedy algorithms.</p>
-                </div>
-                <span class="research-output-status">
-                  <span class="research-output-status-badge research-output-status-badge--active" data-copy-zh="形式化项目" data-copy-en="Formalization">形式化项目</span>
-                </span>
-              </a>
-              <a class="research-output-card" data-output-type="notes" href="post/projected-gradient-descent-isabelle-hol.html">
-                <span class="research-output-kicker">Isabelle/HOL</span>
-                <div data-lang-block="zh">
-                  <strong>Projected Gradient Descent</strong>
-                  <p>光滑凸优化中的一阶方法形式化项目；已提交至 AFP，等待审核。</p>
-                </div>
-                <div data-lang-block="en" hidden>
-                  <strong>Projected Gradient Descent</strong>
-                  <p>Formalization project for first-order methods in smooth convex optimization; submitted to AFP and awaiting review.</p>
-                </div>
-                <span class="research-output-status">
-                  <span class="research-output-status-badge research-output-status-badge--active" data-copy-zh="等待审核" data-copy-en="Awaiting review">等待审核</span>
-                </span>
-              </a>
-              <a class="research-output-card" data-output-type="notes" href="notes/network_localization_structural_certificates.html">
-                <span class="research-output-kicker" data-copy-zh="非凸优化" data-copy-en="Nonconvex Optimization">非凸优化</span>
-                <div data-lang-block="zh">
-                  <strong>Negative-Curvature Certificates for Network Localization</strong>
-                  <p>关于投影边预算、Hessian 结构与局部逃逸方向的合作研究技术笔记。</p>
-                </div>
-                <div data-lang-block="en" hidden>
-                  <strong>Negative-Curvature Certificates for Network Localization</strong>
-                  <p>A joint-research technical note on projected edge budgets, Hessian structure, and local escape directions.</p>
-                </div>
-                <span class="research-output-status">
-                  <span class="research-output-status-badge research-output-status-badge--active" data-copy-zh="合作研究" data-copy-en="Joint research">合作研究</span>
-                </span>
-              </a>
-              <a class="research-output-card" data-output-type="notes" href="notes/ttgda_second_order_tracking_note.html">
-                <span class="research-output-kicker" data-copy-zh="优化笔记" data-copy-en="Optimization Note">优化笔记</span>
-                <div data-lang-block="zh">
-                  <strong>TTGDA and Second-Order Tracking</strong>
-                  <p>关于值函数视角与二阶跟踪问题的探索性技术笔记。</p>
-                </div>
-                <div data-lang-block="en" hidden>
-                  <strong>TTGDA and Second-Order Tracking</strong>
-                  <p>An exploratory note on the value-function viewpoint and second-order tracking.</p>
-                </div>
-                <span class="research-output-status">
-                  <span class="research-output-status-badge research-output-status-badge--draft" data-copy-zh="探索性" data-copy-en="Exploratory">探索性</span>
-                </span>
-              </a>
-            </div>
-          </section>
+          <div class="research-link-row" data-lang-block="zh">
+            <a href="projects.html">查看代表性工作</a>
+          </div>
+          <div class="research-link-row" data-lang-block="en" hidden>
+            <a href="projects.html">View Selected Work</a>
+          </div>
         </div>
       </section>
 
