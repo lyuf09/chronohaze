@@ -17096,3 +17096,55 @@ html:lang(zh) .music-index-page .music-room-track-open {
     font-size: 12px;
   }
 }
+
+/* Preserve each selected work's artwork ratio and give its credits room to breathe. */
+.music-index-page .music-room-track-card:not([data-cover-orientation="portrait"]) .music-room-track-link {
+  grid-template-columns: 1fr;
+}
+
+.music-index-page .music-room-track-card:not([data-cover-orientation="portrait"]) .music-room-track-cover {
+  min-height: 0;
+  aspect-ratio: var(--music-room-track-cover-ratio, 16 / 9);
+}
+
+.music-index-page .music-room-track-card:nth-child(1) .music-room-track-cover {
+  --music-room-track-cover-ratio: 1280 / 726;
+}
+
+.music-index-page .music-room-track-card:nth-child(2) .music-room-track-cover,
+.music-index-page .music-room-track-card:nth-child(4) .music-room-track-cover {
+  --music-room-track-cover-ratio: 2 / 1;
+}
+
+.music-index-page .music-room-track-card:nth-child(3) .music-room-track-cover {
+  --music-room-track-cover-ratio: 1280 / 553;
+}
+
+.music-index-page .music-room-track-card[data-cover-orientation="portrait"] .music-room-track-cover {
+  --music-room-track-cover-ratio: 1179 / 1471;
+}
+
+.music-index-page .music-room-track-card .music-room-track-cover img {
+  object-fit: contain;
+  transform: none;
+}
+
+@media (min-width: 981px) {
+  .music-index-page .music-room-track-card:not([data-cover-orientation="portrait"]) {
+    grid-column: span 6;
+  }
+}
+
+@media (min-width: 761px) {
+  .music-index-page .music-room-selected-grid > .music-room-track-card[data-cover-orientation="portrait"]:last-child {
+    width: calc((100% - 18px) / 2);
+    grid-column: 1 / -1;
+    justify-self: center;
+  }
+}
+
+@media (max-width: 760px) {
+  .music-index-page .music-room-track-card[data-cover-orientation] .music-room-track-cover {
+    aspect-ratio: var(--music-room-track-cover-ratio, 16 / 9);
+  }
+}

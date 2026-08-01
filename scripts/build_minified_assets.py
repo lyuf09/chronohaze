@@ -9,7 +9,7 @@ VERSION = "20260723-information-architecture1"
 HOME_VERSION = "20260727-mobile-portrait-static1"
 PROTECT_VERSION = "20260726-primary-nav-language1"
 MUSIC_PROTECT_VERSION = "20260727-mobile-artwork-layout1"
-MUSIC_STYLE_VERSION = "20260727-mobile-artwork-layout2"
+MUSIC_STYLE_VERSION = "20260801-adaptive-cover-layout1"
 CATALOG_VERSION = "20260723-language-cleanup1"
 
 SECURITY_META_MARKER = "chronohaze-security-policy"
