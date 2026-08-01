@@ -196,8 +196,8 @@
   <link rel="preload" href="assets/fonts/cinzel-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" as="image" href="assets/template/hero_portrait-960.webp" type="image/webp" imagesrcset="assets/template/hero_portrait-600.webp 600w, assets/template/hero_portrait-960.webp 960w, assets/template/hero_portrait-1600.webp 1600w" imagesizes="(max-width: 640px) 88vw, (max-width: 900px) 92vw, 46vw" />
   <link rel="stylesheet" href="styles.min.css?v=20260723-information-architecture1" />
-  <link rel="stylesheet" href="home.min.css?v=20260727-mobile-portrait-static1" />
-  <script defer src="protect-media.min.js?v=20260726-primary-nav-language1"></script>
+  <link rel="stylesheet" href="home.min.css?v=20260801-home-research-signal1" />
+  <script defer src="protect-media.min.js?v=20260801-footer-copy1"></script>
 </head>
 <body class="home-body">
   <div class="home-page" id="top">
@@ -218,7 +218,7 @@
           <div class="hero-portrait-frame">
             <picture class="responsive-picture" style="display:block;width:100%;">
               <source type="image/webp" srcset="assets/template/hero_portrait-600.webp 600w, assets/template/hero_portrait-960.webp 960w, assets/template/hero_portrait-1600.webp 1600w" sizes="(max-width: 640px) 88vw, (max-width: 900px) 92vw, 46vw" />
-              <img class="hero-portrait" src="assets/template/hero_portrait-960.jpg" srcset="assets/template/hero_portrait-600.jpg 600w, assets/template/hero_portrait-960.jpg 960w, assets/template/hero_portrait-1600.jpg 1600w" alt="Portrait of HazezZ" data-i18n-alt="heroPortraitAlt" width="3000" height="4000" data-reveal="zoom" data-reveal-delay="0" data-reveal-wait="image-load" data-eager="true" loading="eager" decoding="async" fetchpriority="high" sizes="(max-width: 640px) 88vw, (max-width: 900px) 92vw, 46vw" />
+              <img class="hero-portrait" src="assets/template/hero_portrait-960.jpg" srcset="assets/template/hero_portrait-600.jpg 600w, assets/template/hero_portrait-960.jpg 960w, assets/template/hero_portrait-1600.jpg 1600w" alt="Portrait of Feier Lyu (HazezZ)" data-i18n-alt="heroPortraitAlt" width="3000" height="4000" data-reveal="zoom" data-reveal-delay="0" data-reveal-wait="image-load" data-eager="true" loading="eager" decoding="async" fetchpriority="high" sizes="(max-width: 640px) 88vw, (max-width: 900px) 92vw, 46vw" />
             </picture>
           </div>
         </div>
@@ -226,10 +226,11 @@
         <div class="hero-right" data-floating-logo-tone="light">
           <div class="hero-right-inner">
             <p class="hero-kicker" data-i18n="heroKicker">Origin / Chronohaze</p>
-            <h1 data-i18n="heroTitle">Fay / Feier Lyu</h1>
+            <h1><span class="hero-primary-name" data-i18n="heroTitle">Feier Lyu</span><span class="hero-secondary-name" data-i18n="heroSecondaryName">Fay</span></h1>
             <p class="hero-role-line" data-i18n="heroRole">OPTIMIZATION · FORMAL VERIFICATION · MACHINE-CHECKED MATHEMATICS</p>
             <p data-i18n="heroIntro" data-i18n-html="true"><span class="hero-poetic-line">In the haze of time, I look for structure in complexity.</span><span class="hero-identity-line">Proof asks what can be trusted; music and image ask what deserves to be remembered.</span><span class="hero-world-line">This site gathers the work that continues between them.</span></p>
             <p class="hero-authority-line" data-i18n="heroAuthority">University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027</p>
+            <p class="hero-research-signal" data-i18n="heroResearchSignal">AFP publication · PGD formalization submitted · Ongoing research with Prof. Shoham Sabach</p>
             <div class="hero-academic-module" data-search-ignore>
               <p class="hero-academic-kicker" data-i18n="academicKicker">Quick links</p>
               <div class="hero-academic-links">
@@ -242,28 +243,6 @@
             </div>
 
             <a class="contact-btn" href="#contact" data-i18n="contactBtn">Contact me</a>
-
-            <div class="player-shell" id="playerShell" data-search-ignore>
-              <button class="player-toggle" type="button" aria-label="Play or pause featured track" aria-pressed="false" data-i18n-aria="audioToggleAria" id="audioToggle"></button>
-              <div class="player-center">
-                <p>AFFIZIEREN - HAZEZZ</p>
-                <div class="player-track"><span id="playerProgress"></span></div>
-              </div>
-              <p class="player-time" id="playerTime">00:00 / 00:00</p>
-              <div class="player-support" id="playerSupport">
-                <span class="player-status" id="playerStatus">Preparing audio…</span>
-                <a class="player-fallback-link" id="playerFallbackLink" href="music/track-04.html" hidden>Open track page</a>
-              </div>
-              <audio
-                id="heroAudio"
-                preload="metadata"
-                data-eager-media="1"
-                playsinline
-                oncontextmenu="return false"
-              >
-                <source src="assets/audio/juke/ZK8iOaJLM0p2757mXaquFqQ9d36eRqkm.mp3" type="audio/mpeg" />
-              </audio>
-            </div>
           </div>
         </div>
       </section>
@@ -318,6 +297,27 @@
             <p class="identity-panel-eyebrow" data-i18n="identityCreativeEyebrow">CREATIVE IDENTITY · HAZEZZ</p>
             <h3 data-i18n="identityCreativeTitle">Music &amp; Image</h3>
             <p data-i18n="identityCreativeBody">Performance, composition, and photographic series, each given its own complete narrative space.</p>
+            <div class="player-shell" id="playerShell" data-search-ignore>
+              <button class="player-toggle" type="button" aria-label="Play or pause featured track" aria-pressed="false" data-i18n-aria="audioToggleAria" id="audioToggle"></button>
+              <div class="player-center">
+                <p>AFFIZIEREN - HAZEZZ</p>
+                <div class="player-track"><span id="playerProgress"></span></div>
+              </div>
+              <p class="player-time" id="playerTime">00:00 / 00:00</p>
+              <div class="player-support" id="playerSupport">
+                <span class="player-status" id="playerStatus">Preparing audio…</span>
+                <a class="player-fallback-link" id="playerFallbackLink" href="music/track-04.html" hidden>Open track page</a>
+              </div>
+              <audio
+                id="heroAudio"
+                preload="metadata"
+                data-eager-media="1"
+                playsinline
+                oncontextmenu="return false"
+              >
+                <source src="assets/audio/juke/ZK8iOaJLM0p2757mXaquFqQ9d36eRqkm.mp3" type="audio/mpeg" />
+              </audio>
+            </div>
             <div class="identity-visual-links">
               <a class="identity-visual-link identity-visual-music" href="music.html" style="--identity-image: image-set(url('assets/template/entry-music-5323-1600.webp') type('image/webp') 1x, url('assets/template/entry-music-5323.jpg') type('image/jpeg') 1x);"><span data-i18n="identityCreativeLink1">Music / Performance</span></a>
               <a class="identity-visual-link identity-visual-photo" href="photography.html" style="--identity-image: image-set(url('assets/template/entry-photo-5322-1600.webp') type('image/webp') 1x, url('assets/template/entry-photo-5322.jpg') type('image/jpeg') 1x);"><span data-i18n="identityCreativeLink2">Photography / Moving Image</span></a>
@@ -329,13 +329,13 @@
       <section class="now-strip" id="now" data-floating-logo-tone="dark">
         <div class="now-shell" data-reveal="fade" data-reveal-delay="40">
           <div class="now-head">
-            <h2 data-i18n="nowTitle">Now / July 2026</h2>
+            <h2 data-i18n="nowTitle">Now / August 2026</h2>
             <div class="now-freshness" data-reveal="fade" data-reveal-delay="80">
               <span class="now-freshness-label" data-i18n="nowFreshnessLabel">Last updated</span>
-              <time class="now-freshness-time" datetime="2026-07">2026. 07</time>
+              <time class="now-freshness-time" datetime="2026-08">2026. 08</time>
             </div>
           </div>
-          <div class="now-grid" aria-label="Current work in July 2026" data-i18n-aria="nowGridAria">
+          <div class="now-grid" aria-label="Current work in August 2026" data-i18n-aria="nowGridAria">
             <article class="now-card" data-reveal="slide-up" data-reveal-delay="80">
               <h3 data-i18n="nowCard1Title">Performance videos</h3>
               <p data-i18n="nowCard1Body">Producing a new series of bass-performance videos with an upgraded camera setup.</p>
@@ -345,8 +345,8 @@
               <p data-i18n="nowCard2Body">Producing a collaborative single and composing an original track commissioned by an underground idol group.</p>
             </article>
             <article class="now-card" data-reveal="slide-up" data-reveal-delay="220">
-              <h3 data-i18n="nowCard3Title">AFP extension</h3>
-              <p data-i18n="nowCard3Body">Extending the published AFP formalization toward StochasticGreedy and developing the accompanying theory and implementation for a future conference paper.</p>
+              <h3 data-i18n="nowCard3Title">StochasticGreedy semantics</h3>
+              <p data-i18n="nowCard3Body">The approximation and oracle-cost theorem line is now formalized; current work focuses on the probabilistic-semantics abstraction gap needed for StochasticGreedy.</p>
             </article>
           </div>
         </div>
@@ -378,7 +378,7 @@
       </div>
 
       <div class="home-footer-bottom">
-        <p data-i18n="footerCopy">© 2026 by chronohaze.space. Powered and secured by GitHub Pages.</p>
+        <p data-i18n="footerCopy">© 2026 by chronohaze.space. Hosted on GitHub Pages.</p>
       </div>
     </footer>
 
@@ -504,12 +504,14 @@
           playerFallbackLink: '去音乐页试听',
           playerUnavailableTitle: '当前设备或网络下无法直接播放，可前往音乐页试听。',
           drawerAria: '站点菜单',
-          heroPortraitAlt: 'HazezZ 个人肖像',
+          heroPortraitAlt: 'Feier Lyu（HazezZ）的肖像',
           heroKicker: '起点 / Chronohaze',
-          heroTitle: 'Fay / Feier Lyu',
+          heroTitle: 'Feier Lyu',
+          heroSecondaryName: 'Fay',
           heroRole: 'OPTIMIZATION · FORMAL VERIFICATION · MACHINE-CHECKED MATHEMATICS',
           heroIntro: '<span class="hero-poetic-line">在时间的薄雾里，为复杂性寻找结构。</span><span class="hero-identity-line">证明关心什么可以被确信；音乐与影像关心什么值得被记住。</span><span class="hero-world-line">这里收录两者之间仍在继续的工作。</span>',
           heroAuthority: 'University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027',
+          heroResearchSignal: 'AFP 论文 · PGD 形式化已投稿 · 与 Shoham Sabach 教授持续合作研究',
           academicKicker: '快捷入口',
           academicResearch: '学术',
           academicCV: '学术档案',
@@ -522,16 +524,16 @@
           aboutP2: '我在优化理论、形式化验证与机器学习理论的交界处工作。目前用 <span class="about-inline-en">Isabelle/HOL</span> 研究一阶优化与子模优化；形式化项目《基数约束子模最大化的贪心算法》已发表于 AFP。同时关注非凸极小极大问题中的值函数与二阶追踪。',
           aboutP3: '理性与浪漫在这里并置：证明、声音与影像各自保留自己的语言。',
           aboutLanguages: '<span class="about-language-label">语言：</span>中文 / 英语 / 日语<br />我主要以中文和英文写作，也会用日文进行歌词、标题与创作表达。',
-          nowKicker: 'NOW / 2026年7月',
-          nowTitle: '近况 / 2026年7月',
+          nowKicker: 'NOW / 2026年8月',
+          nowTitle: '近况 / 2026年8月',
           nowFreshnessLabel: '近况更新',
-          nowGridAria: '2026年7月的研究与创作近况',
+          nowGridAria: '2026年8月的研究与创作近况',
           nowCard1Title: '演奏视频',
           nowCard1Body: '正在使用新购入的相机与镜头制作贝斯演奏视频。',
           nowCard2Title: '音乐制作',
           nowCard2Body: '正在制作一首合作单曲，并为一个地下偶像团体创作原创曲目。',
-          nowCard3Title: 'AFP 延伸',
-          nowCard3Body: '正在将已发表的子模贪心形式化工作扩展到 StochasticGreedy，并整理面向会议论文的理论与实现框架。',
+          nowCard3Title: 'StochasticGreedy 概率语义',
+          nowCard3Body: '近似保证与 oracle-cost 定理链现已完成形式化；当前工作聚焦于 StochasticGreedy 所需的概率语义抽象缺口。',
           selectedEvidenceKicker: '研究概览',
           selectedEvidenceTitle: '当前工作',
           selectedEvidenceGridAria: '精选证据',
@@ -596,12 +598,14 @@
           playerFallbackLink: 'Open track page',
           playerUnavailableTitle: 'Playback is unavailable on this device or network. Open the track page instead.',
           drawerAria: 'Menu',
-          heroPortraitAlt: 'Portrait of HazezZ',
+          heroPortraitAlt: 'Portrait of Feier Lyu (HazezZ)',
           heroKicker: 'Origin / Chronohaze',
-          heroTitle: 'Fay / Feier Lyu',
+          heroTitle: 'Feier Lyu',
+          heroSecondaryName: 'Fay',
           heroRole: 'OPTIMIZATION · FORMAL VERIFICATION · MACHINE-CHECKED MATHEMATICS',
           heroIntro: '<span class="hero-poetic-line">In the haze of time, I look for structure in complexity.</span><span class="hero-identity-line">Proof asks what can be trusted; music and image ask what deserves to be remembered.</span><span class="hero-world-line">This site gathers the work that continues between them.</span>',
           heroAuthority: 'University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027',
+          heroResearchSignal: 'AFP publication · PGD formalization submitted · Ongoing research with Prof. Shoham Sabach',
           academicKicker: 'Quick links',
           academicResearch: 'Academic',
           academicCV: 'Academic Profile',
@@ -614,16 +618,16 @@
           aboutP2: 'Alongside the published AFP development, I study <span class="about-inline-en">value-function</span> and second-order tracking questions in nonconvex minimax optimization. A 2025–2026 exchange year at <span class="about-inline-en">Cornell University</span> also shaped my interest in structural scores, dual certificates, and the gap between an argument that works on paper and one whose dependencies are fully exposed.',
           aboutP3: 'Reason and romance sit side by side here: proof, sound, and image each keep their own language.',
           aboutLanguages: '<span class="about-language-label">Languages:</span> Chinese / English / 日本語<br />I mainly write in Chinese and English, and also use Japanese for lyrics, titles, and creative expression.',
-          nowKicker: 'NOW / JULY 2026',
-          nowTitle: 'Now / July 2026',
+          nowKicker: 'NOW / AUGUST 2026',
+          nowTitle: 'Now / August 2026',
           nowFreshnessLabel: 'Last updated',
-          nowGridAria: 'Current research and studio work in July 2026',
+          nowGridAria: 'Current research and studio work in August 2026',
           nowCard1Title: 'Performance videos',
           nowCard1Body: 'Producing a new series of bass-performance videos with an upgraded camera setup.',
           nowCard2Title: 'Music production',
           nowCard2Body: 'Producing a collaborative single and composing an original track commissioned by an underground idol group.',
-          nowCard3Title: 'AFP extension',
-          nowCard3Body: 'Extending the published AFP formalization toward StochasticGreedy and developing the accompanying theory and implementation for a future conference paper.',
+          nowCard3Title: 'StochasticGreedy semantics',
+          nowCard3Body: 'The approximation and oracle-cost theorem line is now formalized; current work focuses on the probabilistic-semantics abstraction gap needed for StochasticGreedy.',
           selectedEvidenceKicker: 'CURRENT WORK',
           selectedEvidenceTitle: 'Research Snapshot',
           selectedEvidenceGridAria: 'Selected evidence',
@@ -662,7 +666,7 @@
           musicLabel: 'Music Portfolio',
           footerContactLead: 'Contact via email:',
           footerCities: 'Edinburgh · Ithaca · Chongqing — places that shaped the work.',
-          footerCopy: '© 2026 by chronohaze.space. Powered and secured by GitHub Pages.',
+          footerCopy: '© 2026 by chronohaze.space. Hosted on GitHub Pages.',
           siteNotes: 'Privacy Policy',
           a11y: 'Accessibility',
           menuClose: 'Close  [ - ]',

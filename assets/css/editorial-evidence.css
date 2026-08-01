@@ -125,6 +125,29 @@
   line-height: 1.2;
 }
 
+/* Academic gateway: keep secondary copy and action labels legible on ordinary displays. */
+.academic-page .research-positioning,
+.academic-page .academic-snapshot-list span,
+.academic-page .academic-proof-kicker,
+.academic-page .academic-evidence-index {
+  color: rgba(43, 51, 67, 0.88);
+}
+
+.academic-page .academic-snapshot-list span {
+  font-size: 13px;
+}
+
+.academic-page .academic-local-link,
+.academic-page .research-link-row a,
+.academic-page .academic-evidence-list a {
+  font-size: 14px;
+}
+
+.academic-page .academic-local-link {
+  color: rgba(48, 57, 75, 0.92);
+  border-color: rgba(82, 94, 120, 0.26);
+}
+
 .projects-page:not(.academic-page) #selected-work-list .academic-evidence-list li {
   grid-template-columns: 54px minmax(0, 1fr);
   padding: 18px 0;

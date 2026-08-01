@@ -17144,6 +17144,21 @@ html:lang(zh) .music-index-page .music-room-track-open {
 }
 
 @media (max-width: 760px) {
+  .music-index-page .music-room-album-cover {
+    aspect-ratio: var(--music-room-album-cover-ratio, 4 / 3);
+  }
+
+  .music-index-page .music-room-album:nth-child(2) .music-room-album-cover {
+    --music-room-album-cover-ratio: 1 / 1;
+  }
+
+  .music-index-page .music-room-album-cover img {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    object-fit: cover;
+  }
+
   .music-index-page .music-room-track-card[data-cover-orientation] .music-room-track-cover {
     aspect-ratio: var(--music-room-track-cover-ratio, 16 / 9);
   }

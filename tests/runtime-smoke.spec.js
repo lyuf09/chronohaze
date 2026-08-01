@@ -33,6 +33,7 @@ test("home page renders hero and player shell", async ({ page }) => {
   await expect(page.locator("body.home-body")).toBeVisible();
   await expect(page.locator(".hero-portrait")).toBeVisible();
   await expect(page.locator("#playerShell")).toBeVisible();
+  await expect(page.locator(".identity-panel-creative #playerShell")).toHaveCount(1);
   await expect(page.locator("#playerTime")).not.toHaveText(/^$/);
   await expect(page.locator("#selected-evidence")).toBeVisible();
   await expect(page.locator(".selected-evidence-card")).toHaveCount(3);
@@ -60,7 +61,7 @@ test("home page renders hero and player shell", async ({ page }) => {
   await expect(page.locator(".identity-panel-creative")).toContainText("创作身份 · HAZEZZ");
   await expect(page.locator("#now")).toContainText("演奏视频");
   await expect(page.locator("#now")).toContainText("音乐制作");
-  await expect(page.locator("#now")).toContainText("AFP 延伸");
+  await expect(page.locator("#now")).toContainText("StochasticGreedy 概率语义");
   await expect(page.locator("#selected-evidence")).not.toContainText("Current research");
   await expect(page.locator("#welcome")).not.toContainText("Music & Image");
   await expect(page.locator("#now")).not.toContainText("Performance videos");
@@ -68,6 +69,12 @@ test("home page renders hero and player shell", async ({ page }) => {
   await expect(page.locator("#now")).not.toContainText("正式发表于 AFP");
   await expect(page.locator(".hero-authority-line")).toHaveText(
     "University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027"
+  );
+  await expect(page.locator(".hero-research-signal")).toHaveText(
+    "AFP 论文 · PGD 形式化已投稿 · 与 Shoham Sabach 教授持续合作研究"
+  );
+  await expect(page.locator(".home-footer [data-i18n='footerCopy']")).toContainText(
+    "由 GitHub Pages 托管"
   );
   await expect(page.locator("main")).not.toContainText("2005 年出生");
   await expect(page.locator("#welcome")).toContainText("理性与浪漫在这里并置");
@@ -140,6 +147,7 @@ test("compact desktop home keeps portrait, identity, and actions in the first vi
       heading: box(".hero-right h1"),
       links: box(".hero-academic-links"),
       contact: box(".contact-btn"),
+      researchSignal: box(".hero-research-signal"),
     };
   });
 
@@ -150,6 +158,7 @@ test("compact desktop home keeps portrait, identity, and actions in the first vi
   expect(geometry.heading.bottom).toBeLessThan(936);
   expect(geometry.links.bottom).toBeLessThan(936);
   expect(geometry.contact.bottom).toBeLessThan(936);
+  expect(geometry.researchSignal.bottom).toBeLessThan(936);
 
   expect(errors).toEqual([]);
 });
@@ -170,9 +179,9 @@ test("home keeps core first-view content readable outside the reveal sequence", 
       ".hero-right h1",
       ".hero-role-line",
       ".hero-authority-line",
+      ".hero-research-signal",
       ".hero-academic-module",
       ".contact-btn",
-      "#playerShell",
     ];
     return {
       core: selectors.map((selector) => {
@@ -341,7 +350,8 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
   await page.goto("index.html?lang=zh", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
   await expect(page.locator(".hero-kicker")).toHaveText("起点 / Chronohaze");
-  await expect(page.locator(".hero-right h1")).toHaveText("Fay / Feier Lyu");
+  await expect(page.locator(".hero-primary-name")).toHaveText("Feier Lyu");
+  await expect(page.locator(".hero-secondary-name")).toHaveText("Fay");
   await expect(page.locator(".hero-role-line")).toHaveText(
     "OPTIMIZATION · FORMAL VERIFICATION · MACHINE-CHECKED MATHEMATICS"
   );
@@ -353,6 +363,9 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
   await expect(page.locator(".hero-authority-line")).toHaveText(
     "University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027"
   );
+  await expect(page.locator(".hero-research-signal")).toHaveText(
+    "AFP 论文 · PGD 形式化已投稿 · 与 Shoham Sabach 教授持续合作研究"
+  );
   await expect(page.locator('.hero-academic-link[href="projects.html"]')).toHaveText("代表性工作");
   await expect(page.locator('.hero-academic-link[href="math.html"]')).toHaveText("技术笔记");
   await expect(page.locator('[data-i18n="nowCard1Body"]')).toHaveText(
@@ -362,14 +375,15 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
     "正在制作一首合作单曲，并为一个地下偶像团体创作原创曲目。"
   );
   await expect(page.locator('[data-i18n="nowCard3Body"]')).toHaveText(
-    "正在将已发表的子模贪心形式化工作扩展到 StochasticGreedy，并整理面向会议论文的理论与实现框架。"
+    "近似保证与 oracle-cost 定理链现已完成形式化；当前工作聚焦于 StochasticGreedy 所需的概率语义抽象缺口。"
   );
-  await expect(page.locator('[data-i18n="nowTitle"]')).toHaveText("近况 / 2026年7月");
+  await expect(page.locator('[data-i18n="nowTitle"]')).toHaveText("近况 / 2026年8月");
 
   await page.goto("index.html?lang=en", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
   await expect(page.locator(".hero-kicker")).toHaveText("Origin / Chronohaze");
-  await expect(page.locator(".hero-right h1")).toHaveText("Fay / Feier Lyu");
+  await expect(page.locator(".hero-primary-name")).toHaveText("Feier Lyu");
+  await expect(page.locator(".hero-secondary-name")).toHaveText("Fay");
   await expect(page.locator(".hero-role-line")).toHaveText(
     "OPTIMIZATION · FORMAL VERIFICATION · MACHINE-CHECKED MATHEMATICS"
   );
@@ -382,7 +396,7 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
   await expect(page.locator(".hero-world-line")).toHaveText(
     "This site gathers the work that continues between them."
   );
-  await expect(page.locator('[data-i18n="nowTitle"]')).toHaveText("Now / July 2026");
+  await expect(page.locator('[data-i18n="nowTitle"]')).toHaveText("Now / August 2026");
   await expect(page.locator('[data-i18n="nowCard1Body"]')).toHaveText(
     "Producing a new series of bass-performance videos with an upgraded camera setup."
   );
@@ -390,20 +404,23 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
     "Producing a collaborative single and composing an original track commissioned by an underground idol group."
   );
   await expect(page.locator('[data-i18n="nowCard3Body"]')).toHaveText(
-    "Extending the published AFP formalization toward StochasticGreedy and developing the accompanying theory and implementation for a future conference paper."
+    "The approximation and oracle-cost theorem line is now formalized; current work focuses on the probabilistic-semantics abstraction gap needed for StochasticGreedy."
   );
   await expect(page.locator(".hero-authority-line")).toHaveText(
     "University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027"
+  );
+  await expect(page.locator(".hero-research-signal")).toHaveText(
+    "AFP publication · PGD formalization submitted · Ongoing research with Prof. Shoham Sabach"
   );
   await expect(page.locator("main")).not.toContainText("Born in 2005");
   await expect(page.getByRole("heading", { name: "Research Snapshot" })).toBeVisible();
   await expect(page.locator(".selected-evidence-card").nth(1)).toContainText(
     "Graph-structured negative-curvature certificates and local escape directions, with Prof. Shoham Sabach."
   );
-  await expect(page.locator(".hero-portrait")).toHaveAttribute("alt", "Portrait of HazezZ");
+  await expect(page.locator(".hero-portrait")).toHaveAttribute("alt", "Portrait of Feier Lyu (HazezZ)");
   await expect(page.locator(".now-grid")).toHaveAttribute(
     "aria-label",
-    "Current research and studio work in July 2026"
+    "Current research and studio work in August 2026"
   );
   await expect(page.locator('meta[name="description"]')).toHaveAttribute(
     "content",
@@ -661,6 +678,31 @@ test("music index renders and remains interactive", async ({ page }) => {
   );
   await expect(page.locator(".music-bottom-gallery picture")).toHaveCount(8);
   await expect(page.locator(".music-bottom-gallery img[alt='']")).toHaveCount(0);
+  const intrinsicImageSizes = await page
+    .locator(".music-hero img, .music-intro img, .music-bottom-gallery img")
+    .evaluateAll((images) =>
+      images.map((image) => ({
+        src: image.getAttribute("src"),
+        width: Number(image.getAttribute("width") || 0),
+        height: Number(image.getAttribute("height") || 0),
+      }))
+    );
+  expect(intrinsicImageSizes.length).toBeGreaterThanOrEqual(10);
+  expect(intrinsicImageSizes.filter((image) => image.width <= 0 || image.height <= 0)).toEqual([]);
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  const reservedArtworkSlots = await page
+    .locator(".music-room-album-cover, .music-room-track-cover")
+    .evaluateAll((covers) =>
+      covers.map((cover) => ({
+        aspectRatio: window.getComputedStyle(cover).aspectRatio,
+        height: cover.getBoundingClientRect().height,
+      }))
+    );
+  expect(reservedArtworkSlots.length).toBeGreaterThan(5);
+  expect(
+    reservedArtworkSlots.filter((slot) => slot.aspectRatio === "auto" || slot.height <= 0)
+  ).toEqual([]);
 
   expect(errors).toEqual([]);
 });
@@ -1010,7 +1052,7 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   await expect(page.locator(".cv-utility-bar")).toBeVisible();
   await expect(page.locator("a.cv-research-link")).toBeVisible();
   await expect(page.locator(".page-last-updated-label")).toHaveText("Last updated:");
-  await expect(page.locator(".page-last-updated-time")).toHaveText("July 2026");
+  await expect(page.locator(".page-last-updated-time")).toHaveText("August 2026");
   await expect(cvEnglish.locator("#cv-en-highlights")).toContainText("Expected graduation: 2027");
   await expect(cvEnglish.getByRole("heading", { name: "Academic Profile" })).toBeVisible();
   await expect(cvEnglish.locator("#cv-en-projects")).toContainText("Archive of Formal Proofs · May 2026");
@@ -1064,7 +1106,7 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   await waitForCriticalLoaderRelease(page);
   const cvChinese = page.locator('[data-lang-block="zh"]');
   await expect(page.locator(".page-last-updated-label")).toHaveText("最近更新：");
-  await expect(page.locator(".page-last-updated-time")).toHaveText("2026 年 7 月");
+  await expect(page.locator(".page-last-updated-time")).toHaveText("2026 年 8 月");
   await expect(cvChinese.locator("#cv-zh-projects")).toContainText(
     "项目已于2026年7月2日提交 Archive of Formal Proofs，目前等待审核。"
   );
@@ -1278,7 +1320,7 @@ test("secondary pages keep mobile nav within the viewport", async ({ page }, tes
     await waitForCriticalLoaderRelease(page);
 
     await expect(page.locator(".site-header .nav")).toBeVisible();
-    await expect(page.locator(".site-header .nav a")).toHaveCount(7);
+    await expect(page.locator(".site-header .nav a")).toHaveCount(6);
     await expect(page.locator(".site-header .brand img")).toHaveAttribute(
       "src",
       /logo-header\.png$/
@@ -1294,7 +1336,6 @@ test("secondary pages keep mobile nav within the viewport", async ({ page }, tes
       "cv.html",
       "music.html",
       "photography.html",
-      "olfactory.html",
       "search.html",
     ]);
 
@@ -1484,6 +1525,12 @@ test("academic page isolates languages and renders a concise academic index", as
   await expect(evidence.locator('[data-lang-block="en"]')).toContainText("Ongoing collaboration with Prof. Shoham Sabach");
   await expect(page.locator("main")).not.toContainText("Born in 2005");
   await expect(page.locator("main")).not.toContainText("HazezZ");
+
+  const academicActionSizes = await page
+    .locator(".academic-local-link, .academic-proof-links a, .academic-evidence-list a")
+    .evaluateAll((links) => links.map((link) => parseFloat(window.getComputedStyle(link).fontSize)));
+  expect(academicActionSizes.length).toBeGreaterThan(0);
+  expect(academicActionSizes.every((size) => size >= 14)).toBe(true);
 
   const metrics = await page.evaluate(() => ({
     viewport: window.innerWidth,

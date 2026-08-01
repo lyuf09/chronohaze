@@ -394,6 +394,21 @@ html:lang(en) {
   color: var(--home-ink-strong);
 }
 
+.hero-primary-name,
+.hero-secondary-name {
+  display: block;
+}
+
+.hero-secondary-name {
+  margin-top: 6px;
+  font-family: var(--home-font-ui-serif);
+  font-size: 0.34em;
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: rgba(61, 70, 86, 0.72);
+}
+
 .hero-right-inner > .hero-role-line {
   width: min(390px, 100%);
   margin: 0 0 28px;
@@ -463,6 +478,20 @@ html:lang(en) {
   letter-spacing: 0.075em;
   text-transform: uppercase;
   color: rgba(45, 55, 72, 0.84);
+}
+
+.hero-right-inner > .hero-research-signal {
+  width: min(500px, 100%);
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-left: 2px solid rgba(74, 95, 130, 0.56);
+  background: linear-gradient(90deg, rgba(221, 228, 239, 0.74), rgba(235, 239, 246, 0.22));
+  font-family: var(--home-font-ui-serif);
+  font-size: 13px;
+  line-height: 1.48;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+  color: rgba(29, 38, 53, 0.96);
 }
 
 .hero-academic-module {
@@ -1019,6 +1048,36 @@ html:lang(en) {
 
 .identity-panel-creative .identity-panel-eyebrow {
   color: rgba(223, 229, 239, 0.74);
+}
+
+.identity-panel-creative .player-shell {
+  width: min(100%, 510px);
+  margin-top: 22px;
+  background: linear-gradient(180deg, rgba(239, 243, 250, 0.14), rgba(210, 219, 234, 0.08));
+  border-color: rgba(230, 236, 246, 0.18);
+  box-shadow:
+    0 14px 28px rgba(7, 10, 17, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.identity-panel-creative .player-toggle {
+  --player-icon-color: rgba(246, 249, 253, 0.94);
+  color: rgba(246, 249, 253, 0.94);
+}
+
+.identity-panel-creative .player-center p,
+.identity-panel-creative .player-time,
+.identity-panel-creative .player-status,
+.identity-panel-creative .player-fallback-link {
+  color: rgba(241, 245, 252, 0.9);
+}
+
+.identity-panel-creative .player-track {
+  background: rgba(235, 241, 250, 0.2);
+}
+
+.identity-panel-creative .player-track span {
+  background: rgba(242, 246, 252, 0.9);
 }
 
 .identity-panel h3 {
@@ -1669,6 +1728,10 @@ html:lang(en) {
     width: min(100%, 500px);
     margin-top: 15px;
     padding-top: 11px;
+  }
+
+  .hero-right-inner > .hero-research-signal {
+    width: min(100%, 500px);
   }
 
   .hero-academic-module {
