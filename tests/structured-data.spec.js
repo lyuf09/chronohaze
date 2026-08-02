@@ -103,6 +103,7 @@ test("bilingual research posts expose one localized BlogPosting with real metada
       published: "2026-07-22",
       modified: "2026-08-01",
       keywords: ["Network Localization", "Nonconvex Optimization", "Negative Curvature", "Stress-Rigidity"],
+      image: "https://lyuf09.github.io/chronohaze/assets/og/math/network-localization.png",
     },
   ];
 
@@ -123,6 +124,14 @@ test("bilingual research posts expose one localized BlogPosting with real metada
     expect(posts[0].datePublished).toBe(expected.published);
     expect(posts[0].dateModified).toBe(expected.modified);
     expect(posts[0].keywords).toEqual(expected.keywords);
+    if (expected.image) {
+      expect(posts[0].image).toEqual({
+        "@type": "ImageObject",
+        url: expected.image,
+        width: 1200,
+        height: 630,
+      });
+    }
     expect(JSON.stringify(posts[0].keywords)).not.toContain("Feier Lyu");
     expect(JSON.stringify(posts[0].keywords)).not.toContain("min read");
   }

@@ -155,7 +155,7 @@
       "@type": "WebSite",
       "@id": CHRONOHAZE_WEBSITE_ID,
       url: CHRONOHAZE_SITE_URL,
-      name: "chronohaze.space",
+      name: "CHRONOHAZE",
       alternateName: "Chronohaze",
       inLanguage: htmlLang,
       potentialAction: {
@@ -205,6 +205,7 @@
       pageTitle: pageTitle,
       pageName: pageName,
       metaDescription: metaDescription,
+      ogImage: ogImage,
       page: page,
       website: website,
       person: person,
@@ -477,6 +478,14 @@
         publisher: { "@id": CHRONOHAZE_PERSON_ID },
         datePublished: datePublished || undefined,
         dateModified: dateModified || undefined,
+        image: base.ogImage
+          ? {
+              "@type": "ImageObject",
+              url: absolutizeUrl(base.ogImage),
+              width: 1200,
+              height: 630,
+            }
+          : undefined,
         url: base.canonical,
         inLanguage: base.htmlLang,
         keywords: keywords.length ? keywords : undefined,

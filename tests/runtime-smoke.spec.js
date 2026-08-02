@@ -516,6 +516,14 @@ test("network-localization research record is bilingual and contains no public P
   await expect(englishRecord).toContainText("Three questions in the current draft");
   await expect(page.locator("iframe")).toHaveCount(0);
   await expect(page.locator('a[href$=".pdf"]')).toHaveCount(0);
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+    "content",
+    "https://lyuf09.github.io/chronohaze/assets/og/math/network-localization.png"
+  );
+  await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute(
+    "content",
+    "https://lyuf09.github.io/chronohaze/assets/og/math/network-localization.png"
+  );
 
   await page.goto("notes/network_localization_structural_certificates.html?lang=zh", {
     waitUntil: "domcontentloaded",
@@ -551,6 +559,19 @@ test("network-localization research record is bilingual and contains no public P
   expect(mobileRecordLayout.recordLeft).toBeGreaterThanOrEqual(0);
   expect(mobileRecordLayout.recordRight).toBeLessThanOrEqual(mobileRecordLayout.viewportWidth);
   expect(mobileRecordLayout.paragraphFonts.every((font) => !/Cormorant/i.test(font))).toBe(true);
+
+  const nextNote = page.getByRole("link", {
+    name: "下一篇 · 子模贪心算法形式化正式进入 AFP",
+    exact: true,
+  });
+  await expect(nextNote).toHaveAttribute(
+    "href",
+    /post\/submodular-greedy-formalization-enters-afp\.html\?lang=zh$/
+  );
+  await nextNote.click();
+  await expect(page).toHaveURL(
+    /post\/submodular-greedy-formalization-enters-afp\.html\?lang=zh$/
+  );
 
   expect(errors).toEqual([]);
 });
@@ -1120,7 +1141,7 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   await expect(cvChinese.locator("#cv-zh-experience")).toContainText("数据工程实习生");
   await expect(cvChinese.locator("#cv-zh-experience")).toContainText("2025 年 6 月–7 月");
   await expect(page.locator(".footer-copy")).toHaveText(
-    "© 2026 chronohaze.space。由 GitHub Pages 托管。"
+    "© 2026 CHRONOHAZE。由 GitHub Pages 托管。"
   );
 
   await page.goto("research.html?lang=zh", { waitUntil: "domcontentloaded" });

@@ -24,6 +24,11 @@ MATH_OG_DIR = "assets/og/math"
 MUSIC_OG_DIR = "assets/og/music"
 SITE_OG_DIR = "assets/og/site"
 
+STATIC_OG_IMAGE_OVERRIDES = {
+    "notes/network_localization_structural_certificates.html":
+        "assets/og/math/network-localization.png",
+}
+
 FAVICON_VERSION = "4"
 
 HREFLANG_MARKER_START = "<!-- GENERATED:hreflang:start -->"
@@ -682,7 +687,7 @@ def render_site_card_image(
 
     rail_y = OG_HEIGHT - 96
     draw.line((90, rail_y, OG_WIDTH - 90, rail_y), fill=(154, 168, 195, 100), width=2)
-    draw.text((92, rail_y + 14), "chronohaze.space", font=meta_font, fill=(*muted_rgb, 255))
+    draw.text((92, rail_y + 14), "CHRONOHAZE", font=meta_font, fill=(*muted_rgb, 255))
     slug_text = Path(rel).stem
     slug_bbox = draw.textbbox((0, 0), slug_text, font=meta_font)
     draw.text((OG_WIDTH - 92 - (slug_bbox[2] - slug_bbox[0]), rail_y + 14), slug_text, font=meta_font, fill=(92, 103, 129, 255))
@@ -786,7 +791,7 @@ def build_cards_and_patch_heads(root: Path) -> None:
     site_image_map: Dict[str, str] = {}
     for page in collect_hreflang_targets(root):
         rel = str(page.relative_to(root)).replace("\\", "/")
-        if rel in math_image_map or rel in music_image_map:
+        if rel in math_image_map or rel in music_image_map or rel in STATIC_OG_IMAGE_OVERRIDES:
             continue
         if rel in ("policy.html", "accessibility.html", "blank.html", "blank-1.html"):
             continue
@@ -799,7 +804,9 @@ def build_cards_and_patch_heads(root: Path) -> None:
     for page in collect_hreflang_targets(root):
         rel = str(page.relative_to(root)).replace("\\", "/")
         og_image = None
-        if rel in math_image_map:
+        if rel in STATIC_OG_IMAGE_OVERRIDES:
+            og_image = relative_url_to_absolute(STATIC_OG_IMAGE_OVERRIDES[rel])
+        elif rel in math_image_map:
             og_image = math_image_map[rel]
         elif rel in music_image_map:
             og_image = music_image_map[rel]

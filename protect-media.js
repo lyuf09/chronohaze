@@ -54,9 +54,9 @@
     loader.innerHTML =
       '<div class="chronohaze-loader__veil"></div>' +
       '<div class="chronohaze-loader__panel">' +
-      '<p class="chronohaze-loader__brand">chronohaze.space</p>' +
+      '<p class="chronohaze-loader__brand">CHRONOHAZE</p>' +
       '<p class="chronohaze-loader__status"></p>' +
-      '<h2 class="chronohaze-loader__title">chronohaze.space</h2>' +
+      '<h2 class="chronohaze-loader__title">CHRONOHAZE</h2>' +
       '<p class="chronohaze-loader__meta"></p>' +
       '<div class="chronohaze-loader__line" aria-hidden="true"><span></span></div>' +
       "</div>";
@@ -1802,69 +1802,27 @@
     return mathCatalogMetadataPromise;
   }
 
-  function bindMathPostNavLink(itemNode, href) {
-    if (!itemNode || !href || itemNode.dataset.mathNavBound === "1") {
-      return;
-    }
-    itemNode.dataset.mathNavBound = "1";
-    itemNode.draggable = false;
-
-    var go = function () {
-      try {
-        window.location.assign(href);
-      } catch (_err) {
-        window.location.href = href;
-      }
-    };
-
-    itemNode.addEventListener(
-      "click",
-      function (event) {
-        if (!event || event.defaultPrevented) {
-          return;
-        }
-        if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
-          return;
-        }
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        go();
-      },
-      true
-    );
-
-    itemNode.onclick = function (event) {
-      if (!event || event.defaultPrevented) {
-        return;
-      }
-      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
-        return;
-      }
-      event.preventDefault();
-      go();
-    };
-
-    itemNode.addEventListener(
-      "keydown",
-      function (event) {
-        if (!event || event.defaultPrevented) {
-          return;
-        }
-        if (event.key !== "Enter" && event.key !== " ") {
-          return;
-        }
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        go();
-      },
-      true
-    );
-  }
-
   function createMathPostNavItem(item, direction, lang) {
     var isEnglish = lang === "en";
-    var itemNode = document.createElement("button");
-    itemNode.className = "math-post-nav-item" + (item ? "" : " is-disabled");
+    var route = item
+      ? normalizeMathPostPath(item.readmore_url || item.url || "")
+      : "";
+    var href = "";
+    if (route) {
+      try {
+        var destination = new URL(
+          getChronohazeRootPath() + route.replace(/^\/+/, ""),
+          window.location.origin
+        );
+        destination.searchParams.set("lang", isEnglish ? "en" : "zh");
+        href = destination.href;
+      } catch (_error) {
+        href = getChronohazeRootPath() + route.replace(/^\/+/, "");
+      }
+    }
+    var isEnabled = !!(item && href);
+    var itemNode = document.createElement(isEnabled ? "a" : "span");
+    itemNode.className = "math-post-nav-item" + (isEnabled ? "" : " is-disabled");
     itemNode.setAttribute("data-nav-dir", direction);
 
     var labelNode = document.createElement("span");
@@ -1880,30 +1838,18 @@
     var titleNode = document.createElement("span");
     titleNode.className = "math-post-nav-title";
 
-    if (item) {
-      var route = normalizeMathPostPath(item.readmore_url || item.url || "");
-      var href = "";
-      if (route) {
-        try {
-          href = new URL(
-            getChronohazeRootPath() + route.replace(/^\/+/, ""),
-            window.location.origin
-          ).href;
-        } catch (_error) {
-          href = getChronohazeRootPath() + route.replace(/^\/+/, "");
-        }
-      }
+    if (isEnabled) {
       var titleText =
         isEnglish
           ? item.title_en || item.title || "Untitled note"
           : item.title || item.title_en || "未命名笔记";
-      itemNode.setAttribute("type", "button");
+      itemNode.setAttribute("href", href);
+      itemNode.setAttribute("data-no-page-transition", "1");
       itemNode.setAttribute(
         "aria-label",
         (labelNode.textContent || "") + " · " + titleText
       );
       titleNode.textContent = titleText;
-      bindMathPostNavLink(itemNode, href);
     } else {
       titleNode.textContent = isEnglish
         ? direction === "prev"
@@ -1938,6 +1884,8 @@
     var nav = document.createElement("nav");
     nav.className = "math-post-nav";
     nav.setAttribute("data-math-post-nav", "1");
+    nav.setAttribute("data-math-post-path", currentPath);
+    nav.setAttribute("data-math-post-lang", lang);
     nav.setAttribute("aria-label", lang === "en" ? "Adjacent notes" : "相邻笔记导航");
     nav.appendChild(createMathPostNavItem(prevItem, "prev", lang));
     nav.appendChild(createMathPostNavItem(nextItem, "next", lang));
@@ -1975,12 +1923,20 @@
         return;
       }
 
+      var navLang = blocks.length > 1 ? blockLang : safeLang;
       var existing = block.querySelector('[data-math-post-nav="1"]');
+      if (
+        existing &&
+        existing.getAttribute("data-math-post-path") === currentPath &&
+        existing.getAttribute("data-math-post-lang") === navLang
+      ) {
+        return;
+      }
       if (existing) {
         existing.remove();
       }
 
-      var nav = buildMathPostAdjacentNavigation(mathCatalogMetadata, currentPath, blocks.length > 1 ? blockLang : safeLang);
+      var nav = buildMathPostAdjacentNavigation(mathCatalogMetadata, currentPath, navLang);
       if (!nav) {
         return;
       }
@@ -3533,7 +3489,7 @@
         searchShortcutHint: "/ 或 Ctrl/Cmd+K 聚焦 · ↑↓ 选择结果 · Enter 打开",
         siteNotes: "网站说明",
         a11y: "无障碍支持",
-        footerCopy: "© 2026 chronohaze.space。由 GitHub Pages 托管。",
+        footerCopy: "© 2026 CHRONOHAZE。由 GitHub Pages 托管。",
         footerSocialAria: "社交链接",
         footerContactLead: "联系邮箱：",
         footerCities: "Feier Lyu · 爱丁堡大学数学本科",
@@ -3711,7 +3667,7 @@
         searchShortcutHint: "/ or Ctrl/Cmd+K to focus · ↑↓ select · Enter open",
         siteNotes: "Privacy Policy",
         a11y: "Accessibility",
-        footerCopy: "© 2026 by chronohaze.space. Hosted on GitHub Pages.",
+        footerCopy: "© 2026 by CHRONOHAZE. Hosted on GitHub Pages.",
         footerSocialAria: "Social links",
         footerContactLead: "Contact by email: ",
         footerCities: "Feier Lyu · BSc Mathematics, University of Edinburgh",

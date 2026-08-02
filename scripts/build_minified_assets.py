@@ -85,7 +85,7 @@ CRITICAL_LOADER_SNIPPET = """  <style id="chronohaze-critical-loader-style">
     }
 
     html.chronohaze-critical-loading::after {
-      content: "chronohaze.space";
+      content: "CHRONOHAZE";
       position: fixed;
       left: 50%;
       top: 50%;
@@ -104,11 +104,11 @@ CRITICAL_LOADER_SNIPPET = """  <style id="chronohaze-critical-loader-style">
     }
 
     html[lang^="zh"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
-      content: "chronohaze.space\\A 页面加载中";
+      content: "CHRONOHAZE\\A 页面加载中";
     }
 
     html[lang^="en"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
-      content: "chronohaze.space\\A Loading";
+      content: "CHRONOHAZE\\A Loading";
     }
 
     html.chronohaze-critical-loading-mobile body {
@@ -125,7 +125,7 @@ CRITICAL_LOADER_SNIPPET = """  <style id="chronohaze-critical-loader-style">
     }
 
     html.chronohaze-critical-loading-mobile::after {
-      content: "chronohaze.space";
+      content: "CHRONOHAZE";
       left: 16px;
       top: 16px;
       width: auto;
