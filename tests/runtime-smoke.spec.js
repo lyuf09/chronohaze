@@ -73,6 +73,18 @@ test("home page renders hero and player shell", async ({ page }) => {
   await expect(page.locator(".hero-research-signal")).toHaveText(
     "AFP 论文 · PGD 形式化已投稿 · 与 Shoham Sabach 教授持续合作研究"
   );
+  await expect(page.locator(".hero-academic-links .hero-academic-link")).toHaveText([
+    "学术",
+    "研究陈述",
+    "精选工作",
+    "个人档案",
+    "GitHub",
+  ]);
+  const evidenceStatusFontSize = await page
+    .locator(".selected-evidence-status")
+    .first()
+    .evaluate((node) => Number.parseFloat(getComputedStyle(node).fontSize));
+  expect(evidenceStatusFontSize).toBeGreaterThanOrEqual(10.5);
   await expect(page.locator(".home-footer [data-i18n='footerCopy']")).toContainText(
     "由 GitHub Pages 托管"
   );
@@ -160,6 +172,30 @@ test("compact desktop home keeps portrait, identity, and actions in the first vi
   expect(geometry.contact.bottom).toBeLessThan(936);
   expect(geometry.researchSignal.bottom).toBeLessThan(936);
 
+  expect(errors).toEqual([]);
+});
+
+test("mobile home overlays academic evidence on the portrait", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "chromium", "deterministic mobile portrait check");
+  const errors = trackPageErrors(page);
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("index.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+
+  const badge = page.locator(".hero-mobile-evidence");
+  await expect(badge).toBeVisible();
+  await expect(badge.locator("span")).toHaveText([
+    "AFP publication · PGD submitted",
+    "Research with Prof. Shoham Sabach",
+  ]);
+  const overlayGeometry = await page.evaluate(() => {
+    const frame = document.querySelector(".hero-portrait-frame")?.getBoundingClientRect();
+    const badgeRect = document.querySelector(".hero-mobile-evidence")?.getBoundingClientRect();
+    return { frame, badge: badgeRect };
+  });
+  expect(overlayGeometry.badge.bottom).toBeLessThanOrEqual(overlayGeometry.frame.bottom);
+  expect(overlayGeometry.badge.top).toBeGreaterThan(overlayGeometry.frame.top);
   expect(errors).toEqual([]);
 });
 
@@ -366,8 +402,9 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
   await expect(page.locator(".hero-research-signal")).toHaveText(
     "AFP 论文 · PGD 形式化已投稿 · 与 Shoham Sabach 教授持续合作研究"
   );
-  await expect(page.locator('.hero-academic-link[href="projects.html"]')).toHaveText("代表性工作");
-  await expect(page.locator('.hero-academic-link[href="math.html"]')).toHaveText("技术笔记");
+  await expect(page.locator('.hero-academic-link[href="research.html"]')).toHaveText("研究陈述");
+  await expect(page.locator('.hero-academic-link[href="projects.html"]')).toHaveText("精选工作");
+  await expect(page.locator('.hero-academic-link[href="cv.html"]')).toHaveText("个人档案");
   await expect(page.locator('[data-i18n="nowCard1Body"]')).toHaveText(
     "正在使用新购入的相机与镜头制作贝斯演奏视频。"
   );
@@ -514,6 +551,9 @@ test("network-localization research record is bilingual and contains no public P
   await expect(englishRecord).toContainText("exactly one edge has negative residual");
   await expect(englishRecord).toContainText("Current draft · Not yet promoted to a theorem");
   await expect(englishRecord).toContainText("Three questions in the current draft");
+  await expect(englishRecord).toContainText("The rank-one update criterion says");
+  await expect(englishRecord).toContainText("βReff(e)=1");
+  await expect(englishRecord).toContainText("positive-semidefinite boundary");
   await expect(page.locator("iframe")).toHaveCount(0);
   await expect(page.locator('a[href$=".pdf"]')).toHaveCount(0);
   await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
@@ -536,6 +576,8 @@ test("network-localization research record is bilingual and contains no public P
   await expect(chineseRecord).toContainText("从投影预算到负曲率");
   await expect(chineseRecord).toContainText("当前工作稿 · 尚未升级为定理");
   await expect(page.locator('[data-lang-block="en"]')).toBeHidden();
+  await expect(chineseRecord).toContainText("rank-one update 判据");
+  await expect(chineseRecord).toContainText("βReff(e)=1");
   await expect(page.locator(".academic-local-nav a").first()).toHaveAttribute(
     "href",
     /projects\.html\?lang=zh/
@@ -636,6 +678,9 @@ test("music index renders and remains interactive", async ({ page }) => {
     "data-music-listening-room-state",
     "ready"
   );
+  await expect(page.locator('.music-room-archive [data-href="music/track-10.html"]')).toHaveCount(0);
+  await expect(page.locator('.music-room-archive [data-href="music/track-felix.html"]')).toHaveCount(0);
+  await expect(page.locator(".music-room-archive")).not.toContainText(/音频待上传|audio pending upload/i);
 
   const archiveFilter = page.locator(".music-room-archive-filter-select");
   if ((await archiveFilter.count()) > 0) {
@@ -725,6 +770,24 @@ test("music index renders and remains interactive", async ({ page }) => {
     reservedArtworkSlots.filter((slot) => slot.aspectRatio === "auto" || slot.height <= 0)
   ).toEqual([]);
 
+  expect(errors).toEqual([]);
+});
+
+test("music index completes its layout before DOM ready settles", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "chromium", "deterministic desktop layout stability check");
+  const errors = trackPageErrors(page);
+  await page.setViewportSize({ width: 1363, height: 936 });
+  await page.goto("music.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+
+  await expect(page.locator("body.music-index-page")).toHaveAttribute(
+    "data-music-listening-room-state",
+    "ready"
+  );
+  const initialHeight = await page.evaluate(() => document.documentElement.scrollHeight);
+  await page.waitForTimeout(1200);
+  const settledHeight = await page.evaluate(() => document.documentElement.scrollHeight);
+  expect(Math.abs(settledHeight - initialHeight)).toBeLessThanOrEqual(80);
   expect(errors).toEqual([]);
 });
 
@@ -1873,7 +1936,9 @@ test("photography vocabulary and Blue still frames render without overflow", asy
   await expect(page.locator(".photo-blue-evidence-result")).toContainText("满分");
   await expect(page.locator(".photo-blue-evidence-stills img")).toHaveCount(5);
   await expect(page.locator("a.photo-blue-evidence-stills")).toHaveCount(1);
-  await expect(page.locator(".photo-archive img[alt=''][aria-hidden='true']")).toHaveCount(17);
+  await expect(page.locator(".photo-archive img[alt='']")).toHaveCount(0);
+  await expect(page.locator(".photo-archive img[aria-hidden='true']")).toHaveCount(0);
+  await expect(page.locator(".photo-archive img[data-alt-en][data-alt-zh]")).toHaveCount(17);
   await expect(page.locator(".nav a.active")).toHaveAttribute("aria-current", "page");
 
   const photographyMetrics = await page.evaluate(() => ({

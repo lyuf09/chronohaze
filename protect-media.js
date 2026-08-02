@@ -13327,10 +13327,12 @@
         (catalogItem && catalogItem.type) ||
         row.dataset.musicType ||
         inferMusicRowType(row, rawTitle);
+      var rowStatus = String(row.dataset.status || "").trim().toLowerCase();
       var hasAudio =
         catalogItem && typeof catalogItem.has_audio === "boolean"
           ? !!catalogItem.has_audio
-          : !/音频待上传|audio pending upload/i.test(rawTitle);
+          : !/^(?:unreleased|pending-audio|wip)$/.test(rowStatus) &&
+            !/音频待上传|audio pending upload/i.test(rawTitle);
       var tags = deriveMusicRowTags(row, catalogItem, type, rawTitle, rawArtist);
       return {
         row: row,
@@ -13672,6 +13674,9 @@
         if (!meta) {
           return;
         }
+        if (meta.type !== "album" && !meta.hasAudio) {
+          return;
+        }
         applyArchiveStatus(row, meta);
         archiveMetas.push(meta);
         tagValues = tagValues.concat(meta.archiveTags || []);
@@ -13883,47 +13888,28 @@
     rootSection.appendChild(shell);
     document.body.dataset.musicListeningRoomState = "core-ready";
 
-    scheduleIdleWork(function () {
-      if (
-        !document.body ||
-        !document.body.classList.contains("music-index-page") ||
-        !rootSection.isConnected
-      ) {
-        return;
-      }
+    var archiveWrapper = createElement("section", "section music-room-archive-section");
+    var archiveShell = createElement(
+      "div",
+      "container music-room-shell music-room-archive-shell"
+    );
+    archiveShell.appendChild(buildArchive(rowMetaMap));
+    archiveWrapper.appendChild(archiveShell);
 
-      try {
-        withMutationRefreshSuppressed(function () {
-          var archiveWrapper = createElement("section", "section music-room-archive-section");
-          var archiveShell = createElement(
-            "div",
-            "container music-room-shell music-room-archive-shell"
-          );
-          archiveShell.appendChild(buildArchive(rowMetaMap));
-          archiveWrapper.appendChild(archiveShell);
-
-          if (afterwordSection && afterwordSection.parentNode) {
-            afterwordSection.parentNode.insertBefore(archiveWrapper, afterwordSection);
-          } else if (backgroundSection && backgroundSection.parentNode) {
-            backgroundSection.parentNode.insertBefore(
-              archiveWrapper,
-              backgroundSection.nextSibling
-            );
-          } else if (rootSection.parentNode) {
-            rootSection.parentNode.insertBefore(
-              archiveWrapper,
-              afterwordSection || rootSection.nextSibling
-            );
-          }
-          document.body.dataset.musicListeningRoomState = "ready";
-        });
-      } catch (error) {
-        document.body.dataset.musicListeningRoomState = "core-ready";
-        if (window.console && typeof window.console.error === "function") {
-          window.console.error("[Chronohaze] deferred music archive build failed:", error);
-        }
-      }
-    }, 900);
+    if (afterwordSection && afterwordSection.parentNode) {
+      afterwordSection.parentNode.insertBefore(archiveWrapper, afterwordSection);
+    } else if (backgroundSection && backgroundSection.parentNode) {
+      backgroundSection.parentNode.insertBefore(
+        archiveWrapper,
+        backgroundSection.nextSibling
+      );
+    } else if (rootSection.parentNode) {
+      rootSection.parentNode.insertBefore(
+        archiveWrapper,
+        afterwordSection || rootSection.nextSibling
+      );
+    }
+    document.body.dataset.musicListeningRoomState = "ready";
   }
 
   function setSamePageLanguageInUrl(lang) {
@@ -18438,19 +18424,17 @@
       return;
     }
     musicIndexArchitectureScheduled = true;
-    scheduleIdleWork(function () {
-      musicIndexArchitectureScheduled = false;
-      try {
-        withMutationRefreshSuppressed(setupMusicIndexListeningRoom);
-      } catch (error) {
-        if (document.body) {
-          delete document.body.dataset.musicListeningRoomState;
-        }
-        if (window.console && typeof window.console.error === "function") {
-          window.console.error("[Chronohaze] deferred music index build failed:", error);
-        }
+    musicIndexArchitectureScheduled = false;
+    try {
+      withMutationRefreshSuppressed(setupMusicIndexListeningRoom);
+    } catch (error) {
+      if (document.body) {
+        delete document.body.dataset.musicListeningRoomState;
       }
-    }, 700);
+      if (window.console && typeof window.console.error === "function") {
+        window.console.error("[Chronohaze] music index build failed:", error);
+      }
+    }
   }
 
   function runTaskGroup(tasks) {

@@ -563,7 +563,11 @@
                 <span class="callout-label">单负边结论</span>
                 <p>在可微驻点处，如果恰好只有一条边具有负残差，而其余边残差非负，那么整体 Hessian 必为半正定。</p>
               </div>
-              <p>证明的几何直觉是：驻点的力平衡迫使非负应力网络对唯一的负边做临界补偿，使应力矩阵停留在半正定边界，而第二个刚度项本身半正定。因此“发现一条被压缩的边”并不能推出 strict saddle。</p>
+              <p>把唯一负边记为 <var>e</var>，强度记为 β&gt;0，并把其余非负权重组成的 Laplacian 记为 <var>L</var><sub>+</sub>。应力矩阵就是一个 rank-one downdate：</p>
+              <div class="math-display" aria-label="Single-edge rank-one stress update">
+                Ω = <var>L</var><sub>+</sub> − β<var>b</var><sub><var>e</var></sub><var>b</var><sub><var>e</var></sub><sup>⊤</sup>, &nbsp;&nbsp; <var>R</var><sub>eff</sub>(<var>e</var>) = <var>b</var><sub><var>e</var></sub><sup>⊤</sup><var>L</var><sub>+</sub><sup>†</sup><var>b</var><sub><var>e</var></sub>.
+              </div>
+              <p>rank-one update 判据给出 Ω⪰0 当且仅当 β<var>R</var><sub>eff</sub>(<var>e</var>)≤1。驻点方程 <var>L</var><sub>+</sub><var>X</var>=β<var>b</var><sub><var>e</var></sub><var>b</var><sub><var>e</var></sub><sup>⊤</sup><var>X</var>，左乘 <var>b</var><sub><var>e</var></sub><sup>⊤</sup><var>L</var><sub>+</sub><sup>†</sup>，再用当前边非零，即得到 β<var>R</var><sub>eff</sub>(<var>e</var>)=1。于是应力项恰停在半正定边界，而第二个刚度项本身半正定；“发现一条被压缩的边”仍不能推出 strict saddle。</p>
               <p>三节点构型已经能够显示界限的 sharpness：当两条负残差边共同出现时，它们的横向作用可以在节点空间中耦合成真正的负曲率方向。核心问题由此从单边筛选变成多边相互作用。</p>
             </section>
 
@@ -723,7 +727,11 @@
                 <span class="callout-label">Single-negative-edge conclusion</span>
                 <p>At a differentiable stationary point, if exactly one edge has negative residual and all other residuals are nonnegative, then the full Hessian is positive semidefinite.</p>
               </div>
-              <p>The proof intuition is mechanical. Force balance makes the nonnegative-stress network compensate the unique negative edge at a critical threshold, leaving the stress matrix on the positive-semidefinite boundary; the rigidity term is already positive semidefinite. Merely finding one compressed edge does not imply a strict saddle.</p>
+              <p>Let <var>e</var> be the unique negative edge, let β&gt;0 be its magnitude, and let <var>L</var><sub>+</sub> be the Laplacian formed by all remaining nonnegative weights. The stress matrix is the rank-one downdate</p>
+              <div class="math-display" aria-label="Single-edge rank-one stress update">
+                Ω = <var>L</var><sub>+</sub> − β<var>b</var><sub><var>e</var></sub><var>b</var><sub><var>e</var></sub><sup>⊤</sup>, &nbsp;&nbsp; <var>R</var><sub>eff</sub>(<var>e</var>) = <var>b</var><sub><var>e</var></sub><sup>⊤</sup><var>L</var><sub>+</sub><sup>†</sup><var>b</var><sub><var>e</var></sub>.
+              </div>
+              <p>The rank-one update criterion says Ω⪰0 exactly when β<var>R</var><sub>eff</sub>(<var>e</var>)≤1. Stationarity gives <var>L</var><sub>+</sub><var>X</var>=β<var>b</var><sub><var>e</var></sub><var>b</var><sub><var>e</var></sub><sup>⊤</sup><var>X</var>; multiplying by <var>b</var><sub><var>e</var></sub><sup>⊤</sup><var>L</var><sub>+</sub><sup>†</sup> and using the nonzero current edge yields β<var>R</var><sub>eff</sub>(<var>e</var>)=1. Thus the stress term lies exactly on the positive-semidefinite boundary, while the rigidity term is already positive semidefinite. Merely finding one compressed edge does not imply a strict saddle.</p>
               <p>A three-node configuration shows that the threshold is sharp: two negative residuals can couple through node space and create genuine negative curvature. The central question is therefore multi-edge interaction, not single-edge screening.</p>
             </section>
 
