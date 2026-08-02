@@ -189,6 +189,11 @@ test("x-default HTML and sitemap remain useful without JavaScript", async ({ req
   }
 
   const sitemap = await (await request.get("sitemap.xml")).text();
+  const currentUtcDate = new Date().toISOString().slice(0, 10);
+  const refreshedToday = new Set([
+    "https://lyuf09.github.io/chronohaze/",
+    "https://lyuf09.github.io/chronohaze/notes/network_localization_structural_certificates.html",
+  ]);
   for (const url of [
     "https://lyuf09.github.io/chronohaze/",
     "https://lyuf09.github.io/chronohaze/academic.html",
@@ -197,7 +202,17 @@ test("x-default HTML and sitemap remain useful without JavaScript", async ({ req
     "https://lyuf09.github.io/chronohaze/math.html",
     "https://lyuf09.github.io/chronohaze/notes/network_localization_structural_certificates.html",
   ]) {
-    expect(sitemap).toContain(`<loc>${url}</loc>\n    <lastmod>2026-08-01</lastmod>`);
+    const location = `<loc>${url}</loc>`;
+    const locationIndex = sitemap.indexOf(location);
+    expect(locationIndex).toBeGreaterThanOrEqual(0);
+    const entry = sitemap.slice(locationIndex, locationIndex + location.length + 80);
+    const lastmod = entry.match(/<lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/)?.[1];
+    expect(lastmod).toBeTruthy();
+    expect(lastmod >= "2026-08-01").toBe(true);
+    expect(lastmod <= currentUtcDate).toBe(true);
+    if (refreshedToday.has(url)) {
+      expect(lastmod).toBe(currentUtcDate);
+    }
   }
 });
 
