@@ -742,7 +742,11 @@ test("music index renders and remains interactive", async ({ page }) => {
     "aria-label",
     "Performance gallery"
   );
-  await expect(page.locator(".music-bottom-gallery picture")).toHaveCount(8);
+  await expect(page.locator(".music-bottom-gallery picture")).toHaveCount(15);
+  await expect(page.locator(".music-gallery-set-label")).toHaveText([
+    "Latest set · Live on 03 Aug 2026",
+    "Selected performance archive",
+  ]);
   await expect(page.locator(".music-bottom-gallery img[alt='']")).toHaveCount(0);
   const intrinsicImageSizes = await page
     .locator(".music-hero img, .music-intro img, .music-bottom-gallery img")

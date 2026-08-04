@@ -53,7 +53,9 @@ def main() -> int:
         ("assets/js/structured-data.min.js", 20_000, "structured data module"),
         ("assets/js/music-detail-transcript.min.js", 15_000, "music transcript module"),
         ("index.html", 70_000, "home page HTML"),
-        ("music.html", 35_000, "music index HTML"),
+        # The performance gallery includes accessible alt text and responsive
+        # image metadata for the dated live set.
+        ("music.html", 40_000, "music index HTML"),
         ("search.html", 240_000, "search page HTML"),
     ]
     for rel, max_bytes, label in file_budgets:
