@@ -59,6 +59,7 @@ jobs:
             --exclude='./.DS_Store' \
             -cf - . | (cd _site && tar -xf -)
           touch _site/.nojekyll
+          python scripts/prune_deploy_assets.py --site _site --max-bytes 1000000000
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
