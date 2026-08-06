@@ -9,7 +9,7 @@ VERSION = "20260723-information-architecture1"
 HOME_VERSION = "20260801-home-research-signal1"
 PROTECT_VERSION = "20260801-bilingual-seo1"
 MUSIC_PROTECT_VERSION = "20260801-bilingual-seo1"
-MUSIC_STYLE_VERSION = "20260804-live-gallery1"
+MUSIC_STYLE_VERSION = "20260806-performance-archive1"
 CATALOG_VERSION = "20260801-bilingual-seo1"
 STRUCTURED_DATA_VERSION = "20260801-bilingual-seo1"
 
@@ -168,6 +168,7 @@ CSS_FILES = [
     "styles.css",
     "home.css",
     "assets/css/olfactory.css",
+    "assets/css/performance-archive.css",
 ]
 
 JS_FILES = [

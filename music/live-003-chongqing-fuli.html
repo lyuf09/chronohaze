@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <style id="chronohaze-critical-loader-style">
+    html.chronohaze-critical-loading,
+    html.chronohaze-critical-loading body {
+      min-height: 100%;
+      background: #10141b;
+    }
+
+    html.chronohaze-critical-loading body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    html.chronohaze-critical-loading body > :not(.chronohaze-loader) {
+      visibility: hidden !important;
+    }
+
+    html.chronohaze-critical-loading::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 2147483000;
+      background:
+        linear-gradient(90deg, rgba(138, 160, 200, 0.09) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(138, 160, 200, 0.07) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(13, 17, 24, 0.992) 0%, rgba(19, 24, 33, 0.992) 55%, rgba(13, 17, 24, 0.996) 100%);
+      background-size: 54px 54px, 54px 54px, 100% 100%;
+    }
+
+    html.chronohaze-critical-loading::after {
+      content: "CHRONOHAZE";
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      z-index: 2147483001;
+      width: min(500px, calc(100vw - 40px));
+      padding: 30px 32px;
+      transform: translate(-50%, -50%);
+      white-space: pre-line;
+      color: rgba(232, 234, 237, 0.9);
+      font: 300 clamp(22px, 3.2vw, 34px)/1.48 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.055em;
+      border: 1px solid rgba(154, 172, 204, 0.3);
+      border-radius: 0;
+      background: linear-gradient(180deg, rgba(20, 25, 34, 0.84) 0%, rgba(13, 17, 24, 0.82) 100%);
+      box-shadow: 0 24px 58px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.045);
+    }
+
+    html[lang^="zh"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A 页面加载中";
+    }
+
+    html[lang^="en"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A Loading";
+    }
+
+    html.chronohaze-critical-loading-mobile body {
+      overflow: auto;
+    }
+
+    html.chronohaze-critical-loading-mobile body > :not(.chronohaze-loader) {
+      visibility: visible !important;
+    }
+
+    html.chronohaze-critical-loading-mobile::before {
+      background: linear-gradient(180deg, rgba(13, 17, 24, 0.18) 0%, rgba(19, 24, 33, 0.22) 100%);
+      pointer-events: none;
+    }
+
+    html.chronohaze-critical-loading-mobile::after {
+      content: "CHRONOHAZE";
+      left: 16px;
+      top: 16px;
+      width: auto;
+      max-width: calc(100vw - 32px);
+      padding: 10px 12px;
+      transform: none;
+      white-space: normal;
+      color: rgba(232, 234, 237, 0.78);
+      font: 400 12px/1.3 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.18em;
+      border: 1px solid rgba(154, 172, 204, 0.18);
+      background: rgba(16, 20, 27, 0.34);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+      backdrop-filter: blur(2px);
+    }
+  </style>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var isMobile = window.matchMedia && window.matchMedia("(max-width: 760px)").matches;
+      root.classList.add("chronohaze-critical-loading");
+      if (isMobile) {
+        root.classList.add("chronohaze-critical-loading-mobile");
+      }
+      window.__chronohazeReleaseCriticalLoader = function () {
+        root.classList.remove("chronohaze-critical-loading");
+        root.classList.remove("chronohaze-critical-loading-mobile");
+      };
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", window.__chronohazeReleaseCriticalLoader, { once: true });
+      } else {
+        window.requestAnimationFrame(window.__chronohazeReleaseCriticalLoader);
+      }
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, 500);
+    })();
+  </script>
+<link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
+  <title>LIVE 003 · Chongqing Fuli | Performance Archive</title>
+  <meta name="description" content="LIVE 003 at Chongqing Fuli on 03 August 2026. A 49-frame performance archive by HazezZ, photographed by Jun." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Chronohaze" />
+  <meta property="og:title" content="LIVE 003 · Chongqing Fuli" />
+  <meta property="og:description" content="49 frames from the 03 August 2026 performance." />
+  <meta property="og:url" content="https://lyuf09.github.io/chronohaze/music/live-003-chongqing-fuli.html" />
+  <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/images/music/live-003/live-003-01-1600.webp" />
+  <link rel="canonical" href="https://lyuf09.github.io/chronohaze/music/live-003-chongqing-fuli.html" />
+  <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/music/live-003-chongqing-fuli.html?lang=zh" />
+  <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/music/live-003-chongqing-fuli.html?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/music/live-003-chongqing-fuli.html" />
+  <link rel="stylesheet" href="../styles.min.css?v=20260723-information-architecture1" />
+  <link rel="stylesheet" href="../assets/css/performance-archive.min.css?v=20260806-performance-archive1" />
+  <script defer src="../protect-media.min.js?v=20260801-bilingual-seo1"></script>
+</head>
+<body class="music-live-archive-page">
+  <div class="page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="../index.html">
+          <img src="../assets/logo-header.png" alt="Chronohaze site logo" />
+          <span>CHRONOHAZE</span>
+        </a>
+        <nav class="nav" aria-label="Main navigation">
+          <a href="../index.html" data-i18n="navHome">Home</a>
+          <a href="../academic.html" data-i18n="navAcademic">Academic</a>
+          <a class="active" href="../music.html" data-i18n="navMusic">Music</a>
+          <a href="../photography.html" data-i18n="navPhoto">Photography</a>
+          <a href="../cv.html" data-i18n="navCV">CV</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="performance-set">
+      <div class="container performance-set-inner">
+        <a class="performance-set-back" href="../music.html#performance-archive" data-copy-en="← Performance Archive" data-copy-zh="← 演出档案">← 演出档案</a>
+        <header class="performance-set-header">
+          <div>
+            <p>003 / CHONGQING FULI</p>
+            <time datetime="2026-08-03">03 AUG 2026</time>
+          </div>
+          <div>
+            <h1 data-copy-en="Full Set" data-copy-zh="完整场次">完整场次</h1>
+            <p>49 FRAMES</p>
+          </div>
+          <p>BASS / VOCAL</p>
+          <p>IMAGES © JUN</p>
+        </header>
+
+        <div class="performance-set-grid" aria-label="49 photographs from LIVE 003">
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-01-1600.webp" data-alt="LIVE 003 performance photograph, frame 01" aria-label="Open frame 01">
+            <img src="../assets/images/music/live-003/live-003-01-960.webp" alt="LIVE 003 performance photograph, frame 01" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>01</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-02-1600.webp" data-alt="LIVE 003 performance photograph, frame 02" aria-label="Open frame 02">
+            <img src="../assets/images/music/live-003/live-003-02-960.webp" alt="LIVE 003 performance photograph, frame 02" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>02</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-03-1600.webp" data-alt="LIVE 003 performance photograph, frame 03" aria-label="Open frame 03">
+            <img src="../assets/images/music/live-003/live-003-03-960.webp" alt="LIVE 003 performance photograph, frame 03" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>03</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-04-1600.webp" data-alt="LIVE 003 performance photograph, frame 04" aria-label="Open frame 04">
+            <img src="../assets/images/music/live-003/live-003-04-960.webp" alt="LIVE 003 performance photograph, frame 04" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>04</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-05-1600.webp" data-alt="LIVE 003 performance photograph, frame 05" aria-label="Open frame 05">
+            <img src="../assets/images/music/live-003/live-003-05-960.webp" alt="LIVE 003 performance photograph, frame 05" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>05</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-06-1600.webp" data-alt="LIVE 003 performance photograph, frame 06" aria-label="Open frame 06">
+            <img src="../assets/images/music/live-003/live-003-06-960.webp" alt="LIVE 003 performance photograph, frame 06" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>06</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-07-1600.webp" data-alt="LIVE 003 performance photograph, frame 07" aria-label="Open frame 07">
+            <img src="../assets/images/music/live-003/live-003-07-960.webp" alt="LIVE 003 performance photograph, frame 07" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>07</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-08-1600.webp" data-alt="LIVE 003 performance photograph, frame 08" aria-label="Open frame 08">
+            <img src="../assets/images/music/live-003/live-003-08-960.webp" alt="LIVE 003 performance photograph, frame 08" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>08</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-09-1600.webp" data-alt="LIVE 003 performance photograph, frame 09" aria-label="Open frame 09">
+            <img src="../assets/images/music/live-003/live-003-09-960.webp" alt="LIVE 003 performance photograph, frame 09" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>09</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-10-1600.webp" data-alt="LIVE 003 performance photograph, frame 10" aria-label="Open frame 10">
+            <img src="../assets/images/music/live-003/live-003-10-960.webp" alt="LIVE 003 performance photograph, frame 10" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>10</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-11-1600.webp" data-alt="LIVE 003 performance photograph, frame 11" aria-label="Open frame 11">
+            <img src="../assets/images/music/live-003/live-003-11-960.webp" alt="LIVE 003 performance photograph, frame 11" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>11</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-12-1600.webp" data-alt="LIVE 003 performance photograph, frame 12" aria-label="Open frame 12">
+            <img src="../assets/images/music/live-003/live-003-12-960.webp" alt="LIVE 003 performance photograph, frame 12" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>12</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-13-1600.webp" data-alt="LIVE 003 performance photograph, frame 13" aria-label="Open frame 13">
+            <img src="../assets/images/music/live-003/live-003-13-960.webp" alt="LIVE 003 performance photograph, frame 13" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>13</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-14-1600.webp" data-alt="LIVE 003 performance photograph, frame 14" aria-label="Open frame 14">
+            <img src="../assets/images/music/live-003/live-003-14-960.webp" alt="LIVE 003 performance photograph, frame 14" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>14</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-15-1600.webp" data-alt="LIVE 003 performance photograph, frame 15" aria-label="Open frame 15">
+            <img src="../assets/images/music/live-003/live-003-15-960.webp" alt="LIVE 003 performance photograph, frame 15" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>15</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-16-1600.webp" data-alt="LIVE 003 performance photograph, frame 16" aria-label="Open frame 16">
+            <img src="../assets/images/music/live-003/live-003-16-960.webp" alt="LIVE 003 performance photograph, frame 16" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>16</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-17-1600.webp" data-alt="LIVE 003 performance photograph, frame 17" aria-label="Open frame 17">
+            <img src="../assets/images/music/live-003/live-003-17-960.webp" alt="LIVE 003 performance photograph, frame 17" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>17</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-18-1600.webp" data-alt="LIVE 003 performance photograph, frame 18" aria-label="Open frame 18">
+            <img src="../assets/images/music/live-003/live-003-18-960.webp" alt="LIVE 003 performance photograph, frame 18" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>18</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-19-1600.webp" data-alt="LIVE 003 performance photograph, frame 19" aria-label="Open frame 19">
+            <img src="../assets/images/music/live-003/live-003-19-960.webp" alt="LIVE 003 performance photograph, frame 19" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>19</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-20-1600.webp" data-alt="LIVE 003 performance photograph, frame 20" aria-label="Open frame 20">
+            <img src="../assets/images/music/live-003/live-003-20-960.webp" alt="LIVE 003 performance photograph, frame 20" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>20</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-21-1600.webp" data-alt="LIVE 003 performance photograph, frame 21" aria-label="Open frame 21">
+            <img src="../assets/images/music/live-003/live-003-21-960.webp" alt="LIVE 003 performance photograph, frame 21" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>21</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-22-1600.webp" data-alt="LIVE 003 performance photograph, frame 22" aria-label="Open frame 22">
+            <img src="../assets/images/music/live-003/live-003-22-960.webp" alt="LIVE 003 performance photograph, frame 22" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>22</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-23-1600.webp" data-alt="LIVE 003 performance photograph, frame 23" aria-label="Open frame 23">
+            <img src="../assets/images/music/live-003/live-003-23-960.webp" alt="LIVE 003 performance photograph, frame 23" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>23</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-24-1600.webp" data-alt="LIVE 003 performance photograph, frame 24" aria-label="Open frame 24">
+            <img src="../assets/images/music/live-003/live-003-24-960.webp" alt="LIVE 003 performance photograph, frame 24" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>24</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-25-1600.webp" data-alt="LIVE 003 performance photograph, frame 25" aria-label="Open frame 25">
+            <img src="../assets/images/music/live-003/live-003-25-960.webp" alt="LIVE 003 performance photograph, frame 25" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>25</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-26-1600.webp" data-alt="LIVE 003 performance photograph, frame 26" aria-label="Open frame 26">
+            <img src="../assets/images/music/live-003/live-003-26-960.webp" alt="LIVE 003 performance photograph, frame 26" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>26</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-27-1600.webp" data-alt="LIVE 003 performance photograph, frame 27" aria-label="Open frame 27">
+            <img src="../assets/images/music/live-003/live-003-27-960.webp" alt="LIVE 003 performance photograph, frame 27" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>27</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-28-1600.webp" data-alt="LIVE 003 performance photograph, frame 28" aria-label="Open frame 28">
+            <img src="../assets/images/music/live-003/live-003-28-960.webp" alt="LIVE 003 performance photograph, frame 28" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>28</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-29-1600.webp" data-alt="LIVE 003 performance photograph, frame 29" aria-label="Open frame 29">
+            <img src="../assets/images/music/live-003/live-003-29-960.webp" alt="LIVE 003 performance photograph, frame 29" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>29</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-30-1600.webp" data-alt="LIVE 003 performance photograph, frame 30" aria-label="Open frame 30">
+            <img src="../assets/images/music/live-003/live-003-30-960.webp" alt="LIVE 003 performance photograph, frame 30" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>30</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-31-1600.webp" data-alt="LIVE 003 performance photograph, frame 31" aria-label="Open frame 31">
+            <img src="../assets/images/music/live-003/live-003-31-960.webp" alt="LIVE 003 performance photograph, frame 31" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>31</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-32-1600.webp" data-alt="LIVE 003 performance photograph, frame 32" aria-label="Open frame 32">
+            <img src="../assets/images/music/live-003/live-003-32-960.webp" alt="LIVE 003 performance photograph, frame 32" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>32</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-33-1600.webp" data-alt="LIVE 003 performance photograph, frame 33" aria-label="Open frame 33">
+            <img src="../assets/images/music/live-003/live-003-33-960.webp" alt="LIVE 003 performance photograph, frame 33" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>33</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-34-1600.webp" data-alt="LIVE 003 performance photograph, frame 34" aria-label="Open frame 34">
+            <img src="../assets/images/music/live-003/live-003-34-960.webp" alt="LIVE 003 performance photograph, frame 34" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>34</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-35-1600.webp" data-alt="LIVE 003 performance photograph, frame 35" aria-label="Open frame 35">
+            <img src="../assets/images/music/live-003/live-003-35-960.webp" alt="LIVE 003 performance photograph, frame 35" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>35</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-36-1600.webp" data-alt="LIVE 003 performance photograph, frame 36" aria-label="Open frame 36">
+            <img src="../assets/images/music/live-003/live-003-36-960.webp" alt="LIVE 003 performance photograph, frame 36" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>36</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-37-1600.webp" data-alt="LIVE 003 performance photograph, frame 37" aria-label="Open frame 37">
+            <img src="../assets/images/music/live-003/live-003-37-960.webp" alt="LIVE 003 performance photograph, frame 37" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>37</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-38-1600.webp" data-alt="LIVE 003 performance photograph, frame 38" aria-label="Open frame 38">
+            <img src="../assets/images/music/live-003/live-003-38-960.webp" alt="LIVE 003 performance photograph, frame 38" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>38</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-39-1600.webp" data-alt="LIVE 003 performance photograph, frame 39" aria-label="Open frame 39">
+            <img src="../assets/images/music/live-003/live-003-39-960.webp" alt="LIVE 003 performance photograph, frame 39" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>39</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-40-1600.webp" data-alt="LIVE 003 performance photograph, frame 40" aria-label="Open frame 40">
+            <img src="../assets/images/music/live-003/live-003-40-960.webp" alt="LIVE 003 performance photograph, frame 40" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>40</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-41-1600.webp" data-alt="LIVE 003 performance photograph, frame 41" aria-label="Open frame 41">
+            <img src="../assets/images/music/live-003/live-003-41-960.webp" alt="LIVE 003 performance photograph, frame 41" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>41</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-42-1600.webp" data-alt="LIVE 003 performance photograph, frame 42" aria-label="Open frame 42">
+            <img src="../assets/images/music/live-003/live-003-42-960.webp" alt="LIVE 003 performance photograph, frame 42" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>42</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-43-1600.webp" data-alt="LIVE 003 performance photograph, frame 43" aria-label="Open frame 43">
+            <img src="../assets/images/music/live-003/live-003-43-960.webp" alt="LIVE 003 performance photograph, frame 43" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>43</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-44-1600.webp" data-alt="LIVE 003 performance photograph, frame 44" aria-label="Open frame 44">
+            <img src="../assets/images/music/live-003/live-003-44-960.webp" alt="LIVE 003 performance photograph, frame 44" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>44</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-45-1600.webp" data-alt="LIVE 003 performance photograph, frame 45" aria-label="Open frame 45">
+            <img src="../assets/images/music/live-003/live-003-45-960.webp" alt="LIVE 003 performance photograph, frame 45" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>45</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-46-1600.webp" data-alt="LIVE 003 performance photograph, frame 46" aria-label="Open frame 46">
+            <img src="../assets/images/music/live-003/live-003-46-960.webp" alt="LIVE 003 performance photograph, frame 46" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>46</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-47-1600.webp" data-alt="LIVE 003 performance photograph, frame 47" aria-label="Open frame 47">
+            <img src="../assets/images/music/live-003/live-003-47-960.webp" alt="LIVE 003 performance photograph, frame 47" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>47</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-48-1600.webp" data-alt="LIVE 003 performance photograph, frame 48" aria-label="Open frame 48">
+            <img src="../assets/images/music/live-003/live-003-48-960.webp" alt="LIVE 003 performance photograph, frame 48" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>48</span>
+          </button>
+          <button class="performance-set-thumb" type="button" data-full="../assets/images/music/live-003/live-003-49-1600.webp" data-alt="LIVE 003 performance photograph, frame 49" aria-label="Open frame 49">
+            <img src="../assets/images/music/live-003/live-003-49-960.webp" alt="LIVE 003 performance photograph, frame 49" width="960" height="1200" loading="lazy" decoding="async" />
+            <span>49</span>
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <dialog class="performance-lightbox" aria-label="Full-screen photograph viewer">
+      <button class="performance-lightbox-close" type="button" aria-label="Close">×</button>
+      <button class="performance-lightbox-prev" type="button" aria-label="Previous photograph">←</button>
+      <figure>
+        <img src="../assets/images/music/live-003/live-003-01-1600.webp" alt="LIVE 003 performance photograph, frame 01" />
+        <figcaption>01 / 49</figcaption>
+      </figure>
+      <button class="performance-lightbox-next" type="button" aria-label="Next photograph">→</button>
+    </dialog>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <p class="footer-title">CHRONOHAZE</p>
+          <p class="footer-copy">© 2026 by CHRONOHAZE. Hosted on GitHub Pages.</p>
+        </div>
+        <div class="footer-right">
+          <a href="../policy.html">网站说明</a>
+          <a href="../accessibility.html">无障碍支持</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script>
+    (function () {
+      var buttons = Array.from(document.querySelectorAll(".performance-set-thumb"));
+      var dialog = document.querySelector(".performance-lightbox");
+      var image = dialog.querySelector("img");
+      var caption = dialog.querySelector("figcaption");
+      var index = 0;
+
+      function showFrame(nextIndex) {
+        index = (nextIndex + buttons.length) % buttons.length;
+        var button = buttons[index];
+        image.src = button.getAttribute("data-full");
+        image.alt = button.getAttribute("data-alt");
+        caption.textContent = String(index + 1).padStart(2, "0") + " / " + buttons.length;
+      }
+
+      buttons.forEach(function (button, buttonIndex) {
+        button.addEventListener("click", function () {
+          showFrame(buttonIndex);
+          dialog.showModal();
+        });
+      });
+
+      dialog.querySelector(".performance-lightbox-close").addEventListener("click", function () {
+        dialog.close();
+      });
+      dialog.querySelector(".performance-lightbox-prev").addEventListener("click", function () {
+        showFrame(index - 1);
+      });
+      dialog.querySelector(".performance-lightbox-next").addEventListener("click", function () {
+        showFrame(index + 1);
+      });
+      dialog.addEventListener("click", function (event) {
+        if (event.target === dialog) dialog.close();
+      });
+      document.addEventListener("keydown", function (event) {
+        if (!dialog.open) return;
+        if (event.key === "ArrowLeft") showFrame(index - 1);
+        if (event.key === "ArrowRight") showFrame(index + 1);
+      });
+    })();
+  </script>
+</body>
+</html>
