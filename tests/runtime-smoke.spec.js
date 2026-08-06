@@ -666,6 +666,10 @@ test("music index renders and remains interactive", async ({ page }) => {
     /钢琴\s*→\s*小提琴\s*→\s*作曲\s*→\s*贝斯 \/ 吉他\s*→\s*制作/
   );
   await expect(page.locator(".music-background-title").last()).toHaveText("演出档案");
+  await expect(page.locator(".music-intro-figure img")).toHaveAttribute(
+    "src",
+    "assets/template/music-intro-img6370.jpg"
+  );
   await expect(page.locator('a[href="music/live-002-xian.html"]')).toHaveCount(1);
   await expect(page.locator('a[href="music/early-performance-records.html"]')).toHaveCount(1);
   await expect(page.locator("main")).not.toContainText("屏幕、时差");
@@ -738,7 +742,7 @@ test("music index renders and remains interactive", async ({ page }) => {
   await expect(page.locator(".music-hero img")).toHaveAttribute("alt", "HazezZ");
   await expect(page.locator(".music-intro img")).toHaveAttribute(
     "alt",
-    "HazezZ playing guitar under blue and violet stage lights"
+    "HazezZ playing bass beside a microphone under blue stage light"
   );
   await expect(page.locator(".music-bottom")).toHaveAttribute(
     "aria-label",
