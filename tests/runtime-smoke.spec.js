@@ -778,6 +778,32 @@ test("music index renders and remains interactive", async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
+test("Xi'an performance archive exposes all frames and lightbox navigation", async ({ page }) => {
+  const errors = trackPageErrors(page);
+  await page.goto("music/live-002-xian.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+
+  await expect(page.locator("body.music-live-archive-page")).toBeVisible();
+  await expect(page.locator(".performance-set-header")).toContainText("27 FRAMES");
+  await expect(page.locator(".performance-set-thumb")).toHaveCount(27);
+  await expect(page.locator(".performance-set-grid img[alt='']")).toHaveCount(0);
+
+  await page.locator(".performance-set-thumb").nth(26).click();
+  await expect(page.locator(".performance-lightbox")).toBeVisible();
+  await expect(page.locator(".performance-lightbox figcaption")).toHaveText("27 / 27");
+  await expect(page.locator(".performance-lightbox figure img")).toHaveAttribute(
+    "src",
+    /live-002-xian-img3391-1600\.webp$/
+  );
+  await page.locator(".performance-lightbox-prev").click();
+  await expect(page.locator(".performance-lightbox figcaption")).toHaveText("26 / 27");
+  await page.keyboard.press("ArrowRight");
+  await expect(page.locator(".performance-lightbox figcaption")).toHaveText("27 / 27");
+  await page.locator(".performance-lightbox-close").click();
+  await expect(page.locator(".performance-lightbox")).toBeHidden();
+  expect(errors).toEqual([]);
+});
+
 test("music index completes its layout before DOM ready settles", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "chromium", "deterministic desktop layout stability check");
   const errors = trackPageErrors(page);
