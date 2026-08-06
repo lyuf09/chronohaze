@@ -665,7 +665,9 @@ test("music index renders and remains interactive", async ({ page }) => {
   await expect(page.locator(".music-practice-path")).toHaveText(
     /钢琴\s*→\s*小提琴\s*→\s*作曲\s*→\s*贝斯 \/ 吉他\s*→\s*制作/
   );
-  await expect(page.locator(".music-background-title").last()).toHaveText("演出图集");
+  await expect(page.locator(".music-background-title").last()).toHaveText("演出档案");
+  await expect(page.locator('a[href="music/live-002-xian.html"]')).toHaveCount(1);
+  await expect(page.locator('a[href="music/early-performance-records.html"]')).toHaveCount(1);
   await expect(page.locator("main")).not.toContainText("屏幕、时差");
   await expect(page.locator(".music-room-archive-section")).toBeVisible();
   await expect(page.locator(".music-room-archive .music-room-section-title")).toHaveText("作品档案");
@@ -740,16 +742,15 @@ test("music index renders and remains interactive", async ({ page }) => {
   );
   await expect(page.locator(".music-bottom")).toHaveAttribute(
     "aria-label",
-    "Performance gallery"
+    "Performance archive"
   );
-  await expect(page.locator(".music-bottom-gallery picture")).toHaveCount(15);
-  await expect(page.locator(".music-gallery-set-label")).toHaveText([
-    "Latest set · Live on 03 Aug 2026",
-    "Selected performance archive",
-  ]);
-  await expect(page.locator(".music-bottom-gallery img[alt='']")).toHaveCount(0);
+  await expect(page.locator(".music-performance-hero")).toHaveCount(1);
+  await expect(page.locator(".music-editorial-gallery picture")).toHaveCount(12);
+  await expect(page.locator(".music-performance-card-shell")).toHaveCount(2);
+  await expect(page.locator(".music-performance-archive img[alt='']")).toHaveCount(0);
+  await expect(page.locator(".music-performance-full-link")).toContainText("49 frames");
   const intrinsicImageSizes = await page
-    .locator(".music-hero img, .music-intro img, .music-bottom-gallery img")
+    .locator(".music-hero img, .music-intro img, .music-performance-archive img")
     .evaluateAll((images) =>
       images.map((image) => ({
         src: image.getAttribute("src"),
