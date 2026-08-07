@@ -189,7 +189,17 @@ test("x-default HTML and sitemap remain useful without JavaScript", async ({ req
   }
 
   const sitemap = await (await request.get("sitemap.xml")).text();
-  const currentUtcDate = new Date().toISOString().slice(0, 10);
+  const siteDateParts = Object.fromEntries(
+    new Intl.DateTimeFormat("en", {
+      timeZone: "Asia/Shanghai",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    })
+      .formatToParts(new Date())
+      .map(({ type, value }) => [type, value])
+  );
+  const currentSiteDate = `${siteDateParts.year}-${siteDateParts.month}-${siteDateParts.day}`;
   const refreshedToday = new Set([
     "https://lyuf09.github.io/chronohaze/",
     "https://lyuf09.github.io/chronohaze/notes/network_localization_structural_certificates.html",
@@ -209,9 +219,9 @@ test("x-default HTML and sitemap remain useful without JavaScript", async ({ req
     const lastmod = entry.match(/<lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/)?.[1];
     expect(lastmod).toBeTruthy();
     expect(lastmod >= "2026-08-01").toBe(true);
-    expect(lastmod <= currentUtcDate).toBe(true);
+    expect(lastmod <= currentSiteDate).toBe(true);
     if (refreshedToday.has(url)) {
-      expect(lastmod).toBe(currentUtcDate);
+      expect(lastmod).toBe(currentSiteDate);
     }
   }
 });
