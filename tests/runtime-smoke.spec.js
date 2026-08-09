@@ -1281,7 +1281,7 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   await page.goto("research.html?lang=en", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
   await expect(page.locator(".research-thesis-line")).toHaveText(
-    "My work asks how structural assumptions determine the guarantees of optimization algorithms. In Isabelle/HOL, I study how state invariants and geometric lemmas can be organized into reusable proof interfaces; in network localization, I study how graph and stress structure govern negative curvature near non-optimal stationary points. These projects share a common aim: to make the mathematical dependencies behind algorithmic guarantees explicit enough to analyze, verify, and reuse."
+    "My work currently has two main directions. The first is formal verification of optimization algorithms in Isabelle/HOL, including submodular greedy methods and projected gradient descent. The second is nonconvex network localization, where I study stationary points, Hessian structure, and negative-curvature directions."
   );
   await expect(page.locator("#research-questions .research-question-list")).toContainText(
     "How can the expected approximation guarantee and the executable trace-level oracle-cost guarantee be unified within a single probabilistic run semantics?"
@@ -1798,6 +1798,7 @@ test("technical notes use explicit status labels and a local Julia fractal", asy
     "Published formalization",
     "Submitted formalization",
     "Ongoing joint research",
+    "Historical note · Superseded",
     "Exploratory derivation",
     "Reading note",
   ]);
