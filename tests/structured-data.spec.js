@@ -200,9 +200,13 @@ test("x-default HTML and sitemap remain useful without JavaScript", async ({ req
       .map(({ type, value }) => [type, value])
   );
   const currentSiteDate = `${siteDateParts.year}-${siteDateParts.month}-${siteDateParts.day}`;
-  const refreshedToday = new Set([
-    "https://lyuf09.github.io/chronohaze/",
-    "https://lyuf09.github.io/chronohaze/notes/network_localization_structural_certificates.html",
+  const refreshedInThisRevision = new Map([
+    ["https://lyuf09.github.io/chronohaze/research.html", "2026-08-09"],
+    ["https://lyuf09.github.io/chronohaze/math.html", "2026-08-09"],
+    [
+      "https://lyuf09.github.io/chronohaze/notes/network_localization_structural_certificates.html",
+      "2026-08-09",
+    ],
   ]);
   for (const url of [
     "https://lyuf09.github.io/chronohaze/",
@@ -220,8 +224,8 @@ test("x-default HTML and sitemap remain useful without JavaScript", async ({ req
     expect(lastmod).toBeTruthy();
     expect(lastmod >= "2026-08-01").toBe(true);
     expect(lastmod <= currentSiteDate).toBe(true);
-    if (refreshedToday.has(url)) {
-      expect(lastmod).toBe(currentSiteDate);
+    if (refreshedInThisRevision.has(url)) {
+      expect(lastmod).toBe(refreshedInThisRevision.get(url));
     }
   }
 });
@@ -281,7 +285,7 @@ test("localized descriptions and social metadata stay in the selected language",
     ],
     [
       "post/dual-score-saddle-certificates.html?lang=en",
-      "An update connecting an instance-level dual score",
+      "Historical network-localization note from May 2026",
     ],
     [
       "post/first-isabelle-proof.html?lang=en",
