@@ -134,6 +134,7 @@ MATH_STATUS_ZH = {
     "Published formalization": "已发表的形式化项目",
     "Submitted formalization": "已提交的形式化项目",
     "Ongoing joint research": "进行中的合作研究",
+    "Historical note · Superseded": "历史研究记录 · 已被新版取代",
     "Exploratory derivation": "探索性推导",
     "Reading note": "阅读笔记",
 }

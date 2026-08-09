@@ -298,7 +298,7 @@
         </div>
 
         <div data-lang-block="en" hidden>
-          <h1>From One Theorem to a Framework: New Progress on My Isabelle Project in Submodular Optimization</h1>
+          <h1>Classical Greedy, LazyGreedy, and StochasticGreedy in Isabelle/HOL</h1>
           <p class="article-meta">Feier Lyu · Originally posted March 14, 2026 · 8 min read</p>
 
           <aside class="math-post-update" aria-label="Project update, July 2026">
@@ -312,32 +312,30 @@
             </div>
           </aside>
 
-          <p>Earlier on, what I cared about most was how to separate construction from analysis, and how to turn those steps that are often dismissed in papers with a single sentence into logical structures that can actually be checked by the system.</p>
-          <p>After continuing this project over the past few months, my understanding of it has gradually changed. It no longer feels like simply adding a formalised version of a classical theorem. Instead, it is starting to grow into an Isabelle/HOL library that can continue to be extended. The main line of the repo now includes not only the full theorem line for classical greedy, but also a fairly mature stateful LazyGreedy extension. At the same time, the instance layer, executable toy experiments, and the oracle-cost layer have also been added. In other words, the focus of the project has gradually shifted from “proving a particular result” to “building a structure that can accommodate more modern submodular greedy variants.”</p>
+          <p>Earlier on, I focused on separating greedy construction from approximation analysis and formalizing steps that paper proofs often compress into a single sentence.</p>
+          <p>The repository now contains the full classical greedy theorem line, a stateful LazyGreedy development, concrete coverage instances, executable baselines, oracle-cost results, and a post-publication StochasticGreedy extension.</p>
 
-          <h3><strong>From classical greedy to reusable structure</strong></h3>
-          <p>Looking back now, the classical greedy part is no longer just a starting point. It has become the real foundation of the whole project. Around it, I have built not only the definition of greedy_set itself, but also the structural invariants of the greedy construction, a reusable greedy-step specification, and the full proof line leading to the Nemhauser–Wolsey (1 - 1/e) approximation guarantee. More importantly, this layer was not written in isolation. It has been placed inside an explicitly stratified architecture: abstract assumptions, algorithmic construction, approximation proofs, concrete instance interpretation, executable experiments, and complexity / oracle accounting are all separated from one another.</p>
-          <p>This separation matters a lot to me, because once one really starts doing Isabelle, it becomes clear that “writing down a proof” and “writing it as a system that can continue to grow later” are two very different things. The former is more about pinning down a conclusion. The latter forces you to think in advance about interfaces, dependencies, and which parts should be reusable by future algorithms. In that sense, the current shape of the repo is already much closer to the latter.</p>
+          <h3><strong>Classical greedy</strong></h3>
+          <p>The classical part defines <code>greedy_set</code>, proves the invariants maintained by the greedy construction, gives a greedy-step specification, and derives the Nemhauser–Wolsey (1 - 1/e) approximation guarantee. The repository separates abstract assumptions, algorithm definitions, approximation proofs, executable examples, and oracle-cost results into different theory layers.</p>
+          <p>This separation has a concrete use: after LazyGreedy is shown to satisfy the same greedy-step specification, it can reuse the classical approximation lemmas.</p>
 
-          <h3><strong>LazyGreedy is no longer just an extra variant</strong></h3>
-          <p>If the classical greedy layer provides the theoretical backbone of the project, then the completion of LazyGreedy is what first made me feel that this project was beginning to touch implementation-level formalisation.</p>
-          <p>The LazyGreedy development in the repo is not simply a matter of adding one more algorithm name. It already includes an explicit algorithmic state, state-based invariants, a bridge that repackages the lazy process back into a greedy-style step specification, an approximation line inheriting the classical guarantee, and an initial layer of oracle-cost accounting. In the README and status notes, it is explicitly described as the first completed stateful / implementation-level extension built on top of the classical greedy foundation. That point feels especially important to me, because it means the project is no longer only formalising an abstract theorem, but is instead formalising something much closer to a real algorithmic object.</p>
-          <p>I really like what this layer brings to the project. In many papers or codebases, “lazy” looks like an implementation trick. But in formalisation, it either becomes a genuine mathematical object whose state and invariants are explicitly tracked, or it remains only an informal intuition. Turning it into the former means that the centre of gravity of the project is shifting from theorem reproduction toward algorithm architecture.</p>
+          <h3><strong>LazyGreedy state and invariants</strong></h3>
+          <p>The LazyGreedy development includes an explicit algorithmic state, invariants relating cached upper bounds to true marginal gains, a bridge back to the greedy-step specification, the inherited approximation guarantee, and initial oracle-cost accounting.</p>
+          <p>The LazyGreedy development therefore required more than proving the same approximation bound: its state and invariants had to be formalized explicitly.</p>
 
-          <h3><strong>The project is also becoming more grounded</strong></h3>
+          <h3><strong>Executable examples and counterexamples</strong></h3>
           <p>Besides the theorem line itself, the repo now also includes toy coverage instances, executable exhaustive baselines, and several sanity-check examples. Among them are examples where greedy is strictly suboptimal while still not violating the approximation theorem, and also counterexamples showing that the classical guarantee fails in the non-submodular setting. Going one step further, there is also a concrete interpretation of the coverage objective, together with a bridge from executable exhaustive optimum to the abstract notion of OPT_k.</p>
-          <p>These components may not look as striking as the main theorem, but they increasingly convince me that this project should be understood as a library rather than as a single highlighted theorem. In a genuinely extensible formalisation development, what holds the whole structure together is often not one big result, but rather these less visible pieces that connect the abstract layer to the executable one.</p>
+          <p>These files connect the abstract definition of <span lang="en">OPT_k</span> to an exhaustive executable optimum and test the assumptions used by the approximation theorem.</p>
 
           <h3><strong>Post-publication extension: the StochasticGreedy theorem line</strong></h3>
-          <p>The published scope of the AFP 2026 entry ends with classical greedy and verified stateful lazy-greedy. After publication, the repository did not stop there: StochasticGreedy has grown from its early structure into a substantial theorem-level line. It should, however, be identified as a post-publication extension rather than as part of the AFP entry.</p>
+          <p>The published scope of the AFP 2026 entry ends with classical greedy and verified stateful LazyGreedy. The StochasticGreedy results were added after publication and are not part of that AFP entry.</p>
           <p>The current repository includes a deterministic trace layer, a concrete uniform with-replacement sampling model, sampling and weighted-sampling lemmas, one-step expected-gain lower bounds, gap recurrences and the approximation proof, and a final <span lang="en">k</span>-step approximation wrapper.</p>
-          <p>The complexity side is no longer merely a cost skeleton either. It includes exact trace-level gain-evaluation counters, sample-size disciplines, oracle-cost theorems, and a paper-facing wrapper that places the approximation guarantee and oracle budget under the same epsilon-driven parameter discipline.</p>
-          <p>The current abstraction boundary still separates executable deterministic traces from the abstract probabilistic recurrence. The repository therefore packages the two results side by side without presenting them as a fully unified probabilistic run semantics.</p>
+          <p>The complexity results include exact trace-level gain-evaluation counters, sample-size conditions, oracle-cost theorems, and a wrapper that states the approximation guarantee and oracle budget under the same epsilon parameter.</p>
+          <p>The deterministic executable traces and the probabilistic recurrence are still separate. The repository states the approximation and oracle-cost results side by side; it does not claim a unified probabilistic run semantics.</p>
 
-          <h3><strong>How I understand this project now</strong></h3>
-          <p>At this point, I think the most meaningful new change in the project is not simply that it has gained a few more .thy files. Its identity has changed.</p>
-          <p>It now feels much more like a small but steadily growing Isabelle/HOL framework. The classical greedy and stateful lazy-greedy developments published in AFP 2026 provide the stable foundation; the post-publication StochasticGreedy theorem line continues the library into sampling models, expectation bounds, approximation proofs, and query complexity. Separating the publication scope from the current repository state records both achievements accurately.</p>
-          <p>Lately I have been thinking a lot about the following question: am I writing down a proof result, or am I building a structure from which more results can continue to grow? The former is of course important, but the latter is harder, and also the one I find myself liking more. Only when a project begins to acquire extensibility does it really stop being a one-off assignment-style completion and start becoming a research path.</p>
+          <h3><strong>Current scope</strong></h3>
+          <p>The AFP 2026 publication covers classical greedy and verified stateful LazyGreedy. The current repository additionally contains the StochasticGreedy sampling model, expected-gain lemmas, gap recurrence, <span lang="en">k</span>-step approximation wrapper, exact gain-evaluation counters, and oracle-cost theorems.</p>
+          <p>The remaining gap is precise: the deterministic executable traces are not yet connected to the probabilistic recurrence by a single run semantics.</p>
 
           <nav class="math-post-nav" data-static-math-post-nav="1" aria-label="Adjacent notes"><a class="math-post-nav-item" data-nav-dir="prev" href="../post/what-i-really-got-when-a-dual-route-failed.html" data-no-page-transition="1" aria-label="Previous note · What I Really Got When a Dual Route Failed"><span class="math-post-nav-label">Previous note</span><span class="math-post-nav-title">What I Really Got When a Dual Route Failed</span></a><a class="math-post-nav-item" data-nav-dir="next" href="../post/metalcore-piano-lab.html" data-no-page-transition="1" aria-label="Next note · Metalcore Piano Lab | From Audio to Chart: A Discretization Experiment (WIP)"><span class="math-post-nav-label">Next note</span><span class="math-post-nav-title">Metalcore Piano Lab | From Audio to Chart: A Discretization Experiment (WIP)</span></a></nav>
 <div class="academic-hub-links math-post-hub-links">
@@ -401,7 +399,7 @@
       },
       en: {
         htmlLang: 'en',
-        pageTitle: 'From One Theorem to a Framework: New Progress on My Isabelle Project in Submodular Optimization | Chronohaze',
+        pageTitle: 'Classical Greedy, LazyGreedy, and StochasticGreedy in Isabelle/HOL | Chronohaze',
         navAria: 'Main navigation',
         navHome: 'Home',
         navAcademic: 'Academic',

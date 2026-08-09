@@ -342,7 +342,7 @@
           </aside>
 
           <p>Projected gradient descent is one of the basic algorithmic templates for constrained smooth optimization. Its standard convergence proof combines projection geometry, smoothness, convexity, and a telescoping argument; formalizing the result therefore provides a useful test case for building reusable optimization infrastructure in Isabelle/HOL.</p>
-          <p>The formalization covers the projection inequality, the projected-gradient mapping, convergence in the smooth convex setting, linear convergence under strong convexity, and reusable telescoping structures extracted from the concrete algorithm. The aim is not merely to reproduce a classical theorem, but to organize its interdependent proof components into a checkable and extensible library surface.</p>
+          <p>The formalization covers the projection inequality, the projected-gradient mapping, convergence in the smooth convex setting, linear convergence under strong convexity, and reusable telescoping structures extracted from the concrete algorithm. I separated the development into reusable lemmas for projection, descent, telescoping, and convergence, so that later formalizations can reuse these results.</p>
           <p>This continues the same question that shaped the submodular project: if an algorithmic proof is meant to become reusable formal infrastructure, how should its geometry, analytic assumptions, recurrence arguments, and public theorem interface be separated?</p>
 
           <h2>Why projected gradient descent</h2>
@@ -374,7 +374,7 @@
           <p>In the submodular project, the core question was how to separate greedy construction, marginal gains, submodularity, and approximation recurrences, and how to let a more implementation-level variant such as LazyGreedy inherit the classical guarantee.</p>
           <p>Here the core question becomes how to separate convexity, smoothness, projection geometry, descent lemmas, residual certificates, strong convexity, and convergence rates into reusable Isabelle components.</p>
           <p>The mathematical objects differ, but the formalisation mindset is the same. Both force me to ask how much unspoken structure a standard proof actually depends on.</p>
-          <p>That is also why I increasingly like Isabelle. It does not only check the final theorem; it forces the interfaces, assumptions, and dependencies of the whole proof route to become visible. Often the research value is not only the final theorem statement, but the architecture that formalisation forces into the open.</p>
+          <p>That is also why I increasingly like Isabelle. It does not only check the final theorem; it forces the interfaces, assumptions, and dependencies of the whole proof route to become visible. Formalisation also makes assumptions and dependencies that are implicit on paper much easier to see.</p>
 
           <h2>Current status</h2>
           <p>The project was submitted to the Archive of Formal Proofs on July 2, 2026, and is currently awaiting review.</p>
@@ -399,7 +399,7 @@
           <p>Projected-gradient descent is of course classical, but organizing it as reusable convergence infrastructure inside Isabelle/HOL feels like the natural next step.</p>
           <p>Project link: <a href="https://github.com/lyuf09/projected-gradient-descent" target="_blank" rel="noopener noreferrer">https://github.com/lyuf09/projected-gradient-descent</a></p>
 
-          <nav class="math-post-nav" data-static-math-post-nav="1" aria-label="Adjacent notes"><a class="math-post-nav-item" data-nav-dir="prev" href="../post/dual-score-saddle-certificates.html" data-no-page-transition="1" aria-label="Previous note · From Dual Score to Saddle Certificates: A Small New Step"><span class="math-post-nav-label">Previous note</span><span class="math-post-nav-title">From Dual Score to Saddle Certificates: A Small New Step</span></a><a class="math-post-nav-item" data-nav-dir="next" href="../post/what-i-really-got-when-a-dual-route-failed.html" data-no-page-transition="1" aria-label="Next note · What I Really Got When a Dual Route Failed"><span class="math-post-nav-label">Next note</span><span class="math-post-nav-title">What I Really Got When a Dual Route Failed</span></a></nav>
+          <nav class="math-post-nav" data-static-math-post-nav="1" aria-label="Adjacent notes"><a class="math-post-nav-item" data-nav-dir="prev" href="../post/dual-score-saddle-certificates.html" data-no-page-transition="1" aria-label="Previous note · Historical Note: From Dual Score to Saddle Certificates"><span class="math-post-nav-label">Previous note</span><span class="math-post-nav-title">Historical Note: From Dual Score to Saddle Certificates</span></a><a class="math-post-nav-item" data-nav-dir="next" href="../post/what-i-really-got-when-a-dual-route-failed.html" data-no-page-transition="1" aria-label="Next note · What I Really Got When a Dual Route Failed"><span class="math-post-nav-label">Next note</span><span class="math-post-nav-title">What I Really Got When a Dual Route Failed</span></a></nav>
 <div class="academic-hub-links math-post-hub-links">
   <p class="academic-hub-links-label">Continue with</p>
   <div class="research-link-row">

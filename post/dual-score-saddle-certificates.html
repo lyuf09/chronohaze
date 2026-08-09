@@ -152,17 +152,17 @@
   </script>
   <link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
-  <title>从 dual score 到 saddle certificates 的一点新进展</title>
-  <meta name="description" content="三月留下来的 dual score 原本只是 instance-level structural score；最近它开始和 differentiable stationary points、stationary dual witness、projected retention、Hessian negative curvature 以及 cycle-rank saddle certificates 接起来。" data-content-zh="从 instance-level dual score 出发，连接 differentiable stationary points、stationary dual witness、projected retention、Hessian 负曲率与 cycle-rank saddle certificates 的研究进展。" data-content-en="An update connecting an instance-level dual score to differentiable stationary points, stationary dual witnesses, projected retention, Hessian negative curvature, and cycle-rank saddle certificates." />
+  <title>历史记录：从 dual score 到 saddle certificates</title>
+  <meta name="description" content="2026年5月的网络定位探索记录；cycle-rank、signed-Laplacian 与 cluster-cut 推导已被新版研究记录取代，不代表当前定理状态。" data-content-zh="2026年5月的网络定位探索记录；其中未完成核对的推导已被新版研究记录取代。" data-content-en="Historical network-localization note from May 2026. Its unverified cycle-rank, signed-Laplacian, and cluster-cut derivations are superseded by the current research record." />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Chronohaze" />
-  <meta property="og:title" content="从 dual score 到 saddle certificates 的一点新进展 | Chronohaze" />
-  <meta property="og:description" content="三月留下来的 dual score 原本只是 instance-level structural score；最近它开始和 differentiable stationary points、stationary dual witness、projected retention、Hessian negative curvature 以及 cycle-rank saddle certificates 接起来。" />
+  <meta property="og:title" content="历史记录：从 dual score 到 saddle certificates | Chronohaze" />
+  <meta property="og:description" content="2026年5月的网络定位探索记录；未完成核对的推导已被新版研究记录取代。" />
   <meta property="og:url" content="https://lyuf09.github.io/chronohaze/post/dual-score-saddle-certificates.html" />
   <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/dual-score-saddle-certificates.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="从 dual score 到 saddle certificates 的一点新进展 | Chronohaze" />
-  <meta name="twitter:description" content="三月留下来的 dual score 原本只是 instance-level structural score；最近它开始和 differentiable stationary points、stationary dual witness、projected retention、Hessian negative curvature 以及 cycle-rank saddle certificates 接起来。" />
+  <meta name="twitter:title" content="历史记录：从 dual score 到 saddle certificates | Chronohaze" />
+  <meta name="twitter:description" content="2026年5月的网络定位探索记录；未完成核对的推导已被新版研究记录取代。" />
   <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/dual-score-saddle-certificates.png" />
   <link rel="canonical" href="https://lyuf09.github.io/chronohaze/post/dual-score-saddle-certificates.html" />
   <!-- GENERATED:hreflang:start -->
@@ -246,9 +246,14 @@
       </div>
       <article class="article">
         <div data-lang-block="zh">
-          <h1>从 dual score 到 saddle certificates 的一点新进展</h1>
+          <h1>历史记录：从 dual score 到 saddle certificates</h1>
           <p class="article-meta">Feier Lyu · 2026年5月22日 · 约 10 分钟</p>
           <p class="article-meta">标签：Optimization · Network Localization · Duality · Nonconvex Optimization · Saddle Points</p>
+          <aside class="math-post-update" aria-label="历史研究记录状态">
+            <p class="math-post-update-label">历史研究记录 · 已被新版取代</p>
+            <p>本页保留 2026 年 5 月 22 日时的探索过程。下文的 cycle-rank、signed-Laplacian 与 cluster-cut 推导不应视为当前定理；其中的符号约定、kernel/range 条件、伪逆步骤与方向恢复当时尚未完成核对。</p>
+            <p>当前已确认的结果，以及仍在复核的 multi-edge matrix criterion，见新版研究记录：<a href="../notes/network_localization_structural_certificates.html">《一条负残差并不够》</a>。</p>
+          </aside>
 
           <p>三月的时候，我写了一篇讲我在 network localization 这个问题里尝试做 duality，结果两条很自然的 Lagrangian dual 路线都 collapse 到了 0。</p>
           <p>当时我的感觉大概是：好吧，dual 没有给我一个漂亮的 lower bound。</p>
@@ -302,7 +307,7 @@
           <p>它衡量的是：这个 stationary point 的 witness <code>u(x)</code>，距离整个 budget set 里最会投影到 <code>Range(B)</code> 的那个 witness 还有多远。</p>
           <p>我现在还不想把 <code>Gap_stat</code> 夸成一个完整的 local optimality classifier，那就太飘了。</p>
           <p>但它至少给了一个很清楚的解释：在同一个 instance 里，不同 differentiable stationary points 可以通过它们的 projected witness compatibility 来比较。</p>
-          <p>这就让 dual score 从一个 “instance-level number” 开始变成一个 “stationary-point comparison framework” 的底层背景。</p>
+          <p>这个 gap 只比较 <code>F(x)</code> 与预算集上的最优投影值；它本身不能判断一个驻点是局部极小点还是鞍点。</p>
 
           <h2>4. OJMO local-minimum screening 的 dual translation</h2>
           <p>另一个让我觉得这条线有意义的地方，是它可以和 OJMO paper 里的 local-minimum screening condition 接上。</p>
@@ -333,26 +338,17 @@
           <p>所以真正的问题不是：某条边有没有 negative curvature？而是：这些 edge-level negative directions 能不能在 <code>Range(B)</code> 的 compatibility constraints 下存活下来？</p>
           <p>这句话几乎就是我现在对整个 second-order structure 的直觉核心。</p>
 
-          <h2>6. Cycle-rank negative-inertia bound：负曲率能被 cycle space 藏掉多少？</h2>
-          <p>在这个角度下，我推了一个我目前觉得比较有意思的 structural certificate。</p>
-          <p>设 <code>m_minus(x)</code> 是 under-retained edges 的数量，也就是当前边长小于 prescribed distance 的边数。每条 under-retained edge 在 transverse directions 上都可能贡献 <code>n - 1</code> 个 negative directions。</p>
-          <p>如果这些 directions 完全独立那负曲率就很多。但它们不完全独立因为 edge perturbation 必须来自 node perturbation，也就是必须在 <code>Range(B)</code> 里。Graph 的 cycle space 会吃掉一些自由度。</p>
-          <p>于是出现了一个 cycle-rank negative-inertia bound：如果 under-retained edges 太多，多到 cycle space 无法全部吸收这些 transverse negative directions，那么 reduced Hessian 必然有 negative eigenvalue。</p>
-          <p>这给了一个 strict-saddle certificate：如果 <code>x</code> 是 differentiable stationary point，并且 under-retained edges 的数量相对于 graph cycle rank 太大，那么 <code>x</code> 一定是 strict saddle。</p>
-          <p>这个 certificate 的好处是，它不是在算 full Hessian eigenvalue。它是在用 graph structure 和 edge retention pattern 直接判断 negative curvature 是否必须存在。</p>
-          <p>这点对我来说比“又写了一个二阶条件”重要得多。因为 classical second-order condition 本来就在那里，0 个人需要我重新包装一遍。</p>
-          <p>我真正想要的是：哪些 structural mechanisms force negative curvature?</p>
-          <p>Cycle-rank bound 就是其中一个机制。</p>
+          <h2>6. 2026年5月尝试的 cycle-rank bound（未定稿）</h2>
+          <p>当时的工作稿尝试比较 under-retained edge 的数量 <code>m_minus(x)</code> 与 graph cycle rank，希望据此判断 reduced Hessian 是否必须出现负特征值。</p>
+          <p>这一步后来没有作为定理保留。把 edge-level transverse directions 映回 node-space perturbations 时，还需要核对 kernel/range 条件、维数计数与方向恢复；仅凭 under-retained edge 的数量不能在本页所写的假设下直接推出 strict saddle。</p>
+          <p>这里保留这一段只为记录 2026 年 5 月的推导方向，不代表当前结论。</p>
 
-          <h2>7. 为什么这不是 OJMO degree test 的重复</h2>
-          <p>OJMO 的 degree-based condition 很像一个 local edge/node test，因为它看某条边的 under-retention 是否相对于某个 node degree 太严重。如果太严重就能排除 local minimum。</p>
-          <p>我现在这个 cycle-rank certificate 是另一种东西。</p>
-          <p>它不一定要求某一条边特别坏。它可以检测一种 collective effect：每条边单独看也许都没有坏到触发 OJMO 的 scalar degree test；但很多 under-retained edges 加在一起，会制造太多 transverse negative directions；而 graph cycle space 没有足够维度把它们全部藏掉。</p>
-          <p>这时候 strict saddle 就被 collective structure 暴露出来了。</p>
-          <p>我感觉这个区别挺关键的，因为它说明这不是一个单边条件的 rewrite，而是另一个层级的 certificate：OJMO degree test 更 local；cycle-rank certificate 更 global / collective。</p>
-          <p>它们不是互相替代，而是从不同角度看同一个 landscape。</p>
+          <h2>7. 当时与 OJMO degree test 的比较</h2>
+          <p>OJMO 的 degree-based necessary condition 检查单条边的 under-retention 与节点度数。2026 年 5 月的工作稿试图用 under-retained edges 的联合横向方向补充这种逐边检查。</p>
+          <p>由于上一节的 cycle-rank 推导尚未完成核对，本页不再把这种比较表述为一个已经成立的 collective strict-saddle certificate。</p>
 
-          <h2>8. Signed Laplacian 和 cluster-cut：继续把 Hessian 压缩成结构</h2>
+          <h2>8. 当时考虑的 signed Laplacian 与 cluster-cut 降维</h2>
+          <p>以下两条是当时考虑的计算路线，不是本页已经证明的 negative-curvature certificates。</p>
           <p>除了 cycle-rank bound，我还看了两个方向。</p>
           <p>第一个是 directional signed-Laplacian reduction。</p>
           <p>如果我只看 rank-one perturbation，也就是所有 node 都沿同一个 ambient direction <code>a</code> 移动，只是每个 node 的 scalar coefficient 不同，那么原本 <code>nK</code> 维的 Hessian quadratic form 会降成一个 <code>K</code> 维的 signed Laplacian。</p>
@@ -376,21 +372,10 @@
           <p>目前我不会说这已经是一个 global perfect escape algorithm。那太夸张了。</p>
           <p>但至少它已经比单纯 rewrite 老师 note 里的 Hessian formula 更进一步：它开始问如何真正选择 <code>y</code>，如何控制 affected edges，以及如何把 edge-level negative curvature 变成 node-level descent mechanism。</p>
 
-          <h2>10. 我现在对这条科研线的理解</h2>
-          <p>这几个月做下来，我对这条 dual / Hessian / escape 线的理解变了很多。</p>
-          <p>一开始，我以为问题是：能不能找到一个有意义的 dual lower bound？</p>
-          <p>后来我发现，更好的问题可能是：dual side 能不能帮我理解 instance incompatibility 和 stationary point geometry？</p>
-          <p>再后来，问题又变成：这些结构能不能变成 saddle certificates，甚至进入 escape / restart procedure？</p>
-          <p>所以现在这条线在我脑子里大概是这样：</p>
-          <p><strong>第一层：instance-level score。</strong><br /> <code>S_dual</code> 衡量 prescribed edge budgets 和 <code>Range(B)</code> 的 global compatibility。它告诉我这个 instance 本身有没有 structural incompatibility。</p>
-          <p><strong>第二层：stationary witness。</strong><br /> 对于 differentiable stationary point，<code>u(x)</code> 把 prescribed distances 变成 saturated dual witness，并且满足 <code>P u(x) = 2 Bx</code>。于是 static score 开始和 stationary-point geometry 连接。</p>
-          <p><strong>第三层：local-minimum screening。</strong><br /> OJMO 的 degree-based necessary condition 可以翻译成 projected retention condition。Local minimum 要求 stationary witness 在 projection 之后不能丢掉太多 blockwise mass。</p>
-          <p><strong>第四层：second-order structural certificates。</strong><br /> <code>Hessian = 2 B^T M B</code> 不是终点。真正有意思的是从这个 representation 里提取 cycle-rank、signed Laplacian、cluster-cut 这些结构性 negative-curvature mechanisms。</p>
-          <p><strong>第五层：escape procedure。</strong><br /> Negative epsilon edge 提供 transverse negative curvature，但 full escape direction 需要处理 node-space realizability 和 neighboring edge contributions。这个地方目前是我最想继续推进的。</p>
-          <p>我觉得科研里这种过程其实很真实：很多时候不是一开始就拿到一个闪闪发光的大 theorem，而是先得到一个看起来有点边缘的东西，然后不停问：这个东西到底在说什么？它和已有结果的关系是什么？它只是 rewrite，还是揭示了一个新机制？它能不能变成 certificate？它能不能变成 algorithm？</p>
-          <p>这条线目前还没有结束也绝对没有到“我已经解决 network localization landscape”的程度。</p>
-          <p>但我确实觉得它已经从一个 failed dual attempt，变成了一个更成形的 framework：用 dual score 看 instance-level incompatibility，用 stationary witness 看 critical-point geometry，用 Hessian structure 提取 saddle certificates，最后尝试把这些 certificates 变成可执行的 escape logic。</p>
-          <p>这就是我 3 月之后在这条 dual optimization research 线上做的事情。</p>
+          <h2>10. 2026年5月时可以确认的内容</h2>
+          <p>当时已经明确的是：两条普通 Lagrangian 路线只给出零下界；投影到 <code>Range(B)</code> 后得到 <code>S_dual</code>；在可微驻点处，饱和向量 <code>u(x)</code> 满足 <code>P u(x) = 2 Bx</code>，并给出对应的驻点值恒等式。</p>
+          <p>关于 cycle-rank、signed Laplacian、cluster cut 与 escape direction 的部分仍是探索性推导。后续工作转向 stress-rigidity decomposition、多条负残差边的联合耦合，以及正在逐项复核的 multi-edge matrix criterion。</p>
+          <p>当前数学状态以新版研究记录为准。</p>
 
           <nav class="math-post-nav" data-static-math-post-nav="1" aria-label="相邻笔记导航"><a class="math-post-nav-item" data-nav-dir="next" href="../post/projected-gradient-descent-isabelle-hol.html" data-no-page-transition="1" aria-label="下一篇 · 从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL"><span class="math-post-nav-label">下一篇</span><span class="math-post-nav-title">从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL</span></a></nav>
 <div class="academic-hub-links math-post-hub-links">
@@ -404,10 +389,15 @@
         </div>
 
         <div data-lang-block="en" hidden>
-          <h1>From Dual Score to Saddle Certificates: A Small New Step</h1>
+          <h1>Historical Note: From Dual Score to Saddle Certificates</h1>
           <p class="article-meta">Feier Lyu · May 22, 2026 · 10 min read</p>
           <p class="article-meta">Tags: Optimization · Network Localization · Duality · Nonconvex Optimization · Saddle Points</p>
-          <p>This note is currently published in Chinese. It records how a dual score for network localization starts connecting to stationary witnesses, projected retention, Hessian structure, and saddle certificates.</p>
+          <aside class="math-post-update" aria-label="Historical research note status">
+            <p class="math-post-update-label">Historical research note · Superseded</p>
+            <p>This page preserves the state of the derivation on May 22, 2026. The cycle-rank, signed-Laplacian, and cluster-cut arguments below should not be read as current theorems. Their sign conventions, kernel/range assumptions, pseudoinverse steps, and recovery directions had not been fully checked.</p>
+            <p>For the results now established and the multi-edge matrix criterion still under review, see <a href="../notes/network_localization_structural_certificates.html">One Negative Residual Is Not Enough</a>.</p>
+          </aside>
+          <p>The body of this historical note is currently available in Chinese.</p>
           <p>三月的时候，我写了一篇讲我在 network localization 这个问题里尝试做 duality，结果两条很自然的 Lagrangian dual 路线都 collapse 到了 0。</p>
           <p>当时我的感觉大概是：好吧，dual 没有给我一个漂亮的 lower bound。</p>
           <p>但它也没有完全死掉。</p>
@@ -460,7 +450,7 @@
           <p>它衡量的是：这个 stationary point 的 witness <code>u(x)</code>，距离整个 budget set 里最会投影到 <code>Range(B)</code> 的那个 witness 还有多远。</p>
           <p>我现在还不想把 <code>Gap_stat</code> 夸成一个完整的 local optimality classifier，那就太飘了。</p>
           <p>但它至少给了一个很清楚的解释：在同一个 instance 里，不同 differentiable stationary points 可以通过它们的 projected witness compatibility 来比较。</p>
-          <p>这就让 dual score 从一个 “instance-level number” 开始变成一个 “stationary-point comparison framework” 的底层背景。</p>
+          <p>这个 gap 只比较 <code>F(x)</code> 与预算集上的最优投影值；它本身不能判断一个驻点是局部极小点还是鞍点。</p>
 
           <h2>4. OJMO local-minimum screening 的 dual translation</h2>
           <p>另一个让我觉得这条线有意义的地方，是它可以和 OJMO paper 里的 local-minimum screening condition 接上。</p>
@@ -491,26 +481,17 @@
           <p>所以真正的问题不是：某条边有没有 negative curvature？而是：这些 edge-level negative directions 能不能在 <code>Range(B)</code> 的 compatibility constraints 下存活下来？</p>
           <p>这句话几乎就是我现在对整个 second-order structure 的直觉核心。</p>
 
-          <h2>6. Cycle-rank negative-inertia bound：负曲率能被 cycle space 藏掉多少？</h2>
-          <p>在这个角度下，我推了一个我目前觉得比较有意思的 structural certificate。</p>
-          <p>设 <code>m_minus(x)</code> 是 under-retained edges 的数量，也就是当前边长小于 prescribed distance 的边数。每条 under-retained edge 在 transverse directions 上都可能贡献 <code>n - 1</code> 个 negative directions。</p>
-          <p>如果这些 directions 完全独立那负曲率就很多。但它们不完全独立因为 edge perturbation 必须来自 node perturbation，也就是必须在 <code>Range(B)</code> 里。Graph 的 cycle space 会吃掉一些自由度。</p>
-          <p>于是出现了一个 cycle-rank negative-inertia bound：如果 under-retained edges 太多，多到 cycle space 无法全部吸收这些 transverse negative directions，那么 reduced Hessian 必然有 negative eigenvalue。</p>
-          <p>这给了一个 strict-saddle certificate：如果 <code>x</code> 是 differentiable stationary point，并且 under-retained edges 的数量相对于 graph cycle rank 太大，那么 <code>x</code> 一定是 strict saddle。</p>
-          <p>这个 certificate 的好处是，它不是在算 full Hessian eigenvalue。它是在用 graph structure 和 edge retention pattern 直接判断 negative curvature 是否必须存在。</p>
-          <p>这点对我来说比“又写了一个二阶条件”重要得多。因为 classical second-order condition 本来就在那里，0 个人需要我重新包装一遍。</p>
-          <p>我真正想要的是：哪些 structural mechanisms force negative curvature?</p>
-          <p>Cycle-rank bound 就是其中一个机制。</p>
+          <h2>6. 2026年5月尝试的 cycle-rank bound（未定稿）</h2>
+          <p>当时的工作稿尝试比较 under-retained edge 的数量 <code>m_minus(x)</code> 与 graph cycle rank，希望据此判断 reduced Hessian 是否必须出现负特征值。</p>
+          <p>这一步后来没有作为定理保留。把 edge-level transverse directions 映回 node-space perturbations 时，还需要核对 kernel/range 条件、维数计数与方向恢复；仅凭 under-retained edge 的数量不能在本页所写的假设下直接推出 strict saddle。</p>
+          <p>这里保留这一段只为记录 2026 年 5 月的推导方向，不代表当前结论。</p>
 
-          <h2>7. 为什么这不是 OJMO degree test 的重复</h2>
-          <p>OJMO 的 degree-based condition 很像一个 local edge/node test，因为它看某条边的 under-retention 是否相对于某个 node degree 太严重。如果太严重就能排除 local minimum。</p>
-          <p>我现在这个 cycle-rank certificate 是另一种东西。</p>
-          <p>它不一定要求某一条边特别坏。它可以检测一种 collective effect：每条边单独看也许都没有坏到触发 OJMO 的 scalar degree test；但很多 under-retained edges 加在一起，会制造太多 transverse negative directions；而 graph cycle space 没有足够维度把它们全部藏掉。</p>
-          <p>这时候 strict saddle 就被 collective structure 暴露出来了。</p>
-          <p>我感觉这个区别挺关键的，因为它说明这不是一个单边条件的 rewrite，而是另一个层级的 certificate：OJMO degree test 更 local；cycle-rank certificate 更 global / collective。</p>
-          <p>它们不是互相替代，而是从不同角度看同一个 landscape。</p>
+          <h2>7. 当时与 OJMO degree test 的比较</h2>
+          <p>OJMO 的 degree-based necessary condition 检查单条边的 under-retention 与节点度数。2026 年 5 月的工作稿试图用 under-retained edges 的联合横向方向补充这种逐边检查。</p>
+          <p>由于上一节的 cycle-rank 推导尚未完成核对，本页不再把这种比较表述为一个已经成立的 collective strict-saddle certificate。</p>
 
-          <h2>8. Signed Laplacian 和 cluster-cut：继续把 Hessian 压缩成结构</h2>
+          <h2>8. 当时考虑的 signed Laplacian 与 cluster-cut 降维</h2>
+          <p>以下两条是当时考虑的计算路线，不是本页已经证明的 negative-curvature certificates。</p>
           <p>除了 cycle-rank bound，我还看了两个方向。</p>
           <p>第一个是 directional signed-Laplacian reduction。</p>
           <p>如果我只看 rank-one perturbation，也就是所有 node 都沿同一个 ambient direction <code>a</code> 移动，只是每个 node 的 scalar coefficient 不同，那么原本 <code>nK</code> 维的 Hessian quadratic form 会降成一个 <code>K</code> 维的 signed Laplacian。</p>
@@ -534,21 +515,10 @@
           <p>目前我不会说这已经是一个 global perfect escape algorithm。那太夸张了。</p>
           <p>但至少它已经比单纯 rewrite 老师 note 里的 Hessian formula 更进一步：它开始问如何真正选择 <code>y</code>，如何控制 affected edges，以及如何把 edge-level negative curvature 变成 node-level descent mechanism。</p>
 
-          <h2>10. 我现在对这条科研线的理解</h2>
-          <p>这几个月做下来，我对这条 dual / Hessian / escape 线的理解变了很多。</p>
-          <p>一开始，我以为问题是：能不能找到一个有意义的 dual lower bound？</p>
-          <p>后来我发现，更好的问题可能是：dual side 能不能帮我理解 instance incompatibility 和 stationary point geometry？</p>
-          <p>再后来，问题又变成：这些结构能不能变成 saddle certificates，甚至进入 escape / restart procedure？</p>
-          <p>所以现在这条线在我脑子里大概是这样：</p>
-          <p><strong>第一层：instance-level score。</strong><br /> <code>S_dual</code> 衡量 prescribed edge budgets 和 <code>Range(B)</code> 的 global compatibility。它告诉我这个 instance 本身有没有 structural incompatibility。</p>
-          <p><strong>第二层：stationary witness。</strong><br /> 对于 differentiable stationary point，<code>u(x)</code> 把 prescribed distances 变成 saturated dual witness，并且满足 <code>P u(x) = 2 Bx</code>。于是 static score 开始和 stationary-point geometry 连接。</p>
-          <p><strong>第三层：local-minimum screening。</strong><br /> OJMO 的 degree-based necessary condition 可以翻译成 projected retention condition。Local minimum 要求 stationary witness 在 projection 之后不能丢掉太多 blockwise mass。</p>
-          <p><strong>第四层：second-order structural certificates。</strong><br /> <code>Hessian = 2 B^T M B</code> 不是终点。真正有意思的是从这个 representation 里提取 cycle-rank、signed Laplacian、cluster-cut 这些结构性 negative-curvature mechanisms。</p>
-          <p><strong>第五层：escape procedure。</strong><br /> Negative epsilon edge 提供 transverse negative curvature，但 full escape direction 需要处理 node-space realizability 和 neighboring edge contributions。这个地方目前是我最想继续推进的。</p>
-          <p>我觉得科研里这种过程其实很真实：很多时候不是一开始就拿到一个闪闪发光的大 theorem，而是先得到一个看起来有点边缘的东西，然后不停问：这个东西到底在说什么？它和已有结果的关系是什么？它只是 rewrite，还是揭示了一个新机制？它能不能变成 certificate？它能不能变成 algorithm？</p>
-          <p>这条线目前还没有结束也绝对没有到“我已经解决 network localization landscape”的程度。</p>
-          <p>但我确实觉得它已经从一个 failed dual attempt，变成了一个更成形的 framework：用 dual score 看 instance-level incompatibility，用 stationary witness 看 critical-point geometry，用 Hessian structure 提取 saddle certificates，最后尝试把这些 certificates 变成可执行的 escape logic。</p>
-          <p>这就是我 3 月之后在这条 dual optimization research 线上做的事情。</p>
+          <h2>10. 2026年5月时可以确认的内容</h2>
+          <p>当时已经明确的是：两条普通 Lagrangian 路线只给出零下界；投影到 <code>Range(B)</code> 后得到 <code>S_dual</code>；在可微驻点处，饱和向量 <code>u(x)</code> 满足 <code>P u(x) = 2 Bx</code>，并给出对应的驻点值恒等式。</p>
+          <p>关于 cycle-rank、signed Laplacian、cluster cut 与 escape direction 的部分仍是探索性推导。后续工作转向 stress-rigidity decomposition、多条负残差边的联合耦合，以及正在逐项复核的 multi-edge matrix criterion。</p>
+          <p>当前数学状态以新版研究记录为准。</p>
 
           <nav class="math-post-nav" data-static-math-post-nav="1" aria-label="Adjacent notes"><a class="math-post-nav-item" data-nav-dir="next" href="../post/projected-gradient-descent-isabelle-hol.html" data-no-page-transition="1" aria-label="Next note · Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL"><span class="math-post-nav-label">Next note</span><span class="math-post-nav-title">Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL</span></a></nav>
 <div class="academic-hub-links math-post-hub-links">
@@ -612,7 +582,7 @@
       },
       en: {
         htmlLang: 'en',
-        pageTitle: 'From Dual Score to Saddle Certificates: A Small New Step | Chronohaze',
+        pageTitle: 'Historical Note: From Dual Score to Saddle Certificates | Chronohaze',
         navAria: 'Main navigation',
         navHome: 'Home',
         navAcademic: 'Academic',

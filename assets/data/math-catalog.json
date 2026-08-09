@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-01",
+  "generated_at": "2026-08-09",
   "source": "math.html",
   "items": [
     {
@@ -57,10 +57,10 @@
       "order": 3,
       "url": "post/dual-score-saddle-certificates.html",
       "date": "2026-05-22",
-      "title": "从 dual score 到 saddle certificates 的一点新进展",
-      "title_en": "From Dual Score to Saddle Certificates: A Small New Step",
-      "excerpt": "三月留下来的 dual score 原本只是 instance-level structural score；最近它开始和 differentiable stationary points、stationary dual witness、projected retention、Hessian negative curvature 以及 cycle-rank saddle certificates 接起来。",
-      "excerpt_en": "A new step from an instance-level dual score toward stationary witnesses, projected retention, Hessian structure, and cycle-rank saddle certificates for network localization.",
+      "title": "历史记录：从 dual score 到 saddle certificates",
+      "title_en": "Historical Note: From Dual Score to Saddle Certificates",
+      "excerpt": "2026年5月的探索记录。文中的 cycle-rank、signed-Laplacian 与 cluster-cut 推导已由新版网络定位研究记录取代，不代表当前定理状态。",
+      "excerpt_en": "Historical note from May 2026. Its cycle-rank, signed-Laplacian, and cluster-cut derivations are superseded by the current network-localization research record and should not be read as current theorems.",
       "readmore_url": "post/dual-score-saddle-certificates.html",
       "tags": [
         "math",
@@ -72,7 +72,7 @@
       ],
       "reading_time_zh": "约 10 分钟",
       "reading_time_en": "10 min read",
-      "note_status": "Ongoing joint research",
+      "note_status": "Historical note · Superseded",
       "date_label_zh": "原始发布 · 2026-05-22",
       "date_label_en": "Originally posted · 2026-05-22"
     },
@@ -126,8 +126,8 @@
       "order": 6,
       "url": "post/theorem-to-framework-isabelle-submodular.html",
       "date": "2026-03-14",
-      "title": "从一个定理到一套框架：我的 Isabelle 子模优化项目新进展",
-      "title_en": "From One Theorem to a Framework: New Progress on My Isabelle Project in Submodular Optimization",
+      "title": "Isabelle/HOL 中的 Classical Greedy、LazyGreedy 与 StochasticGreedy",
+      "title_en": "Classical Greedy, LazyGreedy, and StochasticGreedy in Isabelle/HOL",
       "excerpt": "原文发布于 3 月 14 日；7 月更新仅补充后续状态。子模贪心条目于 5 月 26 日正式发表于 AFP，发表后仓库继续发展 StochasticGreedy theorem line。",
       "excerpt_en": "Originally posted on March 14; the July update adds later status without changing the original date. The submodular entry was published in AFP on May 26, and the repository continued afterward with the StochasticGreedy theorem line.",
       "readmore_url": "post/theorem-to-framework-isabelle-submodular.html",

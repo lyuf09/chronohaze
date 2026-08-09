@@ -2,7 +2,7 @@
 
 <html lang="en">
 <head>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
 <style id="chronohaze-critical-loader-style">
     html.chronohaze-critical-loading,
@@ -227,7 +227,7 @@
 </div>
 <script id="search-inline-fallback" type="application/json">
 {
-  "generated_at": "2026-08-02",
+  "generated_at": "2026-08-09",
   "items": [
     {
       "title": "Research Statement | Feier Lyu (Fay Lyu)",
@@ -240,7 +240,7 @@
         "optimization",
         "formal-methods"
       ],
-      "sort": 20260802,
+      "sort": 20260804,
       "scope": "site",
       "content": "研究陈述 我的工作关注结构性假设如何决定优化算法的保证。在 Isabelle/HOL 中，我研究如何把状态不变量与几何引理组织成可复用的证明接口；在网络定位中，我研究图结构与应力结构如何控制非最优驻点附近的负曲率。这些项目共享同一个目标：让算法保证背后的数学依赖足够明确，从而能够被分析、验证与复用。 主要研究方向 研究范围 主要方向 01 机器检查优化与可复用证明结构 这条研究线把算法假设、状态不变量、关键不等式与收敛结论拆成可复用的 Isabelle/HOL 组件。 2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化经典贪心算法与经验证的有状态惰性贪心变体。发表后，当前仓库继续发展 StochasticGreedy 定理线，包括采样模型、近似证明与预言机调用复杂度界。关于光滑凸优化与投影梯度下降的第二个形式化项目已于2026年7月2日提交至 Archive of Formal Proofs，目前等待审核。 当前重点是减少不同算法证明之间重复的投影、望远镜求和与近似保证整理工作。 AFP 条目 DOI: 10.5281/zenodo.21054718 证明文档 代码仓库 主要方向 02 网络定位中的负曲率证书 与 Prof. Shoham Sabach 的合作研究图结构如何控制非最优驻点附近的 Hessian 负曲率。 当前目标是从环一致性、投影边预算与图的环空间中构造可验证的局部逃逸方向，并明确这些证书成立所需的几何假设。",
       "title_en": "Research Statement | Feier Lyu (Fay Lyu)",
@@ -341,20 +341,20 @@
       "content": "Selected Work Research Statement Technical Notes Back to Technical Notes Schur-Complement Hessian Tracking in TTGDA A Note on Possible Second-Order Extensions Feier Lyu · Exploratory derivation · Optimization / Minimax Learning · June 2026 A note on possible second-order extensions of TTGDA: if tracking y_t toward y*(x_t) controls the first-order error in the value-function viewpoint, can an analogous tracking argument control the Schur-complement Hessian well enough for saddle escaping? Open PDF Notes Index If the preview does not load in your browser, use Open PDF ."
     },
     {
-      "title": "从 dual score 到 saddle certificates 的一点新进展",
+      "title": "历史记录：从 dual score 到 saddle certificates",
       "url": "post/dual-score-saddle-certificates.html",
       "section": "Technical Notes",
       "date": "2026-05-22",
-      "excerpt": "三月留下来的 dual score 原本只是 instance-level structural score；最近它开始和 differentiable stationary points、stationary dual witness、projected retention、Hessian negative curvature 以及 cycle-rank saddle certificates 接起来。",
+      "excerpt": "2026年5月的探索记录。文中的 cycle-rank、signed-Laplacian 与 cluster-cut 推导已由新版网络定位研究记录取代，不代表当前定理状态。",
       "tags": [
         "math",
         "article"
       ],
       "sort": 20260522,
       "scope": "math",
-      "content": "Research Statement Selected Work Technical Notes 从 dual score 到 saddle certificates 的一点新进展 Feier Lyu · 2026年5月22日 · 约 10 分钟 标签：Optimization · Network Localization · Duality · Nonconvex Optimization · Saddle Points 三月的时候，我写了一篇讲我在 network localization 这个问题里尝试做 duality，结果两条很自然的 Lagrangian dual 路线都 collapse 到了 0。 当时我的感觉大概是：好吧，dual 没有给我一个漂亮的 lower bound。 但它也没有完全死掉。 真正留下来的，是 conjugate-based DC dual 里出现的一个 projector formula。这个 formula 一开始看起来像一个副产品：它不太像能直接替代 primal objective 也不像一个能马上塞进 algorithm 里的 magic quantity。但它有一个很清楚的几何意义：它在测量 prescribed edge-length budget 和 realizable edge-difference subspace 之间的 incompatibility。 也就是说它不太像传统意义上的 dual solution，反而更像一个 structural score。 当时我对它的理解还很 static：它只依赖 instance，也就是 measurement graph 和 prescribed distances，不依赖某一个 iterate x 。所以我把它理解成一个 instance-level difficulty score，一个用来描述这个 localization instance 本身有多不 compatible 的量。 最近这条线又往前走了一点。现在我更愿意这样理解它： 这个 dual score 一开始是 static 的，但它后来开始接触 stationary point geometry 了。 这件事对我来说还挺重要的，因为它说明真的可能变成理解 landscape 的一部分。 1. 上次留下来的东西：一个 instance-level structural score 我研究的 objective 是 network localization / MDS 里很经典的 nonconvex nonsmooth least squares：给定一堆边，每条边都有一个 prescribed distance delta ，我们想找 node positions，使得每条边的实际距离…",
-      "title_en": "From Dual Score to Saddle Certificates: A Small New Step",
-      "excerpt_en": "A new step from an instance-level dual score toward stationary witnesses, projected retention, Hessian structure, and cycle-rank saddle certificates for network localization."
+      "content": "Research Statement Selected Work Technical Notes 历史记录：从 dual score 到 saddle certificates Feier Lyu · 2026年5月22日 · 约 10 分钟 标签：Optimization · Network Localization · Duality · Nonconvex Optimization · Saddle Points 历史研究记录 · 已被新版取代 本页保留 2026 年 5 月 22 日时的探索过程。下文的 cycle-rank、signed-Laplacian 与 cluster-cut 推导不应视为当前定理；其中的符号约定、kernel/range 条件、伪逆步骤与方向恢复当时尚未完成核对。 当前已确认的结果，以及仍在复核的 multi-edge matrix criterion，见新版研究记录： 《一条负残差并不够》 。 三月的时候，我写了一篇讲我在 network localization 这个问题里尝试做 duality，结果两条很自然的 Lagrangian dual 路线都 collapse 到了 0。 当时我的感觉大概是：好吧，dual 没有给我一个漂亮的 lower bound。 但它也没有完全死掉。 真正留下来的，是 conjugate-based DC dual 里出现的一个 projector formula。这个 formula 一开始看起来像一个副产品：它不太像能直接替代 primal objective 也不像一个能马上塞进 algorithm 里的 magic quantity。但它有一个很清楚的几何意义：它在测量 prescribed edge-length budget 和 realizable edge-difference subspace 之间的 incompatibility。 也就是说它不太像传统意义上的 dual solution，反而更像一个 structural score。 当时我对它的理解还很 static：它只依赖 instance，也就是 measurement graph 和 prescribed distances，不依赖某一个 iterate x 。所以我把它理解成一个 instance-level difficulty score，一个用来描述这个 localization instance 本身有多不 compatible 的量。 最近这条线又往前走了一点。现在我更愿意这样理解它： 这个 dual score 一开始是 static 的，但它后来开始接触 stationary point geometry 了。 这件事对我来说还挺重要的，因为它说明真的可能变成理解 landscape…",
+      "title_en": "Historical Note: From Dual Score to Saddle Certificates",
+      "excerpt_en": "Historical note from May 2026. Its cycle-rank, signed-Laplacian, and cluster-cut derivations are superseded by the current network-localization research record and should not be read as current theorems."
     },
     {
       "title": "从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL",
@@ -500,7 +500,7 @@
       "excerpt_en": "When the most natural Lagrangian dual routes collapse to the trivial 0 bound, what remains is a dual-based structural score tied to Range(B), cycle consistency, and instance difficulty."
     },
     {
-      "title": "从一个定理到一套框架：我的 Isabelle 子模优化项目新进展",
+      "title": "Isabelle/HOL 中的 Classical Greedy、LazyGreedy 与 StochasticGreedy",
       "url": "post/theorem-to-framework-isabelle-submodular.html",
       "section": "Technical Notes",
       "date": "2026-03-14",
@@ -512,7 +512,7 @@
       "sort": 20260314,
       "scope": "math",
       "content": "Research Statement Selected Work Technical Notes 从一个定理到一套框架：我的 Isabelle 子模优化项目新进展 Feier Lyu · Originally posted 2026年3月14日 · 约 6 分钟 Updated 2026年7月 · 保留原始发布日期 Published 2026年5月26日： AFP 条目对基数约束下的单调子模最大化形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。 发表后扩展： 当前仓库还进一步发展 StochasticGreedy theorem line，包括采样模型、近似证明与预言机调用复杂度界。本状态更新不改变原文 3 月 14 日的发布日期。 AFP entry DOI: 10.5281/zenodo.21054718 Proof document Repository 在之前我更关心的是，如何拆分构造与分析，如何把那些在论文里常被一句话带过的步骤，变成真正可以被系统检查的逻辑结构。 这几个月继续往前做以后，我对这个项目的理解也慢慢变了，它现在已经不太像为一个经典定理补上一份形式化版本，而更像是在长成一套可以继续扩展的 Isabelle/HOL library。repo 目前的主线已经不仅包括 classical greedy 的完整 theorem line，也包括一个完成度很高的 stateful LazyGreedy extension。与此同时实例层、可执行小实验和 oracle-cost 这一层也都已经放了进去。换句话说，这个项目的重点开始从“证明某一个结果”转向“搭建一套可以容纳更多 modern submodular greedy variants 的结构”了。 从 classical greedy 到可复用结构 现在回头看，classical greedy 这一部分已经不再只是一个起点，而是整个项目真正的 foundation，围绕它建立起来的不只是 greedy_set 本身的定义，还有 greedy construction 的 structural invariants、可复用的 greedy-step specification，以及最后通向 Nemhauser–Wolsey (1 - 1/e) approximation guarantee 的那条完整 proof line。更关键的是，这一层不是孤立写出来的，而是被放进了一套有明确分层的 architecture 里：抽象假设、算法构造、近似证明、具体实例解释、可执行实验，以及复杂度 / oracle accounting，彼此是分开的。 这种分层对我来说很重要，因为一旦真正做 Isabelle…",
-      "title_en": "From One Theorem to a Framework: New Progress on My Isabelle Project in Submodular Optimization",
+      "title_en": "Classical Greedy, LazyGreedy, and StochasticGreedy in Isabelle/HOL",
       "excerpt_en": "Originally posted on March 14; the July update adds later status without changing the original date. The submodular entry was published in AFP on May 26, and the repository continued afterward with the StochasticGreedy theorem line."
     },
     {
@@ -1411,7 +1411,7 @@
       ],
       "sort": 0,
       "scope": "math",
-      "content": "代表性工作 研究陈述 技术笔记 技术笔记 Feier Lyu（Fay Lyu） 置顶最能代表当前研究思考的材料，并按时间整理部分技术笔记与研究记录。 Isabelle/HOL Duality Optimization Prototype 置顶笔记 置顶笔记 01 已发表的形式化项目 Isabelle Submodular Greedy Project 已发表的形式化项目 · Archive of Formal Proofs · 2026-05-26 02 已提交的形式化项目 Projected Gradient Descent in Isabelle/HOL 形式化项目 · 2026-07-02 提交至 AFP · 等待审核 03 进行中的合作研究 一条负残差并不够 2026 年 7 月研究记录 · 持续合作 侧边视觉 · 我最喜欢的 Julia 分形 研究记录归档 2026 — 按时间排列的部分技术笔记与研究记录。 研究记录 · 2026-07-22 进行中的合作研究 一条负残差并不够：网络定位中负曲率的结构 记录一条退化的对偶下界路线如何经由投影边预算、应力-刚度分解与多边耦合，转向驻点附近的负曲率问题。 Network Localization Stress-Rigidity Multi-edge Coupling 阅读研究记录 原始发布 · 2026-06-30 已发表的形式化项目 子模贪心算法形式化正式进入 AFP 记录 Isabelle/HOL 子模贪心算法形式化正式发表于 Archive of Formal Proofs，以及形式化过程中逐渐显露出的算法证明结构。 Isabelle/HOL Approximation Algorithms AFP 阅读全文 原始发布 · 2026-05-22 进行中的合作研究 从 dual score 到 saddle certificates 的一点新进展 三月留下来的 dual score 原本只是 instance-level structural score；最近它开始和 differentiable stationary points、stationary dual witness、projected retention、Hessian negative curvature 以及 cycle-rank saddle certificates 接起来。 Duality Optimization 阅读全文 原始发布 · 2026-05-22 已提交的形式化项目 从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL 这篇 5 月 22 日的原始笔记记录第二个 Isabelle/HOL optimization 项目的结构；它早于子模贪心条目 5 月 2…",
+      "content": "代表性工作 研究陈述 技术笔记 技术笔记 Feier Lyu（Fay Lyu） 置顶最能代表当前研究思考的材料，并按时间整理部分技术笔记与研究记录。 Isabelle/HOL Duality Optimization Prototype 置顶笔记 置顶笔记 01 已发表的形式化项目 Isabelle Submodular Greedy Project 已发表的形式化项目 · Archive of Formal Proofs · 2026-05-26 02 已提交的形式化项目 Projected Gradient Descent in Isabelle/HOL 形式化项目 · 2026-07-02 提交至 AFP · 等待审核 03 进行中的合作研究 一条负残差并不够 2026 年 7 月研究记录 · 持续合作 侧边视觉 · 我最喜欢的 Julia 分形 研究记录归档 2026 — 按时间排列的部分技术笔记与研究记录。 研究记录 · 2026-07-22 进行中的合作研究 一条负残差并不够：网络定位中负曲率的结构 记录一条退化的对偶下界路线如何经由投影边预算、应力-刚度分解与多边耦合，转向驻点附近的负曲率问题。 Network Localization Stress-Rigidity Multi-edge Coupling 阅读研究记录 原始发布 · 2026-06-30 已发表的形式化项目 子模贪心算法形式化正式进入 AFP 记录 Isabelle/HOL 子模贪心算法形式化正式发表于 Archive of Formal Proofs，以及形式化过程中逐渐显露出的算法证明结构。 Isabelle/HOL Approximation Algorithms AFP 阅读全文 原始发布 · 2026-05-22 历史研究记录 · 已被新版取代 历史记录：从 dual score 到 saddle certificates 2026年5月的探索记录。文中的 cycle-rank、signed-Laplacian 与 cluster-cut 推导已由新版网络定位研究记录取代，不代表当前定理状态。 Duality Optimization 阅读全文 原始发布 · 2026-05-22 已提交的形式化项目 从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL 这篇 5 月 22 日的原始笔记记录第二个 Isabelle/HOL optimization 项目的结构；它早于子模贪心条目 5 月 26 日的 AFP 发表。PGD 项目随后于 7 月 2 日提交 AFP，目前等待审核。 Isabelle/HOL Optimization 阅读全文 原始发布 · 2026-03-23 探索性推导 当一个 dual 路线走不通…",
       "title_en": "Technical Notes"
     },
     {

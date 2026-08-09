@@ -35,11 +35,11 @@
     </item>
 
     <item>
-      <title>From Dual Score to Saddle Certificates: A Small New Step</title>
+      <title>Historical Note: From Dual Score to Saddle Certificates</title>
       <link>https://lyuf09.github.io/chronohaze/post/dual-score-saddle-certificates.html</link>
       <guid>https://lyuf09.github.io/chronohaze/post/dual-score-saddle-certificates.html</guid>
       <pubDate>Fri, 22 May 2026 12:00:00 +0000</pubDate>
-      <description>A new step from an instance-level dual score toward stationary witnesses, projected retention, Hessian structure, and cycle-rank saddle certificates for network localization.</description>
+      <description>Historical note from May 2026. Its cycle-rank, signed-Laplacian, and cluster-cut derivations are superseded by the current network-localization research record and should not be read as current theorems.</description>
     </item>
 
     <item>
@@ -59,7 +59,7 @@
     </item>
 
     <item>
-      <title>From One Theorem to a Framework: New Progress on My Isabelle Project in Submodular Optimization</title>
+      <title>Classical Greedy, LazyGreedy, and StochasticGreedy in Isabelle/HOL</title>
       <link>https://lyuf09.github.io/chronohaze/post/theorem-to-framework-isabelle-submodular.html</link>
       <guid>https://lyuf09.github.io/chronohaze/post/theorem-to-framework-isabelle-submodular.html</guid>
       <pubDate>Sat, 14 Mar 2026 12:00:00 +0000</pubDate>
