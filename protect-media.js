@@ -2465,7 +2465,13 @@
       return;
     }
 
-    if (!isMobileShareDockMode()) {
+    var isDecorativeHomeLogo =
+      document.body &&
+      document.body.classList.contains("home-body") &&
+      window.matchMedia &&
+      window.matchMedia("(max-width: 760px)").matches;
+
+    if (!isMobileShareDockMode() || isDecorativeHomeLogo) {
       shell.removeAttribute("data-mobile-share-via-logo");
       logo.classList.remove("is-share-trigger", "is-share-open");
       logo.removeAttribute("role");
@@ -14951,6 +14957,7 @@
         "@media (max-width:900px){.floating-site-logo{width:58px;height:58px;right:max(10px,calc(env(safe-area-inset-right,0px) + 8px));bottom:calc(max(10px,calc(env(safe-area-inset-bottom,0px) + 8px)) + var(--floating-logo-lift,0px));}.floating-site-logo::before{inset:-10px;filter:blur(7px);}.floating-site-logo::after{inset:-3px;filter:blur(3px);}}",
         "@media (max-width:640px){.floating-site-logo{width:48px;height:48px;}.floating-site-logo::before{inset:-8px;}.floating-site-logo img{width:72%;height:72%;}}",
         "@media (hover:none) and (pointer:coarse){.floating-site-logo{width:48px;height:48px;right:max(10px,calc(env(safe-area-inset-right,0px) + 8px));bottom:calc(max(10px,calc(env(safe-area-inset-bottom,0px) + 8px)) + var(--floating-logo-lift,0px));}.floating-site-logo::before{inset:-8px;filter:blur(7px);}.floating-site-logo::after{inset:-3px;filter:blur(3px);}.floating-site-logo img{width:72%;height:72%;}}",
+        "@media (max-width:760px){.floating-site-logo{top:var(--floating-logo-mobile-top,86px);right:var(--floating-logo-mobile-right,10px);bottom:auto;}}",
       ].join("");
       document.head.appendChild(style);
     }
@@ -14982,11 +14989,7 @@
       }
     }
     img.addEventListener("error", setNextLogoSource);
-    if ("requestIdleCallback" in window) {
-      window.requestIdleCallback(setNextLogoSource, { timeout: 1800 });
-    } else {
-      window.setTimeout(setNextLogoSource, 900);
-    }
+    setNextLogoSource();
 
     wrapper.appendChild(img);
 
@@ -15032,6 +15035,17 @@
 
       var currentLift = Number(wrapper.dataset.floatingLogoLift || 0) || 0;
       var logoRect = wrapper.getBoundingClientRect();
+      if (logoRect.width < 59) {
+        var home = document.body.matches(".home-body");
+        var x = document.querySelector(home ? ".menu-open" : ".site-header .floating-lang-switch");
+        var y = home ? x : document.querySelector(".site-header");
+        if (x && y) {
+          x = x.getBoundingClientRect();
+          wrapper.style.setProperty("--floating-logo-mobile-top", y.getBoundingClientRect().bottom + (home ? 6 : 10) + "px");
+          wrapper.style.setProperty("--floating-logo-mobile-right", window.innerWidth - x.right + "px");
+          wrapper.dataset.mobileAnchor = home ? "menu" : "header-language";
+        }
+      }
       var naturalTop = logoRect.top + currentLift;
       var naturalBottom = logoRect.bottom + currentLift;
       var neededLift = 0;

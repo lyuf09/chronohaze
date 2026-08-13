@@ -186,18 +186,26 @@ test("mobile home keeps the portrait clear and trims duplicate hero controls", a
   await expect(page.locator(".hero-mobile-evidence")).toHaveCount(0);
   await expect(page.locator(".hero-authority-line")).toBeHidden();
   await expect(page.locator('.hero-academic-link[href*="github.com"]')).toBeHidden();
-  await expect(page.locator(".floating-site-logo")).toBeHidden();
+  const floatingLogo = page.locator(".floating-site-logo");
+  await expect(floatingLogo).toBeVisible();
+  await expect(floatingLogo).toHaveAttribute("data-mobile-anchor", "menu");
+  await expect(floatingLogo).toHaveAttribute("aria-hidden", "true");
+  await expect(floatingLogo).not.toHaveAttribute("role", "button");
   await expect(page.locator(".site-share-shell")).toBeHidden();
 
   const mobileGeometry = await page.evaluate(() => {
     const frame = document.querySelector(".hero-portrait-frame")?.getBoundingClientRect();
     const portrait = document.querySelector(".hero-portrait")?.getBoundingClientRect();
+    const menu = document.querySelector(".menu-open")?.getBoundingClientRect();
+    const logo = document.querySelector(".floating-site-logo")?.getBoundingClientRect();
     const visibleQuickLinks = Array.from(document.querySelectorAll(".hero-academic-link")).filter(
       (link) => window.getComputedStyle(link).display !== "none"
     );
     return {
       frame,
       portrait,
+      menu,
+      logo,
       visibleQuickLinks: visibleQuickLinks.length,
       viewport: window.innerWidth,
       scrollWidth: document.documentElement.scrollWidth,
@@ -205,6 +213,11 @@ test("mobile home keeps the portrait clear and trims duplicate hero controls", a
   });
   expect(mobileGeometry.portrait.top).toBeGreaterThanOrEqual(mobileGeometry.frame.top);
   expect(mobileGeometry.portrait.bottom).toBeLessThanOrEqual(mobileGeometry.frame.bottom + 10);
+  expect(mobileGeometry.logo.top).toBeGreaterThanOrEqual(mobileGeometry.menu.bottom + 4);
+  expect(Math.abs(
+    (mobileGeometry.logo.left + mobileGeometry.logo.right) / 2 -
+      (mobileGeometry.menu.left + mobileGeometry.menu.right) / 2
+  )).toBeLessThanOrEqual(2);
   expect(mobileGeometry.visibleQuickLinks).toBe(4);
   expect(mobileGeometry.scrollWidth).toBeLessThanOrEqual(mobileGeometry.viewport);
   expect(errors).toEqual([]);
@@ -301,7 +314,8 @@ test("floating logo uses a genuinely dark mark over declared light surfaces", as
   await page.evaluate(() => document.querySelector("[data-logo-sampling-overlay]")?.remove());
 
   await page.setViewportSize({ width: 390, height: 844 });
-  await expect(logo).toBeHidden();
+  await expect(logo).toBeVisible();
+  await expect(logo).toHaveAttribute("data-mobile-anchor", "menu");
   await expect(page.locator(".site-share-shell")).toBeHidden();
 
   expect(errors).toEqual([]);
@@ -773,7 +787,7 @@ test("music index renders and remains interactive", async ({ page }) => {
   );
   await expect(page.locator(".music-performance-hero")).toHaveCount(1);
   await expect(page.locator(".music-editorial-gallery picture")).toHaveCount(6);
-  await expect(page.locator(".music-performance-card-shell")).toHaveCount(2);
+  await expect(page.locator(".music-performance-card-shell")).toHaveCount(3);
   await expect(page.locator(".music-performance-archive img[alt='']")).toHaveCount(0);
   await expect(page.locator(".music-performance-full-link")).toContainText("49 frames");
   const intrinsicImageSizes = await page
@@ -838,6 +852,35 @@ test("Xi'an performance archive exposes all frames and lightbox navigation", asy
   await expect(page.locator(".performance-lightbox figcaption")).toHaveText("27 / 27");
   await page.locator(".performance-lightbox-close").click();
   await expect(page.locator(".performance-lightbox")).toBeHidden();
+  expect(errors).toEqual([]);
+});
+
+test("Ice Lake is a standalone guitar portrait series", async ({ page }) => {
+  const errors = trackPageErrors(page);
+  await page.goto("music/guitar-portrait-ice-lake.html?lang=en", {
+    waitUntil: "domcontentloaded",
+  });
+  await waitForCriticalLoaderRelease(page);
+
+  await expect(page.locator(".performance-set-header")).toContainText("19 FRAMES");
+  await expect(page.locator(".performance-set-thumb")).toHaveCount(19);
+  await expect(page.locator(".performance-set-grid img[alt='']")).toHaveCount(0);
+  await expect(page.locator('img[src*="IMG_6845"]')).toHaveCount(0);
+
+  await page.locator(".performance-set-thumb").nth(18).click();
+  await expect(page.locator(".performance-lightbox figcaption")).toHaveText("19 / 19");
+  await expect(page.locator(".performance-lightbox figure img")).toHaveAttribute(
+    "src",
+    /ice-lake-19-1600\.webp$/
+  );
+
+  await page.goto("music/early-performance-records.html?lang=en", {
+    waitUntil: "domcontentloaded",
+  });
+  await waitForCriticalLoaderRelease(page);
+  await expect(page.locator(".performance-set-header")).toContainText("04 FRAMES");
+  await expect(page.locator(".performance-set-thumb")).toHaveCount(4);
+  await expect(page.locator('img[alt*="frozen lake"]')).toHaveCount(0);
   expect(errors).toEqual([]);
 });
 
@@ -1062,7 +1105,9 @@ test("mobile home hides sharing while secondary-page sharing manages focus", asy
   await waitForCriticalLoaderRelease(page);
 
   const homeLogo = page.locator(".floating-site-logo");
-  await expect(homeLogo).toBeHidden();
+  await expect(homeLogo).toBeVisible();
+  await expect(homeLogo).toHaveAttribute("data-mobile-anchor", "menu");
+  await expect(homeLogo).toHaveAttribute("aria-hidden", "true");
   await expect(page.locator(".site-share-shell")).toBeHidden();
 
   const compactTargets = await page
@@ -1091,11 +1136,20 @@ test("mobile home hides sharing while secondary-page sharing manages focus", asy
   const closeButton = panel.locator('[data-share-action="close"]');
 
   await expect(logo).toBeVisible();
+  await expect(logo).toHaveAttribute("data-mobile-anchor", "header-language");
   await expect(logo).toHaveAttribute("aria-label", "Share this page");
   const logoBox = await logo.boundingBox();
+  const headerBox = await page.locator(".site-header").boundingBox();
+  const languageBox = await page.locator(".site-header .floating-lang-switch").boundingBox();
   expect(logoBox).not.toBeNull();
+  expect(headerBox).not.toBeNull();
+  expect(languageBox).not.toBeNull();
   expect(logoBox.width).toBeLessThanOrEqual(50);
   expect(logoBox.height).toBeLessThanOrEqual(50);
+  expect(logoBox.y).toBeGreaterThanOrEqual(headerBox.y + headerBox.height + 8);
+  expect(Math.abs(
+    logoBox.x + logoBox.width - (languageBox.x + languageBox.width)
+  )).toBeLessThanOrEqual(2);
 
   await logo.click({ force: true });
   await expect(panel).toBeVisible();

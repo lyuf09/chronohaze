@@ -8,7 +8,6 @@ files=(
   "$ROOT/assets/template/photo-bottom-5710.jpg"
   "$ROOT/assets/template/hero_portrait.jpg"
   "$ROOT/assets/template/teenage-best-album-cover.jpg"
-  "$ROOT/assets/template/music-bottom-01.jpg"
   "$ROOT/assets/template/about_branches.jpg"
   "$ROOT/assets/template/ipomoea-alba-album-cover.jpg"
 )

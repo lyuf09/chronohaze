@@ -3285,25 +3285,6 @@
         }
       }
     },
-    "assets/template/music-bottom-01.jpg": {
-      "original": {
-        "width": 4000,
-        "height": 1455
-      },
-      "formats": {
-        "webp": {
-          "widths": [
-            960,
-            1600
-          ],
-          "srcset": "assets/template/music-bottom-01-960.webp 960w, assets/template/music-bottom-01-1600.webp 1600w",
-          "files": [
-            "assets/template/music-bottom-01-960.webp",
-            "assets/template/music-bottom-01-1600.webp"
-          ]
-        }
-      }
-    },
     "assets/template/music-bottom-02.jpg": {
       "original": {
         "width": 1024,
