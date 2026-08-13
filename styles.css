@@ -17073,13 +17073,47 @@ html:lang(zh) .music-index-page .music-room-track-open {
   .music-index-page .music-room-track-card:not([data-cover-orientation="portrait"]) {
     grid-column: span 6;
   }
+
+  .music-index-page .music-room-selected-grid > .music-room-track-card[data-cover-orientation="portrait"]:last-child {
+    width: auto;
+    grid-column: 3 / span 8;
+    justify-self: stretch;
+  }
+
+  .music-index-page .music-room-selected-grid > .music-room-track-card[data-cover-orientation="portrait"]:last-child .music-room-track-link {
+    grid-template-columns: minmax(280px, 0.92fr) minmax(0, 1.08fr);
+  }
+
+  .music-index-page .music-room-selected-grid > .music-room-track-card[data-cover-orientation="portrait"]:last-child .music-room-track-cover {
+    min-height: 0;
+    aspect-ratio: var(--music-room-track-cover-ratio);
+  }
+
+  .music-index-page .music-room-selected-grid > .music-room-track-card[data-cover-orientation="portrait"]:last-child .music-room-track-meta {
+    align-content: center;
+    padding: 28px 26px;
+  }
 }
 
-@media (min-width: 761px) {
+@media (min-width: 761px) and (max-width: 980px) {
   .music-index-page .music-room-selected-grid > .music-room-track-card[data-cover-orientation="portrait"]:last-child {
-    width: calc((100% - 18px) / 2);
+    width: 100%;
     grid-column: 1 / -1;
-    justify-self: center;
+    justify-self: stretch;
+  }
+
+  .music-index-page .music-room-selected-grid > .music-room-track-card[data-cover-orientation="portrait"]:last-child .music-room-track-link {
+    grid-template-columns: minmax(240px, 0.86fr) minmax(0, 1.14fr);
+  }
+
+  .music-index-page .music-room-selected-grid > .music-room-track-card[data-cover-orientation="portrait"]:last-child .music-room-track-cover {
+    min-height: 0;
+    aspect-ratio: var(--music-room-track-cover-ratio);
+  }
+
+  .music-index-page .music-room-selected-grid > .music-room-track-card[data-cover-orientation="portrait"]:last-child .music-room-track-meta {
+    align-content: center;
+    padding: 24px 22px;
   }
 }
 
@@ -17101,5 +17135,10 @@ html:lang(zh) .music-index-page .music-room-track-open {
 
   .music-index-page .music-room-track-card[data-cover-orientation] .music-room-track-cover {
     aspect-ratio: var(--music-room-track-cover-ratio, 16 / 9);
+  }
+
+  .music-index-page .music-room-track-card[data-cover-orientation="portrait"] .music-room-track-cover {
+    aspect-ratio: 4 / 3;
+    background: linear-gradient(180deg, rgba(232, 236, 243, 0.96), rgba(218, 224, 234, 0.96));
   }
 }
