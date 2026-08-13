@@ -42,21 +42,19 @@ test("home page renders hero and player shell", async ({ page }) => {
   ).toHaveCount(3);
   await expect(page.getByRole("heading", { name: "当前工作" })).toBeVisible();
   await expect(page.locator(".selected-evidence-status")).toHaveText([
-    "已发表 · AFP · 独著",
+    "已发表 · AFP · 2026 · 独立作者",
+    "已发表 · AFP · 2026 · 形式化开发 · WENDA LI 指导",
     "进行中 · 合作研究",
-    "已提交 · AFP · 2026年7月2日",
   ]);
-  await expect(page.getByRole("heading", { name: "Isabelle/HOL 中的子模贪心" })).toBeVisible();
-  await expect(page.locator(".selected-evidence-card").nth(0)).toContainText("确定性贪心算法与有状态惰性贪心算法");
+  await expect(page.getByRole("heading", { name: "Isabelle/HOL 中的光滑凸优化一阶方法" })).toBeVisible();
+  await expect(page.locator(".selected-evidence-card").nth(0)).toContainText("投影几何、投影梯度映射、收敛证书与线性收敛率");
+  await expect(page.getByRole("heading", { name: "基数约束子模最大化的贪心算法" })).toBeVisible();
   await expect(
     page.getByRole("heading", { name: "网络定位中的负曲率证书" })
   ).toBeVisible();
-  await expect(page.locator(".selected-evidence-card").nth(1)).toContainText(
+  await expect(page.locator(".selected-evidence-card").nth(2)).toContainText(
     "与 Prof. Shoham Sabach 合作研究图结构负曲率证书与局部逃逸方向。"
   );
-  await expect(
-    page.getByRole("heading", { name: "Isabelle/HOL 中的投影梯度下降" })
-  ).toBeVisible();
   await expect(page.locator(".identity-panel-math")).toContainText("学术身份 · FEIER LYU");
   await expect(page.locator(".identity-panel-creative")).toContainText("创作身份 · HAZEZZ");
   await expect(page.locator("#now")).toContainText("演奏视频");
@@ -71,7 +69,7 @@ test("home page renders hero and player shell", async ({ page }) => {
     "University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027"
   );
   await expect(page.locator(".hero-research-signal")).toHaveText(
-    "AFP 论文 · PGD 形式化已投稿 · 与 Shoham Sabach 教授持续合作研究"
+    "2 项 AFP 正式成果 · 独立完成优化形式化 · 与 Shoham Sabach 教授合作研究"
   );
   await expect(page.locator(".hero-academic-links .hero-academic-link")).toHaveText([
     "学术",
@@ -117,18 +115,16 @@ test("bare home URL defaults to English and releases the critical loader at DOM 
   await expect(page.locator('.lang-btn[data-lang="en"]')).toHaveClass(/active/);
   await expect(page.locator(".hero-kicker")).toHaveText("Origin / Chronohaze");
   await expect(page.locator(".selected-evidence-status")).toHaveText([
-    "PUBLISHED · AFP · SOLE AUTHOR",
+    "PUBLISHED · AFP · 2026 · SOLE AUTHOR",
+    "PUBLISHED · AFP · 2026 · FORMALIZATION · SUPERVISED BY WENDA LI",
     "ONGOING · JOINT RESEARCH",
-    "SUBMITTED · AFP · 2 JULY 2026",
   ]);
-  await expect(page.getByRole("heading", { name: "Submodular Greedy in Isabelle/HOL" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "First-Order Methods for Smooth Convex Optimization in Isabelle/HOL" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Greedy Algorithms for Cardinality-Constrained Submodular Maximization" })).toBeVisible();
   await expect(
     page.getByRole("heading", {
       name: "Negative-Curvature Certificates for Network Localization",
     })
-  ).toBeVisible();
-  await expect(
-    page.getByRole("heading", { name: "Projected Gradient Descent in Isabelle/HOL" })
   ).toBeVisible();
   await expect(page).toHaveURL(/[?&]lang=en(?:&|$)/);
   await expect(page).toHaveTitle(
@@ -418,7 +414,7 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
     "University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027"
   );
   await expect(page.locator(".hero-research-signal")).toHaveText(
-    "AFP 论文 · PGD 形式化已投稿 · 与 Shoham Sabach 教授持续合作研究"
+    "2 项 AFP 正式成果 · 独立完成优化形式化 · 与 Shoham Sabach 教授合作研究"
   );
   await expect(page.locator('.hero-academic-link[href="research.html"]')).toHaveText("研究陈述");
   await expect(page.locator('.hero-academic-link[href="projects.html"]')).toHaveText("精选工作");
@@ -465,11 +461,11 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
     "University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027"
   );
   await expect(page.locator(".hero-research-signal")).toHaveText(
-    "AFP publication · PGD formalization submitted · Ongoing research with Prof. Shoham Sabach"
+    "2 AFP publications · Sole-authored optimization formalization · Research with Prof. Shoham Sabach"
   );
   await expect(page.locator("main")).not.toContainText("Born in 2005");
   await expect(page.getByRole("heading", { name: "Research Snapshot" })).toBeVisible();
-  await expect(page.locator(".selected-evidence-card").nth(1)).toContainText(
+  await expect(page.locator(".selected-evidence-card").nth(2)).toContainText(
     "Graph-structured negative-curvature certificates and local escape directions, with Prof. Shoham Sabach."
   );
   await expect(page.locator(".hero-portrait")).toHaveAttribute("alt", "Portrait of Feier Lyu (HazezZ)");
@@ -554,9 +550,12 @@ test("PGD note leads with its mathematical value", async ({ page }) => {
 
   const article = page.locator('[data-lang-block="en"]');
   await expect(article.locator(".article-meta").first()).toContainText("Originally posted 2026-05-22");
-  const chronology = article.locator(".math-post-update").first();
+  const publicationUpdate = article.locator(".math-post-update").first();
+  const chronology = article.locator(".math-post-update").nth(1);
   await expect(chronology).toContainText("predates the submodular-greedy entry's AFP publication on May 26");
-  await expect(chronology).toContainText("submitted to the Archive of Formal Proofs on July 2, 2026");
+  await expect(publicationUpdate).toContainText("Publication update — August 2026");
+  await expect(publicationUpdate).toContainText("accepted and published in the Archive of Formal Proofs");
+  await expect(chronology).toContainText("Submitted: July 2, 2026 · Published in AFP: July 2, 2026");
   await expect(article).toContainText(
     "Projected gradient descent is one of the basic algorithmic templates for constrained smooth optimization."
   );
@@ -567,7 +566,7 @@ test("PGD note leads with its mathematical value", async ({ page }) => {
   await expect(article).not.toContainText("temporarily blocked by a technical issue");
   await expect(page.locator('meta[name="description"]')).toHaveAttribute(
     "content",
-    /A machine-checked development of projected gradient descent/
+    /A publication retrospective on the sole-authored AFP entry/
   );
 
   expect(errors).toEqual([]);
@@ -1225,13 +1224,18 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   await expect(page.locator(".page-last-updated-time")).toHaveText("August 2026");
   await expect(cvEnglish.locator("#cv-en-highlights")).toContainText("Expected graduation: 2027");
   await expect(cvEnglish.getByRole("heading", { name: "Academic Profile" })).toBeVisible();
-  await expect(cvEnglish.locator("#cv-en-projects")).toContainText("Archive of Formal Proofs · May 2026");
+  await expect(cvEnglish.locator("#cv-en-projects")).toContainText("Archive of Formal Proofs · July 2026 · Sole author");
+  await expect(cvEnglish.locator("#cv-en-projects > .cv-project-list").first().locator("li")).toHaveCount(2);
   await expect(cvEnglish.getByRole("heading", { name: "Selected Evidence" })).toHaveCount(0);
-  await expect(cvEnglish.getByRole("link", { name: "AFP entry" })).toHaveAttribute(
+  await expect(cvEnglish.getByRole("link", { name: "AFP entry" }).first()).toHaveAttribute(
+    "href",
+    "https://isa-afp.org/entries/Projected_Gradient_Descent.html"
+  );
+  await expect(cvEnglish.getByRole("link", { name: "AFP entry" }).nth(1)).toHaveAttribute(
     "href",
     "https://isa-afp.org/entries/Submodular_Greedy.html#"
   );
-  await expect(cvEnglish.getByRole("link", { name: "Proof document" })).toHaveAttribute(
+  await expect(cvEnglish.getByRole("link", { name: "Proof document" }).nth(1)).toHaveAttribute(
     "href",
     "https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf"
   );
@@ -1249,8 +1253,8 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   const pgdProject = cvEnglish.locator(".cv-project-list li").filter({
     has: page.getByRole("heading", { name: "First-Order Methods for Smooth Convex Optimization in Isabelle/HOL" }),
   });
-  await expect(pgdProject).toContainText("Independent formalization project · 2026");
-  await expect(pgdProject).toContainText("submitted to the Archive of Formal Proofs on July 2, 2026");
+  await expect(pgdProject).toContainText("Archive of Formal Proofs · July 2026 · Sole author");
+  await expect(pgdProject).toContainText("residual certificates");
   const submodularProject = cvEnglish.locator(".cv-project-list li").filter({ hasText: "Wenda Li" });
   await expect(submodularProject).toContainText("I was responsible for the full Isabelle/HOL development");
   const industry = cvEnglish.locator(".cv-experience-item").filter({
@@ -1277,9 +1281,8 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   const cvChinese = page.locator('[data-lang-block="zh"]');
   await expect(page.locator(".page-last-updated-label")).toHaveText("最近更新：");
   await expect(page.locator(".page-last-updated-time")).toHaveText("2026 年 8 月");
-  await expect(cvChinese.locator("#cv-zh-projects")).toContainText(
-    "项目已于2026年7月2日提交 Archive of Formal Proofs，目前等待审核。"
-  );
+  await expect(cvChinese.locator("#cv-zh-projects")).toContainText("Archive of Formal Proofs · 2026年7月 · 独立作者");
+  await expect(cvChinese.locator("#cv-zh-projects")).not.toContainText("等待审核");
   await expect(cvChinese.locator("#cv-zh-projects")).toContainText(
     "在 Wenda Li 指导下负责完整的 Isabelle/HOL 形式化开发"
   );
@@ -1322,7 +1325,11 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   await expect(page.locator("#research-now")).toContainText(
     "机器检查优化，以及通过不变性与对偶研究非凸定位问题的结构"
   );
-  await expect(formalizationLine.getByRole("link", { name: "AFP 条目" })).toHaveAttribute(
+  await expect(formalizationLine.getByRole("link", { name: "PGD AFP 条目", exact: true })).toHaveAttribute(
+    "href",
+    "https://isa-afp.org/entries/Projected_Gradient_Descent.html"
+  );
+  await expect(formalizationLine.getByRole("link", { name: "Submodular AFP 条目", exact: true })).toHaveAttribute(
     "href",
     "https://isa-afp.org/entries/Submodular_Greedy.html#"
   );
@@ -1705,7 +1712,7 @@ test("academic page isolates languages and renders a concise academic index", as
     'Negative-curvature certificates and local escape directions, with Prof. Shoham Sabach'
   );
   await expect(evidence.locator('[data-lang-block="en"]')).toContainText("Published May 26, 2026");
-  await expect(evidence.locator('[data-lang-block="en"]')).toContainText("Independent formalization project");
+  await expect(evidence.locator('[data-lang-block="en"]')).toContainText("AFP · 2026 · SOLE AUTHOR");
   await expect(evidence.locator('[data-lang-block="en"]')).toContainText("Ongoing collaboration with Prof. Shoham Sabach");
   await expect(page.locator("main")).not.toContainText("Born in 2005");
   await expect(page.locator("main")).not.toContainText("HazezZ");
@@ -1738,32 +1745,28 @@ test("AFP publication status stays synchronized across work page and project his
   await expect(
     page.locator('#selected-work-list [data-lang-block="en"] > .academic-evidence > .academic-evidence-list li')
   ).toHaveCount(3);
-  const publishedProject = page.locator(
+  const pgdProject = page.locator(
     '#selected-work-list [data-lang-block="en"] > .academic-evidence > .academic-evidence-list li'
   ).first();
+  await expect(pgdProject).toContainText("Published in the Archive of Formal Proofs on July 2, 2026");
+  await expect(pgdProject).toContainText("Sole-authored formalization");
+  await expect(pgdProject).toContainText("projection geometry");
+  await expect(pgdProject).toContainText("projected-gradient mappings");
+  await expect(pgdProject).toContainText("residual certificates");
+  await expect(pgdProject.getByRole("link", { name: "AFP", exact: true })).toHaveAttribute(
+    "href",
+    "https://isa-afp.org/entries/Projected_Gradient_Descent.html"
+  );
+  const publishedProject = page.locator(
+    '#selected-work-list [data-lang-block="en"] > .academic-evidence > .academic-evidence-list li'
+  ).nth(1);
   await expect(publishedProject).toContainText("Published in the Archive of Formal Proofs on May 26, 2026");
-  await expect(publishedProject).toContainText("Problem:");
-  await expect(publishedProject).toContainText("Contribution:");
-  await expect(publishedProject).toContainText("Links:");
   await expect(publishedProject).toContainText("under the supervision of Wenda Li");
   await expect(publishedProject).toContainText("post-publication stochastic-greedy extension");
-  await expect(publishedProject.getByRole("link", { name: "AFP", exact: true })).toHaveAttribute(
-    "href",
-    "https://isa-afp.org/entries/Submodular_Greedy.html#"
-  );
   await expect(publishedProject.getByRole("link", { name: "DOI", exact: true })).toHaveAttribute(
     "href",
     "https://doi.org/10.5281/zenodo.21054718"
   );
-  const pgdProject = page.locator(
-    '#selected-work-list [data-lang-block="en"] > .academic-evidence > .academic-evidence-list li'
-  ).nth(1);
-  await expect(pgdProject).toContainText("projection geometry");
-  await expect(pgdProject).toContainText("projected-gradient mapping");
-  await expect(pgdProject).toContainText("convex convergence");
-  await expect(pgdProject).toContainText("strongly convex linear rate");
-  await expect(pgdProject).toContainText("Independent formalization project");
-  await expect(pgdProject).toContainText("Submitted to the Archive of Formal Proofs on July 2, 2026");
   const localizationProject = page.locator(
     '#selected-work-list [data-lang-block="en"] > .academic-evidence > .academic-evidence-list li'
   ).nth(2);
@@ -1847,7 +1850,8 @@ test("technical notes use explicit status labels and a local Julia fractal", asy
   const labels = await page.locator(".math-note-status").allTextContents();
   const allowed = new Set([
     "Published formalization",
-    "Submitted formalization",
+    "Published · AFP · Sole author",
+    "Publication retrospective · AFP",
     "Ongoing joint research",
     "Historical note · Superseded",
     "Exploratory derivation",

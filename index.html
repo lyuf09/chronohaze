@@ -138,7 +138,7 @@
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico?v=4" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=4" />
   <title>Feier Lyu | Optimization &amp; Formal Verification | AFP Author</title>
-  <meta name="description" content="Feier Lyu (Fay Lyu) is a Mathematics BSc student at the University of Edinburgh working on optimization theory, formal verification, and Isabelle/HOL; the submodular optimization formalization is published in the Archive of Formal Proofs." />
+  <meta name="description" content="Feier Lyu (Fay Lyu) is a Mathematics BSc student at the University of Edinburgh working on optimization theory and formal verification, with two publications in the Archive of Formal Proofs." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Chronohaze" />
   <meta property="og:title" content="Feier Lyu | Optimization &amp; Formal Verification | AFP Author" />
@@ -197,7 +197,7 @@
   <link rel="preload" href="assets/fonts/cinzel-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" as="image" href="assets/template/hero_portrait-960.webp" type="image/webp" imagesrcset="assets/template/hero_portrait-600.webp 600w, assets/template/hero_portrait-960.webp 960w, assets/template/hero_portrait-1600.webp 1600w" imagesizes="(max-width: 640px) 88vw, (max-width: 900px) 92vw, 46vw" />
   <link rel="stylesheet" href="styles.min.css?v=20260723-information-architecture1" />
-  <link rel="stylesheet" href="home.min.css?v=20260813-mobile-logo1" />
+  <link rel="stylesheet" href="home.min.css?v=20260813-two-afp1" />
   <script defer src="protect-media.min.js?v=20260813-mobile-logo1"></script>
 </head>
 <body class="home-body">
@@ -231,7 +231,7 @@
             <p class="hero-role-line" data-i18n="heroRole">OPTIMIZATION · FORMAL VERIFICATION · MACHINE-CHECKED MATHEMATICS</p>
             <p data-i18n="heroIntro" data-i18n-html="true"><span class="hero-poetic-line">In the haze of time, I look for structure in complexity.</span><span class="hero-identity-line">Proof asks what can be trusted; music and image ask what deserves to be remembered.</span><span class="hero-world-line">This site gathers the work that continues between them.</span></p>
             <p class="hero-authority-line" data-i18n="heroAuthority">University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027</p>
-            <p class="hero-research-signal" data-i18n="heroResearchSignal">AFP publication · PGD formalization submitted · Ongoing research with Prof. Shoham Sabach</p>
+            <p class="hero-research-signal" data-i18n="heroResearchSignal">2 AFP publications · Sole-authored optimization formalization · Research with Prof. Shoham Sabach</p>
             <div class="hero-academic-module" data-search-ignore>
               <p class="hero-academic-kicker" data-i18n="academicKicker">Quick links</p>
               <div class="hero-academic-links">
@@ -256,22 +256,27 @@
           </div>
           <div class="selected-evidence-grid" role="list" data-i18n-aria="selectedEvidenceGridAria" aria-label="Selected research outputs">
             <article class="selected-evidence-card" role="listitem" data-reveal="slide-up" data-reveal-delay="80">
-              <p class="selected-evidence-status" data-i18n="selectedEvidenceCard1Status">PUBLISHED · AFP · SOLE AUTHOR</p>
-              <h3 data-i18n="selectedEvidenceCard1Title">Submodular Greedy in Isabelle/HOL</h3>
-              <p data-i18n="selectedEvidenceCard1Body">Deterministic and stateful lazy greedy for submodular maximization in Isabelle/HOL.</p>
-              <a class="selected-evidence-link" href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer" data-i18n="selectedEvidenceCard1Link">AFP entry</a>
+              <p class="selected-evidence-status" data-i18n="selectedEvidenceCard1Status">PUBLISHED · AFP · 2026 · SOLE AUTHOR</p>
+              <h3 data-i18n="selectedEvidenceCard1Title">First-Order Methods for Smooth Convex Optimization in Isabelle/HOL</h3>
+              <p data-i18n="selectedEvidenceCard1Body">Reusable Isabelle/HOL infrastructure for smooth convex first-order optimization, including projection geometry, projected-gradient mappings, convergence certificates, and linear rates.</p>
+              <div class="selected-evidence-links">
+                <a class="selected-evidence-link" href="https://isa-afp.org/entries/Projected_Gradient_Descent.html" target="_blank" rel="noopener noreferrer" data-i18n="selectedEvidenceCard1Link">AFP entry</a>
+                <a class="selected-evidence-link" href="https://isa-afp.org/browser_info/current/AFP/Projected_Gradient_Descent/document.pdf" target="_blank" rel="noopener noreferrer" data-i18n="selectedEvidenceCard1Proof">Proof document</a>
+                <a class="selected-evidence-link" href="post/projected-gradient-descent-isabelle-hol.html" data-i18n="selectedEvidenceCard1Note">Project note</a>
+                <a class="selected-evidence-link" href="https://github.com/lyuf09/projected-gradient-descent" target="_blank" rel="noopener noreferrer">GitHub</a>
+              </div>
             </article>
             <article class="selected-evidence-card" role="listitem" data-reveal="slide-up" data-reveal-delay="140">
-              <p class="selected-evidence-status" data-i18n="selectedEvidenceCard2Status">ONGOING · JOINT RESEARCH</p>
-              <h3 data-i18n="selectedEvidenceCard2Title">Negative-Curvature Certificates for Network Localization</h3>
-              <p data-i18n="selectedEvidenceCard2Body">Graph-structured negative-curvature certificates and local escape directions, with Prof. Shoham Sabach.</p>
-              <a class="selected-evidence-link" href="notes/network_localization_structural_certificates.html" data-i18n="selectedEvidenceCard2Link">Research record</a>
+              <p class="selected-evidence-status" data-i18n="selectedEvidenceCard2Status">PUBLISHED · AFP · 2026 · FORMALIZATION · SUPERVISED BY WENDA LI</p>
+              <h3 data-i18n="selectedEvidenceCard2Title">Greedy Algorithms for Cardinality-Constrained Submodular Maximization</h3>
+              <p data-i18n="selectedEvidenceCard2Body">Classical greedy and a verified stateful lazy-greedy variant for cardinality-constrained monotone submodular maximization.</p>
+              <a class="selected-evidence-link" href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer" data-i18n="selectedEvidenceCard2Link">AFP entry</a>
             </article>
             <article class="selected-evidence-card" role="listitem" data-reveal="slide-up" data-reveal-delay="200">
-              <p class="selected-evidence-status" data-i18n="selectedEvidenceCard3Status">SUBMITTED · AFP · 2 JULY 2026</p>
-              <h3 data-i18n="selectedEvidenceCard3Title">Projected Gradient Descent in Isabelle/HOL</h3>
-              <p data-i18n="selectedEvidenceCard3Body">Projected gradient descent, projection geometry, gradient mappings, and convergence rates in Isabelle/HOL.</p>
-              <a class="selected-evidence-link" href="post/projected-gradient-descent-isabelle-hol.html" data-i18n="selectedEvidenceCard3Link">Project note</a>
+              <p class="selected-evidence-status" data-i18n="selectedEvidenceCard3Status">ONGOING · JOINT RESEARCH</p>
+              <h3 data-i18n="selectedEvidenceCard3Title">Negative-Curvature Certificates for Network Localization</h3>
+              <p data-i18n="selectedEvidenceCard3Body">Graph-structured negative-curvature certificates and local escape directions, with Prof. Shoham Sabach.</p>
+              <a class="selected-evidence-link" href="notes/network_localization_structural_certificates.html" data-i18n="selectedEvidenceCard3Link">Research record</a>
             </article>
           </div>
         </div>
@@ -290,7 +295,7 @@
             <p data-i18n="identityMathBody">Theorems, Isabelle/HOL, and optimization notes, from machine-checked proofs to structured nonconvex problems.</p>
             <div class="identity-panel-links">
               <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer" data-i18n="identityMathLink1">AFP theorem</a>
-              <a href="post/projected-gradient-descent-isabelle-hol.html" data-i18n="identityMathLink2">PGD formalization</a>
+              <a href="https://isa-afp.org/entries/Projected_Gradient_Descent.html" target="_blank" rel="noopener noreferrer" data-i18n="identityMathLink2">PGD AFP entry</a>
               <a href="math.html" data-i18n="identityMathLink3">Technical notes</a>
             </div>
           </article>
@@ -494,7 +499,7 @@
 
       const i18n = {
         zh: {
-          metaDescription: 'Fay / Feier Lyu（HazezZ），爱丁堡大学数学本科生，研究优化理论、形式化验证与 Isabelle/HOL；其子模优化形式化已发表于 Archive of Formal Proofs。',
+          metaDescription: 'Fay / Feier Lyu（HazezZ），爱丁堡大学数学本科生，研究优化理论、形式化验证与 Isabelle/HOL，已有两项 Archive of Formal Proofs 正式成果。',
           socialTitle: '起点｜Fay / Feier Lyu · Chronohaze',
           socialDescription: '在时间的薄雾里，为复杂性寻找结构。Fay / Feier Lyu，爱丁堡大学数学本科生，研究优化理论、形式化验证与 Isabelle/HOL。',
           menuOpenAria: '菜单 [ + ]',
@@ -512,7 +517,7 @@
           heroRole: 'OPTIMIZATION · FORMAL VERIFICATION · MACHINE-CHECKED MATHEMATICS',
           heroIntro: '<span class="hero-poetic-line">在时间的薄雾里，为复杂性寻找结构。</span><span class="hero-identity-line">证明关心什么可以被确信；音乐与影像关心什么值得被记住。</span><span class="hero-world-line">这里收录两者之间仍在继续的工作。</span>',
           heroAuthority: 'University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027',
-          heroResearchSignal: 'AFP 论文 · PGD 形式化已投稿 · 与 Shoham Sabach 教授持续合作研究',
+          heroResearchSignal: '2 项 AFP 正式成果 · 独立完成优化形式化 · 与 Shoham Sabach 教授合作研究',
           academicKicker: '快捷入口',
           academicResearch: '学术',
           academicStatement: '研究陈述',
@@ -522,7 +527,7 @@
           contactBtn: '联系我',
           aboutTitle: '关于我',
           aboutP1: '<span class="about-inline-en">Feier Lyu（常用英文名 Fay Lyu）</span>，爱丁堡大学数学本科生，2025–2026 学年于康奈尔大学交换；也以 HazezZ 名义创作音乐。',
-          aboutP2: '我在优化理论、形式化验证与机器学习理论的交界处工作。目前用 <span class="about-inline-en">Isabelle/HOL</span> 研究一阶优化与子模优化；形式化项目《基数约束子模最大化的贪心算法》已发表于 AFP。同时关注非凸极小极大问题中的值函数与二阶追踪。',
+          aboutP2: '我在优化理论与形式化验证的交界处工作。目前已有两项 <span class="about-inline-en">Archive of Formal Proofs</span> 正式成果，其中光滑凸一阶优化条目为独立完成；同时与 <span class="about-inline-en">Prof. Shoham Sabach</span> 合作研究非凸网络定位中的负曲率证书。',
           aboutP3: '理性与浪漫在这里并置：证明、声音与影像各自保留自己的语言。',
           aboutLanguages: '<span class="about-language-label">语言：</span>中文 / 英语 / 日语<br />我主要以中文和英文写作，也会用日文进行歌词、标题与创作表达。',
           nowKicker: 'NOW / 2026年8月',
@@ -538,25 +543,27 @@
           selectedEvidenceKicker: '研究概览',
           selectedEvidenceTitle: '当前工作',
           selectedEvidenceGridAria: '代表性研究成果',
-          selectedEvidenceCard1Status: '已发表 · AFP · 独著',
-          selectedEvidenceCard1Title: 'Isabelle/HOL 中的子模贪心',
-          selectedEvidenceCard1Body: '在 Isabelle/HOL 中形式化子模最大化的确定性贪心算法与有状态惰性贪心算法。',
+          selectedEvidenceCard1Status: '已发表 · AFP · 2026 · 独立作者',
+          selectedEvidenceCard1Title: 'Isabelle/HOL 中的光滑凸优化一阶方法',
+          selectedEvidenceCard1Body: '构建可复用的光滑凸一阶优化 Isabelle/HOL 基础设施，涵盖投影几何、投影梯度映射、收敛证书与线性收敛率。',
           selectedEvidenceCard1Link: '查看 AFP 条目',
-          selectedEvidenceCard2Status: '进行中 · 合作研究',
-          selectedEvidenceCard2Title: '网络定位中的负曲率证书',
-          selectedEvidenceCard2Body: '与 Prof. Shoham Sabach 合作研究图结构负曲率证书与局部逃逸方向。',
-          selectedEvidenceCard2Link: '研究记录',
-          selectedEvidenceCard3Status: '已提交 · AFP · 2026年7月2日',
-          selectedEvidenceCard3Title: 'Isabelle/HOL 中的投影梯度下降',
-          selectedEvidenceCard3Body: '在 Isabelle/HOL 中形式化投影梯度下降、投影几何、梯度映射与收敛速率。',
-          selectedEvidenceCard3Link: '项目笔记',
+          selectedEvidenceCard1Proof: '证明文档',
+          selectedEvidenceCard1Note: '项目回顾',
+          selectedEvidenceCard2Status: '已发表 · AFP · 2026 · 形式化开发 · WENDA LI 指导',
+          selectedEvidenceCard2Title: '基数约束子模最大化的贪心算法',
+          selectedEvidenceCard2Body: '形式化经典贪心算法与经验证的有状态惰性贪心变体。',
+          selectedEvidenceCard2Link: '查看 AFP 条目',
+          selectedEvidenceCard3Status: '进行中 · 合作研究',
+          selectedEvidenceCard3Title: '网络定位中的负曲率证书',
+          selectedEvidenceCard3Body: '与 Prof. Shoham Sabach 合作研究图结构负曲率证书与局部逃逸方向。',
+          selectedEvidenceCard3Link: '研究记录',
           identityDualityKicker: '数学与创作',
           identityDualityTitle: '两种身份，两种工作方式',
           identityMathEyebrow: '学术身份 · FEIER LYU',
           identityMathTitle: '数学',
           identityMathBody: '定理、Isabelle/HOL 与优化笔记：从机器检查证明到结构化非凸问题。',
           identityMathLink1: 'AFP 定理',
-          identityMathLink2: '投影梯度下降形式化',
+          identityMathLink2: 'PGD AFP 条目',
           identityMathLink3: '技术笔记',
           identityCreativeEyebrow: '创作身份 · HAZEZZ',
           identityCreativeTitle: '音乐与影像',
@@ -588,7 +595,7 @@
           menuSearch: '搜索'
         },
         en: {
-          metaDescription: 'Feier Lyu (Fay Lyu) is a Mathematics BSc student at the University of Edinburgh working on optimization theory, formal verification, and Isabelle/HOL; the submodular optimization formalization is published in the Archive of Formal Proofs.',
+          metaDescription: 'Feier Lyu (Fay Lyu) is a Mathematics BSc student at the University of Edinburgh working on optimization theory and formal verification, with two publications in the Archive of Formal Proofs.',
           socialTitle: 'Feier Lyu | Optimization & Formal Verification | AFP Author',
           socialDescription: 'In the haze of time, I look for structure in complexity. Feier Lyu is a Mathematics BSc student at the University of Edinburgh working on optimization, formal verification, and Isabelle/HOL.',
           menuOpenAria: 'Menu [ + ]',
@@ -606,7 +613,7 @@
           heroRole: 'OPTIMIZATION · FORMAL VERIFICATION · MACHINE-CHECKED MATHEMATICS',
           heroIntro: '<span class="hero-poetic-line">In the haze of time, I look for structure in complexity.</span><span class="hero-identity-line">Proof asks what can be trusted; music and image ask what deserves to be remembered.</span><span class="hero-world-line">This site gathers the work that continues between them.</span>',
           heroAuthority: 'University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027',
-          heroResearchSignal: 'AFP publication · PGD formalization submitted · Ongoing research with Prof. Shoham Sabach',
+          heroResearchSignal: '2 AFP publications · Sole-authored optimization formalization · Research with Prof. Shoham Sabach',
           academicKicker: 'Quick links',
           academicResearch: 'Academic',
           academicStatement: 'Research Statement',
@@ -616,7 +623,7 @@
           contactBtn: 'Contact me',
           aboutTitle: 'About me',
           aboutP1: 'My current work develops machine-checked structures for optimization arguments, with particular emphasis on first-order methods and approximation guarantees for submodular optimization in <span class="about-inline-en">Isabelle/HOL</span>.',
-          aboutP2: 'Alongside the published AFP development, I study <span class="about-inline-en">value-function</span> and second-order tracking questions in nonconvex minimax optimization. A 2025–2026 exchange year at <span class="about-inline-en">Cornell University</span> also shaped my interest in structural scores, dual certificates, and the gap between an argument that works on paper and one whose dependencies are fully exposed.',
+          aboutP2: 'I work at the intersection of optimization theory and formal verification. I now have two publications in the <span class="about-inline-en">Archive of Formal Proofs</span>, including a sole-authored entry on smooth convex first-order optimization, alongside joint research with <span class="about-inline-en">Prof. Shoham Sabach</span> on negative-curvature certificates for nonconvex network localization.',
           aboutP3: 'Reason and romance sit side by side here: proof, sound, and image each keep their own language.',
           aboutLanguages: '<span class="about-language-label">Languages:</span> Chinese / English / 日本語<br />I mainly write in Chinese and English, and also use Japanese for lyrics, titles, and creative expression.',
           nowKicker: 'NOW / AUGUST 2026',
@@ -632,25 +639,27 @@
           selectedEvidenceKicker: 'CURRENT WORK',
           selectedEvidenceTitle: 'Research Snapshot',
           selectedEvidenceGridAria: 'Selected research outputs',
-          selectedEvidenceCard1Status: 'PUBLISHED · AFP · SOLE AUTHOR',
-          selectedEvidenceCard1Title: 'Submodular Greedy in Isabelle/HOL',
-          selectedEvidenceCard1Body: 'Deterministic and stateful lazy greedy for submodular maximization in Isabelle/HOL.',
+          selectedEvidenceCard1Status: 'PUBLISHED · AFP · 2026 · SOLE AUTHOR',
+          selectedEvidenceCard1Title: 'First-Order Methods for Smooth Convex Optimization in Isabelle/HOL',
+          selectedEvidenceCard1Body: 'Reusable Isabelle/HOL infrastructure for smooth convex first-order optimization, including projection geometry, projected-gradient mappings, convergence certificates, and linear rates.',
           selectedEvidenceCard1Link: 'AFP entry',
-          selectedEvidenceCard2Status: 'ONGOING · JOINT RESEARCH',
-          selectedEvidenceCard2Title: 'Negative-Curvature Certificates for Network Localization',
-          selectedEvidenceCard2Body: 'Graph-structured negative-curvature certificates and local escape directions, with Prof. Shoham Sabach.',
-          selectedEvidenceCard2Link: 'Research record',
-          selectedEvidenceCard3Status: 'SUBMITTED · AFP · 2 JULY 2026',
-          selectedEvidenceCard3Title: 'Projected Gradient Descent in Isabelle/HOL',
-          selectedEvidenceCard3Body: 'Projected gradient descent, projection geometry, gradient mappings, and convergence rates in Isabelle/HOL.',
-          selectedEvidenceCard3Link: 'Project note',
+          selectedEvidenceCard1Proof: 'Proof document',
+          selectedEvidenceCard1Note: 'Project note',
+          selectedEvidenceCard2Status: 'PUBLISHED · AFP · 2026 · FORMALIZATION · SUPERVISED BY WENDA LI',
+          selectedEvidenceCard2Title: 'Greedy Algorithms for Cardinality-Constrained Submodular Maximization',
+          selectedEvidenceCard2Body: 'Classical greedy and a verified stateful lazy-greedy variant for cardinality-constrained monotone submodular maximization.',
+          selectedEvidenceCard2Link: 'AFP entry',
+          selectedEvidenceCard3Status: 'ONGOING · JOINT RESEARCH',
+          selectedEvidenceCard3Title: 'Negative-Curvature Certificates for Network Localization',
+          selectedEvidenceCard3Body: 'Graph-structured negative-curvature certificates and local escape directions, with Prof. Shoham Sabach.',
+          selectedEvidenceCard3Link: 'Research record',
           identityDualityKicker: 'TWO PRACTICES',
           identityDualityTitle: 'Two identities, two practices',
           identityMathEyebrow: 'ACADEMIC IDENTITY · FEIER LYU',
           identityMathTitle: 'Mathematics',
           identityMathBody: 'Theorems, Isabelle/HOL, and optimization notes, from machine-checked proofs to structured nonconvex problems.',
           identityMathLink1: 'AFP theorem',
-          identityMathLink2: 'PGD formalization',
+          identityMathLink2: 'PGD AFP entry',
           identityMathLink3: 'Technical notes',
           identityCreativeEyebrow: 'CREATIVE IDENTITY · HAZEZZ',
           identityCreativeTitle: 'Music & Image',

@@ -975,6 +975,19 @@ html:lang(en) {
   text-underline-offset: 4px;
 }
 
+.selected-evidence-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin-top: auto;
+  padding-top: 18px;
+}
+
+.selected-evidence-links .selected-evidence-link {
+  margin-top: 0;
+  padding-top: 0;
+}
+
 .identity-duality {
   max-width: 1320px;
   margin: var(--home-space-section-gap) auto 0;

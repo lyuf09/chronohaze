@@ -153,7 +153,7 @@
   <link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
   <title data-title-zh="从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL | Chronohaze" data-title-en="Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL | Chronohaze">Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL | Chronohaze</title>
-  <meta name="description" content="A machine-checked development of projected gradient descent in Isabelle/HOL, covering smooth convexity, projection geometry, descent estimates, projected-gradient mappings, residual certificates, and linear convergence." data-content-zh="Projected Gradient Descent in Isabelle/HOL 已提交至 Archive of Formal Proofs，目前等待审核。项目覆盖 smooth convexity、projection geometry、descent estimates、projected-gradient mapping 和 residual certificates。" data-content-en="A machine-checked development of projected gradient descent in Isabelle/HOL, covering smooth convexity, projection geometry, descent estimates, projected-gradient mappings, residual certificates, and linear convergence." />
+  <meta name="description" content="A publication retrospective on the sole-authored AFP entry First-Order Methods for Smooth Convex Optimization in Isabelle/HOL." data-content-zh="关于 AFP 正式条目《First-Order Methods for Smooth Convex Optimization in Isabelle/HOL》的发表回顾与形式化设计记录。" data-content-en="A publication retrospective on the sole-authored AFP entry First-Order Methods for Smooth Convex Optimization in Isabelle/HOL." />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Chronohaze" />
   <meta property="og:title" content="Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL | Chronohaze" />
@@ -256,10 +256,15 @@
           <h1>从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL</h1>
           <p class="article-meta">Feier Lyu · Originally posted 2026年5月22日 · 约 5 分钟</p>
           <p class="article-meta">标签：Isabelle/HOL · Optimization · Formalisation · AFP</p>
+          <aside class="math-post-update" aria-label="发表更新">
+            <p class="math-post-update-label">发表更新 — 2026年8月</p>
+            <p>该项目现已通过审核，并以 <em>First-Order Methods for Smooth Convex Optimization in Isabelle/HOL</em> 正式发表于 Archive of Formal Proofs。</p>
+            <p><a href="https://isa-afp.org/entries/Projected_Gradient_Descent.html" target="_blank" rel="noopener noreferrer">查看 AFP 条目 →</a></p>
+          </aside>
           <aside class="math-post-update" aria-label="时间线说明">
             <p class="math-post-update-label">时间线说明</p>
             <p><strong>Originally posted:</strong> 2026年5月22日。本笔记早于子模贪心条目在 2026年5月26日正式发表于 AFP，因此“继续往前”指研究项目的延续，不是“发表之后”。</p>
-            <p><strong>Submitted:</strong> PGD 项目于 2026年7月2日提交至 Archive of Formal Proofs，目前等待审核。</p>
+            <p><strong>Submitted:</strong> 2026年7月2日 · <strong>Published in AFP:</strong> 2026年7月2日</p>
           </aside>
 
           <p>Projected gradient descent 是带约束光滑优化中最基本的算法模板之一。它的标准收敛证明同时依赖投影几何、光滑性、凸性与 telescoping argument，因此对这一结果进行形式化，是检验如何在 Isabelle/HOL 中构建可复用优化基础设施的一个自然案例。</p>
@@ -298,7 +303,7 @@
           <p>这也是我越来越喜欢 Isabelle 的地方。它不是只帮我检查最后一步对不对，而是不断迫使我把整条证明路线里的接口、假设和依赖关系都暴露出来。很多时候真正有研究价值的东西并不只是最终 theorem statement，而是在 formalisation 过程中被迫整理出来的那套 architecture。</p>
 
           <h2>当前状态</h2>
-          <p>该项目已于 2026 年 7 月 2 日提交至 Archive of Formal Proofs，目前等待审核。</p>
+          <p>该项目已于 2026 年 7 月 2 日正式发表于 Archive of Formal Proofs，正式标题为 <em>First-Order Methods for Smooth Convex Optimization in Isabelle/HOL</em>。</p>
           <p>目前这个 repo 已经包含 smooth convex first-order methods 的主要基础设施，并以 projected-gradient descent 作为中心应用。当前完成的部分包括：</p>
           <ul>
             <li>gradient 和 convex differentiability 的基础接口；</li>
@@ -313,7 +318,7 @@
             <li><code>Main_Results.thy</code> 作为下游使用的 public theorem interface；</li>
             <li>AFP-oriented 的 session、document 和 bibliography 结构。</li>
           </ul>
-          <p>我现在不打算在这个阶段继续疯狂加新算法，因为我感觉目前最重要的事情不是再多塞几个 method，而是把现有 entry 打磨到足够稳定，比如命名、文档、public aliases、build hygiene、AFP document，以及不同 theory file 之间的依赖关系都要尽量干净。</p>
+          <p>在发表前的最后阶段，我没有继续追加新算法，而是优先稳定命名、文档、public aliases、build hygiene、AFP document，以及不同 theory file 之间的依赖关系。</p>
 
           <h2>接下来</h2>
           <p>我现在越来越觉得，形式化证明对我来说不是一个单独的技能而是一种研究方式。它让我在读算法证明、写优化理论、设计 abstraction 的时候，都更自然地问：这个结论真正依赖什么？哪些假设可以抽象出去？哪些证明结构可以复用？如果以后别人要在这个基础上继续做，他们应该 import 什么、相信什么、避免碰什么？</p>
@@ -335,10 +340,15 @@
           <h1>Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL</h1>
           <p class="article-meta">Feier Lyu · Originally posted May 22, 2026 · 5 min read</p>
           <p class="article-meta">Tags: Isabelle/HOL · Optimization · Formalisation · AFP</p>
+          <aside class="math-post-update" aria-label="Publication update">
+            <p class="math-post-update-label">Publication update — August 2026</p>
+            <p>This project has now been accepted and published in the Archive of Formal Proofs as <em>First-Order Methods for Smooth Convex Optimization in Isabelle/HOL</em>. The published entry is available here.</p>
+            <p><a href="https://isa-afp.org/entries/Projected_Gradient_Descent.html" target="_blank" rel="noopener noreferrer">View AFP Entry →</a></p>
+          </aside>
           <aside class="math-post-update" aria-label="Chronology note">
             <p class="math-post-update-label">Chronology note</p>
             <p><strong>Originally posted:</strong> May 22, 2026. This note predates the submodular-greedy entry's AFP publication on May 26, so “moving forward” refers to continuing the research program, not to work begun after publication.</p>
-            <p><strong>Submitted:</strong> The PGD project was submitted to the Archive of Formal Proofs on July 2, 2026 and is awaiting review.</p>
+            <p><strong>Submitted:</strong> July 2, 2026 · <strong>Published in AFP:</strong> July 2, 2026</p>
           </aside>
 
           <p>Projected gradient descent is one of the basic algorithmic templates for constrained smooth optimization. Its standard convergence proof combines projection geometry, smoothness, convexity, and a telescoping argument; formalizing the result therefore provides a useful test case for building reusable optimization infrastructure in Isabelle/HOL.</p>
@@ -377,7 +387,7 @@
           <p>That is also why I increasingly like Isabelle. It does not only check the final theorem; it forces the interfaces, assumptions, and dependencies of the whole proof route to become visible. Formalisation also makes assumptions and dependencies that are implicit on paper much easier to see.</p>
 
           <h2>Current status</h2>
-          <p>The project was submitted to the Archive of Formal Proofs on July 2, 2026, and is currently awaiting review.</p>
+          <p>The project was published in the Archive of Formal Proofs on July 2, 2026 as <em>First-Order Methods for Smooth Convex Optimization in Isabelle/HOL</em>.</p>
           <p>The repository currently contains the main infrastructure for smooth convex first-order methods, with projected-gradient descent as the central application. It includes:</p>
           <ul>
             <li>interfaces for gradients and convex differentiability;</li>
@@ -392,7 +402,7 @@
             <li><code>Main_Results.thy</code> as the public theorem interface for downstream use;</li>
             <li>AFP-oriented session, document, and bibliography structure.</li>
           </ul>
-          <p>At this stage I do not want to keep adding algorithms aggressively. The more important task is to make the current entry stable enough: names, documentation, public aliases, build hygiene, the AFP document, and the dependency structure between theory files all need to stay clean.</p>
+          <p>In the final pre-publication stage, I stopped adding algorithms and prioritized stable names, documentation, public aliases, build hygiene, the AFP document, and clean dependencies between theory files.</p>
 
           <h2>Next</h2>
           <p>I increasingly feel that formal proof is not just an isolated skill for me, but a way of doing research. When I read algorithm proofs, write optimization theory, or design abstractions, it makes me ask more naturally: what does this conclusion really depend on, which assumptions can be abstracted away, which proof structures can be reused, and if someone builds on this later, what should they import, trust, and avoid touching?</p>
@@ -444,7 +454,7 @@
       zh: {
         htmlLang: 'zh-CN',
         pageTitle: '从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL | Chronohaze',
-        pageDescription: 'Projected Gradient Descent in Isabelle/HOL 已提交至 Archive of Formal Proofs，目前等待审核。项目覆盖 smooth convexity、projection geometry、descent estimates、projected-gradient mapping 和 residual certificates。',
+        pageDescription: '关于 AFP 正式条目《First-Order Methods for Smooth Convex Optimization in Isabelle/HOL》的发表回顾与形式化设计记录。',
         navAria: '主导航',
         navHome: '主页',
         navAcademic: '学术',
@@ -463,7 +473,7 @@
       en: {
         htmlLang: 'en',
         pageTitle: 'Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL | Chronohaze',
-        pageDescription: 'A machine-checked development of projected gradient descent in Isabelle/HOL, covering smooth convexity, projection geometry, descent estimates, projected-gradient mappings, residual certificates, and linear convergence.',
+        pageDescription: 'A publication retrospective on the sole-authored AFP entry First-Order Methods for Smooth Convex Optimization in Isabelle/HOL.',
         navAria: 'Main navigation',
         navHome: 'Home',
         navAcademic: 'Academic',
