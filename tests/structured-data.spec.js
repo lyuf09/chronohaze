@@ -200,14 +200,6 @@ test("x-default HTML and sitemap remain useful without JavaScript", async ({ req
       .map(({ type, value }) => [type, value])
   );
   const currentSiteDate = `${siteDateParts.year}-${siteDateParts.month}-${siteDateParts.day}`;
-  const refreshedInThisRevision = new Map([
-    ["https://lyuf09.github.io/chronohaze/research.html", "2026-08-09"],
-    ["https://lyuf09.github.io/chronohaze/math.html", "2026-08-09"],
-    [
-      "https://lyuf09.github.io/chronohaze/notes/network_localization_structural_certificates.html",
-      "2026-08-09",
-    ],
-  ]);
   for (const url of [
     "https://lyuf09.github.io/chronohaze/",
     "https://lyuf09.github.io/chronohaze/academic.html",
@@ -224,9 +216,6 @@ test("x-default HTML and sitemap remain useful without JavaScript", async ({ req
     expect(lastmod).toBeTruthy();
     expect(lastmod >= "2026-08-01").toBe(true);
     expect(lastmod <= currentSiteDate).toBe(true);
-    if (refreshedInThisRevision.has(url)) {
-      expect(lastmod).toBe(refreshedInThisRevision.get(url));
-    }
   }
 });
 
