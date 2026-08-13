@@ -6,7 +6,7 @@ import re
 from pathlib import Path
 
 VERSION = "20260723-information-architecture1"
-HOME_VERSION = "20260801-home-research-signal1"
+HOME_VERSION = "20260813-mobile-hero1"
 PROTECT_VERSION = "20260801-bilingual-seo1"
 MUSIC_PROTECT_VERSION = "20260801-bilingual-seo1"
 MUSIC_STYLE_VERSION = "20260806-performance-archive1"
