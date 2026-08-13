@@ -862,15 +862,29 @@ test("Ice Lake is a standalone guitar portrait series", async ({ page }) => {
   await waitForCriticalLoaderRelease(page);
 
   await expect(page.locator(".performance-set-header")).toContainText("19 FRAMES");
+  await expect(page.locator(".performance-set-header time")).toHaveAttribute("datetime", "2025-12");
+  await expect(page.locator(".performance-set-header time")).toHaveText("DECEMBER 2025");
+  await expect(page.locator(".portrait-tone-group")).toHaveCount(2);
+  await expect(page.locator(".portrait-tone-group--warm .performance-set-thumb")).toHaveCount(8);
+  await expect(page.locator(".portrait-tone-group--cool .performance-set-thumb")).toHaveCount(11);
   await expect(page.locator(".performance-set-thumb")).toHaveCount(19);
   await expect(page.locator(".performance-set-grid img[alt='']")).toHaveCount(0);
   await expect(page.locator('img[src*="IMG_6845"]')).toHaveCount(0);
+
+  await expect(page.locator(".performance-set-thumb").first()).toHaveAttribute(
+    "data-full",
+    /ice-lake-10-1600\.webp$/
+  );
+  await expect(page.locator(".portrait-tone-group--cool .performance-set-thumb").first()).toHaveAttribute(
+    "data-full",
+    /ice-lake-19-1600\.webp$/
+  );
 
   await page.locator(".performance-set-thumb").nth(18).click();
   await expect(page.locator(".performance-lightbox figcaption")).toHaveText("19 / 19");
   await expect(page.locator(".performance-lightbox figure img")).toHaveAttribute(
     "src",
-    /ice-lake-19-1600\.webp$/
+    /ice-lake-12-1600\.webp$/
   );
 
   await page.goto("music/early-performance-records.html?lang=en", {
