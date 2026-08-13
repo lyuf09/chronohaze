@@ -175,7 +175,7 @@ test("compact desktop home keeps portrait, identity, and actions in the first vi
   expect(errors).toEqual([]);
 });
 
-test("mobile home overlays academic evidence on the portrait", async ({ page }, testInfo) => {
+test("mobile home keeps the portrait clear and trims duplicate hero controls", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "chromium", "deterministic mobile portrait check");
   const errors = trackPageErrors(page);
 
@@ -183,19 +183,30 @@ test("mobile home overlays academic evidence on the portrait", async ({ page }, 
   await page.goto("index.html?lang=en", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
 
-  const badge = page.locator(".hero-mobile-evidence");
-  await expect(badge).toBeVisible();
-  await expect(badge.locator("span")).toHaveText([
-    "AFP publication · PGD submitted",
-    "Research with Prof. Shoham Sabach",
-  ]);
-  const overlayGeometry = await page.evaluate(() => {
+  await expect(page.locator(".hero-mobile-evidence")).toHaveCount(0);
+  await expect(page.locator(".hero-authority-line")).toBeHidden();
+  await expect(page.locator('.hero-academic-link[href*="github.com"]')).toBeHidden();
+  await expect(page.locator(".floating-site-logo")).toBeHidden();
+  await expect(page.locator(".site-share-shell")).toBeHidden();
+
+  const mobileGeometry = await page.evaluate(() => {
     const frame = document.querySelector(".hero-portrait-frame")?.getBoundingClientRect();
-    const badgeRect = document.querySelector(".hero-mobile-evidence")?.getBoundingClientRect();
-    return { frame, badge: badgeRect };
+    const portrait = document.querySelector(".hero-portrait")?.getBoundingClientRect();
+    const visibleQuickLinks = Array.from(document.querySelectorAll(".hero-academic-link")).filter(
+      (link) => window.getComputedStyle(link).display !== "none"
+    );
+    return {
+      frame,
+      portrait,
+      visibleQuickLinks: visibleQuickLinks.length,
+      viewport: window.innerWidth,
+      scrollWidth: document.documentElement.scrollWidth,
+    };
   });
-  expect(overlayGeometry.badge.bottom).toBeLessThanOrEqual(overlayGeometry.frame.bottom);
-  expect(overlayGeometry.badge.top).toBeGreaterThan(overlayGeometry.frame.top);
+  expect(mobileGeometry.portrait.top).toBeGreaterThanOrEqual(mobileGeometry.frame.top);
+  expect(mobileGeometry.portrait.bottom).toBeLessThanOrEqual(mobileGeometry.frame.bottom + 10);
+  expect(mobileGeometry.visibleQuickLinks).toBe(4);
+  expect(mobileGeometry.scrollWidth).toBeLessThanOrEqual(mobileGeometry.viewport);
   expect(errors).toEqual([]);
 });
 
@@ -290,15 +301,8 @@ test("floating logo uses a genuinely dark mark over declared light surfaces", as
   await page.evaluate(() => document.querySelector("[data-logo-sampling-overlay]")?.remove());
 
   await page.setViewportSize({ width: 390, height: 844 });
-  await expect(logo).toHaveClass(/is-share-trigger/);
-  await expect(logo).toHaveAttribute("role", "button");
-
-  await placeLogoOver(".hero-right");
-  await expect.poll(async () => logo.evaluate((node) => node.classList.contains("is-contrast"))).toBe(true);
-  await expect(logo.locator("img")).toHaveCSS("filter", /brightness\(0\)/);
-
-  await placeLogoOver(".identity-panel-creative");
-  await expect.poll(async () => logo.evaluate((node) => node.classList.contains("is-contrast"))).toBe(false);
+  await expect(logo).toBeHidden();
+  await expect(page.locator(".site-share-shell")).toBeHidden();
 
   expect(errors).toEqual([]);
 });
@@ -766,14 +770,24 @@ test("music index renders and remains interactive", async ({ page }) => {
   expect(intrinsicImageSizes.filter((image) => image.width <= 0 || image.height <= 0)).toEqual([]);
 
   await page.setViewportSize({ width: 390, height: 844 });
-  const reservedArtworkSlots = await page
-    .locator(".music-room-album-cover, .music-room-track-cover")
-    .evaluateAll((covers) =>
-      covers.map((cover) => ({
-        aspectRatio: window.getComputedStyle(cover).aspectRatio,
-        height: cover.getBoundingClientRect().height,
-      }))
-    );
+  const artworkSlots = page.locator(".music-room-album-cover, .music-room-track-cover");
+  await expect
+    .poll(async () =>
+      artworkSlots.evaluateAll(
+        (covers) =>
+          covers.filter((cover) => {
+            const style = window.getComputedStyle(cover);
+            return style.aspectRatio === "auto" || cover.getBoundingClientRect().height <= 0;
+          }).length
+      )
+    )
+    .toBe(0);
+  const reservedArtworkSlots = await artworkSlots.evaluateAll((covers) =>
+    covers.map((cover) => ({
+      aspectRatio: window.getComputedStyle(cover).aspectRatio,
+      height: cover.getBoundingClientRect().height,
+    }))
+  );
   expect(reservedArtworkSlots.length).toBeGreaterThan(5);
   expect(
     reservedArtworkSlots.filter((slot) => slot.aspectRatio === "auto" || slot.height <= 0)
@@ -1021,11 +1035,36 @@ test("Affizieren shows metadata duration and progressive technical disclosure be
   expect(errors).toEqual([]);
 });
 
-test("mobile share launcher opens without immediately closing and manages focus", async ({ page }, testInfo) => {
+test("mobile home hides sharing while secondary-page sharing manages focus", async ({ page }, testInfo) => {
   test.skip(!isMobileProject(testInfo), "mobile-only share interaction check");
 
   const errors = trackPageErrors(page);
   await page.goto("index.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+
+  const homeLogo = page.locator(".floating-site-logo");
+  await expect(homeLogo).toBeHidden();
+  await expect(page.locator(".site-share-shell")).toBeHidden();
+
+  const compactTargets = await page
+    .locator(
+      ".home-brand, .lang-btn, .menu-open, .hero-academic-link, .selected-evidence-link, " +
+        ".home-footer-brand, .home-footer-email, .home-footer .obf-email-copy, .home-footer-policy a"
+    )
+    .evaluateAll((nodes) =>
+      nodes
+        .filter((node) => window.getComputedStyle(node).display !== "none")
+        .map((node) => ({
+          target: `${node.tagName.toLowerCase()}.${node.className || ""}`,
+          text: (node.textContent || "").trim(),
+          width: node.getBoundingClientRect().width,
+          height: node.getBoundingClientRect().height,
+        }))
+    );
+  expect(compactTargets.filter((target) => target.width < 44 || target.height < 44)).toEqual([]);
+  await expect(page.locator(".hero-authority-line")).toBeHidden();
+
+  await page.goto("music.html?lang=en", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
 
   const logo = page.locator(".floating-site-logo.is-share-trigger");
@@ -1038,67 +1077,6 @@ test("mobile share launcher opens without immediately closing and manages focus"
   expect(logoBox).not.toBeNull();
   expect(logoBox.width).toBeLessThanOrEqual(50);
   expect(logoBox.height).toBeLessThanOrEqual(50);
-
-  if ((page.viewportSize() || {}).height > (page.viewportSize() || {}).width) {
-    await expect
-      .poll(async () => {
-        return page.evaluate(() => {
-          const logoNode = document.querySelector(".floating-site-logo.is-share-trigger");
-          const player = document.querySelector("#playerShell");
-          if (!logoNode || !player) return -1;
-          const logoRect = logoNode.getBoundingClientRect();
-          const playerRect = player.getBoundingClientRect();
-          const width = Math.max(0, Math.min(logoRect.right, playerRect.right) - Math.max(logoRect.left, playerRect.left));
-          const height = Math.max(0, Math.min(logoRect.bottom, playerRect.bottom) - Math.max(logoRect.top, playerRect.top));
-          return Math.round(width * height);
-        });
-      })
-      .toBe(0);
-  }
-
-  if (testInfo.project.name === "iphone16promax") {
-    const brandMetrics = await page.locator(".home-brand").evaluate((brand) => ({
-      clientWidth: brand.clientWidth,
-      scrollWidth: brand.scrollWidth,
-      textOverflow: window.getComputedStyle(brand).textOverflow,
-      left: brand.getBoundingClientRect().left,
-      right: brand.getBoundingClientRect().right,
-      viewport: window.innerWidth,
-    }));
-    expect(brandMetrics.scrollWidth).toBeLessThanOrEqual(brandMetrics.clientWidth + 1);
-    expect(brandMetrics.textOverflow).not.toBe("ellipsis");
-    expect(brandMetrics.left).toBeGreaterThanOrEqual(0);
-    expect(brandMetrics.right).toBeLessThanOrEqual(brandMetrics.viewport + 1);
-  }
-
-  const compactTargets = await page
-    .locator(
-      ".home-brand, .lang-btn, .menu-open, .hero-academic-link, .selected-evidence-link, " +
-        ".home-footer-brand, .home-footer-email, .home-footer .obf-email-copy, .home-footer-policy a"
-    )
-    .evaluateAll((nodes) =>
-      nodes.map((node) => ({
-        target: `${node.tagName.toLowerCase()}.${node.className || ""}`,
-        text: (node.textContent || "").trim(),
-        width: node.getBoundingClientRect().width,
-        height: node.getBoundingClientRect().height,
-      }))
-    );
-  expect(compactTargets.filter((target) => target.width < 44 || target.height < 44)).toEqual([]);
-
-  const authorityMetrics = await page.locator(".hero-authority-line").evaluate((node) => {
-    const rect = node.getBoundingClientRect();
-    return {
-      clientWidth: node.clientWidth,
-      scrollWidth: node.scrollWidth,
-      left: rect.left,
-      right: rect.right,
-      viewport: window.innerWidth,
-    };
-  });
-  expect(authorityMetrics.scrollWidth).toBeLessThanOrEqual(authorityMetrics.clientWidth + 1);
-  expect(authorityMetrics.left).toBeGreaterThanOrEqual(0);
-  expect(authorityMetrics.right).toBeLessThanOrEqual(authorityMetrics.viewport + 1);
 
   await logo.click({ force: true });
   await expect(panel).toBeVisible();
@@ -1116,7 +1094,7 @@ test("share launcher rebinds when the viewport crosses the mobile breakpoint", a
   test.skip(testInfo.project.name !== "chromium", "desktop-to-mobile resize regression check");
 
   const errors = trackPageErrors(page);
-  await page.goto("index.html?lang=en", { waitUntil: "domcontentloaded" });
+  await page.goto("music.html?lang=en", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
 
   const shell = page.locator(".site-share-shell");
