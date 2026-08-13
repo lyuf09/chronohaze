@@ -512,6 +512,25 @@ test("English page transitions keep the loading feedback in English", async ({ p
   expect(errors).toEqual([]);
 });
 
+test("page swaps preserve destination stylesheet order", async ({ page }) => {
+  const errors = trackPageErrors(page);
+  await page.goto("music.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+
+  await page.locator(".music-performance-full-link").click();
+  await expect(page).toHaveURL(/music\/live-003-chongqing-fuli\.html\?lang=en/);
+  await expect(page.locator("body.music-live-archive-page")).toBeVisible();
+
+  const swappedStyles = await page.locator('link[rel="stylesheet"][href]').evaluateAll((links) =>
+    links.map((link) => new URL(link.getAttribute("href"), document.baseURI).pathname)
+  );
+  expect(swappedStyles.findIndex((href) => href.endsWith("/styles.min.css"))).toBeLessThan(
+    swappedStyles.findIndex((href) => href.endsWith("/assets/css/performance-archive.min.css"))
+  );
+  await expect(page.locator(".performance-set-grid .performance-set-thumb")).toHaveCount(49);
+  expect(errors).toEqual([]);
+});
+
 test("PGD note leads with its mathematical value", async ({ page }) => {
   const errors = trackPageErrors(page);
   await page.goto("post/projected-gradient-descent-isabelle-hol.html?lang=en", {
@@ -753,7 +772,7 @@ test("music index renders and remains interactive", async ({ page }) => {
     "Performance archive"
   );
   await expect(page.locator(".music-performance-hero")).toHaveCount(1);
-  await expect(page.locator(".music-editorial-gallery picture")).toHaveCount(12);
+  await expect(page.locator(".music-editorial-gallery picture")).toHaveCount(6);
   await expect(page.locator(".music-performance-card-shell")).toHaveCount(2);
   await expect(page.locator(".music-performance-archive img[alt='']")).toHaveCount(0);
   await expect(page.locator(".music-performance-full-link")).toContainText("49 frames");

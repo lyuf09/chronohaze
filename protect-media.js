@@ -17637,18 +17637,8 @@
       return normalizeHref(node, (targetUrl && targetUrl.href) || sourceDocument.baseURI || window.location.href);
     }).filter(Boolean);
 
-    currentNodes.forEach(function (node) {
-      var href = normalizeHref(node);
-      if (nextHrefs.indexOf(href) === -1 && node.parentNode) {
-        node.parentNode.removeChild(node);
-        return;
-      }
-      if (href) {
-        node.setAttribute("href", href);
-      }
-    });
-
     var loadPromises = [];
+    var insertionAnchor = currentNodes.length ? currentNodes[0] : null;
     nextNodes.forEach(function (node) {
       var href = normalizeHref(node, (targetUrl && targetUrl.href) || sourceDocument.baseURI || window.location.href);
       if (!href || currentMap.has(href)) {
@@ -17660,12 +17650,26 @@
         new Promise(function (resolve) {
           imported.addEventListener("load", resolve, { once: true });
           imported.addEventListener("error", resolve, { once: true });
-          document.head.appendChild(imported);
+          if (insertionAnchor && insertionAnchor.parentNode === document.head) {
+            document.head.insertBefore(imported, insertionAnchor);
+          } else {
+            document.head.appendChild(imported);
+          }
         })
       );
     });
 
     return Promise.all(loadPromises).then(function () {
+      currentNodes.forEach(function (node) {
+        var href = normalizeHref(node);
+        if (nextHrefs.indexOf(href) === -1 && node.parentNode) {
+          node.parentNode.removeChild(node);
+          return;
+        }
+        if (href) {
+          node.setAttribute("href", href);
+        }
+      });
       return true;
     });
   }
