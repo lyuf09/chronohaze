@@ -1478,6 +1478,10 @@ html:lang(en) {
   line-height: 1.25;
 }
 
+.drawer-logo-decoration {
+  display: none;
+}
+
 @media (max-width: 1400px) {
   .home-topbar {
     padding: 0 24px;
@@ -2468,6 +2472,33 @@ html.menu-scroll-locked,
 
   .home-body .site-share-shell {
     display: none !important;
+  }
+
+  .home-body .floating-site-logo {
+    display: none !important;
+  }
+
+  .drawer-logo-decoration {
+    width: 100%;
+    min-height: 132px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: clamp(20px, 5vh, 44px);
+    padding: 8px 0 max(10px, env(safe-area-inset-bottom, 0px));
+    box-sizing: border-box;
+    pointer-events: none;
+  }
+
+  .drawer:not(.open) .drawer-logo-decoration {
+    visibility: hidden;
+  }
+
+  .drawer-logo-decoration img {
+    width: clamp(88px, 27vw, 118px);
+    height: auto;
+    opacity: 0.58;
+    filter: brightness(0) saturate(100%) opacity(0.74) drop-shadow(0 8px 18px rgba(66, 78, 104, 0.16));
   }
 
   .hero-right-inner > .hero-authority-line,

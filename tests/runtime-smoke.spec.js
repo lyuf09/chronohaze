@@ -1118,10 +1118,19 @@ test("mobile home hides sharing while secondary-page sharing manages focus", asy
   await waitForCriticalLoaderRelease(page);
 
   const homeLogo = page.locator(".floating-site-logo");
-  await expect(homeLogo).toBeVisible();
-  await expect(homeLogo).toHaveAttribute("data-mobile-anchor", "menu");
+  await expect(homeLogo).toBeHidden();
   await expect(homeLogo).toHaveAttribute("aria-hidden", "true");
   await expect(page.locator(".site-share-shell")).toBeHidden();
+
+  const drawer = page.locator("#drawer");
+  const drawerLogo = drawer.locator(".drawer-logo-decoration");
+  await expect(drawerLogo).toBeHidden();
+  await page.locator("#openMenu").click();
+  await expect(drawer).toHaveClass(/open/);
+  await expect(drawerLogo).toBeVisible();
+  await expect(drawerLogo.locator("img")).toHaveAttribute("src", "assets/logo-float.png");
+  await page.locator("#closeMenu").click();
+  await expect(drawerLogo).toBeHidden();
 
   const compactTargets = await page
     .locator(
