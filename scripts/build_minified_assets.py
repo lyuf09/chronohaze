@@ -175,6 +175,7 @@ JS_FILES = [
     "protect-media.js",
     "assets/js/catalog-pages.js",
     "assets/js/music-detail-transcript.js",
+    "assets/js/orchid-production-notes.js",
     "assets/js/research-page.js",
     "assets/js/search-page.js",
     "assets/js/structured-data.js",
