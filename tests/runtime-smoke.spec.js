@@ -2096,6 +2096,33 @@ test("photography vocabulary and Blue still frames render without overflow", asy
   expect(errors).toEqual([]);
 });
 
+test("photography archive dates use one numeric format", async ({ page }) => {
+  await page.goto("photography.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+
+  const exactDates = await page.locator(".photo-archive .photo-date").evaluateAll((nodes) =>
+    nodes
+      .map((node) => (node.textContent || "").trim())
+      .filter((value) => /^\d/.test(value) && !value.includes("·"))
+  );
+  expect(exactDates).toEqual(expect.arrayContaining(["18/05/2026", "30/08/2025"]));
+  expect(exactDates.every((value) => /^\d{2}\/\d{2}\/\d{4}$/.test(value))).toBe(true);
+});
+
+test("photo detail lead image prefers a landscape composition", async ({ page }) => {
+  await page.goto("photo/photo-13.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+
+  const hero = page.locator(
+    '.photo-detail-lead-composition .photo-detail-item[data-photo-slot="hero"] img'
+  );
+  await expect(hero).toHaveCount(1);
+  await expect(hero).toHaveAttribute(
+    "data-full-res-src",
+    /64569d_db5c80b9c2dc4e60bd05ff0831f66e12~mv2\.jpg$/
+  );
+});
+
 test("photo detail page supports keyboard prev/next navigation", async ({ page }) => {
   const errors = trackPageErrors(page);
   await page.goto("photo/photo-01.html?lang=zh", { waitUntil: "domcontentloaded" });
