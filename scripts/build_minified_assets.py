@@ -6,6 +6,7 @@ import re
 from pathlib import Path
 
 VERSION = "20260723-information-architecture1"
+PHOTO_STYLE_VERSION = "20260819-photo-membrane1"
 HOME_VERSION = "20260814-mobile-drawer-logo1"
 PROTECT_VERSION = "20260813-mobile-logo1"
 MUSIC_PROTECT_VERSION = "20260813-mobile-logo1"
@@ -269,7 +270,8 @@ def rewrite_asset_refs(text: str, page_rel: Path) -> str:
     depth = max(len(page_rel.parts) - 1, 0)
     prefix = "../" * depth
     is_music_index = page_rel.as_posix() == "music.html"
-    style_version = MUSIC_STYLE_VERSION if is_music_index else VERSION
+    is_photo_detail = bool(page_rel.parts) and page_rel.parts[0] == "photo"
+    style_version = MUSIC_STYLE_VERSION if is_music_index else (PHOTO_STYLE_VERSION if is_photo_detail else VERSION)
     protect_version = MUSIC_PROTECT_VERSION if is_music_index else PROTECT_VERSION
     asset_base = r"(?:https://lyuf09\.github\.io/chronohaze/|/chronohaze/|(?:\.\./)*)"
     replacements = {

@@ -2147,13 +2147,37 @@ html:lang(en) .photo-detail-page .photo-detail-statement [data-lang-block="en"] 
 .photo-detail-page .photo-detail-item {
   --photo-detail-shift: 0px;
   --photo-detail-tilt: 0deg;
+  position: relative;
+  isolation: isolate;
   max-width: 620px;
-  padding: 6px;
-  border: 1px solid rgba(76, 85, 102, 0.14);
-  background: rgba(248, 250, 254, 0.6);
-  box-shadow: 0 20px 40px rgba(18, 24, 32, 0.08);
+  padding: 0;
+  border: 0;
+  overflow: visible;
+  background: transparent;
+  box-shadow:
+    0 24px 54px rgba(18, 24, 34, 0.1),
+    0 0 34px rgba(126, 151, 192, 0.08);
   transform: translateY(var(--photo-detail-shift)) rotate(var(--photo-detail-tilt));
-  transition: transform 320ms ease, box-shadow 320ms ease, border-color 240ms ease;
+  transition: transform 320ms ease, box-shadow 320ms ease;
+}
+
+.photo-detail-page .photo-detail-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(125deg, rgba(255, 255, 255, 0.13) 0%, rgba(255, 255, 255, 0) 19% 76%, rgba(153, 177, 214, 0.09) 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(235, 241, 250, 0.2),
+    inset 0 0 22px rgba(222, 232, 248, 0.055);
+  opacity: 0.78;
+}
+
+.photo-detail-page .photo-detail-item img {
+  position: relative;
+  z-index: 0;
 }
 
 .photo-detail-page .photo-detail-item:nth-child(4n + 2) {
@@ -2172,8 +2196,9 @@ html:lang(en) .photo-detail-page .photo-detail-statement [data-lang-block="en"] 
 }
 
 .photo-detail-page .photo-detail-item:hover {
-  border-color: rgba(70, 80, 97, 0.22);
-  box-shadow: 0 24px 46px rgba(18, 24, 32, 0.11);
+  box-shadow:
+    0 30px 64px rgba(18, 24, 34, 0.14),
+    0 0 48px rgba(126, 151, 192, 0.13);
   transform: translateY(calc(var(--photo-detail-shift) - 4px)) rotate(var(--photo-detail-tilt));
 }
 
@@ -2253,17 +2278,19 @@ html:lang(en) .photo-detail-page .photo-detail-statement [data-lang-block="en"] 
   max-width: none;
   width: 100%;
   justify-self: stretch;
-  padding: clamp(5px, 0.55vw, 8px);
-  border: 1px solid rgba(74, 86, 106, 0.14);
-  background:
-    linear-gradient(180deg, rgba(248, 249, 252, 0.9) 0%, rgba(239, 242, 247, 0.84) 100%);
-  box-shadow: none;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow:
+    0 20px 46px rgba(18, 24, 34, 0.09),
+    0 0 30px rgba(126, 151, 192, 0.07);
   transform: none;
 }
 
 .photo-detail-page .photo-detail-gallery--contact-sheet .photo-detail-item:hover {
-  border-color: rgba(63, 76, 97, 0.22);
-  box-shadow: none;
+  box-shadow:
+    0 26px 58px rgba(18, 24, 34, 0.13),
+    0 0 42px rgba(126, 151, 192, 0.12);
   transform: translateY(-2px);
 }
 
@@ -8601,7 +8628,7 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
 
   .photo-detail-page .photo-detail-item,
   .photo-detail-page .photo-detail-item:nth-child(n) {
-    padding: 5px;
+    padding: 0;
     transform: none;
   }
 
@@ -13107,7 +13134,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
   .photo-detail-page .photo-detail-item,
   .photo-detail-page .photo-detail-item:nth-child(n) {
     max-width: none;
-    padding: 6px;
+    padding: 0;
     transform: none;
   }
 
