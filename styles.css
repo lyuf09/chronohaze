@@ -892,11 +892,16 @@ body.page-transition-busy .home-page {
 
 .nav-studio-menu {
   position: relative;
+  display: inline-flex;
+  align-items: center;
   color: rgba(241, 244, 250, .92);
 }
 
 .nav-studio-trigger {
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
   list-style: none;
   cursor: pointer;
   transition: color var(--ui-t-base) ease, opacity var(--ui-t-base) ease;
@@ -943,8 +948,7 @@ body.page-transition-busy .home-page {
 }
 
 .nav-studio-menu[open] > .nav-studio-panel,
-.nav-studio-menu:hover > .nav-studio-panel,
-.nav-studio-menu:focus-within > .nav-studio-panel {
+.nav-studio-menu:hover > .nav-studio-panel {
   display: flex;
 }
 

@@ -5,12 +5,12 @@ import argparse
 import re
 from pathlib import Path
 
-VERSION = "20260723-information-architecture1"
-PHOTO_STYLE_VERSION = "20260819-photo-membrane1"
+VERSION = "20260819-studio-menu-reset1"
+PHOTO_STYLE_VERSION = "20260819-photo-membrane2"
 HOME_VERSION = "20260814-mobile-drawer-logo1"
-PROTECT_VERSION = "20260813-mobile-logo1"
-MUSIC_PROTECT_VERSION = "20260813-mobile-logo1"
-MUSIC_STYLE_VERSION = "20260813-selected-works-layout2"
+PROTECT_VERSION = "20260819-studio-menu-reset1"
+MUSIC_PROTECT_VERSION = "20260819-studio-menu-reset1"
+MUSIC_STYLE_VERSION = "20260819-studio-menu-reset1"
 CATALOG_VERSION = "20260801-bilingual-seo1"
 STRUCTURED_DATA_VERSION = "20260801-bilingual-seo1"
 

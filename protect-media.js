@@ -14017,6 +14017,51 @@
     return prefix + (hrefMap[pageKey] || "index.html");
   }
 
+  function dismissStudioNavMenu(menu, restoreFocus) {
+    if (!menu) {
+      return;
+    }
+
+    menu.removeAttribute("open");
+    var activeElement = document.activeElement;
+    if (activeElement && menu.contains(activeElement) && typeof activeElement.blur === "function") {
+      activeElement.blur();
+    }
+
+    if (restoreFocus) {
+      var trigger = menu.querySelector(".nav-studio-trigger");
+      if (trigger && typeof trigger.focus === "function") {
+        trigger.focus();
+      }
+    }
+  }
+
+  document.addEventListener(
+    "pointerdown",
+    function (event) {
+      Array.from(document.querySelectorAll(".nav-studio-menu[open]")).forEach(function (menu) {
+        if (!menu.contains(event.target)) {
+          dismissStudioNavMenu(menu, false);
+        }
+      });
+    },
+    true
+  );
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key !== "Escape") {
+      return;
+    }
+
+    var openMenu = document.querySelector(".nav-studio-menu[open]");
+    if (!openMenu) {
+      return;
+    }
+
+    dismissStudioNavMenu(openMenu, true);
+    event.preventDefault();
+  });
+
   function ensureSearchNavLink(lang) {
     var safeLang = lang === "en" || lang === "zh" ? lang : detectPreferredLanguage();
     var navOrder = ["home", "academic", "profile", "studio", "search"];

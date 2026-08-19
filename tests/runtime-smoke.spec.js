@@ -1516,7 +1516,12 @@ test("album page renders cover and track links", async ({ page }) => {
 });
 
 test("secondary pages keep mobile nav within the viewport", async ({ page }, testInfo) => {
-  test.skip(!isMobileProject(testInfo), "mobile-only nav safety check");
+  const runsMobileNavCheck = isMobileProject(testInfo) || testInfo.project.name === "chromium";
+  test.skip(!runsMobileNavCheck, "mobile-only nav safety check");
+
+  if (testInfo.project.name === "chromium") {
+    await page.setViewportSize({ width: 390, height: 844 });
+  }
 
   const pages = [
     "policy.html",
@@ -1583,12 +1588,35 @@ test("secondary pages keep mobile nav within the viewport", async ({ page }, tes
     expect(metrics.minNavTargetHeight).toBeGreaterThanOrEqual(44);
 
     const studioMenu = page.locator(".site-header .nav-studio-menu");
-    await studioMenu.locator(".nav-studio-trigger").click();
+    const studioTrigger = studioMenu.locator(".nav-studio-trigger");
+    const triggerTopBeforeOpen = await studioTrigger.evaluate(
+      (trigger) => trigger.getBoundingClientRect().top
+    );
+    await studioTrigger.click();
     await expect(studioMenu).toHaveAttribute("open", "");
+    const triggerTopWhileOpen = await studioTrigger.evaluate(
+      (trigger) => trigger.getBoundingClientRect().top
+    );
+    expect(Math.abs(triggerTopWhileOpen - triggerTopBeforeOpen)).toBeLessThan(1);
     const studioTargetHeights = await studioMenu
       .locator(".nav-studio-panel a")
       .evaluateAll((links) => links.map((link) => link.getBoundingClientRect().height));
     expect(studioTargetHeights.every((height) => height >= 44)).toBe(true);
+
+    await page.locator("main").dispatchEvent("pointerdown");
+    await expect(studioMenu).not.toHaveAttribute("open", "");
+    await expect(studioTrigger).not.toBeFocused();
+    const triggerTopAfterDismiss = await studioTrigger.evaluate(
+      (trigger) => trigger.getBoundingClientRect().top
+    );
+    expect(Math.abs(triggerTopAfterDismiss - triggerTopBeforeOpen)).toBeLessThan(1);
+
+    await studioTrigger.click();
+    await expect(studioMenu).toHaveAttribute("open", "");
+    await page.keyboard.press("Escape");
+    await expect(studioMenu).not.toHaveAttribute("open", "");
+    await expect(studioTrigger).toBeFocused();
+    await expect(studioMenu.locator(".nav-studio-panel")).not.toBeVisible();
 
     expect(errors).toEqual([]);
   }
