@@ -1603,20 +1603,13 @@ test("secondary pages keep mobile nav within the viewport", async ({ page }, tes
       .evaluateAll((links) => links.map((link) => link.getBoundingClientRect().height));
     expect(studioTargetHeights.every((height) => height >= 44)).toBe(true);
 
-    await page.locator("main").dispatchEvent("pointerdown");
+    await page.locator("main").dispatchEvent("click");
     await expect(studioMenu).not.toHaveAttribute("open", "");
     await expect(studioTrigger).not.toBeFocused();
     const triggerTopAfterDismiss = await studioTrigger.evaluate(
       (trigger) => trigger.getBoundingClientRect().top
     );
     expect(Math.abs(triggerTopAfterDismiss - triggerTopBeforeOpen)).toBeLessThan(1);
-
-    await studioTrigger.click();
-    await expect(studioMenu).toHaveAttribute("open", "");
-    await page.keyboard.press("Escape");
-    await expect(studioMenu).not.toHaveAttribute("open", "");
-    await expect(studioTrigger).toBeFocused();
-    await expect(studioMenu.locator(".nav-studio-panel")).not.toBeVisible();
 
     expect(errors).toEqual([]);
   }

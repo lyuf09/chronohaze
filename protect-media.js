@@ -1070,6 +1070,13 @@
 
     document.addEventListener("click", function (event) {
       var target = event.target;
+      var studioMenu = document.querySelector(".nav-studio-menu[open]");
+      if (studioMenu && !studioMenu.contains(target)) {
+        studioMenu.removeAttribute("open");
+        if (studioMenu.contains(document.activeElement)) {
+          document.activeElement.blur();
+        }
+      }
       if (
         target &&
         typeof target.closest === "function" &&
@@ -13992,14 +13999,6 @@
     });
   }
 
-  function getSearchPageHref() {
-    var path = (window.location.pathname || "").toLowerCase();
-    if (/\/(music|photo|post|notes)\//.test(path)) {
-      return "../search.html";
-    }
-    return "search.html";
-  }
-
   function getPrimaryPageHref(pageKey) {
     var path = (window.location.pathname || "").toLowerCase();
     var prefix = /\/(music|photo|post|notes)\//.test(path) ? "../" : "";
@@ -14017,51 +14016,6 @@
     return prefix + (hrefMap[pageKey] || "index.html");
   }
 
-  function dismissStudioNavMenu(menu, restoreFocus) {
-    if (!menu) {
-      return;
-    }
-
-    menu.removeAttribute("open");
-    var activeElement = document.activeElement;
-    if (activeElement && menu.contains(activeElement) && typeof activeElement.blur === "function") {
-      activeElement.blur();
-    }
-
-    if (restoreFocus) {
-      var trigger = menu.querySelector(".nav-studio-trigger");
-      if (trigger && typeof trigger.focus === "function") {
-        trigger.focus();
-      }
-    }
-  }
-
-  document.addEventListener(
-    "pointerdown",
-    function (event) {
-      Array.from(document.querySelectorAll(".nav-studio-menu[open]")).forEach(function (menu) {
-        if (!menu.contains(event.target)) {
-          dismissStudioNavMenu(menu, false);
-        }
-      });
-    },
-    true
-  );
-
-  document.addEventListener("keydown", function (event) {
-    if (event.key !== "Escape") {
-      return;
-    }
-
-    var openMenu = document.querySelector(".nav-studio-menu[open]");
-    if (!openMenu) {
-      return;
-    }
-
-    dismissStudioNavMenu(openMenu, true);
-    event.preventDefault();
-  });
-
   function ensureSearchNavLink(lang) {
     var safeLang = lang === "en" || lang === "zh" ? lang : detectPreferredLanguage();
     var navOrder = ["home", "academic", "profile", "studio", "search"];
@@ -14073,7 +14027,6 @@
       studio: dict.navStudio,
       photo: dict.navPhoto,
       music: dict.navMusic,
-      olfactory: dict.navOlfactory,
       cv: dict.navCV,
       search: dict.navSearch,
     };
@@ -14111,9 +14064,7 @@
                   /\/music\//i.test(window.location.pathname))) ||
                 (entry[0] === "photo" &&
                   (isPhotoIndexHref(window.location.pathname) ||
-                    /\/photo\//i.test(window.location.pathname))) ||
-                (entry[0] === "olfactory" &&
-                  isOlfactoryIndexHref(window.location.pathname));
+                    /\/photo\//i.test(window.location.pathname)));
             studioLink.classList.toggle("active", studioLinkIsActive);
             if (studioLinkIsActive) {
               studioLink.setAttribute("aria-current", "page");
