@@ -171,7 +171,7 @@ test("compact desktop home keeps portrait, identity, and actions in the first vi
   expect(errors).toEqual([]);
 });
 
-test("mobile home keeps the portrait clear and trims duplicate hero controls", async ({ page }, testInfo) => {
+test("mobile home keeps the portrait clear and moves the decorative logo into the menu drawer", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "chromium", "deterministic mobile portrait check");
   const errors = trackPageErrors(page);
 
@@ -183,25 +183,23 @@ test("mobile home keeps the portrait clear and trims duplicate hero controls", a
   await expect(page.locator(".hero-authority-line")).toBeHidden();
   await expect(page.locator('.hero-academic-link[href*="github.com"]')).toBeHidden();
   const floatingLogo = page.locator(".floating-site-logo");
-  await expect(floatingLogo).toBeVisible();
+  await expect(floatingLogo).toBeHidden();
   await expect(floatingLogo).toHaveAttribute("data-mobile-anchor", "menu");
   await expect(floatingLogo).toHaveAttribute("aria-hidden", "true");
   await expect(floatingLogo).not.toHaveAttribute("role", "button");
   await expect(page.locator(".site-share-shell")).toBeHidden();
+  const drawerLogo = page.locator(".drawer-logo-decoration");
+  await expect(drawerLogo).toBeHidden();
 
   const mobileGeometry = await page.evaluate(() => {
     const frame = document.querySelector(".hero-portrait-frame")?.getBoundingClientRect();
     const portrait = document.querySelector(".hero-portrait")?.getBoundingClientRect();
-    const menu = document.querySelector(".menu-open")?.getBoundingClientRect();
-    const logo = document.querySelector(".floating-site-logo")?.getBoundingClientRect();
     const visibleQuickLinks = Array.from(document.querySelectorAll(".hero-academic-link")).filter(
       (link) => window.getComputedStyle(link).display !== "none"
     );
     return {
       frame,
       portrait,
-      menu,
-      logo,
       visibleQuickLinks: visibleQuickLinks.length,
       viewport: window.innerWidth,
       scrollWidth: document.documentElement.scrollWidth,
@@ -209,13 +207,12 @@ test("mobile home keeps the portrait clear and trims duplicate hero controls", a
   });
   expect(mobileGeometry.portrait.top).toBeGreaterThanOrEqual(mobileGeometry.frame.top);
   expect(mobileGeometry.portrait.bottom).toBeLessThanOrEqual(mobileGeometry.frame.bottom + 10);
-  expect(mobileGeometry.logo.top).toBeGreaterThanOrEqual(mobileGeometry.menu.bottom + 4);
-  expect(Math.abs(
-    (mobileGeometry.logo.left + mobileGeometry.logo.right) / 2 -
-      (mobileGeometry.menu.left + mobileGeometry.menu.right) / 2
-  )).toBeLessThanOrEqual(2);
   expect(mobileGeometry.visibleQuickLinks).toBe(4);
   expect(mobileGeometry.scrollWidth).toBeLessThanOrEqual(mobileGeometry.viewport);
+
+  await page.locator(".menu-open").click();
+  await expect(drawerLogo).toBeVisible();
+  await expect(drawerLogo.locator("img")).toBeVisible();
   expect(errors).toEqual([]);
 });
 
@@ -310,9 +307,11 @@ test("floating logo uses a genuinely dark mark over declared light surfaces", as
   await page.evaluate(() => document.querySelector("[data-logo-sampling-overlay]")?.remove());
 
   await page.setViewportSize({ width: 390, height: 844 });
-  await expect(logo).toBeVisible();
+  await expect(logo).toBeHidden();
   await expect(logo).toHaveAttribute("data-mobile-anchor", "menu");
   await expect(page.locator(".site-share-shell")).toBeHidden();
+  await page.locator(".menu-open").click();
+  await expect(page.locator(".drawer-logo-decoration img")).toBeVisible();
 
   expect(errors).toEqual([]);
 });
