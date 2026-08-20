@@ -1515,6 +1515,40 @@ test("album page renders cover and track links", async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
+test("Studio tab shares the desktop navigation box alignment", async ({ page }, testInfo) => {
+  test.skip(
+    !["chromium", "webkit"].includes(testInfo.project.name),
+    "desktop-engine geometry regression check"
+  );
+  await page.setViewportSize({ width: 1468, height: 500 });
+
+  for (const lang of ["zh", "en"]) {
+    const errors = trackPageErrors(page);
+    await page.goto(`academic.html?lang=${lang}`, { waitUntil: "domcontentloaded" });
+    await waitForCriticalLoaderRelease(page);
+
+    const alignment = await page.evaluate(() => {
+      const reference = document.querySelector(".site-header .nav > a");
+      const studio = document.querySelector(".site-header .nav-studio-trigger");
+      if (!reference || !studio) return null;
+      const referenceRect = reference.getBoundingClientRect();
+      const studioRect = studio.getBoundingClientRect();
+      return {
+        topDelta: studioRect.top - referenceRect.top,
+        heightDelta: studioRect.height - referenceRect.height,
+        referencePaddingBottom: window.getComputedStyle(reference).paddingBottom,
+        studioPaddingBottom: window.getComputedStyle(studio).paddingBottom,
+      };
+    });
+
+    expect(alignment).not.toBeNull();
+    expect(Math.abs(alignment.topDelta)).toBeLessThan(0.1);
+    expect(Math.abs(alignment.heightDelta)).toBeLessThan(0.1);
+    expect(alignment.studioPaddingBottom).toBe(alignment.referencePaddingBottom);
+    expect(errors).toEqual([]);
+  }
+});
+
 test("secondary pages keep mobile nav within the viewport", async ({ page }, testInfo) => {
   const runsMobileNavCheck = isMobileProject(testInfo) || testInfo.project.name === "chromium";
   test.skip(!runsMobileNavCheck, "mobile-only nav safety check");
@@ -1589,18 +1623,6 @@ test("secondary pages keep mobile nav within the viewport", async ({ page }, tes
 
     const studioMenu = page.locator(".site-header .nav-studio-menu");
     const studioTrigger = studioMenu.locator(".nav-studio-trigger");
-    const studioOpticalAlignment = await studioTrigger.locator(":scope > span").evaluate((label) => {
-      const style = window.getComputedStyle(label);
-      return {
-        isWebKit: window.CSS.supports("-webkit-hyphens", "none"),
-        display: style.display,
-        transform: style.transform,
-      };
-    });
-    if (studioOpticalAlignment.isWebKit) {
-      expect(studioOpticalAlignment.display).toBe("inline-block");
-      expect(studioOpticalAlignment.transform).toMatch(/matrix\(1, 0, 0, 1, 0, -8\)/);
-    }
     const triggerTopBeforeOpen = await studioTrigger.evaluate(
       (trigger) => trigger.getBoundingClientRect().top
     );

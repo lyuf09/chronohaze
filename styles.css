@@ -911,13 +911,6 @@ body.page-transition-busy .home-page {
   display: none;
 }
 
-@supports (-webkit-hyphens: none) {
-  .nav-studio-trigger > span {
-    display: inline-block;
-    transform: translateY(-8px);
-  }
-}
-
 .nav-studio-trigger::after {
   content: "";
   position: absolute;
@@ -8801,7 +8794,8 @@ h4,
   font-size: 14.5px;
 }
 
-.nav a {
+.nav a,
+.nav-studio-trigger {
   padding-bottom: 8px;
   transition:
     color var(--ui-t-base) ease,
