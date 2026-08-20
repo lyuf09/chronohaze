@@ -911,6 +911,12 @@ body.page-transition-busy .home-page {
   display: none;
 }
 
+@supports (-webkit-hyphens: none) {
+  .nav-studio-trigger > span {
+    transform: translateY(-8px);
+  }
+}
+
 .nav-studio-trigger::after {
   content: "";
   position: absolute;

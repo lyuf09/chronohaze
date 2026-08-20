@@ -14006,11 +14006,8 @@
       home: "index.html",
       academic: "academic.html",
       profile: "cv.html",
-      studio: "music.html",
       photo: "photography.html",
       music: "music.html",
-      olfactory: "olfactory.html",
-      cv: "cv.html",
       search: "search.html",
     };
     return prefix + (hrefMap[pageKey] || "index.html");
@@ -14027,7 +14024,6 @@
       studio: dict.navStudio,
       photo: dict.navPhoto,
       music: dict.navMusic,
-      cv: dict.navCV,
       search: dict.navSearch,
     };
 
@@ -14045,8 +14041,10 @@
 
           var studioTrigger = document.createElement("summary");
           studioTrigger.className = "nav-studio-trigger";
-          studioTrigger.textContent = navLabelMap.studio;
           studioTrigger.setAttribute("aria-label", navLabelMap.studio);
+          var studioLabel = document.createElement("span");
+          studioLabel.textContent = navLabelMap.studio;
+          studioTrigger.appendChild(studioLabel);
 
           var studioPanel = document.createElement("div");
           studioPanel.className = "nav-studio-panel";
