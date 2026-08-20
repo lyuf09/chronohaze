@@ -1589,6 +1589,18 @@ test("secondary pages keep mobile nav within the viewport", async ({ page }, tes
 
     const studioMenu = page.locator(".site-header .nav-studio-menu");
     const studioTrigger = studioMenu.locator(".nav-studio-trigger");
+    const studioOpticalAlignment = await studioTrigger.locator(":scope > span").evaluate((label) => {
+      const style = window.getComputedStyle(label);
+      return {
+        isWebKit: window.CSS.supports("-webkit-hyphens", "none"),
+        display: style.display,
+        transform: style.transform,
+      };
+    });
+    if (studioOpticalAlignment.isWebKit) {
+      expect(studioOpticalAlignment.display).toBe("inline-block");
+      expect(studioOpticalAlignment.transform).toMatch(/matrix\(1, 0, 0, 1, 0, -8\)/);
+    }
     const triggerTopBeforeOpen = await studioTrigger.evaluate(
       (trigger) => trigger.getBoundingClientRect().top
     );

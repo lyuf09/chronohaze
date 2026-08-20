@@ -913,6 +913,7 @@ body.page-transition-busy .home-page {
 
 @supports (-webkit-hyphens: none) {
   .nav-studio-trigger > span {
+    display: inline-block;
     transform: translateY(-8px);
   }
 }

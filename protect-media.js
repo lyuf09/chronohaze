@@ -14272,7 +14272,7 @@
       nav.setAttribute("aria-label", dict.navAria);
     });
     Array.from(document.querySelectorAll(".nav-studio-trigger")).forEach(function (node) {
-      node.textContent = dict.navStudio;
+      node.innerHTML = "<span>" + dict.navStudio + "</span>";
       node.setAttribute("aria-label", dict.navStudio);
     });
 
