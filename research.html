@@ -153,7 +153,7 @@
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico?v=4" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=4" />
   <title data-title-zh="研究陈述 | Feier Lyu" data-title-en="Research Statement | Feier Lyu">Research Statement | Feier Lyu</title>
-  <meta name="description" content="Research statement by Feier Lyu (Fay Lyu) on reusable Isabelle/HOL infrastructure for optimization and structural negative-curvature certificates for network localization." data-content-zh="Feier Lyu（Fay Lyu）的研究陈述：面向优化的可复用 Isabelle/HOL 基础设施，以及网络定位中的结构性负曲率证书。" data-content-en="Research statement by Feier Lyu (Fay Lyu) on reusable Isabelle/HOL infrastructure for optimization and structural negative-curvature certificates for network localization." />
+  <meta name="description" content="Research statement by Feier Lyu (Fay Lyu) on reusable Isabelle/HOL infrastructure for optimization and second-order geometry in network localization." data-content-zh="Feier Lyu（Fay Lyu）的研究陈述：面向优化的可复用 Isabelle/HOL 基础设施，以及网络定位中的二阶几何。" data-content-en="Research statement by Feier Lyu (Fay Lyu) on reusable Isabelle/HOL infrastructure for optimization and second-order geometry in network localization." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Chronohaze" />
   <meta property="og:title" content="Research Statement | Feier Lyu" />
@@ -269,12 +269,12 @@
             <div data-lang-block="zh">
               <h1>研究陈述</h1>
               <p class="research-positioning"><strong>Feier Lyu</strong>（Fay Lyu）</p>
-              <p class="research-positioning research-thesis-line">我的工作关注结构性假设如何决定优化算法的保证。在 Isabelle/HOL 中，我研究如何把状态不变量与几何引理组织成可复用的证明接口；在网络定位中，我研究图结构与应力结构如何控制非最优驻点附近的负曲率。这些项目共享同一个目标：让算法保证背后的数学依赖足够明确，从而能够被分析、验证与复用。</p>
+              <p class="research-positioning research-thesis-line">我的工作关注结构性假设如何决定优化算法的保证。在 Isabelle/HOL 中，我研究如何把状态不变量与几何引理组织成可复用的证明接口；在网络定位中，我研究网络结构如何影响非最优 stationary points 附近的二阶几何。这些项目共享同一个目标：让算法保证背后的数学依赖足够明确，从而能够被分析、验证与复用。</p>
             </div>
             <div data-lang-block="en" hidden>
               <h1>Research Statement</h1>
               <p class="research-positioning"><strong>Feier Lyu</strong> (Fay Lyu)</p>
-              <p class="research-positioning research-thesis-line">My work currently has two main directions. The first is formal verification of optimization algorithms in Isabelle/HOL, including submodular greedy methods and projected gradient descent. The second is nonconvex network localization, where I study stationary points, Hessian structure, and negative-curvature directions.</p>
+              <p class="research-positioning research-thesis-line">My work currently has two main directions. The first is formal verification of optimization algorithms in Isabelle/HOL, including submodular greedy methods and projected gradient descent. The second is nonconvex network localization, where I study how network structure shapes second-order geometry near stationary points.</p>
             </div>
           </div>
         </div>
@@ -289,12 +289,12 @@
           <ol class="research-question-list" data-lang-block="zh">
             <li><span>01</span><p>如何把经典贪心、有状态惰性贪心与 StochasticGreedy 的假设、状态不变量和近似保证组织成可复用的 Isabelle/HOL 接口？</p></li>
             <li><span>02</span><p>如何在统一的概率运行语义中结合期望近似保证与可执行轨迹层面的预言机调用复杂度保证？</p></li>
-            <li><span>03</span><p>对网络定位中的非最优驻点，哪些图结构与几何条件能给出可计算的负曲率证书和局部逃逸方向？</p></li>
+            <li><span>03</span><p>对网络定位中的非最优 stationary points，哪些图结构与几何条件控制其二阶行为？</p></li>
           </ol>
           <ol class="research-question-list" data-lang-block="en" hidden>
             <li><span>01</span><p>How can the assumptions, state invariants, and approximation guarantees for classical greedy, stateful lazy-greedy, and stochastic-greedy be exposed through reusable Isabelle/HOL interfaces?</p></li>
             <li><span>02</span><p>How can the expected approximation guarantee and the executable trace-level oracle-cost guarantee be unified within a single probabilistic run semantics?</p></li>
-            <li><span>03</span><p>For non-optimal stationary points in network localization, which graph and geometric conditions yield a computable negative-curvature certificate and a local escape direction?</p></li>
+            <li><span>03</span><p>Which graph and geometric conditions control second-order behavior near non-optimal stationary points in network localization?</p></li>
           </ol>
         </div>
       </section>
@@ -323,9 +323,9 @@
 
             <article class="research-project-card">
               <p class="research-project-kind">主要方向 02</p>
-              <h3>网络定位中的负曲率证书</h3>
-              <p>与 Prof. Shoham Sabach 的合作研究图结构如何控制非最优驻点附近的 Hessian 负曲率。</p>
-              <p>当前目标是从环一致性、投影边预算与图的环空间中构造可验证的局部逃逸方向，并明确这些证书成立所需的几何假设。</p>
+              <h3>网络定位中的二阶几何</h3>
+              <p>与 Prof. Shoham Sabach、Owen Li 的合作研究网络结构如何影响非最优 stationary points 附近的二阶几何。</p>
+              <p>当前公开状态只保留研究问题与已经确认的高层结论；具体判据、证明与计算实例暂不公开。</p>
             </article>
 
           </div>
@@ -347,8 +347,8 @@
 
             <article class="research-project-card">
               <p class="research-project-kind">PRIMARY DIRECTION 02</p>
-              <h3>Negative-curvature certificates in network localization</h3>
-              <p>In network localization, translation invariance makes some natural Lagrangian lower bounds trivial. I study what remains after this degeneracy, especially projection onto Range(B), stress balance at differentiable stationary points, and conditions under which negative residuals produce negative Hessian curvature.</p>
+              <h3>Second-order geometry in network localization</h3>
+              <p>Ongoing collaboration with Prof. Shoham Sabach and Owen Li on how network structure shapes second-order geometry near non-optimal stationary points. The public record retains only the research question and confirmed high-level conclusions; criteria, proofs, and computational examples are withheld.</p>
             </article>
 
           </div>

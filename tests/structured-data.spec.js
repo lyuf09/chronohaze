@@ -97,12 +97,12 @@ test("bilingual research posts expose one localized BlogPosting with real metada
     },
     {
       url: "notes/network_localization_structural_certificates.html?lang=en",
-      headline: "One Negative Residual Is Not Enough",
-      bodyIncludes: "Ongoing research collaboration with Prof. Shoham Sabach.",
-      bodyExcludes: "一条负残差并不够",
+      headline: "Second-Order Geometry in Network Localization: A Research Overview",
+      bodyIncludes: "confirmed high-level conclusions",
+      bodyExcludes: "网络定位中的二阶几何",
       published: "2026-07-22",
-      modified: "2026-08-01",
-      keywords: ["Network Localization", "Nonconvex Optimization", "Negative Curvature", "Stress-Rigidity"],
+      modified: "2026-08-23",
+      keywords: ["Network Localization", "Nonconvex Optimization", "Negative Curvature", "Second-Order Geometry"],
       image: "https://lyuf09.github.io/chronohaze/assets/og/math/network-localization.png",
     },
   ];
@@ -273,10 +273,6 @@ test("localized descriptions and social metadata stay in the selected language",
       "A best-of collection from HazezZ's teenage years",
     ],
     [
-      "post/dual-score-saddle-certificates.html?lang=en",
-      "Historical network-localization note from May 2026",
-    ],
-    [
       "post/first-isabelle-proof.html?lang=en",
       "My first Isabelle formalization project",
     ],
@@ -293,10 +289,6 @@ test("localized descriptions and social metadata stay in the selected language",
     [
       "post/theorem-to-framework-isabelle-submodular.html?lang=en",
       "The AFP 2026 entry covers classical greedy",
-    ],
-    [
-      "post/what-i-really-got-when-a-dual-route-failed.html?lang=en",
-      "What remained after two natural Lagrangian dual routes",
     ],
   ];
 

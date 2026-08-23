@@ -37,7 +37,6 @@ HTML_CONTENT_REFRESH_URLS = {
     "notes/network_localization_structural_certificates.html",
     "notes/theorem11_convexity_note.html",
     "notes/ttgda_second_order_tracking_note.html",
-    "post/dual-score-saddle-certificates.html",
     "post/first-isabelle-proof.html",
     "post/isabelle-submodular-greedy.html",
     "post/metalcore-piano-lab.html",
@@ -45,6 +44,10 @@ HTML_CONTENT_REFRESH_URLS = {
     "post/spring-2026.html",
     "post/submodular-greedy-formalization-enters-afp.html",
     "post/theorem-to-framework-isabelle-submodular.html",
+}
+
+HIDDEN_SEARCH_URLS = {
+    "post/dual-score-saddle-certificates.html",
     "post/what-i-really-got-when-a-dual-route-failed.html",
 }
 
@@ -404,6 +407,8 @@ def merge_items(search_data_dir: Path, catalogs: Dict[str, Any] | None = None) -
             url = str(item.get("url", "")).strip()
             if not url:
                 continue
+            if url in HIDDEN_SEARCH_URLS:
+                continue
             apply_catalog_overlay(path.name, item, catalogs)
             if str(item.get("scope", "")).strip() == "math":
                 item["section"] = "Technical Notes"
@@ -436,6 +441,21 @@ def refresh_search_data_metadata(search_data_dir: Path, generated_at: str) -> in
         items = data.get("items")
         if not isinstance(items, list):
             raise ValueError(f"{path.name} items must be array")
+        filtered_items = [
+            item
+            for item in items
+            if not isinstance(item, dict)
+            or str(item.get("url", "")).strip() not in HIDDEN_SEARCH_URLS
+        ]
+        if len(filtered_items) != len(items):
+            data["items"] = filtered_items
+            items = filtered_items
+            data["generated_at"] = generated_at
+            path.write_text(
+                json.dumps(data, ensure_ascii=False, indent=2) + "\n",
+                encoding="utf-8",
+            )
+            updated += 1
         if str(data.get("generated_at", "")).strip() == generated_at:
             continue
         data["generated_at"] = generated_at

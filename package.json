@@ -8,6 +8,7 @@
     "build:generated": "CHRONOHAZE_MEDIA_MANIFEST_ONLY=1 bash scripts/build_site_generated_assets.sh",
     "check:static": "bash scripts/check_all.sh",
     "check:links": "python3 scripts/check_broken_links.py --skip-external",
+    "check:emoji": "python3 scripts/check_no_emoji.py --root .",
     "check:all": "npm run check:static && npm run check:structured-data && npm run smoke:runtime",
     "smoke:runtime": "bash scripts/run_playwright_smoke.sh",
     "check:structured-data": "bash scripts/run_playwright_structured_data_check.sh",

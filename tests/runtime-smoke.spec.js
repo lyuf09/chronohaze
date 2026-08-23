@@ -50,10 +50,10 @@ test("home page renders hero and player shell", async ({ page }) => {
   await expect(page.locator(".selected-evidence-card").nth(0)).toContainText("投影几何、投影梯度映射、收敛证书与线性收敛率");
   await expect(page.getByRole("heading", { name: "基数约束子模最大化的贪心算法" })).toBeVisible();
   await expect(
-    page.getByRole("heading", { name: "网络定位中的负曲率证书" })
+    page.getByRole("heading", { name: "网络定位中的二阶几何" })
   ).toBeVisible();
   await expect(page.locator(".selected-evidence-card").nth(2)).toContainText(
-    "与 Prof. Shoham Sabach 合作研究图结构负曲率证书与局部逃逸方向。"
+    "与 Prof. Shoham Sabach、Owen Li 合作研究网络结构与二阶几何。"
   );
   await expect(page.locator(".identity-panel-math")).toContainText("学术身份 · FEIER LYU");
   await expect(page.locator(".identity-panel-creative")).toContainText("创作身份 · HAZEZZ");
@@ -69,7 +69,7 @@ test("home page renders hero and player shell", async ({ page }) => {
     "University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027"
   );
   await expect(page.locator(".hero-research-signal")).toHaveText(
-    "2 项 AFP 正式成果 · 独立完成优化形式化 · 与 Shoham Sabach 教授合作研究"
+    "2 项 AFP 正式成果 · 独立完成优化形式化 · 与 Shoham Sabach 教授、Owen Li 合作研究"
   );
   await expect(page.locator(".hero-academic-links .hero-academic-link")).toHaveText([
     "学术",
@@ -123,7 +123,7 @@ test("bare home URL defaults to English and releases the critical loader at DOM 
   await expect(page.getByRole("heading", { name: "Greedy Algorithms for Cardinality-Constrained Submodular Maximization" })).toBeVisible();
   await expect(
     page.getByRole("heading", {
-      name: "Negative-Curvature Certificates for Network Localization",
+      name: "Second-Order Geometry in Network Localization",
     })
   ).toBeVisible();
   await expect(page).toHaveURL(/[?&]lang=en(?:&|$)/);
@@ -413,7 +413,7 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
     "University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027"
   );
   await expect(page.locator(".hero-research-signal")).toHaveText(
-    "2 项 AFP 正式成果 · 独立完成优化形式化 · 与 Shoham Sabach 教授合作研究"
+    "2 项 AFP 正式成果 · 独立完成优化形式化 · 与 Shoham Sabach 教授、Owen Li 合作研究"
   );
   await expect(page.locator('.hero-academic-link[href="research.html"]')).toHaveText("研究陈述");
   await expect(page.locator('.hero-academic-link[href="projects.html"]')).toHaveText("精选工作");
@@ -460,12 +460,12 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
     "University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027"
   );
   await expect(page.locator(".hero-research-signal")).toHaveText(
-    "2 AFP publications · Sole-authored optimization formalization · Research with Prof. Shoham Sabach"
+    "2 AFP publications · Sole-authored optimization formalization · Research with Prof. Shoham Sabach and Owen Li"
   );
   await expect(page.locator("main")).not.toContainText("Born in 2005");
   await expect(page.getByRole("heading", { name: "Research Snapshot" })).toBeVisible();
   await expect(page.locator(".selected-evidence-card").nth(2)).toContainText(
-    "Graph-structured negative-curvature certificates and local escape directions, with Prof. Shoham Sabach."
+    "Network structure and second-order geometry, with Prof. Shoham Sabach and Owen Li."
   );
   await expect(page.locator(".hero-portrait")).toHaveAttribute("alt", "Portrait of Feier Lyu (HazezZ)");
   await expect(page.locator(".now-grid")).toHaveAttribute(
@@ -540,6 +540,56 @@ test("page swaps preserve destination stylesheet order", async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
+test("home-to-music page swaps load the performance archive stylesheet before reveal", async ({ page }) => {
+  const errors = trackPageErrors(page);
+  await page.goto("index.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+
+  await page.locator('main a[href="music.html"]').first().click();
+  await expect(page).toHaveURL(/music\.html\?lang=en/);
+  await expect(page.locator("body.music-index-page")).toBeVisible();
+  await expect(
+    page.locator('link[rel="stylesheet"][href*="performance-archive.min.css"]')
+  ).toHaveCount(1);
+
+  const performanceLayout = await page.locator(".music-performance-hero img").evaluate((hero) => {
+    const gallery = document.querySelector(".music-editorial-gallery");
+    const box = hero.getBoundingClientRect();
+    return {
+      galleryDisplay: gallery ? getComputedStyle(gallery).display : "",
+      heroWidth: box.width,
+      heroHeight: box.height,
+    };
+  });
+  expect(performanceLayout.galleryDisplay).toBe("grid");
+  expect(performanceLayout.heroWidth).toBeGreaterThan(0);
+  expect(performanceLayout.heroHeight).toBeLessThan(performanceLayout.heroWidth);
+  expect(errors).toEqual([]);
+});
+
+test("mobile music links use text-only symbols instead of emoji presentation", async ({ page }) => {
+  const errors = trackPageErrors(page);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("music.html?lang=zh", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+
+  const typography = await page.evaluate(() => ({
+    emojiVariant: getComputedStyle(document.documentElement).fontVariantEmoji,
+    visibleEmoji: Array.from(document.body.innerText.matchAll(/\p{Emoji_Presentation}/gu)).map(
+      (match) => match[0]
+    ),
+  }));
+  expect([undefined, "text"]).toContain(typography.emojiVariant);
+  expect(typography.visibleEmoji).toEqual([]);
+
+  const archiveLinks = await page.locator(
+    ".music-performance-full-link, .music-performance-card-link"
+  ).allTextContents();
+  expect(archiveLinks.length).toBeGreaterThan(0);
+  archiveLinks.forEach((copy) => expect(copy).toMatch(/↗\uFE0E$/u));
+  expect(errors).toEqual([]);
+});
+
 test("PGD note leads with its mathematical value", async ({ page }) => {
   const errors = trackPageErrors(page);
   await page.goto("post/projected-gradient-descent-isabelle-hol.html?lang=en", {
@@ -578,17 +628,18 @@ test("network-localization research record is bilingual and contains no public P
   });
 
   await expect(page.getByRole("heading", {
-    name: "One Negative Residual Is Not Enough",
+    name: "Second-Order Geometry in Network Localization: A Research Overview",
     exact: true,
   })).toBeVisible();
   const englishRecord = page.locator('[data-lang-block="en"]');
-  await expect(englishRecord).toContainText("From Projected Budgets to Negative Curvature");
-  await expect(englishRecord).toContainText("exactly one edge has negative residual");
-  await expect(englishRecord).toContainText("Current draft · Not yet promoted to a theorem");
-  await expect(englishRecord).toContainText("Three questions in the current draft");
-  await expect(englishRecord).toContainText("The rank-one update criterion says");
-  await expect(englishRecord).toContainText("βReff(e)=1");
-  await expect(englishRecord).toContainText("positive-semidefinite boundary");
+  await expect(englishRecord).toContainText("Prof. Shoham Sabach, and Owen Li");
+  await expect(englishRecord).toContainText("confirmed high-level conclusion");
+  await expect(englishRecord).toContainText("available on request");
+  await expect(englishRecord).not.toContainText("Cheap sufficient certificate first");
+  await expect(englishRecord).not.toContainText("structured matrix test");
+  await expect(englishRecord).not.toContainText("recover an escape direction");
+  await expect(englishRecord).not.toContainText("effective resistance");
+  await expect(englishRecord).not.toContainText("pseudoinverse");
   await expect(page.locator("iframe")).toHaveCount(0);
   await expect(page.locator('a[href$=".pdf"]')).toHaveCount(0);
   await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
@@ -605,14 +656,17 @@ test("network-localization research record is bilingual and contains no public P
   });
   const chineseRecord = page.locator('[data-lang-block="zh"]');
   await expect(chineseRecord.getByRole("heading", {
-    name: "一条负残差并不够",
+    name: "网络定位中的二阶几何：研究概览",
     exact: true,
   })).toBeVisible();
-  await expect(chineseRecord).toContainText("从投影预算到负曲率");
-  await expect(chineseRecord).toContainText("当前工作稿 · 尚未升级为定理");
+  await expect(chineseRecord).toContainText("Prof. Shoham Sabach、Owen Li");
+  await expect(chineseRecord).toContainText("已经确认的高层结论");
+  await expect(chineseRecord).toContainText("完整技术材料可按需提供");
   await expect(page.locator('[data-lang-block="en"]')).toBeHidden();
-  await expect(chineseRecord).toContainText("rank-one update 判据");
-  await expect(chineseRecord).toContainText("βReff(e)=1");
+  await expect(chineseRecord).not.toContainText("结构化矩阵测试");
+  await expect(chineseRecord).not.toContainText("escape direction");
+  await expect(chineseRecord).not.toContainText("effective resistance");
+  await expect(chineseRecord).not.toContainText("伪逆");
   await expect(page.locator(".academic-local-nav a").first()).toHaveAttribute(
     "href",
     /projects\.html\?lang=zh/
@@ -635,7 +689,11 @@ test("network-localization research record is bilingual and contains no public P
   expect(mobileRecordLayout.documentWidth).toBeLessThanOrEqual(mobileRecordLayout.viewportWidth);
   expect(mobileRecordLayout.recordLeft).toBeGreaterThanOrEqual(0);
   expect(mobileRecordLayout.recordRight).toBeLessThanOrEqual(mobileRecordLayout.viewportWidth);
-  expect(mobileRecordLayout.paragraphFonts.every((font) => !/Cormorant/i.test(font))).toBe(true);
+  expect(
+    mobileRecordLayout.paragraphFonts.every(
+      (font) => /Cormorant Garamond/i.test(font) && /Chronohaze Serif SC/i.test(font)
+    )
+  ).toBe(true);
 
   const nextNote = page.getByRole("link", {
     name: "下一篇 · 子模贪心算法形式化正式进入 AFP",
@@ -690,11 +748,14 @@ test("music index renders and remains interactive", async ({ page }) => {
     const copyRect = copy ? copy.getBoundingClientRect() : null;
     return {
       imageRatio: imageRect && imageRect.height ? imageRect.width / imageRect.height : 0,
+      imageLoaded: Boolean(image && image.naturalWidth),
       imageBottom: imageRect ? imageRect.bottom : 0,
       copyTop: copyRect ? copyRect.top : 0,
     };
   });
-  expect(heroLayout.imageRatio).toBeGreaterThan(3.4);
+  if (heroLayout.imageLoaded) {
+    expect(heroLayout.imageRatio).toBeGreaterThan(3.4);
+  }
   expect(heroLayout.copyTop).toBeGreaterThanOrEqual(heroLayout.imageBottom - 1);
   await expect(page.locator(".music-practice-copy")).toContainText("钢琴和小提琴");
   await expect(page.locator(".music-practice-path")).toHaveText(
@@ -1266,11 +1327,11 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   await expect(page.locator("main")).toContainText("Feier Lyu (Fay Lyu)");
   await expect(page.locator("main")).not.toContainText("currently between");
   const collaboration = cvEnglish.locator(".cv-experience-item").filter({
-    has: page.getByRole("heading", { name: "Research Collaboration with Prof. Shoham Sabach" }),
+    has: page.getByRole("heading", { name: "Research Collaboration with Prof. Shoham Sabach and Owen Li" }),
   });
   await expect(collaboration).toContainText("2026–Present");
-  await expect(collaboration).toContainText("structural negative-curvature certificates and local escape directions");
-  await expect(collaboration).toContainText("edge-level curvature interact in the reduced Hessian");
+  await expect(collaboration).toContainText("network structure and second-order geometry");
+  await expect(collaboration).toContainText("confirmed high-level conclusions");
   await expect(cvEnglish.locator("#cv-en-projects")).not.toContainText("Independent Research — Optimization");
   const pgdProject = cvEnglish.locator(".cv-project-list li").filter({
     has: page.getByRole("heading", { name: "First-Order Methods for Smooth Convex Optimization in Isabelle/HOL" }),
@@ -1311,7 +1372,7 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   await expect(cvChinese.locator("#cv-zh-projects")).not.toContainText(
     /Selected Work|Submitted Formalization|Patents|development/
   );
-  await expect(cvChinese.locator("#cv-zh-projects")).toContainText("图结构、不变性与边层级曲率");
+  await expect(cvChinese.locator("#cv-zh-projects")).toContainText("网络结构与二阶几何");
   await expect(cvChinese.locator("#cv-zh-experience")).toContainText("数据工程实习生");
   await expect(cvChinese.locator("#cv-zh-experience")).toContainText("2025 年 6 月–7 月");
   await expect(page.locator(".footer-copy")).toHaveText(
@@ -1329,7 +1390,7 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   await expect(page.locator('#research-questions ol[data-lang-block="zh"]')).toContainText(
     "统一的概率运行语义"
   );
-  await expect(page.locator('#research-questions ol[data-lang-block="zh"]')).toContainText("可计算的负曲率证书和局部逃逸方向");
+  await expect(page.locator('#research-questions ol[data-lang-block="zh"]')).toContainText("哪些图结构与几何条件控制其二阶行为");
   await expect(page.locator("#research-projects")).toBeVisible();
   await expect(page.locator("#research-outputs")).toBeVisible();
   await expect(page.locator('#research-projects [data-lang-block="zh"] .research-project-card')).toHaveCount(2);
@@ -1361,7 +1422,7 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   await page.goto("research.html?lang=en", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
   await expect(page.locator(".research-thesis-line")).toHaveText(
-    "My work currently has two main directions. The first is formal verification of optimization algorithms in Isabelle/HOL, including submodular greedy methods and projected gradient descent. The second is nonconvex network localization, where I study stationary points, Hessian structure, and negative-curvature directions."
+    "My work currently has two main directions. The first is formal verification of optimization algorithms in Isabelle/HOL, including submodular greedy methods and projected gradient descent. The second is nonconvex network localization, where I study how network structure shapes second-order geometry near stationary points."
   );
   await expect(page.locator("#research-questions .research-question-list")).toContainText(
     "How can the expected approximation guarantee and the executable trace-level oracle-cost guarantee be unified within a single probabilistic run semantics?"
@@ -1425,7 +1486,6 @@ test("academic section navigation stays on the three canonical destinations", as
     { path: "notes/huber_glm_sparsification_refinement_note.html", active: "技术笔记", back: true },
     { path: "notes/theorem11_convexity_note.html", active: "技术笔记", back: true },
     { path: "notes/ttgda_second_order_tracking_note.html", active: "技术笔记", back: true },
-    { path: "post/dual-score-saddle-certificates.html", active: "技术笔记", footerNav: true },
     { path: "post/first-isabelle-proof.html", active: "技术笔记", footerNav: true },
     { path: "post/isabelle-submodular-greedy.html", active: "技术笔记", footerNav: true },
     { path: "post/metalcore-piano-lab.html", active: "技术笔记", footerNav: true },
@@ -1433,7 +1493,6 @@ test("academic section navigation stays on the three canonical destinations", as
     { path: "post/spring-2026.html", active: "技术笔记", footerNav: true },
     { path: "post/submodular-greedy-formalization-enters-afp.html", active: "技术笔记", footerNav: true },
     { path: "post/theorem-to-framework-isabelle-submodular.html", active: "技术笔记", footerNav: true },
-    { path: "post/what-i-really-got-when-a-dual-route-failed.html", active: "技术笔记", footerNav: true },
   ];
   const expectedLabels = ["代表性工作", "研究陈述", "技术笔记"];
   const expectedPaths = ["/projects.html", "/research.html", "/math.html"];
@@ -1678,34 +1737,40 @@ test("music detail lyrics span the full mobile viewport", async ({ page }, testI
   expect(errors).toEqual([]);
 });
 
-test("Chinese mobile pages avoid mixed Latin and CJK font stacks", async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== "chromium", "single-engine font cascade regression check");
+test("Chinese mobile pages preserve branded Latin faces with stable CJK fallbacks", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
 
   const pages = [
-    "academic.html?lang=zh",
-    "music.html?lang=zh",
-    "music/track-04.html?lang=zh",
-    "photography.html?lang=zh",
+    { path: "index.html?lang=zh", title: ".hero-right h1" },
+    { path: "academic.html?lang=zh", title: '[data-lang-block="zh"] h1' },
+    { path: "math.html?lang=zh", title: ".page-head h1" },
+    { path: "research.html?lang=zh", title: '[data-lang-block="zh"] h1' },
+    { path: "projects.html?lang=zh", title: '[data-lang-block="zh"] h1' },
+    { path: "cv.html?lang=zh", title: '[data-lang-block="zh"] h1' },
+    { path: "music.html?lang=zh", title: ".music-hero-copy h1" },
+    { path: "music/track-04.html?lang=zh", title: ".music-detail-article h1" },
+    { path: "photography.html?lang=zh", title: ".page-head h1" },
+    { path: "olfactory.html?lang=zh", title: ".olfactory-hero h1" },
+    { path: "search.html?lang=zh", title: ".page-head h1" },
   ];
 
-  for (const path of pages) {
+  for (const entry of pages) {
     const errors = trackPageErrors(page);
-    await page.goto(path, { waitUntil: "domcontentloaded" });
+    await page.goto(entry.path, { waitUntil: "domcontentloaded" });
     await waitForCriticalLoaderRelease(page);
 
-    const mixedRuns = await page.locator("body *").evaluateAll((nodes) =>
-      nodes
-        .filter((node) =>
-          Array.from(node.childNodes).some(
-            (child) => child.nodeType === Node.TEXT_NODE && child.textContent.trim()
-          )
-        )
-        .filter((node) => window.getComputedStyle(node).fontFamily.includes("Cormorant Garamond"))
-        .map((node) => (node.textContent || "").replace(/\s+/g, " ").trim().slice(0, 80))
-    );
-
-    expect(mixedRuns).toEqual([]);
+    const typography = await page.locator(entry.title).first().evaluate(async (title) => {
+      await document.fonts.ready;
+      const family = window.getComputedStyle(title).fontFamily;
+      const loadedFaces = await document.fonts.load('400 32px "Cormorant Garamond"', "Chronohaze");
+      return {
+        family,
+        loadedCormorant: loadedFaces.length > 0,
+      };
+    });
+    expect(typography.family).toMatch(/cormorant(?:garamond)?(?:-light)?(?:\s+garamond)?/i);
+    expect(typography.family).toMatch(/Chronohaze Serif SC|Songti SC|Noto Serif SC/);
+    expect(typography.loadedCormorant).toBe(true);
     expect(errors).toEqual([]);
   }
 
@@ -1759,7 +1824,7 @@ test("academic page isolates languages and renders a concise academic index", as
     "我研究优化理论与形式化验证"
   );
   await expect(page.locator('.research-hero [data-lang-block="zh"]')).toContainText(
-    '与 Prof. Shoham Sabach 合作研究负曲率证书与局部逃逸方向'
+    '与 Prof. Shoham Sabach、Owen Li 合作研究网络结构与二阶几何'
   );
   await expect(evidence.getByRole("link", { name: "AFP 条目" }).first()).toHaveAttribute(
     "href",
@@ -1786,11 +1851,11 @@ test("academic page isolates languages and renders a concise academic index", as
     "My current work centers on reusable Isabelle/HOL infrastructure"
   );
   await expect(page.locator('.research-hero [data-lang-block="en"]')).toContainText(
-    'Negative-curvature certificates and local escape directions, with Prof. Shoham Sabach'
+    'Network structure and second-order geometry, with Prof. Shoham Sabach and Owen Li'
   );
   await expect(evidence.locator('[data-lang-block="en"]')).toContainText("Published May 26, 2026");
   await expect(evidence.locator('[data-lang-block="en"]')).toContainText("AFP · 2026 · SOLE AUTHOR");
-  await expect(evidence.locator('[data-lang-block="en"]')).toContainText("Ongoing collaboration with Prof. Shoham Sabach");
+  await expect(evidence.locator('[data-lang-block="en"]')).toContainText("Ongoing collaboration with Prof. Shoham Sabach and Owen Li");
   await expect(page.locator("main")).not.toContainText("Born in 2005");
   await expect(page.locator("main")).not.toContainText("HazezZ");
 
@@ -1847,11 +1912,11 @@ test("AFP publication status stays synchronized across work page and project his
   const localizationProject = page.locator(
     '#selected-work-list [data-lang-block="en"] > .academic-evidence > .academic-evidence-list li'
   ).nth(2);
-  await expect(localizationProject).toContainText("Ongoing collaboration with Prof. Shoham Sabach");
+  await expect(localizationProject).toContainText("Ongoing collaboration with Prof. Shoham Sabach and Owen Li");
   await expect(localizationProject).toContainText(
-    "My current work develops and checks projected-edge budget conditions"
+    "This page states only the background, research objective, and confirmed high-level conclusions"
   );
-  await expect(localizationProject.getByRole("link", { name: "Research record" })).toHaveAttribute(
+  await expect(localizationProject.getByRole("link", { name: "Research overview" })).toHaveAttribute(
     "href",
     "notes/network_localization_structural_certificates.html?lang=en"
   );
@@ -1921,9 +1986,20 @@ test("technical notes use explicit status labels and a local Julia fractal", asy
   await expect(fractal.locator("figcaption")).toHaveAttribute("data-copy-zh", "侧边视觉 · 我最喜欢的 Julia 分形");
   await expect(fractal.locator("figcaption")).toHaveAttribute("data-copy-en", "Side visual · My favorite Julia fractal");
   await expect(fractal.locator("a")).toHaveCount(0);
+  const fractalLayout = await fractal.evaluate((figure) => {
+    const image = figure.querySelector("img").getBoundingClientRect();
+    const caption = figure.querySelector("figcaption").getBoundingClientRect();
+    return {
+      horizontalGap: caption.left - image.right,
+      captionWidth: caption.width,
+    };
+  });
+  expect(fractalLayout.horizontalGap).toBeGreaterThanOrEqual(12);
+  expect(fractalLayout.horizontalGap).toBeLessThanOrEqual(24);
+  expect(fractalLayout.captionWidth).toBeLessThanOrEqual(280);
   await expect(page.locator("#pinned-notes .math-note-status")).toHaveCount(3);
-  await expect(page.locator("#exploratory-archive .math-note-status")).toHaveCount(1);
-  await expect(page.locator("#notes-archive .math-note-status")).toHaveCount(10);
+  await expect(page.locator("#exploratory-archive")).toHaveCount(0);
+  await expect(page.locator("#notes-archive .math-note-status")).toHaveCount(8);
   const labels = await page.locator(".math-note-status").allTextContents();
   const allowed = new Set([
     "Published formalization",
@@ -2019,10 +2095,26 @@ test("shared modal-invariants note is formal, direct-link only, and non-indexabl
     () => document.documentElement.scrollWidth > document.documentElement.clientWidth
   );
   expect(hasOverflow).toBe(false);
+
+  for (const archivedPath of [
+    "post/dual-score-saddle-certificates.html?lang=en",
+    "post/what-i-really-got-when-a-dual-route-failed.html?lang=en",
+  ]) {
+    await page.goto(archivedPath, { waitUntil: "domcontentloaded" });
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+      "content",
+      "noindex, nofollow, noarchive"
+    );
+    await expect(page.locator("main")).toContainText("Owen Li");
+    await expect(page.locator("main")).not.toContainText("effective resistance");
+    await expect(page.locator("main")).not.toContainText("pseudoinverse");
+    await expect(page.locator("main")).not.toContainText("Range(B)");
+    await expect(page.locator("main")).not.toContainText("cycle-rank");
+  }
   expect(errors).toEqual([]);
 });
 
-test("July notes lead the math archive and AFP work exposes primary evidence", async ({ page }) => {
+test("the latest network-localization update leads the math archive and AFP work exposes primary evidence", async ({ page }) => {
   const errors = trackPageErrors(page);
 
   await page.goto("math.html?lang=zh", { waitUntil: "domcontentloaded" });
@@ -2037,17 +2129,17 @@ test("July notes lead the math archive and AFP work exposes primary evidence", a
     "Projected Gradient Descent in Isabelle/HOL"
   );
   await expect(page.locator("#pinned-notes .academic-evidence-list li").nth(2)).toContainText(
-    "一条负残差并不够"
+    "网络定位中的二阶几何"
   );
   await expect(page.locator("#pinned-notes .academic-evidence-list li").nth(2)).toContainText(
-    "2026 年 7 月研究记录 · 持续合作"
+    "Prof. Shoham Sabach、Owen Li"
   );
-  await expect(page.locator("#exploratory-archive")).toContainText("TTGDA and Second-Order Tracking");
-  await expect(page.locator("#exploratory-archive")).toContainText("探索性归档");
+  await expect(page.locator("#exploratory-archive")).toHaveCount(0);
+  await expect(page.locator('main a[href="notes/ttgda_second_order_tracking_note.html"]')).toHaveCount(0);
   await expect(page.locator("#notes-archive")).toBeVisible();
   const archiveNotes = page.locator(".math-list .math-card");
-  await expect(archiveNotes).toHaveCount(10);
-  await expect(archiveNotes.nth(0)).toContainText("一条负残差并不够：网络定位中负曲率的结构");
+  await expect(archiveNotes).toHaveCount(8);
+  await expect(archiveNotes.nth(0)).toContainText("网络定位中的二阶几何：研究概览");
   await expect(archiveNotes.nth(0)).toContainText("进行中的合作研究");
   await expect(archiveNotes.nth(1)).toContainText("子模贪心算法形式化正式进入 AFP");
   await expect(archiveNotes.nth(1).locator(".math-date")).toContainText("原始发布 · 2026-06-30");

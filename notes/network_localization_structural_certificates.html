@@ -1,451 +1,168 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <title data-title-zh="一条负残差并不够：网络定位中负曲率的结构 | Chronohaze" data-title-en="One Negative Residual Is Not Enough: The Structure of Negative Curvature in Network Localization | Chronohaze">One Negative Residual Is Not Enough: The Structure of Negative Curvature in Network Localization | Chronohaze</title>
-  <meta name="description" content="A July 2026 research record on how a failed dual lower-bound route led from projected edge budgets to stress-rigidity structure, multi-edge coupling, and dimension-dependent saddles in network localization." data-content-zh="一篇 2026 年 7 月的网络定位研究记录：一条退化的对偶下界路线，如何经由投影边预算、应力-刚度分解与多边耦合，转向驻点附近的负曲率问题。" data-content-en="A July 2026 research record on how a failed dual lower-bound route led from projected edge budgets to stress-rigidity structure, multi-edge coupling, and dimension-dependent saddles in network localization." />
+  <link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
+  <title data-title-zh="网络定位中的二阶几何：研究概览 | Chronohaze" data-title-en="Second-Order Geometry in Network Localization: A Research Overview | Chronohaze">网络定位中的二阶几何：研究概览 | Chronohaze</title>
+  <meta name="description" content="A concise public overview of ongoing collaborative research on second-order geometry in network localization." data-content-zh="网络定位二阶几何合作研究的精炼公开概览。" data-content-en="A concise public overview of ongoing collaborative research on second-order geometry in network localization." />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Chronohaze" />
-  <meta property="og:title" content="One Negative Residual Is Not Enough: The Structure of Negative Curvature in Network Localization" />
-  <meta property="og:description" content="A July 2026 research record on how a failed dual lower-bound route led from projected edge budgets to stress-rigidity structure, multi-edge coupling, and dimension-dependent saddles in network localization." />
+  <meta property="og:title" content="网络定位中的二阶几何：研究概览" />
+  <meta property="og:description" content="网络定位二阶几何合作研究的精炼公开概览。" />
   <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/network-localization.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="A five-node network and a negative-curvature direction on a dark Hessian field." />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="One Negative Residual Is Not Enough: The Structure of Negative Curvature in Network Localization" />
-  <meta name="twitter:description" content="A July 2026 research record on how a failed dual lower-bound route led from projected edge budgets to stress-rigidity structure, multi-edge coupling, and dimension-dependent saddles in network localization." />
+  <meta name="twitter:title" content="网络定位中的二阶几何：研究概览" />
+  <meta name="twitter:description" content="网络定位二阶几何合作研究的精炼公开概览。" />
   <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/network-localization.png" />
   <meta name="twitter:image:alt" content="A five-node network and a negative-curvature direction on a dark Hessian field." />
   <meta property="article:published_time" content="2026-07-22" />
-  <meta property="article:modified_time" content="2026-08-01" />
+  <meta property="article:modified_time" content="2026-08-23" />
   <meta property="article:author" content="Feier Lyu" />
   <meta property="article:tag" content="Network Localization" />
   <meta property="article:tag" content="Nonconvex Optimization" />
   <meta property="article:tag" content="Negative Curvature" />
-  <meta property="article:tag" content="Stress-Rigidity" />
+  <meta property="article:tag" content="Second-Order Geometry" />
   <meta property="og:url" content="https://lyuf09.github.io/chronohaze/notes/network_localization_structural_certificates.html" />
   <link rel="canonical" href="https://lyuf09.github.io/chronohaze/notes/network_localization_structural_certificates.html" />
   <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/notes/network_localization_structural_certificates.html?lang=zh" />
   <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/notes/network_localization_structural_certificates.html?lang=en" />
   <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/notes/network_localization_structural_certificates.html" />
   <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
-  <link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
-  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
   <link rel="preload" href="../assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="../styles.min.css?v=20260820-studio-structural-align1" />
   <script defer src="../protect-media.min.js?v=20260820-studio-structural-align1"></script>
   <style>
-    body.note-detail-page {
+    .network-note {
+      --note-accent: rgba(74, 98, 138, 0.78);
+      max-width: min(100%, 780px);
+    }
+
+    .network-note .article-deck {
+      margin: 18px 0 28px;
+      color: rgba(48, 58, 75, 0.86);
+      font-family: var(--font-serif);
+      font-size: clamp(20px, 2.4vw, 27px);
+      line-height: 1.45;
+    }
+
+    .network-note .process-note {
+      margin: 24px 0 34px;
+      padding: 20px 22px;
+      border-left: 3px solid var(--note-accent);
+      background: rgba(222, 230, 241, 0.58);
+    }
+
+    .network-note .process-note p {
       margin: 0;
-      background: #0e131a;
-      color: rgba(234, 237, 242, 0.92);
+      color: rgba(39, 48, 63, 0.9);
     }
 
-    .note-detail-page .main {
-      background:
-        radial-gradient(circle at 18% 8%, rgba(114, 137, 177, 0.11), transparent 32rem),
-        radial-gradient(circle at 88% 30%, rgba(132, 151, 187, 0.07), transparent 28rem),
-        linear-gradient(180deg, #111720 0%, #0e141c 42%, #0e131a 100%);
-    }
-
-    .note-detail-page .cv-utility-bar {
-      margin-top: 0;
-    }
-
-    .research-record {
-      width: min(1080px, calc(100% - 36px));
-      margin: 0 auto;
-      padding: 52px 0 96px;
-    }
-
-    .research-record-back {
-      display: inline-flex;
-      margin: 0 0 38px;
-      color: rgba(204, 214, 229, 0.74);
-      font: 500 12px/1.4 Arial, sans-serif;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .research-record-hero {
-      max-width: 980px;
-      padding-bottom: 54px;
-      border-bottom: 1px solid rgba(187, 200, 220, 0.18);
-    }
-
-    .note-detail-page .article.research-record .research-record-kicker {
-      margin: 0 0 18px;
-      color: #aebcd2;
-      font: 500 12px/1.5 Arial, sans-serif;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .research-record h1 {
-      max-width: 940px;
-      margin: 0;
-      color: rgba(249, 250, 252, 0.98);
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: clamp(46px, 7vw, 82px);
-      font-weight: 300;
-      letter-spacing: -0.025em;
-      line-height: 0.98;
-    }
-
-    .note-detail-page .article.research-record .research-record-deck {
-      max-width: 820px;
-      margin: 24px 0 0;
-      color: rgba(217, 225, 237, 0.91);
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: clamp(25px, 3.2vw, 38px);
-      font-weight: 400;
-      line-height: 1.18;
-    }
-
-    .note-detail-page .article.research-record .research-record-collaboration {
-      max-width: 760px;
-      margin: 18px 0 0;
-      color: rgba(214, 223, 237, 0.92);
-      font: 500 14px/1.55 Arial, sans-serif;
-      letter-spacing: 0.015em;
-    }
-
-    .note-detail-page .article.research-record .research-record-dates {
-      max-width: 760px;
-      margin: 7px 0 0;
-      color: rgba(167, 184, 209, 0.84);
-      font: 400 13px/1.55 Arial, sans-serif;
-      letter-spacing: 0.015em;
-    }
-
-    .note-detail-page .article.research-record .research-record-subtitle {
-      max-width: 800px;
-      margin: 18px 0 0;
-      color: rgba(183, 196, 216, 0.82);
-      font: 400 14px/1.65 Arial, sans-serif;
-      letter-spacing: 0.025em;
-    }
-
-    .note-detail-page .article.research-record .research-record-lead {
-      max-width: 820px;
-      margin: 42px 0 0;
-      color: rgba(238, 241, 246, 0.94);
-      font-size: 20px;
-      line-height: 1.72;
-    }
-
-    .research-record-body {
-      max-width: 840px;
-      margin-top: 16px;
-    }
-
-    .research-record-section {
-      padding: 58px 0 10px;
-      border-bottom: 1px solid rgba(187, 200, 220, 0.14);
-    }
-
-    .research-record-section:last-child {
-      border-bottom: 0;
-    }
-
-    .research-record-section-label {
-      display: block;
-      margin-bottom: 12px;
-      color: rgba(149, 170, 205, 0.82);
-      font: 600 11px/1.4 Arial, sans-serif;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-    }
-
-    .research-record h2 {
-      max-width: 780px;
-      margin: 0 0 24px;
-      color: rgba(247, 248, 251, 0.97);
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: clamp(34px, 4.4vw, 52px);
-      font-weight: 400;
-      line-height: 1.06;
-    }
-
-    .research-record h3 {
-      margin: 36px 0 13px;
-      color: rgba(239, 243, 249, 0.96);
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: clamp(24px, 3vw, 31px);
-      font-weight: 500;
-      line-height: 1.16;
-    }
-
-    .note-detail-page .article.research-record p,
-    .note-detail-page .article.research-record li {
-      color: rgba(222, 227, 235, 0.9);
-      font-size: 17px;
-      line-height: 1.78;
-    }
-
-    .note-detail-page .article.research-record p {
-      margin: 0 0 18px;
-    }
-
-    .research-record ul,
-    .research-record ol {
-      margin: 18px 0 24px;
-      padding-left: 1.35em;
-    }
-
-    .research-record li + li {
-      margin-top: 9px;
-    }
-
-    .research-record strong {
-      color: rgba(248, 249, 251, 0.97);
-      font-weight: 600;
-    }
-
-    .research-record code {
-      padding: 0.08em 0.28em;
-      color: #dce6f7;
-      border: 1px solid rgba(161, 181, 214, 0.16);
-      background: rgba(121, 146, 185, 0.09);
-      font-size: 0.88em;
-    }
-
-    .math-display {
+    .network-note .math-display {
       overflow-x: auto;
-      margin: 28px 0;
-      padding: 22px 24px;
-      color: rgba(249, 250, 252, 0.98);
-      border-left: 2px solid rgba(142, 168, 208, 0.72);
-      background: linear-gradient(90deg, rgba(115, 139, 178, 0.1), rgba(115, 139, 178, 0.025));
+      margin: 26px 0;
+      padding: 20px 22px;
+      border: 1px solid rgba(78, 94, 119, 0.17);
+      border-left: 3px solid var(--note-accent);
+      background: rgba(236, 240, 246, 0.78);
+      color: rgba(30, 36, 47, 0.96);
       font-family: "Times New Roman", "STIX Two Math", Cambria, serif;
-      font-size: clamp(19px, 2.7vw, 26px);
-      line-height: 1.5;
+      font-size: clamp(18px, 2.25vw, 23px);
+      line-height: 1.55;
       text-align: center;
       white-space: nowrap;
     }
 
-    .math-display + .math-display {
-      margin-top: -16px;
+    .network-note .math-display + .math-display {
+      margin-top: -14px;
     }
 
-    .math-display var {
-      font-family: inherit;
-      font-style: italic;
+    .network-note blockquote {
+      margin: 24px 0;
+      padding: 2px 0 2px 22px;
+      border-left: 2px solid rgba(74, 98, 138, 0.46);
+      color: rgba(37, 46, 61, 0.92);
     }
 
-    .math-display sub,
-    .math-display sup {
-      font-size: 0.68em;
-    }
-
-    .result-callout,
-    .draft-callout {
-      margin: 30px 0;
-      padding: 25px 26px 23px;
-      border: 1px solid rgba(166, 184, 212, 0.22);
-      background: rgba(127, 151, 190, 0.075);
-    }
-
-    .draft-callout {
-      border-color: rgba(205, 176, 126, 0.32);
-      background: rgba(174, 133, 70, 0.07);
-    }
-
-    .callout-label {
-      display: block;
-      margin-bottom: 10px;
-      color: #b9c7dd;
-      font: 600 11px/1.4 Arial, sans-serif;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .draft-callout .callout-label {
-      color: #d3b98d;
-    }
-
-    .note-detail-page .article.research-record .result-callout p:last-child,
-    .note-detail-page .article.research-record .draft-callout p:last-child {
-      margin-bottom: 0;
-    }
-
-    .identity-list {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1px;
-      margin: 28px 0;
-      border: 1px solid rgba(173, 190, 216, 0.17);
-      background: rgba(173, 190, 216, 0.15);
-    }
-
-    .identity-list > div {
-      padding: 20px 21px;
-      background: rgba(14, 20, 28, 0.95);
-    }
-
-    .identity-list strong {
-      display: block;
-      margin-bottom: 6px;
-      font: 600 12px/1.5 Arial, sans-serif;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-
-    .identity-list span {
-      color: rgba(205, 213, 225, 0.84);
-      font-size: 14px;
-      line-height: 1.62;
-    }
-
-    .dimension-comparison {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      margin: 30px 0;
-    }
-
-    .dimension-card {
-      min-height: 172px;
-      padding: 24px;
-      border: 1px solid rgba(175, 191, 216, 0.2);
-      background: rgba(255, 255, 255, 0.025);
-    }
-
-    .dimension-card span {
-      display: block;
-      margin-bottom: 13px;
-      color: #aebdd4;
-      font: 600 11px/1.4 Arial, sans-serif;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .dimension-card strong {
-      display: block;
-      margin-bottom: 10px;
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: 27px;
-      font-weight: 500;
-      line-height: 1.15;
-    }
-
-    .note-detail-page .article.research-record .dimension-card p {
+    .network-note blockquote p {
       margin: 0;
-      font-size: 15px;
-      line-height: 1.68;
+      color: inherit;
+      font-size: 18px;
     }
 
-    .earlier-derivations {
+    .network-note .screening-flow {
+      margin: 26px 0 30px;
+      padding: 0;
+      list-style: none;
+      counter-reset: screening-step;
+    }
+
+    .network-note .screening-flow li {
+      position: relative;
+      margin: 0;
+      padding: 15px 18px 15px 52px;
+      border: 1px solid rgba(78, 94, 119, 0.15);
+      background: rgba(241, 244, 248, 0.72);
+      counter-increment: screening-step;
+    }
+
+    .network-note .screening-flow li::before {
+      content: counter(screening-step, decimal-leading-zero);
+      position: absolute;
+      left: 17px;
+      top: 16px;
+      color: rgba(65, 83, 113, 0.8);
+      font: 500 11px/1.5 Arial, sans-serif;
+      letter-spacing: 0.08em;
+    }
+
+    .network-note .screening-flow li + li {
+      margin-top: 18px;
+    }
+
+    .network-note .screening-flow li + li::after {
+      content: "↓";
+      position: absolute;
+      left: 50%;
+      top: -20px;
+      transform: translateX(-50%);
+      color: rgba(65, 83, 113, 0.62);
+      font: 400 15px/1 Arial, sans-serif;
+    }
+
+    .network-note .research-links {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 30px;
+      margin-top: 34px;
     }
 
-    .earlier-derivations a {
-      display: inline-flex;
-      align-items: center;
-      min-height: 42px;
-      padding: 0 15px;
-      color: rgba(238, 242, 248, 0.92);
-      border: 1px solid rgba(177, 194, 218, 0.26);
-      background: rgba(255, 255, 255, 0.035);
-      font: 500 12px/1.4 Arial, sans-serif;
-      letter-spacing: 0.045em;
+    .network-note .research-links a {
+      padding: 9px 13px;
+      border: 1px solid rgba(65, 83, 113, 0.22);
+      background: rgba(243, 246, 250, 0.65);
+      color: rgba(35, 46, 65, 0.9);
+      font-size: 12px;
     }
 
-    [data-lang-block="zh"] {
-      font-family: "Songti SC", "STSong", "Noto Serif CJK SC", "Source Han Serif SC", serif;
-    }
-
-    [data-lang-block="zh"] h1,
-    [data-lang-block="zh"] h2,
-    [data-lang-block="zh"] h3,
-    [data-lang-block="zh"] .research-record-deck {
-      font-family: "Songti SC", "STSong", "Noto Serif CJK SC", "Source Han Serif SC", serif;
-      letter-spacing: 0;
-    }
-
-    [data-lang-block="zh"] h1 {
-      line-height: 1.08;
-    }
-
-    .note-detail-page .article.research-record [data-lang-block="zh"] .research-record-lead,
-    .note-detail-page .article.research-record [data-lang-block="zh"] p,
-    .note-detail-page .article.research-record [data-lang-block="zh"] li {
-      line-height: 1.9;
-    }
-
-    @media (max-width: 760px) {
-      .research-record {
-        width: min(100% - 24px, 1080px);
-        padding: 42px 0 64px;
-      }
-
-      .research-record-back {
-        margin-bottom: 28px;
-      }
-
-      .research-record-hero {
-        padding-bottom: 40px;
-      }
-
-      .research-record h1 {
-        font-size: clamp(39px, 12.2vw, 58px);
-      }
-
-      .note-detail-page .article.research-record .research-record-deck {
-        font-size: clamp(24px, 7.5vw, 32px);
-      }
-
-      .note-detail-page .article.research-record .research-record-lead {
-        margin-top: 32px;
-        font-size: 18px;
-        line-height: 1.72;
-      }
-
-      .research-record-section {
-        padding-top: 46px;
-      }
-
-      .note-detail-page .article.research-record p,
-      .note-detail-page .article.research-record li {
-        font-size: 16px;
-      }
-
-      .identity-list,
-      .dimension-comparison {
-        grid-template-columns: 1fr;
-      }
-
-      .math-display {
-        margin: 24px -2px;
-        padding: 18px 16px;
-        font-size: 19px;
+    @media (max-width: 640px) {
+      .network-note .math-display {
+        margin-right: -4px;
+        margin-left: -4px;
+        padding: 17px 14px;
+        font-size: 17px;
         text-align: left;
       }
 
-      .result-callout,
-      .draft-callout {
-        padding: 21px 18px 19px;
-      }
-
-      [data-lang-block="zh"] {
-        font-family: "Songti SC", "STSong", "Noto Serif CJK SC", "Source Han Serif SC", serif;
-      }
-
-      [data-lang-block="zh"] .research-record-kicker,
-      [data-lang-block="zh"] .research-record-subtitle,
-      [data-lang-block="zh"] .research-record-section-label,
-      [data-lang-block="zh"] .callout-label,
-      [data-lang-block="zh"] .identity-list strong,
-      [data-lang-block="zh"] .dimension-card span,
-      [data-lang-block="zh"] .earlier-derivations a {
-        font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+      .network-note .screening-flow li {
+        padding-right: 14px;
+        padding-left: 46px;
       }
     }
   </style>
@@ -458,11 +175,11 @@
           <img src="../assets/logo-header.png" alt="Chronohaze site logo" />
           <span>CHRONOHAZE</span>
         </a>
-        <nav class="nav" aria-label="Main navigation" data-i18n-aria="navAria">
-          <a href="../index.html" data-preserve-lang="1" data-i18n="navHome">Home</a>
-          <a class="active" href="../academic.html" data-preserve-lang="1" data-i18n="navAcademic">Academic</a>
-          <a href="../music.html" data-preserve-lang="1" data-i18n="navMusic">Music</a>
-          <a href="../photography.html" data-preserve-lang="1" data-i18n="navPhoto">Photography</a>
+        <nav class="nav" aria-label="主导航" data-i18n-aria="navAria">
+          <a href="../index.html" data-preserve-lang="1" data-i18n="navHome">主页</a>
+          <a class="active" href="../academic.html" data-preserve-lang="1" data-i18n="navAcademic">学术</a>
+          <a href="../music.html" data-preserve-lang="1" data-i18n="navMusic">音乐</a>
+          <a href="../photography.html" data-preserve-lang="1" data-i18n="navPhoto">摄影</a>
           <a href="../cv.html" data-preserve-lang="1" data-i18n="navCV">CV</a>
         </nav>
       </div>
@@ -472,7 +189,7 @@
       <div class="container">
         <div class="cv-utility-bar">
           <div class="cv-utility-top">
-            <nav class="academic-local-nav" aria-label="Academic section links" data-i18n-aria="academicSectionAria">
+            <nav class="academic-local-nav" aria-label="学术页面导航" data-i18n-aria="academicSectionAria">
               <a class="academic-local-link" href="../projects.html" data-preserve-lang="1" data-i18n="utilityProjects">Selected Work</a>
               <a class="academic-local-link" href="../research.html" data-preserve-lang="1" data-i18n="utilityResearch">Research Statement</a>
               <a class="academic-local-link is-active" href="../math.html" data-preserve-lang="1" data-i18n="utilityNotes">Technical Notes</a>
@@ -481,331 +198,90 @@
         </div>
       </div>
 
-      <article class="article research-record">
-        <div data-lang-block="zh" hidden>
-          <a class="research-record-back" href="../math.html" data-preserve-lang="1">返回技术笔记</a>
-          <header class="research-record-hero">
-            <p class="research-record-kicker">研究记录 · 网络定位</p>
-            <h1>一条负残差并不够</h1>
-            <p class="research-record-collaboration">与 Prof. Shoham Sabach 持续合作研究。</p>
-            <p class="research-record-dates">最初发布于 2026 年 7 月 22 日 · 更新于 2026 年 8 月 1 日</p>
-            <p class="research-record-deck">从投影预算到负曲率</p>
-            <p class="research-record-subtitle">网络定位研究的 2026 年 7 月阶段记录：应力-刚度分解、多边耦合与依赖环境维数的鞍点。</p>
-            <p class="research-record-lead">同一个正五边形构型，在二维空间中可以是一个严格局部极小点（模刚体运动）；将所有点原样补零嵌入三维后，它却会变成一个具有恰好两个负曲率方向的严格鞍点。坐标之间没有发生变化，目标距离也没有改变，改变的只是允许扰动的环境维数。</p>
-            <p>这个例子来自我最近对网络定位非凸地形的一次重新整理。我最初试图从单条残差为负的边出发构造逃逸方向。对单边目标而言，这种边确实在垂直于当前边的方向上产生负二阶曲率；但网络中的节点扰动由所有相邻边共享，驻点条件又迫使不同边的残差达到力学平衡。局部的负曲率因此不一定能够扩展成整个网络的下降方向。</p>
-            <p><strong>最先出现的结论反而是否定性的：在一个可微驻点处，恰好一条负残差边永远不足以产生负 Hessian 特征值。</strong>真正决定鞍点的是多条负残差边在横向方向上的联合耦合。这篇页面记录这条思路在 2026 年 7 月如何从投影恒等式转向驻点附近的二阶几何。</p>
-          </header>
+      <article class="article network-note">
+        <div data-lang-block="zh">
+          <h1>网络定位中的二阶几何：研究概览</h1>
+          <p class="article-meta">Feier Lyu · 最初发布于 2026-07-22 · 更新于 2026-08-23 · 约 4 分钟</p>
+          <p class="article-meta"><strong>研究参与者：</strong>Feier Lyu、Prof. Shoham Sabach、Owen Li</p>
+          <p class="article-meta">Network Localization · Nonconvex Optimization · Negative Curvature · Structured Screening</p>
+          <p class="article-deck">关于网络定位中二阶几何的一份精炼公开概览。</p>
+          <div class="process-note">
+            <p>这项合作研究仍在进行中。公开页只保留问题背景、研究动机、目标与已经确认的高层结论。完整技术材料可按需提供，定稿后将以 preprint 为准。</p>
+          </div>
 
-          <div class="research-record-body">
-            <section class="research-record-section">
-              <span class="research-record-section-label">01 · 起点</span>
-              <h2>这条问题是怎么开始的</h2>
-              <p>最初的问题来自一条对偶下界路线。我希望从 Lagrangian dual 得到一个非平凡的全局下界，用来描述网络定位实例的困难程度。但目标函数在整体平移下不变，普通的对偶计算很容易退化为平凡的零下界。</p>
-              <p>失败的下界并没有让整条推导失去信息。把边预算投影到可实现的边位移空间 <code>Range(B)</code> 后，仍然留下了一个由测量图和目标距离共同决定的结构量。它最初看起来像一个静态的实例分数，后来却提供了可微驻点上的饱和 witness，并把问题从“能否得到全局下界”引向“驻点附近的二阶几何是什么”。</p>
-              <p>这条研究路线因此不是从一组预先排好的定理开始，而是从一个没有成功的目标中逐步提炼出仍然稳定的结构。</p>
-            </section>
+          <p>过去几个月，我一直在研究一个看起来很简单、实际却相当顽固的非凸优化问题：</p>
+          <div class="math-display" aria-label="网络定位目标函数">
+            <var>F</var>(<var>x</var>) = ∑<sub>(<var>i</var>,<var>j</var>)∈<var>E</var></sub> (‖<var>x</var><sub><var>i</var></sub>−<var>x</var><sub><var>j</var></sub>‖−δ<sub><var>ij</var></sub>)<sup>2</sup>.
+          </div>
+          <p>它可以描述网络定位（network localization）、多维尺度分析（multi-dimensional scaling）等问题：我们知道一些节点之间希望达到的距离 δ<sub>ij</sub>，然后试图寻找一组位置 <var>x</var><sub>i</sub>，使这些距离尽可能得到满足。</p>
+          <p>这个目标函数最麻烦的地方之一，是算法收敛到一个 critical point 并不代表问题结束了。已有工作已经说明，在这个模型中，非光滑 critical points 可以被进一步分析，并且存在能够逃离其中一部分坏点的构造；对于光滑的 stationary points，也可以利用二阶信息得到局部最优性的必要条件。</p>
+          <p>我最近关心的问题，正是从这里继续往下走：</p>
+          <blockquote><p><strong>对于一个 differentiable stationary point，我们还能从问题本身的结构中读出多少关于局部几何的信息？</strong></p></blockquote>
 
-            <section class="research-record-section">
-              <span class="research-record-section-label">02 · 稳定结构</span>
-              <h2>已经明确的恒等式</h2>
-              <p>设测量图为 <code>G=(V,E)</code>，节点位置 <var>x</var><sub>i</sub>∈ℝ<sup>d</sup>，目标距离 δ<sub>e</sub>≥0。本文只讨论所有测量边当前长度都非零的可微构型。只保留一个目标函数：</p>
-              <div class="math-display" aria-label="Network localization objective">
-                <var>F</var>(<var>x</var>) = ∑<sub><var>e</var>=(<var>i</var>,<var>j</var>)∈<var>E</var></sub> (‖<var>x</var><sub><var>i</var></sub>−<var>x</var><sub><var>j</var></sub>‖−δ<sub><var>e</var></sub>)<sup>2</sup>.
-              </div>
-              <p>记 <var>r</var><sub>e</sub>=‖<var>x</var><sub>i</sub>−<var>x</var><sub>j</sub>‖，残差 ε<sub>e</sub>=<var>r</var><sub>e</sub>−δ<sub>e</sub>，归一化应力系数 <var>a</var><sub>e</sub>=ε<sub>e</sub>/<var>r</var><sub>e</sub>。负残差意味着当前边比目标长度短，像一根被压缩的弹簧。</p>
+          <h2>1. 为什么单边直觉不够</h2>
+          <p>对一条边而言，当前距离与目标距离之间的偏差会提供局部几何信号。最初的问题是：能否仅凭某一条边的符号信息判断一个 stationary point 的二阶性质？</p>
+          <p>目前已经确认的高层结论是：<strong>单条边的局部信息不足以独立决定完整二阶几何。</strong>它可以提供线索，但不能替代对网络耦合结构的分析。</p>
 
-              <h3>投影边预算</h3>
-              <p>令 <var>P</var><sub>B</sub> 表示到 <code>Range(B)</code> 的正交投影，<var>V</var><sub>δ</sub>={ <var>u</var> : ‖<var>u</var><sub>e</sub>‖≤2δ<sub>e</sub> }。下面的量是精确的：</p>
-              <div class="math-display" aria-label="Projected edge-budget score">
-                <var>S</var><sub>dual</sub>(<var>B</var>,δ) = ∑<sub><var>e</var>∈<var>E</var></sub>δ<sub><var>e</var></sub><sup>2</sup> − ¼ max<sub><var>u</var>∈<var>V</var><sub>δ</sub></sub> ‖<var>P</var><sub>B</sub><var>u</var>‖<sup>2</sup>.
-              </div>
-              <p><var>S</var><sub>dual</sub>=0 当且仅当存在一个节点构型精确实现全部目标距离。对于森林图，边空间没有环一致性约束，因此这个分数退化为零；对含环图，是否为正还取决于距离数据与环境维数，而不只是图拓扑。</p>
+          <h2>2. 边不是独立存在的</h2>
+          <p>改变一个节点的位置，不只会改变我们正在观察的那条边。它同时会改变所有与这个节点相连的测量边。因此，即使某条边单独看起来提供了负曲率，周围其他边也可能产生正的二阶贡献，并把这种负曲率抵消掉。</p>
+          <p>这也是我现在觉得这个问题最有意思的地方之一：</p>
+          <blockquote><p><strong>负曲率不是单条边的属性，而是多个几何约束相互作用后的结果。</strong></p></blockquote>
+          <p>这使问题从单独检查一条边，转变为理解多个几何约束如何共同塑造局部 landscape。</p>
 
-              <h3>可微驻点 witness 与值恒等式</h3>
-              <p>在可微驻点处，定义逐边饱和的预算向量</p>
-              <div class="math-display" aria-label="Stationary witness">
-                <var>u</var><sub><var>e</var></sub>(<var>x</var>) = 2δ<sub><var>e</var></sub> · (<var>B</var><sub><var>e</var></sub><var>x</var> / ‖<var>B</var><sub><var>e</var></sub><var>x</var>‖).
-              </div>
-              <p>驻点条件给出 <var>B</var><sup>⊤</sup>(2<var>Bx</var>−<var>u</var>(<var>x</var>))=0。由于 2<var>Bx</var> 已经在 <code>Range(B)</code> 中，投影后得到</p>
-              <div class="math-display" aria-label="Stationary projection identity">
-                <var>P</var><sub>B</sub><var>u</var>(<var>x</var>) = 2<var>Bx</var>.
-              </div>
-              <p>同一个 witness 还精确读出驻点值：</p>
-              <div class="math-display" aria-label="Stationary point value identity">
-                <var>F</var>(<var>x</var>) = ∑<sub><var>e</var>∈<var>E</var></sub>δ<sub><var>e</var></sub><sup>2</sup> − ¼‖<var>P</var><sub>B</sub><var>u</var>(<var>x</var>)‖<sup>2</sup>.
-              </div>
+          <h2>3. 研究目标</h2>
+          <p>完整 Hessian 的谱信息可以回答二阶问题，但它本身不能解释网络结构为何产生这些现象。当前目标是识别控制非最优 stationary points 局部几何的图结构与几何假设，并把这些依赖表达得足够清楚。</p>
+          <p>公开记录只说明这一研究方向，不公开正在形成的判据、证明或计算实例。</p>
 
-              <h3>应力-刚度分解</h3>
-              <p>令 <var>R</var>(<var>x</var>) 为归一化刚度矩阵，Ω(<var>x</var>) 为由系数 <var>a</var><sub>e</sub> 组成的应力矩阵。Hessian 可以分成两部分：</p>
-              <div class="math-display" aria-label="Stress rigidity Hessian decomposition">
-                ½∇<sup>2</sup><var>F</var>(<var>x</var>) = Ω(<var>x</var>)⊗<var>I</var><sub><var>d</var></sub> + <var>R</var>(<var>x</var>)<sup>⊤</sup> diag(δ<sub><var>e</var></sub>/<var>r</var><sub><var>e</var></sub>) <var>R</var>(<var>x</var>).
-              </div>
-              <div class="identity-list" aria-label="Meaning of the Hessian decomposition">
-                <div><strong>几何刚度</strong><span><var>R</var><sup>⊤</sup>diag(δ<sub>e</sub>/<var>r</var><sub>e</sub>)<var>R</var> 描述沿测量边方向的几何刚性。</span></div>
-                <div><strong>残差应力</strong><span>Ω⊗<var>I</var><sub>d</sub> 描述残差诱导的横向应力；负残差只可能从这里带来负曲率。</span></div>
-              </div>
-              <p>在驻点处，残差并不是独立的，而满足应力平衡 Ω(<var>x</var>)<var>X</var>=0。另一个直接推论是：若归一化刚度矩阵满行秩，驻点必须精确拟合所有距离。特别地，在所有测量边非零时，森林图不存在非精确的可微驻点。</p>
-            </section>
+          <h2>4. 公开状态</h2>
+          <p>这项工作由 Feier Lyu、Prof. Shoham Sabach 与 Owen Li 共同参与，目前仍在推进。内部技术细节不在公开页面展示。</p>
+          <p>更完整的技术说明可按需提供；正式结论将以 preprint 或论文为准。</p>
 
-            <section class="research-record-section">
-              <span class="research-record-section-label">03 · 转折</span>
-              <h2>为什么投影分数不够</h2>
-              <p><var>S</var><sub>dual</sub> 描述的是实例层面的不相容性：给定的距离预算有多少能够落入可实现边位移空间。它不依赖某个具体驻点，因此也不会记录驻点处的边方向、应力平衡或可行扰动。</p>
-              <p>同一个 value gap 可以对应完全不同的 Hessian 几何。两个驻点可能具有相同的目标值与相同的 projected-witness gap，其中一个在模刚体运动后是局部极小点，另一个却有负特征值。投影分数因此不能直接区分局部极小点与鞍点。</p>
-              <p>真正的转折是把注意力从“全局预算保留了多少”移到三个局部问题：哪些边具有负残差；负曲率出现在哪些横向方向；这些边空间方向是否能由共同的节点位移实现。</p>
-            </section>
-
-            <section class="research-record-section">
-              <span class="research-record-section-label">04 · 单边直觉的失败</span>
-              <h2>为什么一条负残差并不够</h2>
-              <p>单独看一条负残差边，它在垂直于当前边的每个方向上都给出负二阶曲率。但网络中的边扰动不能逐边独立指定：一个节点位移会同时改变所有相邻边，所有边扰动还必须共同落在 <code>Range(B)</code> 中。</p>
-              <div class="result-callout">
-                <span class="callout-label">单负边结论</span>
-                <p>在可微驻点处，如果恰好只有一条边具有负残差，而其余边残差非负，那么整体 Hessian 必为半正定。</p>
-              </div>
-              <p>把唯一负边记为 <var>e</var>，强度记为 β&gt;0，并把其余非负权重组成的 Laplacian 记为 <var>L</var><sub>+</sub>。应力矩阵就是一个 rank-one downdate：</p>
-              <div class="math-display" aria-label="Single-edge rank-one stress update">
-                Ω = <var>L</var><sub>+</sub> − β<var>b</var><sub><var>e</var></sub><var>b</var><sub><var>e</var></sub><sup>⊤</sup>, &nbsp;&nbsp; <var>R</var><sub>eff</sub>(<var>e</var>) = <var>b</var><sub><var>e</var></sub><sup>⊤</sup><var>L</var><sub>+</sub><sup>†</sup><var>b</var><sub><var>e</var></sub>.
-              </div>
-              <p>rank-one update 判据给出 Ω⪰0 当且仅当 β<var>R</var><sub>eff</sub>(<var>e</var>)≤1。驻点方程 <var>L</var><sub>+</sub><var>X</var>=β<var>b</var><sub><var>e</var></sub><var>b</var><sub><var>e</var></sub><sup>⊤</sup><var>X</var>，左乘 <var>b</var><sub><var>e</var></sub><sup>⊤</sup><var>L</var><sub>+</sub><sup>†</sup>，再用当前边非零，即得到 β<var>R</var><sub>eff</sub>(<var>e</var>)=1。于是应力项恰停在半正定边界，而第二个刚度项本身半正定；“发现一条被压缩的边”仍不能推出 strict saddle。</p>
-              <p>三节点构型已经能够显示界限的 sharpness：当两条负残差边共同出现时，它们的横向作用可以在节点空间中耦合成真正的负曲率方向。核心问题由此从单边筛选变成多边相互作用。</p>
-            </section>
-
-            <section class="research-record-section">
-              <span class="research-record-section-label">05 · 当前 reduction</span>
-              <h2>正在核对的多边矩阵判据</h2>
-              <div class="draft-callout">
-                <span class="callout-label">当前工作稿 · 尚未升级为定理</span>
-                <p>这一节记录目前正在检查的 reduction。符号约定、kernel/range 条件、伪逆降维，以及如何从小矩阵特征向量恢复节点空间方向仍需逐项核对。</p>
-              </div>
-              <p>把所有负残差边的横向方向收集到矩阵 <var>C</var> 中，并把对应强度放入 Δ≻0，当前分解写成</p>
-              <div class="math-display" aria-label="Positive semidefinite part minus multi-edge coupling">
-                ½∇<sup>2</sup><var>F</var>(<var>x</var>) = <var>P</var> − <var>C</var><sup>⊤</sup>Δ<var>C</var>, &nbsp;&nbsp; <var>P</var>⪰0.
-              </div>
-              <p>在所需的 kernel/range 条件成立时，候选的横向耦合矩阵为</p>
-              <div class="math-display" aria-label="Candidate transverse matrix">
-                <var>T</var><sub>⊥</sub> = Δ<sup>1/2</sup><var>C</var><var>P</var><sup>†</sup><var>C</var><sup>⊤</sup>Δ<sup>1/2</sup>.
-              </div>
-              <p>若当前 reduction 的条件与符号全部通过核对，它将把三个结论压缩到同一个小矩阵中：</p>
-              <div class="math-display" aria-label="Candidate positive semidefinite equivalence">
-                ∇<sup>2</sup><var>F</var>(<var>x</var>)⪰0 &nbsp;⟺&nbsp; <var>T</var><sub>⊥</sub>⪯<var>I</var>,
-              </div>
-              <div class="math-display" aria-label="Candidate negative inertia formula">
-                ν<sub>−</sub>(∇<sup>2</sup><var>F</var>(<var>x</var>)) = #{ λ<sub><var>q</var></sub>(<var>T</var><sub>⊥</sub>) &gt; 1 }.
-              </div>
-              <p>大于 1 的特征向量还应当能够通过 <var>P</var><sup>†</sup><var>C</var><sup>⊤</sup>Δ<sup>1/2</sup> 恢复为节点空间中的负曲率方向。原本需要检查一个 <var>dN</var>×<var>dN</var> Hessian；这个 reduction 的目标，是把决定负惯性的计算降到一个大小至多为 (<var>d</var>−1)|<var>E</var><sub>−</sub>| 的矩阵。</p>
-              <p>目前不把它写成“complete certificate”。网站只记录 reduction 的形状与它需要完成的核对，不把工作稿中的 Weyl 或 effective-resistance 推导作为中心定理。</p>
-            </section>
-
-            <section class="research-record-section">
-              <span class="research-record-section-label">06 · 例子</span>
-              <h2>正五边形告诉了我们什么</h2>
-              <p>正五边形不是为了展示一段孤立的频谱计算。它同时测试三个问题：逐边标量条件是否足够，多条负边的耦合是否可见，以及环境维数是否会改变同一驻点的类型。</p>
-              <div class="dimension-comparison">
-                <div class="dimension-card">
-                  <span>0 &lt; t &lt; 1</span>
-                  <strong>二维极小，三维鞍点</strong>
-                  <p>在 ℝ<sup>2</sup> 中，当前计算给出模刚体运动的严格局部极小点；原样补零嵌入 ℝ<sup>3</sup> 后，新增的横向自由度产生恰好两个负 Hessian 特征值。</p>
-                </div>
-                <div class="dimension-card">
-                  <span>1 &lt; t &lt; 3/2</span>
-                  <strong>标量测试失效</strong>
-                  <p>二维构型已经是鞍点，但逐边有效电阻、最小割与度数条件都检测不到；多边耦合矩阵能够看到联合负曲率。</p>
-                </div>
-              </div>
-              <p>这个例子说明：逐边条件可以漏掉 collective effect；负残差边之间的相互作用必须放在同一个可实现扰动空间里计算；环境维数不是被动背景，而是优化地形本身的一部分。</p>
-              <div class="earlier-derivations" aria-label="Earlier derivations">
-                <a href="../post/dual-score-saddle-certificates.html" data-preserve-lang="1">推导过程（一）：从 dual score 到 saddle certificates</a>
-                <a href="../post/what-i-really-got-when-a-dual-route-failed.html" data-preserve-lang="1">推导过程（二）：当 dual 路线失效之后</a>
-              </div>
-            </section>
-
-            <section class="research-record-section">
-              <span class="research-record-section-label">07 · 下一步</span>
-              <h2>现在还剩什么问题</h2>
-              <p>当前的矩阵 reduction 试图精确描述负残差边的联合效应，但它仍然依赖驻点处的具体几何。当前工作稿剩下三个问题：</p>
-              <ol>
-                <li>在最小假设下完成矩阵判据的严谨证明，统一符号并核对 kernel/range 与伪逆条件。</li>
-                <li>判断是否存在能够直接控制负惯性指数、同时不丢失多边耦合信息的图结构量。</li>
-                <li>把由特征向量给出的存在性方向变成可计算、带下降保证的 escape step。</li>
-              </ol>
-            </section>
-
-            <section class="research-record-section">
-              <span class="research-record-section-label">08 · 语境与文献</span>
-              <h2>Context and references</h2>
-              <p>这份研究记录沿用网络定位、刚度与应力矩阵文献中的基本语言，并把当前二阶问题放在非凸优化地形的语境中。工作稿目前主要使用以下文献：</p>
-              <ol>
-                <li>C. Criscitiello, A. D. McRae, Q. Rebjock, and N. Boumal, <a href="https://arxiv.org/abs/2507.15662" target="_blank" rel="noopener noreferrer">Sensor network localization has a benign landscape after low-dimensional relaxation</a>, Mathematical Programming (2026).</li>
-                <li>S. J. Gortler, A. D. Healy, and D. P. Thurston, <a href="https://doi.org/10.1353/ajm.0.0132" target="_blank" rel="noopener noreferrer">Characterizing Generic Global Rigidity</a>, American Journal of Mathematics 132(4), 897–939 (2010).</li>
-                <li>A. M.-C. So and Y. Ye, <a href="https://doi.org/10.1007/s10107-006-0040-1" target="_blank" rel="noopener noreferrer">Theory of Semidefinite Programming for Sensor Network Localization</a>, Mathematical Programming 109, 367–384 (2007).</li>
-                <li>A. Y. Alfakih, N. Taheri, and Y. Ye, <a href="https://doi.org/10.1007/s10107-011-0480-0" target="_blank" rel="noopener noreferrer">On Stress Matrices of (d + 1)-Lateration Frameworks in General Position</a>, Mathematical Programming 137, 1–17 (2013).</li>
-                <li>B. D. O. Anderson, I. Shames, G. Mao, and B. Fidan, <a href="https://doi.org/10.1137/100792366" target="_blank" rel="noopener noreferrer">Formal Theory of Noisy Sensor Network Localization</a>, SIAM Journal on Discrete Mathematics 24(2), 684–698 (2010).</li>
-              </ol>
-            </section>
+          <div class="research-links" aria-label="相关学术页面">
+            <a href="../research.html" data-preserve-lang="1">研究陈述</a>
+            <a href="../projects.html" data-preserve-lang="1">代表性工作</a>
           </div>
         </div>
 
-        <div data-lang-block="en">
-          <a class="research-record-back" href="../math.html" data-preserve-lang="1">Back to Technical Notes</a>
-          <header class="research-record-hero">
-            <p class="research-record-kicker">Research record · Network localization</p>
-            <h1>One Negative Residual Is Not Enough</h1>
-            <p class="research-record-collaboration">Ongoing research collaboration with Prof. Shoham Sabach.</p>
-            <p class="research-record-dates">Originally posted July 22, 2026 · Updated August 1, 2026</p>
-            <p class="research-record-deck">From Projected Budgets to Negative Curvature</p>
-            <p class="research-record-subtitle">A July 2026 research note on stress-rigidity decomposition, multi-edge coupling, and dimension-dependent saddles.</p>
-            <p class="research-record-lead">The same regular-pentagon configuration can be a strict local minimum in two dimensions, modulo rigid motions, and become a strict saddle with exactly two negative-curvature directions after the unchanged coordinates are embedded in three dimensions by appending zeros. The target distances do not change. Only the ambient perturbation space does.</p>
-            <p>This example emerged while I was reorganizing the nonconvex landscape of network localization. I first tried to construct an escape direction from a single edge with negative residual. For one edge, compression does create negative second-order curvature transverse to that edge. In a network, however, node displacements are shared by all incident edges, and stationarity forces the residual stresses to balance. Edgewise negative curvature need not extend to a descent direction for the full system.</p>
-            <p><strong>The first useful conclusion was therefore negative: at a differentiable stationary point, exactly one negative residual can never produce a negative Hessian eigenvalue.</strong> What determines a saddle is the joint transverse coupling of several negative-residual edges. This page records how that question developed during July 2026, from a surviving projection identity to the second-order geometry near stationary points.</p>
-          </header>
+        <div data-lang-block="en" hidden>
+          <h1>Second-Order Geometry in Network Localization: A Research Overview</h1>
+          <p class="article-meta">Feier Lyu · Originally posted 2026-07-22 · Updated 2026-08-23 · 4 min read</p>
+          <p class="article-meta"><strong>Research participants:</strong> Feier Lyu, Prof. Shoham Sabach, and Owen Li</p>
+          <p class="article-meta">Network Localization · Nonconvex Optimization · Negative Curvature · Structured Screening</p>
+          <p class="article-deck">A concise public overview of second-order geometry in network localization.</p>
+          <div class="process-note">
+            <p>This collaboration is ongoing. The public page retains only the problem background, motivation, research objective, and confirmed high-level conclusions. Full technical material is available on request; a finalized preprint will be the authoritative version.</p>
+          </div>
 
-          <div class="research-record-body">
-            <section class="research-record-section">
-              <span class="research-record-section-label">01 · Origin</span>
-              <h2>How the question began</h2>
-              <p>I began with a dual lower-bound calculation. The hope was to obtain a nontrivial global lower bound that could say something about the difficulty of a network-localization instance. Translation invariance made the ordinary Lagrangian route collapse easily to the trivial zero bound.</p>
-              <p>The failed bound did not erase every part of the derivation. After projecting the edge budgets onto the realizable edge-displacement space <code>Range(B)</code>, a structural quantity depending on the measurement graph and target distances remained. I first read it as a static instance score. It later supplied a saturated witness at differentiable stationary points and redirected the project from a global bound to local second-order geometry.</p>
-            </section>
+          <p>For the past few months, I have been studying a nonconvex optimization problem that looks simple and turns out to be remarkably stubborn:</p>
+          <div class="math-display" aria-label="Network localization objective">
+            <var>F</var>(<var>x</var>) = ∑<sub>(<var>i</var>,<var>j</var>)∈<var>E</var></sub> (‖<var>x</var><sub><var>i</var></sub>−<var>x</var><sub><var>j</var></sub>‖−δ<sub><var>ij</var></sub>)<sup>2</sup>.
+          </div>
+          <p>The objective models network localization, multidimensional scaling, and related problems. We know target distances δ<sub>ij</sub> for some pairs of nodes and seek positions <var>x</var><sub>i</sub> that satisfy those distances as closely as possible.</p>
+          <p>One difficulty is that convergence to a critical point does not end the story. Prior work shows that nonsmooth critical points in this model can be analyzed further, with constructions that escape some bad points. At smooth stationary points, second-order information also gives necessary conditions for local optimality.</p>
+          <p>The question I have been pursuing starts there:</p>
+          <blockquote><p><strong>At a differentiable stationary point, how much local geometry can we read from the structure of the problem itself?</strong></p></blockquote>
 
-            <section class="research-record-section">
-              <span class="research-record-section-label">02 · Stable structure</span>
-              <h2>The identities that remain exact</h2>
-              <p>Let <code>G=(V,E)</code> be the measurement graph, let <var>x</var><sub>i</sub>∈ℝ<sup>d</sup> be the node positions, and assume δ<sub>e</sub>≥0. The discussion below stays in the differentiable region where every measured edge currently has nonzero length. There is one objective:</p>
-              <div class="math-display" aria-label="Network localization objective">
-                <var>F</var>(<var>x</var>) = ∑<sub><var>e</var>=(<var>i</var>,<var>j</var>)∈<var>E</var></sub> (‖<var>x</var><sub><var>i</var></sub>−<var>x</var><sub><var>j</var></sub>‖−δ<sub><var>e</var></sub>)<sup>2</sup>.
-              </div>
-              <p>Write <var>r</var><sub>e</sub>=‖<var>x</var><sub>i</sub>−<var>x</var><sub>j</sub>‖, ε<sub>e</sub>=<var>r</var><sub>e</sub>−δ<sub>e</sub>, and <var>a</var><sub>e</sub>=ε<sub>e</sub>/<var>r</var><sub>e</sub>. A negative residual means that the current edge is shorter than its target, like a compressed spring.</p>
+          <h2>1. Why edgewise intuition is not enough</h2>
+          <p>For one edge, the discrepancy between its current and target distances provides a local geometric signal. The initial question was whether the sign information from one edge could determine the second-order character of a stationary point.</p>
+          <p>The confirmed high-level conclusion is that <strong>local information from one edge does not independently determine the full second-order geometry.</strong> It can provide evidence, but it cannot replace analysis of the coupled network structure.</p>
 
-              <h3>Projected edge budgets</h3>
-              <p>Let <var>P</var><sub>B</sub> be the orthogonal projector onto <code>Range(B)</code> and let <var>V</var><sub>δ</sub>={ <var>u</var> : ‖<var>u</var><sub>e</sub>‖≤2δ<sub>e</sub> }. The following quantity is exact:</p>
-              <div class="math-display" aria-label="Projected edge-budget score">
-                <var>S</var><sub>dual</sub>(<var>B</var>,δ) = ∑<sub><var>e</var>∈<var>E</var></sub>δ<sub><var>e</var></sub><sup>2</sup> − ¼ max<sub><var>u</var>∈<var>V</var><sub>δ</sub></sub> ‖<var>P</var><sub>B</sub><var>u</var>‖<sup>2</sup>.
-              </div>
-              <p><var>S</var><sub>dual</sub>=0 if and only if some node configuration exactly realizes every target distance. For a forest, no edge-space cycle constraint remains and the score vanishes. For a cyclic graph, positivity still depends on the distance data and ambient dimension, not on topology alone.</p>
+          <h2>2. Edges do not exist independently</h2>
+          <p>Moving one node changes more than the edge under inspection. It changes every measured edge incident to that node. An edge that appears negative in isolation can therefore be offset by positive second-order contributions from its neighbors.</p>
+          <p>This is now one of the aspects of the problem that I find most interesting:</p>
+          <blockquote><p><strong>Negative curvature is not a property of one edge. It is the outcome of interacting geometric constraints.</strong></p></blockquote>
+          <p>The problem therefore shifts from inspecting one edge in isolation to understanding how several geometric constraints jointly shape the local landscape.</p>
 
-              <h3>Differentiable stationary witness and value identity</h3>
-              <p>At a differentiable stationary point, define the blockwise saturated budget</p>
-              <div class="math-display" aria-label="Stationary witness">
-                <var>u</var><sub><var>e</var></sub>(<var>x</var>) = 2δ<sub><var>e</var></sub> · (<var>B</var><sub><var>e</var></sub><var>x</var> / ‖<var>B</var><sub><var>e</var></sub><var>x</var>‖).
-              </div>
-              <p>Stationarity gives <var>B</var><sup>⊤</sup>(2<var>Bx</var>−<var>u</var>(<var>x</var>))=0. Since 2<var>Bx</var> already lies in <code>Range(B)</code>, projection gives</p>
-              <div class="math-display" aria-label="Stationary projection identity">
-                <var>P</var><sub>B</sub><var>u</var>(<var>x</var>) = 2<var>Bx</var>.
-              </div>
-              <p>The same witness reads off the stationary value exactly:</p>
-              <div class="math-display" aria-label="Stationary point value identity">
-                <var>F</var>(<var>x</var>) = ∑<sub><var>e</var>∈<var>E</var></sub>δ<sub><var>e</var></sub><sup>2</sup> − ¼‖<var>P</var><sub>B</sub><var>u</var>(<var>x</var>)‖<sup>2</sup>.
-              </div>
+          <h2>3. Research objective</h2>
+          <p>The spectrum of the full Hessian can answer a second-order question, but it does not by itself explain why the network structure produces that behavior. The current objective is to identify the graph and geometric assumptions that control local geometry near non-optimal stationary points and to make those dependencies explicit.</p>
+          <p>This public record states the direction only; it does not publish criteria, proofs, or computational examples that are still being developed.</p>
 
-              <h3>Stress-rigidity decomposition</h3>
-              <p>Let <var>R</var>(<var>x</var>) be the normalized rigidity matrix and let Ω(<var>x</var>) be the stress matrix formed from the coefficients <var>a</var><sub>e</sub>. The Hessian separates into two terms:</p>
-              <div class="math-display" aria-label="Stress rigidity Hessian decomposition">
-                ½∇<sup>2</sup><var>F</var>(<var>x</var>) = Ω(<var>x</var>)⊗<var>I</var><sub><var>d</var></sub> + <var>R</var>(<var>x</var>)<sup>⊤</sup> diag(δ<sub><var>e</var></sub>/<var>r</var><sub><var>e</var></sub>) <var>R</var>(<var>x</var>).
-              </div>
-              <div class="identity-list" aria-label="Meaning of the Hessian decomposition">
-                <div><strong>Geometric rigidity</strong><span><var>R</var><sup>⊤</sup>diag(δ<sub>e</sub>/<var>r</var><sub>e</sub>)<var>R</var> records rigidity along the measured edge directions.</span></div>
-                <div><strong>Residual stress</strong><span>Ω⊗<var>I</var><sub>d</sub> records residual-induced transverse stress; negative residuals can introduce negative curvature only through this term.</span></div>
-              </div>
-              <p>At a stationary point the residuals are not independent: they satisfy the stress balance Ω(<var>x</var>)<var>X</var>=0. A clean corollary is that if the normalized rigidity matrix has full row rank, stationarity forces every residual to vanish. In particular, when all measured edge vectors are nonzero, a forest has no inexact differentiable stationary point.</p>
-            </section>
+          <h2>4. Public status</h2>
+          <p>This work is being developed by Feier Lyu, Prof. Shoham Sabach, and Owen Li. Internal technical details are not presented on the public page.</p>
+          <p>More complete technical material is available on request. Formal claims will follow the preprint or paper.</p>
 
-            <section class="research-record-section">
-              <span class="research-record-section-label">03 · The turn</span>
-              <h2>Why the projection score is not enough</h2>
-              <p><var>S</var><sub>dual</sub> describes instance-level incompatibility: how much of the prescribed distance budget can lie in the realizable edge-displacement space. It does not depend on a particular stationary point, so it does not retain the edge directions, stress balance, or admissible perturbations present there.</p>
-              <p>The same value gap can accompany different Hessian geometries. Two stationary points can have the same objective value and projected-witness gap while one is a local minimum modulo rigid motions and the other has a negative eigenvalue. The score therefore cannot by itself separate minima from saddles.</p>
-              <p>The project turned from “how much global budget survives projection?” to three local questions: which edges have negative residual, where their transverse curvature lies, and whether those edge-space directions can be realized by one shared node displacement.</p>
-            </section>
-
-            <section class="research-record-section">
-              <span class="research-record-section-label">04 · A failed edgewise intuition</span>
-              <h2>Why one negative residual is not enough</h2>
-              <p>Viewed in isolation, a negative-residual edge contributes negative second-order curvature in every direction perpendicular to its current edge vector. But edge perturbations cannot be chosen independently in a network. A node displacement changes every incident edge, and the complete edge perturbation must lie in <code>Range(B)</code>.</p>
-              <div class="result-callout">
-                <span class="callout-label">Single-negative-edge conclusion</span>
-                <p>At a differentiable stationary point, if exactly one edge has negative residual and all other residuals are nonnegative, then the full Hessian is positive semidefinite.</p>
-              </div>
-              <p>Let <var>e</var> be the unique negative edge, let β&gt;0 be its magnitude, and let <var>L</var><sub>+</sub> be the Laplacian formed by all remaining nonnegative weights. The stress matrix is the rank-one downdate</p>
-              <div class="math-display" aria-label="Single-edge rank-one stress update">
-                Ω = <var>L</var><sub>+</sub> − β<var>b</var><sub><var>e</var></sub><var>b</var><sub><var>e</var></sub><sup>⊤</sup>, &nbsp;&nbsp; <var>R</var><sub>eff</sub>(<var>e</var>) = <var>b</var><sub><var>e</var></sub><sup>⊤</sup><var>L</var><sub>+</sub><sup>†</sup><var>b</var><sub><var>e</var></sub>.
-              </div>
-              <p>The rank-one update criterion says Ω⪰0 exactly when β<var>R</var><sub>eff</sub>(<var>e</var>)≤1. Stationarity gives <var>L</var><sub>+</sub><var>X</var>=β<var>b</var><sub><var>e</var></sub><var>b</var><sub><var>e</var></sub><sup>⊤</sup><var>X</var>; multiplying by <var>b</var><sub><var>e</var></sub><sup>⊤</sup><var>L</var><sub>+</sub><sup>†</sup> and using the nonzero current edge yields β<var>R</var><sub>eff</sub>(<var>e</var>)=1. Thus the stress term lies exactly on the positive-semidefinite boundary, while the rigidity term is already positive semidefinite. Merely finding one compressed edge does not imply a strict saddle.</p>
-              <p>A three-node configuration shows that the threshold is sharp: two negative residuals can couple through node space and create genuine negative curvature. The central question is therefore multi-edge interaction, not single-edge screening.</p>
-            </section>
-
-            <section class="research-record-section">
-              <span class="research-record-section-label">05 · Current reduction</span>
-              <h2>The multi-edge matrix criterion under review</h2>
-              <div class="draft-callout">
-                <span class="callout-label">Current draft · Not yet promoted to a theorem</span>
-                <p>This section records the reduction currently being checked. The sign convention, kernel/range assumptions, pseudoinverse step, and recovery of a node-space direction from a reduced eigenvector still require line-by-line verification.</p>
-              </div>
-              <p>Collect the transverse directions of all negative-residual edges in <var>C</var>, and place their strengths in Δ≻0. The current decomposition has the form</p>
-              <div class="math-display" aria-label="Positive semidefinite part minus multi-edge coupling">
-                ½∇<sup>2</sup><var>F</var>(<var>x</var>) = <var>P</var> − <var>C</var><sup>⊤</sup>Δ<var>C</var>, &nbsp;&nbsp; <var>P</var>⪰0.
-              </div>
-              <p>Under the required kernel/range condition, the candidate transverse coupling matrix is</p>
-              <div class="math-display" aria-label="Candidate transverse matrix">
-                <var>T</var><sub>⊥</sub> = Δ<sup>1/2</sup><var>C</var><var>P</var><sup>†</sup><var>C</var><sup>⊤</sup>Δ<sup>1/2</sup>.
-              </div>
-              <p>If the conditions and signs in the current reduction survive verification, three useful statements collapse to this smaller matrix:</p>
-              <div class="math-display" aria-label="Candidate positive semidefinite equivalence">
-                ∇<sup>2</sup><var>F</var>(<var>x</var>)⪰0 &nbsp;⟺&nbsp; <var>T</var><sub>⊥</sub>⪯<var>I</var>,
-              </div>
-              <div class="math-display" aria-label="Candidate negative inertia formula">
-                ν<sub>−</sub>(∇<sup>2</sup><var>F</var>(<var>x</var>)) = #{ λ<sub><var>q</var></sub>(<var>T</var><sub>⊥</sub>) &gt; 1 }.
-              </div>
-              <p>An eigenvector above the threshold should also recover a node-space negative-curvature direction through <var>P</var><sup>†</sup><var>C</var><sup>⊤</sup>Δ<sup>1/2</sup>. Instead of inspecting a <var>dN</var>×<var>dN</var> Hessian, the intended reduction checks a matrix of size at most (<var>d</var>−1)|<var>E</var><sub>−</sub>|.</p>
-              <p>I am not calling this a “complete certificate.” The page records the shape of the reduction and the checks it still needs; the earlier Weyl and effective-resistance calculations remain background motivation rather than public central theorems.</p>
-            </section>
-
-            <section class="research-record-section">
-              <span class="research-record-section-label">06 · Example</span>
-              <h2>What the regular pentagon reveals</h2>
-              <p>The regular pentagon is not an isolated spectral calculation. It tests three questions at once: whether edgewise scalar conditions suffice, whether multi-edge coupling is visible, and whether ambient dimension can change the type of the same stationary point.</p>
-              <div class="dimension-comparison">
-                <div class="dimension-card">
-                  <span>0 &lt; t &lt; 1</span>
-                  <strong>A 2D minimum, a 3D saddle</strong>
-                  <p>In ℝ<sup>2</sup>, the current calculation gives a strict local minimum modulo rigid motions. After zero-padding into ℝ<sup>3</sup>, the new transverse freedom creates exactly two negative Hessian eigenvalues.</p>
-                </div>
-                <div class="dimension-card">
-                  <span>1 &lt; t &lt; 3/2</span>
-                  <strong>Scalar tests miss the saddle</strong>
-                  <p>The configuration is already a saddle in ℝ<sup>2</sup>, but edgewise effective-resistance, minimum-cut, and degree tests do not detect it; the multi-edge matrix sees the collective negative curvature.</p>
-                </div>
-              </div>
-              <p>The example shows why edgewise tests can miss collective effects, why several negative edges must be evaluated inside one realizable perturbation space, and why ambient dimension belongs to the optimization landscape rather than serving as passive notation.</p>
-              <div class="earlier-derivations" aria-label="Earlier derivations">
-                <a href="../post/dual-score-saddle-certificates.html" data-preserve-lang="1">Earlier derivation I · From dual score to saddle certificates</a>
-                <a href="../post/what-i-really-got-when-a-dual-route-failed.html" data-preserve-lang="1">Earlier derivation II · What survived the failed dual route</a>
-              </div>
-            </section>
-
-            <section class="research-record-section">
-              <span class="research-record-section-label">07 · What remains</span>
-              <h2>Three questions in the current draft</h2>
-              <p>The current matrix reduction is designed to describe the joint effect of negative-residual edges, but it still depends on the geometry of the particular stationary point. Three questions remain:</p>
-              <ol>
-                <li>Prove the matrix criterion under minimal assumptions, with one consistent sign convention and precise kernel/range and pseudoinverse conditions.</li>
-                <li>Determine whether graph-structural quantities can control the negative inertia without discarding multi-edge coupling.</li>
-                <li>Turn the existential direction recovered from an eigenvector into a computable escape step with a quantitative decrease guarantee.</li>
-              </ol>
-            </section>
-
-            <section class="research-record-section">
-              <span class="research-record-section-label">08 · Context and references</span>
-              <h2>Context and references</h2>
-              <p>This research record uses the standard language of network localization, rigidity, and stress matrices, and places the current second-order questions in the literature on nonconvex optimization landscapes. The working draft currently draws chiefly on:</p>
-              <ol>
-                <li>C. Criscitiello, A. D. McRae, Q. Rebjock, and N. Boumal, <a href="https://arxiv.org/abs/2507.15662" target="_blank" rel="noopener noreferrer">Sensor network localization has a benign landscape after low-dimensional relaxation</a>, Mathematical Programming (2026).</li>
-                <li>S. J. Gortler, A. D. Healy, and D. P. Thurston, <a href="https://doi.org/10.1353/ajm.0.0132" target="_blank" rel="noopener noreferrer">Characterizing Generic Global Rigidity</a>, American Journal of Mathematics 132(4), 897–939 (2010).</li>
-                <li>A. M.-C. So and Y. Ye, <a href="https://doi.org/10.1007/s10107-006-0040-1" target="_blank" rel="noopener noreferrer">Theory of Semidefinite Programming for Sensor Network Localization</a>, Mathematical Programming 109, 367–384 (2007).</li>
-                <li>A. Y. Alfakih, N. Taheri, and Y. Ye, <a href="https://doi.org/10.1007/s10107-011-0480-0" target="_blank" rel="noopener noreferrer">On Stress Matrices of (d + 1)-Lateration Frameworks in General Position</a>, Mathematical Programming 137, 1–17 (2013).</li>
-                <li>B. D. O. Anderson, I. Shames, G. Mao, and B. Fidan, <a href="https://doi.org/10.1137/100792366" target="_blank" rel="noopener noreferrer">Formal Theory of Noisy Sensor Network Localization</a>, SIAM Journal on Discrete Mathematics 24(2), 684–698 (2010).</li>
-              </ol>
-            </section>
+          <div class="research-links" aria-label="Related academic pages">
+            <a href="../research.html" data-preserve-lang="1">Research Statement</a>
+            <a href="../projects.html" data-preserve-lang="1">Selected Work</a>
           </div>
         </div>
       </article>
@@ -815,13 +291,13 @@
       <div class="container footer-grid">
         <div>
           <p class="footer-title">CHRONOHAZE</p>
-          <p class="footer-note"><span data-i18n="footerContactLead">Academic contact: </span><a href="#" data-note-email-link="1">moc.duolci@035reief</a></p>
-          <p class="footer-note" data-i18n="footerCities">Feier Lyu · BSc Mathematics, University of Edinburgh</p>
+          <p class="footer-note"><span data-i18n="footerContactLead">学术联系邮箱：</span><a href="#" data-note-email-link="1">moc.duolci@035reief</a></p>
+          <p class="footer-note" data-i18n="footerCities">Feier Lyu · 爱丁堡大学数学本科</p>
           <p class="footer-copy">© 2026 by CHRONOHAZE. Hosted on GitHub Pages.</p>
         </div>
         <div class="footer-right">
-          <a href="../policy.html" data-preserve-lang="1" data-i18n="siteNotes">Site Notes</a>
-          <a href="../accessibility.html" data-preserve-lang="1" data-i18n="a11y">Accessibility</a>
+          <a href="../policy.html" data-preserve-lang="1" data-i18n="siteNotes">网站说明</a>
+          <a href="../accessibility.html" data-preserve-lang="1" data-i18n="a11y">无障碍支持</a>
         </div>
       </div>
     </footer>
@@ -875,7 +351,7 @@
       };
 
       function setLanguage(lang) {
-        const safeLang = lang === 'zh' ? 'zh' : 'en';
+        const safeLang = lang === 'en' ? 'en' : 'zh';
         const dict = i18n[safeLang];
         document.documentElement.lang = dict.htmlLang;
         document.documentElement.setAttribute('data-site-lang', safeLang);
@@ -902,21 +378,14 @@
           } catch (_err) {}
         });
 
-        if (titleNode) {
-          document.title = titleNode.getAttribute('data-title-' + safeLang) || document.title;
-        }
-        if (descriptionNode) {
-          descriptionNode.setAttribute(
-            'content',
-            descriptionNode.getAttribute('data-content-' + safeLang) || descriptionNode.getAttribute('content')
-          );
-        }
         const localizedTitle = titleNode
           ? titleNode.getAttribute('data-title-' + safeLang) || document.title
           : document.title;
         const localizedDescription = descriptionNode
           ? descriptionNode.getAttribute('data-content-' + safeLang) || descriptionNode.getAttribute('content')
           : '';
+        document.title = localizedTitle;
+        if (descriptionNode) descriptionNode.setAttribute('content', localizedDescription);
         ['meta[property="og:title"]', 'meta[name="twitter:title"]'].forEach(function (selector) {
           const node = document.querySelector(selector);
           if (node) node.setAttribute('content', localizedTitle.replace(/ \| Chronohaze$/, ''));
@@ -932,7 +401,7 @@
         } catch (_err) {}
       }
 
-      let initialLang = 'en';
+      let initialLang = 'zh';
       try {
         const stored = window.localStorage.getItem('siteLang') || window.localStorage.getItem('chronohaze-lang');
         if (stored === 'zh' || stored === 'en') initialLang = stored;

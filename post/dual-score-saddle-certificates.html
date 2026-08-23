@@ -111,535 +111,77 @@
       window.setTimeout(window.__chronohazeReleaseCriticalLoader, 500);
     })();
   </script>
-<script>
-    (function () {
-      try {
-        var url = new URL(window.location.href);
-        var queryLang = url.searchParams.get("lang");
-        var valid = function (value) {
-          return value === "zh" || value === "en";
-        };
-        var defaultLang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
-        var defaultSafe = defaultLang.indexOf("en") === 0 ? "en" : "zh";
-
-        if (valid(queryLang)) {
-          window.localStorage.setItem("siteLang", queryLang);
-          window.localStorage.setItem("chronohaze-lang", queryLang);
-          window.__chronohazePreferredLang = queryLang;
-          document.documentElement.lang = queryLang === "en" ? "en" : "zh-CN";
-          document.documentElement.setAttribute("data-site-lang", queryLang);
-          return;
-        }
-
-        var storedLang = window.localStorage.getItem("siteLang");
-        if (!valid(storedLang)) {
-          storedLang = window.localStorage.getItem("chronohaze-lang");
-        }
-        if (!valid(storedLang)) {
-          return;
-        }
-
-        window.__chronohazePreferredLang = storedLang;
-        document.documentElement.lang = storedLang === "en" ? "en" : "zh-CN";
-        document.documentElement.setAttribute("data-site-lang", storedLang);
-
-        if (storedLang !== defaultSafe) {
-          url.searchParams.set("lang", storedLang);
-          window.location.replace(url.toString());
-        }
-      } catch (_err) {}
-    })();
-  </script>
-  <link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
-  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
-  <title>历史记录：从 dual score 到 saddle certificates</title>
-  <meta name="description" content="2026年5月的网络定位探索记录；cycle-rank、signed-Laplacian 与 cluster-cut 推导已被新版研究记录取代，不代表当前定理状态。" data-content-zh="2026年5月的网络定位探索记录；其中未完成核对的推导已被新版研究记录取代。" data-content-en="Historical network-localization note from May 2026. Its unverified cycle-rank, signed-Laplacian, and cluster-cut derivations are superseded by the current research record." />
-  <meta property="og:type" content="article" />
-  <meta property="og:site_name" content="Chronohaze" />
-  <meta property="og:title" content="历史记录：从 dual score 到 saddle certificates | Chronohaze" />
-  <meta property="og:description" content="2026年5月的网络定位探索记录；未完成核对的推导已被新版研究记录取代。" />
-  <meta property="og:url" content="https://lyuf09.github.io/chronohaze/post/dual-score-saddle-certificates.html" />
-  <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/dual-score-saddle-certificates.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="历史记录：从 dual score 到 saddle certificates | Chronohaze" />
-  <meta name="twitter:description" content="2026年5月的网络定位探索记录；未完成核对的推导已被新版研究记录取代。" />
-  <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/dual-score-saddle-certificates.png" />
+  <meta name="robots" content="noindex, nofollow, noarchive" />
+<link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
+  <title>历史研究记录已归档 | Chronohaze</title>
+  <meta name="description" content="This superseded research note has been withdrawn from public view while the collaborative work remains in progress." />
   <link rel="canonical" href="https://lyuf09.github.io/chronohaze/post/dual-score-saddle-certificates.html" />
+  <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
   <!-- GENERATED:hreflang:start -->
   <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/post/dual-score-saddle-certificates.html?lang=zh" />
   <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/post/dual-score-saddle-certificates.html?lang=en" />
   <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/post/dual-score-saddle-certificates.html" />
   <!-- GENERATED:hreflang:end -->
-  <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
-
-
-  <!-- Google tag (gtag.js), deferred until idle -->
-  <script>
-    (function () {
-      var measurementId = "G-JWZY2TVYFZ";
-      window.dataLayer = window.dataLayer || [];
-      window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
-
-      function shouldSkipAnalytics() {
-        return navigator.doNotTrack === "1" || window.doNotTrack === "1";
-      }
-
-      function loadAnalytics() {
-        if (loadAnalytics.loaded || shouldSkipAnalytics()) return;
-        loadAnalytics.loaded = true;
-        var script = document.createElement("script");
-        script.async = true;
-        script.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(measurementId);
-        document.head.appendChild(script);
-        window.gtag("js", new Date());
-        window.gtag("config", measurementId, { anonymize_ip: true });
-      }
-
-      function scheduleAnalytics() {
-        if ("requestIdleCallback" in window) {
-          window.requestIdleCallback(loadAnalytics, { timeout: 3500 });
-        } else {
-          window.setTimeout(loadAnalytics, 1800);
-        }
-      }
-
-      if (document.readyState === "complete") {
-        scheduleAnalytics();
-      } else {
-        window.addEventListener("load", scheduleAnalytics, { once: true });
-      }
-    })();
-  </script>
-  <link rel="preload" href="../assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="../styles.min.css?v=20260820-studio-structural-align1" />
+  <link rel="stylesheet" href="../styles.min.css?v=20260820-studio-structural-align1" />
   <script defer src="../protect-media.min.js?v=20260820-studio-structural-align1"></script>
 </head>
-<body class="math-post-page">
+<body class="math-post-page note-detail-page">
   <div class="page">
     <header class="site-header">
       <div class="container header-inner">
-        <a class="brand" href="../index.html">
-          <img src="../assets/logo-header.png" alt="Chronohaze site logo" />
-          <span>CHRONOHAZE</span>
-        </a>
-        <nav class="nav" aria-label="主导航" data-i18n-aria="navAria">
-          <a href="../index.html" data-i18n="navHome">主页</a>
-          <a class="active" href="../academic.html" data-i18n="navAcademic">学术</a>
-          <a href="../music.html" data-i18n="navMusic">音乐</a>
-          <a href="../photography.html" data-i18n="navPhoto">摄影</a>
-          <a href="../cv.html" data-i18n="navCV">CV</a>
+        <a class="brand" href="../index.html" data-preserve-lang="1"><span>CHRONOHAZE</span></a>
+        <nav class="nav" aria-label="主导航">
+          <a href="../index.html" data-preserve-lang="1">主页</a>
+          <a class="active" href="../academic.html" data-preserve-lang="1">学术</a>
+          <a href="../music.html" data-preserve-lang="1">音乐</a>
+          <a href="../photography.html" data-preserve-lang="1">摄影</a>
+          <a href="../cv.html" data-preserve-lang="1">CV</a>
         </nav>
       </div>
     </header>
 
     <main class="main">
-      <div class="container">
-        <div class="cv-utility-bar">
-          <div class="cv-utility-top">
-            <nav class="academic-local-nav" aria-label="Academic section links" data-i18n-aria="academicSectionAria">
-              <a class="academic-local-link" href="../research.html" data-i18n="utilityResearch">Research Statement</a>
-              <a class="academic-local-link" href="../projects.html" data-i18n="utilityProjects">Selected Work</a>
-              <a class="academic-local-link is-active" href="../math.html" data-i18n="utilityNotes">Technical Notes</a>
-            </nav>
-          </div>
-        </div>
-      </div>
       <article class="article">
         <div data-lang-block="zh">
-          <h1>历史记录：从 dual score 到 saddle certificates</h1>
-          <p class="article-meta">Feier Lyu · 2026年5月22日 · 约 10 分钟</p>
-          <p class="article-meta">标签：Optimization · Network Localization · Duality · Nonconvex Optimization · Saddle Points</p>
-          <aside class="math-post-update" aria-label="历史研究记录状态">
-            <p class="math-post-update-label">历史研究记录 · 已被新版取代</p>
-            <p>本页保留 2026 年 5 月 22 日时的探索过程。下文的 cycle-rank、signed-Laplacian 与 cluster-cut 推导不应视为当前定理；其中的符号约定、kernel/range 条件、伪逆步骤与方向恢复当时尚未完成核对。</p>
-            <p>当前已确认的结果，以及仍在复核的 multi-edge matrix criterion，见新版研究记录：<a href="../notes/network_localization_structural_certificates.html">《一条负残差并不够》</a>。</p>
-          </aside>
-
-          <p>三月的时候，我写了一篇讲我在 network localization 这个问题里尝试做 duality，结果两条很自然的 Lagrangian dual 路线都 collapse 到了 0。</p>
-          <p>当时我的感觉大概是：好吧，dual 没有给我一个漂亮的 lower bound。</p>
-          <p>但它也没有完全死掉。</p>
-          <p>真正留下来的，是 conjugate-based DC dual 里出现的一个 projector formula。这个 formula 一开始看起来像一个副产品：它不太像能直接替代 primal objective 也不像一个能马上塞进 algorithm 里的 magic quantity。但它有一个很清楚的几何意义：它在测量 prescribed edge-length budget 和 realizable edge-difference subspace 之间的 incompatibility。</p>
-          <p>也就是说它不太像传统意义上的 dual solution，反而更像一个 structural score。</p>
-          <p>当时我对它的理解还很 static：它只依赖 instance，也就是 measurement graph 和 prescribed distances，不依赖某一个 iterate <code>x</code>。所以我把它理解成一个 instance-level difficulty score，一个用来描述这个 localization instance 本身有多不 compatible 的量。</p>
-          <p>最近这条线又往前走了一点。现在我更愿意这样理解它：</p>
-          <p><strong>这个 dual score 一开始是 static 的，但它后来开始接触 stationary point geometry 了。</strong></p>
-          <p>这件事对我来说还挺重要的，因为它说明真的可能变成理解 landscape 的一部分。</p>
-
-          <h2>1. 上次留下来的东西：一个 instance-level structural score</h2>
-          <p>我研究的 objective 是 network localization / MDS 里很经典的 nonconvex nonsmooth least squares：给定一堆边，每条边都有一个 prescribed distance <code>delta</code>，我们想找 node positions，使得每条边的实际距离尽量接近 <code>delta</code>。</p>
-          <p>这个问题难在几个地方：它 nonconvex；它 nonsmooth，因为 norm 在 0 处不可微；它有 translation invariance；而且 graph cycles 会带来 global compatibility constraints。</p>
-          <p>我一开始试图从 duality 入手。最朴素的想法是：如果能找到一个有意义的 dual lower bound，也许就可以解释 instance difficulty 甚至辅助 algorithm。</p>
-          <p>但实际推下来之后两条很自然的 plain Lagrangian dual routes 都塌掉了。它们基本只能告诉我：</p>
-          <p><code>F(x) &gt;= 0</code>。</p>
-          <p>谢谢你，真的很有用。</p>
-          <p>不过 conjugate-based DC dual 没有完全塌，它留下了一个 projector formula，大概形如：</p>
-          <p><code>S_dual(B, delta) = sum(delta_l^2) - 1/4 * sup over u in V of ||P u||^2.</code></p>
-          <p>这里 <code>V</code> 是 blockwise budget set，每条边的 block norm 最多是 <code>2 delta_l</code>，<code>P</code> 是投影到 <code>Range(B)</code> 的 orthogonal projector，<code>Range(B)</code> 就是所有能够由 node positions 产生的 edge-difference vectors。</p>
-          <p>这个 score 的意义是：在所有允许的 edge-budget vectors 里，最多有多少 budget 可以真正落到 realizable edge-difference subspace 里？</p>
-          <p>如果全部 budget 都可以放进去，那么 score 是 0。这对应 prescribed distances 可以被某个 configuration exactly realized。如果不能全部放进去，那么 score 就是 positive。这说明有一部分 prescribed edge-length information 和 graph 的 global compatibility constraints 冲突。</p>
-          <p>所以它不是单纯在看图有没有 cycle，而是在看：这个 graph 加上这组 distances，能不能形成一个 globally compatible 的 edge geometry。</p>
-          <p>这比“cyclic means hard, forest means easy”细一点。Forest 的确对这个 score 来说是 degenerate 的，因为没有 cycle consistency constraints，score 会变成 0。但 cyclic graph 也不一定 score positive。真正起作用的是 graph structure、delta，以及 ambient dimension 的组合。</p>
-          <p>它不是一个 topology-only quantity，而是一个 geometry-aware structural quantity。</p>
-
-          <h2>2. Static score 之后：stationary dual witness</h2>
-          <p>一开始这个 score 只看 instance，不看某一个 point <code>x</code>。</p>
-          <p>这当然有好处：它像一个全局诊断工具，可以在 algorithm 开始之前告诉你这个 instance 可能有多 incompatible。但也有明显限制：optimization algorithm 真正走的是 iterates，最后遇到的是 critical points / stationary points。一个完全 static 的 score 很难直接告诉我某个 stationary point 是好是坏。</p>
-          <p>所以我后来问了一个问题：能不能把这个 static dual score 和 differentiable stationary points 连起来？</p>
-          <p>结果还真的可以。</p>
-          <p>对于一个 differentiable point <code>x</code>，每条边 <code>B_l x</code> 都不等于 0。于是我可以定义一个 saturated edge-budget vector：<code>u_l(x)</code> 指向 <code>B_l x</code> 的方向，长度为 <code>2 delta_l</code>。</p>
-          <p>也就是说，<code>u(x)</code> 把每条边的 prescribed distance 变成一个方向化的 dual-side witness。每个 block 都刚好 saturate budget，所以它自然落在 <code>V</code> 的边界上。</p>
-          <p>我把它叫做 stationary dual witness。</p>
-          <p>最漂亮的地方是：如果 <code>x</code> 是 differentiable stationary point，那么有一个很干净的 projector identity：</p>
-          <p><code>P u(x) = 2 Bx.</code></p>
-          <p>直觉上说，这个 identity 把两件事连起来了：<code>u(x)</code> 是 prescribed distances 给出来的 saturated budget direction；<code>Bx</code> 是当前 configuration 真正产生的 edge differences；<code>P</code> 是把任何 edge-space vector 投影回 realizable subspace <code>Range(B)</code>。</p>
-          <p>所以 stationary condition 可以被理解成：把 saturated witness 投影回 realizable edge-space 之后，刚好得到当前 edge differences 的两倍。</p>
-          <p>这一下 dual side 就不是纯 static 了。它开始能够读到 stationary point 的 geometry。</p>
-
-          <h2>3. Pointwise identity：stationary value 也能被 dual witness 读出来</h2>
-          <p>更进一步在 differentiable stationary point 上我可以把 objective value 写成一个 primal-dual identity。</p>
-          <p>大概意思是：</p>
-          <p><code>F(x) = sum(delta_l^2) - 1/4 * ||P u(x)||^2.</code></p>
-          <p>这个式子很好玩，因为 static score 是：</p>
-          <p><code>S_dual(B, delta) = sum(delta_l^2) - 1/4 * sup over u in V of ||P u||^2.</code></p>
-          <p>两者放在一起看，就很像：static score 是在所有 budget vectors 里找最 compatible 的那个，stationary point <code>x</code> 则只给出一个特殊的 budget vector <code>u(x)</code>。</p>
-          <p>所以自然出现一个 gap：</p>
-          <p><code>Gap_stat(x) = F(x) - S_dual(B, delta).</code></p>
-          <p>它衡量的是：这个 stationary point 的 witness <code>u(x)</code>，距离整个 budget set 里最会投影到 <code>Range(B)</code> 的那个 witness 还有多远。</p>
-          <p>我现在还不想把 <code>Gap_stat</code> 夸成一个完整的 local optimality classifier，那就太飘了。</p>
-          <p>但它至少给了一个很清楚的解释：在同一个 instance 里，不同 differentiable stationary points 可以通过它们的 projected witness compatibility 来比较。</p>
-          <p>这个 gap 只比较 <code>F(x)</code> 与预算集上的最优投影值；它本身不能判断一个驻点是局部极小点还是鞍点。</p>
-
-          <h2>4. OJMO local-minimum screening 的 dual translation</h2>
-          <p>另一个让我觉得这条线有意义的地方，是它可以和 OJMO paper 里的 local-minimum screening condition 接上。</p>
-          <p>OJMO paper 里有一个 degree-based necessary condition，用来排除某些 differentiable stationary points 成为 local minimum 的可能。</p>
-          <p>我后来发现，这个 condition 可以被翻译成 stationary witness 的 projected retention condition。</p>
-          <p>简单说，对于每条边可以看一个 retention ratio：</p>
-          <p><code>rho_l(x) = 当前边长 / prescribed distance.</code></p>
-          <p>从 dual witness 的角度看，这也等于：</p>
-          <p><code>rho_l(x) = ||(P u(x))_l|| / ||u_l(x)||.</code></p>
-          <p>也就是说，它在问：原本 saturated 的 edge-budget block，在投影回 <code>Range(B)</code> 之后，还保留了多少长度？</p>
-          <p>如果一个 differentiable stationary point 真的是 local minimum，那么某些 edge 的 retention 不能太低。否则它违反 OJMO 的 necessary condition，就不是 local minimum，甚至可以被识别成 strict saddle。</p>
-          <p>这个 translation 对我来说很重要，因为它说明是在把 OJMO 的 local landscape condition 换成一个 dual-side compatibility language。</p>
-          <p>换句话说：local minimality forces the stationary witness not to lose too much mass under projection.</p>
-          <p>这句话我很喜欢。因为它把 local minimum 的必要条件说成了一个 projection geometry statement。</p>
-
-          <h2>5. 从 first-order witness 到 second-order certificates</h2>
-          <p>做到这里之后，我又回到了 Hessian。</p>
-          <p>在 differentiable point 上，Hessian 可以写成：</p>
-          <p><code>H(x) = 2 B^T M(x) B.</code></p>
-          <p>这个式子本身不是啥新鲜事。直接说 “Hessian PSD means local minimum candidate” 也不是啥新鲜事。那只是 classical second-order condition 的换皮版本。</p>
-          <p>所以真正的问题是：能不能从这个 Hessian representation 里提取一些 structural certificates，而不是每次都 brute-force 算整个 Hessian 的 eigenvalues？</p>
-          <p>这就是我最近最想推进的方向。</p>
-          <p>我现在的理解是：Hessian 的负曲率来源和 edge-level radial/transverse decomposition 有关。</p>
-          <p>对于每条边，沿着当前 edge direction 的 radial part 通常是良性的；真正可能产生 negative curvature 的，是 transverse directions，尤其是当这条边 under-retained，也就是当前边长小于 prescribed distance 的时候。</p>
-          <p>这件事从直觉上也合理：如果一条边现在太短，而 prescribed distance 更长，那么往垂直方向轻轻打开它，可能会让距离变大、objective 下降。这种负曲率不是沿边方向的，而是在 transverse direction 上。</p>
-          <p>但 full problem 里还有一个关键限制：edge perturbations 不能随便选。它们必须来自 node perturbation。也就是说，<code>z</code> 必须在 <code>Range(B)</code> 里。</p>
-          <p>这就是为什么 graph cycles 又出现了。Cycle constraints 会限制哪些 edge-space perturbations 是 realizable 的。</p>
-          <p>所以真正的问题不是：某条边有没有 negative curvature？而是：这些 edge-level negative directions 能不能在 <code>Range(B)</code> 的 compatibility constraints 下存活下来？</p>
-          <p>这句话几乎就是我现在对整个 second-order structure 的直觉核心。</p>
-
-          <h2>6. 2026年5月尝试的 cycle-rank bound（未定稿）</h2>
-          <p>当时的工作稿尝试比较 under-retained edge 的数量 <code>m_minus(x)</code> 与 graph cycle rank，希望据此判断 reduced Hessian 是否必须出现负特征值。</p>
-          <p>这一步后来没有作为定理保留。把 edge-level transverse directions 映回 node-space perturbations 时，还需要核对 kernel/range 条件、维数计数与方向恢复；仅凭 under-retained edge 的数量不能在本页所写的假设下直接推出 strict saddle。</p>
-          <p>这里保留这一段只为记录 2026 年 5 月的推导方向，不代表当前结论。</p>
-
-          <h2>7. 当时与 OJMO degree test 的比较</h2>
-          <p>OJMO 的 degree-based necessary condition 检查单条边的 under-retention 与节点度数。2026 年 5 月的工作稿试图用 under-retained edges 的联合横向方向补充这种逐边检查。</p>
-          <p>由于上一节的 cycle-rank 推导尚未完成核对，本页不再把这种比较表述为一个已经成立的 collective strict-saddle certificate。</p>
-
-          <h2>8. 当时考虑的 signed Laplacian 与 cluster-cut 降维</h2>
-          <p>以下两条是当时考虑的计算路线，不是本页已经证明的 negative-curvature certificates。</p>
-          <p>除了 cycle-rank bound，我还看了两个方向。</p>
-          <p>第一个是 directional signed-Laplacian reduction。</p>
-          <p>如果我只看 rank-one perturbation，也就是所有 node 都沿同一个 ambient direction <code>a</code> 移动，只是每个 node 的 scalar coefficient 不同，那么原本 <code>nK</code> 维的 Hessian quadratic form 会降成一个 <code>K</code> 维的 signed Laplacian。</p>
-          <p>这很漂亮，因为 signed Laplacian 已经有很多图论和 spectral graph theory 的工具，比如 effective resistance threshold。</p>
-          <p>所以某些 negative curvature certificate 可以从：“检查一个巨大 Hessian”变成：“检查某个 direction 下的 signed weighted graph 是否有 negative eigenvalue”。</p>
-          <p>第二个是 cluster-cut certificate。</p>
-          <p>它的想法是：不只看一个 node-star，也不只看全图，而是看一个 cluster 和外界的 boundary。某些 cluster-level perturbations 可以把二阶信息压缩成一个小的 boundary matrix。</p>
-          <p>这很像在问：如果我把一群节点当成一个局部结构，它和外界连接的那些边，是否已经足够制造 negative curvature？</p>
-          <p>这条线我现在还不想说已经完整，但它很自然。因为 network localization 本来就有 distributed / local 的语境。如果以后真的要做 algorithmic escape procedure，那么 certificate 最好不要永远依赖 full Hessian。</p>
-
-          <h2>9. Negative epsilon case：从“有一条坏边”到“能不能真的逃出去”</h2>
-          <p>最近老师让我更细致地看 negative epsilon case，也就是某条边当前距离小于 prescribed distance 的情况。</p>
-          <p>一开始这个 case 看起来好像很简单：epsilon &lt; 0，所以 Hessian 里有 negative term，那不就是 saddle 吗？</p>
-          <p>但仔细看之后，这个说法太粗了。</p>
-          <p>对于单条边，确实可以选择一个 transverse direction，让这一条边的二阶贡献为负。也就是说，在 edge level，它有一个很明确的 negative-curvature mechanism。</p>
-          <p>但 full objective 不是一条边。你动两个 node，会影响所有 incident edges。别的边可能贡献正项，也可能贡献负项。更重要的是，不是每个 edge-space vector 都能由 node perturbation 产生。</p>
-          <p>所以真正要构造 escape direction，不能只说：“这条边有 negative epsilon，所以选个 perpendicular y 就好了。”</p>
-          <p>这最多是 edge-level intuition。</p>
-          <p>真正需要的是一个 local certified escape procedure：先选一个具体的 negative edge；再构造一个 node perturbation <code>y</code>；然后证明在 full Hessian quadratic form 里，目标边带来的 negative contribution 可以压过其他受影响边的 positive contribution；最后还要保证这个 <code>y</code> 不是一个只在 edge-space 里存在、但 node-space 里根本实现不了的幻想向量。</p>
-          <p>这就是我最近在做的事情：把“negative epsilon gives transverse negative curvature”从一句直觉，慢慢发展成一个可检查的 local procedure。</p>
-          <p>目前我不会说这已经是一个 global perfect escape algorithm。那太夸张了。</p>
-          <p>但至少它已经比单纯 rewrite 老师 note 里的 Hessian formula 更进一步：它开始问如何真正选择 <code>y</code>，如何控制 affected edges，以及如何把 edge-level negative curvature 变成 node-level descent mechanism。</p>
-
-          <h2>10. 2026年5月时可以确认的内容</h2>
-          <p>当时已经明确的是：两条普通 Lagrangian 路线只给出零下界；投影到 <code>Range(B)</code> 后得到 <code>S_dual</code>；在可微驻点处，饱和向量 <code>u(x)</code> 满足 <code>P u(x) = 2 Bx</code>，并给出对应的驻点值恒等式。</p>
-          <p>关于 cycle-rank、signed Laplacian、cluster cut 与 escape direction 的部分仍是探索性推导。后续工作转向 stress-rigidity decomposition、多条负残差边的联合耦合，以及正在逐项复核的 multi-edge matrix criterion。</p>
-          <p>当前数学状态以新版研究记录为准。</p>
-
-          <nav class="math-post-nav" data-static-math-post-nav="1" aria-label="相邻笔记导航"><a class="math-post-nav-item" data-nav-dir="next" href="../post/projected-gradient-descent-isabelle-hol.html" data-no-page-transition="1" aria-label="下一篇 · 从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL"><span class="math-post-nav-label">下一篇</span><span class="math-post-nav-title">从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL</span></a></nav>
-<div class="academic-hub-links math-post-hub-links">
-  <p class="academic-hub-links-label">继续浏览</p>
-  <div class="research-link-row">
-    <a href="../research.html">Research Statement</a>
-    <a href="../projects.html">Selected Work</a>
-    <a href="../math.html">Technical Notes</a>
-  </div>
-</div>
+          <h1>历史研究记录已归档</h1>
+          <p class="article-meta">网络定位合作研究 · 2026-08-23 更新</p>
+          <p>这篇早期推导已经撤出公开展示。相关合作研究仍在进行中，内部技术细节不再保留在公开页面。</p>
+          <p><strong>研究参与者：</strong>Feier Lyu、Prof. Shoham Sabach、Owen Li</p>
+          <p>完整技术材料可按需提供；正式数学结论将以 preprint 或论文为准。</p>
+          <p><a href="../notes/network_localization_structural_certificates.html" data-preserve-lang="1">阅读当前研究概览</a></p>
         </div>
-
         <div data-lang-block="en" hidden>
-          <h1>Historical Note: From Dual Score to Saddle Certificates</h1>
-          <p class="article-meta">Feier Lyu · May 22, 2026 · 10 min read</p>
-          <p class="article-meta">Tags: Optimization · Network Localization · Duality · Nonconvex Optimization · Saddle Points</p>
-          <aside class="math-post-update" aria-label="Historical research note status">
-            <p class="math-post-update-label">Historical research note · Superseded</p>
-            <p>This page preserves the state of the derivation on May 22, 2026. The cycle-rank, signed-Laplacian, and cluster-cut arguments below should not be read as current theorems. Their sign conventions, kernel/range assumptions, pseudoinverse steps, and recovery directions had not been fully checked.</p>
-            <p>For the results now established and the multi-edge matrix criterion still under review, see <a href="../notes/network_localization_structural_certificates.html">One Negative Residual Is Not Enough</a>.</p>
-          </aside>
-          <p>The body of this historical note is currently available in Chinese.</p>
-          <p>三月的时候，我写了一篇讲我在 network localization 这个问题里尝试做 duality，结果两条很自然的 Lagrangian dual 路线都 collapse 到了 0。</p>
-          <p>当时我的感觉大概是：好吧，dual 没有给我一个漂亮的 lower bound。</p>
-          <p>但它也没有完全死掉。</p>
-          <p>真正留下来的，是 conjugate-based DC dual 里出现的一个 projector formula。这个 formula 一开始看起来像一个副产品：它不太像能直接替代 primal objective 也不像一个能马上塞进 algorithm 里的 magic quantity。但它有一个很清楚的几何意义：它在测量 prescribed edge-length budget 和 realizable edge-difference subspace 之间的 incompatibility。</p>
-          <p>也就是说它不太像传统意义上的 dual solution，反而更像一个 structural score。</p>
-          <p>当时我对它的理解还很 static：它只依赖 instance，也就是 measurement graph 和 prescribed distances，不依赖某一个 iterate <code>x</code>。所以我把它理解成一个 instance-level difficulty score，一个用来描述这个 localization instance 本身有多不 compatible 的量。</p>
-          <p>最近这条线又往前走了一点。现在我更愿意这样理解它：</p>
-          <p><strong>这个 dual score 一开始是 static 的，但它后来开始接触 stationary point geometry 了。</strong></p>
-          <p>这件事对我来说还挺重要的，因为它说明真的可能变成理解 landscape 的一部分。</p>
-
-          <h2>1. 上次留下来的东西：一个 instance-level structural score</h2>
-          <p>我研究的 objective 是 network localization / MDS 里很经典的 nonconvex nonsmooth least squares：给定一堆边，每条边都有一个 prescribed distance <code>delta</code>，我们想找 node positions，使得每条边的实际距离尽量接近 <code>delta</code>。</p>
-          <p>这个问题难在几个地方：它 nonconvex；它 nonsmooth，因为 norm 在 0 处不可微；它有 translation invariance；而且 graph cycles 会带来 global compatibility constraints。</p>
-          <p>我一开始试图从 duality 入手。最朴素的想法是：如果能找到一个有意义的 dual lower bound，也许就可以解释 instance difficulty 甚至辅助 algorithm。</p>
-          <p>但实际推下来之后两条很自然的 plain Lagrangian dual routes 都塌掉了。它们基本只能告诉我：</p>
-          <p><code>F(x) &gt;= 0</code>。</p>
-          <p>谢谢你，真的很有用。</p>
-          <p>不过 conjugate-based DC dual 没有完全塌，它留下了一个 projector formula，大概形如：</p>
-          <p><code>S_dual(B, delta) = sum(delta_l^2) - 1/4 * sup over u in V of ||P u||^2.</code></p>
-          <p>这里 <code>V</code> 是 blockwise budget set，每条边的 block norm 最多是 <code>2 delta_l</code>，<code>P</code> 是投影到 <code>Range(B)</code> 的 orthogonal projector，<code>Range(B)</code> 就是所有能够由 node positions 产生的 edge-difference vectors。</p>
-          <p>这个 score 的意义是：在所有允许的 edge-budget vectors 里，最多有多少 budget 可以真正落到 realizable edge-difference subspace 里？</p>
-          <p>如果全部 budget 都可以放进去，那么 score 是 0。这对应 prescribed distances 可以被某个 configuration exactly realized。如果不能全部放进去，那么 score 就是 positive。这说明有一部分 prescribed edge-length information 和 graph 的 global compatibility constraints 冲突。</p>
-          <p>所以它不是单纯在看图有没有 cycle，而是在看：这个 graph 加上这组 distances，能不能形成一个 globally compatible 的 edge geometry。</p>
-          <p>这比“cyclic means hard, forest means easy”细一点。Forest 的确对这个 score 来说是 degenerate 的，因为没有 cycle consistency constraints，score 会变成 0。但 cyclic graph 也不一定 score positive。真正起作用的是 graph structure、delta，以及 ambient dimension 的组合。</p>
-          <p>它不是一个 topology-only quantity，而是一个 geometry-aware structural quantity。</p>
-
-          <h2>2. Static score 之后：stationary dual witness</h2>
-          <p>一开始这个 score 只看 instance，不看某一个 point <code>x</code>。</p>
-          <p>这当然有好处：它像一个全局诊断工具，可以在 algorithm 开始之前告诉你这个 instance 可能有多 incompatible。但也有明显限制：optimization algorithm 真正走的是 iterates，最后遇到的是 critical points / stationary points。一个完全 static 的 score 很难直接告诉我某个 stationary point 是好是坏。</p>
-          <p>所以我后来问了一个问题：能不能把这个 static dual score 和 differentiable stationary points 连起来？</p>
-          <p>结果还真的可以。</p>
-          <p>对于一个 differentiable point <code>x</code>，每条边 <code>B_l x</code> 都不等于 0。于是我可以定义一个 saturated edge-budget vector：<code>u_l(x)</code> 指向 <code>B_l x</code> 的方向，长度为 <code>2 delta_l</code>。</p>
-          <p>也就是说，<code>u(x)</code> 把每条边的 prescribed distance 变成一个方向化的 dual-side witness。每个 block 都刚好 saturate budget，所以它自然落在 <code>V</code> 的边界上。</p>
-          <p>我把它叫做 stationary dual witness。</p>
-          <p>最漂亮的地方是：如果 <code>x</code> 是 differentiable stationary point，那么有一个很干净的 projector identity：</p>
-          <p><code>P u(x) = 2 Bx.</code></p>
-          <p>直觉上说，这个 identity 把两件事连起来了：<code>u(x)</code> 是 prescribed distances 给出来的 saturated budget direction；<code>Bx</code> 是当前 configuration 真正产生的 edge differences；<code>P</code> 是把任何 edge-space vector 投影回 realizable subspace <code>Range(B)</code>。</p>
-          <p>所以 stationary condition 可以被理解成：把 saturated witness 投影回 realizable edge-space 之后，刚好得到当前 edge differences 的两倍。</p>
-          <p>这一下 dual side 就不是纯 static 了。它开始能够读到 stationary point 的 geometry。</p>
-
-          <h2>3. Pointwise identity：stationary value 也能被 dual witness 读出来</h2>
-          <p>更进一步在 differentiable stationary point 上我可以把 objective value 写成一个 primal-dual identity。</p>
-          <p>大概意思是：</p>
-          <p><code>F(x) = sum(delta_l^2) - 1/4 * ||P u(x)||^2.</code></p>
-          <p>这个式子很好玩，因为 static score 是：</p>
-          <p><code>S_dual(B, delta) = sum(delta_l^2) - 1/4 * sup over u in V of ||P u||^2.</code></p>
-          <p>两者放在一起看，就很像：static score 是在所有 budget vectors 里找最 compatible 的那个，stationary point <code>x</code> 则只给出一个特殊的 budget vector <code>u(x)</code>。</p>
-          <p>所以自然出现一个 gap：</p>
-          <p><code>Gap_stat(x) = F(x) - S_dual(B, delta).</code></p>
-          <p>它衡量的是：这个 stationary point 的 witness <code>u(x)</code>，距离整个 budget set 里最会投影到 <code>Range(B)</code> 的那个 witness 还有多远。</p>
-          <p>我现在还不想把 <code>Gap_stat</code> 夸成一个完整的 local optimality classifier，那就太飘了。</p>
-          <p>但它至少给了一个很清楚的解释：在同一个 instance 里，不同 differentiable stationary points 可以通过它们的 projected witness compatibility 来比较。</p>
-          <p>这个 gap 只比较 <code>F(x)</code> 与预算集上的最优投影值；它本身不能判断一个驻点是局部极小点还是鞍点。</p>
-
-          <h2>4. OJMO local-minimum screening 的 dual translation</h2>
-          <p>另一个让我觉得这条线有意义的地方，是它可以和 OJMO paper 里的 local-minimum screening condition 接上。</p>
-          <p>OJMO paper 里有一个 degree-based necessary condition，用来排除某些 differentiable stationary points 成为 local minimum 的可能。</p>
-          <p>我后来发现，这个 condition 可以被翻译成 stationary witness 的 projected retention condition。</p>
-          <p>简单说，对于每条边可以看一个 retention ratio：</p>
-          <p><code>rho_l(x) = 当前边长 / prescribed distance.</code></p>
-          <p>从 dual witness 的角度看，这也等于：</p>
-          <p><code>rho_l(x) = ||(P u(x))_l|| / ||u_l(x)||.</code></p>
-          <p>也就是说，它在问：原本 saturated 的 edge-budget block，在投影回 <code>Range(B)</code> 之后，还保留了多少长度？</p>
-          <p>如果一个 differentiable stationary point 真的是 local minimum，那么某些 edge 的 retention 不能太低。否则它违反 OJMO 的 necessary condition，就不是 local minimum，甚至可以被识别成 strict saddle。</p>
-          <p>这个 translation 对我来说很重要，因为它说明是在把 OJMO 的 local landscape condition 换成一个 dual-side compatibility language。</p>
-          <p>换句话说：local minimality forces the stationary witness not to lose too much mass under projection.</p>
-          <p>这句话我很喜欢。因为它把 local minimum 的必要条件说成了一个 projection geometry statement。</p>
-
-          <h2>5. 从 first-order witness 到 second-order certificates</h2>
-          <p>做到这里之后，我又回到了 Hessian。</p>
-          <p>在 differentiable point 上，Hessian 可以写成：</p>
-          <p><code>H(x) = 2 B^T M(x) B.</code></p>
-          <p>这个式子本身不是啥新鲜事。直接说 “Hessian PSD means local minimum candidate” 也不是啥新鲜事。那只是 classical second-order condition 的换皮版本。</p>
-          <p>所以真正的问题是：能不能从这个 Hessian representation 里提取一些 structural certificates，而不是每次都 brute-force 算整个 Hessian 的 eigenvalues？</p>
-          <p>这就是我最近最想推进的方向。</p>
-          <p>我现在的理解是：Hessian 的负曲率来源和 edge-level radial/transverse decomposition 有关。</p>
-          <p>对于每条边，沿着当前 edge direction 的 radial part 通常是良性的；真正可能产生 negative curvature 的，是 transverse directions，尤其是当这条边 under-retained，也就是当前边长小于 prescribed distance 的时候。</p>
-          <p>这件事从直觉上也合理：如果一条边现在太短，而 prescribed distance 更长，那么往垂直方向轻轻打开它，可能会让距离变大、objective 下降。这种负曲率不是沿边方向的，而是在 transverse direction 上。</p>
-          <p>但 full problem 里还有一个关键限制：edge perturbations 不能随便选。它们必须来自 node perturbation。也就是说，<code>z</code> 必须在 <code>Range(B)</code> 里。</p>
-          <p>这就是为什么 graph cycles 又出现了。Cycle constraints 会限制哪些 edge-space perturbations 是 realizable 的。</p>
-          <p>所以真正的问题不是：某条边有没有 negative curvature？而是：这些 edge-level negative directions 能不能在 <code>Range(B)</code> 的 compatibility constraints 下存活下来？</p>
-          <p>这句话几乎就是我现在对整个 second-order structure 的直觉核心。</p>
-
-          <h2>6. 2026年5月尝试的 cycle-rank bound（未定稿）</h2>
-          <p>当时的工作稿尝试比较 under-retained edge 的数量 <code>m_minus(x)</code> 与 graph cycle rank，希望据此判断 reduced Hessian 是否必须出现负特征值。</p>
-          <p>这一步后来没有作为定理保留。把 edge-level transverse directions 映回 node-space perturbations 时，还需要核对 kernel/range 条件、维数计数与方向恢复；仅凭 under-retained edge 的数量不能在本页所写的假设下直接推出 strict saddle。</p>
-          <p>这里保留这一段只为记录 2026 年 5 月的推导方向，不代表当前结论。</p>
-
-          <h2>7. 当时与 OJMO degree test 的比较</h2>
-          <p>OJMO 的 degree-based necessary condition 检查单条边的 under-retention 与节点度数。2026 年 5 月的工作稿试图用 under-retained edges 的联合横向方向补充这种逐边检查。</p>
-          <p>由于上一节的 cycle-rank 推导尚未完成核对，本页不再把这种比较表述为一个已经成立的 collective strict-saddle certificate。</p>
-
-          <h2>8. 当时考虑的 signed Laplacian 与 cluster-cut 降维</h2>
-          <p>以下两条是当时考虑的计算路线，不是本页已经证明的 negative-curvature certificates。</p>
-          <p>除了 cycle-rank bound，我还看了两个方向。</p>
-          <p>第一个是 directional signed-Laplacian reduction。</p>
-          <p>如果我只看 rank-one perturbation，也就是所有 node 都沿同一个 ambient direction <code>a</code> 移动，只是每个 node 的 scalar coefficient 不同，那么原本 <code>nK</code> 维的 Hessian quadratic form 会降成一个 <code>K</code> 维的 signed Laplacian。</p>
-          <p>这很漂亮，因为 signed Laplacian 已经有很多图论和 spectral graph theory 的工具，比如 effective resistance threshold。</p>
-          <p>所以某些 negative curvature certificate 可以从：“检查一个巨大 Hessian”变成：“检查某个 direction 下的 signed weighted graph 是否有 negative eigenvalue”。</p>
-          <p>第二个是 cluster-cut certificate。</p>
-          <p>它的想法是：不只看一个 node-star，也不只看全图，而是看一个 cluster 和外界的 boundary。某些 cluster-level perturbations 可以把二阶信息压缩成一个小的 boundary matrix。</p>
-          <p>这很像在问：如果我把一群节点当成一个局部结构，它和外界连接的那些边，是否已经足够制造 negative curvature？</p>
-          <p>这条线我现在还不想说已经完整，但它很自然。因为 network localization 本来就有 distributed / local 的语境。如果以后真的要做 algorithmic escape procedure，那么 certificate 最好不要永远依赖 full Hessian。</p>
-
-          <h2>9. Negative epsilon case：从“有一条坏边”到“能不能真的逃出去”</h2>
-          <p>最近老师让我更细致地看 negative epsilon case，也就是某条边当前距离小于 prescribed distance 的情况。</p>
-          <p>一开始这个 case 看起来好像很简单：epsilon &lt; 0，所以 Hessian 里有 negative term，那不就是 saddle 吗？</p>
-          <p>但仔细看之后，这个说法太粗了。</p>
-          <p>对于单条边，确实可以选择一个 transverse direction，让这一条边的二阶贡献为负。也就是说，在 edge level，它有一个很明确的 negative-curvature mechanism。</p>
-          <p>但 full objective 不是一条边。你动两个 node，会影响所有 incident edges。别的边可能贡献正项，也可能贡献负项。更重要的是，不是每个 edge-space vector 都能由 node perturbation 产生。</p>
-          <p>所以真正要构造 escape direction，不能只说：“这条边有 negative epsilon，所以选个 perpendicular y 就好了。”</p>
-          <p>这最多是 edge-level intuition。</p>
-          <p>真正需要的是一个 local certified escape procedure：先选一个具体的 negative edge；再构造一个 node perturbation <code>y</code>；然后证明在 full Hessian quadratic form 里，目标边带来的 negative contribution 可以压过其他受影响边的 positive contribution；最后还要保证这个 <code>y</code> 不是一个只在 edge-space 里存在、但 node-space 里根本实现不了的幻想向量。</p>
-          <p>这就是我最近在做的事情：把“negative epsilon gives transverse negative curvature”从一句直觉，慢慢发展成一个可检查的 local procedure。</p>
-          <p>目前我不会说这已经是一个 global perfect escape algorithm。那太夸张了。</p>
-          <p>但至少它已经比单纯 rewrite 老师 note 里的 Hessian formula 更进一步：它开始问如何真正选择 <code>y</code>，如何控制 affected edges，以及如何把 edge-level negative curvature 变成 node-level descent mechanism。</p>
-
-          <h2>10. 2026年5月时可以确认的内容</h2>
-          <p>当时已经明确的是：两条普通 Lagrangian 路线只给出零下界；投影到 <code>Range(B)</code> 后得到 <code>S_dual</code>；在可微驻点处，饱和向量 <code>u(x)</code> 满足 <code>P u(x) = 2 Bx</code>，并给出对应的驻点值恒等式。</p>
-          <p>关于 cycle-rank、signed Laplacian、cluster cut 与 escape direction 的部分仍是探索性推导。后续工作转向 stress-rigidity decomposition、多条负残差边的联合耦合，以及正在逐项复核的 multi-edge matrix criterion。</p>
-          <p>当前数学状态以新版研究记录为准。</p>
-
-          <nav class="math-post-nav" data-static-math-post-nav="1" aria-label="Adjacent notes"><a class="math-post-nav-item" data-nav-dir="next" href="../post/projected-gradient-descent-isabelle-hol.html" data-no-page-transition="1" aria-label="Next note · Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL"><span class="math-post-nav-label">Next note</span><span class="math-post-nav-title">Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL</span></a></nav>
-<div class="academic-hub-links math-post-hub-links">
-  <p class="academic-hub-links-label">Continue with</p>
-  <div class="research-link-row">
-    <a href="../research.html">Research Statement</a>
-    <a href="../projects.html">Selected Work</a>
-    <a href="../math.html">Technical Notes</a>
-  </div>
-</div>
+          <h1>Historical Research Note Archived</h1>
+          <p class="article-meta">Network-localization collaboration · Updated August 23, 2026</p>
+          <p>This early derivation has been withdrawn from public view. While the collaboration remains in progress, internal technical details are no longer retained on the public page.</p>
+          <p><strong>Research participants:</strong> Feier Lyu, Prof. Shoham Sabach, and Owen Li</p>
+          <p>Full technical material is available on request. Formal mathematical claims will follow the preprint or paper.</p>
+          <p><a href="../notes/network_localization_structural_certificates.html" data-preserve-lang="1">Read the current research overview</a></p>
         </div>
       </article>
     </main>
+
     <footer class="site-footer">
       <div class="container footer-grid">
-        <div>
-          <p class="footer-title">CHRONOHAZE</p>
-          <p class="footer-note"><span data-i18n="footerContactLead">学术联系邮箱：</span><a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a></p>
-          <p class="footer-note" data-i18n="footerCities">Feier Lyu · 爱丁堡大学数学本科</p>
-          <p class="footer-copy">© 2026 by CHRONOHAZE. Hosted on GitHub Pages.</p>
-          <div class="social" aria-label="Social links">
-            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            <a href="https://www.instagram.com/lyuf09" target="_blank" rel="noopener noreferrer">Instagram</a>
-            <a href="https://space.bilibili.com/35902781" target="_blank" rel="noopener noreferrer">Bilibili</a>
-            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
-          </div>
-        </div>
-        <div class="footer-right">
-          <a href="../policy.html" data-i18n="siteNotes">网站说明</a>
-          <a href="../accessibility.html" data-i18n="a11y">无障碍支持</a>
-        </div>
+        <div><p class="footer-title">CHRONOHAZE</p><p class="footer-copy">© 2026 by CHRONOHAZE.</p></div>
+        <div class="footer-right"><a href="../policy.html" data-preserve-lang="1">网站说明</a></div>
       </div>
     </footer>
   </div>
-
-<script>
-  (function () {
-    const i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
-    const i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
-    const langBlocks = Array.from(document.querySelectorAll('[data-lang-block]'));
-    const queryLang = new URLSearchParams(window.location.search).get('lang');
-
-    const i18n = {
-      zh: {
-        htmlLang: 'zh-CN',
-        pageTitle: '从 dual score 到 saddle certificates 的一点新进展 | Chronohaze',
-        navAria: '主导航',
-        navHome: '主页',
-        navAcademic: '学术',
-        navPhoto: '摄影',
-        navMusic: '音乐',
-        navCV: 'CV',
-        academicSectionAria: '学术页面导航',
-        utilityResearch: 'Research Statement',
-        utilityProjects: 'Selected Work',
-        utilityNotes: 'Technical Notes',
-        footerContactLead: '学术联系邮箱：',
-        footerCities: 'Feier Lyu · 爱丁堡大学数学本科',
-        siteNotes: '网站说明',
-        a11y: '无障碍支持'
-      },
-      en: {
-        htmlLang: 'en',
-        pageTitle: 'Historical Note: From Dual Score to Saddle Certificates | Chronohaze',
-        navAria: 'Main navigation',
-        navHome: 'Home',
-        navAcademic: 'Academic',
-        navPhoto: 'Photography',
-        navMusic: 'Music',
-        navCV: 'CV',
-        academicSectionAria: 'Academic section navigation',
-        utilityResearch: 'Research Statement',
-        utilityProjects: 'Selected Work',
-        utilityNotes: 'Technical Notes',
-        footerContactLead: 'Academic contact: ',
-        footerCities: 'Feier Lyu · BSc Mathematics, University of Edinburgh',
-        siteNotes: 'Site Notes',
-        a11y: 'Accessibility'
-      }
-    };
-
-    function setLanguage(lang) {
-      const safeLang = lang === 'en' ? 'en' : 'zh';
-      const dict = i18n[safeLang];
-      document.documentElement.lang = dict.htmlLang;
-      document.title = dict.pageTitle;
-
-      i18nNodes.forEach(function (node) {
-        const key = node.getAttribute('data-i18n');
-        const value = dict[key];
-        if (typeof value === 'string') node.textContent = value;
+  <script>
+    (function () {
+      const queryLang = new URLSearchParams(window.location.search).get('lang');
+      const lang = queryLang === 'en' ? 'en' : 'zh';
+      document.documentElement.lang = lang === 'en' ? 'en' : 'zh-CN';
+      document.querySelectorAll('[data-lang-block]').forEach(function (block) {
+        block.hidden = block.getAttribute('data-lang-block') !== lang;
       });
-
-      i18nAriaNodes.forEach(function (node) {
-        const key = node.getAttribute('data-i18n-aria');
-        const value = dict[key];
-        if (typeof value === 'string') node.setAttribute('aria-label', value);
+      document.querySelectorAll('[data-preserve-lang]').forEach(function (link) {
+        const url = new URL(link.getAttribute('href'), window.location.href);
+        url.searchParams.set('lang', lang);
+        link.setAttribute('href', url.pathname + url.search + url.hash);
       });
-
-      langBlocks.forEach(function (block) {
-        block.hidden = block.getAttribute('data-lang-block') !== safeLang;
-      });
-
-      try {
-        window.localStorage.setItem('siteLang', safeLang);
-        window.localStorage.setItem('chronohaze-lang', safeLang);
-      } catch (err) {
-      }
-    }
-
-    let initialLang = 'zh';
-    try {
-      const siteLang = window.localStorage.getItem('siteLang');
-      const savedLang = window.localStorage.getItem('chronohaze-lang');
-      if (siteLang === 'zh' || siteLang === 'en') initialLang = siteLang;
-      else if (savedLang === 'zh' || savedLang === 'en') initialLang = savedLang;
-    } catch (err) {
-    }
-    if (queryLang === 'zh' || queryLang === 'en') initialLang = queryLang;
-    setLanguage(initialLang);
-  })();
-</script>
+    })();
+  </script>
 </body>
 </html>

@@ -111,7 +111,7 @@ SEO_LASTMOD_MINIMUMS = {
     "https://lyuf09.github.io/chronohaze/research.html": "2026-08-01",
     "https://lyuf09.github.io/chronohaze/projects.html": "2026-08-01",
     "https://lyuf09.github.io/chronohaze/math.html": "2026-08-01",
-    "https://lyuf09.github.io/chronohaze/notes/network_localization_structural_certificates.html": "2026-08-01",
+    "https://lyuf09.github.io/chronohaze/notes/network_localization_structural_certificates.html": "2026-08-23",
     "https://lyuf09.github.io/chronohaze/post/projected-gradient-descent-isabelle-hol.html": "2026-08-01",
     "https://lyuf09.github.io/chronohaze/photography.html": "2026-08-01",
 }

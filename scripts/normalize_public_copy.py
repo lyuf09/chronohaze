@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import re
 from pathlib import Path
 
 
@@ -9,7 +10,18 @@ REPLACEMENTS = (
     ("辗转不同国家无固定号码 请联系邮箱：", "联系邮箱："),
     ("No fixed phone number while moving across countries. Contact via email: ", "Contact by email: "),
     ("No fixed phone number while moving across countries. Contact by email:", "Contact by email: "),
+    ("☔️", ""),
+    ("☔", ""),
+    ("❌", ""),
+    ("😔", ""),
+    ("😡", ""),
+    ("😭", ""),
+    ("😱", ""),
+    ("🚧", ""),
+    ("🥀", ""),
 )
+
+BARE_EXTERNAL_ARROW_RE = re.compile("↗(?!\ufe0e)")
 
 
 def main() -> int:
@@ -19,6 +31,7 @@ def main() -> int:
 
     root = args.root.resolve()
     public_artifacts = list(root.rglob("*.html"))
+    public_artifacts.extend((root / "assets" / "data").glob("*.json"))
     public_artifacts.extend((root / "assets" / "search-data").glob("*.json"))
     public_artifacts.append(root / "assets" / "search-index.json")
 
@@ -32,6 +45,7 @@ def main() -> int:
         updated = original
         for old, new in REPLACEMENTS:
             updated = updated.replace(old, new)
+        updated = BARE_EXTERNAL_ARROW_RE.sub("↗\ufe0e", updated)
         if updated != original:
             path.write_text(updated, encoding="utf-8")
             changed += 1
