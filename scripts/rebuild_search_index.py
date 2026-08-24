@@ -47,6 +47,8 @@ HTML_CONTENT_REFRESH_URLS = {
 }
 
 HIDDEN_SEARCH_URLS = {
+    "notes/huber_glm_sparsification_refinement_note.html",
+    "notes/theorem11_convexity_note.html",
     "post/dual-score-saddle-certificates.html",
     "post/what-i-really-got-when-a-dual-route-failed.html",
 }
@@ -295,11 +297,28 @@ def apply_music_detail_overlay(item: Dict[str, Any], detail_item: Dict[str, Any]
     if subtitle:
         item["subtitle"] = subtitle
 
-    # Enrich searchability with canonical detail metadata + cross-language credit aliases.
-    append_content_fragments(
-        item,
-        [title_clean, creation_period, subtitle, description_excerpt] + credit_lines + alias_tokens + audio_titles + body_section_headings + [search_body_text],
+    # The detail catalog is rebuilt from the current HTML. Treat it as the
+    # canonical body instead of appending it to potentially stale search copy.
+    # This prevents old editorial states from lingering in results forever.
+    canonical_fragments = (
+        [title_clean, creation_period, subtitle, description_excerpt]
+        + credit_lines
+        + alias_tokens
+        + audio_titles
+        + body_section_headings
+        + [search_body_text]
     )
+    canonical_content: List[str] = []
+    seen_content = set()
+    for fragment in canonical_fragments:
+        text = str(fragment or "").strip()
+        norm = _norm_for_contains(text)
+        if not text or not norm or norm in seen_content:
+            continue
+        seen_content.add(norm)
+        canonical_content.append(text)
+    if canonical_content:
+        item["content"] = " ".join(canonical_content)
 
     excerpt = str(item.get("excerpt", "") or "").strip()
     artist = str(item.get("artist", "") or "").strip()

@@ -2672,6 +2672,34 @@ html.menu-scroll-locked,
 }
 
 @media (pointer: coarse) {
+  .hero-right-inner > .hero-authority-line,
+  .hero-academic-link[href*="github.com"] {
+    display: none;
+  }
+
+  .drawer-logo-decoration {
+    width: 100%;
+    min-height: 132px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: clamp(20px, 5vh, 44px);
+    padding: 8px 0 max(10px, env(safe-area-inset-bottom, 0px));
+    box-sizing: border-box;
+    pointer-events: none;
+  }
+
+  .drawer:not(.open) .drawer-logo-decoration {
+    visibility: hidden;
+  }
+
+  .drawer-logo-decoration img {
+    width: clamp(88px, 27vw, 118px);
+    height: auto;
+    opacity: 0.58;
+    filter: brightness(0) saturate(100%) opacity(0.74) drop-shadow(0 8px 18px rgba(66, 78, 104, 0.16));
+  }
+
   .lang-pill {
     height: 44px;
     min-height: 44px;

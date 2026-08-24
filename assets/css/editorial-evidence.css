@@ -43,7 +43,8 @@
 .academic-proof-note > p:not(.academic-proof-kicker) {
   margin: 0 0 10px;
   color: rgba(40, 46, 58, 0.86);
-  font-size: 13.5px;
+  font-size: 16px;
+  font-weight: 400;
   line-height: 1.78;
   letter-spacing: 0;
 }
@@ -94,6 +95,7 @@
   margin: 0 0 5px;
   color: rgba(38, 45, 59, 0.92);
   font-size: 15px;
+  font-weight: 400;
   line-height: 1.62;
   letter-spacing: 0;
   overflow-wrap: anywhere;
@@ -112,7 +114,7 @@
 
 .academic-evidence-list a {
   color: rgba(34, 43, 61, 0.94);
-  font-size: 13.5px;
+  font-size: 14px;
   line-height: 1.45;
   text-decoration: underline;
   text-decoration-color: rgba(66, 77, 98, 0.28);
@@ -121,7 +123,7 @@
 
 .academic-evidence-list .research-link-row a {
   color: rgba(31, 40, 58, 0.96);
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.2;
 }
 
@@ -134,7 +136,8 @@
 }
 
 .academic-page .academic-snapshot-list span {
-  font-size: 13px;
+  font-size: 15px;
+  font-weight: 400;
 }
 
 .academic-page .academic-local-link,
@@ -206,6 +209,10 @@
 
 .photo-blue-page .article-meta {
   margin-bottom: 8px;
+}
+
+.photo-blue-page .photo-blue-award {
+  margin: 0 0 18px;
 }
 
 .photo-blue-credit {
@@ -298,7 +305,7 @@
   }
 
   .academic-proof-note > p:not(.academic-proof-kicker) {
-    font-size: 13px;
+    font-size: 16px;
     line-height: 1.72;
   }
 

@@ -2101,11 +2101,11 @@ audio {
 .photo-blue-page .photo-blue-award {
   position: relative;
   z-index: 1;
-  margin: -20px 0 22px;
+  margin: 0 0 18px;
   color: rgba(37, 45, 60, 0.94);
-  font-size: 13px;
-  line-height: 1.65;
-  letter-spacing: 0.02em;
+  font-size: 11px;
+  line-height: 1.5;
+  letter-spacing: 0.14em;
 }
 
 .photo-detail-page .photo-detail-statement {
@@ -5148,6 +5148,17 @@ html:lang(en) .photo-detail-article * {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
+}
+
+body:is(
+  .academic-page,
+  .projects-page,
+  .research-page,
+  .cv-page,
+  .math-index-page,
+  .math-post-page
+) .persistent-audio-dock {
+  display: none !important;
 }
 
 .persistent-audio-head,
@@ -16310,6 +16321,11 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
     display: none;
   }
 
+  .home-body .floating-site-logo,
+  .home-body .site-share-shell {
+    display: none !important;
+  }
+
   body:not(.home-body) .site-header {
     overflow: hidden;
   }
@@ -16455,6 +16471,11 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
     display: none;
   }
 
+  .home-body .floating-site-logo,
+  .home-body .site-share-shell {
+    display: none !important;
+  }
+
   .site-share-shell {
     left: auto;
     right: max(10px, calc(var(--safe-right) + 8px));
@@ -16480,6 +16501,13 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
 
   .site-header .nav a {
     min-width: 24px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .site-header .nav-studio-trigger {
     min-height: 44px;
     display: inline-flex;
     align-items: center;

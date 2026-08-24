@@ -2126,6 +2126,10 @@
   }
 
   var CHRONOHAZE_EMAIL_BOOK = {
+    school: {
+      userParts: ["s252", "8336"],
+      domainParts: ["ed", "ac", "uk"],
+    },
     main: {
       userParts: ["fei", "er530"],
       domainParts: ["icloud", "com"],
@@ -2475,8 +2479,7 @@
     var isDecorativeHomeLogo =
       document.body &&
       document.body.classList.contains("home-body") &&
-      window.matchMedia &&
-      window.matchMedia("(max-width: 760px)").matches;
+      isMobileShareDockMode();
 
     if (!isMobileShareDockMode() || isDecorativeHomeLogo) {
       shell.removeAttribute("data-mobile-share-via-logo");
@@ -3252,6 +3255,8 @@
     article.dataset.detailImagesRemoved = "1";
   }
 
+  var AFFIZIEREN_AUDIO_SOURCE =
+    "assets/audio/juke/ZK8iOaJLM0p2757mXaquFqQ9d36eRqkm.mp3";
   var MUSIC_TRACK_TOTAL = 30;
   var DEFAULT_MUSIC_TRACK_ROUTES = [
     "music/track-orchid.html",
@@ -12468,7 +12473,7 @@
       },
       {
         href: "music/track-04.html",
-        audio: "assets/audio/juke/ZK8iOaJLM0p2757mXaquFqQ9d36eRqkm.mp3",
+        audio: AFFIZIEREN_AUDIO_SOURCE,
         kind: "track",
         accent: "#2a3657",
         accentSoft: "#121826",
@@ -13221,6 +13226,7 @@
     var selectedTracks = [
       {
         href: "music/track-04.html",
+        audio: AFFIZIEREN_AUDIO_SOURCE,
         image: "assets/template/affizieren-cover.jpg",
         position: "100% center",
         scale: 1.2,
@@ -14951,7 +14957,7 @@
         "@media (max-width:900px){.floating-site-logo{width:58px;height:58px;right:max(10px,calc(env(safe-area-inset-right,0px) + 8px));bottom:calc(max(10px,calc(env(safe-area-inset-bottom,0px) + 8px)) + var(--floating-logo-lift,0px));}.floating-site-logo::before{inset:-10px;filter:blur(7px);}.floating-site-logo::after{inset:-3px;filter:blur(3px);}}",
         "@media (max-width:640px){.floating-site-logo{width:48px;height:48px;}.floating-site-logo::before{inset:-8px;}.floating-site-logo img{width:72%;height:72%;}}",
         "@media (hover:none) and (pointer:coarse){.floating-site-logo{width:48px;height:48px;right:max(10px,calc(env(safe-area-inset-right,0px) + 8px));bottom:calc(max(10px,calc(env(safe-area-inset-bottom,0px) + 8px)) + var(--floating-logo-lift,0px));}.floating-site-logo::before{inset:-8px;filter:blur(7px);}.floating-site-logo::after{inset:-3px;filter:blur(3px);}.floating-site-logo img{width:72%;height:72%;}}",
-        "@media (max-width:760px){.floating-site-logo{top:var(--floating-logo-mobile-top,86px);right:var(--floating-logo-mobile-right,10px);bottom:auto;}}",
+        "@media (max-width:760px),(hover:none) and (pointer:coarse){.floating-site-logo{top:var(--floating-logo-mobile-top,86px);right:var(--floating-logo-mobile-right,10px);bottom:auto;}}",
       ].join("");
       document.head.appendChild(style);
     }

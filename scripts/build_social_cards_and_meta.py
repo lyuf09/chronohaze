@@ -663,7 +663,7 @@ def render_site_card_image(
         )
         draw.text(
             (92, 356),
-            "University of Edinburgh · AFP Author",
+            "University of Edinburgh · BSc Mathematics",
             font=authority_font,
             fill=(89, 99, 120, 255),
         )

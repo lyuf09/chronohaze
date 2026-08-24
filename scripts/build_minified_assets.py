@@ -7,9 +7,11 @@ from pathlib import Path
 
 VERSION = "20260820-studio-structural-align1"
 PHOTO_STYLE_VERSION = "20260820-photo-membrane-studio-align3"
+ACADEMIC_STYLE_VERSION = "20260823-player-academic1"
+BLUE_STYLE_VERSION = "20260823-blue-header1"
 HOME_VERSION = "20260814-mobile-drawer-logo1"
 PROTECT_VERSION = "20260820-studio-structural-align1"
-MUSIC_PROTECT_VERSION = "20260820-studio-structural-align1"
+MUSIC_PROTECT_VERSION = "20260823-music-player1"
 MUSIC_STYLE_VERSION = "20260820-studio-structural-align1"
 CATALOG_VERSION = "20260801-bilingual-seo1"
 STRUCTURED_DATA_VERSION = "20260801-bilingual-seo1"
@@ -269,9 +271,27 @@ def minify_js_conservative(text: str) -> str:
 def rewrite_asset_refs(text: str, page_rel: Path) -> str:
     depth = max(len(page_rel.parts) - 1, 0)
     prefix = "../" * depth
-    is_music_index = page_rel.as_posix() == "music.html"
+    page_path = page_rel.as_posix()
+    is_music_index = page_path == "music.html"
     is_photo_detail = bool(page_rel.parts) and page_rel.parts[0] == "photo"
-    style_version = MUSIC_STYLE_VERSION if is_music_index else (PHOTO_STYLE_VERSION if is_photo_detail else VERSION)
+    is_blue_page = page_path == "photo/blue.html"
+    is_academic_page = page_path in {
+        "academic.html",
+        "projects.html",
+        "research.html",
+        "cv.html",
+        "math.html",
+    } or (bool(page_rel.parts) and page_rel.parts[0] in {"notes", "post"})
+    if is_music_index:
+        style_version = MUSIC_STYLE_VERSION
+    elif is_blue_page:
+        style_version = BLUE_STYLE_VERSION
+    elif is_photo_detail:
+        style_version = PHOTO_STYLE_VERSION
+    elif is_academic_page:
+        style_version = ACADEMIC_STYLE_VERSION
+    else:
+        style_version = VERSION
     protect_version = MUSIC_PROTECT_VERSION if is_music_index else PROTECT_VERSION
     asset_base = r"(?:https://lyuf09\.github\.io/chronohaze/|/chronohaze/|(?:\.\./)*)"
     replacements = {

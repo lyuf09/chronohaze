@@ -224,7 +224,7 @@
     })();
   </script>
   <link rel="preload" href="assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="styles.min.css?v=20260820-studio-structural-align1" />
+<link rel="stylesheet" href="styles.min.css?v=20260823-player-academic1" />
   <link rel="stylesheet" href="assets/css/academic-mobile.css?v=20260418-mobile1" />
   <script defer src="protect-media.min.js?v=20260820-studio-structural-align1"></script>
 </head>
@@ -310,7 +310,7 @@
               <p class="research-project-kind">主要方向 01</p>
               <h3>机器检查优化与可复用证明结构</h3>
               <p>这条研究线把算法假设、状态不变量、关键不等式与收敛结论拆成可复用的 Isabelle/HOL 组件。</p>
-              <p>2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化经典贪心算法与经验证的有状态惰性贪心变体。发表后，当前仓库继续发展 StochasticGreedy 定理线，包括采样模型、近似证明与预言机调用复杂度界。第二项独立完成的光滑凸一阶优化形式化已于2026年7月2日正式发表于 Archive of Formal Proofs；它构建了可复用的下降论证、投影几何、投影梯度映射、残差证书与收敛速率基础设施。</p>
+              <p>2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化经典贪心算法与经验证的有状态惰性贪心变体。发表后，当前仓库继续发展 StochasticGreedy 定理线，包括采样模型、近似证明与预言机调用复杂度界。另一项光滑凸一阶优化形式化已于2026年7月2日正式发表于 Archive of Formal Proofs；它构建了可复用的下降论证、投影几何、投影梯度映射、残差证书与收敛速率基础设施。</p>
               <p>当前重点是减少不同算法证明之间重复的投影、望远镜求和与近似保证整理工作。</p>
               <div class="research-link-row">
                 <a href="https://isa-afp.org/entries/Projected_Gradient_Descent.html" target="_blank" rel="noopener noreferrer">PGD AFP 条目</a>
@@ -324,7 +324,7 @@
             <article class="research-project-card">
               <p class="research-project-kind">主要方向 02</p>
               <h3>网络定位中的二阶几何</h3>
-              <p>与 Prof. Shoham Sabach、Owen Li 的合作研究网络结构如何影响非最优 stationary points 附近的二阶几何。</p>
+              <p>与 Shoham Sabach、Owen Li 的合作研究网络结构如何影响非最优 stationary points 附近的二阶几何。</p>
               <p>当前公开状态只保留研究问题与已经确认的高层结论；具体判据、证明与计算实例暂不公开。</p>
             </article>
 
@@ -334,7 +334,7 @@
               <p class="research-project-kind">PRIMARY DIRECTION 01</p>
               <h3>Machine-checked optimization and reusable proof structure</h3>
               <p>This line separates algorithmic assumptions, state invariants, key inequalities, and convergence statements into reusable Isabelle/HOL components.</p>
-              <p>Published in AFP on May 26, 2026: a formalization of the classical greedy algorithm and a verified stateful lazy-greedy variant for cardinality-constrained monotone submodular maximization. Post-publication extension: the current repository additionally develops a stochastic-greedy line, including the sampling model, approximation proof, and oracle-cost bounds. A second, sole-authored formalization on smooth convex first-order optimization was published in the Archive of Formal Proofs on July 2, 2026. It develops reusable infrastructure for descent arguments, projection geometry, projected-gradient mappings, residual certificates, and convergence rates.</p>
+              <p>Published in AFP on May 26, 2026: a formalization of the classical greedy algorithm and a verified stateful lazy-greedy variant for cardinality-constrained monotone submodular maximization. Post-publication extension: the current repository additionally develops a stochastic-greedy line, including the sampling model, approximation proof, and oracle-cost bounds. A second formalization on smooth convex first-order optimization was published in the Archive of Formal Proofs on July 2, 2026. It develops reusable infrastructure for descent arguments, projection geometry, projected-gradient mappings, residual certificates, and convergence rates.</p>
               <p>The current goal is to reduce repeated projection, telescoping, and approximation bookkeeping across different algorithm proofs.</p>
               <div class="research-link-row">
                 <a href="https://isa-afp.org/entries/Projected_Gradient_Descent.html" target="_blank" rel="noopener noreferrer">PGD AFP entry</a>
@@ -348,7 +348,7 @@
             <article class="research-project-card">
               <p class="research-project-kind">PRIMARY DIRECTION 02</p>
               <h3>Second-order geometry in network localization</h3>
-              <p>Ongoing collaboration with Prof. Shoham Sabach and Owen Li on how network structure shapes second-order geometry near non-optimal stationary points. The public record retains only the research question and confirmed high-level conclusions; criteria, proofs, and computational examples are withheld.</p>
+              <p>Ongoing collaboration with Shoham Sabach and Owen Li on how network structure shapes second-order geometry near non-optimal stationary points. The public record retains only the research question and confirmed high-level conclusions; criteria, proofs, and computational examples are withheld.</p>
             </article>
 
           </div>
@@ -377,10 +377,10 @@
         </div>
         <div class="container research-now-panel">
           <div data-lang-block="zh">
-            <p>我计划继续推进两条相互关联的方向：机器检查优化，以及通过不变性与对偶研究非凸定位问题的结构。</p>
+            <p>两条方向都把隐藏的依赖关系显式化：在 Isabelle/HOL 中表现为定理接口，在定位问题中表现为控制曲率的几何条件。</p>
           </div>
           <div data-lang-block="en" hidden>
-            <p>I plan to pursue two connected directions: machine-checked optimization, and structural analysis of nonconvex localization problems through invariance and duality.</p>
+            <p>Both directions make hidden dependencies explicit: as theorem interfaces in Isabelle/HOL, and as geometric conditions for curvature in localization.</p>
           </div>
         </div>
       </section>

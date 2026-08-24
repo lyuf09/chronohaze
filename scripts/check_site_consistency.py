@@ -5,6 +5,8 @@ import argparse
 import re
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass
+from datetime import datetime, timezone
+from email.utils import parsedate_to_datetime
 from html.parser import HTMLParser
 from pathlib import Path
 from typing import List, Optional
@@ -418,8 +420,14 @@ def check_seo_artifacts(root: Path) -> List[Finding]:
                 findings.append(Finding(feed_path, "rss", "RSS channel is missing"))
             else:
                 build_date = channel.findtext("lastBuildDate", default="")
-                if "Jul 2026" not in build_date:
-                    findings.append(Finding(feed_path, "rss", "RSS lastBuildDate does not reflect July 2026"))
+                try:
+                    parsed_build_date = parsedate_to_datetime(build_date)
+                    if parsed_build_date.tzinfo is None:
+                        parsed_build_date = parsed_build_date.replace(tzinfo=timezone.utc)
+                    if parsed_build_date < datetime(2026, 8, 1, tzinfo=timezone.utc):
+                        findings.append(Finding(feed_path, "rss", "RSS lastBuildDate predates the August 2026 update"))
+                except (TypeError, ValueError, OverflowError):
+                    findings.append(Finding(feed_path, "rss", "RSS lastBuildDate is invalid"))
                 links = {item.findtext("link", default="") for item in channel.findall("item")}
                 for stem in PUBLIC_NOTE_PATHS:
                     loc = f"https://lyuf09.github.io/chronohaze/{stem}.html"

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23",
+  "generated_at": "2026-08-24",
   "scope": "math",
   "items": [
     {
@@ -151,38 +151,6 @@
       "sort": 0,
       "scope": "math",
       "content": "代表性工作 研究陈述 技术笔记 技术笔记 Feier Lyu（Fay Lyu） 置顶最能代表当前研究思考的材料，并按时间整理部分技术笔记与研究记录。 Isabelle/HOL Duality Optimization Prototype 置顶笔记 置顶笔记 01 已发表的形式化项目 Isabelle Submodular Greedy Project 已发表的形式化项目 · Archive of Formal Proofs · 2026-05-26 02 已发表 · AFP · 独立作者 Projected Gradient Descent in Isabelle/HOL AFP · 2026-07-02 · 独立作者 03 进行中的合作研究 网络定位中的二阶几何 与 Prof. Shoham Sabach、Owen Li 合作 · 精炼公开概览 侧边视觉 · 我最喜欢的 Julia 分形 研究记录归档 2026 — 按时间排列的部分技术笔记与研究记录。 更新于 2026-08-23 进行中的合作研究 网络定位中的二阶几何：研究概览 与 Prof. Shoham Sabach、Owen Li 合作的网络定位二阶几何研究概览；只保留背景、目标与已经确认的高层结论。 Network Localization Negative Curvature Second-Order Geometry 阅读研究概览 原始发布 · 2026-06-30 已发表的形式化项目 子模贪心算法形式化正式进入 AFP 记录 Isabelle/HOL 子模贪心算法形式化正式发表于 Archive of Formal Proofs，以及形式化过程中逐渐显露出的算法证明结构。 Isabelle/HOL Approximation Algorithms AFP 阅读全文 原始发布 · 2026-05-22 Publication retrospective · AFP 从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL 这篇 5 月 22 日的原始笔记保留项目设计时期的叙事；该独立形式化现已以《First-Order Methods for Smooth Convex Optimization in Isabelle/HOL》正式发表于 AFP。 Isabelle/HOL Optimization 阅读全文 原始发布 · 2026-03-14 已发表的形式化项目 Isabelle/HOL 中的 Classical Greedy、LazyGreedy 与 StochasticGreedy 原文发布于 3 月 14 日；7 月更新仅补充后续状态。子模贪心条目于 5 月 26 日正式发表于 AFP，发表后仓库继续发展 StochasticGreedy theorem line。 Isabelle/HOL Optimization 阅读全文 2026-02-07 探索性推导 Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP） 从连续音频到可玩的谱面：起音检测、节拍网格、段落对齐与可玩性约束。 Prototype 阅读全文 2026-01-29 探索性推导 Spring 2026｜新科研记录的开始 从纯数学走向优化研究：一个学期的研究训练与新的问题切入口。 Optimization 阅读全文 2025-12-29 已发表的形式化项目 早期项目记录：Submodular Greedy 的 Isabelle 形式化 2025年12月的阶段记录；项目此后已于 AFP 2026 正式发表，当前仓库另含发表后的 StochasticGreedy 扩展。 Isabelle/HOL Optimization 阅读全文 2025-10-18 已发表的形式化项目 我的第一个 Isabelle 形式化证明 把可验证性嵌进证明过程：从动机到 Nemhauser–Wolsey theorem。 Isabelle/HOL 阅读全文"
-    },
-    {
-      "title": "Theorem 11 必要性方向中的凸性问题",
-      "url": "notes/theorem11_convexity_note.html",
-      "section": "Technical Notes",
-      "date": "2026-07-15",
-      "excerpt": "梳理 Theorem 11 必要性方向中的凸化步骤，检查 envelope submeasure、fragmentation numbers，以及从一般分布类 U 进入 Lemma 18 与 Theorem 19 所需凸性条件的桥接。",
-      "tags": [
-        "math",
-        "article"
-      ],
-      "sort": 20260715,
-      "scope": "math",
-      "content": "Selected Work Research Statement Technical Notes Back to Technical Notes Convexity in the Necessity Direction of Theorem 11 Feier Lyu · Reading note · Learning Theory / Private Learning / Distributional Constraints · July 2026 This note reads Theorem 11 of Blanchard, Shetty, and Rakhlin, traces its private-learnability necessity direction, records a convexification check for the envelope submeasure and fragmentation numbers, and isolates the bridge from a general distribution class U to the convex setting used in Lemma 18 and Theorem 19. Source paper M. Blanchard, A. Shetty, and A. Rakhlin. “Characterizing Online and Private Learnability under Distributional Constraints via Generalized Smoothness.” arXiv:2602.20585, 2026. arXiv:2602.20585 Open PDF Notes Index If the preview does not load in your browser, use Open PDF .",
-      "title_en": "Convexity in the Necessity Direction of Theorem 11",
-      "excerpt_en": "A note on the convexification step in the necessity direction of Theorem 11, including the envelope submeasure, fragmentation numbers, and the bridge from a general distribution class U to the convex setting used in Lemma 18 and Theorem 19."
-    },
-    {
-      "title": "稀疏化后的 Exact Huber GLMs：Active Curvature 与 Kink Switching",
-      "url": "notes/huber_glm_sparsification_refinement_note.html",
-      "section": "Technical Notes",
-      "date": "2026-07-15",
-      "excerpt": "研究稀疏化后的局部 refinement 是否能够保留 exact Huber loss 的 active quadratic curvature，同时控制 affine-tail behavior 与 Huber kink 附近的切换。",
-      "tags": [
-        "math",
-        "article"
-      ],
-      "sort": 20260715,
-      "scope": "math",
-      "content": "Selected Work Research Statement Technical Notes Back to Technical Notes Exact Huber GLMs after Sparsification: Active Curvature and Kink Switching Feier Lyu · Exploratory derivation · Optimization / Sparsification / GLMs · April 2026 · updated July 2026 This note asks whether a sparsified local refinement step can preserve the active quadratic curvature of exact Huber losses while controlling affine-tail behavior and switching near the Huber kink. Open PDF Notes Index If the preview does not load in your browser, use Open PDF .",
-      "title_en": "Exact Huber GLMs after Sparsification: Active Curvature and Kink Switching",
-      "excerpt_en": "A note on whether sparsified local refinement can preserve the active quadratic curvature of exact Huber losses while controlling affine-tail behavior and switching near the Huber kink."
     },
     {
       "title": "网络定位中的二阶几何：研究概览",

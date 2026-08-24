@@ -7,10 +7,13 @@
 
   function normalizeText(value) {
     var shared = getShared();
+    var normalized;
     if (shared && typeof shared.normalizeText === "function") {
-      return shared.normalizeText(value);
+      normalized = shared.normalizeText(value);
+    } else {
+      normalized = String(value || "");
     }
-    return String(value || "");
+    return String(normalized || "").replace(/[\u2010-\u2015\u2212-]+/g, " ").replace(/\s+/g, " ");
   }
 
   function detectPreferredLanguage() {

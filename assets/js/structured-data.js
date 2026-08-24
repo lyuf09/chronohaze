@@ -12,6 +12,8 @@
   var CHRONOHAZE_WEBSITE_ID = CHRONOHAZE_SITE_URL + "#website";
   var CHRONOHAZE_PERSON_ID = CHRONOHAZE_SITE_URL + "#person";
   var CHRONOHAZE_PERSON_SAME_AS = [
+    "https://orcid.org/0009-0000-5670-8831",
+    "https://isa-afp.org/authors/lyu/",
     "https://github.com/lyuf09",
     "https://www.linkedin.com/in/fay-lyu-uoe/",
     "https://www.instagram.com/lyuf09",
@@ -172,6 +174,7 @@
       alternateName: ["Fay Lyu", "Feier Lyu", "Feier", "HazezZ"],
       givenName: "Feier",
       familyName: "Lyu",
+      email: "mailto:s2528336@ed.ac.uk",
       url: CHRONOHAZE_SITE_URL,
       image: CHRONOHAZE_SITE_URL + "assets/template/hero_portrait-1600.jpg",
       description:

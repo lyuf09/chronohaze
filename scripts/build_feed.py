@@ -52,7 +52,10 @@ def main() -> int:
     items.extend(item for item in PINNED_NOTE_ITEMS if item['url'] not in known_urls)
     items.sort(key=lambda item: str(item.get('date') or ''), reverse=True)
 
-    last_build = rfc2822_from_iso(items[0]['date']) if items else format_datetime(datetime.now(timezone.utc))
+    # lastBuildDate describes the feed document itself, not the publication date
+    # of its newest item.  Emitting the build time prevents stale feed metadata
+    # when an existing note is revised without changing its original pubDate.
+    last_build = format_datetime(datetime.now(timezone.utc))
 
     lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',

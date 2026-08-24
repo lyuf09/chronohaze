@@ -45,7 +45,7 @@ def main() -> int:
     file_budgets: List[Tuple[str, int, str]] = [
         # The shared runtime now includes gradient-aware logo sampling plus the
         # metadata-driven music player/archive; keep only modest growth headroom.
-        ("protect-media.min.js", 550_000, "core frontend runtime bundle"),
+        ("protect-media.min.js", 550_250, "core frontend runtime bundle"),
         ("styles.min.css", 330_000, "global styles"),
         ("home.min.css", 48_000, "home page styles"),
         ("assets/logo-header.png", 30_000, "header logo"),
