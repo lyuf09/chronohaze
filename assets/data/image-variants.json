@@ -6,6 +6,2951 @@
   ],
   "avif_encoder_available": false,
   "items": {
+    "assets/images/wix/64569d_00196b84d6a6459da233c1a4086a893f~mv2.jpg": {
+      "original": {
+        "width": 1600,
+        "height": 2400
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_00196b84d6a6459da233c1a4086a893f~mv2-960.webp 960w, assets/images/wix/64569d_00196b84d6a6459da233c1a4086a893f~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_00196b84d6a6459da233c1a4086a893f~mv2-960.webp",
+            "assets/images/wix/64569d_00196b84d6a6459da233c1a4086a893f~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_00ef1a6244e4404ba7ce76e7428d93fa~mv2.jpg": {
+      "original": {
+        "width": 4000,
+        "height": 2667
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_00ef1a6244e4404ba7ce76e7428d93fa~mv2-960.webp 960w, assets/images/wix/64569d_00ef1a6244e4404ba7ce76e7428d93fa~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_00ef1a6244e4404ba7ce76e7428d93fa~mv2-960.webp",
+            "assets/images/wix/64569d_00ef1a6244e4404ba7ce76e7428d93fa~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_03eb3aa7c19a4560932b46bfb5cd8cec~mv2.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_03eb3aa7c19a4560932b46bfb5cd8cec~mv2-960.webp 960w, assets/images/wix/64569d_03eb3aa7c19a4560932b46bfb5cd8cec~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_03eb3aa7c19a4560932b46bfb5cd8cec~mv2-960.webp",
+            "assets/images/wix/64569d_03eb3aa7c19a4560932b46bfb5cd8cec~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_0511d44ee3764f26a4f422716b797ba5~mv2.jpg": {
+      "original": {
+        "width": 2667,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_0511d44ee3764f26a4f422716b797ba5~mv2-960.webp 960w, assets/images/wix/64569d_0511d44ee3764f26a4f422716b797ba5~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_0511d44ee3764f26a4f422716b797ba5~mv2-960.webp",
+            "assets/images/wix/64569d_0511d44ee3764f26a4f422716b797ba5~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_054359aaacec4a74ba72ad9fdac550e4~mv2.jpg": {
+      "original": {
+        "width": 1600,
+        "height": 2400
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_054359aaacec4a74ba72ad9fdac550e4~mv2-960.webp 960w, assets/images/wix/64569d_054359aaacec4a74ba72ad9fdac550e4~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_054359aaacec4a74ba72ad9fdac550e4~mv2-960.webp",
+            "assets/images/wix/64569d_054359aaacec4a74ba72ad9fdac550e4~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_05b2cb0d69c24e418dbb813c230ef4a1~mv2.jpg": {
+      "original": {
+        "width": 4000,
+        "height": 2667
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_05b2cb0d69c24e418dbb813c230ef4a1~mv2-960.webp 960w, assets/images/wix/64569d_05b2cb0d69c24e418dbb813c230ef4a1~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_05b2cb0d69c24e418dbb813c230ef4a1~mv2-960.webp",
+            "assets/images/wix/64569d_05b2cb0d69c24e418dbb813c230ef4a1~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_05ed500f21dd457b83e4a0408d854c09~mv2.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_05ed500f21dd457b83e4a0408d854c09~mv2-960.webp 960w, assets/images/wix/64569d_05ed500f21dd457b83e4a0408d854c09~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_05ed500f21dd457b83e4a0408d854c09~mv2-960.webp",
+            "assets/images/wix/64569d_05ed500f21dd457b83e4a0408d854c09~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_06f8f207dc77495c9940089581f9853f~mv2.jpg": {
+      "original": {
+        "width": 4000,
+        "height": 3000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_06f8f207dc77495c9940089581f9853f~mv2-960.webp 960w, assets/images/wix/64569d_06f8f207dc77495c9940089581f9853f~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_06f8f207dc77495c9940089581f9853f~mv2-960.webp",
+            "assets/images/wix/64569d_06f8f207dc77495c9940089581f9853f~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_0f30307d9b61425fa68251b5cb0ec6f3~mv2.jpg": {
+      "original": {
+        "width": 2571,
+        "height": 3857
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_0f30307d9b61425fa68251b5cb0ec6f3~mv2-960.webp 960w, assets/images/wix/64569d_0f30307d9b61425fa68251b5cb0ec6f3~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_0f30307d9b61425fa68251b5cb0ec6f3~mv2-960.webp",
+            "assets/images/wix/64569d_0f30307d9b61425fa68251b5cb0ec6f3~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_1a8a95cde1954064ab388a8570cb5d06~mv2.jpg": {
+      "original": {
+        "width": 2248,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_1a8a95cde1954064ab388a8570cb5d06~mv2-960.webp 960w, assets/images/wix/64569d_1a8a95cde1954064ab388a8570cb5d06~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_1a8a95cde1954064ab388a8570cb5d06~mv2-960.webp",
+            "assets/images/wix/64569d_1a8a95cde1954064ab388a8570cb5d06~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_1aef6eb09d984e1196bcde53e619416e~mv2.jpg": {
+      "original": {
+        "width": 2667,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_1aef6eb09d984e1196bcde53e619416e~mv2-960.webp 960w, assets/images/wix/64569d_1aef6eb09d984e1196bcde53e619416e~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_1aef6eb09d984e1196bcde53e619416e~mv2-960.webp",
+            "assets/images/wix/64569d_1aef6eb09d984e1196bcde53e619416e~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_1e00890cb3bd4cc9bc0e9463564bb341~mv2.jpg": {
+      "original": {
+        "width": 2667,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_1e00890cb3bd4cc9bc0e9463564bb341~mv2-960.webp 960w, assets/images/wix/64569d_1e00890cb3bd4cc9bc0e9463564bb341~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_1e00890cb3bd4cc9bc0e9463564bb341~mv2-960.webp",
+            "assets/images/wix/64569d_1e00890cb3bd4cc9bc0e9463564bb341~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_1e403deae2ec4f5b8dd0b5c941db19a0~mv2.jpg": {
+      "original": {
+        "width": 4000,
+        "height": 2667
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_1e403deae2ec4f5b8dd0b5c941db19a0~mv2-960.webp 960w, assets/images/wix/64569d_1e403deae2ec4f5b8dd0b5c941db19a0~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_1e403deae2ec4f5b8dd0b5c941db19a0~mv2-960.webp",
+            "assets/images/wix/64569d_1e403deae2ec4f5b8dd0b5c941db19a0~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_1ee8830df0f546f796e622e7b9b3280a~mv2.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_1ee8830df0f546f796e622e7b9b3280a~mv2-960.webp 960w, assets/images/wix/64569d_1ee8830df0f546f796e622e7b9b3280a~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_1ee8830df0f546f796e622e7b9b3280a~mv2-960.webp",
+            "assets/images/wix/64569d_1ee8830df0f546f796e622e7b9b3280a~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_1f61221c68ef4c35b613cb2cc6ab4836~mv2.jpg": {
+      "original": {
+        "width": 4000,
+        "height": 2667
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_1f61221c68ef4c35b613cb2cc6ab4836~mv2-960.webp 960w, assets/images/wix/64569d_1f61221c68ef4c35b613cb2cc6ab4836~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_1f61221c68ef4c35b613cb2cc6ab4836~mv2-960.webp",
+            "assets/images/wix/64569d_1f61221c68ef4c35b613cb2cc6ab4836~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_20e2590494ed45aab44bddb0e68ac10e~mv2.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_20e2590494ed45aab44bddb0e68ac10e~mv2-960.webp 960w, assets/images/wix/64569d_20e2590494ed45aab44bddb0e68ac10e~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_20e2590494ed45aab44bddb0e68ac10e~mv2-960.webp",
+            "assets/images/wix/64569d_20e2590494ed45aab44bddb0e68ac10e~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2.jpg": {
+      "original": {
+        "width": 1600,
+        "height": 2844
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2-960.webp 960w, assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2-960.webp",
+            "assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_2200642b1c83468fa68ee6dfaa5b2744~mv2.jpg": {
+      "original": {
+        "width": 2665,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_2200642b1c83468fa68ee6dfaa5b2744~mv2-960.webp 960w, assets/images/wix/64569d_2200642b1c83468fa68ee6dfaa5b2744~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_2200642b1c83468fa68ee6dfaa5b2744~mv2-960.webp",
+            "assets/images/wix/64569d_2200642b1c83468fa68ee6dfaa5b2744~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_22a20f848f204e70b9029f1ce4d1a723~mv2.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_22a20f848f204e70b9029f1ce4d1a723~mv2-960.webp 960w, assets/images/wix/64569d_22a20f848f204e70b9029f1ce4d1a723~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_22a20f848f204e70b9029f1ce4d1a723~mv2-960.webp",
+            "assets/images/wix/64569d_22a20f848f204e70b9029f1ce4d1a723~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_22a8ce9704cd4e47adcc644e50ccae3d~mv2.jpg": {
+      "original": {
+        "width": 2667,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_22a8ce9704cd4e47adcc644e50ccae3d~mv2-960.webp 960w, assets/images/wix/64569d_22a8ce9704cd4e47adcc644e50ccae3d~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_22a8ce9704cd4e47adcc644e50ccae3d~mv2-960.webp",
+            "assets/images/wix/64569d_22a8ce9704cd4e47adcc644e50ccae3d~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_27c782ee2603435da5fa719127442d5a~mv2.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_27c782ee2603435da5fa719127442d5a~mv2-960.webp 960w, assets/images/wix/64569d_27c782ee2603435da5fa719127442d5a~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_27c782ee2603435da5fa719127442d5a~mv2-960.webp",
+            "assets/images/wix/64569d_27c782ee2603435da5fa719127442d5a~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_297d7edf597e4edeac7128fe569fbebb~mv2.jpg": {
+      "original": {
+        "width": 4000,
+        "height": 2667
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_297d7edf597e4edeac7128fe569fbebb~mv2-960.webp 960w, assets/images/wix/64569d_297d7edf597e4edeac7128fe569fbebb~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_297d7edf597e4edeac7128fe569fbebb~mv2-960.webp",
+            "assets/images/wix/64569d_297d7edf597e4edeac7128fe569fbebb~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_298427b8c3544dc6a2f432ee408eafd0~mv2.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_298427b8c3544dc6a2f432ee408eafd0~mv2-960.webp 960w, assets/images/wix/64569d_298427b8c3544dc6a2f432ee408eafd0~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_298427b8c3544dc6a2f432ee408eafd0~mv2-960.webp",
+            "assets/images/wix/64569d_298427b8c3544dc6a2f432ee408eafd0~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_2b93e55b57ef4301821826a5d8656a9f~mv2.jpg": {
+      "original": {
+        "width": 1600,
+        "height": 2400
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_2b93e55b57ef4301821826a5d8656a9f~mv2-960.webp 960w, assets/images/wix/64569d_2b93e55b57ef4301821826a5d8656a9f~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_2b93e55b57ef4301821826a5d8656a9f~mv2-960.webp",
+            "assets/images/wix/64569d_2b93e55b57ef4301821826a5d8656a9f~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_2de314b002764b8791462ced9db2c863~mv2.jpg": {
+      "original": {
+        "width": 2667,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_2de314b002764b8791462ced9db2c863~mv2-960.webp 960w, assets/images/wix/64569d_2de314b002764b8791462ced9db2c863~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_2de314b002764b8791462ced9db2c863~mv2-960.webp",
+            "assets/images/wix/64569d_2de314b002764b8791462ced9db2c863~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_2e2dac51acb04995bc93592d4c52d6cb~mv2.jpg": {
+      "original": {
+        "width": 2667,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_2e2dac51acb04995bc93592d4c52d6cb~mv2-960.webp 960w, assets/images/wix/64569d_2e2dac51acb04995bc93592d4c52d6cb~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_2e2dac51acb04995bc93592d4c52d6cb~mv2-960.webp",
+            "assets/images/wix/64569d_2e2dac51acb04995bc93592d4c52d6cb~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_2e3758df8e6649d8be90a9e67f66f9f0~mv2.jpg": {
+      "original": {
+        "width": 2666,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_2e3758df8e6649d8be90a9e67f66f9f0~mv2-960.webp 960w, assets/images/wix/64569d_2e3758df8e6649d8be90a9e67f66f9f0~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_2e3758df8e6649d8be90a9e67f66f9f0~mv2-960.webp",
+            "assets/images/wix/64569d_2e3758df8e6649d8be90a9e67f66f9f0~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_347fc3179f9843b18e58b253e797f1be~mv2.jpg": {
+      "original": {
+        "width": 2667,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_347fc3179f9843b18e58b253e797f1be~mv2-960.webp 960w, assets/images/wix/64569d_347fc3179f9843b18e58b253e797f1be~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_347fc3179f9843b18e58b253e797f1be~mv2-960.webp",
+            "assets/images/wix/64569d_347fc3179f9843b18e58b253e797f1be~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_37933959d3fc411ea21bc48ee1dc69e8~mv2.jpg": {
+      "original": {
+        "width": 1673,
+        "height": 2510
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_37933959d3fc411ea21bc48ee1dc69e8~mv2-960.webp 960w, assets/images/wix/64569d_37933959d3fc411ea21bc48ee1dc69e8~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_37933959d3fc411ea21bc48ee1dc69e8~mv2-960.webp",
+            "assets/images/wix/64569d_37933959d3fc411ea21bc48ee1dc69e8~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_37bfe52cc93f4dbba5604d4e1e8406af~mv2.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_37bfe52cc93f4dbba5604d4e1e8406af~mv2-960.webp 960w, assets/images/wix/64569d_37bfe52cc93f4dbba5604d4e1e8406af~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_37bfe52cc93f4dbba5604d4e1e8406af~mv2-960.webp",
+            "assets/images/wix/64569d_37bfe52cc93f4dbba5604d4e1e8406af~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_4195bebf7fb244e8b7591015da58bef7~mv2.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_4195bebf7fb244e8b7591015da58bef7~mv2-960.webp 960w, assets/images/wix/64569d_4195bebf7fb244e8b7591015da58bef7~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_4195bebf7fb244e8b7591015da58bef7~mv2-960.webp",
+            "assets/images/wix/64569d_4195bebf7fb244e8b7591015da58bef7~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_42bd3c5f48374c43af9ee00a9da9d32a~mv2.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_42bd3c5f48374c43af9ee00a9da9d32a~mv2-960.webp 960w, assets/images/wix/64569d_42bd3c5f48374c43af9ee00a9da9d32a~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_42bd3c5f48374c43af9ee00a9da9d32a~mv2-960.webp",
+            "assets/images/wix/64569d_42bd3c5f48374c43af9ee00a9da9d32a~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_454a21afe61843aca2fb15da42e5d073~mv2.jpg": {
+      "original": {
+        "width": 1704,
+        "height": 2557
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_454a21afe61843aca2fb15da42e5d073~mv2-960.webp 960w, assets/images/wix/64569d_454a21afe61843aca2fb15da42e5d073~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_454a21afe61843aca2fb15da42e5d073~mv2-960.webp",
+            "assets/images/wix/64569d_454a21afe61843aca2fb15da42e5d073~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_495095ffb2764020b4a4b43e0abec8a8~mv2.jpg": {
+      "original": {
+        "width": 2667,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_495095ffb2764020b4a4b43e0abec8a8~mv2-960.webp 960w, assets/images/wix/64569d_495095ffb2764020b4a4b43e0abec8a8~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_495095ffb2764020b4a4b43e0abec8a8~mv2-960.webp",
+            "assets/images/wix/64569d_495095ffb2764020b4a4b43e0abec8a8~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_4c72cf2663cc4740ae26a3621f5f8633~mv2.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_4c72cf2663cc4740ae26a3621f5f8633~mv2-960.webp 960w, assets/images/wix/64569d_4c72cf2663cc4740ae26a3621f5f8633~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_4c72cf2663cc4740ae26a3621f5f8633~mv2-960.webp",
+            "assets/images/wix/64569d_4c72cf2663cc4740ae26a3621f5f8633~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_4e9f4e3bc9c04834925368ca851fa84d~mv2.jpg": {
+      "original": {
+        "width": 2667,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_4e9f4e3bc9c04834925368ca851fa84d~mv2-960.webp 960w, assets/images/wix/64569d_4e9f4e3bc9c04834925368ca851fa84d~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_4e9f4e3bc9c04834925368ca851fa84d~mv2-960.webp",
+            "assets/images/wix/64569d_4e9f4e3bc9c04834925368ca851fa84d~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_535de1df7406431ab9ca4d0ae4b2dac8~mv2.jpg": {
+      "original": {
+        "width": 2667,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_535de1df7406431ab9ca4d0ae4b2dac8~mv2-960.webp 960w, assets/images/wix/64569d_535de1df7406431ab9ca4d0ae4b2dac8~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_535de1df7406431ab9ca4d0ae4b2dac8~mv2-960.webp",
+            "assets/images/wix/64569d_535de1df7406431ab9ca4d0ae4b2dac8~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_55f9926318ec4f7faf41b0f55683fe22~mv2.jpg": {
+      "original": {
+        "width": 4000,
+        "height": 3199
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_55f9926318ec4f7faf41b0f55683fe22~mv2-960.webp 960w, assets/images/wix/64569d_55f9926318ec4f7faf41b0f55683fe22~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_55f9926318ec4f7faf41b0f55683fe22~mv2-960.webp",
+            "assets/images/wix/64569d_55f9926318ec4f7faf41b0f55683fe22~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2.jpg": {
+      "original": {
+        "width": 4000,
+        "height": 3200
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2-960.webp 960w, assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2-960.webp",
+            "assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_581c340d32234776b66920f2ce98f0f1~mv2.jpg": {
+      "original": {
+        "width": 4000,
+        "height": 2667
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_581c340d32234776b66920f2ce98f0f1~mv2-960.webp 960w, assets/images/wix/64569d_581c340d32234776b66920f2ce98f0f1~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_581c340d32234776b66920f2ce98f0f1~mv2-960.webp",
+            "assets/images/wix/64569d_581c340d32234776b66920f2ce98f0f1~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_58a99a61c609479abfa5859a51325280~mv2.jpg": {
+      "original": {
+        "width": 1635,
+        "height": 2454
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_58a99a61c609479abfa5859a51325280~mv2-960.webp 960w, assets/images/wix/64569d_58a99a61c609479abfa5859a51325280~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_58a99a61c609479abfa5859a51325280~mv2-960.webp",
+            "assets/images/wix/64569d_58a99a61c609479abfa5859a51325280~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_58fc50d6b50e41e9a0b664f30ab32237~mv2.jpg": {
+      "original": {
+        "width": 4000,
+        "height": 2667
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_58fc50d6b50e41e9a0b664f30ab32237~mv2-960.webp 960w, assets/images/wix/64569d_58fc50d6b50e41e9a0b664f30ab32237~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_58fc50d6b50e41e9a0b664f30ab32237~mv2-960.webp",
+            "assets/images/wix/64569d_58fc50d6b50e41e9a0b664f30ab32237~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_59fe65a41e7d4470921c5e5e5feb9ab8~mv2.jpg": {
+      "original": {
+        "width": 2667,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_59fe65a41e7d4470921c5e5e5feb9ab8~mv2-960.webp 960w, assets/images/wix/64569d_59fe65a41e7d4470921c5e5e5feb9ab8~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_59fe65a41e7d4470921c5e5e5feb9ab8~mv2-960.webp",
+            "assets/images/wix/64569d_59fe65a41e7d4470921c5e5e5feb9ab8~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_5a7b38fc3bc84c1a8e71f0f2d148b1a7~mv2.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_5a7b38fc3bc84c1a8e71f0f2d148b1a7~mv2-960.webp 960w, assets/images/wix/64569d_5a7b38fc3bc84c1a8e71f0f2d148b1a7~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_5a7b38fc3bc84c1a8e71f0f2d148b1a7~mv2-960.webp",
+            "assets/images/wix/64569d_5a7b38fc3bc84c1a8e71f0f2d148b1a7~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_5c988aa2a7b6456f96cbfb8f49b81614~mv2.jpg": {
+      "original": {
+        "width": 3292,
+        "height": 3292
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_5c988aa2a7b6456f96cbfb8f49b81614~mv2-960.webp 960w, assets/images/wix/64569d_5c988aa2a7b6456f96cbfb8f49b81614~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_5c988aa2a7b6456f96cbfb8f49b81614~mv2-960.webp",
+            "assets/images/wix/64569d_5c988aa2a7b6456f96cbfb8f49b81614~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_5dbb0f58c9e5489489353f758c59325b~mv2.jpg": {
+      "original": {
+        "width": 2527,
+        "height": 3791
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_5dbb0f58c9e5489489353f758c59325b~mv2-960.webp 960w, assets/images/wix/64569d_5dbb0f58c9e5489489353f758c59325b~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_5dbb0f58c9e5489489353f758c59325b~mv2-960.webp",
+            "assets/images/wix/64569d_5dbb0f58c9e5489489353f758c59325b~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_62839f58126b414490a257dcce918681~mv2.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_62839f58126b414490a257dcce918681~mv2-960.webp 960w, assets/images/wix/64569d_62839f58126b414490a257dcce918681~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_62839f58126b414490a257dcce918681~mv2-960.webp",
+            "assets/images/wix/64569d_62839f58126b414490a257dcce918681~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_656abcf9a3674dd4b5df3cfc5fdd5a23~mv2.jpg": {
+      "original": {
+        "width": 4000,
+        "height": 2667
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_656abcf9a3674dd4b5df3cfc5fdd5a23~mv2-960.webp 960w, assets/images/wix/64569d_656abcf9a3674dd4b5df3cfc5fdd5a23~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_656abcf9a3674dd4b5df3cfc5fdd5a23~mv2-960.webp",
+            "assets/images/wix/64569d_656abcf9a3674dd4b5df3cfc5fdd5a23~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_66d4f42ee0f34be8a89ec856e0254f22~mv2.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_66d4f42ee0f34be8a89ec856e0254f22~mv2-960.webp 960w, assets/images/wix/64569d_66d4f42ee0f34be8a89ec856e0254f22~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_66d4f42ee0f34be8a89ec856e0254f22~mv2-960.webp",
+            "assets/images/wix/64569d_66d4f42ee0f34be8a89ec856e0254f22~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_68b0aaa497284bc198034dbe050cbd4b~mv2.jpg": {
+      "original": {
+        "width": 2667,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_68b0aaa497284bc198034dbe050cbd4b~mv2-960.webp 960w, assets/images/wix/64569d_68b0aaa497284bc198034dbe050cbd4b~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_68b0aaa497284bc198034dbe050cbd4b~mv2-960.webp",
+            "assets/images/wix/64569d_68b0aaa497284bc198034dbe050cbd4b~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_6abc632673934656beef94d62d3bdc89~mv2.jpg": {
+      "original": {
+        "width": 2832,
+        "height": 1593
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_6abc632673934656beef94d62d3bdc89~mv2-960.webp 960w, assets/images/wix/64569d_6abc632673934656beef94d62d3bdc89~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_6abc632673934656beef94d62d3bdc89~mv2-960.webp",
+            "assets/images/wix/64569d_6abc632673934656beef94d62d3bdc89~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_704062573af242d7899a80e769d927ff~mv2.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_704062573af242d7899a80e769d927ff~mv2-960.webp 960w, assets/images/wix/64569d_704062573af242d7899a80e769d927ff~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_704062573af242d7899a80e769d927ff~mv2-960.webp",
+            "assets/images/wix/64569d_704062573af242d7899a80e769d927ff~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_707ef1946eb24c0088d001a4c660e5a9~mv2.jpg": {
+      "original": {
+        "width": 2667,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_707ef1946eb24c0088d001a4c660e5a9~mv2-960.webp 960w, assets/images/wix/64569d_707ef1946eb24c0088d001a4c660e5a9~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_707ef1946eb24c0088d001a4c660e5a9~mv2-960.webp",
+            "assets/images/wix/64569d_707ef1946eb24c0088d001a4c660e5a9~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_7853c42d30c74d74ba23faafc4f34373~mv2.jpg": {
+      "original": {
+        "width": 2592,
+        "height": 1728
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_7853c42d30c74d74ba23faafc4f34373~mv2-960.webp 960w, assets/images/wix/64569d_7853c42d30c74d74ba23faafc4f34373~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_7853c42d30c74d74ba23faafc4f34373~mv2-960.webp",
+            "assets/images/wix/64569d_7853c42d30c74d74ba23faafc4f34373~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_7a07905c6fba4d49863aed22c441b0c4~mv2.jpg": {
+      "original": {
+        "width": 2667,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_7a07905c6fba4d49863aed22c441b0c4~mv2-960.webp 960w, assets/images/wix/64569d_7a07905c6fba4d49863aed22c441b0c4~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_7a07905c6fba4d49863aed22c441b0c4~mv2-960.webp",
+            "assets/images/wix/64569d_7a07905c6fba4d49863aed22c441b0c4~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_7df9125559d84db38fd1fa8469b71cbd~mv2.jpg": {
+      "original": {
+        "width": 2747,
+        "height": 3663
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_7df9125559d84db38fd1fa8469b71cbd~mv2-960.webp 960w, assets/images/wix/64569d_7df9125559d84db38fd1fa8469b71cbd~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_7df9125559d84db38fd1fa8469b71cbd~mv2-960.webp",
+            "assets/images/wix/64569d_7df9125559d84db38fd1fa8469b71cbd~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_7e4dfb41092549b880840e8121522dc2~mv2.jpg": {
+      "original": {
+        "width": 2666,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_7e4dfb41092549b880840e8121522dc2~mv2-960.webp 960w, assets/images/wix/64569d_7e4dfb41092549b880840e8121522dc2~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_7e4dfb41092549b880840e8121522dc2~mv2-960.webp",
+            "assets/images/wix/64569d_7e4dfb41092549b880840e8121522dc2~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_8164a105bab542b5b042bf863c091bd9~mv2.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_8164a105bab542b5b042bf863c091bd9~mv2-960.webp 960w, assets/images/wix/64569d_8164a105bab542b5b042bf863c091bd9~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_8164a105bab542b5b042bf863c091bd9~mv2-960.webp",
+            "assets/images/wix/64569d_8164a105bab542b5b042bf863c091bd9~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_81afd7f6d1e6480dba313cb493da9d8a~mv2.jpg": {
+      "original": {
+        "width": 3456,
+        "height": 1944
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_81afd7f6d1e6480dba313cb493da9d8a~mv2-960.webp 960w, assets/images/wix/64569d_81afd7f6d1e6480dba313cb493da9d8a~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_81afd7f6d1e6480dba313cb493da9d8a~mv2-960.webp",
+            "assets/images/wix/64569d_81afd7f6d1e6480dba313cb493da9d8a~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_843c88f174954e52957fd6a252123e4d~mv2.jpg": {
+      "original": {
+        "width": 2667,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_843c88f174954e52957fd6a252123e4d~mv2-960.webp 960w, assets/images/wix/64569d_843c88f174954e52957fd6a252123e4d~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_843c88f174954e52957fd6a252123e4d~mv2-960.webp",
+            "assets/images/wix/64569d_843c88f174954e52957fd6a252123e4d~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_8cbbdf8972e0431a8955bc07da2dd98a~mv2.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_8cbbdf8972e0431a8955bc07da2dd98a~mv2-960.webp 960w, assets/images/wix/64569d_8cbbdf8972e0431a8955bc07da2dd98a~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_8cbbdf8972e0431a8955bc07da2dd98a~mv2-960.webp",
+            "assets/images/wix/64569d_8cbbdf8972e0431a8955bc07da2dd98a~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_8e3800c0fec94e46bab7eb83b144c73b~mv2.jpg": {
+      "original": {
+        "width": 2666,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_8e3800c0fec94e46bab7eb83b144c73b~mv2-960.webp 960w, assets/images/wix/64569d_8e3800c0fec94e46bab7eb83b144c73b~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_8e3800c0fec94e46bab7eb83b144c73b~mv2-960.webp",
+            "assets/images/wix/64569d_8e3800c0fec94e46bab7eb83b144c73b~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_907e18a111724364af408b96a36d12e3~mv2.jpg": {
+      "original": {
+        "width": 2666,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_907e18a111724364af408b96a36d12e3~mv2-960.webp 960w, assets/images/wix/64569d_907e18a111724364af408b96a36d12e3~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_907e18a111724364af408b96a36d12e3~mv2-960.webp",
+            "assets/images/wix/64569d_907e18a111724364af408b96a36d12e3~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_90838b13fcc848ff8de5a00a2cf7fb95~mv2.jpg": {
+      "original": {
+        "width": 4000,
+        "height": 3199
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_90838b13fcc848ff8de5a00a2cf7fb95~mv2-960.webp 960w, assets/images/wix/64569d_90838b13fcc848ff8de5a00a2cf7fb95~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_90838b13fcc848ff8de5a00a2cf7fb95~mv2-960.webp",
+            "assets/images/wix/64569d_90838b13fcc848ff8de5a00a2cf7fb95~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_95142c0fbcf645d1b9891972dd7986df~mv2.jpg": {
+      "original": {
+        "width": 2666,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_95142c0fbcf645d1b9891972dd7986df~mv2-960.webp 960w, assets/images/wix/64569d_95142c0fbcf645d1b9891972dd7986df~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_95142c0fbcf645d1b9891972dd7986df~mv2-960.webp",
+            "assets/images/wix/64569d_95142c0fbcf645d1b9891972dd7986df~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_96f2b03845d743eab2cf5e782d9f2cf0~mv2.jpg": {
+      "original": {
+        "width": 2667,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_96f2b03845d743eab2cf5e782d9f2cf0~mv2-960.webp 960w, assets/images/wix/64569d_96f2b03845d743eab2cf5e782d9f2cf0~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_96f2b03845d743eab2cf5e782d9f2cf0~mv2-960.webp",
+            "assets/images/wix/64569d_96f2b03845d743eab2cf5e782d9f2cf0~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_97ffe116e3bf42698e272c57b41d3578~mv2.jpg": {
+      "original": {
+        "width": 4000,
+        "height": 3199
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_97ffe116e3bf42698e272c57b41d3578~mv2-960.webp 960w, assets/images/wix/64569d_97ffe116e3bf42698e272c57b41d3578~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_97ffe116e3bf42698e272c57b41d3578~mv2-960.webp",
+            "assets/images/wix/64569d_97ffe116e3bf42698e272c57b41d3578~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_99933ace73524fe7a242962446eff339~mv2.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_99933ace73524fe7a242962446eff339~mv2-960.webp 960w, assets/images/wix/64569d_99933ace73524fe7a242962446eff339~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_99933ace73524fe7a242962446eff339~mv2-960.webp",
+            "assets/images/wix/64569d_99933ace73524fe7a242962446eff339~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_9b3be6e451df44839802af8fa22faf6e~mv2.jpg": {
+      "original": {
+        "width": 2667,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_9b3be6e451df44839802af8fa22faf6e~mv2-960.webp 960w, assets/images/wix/64569d_9b3be6e451df44839802af8fa22faf6e~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_9b3be6e451df44839802af8fa22faf6e~mv2-960.webp",
+            "assets/images/wix/64569d_9b3be6e451df44839802af8fa22faf6e~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_9fb2f5d679bf4603b7f723675511c5fc~mv2.jpg": {
+      "original": {
+        "width": 2667,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_9fb2f5d679bf4603b7f723675511c5fc~mv2-960.webp 960w, assets/images/wix/64569d_9fb2f5d679bf4603b7f723675511c5fc~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_9fb2f5d679bf4603b7f723675511c5fc~mv2-960.webp",
+            "assets/images/wix/64569d_9fb2f5d679bf4603b7f723675511c5fc~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_a0be00e0be24446a8905a4dd07866559~mv2.jpg": {
+      "original": {
+        "width": 1600,
+        "height": 2400
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_a0be00e0be24446a8905a4dd07866559~mv2-960.webp 960w, assets/images/wix/64569d_a0be00e0be24446a8905a4dd07866559~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_a0be00e0be24446a8905a4dd07866559~mv2-960.webp",
+            "assets/images/wix/64569d_a0be00e0be24446a8905a4dd07866559~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_a51b6cba8d4747c3b99f0d09b4f6388c~mv2.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_a51b6cba8d4747c3b99f0d09b4f6388c~mv2-960.webp 960w, assets/images/wix/64569d_a51b6cba8d4747c3b99f0d09b4f6388c~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_a51b6cba8d4747c3b99f0d09b4f6388c~mv2-960.webp",
+            "assets/images/wix/64569d_a51b6cba8d4747c3b99f0d09b4f6388c~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_a65334ca897744acbd009b828f85b121~mv2.png": {
+      "original": {
+        "width": 3000,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_a65334ca897744acbd009b828f85b121~mv2-960.webp 960w, assets/images/wix/64569d_a65334ca897744acbd009b828f85b121~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_a65334ca897744acbd009b828f85b121~mv2-960.webp",
+            "assets/images/wix/64569d_a65334ca897744acbd009b828f85b121~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_a77d50d540b9480a97e8ad4b30cac3e6~mv2.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_a77d50d540b9480a97e8ad4b30cac3e6~mv2-960.webp 960w, assets/images/wix/64569d_a77d50d540b9480a97e8ad4b30cac3e6~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_a77d50d540b9480a97e8ad4b30cac3e6~mv2-960.webp",
+            "assets/images/wix/64569d_a77d50d540b9480a97e8ad4b30cac3e6~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_a83de330373943b0a961d11acc073e4a~mv2.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_a83de330373943b0a961d11acc073e4a~mv2-960.webp 960w, assets/images/wix/64569d_a83de330373943b0a961d11acc073e4a~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_a83de330373943b0a961d11acc073e4a~mv2-960.webp",
+            "assets/images/wix/64569d_a83de330373943b0a961d11acc073e4a~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_ab688ccfedde44ad8a752dfd0ba8542b~mv2.jpg": {
+      "original": {
+        "width": 2666,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_ab688ccfedde44ad8a752dfd0ba8542b~mv2-960.webp 960w, assets/images/wix/64569d_ab688ccfedde44ad8a752dfd0ba8542b~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_ab688ccfedde44ad8a752dfd0ba8542b~mv2-960.webp",
+            "assets/images/wix/64569d_ab688ccfedde44ad8a752dfd0ba8542b~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_b17cf5f86f28473cbd8435965bb115f9~mv2.jpg": {
+      "original": {
+        "width": 4000,
+        "height": 2667
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_b17cf5f86f28473cbd8435965bb115f9~mv2-960.webp 960w, assets/images/wix/64569d_b17cf5f86f28473cbd8435965bb115f9~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_b17cf5f86f28473cbd8435965bb115f9~mv2-960.webp",
+            "assets/images/wix/64569d_b17cf5f86f28473cbd8435965bb115f9~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_b4d88d8239264d5a9586d467fb2a2903~mv2.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_b4d88d8239264d5a9586d467fb2a2903~mv2-960.webp 960w, assets/images/wix/64569d_b4d88d8239264d5a9586d467fb2a2903~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_b4d88d8239264d5a9586d467fb2a2903~mv2-960.webp",
+            "assets/images/wix/64569d_b4d88d8239264d5a9586d467fb2a2903~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_b5d8ebfda9064fa2a1a996e93181ee0e~mv2.jpg": {
+      "original": {
+        "width": 4000,
+        "height": 3199
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_b5d8ebfda9064fa2a1a996e93181ee0e~mv2-960.webp 960w, assets/images/wix/64569d_b5d8ebfda9064fa2a1a996e93181ee0e~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_b5d8ebfda9064fa2a1a996e93181ee0e~mv2-960.webp",
+            "assets/images/wix/64569d_b5d8ebfda9064fa2a1a996e93181ee0e~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_b80be6fe5418476d84218b9219e8b880~mv2.jpg": {
+      "original": {
+        "width": 4000,
+        "height": 3199
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_b80be6fe5418476d84218b9219e8b880~mv2-960.webp 960w, assets/images/wix/64569d_b80be6fe5418476d84218b9219e8b880~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_b80be6fe5418476d84218b9219e8b880~mv2-960.webp",
+            "assets/images/wix/64569d_b80be6fe5418476d84218b9219e8b880~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_bd0a374bf8454c4ca08d07bc5bd3b83f~mv2.jpg": {
+      "original": {
+        "width": 2667,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_bd0a374bf8454c4ca08d07bc5bd3b83f~mv2-960.webp 960w, assets/images/wix/64569d_bd0a374bf8454c4ca08d07bc5bd3b83f~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_bd0a374bf8454c4ca08d07bc5bd3b83f~mv2-960.webp",
+            "assets/images/wix/64569d_bd0a374bf8454c4ca08d07bc5bd3b83f~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_be41f82a836148449c2b263cc7fbb056~mv2.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_be41f82a836148449c2b263cc7fbb056~mv2-960.webp 960w, assets/images/wix/64569d_be41f82a836148449c2b263cc7fbb056~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_be41f82a836148449c2b263cc7fbb056~mv2-960.webp",
+            "assets/images/wix/64569d_be41f82a836148449c2b263cc7fbb056~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_bff92c6931bc436e8f9091942f6c898b~mv2.jpg": {
+      "original": {
+        "width": 2667,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_bff92c6931bc436e8f9091942f6c898b~mv2-960.webp 960w, assets/images/wix/64569d_bff92c6931bc436e8f9091942f6c898b~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_bff92c6931bc436e8f9091942f6c898b~mv2-960.webp",
+            "assets/images/wix/64569d_bff92c6931bc436e8f9091942f6c898b~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_c5eeee8aef564e078aaf8b606e271014~mv2.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_c5eeee8aef564e078aaf8b606e271014~mv2-960.webp 960w, assets/images/wix/64569d_c5eeee8aef564e078aaf8b606e271014~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_c5eeee8aef564e078aaf8b606e271014~mv2-960.webp",
+            "assets/images/wix/64569d_c5eeee8aef564e078aaf8b606e271014~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_c6a2c8a3f59d427db04db98512b3d900~mv2.jpg": {
+      "original": {
+        "width": 4000,
+        "height": 3199
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_c6a2c8a3f59d427db04db98512b3d900~mv2-960.webp 960w, assets/images/wix/64569d_c6a2c8a3f59d427db04db98512b3d900~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_c6a2c8a3f59d427db04db98512b3d900~mv2-960.webp",
+            "assets/images/wix/64569d_c6a2c8a3f59d427db04db98512b3d900~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_c9fcec2ffda041afb21dfd8f54bdb206~mv2.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_c9fcec2ffda041afb21dfd8f54bdb206~mv2-960.webp 960w, assets/images/wix/64569d_c9fcec2ffda041afb21dfd8f54bdb206~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_c9fcec2ffda041afb21dfd8f54bdb206~mv2-960.webp",
+            "assets/images/wix/64569d_c9fcec2ffda041afb21dfd8f54bdb206~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_ca63430063944704a9c5414e9a056f8e~mv2.jpg": {
+      "original": {
+        "width": 4000,
+        "height": 2667
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_ca63430063944704a9c5414e9a056f8e~mv2-960.webp 960w, assets/images/wix/64569d_ca63430063944704a9c5414e9a056f8e~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_ca63430063944704a9c5414e9a056f8e~mv2-960.webp",
+            "assets/images/wix/64569d_ca63430063944704a9c5414e9a056f8e~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_cbacc84f06f746d9afcd8a257a550150~mv2.jpg": {
+      "original": {
+        "width": 4000,
+        "height": 3200
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_cbacc84f06f746d9afcd8a257a550150~mv2-960.webp 960w, assets/images/wix/64569d_cbacc84f06f746d9afcd8a257a550150~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_cbacc84f06f746d9afcd8a257a550150~mv2-960.webp",
+            "assets/images/wix/64569d_cbacc84f06f746d9afcd8a257a550150~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2-960.webp 960w, assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2-960.webp",
+            "assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_d121fc39264b49ac8e8d2b970632637f~mv2.jpg": {
+      "original": {
+        "width": 4000,
+        "height": 2667
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_d121fc39264b49ac8e8d2b970632637f~mv2-960.webp 960w, assets/images/wix/64569d_d121fc39264b49ac8e8d2b970632637f~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_d121fc39264b49ac8e8d2b970632637f~mv2-960.webp",
+            "assets/images/wix/64569d_d121fc39264b49ac8e8d2b970632637f~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_d7ae8483633d46f0819abd80335c3524~mv2.jpg": {
+      "original": {
+        "width": 4000,
+        "height": 2667
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_d7ae8483633d46f0819abd80335c3524~mv2-960.webp 960w, assets/images/wix/64569d_d7ae8483633d46f0819abd80335c3524~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_d7ae8483633d46f0819abd80335c3524~mv2-960.webp",
+            "assets/images/wix/64569d_d7ae8483633d46f0819abd80335c3524~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_d9421cb643544b53975f3a941d51defe~mv2.jpg": {
+      "original": {
+        "width": 2667,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_d9421cb643544b53975f3a941d51defe~mv2-960.webp 960w, assets/images/wix/64569d_d9421cb643544b53975f3a941d51defe~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_d9421cb643544b53975f3a941d51defe~mv2-960.webp",
+            "assets/images/wix/64569d_d9421cb643544b53975f3a941d51defe~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_db5c80b9c2dc4e60bd05ff0831f66e12~mv2.jpg": {
+      "original": {
+        "width": 2592,
+        "height": 1728
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_db5c80b9c2dc4e60bd05ff0831f66e12~mv2-960.webp 960w, assets/images/wix/64569d_db5c80b9c2dc4e60bd05ff0831f66e12~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_db5c80b9c2dc4e60bd05ff0831f66e12~mv2-960.webp",
+            "assets/images/wix/64569d_db5c80b9c2dc4e60bd05ff0831f66e12~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_dc4aaf9c0ad24d8ebfcf251326c9aad7~mv2.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_dc4aaf9c0ad24d8ebfcf251326c9aad7~mv2-960.webp 960w, assets/images/wix/64569d_dc4aaf9c0ad24d8ebfcf251326c9aad7~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_dc4aaf9c0ad24d8ebfcf251326c9aad7~mv2-960.webp",
+            "assets/images/wix/64569d_dc4aaf9c0ad24d8ebfcf251326c9aad7~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_dd3062d3e01d4d5c9368bd47cfb94c78~mv2.jpg": {
+      "original": {
+        "width": 4000,
+        "height": 2667
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_dd3062d3e01d4d5c9368bd47cfb94c78~mv2-960.webp 960w, assets/images/wix/64569d_dd3062d3e01d4d5c9368bd47cfb94c78~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_dd3062d3e01d4d5c9368bd47cfb94c78~mv2-960.webp",
+            "assets/images/wix/64569d_dd3062d3e01d4d5c9368bd47cfb94c78~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_df5dca825344470cb8d01b85e48d640e~mv2.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_df5dca825344470cb8d01b85e48d640e~mv2-960.webp 960w, assets/images/wix/64569d_df5dca825344470cb8d01b85e48d640e~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_df5dca825344470cb8d01b85e48d640e~mv2-960.webp",
+            "assets/images/wix/64569d_df5dca825344470cb8d01b85e48d640e~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_e2ea9ed6fd2a4e729700fc2716450e5e~mv2.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_e2ea9ed6fd2a4e729700fc2716450e5e~mv2-960.webp 960w, assets/images/wix/64569d_e2ea9ed6fd2a4e729700fc2716450e5e~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_e2ea9ed6fd2a4e729700fc2716450e5e~mv2-960.webp",
+            "assets/images/wix/64569d_e2ea9ed6fd2a4e729700fc2716450e5e~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_e501bd1fe2604332b6f6d3711801143e~mv2.jpg": {
+      "original": {
+        "width": 2667,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_e501bd1fe2604332b6f6d3711801143e~mv2-960.webp 960w, assets/images/wix/64569d_e501bd1fe2604332b6f6d3711801143e~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_e501bd1fe2604332b6f6d3711801143e~mv2-960.webp",
+            "assets/images/wix/64569d_e501bd1fe2604332b6f6d3711801143e~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_e88d3c3777604d7fabd0ba2190643b90~mv2.jpg": {
+      "original": {
+        "width": 1600,
+        "height": 2400
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_e88d3c3777604d7fabd0ba2190643b90~mv2-960.webp 960w, assets/images/wix/64569d_e88d3c3777604d7fabd0ba2190643b90~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_e88d3c3777604d7fabd0ba2190643b90~mv2-960.webp",
+            "assets/images/wix/64569d_e88d3c3777604d7fabd0ba2190643b90~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_e946564eac394ddf87647aaf9821b515~mv2.jpg": {
+      "original": {
+        "width": 2666,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_e946564eac394ddf87647aaf9821b515~mv2-960.webp 960w, assets/images/wix/64569d_e946564eac394ddf87647aaf9821b515~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_e946564eac394ddf87647aaf9821b515~mv2-960.webp",
+            "assets/images/wix/64569d_e946564eac394ddf87647aaf9821b515~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_eb13d44921fe467f9fe87d3f21dfc716~mv2.jpg": {
+      "original": {
+        "width": 2844,
+        "height": 1600
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_eb13d44921fe467f9fe87d3f21dfc716~mv2-960.webp 960w, assets/images/wix/64569d_eb13d44921fe467f9fe87d3f21dfc716~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_eb13d44921fe467f9fe87d3f21dfc716~mv2-960.webp",
+            "assets/images/wix/64569d_eb13d44921fe467f9fe87d3f21dfc716~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_ee6aefd7f57b4119b65a2550f56010fe~mv2.jpg": {
+      "original": {
+        "width": 2667,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_ee6aefd7f57b4119b65a2550f56010fe~mv2-960.webp 960w, assets/images/wix/64569d_ee6aefd7f57b4119b65a2550f56010fe~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_ee6aefd7f57b4119b65a2550f56010fe~mv2-960.webp",
+            "assets/images/wix/64569d_ee6aefd7f57b4119b65a2550f56010fe~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_effa9b98b45a4a30b4ebb4151d040fe5~mv2.jpg": {
+      "original": {
+        "width": 4000,
+        "height": 2667
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_effa9b98b45a4a30b4ebb4151d040fe5~mv2-960.webp 960w, assets/images/wix/64569d_effa9b98b45a4a30b4ebb4151d040fe5~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_effa9b98b45a4a30b4ebb4151d040fe5~mv2-960.webp",
+            "assets/images/wix/64569d_effa9b98b45a4a30b4ebb4151d040fe5~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_f4a44566b6e540c2b6f4ea143c92a1dd~mv2.jpg": {
+      "original": {
+        "width": 4000,
+        "height": 2667
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_f4a44566b6e540c2b6f4ea143c92a1dd~mv2-960.webp 960w, assets/images/wix/64569d_f4a44566b6e540c2b6f4ea143c92a1dd~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_f4a44566b6e540c2b6f4ea143c92a1dd~mv2-960.webp",
+            "assets/images/wix/64569d_f4a44566b6e540c2b6f4ea143c92a1dd~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_f52cfd645549480fb2e48d6a909219db~mv2.jpg": {
+      "original": {
+        "width": 4000,
+        "height": 2667
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_f52cfd645549480fb2e48d6a909219db~mv2-960.webp 960w, assets/images/wix/64569d_f52cfd645549480fb2e48d6a909219db~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_f52cfd645549480fb2e48d6a909219db~mv2-960.webp",
+            "assets/images/wix/64569d_f52cfd645549480fb2e48d6a909219db~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_f5cb40bfe5fa4ccca84cbcddee82a6af~mv2.jpg": {
+      "original": {
+        "width": 2667,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_f5cb40bfe5fa4ccca84cbcddee82a6af~mv2-960.webp 960w, assets/images/wix/64569d_f5cb40bfe5fa4ccca84cbcddee82a6af~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_f5cb40bfe5fa4ccca84cbcddee82a6af~mv2-960.webp",
+            "assets/images/wix/64569d_f5cb40bfe5fa4ccca84cbcddee82a6af~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_f64e1b42953f4630a2dc506d8874bf42~mv2.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_f64e1b42953f4630a2dc506d8874bf42~mv2-960.webp 960w, assets/images/wix/64569d_f64e1b42953f4630a2dc506d8874bf42~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_f64e1b42953f4630a2dc506d8874bf42~mv2-960.webp",
+            "assets/images/wix/64569d_f64e1b42953f4630a2dc506d8874bf42~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_fd92a961268744e18060b3e1dbda0e46~mv2.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_fd92a961268744e18060b3e1dbda0e46~mv2-960.webp 960w, assets/images/wix/64569d_fd92a961268744e18060b3e1dbda0e46~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_fd92a961268744e18060b3e1dbda0e46~mv2-960.webp",
+            "assets/images/wix/64569d_fd92a961268744e18060b3e1dbda0e46~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/64569d_fee94204699940bab1dcec7694443d04~mv2.jpg": {
+      "original": {
+        "width": 2667,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/64569d_fee94204699940bab1dcec7694443d04~mv2-960.webp 960w, assets/images/wix/64569d_fee94204699940bab1dcec7694443d04~mv2-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/64569d_fee94204699940bab1dcec7694443d04~mv2-960.webp",
+            "assets/images/wix/64569d_fee94204699940bab1dcec7694443d04~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260516-02.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260516-02-960.webp 960w, assets/images/wix/ithaca-20260516-02-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260516-02-960.webp",
+            "assets/images/wix/ithaca-20260516-02-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260516-03.jpg": {
+      "original": {
+        "width": 2592,
+        "height": 1728
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260516-03-960.webp 960w, assets/images/wix/ithaca-20260516-03-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260516-03-960.webp",
+            "assets/images/wix/ithaca-20260516-03-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260516-04.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260516-04-960.webp 960w, assets/images/wix/ithaca-20260516-04-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260516-04-960.webp",
+            "assets/images/wix/ithaca-20260516-04-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260516-05.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260516-05-960.webp 960w, assets/images/wix/ithaca-20260516-05-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260516-05-960.webp",
+            "assets/images/wix/ithaca-20260516-05-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260516-06.jpg": {
+      "original": {
+        "width": 2592,
+        "height": 1728
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260516-06-960.webp 960w, assets/images/wix/ithaca-20260516-06-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260516-06-960.webp",
+            "assets/images/wix/ithaca-20260516-06-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260516-07.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260516-07-960.webp 960w, assets/images/wix/ithaca-20260516-07-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260516-07-960.webp",
+            "assets/images/wix/ithaca-20260516-07-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260516-08.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260516-08-960.webp 960w, assets/images/wix/ithaca-20260516-08-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260516-08-960.webp",
+            "assets/images/wix/ithaca-20260516-08-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-01.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-01-960.webp 960w, assets/images/wix/ithaca-20260517-01-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-01-960.webp",
+            "assets/images/wix/ithaca-20260517-01-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-02.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-02-960.webp 960w, assets/images/wix/ithaca-20260517-02-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-02-960.webp",
+            "assets/images/wix/ithaca-20260517-02-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-03.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-03-960.webp 960w, assets/images/wix/ithaca-20260517-03-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-03-960.webp",
+            "assets/images/wix/ithaca-20260517-03-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-04.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-04-960.webp 960w, assets/images/wix/ithaca-20260517-04-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-04-960.webp",
+            "assets/images/wix/ithaca-20260517-04-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-05.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-05-960.webp 960w, assets/images/wix/ithaca-20260517-05-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-05-960.webp",
+            "assets/images/wix/ithaca-20260517-05-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-06.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-06-960.webp 960w, assets/images/wix/ithaca-20260517-06-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-06-960.webp",
+            "assets/images/wix/ithaca-20260517-06-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-07.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-07-960.webp 960w, assets/images/wix/ithaca-20260517-07-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-07-960.webp",
+            "assets/images/wix/ithaca-20260517-07-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-08.jpg": {
+      "original": {
+        "width": 1669,
+        "height": 2504
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-08-960.webp 960w, assets/images/wix/ithaca-20260517-08-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-08-960.webp",
+            "assets/images/wix/ithaca-20260517-08-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-09.jpg": {
+      "original": {
+        "width": 2592,
+        "height": 1728
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-09-960.webp 960w, assets/images/wix/ithaca-20260517-09-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-09-960.webp",
+            "assets/images/wix/ithaca-20260517-09-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-10.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-10-960.webp 960w, assets/images/wix/ithaca-20260517-10-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-10-960.webp",
+            "assets/images/wix/ithaca-20260517-10-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-11.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-11-960.webp 960w, assets/images/wix/ithaca-20260517-11-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-11-960.webp",
+            "assets/images/wix/ithaca-20260517-11-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-12.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-12-960.webp 960w, assets/images/wix/ithaca-20260517-12-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-12-960.webp",
+            "assets/images/wix/ithaca-20260517-12-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-13.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-13-960.webp 960w, assets/images/wix/ithaca-20260517-13-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-13-960.webp",
+            "assets/images/wix/ithaca-20260517-13-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-14.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-14-960.webp 960w, assets/images/wix/ithaca-20260517-14-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-14-960.webp",
+            "assets/images/wix/ithaca-20260517-14-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-15.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-15-960.webp 960w, assets/images/wix/ithaca-20260517-15-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-15-960.webp",
+            "assets/images/wix/ithaca-20260517-15-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-16.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-16-960.webp 960w, assets/images/wix/ithaca-20260517-16-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-16-960.webp",
+            "assets/images/wix/ithaca-20260517-16-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-17.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-17-960.webp 960w, assets/images/wix/ithaca-20260517-17-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-17-960.webp",
+            "assets/images/wix/ithaca-20260517-17-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-18.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-18-960.webp 960w, assets/images/wix/ithaca-20260517-18-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-18-960.webp",
+            "assets/images/wix/ithaca-20260517-18-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-19.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-19-960.webp 960w, assets/images/wix/ithaca-20260517-19-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-19-960.webp",
+            "assets/images/wix/ithaca-20260517-19-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-20.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-20-960.webp 960w, assets/images/wix/ithaca-20260517-20-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-20-960.webp",
+            "assets/images/wix/ithaca-20260517-20-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-21.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-21-960.webp 960w, assets/images/wix/ithaca-20260517-21-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-21-960.webp",
+            "assets/images/wix/ithaca-20260517-21-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260517-22.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260517-22-960.webp 960w, assets/images/wix/ithaca-20260517-22-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260517-22-960.webp",
+            "assets/images/wix/ithaca-20260517-22-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260518-01.jpg": {
+      "original": {
+        "width": 2592,
+        "height": 1728
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260518-01-960.webp 960w, assets/images/wix/ithaca-20260518-01-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260518-01-960.webp",
+            "assets/images/wix/ithaca-20260518-01-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260518-02.jpg": {
+      "original": {
+        "width": 1112,
+        "height": 1670
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260518-02-960.webp 960w, assets/images/wix/ithaca-20260518-02-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260518-02-960.webp",
+            "assets/images/wix/ithaca-20260518-02-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260518-03.jpg": {
+      "original": {
+        "width": 1704,
+        "height": 2557
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260518-03-960.webp 960w, assets/images/wix/ithaca-20260518-03-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260518-03-960.webp",
+            "assets/images/wix/ithaca-20260518-03-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260518-04.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260518-04-960.webp 960w, assets/images/wix/ithaca-20260518-04-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260518-04-960.webp",
+            "assets/images/wix/ithaca-20260518-04-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260518-05.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260518-05-960.webp 960w, assets/images/wix/ithaca-20260518-05-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260518-05-960.webp",
+            "assets/images/wix/ithaca-20260518-05-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260518-06.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260518-06-960.webp 960w, assets/images/wix/ithaca-20260518-06-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260518-06-960.webp",
+            "assets/images/wix/ithaca-20260518-06-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260518-07.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260518-07-960.webp 960w, assets/images/wix/ithaca-20260518-07-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260518-07-960.webp",
+            "assets/images/wix/ithaca-20260518-07-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260518-08.jpg": {
+      "original": {
+        "width": 2592,
+        "height": 1458
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260518-08-960.webp 960w, assets/images/wix/ithaca-20260518-08-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260518-08-960.webp",
+            "assets/images/wix/ithaca-20260518-08-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260518-09.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260518-09-960.webp 960w, assets/images/wix/ithaca-20260518-09-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260518-09-960.webp",
+            "assets/images/wix/ithaca-20260518-09-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260518-10.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260518-10-960.webp 960w, assets/images/wix/ithaca-20260518-10-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260518-10-960.webp",
+            "assets/images/wix/ithaca-20260518-10-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260518-11.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260518-11-960.webp 960w, assets/images/wix/ithaca-20260518-11-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260518-11-960.webp",
+            "assets/images/wix/ithaca-20260518-11-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/ithaca-20260518-12.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/ithaca-20260518-12-960.webp 960w, assets/images/wix/ithaca-20260518-12-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/ithaca-20260518-12-960.webp",
+            "assets/images/wix/ithaca-20260518-12-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/1_DZCQT4IDx-F_FY7KNOL08g.png": {
+      "original": {
+        "width": 1920,
+        "height": 1080
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/1_DZCQT4IDx-F_FY7KNOL08g-960.webp 960w, assets/template/1_DZCQT4IDx-F_FY7KNOL08g-1600.webp 1600w",
+          "files": [
+            "assets/template/1_DZCQT4IDx-F_FY7KNOL08g-960.webp",
+            "assets/template/1_DZCQT4IDx-F_FY7KNOL08g-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/about_branches.jpg": {
+      "original": {
+        "width": 1728,
+        "height": 2592
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/about_branches-960.webp 960w, assets/template/about_branches-1600.webp 1600w",
+          "files": [
+            "assets/template/about_branches-960.webp",
+            "assets/template/about_branches-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/affizieren-cover.jpg": {
+      "original": {
+        "width": 2913,
+        "height": 1654
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/affizieren-cover-960.webp 960w, assets/template/affizieren-cover-1600.webp 1600w",
+          "files": [
+            "assets/template/affizieren-cover-960.webp",
+            "assets/template/affizieren-cover-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/afterimage-art-1.jpg": {
+      "original": {
+        "width": 4800,
+        "height": 2100
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/afterimage-art-1-960.webp 960w, assets/template/afterimage-art-1-1600.webp 1600w",
+          "files": [
+            "assets/template/afterimage-art-1-960.webp",
+            "assets/template/afterimage-art-1-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/afterimage-art-2.jpg": {
+      "original": {
+        "width": 4800,
+        "height": 2100
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/afterimage-art-2-960.webp 960w, assets/template/afterimage-art-2-1600.webp 1600w",
+          "files": [
+            "assets/template/afterimage-art-2-960.webp",
+            "assets/template/afterimage-art-2-1600.webp"
+          ]
+        }
+      }
+    },
     "assets/template/blue-still-01.jpg": {
       "original": {
         "width": 640,
@@ -101,6 +3046,245 @@
         }
       }
     },
+    "assets/template/dark_branches.png": {
+      "original": {
+        "width": 2170,
+        "height": 2371
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/dark_branches-960.webp 960w, assets/template/dark_branches-1600.webp 1600w",
+          "files": [
+            "assets/template/dark_branches-960.webp",
+            "assets/template/dark_branches-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/entry-music-5323.jpg": {
+      "original": {
+        "width": 1179,
+        "height": 1179
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/entry-music-5323-960.webp 960w, assets/template/entry-music-5323-1600.webp 1600w",
+          "files": [
+            "assets/template/entry-music-5323-960.webp",
+            "assets/template/entry-music-5323-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/entry-photo-5322.jpg": {
+      "original": {
+        "width": 1133,
+        "height": 1133
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/entry-photo-5322-960.webp 960w, assets/template/entry-photo-5322-1600.webp 1600w",
+          "files": [
+            "assets/template/entry-photo-5322-960.webp",
+            "assets/template/entry-photo-5322-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/epilogue-art.jpg": {
+      "original": {
+        "width": 2496,
+        "height": 1404
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/epilogue-art-960.webp 960w, assets/template/epilogue-art-1600.webp 1600w",
+          "files": [
+            "assets/template/epilogue-art-960.webp",
+            "assets/template/epilogue-art-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/garden-art.jpg": {
+      "original": {
+        "width": 4800,
+        "height": 2266
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/garden-art-960.webp 960w, assets/template/garden-art-1600.webp 1600w",
+          "files": [
+            "assets/template/garden-art-960.webp",
+            "assets/template/garden-art-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/green_flowers.jpg": {
+      "original": {
+        "width": 1724,
+        "height": 2586
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/green_flowers-960.webp 960w, assets/template/green_flowers-1600.webp 1600w",
+          "files": [
+            "assets/template/green_flowers-960.webp",
+            "assets/template/green_flowers-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/hakoniwa-art.jpg": {
+      "original": {
+        "width": 2705,
+        "height": 1522
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/hakoniwa-art-960.webp 960w, assets/template/hakoniwa-art-1600.webp 1600w",
+          "files": [
+            "assets/template/hakoniwa-art-960.webp",
+            "assets/template/hakoniwa-art-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/hate-all-art.jpg": {
+      "original": {
+        "width": 2560,
+        "height": 1440
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/hate-all-art-960.webp 960w, assets/template/hate-all-art-1600.webp 1600w",
+          "files": [
+            "assets/template/hate-all-art-960.webp",
+            "assets/template/hate-all-art-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/hate-all-setting.jpg": {
+      "original": {
+        "width": 1110,
+        "height": 658
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/hate-all-setting-960.webp 960w, assets/template/hate-all-setting-1600.webp 1600w",
+          "files": [
+            "assets/template/hate-all-setting-960.webp",
+            "assets/template/hate-all-setting-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/he-and-me-cover.jpg": {
+      "original": {
+        "width": 2400,
+        "height": 1200
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/he-and-me-cover-960.webp 960w, assets/template/he-and-me-cover-1600.webp 1600w",
+          "files": [
+            "assets/template/he-and-me-cover-960.webp",
+            "assets/template/he-and-me-cover-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/hero_portrait.jpg": {
+      "original": {
+        "width": 3000,
+        "height": 4000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/hero_portrait-960.webp 960w, assets/template/hero_portrait-1600.webp 1600w",
+          "files": [
+            "assets/template/hero_portrait-960.webp",
+            "assets/template/hero_portrait-1600.webp"
+          ]
+        },
+        "jpg": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/hero_portrait-960.jpg 960w, assets/template/hero_portrait-1600.jpg 1600w",
+          "files": [
+            "assets/template/hero_portrait-960.jpg",
+            "assets/template/hero_portrait-1600.jpg"
+          ]
+        }
+      }
+    },
+    "assets/template/honkaku-art.jpg": {
+      "original": {
+        "width": 3840,
+        "height": 2160
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/honkaku-art-960.webp 960w, assets/template/honkaku-art-1600.webp 1600w",
+          "files": [
+            "assets/template/honkaku-art-960.webp",
+            "assets/template/honkaku-art-1600.webp"
+          ]
+        }
+      }
+    },
     "assets/template/ipomoea-alba-album-cover.jpg": {
       "original": {
         "width": 1800,
@@ -116,6 +3300,82 @@
           "files": [
             "assets/template/ipomoea-alba-album-cover-960.webp",
             "assets/template/ipomoea-alba-album-cover-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/ipomoea-alba-art.jpg": {
+      "original": {
+        "width": 2880,
+        "height": 1620
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/ipomoea-alba-art-960.webp 960w, assets/template/ipomoea-alba-art-1600.webp 1600w",
+          "files": [
+            "assets/template/ipomoea-alba-art-960.webp",
+            "assets/template/ipomoea-alba-art-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/ipomoea-alba-feature-cover.jpg": {
+      "original": {
+        "width": 2400,
+        "height": 1200
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/ipomoea-alba-feature-cover-960.webp 960w, assets/template/ipomoea-alba-feature-cover-1600.webp 1600w",
+          "files": [
+            "assets/template/ipomoea-alba-feature-cover-960.webp",
+            "assets/template/ipomoea-alba-feature-cover-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/julia.png": {
+      "original": {
+        "width": 790,
+        "height": 790
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/julia-960.webp 960w, assets/template/julia-1600.webp 1600w",
+          "files": [
+            "assets/template/julia-960.webp",
+            "assets/template/julia-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/mr-idiographic-art.png": {
+      "original": {
+        "width": 3840,
+        "height": 2880
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/mr-idiographic-art-960.webp 960w, assets/template/mr-idiographic-art-1600.webp 1600w",
+          "files": [
+            "assets/template/mr-idiographic-art-960.webp",
+            "assets/template/mr-idiographic-art-1600.webp"
           ]
         }
       }
@@ -234,6 +3494,139 @@
         }
       }
     },
+    "assets/template/music-bottom-img3725.jpg": {
+      "original": {
+        "width": 1600,
+        "height": 2400
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/music-bottom-img3725-960.webp 960w, assets/template/music-bottom-img3725-1600.webp 1600w",
+          "files": [
+            "assets/template/music-bottom-img3725-960.webp",
+            "assets/template/music-bottom-img3725-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/music-bottom-img3728.jpg": {
+      "original": {
+        "width": 1600,
+        "height": 1067
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/music-bottom-img3728-960.webp 960w, assets/template/music-bottom-img3728-1600.webp 1600w",
+          "files": [
+            "assets/template/music-bottom-img3728-960.webp",
+            "assets/template/music-bottom-img3728-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/music-bottom-img3757.jpg": {
+      "original": {
+        "width": 1600,
+        "height": 1067
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/music-bottom-img3757-960.webp 960w, assets/template/music-bottom-img3757-1600.webp 1600w",
+          "files": [
+            "assets/template/music-bottom-img3757-960.webp",
+            "assets/template/music-bottom-img3757-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/music-bottom-img3761.jpg": {
+      "original": {
+        "width": 1600,
+        "height": 2400
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/music-bottom-img3761-960.webp 960w, assets/template/music-bottom-img3761-1600.webp 1600w",
+          "files": [
+            "assets/template/music-bottom-img3761-960.webp",
+            "assets/template/music-bottom-img3761-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/music-bottom.jpg": {
+      "original": {
+        "width": 1920,
+        "height": 537
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/music-bottom-960.webp 960w, assets/template/music-bottom-1600.webp 1600w",
+          "files": [
+            "assets/template/music-bottom-960.webp",
+            "assets/template/music-bottom-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/music-intro-img3759.jpg": {
+      "original": {
+        "width": 960,
+        "height": 1280
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/music-intro-img3759-960.webp 960w, assets/template/music-intro-img3759-1600.webp 1600w",
+          "files": [
+            "assets/template/music-intro-img3759-960.webp",
+            "assets/template/music-intro-img3759-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/music-intro-img6370.jpg": {
+      "original": {
+        "width": 1600,
+        "height": 2133
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/music-intro-img6370-960.webp 960w, assets/template/music-intro-img6370-1600.webp 1600w",
+          "files": [
+            "assets/template/music-intro-img6370-960.webp",
+            "assets/template/music-intro-img6370-1600.webp"
+          ]
+        }
+      }
+    },
     "assets/template/music-intro.jpg": {
       "original": {
         "width": 720,
@@ -253,6 +3646,291 @@
         }
       }
     },
+    "assets/template/music-live-20260803-01.jpg": {
+      "original": {
+        "width": 1600,
+        "height": 1201
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/music-live-20260803-01-960.webp 960w, assets/template/music-live-20260803-01-1600.webp 1600w",
+          "files": [
+            "assets/template/music-live-20260803-01-960.webp",
+            "assets/template/music-live-20260803-01-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/music-live-20260803-02.jpg": {
+      "original": {
+        "width": 1600,
+        "height": 1201
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/music-live-20260803-02-960.webp 960w, assets/template/music-live-20260803-02-1600.webp 1600w",
+          "files": [
+            "assets/template/music-live-20260803-02-960.webp",
+            "assets/template/music-live-20260803-02-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/music-live-20260803-03.jpg": {
+      "original": {
+        "width": 1600,
+        "height": 1201
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/music-live-20260803-03-960.webp 960w, assets/template/music-live-20260803-03-1600.webp 1600w",
+          "files": [
+            "assets/template/music-live-20260803-03-960.webp",
+            "assets/template/music-live-20260803-03-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/music-live-20260803-04.jpg": {
+      "original": {
+        "width": 1600,
+        "height": 2132
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/music-live-20260803-04-960.webp 960w, assets/template/music-live-20260803-04-1600.webp 1600w",
+          "files": [
+            "assets/template/music-live-20260803-04-960.webp",
+            "assets/template/music-live-20260803-04-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/music-live-20260803-05.jpg": {
+      "original": {
+        "width": 1600,
+        "height": 1201
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/music-live-20260803-05-960.webp 960w, assets/template/music-live-20260803-05-1600.webp 1600w",
+          "files": [
+            "assets/template/music-live-20260803-05-960.webp",
+            "assets/template/music-live-20260803-05-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/music-live-20260803-06.jpg": {
+      "original": {
+        "width": 1600,
+        "height": 1201
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/music-live-20260803-06-960.webp 960w, assets/template/music-live-20260803-06-1600.webp 1600w",
+          "files": [
+            "assets/template/music-live-20260803-06-960.webp",
+            "assets/template/music-live-20260803-06-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/music-live-20260803-07.jpg": {
+      "original": {
+        "width": 1600,
+        "height": 2131
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/music-live-20260803-07-960.webp 960w, assets/template/music-live-20260803-07-1600.webp 1600w",
+          "files": [
+            "assets/template/music-live-20260803-07-960.webp",
+            "assets/template/music-live-20260803-07-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/music-top-img3777.jpg": {
+      "original": {
+        "width": 1920,
+        "height": 537
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/music-top-img3777-960.webp 960w, assets/template/music-top-img3777-1600.webp 1600w",
+          "files": [
+            "assets/template/music-top-img3777-960.webp",
+            "assets/template/music-top-img3777-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/music-top.jpg": {
+      "original": {
+        "width": 1920,
+        "height": 537
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/music-top-960.webp 960w, assets/template/music-top-1600.webp 1600w",
+          "files": [
+            "assets/template/music-top-960.webp",
+            "assets/template/music-top-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/photo-bottom-5710.jpg": {
+      "original": {
+        "width": 2304,
+        "height": 3456
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/photo-bottom-5710-960.webp 960w, assets/template/photo-bottom-5710-1600.webp 1600w",
+          "files": [
+            "assets/template/photo-bottom-5710-960.webp",
+            "assets/template/photo-bottom-5710-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/photo-top.jpg": {
+      "original": {
+        "width": 1920,
+        "height": 537
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/photo-top-960.webp 960w, assets/template/photo-top-1600.webp 1600w",
+          "files": [
+            "assets/template/photo-top-960.webp",
+            "assets/template/photo-top-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/photographer-17.jpg": {
+      "original": {
+        "width": 1179,
+        "height": 1769
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/photographer-17-960.webp 960w, assets/template/photographer-17-1600.webp 1600w",
+          "files": [
+            "assets/template/photographer-17-960.webp",
+            "assets/template/photographer-17-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/rainy-days-art.png": {
+      "original": {
+        "width": 922,
+        "height": 518
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/rainy-days-art-960.webp 960w, assets/template/rainy-days-art-1600.webp 1600w",
+          "files": [
+            "assets/template/rainy-days-art-960.webp",
+            "assets/template/rainy-days-art-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/sincerely-spring-art.jpg": {
+      "original": {
+        "width": 6000,
+        "height": 3000
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/sincerely-spring-art-960.webp 960w, assets/template/sincerely-spring-art-1600.webp 1600w",
+          "files": [
+            "assets/template/sincerely-spring-art-960.webp",
+            "assets/template/sincerely-spring-art-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/supernova-cover.jpg": {
+      "original": {
+        "width": 3744,
+        "height": 1620
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/supernova-cover-960.webp 960w, assets/template/supernova-cover-1600.webp 1600w",
+          "files": [
+            "assets/template/supernova-cover-960.webp",
+            "assets/template/supernova-cover-1600.webp"
+          ]
+        }
+      }
+    },
     "assets/template/teenage-best-album-cover.jpg": {
       "original": {
         "width": 1800,
@@ -268,6 +3946,44 @@
           "files": [
             "assets/template/teenage-best-album-cover-960.webp",
             "assets/template/teenage-best-album-cover-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/winter.jpg": {
+      "original": {
+        "width": 1724,
+        "height": 2586
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/winter-960.webp 960w, assets/template/winter-1600.webp 1600w",
+          "files": [
+            "assets/template/winter-960.webp",
+            "assets/template/winter-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/template/zero-art.png": {
+      "original": {
+        "width": 7200,
+        "height": 4100
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/template/zero-art-960.webp 960w, assets/template/zero-art-1600.webp 1600w",
+          "files": [
+            "assets/template/zero-art-960.webp",
+            "assets/template/zero-art-1600.webp"
           ]
         }
       }

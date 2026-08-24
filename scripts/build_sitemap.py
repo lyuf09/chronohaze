@@ -84,20 +84,22 @@ def load_catalog_dates(root: Path) -> dict[str, str]:
 
 def file_lastmod(root: Path, path: Path, today: str, catalog_dates: dict[str, str]) -> str:
     relative = path.relative_to(root).as_posix()
+    candidates: list[str] = []
     if git_output(root, "status", "--porcelain", "--", relative):
-        return today
+        candidates.append(today)
     html_path = path.with_suffix(".html") if path.suffix.lower() == ".pdf" else path
     if html_path.is_file() and html_path.suffix.lower() == ".html":
         text = html_path.read_text(encoding="utf-8", errors="ignore")
-        meta_match = MODIFIED_META_RE.search(text)
-        if meta_match:
-            return meta_match.group(1)
+        candidates.extend(MODIFIED_META_RE.findall(text))
     semantic_date = catalog_dates.get(relative)
     if not semantic_date and path.suffix.lower() == ".pdf":
         semantic_date = catalog_dates.get(path.with_suffix(".html").relative_to(root).as_posix())
     if semantic_date:
-        return semantic_date
-    return git_output(root, "log", "-1", "--format=%cs", "--", relative)
+        candidates.append(semantic_date)
+    git_date = git_output(root, "log", "-1", "--format=%cs", "--", relative)
+    if git_date:
+        candidates.append(git_date)
+    return max(candidates, default="")
 
 
 def noindex_source(root: Path, public_url: str) -> Path | None:
