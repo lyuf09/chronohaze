@@ -82,7 +82,14 @@ def load_catalog_dates(root: Path) -> dict[str, str]:
     return dates
 
 
-def file_lastmod(root: Path, path: Path, today: str, catalog_dates: dict[str, str]) -> str:
+def file_lastmod(
+    root: Path,
+    path: Path,
+    today: str,
+    catalog_dates: dict[str, str],
+    fallback: str,
+    use_git_history: bool,
+) -> str:
     relative = path.relative_to(root).as_posix()
     candidates: list[str] = []
     if git_output(root, "status", "--porcelain", "--", relative):
@@ -96,10 +103,11 @@ def file_lastmod(root: Path, path: Path, today: str, catalog_dates: dict[str, st
         semantic_date = catalog_dates.get(path.with_suffix(".html").relative_to(root).as_posix())
     if semantic_date:
         candidates.append(semantic_date)
-    git_date = git_output(root, "log", "-1", "--format=%cs", "--", relative)
-    if git_date:
-        candidates.append(git_date)
-    return max(candidates, default="")
+    if use_git_history:
+        git_date = git_output(root, "log", "-1", "--format=%cs", "--", relative)
+        if git_date:
+            candidates.append(git_date)
+    return max(candidates, default=fallback)
 
 
 def noindex_source(root: Path, public_url: str) -> Path | None:
@@ -119,6 +127,7 @@ def refresh_sitemap(root: Path, today: str) -> int:
     original = sitemap.read_text(encoding="utf-8")
     changed = 0
     catalog_dates = load_catalog_dates(root)
+    use_git_history = git_output(root, "rev-parse", "--is-shallow-repository") != "true"
 
     def replace(match: re.Match[str]) -> str:
         nonlocal changed
@@ -128,7 +137,14 @@ def refresh_sitemap(root: Path, today: str) -> int:
         path = source_path(root, match.group(2))
         if path is None:
             return match.group(0)
-        lastmod = file_lastmod(root, path, today, catalog_dates)
+        lastmod = file_lastmod(
+            root,
+            path,
+            today,
+            catalog_dates,
+            fallback=match.group(3),
+            use_git_history=use_git_history,
+        )
         if not lastmod or lastmod == match.group(3):
             return match.group(0)
         changed += 1
