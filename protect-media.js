@@ -11424,7 +11424,10 @@
 
     var featuredAudioToggle = document.getElementById("audioToggle");
     if (featuredAudioToggle) {
-      featuredAudioToggle.setAttribute("aria-label", "Play or pause featured track");
+      featuredAudioToggle.setAttribute(
+        "aria-label",
+        safeLang === "en" ? "Play or pause featured track" : "播放或暂停精选音频"
+      );
     }
   }
 

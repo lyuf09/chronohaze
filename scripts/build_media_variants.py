@@ -9,7 +9,7 @@ from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
 import re
-from typing import Dict, Iterable, List, Tuple
+from typing import Dict, Iterable, List, Set, Tuple
 
 from PIL import Image
 
@@ -167,6 +167,43 @@ def normalize_rel(path: Path, root: Path) -> str:
     return path.relative_to(root).as_posix()
 
 
+def load_existing_manifest_items(path: Path) -> Dict[str, Dict[str, object]]:
+    if not path.is_file():
+        return {}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    items = payload.get("items") if isinstance(payload, dict) else None
+    if not isinstance(items, dict):
+        return {}
+    return {
+        str(rel): entry
+        for rel, entry in items.items()
+        if isinstance(rel, str) and isinstance(entry, dict)
+    }
+
+
+def git_tracked_media_paths(root: Path) -> Set[str]:
+    try:
+        result = subprocess.run(
+            ["git", "-C", str(root), "ls-files", "-z", "--", *SOURCE_DIRS],
+            check=True,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.DEVNULL,
+        )
+    except (OSError, subprocess.CalledProcessError):
+        return set()
+    return {path for path in result.stdout.split("\0") if path}
+
+
+def variant_rel_for(source_rel: str, width: int, kind: str) -> str:
+    source = Path(source_rel)
+    extension = "jpg" if kind == "jpg" else kind
+    return source.with_name(f"{source.stem}-{width}.{extension}").as_posix()
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="Build responsive image variants and manifest for Chronohaze")
     ap.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
@@ -189,6 +226,12 @@ def main() -> int:
     widths = tuple(sorted({int(x) for x in str(args.widths).split(",") if str(x).strip().isdigit()}))
     if not widths:
         widths = DEFAULT_WIDTHS
+
+    out_path = root / "assets" / "data" / "image-variants.json"
+    existing_manifest_items = (
+        load_existing_manifest_items(out_path) if args.manifest_only else {}
+    )
+    tracked_media_paths = git_tracked_media_paths(root) if args.manifest_only else set()
 
     avifenc_bin = None if args.skip_avif else shutil.which("avifenc")
     generated_counts = {"webp": 0, "jpg": 0, "avif": 0}
@@ -256,17 +299,43 @@ def main() -> int:
         entry["formats"] = formats
         manifest_items[normalize_rel(src.path, root)] = entry
 
+    preserved_count = 0
+    for source_rel, entry in existing_manifest_items.items():
+        if source_rel in manifest_items or source_rel not in tracked_media_paths:
+            continue
+        source_path = root / source_rel
+        if source_path.exists():
+            continue
+
+        manifest_items[source_rel] = entry
+        preserved_count += 1
+        if args.require_existing_variants:
+            for kind in ("avif", "webp", "jpg"):
+                if kind == "jpg" and args.skip_jpg:
+                    continue
+                if kind == "webp" and args.skip_webp:
+                    continue
+                if kind == "avif" and args.skip_avif:
+                    continue
+                for width in widths:
+                    variant_rel = variant_rel_for(source_rel, width, kind)
+                    if variant_rel not in tracked_media_paths:
+                        missing_required.append(variant_rel)
+
+    manifest_items = dict(sorted(manifest_items.items()))
+
     manifest = {
         "generated_at": date.today().isoformat(),
         "variant_widths": list(widths),
         "avif_encoder_available": bool(avifenc_bin),
         "items": manifest_items,
     }
-    out_path = root / "assets" / "data" / "image-variants.json"
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     print(f"Wrote manifest: {out_path} ({len(manifest_items)} images)")
+    if preserved_count:
+        print(f"Preserved {preserved_count} tracked source image(s) omitted by the current checkout")
     for kind in ("webp", "jpg", "avif"):
         print(f"{kind}: generated={generated_counts[kind]} skipped={skipped_counts[kind]}")
     if not avifenc_bin and not args.skip_avif:

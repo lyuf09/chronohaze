@@ -17,7 +17,16 @@ from urllib.parse import urlsplit
 from urllib.request import Request, urlopen
 
 
-SKIP_DIRS = {".git", ".github", "_site", "node_modules", "__pycache__"}
+SKIP_DIRS = {
+    ".git",
+    ".github",
+    ".tmp-smoke-root",
+    "_site",
+    "node_modules",
+    "playwright-report",
+    "test-results",
+    "__pycache__",
+}
 KEY_EXTERNAL_PAGES = {"index.html", "cv.html", "research.html", "research-summary.html", "search.html"}
 IGNORE_SCHEMES = {"mailto", "tel", "javascript", "data", "blob"}
 

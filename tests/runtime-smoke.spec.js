@@ -33,6 +33,10 @@ test("home page renders hero and player shell", async ({ page }) => {
   await expect(page.locator("body.home-body")).toBeVisible();
   await expect(page.locator(".hero-portrait")).toBeVisible();
   await expect(page.locator("#playerShell")).toBeVisible();
+  await expect(page.locator("#audioToggle")).toHaveAttribute(
+    "aria-label",
+    "播放或暂停精选音频"
+  );
   await expect(page.locator(".identity-panel-creative #playerShell")).toHaveCount(1);
   await expect(page.locator("#playerTime")).not.toHaveText(/^$/);
   await expect(page.locator("#selected-evidence")).toBeVisible();
