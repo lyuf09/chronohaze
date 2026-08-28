@@ -61,12 +61,12 @@ test("home page renders hero and player shell", async ({ page }) => {
   );
   await expect(page.locator(".identity-panel-math")).toContainText("学术身份 · FEIER LYU");
   await expect(page.locator(".identity-panel-creative")).toContainText("创作身份 · HAZEZZ");
-  await expect(page.locator("#now")).toContainText("演奏视频");
+  await expect(page.locator("#now")).toContainText("网络定位与非凸优化");
+  await expect(page.locator("#now")).toContainText("起死開戦 / Bass");
   await expect(page.locator("#now")).toContainText("音乐制作");
-  await expect(page.locator("#now")).toContainText("StochasticGreedy 概率语义");
   await expect(page.locator("#selected-evidence")).not.toContainText("Current research");
   await expect(page.locator("#welcome")).not.toContainText("Music & Image");
-  await expect(page.locator("#now")).not.toContainText("Performance videos");
+  await expect(page.locator("#now")).not.toContainText("Network localization & nonconvex optimization");
   await expect(page.locator("#homeMathPreview")).toHaveCount(0);
   await expect(page.locator("#now")).not.toContainText("正式发表于 AFP");
   await expect(page.locator(".hero-authority-line")).toHaveText(
@@ -423,13 +423,13 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
   await expect(page.locator('.hero-academic-link[href="projects.html"]')).toHaveText("精选工作");
   await expect(page.locator('.hero-academic-link[href="cv.html"]')).toHaveText("个人档案");
   await expect(page.locator('[data-i18n="nowCard1Body"]')).toHaveText(
-    "正在使用新购入的相机与镜头制作贝斯演奏视频。"
+    "继续研究驻点附近的曲率结构，以及不同逃逸方向构造之间的联系。"
   );
   await expect(page.locator('[data-i18n="nowCard2Body"]')).toHaveText(
-    "正在制作一首合作单曲，并为一个地下偶像团体创作原创曲目。"
+    "最近在练 millsage 的《起死開戦》，这个难度完全邦一贝但是我能练下来。"
   );
   await expect(page.locator('[data-i18n="nowCard3Body"]')).toHaveText(
-    "近似保证与 oracle-cost 定理链现已完成形式化；当前工作聚焦于 StochasticGreedy 所需的概率语义抽象缺口。"
+    "刚完成一首团体委托原创曲，也在继续写自己的歌和一些合作项目。"
   );
   await expect(page.locator('[data-i18n="nowTitle"]')).toHaveText("近况 / 2026年8月");
 
@@ -450,13 +450,13 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
   await expect(page.locator(".hero-world-line")).toHaveCount(0);
   await expect(page.locator('[data-i18n="nowTitle"]')).toHaveText("Now / August 2026");
   await expect(page.locator('[data-i18n="nowCard1Body"]')).toHaveText(
-    "Producing a new series of bass-performance videos with an upgraded camera setup."
+    "Continuing to study curvature structure near stationary points and the connections among different constructions of escape directions."
   );
   await expect(page.locator('[data-i18n="nowCard2Body"]')).toHaveText(
-    "Producing a collaborative single and composing an original track commissioned by an underground idol group."
+    "Recently practicing millsage’s “起死開戦.” The bass part is brutally difficult, but I know I can get it down."
   );
   await expect(page.locator('[data-i18n="nowCard3Body"]')).toHaveText(
-    "The approximation and oracle-cost theorem line is now formalized; current work focuses on the probabilistic-semantics abstraction gap needed for StochasticGreedy."
+    "I’ve just completed an original commissioned song for a group, and I’m continuing to write my own music alongside several collaborative projects."
   );
   await expect(page.locator(".hero-authority-line")).toHaveText(
     "University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027"
