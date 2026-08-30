@@ -1799,7 +1799,7 @@ test("music detail lyrics span the full mobile viewport", async ({ page }, testI
   expect(errors).toEqual([]);
 });
 
-test("Chinese mobile pages preserve branded Latin faces with stable CJK fallbacks", async ({ page }) => {
+test("Chinese mobile pages use the same self-hosted faces as desktop", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
 
   const pages = [
@@ -1825,14 +1825,20 @@ test("Chinese mobile pages preserve branded Latin faces with stable CJK fallback
       await document.fonts.ready;
       const family = window.getComputedStyle(title).fontFamily;
       const loadedFaces = await document.fonts.load('400 32px "Cormorant Garamond"', "Chronohaze");
+      const loadedCjkSerif = await document.fonts.load('400 24px "Chronohaze Serif SC"', "网络定位");
+      const loadedCjkSans = await document.fonts.load('400 16px "Chronohaze Sans SC"', "移动字体");
       return {
         family,
         loadedCormorant: loadedFaces.length > 0,
+        loadedCjkSerif: loadedCjkSerif.length > 0,
+        loadedCjkSans: loadedCjkSans.length > 0,
       };
     });
     expect(typography.family).toMatch(/cormorant(?:garamond)?(?:-light)?(?:\s+garamond)?/i);
-    expect(typography.family).toMatch(/Chronohaze Serif SC|Songti SC|Noto Serif SC/);
+    expect(typography.family).toContain("Chronohaze Serif SC");
     expect(typography.loadedCormorant).toBe(true);
+    expect(typography.loadedCjkSerif).toBe(true);
+    expect(typography.loadedCjkSans).toBe(true);
     expect(errors).toEqual([]);
   }
 
@@ -2348,6 +2354,153 @@ test("photo detail lead image prefers a landscape composition", async ({ page })
     "data-full-res-src",
     /64569d_db5c80b9c2dc4e60bd05ff0831f66e12~mv2\.jpg$/
   );
+});
+
+test("photo lightbox zoom stays anchored, pans smoothly, and protects images", async ({
+  page,
+}, testInfo) => {
+  const errors = trackPageErrors(page);
+  await page.route("**/assets/images/wix/**", (route) =>
+    route.fulfill({
+      path: "assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2-960.webp",
+      contentType: "image/webp",
+    })
+  );
+  await page.goto("photo/photo-01.html?lang=zh", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+
+  const sourceImage = page.locator(".photo-detail-gallery img").first();
+  await expect(sourceImage).toHaveAttribute("draggable", "false");
+  await sourceImage.click();
+
+  const lightbox = page.locator(".photo-lightbox");
+  const viewport = lightbox.locator(".photo-lightbox-viewport");
+  const image = lightbox.locator(".photo-lightbox-image");
+  await expect(lightbox).toBeVisible();
+  await expect(image).toHaveAttribute("data-media-protected", "1");
+  await expect(image).toHaveAttribute("draggable", "false");
+  await expect(lightbox).toHaveAttribute("data-zoom", "100");
+  await expect(image).toHaveCSS("opacity", "1");
+  const initialLayout = await viewport.evaluate((node) => {
+    const viewportRect = node.getBoundingClientRect();
+    const imageRect = node.querySelector(".photo-lightbox-image").getBoundingClientRect();
+    return {
+      centerOffsetX:
+        imageRect.left + imageRect.width / 2 - (viewportRect.left + viewportRect.width / 2),
+      centerOffsetY:
+        imageRect.top + imageRect.height / 2 - (viewportRect.top + viewportRect.height / 2),
+    };
+  });
+  expect(Math.abs(initialLayout.centerOffsetX)).toBeLessThan(2);
+  expect(Math.abs(initialLayout.centerOffsetY)).toBeLessThan(2);
+
+  const contextMenuPrevented = await image.evaluate((node) => {
+    const event = new MouseEvent("contextmenu", { bubbles: true, cancelable: true });
+    return !node.dispatchEvent(event);
+  });
+  expect(contextMenuPrevented).toBe(true);
+
+  await lightbox.locator(".photo-lightbox-btn-zoom-in").click();
+  await expect(lightbox).toHaveAttribute("data-zoom", "132");
+  await expect(viewport).toHaveClass(/is-zoomed/);
+
+  const viewportBox = await viewport.boundingBox();
+  expect(viewportBox).not.toBeNull();
+  const focusX = viewportBox.x + viewportBox.width * 0.7;
+  const focusY = viewportBox.y + viewportBox.height * 0.45;
+  await page.mouse.move(focusX, focusY);
+  await page.mouse.wheel(0, -420);
+  await expect.poll(async () => Number(await lightbox.getAttribute("data-zoom"))).toBeGreaterThan(132);
+
+  const beforePan = await image.evaluate((node) => node.style.transform);
+  await page.mouse.move(viewportBox.x + viewportBox.width / 2, viewportBox.y + viewportBox.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(
+    viewportBox.x + viewportBox.width / 2 - 70,
+    viewportBox.y + viewportBox.height / 2 - 35,
+    { steps: 4 }
+  );
+  await page.mouse.up();
+  const afterPan = await image.evaluate((node) => node.style.transform);
+  expect(afterPan).not.toBe(beforePan);
+
+  const scrollPosition = await viewport.evaluate((node) => ({
+    left: node.scrollLeft,
+    top: node.scrollTop,
+  }));
+  expect(scrollPosition).toEqual({ left: 0, top: 0 });
+
+  await lightbox.locator(".photo-lightbox-btn-zoom-reset").click();
+  await expect(lightbox).toHaveAttribute("data-zoom", "100");
+  const resetTransform = await image.evaluate((node) => node.style.transform);
+  expect(resetTransform).toMatch(
+    /^translate3d\(0(?:\.0+)?px, 0(?:\.0+)?px, 0(?:\.0+)?px\) scale\(1(?:\.0+)?\)$/
+  );
+
+  await lightbox.locator(".photo-lightbox-btn-close").click();
+  await expect(lightbox).toBeHidden();
+
+  await page.setViewportSize({ width: 393, height: 852 });
+  await sourceImage.click();
+  await expect(lightbox).toBeVisible();
+  const mobileLayout = await lightbox.evaluate((node) => {
+    const rootRect = node.getBoundingClientRect();
+    const buttons = Array.from(node.querySelectorAll(".photo-lightbox-btn"));
+    return {
+      rootWidth: rootRect.width,
+      scrollWidth: node.scrollWidth,
+      buttonWidths: buttons.map((button) => button.getBoundingClientRect().width),
+      buttonHeights: buttons.map((button) => button.getBoundingClientRect().height),
+    };
+  });
+  expect(mobileLayout.scrollWidth).toBeLessThanOrEqual(mobileLayout.rootWidth + 1);
+  expect(Math.min(...mobileLayout.buttonWidths)).toBeGreaterThanOrEqual(40);
+  expect(Math.min(...mobileLayout.buttonHeights)).toBeGreaterThanOrEqual(40);
+
+  const mobileViewport = lightbox.locator(".photo-lightbox-viewport");
+  await mobileViewport.dispatchEvent("pointerdown", {
+    pointerId: 21,
+    pointerType: "touch",
+    clientX: 120,
+    clientY: 420,
+    button: 0,
+  });
+  await mobileViewport.dispatchEvent("pointerdown", {
+    pointerId: 22,
+    pointerType: "touch",
+    clientX: 270,
+    clientY: 420,
+    button: 0,
+  });
+  await mobileViewport.dispatchEvent("pointermove", {
+    pointerId: 22,
+    pointerType: "touch",
+    clientX: 330,
+    clientY: 420,
+    button: 0,
+  });
+  await mobileViewport.dispatchEvent("pointerup", {
+    pointerId: 22,
+    pointerType: "touch",
+    clientX: 330,
+    clientY: 420,
+    button: 0,
+  });
+  await mobileViewport.dispatchEvent("pointerup", {
+    pointerId: 21,
+    pointerType: "touch",
+    clientX: 120,
+    clientY: 420,
+    button: 0,
+  });
+  await expect.poll(async () => Number(await lightbox.getAttribute("data-zoom"))).toBeGreaterThan(100);
+
+  if (testInfo.project.name === "chromium") {
+    await page.screenshot({ path: "/tmp/chronohaze-photo-lightbox-mobile.png" });
+  }
+  await lightbox.locator(".photo-lightbox-btn-close").click();
+  await expect(lightbox).toBeHidden();
+  expect(errors).toEqual([]);
 });
 
 test("photo detail page supports keyboard prev/next navigation", async ({ page }) => {

@@ -708,7 +708,7 @@
   }
 
   function applyResponsiveSourceSet(img) {
-    if (!img) {
+    if (!img || img.classList.contains("photo-lightbox-image")) {
       return;
     }
 
@@ -16287,14 +16287,14 @@
       previous: safeLang === "en" ? "Previous image" : "上一张图片",
       next: safeLang === "en" ? "Next image" : "下一张图片",
       zoomOut: safeLang === "en" ? "Zoom out" : "缩小",
-      zoomReset: safeLang === "en" ? "Reset zoom" : "重置缩放",
+      zoomReset: safeLang === "en" ? "Fit to screen" : "适合屏幕",
       zoomIn: safeLang === "en" ? "Zoom in" : "放大",
       loading: safeLang === "en" ? "Loading full image" : "正在载入完整图片",
       viewer: safeLang === "en" ? "Photography image viewer" : "摄影图片查看器",
       note:
         safeLang === "en"
-          ? "Tap image to zoom · swipe or use arrows to browse"
-          : "点击图片缩放 · 滑动或方向键切换",
+          ? "Pinch or wheel to zoom · drag to move · swipe to browse"
+          : "双指或滚轮缩放 · 放大后拖动 · 原始大小左右滑动切换",
       metaPrefix: safeLang === "en" ? "Image" : "图片",
       figureTitle: safeLang === "en" ? "Click to open full image" : "点击查看完整图片",
     };
@@ -16325,22 +16325,6 @@
     };
   }
 
-  function getPhotoDetailLightboxFocusFromPoint(state, clientX, clientY) {
-    if (!state || typeof clientX !== "number" || typeof clientY !== "number") {
-      return null;
-    }
-
-    var canvasRect = state.canvas.getBoundingClientRect();
-    var canvasWidth = state.canvas.scrollWidth || state.canvas.clientWidth || canvasRect.width || 1;
-    var canvasHeight =
-      state.canvas.scrollHeight || state.canvas.clientHeight || canvasRect.height || 1;
-
-    return {
-      x: clampPhotoDetailLightboxValue((clientX - canvasRect.left) / canvasWidth, 0, 1),
-      y: clampPhotoDetailLightboxValue((clientY - canvasRect.top) / canvasHeight, 0, 1),
-    };
-  }
-
   function getPhotoDetailLightboxFocusableNodes(state) {
     if (!state || !state.root) {
       return [];
@@ -16355,7 +16339,42 @@
     });
   }
 
-  function syncPhotoDetailLightboxLayout(state, preserveFocus, focusPoint) {
+  function getPhotoDetailLightboxPanLimits(state, scale) {
+    if (!state) {
+      return { x: 0, y: 0 };
+    }
+    var safeScale = typeof scale === "number" ? scale : state.scale;
+    return {
+      x: Math.max(0, (state.fitWidth * safeScale - state.viewport.clientWidth) / 2),
+      y: Math.max(0, (state.fitHeight * safeScale - state.viewport.clientHeight) / 2),
+    };
+  }
+
+  function applyPhotoDetailLightboxTransform(state, animate) {
+    if (!state) {
+      return;
+    }
+    var limits = getPhotoDetailLightboxPanLimits(state);
+    state.translateX = clampPhotoDetailLightboxValue(state.translateX, -limits.x, limits.x);
+    state.translateY = clampPhotoDetailLightboxValue(state.translateY, -limits.y, limits.y);
+    state.image.classList.toggle("is-animating", !!animate);
+    state.image.style.transform =
+      "translate3d(" +
+      state.translateX.toFixed(2) +
+      "px, " +
+      state.translateY.toFixed(2) +
+      "px, 0) scale(" +
+      state.scale.toFixed(4) +
+      ")";
+    state.viewport.classList.toggle("is-zoomed", state.scale > 1.01);
+    state.zoomOutButton.disabled = state.scale <= 1.01;
+    state.zoomResetButton.disabled = state.scale <= 1.01;
+    state.zoomInButton.disabled = state.scale >= 4.99;
+    state.zoomResetButton.textContent = Math.round(state.scale * 100) + "%";
+    state.root.dataset.zoom = String(Math.round(state.scale * 100));
+  }
+
+  function syncPhotoDetailLightboxLayout(state, preservePosition) {
     if (!state) {
       return;
     }
@@ -16368,57 +16387,21 @@
     var padding = getPhotoDetailLightboxViewportPadding();
     var availableWidth = Math.max(120, viewport.clientWidth - padding * 2);
     var availableHeight = Math.max(120, viewport.clientHeight - padding * 2);
-    var previousCanvasWidth = state.canvas.scrollWidth || viewport.clientWidth || 1;
-    var previousCanvasHeight = state.canvas.scrollHeight || viewport.clientHeight || 1;
-    var focusX = focusPoint && typeof focusPoint.x === "number"
-      ? clampPhotoDetailLightboxValue(focusPoint.x, 0, 1)
-      : preserveFocus
-      ? (viewport.scrollLeft + viewport.clientWidth / 2) / previousCanvasWidth
-      : 0.5;
-    var focusY = focusPoint && typeof focusPoint.y === "number"
-      ? clampPhotoDetailLightboxValue(focusPoint.y, 0, 1)
-      : preserveFocus
-      ? (viewport.scrollTop + viewport.clientHeight / 2) / previousCanvasHeight
-      : 0.5;
-
     state.fitScale = Math.min(
       1,
       availableWidth / state.naturalWidth,
       availableHeight / state.naturalHeight
     );
-    var displayScale = state.fitScale * state.scale;
-    var imageWidth = Math.max(1, Math.round(state.naturalWidth * displayScale));
-    var imageHeight = Math.max(1, Math.round(state.naturalHeight * displayScale));
-    var canvasWidth = Math.max(viewport.clientWidth, imageWidth + padding * 2);
-    var canvasHeight = Math.max(viewport.clientHeight, imageHeight + padding * 2);
-
-    state.image.style.width = imageWidth + "px";
-    state.image.style.height = imageHeight + "px";
-    state.canvas.style.width = canvasWidth + "px";
-    state.canvas.style.height = canvasHeight + "px";
+    state.fitWidth = Math.max(1, Math.round(state.naturalWidth * state.fitScale));
+    state.fitHeight = Math.max(1, Math.round(state.naturalHeight * state.fitScale));
+    state.image.style.width = state.fitWidth + "px";
+    state.image.style.height = state.fitHeight + "px";
     state.canvas.style.padding = padding + "px";
-    state.viewport.classList.toggle("is-zoomed", state.scale > 1.01);
-    state.zoomOutButton.disabled = state.scale <= 1.01;
-    state.zoomResetButton.disabled = state.scale <= 1.01;
-    state.zoomInButton.disabled = state.scale >= 4.49;
-
-    window.requestAnimationFrame(function () {
-      if (!state || !state.isOpen) {
-        return;
-      }
-      var nextCanvasWidth = state.canvas.scrollWidth || canvasWidth;
-      var nextCanvasHeight = state.canvas.scrollHeight || canvasHeight;
-      var maxLeft = Math.max(0, nextCanvasWidth - viewport.clientWidth);
-      var maxTop = Math.max(0, nextCanvasHeight - viewport.clientHeight);
-      viewport.scrollLeft = Math.max(
-        0,
-        Math.min(maxLeft, focusX * nextCanvasWidth - viewport.clientWidth / 2)
-      );
-      viewport.scrollTop = Math.max(
-        0,
-        Math.min(maxTop, focusY * nextCanvasHeight - viewport.clientHeight / 2)
-      );
-    });
+    if (!preservePosition) {
+      state.translateX = 0;
+      state.translateY = 0;
+    }
+    applyPhotoDetailLightboxTransform(state, false);
   }
 
   function resetPhotoDetailLightboxTransform(state) {
@@ -16426,15 +16409,43 @@
       return;
     }
     state.scale = 1;
+    state.translateX = 0;
+    state.translateY = 0;
     syncPhotoDetailLightboxLayout(state, false);
   }
 
-  function setPhotoDetailLightboxScale(state, nextScale, focusPoint) {
+  function setPhotoDetailLightboxScale(state, nextScale, clientX, clientY, animate) {
     if (!state) {
       return;
     }
-    state.scale = clampPhotoDetailLightboxValue(nextScale, 1, 4.5);
-    syncPhotoDetailLightboxLayout(state, true, focusPoint || null);
+    var previousScale = state.scale;
+    var safeScale = clampPhotoDetailLightboxValue(nextScale, 1, 5);
+    if (Math.abs(safeScale - previousScale) < 0.001) {
+      return;
+    }
+    if (typeof clientX === "number" && typeof clientY === "number") {
+      var rect = state.viewport.getBoundingClientRect();
+      var pointX = clientX - rect.left - rect.width / 2;
+      var pointY = clientY - rect.top - rect.height / 2;
+      var ratio = safeScale / previousScale;
+      state.translateX = pointX - (pointX - state.translateX) * ratio;
+      state.translateY = pointY - (pointY - state.translateY) * ratio;
+    }
+    state.scale = safeScale;
+    if (safeScale <= 1.01) {
+      state.translateX = 0;
+      state.translateY = 0;
+    }
+    applyPhotoDetailLightboxTransform(state, animate);
+  }
+
+  function panPhotoDetailLightbox(state, deltaX, deltaY) {
+    if (!state || state.scale <= 1.01) {
+      return;
+    }
+    state.translateX += deltaX;
+    state.translateY += deltaY;
+    applyPhotoDetailLightboxTransform(state, false);
   }
 
   function togglePhotoDetailLightboxZoom(state, event) {
@@ -16442,14 +16453,17 @@
       return;
     }
 
-    var focusPoint = event
-      ? getPhotoDetailLightboxFocusFromPoint(state, event.clientX, event.clientY)
-      : null;
     if (state.scale > 1.01) {
       resetPhotoDetailLightboxTransform(state);
       return;
     }
-    setPhotoDetailLightboxScale(state, window.innerWidth <= 760 ? 1.9 : 2.35, focusPoint);
+    setPhotoDetailLightboxScale(
+      state,
+      window.innerWidth <= 760 ? 2 : 2.4,
+      event ? event.clientX : null,
+      event ? event.clientY : null,
+      true
+    );
   }
 
   function movePhotoDetailLightbox(state, direction) {
@@ -16560,9 +16574,6 @@
     state.loading.hidden = false;
     state.loading.textContent = getPhotoDetailLightboxLabels(state.lang).loading;
     state.image.style.opacity = "0.94";
-    state.viewport.scrollTop = 0;
-    state.viewport.scrollLeft = 0;
-
     if (previewSrc) {
       state.image.src = previewSrc;
     }
@@ -16620,6 +16631,8 @@
 
     state.isOpen = false;
     state.requestId = "";
+    state.pointers.clear();
+    state.pinchDistance = 0;
     state.root.classList.remove("is-open");
     state.root.setAttribute("aria-hidden", "true");
     document.documentElement.classList.remove("photo-lightbox-open");
@@ -16742,7 +16755,7 @@
     var prevButton = buildLightboxButton("photo-lightbox-btn-prev", "←", labels.previous);
     var nextButton = buildLightboxButton("photo-lightbox-btn-next", "→", labels.next);
     var zoomOutButton = buildLightboxButton("photo-lightbox-btn-zoom-out", "−", labels.zoomOut);
-    var zoomResetButton = buildLightboxButton("photo-lightbox-btn-zoom-reset", "1:1", labels.zoomReset);
+    var zoomResetButton = buildLightboxButton("photo-lightbox-btn-zoom-reset", "100%", labels.zoomReset);
     var zoomInButton = buildLightboxButton("photo-lightbox-btn-zoom-in", "+", labels.zoomIn);
     var closeButton = buildLightboxButton("photo-lightbox-btn-close", "×", labels.close);
 
@@ -16768,6 +16781,7 @@
     image.alt = "";
     image.draggable = false;
     image.setAttribute("oncontextmenu", "return false");
+    protectElement(image);
     canvas.appendChild(image);
     viewport.appendChild(canvas);
     stage.appendChild(viewport);
@@ -16811,6 +16825,10 @@
       index: -1,
       scale: 1,
       fitScale: 1,
+      fitWidth: 1,
+      fitHeight: 1,
+      translateX: 0,
+      translateY: 0,
       naturalWidth: 0,
       naturalHeight: 0,
       isOpen: false,
@@ -16819,9 +16837,12 @@
       triggerFigure: null,
       previouslyFocusedElement: null,
       preloadCache: Object.create(null),
-      swipeStartX: null,
-      swipeStartY: null,
-      swipeStartedAt: 0,
+      pointers: new Map(),
+      gestureStartX: null,
+      gestureStartY: null,
+      gestureStartedAt: 0,
+      gestureMoved: false,
+      pinchDistance: 0,
       ignoreImageClickUntil: 0,
     };
 
@@ -16841,7 +16862,13 @@
       if (!photoDetailLightboxState) {
         return;
       }
-      setPhotoDetailLightboxScale(photoDetailLightboxState, photoDetailLightboxState.scale - 0.28);
+      setPhotoDetailLightboxScale(
+        photoDetailLightboxState,
+        photoDetailLightboxState.scale / 1.32,
+        null,
+        null,
+        true
+      );
     });
     bindResponsivePress(zoomResetButton, function () {
       resetPhotoDetailLightboxTransform(photoDetailLightboxState);
@@ -16850,7 +16877,13 @@
       if (!photoDetailLightboxState) {
         return;
       }
-      setPhotoDetailLightboxScale(photoDetailLightboxState, photoDetailLightboxState.scale + 0.28);
+      setPhotoDetailLightboxScale(
+        photoDetailLightboxState,
+        photoDetailLightboxState.scale * 1.32,
+        null,
+        null,
+        true
+      );
     });
 
     image.addEventListener("click", function (event) {
@@ -16865,69 +16898,115 @@
       togglePhotoDetailLightboxZoom(photoDetailLightboxState, event);
     });
 
-    viewport.addEventListener("dblclick", function (event) {
-      if (!photoDetailLightboxState || !photoDetailLightboxState.isOpen) {
+    function getPointerPair(state) {
+      return Array.from(state.pointers.values()).slice(0, 2);
+    }
+
+    function getPointerDistance(pair) {
+      if (!pair || pair.length < 2) {
+        return 0;
+      }
+      return Math.hypot(pair[1].x - pair[0].x, pair[1].y - pair[0].y);
+    }
+
+    viewport.addEventListener("pointerdown", function (event) {
+      var state = photoDetailLightboxState;
+      if (!state || !state.isOpen || event.button > 0) {
         return;
       }
-      stopEvent(event);
-      togglePhotoDetailLightboxZoom(photoDetailLightboxState, event);
+      state.image.classList.remove("is-animating");
+      state.pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+      if (state.pointers.size === 1) {
+        state.gestureStartX = event.clientX;
+        state.gestureStartY = event.clientY;
+        state.gestureStartedAt = Date.now();
+        state.gestureMoved = false;
+      } else if (state.pointers.size === 2) {
+        state.pinchDistance = getPointerDistance(getPointerPair(state));
+        state.gestureMoved = true;
+      }
+      if (typeof viewport.setPointerCapture === "function") {
+        try {
+          viewport.setPointerCapture(event.pointerId);
+        } catch (_error) {
+          // Synthetic pointer events do not always register an active pointer.
+        }
+      }
+      if (state.scale > 1.01 || state.pointers.size > 1) {
+        event.preventDefault();
+      }
     });
 
-    viewport.addEventListener(
-      "touchstart",
-      function (event) {
-        if (!photoDetailLightboxState || !photoDetailLightboxState.isOpen) {
-          return;
+    viewport.addEventListener("pointermove", function (event) {
+      var state = photoDetailLightboxState;
+      var previous = state && state.pointers.get(event.pointerId);
+      if (!state || !state.isOpen || !previous) {
+        return;
+      }
+      state.pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+      var pair = getPointerPair(state);
+      if (pair.length >= 2) {
+        var distance = getPointerDistance(pair);
+        var midpointX = (pair[0].x + pair[1].x) / 2;
+        var midpointY = (pair[0].y + pair[1].y) / 2;
+        if (state.pinchDistance > 0 && distance > 0) {
+          setPhotoDetailLightboxScale(
+            state,
+            state.scale * (distance / state.pinchDistance),
+            midpointX,
+            midpointY,
+            false
+          );
         }
-        var touch = event.changedTouches && event.changedTouches[0];
-        if (!touch) {
-          return;
-        }
-        photoDetailLightboxState.swipeStartX = touch.clientX;
-        photoDetailLightboxState.swipeStartY = touch.clientY;
-        photoDetailLightboxState.swipeStartedAt = Date.now();
-      },
-      { passive: true }
-    );
+        state.pinchDistance = distance;
+        state.gestureMoved = true;
+        event.preventDefault();
+        return;
+      }
+      var dx = event.clientX - previous.x;
+      var dy = event.clientY - previous.y;
+      if (
+        Math.abs(event.clientX - state.gestureStartX) > 5 ||
+        Math.abs(event.clientY - state.gestureStartY) > 5
+      ) {
+        state.gestureMoved = true;
+      }
+      if (state.scale > 1.01) {
+        panPhotoDetailLightbox(state, dx, dy);
+        event.preventDefault();
+      }
+    });
 
-    viewport.addEventListener(
-      "touchend",
-      function (event) {
-        if (!photoDetailLightboxState || !photoDetailLightboxState.isOpen) {
-          return;
+    function finishPhotoDetailLightboxPointer(event) {
+      var state = photoDetailLightboxState;
+      var previous = state && state.pointers.get(event.pointerId);
+      if (!state || !previous) {
+        return;
+      }
+      var wasOnlyPointer = state.pointers.size === 1;
+      state.pointers.delete(event.pointerId);
+      state.pinchDistance = getPointerDistance(getPointerPair(state));
+      if (state.gestureMoved) {
+        state.ignoreImageClickUntil = Date.now() + 450;
+      }
+      if (wasOnlyPointer && state.scale <= 1.01) {
+        var dx = event.clientX - state.gestureStartX;
+        var dy = event.clientY - state.gestureStartY;
+        var elapsed = Date.now() - state.gestureStartedAt;
+        if (Math.abs(dx) >= 52 && Math.abs(dx) >= Math.abs(dy) * 1.35 && elapsed <= 700) {
+          state.ignoreImageClickUntil = Date.now() + 500;
+          movePhotoDetailLightbox(state, dx < 0 ? 1 : -1);
         }
-        if (photoDetailLightboxState.scale > 1.01) {
-          photoDetailLightboxState.swipeStartX = null;
-          photoDetailLightboxState.swipeStartY = null;
-          return;
-        }
-        var touch = event.changedTouches && event.changedTouches[0];
-        if (
-          !touch ||
-          photoDetailLightboxState.swipeStartX === null ||
-          photoDetailLightboxState.swipeStartY === null
-        ) {
-          return;
-        }
+      }
+      if (state.pointers.size === 1) {
+        var remaining = getPointerPair(state)[0];
+        state.gestureStartX = remaining.x;
+        state.gestureStartY = remaining.y;
+      }
+    }
 
-        var dx = touch.clientX - photoDetailLightboxState.swipeStartX;
-        var dy = touch.clientY - photoDetailLightboxState.swipeStartY;
-        var elapsed = Date.now() - photoDetailLightboxState.swipeStartedAt;
-        photoDetailLightboxState.swipeStartX = null;
-        photoDetailLightboxState.swipeStartY = null;
-
-        if (Math.abs(dx) < 52 || Math.abs(dx) < Math.abs(dy) * 1.35 || elapsed > 700) {
-          return;
-        }
-
-        if (event.cancelable) {
-          event.preventDefault();
-        }
-        photoDetailLightboxState.ignoreImageClickUntil = Date.now() + 500;
-        movePhotoDetailLightbox(photoDetailLightboxState, dx < 0 ? 1 : -1);
-      },
-      { passive: false }
-    );
+    viewport.addEventListener("pointerup", finishPhotoDetailLightboxPointer);
+    viewport.addEventListener("pointercancel", finishPhotoDetailLightboxPointer);
 
     viewport.addEventListener(
       "wheel",
@@ -16935,14 +17014,14 @@
         if (!photoDetailLightboxState || !photoDetailLightboxState.isOpen) {
           return;
         }
-        if (!(event.ctrlKey || event.metaKey)) {
-          return;
-        }
         stopEvent(event);
-        var delta = event.deltaY < 0 ? 0.24 : -0.24;
+        var multiplier = Math.exp(-event.deltaY * 0.0018);
         setPhotoDetailLightboxScale(
           photoDetailLightboxState,
-          photoDetailLightboxState.scale + delta
+          photoDetailLightboxState.scale * multiplier,
+          event.clientX,
+          event.clientY,
+          false
         );
       },
       { passive: false }
@@ -16986,12 +17065,30 @@
       }
       if (event.key === "ArrowLeft") {
         stopEvent(event);
-        movePhotoDetailLightbox(photoDetailLightboxState, -1);
+        if (photoDetailLightboxState.scale > 1.01) {
+          panPhotoDetailLightbox(photoDetailLightboxState, 90, 0);
+        } else {
+          movePhotoDetailLightbox(photoDetailLightboxState, -1);
+        }
         return;
       }
       if (event.key === "ArrowRight") {
         stopEvent(event);
-        movePhotoDetailLightbox(photoDetailLightboxState, 1);
+        if (photoDetailLightboxState.scale > 1.01) {
+          panPhotoDetailLightbox(photoDetailLightboxState, -90, 0);
+        } else {
+          movePhotoDetailLightbox(photoDetailLightboxState, 1);
+        }
+        return;
+      }
+      if (event.key === "ArrowUp" && photoDetailLightboxState.scale > 1.01) {
+        stopEvent(event);
+        panPhotoDetailLightbox(photoDetailLightboxState, 0, 90);
+        return;
+      }
+      if (event.key === "ArrowDown" && photoDetailLightboxState.scale > 1.01) {
+        stopEvent(event);
+        panPhotoDetailLightbox(photoDetailLightboxState, 0, -90);
         return;
       }
       if (event.key === "Home") {
@@ -17011,7 +17108,10 @@
         stopEvent(event);
         setPhotoDetailLightboxScale(
           photoDetailLightboxState,
-          photoDetailLightboxState.scale + 0.28
+          photoDetailLightboxState.scale * 1.32,
+          null,
+          null,
+          true
         );
         return;
       }
@@ -17019,7 +17119,10 @@
         stopEvent(event);
         setPhotoDetailLightboxScale(
           photoDetailLightboxState,
-          photoDetailLightboxState.scale - 0.28
+          photoDetailLightboxState.scale / 1.32,
+          null,
+          null,
+          true
         );
         return;
       }

@@ -6,11 +6,12 @@ import re
 from pathlib import Path
 
 VERSION = "20260820-studio-structural-align1"
-PHOTO_STYLE_VERSION = "20260820-photo-membrane-studio-align3"
+PHOTO_STYLE_VERSION = "20260830-photo-lightbox2"
 ACADEMIC_STYLE_VERSION = "20260823-player-academic1"
 BLUE_STYLE_VERSION = "20260823-blue-header1"
-HOME_VERSION = "20260814-mobile-drawer-logo1"
+HOME_VERSION = "20260829-font-unification1"
 PROTECT_VERSION = "20260820-studio-structural-align1"
+PHOTO_PROTECT_VERSION = "20260830-photo-lightbox2"
 MUSIC_PROTECT_VERSION = "20260823-music-player1"
 MUSIC_STYLE_VERSION = "20260820-studio-structural-align1"
 CATALOG_VERSION = "20260801-bilingual-seo1"
@@ -274,6 +275,7 @@ def rewrite_asset_refs(text: str, page_rel: Path) -> str:
     page_path = page_rel.as_posix()
     is_music_index = page_path == "music.html"
     is_photo_detail = bool(page_rel.parts) and page_rel.parts[0] == "photo"
+    is_photo_page = page_path == "photography.html" or is_photo_detail
     is_blue_page = page_path == "photo/blue.html"
     is_academic_page = page_path in {
         "academic.html",
@@ -292,7 +294,12 @@ def rewrite_asset_refs(text: str, page_rel: Path) -> str:
         style_version = ACADEMIC_STYLE_VERSION
     else:
         style_version = VERSION
-    protect_version = MUSIC_PROTECT_VERSION if is_music_index else PROTECT_VERSION
+    if is_music_index:
+        protect_version = MUSIC_PROTECT_VERSION
+    elif is_photo_page:
+        protect_version = PHOTO_PROTECT_VERSION
+    else:
+        protect_version = PROTECT_VERSION
     asset_base = r"(?:https://lyuf09\.github\.io/chronohaze/|/chronohaze/|(?:\.\./)*)"
     replacements = {
         rf"{asset_base}styles(?:\.min)?\.css\?v=[^\"']+": f"{prefix}styles.min.css?v={style_version}",

@@ -55,23 +55,17 @@
 @font-face {
   font-family: "Chronohaze Serif SC";
   font-style: normal;
-  font-weight: 300 700;
+  font-weight: 200 900;
   font-display: swap;
-  src:
-    local("Songti SC"),
-    local("Songti TC"),
-    local("STSong"),
-    local("Hiragino Mincho ProN"),
-    local("Noto Serif SC"),
-    local("Source Han Serif SC");
+  src: url("assets/fonts/chronohaze-serif-sc.woff2") format("woff2");
 }
 
 @font-face {
   font-family: "Chronohaze Sans SC";
   font-style: normal;
-  font-weight: 300 700;
+  font-weight: 100 900;
   font-display: swap;
-  src: local("PingFang SC"), local("Noto Sans SC"), local("Source Han Sans SC"), local("Microsoft YaHei");
+  src: url("assets/fonts/chronohaze-sans-sc.woff2") format("woff2");
 }
 
 :root {
@@ -85,17 +79,17 @@
   --max-width-copy: 720px;
   --max-width-list: 1100px;
   --max-width: var(--max-width-list);
-  --font-serif-zh: "Cormorant Garamond", "Chronohaze Serif SC", "Songti SC", "Songti TC", "STSong", "Hiragino Mincho ProN", "Noto Serif SC", serif;
-  --font-serif-en: "Cormorant Garamond", "Iowan Old Style", "Times New Roman", serif;
-  --font-academic-en: "Novarese", "Iowan Old Style", "Baskerville", "Cormorant Garamond", "Times New Roman", serif;
-  --font-editorial-serif: "Cormorant Garamond", "Chronohaze Serif SC", "Songti SC", "Songti TC", "STSong", "Hiragino Mincho ProN", "Noto Serif SC", "Source Han Serif SC", "Noto Serif CJK SC", serif;
-  --font-editorial-sans: "Chronohaze Sans SC", "PingFang SC", "Noto Sans SC", "Source Han Sans SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+  --font-serif-zh: "Cormorant Garamond", "Chronohaze Serif SC", serif;
+  --font-serif-en: "Cormorant Garamond", "Chronohaze Serif SC", serif;
+  --font-academic-en: "Cormorant Garamond", "Chronohaze Serif SC", serif;
+  --font-editorial-serif: "Cormorant Garamond", "Chronohaze Serif SC", serif;
+  --font-editorial-sans: "Chronohaze Sans SC", sans-serif;
   --font-photo-serif: var(--font-editorial-serif);
   --font-photo-sans: var(--font-editorial-sans);
   --font-music-serif: var(--font-editorial-serif);
   --font-music-sans: var(--font-editorial-sans);
-  --font-sans-zh: "Chronohaze Sans SC", "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
-  --font-sans-en: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-sans-zh: "Chronohaze Sans SC", sans-serif;
+  --font-sans-en: "Chronohaze Sans SC", sans-serif;
   --font-serif: var(--font-serif-zh);
   --font-sans: var(--font-sans-zh);
   --text-strong: #212732;
@@ -1567,11 +1561,11 @@ audio {
   font-size: 11px;
   letter-spacing: 0.34em;
   line-height: 1.3;
-  font-family: "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-editorial-sans);
 }
 
 .photo-index-page .page-title {
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   grid-column: 1;
   font-size: clamp(40px, 4.2vw, 62px);
   line-height: 0.92;
@@ -1590,7 +1584,7 @@ audio {
   font-size: clamp(14px, 0.98vw, 16px);
   line-height: 1.44;
   letter-spacing: 0.012em;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
 }
 
 .photo-index-page .section {
@@ -1674,7 +1668,7 @@ audio {
 
 .photo-index-page .photo-section-title {
   margin: 0;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: clamp(24px, 2.1vw, 32px);
   line-height: 1.05;
   letter-spacing: 0.04em;
@@ -1686,7 +1680,7 @@ audio {
   margin: 8px 0 0;
   max-width: 680px;
   color: rgba(60, 66, 80, 0.84);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: 14px;
   line-height: 1.45;
   letter-spacing: 0.015em;
@@ -1795,7 +1789,7 @@ audio {
 
 .photo-index-page .photo-feature-theme {
   margin: 0;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: 23px;
   line-height: 1;
   letter-spacing: 0.01em;
@@ -1886,7 +1880,7 @@ audio {
 .photo-index-page .photo-title {
   margin: 0;
   color: #232730;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: clamp(19px, 1.35vw, 23px);
   line-height: 1.02;
   letter-spacing: 0.012em;
@@ -1894,7 +1888,7 @@ audio {
 
 .photo-index-page .photo-date {
   margin-top: 5px;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: 11.5px;
   line-height: 1.22;
   font-weight: 400;
@@ -1908,7 +1902,7 @@ audio {
   color: rgba(53, 61, 77, 0.82);
   font-size: 11.5px;
   letter-spacing: 0.02em;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   text-transform: uppercase;
 }
 
@@ -2048,7 +2042,7 @@ audio {
   display: block;
   margin-bottom: 18px;
   color: rgba(67, 75, 90, 0.66);
-  font-family: "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-editorial-sans);
   font-size: 11px;
   line-height: 1.3;
   letter-spacing: 0.32em;
@@ -2449,7 +2443,7 @@ body.photo-lightbox-open {
   min-width: 42px;
   height: 40px;
   padding: 0 12px;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: 20px;
   line-height: 1;
   cursor: pointer;
@@ -2481,27 +2475,30 @@ body.photo-lightbox-open {
 .photo-lightbox-viewport {
   position: absolute;
   inset: 0;
-  overflow: auto;
+  overflow: hidden;
   cursor: zoom-in;
-  touch-action: pan-x pan-y;
+  touch-action: none;
   overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(214, 223, 235, 0.28) rgba(21, 28, 38, 0.3);
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .photo-lightbox-viewport.is-zoomed {
-  cursor: move;
+  cursor: grab;
+}
+
+.photo-lightbox-viewport.is-zoomed:active {
+  cursor: grabbing;
 }
 
 .photo-lightbox-canvas {
-  position: relative;
-  min-width: 100%;
-  min-height: 100%;
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
+  pointer-events: none;
 }
 
 .photo-lightbox-image {
@@ -2511,15 +2508,22 @@ body.photo-lightbox-open {
   height: auto;
   flex: 0 0 auto;
   cursor: zoom-in;
+  pointer-events: auto;
+  transform-origin: 50% 50%;
+  will-change: transform;
   user-select: none;
   -webkit-user-select: none;
   -webkit-user-drag: none;
   -webkit-touch-callout: none;
-  transition: opacity 180ms ease, width 180ms ease, height 180ms ease;
+  transition: opacity 180ms ease;
+}
+
+.photo-lightbox-image.is-animating {
+  transition: opacity 180ms ease, transform 220ms cubic-bezier(0.2, 0.75, 0.25, 1);
 }
 
 .photo-lightbox-viewport.is-zoomed .photo-lightbox-image {
-  cursor: zoom-out;
+  cursor: grab;
 }
 
 .photo-lightbox-loading {
@@ -2561,14 +2565,21 @@ body.photo-lightbox-open {
 
   .photo-lightbox-controls {
     width: 100%;
-    justify-content: flex-end;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    flex-wrap: nowrap;
   }
 
   .photo-lightbox-btn {
     min-width: 40px;
     height: 38px;
     font-size: 18px;
+  }
+
+  .photo-lightbox-btn-zoom-reset {
+    min-width: 62px;
+    font-family: var(--font-ui-sans);
+    font-size: 11px;
+    letter-spacing: 0.04em;
   }
 
   .photo-lightbox-meta,
@@ -2596,13 +2607,17 @@ body.photo-lightbox-open {
 
   .photo-lightbox-controls {
     justify-content: space-between;
-    gap: 6px;
+    gap: 5px;
   }
 
   .photo-lightbox-btn {
-    min-width: 36px;
-    height: 36px;
-    padding: 0 9px;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 8px;
+  }
+
+  .photo-lightbox-btn-zoom-reset {
+    min-width: 58px;
   }
 
   .photo-lightbox-stage {
@@ -2833,7 +2848,7 @@ body.photo-lightbox-open {
 
 .music-index-page .music-ia-title {
   margin: 0;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: clamp(24px, 2.1vw, 32px);
   line-height: 1.05;
   letter-spacing: 0.04em;
@@ -2844,7 +2859,7 @@ body.photo-lightbox-open {
   margin: 8px 0 0;
   max-width: 680px;
   color: rgba(60, 66, 80, 0.84);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: 14px;
   line-height: 1.45;
   letter-spacing: 0.015em;
@@ -3010,7 +3025,7 @@ body.photo-lightbox-open {
   font-size: 10px;
   letter-spacing: 0.09em;
   text-transform: uppercase;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   position: relative;
   z-index: 1;
 }
@@ -3027,7 +3042,7 @@ body.photo-lightbox-open {
 
 .music-index-page .music-featured-item-title {
   color: rgba(31, 38, 51, 0.94);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: 23px;
   line-height: 1;
   letter-spacing: 0.01em;
@@ -3066,7 +3081,7 @@ body.photo-lightbox-open {
   background: var(--ui-surface-glass);
   color: var(--ui-copy-color);
   padding: 6px 14px;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: 13px;
   line-height: var(--type-button-line);
   letter-spacing: var(--type-button-tracking);
@@ -3118,7 +3133,7 @@ body.photo-lightbox-open {
   color: rgba(40, 47, 62, 0.92);
   padding: 7px 10px;
   font-size: 13px;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
 }
 
 .music-index-page .music-group-stack {
@@ -3132,7 +3147,7 @@ body.photo-lightbox-open {
   align-items: baseline;
   justify-content: space-between;
   color: rgba(43, 51, 67, 0.9);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: 16px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -3208,7 +3223,7 @@ body.photo-lightbox-open {
   line-height: 1;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
 }
 
 .music-index-page .music-group[data-group="album"] .music-list {
@@ -3242,7 +3257,7 @@ body.photo-lightbox-open {
 .music-index-page .music-year-group-title {
   margin: 0;
   color: rgba(57, 64, 80, 0.84);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: 13px;
   line-height: 1.1;
   letter-spacing: 0.14em;
@@ -3274,7 +3289,7 @@ body.photo-lightbox-open {
   line-height: 1;
   letter-spacing: 0.07em;
   text-transform: uppercase;
-  font-family: "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-editorial-sans);
   box-shadow: 0 4px 10px rgba(20, 24, 32, 0.03);
 }
 
@@ -3362,7 +3377,7 @@ body.photo-lightbox-open {
   border: 1px solid color-mix(in srgb, var(--color-accent) 24%, var(--ui-border-mid));
   color: color-mix(in srgb, var(--ui-copy-color) 84%, var(--color-accent));
   background: rgba(255, 255, 255, 0.46);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: 10px;
   letter-spacing: 0.18em;
   line-height: 1;
@@ -3471,7 +3486,7 @@ body.photo-lightbox-open {
   color: rgba(38, 44, 58, 0.94);
   padding: 10px 12px;
   font-size: 14px;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
 }
 
 .search-index-page #site-search-input:focus-visible,
@@ -3607,7 +3622,7 @@ body.photo-lightbox-open {
 .search-index-page .search-result-title {
   margin: 0;
   color: rgba(32, 39, 52, 0.94);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: clamp(18px, 1.55vw, 23px);
   line-height: 1.12;
   letter-spacing: 0.008em;
@@ -3698,7 +3713,7 @@ body.photo-lightbox-open {
   color: rgba(40, 47, 62, 0.92);
   padding: 9px 12px;
   font-size: 14px;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
 }
 
 .search-index-page .section {
@@ -3753,7 +3768,7 @@ body.photo-lightbox-open {
   font-size: 19px;
   line-height: 1.22;
   font-weight: 400;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
 }
 
 .search-index-page .search-excerpt {
@@ -3778,7 +3793,7 @@ body.photo-lightbox-open {
   font-size: 10px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
 }
 
 .search-index-page .search-result-group-jumps {
@@ -3834,7 +3849,7 @@ body.photo-lightbox-open {
 .search-index-page .search-result-group-title {
   margin: 0;
   color: rgba(36, 43, 57, 0.9);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: 18px;
   line-height: 1.12;
   letter-spacing: 0.02em;
@@ -3933,7 +3948,7 @@ body.photo-lightbox-open {
 }
 
 .math-index-page .page-title {
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: clamp(30px, 2.8vw, 42px);
   line-height: 0.98;
   letter-spacing: 0.005em;
@@ -3950,7 +3965,7 @@ body.photo-lightbox-open {
   font-size: clamp(13px, 0.86vw, 15px);
   line-height: 1.32;
   letter-spacing: 0.01em;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
 }
 
 .math-index-page .math-fractal-highlight {
@@ -4035,7 +4050,7 @@ body.photo-lightbox-open {
   line-height: 1.2;
   letter-spacing: 0.08em;
   margin: 0;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   text-transform: uppercase;
 }
 
@@ -4047,7 +4062,7 @@ body.photo-lightbox-open {
   border: 1px solid rgba(69, 79, 99, 0.2);
   background: rgba(238, 241, 246, 0.72);
   color: rgba(48, 57, 74, 0.86);
-  font-family: "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-editorial-sans);
   font-size: 9.5px;
   line-height: 1.2;
   letter-spacing: 0.08em;
@@ -4064,7 +4079,7 @@ body.photo-lightbox-open {
 }
 
 .math-index-page .math-title {
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: clamp(17px, 1.3vw, 22px);
   line-height: 1.25;
   font-weight: 400;
@@ -4091,7 +4106,7 @@ body.photo-lightbox-open {
   font-size: 13px;
   line-height: 1.6;
   letter-spacing: 0.01em;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
 }
 
 .math-index-page .math-more {
@@ -4099,7 +4114,7 @@ body.photo-lightbox-open {
   font-size: 12px;
   letter-spacing: 0.04em;
   color: rgba(67, 74, 85, 0.7);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   text-decoration: none;
   width: fit-content;
 }
@@ -4117,13 +4132,13 @@ body.photo-lightbox-open {
   line-height: 1.2;
   letter-spacing: 0.12em;
   margin-top: 3px;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   white-space: nowrap;
   text-transform: uppercase;
 }
 
 .music-index-page .track-title {
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: clamp(17px, 1.32vw, 24px);
   line-height: 1.06;
   font-weight: 400;
@@ -4137,7 +4152,7 @@ body.photo-lightbox-open {
   font-size: 13px;
   line-height: 1.2;
   letter-spacing: 0.14em;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   text-transform: uppercase;
 }
 
@@ -4152,7 +4167,7 @@ body.photo-lightbox-open {
 }
 
 .music-album-page .album-title {
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: clamp(30px, 2.8vw, 42px);
   line-height: 0.98;
   letter-spacing: 0.005em;
@@ -4168,7 +4183,7 @@ body.photo-lightbox-open {
   font-size: clamp(13px, 0.86vw, 15px);
   line-height: 1.32;
   letter-spacing: 0.01em;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
 }
 
 .music-album-page .album-intro {
@@ -4197,7 +4212,7 @@ body.photo-lightbox-open {
   border-left: 2px solid rgba(73, 86, 111, 0.42);
   background: rgba(239, 243, 249, 0.58);
   color: rgba(34, 41, 54, 0.94);
-  font-family: "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-editorial-sans);
   font-size: 12px;
   line-height: 1.65;
   letter-spacing: 0.02em;
@@ -4278,13 +4293,13 @@ body.photo-lightbox-open {
   color: rgba(72, 80, 98, 0.76);
   font-size: 12px;
   letter-spacing: 0.14em;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
 }
 
 .music-album-page .album-cover-main {
   margin: 8px 0 0;
   color: rgba(44, 50, 62, 0.94);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: clamp(30px, 3vw, 46px);
   line-height: 1.05;
   letter-spacing: 0.02em;
@@ -4293,7 +4308,7 @@ body.photo-lightbox-open {
 .music-album-page .album-cover-meta {
   margin: 12px 0 0;
   color: rgba(72, 80, 97, 0.74);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: 14px;
   letter-spacing: 0.08em;
 }
@@ -4357,7 +4372,7 @@ body.photo-lightbox-open {
   font-size: 13px;
   line-height: 1.2;
   letter-spacing: 0.02em;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   white-space: normal;
   min-width: 0;
 }
@@ -4378,7 +4393,7 @@ body.photo-lightbox-open {
   font-size: clamp(15px, 1.08vw, 19px);
   line-height: 1.2;
   letter-spacing: 0.006em;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   min-width: 0;
 }
 
@@ -4403,7 +4418,7 @@ body.photo-lightbox-open {
   align-self: flex-start;
   margin-top: 4px;
   color: color-mix(in srgb, var(--ui-heading-color) 82%, var(--color-accent));
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: 24px;
   line-height: 1.2;
   transition: color 200ms ease, transform 220ms ease;
@@ -4842,7 +4857,7 @@ html:lang(en) .photo-detail-article * {
 .music-detail-page .music-detail-article h3,
 .music-detail-page .music-detail-article a,
 .music-detail-page .music-detail-meta {
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
 }
 
 .music-detail-page .main {
@@ -4865,7 +4880,7 @@ html:lang(en) .photo-detail-article * {
   display: block;
   margin-bottom: 18px;
   color: rgba(67, 75, 90, 0.66);
-  font-family: "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-editorial-sans);
   font-size: 11px;
   line-height: 1.3;
   letter-spacing: 0.32em;
@@ -4890,7 +4905,7 @@ html:lang(en) .photo-detail-article * {
   font-size: 13px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   transition: color 180ms ease, transform 180ms ease;
 }
 
@@ -4963,7 +4978,7 @@ html:lang(en) .photo-detail-article * {
 
 .music-player-label {
   margin: 0 0 8px;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: 15px;
   line-height: 1.2;
   font-weight: 300;
@@ -5095,7 +5110,7 @@ html:lang(en) .photo-detail-article * {
   color: rgba(43, 47, 55, 0.56);
   font-size: 11px;
   letter-spacing: 0.03em;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-weight: 300;
 }
 
@@ -5110,7 +5125,7 @@ html:lang(en) .photo-detail-article * {
   color: rgba(44, 48, 56, 0.58);
   font-size: 12px;
   letter-spacing: 0.04em;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   transition: color 180ms ease;
 }
 
@@ -5217,7 +5232,7 @@ body:is(
 .persistent-audio-close,
 .persistent-audio-nav,
 .persistent-audio-open {
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: 11px;
   letter-spacing: 0.06em;
 }
@@ -5284,7 +5299,7 @@ body:is(
 .persistent-audio-title,
 .persistent-audio-artist {
   margin: 0;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   text-transform: uppercase;
 }
 
@@ -5387,7 +5402,7 @@ body:is(
   line-height: 1.25;
   letter-spacing: 0.03em;
   user-select: none;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
@@ -5508,7 +5523,7 @@ body:is(
   font-size: 12px;
   line-height: 1;
   letter-spacing: 0.02em;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
 }
 
@@ -5553,7 +5568,7 @@ body:is(
   display: block;
   margin-bottom: 22px;
   color: color-mix(in srgb, var(--lyrics-fg, rgba(233, 236, 242, 0.9)) 58%, transparent);
-  font-family: "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-editorial-sans);
   font-size: 11px;
   line-height: 1.3;
   letter-spacing: 0.28em;
@@ -5561,7 +5576,7 @@ body:is(
 
 .music-detail-article .lyrics-showcase-title {
   margin: 0 0 clamp(50px, 5.6vw, 80px);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: clamp(38px, 3.4vw, 56px);
   font-weight: 200;
   letter-spacing: 0.16em;
@@ -5580,7 +5595,7 @@ body:is(
 
 .music-detail-article .lyrics-text {
   margin: 0;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: clamp(13.5px, 0.84vw, 16px);
   line-height: 1.86;
   letter-spacing: 0.012em;
@@ -6014,7 +6029,7 @@ body:is(
 
 .research-hero-copy h1 {
   margin: 0;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: clamp(30px, 3vw, 40px);
   line-height: 1.05;
   font-weight: 400;
@@ -6024,7 +6039,7 @@ body:is(
 .research-subtitle {
   margin: 6px 0 0;
   color: rgba(54, 61, 77, 0.86);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: 16px;
   letter-spacing: 0.05em;
 }
@@ -6055,7 +6070,7 @@ body:is(
   font-size: 11px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
 }
 
 .research-meta-row {
@@ -6082,7 +6097,7 @@ body:is(
   font-size: 12px;
   line-height: 1;
   letter-spacing: 0.03em;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
 }
 
 .research-cta-link:hover {
@@ -6133,7 +6148,7 @@ body:is(
 .page-last-updated-pill time,
 .page-last-updated-pill .page-last-updated-time {
   color: rgba(29, 35, 46, 0.96);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   letter-spacing: 0.04em;
   font-size: 12px;
 }
@@ -6141,14 +6156,14 @@ body:is(
 .page-last-updated-pill[data-status-lang="zh"] .page-last-updated-label {
   text-transform: none;
   letter-spacing: 0.04em;
-  font-family: "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-editorial-sans);
   color: rgba(61, 69, 86, 0.88);
 }
 
 .page-last-updated-pill[data-status-lang="zh"] .research-meta-label {
   text-transform: none;
   letter-spacing: 0.04em;
-  font-family: "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-editorial-sans);
 }
 
 .page-last-updated-pill[data-status-lang="zh"] time,
@@ -6174,7 +6189,7 @@ body:is(
 .research-meta-pill time,
 .research-meta-pill > span:last-child {
   color: rgba(35, 41, 53, 0.9);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   letter-spacing: 0.04em;
   font-size: 12px;
 }
@@ -6197,7 +6212,7 @@ body:is(
 
 .research-hero-panel h2 {
   margin: 0 0 8px;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-weight: 400;
   font-size: 19px;
   letter-spacing: 0.02em;
@@ -6235,7 +6250,7 @@ body:is(
 
 .research-section-head h2 {
   margin: 0;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: clamp(24px, 2.1vw, 30px);
   font-weight: 400;
   color: rgba(31, 36, 47, 0.94);
@@ -6275,7 +6290,7 @@ body:is(
 
 .research-project-card h3 {
   margin: 0 0 8px;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: 22px;
   line-height: 1.12;
   font-weight: 400;
@@ -6681,7 +6696,7 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
 
 .academic-snapshot-list strong {
   color: rgba(28, 34, 45, 0.94);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: 17px;
   font-weight: 500;
   line-height: 1.25;
@@ -6772,7 +6787,7 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
   display: block;
   margin-bottom: 10px;
   color: rgba(65, 77, 100, 0.68);
-  font-family: "Cormorant Garamond", "Noto Serif SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: 13px;
   letter-spacing: 0.12em;
 }
@@ -6800,7 +6815,7 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
   color: rgba(55, 63, 79, 0.84);
   font-size: 11px;
   letter-spacing: 0.06em;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
 }
 
 .academic-entry-card h3 {
@@ -6905,7 +6920,7 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
   font-size: 12px;
   line-height: 1;
   letter-spacing: 0.03em;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
 }
 
 .research-link-row a:hover {
@@ -6939,7 +6954,7 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
 .research-output-group-head h3 {
   margin: 0;
   color: rgba(31, 36, 47, 0.94);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: 20px;
   font-weight: 400;
   line-height: 1.05;
@@ -6987,7 +7002,7 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
 
 .research-output-card strong {
   color: rgba(29, 35, 46, 0.95);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: 21px;
   font-weight: 400;
   line-height: 1.1;
@@ -7002,7 +7017,7 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
   color: rgba(57, 64, 81, 0.82);
   font-size: 12px;
   letter-spacing: 0.02em;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
 }
 
 .research-output-status-badge {
@@ -7112,7 +7127,7 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
 
 .research-fast-link strong {
   color: rgba(29, 35, 46, 0.95);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: 21px;
   font-weight: 400;
   line-height: 1.1;
@@ -7165,7 +7180,7 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
 
 .research-summary-header h1 {
   margin: 0;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-weight: 400;
   font-size: 34px;
   line-height: 1.02;
@@ -7195,7 +7210,7 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
   font-size: 12px;
   line-height: 1;
   letter-spacing: 0.03em;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   cursor: pointer;
 }
 
@@ -7214,7 +7229,7 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
 
 .research-summary-block h2 {
   margin: 0 0 8px;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-weight: 400;
   font-size: 22px;
   line-height: 1.05;
@@ -7243,7 +7258,7 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
 }
 
 .research-summary-meta-card strong {
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: 15px;
   font-weight: 400;
   line-height: 1.1;
@@ -7273,7 +7288,7 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
 
 .research-summary-project h3 {
   margin: 0;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-weight: 400;
   font-size: 17px;
   line-height: 1.08;
@@ -7292,7 +7307,7 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
 }
 
 .research-summary-links {
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   letter-spacing: 0.02em;
 }
 
@@ -7310,7 +7325,7 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
 
 .research-summary-output-group h3 {
   margin: 0 0 6px;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: 17px;
   font-weight: 400;
   line-height: 1.08;
@@ -7613,7 +7628,7 @@ html:lang(en) .projects-page .research-project-grid > [data-lang-block="en"] {
   border-radius: 999px;
   background: transparent;
   color: rgba(244, 247, 252, .94);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: 11px;
   letter-spacing: 0.06em;
   cursor: pointer;
@@ -11304,7 +11319,7 @@ body {
     border: 0;
     background: transparent;
     color: rgba(29, 35, 45, 0.84);
-    font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+    font-family: var(--font-editorial-serif);
     font-size: 10px;
     letter-spacing: 0.12em;
     writing-mode: vertical-rl;
@@ -11896,7 +11911,7 @@ body {
 
 html:lang(en) .music-detail-page .music-detail-article .lyrics-showcase-title,
 html:lang(en) .music-detail-page .music-detail-article .lyrics-text {
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
 }
 
 /* Mobile focus pass for long-form internal pages */
@@ -12194,7 +12209,7 @@ html:lang(en) .music-detail-page .music-detail-article .lyrics-translation-block
 }
 
 html:lang(en) .music-detail-page .music-detail-article .lyrics-original-block {
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: 0.88em;
   line-height: 1.86;
   letter-spacing: 0.008em;
@@ -13442,7 +13457,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
   display: block;
   margin-bottom: 10px;
   color: rgba(66, 74, 89, 0.62);
-  font-family: "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-editorial-sans);
   font-size: 10px;
   line-height: 1.2;
   letter-spacing: 0.28em;
@@ -13528,7 +13543,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
   padding-right: 10px;
   background: #d2d5db;
   color: rgba(73, 81, 96, 0.62);
-  font-family: "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-editorial-sans);
   font-size: 10px;
   line-height: 1.2;
   letter-spacing: 0.26em;
@@ -13580,7 +13595,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
 .music-detail-page .music-detail-page-nav-link {
   min-width: 0;
   color: rgba(39, 46, 58, 0.74);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: 14px;
   line-height: 1.42;
   letter-spacing: 0.08em;
@@ -14406,7 +14421,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
   .music-index-page .music-featured-title {
     margin: 0;
     color: rgba(31, 37, 48, 0.94);
-    font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+    font-family: var(--font-editorial-serif);
     font-size: clamp(18px, 6vw, 22px);
     line-height: 1.02;
     letter-spacing: 0.02em;
@@ -14634,7 +14649,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
 .photo-index-page .photo-head-kicker {
   display: block;
   color: rgba(70, 78, 94, 0.64);
-  font-family: "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-editorial-sans);
   font-size: 10px;
   line-height: 1.3;
   letter-spacing: 0.34em;
@@ -14672,7 +14687,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
 
 .photo-index-page .photo-seeing-note-kicker {
   color: rgba(70, 78, 94, 0.64);
-  font-family: "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-editorial-sans);
   font-size: 10px;
   line-height: 1.3;
   letter-spacing: 0.3em;
@@ -14686,7 +14701,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
 .photo-index-page .photo-seeing-note-copy p {
   margin: 0;
   color: rgba(36, 42, 54, 0.9);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: clamp(18px, 1.28vw, 22px);
   line-height: 1.46;
   letter-spacing: 0.01em;
@@ -14716,7 +14731,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
   margin: 0;
   max-width: 760px;
   color: rgba(52, 59, 72, 0.84);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: clamp(16px, 1.08vw, 18px);
   line-height: 1.62;
   letter-spacing: 0.012em;
@@ -14793,7 +14808,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
 .photo-index-page .photo-feature-theme {
   margin: 0;
   color: rgba(27, 32, 41, 0.94);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: clamp(24px, 2.2vw, 32px);
   line-height: 0.98;
   letter-spacing: 0.018em;
@@ -14807,7 +14822,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
   display: block;
   margin: 0;
   color: rgba(62, 70, 86, 0.84);
-  font-family: "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-editorial-sans);
   font-size: 10px;
   line-height: 1.3;
   letter-spacing: 0.2em;
@@ -14822,7 +14837,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
 
 .photo-index-page .photo-feature-location,
 .photo-index-page .photo-feature-keywords {
-  font-family: "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-editorial-sans);
   font-size: 10px;
   line-height: 1.35;
   letter-spacing: 0.14em;
@@ -14834,7 +14849,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
   display: block;
   max-width: 35ch;
   overflow: visible;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: 13.6px;
   line-height: 1.52;
   letter-spacing: 0.015em;
@@ -14848,7 +14863,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
 .photo-index-page .photo-feature-why {
   margin: 0;
   color: rgba(48, 55, 69, 0.88);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: 13.6px;
   line-height: 1.52;
   letter-spacing: 0.015em;
@@ -14861,7 +14876,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
   padding-top: 7px;
   border-top: 1px solid rgba(70, 80, 98, 0.2);
   color: rgba(42, 50, 65, 0.9);
-  font-family: "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-editorial-sans);
   font-size: 10px;
   line-height: 1.25;
   letter-spacing: 0.14em;
@@ -14902,7 +14917,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
   scroll-margin-top: 118px;
   border-top: 1px solid rgba(78, 87, 103, 0.14);
   color: rgba(31, 36, 46, 0.92);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: clamp(24px, 2vw, 30px);
   line-height: 1;
   letter-spacing: 0.06em;
@@ -14963,7 +14978,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
 
 .photo-index-page .photo-blue-evidence-kicker {
   color: rgba(60, 70, 88, 0.84);
-  font-family: "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-editorial-sans);
   font-size: 9.5px;
   line-height: 1.3;
   letter-spacing: 0.24em;
@@ -14972,7 +14987,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
 .photo-index-page .photo-blue-evidence-copy h3 {
   margin: 0;
   color: rgba(27, 33, 44, 0.98);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: clamp(46px, 5vw, 72px);
   font-weight: 400;
   line-height: 0.9;
@@ -14990,7 +15005,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
 
 .photo-index-page .photo-blue-evidence-result {
   color: rgba(30, 38, 53, 0.96);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: 17px;
 }
 
@@ -15000,7 +15015,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
   padding-top: 7px;
   border-top: 1px solid rgba(66, 78, 99, 0.24);
   color: rgba(42, 51, 68, 0.9);
-  font-family: "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-editorial-sans);
   font-size: 9.5px;
   line-height: 1.3;
   letter-spacing: 0.16em;
@@ -15442,7 +15457,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
 .music-index-page .music-head-kicker {
   display: block;
   color: rgba(70, 78, 94, 0.64);
-  font-family: "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-editorial-sans);
   font-size: 10px;
   line-height: 1.3;
   letter-spacing: 0.34em;
@@ -15484,7 +15499,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
 .music-index-page .music-room-section-title {
   margin: 0;
   color: rgba(29, 35, 46, 0.94);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: clamp(28px, 2.6vw, 40px);
   line-height: 0.96;
   letter-spacing: 0.03em;
@@ -15560,7 +15575,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
 .music-index-page .music-room-album-title {
   margin: 0;
   color: rgba(30, 37, 49, 0.96);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: clamp(40px, 4.6vw, 62px);
   line-height: 0.92;
   letter-spacing: 0.012em;
@@ -15582,7 +15597,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
   font-size: clamp(21px, 1.85vw, 28px);
   line-height: 1.32;
   letter-spacing: 0.018em;
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
 }
 
 .music-index-page .music-room-album-quote {
@@ -15668,7 +15683,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
 
 .music-index-page .music-room-track-title {
   color: rgba(31, 38, 50, 0.94);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: clamp(24px, 2vw, 32px);
   line-height: 0.98;
   letter-spacing: 0.012em;
@@ -15767,7 +15782,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
 .music-index-page .music-room-world-lead {
   margin: 0;
   color: rgba(31, 38, 50, 0.94);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: clamp(24px, 2vw, 32px);
   line-height: 1.34;
   letter-spacing: 0.015em;
@@ -15834,7 +15849,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
 .music-index-page .music-room-archive-group-title {
   margin: 0;
   color: rgba(44, 52, 68, 0.92);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: 14px;
   line-height: 1.1;
   letter-spacing: 0.16em;
@@ -15904,7 +15919,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
 .music-index-page .music-room-archive .track-title,
 .music-index-page .music-room-archive .track-row.track-row-album .track-title {
   color: rgba(32, 38, 50, 0.94);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: clamp(21px, 1.8vw, 28px);
   line-height: 1.02;
   letter-spacing: 0.012em;
@@ -15973,7 +15988,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
 .music-index-page .music-background-title {
   margin: 0;
   color: rgba(35, 41, 52, 0.92);
-  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: clamp(28px, 2.5vw, 36px);
   line-height: 0.98;
   letter-spacing: 0.06em;
@@ -16589,7 +16604,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
 
 .music-index-page .music-hero-copy h1 {
   margin: 0;
-  font-family: "Cormorant Garamond", "Noto Serif SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: clamp(54px, 7vw, 88px);
   font-weight: 300;
   line-height: 0.88;
@@ -16606,7 +16621,7 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
 .music-index-page .music-hero-statement {
   margin: 0;
   color: rgba(42, 50, 66, 0.94);
-  font-family: "Cormorant Garamond", "Noto Serif SC", serif;
+  font-family: var(--font-editorial-serif);
   font-size: clamp(22px, 2.35vw, 32px);
   line-height: 1.18;
 }
@@ -17006,7 +17021,7 @@ html:lang(en) .music-index-page .main .music-timeline-mark {
 html:lang(zh) .music-index-page .music-room-track-role,
 html:lang(zh) .music-index-page .music-room-track-play,
 html:lang(zh) .music-index-page .music-room-track-open {
-  font-family: "Chronohaze Serif SC", "Songti SC", "Songti TC", "STSong", "Hiragino Mincho ProN", "Noto Serif SC", serif;
+  font-family: var(--font-editorial-serif);
 }
 
 @media (max-width: 760px) {

@@ -43,9 +43,9 @@ def main() -> int:
     # Core JS/CSS/HTML file budgets. These track the generated site baseline with modest
     # headroom so the check catches real bloat instead of failing every content polish pass.
     file_budgets: List[Tuple[str, int, str]] = [
-        # The shared runtime now includes gradient-aware logo sampling plus the
-        # metadata-driven music player/archive; keep only modest growth headroom.
-        ("protect-media.min.js", 550_250, "core frontend runtime bundle"),
+        # The shared runtime includes the media catalog plus transform-based
+        # pointer, wheel, and pinch interactions for the protected photo viewer.
+        ("protect-media.min.js", 554_000, "core frontend runtime bundle"),
         ("styles.min.css", 330_000, "global styles"),
         ("home.min.css", 48_000, "home page styles"),
         ("assets/logo-header.png", 30_000, "header logo"),
@@ -75,7 +75,7 @@ def main() -> int:
                 ],
             # Localized article extraction and publication metadata add a small,
             # bounded cost to the shared structured-data module.
-            670_000,
+            673_000,
         ),
         ("key CSS payload", ["styles.min.css", "home.min.css"], 375_000),
     ]

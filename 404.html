@@ -167,6 +167,8 @@
   </script>
   <link rel="preload" href="assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/cinzel-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/chronohaze-sans-sc.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/chronohaze-serif-sc.woff2" as="font" type="font/woff2" crossorigin />
   <style>
     @font-face {
       font-family: "Cinzel";
@@ -174,6 +176,22 @@
       font-weight: 400 700;
       font-display: swap;
       src: url("assets/fonts/cinzel-latin.woff2") format("woff2");
+    }
+
+    @font-face {
+      font-family: "Chronohaze Sans SC";
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url("assets/fonts/chronohaze-sans-sc.woff2") format("woff2");
+    }
+
+    @font-face {
+      font-family: "Chronohaze Serif SC";
+      font-style: normal;
+      font-weight: 200 900;
+      font-display: swap;
+      src: url("assets/fonts/chronohaze-serif-sc.woff2") format("woff2");
     }
 
     @font-face {
@@ -203,8 +221,8 @@
       --line-mid: rgba(138, 160, 200, 0.28);
       --shadow-soft: 0 28px 70px rgba(0, 0, 0, 0.32);
       --brand-font: "Cinzel", serif;
-      --display-font: "Cormorant Garamond", "Iowan Old Style", "Times New Roman", serif;
-      --ui-font: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+      --display-font: "Cormorant Garamond", "Chronohaze Serif SC", serif;
+      --ui-font: "Chronohaze Sans SC", sans-serif;
       --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
     }
 
