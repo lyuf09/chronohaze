@@ -376,8 +376,12 @@ def ensure_security_meta(text: str) -> str:
     match = viewport_re.search(text)
     if match:
         return text[:match.end()] + "\n" + SECURITY_META_SNIPPET + text[match.end():]
-    head_re = re.compile(r"(<head>\s*)", re.I)
-    return head_re.sub(lambda match: match.group(1) + SECURITY_META_SNIPPET + "\n", text, count=1)
+    head_re = re.compile(r"(<head>)(?:[ \t]*\r?\n[ \t]*)*", re.I)
+    return head_re.sub(
+        lambda match: match.group(1) + "\n" + SECURITY_META_SNIPPET + "\n",
+        text,
+        count=1,
+    )
 
 
 def strip_existing_critical_loader(text: str) -> str:

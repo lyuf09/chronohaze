@@ -3319,6 +3319,23 @@
     return String(minutes).padStart(2, "0") + ":" + String(secs).padStart(2, "0");
   }
 
+  function getMediaDuration(media, fallbackSeconds) {
+    var measured = media && isFinite(media.duration) ? Number(media.duration) : 0;
+    if (measured > 0) {
+      return measured;
+    }
+
+    var declared = media
+      ? Number(media.getAttribute("data-duration-seconds") || 0)
+      : 0;
+    if (isFinite(declared) && declared > 0) {
+      return declared;
+    }
+
+    var fallback = Number(fallbackSeconds || 0);
+    return isFinite(fallback) && fallback > 0 ? fallback : 0;
+  }
+
   function setRangeProgress(range, value, max) {
     var safeMax = Number(max) > 0 ? Number(max) : 100;
     var safeValue = Math.max(0, Math.min(Number(value) || 0, safeMax));
@@ -4055,6 +4072,7 @@
           pageHref: persistentAudioController.current.pageHref || "",
           prevHref: persistentAudioController.current.prevHref || "",
           nextHref: persistentAudioController.current.nextHref || "",
+          duration: Number(persistentAudioController.current.duration) || 0,
           currentTime: Number(persistentAudioController.audio.currentTime) || 0,
           paused: !!persistentAudioController.audio.paused,
         })
@@ -4085,7 +4103,10 @@
     var labels = getPersistentAudioLabels();
     var current = controller.current;
     var hasTrack = !!(current && current.src);
-    var duration = isFinite(controller.audio.duration) ? controller.audio.duration : 0;
+    var duration = getMediaDuration(
+      controller.audio,
+      current && current.duration
+    );
     var currentTime = isFinite(controller.audio.currentTime) ? controller.audio.currentTime : 0;
     var isPlaying = hasTrack && !controller.audio.paused && !controller.audio.ended;
     var compactMobile = isCompactMobileAudio();
@@ -4449,6 +4470,7 @@
             pageHref: String(snapshot.pageHref || ""),
             prevHref: String(snapshot.prevHref || ""),
             nextHref: String(snapshot.nextHref || ""),
+            duration: Number(snapshot.duration) || 0,
           };
           audio.src = persistentAudioController.current.src;
           audio.preload = "metadata";
@@ -4484,6 +4506,7 @@
       pageHref: String(nextTrack.pageHref || ""),
       prevHref: String(nextTrack.prevHref || ""),
       nextHref: String(nextTrack.nextHref || ""),
+      duration: Number(nextTrack.duration) || 0,
     };
 
     if (!isSameTrack) {
@@ -4578,6 +4601,7 @@
       pageHref: toChronohazeAbsoluteUrl(featuredRoute || featuredPageHref),
       prevHref: navData.prevRoute,
       nextHref: navData.nextRoute,
+      duration: getMediaDuration(inlineAudio),
     };
 
     function isFeaturedTrackActive() {
@@ -4624,11 +4648,11 @@
       var isPlaying = false;
 
       if (active) {
-        duration = isFinite(controller.audio.duration) ? controller.audio.duration : 0;
+        duration = getMediaDuration(controller.audio, featuredTrack.duration);
         currentTime = isFinite(controller.audio.currentTime) ? controller.audio.currentTime : 0;
         isPlaying = !controller.audio.paused && !controller.audio.ended;
       } else {
-        duration = isFinite(inlineAudio.duration) ? inlineAudio.duration : 0;
+        duration = getMediaDuration(inlineAudio);
         currentTime = 0;
       }
 
@@ -4677,6 +4701,7 @@
                 pageHref: featuredTrack.pageHref,
                 prevHref: featuredTrack.prevHref,
                 nextHref: featuredTrack.nextHref,
+                duration: featuredTrack.duration,
               },
               { autoplay: true }
             );
@@ -4749,6 +4774,7 @@
         pageHref: window.location.href,
         prevHref: navData.prevHref,
         nextHref: navData.nextHref,
+        duration: getMediaDuration(firstAudio),
       },
       { autoplay: true }
     );
@@ -4813,6 +4839,7 @@
       var trackData = buildTrackLabel(article, audio);
       var navData = getCurrentTrackNavigation();
       var trackSource = resolveAudioSource(audio);
+      var trackDuration = getMediaDuration(audio);
       var trackTitleSpan = document.createElement("span");
       trackTitleSpan.className = "music-player-track-title";
       trackTitleSpan.textContent = trackData.title;
@@ -4888,10 +4915,10 @@
         var current = 0;
 
         if (isCurrentPersistentTrack()) {
-          duration = isFinite(controller.audio.duration) ? controller.audio.duration : 0;
+          duration = getMediaDuration(controller.audio, trackDuration);
           current = isFinite(controller.audio.currentTime) ? controller.audio.currentTime : 0;
         } else {
-          duration = isFinite(audio.duration) ? audio.duration : 0;
+          duration = getMediaDuration(audio);
         }
 
         if (duration > 0) {
@@ -4924,6 +4951,7 @@
               pageHref: window.location.href,
               prevHref: navData.prevHref,
               nextHref: navData.nextHref,
+              duration: trackDuration,
             },
             { autoplay: true }
           );
@@ -4986,6 +5014,7 @@
             pageHref: window.location.href,
             prevHref: navData.prevHref,
             nextHref: navData.nextHref,
+            duration: trackDuration,
           },
           { autoplay: true, currentTime: resumeTime }
         );
@@ -5004,6 +5033,7 @@
             pageHref: window.location.href,
             prevHref: navData.prevHref,
             nextHref: navData.nextHref,
+            duration: trackDuration,
           },
           { autoplay: true, currentTime: initialTime }
         );
