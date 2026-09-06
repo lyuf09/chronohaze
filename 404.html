@@ -166,9 +166,8 @@
     document.documentElement.classList.add('js');
   </script>
   <link rel="preload" href="assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/noto-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/cinzel-latin.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="assets/fonts/chronohaze-sans-sc.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="assets/fonts/chronohaze-serif-sc.woff2" as="font" type="font/woff2" crossorigin />
   <style>
     @font-face {
       font-family: "Cinzel";
@@ -179,11 +178,22 @@
     }
 
     @font-face {
+      font-family: "Chronohaze Sans Latin";
+      font-style: normal;
+      font-weight: 100 900;
+      font-stretch: 100%;
+      font-display: swap;
+      src: url("assets/fonts/noto-sans-latin.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    @font-face {
       font-family: "Chronohaze Sans SC";
       font-style: normal;
       font-weight: 100 900;
       font-display: swap;
       src: url("assets/fonts/chronohaze-sans-sc.woff2") format("woff2");
+      unicode-range: U+2E80-2EFF, U+2F00-2FDF, U+3000-303F, U+3040-30FF, U+3100-312F, U+31A0-31EF, U+3400-4DBF, U+4E00-9FFF, U+F900-FAFF, U+FE10-FE1F, U+FE30-FE4F, U+FF00-FFEF, U+20000-2FA1F;
     }
 
     @font-face {
@@ -192,6 +202,7 @@
       font-weight: 200 900;
       font-display: swap;
       src: url("assets/fonts/chronohaze-serif-sc.woff2") format("woff2");
+      unicode-range: U+2E80-2EFF, U+2F00-2FDF, U+3000-303F, U+3040-30FF, U+3100-312F, U+31A0-31EF, U+3400-4DBF, U+4E00-9FFF, U+F900-FAFF, U+FE10-FE1F, U+FE30-FE4F, U+FF00-FFEF, U+20000-2FA1F;
     }
 
     @font-face {
@@ -221,9 +232,18 @@
       --line-mid: rgba(138, 160, 200, 0.28);
       --shadow-soft: 0 28px 70px rgba(0, 0, 0, 0.32);
       --brand-font: "Cinzel", serif;
-      --display-font: "Cormorant Garamond", "Chronohaze Serif SC", serif;
-      --ui-font: "Chronohaze Sans SC", sans-serif;
+      --display-font-zh: "Cormorant Garamond", "Chronohaze Serif SC", serif;
+      --display-font-en: "Cormorant Garamond", Georgia, serif;
+      --ui-font-zh: "Chronohaze Sans SC", "Chronohaze Sans Latin", sans-serif;
+      --ui-font-en: "Chronohaze Sans Latin", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --display-font: var(--display-font-zh);
+      --ui-font: var(--ui-font-zh);
       --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    html:lang(en) {
+      --display-font: var(--display-font-en);
+      --ui-font: var(--ui-font-en);
     }
 
     * {
@@ -619,9 +639,25 @@
       }
     }
   </style>
+
+  <!-- Chronohaze analytics preference and opt-out control -->
+  <script id="chronohaze-analytics-bootstrap">
+    (function () {
+      var measurementId = "G-JWZY2TVYFZ";
+      var storedPreference;
+      try { storedPreference = window.localStorage.getItem("chronohaze-analytics"); } catch (_err) {}
+      var doNotTrack = navigator.doNotTrack === "1" || window.doNotTrack === "1";
+      var enabled = storedPreference === "on" || (storedPreference !== "off" && !doNotTrack);
+      window["ga-disable-" + measurementId] = !enabled;
+      window.__chronohazeAnalyticsInitialEnabled = enabled;
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/css/analytics-control.min.css?v=20260906-latin-a11y1" />
+  <script id="chronohaze-analytics-runtime" defer src="assets/js/analytics-control.min.js?v=20260906-latin-a11y1" data-analytics-collection="control-only"></script>
 </head>
 <body>
-  <div class="page-shell" id="pageShell">
+  <a class="skip-link" href="#main-content">Skip to content / 跳到正文</a>
+<div class="page-shell" id="pageShell">
     <header class="topbar">
       <a class="brand" href="index.html">CHRONOHAZE</a>
       <div class="lang-pill" aria-label="Language switch">
@@ -630,7 +666,7 @@
       </div>
     </header>
 
-    <main class="hero">
+    <main id="main-content" class="hero">
       <div class="hero-wrap">
         <section class="hero-copy" aria-labelledby="pageTitle">
           <p class="hero-kicker" data-i18n="kicker">404</p>
@@ -654,7 +690,12 @@
 
     <footer class="footer-line">
       <span data-i18n="footer">先回到起点，再继续前行。</span>
-    </footer>
+  <div class="analytics-control-shell" data-analytics-collection="control-only">
+    <p class="analytics-control" data-analytics-control>
+      <span data-analytics-status>Analytics: On</span><span aria-hidden="true"> · </span><button type="button" data-analytics-toggle>Turn off</button>
+    </p>
+  </div>
+</footer>
   </div>
 
   <script>

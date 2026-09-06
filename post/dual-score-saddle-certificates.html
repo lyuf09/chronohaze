@@ -122,11 +122,27 @@
   <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/post/dual-score-saddle-certificates.html?lang=en" />
   <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/post/dual-score-saddle-certificates.html" />
   <!-- GENERATED:hreflang:end -->
-  <link rel="stylesheet" href="../styles.min.css?v=20260823-player-academic1" />
+  <link rel="stylesheet" href="../styles.min.css?v=20260906-latin-a11y1" />
   <script defer src="../protect-media.min.js?v=20260820-studio-structural-align1"></script>
+
+  <!-- Chronohaze analytics preference and opt-out control -->
+  <script id="chronohaze-analytics-bootstrap">
+    (function () {
+      var measurementId = "G-JWZY2TVYFZ";
+      var storedPreference;
+      try { storedPreference = window.localStorage.getItem("chronohaze-analytics"); } catch (_err) {}
+      var doNotTrack = navigator.doNotTrack === "1" || window.doNotTrack === "1";
+      var enabled = storedPreference === "on" || (storedPreference !== "off" && !doNotTrack);
+      window["ga-disable-" + measurementId] = !enabled;
+      window.__chronohazeAnalyticsInitialEnabled = enabled;
+    })();
+  </script>
+  <link rel="stylesheet" href="../assets/css/analytics-control.min.css?v=20260906-latin-a11y1" />
+  <script id="chronohaze-analytics-runtime" defer src="../assets/js/analytics-control.min.js?v=20260906-latin-a11y1" data-analytics-collection="control-only"></script>
 </head>
 <body class="math-post-page note-detail-page">
-  <div class="page">
+  <a class="skip-link" href="#main-content">Skip to content / 跳到正文</a>
+<div class="page">
     <header class="site-header">
       <div class="container header-inner">
         <a class="brand" href="../index.html" data-preserve-lang="1"><span>CHRONOHAZE</span></a>
@@ -140,7 +156,7 @@
       </div>
     </header>
 
-    <main class="main">
+    <main id="main-content" class="main">
       <article class="article">
         <div data-lang-block="zh">
           <h1>历史研究记录已归档</h1>
@@ -166,7 +182,12 @@
         <div><p class="footer-title">CHRONOHAZE</p><p class="footer-copy">© 2026 by CHRONOHAZE.</p></div>
         <div class="footer-right"><a href="../policy.html" data-preserve-lang="1">网站说明</a></div>
       </div>
-    </footer>
+  <div class="analytics-control-shell" data-analytics-collection="control-only">
+    <p class="analytics-control" data-analytics-control>
+      <span data-analytics-status>Analytics: On</span><span aria-hidden="true"> · </span><button type="button" data-analytics-toggle>Turn off</button>
+    </p>
+  </div>
+</footer>
   </div>
   <script>
     (function () {

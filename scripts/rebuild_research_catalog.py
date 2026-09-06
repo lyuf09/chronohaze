@@ -185,6 +185,7 @@ def parse_links(html_text: str, selector_class: str) -> List[Dict[str, Any]]:
 
 
 def parse_research_page(text: str) -> Dict[str, Any]:
+    search_excerpt_en = ""
     payload: Dict[str, Any] = {
         "hero": {},
         "meta": {},
@@ -203,6 +204,7 @@ def parse_research_page(text: str) -> Dict[str, Any]:
     hero_block_m = re.search(r'<section class="research-hero">(.*?)</section>', text, re.S)
     if hero_block_m:
         hero_block = hero_block_m.group(1)
+        hero_en_block = preferred_lang_block(hero_block, "en")
         eyebrow_m = re.search(r'<p class="research-eyebrow">(.*?)</p>', hero_block, re.S)
         h1_m = re.search(r"<h1>(.*?)</h1>", hero_block, re.S)
         subtitle_m = re.search(r'<p class="research-subtitle">(.*?)</p>', hero_block, re.S)
@@ -215,6 +217,16 @@ def parse_research_page(text: str) -> Dict[str, Any]:
             hero_block,
             re.S,
         )
+        positioning_en_m = re.search(
+            r'<p class="[^"]*\bresearch-thesis-line\b[^"]*">(.*?)</p>',
+            hero_en_block,
+            re.S,
+        ) or re.search(
+            r'<p class="[^"]*\bresearch-positioning\b[^"]*">(.*?)</p>',
+            hero_en_block,
+            re.S,
+        )
+        search_excerpt_en = clean(positioning_en_m.group(1) if positioning_en_m else "")
         chips = [
             clean(x)
             for x in re.findall(r'<span class="research-chip">(.*?)</span>', hero_block, re.S)
@@ -588,11 +600,7 @@ def parse_research_page(text: str) -> Dict[str, Any]:
         "section": "Site",
         "date": "",
         "excerpt": search_excerpt or "Research landing page",
-        "excerpt_en": (
-            "I work on optimization theory and formal verification through reusable Isabelle/HOL "
-            "infrastructure for optimization and structural negative-curvature certificates for "
-            "network localization."
-        ),
+        "excerpt_en": search_excerpt_en or clean(desc_m.group(1) if desc_m else ""),
         "tags": ["research", "optimization", "formal-methods"],
         "sort": today_sort,
         "scope": "site",

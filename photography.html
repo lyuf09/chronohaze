@@ -143,12 +143,28 @@
     gtag('config', 'G-JWZY2TVYFZ');
   </script>
 <link rel="preload" as="image" href="assets/template/photo-top-960.webp" type="image/webp" imagesrcset="assets/template/photo-top-960.webp 960w, assets/template/photo-top-1600.webp 1600w" imagesizes="(max-width: 900px) 100vw, 980px"/>
-<link href="styles.min.css?v=20260820-studio-structural-align1" rel="stylesheet"/>
+<link href="styles.min.css?v=20260906-latin-a11y1" rel="stylesheet"/>
 <link href="assets/css/editorial-evidence.css?v=20260722-readable1" rel="stylesheet"/>
 <script defer="" src="protect-media.min.js?v=20260830-photo-lightbox2"></script>
 <script defer="" src="assets/js/catalog-pages.min.js?v=20260801-bilingual-seo1"></script>
+
+  <!-- Chronohaze analytics preference and opt-out control -->
+  <script id="chronohaze-analytics-bootstrap">
+    (function () {
+      var measurementId = "G-JWZY2TVYFZ";
+      var storedPreference;
+      try { storedPreference = window.localStorage.getItem("chronohaze-analytics"); } catch (_err) {}
+      var doNotTrack = navigator.doNotTrack === "1" || window.doNotTrack === "1";
+      var enabled = storedPreference === "on" || (storedPreference !== "off" && !doNotTrack);
+      window["ga-disable-" + measurementId] = !enabled;
+      window.__chronohazeAnalyticsInitialEnabled = enabled;
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/css/analytics-control.min.css?v=20260906-latin-a11y1" />
+  <script id="chronohaze-analytics-runtime" defer src="assets/js/analytics-control.min.js?v=20260906-latin-a11y1" data-analytics-collection="enabled"></script>
 </head>
 <body class="photo-index-page">
+  <a class="skip-link" href="#main-content">Skip to content / 跳到正文</a>
 <div class="page">
 <header class="site-header">
 <div class="container header-inner">
@@ -165,7 +181,7 @@
         </nav>
 </div>
 </header>
-<main class="main">
+<main id="main-content" class="main">
 <section aria-label="摄影作品集主图" data-aria-label-en="Photography portfolio hero" data-aria-label-zh="摄影作品集主图" class="photo-hero">
 <div class="container photo-hero-inner">
 <picture class="responsive-picture" style="display:block;width:100%;">
@@ -570,6 +586,11 @@
 <a href="accessibility.html">无障碍支持</a>
 </div>
 </div>
+  <div class="analytics-control-shell" data-analytics-collection="enabled">
+    <p class="analytics-control" data-analytics-control>
+      <span data-analytics-status>Analytics: On</span><span aria-hidden="true"> · </span><button type="button" data-analytics-toggle>Turn off</button>
+    </p>
+  </div>
 </footer>
 </div>
 </body>

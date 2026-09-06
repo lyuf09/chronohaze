@@ -196,8 +196,23 @@ def run_checks(root: Path):
     research_search = research_catalog_payload.get("search", {}) if isinstance(research_catalog_payload, dict) else {}
     research_catalog_map = {norm_url(research_search.get("url")): research_search} if isinstance(research_search, dict) and research_search.get("url") else {}
     research_page_map = build_research_page_map(root)
-    findings.extend(compare_maps("research", research_page_map, research_catalog_map, ["title", "excerpt"], compare_tags=True))
-    findings.extend(compare_catalog_to_search("research", research_catalog_map, search_map, ["tags", "title", "excerpt"]))
+    findings.extend(
+        compare_maps(
+            "research",
+            research_page_map,
+            research_catalog_map,
+            ["title", "title_en", "excerpt", "excerpt_en"],
+            compare_tags=True,
+        )
+    )
+    findings.extend(
+        compare_catalog_to_search(
+            "research",
+            research_catalog_map,
+            search_map,
+            ["tags", "title", "title_en", "excerpt", "excerpt_en"],
+        )
+    )
 
     errors = [f for f in findings if f.level == "error"]
     warns = [f for f in findings if f.level == "warn"]

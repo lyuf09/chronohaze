@@ -17918,7 +17918,7 @@
 
       var src = (scriptNode.getAttribute("src") || "").trim();
       if (src) {
-        if (/googletagmanager|protect-media(?:\.min)?\.js/i.test(src)) {
+        if (/googletagmanager|protect-media(?:\.min)?\.js|analytics-control(?:\.min)?\.js/i.test(src)) {
           return;
         }
         chain = chain.then(function () {

@@ -5,15 +5,15 @@ import argparse
 import re
 from pathlib import Path
 
-VERSION = "20260820-studio-structural-align1"
-PHOTO_STYLE_VERSION = "20260830-photo-lightbox2"
-ACADEMIC_STYLE_VERSION = "20260823-player-academic1"
-BLUE_STYLE_VERSION = "20260823-blue-header1"
-HOME_VERSION = "20260829-font-unification1"
+VERSION = "20260906-latin-a11y1"
+PHOTO_STYLE_VERSION = "20260906-latin-a11y1"
+ACADEMIC_STYLE_VERSION = "20260906-latin-a11y1"
+BLUE_STYLE_VERSION = "20260906-latin-a11y1"
+HOME_VERSION = "20260906-latin-a11y1"
 PROTECT_VERSION = "20260820-studio-structural-align1"
 PHOTO_PROTECT_VERSION = "20260830-photo-lightbox2"
 MUSIC_PROTECT_VERSION = "20260823-music-player1"
-MUSIC_STYLE_VERSION = "20260820-studio-structural-align1"
+MUSIC_STYLE_VERSION = "20260906-latin-a11y1"
 CATALOG_VERSION = "20260801-bilingual-seo1"
 STRUCTURED_DATA_VERSION = "20260801-bilingual-seo1"
 
@@ -21,43 +21,27 @@ SECURITY_META_MARKER = "chronohaze-security-policy"
 SECURITY_META_SNIPPET = """  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />"""
 
-GOOGLE_TAG_SNIPPET = """  <!-- Google tag (gtag.js), deferred until idle -->
-  <script>
+ANALYTICS_CONTROL_HTML = """  <div class="analytics-control-shell">
+    <p class="analytics-control" data-analytics-control>
+      <span data-analytics-status>Analytics: On</span><span aria-hidden="true"> · </span><button type="button" data-analytics-toggle>Turn off</button>
+    </p>
+  </div>
+"""
+
+ANALYTICS_RUNTIME_TEMPLATE = """  <!-- Chronohaze analytics preference and opt-out control -->
+  <script id="chronohaze-analytics-bootstrap">
     (function () {
       var measurementId = "G-JWZY2TVYFZ";
-      window.dataLayer = window.dataLayer || [];
-      window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
-
-      function shouldSkipAnalytics() {
-        return navigator.doNotTrack === "1" || window.doNotTrack === "1";
-      }
-
-      function loadAnalytics() {
-        if (loadAnalytics.loaded || shouldSkipAnalytics()) return;
-        loadAnalytics.loaded = true;
-        var script = document.createElement("script");
-        script.async = true;
-        script.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(measurementId);
-        document.head.appendChild(script);
-        window.gtag("js", new Date());
-        window.gtag("config", measurementId, { anonymize_ip: true });
-      }
-
-      function scheduleAnalytics() {
-        if ("requestIdleCallback" in window) {
-          window.requestIdleCallback(loadAnalytics, { timeout: 3500 });
-        } else {
-          window.setTimeout(loadAnalytics, 1800);
-        }
-      }
-
-      if (document.readyState === "complete") {
-        scheduleAnalytics();
-      } else {
-        window.addEventListener("load", scheduleAnalytics, { once: true });
-      }
+      var storedPreference;
+      try { storedPreference = window.localStorage.getItem("chronohaze-analytics"); } catch (_err) {}
+      var doNotTrack = navigator.doNotTrack === "1" || window.doNotTrack === "1";
+      var enabled = storedPreference === "on" || (storedPreference !== "off" && !doNotTrack);
+      window["ga-disable-" + measurementId] = !enabled;
+      window.__chronohazeAnalyticsInitialEnabled = enabled;
     })();
-  </script>"""
+  </script>
+  <link rel="stylesheet" href="__PREFIX__assets/css/analytics-control.min.css?v=__VERSION__" />
+  <script id="chronohaze-analytics-runtime" defer src="__PREFIX__assets/js/analytics-control.min.js?v=__VERSION__" data-analytics-collection="__COLLECTION__"></script>"""
 
 CRITICAL_LOADER_MARKER = "chronohaze-critical-loader-style"
 CRITICAL_LOADER_SNIPPET = """  <style id="chronohaze-critical-loader-style">
@@ -171,12 +155,14 @@ CRITICAL_LOADER_SNIPPET = """  <style id="chronohaze-critical-loader-style">
 CSS_FILES = [
     "styles.css",
     "home.css",
+    "assets/css/analytics-control.css",
     "assets/css/olfactory.css",
     "assets/css/performance-archive.css",
 ]
 
 JS_FILES = [
     "protect-media.js",
+    "assets/js/analytics-control.js",
     "assets/js/catalog-pages.js",
     "assets/js/music-detail-transcript.js",
     "assets/js/orchid-production-notes.js",
@@ -318,11 +304,83 @@ def rewrite_asset_refs(text: str, page_rel: Path) -> str:
 
 def rewrite_html_refs(text: str, page_rel: Path) -> str:
     out = rewrite_asset_refs(text, page_rel)
+    out = ensure_language_font_preloads(out)
+    out = ensure_accessibility_scaffold(out)
+    out = ensure_analytics_control(out)
+    out = ensure_analytics_runtime(out, page_rel)
     out = remove_static_avif_sources(out)
     out = remove_third_party_font_hints(out)
-    out = defer_google_tag(out)
     out = ensure_critical_loader(out)
     return ensure_security_meta(out)
+
+
+def ensure_language_font_preloads(text: str) -> str:
+    lines = text.splitlines(keepends=True)
+    filtered: list[str] = []
+    for line in lines:
+        is_font_preload = 'rel="preload"' in line and 'as="font"' in line
+        if is_font_preload and any(
+            filename in line
+            for filename in (
+                "chronohaze-sans-sc.woff2",
+                "chronohaze-serif-sc.woff2",
+                "noto-sans-latin.woff2",
+            )
+        ):
+            continue
+        filtered.append(line)
+
+    output: list[str] = []
+    inserted = False
+    font_path_re = re.compile(
+        r'href="(?P<prefix>[^"]*)cormorant-garamond-roman-latin\.woff2"',
+        re.I,
+    )
+    for line in filtered:
+        output.append(line)
+        if inserted or 'rel="preload"' not in line or 'as="font"' not in line:
+            continue
+        match = font_path_re.search(line)
+        if not match:
+            continue
+        indent = line[: len(line) - len(line.lstrip())]
+        output.append(
+            f'{indent}<link rel="preload" href="{match.group("prefix")}noto-sans-latin.woff2" '
+            'as="font" type="font/woff2" crossorigin />\n'
+        )
+        inserted = True
+    return "".join(output)
+
+
+def ensure_accessibility_scaffold(text: str) -> str:
+    text = re.sub(
+        r'^[ \t]*<a\s+class="skip-link"[^>]*>.*?</a>\s*\n?',
+        "",
+        text,
+        count=1,
+        flags=re.M | re.I | re.S,
+    )
+    main_re = re.compile(r'<main\b(?P<attrs>[^>]*)>', re.I)
+    main_match = main_re.search(text)
+    if not main_match:
+        return text
+    attrs = main_match.group("attrs")
+    id_match = re.search(r'\bid="([^"]+)"', attrs, re.I)
+    if id_match:
+        target_id = id_match.group(1)
+    else:
+        target_id = "main-content"
+        replacement = f'<main id="{target_id}"{attrs}>'
+        text = text[: main_match.start()] + replacement + text[main_match.end() :]
+    body_re = re.compile(r'(<body\b[^>]*>)', re.I)
+    return body_re.sub(
+        lambda match: (
+            match.group(1)
+            + f'\n  <a class="skip-link" href="#{target_id}">Skip to content / 跳到正文</a>'
+        ),
+        text,
+        count=1,
+    )
 
 
 def remove_static_avif_sources(text: str) -> str:
@@ -339,19 +397,99 @@ def remove_third_party_font_hints(text: str) -> str:
     return text
 
 
-def defer_google_tag(text: str) -> str:
-    pattern = re.compile(
+def ensure_analytics_control(text: str) -> str:
+    text = re.sub(
+        r"\s*<div\s+class=[\"']analytics-control-shell[\"'][^>]*>.*?</div>\s*",
+        "\n",
+        text,
+        flags=re.S | re.I,
+    )
+    footer_end = re.search(r"</footer>", text, re.I)
+    if not footer_end:
+        return text
+    line_start = text.rfind("\n", 0, footer_end.start()) + 1
+    indent = text[line_start : footer_end.start()]
+    if indent.strip():
+        line_start = footer_end.start()
+        indent = ""
+    return text[:line_start] + ANALYTICS_CONTROL_HTML + indent + text[footer_end.start() :]
+
+
+def ensure_analytics_runtime(text: str, page_rel: Path) -> str:
+    collection_enabled = bool(
+        re.search(r"data-analytics-collection=['\"]enabled['\"]", text, re.I)
+        or "Google tag (gtag.js), deferred until idle" in text
+        or re.search(
+            r"https://www\.googletagmanager\.com/gtag/js\?id=G-JWZY2TVYFZ",
+            text,
+            re.I,
+        )
+    )
+
+    text = re.sub(
+        r"\s*<style\s+id=[\"']chronohaze-analytics-control-style[\"'][^>]*>.*?</style>\s*",
+        "\n",
+        text,
+        flags=re.S | re.I,
+    )
+    text = re.sub(
+        r"\s*<script\s+id=[\"']chronohaze-analytics-bootstrap[\"'][^>]*>.*?</script>\s*",
+        "\n",
+        text,
+        flags=re.S | re.I,
+    )
+    text = re.sub(
+        r"\s*<link\s+rel=[\"']stylesheet[\"'][^>]*analytics-control(?:\.min)?\.css[^>]*>\s*",
+        "\n",
+        text,
+        flags=re.I,
+    )
+    text = re.sub(
+        r"\s*(?:<!-- Chronohaze analytics preference and opt-out control -->\s*)?"
+        r"<script\s+id=[\"']chronohaze-analytics-runtime[\"'][^>]*>.*?</script>\s*",
+        "\n",
+        text,
+        flags=re.S | re.I,
+    )
+    text = re.sub(
+        r"\s*<!-- Google tag \(gtag\.js\), deferred until idle -->\s*<script>.*?</script>\s*",
+        "\n",
+        text,
+        flags=re.S | re.I,
+    )
+    text = re.sub(
         r"\s*(?:<!-- Google tag \(gtag\.js\) -->\s*)?"
         r"<script\s+async\s+src=[\"']https://www\.googletagmanager\.com/gtag/js\?id=G-JWZY2TVYFZ[\"']></script>\s*"
-        r"<script>\s*"
-        r"window\.dataLayer\s*=\s*window\.dataLayer\s*\|\|\s*\[\];\s*"
-        r"function gtag\(\)\s*\{\s*dataLayer\.push\(arguments\);\s*\}\s*"
-        r"gtag\([\"']js[\"'],\s*new Date\(\)\);\s*"
-        r"gtag\([\"']config[\"'],\s*[\"']G-JWZY2TVYFZ[\"']\);\s*"
-        r"</script>",
-        flags=re.S,
+        r"<script>.*?</script>\s*",
+        "\n",
+        text,
+        flags=re.S | re.I,
     )
-    return pattern.sub("\n" + GOOGLE_TAG_SNIPPET, text)
+
+    if "data-analytics-control" not in text:
+        return text
+    collection = "enabled" if collection_enabled else "control-only"
+    text = text.replace(
+        '<div class="analytics-control-shell">',
+        f'<div class="analytics-control-shell" data-analytics-collection="{collection}">',
+        1,
+    )
+    prefix = "../" * len(page_rel.parent.parts)
+    runtime = (
+        ANALYTICS_RUNTIME_TEMPLATE.replace("__COLLECTION__", collection)
+        .replace("__PREFIX__", prefix)
+        .replace("__VERSION__", VERSION)
+    )
+    head_end = re.search(r"</head>", text, re.I)
+    if not head_end:
+        return text
+    return (
+        text[: head_end.start()]
+        + "\n"
+        + runtime
+        + "\n"
+        + text[head_end.start() :]
+    )
 
 
 def strip_existing_security_meta(text: str) -> str:
@@ -459,7 +597,20 @@ def main() -> int:
     # Standalone noindex reading notes do not load the shared runtime that
     # releases the critical loader, so only refresh their versioned assets.
     for path in (root / "notes").glob("*.html"):
-        path.write_text(rewrite_asset_refs(path.read_text(encoding="utf-8"), path.relative_to(root)), encoding="utf-8")
+        text = rewrite_asset_refs(path.read_text(encoding="utf-8"), path.relative_to(root))
+        text = ensure_language_font_preloads(text)
+        text = ensure_accessibility_scaffold(text)
+        text = ensure_analytics_control(text)
+        text = ensure_analytics_runtime(text, path.relative_to(root))
+        path.write_text(text, encoding="utf-8")
+
+    for path in (root / "shared").glob("*.html"):
+        text = rewrite_asset_refs(path.read_text(encoding="utf-8"), path.relative_to(root))
+        text = ensure_language_font_preloads(text)
+        text = ensure_accessibility_scaffold(text)
+        text = ensure_analytics_control(text)
+        text = ensure_analytics_runtime(text, path.relative_to(root))
+        path.write_text(text, encoding="utf-8")
 
     print("Generated minified assets:")
     for item in generated:

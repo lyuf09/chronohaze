@@ -171,49 +171,29 @@
   <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/photo/photo-14.html" />
   <!-- GENERATED:hreflang:end -->
   <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
-  <!-- Google tag (gtag.js), deferred until idle -->
-  <script>
+<link rel="preload" href="../assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="../assets/fonts/noto-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="../styles.min.css?v=20260906-latin-a11y1" />
+  <script defer src="../protect-media.min.js?v=20260830-photo-lightbox2"></script>
+
+  <!-- Chronohaze analytics preference and opt-out control -->
+  <script id="chronohaze-analytics-bootstrap">
     (function () {
       var measurementId = "G-JWZY2TVYFZ";
-      window.dataLayer = window.dataLayer || [];
-      window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
-
-      function shouldSkipAnalytics() {
-        return navigator.doNotTrack === "1" || window.doNotTrack === "1";
-      }
-
-      function loadAnalytics() {
-        if (loadAnalytics.loaded || shouldSkipAnalytics()) return;
-        loadAnalytics.loaded = true;
-        var script = document.createElement("script");
-        script.async = true;
-        script.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(measurementId);
-        document.head.appendChild(script);
-        window.gtag("js", new Date());
-        window.gtag("config", measurementId, { anonymize_ip: true });
-      }
-
-      function scheduleAnalytics() {
-        if ("requestIdleCallback" in window) {
-          window.requestIdleCallback(loadAnalytics, { timeout: 3500 });
-        } else {
-          window.setTimeout(loadAnalytics, 1800);
-        }
-      }
-
-      if (document.readyState === "complete") {
-        scheduleAnalytics();
-      } else {
-        window.addEventListener("load", scheduleAnalytics, { once: true });
-      }
+      var storedPreference;
+      try { storedPreference = window.localStorage.getItem("chronohaze-analytics"); } catch (_err) {}
+      var doNotTrack = navigator.doNotTrack === "1" || window.doNotTrack === "1";
+      var enabled = storedPreference === "on" || (storedPreference !== "off" && !doNotTrack);
+      window["ga-disable-" + measurementId] = !enabled;
+      window.__chronohazeAnalyticsInitialEnabled = enabled;
     })();
   </script>
-  <link rel="preload" href="../assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="../styles.min.css?v=20260830-photo-lightbox2" />
-  <script defer src="../protect-media.min.js?v=20260830-photo-lightbox2"></script>
+  <link rel="stylesheet" href="../assets/css/analytics-control.min.css?v=20260906-latin-a11y1" />
+  <script id="chronohaze-analytics-runtime" defer src="../assets/js/analytics-control.min.js?v=20260906-latin-a11y1" data-analytics-collection="enabled"></script>
 </head>
 <body class="photo-detail-page">
-  <div class="page">
+  <a class="skip-link" href="#main-content">Skip to content / 跳到正文</a>
+<div class="page">
     <header class="site-header">
       <div class="container header-inner">
         <a class="brand" href="../index.html">
@@ -230,7 +210,7 @@
       </div>
     </header>
 
-    <main class="main">
+    <main id="main-content" class="main">
       <article class="article photo-detail-article">
         <h1 data-copy-en="Hidden Entrance" data-copy-zh="隐入口">隐入口</h1>
         <p class="photo-detail-date" data-copy-en="30 August 2025" data-copy-zh="2025 年 8 月 30 日">2025 年 8 月 30 日</p>
@@ -269,7 +249,12 @@
           <a href="../accessibility.html">无障碍支持</a>
         </div>
       </div>
-    </footer>
+  <div class="analytics-control-shell" data-analytics-collection="enabled">
+    <p class="analytics-control" data-analytics-control>
+      <span data-analytics-status>Analytics: On</span><span aria-hidden="true"> · </span><button type="button" data-analytics-toggle>Turn off</button>
+    </p>
+  </div>
+</footer>
   </div>
 </body>
 </html>

@@ -156,54 +156,32 @@
   <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/" />
   <!-- GENERATED:hreflang:end -->
   <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
-  <!-- Google tag (gtag.js), deferred until idle -->
-  <script>
-    (function () {
-      var measurementId = "G-JWZY2TVYFZ";
-      window.dataLayer = window.dataLayer || [];
-      window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
-
-      function shouldSkipAnalytics() {
-        return navigator.doNotTrack === "1" || window.doNotTrack === "1";
-      }
-
-      function loadAnalytics() {
-        if (loadAnalytics.loaded || shouldSkipAnalytics()) return;
-        loadAnalytics.loaded = true;
-        var script = document.createElement("script");
-        script.async = true;
-        script.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(measurementId);
-        document.head.appendChild(script);
-        window.gtag("js", new Date());
-        window.gtag("config", measurementId, { anonymize_ip: true });
-      }
-
-      function scheduleAnalytics() {
-        if ("requestIdleCallback" in window) {
-          window.requestIdleCallback(loadAnalytics, { timeout: 3500 });
-        } else {
-          window.setTimeout(loadAnalytics, 1800);
-        }
-      }
-
-      if (document.readyState === "complete") {
-        scheduleAnalytics();
-      } else {
-        window.addEventListener("load", scheduleAnalytics, { once: true });
-      }
-    })();
-  </script>
-  <link rel="preload" href="assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="assets/fonts/noto-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/cinzel-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" as="image" href="assets/template/hero_portrait-960.webp" type="image/webp" imagesrcset="assets/template/hero_portrait-600.webp 600w, assets/template/hero_portrait-960.webp 960w, assets/template/hero_portrait-1600.webp 1600w" imagesizes="(max-width: 640px) 88vw, (max-width: 900px) 92vw, 46vw" />
-  <link rel="preload" href="assets/fonts/chronohaze-sans-sc.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="assets/fonts/chronohaze-serif-sc.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="styles.min.css?v=20260820-studio-structural-align1" />
-  <link rel="stylesheet" href="home.min.css?v=20260829-font-unification1" />
+  <link rel="stylesheet" href="styles.min.css?v=20260906-latin-a11y1" />
+  <link rel="stylesheet" href="home.min.css?v=20260906-latin-a11y1" />
   <script defer src="protect-media.min.js?v=20260820-studio-structural-align1"></script>
+
+  <!-- Chronohaze analytics preference and opt-out control -->
+  <script id="chronohaze-analytics-bootstrap">
+    (function () {
+      var measurementId = "G-JWZY2TVYFZ";
+      var storedPreference;
+      try { storedPreference = window.localStorage.getItem("chronohaze-analytics"); } catch (_err) {}
+      var doNotTrack = navigator.doNotTrack === "1" || window.doNotTrack === "1";
+      var enabled = storedPreference === "on" || (storedPreference !== "off" && !doNotTrack);
+      window["ga-disable-" + measurementId] = !enabled;
+      window.__chronohazeAnalyticsInitialEnabled = enabled;
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/css/analytics-control.min.css?v=20260906-latin-a11y1" />
+  <script id="chronohaze-analytics-runtime" defer src="assets/js/analytics-control.min.js?v=20260906-latin-a11y1" data-analytics-collection="enabled"></script>
 </head>
 <body class="home-body">
-  <div class="home-page" id="top">
+  <a class="skip-link" href="#main-content">Skip to content / 跳到正文</a>
+<div class="home-page" id="top">
     <header class="home-topbar">
       <a class="home-brand" href="#top">CHRONOHAZE</a>
 
@@ -215,7 +193,7 @@
       <button class="menu-open" type="button" aria-controls="drawer" aria-expanded="false" aria-label="Menu [ + ]" data-i18n-aria="menuOpenAria" id="openMenu">+</button>
     </header>
 
-    <main>
+    <main id="main-content">
       <section class="hero-split" id="home">
         <div class="hero-left" data-floating-logo-tone="dark">
           <div class="hero-portrait-frame">
@@ -233,7 +211,7 @@
             <p class="hero-role-line" data-i18n="heroRole">OPTIMIZATION · FORMAL VERIFICATION · MACHINE-CHECKED MATHEMATICS</p>
             <p data-i18n="heroIntro" data-i18n-html="true"><span class="hero-poetic-line">In the haze of time, I look for structure in complexity.</span><span class="hero-identity-line">I work on optimization and formal verification. As HazezZ, I write and produce music and make photographs.</span></p>
             <p class="hero-authority-line" data-i18n="heroAuthority">University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027</p>
-            <p class="hero-research-signal" data-i18n="heroResearchSignal">Two entries in the Archive of Formal Proofs, including a sole-authored formalization</p>
+            <p class="hero-research-signal" data-i18n="heroResearchSignal">Two Archive of Formal Proofs entries · one independent formalization · one developed under the supervision of Wenda Li</p>
             <div class="hero-academic-module" data-search-ignore>
               <p class="hero-academic-kicker" data-i18n="academicKicker">Quick links</p>
               <div class="hero-academic-links">
@@ -256,9 +234,9 @@
             <p class="selected-evidence-kicker" data-i18n="selectedEvidenceKicker">CURRENT WORK</p>
             <h2 id="selectedEvidenceTitle" data-i18n="selectedEvidenceTitle">Research Snapshot</h2>
           </div>
-          <div class="selected-evidence-grid" role="list" data-i18n-aria="selectedEvidenceGridAria" aria-label="Selected research outputs">
+          <div class="selected-evidence-grid" role="list" data-i18n-aria="selectedEvidenceGridAria" aria-label="Selected publications and ongoing research">
             <article class="selected-evidence-card" role="listitem" data-reveal="slide-up" data-reveal-delay="80">
-              <p class="selected-evidence-status" data-i18n="selectedEvidenceCard1Status">PUBLISHED · AFP · 2026</p>
+              <p class="selected-evidence-status" data-i18n="selectedEvidenceCard1Status">PUBLISHED · AFP · 2026 · SOLE AUTHOR</p>
               <h3 data-i18n="selectedEvidenceCard1Title">First-Order Methods for Smooth Convex Optimization in Isabelle/HOL</h3>
               <p data-i18n="selectedEvidenceCard1Body">Reusable Isabelle/HOL infrastructure for smooth convex first-order optimization, including projection geometry, projected-gradient mappings, convergence certificates, and linear rates.</p>
               <div class="selected-evidence-links">
@@ -338,16 +316,16 @@
       <section class="now-strip" id="now" data-floating-logo-tone="dark">
         <div class="now-shell" data-reveal="fade" data-reveal-delay="40">
           <div class="now-head">
-            <h2 data-i18n="nowTitle">Now / August 2026</h2>
+            <h2 data-i18n="nowTitle">Now / September 2026</h2>
             <div class="now-freshness" data-reveal="fade" data-reveal-delay="80">
               <span class="now-freshness-label" data-i18n="nowFreshnessLabel">Last updated</span>
-              <time class="now-freshness-time" datetime="2026-08">2026. 08</time>
+              <time class="now-freshness-time" datetime="2026-09">2026. 09</time>
             </div>
           </div>
-          <div class="now-grid" aria-label="Current work in August 2026" data-i18n-aria="nowGridAria">
+          <div class="now-grid" aria-label="Current research and studio work in September 2026" data-i18n-aria="nowGridAria">
             <article class="now-card" data-reveal="slide-up" data-reveal-delay="80">
-              <h3 data-i18n="nowCard1Title">Network localization &amp; nonconvex optimization</h3>
-              <p data-i18n="nowCard1Body">Continuing to study curvature structure near stationary points and the connections among different constructions of escape directions.</p>
+              <h3 data-i18n="nowCard1Title">StochasticGreedy / Isabelle/HOL</h3>
+              <p data-i18n="nowCard1Body">The approximation and oracle-cost theorem line is in place; current work focuses on the probabilistic-semantics layer needed to connect reusable proofs with executable sampling.</p>
             </article>
             <article class="now-card" data-reveal="slide-up" data-reveal-delay="150">
               <h3 data-i18n="nowCard2Title">起死開戦 / Bass</h3>
@@ -389,7 +367,12 @@
       <div class="home-footer-bottom">
         <p data-i18n="footerCopy">© 2026 by CHRONOHAZE. Hosted on GitHub Pages.</p>
       </div>
-    </footer>
+  <div class="analytics-control-shell" data-analytics-collection="enabled">
+    <p class="analytics-control" data-analytics-control>
+      <span data-analytics-status>Analytics: On</span><span aria-hidden="true"> · </span><button type="button" data-analytics-toggle>Turn off</button>
+    </p>
+  </div>
+</footer>
 
     <div class="drawer-backdrop" id="backdrop" hidden></div>
     <aside class="drawer" id="drawer" aria-hidden="true">
@@ -523,7 +506,7 @@
           heroRole: 'OPTIMIZATION · FORMAL VERIFICATION · MACHINE-CHECKED MATHEMATICS',
           heroIntro: '<span class="hero-poetic-line">在时间的薄雾里，为复杂性寻找结构。</span><span class="hero-identity-line">我研究优化与形式化验证；也以 HazezZ 的名义写作、制作音乐与摄影。</span>',
           heroAuthority: 'University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027',
-          heroResearchSignal: 'Archive of Formal Proofs 收录两项成果，其中一项为独立完成的形式化',
+          heroResearchSignal: 'Archive of Formal Proofs 收录两项成果 · 一项独立完成的形式化 · 一项在 Wenda Li 指导下完成',
           academicKicker: '快捷入口',
           academicResearch: '学术',
           academicStatement: '研究陈述',
@@ -536,20 +519,20 @@
           aboutP2: '我在优化理论与形式化验证的交界处工作，研究如何把算法假设、证明结构与收敛结论组织成可复用、可机器检查的数学。',
           aboutP3: '理性与浪漫在这里并置：证明、声音与影像各自保留自己的语言。',
           aboutLanguages: '<span class="about-language-label">语言：</span>中文 / 英语 / 日语<br />我主要以中文和英文写作，也会用日文进行歌词、标题与创作表达。',
-          nowKicker: 'NOW / 2026年8月',
-          nowTitle: '近况 / 2026年8月',
+          nowKicker: 'NOW / 2026年9月',
+          nowTitle: '近况 / 2026年9月',
           nowFreshnessLabel: '近况更新',
-          nowGridAria: '2026年8月的研究与创作近况',
-          nowCard1Title: '网络定位与非凸优化',
-          nowCard1Body: '继续研究驻点附近的曲率结构，以及不同逃逸方向构造之间的联系。',
+          nowGridAria: '2026年9月的研究与创作近况',
+          nowCard1Title: 'StochasticGreedy / Isabelle/HOL',
+          nowCard1Body: '近似保证与预言机调用复杂度定理线已经就位；当前工作聚焦于概率语义层，以连接可复用证明与可执行采样。',
           nowCard2Title: '起死開戦 / Bass',
           nowCard2Body: '最近在练 millsage 的《起死開戦》，这个难度完全邦一贝但是我能练下来。',
           nowCard3Title: '音乐制作',
           nowCard3Body: '刚完成一首团体委托原创曲，也在继续写自己的歌和一些合作项目。',
           selectedEvidenceKicker: '研究概览',
           selectedEvidenceTitle: '当前工作',
-          selectedEvidenceGridAria: '代表性研究成果',
-          selectedEvidenceCard1Status: '已发表 · AFP · 2026',
+          selectedEvidenceGridAria: '代表性发表成果与进行中研究',
+          selectedEvidenceCard1Status: '已发表 · AFP · 2026 · 独立作者',
           selectedEvidenceCard1Title: 'Isabelle/HOL 中的光滑凸优化一阶方法',
           selectedEvidenceCard1Body: '构建可复用的光滑凸一阶优化 Isabelle/HOL 基础设施，涵盖投影几何、投影梯度映射、收敛证书与线性收敛率。',
           selectedEvidenceCard1Link: '查看 AFP 条目',
@@ -619,7 +602,7 @@
           heroRole: 'OPTIMIZATION · FORMAL VERIFICATION · MACHINE-CHECKED MATHEMATICS',
           heroIntro: '<span class="hero-poetic-line">In the haze of time, I look for structure in complexity.</span><span class="hero-identity-line">I work on optimization and formal verification. As HazezZ, I write and produce music and make photographs.</span>',
           heroAuthority: 'University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027',
-          heroResearchSignal: 'Two entries in the Archive of Formal Proofs, including a sole-authored formalization',
+          heroResearchSignal: 'Two Archive of Formal Proofs entries · one independent formalization · one developed under the supervision of Wenda Li',
           academicKicker: 'Quick links',
           academicResearch: 'Academic',
           academicStatement: 'Research Statement',
@@ -632,20 +615,20 @@
           aboutP2: 'I work at the intersection of optimization theory and formal verification, organizing algorithmic assumptions, proof structure, and convergence arguments into reusable machine-checked mathematics.',
           aboutP3: 'Reason and romance sit side by side here: proof, sound, and image each keep their own language.',
           aboutLanguages: '<span class="about-language-label">Languages:</span> Chinese / English / 日本語<br />I mainly write in Chinese and English, and also use Japanese for lyrics, titles, and creative expression.',
-          nowKicker: 'NOW / AUGUST 2026',
-          nowTitle: 'Now / August 2026',
+          nowKicker: 'NOW / SEPTEMBER 2026',
+          nowTitle: 'Now / September 2026',
           nowFreshnessLabel: 'Last updated',
-          nowGridAria: 'Current research and studio work in August 2026',
-          nowCard1Title: 'Network localization & nonconvex optimization',
-          nowCard1Body: 'Continuing to study curvature structure near stationary points and the connections among different constructions of escape directions.',
+          nowGridAria: 'Current research and studio work in September 2026',
+          nowCard1Title: 'StochasticGreedy / Isabelle/HOL',
+          nowCard1Body: 'The approximation and oracle-cost theorem line is in place; current work focuses on the probabilistic-semantics layer needed to connect reusable proofs with executable sampling.',
           nowCard2Title: '起死開戦 / Bass',
           nowCard2Body: 'Recently practicing millsage’s “起死開戦.” The bass part is brutally difficult, but I know I can get it down.',
           nowCard3Title: 'Music production',
           nowCard3Body: 'I’ve just completed an original commissioned song for a group, and I’m continuing to write my own music alongside several collaborative projects.',
           selectedEvidenceKicker: 'CURRENT WORK',
           selectedEvidenceTitle: 'Research Snapshot',
-          selectedEvidenceGridAria: 'Selected research outputs',
-          selectedEvidenceCard1Status: 'PUBLISHED · AFP · 2026',
+          selectedEvidenceGridAria: 'Selected publications and ongoing research',
+          selectedEvidenceCard1Status: 'PUBLISHED · AFP · 2026 · SOLE AUTHOR',
           selectedEvidenceCard1Title: 'First-Order Methods for Smooth Convex Optimization in Isabelle/HOL',
           selectedEvidenceCard1Body: 'Reusable Isabelle/HOL infrastructure for smooth convex first-order optimization, including projection geometry, projected-gradient mappings, convergence certificates, and linear rates.',
           selectedEvidenceCard1Link: 'AFP entry',

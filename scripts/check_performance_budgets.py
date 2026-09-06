@@ -52,6 +52,8 @@ def main() -> int:
         ("assets/js/search-page.min.js", 60_000, "search page runtime"),
         ("assets/js/structured-data.min.js", 20_000, "structured data module"),
         ("assets/js/music-detail-transcript.min.js", 15_000, "music transcript module"),
+        ("assets/js/analytics-control.min.js", 9_000, "analytics privacy control"),
+        ("assets/css/analytics-control.min.css", 2_000, "analytics control styles"),
         ("index.html", 70_000, "home page HTML"),
         # The performance gallery includes accessible alt text and responsive
         # image metadata for the dated live set.

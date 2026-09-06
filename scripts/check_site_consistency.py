@@ -372,6 +372,40 @@ def check_legacy_public_copy(path: Path, text: str) -> List[Finding]:
     ]
 
 
+def check_analytics_privacy(path: Path, text: str, root: Path) -> List[Finding]:
+    findings: List[Finding] = []
+    if "<footer" in text.lower():
+        control_count = len(
+            re.findall(r'<p\s+class=["\']analytics-control["\'][^>]*data-analytics-control', text, re.I)
+        )
+        if control_count != 1:
+            findings.append(
+                Finding(path, "analytics-control", f"Expected one footer Analytics control, found {control_count}")
+            )
+        if text.count('id="chronohaze-analytics-runtime"') != 1:
+            findings.append(Finding(path, "analytics-runtime", "Analytics preference runtime is missing or duplicated"))
+        for marker in (
+            "ga-disable-",
+            "chronohazeAnalyticsInitialEnabled",
+            "analytics-control.min.css",
+            "analytics-control.min.js",
+        ):
+            if marker not in text:
+                findings.append(Finding(path, "analytics-runtime", f"Required privacy marker is missing: {marker}"))
+    if "Google tag (gtag.js), deferred until idle" in text:
+        findings.append(Finding(path, "analytics-runtime", "Legacy Analytics loader remains in the page"))
+    if path.parent == root and path.name == "policy.html":
+        for disclosure in (
+            "Analytics is enabled by default",
+            "Google Analytics may set first-party cookies",
+            "chronohaze-analytics",
+            "Google Signals and advertising-personalization signals are disabled",
+        ):
+            if disclosure not in text:
+                findings.append(Finding(path, "privacy-disclosure", f"Required disclosure is missing: {disclosure}"))
+    return findings
+
+
 def check_seo_artifacts(root: Path) -> List[Finding]:
     findings: List[Finding] = []
     robots_path = root / "robots.txt"
@@ -457,6 +491,7 @@ def check_files(root: Path) -> List[Finding]:
         findings.extend(check_hreflang_duplicates(path, text))
         findings.extend(check_legacy_redirect_noindex(path, text, root))
         findings.extend(check_legacy_public_copy(path, text))
+        findings.extend(check_analytics_privacy(path, text, root))
     generated_text_paths = list((root / "assets").rglob("*.json")) + [root / "feed.xml"]
     for path in sorted(p for p in generated_text_paths if p.is_file()):
         findings.extend(check_submodular_status(path, read_text(path)))
@@ -468,6 +503,21 @@ def check_files(root: Path) -> List[Finding]:
         for pattern in RUNTIME_ACADEMIC_LEGACY_PATTERNS:
             if pattern in text:
                 findings.append(Finding(path, "academic-runtime", f"Legacy runtime identity/status found: {pattern!r}"))
+    analytics_runtime = root / "assets/js/analytics-control.js"
+    if not analytics_runtime.is_file():
+        findings.append(Finding(analytics_runtime, "analytics-runtime", "Analytics control source is missing"))
+    else:
+        analytics_text = read_text(analytics_runtime)
+        for marker in (
+            'allow_google_signals: false',
+            'allow_ad_personalization_signals: false',
+            'preferenceKey = "chronohaze-analytics"',
+            'analytics_storage: analyticsEnabled ? "granted" : "denied"',
+        ):
+            if marker not in analytics_text:
+                findings.append(
+                    Finding(analytics_runtime, "analytics-runtime", f"Required privacy marker is missing: {marker}")
+                )
     findings.extend(check_seo_artifacts(root))
     return findings
 

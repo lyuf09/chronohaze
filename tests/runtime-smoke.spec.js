@@ -50,7 +50,7 @@ test("home page renders hero and player shell", async ({ page }) => {
   ).toHaveCount(3);
   await expect(page.getByRole("heading", { name: "当前工作" })).toBeVisible();
   await expect(page.locator(".selected-evidence-status")).toHaveText([
-    "已发表 · AFP · 2026",
+    "已发表 · AFP · 2026 · 独立作者",
     "已发表 · AFP · 2026 · 形式化开发 · WENDA LI 指导",
     "进行中 · 合作研究",
   ]);
@@ -65,7 +65,7 @@ test("home page renders hero and player shell", async ({ page }) => {
   );
   await expect(page.locator(".identity-panel-math")).toContainText("学术身份 · FEIER LYU");
   await expect(page.locator(".identity-panel-creative")).toContainText("创作身份 · HAZEZZ");
-  await expect(page.locator("#now")).toContainText("网络定位与非凸优化");
+  await expect(page.locator("#now")).toContainText("StochasticGreedy / Isabelle/HOL");
   await expect(page.locator("#now")).toContainText("起死開戦 / Bass");
   await expect(page.locator("#now")).toContainText("音乐制作");
   await expect(page.locator("#selected-evidence")).not.toContainText("Current research");
@@ -77,7 +77,7 @@ test("home page renders hero and player shell", async ({ page }) => {
     "University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027"
   );
   await expect(page.locator(".hero-research-signal")).toHaveText(
-    "Archive of Formal Proofs 收录两项成果，其中一项为独立完成的形式化"
+    "Archive of Formal Proofs 收录两项成果 · 一项独立完成的形式化 · 一项在 Wenda Li 指导下完成"
   );
   await expect(page.locator(".hero-academic-links .hero-academic-link")).toHaveText([
     "学术",
@@ -108,6 +108,152 @@ test("home page renders hero and player shell", async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
+test("English home uses the Latin subset and exposes keyboard and pointer targets", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "chromium", "single-browser typography and target regression");
+  const fontRequests = [];
+  page.on("request", (request) => {
+    if (request.resourceType() === "font") {
+      fontRequests.push(request.url());
+    }
+  });
+
+  await page.goto("index.html?lang=en", { waitUntil: "networkidle" });
+  await waitForCriticalLoaderRelease(page);
+  await page.evaluate(() => document.fonts.ready);
+
+  const bodyFamily = await page.locator("body").evaluate(
+    (node) => window.getComputedStyle(node).fontFamily
+  );
+  expect(bodyFamily).toContain("Chronohaze Sans Latin");
+  expect(bodyFamily).not.toContain("Chronohaze Sans SC");
+  expect(fontRequests.some((url) => url.endsWith("/noto-sans-latin.woff2"))).toBe(true);
+  expect(fontRequests.some((url) => /chronohaze-(?:sans|serif)-sc\.woff2/.test(url))).toBe(false);
+  await expect(page.locator('link[rel="preload"][href*="-sc.woff2"]')).toHaveCount(0);
+
+  await page.keyboard.press("Tab");
+  const skipLink = page.locator(".skip-link");
+  await expect(skipLink).toBeFocused();
+  await expect(skipLink).toBeVisible();
+  const skipBox = await skipLink.boundingBox();
+  expect(skipBox.height).toBeGreaterThanOrEqual(44);
+
+  const player = page.locator("#audioToggle");
+  await player.scrollIntoViewIfNeeded();
+  await expect(player.locator("xpath=ancestor::*[@data-reveal][1]")).toHaveClass(/is-visible/);
+  const playerBox = await player.boundingBox();
+  expect(playerBox.width).toBeGreaterThanOrEqual(44);
+  expect(playerBox.height).toBeGreaterThanOrEqual(44);
+
+  const copyButton = page.locator(".home-footer .obf-email-copy");
+  await copyButton.scrollIntoViewIfNeeded();
+  const copyBox = await copyButton.boundingBox();
+  expect(copyBox.width).toBeGreaterThanOrEqual(44);
+  expect(copyBox.height).toBeGreaterThanOrEqual(44);
+});
+
+test("analytics footer control opts out, clears cookies, and persists the choice", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "chromium", "single-browser analytics privacy regression");
+  const tagRequests = [];
+  await page.addInitScript(() => {
+    try {
+      if (window.sessionStorage.getItem("chronohaze-analytics-test-ready") !== "1") {
+        window.localStorage.removeItem("chronohaze-analytics");
+        window.sessionStorage.setItem("chronohaze-analytics-test-ready", "1");
+      }
+    } catch (_err) {}
+    try {
+      Object.defineProperty(Navigator.prototype, "doNotTrack", {
+        configurable: true,
+        get: () => null,
+      });
+    } catch (_err) {}
+  });
+  await page.route("https://www.googletagmanager.com/gtag/js**", async (route) => {
+    tagRequests.push(route.request().url());
+    await route.fulfill({
+      status: 200,
+      contentType: "application/javascript",
+      body: "window.__chronohazeTestGoogleTagLoaded = true;",
+    });
+  });
+
+  await page.goto("policy.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+  await page.waitForFunction(() => !!window.__chronohazeAnalytics);
+  const control = page.locator("[data-analytics-control]");
+  await expect(control).toHaveText("Analytics: On · Turn off");
+  await expect(page.getByRole("heading", { name: "2. Analytics, Cookies & Local Storage" })).toBeVisible();
+  await expect(page.locator('[data-lang-block="en"]')).toContainText(
+    "Analytics is enabled by default and is not used for advertising, personalization, or cross-site profiling."
+  );
+
+  await page.evaluate(() => window.__chronohazeAnalytics.load());
+  await expect.poll(() => tagRequests.length).toBe(1);
+  const initialCommands = await page.evaluate(() =>
+    window.dataLayer.map((entry) => Array.from(entry))
+  );
+  const privacySet = initialCommands.find((entry) => entry[0] === "set");
+  const config = initialCommands.find((entry) => entry[0] === "config");
+  expect(privacySet[1]).toMatchObject({
+    allow_google_signals: false,
+    allow_ad_personalization_signals: false,
+  });
+  expect(config[2]).toMatchObject({
+    allow_google_signals: false,
+    allow_ad_personalization_signals: false,
+  });
+
+  await page.evaluate(() => {
+    document.cookie = "_ga=test-client; path=/";
+    document.cookie = "_ga_TEST=test-session; path=/";
+  });
+  await control.locator("[data-analytics-toggle]").click();
+  await expect(control).toHaveText("Analytics: Off · Turn on");
+  const optedOut = await page.evaluate(() => ({
+    preference: window.localStorage.getItem("chronohaze-analytics"),
+    disabled: window["ga-disable-G-JWZY2TVYFZ"],
+    cookies: document.cookie,
+    commands: window.dataLayer.map((entry) => Array.from(entry)),
+  }));
+  expect(optedOut.preference).toBe("off");
+  expect(optedOut.disabled).toBe(true);
+  expect(optedOut.cookies).not.toContain("_ga=");
+  expect(optedOut.cookies).not.toContain("_ga_TEST=");
+  expect(optedOut.commands.at(-1)).toEqual([
+    "consent",
+    "update",
+    expect.objectContaining({ analytics_storage: "denied" }),
+  ]);
+
+  await page.goto("index.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+  await page.waitForFunction(() => !!window.__chronohazeAnalytics);
+  const homeControl = page.locator("[data-analytics-control]");
+  await expect(homeControl).toHaveText("Analytics: Off · Turn on");
+  await page.evaluate(() => window.__chronohazeAnalytics.load());
+  await page.waitForTimeout(100);
+  expect(tagRequests).toHaveLength(1);
+  expect(await page.locator("#chronohaze-google-tag").count()).toBe(0);
+
+  await homeControl.locator("[data-analytics-toggle]").click();
+  await expect(homeControl).toHaveText("Analytics: On · Turn off");
+  await expect(page.locator("#chronohaze-google-tag")).toHaveCount(1);
+  await expect.poll(() => tagRequests.length).toBe(2);
+  const optedIn = await page.evaluate(() => ({
+    preference: window.localStorage.getItem("chronohaze-analytics"),
+    disabled: window["ga-disable-G-JWZY2TVYFZ"],
+  }));
+  expect(optedIn).toEqual({ preference: "on", disabled: false });
+
+  await page.locator('.home-footer-policy a[href="policy.html"]').click();
+  await page.waitForURL(/policy\.html/);
+  const swappedControl = page.locator("[data-analytics-control]");
+  await expect(swappedControl).toHaveText("Analytics: On · Turn off");
+  await swappedControl.locator("[data-analytics-toggle]").click();
+  await expect(swappedControl).toHaveText("Analytics: Off · Turn on");
+  expect(await page.evaluate(() => window.localStorage.getItem("chronohaze-analytics"))).toBe("off");
+});
+
 test("bare home URL defaults to English and releases the critical loader at DOM ready", async ({ page }) => {
   const errors = trackPageErrors(page);
 
@@ -123,7 +269,7 @@ test("bare home URL defaults to English and releases the critical loader at DOM 
   await expect(page.locator('.lang-btn[data-lang="en"]')).toHaveClass(/active/);
   await expect(page.locator(".hero-kicker")).toHaveText("Origin / Chronohaze");
   await expect(page.locator(".selected-evidence-status")).toHaveText([
-    "PUBLISHED · AFP · 2026",
+    "PUBLISHED · AFP · 2026 · SOLE AUTHOR",
     "PUBLISHED · AFP · 2026 · FORMALIZATION · SUPERVISED BY WENDA LI",
     "ONGOING · JOINT RESEARCH",
   ]);
@@ -188,8 +334,8 @@ test("mobile home keeps the portrait clear and moves the decorative logo into th
   await waitForCriticalLoaderRelease(page);
 
   await expect(page.locator(".hero-mobile-evidence")).toHaveCount(0);
-  await expect(page.locator(".hero-authority-line")).toBeHidden();
-  await expect(page.locator('.hero-academic-link[href*="github.com"]')).toBeHidden();
+  await expect(page.locator(".hero-authority-line")).toBeVisible();
+  await expect(page.locator('.hero-academic-link[href*="github.com"]')).toBeVisible();
   const floatingLogo = page.locator(".floating-site-logo");
   await expect(floatingLogo).toBeHidden();
   await expect(floatingLogo).toHaveAttribute("data-mobile-anchor", "menu");
@@ -215,13 +361,22 @@ test("mobile home keeps the portrait clear and moves the decorative logo into th
   });
   expect(mobileGeometry.portrait.top).toBeGreaterThanOrEqual(mobileGeometry.frame.top);
   expect(mobileGeometry.portrait.bottom).toBeLessThanOrEqual(mobileGeometry.frame.bottom + 10.5);
-  expect(mobileGeometry.visibleQuickLinks).toBe(4);
+  expect(mobileGeometry.visibleQuickLinks).toBe(5);
   expect(mobileGeometry.scrollWidth).toBeLessThanOrEqual(mobileGeometry.viewport);
 
   await page.locator(".menu-open").click();
   await expect(drawerLogo).toBeVisible();
   await expect(drawerLogo.locator("img")).toBeVisible();
   expect(errors).toEqual([]);
+});
+
+test("touch home retains education and GitHub identity links", async ({ page }, testInfo) => {
+  test.skip(!isMobileProject(testInfo), "touch-device visibility regression");
+  await page.goto("index.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+
+  await expect(page.locator(".hero-authority-line")).toBeVisible();
+  await expect(page.locator('.hero-academic-link[href*="github.com"]')).toBeVisible();
 });
 
 test("home keeps core first-view content readable outside the reveal sequence", async ({ page }, testInfo) => {
@@ -421,13 +576,13 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
     "University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027"
   );
   await expect(page.locator(".hero-research-signal")).toHaveText(
-    "Archive of Formal Proofs 收录两项成果，其中一项为独立完成的形式化"
+    "Archive of Formal Proofs 收录两项成果 · 一项独立完成的形式化 · 一项在 Wenda Li 指导下完成"
   );
   await expect(page.locator('.hero-academic-link[href="research.html"]')).toHaveText("研究陈述");
   await expect(page.locator('.hero-academic-link[href="projects.html"]')).toHaveText("精选工作");
   await expect(page.locator('.hero-academic-link[href="cv.html"]')).toHaveText("个人档案");
   await expect(page.locator('[data-i18n="nowCard1Body"]')).toHaveText(
-    "继续研究驻点附近的曲率结构，以及不同逃逸方向构造之间的联系。"
+    "近似保证与预言机调用复杂度定理线已经就位；当前工作聚焦于概率语义层，以连接可复用证明与可执行采样。"
   );
   await expect(page.locator('[data-i18n="nowCard2Body"]')).toHaveText(
     "最近在练 millsage 的《起死開戦》，这个难度完全邦一贝但是我能练下来。"
@@ -435,7 +590,7 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
   await expect(page.locator('[data-i18n="nowCard3Body"]')).toHaveText(
     "刚完成一首团体委托原创曲，也在继续写自己的歌和一些合作项目。"
   );
-  await expect(page.locator('[data-i18n="nowTitle"]')).toHaveText("近况 / 2026年8月");
+  await expect(page.locator('[data-i18n="nowTitle"]')).toHaveText("近况 / 2026年9月");
 
   await page.goto("index.html?lang=en", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
@@ -452,9 +607,9 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
     "I work on optimization and formal verification. As HazezZ, I write and produce music and make photographs."
   );
   await expect(page.locator(".hero-world-line")).toHaveCount(0);
-  await expect(page.locator('[data-i18n="nowTitle"]')).toHaveText("Now / August 2026");
+  await expect(page.locator('[data-i18n="nowTitle"]')).toHaveText("Now / September 2026");
   await expect(page.locator('[data-i18n="nowCard1Body"]')).toHaveText(
-    "Continuing to study curvature structure near stationary points and the connections among different constructions of escape directions."
+    "The approximation and oracle-cost theorem line is in place; current work focuses on the probabilistic-semantics layer needed to connect reusable proofs with executable sampling."
   );
   await expect(page.locator('[data-i18n="nowCard2Body"]')).toHaveText(
     "Recently practicing millsage’s “起死開戦.” The bass part is brutally difficult, but I know I can get it down."
@@ -466,7 +621,7 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
     "University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027"
   );
   await expect(page.locator(".hero-research-signal")).toHaveText(
-    "Two entries in the Archive of Formal Proofs, including a sole-authored formalization"
+    "Two Archive of Formal Proofs entries · one independent formalization · one developed under the supervision of Wenda Li"
   );
   await expect(page.locator("main")).not.toContainText("Born in 2005");
   await expect(page.getByRole("heading", { name: "Research Snapshot" })).toBeVisible();
@@ -476,7 +631,7 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
   await expect(page.locator(".hero-portrait")).toHaveAttribute("alt", "Portrait of Feier Lyu (HazezZ)");
   await expect(page.locator(".now-grid")).toHaveAttribute(
     "aria-label",
-    "Current research and studio work in August 2026"
+    "Current research and studio work in September 2026"
   );
   await expect(page.locator('meta[name="description"]')).toHaveAttribute(
     "content",
@@ -846,8 +1001,10 @@ test("music index renders and remains interactive", async ({ page }) => {
     };
     return { play: read(play), open: read(open) };
   });
-  expect(workControlTypography.play.fontFamily).toContain("Chronohaze Sans SC");
-  expect(workControlTypography.open.fontFamily).toContain("Chronohaze Sans SC");
+  expect(workControlTypography.play.fontFamily).toContain("Chronohaze Sans Latin");
+  expect(workControlTypography.open.fontFamily).toContain("Chronohaze Sans Latin");
+  expect(workControlTypography.play.fontFamily).not.toContain("Chronohaze Sans SC");
+  expect(workControlTypography.open.fontFamily).not.toContain("Chronohaze Sans SC");
   expect(workControlTypography.play.height).toBeGreaterThanOrEqual(40);
   expect(workControlTypography.open.height).toBeGreaterThanOrEqual(40);
   await expect(page.locator(".music-room-album-credit")).toHaveText(
@@ -1272,7 +1429,8 @@ test("mobile home hides sharing while secondary-page sharing manages focus", asy
         }))
     );
   expect(compactTargets.filter((target) => target.width < 44 || target.height < 44)).toEqual([]);
-  await expect(page.locator(".hero-authority-line")).toBeHidden();
+  await expect(page.locator(".hero-authority-line")).toBeVisible();
+  await expect(page.locator('.hero-academic-link[href*="github.com"]')).toBeVisible();
 
   await page.goto("music.html?lang=en", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
@@ -1941,7 +2099,7 @@ test("academic page isolates languages and renders a concise academic index", as
   await expect(evidence.locator('[data-lang-block="en"]')).toBeVisible();
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
   await expect(page.locator("body")).toHaveAttribute("data-rendered-lang", "en");
-  await expect(page.getByText("Selected Research Outputs", { exact: true })).toBeVisible();
+  await expect(page.getByText("Selected Publications & Ongoing Research", { exact: true })).toBeVisible();
   await expect(page.locator('.research-hero [data-lang-block="en"]')).toContainText("Feier Lyu (Fay Lyu)");
   await expect(page.locator('.research-hero [data-lang-block="en"]')).toContainText(
     "My current work centers on reusable Isabelle/HOL infrastructure"
@@ -2588,12 +2746,15 @@ test("photo detail metadata localizes dates, places, statements, and image alt t
   expect(errors).toEqual([]);
 });
 
-test("SEO feeds exclude noindex notes and expose current, page-specific dates", async ({ request }) => {
+test("SEO feeds exclude noindex notes and expose current dates", async ({ request }) => {
   const sitemapText = await (await request.get("sitemap.xml")).text();
   expect(sitemapText).not.toContain("notes/theorem11_convexity_note");
   expect(sitemapText).not.toContain("notes/huber_glm_sparsification_refinement_note");
   const lastmods = Array.from(sitemapText.matchAll(/<lastmod>([^<]+)<\/lastmod>/g), (match) => match[1]);
-  expect(new Set(lastmods).size).toBeGreaterThan(20);
+  expect(lastmods.length).toBeGreaterThan(50);
+  expect(lastmods.every((value) => /^\d{4}-\d{2}-\d{2}$/.test(value))).toBe(true);
+  expect(lastmods.every((value) => Number.isFinite(Date.parse(value)))).toBe(true);
+  expect(lastmods.some((value) => value === "2026-09-06")).toBe(true);
 
   const feedText = await (await request.get("feed.xml")).text();
   const lastBuildDate = feedText.match(/<lastBuildDate>([^<]+)<\/lastBuildDate>/)?.[1] || "";
