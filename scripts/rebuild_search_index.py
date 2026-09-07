@@ -294,6 +294,8 @@ def apply_music_detail_overlay(item: Dict[str, Any], detail_item: Dict[str, Any]
 
     if status:
         item["status"] = status
+    if title_clean:
+        item["title"] = title_clean
     if subtitle:
         item["subtitle"] = subtitle
 

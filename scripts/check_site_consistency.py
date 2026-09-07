@@ -124,6 +124,14 @@ LEGACY_PUBLIC_COPY_PATTERNS = (
     "辗转不同国家无固定号码",
     "No fixed phone number while moving across countries",
 )
+AUDIO_COMING_SOON_PAGES = {
+    "music/track-10.html",
+    "music/track-felix.html",
+    "music/track-kaleidoscope.html",
+    "music/track-negau.html",
+    "music/track-seaside-town.html",
+    "music/track-the-rain-in-my-head.html",
+}
 
 
 @dataclass
@@ -507,6 +515,20 @@ def check_files(root: Path) -> List[Finding]:
             findings.append(
                 Finding(path, "search-text-spacing", "Hero intro spans have no separating text space")
             )
+        rel_path = path.relative_to(root).as_posix()
+        if rel_path in AUDIO_COMING_SOON_PAGES:
+            if re.search(r"<audio\b", text, flags=re.I):
+                findings.append(
+                    Finding(path, "pending-audio-player", "Audio-coming-soon page still includes a player")
+                )
+            if re.search(r"<(?:title|h1)>[^<]*(?:音频待上传|audio pending upload)", text, flags=re.I):
+                findings.append(
+                    Finding(path, "pending-audio-title", "Pending-audio copy remains in a title or H1")
+                )
+            if "Audio coming soon." not in text:
+                findings.append(
+                    Finding(path, "pending-audio-status", "Localized Audio coming soon status is missing")
+                )
         findings.extend(check_footer_years(path, text))
         findings.extend(check_city_case(path, text))
         findings.extend(check_pending_in_seo(path, text))
@@ -525,6 +547,23 @@ def check_files(root: Path) -> List[Finding]:
         findings.append(
             Finding(root, "protect-cache-version", f"Multiple protect-media cache versions found: {versions}")
         )
+    music_index = root / "music.html"
+    if music_index.is_file():
+        music_text = read_text(music_index)
+        rows = re.findall(
+            r'<article\b(?=[^>]*class="[^"]*\btrack-row\b)(?=[^>]*data-href="([^"]+)")[^>]*>(.*?)</article>',
+            music_text,
+            flags=re.S,
+        )
+        for href, body in rows:
+            if not re.search(
+                r'<p class="track-title">\s*<a\b[^>]*href="' + re.escape(href) + r'"',
+                body,
+                flags=re.S,
+            ):
+                findings.append(
+                    Finding(music_index, "music-archive-link", f"Track title lacks a real link to {href}")
+                )
     generated_text_paths = list((root / "assets").rglob("*.json")) + [root / "feed.xml"]
     for path in sorted(p for p in generated_text_paths if p.is_file()):
         findings.extend(check_submodular_status(path, read_text(path)))

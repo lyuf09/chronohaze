@@ -10,7 +10,7 @@ PHOTO_STYLE_VERSION = "20260906-latin-a11y1"
 ACADEMIC_STYLE_VERSION = "20260906-latin-a11y1"
 BLUE_STYLE_VERSION = "20260906-latin-a11y1"
 HOME_VERSION = "20260906-latin-a11y1"
-PROTECT_VERSION = "20260907-page-focus1"
+PROTECT_VERSION = "20260907-audio-links1"
 PHOTO_PROTECT_VERSION = PROTECT_VERSION
 MUSIC_PROTECT_VERSION = PROTECT_VERSION
 MUSIC_STYLE_VERSION = "20260906-latin-a11y1"
@@ -304,6 +304,7 @@ def rewrite_asset_refs(text: str, page_rel: Path) -> str:
 
 def rewrite_html_refs(text: str, page_rel: Path) -> str:
     out = rewrite_asset_refs(text, page_rel)
+    out = ensure_music_archive_links(out, page_rel)
     out = ensure_language_font_preloads(out)
     out = ensure_accessibility_scaffold(out)
     out = ensure_analytics_control(out)
@@ -312,6 +313,29 @@ def rewrite_html_refs(text: str, page_rel: Path) -> str:
     out = remove_third_party_font_hints(out)
     out = ensure_critical_loader(out)
     return ensure_security_meta(out)
+
+
+def ensure_music_archive_links(text: str, page_rel: Path) -> str:
+    if page_rel.as_posix() != "music.html":
+        return text
+
+    article_pattern = re.compile(
+        r'(<article\b(?=[^>]*class="[^"]*\btrack-row\b)(?=[^>]*data-href="([^"]+)")[^>]*>)(.*?</article>)',
+        flags=re.S,
+    )
+
+    def add_title_link(match: re.Match[str]) -> str:
+        opening, href, body = match.groups()
+        body = re.sub(
+            r'(<p class="track-title">)(?!\s*<a\b)(.*?)(</p>)',
+            rf'\1<a class="track-title-link" href="{href}">\2</a>\3',
+            body,
+            count=1,
+            flags=re.S,
+        )
+        return opening + body
+
+    return article_pattern.sub(add_title_link, text)
 
 
 def ensure_language_font_preloads(text: str) -> str:

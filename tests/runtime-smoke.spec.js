@@ -903,6 +903,13 @@ test("music index renders and remains interactive", async ({ page }) => {
   await expect(page.locator("body.music-index-page")).toBeVisible();
   await expect(page.locator(".music-room-shell").first()).toBeVisible();
   await expect(page.locator(".music-room-selected")).toBeVisible();
+  const archiveLinksAreReal = await page.locator(".music-list-source .track-row").evaluateAll(
+    (rows) => rows.every((row) => {
+      const link = row.querySelector(".track-title a[href]");
+      return Boolean(link && link.getAttribute("href") === row.getAttribute("data-href"));
+    })
+  );
+  expect(archiveLinksAreReal).toBe(true);
   await expect.poll(async () => page.locator(".music-room-track-card").count()).toBeGreaterThan(3);
   await expect(page.locator(".music-room-track-roles")).toHaveCount(5);
   await expect(page.locator(".music-room-track-card").first().locator(".music-room-track-role")).toHaveCount(8);
@@ -1322,6 +1329,43 @@ test("English utility and music-detail pages expose English metadata", async ({ 
   }
 
   expect(errors).toEqual([]);
+});
+
+test("unreleased music pages expose no placeholder player and localize status UI", async ({ page }) => {
+  const cases = [
+    ["music/track-10.html?lang=en", "I Can’t Fall in Love Again (恋に落ちてしまえない)"],
+    ["music/track-felix.html?lang=en", "Felix"],
+    ["music/track-negau.html?lang=en", "願う"],
+    ["music/track-seaside-town.html?lang=en", "写不下的海边小镇和你"],
+    ["music/track-kaleidoscope.html?lang=en", "鼓動"],
+    ["music/track-the-rain-in-my-head.html?lang=en", "The rain in my head"],
+  ];
+
+  for (const [url, title] of cases) {
+    await page.goto(url, { waitUntil: "domcontentloaded" });
+    await waitForCriticalLoaderRelease(page);
+    await expect(page.locator(".music-detail-article h1")).toHaveText(title);
+    await expect(page.locator(".music-detail-article audio")).toHaveCount(0);
+    await expect(page.locator(".music-detail-status")).toContainText("Audio coming soon.");
+    await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+      "content",
+      /Audio coming soon\./
+    );
+  }
+
+  await page.goto("music/track-felix.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+  await expect(page.locator(".music-detail-meta").first()).toContainText("December 2024");
+  await page.goto("music/track-negau.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+  await expect(page.locator(".music-detail-meta").first()).toContainText("December 2022");
+  await page.goto("music/track-seaside-town.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+  await expect(page.locator(".music-detail-meta").first()).toContainText("Summer 2022");
+  await page.goto("music/track-the-rain-in-my-head.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+  await expect(page.locator('.music-detail-article h2[data-copy-en="Status"]')).toHaveText("Status");
+  await expect(page.getByRole("link", { name: "Back to the Ipomoea Alba album" })).toBeVisible();
 });
 
 test("Affizieren shows metadata duration and progressive technical disclosure before playback", async ({ page }) => {

@@ -1385,9 +1385,9 @@
     {
       "url": "music/track-10.html",
       "file": "track-10.html",
-      "title_raw": "恋に落ちてしまえない（音频待上传）",
+      "title_raw": "恋に落ちてしまえない",
       "title_clean": "恋に落ちてしまえない",
-      "status": "audio_pending",
+      "status": "draft",
       "creation_period": "02/2023（两天写完）",
       "subtitle": "",
       "subtitle_lines": [],
@@ -1401,13 +1401,8 @@
         "HazezZ",
         "Haze"
       ],
-      "audio_count": 1,
-      "audio_items": [
-        {
-          "src": "../assets/audio/juke/ZK8iOaJLM0p2757mXaquFqQ9d36eRqkm.mp3",
-          "title": ""
-        }
-      ],
+      "audio_count": 0,
+      "audio_items": [],
       "audio_titles": [],
       "body_sections": [
         {
@@ -4323,9 +4318,9 @@
     {
       "url": "music/track-felix.html",
       "file": "track-felix.html",
-      "title_raw": "Felix（音频待上传）",
+      "title_raw": "Felix",
       "title_clean": "Felix",
-      "status": "audio_pending",
+      "status": "draft",
       "creation_period": "2024年12月",
       "subtitle": "",
       "subtitle_lines": [],
@@ -4337,13 +4332,8 @@
         "HazezZ",
         "Haze"
       ],
-      "audio_count": 1,
-      "audio_items": [
-        {
-          "src": "../assets/audio/juke/ZK8iOaJLM0p2757mXaquFqQ9d36eRqkm.mp3",
-          "title": ""
-        }
-      ],
+      "audio_count": 0,
+      "audio_items": [],
       "audio_titles": [],
       "body_sections": [
         {
@@ -4435,14 +4425,12 @@
     {
       "url": "music/track-kaleidoscope.html",
       "file": "track-kaleidoscope.html",
-      "title_raw": "鼓動（音频待上传）",
+      "title_raw": "鼓動",
       "title_clean": "鼓動",
-      "status": "audio_pending",
-      "creation_period": "TBD",
-      "subtitle": "Album：Ipomoea Alba · Bonus Track 15",
-      "subtitle_lines": [
-        "Album：Ipomoea Alba · Bonus Track 15"
-      ],
+      "status": "draft",
+      "creation_period": "",
+      "subtitle": "",
+      "subtitle_lines": [],
       "credit_lines": [],
       "extra_meta_lines": [],
       "credit_alias_tokens": [],
@@ -4466,9 +4454,9 @@
     {
       "url": "music/track-negau.html",
       "file": "track-negau.html",
-      "title_raw": "願う（音频待上传）",
+      "title_raw": "願う",
       "title_clean": "願う",
-      "status": "audio_pending",
+      "status": "draft",
       "creation_period": "2022年12月",
       "subtitle": "",
       "subtitle_lines": [],
@@ -4480,13 +4468,8 @@
         "HazezZ",
         "Haze"
       ],
-      "audio_count": 1,
-      "audio_items": [
-        {
-          "src": "../assets/audio/juke/ZK8iOaJLM0p2757mXaquFqQ9d36eRqkm.mp3",
-          "title": ""
-        }
-      ],
+      "audio_count": 0,
+      "audio_items": [],
       "audio_titles": [],
       "body_sections": [
         {
@@ -4706,9 +4689,9 @@
     {
       "url": "music/track-seaside-town.html",
       "file": "track-seaside-town.html",
-      "title_raw": "写不下的海边小镇和你（音频待上传）",
+      "title_raw": "写不下的海边小镇和你",
       "title_clean": "写不下的海边小镇和你",
-      "status": "audio_pending",
+      "status": "draft",
       "creation_period": "2022年夏天",
       "subtitle": "",
       "subtitle_lines": [],
@@ -4720,13 +4703,8 @@
         "HazezZ",
         "Haze"
       ],
-      "audio_count": 1,
-      "audio_items": [
-        {
-          "src": "",
-          "title": ""
-        }
-      ],
+      "audio_count": 0,
+      "audio_items": [],
       "audio_titles": [],
       "body_sections": [
         {
@@ -4821,63 +4799,31 @@
     {
       "url": "music/track-the-rain-in-my-head.html",
       "file": "track-the-rain-in-my-head.html",
-      "title_raw": "The rain in my head（音频待上传）",
+      "title_raw": "The rain in my head",
       "title_clean": "The rain in my head",
-      "status": "audio_pending",
-      "creation_period": "TBD",
-      "subtitle": "Album：Ipomoea Alba · Track 12",
-      "subtitle_lines": [
-        "Album：Ipomoea Alba · Track 12"
-      ],
+      "status": "draft",
+      "creation_period": "",
+      "subtitle": "",
+      "subtitle_lines": [],
       "credit_lines": [],
       "extra_meta_lines": [],
       "credit_alias_tokens": [],
       "audio_count": 0,
       "audio_items": [],
       "audio_titles": [],
-      "body_sections": [
-        {
-          "heading": "状态",
-          "kind": "section",
-          "text": "Coming soon / 待补完。该曲目已在专辑结构中预留位置，后续会补充音频、作品介绍与歌词（如有）。",
-          "lines": [
-            "Coming soon / 待补完。该曲目已在专辑结构中预留位置，后续会补充音频、作品介绍与歌词（如有）。"
-          ],
-          "paragraphs": [
-            "Coming soon / 待补完。该曲目已在专辑结构中预留位置，后续会补充音频、作品介绍与歌词（如有）。"
-          ],
-          "line_count": 1,
-          "paragraph_count": 1
-        },
-        {
-          "heading": "计划",
-          "kind": "section",
-          "text": "Planned updates: audio upload / arrangement revision / page notes.",
-          "lines": [
-            "Planned updates: audio upload / arrangement revision / page notes."
-          ],
-          "paragraphs": [
-            "Planned updates: audio upload / arrangement revision / page notes."
-          ],
-          "line_count": 1,
-          "paragraph_count": 1
-        }
-      ],
-      "body_section_headings": [
-        "状态",
-        "计划"
-      ],
-      "body_section_count": 2,
+      "body_sections": [],
+      "body_section_headings": [],
+      "body_section_count": 0,
       "description_sections": [],
       "description_text": "",
-      "description_excerpt": "Coming soon / 待补完。该曲目已在专辑结构中预留位置，后续会补充音频、作品介绍与歌词（如有）。 Planned updates: audio upload / arrangement revision / page notes.",
+      "description_excerpt": "",
       "lyrics_sections": [],
       "lyrics_text": "",
       "lyrics_line_count": 0,
       "notes_sections": [],
       "notes_text": "",
-      "other_section_text": "Coming soon / 待补完。该曲目已在专辑结构中预留位置，后续会补充音频、作品介绍与歌词（如有）。\n\nPlanned updates: audio upload / arrangement revision / page notes.",
-      "search_body_text": "状态\n\nComing soon / 待补完。该曲目已在专辑结构中预留位置，后续会补充音频、作品介绍与歌词（如有）。\n\n计划\n\nPlanned updates: audio upload / arrangement revision / page notes."
+      "other_section_text": "",
+      "search_body_text": ""
     }
   ]
 }
