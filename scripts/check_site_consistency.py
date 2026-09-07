@@ -392,8 +392,15 @@ def check_analytics_privacy(path: Path, text: str, root: Path) -> List[Finding]:
         ):
             if marker not in text:
                 findings.append(Finding(path, "analytics-runtime", f"Required privacy marker is missing: {marker}"))
-    if "Google tag (gtag.js), deferred until idle" in text:
-        findings.append(Finding(path, "analytics-runtime", "Legacy Analytics loader remains in the page"))
+    legacy_analytics_markers = (
+        "Google tag (gtag.js), deferred until idle",
+        "Google tag (gtag.js)",
+        "googletagmanager.com/gtag/js?id=G-JWZY2TVYFZ",
+        "gtag('config', 'G-JWZY2TVYFZ')",
+        'gtag("config", "G-JWZY2TVYFZ")',
+    )
+    if any(marker in text for marker in legacy_analytics_markers):
+        findings.append(Finding(path, "analytics-runtime", "Legacy direct Analytics loader remains in the page"))
     if path.parent == root and path.name == "policy.html":
         for disclosure in (
             "Analytics is enabled by default",
