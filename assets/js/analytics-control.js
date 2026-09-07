@@ -88,6 +88,7 @@
       anonymize_ip: true,
       allow_google_signals: false,
       allow_ad_personalization_signals: false,
+      cookie_expires: 90 * 24 * 60 * 60,
     });
   }
 

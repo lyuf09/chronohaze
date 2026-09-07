@@ -405,7 +405,13 @@ def check_analytics_privacy(path: Path, text: str, root: Path) -> List[Finding]:
         for disclosure in (
             "Analytics is enabled by default",
             "Google Analytics may set first-party cookies",
+            "no later than 90 days",
             "chronohaze-analytics",
+            "chronohaze:search-state:v1",
+            "chronohaze:search-history:v1",
+            "chronohaze:persistent-audio:v1",
+            "can be removed using “Clear history.”",
+            "normally expires when the browser session ends",
             "Google Signals and advertising-personalization signals are disabled",
         ):
             if disclosure not in text:
@@ -518,6 +524,7 @@ def check_files(root: Path) -> List[Finding]:
         for marker in (
             'allow_google_signals: false',
             'allow_ad_personalization_signals: false',
+            'cookie_expires: 90 * 24 * 60 * 60',
             'preferenceKey = "chronohaze-analytics"',
             'analytics_storage: analyticsEnabled ? "granted" : "denied"',
         ):

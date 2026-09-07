@@ -186,6 +186,15 @@ test("analytics footer control opts out, clears cookies, and persists the choice
   await expect(page.locator('[data-lang-block="en"]')).toContainText(
     "Analytics is enabled by default and is not used for advertising, personalization, or cross-site profiling."
   );
+  await expect(page.locator('[data-lang-block="en"]')).toContainText(
+    "Search state and recent search terms are stored only in this browser and can be removed using “Clear history.”"
+  );
+  await expect(page.locator('[data-lang-block="en"]')).toContainText(
+    "Temporary audio playback state is stored under chronohaze:persistent-audio:v1 in session storage and normally expires when the browser session ends."
+  );
+  await expect(page.locator('[data-lang-block="en"]')).not.toContainText(
+    "Continued use of this website means"
+  );
 
   await page.evaluate(() => window.__chronohazeAnalytics.load());
   await expect.poll(() => tagRequests.length).toBe(1);
@@ -201,6 +210,7 @@ test("analytics footer control opts out, clears cookies, and persists the choice
   expect(config[2]).toMatchObject({
     allow_google_signals: false,
     allow_ad_personalization_signals: false,
+    cookie_expires: 90 * 24 * 60 * 60,
   });
 
   await page.evaluate(() => {
