@@ -1852,6 +1852,16 @@
         return Number(b.item.sort || 0) - Number(a.item.sort || 0);
       });
 
+      if (terms.length && matched.some(function (entry) { return entry.item.url !== "math.html"; })) {
+        matched = matched.filter(function (entry) {
+          if (entry.item.url !== "math.html") return true;
+          var title = normalizeText(getLocalizedItemTitle(entry.item)).toLowerCase();
+          return terms.every(function (term) {
+            return title.indexOf(term) >= 0;
+          });
+        });
+      }
+
       updateSearchUrl(rawQuery, scope, tag);
       var status = dict.searchResultCount.replace("{count}", String(matched.length));
       if (scope !== "all" && scopeLabels[scope]) {
@@ -1994,15 +2004,6 @@
             tagsWrap.appendChild(chip);
           });
 
-          var rankNode = document.createElement("span");
-          rankNode.className = "search-result-rank";
-          rankNode.textContent = "#" + wrapped.rank;
-          rankNode.setAttribute(
-            "aria-label",
-            (lang === "zh" ? "全局排序第 " : "Global rank ") + wrapped.rank
-          );
-
-          link.appendChild(rankNode);
           link.appendChild(title);
           if (meta.textContent) {
             link.appendChild(meta);

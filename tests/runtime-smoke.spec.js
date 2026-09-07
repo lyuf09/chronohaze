@@ -689,6 +689,17 @@ test("English page transitions keep the loading feedback in English", async ({ p
     meta: "Please wait while the next page comes into focus.",
   });
   await expect(page).toHaveURL(/policy\.html\?lang=en/);
+  await expect
+    .poll(() =>
+      page.evaluate(() => ({
+        tagName: document.activeElement && document.activeElement.tagName,
+        text: document.activeElement && document.activeElement.textContent?.trim(),
+      }))
+    )
+    .toEqual({ tagName: "H1", text: "Site Policy (Privacy & Copyright)" });
+  await expect(page.locator("h1:focus")).toHaveAttribute("tabindex", "-1");
+  await page.locator('.nav a[href="index.html"]').focus();
+  await expect(page.locator('h1[tabindex="-1"]')).toHaveCount(0);
   expect(errors).toEqual([]);
 });
 
@@ -821,6 +832,8 @@ test("network-localization research record is bilingual and contains no public P
     "content",
     "https://lyuf09.github.io/chronohaze/assets/og/math/network-localization.png"
   );
+  await expect(page.locator('.math-post-nav [data-nav-dir="prev"]')).toHaveCount(0);
+  await expect(page.locator(".site-footer .social a")).toHaveCount(4);
 
   await page.goto("notes/network_localization_structural_certificates.html?lang=zh", {
     waitUntil: "domcontentloaded",
@@ -1258,6 +1271,11 @@ test("search page loads grouped results and query state works", async ({ page })
   await expect(page.locator(".search-result-excerpt").first()).toContainText("Isabelle/HOL");
   await expect(page.locator('.search-result-link[href="post/projected-gradient-descent-isabelle-hol.html"]')).toBeVisible();
 
+  await page.fill("#site-search-input", "PGD");
+  await page.click(".search-submit");
+  await expect(page.locator('.search-result-link[href="math.html"]')).toHaveCount(0);
+  await expect(page.locator(".search-result-rank")).toHaveCount(0);
+
   await page.fill("#site-search-input", "TTGDA");
   await page.click(".search-submit");
   const englishExcerpt = await page.locator(".search-result-excerpt").first().innerText();
@@ -1292,7 +1310,7 @@ test("English utility and music-detail pages expose English metadata", async ({ 
   const cases = [
     ["policy.html?lang=en", "Privacy, data handling, copyright, and content usage information"],
     ["accessibility.html?lang=en", "Accessibility support, current practices, known limitations"],
-    ["music/track-04.html?lang=en", "Music work page for"],
+    ["music/track-04.html?lang=en", "Odd-meter fragments"],
   ];
 
   for (const [url, expectedDescription] of cases) {
@@ -1992,6 +2010,22 @@ test("music detail lyrics span the full mobile viewport", async ({ page }, testI
   expect(Math.abs(geometry.width - geometry.viewport)).toBeLessThanOrEqual(1);
   expect(geometry.rootScrollWidth).toBeLessThanOrEqual(geometry.viewport + 1);
   expect(errors).toEqual([]);
+});
+
+test("selected music and photography reuse their index descriptions", async ({ page }) => {
+  await page.goto("music/track-04.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+    "content",
+    "Odd-meter fragments, low-end scaffolding, and emotional melody lines crossing each other. A vision shattered by rain, rising in deep blue-grey-white tide."
+  );
+
+  await page.goto("photo/photo-07.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+    "content",
+    "Height, speed, and camera shake let the city lose its stable shape."
+  );
 });
 
 test("Chinese mobile pages use the same self-hosted faces as desktop", async ({ page }) => {
@@ -2764,7 +2798,7 @@ test("SEO feeds exclude noindex notes and expose current dates", async ({ reques
   expect(lastmods.length).toBeGreaterThan(50);
   expect(lastmods.every((value) => /^\d{4}-\d{2}-\d{2}$/.test(value))).toBe(true);
   expect(lastmods.every((value) => Number.isFinite(Date.parse(value)))).toBe(true);
-  expect(lastmods.some((value) => value === "2026-09-06")).toBe(true);
+  expect(lastmods.some((value) => value === "2026-09-07")).toBe(true);
 
   const feedText = await (await request.get("feed.xml")).text();
   const lastBuildDate = feedText.match(/<lastBuildDate>([^<]+)<\/lastBuildDate>/)?.[1] || "";

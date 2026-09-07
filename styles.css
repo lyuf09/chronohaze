@@ -3890,16 +3890,6 @@ body.photo-lightbox-open {
   gap: 10px;
 }
 
-.search-index-page .search-result-rank {
-  display: inline-block;
-  margin: 0 0 6px;
-  color: rgba(67, 74, 90, 0.62);
-  font-size: 11px;
-  line-height: 1;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
 .search-index-page .search-result-title {
   margin-top: 1px;
 }

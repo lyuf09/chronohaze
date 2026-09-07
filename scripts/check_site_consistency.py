@@ -487,11 +487,26 @@ def check_seo_artifacts(root: Path) -> List[Finding]:
 
 def check_files(root: Path) -> List[Finding]:
     findings: List[Finding] = []
+    protect_versions: dict[str, List[Path]] = {}
     for path in sorted(root.rglob("*.html")):
         # Skip vendored/generated hidden dirs if ever added.
         if "node_modules" in path.parts or any(part.startswith(".") for part in path.parts):
             continue
         text = read_text(path)
+        for version in re.findall(r"protect-media\.min\.js\?v=([^\"'&<>\s]+)", text):
+            protect_versions.setdefault(version, []).append(path)
+        if path.parent.name == "music" and re.search(
+            r"<h2>作品介绍</h2>\s*<p>[\s\u200b\ufeff]*</p>", text
+        ):
+            findings.append(
+                Finding(path, "empty-work-intro", "Empty ‘About the work’ section is still present")
+            )
+        if path.name == "index.html" and re.search(
+            r"</span><span class=\"hero-identity-line\">", text
+        ):
+            findings.append(
+                Finding(path, "search-text-spacing", "Hero intro spans have no separating text space")
+            )
         findings.extend(check_footer_years(path, text))
         findings.extend(check_city_case(path, text))
         findings.extend(check_pending_in_seo(path, text))
@@ -505,6 +520,11 @@ def check_files(root: Path) -> List[Finding]:
         findings.extend(check_legacy_redirect_noindex(path, text, root))
         findings.extend(check_legacy_public_copy(path, text))
         findings.extend(check_analytics_privacy(path, text, root))
+    if len(protect_versions) > 1:
+        versions = ", ".join(sorted(protect_versions))
+        findings.append(
+            Finding(root, "protect-cache-version", f"Multiple protect-media cache versions found: {versions}")
+        )
     generated_text_paths = list((root / "assets").rglob("*.json")) + [root / "feed.xml"]
     for path in sorted(p for p in generated_text_paths if p.is_file()):
         findings.extend(check_submodular_status(path, read_text(path)))
@@ -532,6 +552,11 @@ def check_files(root: Path) -> List[Finding]:
                 findings.append(
                     Finding(analytics_runtime, "analytics-runtime", f"Required privacy marker is missing: {marker}")
                 )
+    protect_runtime = root / "protect-media.js"
+    if protect_runtime.is_file() and "fastest pace， one song" in read_text(protect_runtime):
+        findings.append(
+            Finding(protect_runtime, "english-punctuation", "Full-width comma remains in track-30 English copy")
+        )
     findings.extend(check_seo_artifacts(root))
     return findings
 

@@ -1894,8 +1894,12 @@
     nav.setAttribute("data-math-post-path", currentPath);
     nav.setAttribute("data-math-post-lang", lang);
     nav.setAttribute("aria-label", lang === "en" ? "Adjacent notes" : "相邻笔记导航");
-    nav.appendChild(createMathPostNavItem(prevItem, "prev", lang));
-    nav.appendChild(createMathPostNavItem(nextItem, "next", lang));
+    if (prevItem) {
+      nav.appendChild(createMathPostNavItem(prevItem, "prev", lang));
+    }
+    if (nextItem) {
+      nav.appendChild(createMathPostNavItem(nextItem, "next", lang));
+    }
     return nav;
   }
 
@@ -9363,7 +9367,7 @@
     }
 
     var paragraphs = [
-      "“Dissociative Amnesia” was written in February 2021, and it is one of the earliest works currently included in my portfolio (back then I was writing at my fastest pace， one song a day, or one every two days).",
+      "“Dissociative Amnesia” was written in February 2021, and it is one of the earliest works currently included in my portfolio (back then I was writing at my fastest pace, one song a day, or one every two days).",
       "There were many other pieces written before and after that remain unreleased,<br />but this particular moment became a personal threshold:<br />the earliest point in time whose “old self” I can tolerate letting others see.",
       "The writing process was entirely spontaneous.<br />At the time, classes taught me almost nothing I could actually use for composition;<br />I hadn’t started learning bass or arrangement techniques,<br />and the lyrics were literally machine-translated<br />(because writing lyrics in native lagurage felt unbearably cringe for a kid).<br />More than anything, this song is a document of how songwriting begins.",
       "The theme came from a chance encounter with the concept of “dissociative amnesia.”<br />The piece is not based on lived experience (I don't drink any alcohol even now);<br />it is closer to an imagined psychological writing that borrows the imagery of a disorder<br />(a teenager under sixteen has very little “life” to draw from anyway).",
@@ -18027,6 +18031,30 @@
     return Promise.allSettled(waits);
   }
 
+  function focusSwappedPageContent() {
+    var target = Array.from(document.querySelectorAll("main h1, h1")).find(function (node) {
+      return !node.closest("[hidden]");
+    }) || document.querySelector("main");
+    if (!target) {
+      return;
+    }
+
+    var addedTabindex = !target.hasAttribute("tabindex");
+    if (addedTabindex) {
+      target.setAttribute("tabindex", "-1");
+    }
+    target.focus({ preventScroll: true });
+    if (addedTabindex) {
+      target.addEventListener(
+        "blur",
+        function () {
+          target.removeAttribute("tabindex");
+        },
+        { once: true }
+      );
+    }
+  }
+
   function finalizeSwappedPage(targetUrl) {
     pageTransitionNavigating = false;
     clearPendingPrimaryNav();
@@ -18065,6 +18093,7 @@
     } catch (_err) {}
 
     return waitForPageSwapStability().then(function () {
+      focusSwappedPageContent();
       resolvePageSwapFeedback();
       return true;
     });
