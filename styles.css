@@ -5241,7 +5241,8 @@ body:is(
 .persistent-audio-collapse,
 .persistent-audio-close,
 .persistent-audio-nav,
-.persistent-audio-open {
+.persistent-audio-open,
+.persistent-audio-project {
   font-family: var(--font-editorial-serif);
   font-size: 11px;
   letter-spacing: 0.06em;
@@ -5293,7 +5294,8 @@ body:is(
 .persistent-audio-collapse:hover,
 .persistent-audio-close:hover,
 .persistent-audio-nav:hover,
-.persistent-audio-open:hover {
+.persistent-audio-open:hover,
+.persistent-audio-project:hover {
   opacity: 0.72;
   transform: translateY(-0.5px);
 }
@@ -5307,7 +5309,8 @@ body:is(
 }
 
 .persistent-audio-title,
-.persistent-audio-artist {
+.persistent-audio-artist,
+.persistent-audio-album {
   margin: 0;
   font-family: var(--font-editorial-serif);
   text-transform: uppercase;
@@ -5329,6 +5332,14 @@ body:is(
   color: rgba(54, 61, 74, 0.62);
 }
 
+.persistent-audio-album {
+  margin-top: 2px;
+  color: rgba(47, 60, 52, 0.66);
+  font-size: 9px;
+  line-height: 1.2;
+  letter-spacing: 0.15em;
+}
+
 .persistent-audio-row {
   margin-top: 7px;
 }
@@ -5346,13 +5357,19 @@ body:is(
   margin-top: 8px;
 }
 
-.persistent-audio-open {
+.persistent-audio-open,
+.persistent-audio-project {
   color: rgba(35, 41, 50, 0.74);
   text-decoration: none;
 }
 
+.persistent-audio-project {
+  color: rgba(43, 67, 51, 0.82);
+}
+
 .persistent-audio-nav,
-.persistent-audio-open {
+.persistent-audio-open,
+.persistent-audio-project {
   min-height: 36px;
   display: inline-flex;
   align-items: center;
@@ -5363,6 +5380,7 @@ body:is(
 .persistent-audio-close,
 .persistent-audio-nav,
 .persistent-audio-open,
+.persistent-audio-project,
 .persistent-audio-dock .music-player-play,
 .persistent-audio-dock .music-player-scrubber,
 .nav a,
@@ -9937,6 +9955,7 @@ body {
     .music-player-play,
     .music-player-nav-link,
     .persistent-audio-open,
+    .persistent-audio-project,
     .persistent-audio-nav,
     .persistent-audio-collapse,
     .persistent-audio-close,
@@ -11218,7 +11237,8 @@ body {
   .persistent-audio-kicker,
   .persistent-audio-collapse,
   .persistent-audio-nav,
-  .persistent-audio-open {
+  .persistent-audio-open,
+  .persistent-audio-project {
     font-size: 9px;
   }
 
@@ -11238,7 +11258,8 @@ body {
   }
 
   .persistent-audio-kicker,
-  .persistent-audio-artist {
+  .persistent-audio-artist,
+  .persistent-audio-album {
     display: none;
   }
 
@@ -11274,7 +11295,8 @@ body {
   }
 
   .persistent-audio-nav,
-  .persistent-audio-open {
+  .persistent-audio-open,
+  .persistent-audio-project {
     min-height: 44px;
   }
 
@@ -15523,6 +15545,283 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
   letter-spacing: 0.014em;
 }
 
+.music-index-page .music-room-current-project {
+  display: grid;
+  gap: 14px;
+}
+
+.music-index-page .music-room-current-project-heading {
+  margin: 0;
+  color: rgba(65, 75, 91, 0.76);
+  font-family: var(--font-music-sans);
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+}
+
+.music-index-page .music-room-current-project-card {
+  overflow: hidden;
+  border: 1px solid rgba(52, 63, 58, 0.3);
+  background: #1d2721;
+  box-shadow: 0 28px 58px rgba(18, 25, 22, 0.16);
+}
+
+.music-index-page .music-room-current-project-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1.52fr) minmax(320px, 0.78fr);
+  min-height: 490px;
+}
+
+.music-index-page .music-room-current-project-visual {
+  position: relative;
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  background: #d8d2bf;
+}
+
+.music-index-page .music-room-current-project-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent 66%, rgba(23, 33, 26, 0.18) 100%),
+    linear-gradient(180deg, transparent 68%, rgba(19, 28, 22, 0.12) 100%);
+  pointer-events: none;
+}
+
+.music-index-page .music-room-current-project-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(0.88) contrast(1.02);
+  transform: scale(1.002);
+  transition:
+    transform 650ms var(--motion-ease-unified),
+    filter 420ms ease;
+}
+
+.music-index-page .music-room-current-project-meta {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  padding: 34px 30px 28px;
+  color: rgba(239, 237, 222, 0.92);
+  background:
+    radial-gradient(circle at 85% 12%, rgba(194, 203, 170, 0.1), transparent 32%),
+    linear-gradient(155deg, #263329 0%, #18211b 100%);
+}
+
+.music-index-page .music-room-current-project-eyebrow,
+.music-index-page .music-room-current-project-detail,
+.music-index-page .music-room-current-project-actions,
+.music-index-page .music-room-current-project-tracklist {
+  font-family: var(--font-music-sans);
+  text-transform: uppercase;
+}
+
+.music-index-page .music-room-current-project-eyebrow {
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(224, 224, 202, 0.2);
+  color: rgba(225, 226, 207, 0.7);
+  font-size: 9px;
+  line-height: 1;
+  letter-spacing: 0.2em;
+}
+
+.music-index-page .music-room-current-project-title {
+  margin-top: auto;
+  color: rgba(248, 245, 227, 0.98);
+  font-family: var(--font-music-serif);
+  font-size: clamp(44px, 4.4vw, 64px);
+  font-weight: 400;
+  line-height: 0.88;
+  letter-spacing: 0.005em;
+}
+
+.music-index-page .music-room-current-project-title-zh {
+  margin-top: 8px;
+  color: rgba(232, 230, 211, 0.84);
+  font-family: var(--font-music-serif);
+  font-size: clamp(25px, 2.5vw, 34px);
+  line-height: 1;
+  letter-spacing: 0.12em;
+}
+
+.music-index-page .music-room-current-project-detail {
+  margin-top: 20px;
+  color: rgba(211, 216, 193, 0.72);
+  font-size: 9px;
+  line-height: 1.5;
+  letter-spacing: 0.18em;
+}
+
+.music-index-page .music-room-current-project-summary {
+  margin-top: 18px;
+  color: rgba(239, 236, 217, 0.86);
+  font-family: var(--font-music-serif);
+  font-size: 17px;
+  line-height: 1.48;
+  letter-spacing: 0.014em;
+}
+
+.music-index-page .music-room-current-project-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  width: 100%;
+  margin-top: 24px;
+}
+
+.music-index-page .music-room-current-project-play,
+.music-index-page .music-room-current-project-enter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 9px 10px;
+  border: 1px solid rgba(232, 231, 211, 0.34);
+  color: rgba(247, 244, 225, 0.94);
+  background: rgba(237, 237, 215, 0.055);
+  font-family: var(--font-music-sans);
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    color 220ms ease,
+    background-color 220ms ease,
+    border-color 220ms ease;
+}
+
+.music-index-page .music-room-current-project-play:disabled {
+  color: rgba(224, 224, 205, 0.48);
+  border-color: rgba(225, 225, 204, 0.16);
+  background: transparent;
+  cursor: not-allowed;
+}
+
+.music-index-page .music-room-current-project-tracklist {
+  border-top: 1px solid rgba(225, 225, 204, 0.2);
+  color: rgba(239, 237, 219, 0.9);
+  background: #18211b;
+}
+
+.music-index-page .music-room-current-project-tracklist > summary {
+  position: relative;
+  min-height: 48px;
+  padding: 17px 30px 14px;
+  list-style: none;
+  color: rgba(224, 224, 204, 0.7);
+  font-size: 9px;
+  line-height: 1;
+  letter-spacing: 0.2em;
+  cursor: pointer;
+}
+
+.music-index-page .music-room-current-project-tracklist > summary::-webkit-details-marker {
+  display: none;
+}
+
+.music-index-page .music-room-current-project-tracklist > summary::after {
+  content: "+";
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  color: rgba(239, 237, 219, 0.78);
+  font-size: 18px;
+  font-weight: 300;
+  letter-spacing: 0;
+  transform: translateY(-50%);
+}
+
+.music-index-page .music-room-current-project-tracklist[open] > summary::after {
+  content: "−";
+}
+
+.music-index-page .music-room-current-project-tracklist ol {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  padding: 0 30px 26px;
+  list-style: none;
+}
+
+.music-index-page .music-room-current-project-tracklist li {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) 36px;
+  align-items: center;
+  min-height: 54px;
+  border-top: 1px solid rgba(224, 224, 202, 0.13);
+}
+
+.music-index-page .music-room-current-project-track-no {
+  color: rgba(204, 209, 186, 0.52);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+}
+
+.music-index-page .music-room-current-project-track-title {
+  overflow: hidden;
+  color: rgba(244, 241, 222, 0.9);
+  font-family: var(--font-music-serif);
+  font-size: 17px;
+  line-height: 1.2;
+  letter-spacing: 0.015em;
+  text-overflow: ellipsis;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+.music-index-page .music-room-current-project-track-play {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  min-height: 36px;
+  padding: 0;
+  border: 0;
+  color: rgba(234, 232, 213, 0.86);
+  background: transparent;
+  font-size: 10px;
+}
+
+.music-index-page .music-room-current-project-track-play:disabled {
+  color: rgba(207, 209, 191, 0.28);
+  cursor: not-allowed;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .music-index-page .music-room-current-project-card:hover .music-room-current-project-visual img {
+    filter: saturate(0.98) contrast(1.04);
+    transform: scale(1.018);
+  }
+
+  .music-index-page .music-room-current-project-enter:hover,
+  .music-index-page .music-room-current-project-enter:focus-visible,
+  .music-index-page .music-room-current-project-play:not(:disabled):hover,
+  .music-index-page .music-room-current-project-play:not(:disabled):focus-visible {
+    color: #172019;
+    border-color: rgba(239, 237, 216, 0.84);
+    background: rgba(239, 237, 216, 0.92);
+  }
+}
+
+.music-index-page .music-room-current-project-enter:focus-visible,
+.music-index-page .music-room-current-project-play:focus-visible,
+.music-index-page .music-room-current-project-track-play:focus-visible,
+.music-index-page .music-room-current-project-tracklist > summary:focus-visible {
+  outline: 2px solid rgba(56, 68, 60, 0.72);
+  outline-offset: 3px;
+}
+
 .music-index-page .music-room-featured {
   display: grid;
   gap: 18px;
@@ -16071,6 +16370,23 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
 }
 
 @media (max-width: 980px) {
+  .music-index-page .music-room-current-project-main {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .music-index-page .music-room-current-project-visual {
+    aspect-ratio: 16 / 9;
+  }
+
+  .music-index-page .music-room-current-project-meta {
+    min-height: 360px;
+  }
+
+  .music-index-page .music-room-current-project-tracklist ol {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .music-index-page .music-room-album-link {
     grid-template-columns: 1fr;
   }
@@ -16117,6 +16433,65 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
 
   .music-index-page .music-room-shell {
     gap: 32px;
+  }
+
+  .music-index-page .music-room-current-project {
+    gap: 10px;
+  }
+
+  .music-index-page .music-room-current-project-heading {
+    font-size: 8.8px;
+    letter-spacing: 0.2em;
+  }
+
+  .music-index-page .music-room-current-project-meta {
+    min-height: 0;
+    padding: 21px 17px 19px;
+  }
+
+  .music-index-page .music-room-current-project-title {
+    margin-top: 58px;
+    font-size: clamp(42px, 13vw, 58px);
+  }
+
+  .music-index-page .music-room-current-project-title-zh {
+    font-size: 25px;
+  }
+
+  .music-index-page .music-room-current-project-summary {
+    font-size: 16px;
+  }
+
+  .music-index-page .music-room-current-project-actions {
+    width: 100%;
+  }
+
+  .music-index-page .music-room-current-project-play,
+  .music-index-page .music-room-current-project-enter {
+    padding-right: 7px;
+    padding-left: 7px;
+    font-size: 8.6px;
+    letter-spacing: 0.065em;
+    white-space: nowrap;
+  }
+
+  .music-index-page .music-room-current-project-play:disabled {
+    color: rgba(224, 224, 205, 0.64);
+    border-color: rgba(225, 225, 204, 0.24);
+  }
+
+  .music-index-page .music-room-current-project-tracklist > summary {
+    padding-right: 17px;
+    padding-left: 17px;
+  }
+
+  .music-index-page .music-room-current-project-tracklist > summary::after {
+    right: 17px;
+  }
+
+  .music-index-page .music-room-current-project-tracklist ol {
+    grid-template-columns: 1fr;
+    padding: 0 17px 18px;
   }
 
   .music-index-page .music-room-section-head {

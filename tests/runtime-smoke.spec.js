@@ -902,6 +902,29 @@ test("music index renders and remains interactive", async ({ page }) => {
 
   await expect(page.locator("body.music-index-page")).toBeVisible();
   await expect(page.locator(".music-room-shell").first()).toBeVisible();
+  await expect(page.locator(".music-room-current-project")).toBeVisible();
+  await expect(page.locator(".music-room-current-project-heading")).toHaveText(
+    "当前 / 即将发行专辑"
+  );
+  const kaleidoscopeProjectLink = page.locator(".music-room-current-project-enter");
+  await expect(kaleidoscopeProjectLink).toHaveAttribute(
+    "href",
+    "https://lyuf09.github.io/kaleidoscope/"
+  );
+  await expect(kaleidoscopeProjectLink).toContainText("ENTER KALEIDOSCOPE ↗");
+  await expect(page.locator(".music-room-current-project-eyebrow")).toHaveText(
+    "PROJECT 003 / FORTHCOMING"
+  );
+  await expect(page.locator(".music-room-current-project-title")).toHaveText("Kaleidoscope");
+  await expect(page.locator(".music-room-current-project-title-zh")).toHaveText("万花镜");
+  await expect(page.locator(".music-room-current-project-detail")).toHaveText(
+    "2027 · 专辑 · 9 首曲目"
+  );
+  await expect(page.locator(".music-room-current-project-tracklist li")).toHaveCount(9);
+  await expect(page.locator(".music-room-current-project-play")).toBeDisabled();
+  await expect(page.locator(".music-room-current-project-track-play")).toHaveCount(9);
+  await expect(page.locator(".music-room-current-project-track-play:enabled")).toHaveCount(0);
+  await expect(page.locator('a[href*="album-kaleidoscope.html"]')).toHaveCount(0);
   await expect(page.locator(".music-room-selected")).toBeVisible();
   const archiveLinksAreReal = await page.locator(".music-list-source .track-row").evaluateAll(
     (rows) => rows.every((row) => {
@@ -932,6 +955,14 @@ test("music index renders and remains interactive", async ({ page }) => {
   await expect(page.locator(".music-room-featured .music-room-section-title")).toHaveText(
     "专辑 / 概念项目"
   );
+  const musicRoomOrder = await page.locator(".music-room-shell").first().evaluate((shell) =>
+    Array.from(shell.children).map((node) => node.className)
+  );
+  expect(musicRoomOrder.slice(0, 3)).toEqual([
+    "music-room-current-project",
+    "music-room-featured",
+    "music-room-selected",
+  ]);
   const heroLayout = await page.evaluate(() => {
     const image = document.querySelector(".music-hero img");
     const copy = document.querySelector(".music-hero-copy");
@@ -989,6 +1020,15 @@ test("music index renders and remains interactive", async ({ page }) => {
     "Lyrics"
   );
   await expect(page.locator(".music-hero-kicker")).toHaveText("MUSIC / LISTENING ROOM");
+  await expect(page.locator(".music-room-current-project-heading")).toHaveText(
+    "CURRENT / FORTHCOMING ALBUM"
+  );
+  await expect(page.locator(".music-room-current-project-detail")).toHaveText(
+    "2027 · Album · 9 tracks"
+  );
+  await expect(page.locator(".music-room-current-project-summary")).toHaveText(
+    "A nine-part concept album accompanied by a novella and visual archive."
+  );
   await expect(page.locator(".music-hero-roles")).toHaveText(
     "Composer · Arranger · Bassist · Guitarist · Producer"
   );
@@ -1716,8 +1756,9 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
     '#research-projects [data-lang-block="zh"] .research-project-card'
   ).first();
   await expect(formalizationLine).toContainText("2026年5月26日正式发表于 AFP");
-  await expect(formalizationLine).toContainText("发表后，当前仓库继续发展");
-  await expect(formalizationLine).toContainText("采样模型、近似证明与预言机调用复杂度界");
+  await expect(formalizationLine).toContainText("发表后的扩展正开始");
+  await expect(formalizationLine).toContainText("采样形式化与可执行细化");
+  await expect(formalizationLine).toContainText("之后的投影梯度下降形式化是一个独立项目");
   await expect(page.locator("#research-outputs .research-output-card")).toHaveCount(0);
   await expect(page.locator("#research-outputs a")).toHaveText("查看代表性工作");
   await expect(page.locator("#research-outputs a")).toHaveAttribute("href", "projects.html");
@@ -2246,7 +2287,7 @@ test("AFP publication status stays synchronized across work page and project his
   ).nth(1);
   await expect(publishedProject).toContainText("Published in the Archive of Formal Proofs on May 26, 2026");
   await expect(publishedProject).toContainText("under the supervision of Wenda Li");
-  await expect(publishedProject).toContainText("post-publication stochastic-greedy extension");
+  await expect(publishedProject).toContainText("A post-publication extension is beginning to explore");
   await expect(publishedProject.getByRole("link", { name: "DOI", exact: true })).toHaveAttribute(
     "href",
     "https://doi.org/10.5281/zenodo.21054718"

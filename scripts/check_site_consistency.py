@@ -28,15 +28,14 @@ SUBMODULAR_PUBLISHED_SCOPE = (
     "monotone submodular maximization."
 )
 SUBMODULAR_POST_PUBLICATION_SCOPE = (
-    "Post-publication extension: the current repository additionally develops a "
-    "stochastic-greedy line, including the sampling model, approximation proof, "
-    "and oracle-cost bounds."
+    "A post-publication extension is beginning to explore stochastic greedy methods, "
+    "sampling formalization, and executable refinement on top of the deterministic framework."
 )
 SUBMODULAR_PROJECTS_STATUS_MARKERS = (
     "Published in the Archive of Formal Proofs on May 26, 2026.",
     "verified stateful lazy-greedy variant",
-    "post-publication stochastic-greedy extension",
-    "the sampling model, approximation proof, and oracle-cost bounds",
+    "A post-publication extension is beginning to explore stochastic greedy methods",
+    "sampling formalization, and executable refinement on top of the deterministic framework",
 )
 SUBMODULAR_ACADEMIC_STATUS_MARKERS = (
     "Published May 26, 2026",
