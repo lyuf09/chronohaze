@@ -13304,7 +13304,6 @@
     document.body.dataset.musicListeningRoomState = "building";
 
     var currentProject = {
-      href: "https://lyuf09.github.io/kaleidoscope/",
       image: "assets/template/kaleidoscope-project-1600.webp",
       imageSrcset:
         "assets/template/kaleidoscope-project-960.webp 960w, assets/template/kaleidoscope-project-1600.webp 1600w",
@@ -13531,8 +13530,6 @@
             artist: "HAZEZZ",
             album: project.title,
             pageHref: "",
-            projectHref: project.href + "tracks.html#track-" + track.no,
-            projectLabel: textFor("查看作品 ↗︎", "View project ↗︎"),
           };
         });
 
@@ -13567,22 +13564,7 @@
         });
       }
 
-      var enterProject = createElement(
-        "a",
-        "music-room-current-project-enter",
-        "ENTER KALEIDOSCOPE ↗︎"
-      );
-      enterProject.href = project.href;
-      enterProject.rel = "external";
-      enterProject.setAttribute(
-        "aria-label",
-        textFor(
-          "进入 Kaleidoscope / 万花镜独立项目网站",
-          "Enter the independent Kaleidoscope project site"
-        )
-      );
       actions.appendChild(playAlbum);
-      actions.appendChild(enterProject);
       meta.appendChild(actions);
 
       main.appendChild(visual);
