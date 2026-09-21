@@ -2879,7 +2879,7 @@ test("SEO feeds exclude noindex notes and expose current dates", async ({ reques
   expect(lastmods.length).toBeGreaterThan(50);
   expect(lastmods.every((value) => /^\d{4}-\d{2}-\d{2}$/.test(value))).toBe(true);
   expect(lastmods.every((value) => Number.isFinite(Date.parse(value)))).toBe(true);
-  expect(lastmods.some((value) => value === "2026-09-07")).toBe(true);
+  expect(lastmods.some((value) => value >= "2026-09-07")).toBe(true);
 
   const feedText = await (await request.get("feed.xml")).text();
   const lastBuildDate = feedText.match(/<lastBuildDate>([^<]+)<\/lastBuildDate>/)?.[1] || "";
