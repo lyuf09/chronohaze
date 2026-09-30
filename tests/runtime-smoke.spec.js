@@ -906,12 +906,8 @@ test("music index renders and remains interactive", async ({ page }) => {
   await expect(page.locator(".music-room-current-project-heading")).toHaveText(
     "当前 / 即将发行专辑"
   );
-  const kaleidoscopeProjectLink = page.locator(".music-room-current-project-enter");
-  await expect(kaleidoscopeProjectLink).toHaveAttribute(
-    "href",
-    "https://lyuf09.github.io/kaleidoscope/"
-  );
-  await expect(kaleidoscopeProjectLink).toContainText("ENTER KALEIDOSCOPE ↗");
+  await expect(page.locator(".music-room-current-project-enter")).toHaveCount(0);
+  await expect(page.locator('a[href*="lyuf09.github.io/kaleidoscope"]')).toHaveCount(0);
   await expect(page.locator(".music-room-current-project-eyebrow")).toHaveText(
     "PROJECT 003 / FORTHCOMING"
   );

@@ -2611,10 +2611,7 @@
         "作词编曲：湖323/Haze",
         "吉他混音：湖323"
       ],
-      "extra_meta_lines": [
-        "合作项目：与湖323合作，后收录于合辑《VocaStrike-声袭-》（2023）；合辑署名使用“雾时_Haze”。",
-        "查看合辑资料 ↗︎"
-      ],
+      "extra_meta_lines": [],
       "credit_alias_tokens": [
         "HazezZ"
       ],
@@ -2622,12 +2619,10 @@
       "audio_items": [
         {
           "src": "../assets/audio/juke/uO7E1WPtPNsrJ69U3IutXgDzdMCULpO7.mp3",
-          "title": "合作项目：与湖323合作，后收录于合辑《VocaStrike-声袭-》（2023）；合辑署名使用“雾时_Haze”。"
+          "title": ""
         }
       ],
-      "audio_titles": [
-        "合作项目：与湖323合作，后收录于合辑《VocaStrike-声袭-》（2023）；合辑署名使用“雾时_Haze”。"
-      ],
+      "audio_titles": [],
       "body_sections": [
         {
           "heading": "歌词（Part 1）",
@@ -4561,10 +4556,7 @@
       "credit_lines": [
         "作词作曲编曲吉他混音：HazezZ"
       ],
-      "extra_meta_lines": [
-        "合作项目：收录于铁头动力合辑《新语言》（2026），为第 12 曲，署名 Haze_zzZ feat. 初音ミク。",
-        "查看 VocaDB 合辑条目 ↗︎"
-      ],
+      "extra_meta_lines": [],
       "credit_alias_tokens": [
         "HazezZ",
         "Haze"
@@ -4573,12 +4565,10 @@
       "audio_items": [
         {
           "src": "../assets/audio/juke/orchid51513.mp3",
-          "title": "合作项目：收录于铁头动力合辑《新语言》（2026），为第 12 曲，署名 Haze_zzZ feat. 初音ミク。"
+          "title": ""
         }
       ],
-      "audio_titles": [
-        "合作项目：收录于铁头动力合辑《新语言》（2026），为第 12 曲，署名 Haze_zzZ feat. 初音ミク。"
-      ],
+      "audio_titles": [],
       "body_sections": [
         {
           "heading": "作品介绍",

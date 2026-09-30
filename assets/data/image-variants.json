@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09",
+  "generated_at": "2026-09-30",
   "variant_widths": [
     960,
     1600
@@ -3635,13 +3635,11 @@
       "formats": {
         "webp": {
           "widths": [
-            960,
-            1600
+            960
           ],
-          "srcset": "assets/template/music-intro-960.webp 960w, assets/template/music-intro-1600.webp 1600w",
+          "srcset": "assets/template/music-intro-960.webp 960w",
           "files": [
-            "assets/template/music-intro-960.webp",
-            "assets/template/music-intro-1600.webp"
+            "assets/template/music-intro-960.webp"
           ]
         }
       }
