@@ -45,8 +45,10 @@ def main() -> int:
     file_budgets: List[Tuple[str, int, str]] = [
         # The shared runtime includes the media catalog plus transform-based
         # pointer, wheel, and pinch interactions for the protected photo viewer.
-        ("protect-media.min.js", 554_000, "core frontend runtime bundle"),
-        ("styles.min.css", 330_000, "global styles"),
+        # The Kaleidoscope album module adds a nine-track queue plus the
+        # project-aware player bridge while keeping the release itself forthcoming.
+        ("protect-media.min.js", 564_000, "core frontend runtime bundle"),
+        ("styles.min.css", 336_000, "global styles"),
         ("home.min.css", 48_000, "home page styles"),
         ("assets/logo-header.png", 30_000, "header logo"),
         ("assets/js/search-page.min.js", 60_000, "search page runtime"),
@@ -77,9 +79,9 @@ def main() -> int:
                 ],
             # Localized article extraction and publication metadata add a small,
             # bounded cost to the shared structured-data module.
-            673_000,
+            684_000,
         ),
-        ("key CSS payload", ["styles.min.css", "home.min.css"], 375_000),
+        ("key CSS payload", ["styles.min.css", "home.min.css"], 383_000),
     ]
     for label, rels, max_bytes in aggregate_groups:
         total = 0

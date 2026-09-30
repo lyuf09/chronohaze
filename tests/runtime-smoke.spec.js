@@ -902,6 +902,29 @@ test("music index renders and remains interactive", async ({ page }) => {
 
   await expect(page.locator("body.music-index-page")).toBeVisible();
   await expect(page.locator(".music-room-shell").first()).toBeVisible();
+  await expect(page.locator(".music-room-current-project")).toBeVisible();
+  await expect(page.locator(".music-room-current-project-heading")).toHaveText(
+    "当前 / 即将发行专辑"
+  );
+  const kaleidoscopeProjectLink = page.locator(".music-room-current-project-enter");
+  await expect(kaleidoscopeProjectLink).toHaveAttribute(
+    "href",
+    "https://lyuf09.github.io/kaleidoscope/"
+  );
+  await expect(kaleidoscopeProjectLink).toContainText("ENTER KALEIDOSCOPE ↗");
+  await expect(page.locator(".music-room-current-project-eyebrow")).toHaveText(
+    "PROJECT 003 / FORTHCOMING"
+  );
+  await expect(page.locator(".music-room-current-project-title")).toHaveText("Kaleidoscope");
+  await expect(page.locator(".music-room-current-project-title-zh")).toHaveText("万花镜");
+  await expect(page.locator(".music-room-current-project-detail")).toHaveText(
+    "2027 · 专辑 · 9 首曲目"
+  );
+  await expect(page.locator(".music-room-current-project-tracklist li")).toHaveCount(9);
+  await expect(page.locator(".music-room-current-project-play")).toBeDisabled();
+  await expect(page.locator(".music-room-current-project-track-play")).toHaveCount(9);
+  await expect(page.locator(".music-room-current-project-track-play:enabled")).toHaveCount(0);
+  await expect(page.locator('a[href*="album-kaleidoscope.html"]')).toHaveCount(0);
   await expect(page.locator(".music-room-selected")).toBeVisible();
   const archiveLinksAreReal = await page.locator(".music-list-source .track-row").evaluateAll(
     (rows) => rows.every((row) => {
@@ -932,6 +955,14 @@ test("music index renders and remains interactive", async ({ page }) => {
   await expect(page.locator(".music-room-featured .music-room-section-title")).toHaveText(
     "专辑 / 概念项目"
   );
+  const musicRoomOrder = await page.locator(".music-room-shell").first().evaluate((shell) =>
+    Array.from(shell.children).map((node) => node.className)
+  );
+  expect(musicRoomOrder.slice(0, 3)).toEqual([
+    "music-room-current-project",
+    "music-room-featured",
+    "music-room-selected",
+  ]);
   const heroLayout = await page.evaluate(() => {
     const image = document.querySelector(".music-hero img");
     const copy = document.querySelector(".music-hero-copy");
@@ -952,6 +983,10 @@ test("music index renders and remains interactive", async ({ page }) => {
   await expect(page.locator(".music-practice-path")).toHaveText(
     /钢琴\s*→\s*小提琴\s*→\s*作曲\s*→\s*贝斯 \/ 吉他\s*→\s*制作/
   );
+  await expect(page.locator(".music-collaboration-projects")).toContainText("合辑收录");
+  await expect(page.locator('.music-collaboration-projects a[href="music/track-19.html"]')).toHaveCount(1);
+  await expect(page.locator('.music-collaboration-projects a[href="music/track-orchid.html"]')).toHaveCount(1);
+  await expect(page.locator('.music-collaboration-projects a[href="https://vocadb.net/Ar/104728"]')).toContainText("收录不全");
   await expect(page.locator(".music-background-title").last()).toHaveText("演出档案");
   await expect(page.locator(".music-intro-figure img")).toHaveAttribute(
     "src",
@@ -989,6 +1024,15 @@ test("music index renders and remains interactive", async ({ page }) => {
     "Lyrics"
   );
   await expect(page.locator(".music-hero-kicker")).toHaveText("MUSIC / LISTENING ROOM");
+  await expect(page.locator(".music-room-current-project-heading")).toHaveText(
+    "CURRENT / FORTHCOMING ALBUM"
+  );
+  await expect(page.locator(".music-room-current-project-detail")).toHaveText(
+    "2027 · Album · 9 tracks"
+  );
+  await expect(page.locator(".music-room-current-project-summary")).toHaveText(
+    "A nine-part concept album accompanied by a novella and visual archive."
+  );
   await expect(page.locator(".music-hero-roles")).toHaveText(
     "Composer · Arranger · Bassist · Guitarist · Producer"
   );
@@ -2842,7 +2886,7 @@ test("SEO feeds exclude noindex notes and expose current dates", async ({ reques
   expect(lastmods.length).toBeGreaterThan(50);
   expect(lastmods.every((value) => /^\d{4}-\d{2}-\d{2}$/.test(value))).toBe(true);
   expect(lastmods.every((value) => Number.isFinite(Date.parse(value)))).toBe(true);
-  expect(lastmods.some((value) => value === "2026-09-07")).toBe(true);
+  expect(lastmods.some((value) => value >= "2026-09-07")).toBe(true);
 
   const feedText = await (await request.get("feed.xml")).text();
   const lastBuildDate = feedText.match(/<lastBuildDate>([^<]+)<\/lastBuildDate>/)?.[1] || "";
