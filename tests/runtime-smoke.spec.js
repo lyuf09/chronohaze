@@ -832,7 +832,14 @@ test("network-localization research record is bilingual and contains no public P
     "content",
     "https://lyuf09.github.io/chronohaze/assets/og/math/network-localization.png"
   );
-  await expect(page.locator('.math-post-nav [data-nav-dir="prev"]')).toHaveCount(0);
+  const previousNote = page.getByRole("link", {
+    name: "Previous note · From a Framework to a Randomized Algorithm That Actually Runs: Executable Refinement of StochasticGreedy",
+    exact: true,
+  });
+  await expect(previousNote).toHaveAttribute(
+    "href",
+    /post\/stochasticgreedy-executable-refinement\.html\?lang=en$/
+  );
   await expect(page.locator(".site-footer .social a")).toHaveCount(4);
 
   await page.goto("notes/network_localization_structural_certificates.html?lang=zh", {
@@ -1499,7 +1506,7 @@ test("server-rendered math catalog does not refetch its JSON payload", async ({ 
 
   await page.goto("math.html?lang=en", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
-  await expect(page.locator(".math-list .math-card")).toHaveCount(8);
+  await expect(page.locator(".math-list .math-card")).toHaveCount(9);
   expect(catalogRequests).toBe(0);
 });
 
@@ -2381,13 +2388,14 @@ test("technical notes use explicit status labels and a local Julia fractal", asy
   expect(fractalLayout.captionWidth).toBeLessThanOrEqual(280);
   await expect(page.locator("#pinned-notes .math-note-status")).toHaveCount(3);
   await expect(page.locator("#exploratory-archive")).toHaveCount(0);
-  await expect(page.locator("#notes-archive .math-note-status")).toHaveCount(8);
+  await expect(page.locator("#notes-archive .math-note-status")).toHaveCount(9);
   const labels = await page.locator(".math-note-status").allTextContents();
   const allowed = new Set([
     "Published formalization",
     "Published · AFP · Sole author",
     "Publication retrospective · AFP",
     "Ongoing joint research",
+    "Post-publication executable refinement",
     "Historical note · Superseded",
     "Exploratory derivation",
     "Reading note",
@@ -2496,7 +2504,7 @@ test("shared modal-invariants note is formal, direct-link only, and non-indexabl
   expect(errors).toEqual([]);
 });
 
-test("the latest network-localization update leads the math archive and AFP work exposes primary evidence", async ({ page }) => {
+test("the latest executable-refinement note leads the math archive and AFP work exposes primary evidence", async ({ page }) => {
   const errors = trackPageErrors(page);
 
   await page.goto("math.html?lang=zh", { waitUntil: "domcontentloaded" });
@@ -2520,11 +2528,13 @@ test("the latest network-localization update leads the math archive and AFP work
   await expect(page.locator('main a[href="notes/ttgda_second_order_tracking_note.html"]')).toHaveCount(0);
   await expect(page.locator("#notes-archive")).toBeVisible();
   const archiveNotes = page.locator(".math-list .math-card");
-  await expect(archiveNotes).toHaveCount(8);
-  await expect(archiveNotes.nth(0)).toContainText("网络定位中的二阶几何：研究概览");
-  await expect(archiveNotes.nth(0)).toContainText("进行中的合作研究");
-  await expect(archiveNotes.nth(1)).toContainText("子模贪心算法形式化正式进入 AFP");
-  await expect(archiveNotes.nth(1).locator(".math-date")).toContainText("原始发布 · 2026-06-30");
+  await expect(archiveNotes).toHaveCount(9);
+  await expect(archiveNotes.nth(0)).toContainText("从一套框架到真正会运行的随机算法");
+  await expect(archiveNotes.nth(0)).toContainText("Post-publication executable refinement");
+  await expect(archiveNotes.nth(1)).toContainText("网络定位中的二阶几何：研究概览");
+  await expect(archiveNotes.nth(1)).toContainText("进行中的合作研究");
+  await expect(archiveNotes.nth(2)).toContainText("子模贪心算法形式化正式进入 AFP");
+  await expect(archiveNotes.nth(2).locator(".math-date")).toContainText("原始发布 · 2026-06-30");
   await expect(page.locator('a[href="notes/theorem11_convexity_note.html"]')).toHaveCount(0);
   await expect(page.locator('a[href="notes/huber_glm_sparsification_refinement_note.html"]')).toHaveCount(0);
 

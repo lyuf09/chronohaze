@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <style id="chronohaze-critical-loader-style">
+    html.chronohaze-critical-loading,
+    html.chronohaze-critical-loading body {
+      min-height: 100%;
+      background: #10141b;
+    }
+
+    html.chronohaze-critical-loading body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    html.chronohaze-critical-loading body > :not(.chronohaze-loader) {
+      visibility: hidden !important;
+    }
+
+    html.chronohaze-critical-loading::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 2147483000;
+      background:
+        linear-gradient(90deg, rgba(138, 160, 200, 0.09) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(138, 160, 200, 0.07) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(13, 17, 24, 0.992) 0%, rgba(19, 24, 33, 0.992) 55%, rgba(13, 17, 24, 0.996) 100%);
+      background-size: 54px 54px, 54px 54px, 100% 100%;
+    }
+
+    html.chronohaze-critical-loading::after {
+      content: "CHRONOHAZE";
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      z-index: 2147483001;
+      width: min(500px, calc(100vw - 40px));
+      padding: 30px 32px;
+      transform: translate(-50%, -50%);
+      white-space: pre-line;
+      color: rgba(232, 234, 237, 0.9);
+      font: 300 clamp(22px, 3.2vw, 34px)/1.48 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.055em;
+      border: 1px solid rgba(154, 172, 204, 0.3);
+      border-radius: 0;
+      background: linear-gradient(180deg, rgba(20, 25, 34, 0.84) 0%, rgba(13, 17, 24, 0.82) 100%);
+      box-shadow: 0 24px 58px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.045);
+    }
+
+    html[lang^="zh"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A 页面加载中";
+    }
+
+    html[lang^="en"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A Loading";
+    }
+
+    html.chronohaze-critical-loading-mobile body {
+      overflow: auto;
+    }
+
+    html.chronohaze-critical-loading-mobile body > :not(.chronohaze-loader) {
+      visibility: visible !important;
+    }
+
+    html.chronohaze-critical-loading-mobile::before {
+      background: linear-gradient(180deg, rgba(13, 17, 24, 0.18) 0%, rgba(19, 24, 33, 0.22) 100%);
+      pointer-events: none;
+    }
+
+    html.chronohaze-critical-loading-mobile::after {
+      content: "CHRONOHAZE";
+      left: 16px;
+      top: 16px;
+      width: auto;
+      max-width: calc(100vw - 32px);
+      padding: 10px 12px;
+      transform: none;
+      white-space: normal;
+      color: rgba(232, 234, 237, 0.78);
+      font: 400 12px/1.3 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.18em;
+      border: 1px solid rgba(154, 172, 204, 0.18);
+      background: rgba(16, 20, 27, 0.34);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+      backdrop-filter: blur(2px);
+    }
+  </style>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var isMobile = window.matchMedia && window.matchMedia("(max-width: 760px)").matches;
+      root.classList.add("chronohaze-critical-loading");
+      if (isMobile) {
+        root.classList.add("chronohaze-critical-loading-mobile");
+      }
+      window.__chronohazeReleaseCriticalLoader = function () {
+        root.classList.remove("chronohaze-critical-loading");
+        root.classList.remove("chronohaze-critical-loading-mobile");
+      };
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", window.__chronohazeReleaseCriticalLoader, { once: true });
+      } else {
+        window.requestAnimationFrame(window.__chronohazeReleaseCriticalLoader);
+      }
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, 500);
+    })();
+  </script>
+<link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
+  <title data-title-zh="从一套框架到真正会运行的随机算法：StochasticGreedy 的 executable refinement | Chronohaze" data-title-en="From a Framework to a Randomized Algorithm That Actually Runs: Executable Refinement of StochasticGreedy | Chronohaze">从一套框架到真正会运行的随机算法：StochasticGreedy 的 executable refinement | Chronohaze</title>
+  <meta name="description" content="把随机比特、可执行采样器、概率语义、期望近似保证与资源计数接进同一条 machine-checked chain。" data-content-zh="把随机比特、可执行采样器、概率语义、期望近似保证与资源计数接进同一条 machine-checked chain。" data-content-en="Connecting random bits, executable sampling, probability semantics, expected approximation guarantees, and resource accounting in one machine-checked chain." />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Chronohaze" />
+  <meta property="og:title" content="从一套框架到真正会运行的随机算法：StochasticGreedy 的 executable refinement" />
+  <meta property="og:description" content="把随机比特、可执行采样器、概率语义、期望近似保证与资源计数接进同一条 machine-checked chain。" />
+  <meta property="og:url" content="https://lyuf09.github.io/chronohaze/post/stochasticgreedy-executable-refinement.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="从一套框架到真正会运行的随机算法：StochasticGreedy 的 executable refinement" />
+  <meta name="twitter:description" content="把随机比特、可执行采样器、概率语义、期望近似保证与资源计数接进同一条 machine-checked chain。" />
+  <meta property="article:published_time" content="2026-10-03" />
+  <meta property="article:modified_time" content="2026-10-03" />
+  <meta property="article:author" content="Feier Lyu" />
+  <meta property="article:tag" content="Isabelle/HOL" />
+  <meta property="article:tag" content="Submodular Maximization" />
+  <meta property="article:tag" content="StochasticGreedy" />
+  <meta property="article:tag" content="Randomized Algorithms" />
+  <meta property="article:tag" content="Formal Verification" />
+  <link rel="canonical" href="https://lyuf09.github.io/chronohaze/post/stochasticgreedy-executable-refinement.html" />
+  <!-- GENERATED:hreflang:start -->
+  <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/post/stochasticgreedy-executable-refinement.html?lang=zh" />
+  <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/post/stochasticgreedy-executable-refinement.html?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/post/stochasticgreedy-executable-refinement.html" />
+  <!-- GENERATED:hreflang:end -->
+  <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
+  <link rel="preload" href="../assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="../assets/fonts/noto-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="../styles.min.css?v=20260906-latin-a11y1" />
+  <script defer src="../protect-media.min.js?v=20260909-kaleidoscope-project2"></script>
+  <style>
+    .stochastic-refinement-note {
+      max-width: min(100%, 800px);
+    }
+
+    .stochastic-refinement-note .article-deck {
+      margin: 18px 0 30px;
+      color: rgba(48, 58, 75, 0.88);
+      font-family: var(--font-serif);
+      font-size: clamp(20px, 2.4vw, 27px);
+      line-height: 1.5;
+    }
+
+    .stochastic-refinement-note .article-tags {
+      margin: -10px 0 30px;
+      color: rgba(65, 76, 96, 0.78);
+      font-size: 13px;
+      letter-spacing: 0.02em;
+    }
+
+    .stochastic-refinement-note .theorem-line,
+    .stochastic-refinement-note .refinement-chain {
+      overflow-x: auto;
+      margin: 26px 0;
+      padding: 19px 22px;
+      border: 1px solid rgba(78, 94, 119, 0.17);
+      border-left: 3px solid rgba(74, 98, 138, 0.78);
+      background: rgba(236, 240, 246, 0.78);
+      color: rgba(30, 36, 47, 0.96);
+      font-family: var(--font-editorial-serif);
+      font-size: 18px;
+      line-height: 1.65;
+    }
+
+    .stochastic-refinement-note .refinement-chain {
+      white-space: pre-line;
+    }
+
+    .stochastic-refinement-note blockquote {
+      margin: 24px 0;
+      padding: 2px 0 2px 22px;
+      border-left: 2px solid rgba(74, 98, 138, 0.46);
+      color: rgba(37, 46, 61, 0.92);
+    }
+
+    .stochastic-refinement-note blockquote p {
+      margin: 0;
+      color: inherit;
+      font-size: 18px;
+    }
+
+    .stochastic-refinement-note code {
+      overflow-wrap: anywhere;
+    }
+
+    @media (max-width: 640px) {
+      .stochastic-refinement-note .theorem-line,
+      .stochastic-refinement-note .refinement-chain {
+        margin-right: -4px;
+        margin-left: -4px;
+        padding: 16px 14px;
+        font-size: 16px;
+      }
+    }
+  </style>
+
+  <!-- Chronohaze analytics preference and opt-out control -->
+  <script id="chronohaze-analytics-bootstrap">
+    (function () {
+      var measurementId = "G-JWZY2TVYFZ";
+      var storedPreference;
+      try { storedPreference = window.localStorage.getItem("chronohaze-analytics"); } catch (_err) {}
+      var doNotTrack = navigator.doNotTrack === "1" || window.doNotTrack === "1";
+      var enabled = storedPreference === "on" || (storedPreference !== "off" && !doNotTrack);
+      window["ga-disable-" + measurementId] = !enabled;
+      window.__chronohazeAnalyticsInitialEnabled = enabled;
+    })();
+  </script>
+  <link rel="stylesheet" href="../assets/css/analytics-control.min.css?v=20260906-latin-a11y1" />
+  <script id="chronohaze-analytics-runtime" defer src="../assets/js/analytics-control.min.js?v=20260906-latin-a11y1" data-analytics-collection="control-only"></script>
+</head>
+<body class="math-post-page note-detail-page">
+  <a class="skip-link" href="#main-content">Skip to content / 跳到正文</a>
+<div class="page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="../index.html" data-preserve-lang="1">
+          <img src="../assets/logo-header.png" alt="Chronohaze site logo" />
+          <span>CHRONOHAZE</span>
+        </a>
+        <nav class="nav" aria-label="主导航" data-i18n-aria="navAria">
+          <a href="../index.html" data-preserve-lang="1" data-i18n="navHome">主页</a>
+          <a class="active" href="../academic.html" data-preserve-lang="1" data-i18n="navAcademic">学术</a>
+          <a href="../music.html" data-preserve-lang="1" data-i18n="navMusic">音乐</a>
+          <a href="../photography.html" data-preserve-lang="1" data-i18n="navPhoto">摄影</a>
+          <a href="../cv.html" data-preserve-lang="1" data-i18n="navCV">CV</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" class="main">
+      <div class="container">
+        <div class="cv-utility-bar">
+          <div class="cv-utility-top">
+            <nav class="academic-local-nav" aria-label="学术页面导航" data-i18n-aria="academicSectionAria">
+              <a class="academic-local-link" href="../projects.html" data-preserve-lang="1" data-i18n="utilityProjects">Selected Work</a>
+              <a class="academic-local-link" href="../research.html" data-preserve-lang="1" data-i18n="utilityResearch">Research Statement</a>
+              <a class="academic-local-link is-active" href="../math.html" data-preserve-lang="1" data-i18n="utilityNotes">Technical Notes</a>
+            </nav>
+          </div>
+        </div>
+      </div>
+
+      <article class="article stochastic-refinement-note">
+        <div data-lang-block="zh">
+          <h1>从一套框架到真正会运行的随机算法：StochasticGreedy 的 executable refinement</h1>
+          <p class="article-meta">Feier Lyu · 2026年10月3日 · 约 7 分钟</p>
+          <p class="article-tags">Isabelle/HOL · Submodular Maximization · StochasticGreedy · Randomized Algorithms · Formal Verification</p>
+          <p class="article-deck">把算法、概率语义、近似证明和可执行代码放进同一条 machine-checked chain。</p>
+
+          <p>几个月前写这个项目的时候，我最后留下了一个很具体的 gap。</p>
+          <p>当时 StochasticGreedy 的 theorem-level development 已经相当完整：uniform with-replacement sampling model、one-step expected-gain bound、gap recurrence、最终的 approximation guarantee，以及 oracle-cost theorem 都已经存在。但这些概率分析和真正可以执行的 stochastic algorithm 仍然是分开的。</p>
+          <p>换句话说，我已经证明了“如果每一步服从这个 sampling model，那么可以得到这样的 expected progress”，也有 deterministic trace 可以模拟随机采样结果，但还没有证明：</p>
+          <blockquote><p><strong>真正由随机比特驱动、能够实际运行的程序，它产生的概率分布，就是前面分析所使用的那个概率模型；而最终的 approximation guarantee，也确实属于这同一个程序。</strong></p></blockquote>
+          <p>最近这一段工作基本上就是在补这个洞。</p>
+          <p>而且补完之后，我觉得这个项目的性质又变了一次。它不再只是一个带有 executable examples 的 theorem library，而开始真正触碰到我一直很想做的那件事：把算法、概率语义、近似证明和可执行代码放进同一条 machine-checked chain 里。</p>
+
+          <h2>上一阶段停在哪里</h2>
+          <p>StochasticGreedy 本身的想法并不复杂。</p>
+          <p>Classical greedy 每一轮扫描所有剩余元素，计算 marginal gain，然后选择最大的一个。StochasticGreedy 则只随机抽一个较小的 candidate pool，再在这个 sample 里面选 marginal gain 最大的元素。</p>
+          <p>如果 sample size 选得合适，就可以用远少于 full scan 的查询次数，仍然在期望意义下得到接近 classical greedy 的 approximation guarantee。</p>
+          <p>此前 repo 中已经有完整的数学分析。</p>
+          <p>在 set-level 的抽象模型里，我定义了 uniform with-replacement sampling space，并证明 sampled pool 击中 optimal residual elements 的概率；再通过 weighted sampling 和 expected one-step gain 的接口，把这种概率信息变成</p>
+          <div class="theorem-line"><code>expected gain ≥ (sampling factor / k) · current gap</code></div>
+          <p>形式的 progress inequality。</p>
+          <p>之后就是熟悉的 recurrence：当前解离 <code>OPT</code> 还有一个 gap，每一步在期望意义下消掉其中一定比例，迭代 <code>k</code> 次以后得到最终的 exponential bound，再实例化 sample size，就得到 <code>1 - 1/e - eps</code> 风格的 approximation guarantee。</p>
+          <p>数学上这条线已经闭合。</p>
+          <p>问题在于：<strong>这里的 expectation 还属于抽象的 sampling model，而不是一个真正 executable randomized program 的输出分布。</strong></p>
+          <p>这两个东西在直觉上当然应该是同一个算法。但 formal verification 最有意思的地方就在这里——“当然应该是”不是 theorem。</p>
+          <p>所以这次我想证明的恰好就是这个等号。</p>
+
+          <h2>第一层：先把随机采样本身变成 verified executable object</h2>
+          <p>最底层需要解决的是 sampling。</p>
+          <p>我使用 Isabelle 的 executable randomized algorithms infrastructure 写了真正由 random bits 驱动的 uniform sampler，并把多个独立 draw 组合成 uniform-with-replacement sample pool。</p>
+          <p>单纯写出 sampler 并不难，真正重要的是证明它的 executable semantics 与之前 theorem line 中的数学模型一致。</p>
+          <p>也就是说，不只是：</p>
+          <blockquote><p>这个程序看起来像是在均匀抽样。</p></blockquote>
+          <p>而是形式化地证明它对应的 <code>spmf</code> / <code>pmf</code> 正好等于此前定义的 uniform-with-replacement distribution。</p>
+          <p>这一层之后，random bits、executable sampler 和 abstract sample space 第一次真正连在了一起。</p>
+          <p>对我来说这是一个很重要的区别。以前的 <code>uniform_wr_space</code> 是分析对象；现在它同时也是一个实际程序的 denotational semantics。</p>
+
+          <h2>第二层：把不可执行的 argmax 换成真正的 list algorithm</h2>
+          <p>另一个很典型的问题是 <code>argmax</code>。</p>
+          <p>在纯数学证明里，我完全可以写：</p>
+          <blockquote><p>choose an element attaining the maximum marginal gain</p></blockquote>
+          <p>只要有限性和非空性成立，存在性证明就足够了。</p>
+          <p>但这种 specification 往往会依赖 Hilbert choice。它对 theorem proving 很自然，对 code generation 却没有意义：证明“存在一个最大值元素”和告诉程序“怎样找到它”是两件不同的事。</p>
+          <p>所以这一层我另外实现了一个 total list-based argmax。</p>
+          <p>它顺序扫描 candidate list，维护当前最优元素，并证明：</p>
+          <ul>
+            <li>返回值一定来自输入 list；</li>
+            <li>返回值的 score 不小于任何其他 candidate；</li>
+            <li>它对应 abstract argmax 所要求的最大 marginal gain；</li>
+            <li>实现可以直接进行 SML code generation。</li>
+          </ul>
+          <p>然后这个 list argmax 再和 executable sampler 组合成真正的一步 stochastic greedy update。</p>
+          <p>这一步做完之后，程序已经不需要任何抽象 choice：sample pool 是真的抽出来的，最大 marginal gain 元素也是真的算出来的。</p>
+
+          <h2>从一步到真正的 randomized runner</h2>
+          <p>接下来我定义了 recursive randomized runner。</p>
+          <p>单轮可执行算法会从当前 solution 中计算 remaining elements，以 uniform-with-replacement 的方式抽取 candidate pool，然后执行经过验证的 list-based selection procedure。</p>
+          <p>完整的 randomized runner 则使用 Isabelle executable randomized-algorithm framework 提供的 probabilistic bind structure，递归组合这些步骤。</p>
+          <p>到这里已经可以给它 seed，然后真正运行：同一个 seed 对应确定的 random bits，不同 seed 可以产生不同的 stochastic trajectory，而且整条算法可以导出到 SML。</p>
+          <p>但能够运行仍然只是第一步。</p>
+          <p>如果我要说这是 verified stochastic greedy，我还需要证明这个 runner 的整个 probability distribution 是对的。</p>
+
+          <h2>真正关键的 bridge：program distribution 等于 proof distribution</h2>
+          <p>这一部分是最近 development 里我最在意的地方。</p>
+          <p>核心的 semantic result 直接识别 executable randomized step 所诱导的 distribution 与 approximation analysis 中使用的 abstract uniform-with-replacement model。与此同时，可执行开发也建立了 randomized runner 应有的 well-formedness properties，包括 almost-sure termination 与 support 中所有输出的 feasibility。</p>
+          <p>这个 distributional correspondence 正是让既有 expected-gain analysis 可以复用于实际 executable program 的桥梁。</p>
+          <p>接着我证明，executable step 的 expected objective increment 与此前 abstract sampling analysis 中出现的 expected gain 完全一致。因此原有的 one-step theorem 不需要重新证明，而可以直接 transfer 到程序：</p>
+          <div class="theorem-line"><code>expected gain ≥ (sampling factor / k) · (f(OPT) - f(S))</code></div>
+          <p>这也是我非常喜欢整个 architecture 的一个地方。</p>
+          <p>之前把 sampling、weighted one-step analysis 和 recurrence 刻意拆开，看起来会增加一些文件和 abstraction，但当 executable semantics 真正接进来的时候，这种 modularity 开始回报：新的程序层只需要证明它实现了原来的 semantic interface，后面的 approximation mathematics 可以整个复用。</p>
+
+          <h2>approximation guarantee 现在属于“这个程序本身”</h2>
+          <p>single-step expectation 接上之后，下一步就是把 expectation 推过整个 recursive runner。</p>
+          <p>这里我定义了 full run 的 expected objective value，并证明 recursive expectation identity：执行一轮 randomized step 后，再继续执行剩余轮数，其 expectation 可以按照对应 PMF 的 bind structure 分解。</p>
+          <p>有了这个 identity，就可以直接在 executable distribution 上做 recurrence induction。</p>
+          <p>最后得到的是一个真正的 run-level theorem。</p>
+          <p>对于合适的 epsilon-driven sample size，执行 <code>k</code> 轮的 randomized algorithm：</p>
+          <ol>
+            <li>almost surely terminates；</li>
+            <li>所有可能输出都满足 feasibility 和 cardinality constraint；</li>
+            <li>并且同一个程序的输出 PMF 满足</li>
+          </ol>
+          <div class="theorem-line"><code>(1 - 1/e - eps) · f(OPT) ≤ E[f(output)]</code></div>
+          <p>这里最重要的不是 approximation ratio 本身。</p>
+          <p><code>1 - 1/e - eps</code> 当然是我们一开始就知道想要得到的结果。</p>
+          <p>真正不同的是，现在右边这个 expectation 不再属于一个人为定义的 abstract recurrence，也不是“假设某个 stochastic process 每一步满足……”。</p>
+          <p>它就是：<strong>实际 executable randomized runner 的输出 distribution。</strong></p>
+          <p>之前 theorem 和 program 是两条平行的线；现在它们在这里变成了同一个对象。</p>
+
+          <h2>再把它实例化成真正可执行的 weighted coverage</h2>
+          <p>有了 generic runner 以后，我还做了一个 concrete weighted-coverage instance。</p>
+          <p>这里其实又出现了一个很实际的 formalisation 问题。</p>
+          <p>数学 theorem 最自然地在 real-valued objective 上陈述，但真正 code generation 时，如果为了比较 marginal gains 把大量 real arithmetic 搬进程序，并不是我想要的实现。</p>
+          <p>所以 concrete executable layer 使用 exact natural-number weights 和整数式的 coverage score，而 specification layer 仍然使用 real-valued submodular objective。</p>
+          <p>然后证明两种 score comparison 对 argmax 产生完全相同的选择。</p>
+          <p>这样做以后，程序运行的是简单的 exact discrete computation，而 approximation theorem 仍然可以在之前的 real-valued mathematical framework 中陈述。</p>
+          <p>最后这个具体 weighted-coverage runner 同样继承：</p>
+          <ul>
+            <li>almost-sure termination；</li>
+            <li>feasible outputs；</li>
+            <li><code>1 - 1/e - eps</code> expected approximation guarantee；</li>
+            <li>SML code generation。</li>
+          </ul>
+          <p>这一步对我来说也很重要，因为它说明 executable refinement 不是只停在一个 polymorphic toy function 上，而是真的可以走到 concrete objective instance。</p>
+
+          <h2>oracle cost 也开始属于实际程序</h2>
+          <p>在之前的 theorem line 中，我已经有 trace-level oracle accounting。</p>
+          <p>这一次则进一步把 counter 搬进 randomized runner 本身。</p>
+          <p>我还开发了一个记录 score evaluations 的 instrumented executable runner。对应的 refinement theorem 证明，擦除 instrumentation 后会精确恢复原来的 randomized semantics。</p>
+          <p>在当前 baseline implementation 下，一轮对 sample pool 做 sequential argmax comparison，整个 <code>n</code>-round runner 的 score evaluation 有一个显式 upper bound；再按照 marginal gain 需要的 objective evaluations，可以继续得到对应的 oracle budget。</p>
+          <p>于是对于 weighted-coverage instance，现在可以在同一个 theorem package 中同时说：</p>
+          <ul>
+            <li>程序 almost surely terminates；</li>
+            <li>输出始终 feasible；</li>
+            <li>它满足 expected approximation guarantee；</li>
+            <li>而它的实际 evaluation count 也满足形式化的 budget bound。</li>
+          </ul>
+          <p>这比我以前单独证明一个 asymptotic complexity expression 更让我满意，因为 cost 已经不是贴在算法旁边的一张标签，而是被 instrumented execution 本身带出来的 quantity。</p>
+
+          <h2>正在继续的 executable refinements</h2>
+          <p>counting development 也揭示了若干 implementation-level 的机会，可以进一步减少冗余的 oracle work。我目前正在细化 executable selection routine，同时证明这些优化保持完全相同的 randomized semantics，因此也能继承既有的 approximation guarantees。</p>
+          <p>这部分工作比 approximation theorem 本身更接近 verified performance engineering。我也开始通过具体执行与 benchmark，研究形式化验证的 cost model 与实际 runtime behaviour 之间的关系。</p>
+
+          <h2>我现在怎么理解这个项目</h2>
+          <p>我之前写“从一个定理到一套框架”的时候，觉得这个项目最大的变化是：它不再只是 Nemhauser–Wolsey theorem 的形式化，而开始成为一套可以容纳 classical greedy、LazyGreedy 和 StochasticGreedy 的 library。</p>
+          <p>现在我觉得又可以往前加一句。</p>
+          <p>一个 formal algorithm library 如果只有 theorem 和 executable code 并排放着，其实还不够。</p>
+          <p>真正让我感兴趣的是证明下面这条 chain：</p>
+          <div class="refinement-chain"><strong>mathematical specification
+→ executable implementation
+→ probability semantics
+→ expected progress
+→ global approximation theorem
+→ concrete executable instance
+→ resource accounting</strong></div>
+          <p>而且每一个箭头本身都是 theorem。</p>
+          <p>这也是这次 executable refinement 对我来说真正重要的地方。</p>
+          <p><code>export_code</code> 本身并不难，写一个随机程序也不难，证明一个 abstract expectation inequality 我之前也已经做完了。</p>
+          <p>困难的是证明最后导出的那个程序，和你在 theorem 里分析的随机算法，真的就是同一个对象。</p>
+          <p><strong>Scope note.</strong> 2026 年正式发表于 AFP 的条目覆盖 classical greedy 与 verified stateful lazy-greedy variant。本文描述的 StochasticGreedy development——包括 executable randomized semantics、run-level expected approximation guarantee 与 resource-accounting layer——是对该条目进行扩展的 ongoing post-publication work。</p>
+
+          <div class="academic-hub-links math-post-hub-links">
+            <p class="academic-hub-links-label">继续浏览</p>
+            <div class="research-link-row">
+              <a href="../research.html" data-preserve-lang="1">研究陈述</a>
+              <a href="../projects.html" data-preserve-lang="1">代表性工作</a>
+              <a href="../math.html" data-preserve-lang="1">技术笔记</a>
+            </div>
+          </div>
+        </div>
+
+        <div data-lang-block="en" hidden>
+          <h1>From a Framework to a Randomized Algorithm That Actually Runs: Executable Refinement of StochasticGreedy</h1>
+          <p class="article-meta">Feier Lyu · October 3, 2026 · ~7 min read</p>
+          <p class="article-tags">Isabelle/HOL · Submodular Maximization · StochasticGreedy · Randomized Algorithms · Formal Verification</p>
+          <p class="article-deck">Putting the algorithm, its probability semantics, its approximation proof, and executable code into one machine-checked chain.</p>
+
+          <p>A few months ago, this project still had one very specific gap.</p>
+          <p>The theorem-level development of StochasticGreedy was already fairly complete: a uniform-with-replacement sampling model, a one-step expected-gain bound, a gap recurrence, the final approximation guarantee, and an oracle-cost theorem were all in place. The probabilistic analysis and an actually executable stochastic algorithm, however, remained separate.</p>
+          <p>In other words, I had proved that if each step followed the sampling model, then it made the required expected progress. I also had deterministic traces that could simulate sampled outcomes. What I had not yet proved was this:</p>
+          <blockquote><p><strong>The probability distribution produced by a real program driven by random bits is exactly the model used in the earlier analysis, and the final approximation guarantee belongs to that very same program.</strong></p></blockquote>
+          <p>The recent work was essentially about closing this gap.</p>
+          <p>Once it was closed, the character of the project changed again. It was no longer just a theorem library with executable examples beside it. It began to reach what I had wanted all along: one machine-checked chain joining the algorithm, probability semantics, approximation proof, and executable code.</p>
+
+          <h2>Where the previous stage stopped</h2>
+          <p>The idea behind StochasticGreedy is simple.</p>
+          <p>Classical greedy scans every remaining element in each round, computes every marginal gain, and chooses the largest. StochasticGreedy samples a much smaller candidate pool and chooses the element with maximum marginal gain only within that sample.</p>
+          <p>With an appropriate sample size, it uses far fewer queries than a full scan while retaining, in expectation, an approximation guarantee close to classical greedy.</p>
+          <p>The repository already contained the full mathematical analysis. In a set-level abstract model, I defined a uniform-with-replacement sampling space and proved the probability that the sampled pool hits the optimal residual elements. Weighted sampling and an expected one-step-gain interface then turned that probability into a progress inequality of the form</p>
+          <div class="theorem-line"><code>expected gain ≥ (sampling factor / k) · current gap</code></div>
+          <p>The familiar recurrence follows. The current solution has a gap from <code>OPT</code>; every step removes a fixed fraction of that gap in expectation; after <code>k</code> iterations, this yields an exponential bound; instantiating the sample size then gives a <code>1 - 1/e - eps</code>-style approximation guarantee.</p>
+          <p>Mathematically, that line was complete.</p>
+          <p>The problem was that <strong>the expectation still belonged to an abstract sampling model, not to the output distribution of an executable randomized program.</strong></p>
+          <p>Intuitively, they should of course describe the same algorithm. But this is exactly what makes formal verification interesting: “of course” is not a theorem.</p>
+          <p>The equality between those two objects is what I set out to prove.</p>
+
+          <h2>Layer one: making random sampling a verified executable object</h2>
+          <p>The bottom layer is sampling.</p>
+          <p>Using Isabelle's infrastructure for executable randomized algorithms, I implemented a uniform sampler driven by actual random bits and combined independent draws into a uniform-with-replacement sample pool.</p>
+          <p>Writing the sampler itself was not difficult. The important part was proving that its executable semantics agrees with the mathematical model used by the theorem line.</p>
+          <p>The claim is not merely:</p>
+          <blockquote><p>This program looks as though it samples uniformly.</p></blockquote>
+          <p>Instead, the corresponding <code>spmf</code> / <code>pmf</code> is formally proved equal to the previously defined uniform-with-replacement distribution.</p>
+          <p>At that point, random bits, the executable sampler, and the abstract sample space are connected for the first time.</p>
+          <p>This distinction matters to me. Previously, <code>uniform_wr_space</code> was an object of analysis. It is now also the denotational semantics of a real program.</p>
+
+          <h2>Layer two: replacing non-executable argmax with a real list algorithm</h2>
+          <p>Another typical issue is <code>argmax</code>.</p>
+          <p>In a purely mathematical proof, I can write:</p>
+          <blockquote><p>choose an element attaining the maximum marginal gain</p></blockquote>
+          <p>Once finiteness and nonemptiness are established, an existence proof is enough.</p>
+          <p>Such a specification often relies on Hilbert choice. That is natural in theorem proving but meaningless for code generation: proving that a maximizer exists and telling a program how to find one are different tasks.</p>
+          <p>I therefore implemented a total, list-based argmax. It scans the candidate list, maintains the current best element, and comes with proofs that:</p>
+          <ul>
+            <li>the returned element belongs to the input list;</li>
+            <li>its score is at least that of every other candidate;</li>
+            <li>it realizes the maximum marginal gain required by the abstract argmax; and</li>
+            <li>the implementation supports direct SML code generation.</li>
+          </ul>
+          <p>The list argmax is then combined with the executable sampler to form a genuine stochastic-greedy update.</p>
+          <p>At this point, the program no longer depends on any abstract choice: the sample pool is actually drawn, and the maximum-marginal-gain element is actually computed.</p>
+
+          <h2>From one step to a real randomized runner</h2>
+          <p>The next object is a recursive randomized runner.</p>
+          <p>A single executable round computes the remaining elements, samples a candidate pool uniformly with replacement, and applies the verified list-based selection procedure.</p>
+          <p>The full randomized runner then composes these steps recursively using the probabilistic bind structure provided by Isabelle's executable randomized-algorithm framework.</p>
+          <p>It can now be given a seed and actually run. The same seed determines the same random bits; different seeds can produce different stochastic trajectories; and the complete algorithm can be exported to SML.</p>
+          <p>But being able to run it is only the first step.</p>
+          <p>To call it verified stochastic greedy, I still needed to prove that the entire output distribution of the runner is the right one.</p>
+
+          <h2>The key bridge: program distribution equals proof distribution</h2>
+          <p>This is the part of the recent development that matters most to me.</p>
+          <p>The central semantic result identifies the distribution induced by the executable randomized step with the abstract uniform-with-replacement model used in the approximation analysis. Along the way, the executable development establishes the expected well-formedness properties of the randomized runner, including almost-sure termination and feasibility of supported outputs.</p>
+          <p>This distributional correspondence is the bridge that allows the existing expected-gain analysis to be reused for the actual executable program.</p>
+          <p>I then prove that the expected objective increment of the executable step is exactly the expected gain appearing in the earlier abstract sampling analysis. This allows the abstract one-step progress bound to transfer directly to the executable program:</p>
+          <div class="theorem-line"><code>expected gain ≥ (sampling factor / k) · (f(OPT) - f(S))</code></div>
+          <p>This is where the architecture begins to repay its earlier abstractions. Sampling, weighted one-step analysis, and recurrence were deliberately separated. Once executable semantics satisfies the old semantic interface, the approximation mathematics above it can be reused wholesale.</p>
+
+          <h2>The approximation guarantee now belongs to the program itself</h2>
+          <p>After connecting the single-step expectation, the next task is to propagate expectation through the full recursive runner.</p>
+          <p>I define the expected objective value of a full run and prove a recursive expectation identity: after one randomized step, the expectation of the remaining run decomposes according to the bind structure of the corresponding PMF.</p>
+          <p>This identity makes it possible to carry out the recurrence induction directly over the executable distribution.</p>
+          <p>The final result is a genuine run-level theorem. For the appropriate epsilon-driven sample size, the <code>k</code>-round randomized algorithm:</p>
+          <ol>
+            <li>terminates almost surely;</li>
+            <li>produces only feasible outputs satisfying the cardinality constraint; and</li>
+            <li>has an output PMF satisfying</li>
+          </ol>
+          <div class="theorem-line"><code>(1 - 1/e - eps) · f(OPT) ≤ E[f(output)]</code></div>
+          <p>The important point is not the approximation ratio itself. <code>1 - 1/e - eps</code> was the target from the beginning.</p>
+          <p>What has changed is the right-hand side. This expectation no longer belongs to a manually defined abstract recurrence or to a hypothetical stochastic process satisfying a one-step assumption.</p>
+          <p>It is <strong>the output distribution of the executable randomized runner.</strong></p>
+          <p>The theorem and the program were once parallel lines. Here, they become the same object.</p>
+
+          <h2>Instantiating it with genuinely executable weighted coverage</h2>
+          <p>With the generic runner in place, I also built a concrete weighted-coverage instance.</p>
+          <p>This exposes another practical formalization issue. The mathematical theorem is most naturally stated for a real-valued objective. For code generation, however, I did not want marginal-gain comparisons to carry unnecessary real arithmetic into the implementation.</p>
+          <p>The concrete executable layer therefore uses exact natural-number weights and an integer coverage score, while the specification layer retains the real-valued submodular objective.</p>
+          <p>I then prove that the two score comparisons cause argmax to make exactly the same choices.</p>
+          <p>The program consequently performs simple exact discrete computation, while the approximation theorem remains stated in the original real-valued mathematical framework.</p>
+          <p>The resulting weighted-coverage runner inherits:</p>
+          <ul>
+            <li>almost-sure termination;</li>
+            <li>feasible outputs;</li>
+            <li>the <code>1 - 1/e - eps</code> expected approximation guarantee; and</li>
+            <li>SML code generation.</li>
+          </ul>
+          <p>This matters because the executable refinement no longer stops at a polymorphic toy function. It reaches a concrete objective instance.</p>
+
+          <h2>Oracle cost now belongs to the actual program too</h2>
+          <p>The earlier theorem line already contained trace-level oracle accounting. This time, I moved the counter into the randomized runner itself.</p>
+          <p>I also developed an instrumented version of the executable runner that records score evaluations. A refinement theorem shows that erasing the instrumentation recovers the original randomized semantics exactly.</p>
+          <p>For the current baseline implementation, sequential argmax comparison over one sample pool gives an explicit upper bound on score evaluations for the full <code>n</code>-round runner. Accounting for the objective evaluations required by a marginal gain then yields the corresponding oracle budget.</p>
+          <p>For the weighted-coverage instance, the same theorem package can now state that:</p>
+          <ul>
+            <li>the program terminates almost surely;</li>
+            <li>every output is feasible;</li>
+            <li>the expected approximation guarantee holds; and</li>
+            <li>the actual evaluation count satisfies a formal budget bound.</li>
+          </ul>
+          <p>This is more satisfying than proving an asymptotic complexity expression beside the algorithm. Cost is no longer a label attached to the program; it is a quantity produced by the instrumented execution itself.</p>
+
+          <h2>Ongoing Executable Refinements</h2>
+          <p>The counting development also revealed several implementation-level opportunities for reducing redundant oracle work. I am currently refining the executable selection routine while proving that these optimizations preserve the same randomized semantics and therefore inherit the existing approximation guarantees.</p>
+          <p>This part of the project is closer to verified performance engineering than to the approximation theorem itself. I am also beginning to use concrete executions and benchmarks to study how the formally verified cost model relates to practical runtime behaviour.</p>
+
+          <h2>How I now understand the project</h2>
+          <p>When I previously wrote “from one theorem to a framework,” the central change was that the project had grown beyond a formalization of the Nemhauser–Wolsey theorem into a library that could contain classical greedy, LazyGreedy, and StochasticGreedy.</p>
+          <p>I would now add one more sentence.</p>
+          <p>A formal algorithm library is not yet enough if it merely places theorems and executable code side by side.</p>
+          <p>What interests me is proving the following chain:</p>
+          <div class="refinement-chain"><strong>mathematical specification
+→ executable implementation
+→ probability semantics
+→ expected progress
+→ global approximation theorem
+→ concrete executable instance
+→ resource accounting</strong></div>
+          <p>Every arrow in that chain is itself a theorem.</p>
+          <p>That is the real importance of this executable refinement for me.</p>
+          <p><code>export_code</code> is not difficult by itself. Writing a randomized program is not difficult either, and I had already proved the abstract expectation inequality.</p>
+          <p>The difficult part is proving that the program eventually exported is genuinely the same randomized algorithm analyzed by the theorem.</p>
+          <p>At that point, formalization is no longer only about checking whether a mathematical proof is correct. It begins to answer a much more implementation-facing question: <strong>Is the thing we actually run really the thing we proved correct?</strong></p>
+          <p>That is probably the direction I am most interested in continuing to explore.</p>
+          <p><strong>Scope note.</strong> The formally published 2026 AFP entry covers classical greedy together with the verified stateful lazy-greedy variant. The StochasticGreedy development described here—including its executable randomized semantics, run-level expected approximation guarantee, and resource-accounting layer—is ongoing post-publication work extending that entry.</p>
+
+          <div class="academic-hub-links math-post-hub-links">
+            <p class="academic-hub-links-label">Continue with</p>
+            <div class="research-link-row">
+              <a href="../research.html" data-preserve-lang="1">Research Statement</a>
+              <a href="../projects.html" data-preserve-lang="1">Selected Work</a>
+              <a href="../math.html" data-preserve-lang="1">Technical Notes</a>
+            </div>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <p class="footer-title">CHRONOHAZE</p>
+          <p class="footer-note"><span data-i18n="footerContactLead">学术联系邮箱：</span><a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a></p>
+          <p class="footer-note" data-i18n="footerCities">Feier Lyu · 爱丁堡大学数学本科</p>
+          <p class="footer-copy">© 2026 by CHRONOHAZE. Hosted on GitHub Pages.</p>
+          <div class="social" aria-label="Social links">
+            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://www.instagram.com/lyuf09" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://space.bilibili.com/35902781" target="_blank" rel="noopener noreferrer">Bilibili</a>
+            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+        <div class="footer-right">
+          <a href="../policy.html" data-preserve-lang="1" data-i18n="siteNotes">网站说明</a>
+          <a href="../accessibility.html" data-preserve-lang="1" data-i18n="a11y">无障碍支持</a>
+        </div>
+      </div>
+  <div class="analytics-control-shell" data-analytics-collection="control-only">
+    <p class="analytics-control" data-analytics-control>
+      <span data-analytics-status>Analytics: On</span><span aria-hidden="true"> · </span><button type="button" data-analytics-toggle>Turn off</button>
+    </p>
+  </div>
+</footer>
+  </div>
+
+  <script>
+    (function () {
+      const i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
+      const i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
+      const langBlocks = Array.from(document.querySelectorAll('[data-lang-block]'));
+      const localizedLinks = Array.from(document.querySelectorAll('[data-preserve-lang]'));
+      const queryLang = new URLSearchParams(window.location.search).get('lang');
+      const titleNode = document.querySelector('title');
+      const descriptionNode = document.querySelector('meta[name="description"]');
+
+      const i18n = {
+        zh: {
+          htmlLang: 'zh-CN', navAria: '主导航', navHome: '主页', navAcademic: '学术', navMusic: '音乐', navPhoto: '摄影', navCV: 'CV',
+          academicSectionAria: '学术页面导航', utilityProjects: '代表性工作', utilityResearch: '研究陈述', utilityNotes: '技术笔记',
+          footerContactLead: '学术联系邮箱：', footerCities: 'Feier Lyu · 爱丁堡大学数学本科', siteNotes: '网站说明', a11y: '无障碍支持'
+        },
+        en: {
+          htmlLang: 'en', navAria: 'Main navigation', navHome: 'Home', navAcademic: 'Academic', navMusic: 'Music', navPhoto: 'Photography', navCV: 'CV',
+          academicSectionAria: 'Academic section navigation', utilityProjects: 'Selected Work', utilityResearch: 'Research Statement', utilityNotes: 'Technical Notes',
+          footerContactLead: 'Academic contact: ', footerCities: 'Feier Lyu · BSc Mathematics, University of Edinburgh', siteNotes: 'Site Notes', a11y: 'Accessibility'
+        }
+      };
+
+      function setLanguage(lang) {
+        const safeLang = lang === 'en' ? 'en' : 'zh';
+        const dict = i18n[safeLang];
+        document.documentElement.lang = dict.htmlLang;
+        document.documentElement.setAttribute('data-site-lang', safeLang);
+        i18nNodes.forEach(function (node) {
+          const value = dict[node.getAttribute('data-i18n')];
+          if (typeof value === 'string') node.textContent = value;
+        });
+        i18nAriaNodes.forEach(function (node) {
+          const value = dict[node.getAttribute('data-i18n-aria')];
+          if (typeof value === 'string') node.setAttribute('aria-label', value);
+        });
+        langBlocks.forEach(function (block) {
+          block.hidden = block.getAttribute('data-lang-block') !== safeLang;
+        });
+        localizedLinks.forEach(function (link) {
+          try {
+            const url = new URL(link.getAttribute('href'), window.location.href);
+            url.searchParams.set('lang', safeLang);
+            link.setAttribute('href', url.pathname + url.search + url.hash);
+          } catch (_err) {}
+        });
+        const localizedTitle = titleNode ? titleNode.getAttribute('data-title-' + safeLang) || document.title : document.title;
+        const localizedDescription = descriptionNode ? descriptionNode.getAttribute('data-content-' + safeLang) || descriptionNode.getAttribute('content') : '';
+        document.title = localizedTitle;
+        if (descriptionNode) descriptionNode.setAttribute('content', localizedDescription);
+        ['meta[property="og:title"]', 'meta[name="twitter:title"]'].forEach(function (selector) {
+          const node = document.querySelector(selector);
+          if (node) node.setAttribute('content', localizedTitle.replace(/ \| Chronohaze$/, ''));
+        });
+        ['meta[property="og:description"]', 'meta[name="twitter:description"]'].forEach(function (selector) {
+          const node = document.querySelector(selector);
+          if (node) node.setAttribute('content', localizedDescription);
+        });
+        try {
+          window.localStorage.setItem('siteLang', safeLang);
+          window.localStorage.setItem('chronohaze-lang', safeLang);
+        } catch (_err) {}
+      }
+
+      let initialLang = 'zh';
+      try {
+        const stored = window.localStorage.getItem('siteLang') || window.localStorage.getItem('chronohaze-lang');
+        if (stored === 'zh' || stored === 'en') initialLang = stored;
+      } catch (_err) {}
+      if (queryLang === 'zh' || queryLang === 'en') initialLang = queryLang;
+      setLanguage(initialLang);
+    })();
+  </script>
+</body>
+</html>

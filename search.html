@@ -248,8 +248,24 @@
 </div>
 <script id="search-inline-fallback" type="application/json">
 {
-  "generated_at": "2026-09-30",
+  "generated_at": "2026-10-03",
   "items": [
+    {
+      "title": "从一套框架到真正会运行的随机算法：StochasticGreedy 的 executable refinement",
+      "title_en": "From a Framework to a Randomized Algorithm That Actually Runs: Executable Refinement of StochasticGreedy",
+      "url": "post/stochasticgreedy-executable-refinement.html",
+      "section": "Technical Notes",
+      "date": "2026-10-03",
+      "excerpt": "把随机比特、可执行采样器、概率语义、期望近似保证与资源计数接进同一条 machine-checked chain。",
+      "excerpt_en": "Connecting random bits, executable sampling, probability semantics, expected approximation guarantees, and resource accounting in one machine-checked chain.",
+      "tags": [
+        "math",
+        "article"
+      ],
+      "sort": 20261003,
+      "scope": "math",
+      "content": "Selected Work Research Statement Technical Notes 从一套框架到真正会运行的随机算法：StochasticGreedy 的 executable refinement Feier Lyu · 2026年10月3日 · 约 7 分钟 Isabelle/HOL · Submodular Maximization · StochasticGreedy · Randomized Algorithms · Formal Verification 把算法、概率语义、近似证明和可执行代码放进同一条 machine-checked chain。 几个月前写这个项目的时候，我最后留下了一个很具体的 gap。 当时 StochasticGreedy 的 theorem-level development 已经相当完整：uniform with-replacement sampling model、one-step expected-gain bound、gap recurrence、最终的 approximation guarantee，以及 oracle-cost theorem 都已经存在。但这些概率分析和真正可以执行的 stochastic algorithm 仍然是分开的。 换句话说，我已经证明了“如果每一步服从这个 sampling model，那么可以得到这样的 expected progress”，也有 deterministic trace 可以模拟随机采样结果，但还没有证明： 真正由随机比特驱动、能够实际运行的程序，它产生的概率分布，就是前面分析所使用的那个概率模型；而最终的 approximation guarantee，也确实属于这同一个程序。 最近这一段工作基本上就是在补这个洞。 而且补完之后，我觉得这个项目的性质又变了一次。它不再只是一个带有 executable examples 的 theorem library，而开始真正触碰到我一直很想做的那件事：把算法、概率语义、近似证明和可执行代码放进同一条 machine-checked chain 里。 上一阶段停在哪里 StochasticGreedy 本身的想法并不复杂。 Classical greedy 每一轮扫描所有剩余元素，计算 marginal gain，然后选择最大的一个。StochasticGreedy 则只随机抽一个较小的 candidate pool，再在这个 sample 里面选 marginal gain 最大的元素。 如果 sample size 选得合适，就可以用远少于 full scan 的查询次数，仍然在期望意义下得到接近 classical greedy 的 approximation guarantee。 此前 repo…"
+    },
     {
       "title": "Research Statement | Feier Lyu (Fay Lyu)",
       "url": "research.html",
@@ -261,7 +277,7 @@
         "optimization",
         "formal-methods"
       ],
-      "sort": 20260930,
+      "sort": 20261003,
       "scope": "site",
       "content": "研究陈述 我的工作关注结构性假设如何决定优化算法的保证。在 Isabelle/HOL 中，我研究如何把状态不变量与几何引理组织成可复用的证明接口；在网络定位中，我研究网络结构如何影响非最优 stationary points 附近的二阶几何。这些项目共享同一个目标：让算法保证背后的数学依赖足够明确，从而能够被分析、验证与复用。 主要研究方向 研究范围 主要方向 01 机器检查优化与可复用证明结构 这条研究线把算法假设、状态不变量、关键不等式与收敛结论拆成可复用的 Isabelle/HOL 组件。 2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化经典贪心算法与经验证的有状态惰性贪心变体。发表后，当前仓库继续发展 StochasticGreedy 定理线，包括采样模型、近似证明与预言机调用复杂度界。另一项光滑凸一阶优化形式化已于2026年7月2日正式发表于 Archive of Formal Proofs；它构建了可复用的下降论证、投影几何、投影梯度映射、残差证书与收敛速率基础设施。 当前重点是减少不同算法证明之间重复的投影、望远镜求和与近似保证整理工作。 PGD AFP 条目 Submodular AFP 条目 DOI: 10.5281/zenodo.21054718 证明文档 代码仓库 主要方向 02 网络定位中的二阶几何 与 Shoham Sabach、Owen Li 的合作研究网络结构如何影响非最优 stationary points 附近的二阶几何。 当前公开状态只保留研究问题与已经确认的高层结论；具体判据、证明与计算实例暂不公开。",
       "title_en": "Research Statement | Feier Lyu (Fay Lyu)",
@@ -1367,7 +1383,7 @@
       ],
       "sort": 0,
       "scope": "math",
-      "content": "代表性工作 研究陈述 技术笔记 技术笔记 Feier Lyu（Fay Lyu） 置顶最能代表当前研究思考的材料，并按时间整理部分技术笔记与研究记录。 Isabelle/HOL Duality Optimization Prototype 置顶笔记 置顶笔记 01 已发表的形式化项目 Isabelle Submodular Greedy Project 已发表的形式化项目 · Archive of Formal Proofs · 2026-05-26 02 已发表 · AFP · 独立作者 Projected Gradient Descent in Isabelle/HOL AFP · 2026-07-02 · 独立作者 03 进行中的合作研究 网络定位中的二阶几何 与 Prof. Shoham Sabach、Owen Li 合作 · 精炼公开概览 侧边视觉 · 我最喜欢的 Julia 分形 研究记录归档 2026 — 按时间排列的部分技术笔记与研究记录。 更新于 2026-08-23 进行中的合作研究 网络定位中的二阶几何：研究概览 与 Prof. Shoham Sabach、Owen Li 合作的网络定位二阶几何研究概览；只保留背景、目标与已经确认的高层结论。 Network Localization Negative Curvature Second-Order Geometry 阅读研究概览 原始发布 · 2026-06-30 已发表的形式化项目 子模贪心算法形式化正式进入 AFP 记录 Isabelle/HOL 子模贪心算法形式化正式发表于 Archive of Formal Proofs，以及形式化过程中逐渐显露出的算法证明结构。 Isabelle/HOL Approximation Algorithms AFP 阅读全文 原始发布 · 2026-05-22 Publication retrospective · AFP 从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL 这篇 5 月 22 日的原始笔记保留项目设计时期的叙事；该独立形式化现已以《First-Order Methods for Smooth Convex Optimization in Isabelle/HOL》正式发表于 AFP。 Isabelle/HOL Optimization 阅读全文 原始发布 · 2026-03-14 已发表的形式化项目 Isabelle/HOL 中的 Classical Greedy、LazyGreedy 与 StochasticGreedy 原文发布于 3 月 14 日；7 月更新仅补充后续状态。子模贪心条目于 5 月 26 日正式发表于 AFP，发表后仓库继续发展 StochasticGre…",
+      "content": "代表性工作 研究陈述 技术笔记 技术笔记 Feier Lyu（Fay Lyu） 置顶最能代表当前研究思考的材料，并按时间整理部分技术笔记与研究记录。 Isabelle/HOL Duality Optimization Prototype 置顶笔记 置顶笔记 01 已发表的形式化项目 Isabelle Submodular Greedy Project 已发表的形式化项目 · Archive of Formal Proofs · 2026-05-26 02 已发表 · AFP · 独立作者 Projected Gradient Descent in Isabelle/HOL AFP · 2026-07-02 · 独立作者 03 进行中的合作研究 网络定位中的二阶几何 与 Prof. Shoham Sabach、Owen Li 合作 · 精炼公开概览 侧边视觉 · 我最喜欢的 Julia 分形 研究记录归档 2026 — 按时间排列的部分技术笔记与研究记录。 2026-10-03 Post-publication executable refinement 从一套框架到真正会运行的随机算法：StochasticGreedy 的 executable refinement 把随机比特、可执行采样器、概率语义、期望近似保证与资源计数接进同一条 machine-checked chain。 Isabelle/HOL StochasticGreedy Formal Verification 阅读全文 更新于 2026-08-23 进行中的合作研究 网络定位中的二阶几何：研究概览 与 Prof. Shoham Sabach、Owen Li 合作的网络定位二阶几何研究概览；只保留背景、目标与已经确认的高层结论。 Network Localization Negative Curvature Second-Order Geometry 阅读研究概览 原始发布 · 2026-06-30 已发表的形式化项目 子模贪心算法形式化正式进入 AFP 记录 Isabelle/HOL 子模贪心算法形式化正式发表于 Archive of Formal Proofs，以及形式化过程中逐渐显露出的算法证明结构。 Isabelle/HOL Approximation Algorithms AFP 阅读全文 原始发布 · 2026-05-22 Publication retrospective · AFP 从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL 这篇 5 月 22 日的原始笔记保留项目设计时期的叙事；该独立形式化现已以《First-Order Methods for Smooth Convex Optimization in Is…",
       "title_en": "Technical Notes"
     },
     {

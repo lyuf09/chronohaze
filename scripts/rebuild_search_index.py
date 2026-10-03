@@ -42,6 +42,7 @@ HTML_CONTENT_REFRESH_URLS = {
     "post/metalcore-piano-lab.html",
     "post/projected-gradient-descent-isabelle-hol.html",
     "post/spring-2026.html",
+    "post/stochasticgreedy-executable-refinement.html",
     "post/submodular-greedy-formalization-enters-afp.html",
     "post/theorem-to-framework-isabelle-submodular.html",
 }
