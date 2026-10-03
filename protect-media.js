@@ -2096,14 +2096,17 @@
           touchMoved = false;
           return;
         }
+        touchStartX = null;
+        touchStartY = null;
+        touchMoved = false;
+        var handled = handler(event) !== false;
+        if (!handled) {
+          return;
+        }
         lastTouchStamp = Date.now();
         if (event.cancelable) {
           event.preventDefault();
         }
-        touchStartX = null;
-        touchStartY = null;
-        touchMoved = false;
-        handler(event);
       },
       { passive: false }
     );
@@ -17686,15 +17689,16 @@
           typeof target.closest === "function" &&
           target.closest("a, button, input, select, textarea, summary, [contenteditable='true']")
         ) {
-          return;
+          return false;
         }
 
         var selection = typeof window.getSelection === "function" ? window.getSelection() : null;
         if (selection && String(selection).trim()) {
-          return;
+          return false;
         }
 
         openRowLink();
+        return true;
       });
 
       row.addEventListener("keydown", function (event) {

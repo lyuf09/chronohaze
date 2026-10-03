@@ -1510,6 +1510,31 @@ test("server-rendered math catalog does not refetch its JSON payload", async ({ 
   expect(catalogRequests).toBe(0);
 });
 
+test("touch links inside technical-note cards remain directly navigable", async ({ page }, testInfo) => {
+  test.skip(!isMobileProject(testInfo), "touch-navigation regression check");
+
+  await page.goto("math.html?lang=zh", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+
+  const latestCard = page.locator(".math-list .math-card").first();
+  await latestCard.locator(".math-title-link").tap();
+  await expect(page).toHaveURL(/post\/stochasticgreedy-executable-refinement\.html/);
+  await expect(page.getByRole("heading", {
+    name: "从一套框架到真正会运行的随机算法：StochasticGreedy 的 executable refinement",
+    exact: true,
+  })).toBeVisible();
+
+  await page.goto("math.html?lang=zh", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+  const networkCard = page.locator(".math-list .math-card").nth(1);
+  await networkCard.locator(".math-more").tap();
+  await expect(page).toHaveURL(/notes\/network_localization_structural_certificates\.html/);
+  await expect(page.getByRole("heading", {
+    name: "网络定位中的二阶几何：研究概览",
+    exact: true,
+  })).toBeVisible();
+});
+
 test("mobile home hides sharing while secondary-page sharing manages focus", async ({ page }, testInfo) => {
   test.skip(!isMobileProject(testInfo), "mobile-only share interaction check");
 
