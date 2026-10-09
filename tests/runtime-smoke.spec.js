@@ -2909,13 +2909,13 @@ test("photo detail metadata localizes dates, places, statements, and image alt t
   expect(errors).toEqual([]);
 });
 
-test("latest Edinburgh photo set leaves its series name and statement blank", async ({ page }) => {
+test("latest Edinburgh photo set exposes its title and leaves its statement blank", async ({ page }) => {
   const errors = trackPageErrors(page);
 
   await page.goto("photo/photo-18.html?lang=zh", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
-  await expect(page).toHaveTitle("2026年10月9日 | 摄影 | Chronohaze");
-  await expect(page.locator(".photo-detail-article h1")).toHaveCount(0);
+  await expect(page).toHaveTitle("湿光 | 摄影 | Chronohaze");
+  await expect(page.locator(".photo-detail-article h1")).toHaveText("湿光");
   await expect(page.locator(".photo-detail-statement")).toHaveCount(0);
   await expect(page.locator(".photo-detail-date")).toHaveText("2026 年 10 月 9 日");
   await expect(page.locator(".photo-detail-article .article-meta")).toHaveText(
@@ -2925,6 +2925,8 @@ test("latest Edinburgh photo set leaves its series name and statement blank", as
 
   await page.goto("photo/photo-18.html?lang=en", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
+  await expect(page).toHaveTitle("Wet Light | Photography | Chronohaze");
+  await expect(page.locator(".photo-detail-article h1")).toHaveText("Wet Light");
   await expect(page.locator(".photo-detail-date")).toHaveText("9 October 2026");
   await expect(page.locator(".photo-detail-article .article-meta")).toHaveText(
     "Edinburgh, UK · 2026"
