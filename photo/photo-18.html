@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <style id="chronohaze-critical-loader-style">
+    html.chronohaze-critical-loading,
+    html.chronohaze-critical-loading body {
+      min-height: 100%;
+      background: #10141b;
+    }
+
+    html.chronohaze-critical-loading body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    html.chronohaze-critical-loading body > :not(.chronohaze-loader) {
+      visibility: hidden !important;
+    }
+
+    html.chronohaze-critical-loading::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 2147483000;
+      background:
+        linear-gradient(90deg, rgba(138, 160, 200, 0.09) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(138, 160, 200, 0.07) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(13, 17, 24, 0.992) 0%, rgba(19, 24, 33, 0.992) 55%, rgba(13, 17, 24, 0.996) 100%);
+      background-size: 54px 54px, 54px 54px, 100% 100%;
+    }
+
+    html.chronohaze-critical-loading::after {
+      content: "CHRONOHAZE";
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      z-index: 2147483001;
+      width: min(500px, calc(100vw - 40px));
+      padding: 30px 32px;
+      transform: translate(-50%, -50%);
+      white-space: pre-line;
+      color: rgba(232, 234, 237, 0.9);
+      font: 300 clamp(22px, 3.2vw, 34px)/1.48 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.055em;
+      border: 1px solid rgba(154, 172, 204, 0.3);
+      border-radius: 0;
+      background: linear-gradient(180deg, rgba(20, 25, 34, 0.84) 0%, rgba(13, 17, 24, 0.82) 100%);
+      box-shadow: 0 24px 58px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.045);
+    }
+
+    html[lang^="zh"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A 页面加载中";
+    }
+
+    html[lang^="en"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A Loading";
+    }
+
+    html.chronohaze-critical-loading-mobile body {
+      overflow: auto;
+    }
+
+    html.chronohaze-critical-loading-mobile body > :not(.chronohaze-loader) {
+      visibility: visible !important;
+    }
+
+    html.chronohaze-critical-loading-mobile::before {
+      background: linear-gradient(180deg, rgba(13, 17, 24, 0.18) 0%, rgba(19, 24, 33, 0.22) 100%);
+      pointer-events: none;
+    }
+
+    html.chronohaze-critical-loading-mobile::after {
+      content: "CHRONOHAZE";
+      left: 16px;
+      top: 16px;
+      width: auto;
+      max-width: calc(100vw - 32px);
+      padding: 10px 12px;
+      transform: none;
+      white-space: normal;
+      color: rgba(232, 234, 237, 0.78);
+      font: 400 12px/1.3 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.18em;
+      border: 1px solid rgba(154, 172, 204, 0.18);
+      background: rgba(16, 20, 27, 0.34);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+      backdrop-filter: blur(2px);
+    }
+  </style>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var isMobile = window.matchMedia && window.matchMedia("(max-width: 760px)").matches;
+      root.classList.add("chronohaze-critical-loading");
+      if (isMobile) {
+        root.classList.add("chronohaze-critical-loading-mobile");
+      }
+      window.__chronohazeReleaseCriticalLoader = function () {
+        root.classList.remove("chronohaze-critical-loading");
+        root.classList.remove("chronohaze-critical-loading-mobile");
+      };
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", window.__chronohazeReleaseCriticalLoader, { once: true });
+      } else {
+        window.requestAnimationFrame(window.__chronohazeReleaseCriticalLoader);
+      }
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, 500);
+    })();
+  </script>
+<script>
+    (function () {
+      try {
+        var url = new URL(window.location.href);
+        var queryLang = url.searchParams.get("lang");
+        var valid = function (value) {
+          return value === "zh" || value === "en";
+        };
+        var defaultLang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+        var defaultSafe = defaultLang.indexOf("en") === 0 ? "en" : "zh";
+
+        if (valid(queryLang)) {
+          window.localStorage.setItem("siteLang", queryLang);
+          window.localStorage.setItem("chronohaze-lang", queryLang);
+          window.__chronohazePreferredLang = queryLang;
+          document.documentElement.lang = queryLang === "en" ? "en" : "zh-CN";
+          document.documentElement.setAttribute("data-site-lang", queryLang);
+          return;
+        }
+
+        var storedLang = window.localStorage.getItem("siteLang");
+        if (!valid(storedLang)) {
+          storedLang = window.localStorage.getItem("chronohaze-lang");
+        }
+        if (!valid(storedLang)) {
+          return;
+        }
+
+        window.__chronohazePreferredLang = storedLang;
+        document.documentElement.lang = storedLang === "en" ? "en" : "zh-CN";
+        document.documentElement.setAttribute("data-site-lang", storedLang);
+
+        if (storedLang !== defaultSafe) {
+          url.searchParams.set("lang", storedLang);
+          window.location.replace(url.toString());
+        }
+      } catch (_err) {}
+    })();
+  </script>
+  <link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
+  <title>2026年10月9日 | 摄影 | Chronohaze</title>
+  <meta name="description" content="2026年10月9日于英国爱丁堡拍摄的摄影组图。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Chronohaze" />
+  <meta property="og:title" content="2026年10月9日 | Chronohaze" />
+  <meta property="og:description" content="2026年10月9日于英国爱丁堡拍摄的摄影组图。" />
+  <meta property="og:url" content="https://lyuf09.github.io/chronohaze/photo/photo-18.html" />
+  <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/photo-18.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="2026年10月9日 | Chronohaze" />
+  <meta name="twitter:description" content="2026年10月9日于英国爱丁堡拍摄的摄影组图。" />
+  <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/photo-18.png" />
+  <link rel="canonical" href="https://lyuf09.github.io/chronohaze/photo/photo-18.html" />
+  <!-- GENERATED:hreflang:start -->
+  <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/photo/photo-18.html?lang=zh" />
+  <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/photo/photo-18.html?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/photo/photo-18.html" />
+  <!-- GENERATED:hreflang:end -->
+  <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
+<link rel="preload" href="../assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="../assets/fonts/noto-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="../styles.min.css?v=20260906-latin-a11y1" />
+  <script defer src="../protect-media.min.js?v=20261006-kaleidoscope-tracknames1"></script>
+
+  <!-- Chronohaze analytics preference and opt-out control -->
+  <script id="chronohaze-analytics-bootstrap">
+    (function () {
+      var measurementId = "G-JWZY2TVYFZ";
+      var storedPreference;
+      try { storedPreference = window.localStorage.getItem("chronohaze-analytics"); } catch (_err) {}
+      var doNotTrack = navigator.doNotTrack === "1" || window.doNotTrack === "1";
+      var enabled = storedPreference === "on" || (storedPreference !== "off" && !doNotTrack);
+      window["ga-disable-" + measurementId] = !enabled;
+      window.__chronohazeAnalyticsInitialEnabled = enabled;
+    })();
+  </script>
+  <link rel="stylesheet" href="../assets/css/analytics-control.min.css?v=20260906-latin-a11y1" />
+  <script id="chronohaze-analytics-runtime" defer src="../assets/js/analytics-control.min.js?v=20260906-latin-a11y1" data-analytics-collection="enabled"></script>
+</head>
+<body class="photo-detail-page">
+  <a class="skip-link" href="#main-content">Skip to content / 跳到正文</a>
+<div class="page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="../index.html">
+          <img src="../assets/logo-header.png" alt="Chronohaze site logo" />
+          <span>CHRONOHAZE</span>
+        </a>
+        <nav class="nav" aria-label="主导航">
+          <a href="../index.html" data-i18n="navHome">主页</a>
+          <a href="../academic.html" data-i18n="navAcademic">学术</a>
+          <a href="../music.html" data-i18n="navMusic">音乐</a>
+          <a class="active" href="../photography.html" data-i18n="navPhoto">摄影</a>
+          <a href="../cv.html" data-i18n="navCV">CV</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" class="main">
+      <article class="article photo-detail-article">
+        <p class="photo-detail-date" data-copy-en="9 October 2026" data-copy-zh="2026 年 10 月 9 日">2026 年 10 月 9 日</p>
+        <p class="article-meta" data-copy-en="Edinburgh, UK · 2026" data-copy-zh="英国爱丁堡 · 2026年">英国爱丁堡 · 2026年</p>
+        <div class="photo-detail-gallery">
+          <figure class="photo-detail-item"><img src="../assets/images/wix/edinburgh-20261009-01.jpg" alt="Photograph 1 — Edinburgh, UK · 2026" loading="lazy" /></figure>
+          <figure class="photo-detail-item"><img src="../assets/images/wix/edinburgh-20261009-02.jpg" alt="Photograph 2 — Edinburgh, UK · 2026" loading="lazy" /></figure>
+          <figure class="photo-detail-item"><img src="../assets/images/wix/edinburgh-20261009-03.jpg" alt="Photograph 3 — Edinburgh, UK · 2026" loading="lazy" /></figure>
+          <figure class="photo-detail-item"><img src="../assets/images/wix/edinburgh-20261009-04.jpg" alt="Photograph 4 — Edinburgh, UK · 2026" loading="lazy" /></figure>
+          <figure class="photo-detail-item"><img src="../assets/images/wix/edinburgh-20261009-05.jpg" alt="Photograph 5 — Edinburgh, UK · 2026" loading="lazy" /></figure>
+          <figure class="photo-detail-item"><img src="../assets/images/wix/edinburgh-20261009-06.jpg" alt="Photograph 6 — Edinburgh, UK · 2026" loading="lazy" /></figure>
+          <figure class="photo-detail-item"><img src="../assets/images/wix/edinburgh-20261009-07.jpg" alt="Photograph 7 — Edinburgh, UK · 2026" loading="lazy" /></figure>
+          <figure class="photo-detail-item"><img src="../assets/images/wix/edinburgh-20261009-08.jpg" alt="Photograph 8 — Edinburgh, UK · 2026" loading="lazy" /></figure>
+          <figure class="photo-detail-item"><img src="../assets/images/wix/edinburgh-20261009-09.jpg" alt="Photograph 9 — Edinburgh, UK · 2026" loading="lazy" /></figure>
+          <figure class="photo-detail-item"><img src="../assets/images/wix/edinburgh-20261009-10.jpg" alt="Photograph 10 — Edinburgh, UK · 2026" loading="lazy" /></figure>
+          <figure class="photo-detail-item"><img src="../assets/images/wix/edinburgh-20261009-11.jpg" alt="Photograph 11 — Edinburgh, UK · 2026" loading="lazy" /></figure>
+          <figure class="photo-detail-item"><img src="../assets/images/wix/edinburgh-20261009-12.jpg" alt="Photograph 12 — Edinburgh, UK · 2026" loading="lazy" /></figure>
+          <figure class="photo-detail-item"><img src="../assets/images/wix/edinburgh-20261009-13.jpg" alt="Photograph 13 — Edinburgh, UK · 2026" loading="lazy" /></figure>
+          <figure class="photo-detail-item"><img src="../assets/images/wix/edinburgh-20261009-14.jpg" alt="Photograph 14 — Edinburgh, UK · 2026" loading="lazy" /></figure>
+          <figure class="photo-detail-item"><img src="../assets/images/wix/edinburgh-20261009-15.jpg" alt="Photograph 15 — Edinburgh, UK · 2026" loading="lazy" /></figure>
+          <figure class="photo-detail-item"><img src="../assets/images/wix/edinburgh-20261009-16.jpg" alt="Photograph 16 — Edinburgh, UK · 2026" loading="lazy" /></figure>
+          <figure class="photo-detail-item"><img src="../assets/images/wix/edinburgh-20261009-17.jpg" alt="Photograph 17 — Edinburgh, UK · 2026" loading="lazy" /></figure>
+          <figure class="photo-detail-item"><img src="../assets/images/wix/edinburgh-20261009-18.jpg" alt="Photograph 18 — Edinburgh, UK · 2026" loading="lazy" /></figure>
+          <figure class="photo-detail-item"><img src="../assets/images/wix/edinburgh-20261009-19.jpg" alt="Photograph 19 — Edinburgh, UK · 2026" loading="lazy" /></figure>
+          <figure class="photo-detail-item"><img src="../assets/images/wix/edinburgh-20261009-20.jpg" alt="Photograph 20 — Edinburgh, UK · 2026" loading="lazy" /></figure>
+          <figure class="photo-detail-item"><img src="../assets/images/wix/edinburgh-20261009-21.jpg" alt="Photograph 21 — Edinburgh, UK · 2026" loading="lazy" /></figure>
+          <figure class="photo-detail-item"><img src="../assets/images/wix/edinburgh-20261009-22.jpg" alt="Photograph 22 — Edinburgh, UK · 2026" loading="lazy" /></figure>
+        </div>
+        <p><a class="read-more" href="../photography.html">← 返回摄影</a></p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <p class="footer-title">CHRONOHAZE</p>
+          <p class="footer-note">联系邮箱：<a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a></p>
+          <p class="footer-note">重庆 · Edinburgh · Ithaca</p>
+          <p class="footer-copy">© 2026 by CHRONOHAZE. Hosted on GitHub Pages.</p>
+          <div class="social" aria-label="Social links">
+            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://www.instagram.com/lyuf09" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://space.bilibili.com/35902781" target="_blank" rel="noopener noreferrer">Bilibili</a>
+            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+        <div class="footer-right">
+          <a href="../policy.html">网站说明</a>
+          <a href="../accessibility.html">无障碍支持</a>
+        </div>
+      </div>
+  <div class="analytics-control-shell" data-analytics-collection="enabled">
+    <p class="analytics-control" data-analytics-control>
+      <span data-analytics-status>Analytics: On</span><span aria-hidden="true"> · </span><button type="button" data-analytics-toggle>Turn off</button>
+    </p>
+  </div>
+</footer>
+  </div>
+</body>
+</html>

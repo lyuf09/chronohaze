@@ -17534,6 +17534,10 @@
       "photo/photo-12.html",
       "photo/photo-13.html",
       "photo/photo-14.html",
+      "photo/photo-15.html",
+      "photo/photo-16.html",
+      "photo/photo-17.html",
+      "photo/photo-18.html",
       "photo/blue.html",
     ];
 

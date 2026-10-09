@@ -2616,7 +2616,7 @@ test("photography vocabulary and Blue still frames render without overflow", asy
   await expect(page.locator("a.photo-blue-evidence-stills")).toHaveCount(1);
   await expect(page.locator(".photo-archive img[alt='']")).toHaveCount(0);
   await expect(page.locator(".photo-archive img[aria-hidden='true']")).toHaveCount(0);
-  await expect(page.locator(".photo-archive img[data-alt-en][data-alt-zh]")).toHaveCount(17);
+  await expect(page.locator(".photo-archive img[data-alt-en][data-alt-zh]")).toHaveCount(18);
   await expect(page.locator(".nav a.active")).toHaveAttribute("aria-current", "page");
 
   const photographyMetrics = await page.evaluate(() => ({
@@ -2905,6 +2905,30 @@ test("photo detail metadata localizes dates, places, statements, and image alt t
   await page.goto("photo/photo-14.html?lang=zh", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
   await expect(page.locator(".photo-detail-date")).toHaveText("2025 年 8 月 30 日");
+
+  expect(errors).toEqual([]);
+});
+
+test("latest Edinburgh photo set leaves its series name and statement blank", async ({ page }) => {
+  const errors = trackPageErrors(page);
+
+  await page.goto("photo/photo-18.html?lang=zh", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+  await expect(page).toHaveTitle("2026年10月9日 | 摄影 | Chronohaze");
+  await expect(page.locator(".photo-detail-article h1")).toHaveCount(0);
+  await expect(page.locator(".photo-detail-statement")).toHaveCount(0);
+  await expect(page.locator(".photo-detail-date")).toHaveText("2026 年 10 月 9 日");
+  await expect(page.locator(".photo-detail-article .article-meta")).toHaveText(
+    "英国爱丁堡 · 2026年"
+  );
+  await expect(page.locator(".photo-detail-gallery img")).toHaveCount(22);
+
+  await page.goto("photo/photo-18.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+  await expect(page.locator(".photo-detail-date")).toHaveText("9 October 2026");
+  await expect(page.locator(".photo-detail-article .article-meta")).toHaveText(
+    "Edinburgh, UK · 2026"
+  );
 
   expect(errors).toEqual([]);
 });

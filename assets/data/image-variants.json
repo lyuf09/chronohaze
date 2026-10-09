@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03",
+  "generated_at": "2026-10-09",
   "variant_widths": [
     960,
     1600
@@ -2073,6 +2073,424 @@
           "files": [
             "assets/images/wix/64569d_fee94204699940bab1dcec7694443d04~mv2-960.webp",
             "assets/images/wix/64569d_fee94204699940bab1dcec7694443d04~mv2-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/edinburgh-20261009-01.jpg": {
+      "original": {
+        "width": 6192,
+        "height": 3483
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/edinburgh-20261009-01-960.webp 960w, assets/images/wix/edinburgh-20261009-01-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/edinburgh-20261009-01-960.webp",
+            "assets/images/wix/edinburgh-20261009-01-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/edinburgh-20261009-02.jpg": {
+      "original": {
+        "width": 3483,
+        "height": 6192
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/edinburgh-20261009-02-960.webp 960w, assets/images/wix/edinburgh-20261009-02-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/edinburgh-20261009-02-960.webp",
+            "assets/images/wix/edinburgh-20261009-02-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/edinburgh-20261009-03.jpg": {
+      "original": {
+        "width": 6192,
+        "height": 3483
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/edinburgh-20261009-03-960.webp 960w, assets/images/wix/edinburgh-20261009-03-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/edinburgh-20261009-03-960.webp",
+            "assets/images/wix/edinburgh-20261009-03-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/edinburgh-20261009-04.jpg": {
+      "original": {
+        "width": 4128,
+        "height": 6192
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/edinburgh-20261009-04-960.webp 960w, assets/images/wix/edinburgh-20261009-04-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/edinburgh-20261009-04-960.webp",
+            "assets/images/wix/edinburgh-20261009-04-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/edinburgh-20261009-05.jpg": {
+      "original": {
+        "width": 3483,
+        "height": 6192
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/edinburgh-20261009-05-960.webp 960w, assets/images/wix/edinburgh-20261009-05-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/edinburgh-20261009-05-960.webp",
+            "assets/images/wix/edinburgh-20261009-05-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/edinburgh-20261009-06.jpg": {
+      "original": {
+        "width": 3483,
+        "height": 6192
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/edinburgh-20261009-06-960.webp 960w, assets/images/wix/edinburgh-20261009-06-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/edinburgh-20261009-06-960.webp",
+            "assets/images/wix/edinburgh-20261009-06-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/edinburgh-20261009-07.jpg": {
+      "original": {
+        "width": 4128,
+        "height": 6192
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/edinburgh-20261009-07-960.webp 960w, assets/images/wix/edinburgh-20261009-07-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/edinburgh-20261009-07-960.webp",
+            "assets/images/wix/edinburgh-20261009-07-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/edinburgh-20261009-08.jpg": {
+      "original": {
+        "width": 6192,
+        "height": 4128
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/edinburgh-20261009-08-960.webp 960w, assets/images/wix/edinburgh-20261009-08-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/edinburgh-20261009-08-960.webp",
+            "assets/images/wix/edinburgh-20261009-08-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/edinburgh-20261009-09.jpg": {
+      "original": {
+        "width": 6192,
+        "height": 3483
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/edinburgh-20261009-09-960.webp 960w, assets/images/wix/edinburgh-20261009-09-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/edinburgh-20261009-09-960.webp",
+            "assets/images/wix/edinburgh-20261009-09-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/edinburgh-20261009-10.jpg": {
+      "original": {
+        "width": 3483,
+        "height": 6192
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/edinburgh-20261009-10-960.webp 960w, assets/images/wix/edinburgh-20261009-10-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/edinburgh-20261009-10-960.webp",
+            "assets/images/wix/edinburgh-20261009-10-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/edinburgh-20261009-11.jpg": {
+      "original": {
+        "width": 6192,
+        "height": 3483
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/edinburgh-20261009-11-960.webp 960w, assets/images/wix/edinburgh-20261009-11-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/edinburgh-20261009-11-960.webp",
+            "assets/images/wix/edinburgh-20261009-11-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/edinburgh-20261009-12.jpg": {
+      "original": {
+        "width": 6192,
+        "height": 3483
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/edinburgh-20261009-12-960.webp 960w, assets/images/wix/edinburgh-20261009-12-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/edinburgh-20261009-12-960.webp",
+            "assets/images/wix/edinburgh-20261009-12-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/edinburgh-20261009-13.jpg": {
+      "original": {
+        "width": 6192,
+        "height": 3483
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/edinburgh-20261009-13-960.webp 960w, assets/images/wix/edinburgh-20261009-13-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/edinburgh-20261009-13-960.webp",
+            "assets/images/wix/edinburgh-20261009-13-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/edinburgh-20261009-14.jpg": {
+      "original": {
+        "width": 6192,
+        "height": 3483
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/edinburgh-20261009-14-960.webp 960w, assets/images/wix/edinburgh-20261009-14-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/edinburgh-20261009-14-960.webp",
+            "assets/images/wix/edinburgh-20261009-14-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/edinburgh-20261009-15.jpg": {
+      "original": {
+        "width": 6192,
+        "height": 4128
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/edinburgh-20261009-15-960.webp 960w, assets/images/wix/edinburgh-20261009-15-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/edinburgh-20261009-15-960.webp",
+            "assets/images/wix/edinburgh-20261009-15-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/edinburgh-20261009-16.jpg": {
+      "original": {
+        "width": 4128,
+        "height": 6192
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/edinburgh-20261009-16-960.webp 960w, assets/images/wix/edinburgh-20261009-16-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/edinburgh-20261009-16-960.webp",
+            "assets/images/wix/edinburgh-20261009-16-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/edinburgh-20261009-17.jpg": {
+      "original": {
+        "width": 4128,
+        "height": 6192
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/edinburgh-20261009-17-960.webp 960w, assets/images/wix/edinburgh-20261009-17-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/edinburgh-20261009-17-960.webp",
+            "assets/images/wix/edinburgh-20261009-17-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/edinburgh-20261009-18.jpg": {
+      "original": {
+        "width": 4128,
+        "height": 6192
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/edinburgh-20261009-18-960.webp 960w, assets/images/wix/edinburgh-20261009-18-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/edinburgh-20261009-18-960.webp",
+            "assets/images/wix/edinburgh-20261009-18-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/edinburgh-20261009-19.jpg": {
+      "original": {
+        "width": 6192,
+        "height": 3483
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/edinburgh-20261009-19-960.webp 960w, assets/images/wix/edinburgh-20261009-19-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/edinburgh-20261009-19-960.webp",
+            "assets/images/wix/edinburgh-20261009-19-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/edinburgh-20261009-20.jpg": {
+      "original": {
+        "width": 4128,
+        "height": 6192
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/edinburgh-20261009-20-960.webp 960w, assets/images/wix/edinburgh-20261009-20-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/edinburgh-20261009-20-960.webp",
+            "assets/images/wix/edinburgh-20261009-20-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/edinburgh-20261009-21.jpg": {
+      "original": {
+        "width": 4128,
+        "height": 6192
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/edinburgh-20261009-21-960.webp 960w, assets/images/wix/edinburgh-20261009-21-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/edinburgh-20261009-21-960.webp",
+            "assets/images/wix/edinburgh-20261009-21-1600.webp"
+          ]
+        }
+      }
+    },
+    "assets/images/wix/edinburgh-20261009-22.jpg": {
+      "original": {
+        "width": 6192,
+        "height": 3483
+      },
+      "formats": {
+        "webp": {
+          "widths": [
+            960,
+            1600
+          ],
+          "srcset": "assets/images/wix/edinburgh-20261009-22-960.webp 960w, assets/images/wix/edinburgh-20261009-22-1600.webp 1600w",
+          "files": [
+            "assets/images/wix/edinburgh-20261009-22-960.webp",
+            "assets/images/wix/edinburgh-20261009-22-1600.webp"
           ]
         }
       }

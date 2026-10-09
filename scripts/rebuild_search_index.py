@@ -33,6 +33,7 @@ HTML_CONTENT_REFRESH_URLS = {
     "photo/photo-15.html",
     "photo/photo-16.html",
     "photo/photo-17.html",
+    "photo/photo-18.html",
     "notes/huber_glm_sparsification_refinement_note.html",
     "notes/network_localization_structural_certificates.html",
     "notes/theorem11_convexity_note.html",
@@ -235,6 +236,15 @@ def as_int_sort(value: Any) -> int:
     except ValueError:
         digits = "".join(ch for ch in text if ch.isdigit())
         return int(digits) if digits else 0
+
+
+def catalog_date_sort(value: Any) -> int:
+    text = str(value or "").strip()
+    match = re.fullmatch(r"(\d{1,2})/(\d{1,2})/(\d{4})", text)
+    if match:
+        day, month, year = match.groups()
+        return int(f"{int(year):04d}{int(month):02d}{int(day):02d}")
+    return as_int_sort(text)
 
 
 def validate_item(item: Dict[str, Any], source: Path, index: int) -> None:
@@ -493,6 +503,7 @@ def refresh_selected_html_search_content(
     root: Path,
     search_data_dir: Path,
     math_catalog: Dict[str, Dict[str, Any]],
+    photo_catalog: Dict[str, Dict[str, Any]],
 ) -> int:
     refreshed = 0
     for path in sorted(search_data_dir.glob("*.json")):
@@ -528,6 +539,37 @@ def refresh_selected_html_search_content(
                         "tags": list(catalog_item.get("tags", [])),
                         "sort": as_int_sort(date_text.replace("-", "")),
                         "scope": "math",
+                        "content": content,
+                    }
+                )
+                known_urls.add(url)
+                changed = True
+        if path.name == "photo.json":
+            known_urls = {
+                str(item.get("url", "")).strip()
+                for item in data["items"]
+                if isinstance(item, dict)
+            }
+            for url, catalog_item in photo_catalog.items():
+                if url in known_urls or not url.startswith("photo/"):
+                    continue
+                html_path = root / url
+                if not html_path.is_file():
+                    continue
+                parser = MainContentParser()
+                parser.feed(html_path.read_text(encoding="utf-8", errors="ignore"))
+                content, _ = parser.result()
+                date_text = str(catalog_item.get("date", "")).strip()
+                data["items"].append(
+                    {
+                        "title": str(catalog_item.get("title", "")).strip(),
+                        "url": url,
+                        "section": "Photography",
+                        "date": date_text,
+                        "excerpt": str(catalog_item.get("excerpt", "")).strip(),
+                        "tags": list(catalog_item.get("tags", [])),
+                        "sort": catalog_date_sort(date_text),
+                        "scope": "photo",
                         "content": content,
                     }
                 )
@@ -648,6 +690,7 @@ def main() -> int:
         root,
         search_data_dir,
         catalogs["math"],
+        catalogs["photo"],
     )
     items = merge_items(search_data_dir, catalogs)
     payload = {
