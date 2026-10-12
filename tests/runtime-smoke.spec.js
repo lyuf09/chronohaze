@@ -938,7 +938,7 @@ test("music index renders and remains interactive", async ({ page }) => {
   expect(archiveLinksAreReal).toBe(true);
   await expect.poll(async () => page.locator(".music-room-track-card").count()).toBeGreaterThan(3);
   await expect(page.locator(".music-room-track-roles")).toHaveCount(5);
-  await expect(page.locator(".music-room-track-card").first().locator(".music-room-track-role")).toHaveCount(8);
+  await expect(page.locator(".music-room-track-card").first().locator(".music-room-track-role")).toHaveCount(9);
   await expect(page.locator(".music-room-track-card").first().locator(".music-room-track-roles")).toContainText("贝斯");
   await expect(page.locator(".music-room-track-card").first().locator(".music-room-track-roles")).toContainText("编程");
   await expect(page.locator(".music-room-track-card").first().locator(".music-room-track-roles")).toContainText("混音");
@@ -1042,11 +1042,11 @@ test("music index renders and remains interactive", async ({ page }) => {
   await expect(page.locator(".music-room-selected .music-room-section-title")).toHaveText(
     "Listening Room / Selected Works"
   );
-  await expect(page.locator(".music-room-track-card").first().locator(".music-room-track-role")).toHaveCount(8);
+  await expect(page.locator(".music-room-track-card").first().locator(".music-room-track-role")).toHaveCount(9);
   await expect(page.locator(".music-room-track-play").first()).toHaveText("Play");
   await expect(page.locator(".music-room-track-open").first()).toHaveText("Open Track");
   const selectedTrackAudioPaths = [
-    "assets/audio/juke/ZK8iOaJLM0p2757mXaquFqQ9d36eRqkm.mp3",
+    "assets/audio/juke/d535eae92e52004a1b3bdb88eca4f651.mp3",
     "assets/audio/juke/HaM51513.mp3",
     "assets/audio/juke/VT7YkfpcJRtuPmllJp8L77VX1dcG9ly7.mp3",
     "assets/audio/juke/春日和煦26.mp3",
@@ -1424,7 +1424,10 @@ test("Affizieren shows metadata duration and progressive technical disclosure be
   await expect(metas.nth(0)).toHaveText("Creation period · Sep–Dec 2024");
   await expect(metas.nth(1)).toContainText("Echoes of Two Years");
   await expect(metas.nth(1)).toContainText(
-    "Lyrics · Composition · Arrangement · Guitar · Bass · Programming · Mixing · Production — HazezZ"
+    "Lyrics · Composition · Arrangement · Vocals · Guitar · Bass · Programming · Mixing · Production — HazezZ"
+  );
+  await expect(metas.nth(2)).toHaveText(
+    "HazezZ Vocal Ver. / Original: Hatsune Miku V4C"
   );
   await expect(page.locator(".music-detail-article h2").first()).toHaveText("About the work");
   await expect(page.locator(".music-detail-article h2").first().locator("xpath=following-sibling::p[1]")).toContainText(
@@ -1450,7 +1453,7 @@ test("Affizieren shows metadata duration and progressive technical disclosure be
     "isn’t a section I can perform perfectly live"
   );
   await expect(page.locator(".affizieren-note-full-copy")).not.toContainText("-bar");
-  await expect(page.locator(".music-player-time").first()).toContainText("/ 05:43");
+  await expect(page.locator(".music-player-time").first()).toContainText("/ 05:48");
 
   await page.goto("music/track-20.html?lang=en", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
@@ -1487,13 +1490,13 @@ test("Affizieren shows metadata duration and progressive technical disclosure be
 });
 
 test("Affizieren keeps its duration when audio metadata is unavailable", async ({ page }) => {
-  await page.route("**/ZK8iOaJLM0p2757mXaquFqQ9d36eRqkm.mp3", (route) =>
+  await page.route("**/d535eae92e52004a1b3bdb88eca4f651.mp3", (route) =>
     route.abort("failed")
   );
   await page.goto("music/track-04.html?lang=en", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
 
-  await expect(page.locator(".music-player-time").first()).toHaveText("00:00 / 05:43");
+  await expect(page.locator(".music-player-time").first()).toHaveText("00:00 / 05:48");
 });
 
 test("server-rendered math catalog does not refetch its JSON payload", async ({ page }) => {
