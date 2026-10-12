@@ -1426,8 +1426,13 @@ test("Affizieren shows metadata duration and progressive technical disclosure be
   await expect(metas.nth(1)).toContainText(
     "Lyrics · Composition · Arrangement · Vocals · Guitar · Bass · Programming · Mixing · Production — HazezZ"
   );
-  await expect(metas.nth(2)).toHaveText(
-    "HazezZ Vocal Ver. / Original: Hatsune Miku V4C"
+  const players = page.locator(".music-player-shell");
+  await expect(players).toHaveCount(2);
+  await expect(players.nth(0).locator(".music-player-track-title")).toHaveText(
+    "AFFIZIEREN · HAZEZZ VOCAL VER."
+  );
+  await expect(players.nth(1).locator(".music-player-track-title")).toHaveText(
+    "AFFIZIEREN · HATSUNE MIKU V4C VER."
   );
   await expect(page.locator(".music-detail-article h2").first()).toHaveText("About the work");
   await expect(page.locator(".music-detail-article h2").first().locator("xpath=following-sibling::p[1]")).toContainText(
@@ -1454,6 +1459,19 @@ test("Affizieren shows metadata duration and progressive technical disclosure be
   );
   await expect(page.locator(".affizieren-note-full-copy")).not.toContainText("-bar");
   await expect(page.locator(".music-player-time").first()).toContainText("/ 05:48");
+  await expect(players.nth(1).locator(".music-player-time")).toContainText("/ 05:43");
+  for (const [index, filename] of [
+    "d535eae92e52004a1b3bdb88eca4f651.mp3",
+    "ZK8iOaJLM0p2757mXaquFqQ9d36eRqkm.mp3",
+  ].entries()) {
+    await players.nth(index).locator(".music-player-play").click();
+    await expect(page.locator(".persistent-audio-element")).toHaveAttribute(
+      "src", new RegExp(filename.replace(/\./g, "\\."))
+    );
+    await expect.poll(() => page.locator(".persistent-audio-element").evaluate(
+      (audio) => !audio.paused && audio.currentTime > 0
+    )).toBe(true);
+  }
 
   await page.goto("music/track-20.html?lang=en", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);

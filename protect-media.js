@@ -9726,7 +9726,7 @@
       "Atmosphere guitars: Influenced by Novelists, the clean guitar is built on heavy delay and reverb, letting the space expand like slow breathing. This texture runs through the entire song, with density adjusted only as the emotion requires.",
       "Main riff entry: After the intro, all instruments (except vocals) lock into the main riff.",
       "Tuning: I used A♯–E–A–D–G–B–E (raised A), slightly higher than my usual drop A, to suit the key. The riff itself is not difficult; triplets soften the groove. The bass part became more interesting during recording: I first wrote it for hybrid picking, then switched to slap because it felt more natural.",
-      "Verse meter play: The first verse uses only vocals and clean guitar. The version playing here is my self-cover, sung by HazezZ; the original used Hatsune Miku V4C. A short metric cycle runs beneath it: bar 2 shifts from 4/4 to 9/8, bar 3 returns to 4/4, and bar 4 moves to 7/8 before the pattern repeats.",
+      "Verse meter play: The first verse uses only vocals and clean guitar (HazezZ Vocal Ver.; original: Hatsune Miku V4C). A short metric cycle runs beneath it: bar 2 shifts from 4/4 to 9/8, bar 3 returns to 4/4, and bar 4 moves to 7/8 before the pattern repeats.",
       "Because the texture is sparse, those changes register as subtle instability rather than an overt rhythmic break, like a shadow swaying in the dark.",
       "Drums enter: Once the drums come in, the groove settles back into 4/4, as if the listener finally steps onto solid ground again.",
       "Pre-chorus: I reintroduce 7/8 against 4/4. The piano line is intentionally restless, an overlap of unease, hesitation, and expectation. The bass suggests the melodic direction first, then the guitars follow, forming a gradual buildup. Elements then peel away to hold the emotion before the chorus.",
@@ -9782,9 +9782,6 @@
         "<br /><br />" +
         roleLabels.join(" · ") +
         " — HazezZ";
-    }
-    if (metas[2]) {
-      metas[2].textContent = "HazezZ Vocal Ver. / Original: Hatsune Miku V4C";
     }
   }
 
