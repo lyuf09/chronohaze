@@ -2480,10 +2480,10 @@ test("AFP publication status stays synchronized across work page and project his
   });
   await waitForCriticalLoaderRelease(page);
   await expect(page.getByRole("heading", { name: "Early Project Note: Formalising Submodular Greedy" })).toBeVisible();
-  await expect(page.locator(".article-meta")).toContainText("Feier Lyu");
-  await expect(page.locator(".article-meta")).not.toContainText("HazezZ");
-  await expect(page.locator(".math-post-update")).toContainText("Published in AFP on May 26, 2026");
-  await expect(page.locator(".math-post-update")).toContainText("Post-publication extension");
+  await expect(page.locator('[data-lang-block="en"] .article-meta')).toContainText("Feier Lyu");
+  await expect(page.locator('[data-lang-block="en"] .article-meta')).not.toContainText("HazezZ");
+  await expect(page.locator('[data-lang-block="en"] .math-post-update')).toContainText("Published in AFP on May 26, 2026");
+  await expect(page.locator('[data-lang-block="en"] .math-post-update')).toContainText("Post-publication extension");
 
   expect(errors).toEqual([]);
 });
