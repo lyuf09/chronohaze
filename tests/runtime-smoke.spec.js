@@ -3059,8 +3059,6 @@ test("four earlier mathematics posts have complete Chinese and English views", a
     ["isabelle-submodular-greedy", "Early Project Note: Formalising Submodular Greedy", "写进 Isabelle 后碰到的细节", "Details that needed more care in Isabelle"],
     ["first-isabelle-proof", "My First Isabelle Formalization Project", "为什么用 Isabelle", "Why Isabelle?"],
   ];
-  // Intercept navigation to avoid reusing an older cached document.
-  await page.route("**/post/*.html?*", route => route.continue());
   for (const [slug, englishTitle, chineseText, englishText] of cases) {
     await page.goto(`post/${slug}.html?lang=en`, { waitUntil: "domcontentloaded" });
     await waitForCriticalLoaderRelease(page);
