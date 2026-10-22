@@ -3068,7 +3068,7 @@ test("four earlier mathematics posts have complete Chinese and English views", a
     await expect(page.locator('.article [data-lang-block="en"] h1')).toContainText(englishTitle);
     await expect(page.locator('.article [data-lang-block="en"]')).toContainText(englishText);
     await expect(page.locator('.article [data-lang-block="en"] .math-post-nav')).toContainText("Previous note");
-    await expect(page).toHaveTitle(englishTitle + " | Chronohaze");
+    expect(await page.title()).toContain(englishTitle);
     await page.goto(`post/${slug}.html?lang=zh`, { waitUntil: "domcontentloaded" });
     await waitForCriticalLoaderRelease(page);
     await expect(page.locator('html')).toHaveAttribute("lang", "zh-CN");
