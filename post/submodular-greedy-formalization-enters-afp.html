@@ -196,25 +196,25 @@
             <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">GitHub repository</a>
           </div>
 
-<p>2026 年 5 月 26 日，我的 Isabelle/HOL 项目 <em>Greedy Algorithms for Cardinality-Constrained Submodular Maximization</em> 发表于 Archive of Formal Proofs（AFP）。这篇文章简单记录一下项目的内容，以及我在形式化过程中遇到的几个具体问题。</p>
+          <p>2026 年 5 月 26 日我的 Isabelle/HOL 项目 <em>Greedy Algorithms for Cardinality-Constrained Submodular Maximization</em> 发表于 Archive of Formal Proofs（AFP）。这篇就简单记录一下我做了什么，还有形式化过程中哪些地方比想象中麻烦。</p>
 
-          <p>研究对象是有限 ground set 上带基数约束的单调非负子模最大化。在相应的假设下，classical greedy 经过 <em>k</em> 步可以得到 1 − (1 − 1/<em>k</em>)<sup><em>k</em></sup> 的有限步近似保证，因此也满足熟悉的 1 − 1/e 近似比。AFP 条目还包含一个经过验证的 stateful lazy greedy 版本：它维护边际增益的缓存上界，在不必重新计算所有候选元素的情况下，仍然能选出符合 greedy 条件的元素。</p>
+          <p>这个项目研究的是有限 ground set 上带基数约束的单调非负子模最大化。在相应假设下 classical greedy 运行 <em>k</em> 步可以得到 1 − (1 − 1/<em>k</em>)<sup><em>k</em></sup> 的有限步近似保证，所以也有熟悉的 1 − 1/e 近似比。AFP 里还包含一个经过验证的 stateful lazy greedy 版本。它用缓存的边际增益上界来减少重复计算，但是最终选出的元素还得满足 greedy 的选择条件。</p>
 
-          <p><strong>发表范围：</strong>AFP 收录的是 classical greedy 的形式化构造与近似证明，以及 stateful lazy greedy 的正确性和近似保证。仓库里后来加入的 StochasticGreedy，包括采样模型、近似证明和 oracle 调用次数的分析，是发表后的扩展，不属于这个 AFP 条目。</p>
+          <p><strong>发表范围：</strong>AFP 收录了 classical greedy 的形式化构造和近似证明，还有 stateful lazy greedy 的正确性与近似保证。仓库里后来做的 StochasticGreedy 包括采样模型、近似证明和 oracle 调用次数分析，但是这些都是发表后的扩展，不属于当时的 AFP 条目。</p>
 
-          <p>如果只写在纸上，classical greedy 的证明并不长：每一步选取边际增益最大的元素，用子模性得到单步增益的下界，再通过递推不等式推出近似比。但在 Isabelle 里，我还需要处理一些很具体的条件：ground set 是不是有限的，候选元素是否存在，当前集合是否满足基数约束，以及实际选出的元素是否符合贪心步骤的定义。这些在手写证明里很容易被略过。</p>
+          <p>在纸面上 classical greedy 的证明其实不长：每一步选边际增益最大的元素，用子模性得到单步增益的下界，最后解递推式就能得到近似比。但是在 Isabelle 里不能直接跳过那些一般默认成立的条件。比如 ground set 是不是有限的、当前还有没有候选元素、基数约束有没有被保持、选出来的元素是不是真的满足贪心条件，这些都得明确证明。</p>
 
-          <p>我把形式化分成了三个部分：可执行的 greedy 构造、描述合法贪心步骤的抽象条件，以及后面的近似分析。先证明具体的选择过程满足单步条件，再复用相应的近似证明。这样如果以后换一种实现，只需要重新核对它的选择步骤，不必把整个近似分析再证明一遍。</p>
+          <p>所以我把整个形式化分成了三个部分：具体的 greedy 构造、抽象的合法贪心步骤和最后的近似分析。先证明一个实现满足单步条件，之后就可以直接复用近似证明。以后即使换一种实现也只需要重新检查选择步骤，不用从头证明同一个近似比。</p>
 
-          <p>Lazy greedy 的部分需要额外处理算法状态。普通 greedy 每次直接比较真实的边际增益；lazy greedy 则保存一些上界，只在必要时更新。形式化时，我需要证明这些缓存值始终是有效上界，并且最终接受的元素确实满足 greedy 的选择条件。证明这两点之后，lazy greedy 才能沿用 classical greedy 的近似保证。</p>
+          <p>Lazy greedy 还得处理缓存状态。普通 greedy 每一步直接比较真实的边际增益，但是 lazy greedy 会保存上界，只有需要时才重新计算。我需要证明这些缓存值始终是有效上界，而且最终接受的元素确实符合 greedy 条件。这样才可以沿用 classical greedy 的近似保证。</p>
 
-          <p>我之前就学过这个近似定理，但真正写进 Isabelle 之后，花时间最多的并不是最后那一步推导，而是前面的定义和引理。哪些地方用了单调性，哪些地方用了子模性，哪些条件应该放在通用的接口里，哪些只属于具体算法，都需要分清楚。我觉得这也是这次项目对我最有用的部分。</p>
+          <p>这个定理我之前已经学过了，但是实际写进 Isabelle 后发现花时间最多的不是最后那条不等式，反倒是前面的定义和引理。哪里用到了单调性，哪里用到了子模性，哪些条件应该放在通用接口里，哪些只属于具体算法，都需要分清楚。我觉得这一部分比单纯把最终定理证明出来更有收获。</p>
 
-          <p>很感谢 Wenda Li 老师在项目中的指导，也感谢 Tobias Nipkow 老师在最后整理和 AFP 发表阶段提供的帮助。看到自己的形式化项目正式出现在 AFP 上，我很开心。</p>
+          <p>很感谢 Wenda Li 老师在项目中的指导，还有 Tobias Nipkow 老师在最后修改和 AFP 发表阶段的帮助。看到自己的项目正式进入 AFP 还是很开心的。</p>
 
-          <p>发表时，我还想继续形式化其他一阶优化和组合优化中的经典证明，并尽量把已有的定义和引理整理得方便复用。后来仓库中的 StochasticGreedy 工作，也是在这个基础上继续扩展的。</p>
+          <p>发表的时候我就想继续把一些一阶优化和组合优化的证明形式化，也希望已有的定义和引理以后能直接复用。后来仓库里的 StochasticGreedy 就是在这个基础上继续做的。</p>
 
-          <p>做完这次项目，我现在看算法证明会更留意每一步具体依赖了什么，而不只是最后得到了哪个定理。</p>
+          <p>做完这个项目以后我看算法证明会更注意每一步到底用了什么假设，不只是看最后得到哪个定理。</p>
 
           <nav class="math-post-nav" data-static-math-post-nav="1" aria-label="相邻笔记导航">
             <a class="math-post-nav-item" data-nav-dir="next" href="../notes/ttgda_second_order_tracking_note.html" data-no-page-transition="1" aria-label="下一篇 · Schur-Complement Hessian Tracking in TTGDA">
@@ -243,25 +243,25 @@
             <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">GitHub repository</a>
           </div>
 
-<p>On 26 May 2026, my Isabelle/HOL project <em>Greedy Algorithms for Cardinality-Constrained Submodular Maximization</em> was published in the Archive of Formal Proofs (AFP). I wanted to record what I formalised and a few details that needed more care than they would in a handwritten proof.</p>
+          <p>My Isabelle/HOL project <em>Greedy Algorithms for Cardinality-Constrained Submodular Maximization</em> was published in the Archive of Formal Proofs (AFP) on 26 May 2026. I wanted to write down what I did and which parts took more work than I expected.</p>
 
-          <p>The problem is monotone, non-negative submodular maximisation over a finite ground set, subject to a cardinality constraint. Under the theorem's assumptions, classical greedy has the finite-step approximation factor 1 − (1 − 1/<em>k</em>)<sup><em>k</em></sup> after <em>k</em> steps, which gives the familiar 1 − 1/e guarantee. The AFP entry also includes a verified stateful lazy-greedy variant. It maintains cached upper bounds on marginal gains so that it can make a valid greedy choice without evaluating every candidate again at every step.</p>
+          <p>The problem is monotone, non-negative submodular maximisation over a finite ground set with a cardinality constraint. Under the theorem's assumptions, classical greedy achieves the finite-step factor 1 − (1 − 1/<em>k</em>)<sup><em>k</em></sup> after <em>k</em> steps, and hence the familiar 1 − 1/e guarantee. The AFP entry also includes a verified stateful lazy-greedy variant. It caches upper bounds on marginal gains to avoid repeated evaluations, but the element it eventually selects still has to satisfy the greedy condition.</p>
 
-          <p><strong>Publication scope:</strong> The AFP entry covers classical greedy, its approximation proof, and the correctness and approximation guarantee of stateful lazy greedy. The StochasticGreedy work added to the repository later—including sampling, approximation results, and oracle-call bounds—is a post-publication extension, not part of this AFP entry.</p>
+          <p><strong>Publication scope:</strong> The AFP entry covers the classical greedy construction and approximation proof, plus the correctness and approximation guarantee of stateful lazy greedy. The later StochasticGreedy work in the repository covers sampling, approximation results, and oracle-call bounds. It was developed after publication and is not part of that AFP entry.</p>
 
-          <p>The usual handwritten greedy proof is fairly short: choose an element with maximum marginal gain, use submodularity to bound the progress at each step, and solve the resulting recurrence. In Isabelle, I also had to account for the finiteness of the ground set, the existence of a candidate, preservation of the cardinality constraint, and whether the selected element actually satisfies the greedy-step specification. It is easy to leave these points implicit on paper.</p>
+          <p>On paper the classical greedy proof is quite short: choose an element with maximum marginal gain, use submodularity to bound the gain at each step, and solve the recurrence. But in Isabelle I also had to prove details that a handwritten proof often leaves implicit. Is the ground set finite? Are there any candidates left? Is the cardinality constraint preserved? Does the selected element actually meet the greedy-step condition?</p>
 
-          <p>I separated the development into an executable greedy construction, an abstract specification of a valid greedy step, and the approximation argument. Once a concrete implementation is shown to satisfy the step specification, the approximation proof can be reused. This avoids proving the same recurrence again for every implementation.</p>
+          <p>I split the formalisation into three parts: the concrete greedy construction, an abstract specification of a valid greedy step, and the approximation proof. Once an implementation satisfies the step condition, it can reuse the approximation proof. If I change the implementation later, I only need to check the selection step again rather than reprove the same bound.</p>
 
-          <p>Lazy greedy required some additional work with algorithm state. Rather than recomputing all marginal gains at every iteration, it stores upper bounds and updates them when needed. The formal proof has to establish that those bounds remain valid and that the element eventually accepted is a valid greedy choice. With those properties in place, the lazy implementation inherits the classical approximation guarantee.</p>
+          <p>Lazy greedy adds the cached state. Ordinary greedy compares the actual marginal gains at every step, but lazy greedy stores upper bounds and updates them only when necessary. I needed to prove that the bounds remain valid and that the accepted element is a valid greedy choice. Only then can the implementation inherit the classical guarantee.</p>
 
-          <p>I knew the approximation theorem before starting this project. What took most of my time in Isabelle was not the final inequality but the definitions and intermediate lemmas: where monotonicity is used, where submodularity is needed, and which assumptions belong to a reusable interface rather than to one implementation. Working through those details was probably the most useful part for me.</p>
+          <p>I already knew the approximation theorem before starting. What took the most time in Isabelle was not the final inequality but the definitions and lemmas before it. I had to keep track of where monotonicity was used, where submodularity was needed, and which assumptions belonged to the general interface rather than one implementation. That was probably the part I learnt the most from.</p>
 
-          <p>I'm grateful to Wenda Li for his guidance throughout the project, and to Tobias Nipkow for his help with the final revisions and AFP publication. It was lovely to see the development published as an AFP entry.</p>
+          <p>I'm grateful to Wenda Li for guiding the project and to Tobias Nipkow for helping with the final revisions and AFP publication. I was very happy to see it published.</p>
 
-          <p>At the time of publication, I wanted to continue formalising classical proofs in first-order and combinatorial optimisation, while making the existing definitions and lemmas easier to reuse. The later StochasticGreedy work in the repository builds on that development.</p>
+          <p>At the time I also wanted to formalise more proofs from first-order and combinatorial optimisation and make the existing definitions and lemmas easier to reuse. The later StochasticGreedy work in the repository builds on this development.</p>
 
-          <p>Since this project, I have paid much more attention to the exact assumptions behind each step of an algorithmic proof, not just its final theorem.</p>
+          <p>Since doing this project I pay more attention to which assumptions each step of an algorithmic proof actually uses, not just the final theorem.</p>
 
           <nav class="math-post-nav" data-static-math-post-nav="1" aria-label="Adjacent notes">
             <a class="math-post-nav-item" data-nav-dir="next" href="../notes/ttgda_second_order_tracking_note.html" data-no-page-transition="1" aria-label="Next note · Schur-Complement Hessian Tracking in TTGDA">
