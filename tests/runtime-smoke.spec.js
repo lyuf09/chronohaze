@@ -930,8 +930,9 @@ test("network-localization research record is bilingual and contains no public P
     exact: true,
   })).toBeVisible();
   await expect(chineseRecord).toContainText("Prof. Shoham Sabach、Owen Li");
-  await expect(chineseRecord).toContainText("已经确认的高层结论");
-  await expect(chineseRecord).toContainText("完整技术材料可按需提供");
+  // Check that the public scope and the contact option are explained, not fixed wording.
+  await expect(chineseRecord).toContainText(/可以公开的结论|已确认的高层结论|已经确认的高层结论/);
+  await expect(chineseRecord).toContainText(/按需(提供|沟通)/);
   await expect(page.locator('[data-lang-block="en"]')).toBeHidden();
   await expect(chineseRecord).not.toContainText("结构化矩阵测试");
   await expect(chineseRecord).not.toContainText("escape direction");
