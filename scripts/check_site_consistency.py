@@ -80,12 +80,14 @@ RUNTIME_ACADEMIC_LEGACY_PATTERNS = (
     'name: "Fay / Feier Lyu"',
 )
 PGD_NOTE = "projected-gradient-descent-isabelle-hol.html"
+# Check the mathematical topics, not particular sentences in an article.
+# Editors can revise the wording without breaking site deployment.
 PGD_REQUIRED_FRAMING = (
-    "Projected gradient descent is one of the basic algorithmic templates for constrained smooth optimization.",
-    "the projection inequality",
-    "the projected-gradient mapping",
-    "linear convergence under strong convexity",
-    "reusable telescoping structures",
+    "projected gradient descent",
+    "variational inequality",
+    "projected-gradient mapping",
+    "strong convexity",
+    "telescoping",
 )
 LEGACY_PGD_INTRO_PATTERNS = (
     "考完闲得慌",
