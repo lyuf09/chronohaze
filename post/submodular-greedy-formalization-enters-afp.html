@@ -196,29 +196,25 @@
             <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">GitHub repository</a>
           </div>
 
-          <p>最近，我的 Isabelle/HOL 形式化项目 <em>Greedy Algorithms for Cardinality-Constrained Submodular Maximization</em> 正式发表于 Archive of Formal Proofs。</p>
+<p>2026 年 5 月 26 日，我的 Isabelle/HOL 项目 <em>Greedy Algorithms for Cardinality-Constrained Submodular Maximization</em> 发表于 Archive of Formal Proofs（AFP）。这篇文章简单记录一下项目的内容，以及我在形式化过程中遇到的几个具体问题。</p>
 
-          <p>这个项目形式化的是基数约束下的单调非负子模最大化问题。更具体地说，它证明了 classical greedy algorithm 的经典近似保证：在选择至多 <em>k</em> 个元素的约束下，贪心算法可以达到最优值的 (1 − 1/e) 近似比例。除此之外，项目中还包含了一个 stateful lazy greedy variant，用 cached marginal-gain upper bounds 来刻画 lazy greedy 的状态更新过程。</p>
+          <p>研究对象是有限 ground set 上带基数约束的单调非负子模最大化。在相应的假设下，classical greedy 经过 <em>k</em> 步可以得到 1 − (1 − 1/<em>k</em>)<sup><em>k</em></sup> 的有限步近似保证，因此也满足熟悉的 1 − 1/e 近似比。AFP 条目还包含一个经过验证的 stateful lazy greedy 版本：它维护边际增益的缓存上界，在不必重新计算所有候选元素的情况下，仍然能选出符合 greedy 条件的元素。</p>
 
-          <p><strong>范围说明：</strong>以上 classical greedy 与 verified stateful lazy-greedy variant 是 AFP 2026 条目的正式发表范围。发表后，当前仓库继续发展 StochasticGreedy theorem line，包括采样模型、近似证明与预言机调用复杂度界；这些是 post-publication extension，不属于该 AFP 条目的发表范围。</p>
+          <p><strong>发表范围：</strong>AFP 收录的是 classical greedy 的形式化构造与近似证明，以及 stateful lazy greedy 的正确性和近似保证。仓库里后来加入的 StochasticGreedy，包括采样模型、近似证明和 oracle 调用次数的分析，是发表后的扩展，不属于这个 AFP 条目。</p>
 
-          <p>这篇短文不打算重新解释子模函数、边际增益或者贪心算法的全部背景。那些内容我之前已经写过不少了。现在再回头看，我更想记录的是：这个项目从一开始并不只是“把一个定理翻译成 Isabelle”，而是逐渐变成了一个关于算法证明结构的整理过程。</p>
+          <p>如果只写在纸上，classical greedy 的证明并不长：每一步选取边际增益最大的元素，用子模性得到单步增益的下界，再通过递推不等式推出近似比。但在 Isabelle 里，我还需要处理一些很具体的条件：ground set 是不是有限的，候选元素是否存在，当前集合是否满足基数约束，以及实际选出的元素是否符合贪心步骤的定义。这些在手写证明里很容易被略过。</p>
 
-          <p>在纸面证明里，很多东西可以自然地藏在一句话里。比如“每一步选择当前边际增益最大的元素”，“由子模性得到平均意义上的下界”，“把递推式 telescope 起来得到最终比例”。这些在数学上都很熟悉，也很顺滑。但在 Isabelle 里，每一个“显然”都需要有明确的对象、明确的假设和明确的类型。集合是否有限，当前解是否仍然满足基数约束，贪心步骤是否真的存在，边际增益的比较对象是什么，这些细节都不能被跳过。</p>
+          <p>我把形式化分成了三个部分：可执行的 greedy 构造、描述合法贪心步骤的抽象条件，以及后面的近似分析。先证明具体的选择过程满足单步条件，再复用相应的近似证明。这样如果以后换一种实现，只需要重新核对它的选择步骤，不必把整个近似分析再证明一遍。</p>
 
-          <p>这也是这个项目最有意思的地方。形式化证明会迫使我把一个原本很流畅的算法分析拆开：先定义 ground set 和可行解，再定义边际增益，再刻画单步贪心选择，再证明每一步的 progress bound，最后把这个局部进展转化成全局的 approximation guarantee。它不像手写证明那样优雅地“一笔带过”，但它会把证明的骨架暴露得非常清楚。</p>
+          <p>Lazy greedy 的部分需要额外处理算法状态。普通 greedy 每次直接比较真实的边际增益；lazy greedy 则保存一些上界，只在必要时更新。形式化时，我需要证明这些缓存值始终是有效上界，并且最终接受的元素确实满足 greedy 的选择条件。证明这两点之后，lazy greedy 才能沿用 classical greedy 的近似保证。</p>
 
-          <p>我在做这个项目之前，对 classical greedy 的证明当然并不陌生。但真正形式化之后，我才更强烈地意识到：很多算法证明的核心难点不只是某个技巧，而是如何组织那些看似普通的中间结构。一个 approximation theorem 背后，其实有一整套关于状态、可行性、单调性、子模性和递推不等式的 infrastructure。</p>
+          <p>我之前就学过这个近似定理，但真正写进 Isabelle 之后，花时间最多的并不是最后那一步推导，而是前面的定义和引理。哪些地方用了单调性，哪些地方用了子模性，哪些条件应该放在通用的接口里，哪些只属于具体算法，都需要分清楚。我觉得这也是这次项目对我最有用的部分。</p>
 
-          <p>后来的 lazy greedy 部分也让我很喜欢。Lazy greedy 在算法实现里是一个非常自然的优化：不必每一次都重新计算所有元素的真实边际增益，而是维护一些上界，用它们来减少不必要的计算。把这个想法放进形式化证明里之后，问题就不只是“算法跑得更快”，而是要说明状态中的 cached values 与真实 marginal gains 之间保持着正确的关系。换句话说，程序状态本身也变成了证明对象。</p>
+          <p>很感谢 Wenda Li 老师在项目中的指导，也感谢 Tobias Nipkow 老师在最后整理和 AFP 发表阶段提供的帮助。看到自己的形式化项目正式出现在 AFP 上，我很开心。</p>
 
-          <p>对我来说，这个 AFP entry 是一个很重要的节点。它把我过去一段时间关于 optimization、approximation algorithms 和 formal verification 的兴趣真正连在了一起。优化理论里有很多漂亮的证明，而 Isabelle/HOL 让我用另一种方式去看这些证明：不是只看最后的 theorem statement，而是看它需要怎样的定义、怎样的 lemma 层次，以及怎样的 proof architecture 才能被机器完整检查。</p>
+          <p>发表时，我还想继续形式化其他一阶优化和组合优化中的经典证明，并尽量把已有的定义和引理整理得方便复用。后来仓库中的 StochasticGreedy 工作，也是在这个基础上继续扩展的。</p>
 
-          <p>我也很感谢 Wenda Li 老师在这个项目中的指导，以及 Tobias Nipkow 老师在最后阶段帮忙修改和推进 AFP 发布。能看到这个项目作为一个正式 entry 出现在 Archive of Formal Proofs 里，对我来说是一个很特别的时刻。</p>
-
-          <p>接下来，我希望沿着这个方向继续做两件事。第一，是把更多一阶优化和组合优化中的经典证明整理成可复用的 formal libraries。第二，是继续思考形式化验证和优化理论之间更深的关系：哪些证明结构最适合被机器检查？哪些算法分析在形式化过程中会暴露出新的层次？以及，formalization 能不能不仅仅验证已有结果，也帮助我们更清楚地设计新的证明？</p>
-
-          <p>这次进入 AFP 更像是一个起点，而不是终点。它让我更确信，形式化证明并不是把数学变得机械，而是用另一种非常严格的方式，重新看见数学证明内部的结构。</p>
+          <p>做完这次项目，我现在看算法证明会更留意每一步具体依赖了什么，而不只是最后得到了哪个定理。</p>
 
           <nav class="math-post-nav" data-static-math-post-nav="1" aria-label="相邻笔记导航">
             <a class="math-post-nav-item" data-nav-dir="next" href="../notes/ttgda_second_order_tracking_note.html" data-no-page-transition="1" aria-label="下一篇 · Schur-Complement Hessian Tracking in TTGDA">
@@ -247,29 +243,25 @@
             <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">GitHub repository</a>
           </div>
 
-          <p>Recently, my Isabelle/HOL formalization project <em>Greedy Algorithms for Cardinality-Constrained Submodular Maximization</em> was formally published in the Archive of Formal Proofs.</p>
+<p>On 26 May 2026, my Isabelle/HOL project <em>Greedy Algorithms for Cardinality-Constrained Submodular Maximization</em> was published in the Archive of Formal Proofs (AFP). I wanted to record what I formalised and a few details that needed more care than they would in a handwritten proof.</p>
 
-          <p>The project formalizes monotone non-negative submodular maximization under a cardinality constraint. More specifically, it verifies the classical approximation guarantee for the greedy algorithm: when at most <em>k</em> elements may be selected, greedy attains a (1 − 1/e) approximation to the optimum. The development also contains a stateful lazy greedy variant, using cached upper bounds on marginal gains to describe the state transitions of lazy greedy.</p>
+          <p>The problem is monotone, non-negative submodular maximisation over a finite ground set, subject to a cardinality constraint. Under the theorem's assumptions, classical greedy has the finite-step approximation factor 1 − (1 − 1/<em>k</em>)<sup><em>k</em></sup> after <em>k</em> steps, which gives the familiar 1 − 1/e guarantee. The AFP entry also includes a verified stateful lazy-greedy variant. It maintains cached upper bounds on marginal gains so that it can make a valid greedy choice without evaluating every candidate again at every step.</p>
 
-          <p><strong>Scope note:</strong> The classical greedy algorithm and verified stateful lazy-greedy variant are the published scope of the AFP 2026 entry. After publication, the current repository continued with a StochasticGreedy theorem line, including the sampling model, approximation proof, and oracle-cost bounds. This is a post-publication extension and is not part of the published AFP entry.</p>
+          <p><strong>Publication scope:</strong> The AFP entry covers classical greedy, its approximation proof, and the correctness and approximation guarantee of stateful lazy greedy. The StochasticGreedy work added to the repository later—including sampling, approximation results, and oracle-call bounds—is a post-publication extension, not part of this AFP entry.</p>
 
-          <p>This short note is not meant to explain submodular functions, marginal gains, or greedy algorithms all over again. I have already written quite a lot about that background. Looking back now, what I most want to record is that this project did not remain a matter of “translating one theorem into Isabelle.” It gradually became an exercise in organizing the structure of an algorithmic proof.</p>
+          <p>The usual handwritten greedy proof is fairly short: choose an element with maximum marginal gain, use submodularity to bound the progress at each step, and solve the resulting recurrence. In Isabelle, I also had to account for the finiteness of the ground set, the existence of a candidate, preservation of the cardinality constraint, and whether the selected element actually satisfies the greedy-step specification. It is easy to leave these points implicit on paper.</p>
 
-          <p>On paper, many things can disappear naturally into a sentence: “choose the element with the largest current marginal gain,” “use submodularity to obtain an average lower bound,” or “telescope the recurrence to obtain the final ratio.” These moves are familiar and smooth mathematically. In Isabelle, however, every “obvious” step needs an explicit object, assumption, and type. Is the ground set finite? Does the current solution still satisfy the cardinality constraint? Does the greedy step actually exist? What is the comparison class for marginal gains? None of these details can be skipped.</p>
+          <p>I separated the development into an executable greedy construction, an abstract specification of a valid greedy step, and the approximation argument. Once a concrete implementation is shown to satisfy the step specification, the approximation proof can be reused. This avoids proving the same recurrence again for every implementation.</p>
 
-          <p>That is also what makes the project interesting. Formal proof forces me to take an analysis that originally flows very smoothly and pull it apart: define the ground set and feasible solutions, define marginal gain, characterize a single greedy choice, prove a progress bound for each step, and finally turn that local progress into a global approximation guarantee. It cannot pass over the proof as elegantly as handwritten mathematics sometimes does, but it makes the skeleton remarkably visible.</p>
+          <p>Lazy greedy required some additional work with algorithm state. Rather than recomputing all marginal gains at every iteration, it stores upper bounds and updates them when needed. The formal proof has to establish that those bounds remain valid and that the element eventually accepted is a valid greedy choice. With those properties in place, the lazy implementation inherits the classical approximation guarantee.</p>
 
-          <p>I was already familiar with the classical greedy proof before starting this project. Formalizing it required tracking the current set, proving that the cardinality constraint is preserved, instantiating monotonicity and submodularity at the right steps, and carrying the progress recurrence to the final approximation ratio.</p>
+          <p>I knew the approximation theorem before starting this project. What took most of my time in Isabelle was not the final inequality but the definitions and intermediate lemmas: where monotonicity is used, where submodularity is needed, and which assumptions belong to a reusable interface rather than to one implementation. Working through those details was probably the most useful part for me.</p>
 
-          <p>I also became very fond of the later lazy greedy part. In an implementation, lazy greedy is a natural optimization: instead of recomputing every true marginal gain at every step, maintain upper bounds and use them to avoid unnecessary evaluations. Once this idea enters a formal proof, the question is no longer merely whether the algorithm runs faster. One has to show that the cached values in the state remain correctly related to the true marginal gains. In other words, program state itself becomes a proof object.</p>
+          <p>I'm grateful to Wenda Li for his guidance throughout the project, and to Tobias Nipkow for his help with the final revisions and AFP publication. It was lovely to see the development published as an AFP entry.</p>
 
-          <p>For me, this AFP entry is an important milestone. It brings optimization, approximation algorithms, and formal verification into one machine-checked development: definitions of marginal gain and feasible sets, the classical greedy and LazyGreedy algorithms, stepwise progress lemmas, and the final approximation theorem.</p>
+          <p>At the time of publication, I wanted to continue formalising classical proofs in first-order and combinatorial optimisation, while making the existing definitions and lemmas easier to reuse. The later StochasticGreedy work in the repository builds on that development.</p>
 
-          <p>I am very grateful to Wenda Li for his guidance on this project, and to Tobias Nipkow for helping revise the development and move the AFP publication forward in its final stage. Seeing the project appear as a formal entry in the Archive of Formal Proofs was a particularly meaningful moment for me.</p>
-
-          <p>Next, I hope to continue in two directions. First, I want to organize more classical proofs from first-order and combinatorial optimization into reusable formal libraries. Second, I want to keep thinking about the deeper relation between formal verification and optimization theory: which proof structures are most suited to machine checking, which new layers become visible when an algorithmic analysis is formalized, and whether formalization can do more than verify existing results—whether it can also help us design new proofs more clearly.</p>
-
-          <p>Formalisation made many dependencies that I had previously taken for granted explicit.</p>
+          <p>Since this project, I have paid much more attention to the exact assumptions behind each step of an algorithmic proof, not just its final theorem.</p>
 
           <nav class="math-post-nav" data-static-math-post-nav="1" aria-label="Adjacent notes">
             <a class="math-post-nav-item" data-nav-dir="next" href="../notes/ttgda_second_order_tracking_note.html" data-no-page-transition="1" aria-label="Next note · Schur-Complement Hessian Tracking in TTGDA">
