@@ -221,29 +221,29 @@
           <p class="article-meta">Feier Lyu · 最初发布于 2026-07-22 · 更新于 2026-08-23 · 约 4 分钟</p>
           <p class="article-meta"><strong>研究参与者：</strong>Feier Lyu、Prof. Shoham Sabach、Owen Li</p>
           <p class="article-meta">Network Localization · Nonconvex Optimization · Negative Curvature · Structured Screening</p>
-<p class="article-deck">我们正在研究网络定位目标函数在可微驻点附近的二阶性质，尤其是不同边的几何关系如何影响 Hessian。</p>
+          <p class="article-deck">我们现在在研究网络定位问题里可微驻点附近的二阶性质，主要想知道不同边的几何关系会怎样影响 Hessian。</p>
           <div class="process-note">
-            <p>这是仍在进行的合作研究。这里介绍问题背景、目前的研究方向和可以公开的结论；尚未定稿的判据、证明与实验暂不公开，后续以正式论文为准。</p>
+            <p>这项合作研究还在进行。这里先记录问题背景、我们正在研究什么，还有目前可以公开的结论。具体判据、证明和实验还没有定稿，所以暂时不放出来，最后以正式论文为准。</p>
           </div>
 
-          <p>最近我在研究下面这类网络定位问题：</p>
+          <p>最近我一直在研究下面这类网络定位问题：</p>
           <div class="math-display" aria-label="网络定位目标函数">
             <var>F</var>(<var>x</var>) = ∑<sub>(<var>i</var>,<var>j</var>)∈<var>E</var></sub> (‖<var>x</var><sub><var>i</var></sub>−<var>x</var><sub><var>j</var></sub>‖−δ<sub><var>ij</var></sub>)<sup>2</sup>.
           </div>
-          <p>给定图上的部分目标距离 δ<sub><var>ij</var></sub>，我们要找节点位置 <var>x</var><sub><var>i</var></sub>，让实际距离尽量接近这些目标值。这是一个非凸问题，因此算法停在驻点，并不意味着已经找到了局部极小点。</p>
-          <p>已有研究讨论过非光滑 critical points 以及某些情况下的逃逸构造。我现在主要看可微的 stationary points：除了直接计算 Hessian，我们能不能从图结构和节点之间的几何关系判断它是否可能存在负曲率方向？</p>
+          <p>我们知道图上部分边的目标距离 δ<sub><var>ij</var></sub>，需要找到节点的位置 <var>x</var><sub><var>i</var></sub>，让实际距离尽量接近目标距离。这是一个非凸优化问题，所以算法找到 stationary point 并不代表已经找到了局部极小点。</p>
+          <p>之前已经有工作研究过非光滑 critical points，还有某些情况下从坏点逃逸的构造。我现在主要关注可微的 stationary points：除了直接看 Hessian 的特征值，我们能不能从图结构和节点的几何关系判断有没有负曲率方向？</p>
 
-          <h2>1. 从单条边看起</h2>
-          <p>最开始我想知道，一条边的当前长度与目标距离之差，能不能告诉我们驻点附近的二阶性质。这个差值确实会影响该边的二阶项，但<strong>单独一条边的信息不能决定整个 Hessian 是否有负方向</strong>。</p>
-          <p>原因是不同边的二阶贡献要加在一起。即使某条边单独看有负的曲率贡献，也不能直接推出整体 Hessian 有负特征值。</p>
+          <h2>1. 先看单条边</h2>
+          <p>最开始我想知道一条边的实际长度和目标距离之间的差值能不能决定驻点的二阶性质。这个差值确实会影响这条边在 Hessian 里的贡献，但是<strong>只看一条边还不能判断整个 Hessian 有没有负方向</strong>。</p>
+          <p>因为最后需要把所有边的二阶贡献加起来。一条边单独有负的曲率贡献不代表整个 Hessian 就一定有负特征值。</p>
 
-          <h2>2. 还得看其他边</h2>
-          <p>移动一个节点时，所有与它相连的边都会发生变化。某条边对应的负贡献，可能被其他边在同一扰动方向上的正贡献抵消。因此，需要检查的是整个网络在某个方向上的二阶变化，而不是逐条边各自的符号。</p>
-          <p>这一点也解释了为什么我不想只停留在数值上检查 Hessian 的最小特征值。数值结果能告诉我们某个算例有没有负曲率，但还需要进一步分析，是哪些图结构或几何关系造成了这个结果。</p>
+          <h2>2. 还得把其他边算进去</h2>
+          <p>移动一个节点会同时改变所有连到这个节点的测量边。所以某条边在一个扰动方向上的负贡献可能被其他边的正贡献抵消。我们需要看的是整个网络沿同一个方向的二阶变化，不能把每条边分开判断。</p>
+          <p>这也是为什么我不想只靠数值计算 Hessian 的最小特征值。这样确实可以检查一个具体算例有没有负曲率，但是我更想知道到底是哪些图结构和几何条件造成了这个结果。</p>
 
-          <h2>3. 现在在研究什么</h2>
-          <p>目前我们的目标是找出可微驻点处二阶性质与图结构之间更明确的联系，并弄清楚哪些条件可以用于判断负曲率。这里先不写正在整理的具体判据，也不把单个实验现象当成一般结论。</p>
-          <p>这项工作由我与 Prof. Shoham Sabach、Owen Li 合作进行。更详细的技术材料可按需沟通，最终结论以之后的 preprint 或论文为准。</p>
+          <h2>3. 现在做到哪里</h2>
+          <p>我们还在研究可微驻点处的二阶性质到底和图结构有什么联系，以及哪些条件能帮助我们判断负曲率。目前先不公开正在整理的具体判据，也不会把少数算例里的现象直接写成一般结论。</p>
+          <p>这个项目是我和 Prof. Shoham Sabach、Owen Li 一起做的。更具体的技术细节可以按需沟通，正式结论还是以后面的 preprint 或论文为准。</p>
 
           <div class="research-links" aria-label="相关学术页面">
             <a href="../research.html" data-preserve-lang="1">研究陈述</a>
@@ -256,29 +256,29 @@
           <p class="article-meta">Feier Lyu · Originally posted 2026-07-22 · Updated 2026-08-23 · 4 min read</p>
           <p class="article-meta"><strong>Research participants:</strong> Feier Lyu, Prof. Shoham Sabach, and Owen Li</p>
           <p class="article-meta">Network Localization · Nonconvex Optimization · Negative Curvature · Structured Screening</p>
-<p class="article-deck">We are studying the second-order behaviour of a network-localisation objective at differentiable stationary points, particularly how the geometry of different edges affects the Hessian.</p>
+          <p class="article-deck">We are looking at the second-order behaviour of a network-localisation objective near differentiable stationary points. More specifically, we want to understand how the geometry of different edges affects the Hessian.</p>
           <div class="process-note">
-            <p>This is ongoing collaborative work. I am only outlining the problem, the questions we are investigating, and conclusions that can be discussed publicly. Criteria, proofs, and experiments that are still being developed are not included here; any final claims will be given in the paper.</p>
+            <p>This is ongoing collaborative work. I'm only describing the problem, what we're investigating, and the conclusions we can discuss publicly. Criteria, proofs, and experiments that are still being developed are not included here. The final claims will be in the paper.</p>
           </div>
 
-          <p>I have been working on network-localisation problems with an objective of the form:</p>
+          <p>Recently I've been looking at network-localisation problems of the form:</p>
           <div class="math-display" aria-label="Network localization objective">
             <var>F</var>(<var>x</var>) = ∑<sub>(<var>i</var>,<var>j</var>)∈<var>E</var></sub> (‖<var>x</var><sub><var>i</var></sub>−<var>x</var><sub><var>j</var></sub>‖−δ<sub><var>ij</var></sub>)<sup>2</sup>.
           </div>
-          <p>We are given target distances δ<sub><var>ij</var></sub> for some edges of a graph and try to place the nodes at positions <var>x</var><sub><var>i</var></sub> that match those distances as closely as possible. The problem is nonconvex, so finding a stationary point does not mean we have found a local minimum.</p>
-          <p>Earlier work has considered nonsmooth critical points and escape constructions in certain cases. I am focusing on differentiable stationary points. Rather than only computing the Hessian, can we use the graph and the geometry of the node positions to understand when a negative-curvature direction might exist?</p>
+          <p>We know the target distances δ<sub><var>ij</var></sub> for some edges of a graph. The task is to find positions <var>x</var><sub><var>i</var></sub> so that the actual distances are as close as possible to those targets. This is a nonconvex problem, so finding a stationary point does not mean we have found a local minimum.</p>
+          <p>Previous work has looked at nonsmooth critical points, including escape constructions in certain cases. I'm mainly interested in differentiable stationary points. Apart from directly checking the Hessian eigenvalues, can we use the graph structure and node geometry to tell whether a negative-curvature direction exists?</p>
 
           <h2>1. Starting with one edge</h2>
-          <p>My initial question was whether the difference between an edge's current length and its target distance could tell us something about the second-order behaviour of a stationary point. The difference does affect that edge's Hessian contribution. But <strong>information from one edge alone cannot determine whether the full Hessian has a negative direction</strong>.</p>
-          <p>The contributions from different edges have to be added together. A negative contribution from one edge does not, by itself, imply that the full Hessian has a negative eigenvalue.</p>
+          <p>I first wanted to know whether the difference between an edge's actual length and its target distance could determine the second-order behaviour at a stationary point. It does affect that edge's contribution to the Hessian. But <strong>one edge alone is not enough to determine whether the full Hessian has a negative direction</strong>.</p>
+          <p>We need to add the second-order contributions of all the edges. A negative contribution from one edge does not necessarily give the full Hessian a negative eigenvalue.</p>
 
-          <h2>2. What the other edges change</h2>
-          <p>Moving one node changes every measured edge attached to it. A negative second-order contribution from one edge may be offset by positive contributions from others along the same perturbation direction. We therefore need to consider the second-order change of the whole network, not the sign of each edge in isolation.</p>
-          <p>This is also why I do not want to stop at numerically checking the smallest Hessian eigenvalue. A numerical result can tell us whether a particular example has negative curvature, but it does not explain which graph or geometric features are responsible.</p>
+          <h2>2. The other edges matter too</h2>
+          <p>Moving one node also changes every measured edge attached to it. So a negative contribution from one edge along a particular direction may be cancelled by positive contributions from others. We have to consider the second-order change of the whole network along the same direction, not each edge separately.</p>
+          <p>This is why I don't want to rely only on numerical checks of the smallest Hessian eigenvalue. Those checks can tell us whether a particular example has negative curvature, but I also want to know which graph structures or geometric conditions explain the result.</p>
 
-          <h2>3. What we are working on</h2>
-          <p>Our current aim is to understand the connection between graph structure and second-order behaviour at differentiable stationary points, and to identify conditions that help us assess negative curvature. I am not including criteria that are still being developed, or treating observations from individual experiments as general statements.</p>
-          <p>I am working on this with Prof. Shoham Sabach and Owen Li. Further technical details can be discussed on request; the eventual preprint or paper will contain the formal results.</p>
+          <h2>3. Current work</h2>
+          <p>We're still investigating how second-order behaviour at differentiable stationary points depends on the graph, and which conditions help us detect negative curvature. I'm not publishing the criteria we're still working on or treating observations from a few examples as general conclusions.</p>
+          <p>I'm working on this project with Prof. Shoham Sabach and Owen Li. Further technical details are available on request; the formal results will be in the eventual preprint or paper.</p>
 
           <div class="research-links" aria-label="Related academic pages">
             <a href="../research.html" data-preserve-lang="1">Research Statement</a>
