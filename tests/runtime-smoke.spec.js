@@ -3062,6 +3062,14 @@ test("four earlier mathematics posts have complete Chinese and English views", a
   for (const [slug, englishTitle, chineseText, englishText] of cases) {
     await page.goto(`post/${slug}.html?lang=en`, { waitUntil: "domcontentloaded" });
     await waitForCriticalLoaderRelease(page);
+    const view = await page.evaluate(() => ({
+      url: location.href,
+      title: document.title,
+      articles: document.querySelectorAll(".article").length,
+      blocks: [...document.querySelectorAll("[data-lang-block]")].map(x => x.getAttribute("data-lang-block")),
+      bodyStart: document.body.innerText.slice(0, 240),
+    }));
+    console.log("NOTE_LOCALE_DIAGNOSTIC", JSON.stringify(view));
     await expect(page.locator('html')).toHaveAttribute("lang", "en");
     await expect(page.locator('.article [data-lang-block="en"]')).toBeVisible();
     await expect(page.locator('.article [data-lang-block="zh"]')).toBeHidden();
