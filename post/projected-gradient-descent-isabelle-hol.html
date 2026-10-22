@@ -254,7 +254,7 @@
           <p>如果迭代点必须在可行集合 <code>C</code> 里就需要加上投影：</p>
           <p><code>x_{n+1} = P_C (x_n - alpha * G x_n)</code></p>
           <p>这里 <code>G</code> 表示梯度，<code>P_C</code> 是到非空闭凸集 <code>C</code> 的 metric projection。迭代式很好写，但是后面每条估计到底用了什么假设就没这么简单了。</p>
-          <p>比如要用 projection 的 variational inequality 就得先处理好投影本身的性质。Smoothness 也可以用 Lipschitz gradient 或 quadratic upper bound 来表述。在下降估计里后者比较方便，但是其他地方可能更适合用前者。所以我先把两者之间需要的关系证明好，再拿到具体算法里用。</p>
+          <p>比如要用 projection 的 variational inequality 就得先处理好投影本身的性质。Smoothness 也可以用 Lipschitz gradient 或 quadratic upper bound 来表述。做下降估计的时候后者比较方便，但是其他地方可能更适合用前者。所以我先把两者之间需要的关系证明好，再拿到具体算法里用。</p>
 
           <h2>我是怎么拆开证明的</h2>
           <p>仓库里的 Isabelle theories 是按照证明依赖来分的，没有把所有东西直接堆进 PGD 的收敛证明。</p>
@@ -270,7 +270,7 @@
           <p>这样以后即使我调整内部引理或者拆分文件，只要对外的 theorem aliases 没变，其他依赖这个项目的代码一般就不需要跟着改。</p>
 
           <h2>和子模贪心项目有什么联系</h2>
-          <p>在子模贪心项目里我把具体 greedy construction 和抽象的贪心步骤分开，这样 lazy greedy 就能直接复用 classical greedy 的近似证明。PGD 这边也是类似的思路，但是需要分开的变成了 convexity、smoothness、projection、descent estimates 和 convergence rates。</p>
+          <p>做子模贪心项目的时候我把具体 greedy construction 和抽象的贪心步骤分开，这样 lazy greedy 就能直接复用 classical greedy 的近似证明。PGD 这边也是类似的思路，但是需要分开的变成了 convexity、smoothness、projection、descent estimates 和 convergence rates。</p>
           <p>我主要想弄清楚哪些推导适用于一般的下降序列，哪些地方必须用到投影，哪些结论又需要额外的强凸性。把这些条件分开之后证明更容易核对，以后也更容易复用。</p>
 
           <h2>发表前做了什么</h2>
