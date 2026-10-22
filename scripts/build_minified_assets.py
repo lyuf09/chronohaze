@@ -10,12 +10,13 @@ PHOTO_STYLE_VERSION = "20260906-latin-a11y1"
 ACADEMIC_STYLE_VERSION = "20260906-latin-a11y1"
 BLUE_STYLE_VERSION = "20260906-latin-a11y1"
 HOME_VERSION = "20260906-latin-a11y1"
-PROTECT_VERSION = "20261012-affizieren-two-versions1"
+PROTECT_VERSION = "20261022-audit-fixes1"
 PHOTO_PROTECT_VERSION = PROTECT_VERSION
 MUSIC_PROTECT_VERSION = PROTECT_VERSION
 MUSIC_STYLE_VERSION = "20260919-kaleidoscope-home-sync1"
 CATALOG_VERSION = "20260801-bilingual-seo1"
 STRUCTURED_DATA_VERSION = "20260801-bilingual-seo1"
+SEARCH_VERSION = "20261022-audit-fixes1"
 
 SECURITY_META_MARKER = "chronohaze-security-policy"
 SECURITY_META_SNIPPET = """  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
@@ -291,7 +292,7 @@ def rewrite_asset_refs(text: str, page_rel: Path) -> str:
         rf"{asset_base}styles(?:\.min)?\.css\?v=[^\"']+": f"{prefix}styles.min.css?v={style_version}",
         rf"{asset_base}home(?:\.min)?\.css\?v=[^\"']+": f"{prefix}home.min.css?v={HOME_VERSION}",
         rf"{asset_base}protect-media(?:\.min)?\.js\?v=[^\"']+": f"{prefix}protect-media.min.js?v={protect_version}",
-        rf"{asset_base}assets/js/search-page(?:\.min)?\.js\?v=[^\"']+": f"{prefix}assets/js/search-page.min.js?v={VERSION}",
+        rf"{asset_base}assets/js/search-page(?:\.min)?\.js\?v=[^\"']+": f"{prefix}assets/js/search-page.min.js?v={SEARCH_VERSION}",
         rf"{asset_base}assets/js/catalog-pages(?:\.min)?\.js\?v=[^\"']+": f"{prefix}assets/js/catalog-pages.min.js?v={CATALOG_VERSION}",
         rf"{asset_base}assets/js/research-page(?:\.min)?\.js\?v=[^\"']+": f"{prefix}assets/js/research-page.min.js?v={VERSION}",
         rf"{asset_base}assets/js/structured-data(?:\.min)?\.js\?v=[^\"']+": f"{prefix}assets/js/structured-data.min.js?v={STRUCTURED_DATA_VERSION}",
@@ -312,7 +313,16 @@ def rewrite_html_refs(text: str, page_rel: Path) -> str:
     out = remove_static_avif_sources(out)
     out = remove_third_party_font_hints(out)
     out = ensure_critical_loader(out)
-    return ensure_security_meta(out)
+    out = ensure_security_meta(out)
+    if page_rel.as_posix() == "404.html":
+        # GitHub Pages serves this document at the original missing URL.
+        # Root the recovery links, inline font URLs and generated assets there.
+        out = re.sub(
+            r'''(?<=["'])(?:assets/|(?:index|academic|projects|cv|photography|music)\.html)''',
+            lambda match: "/chronohaze/" + match.group(),
+            out,
+        )
+    return out
 
 
 def ensure_music_archive_links(text: str, page_rel: Path) -> str:

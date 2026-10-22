@@ -17972,13 +17972,14 @@
       return;
     }
 
-    document.title = sourceDocument.title || document.title;
+    syncHeadNode("title", sourceDocument);
     if (sourceDocument.documentElement && sourceDocument.documentElement.lang) {
       document.documentElement.lang = sourceDocument.documentElement.lang;
     }
 
     [
       'meta[name="description"]',
+      'meta[name="robots"]',
       'meta[property="og:title"]',
       'meta[property="og:description"]',
       'meta[property="og:url"]',

@@ -189,14 +189,7 @@
     }
     document.body.dataset.searchPageReady = "1";
 
-    var searchPageActive = true;
-    window.addEventListener(
-      "pagehide",
-      function () {
-        searchPageActive = false;
-      },
-      { once: true }
-    );
+    var active = true;
 
     var shared = getShared();
     if (shared && typeof shared.ensureSearchNavLink === "function") {
@@ -1102,7 +1095,7 @@
       var index = 0;
 
       function tryNext() {
-        if (!searchPageActive) {
+        if (!active || !inputNode.isConnected) {
           return Promise.resolve(null);
         }
         if (index >= candidates.length) {
@@ -1120,7 +1113,7 @@
           }),
           8000
         ).catch(function () {
-          if (!searchPageActive) {
+          if (!active || !inputNode.isConnected) {
             return null;
           }
           return tryNext();
@@ -1758,6 +1751,9 @@
     }
 
     function renderResults() {
+      if (!active || !inputNode.isConnected) {
+        return;
+      }
       var rawQuery = String(inputNode.value || "").trim();
 
       if (!loaded) {
@@ -2172,8 +2168,8 @@
       }
     });
 
-    document.addEventListener("keydown", function (event) {
-      if (event.defaultPrevented || event.isComposing) {
+    function onShortcut(event) {
+      if (!active || !inputNode.isConnected || event.defaultPrevented || event.isComposing) {
         return;
       }
       var target = event.target;
@@ -2196,7 +2192,7 @@
         inputNode.select();
         return;
       }
-    });
+    }
 
     function applyStateFromLocation() {
       var state = readUrlState();
@@ -2213,9 +2209,43 @@
       loadItemsForScope(scopeNode.value || "all");
     }
 
-    window.addEventListener("popstate", function () {
-      applyStateFromLocation();
-    });
+    function handlePopstate() {
+      if (active && inputNode.isConnected && /\/search\.html$/.test(location.pathname)) {
+        applyStateFromLocation();
+      }
+    }
+
+    function suspendPage() {
+      active = false;
+    }
+
+    function resumePage(event) {
+      if (event.persisted && inputNode.isConnected) {
+        active = true;
+        applyStateFromLocation();
+      }
+    }
+
+    function disposePage() {
+      if (inputNode.isConnected) {
+        return;
+      }
+      active = false;
+      loadToken += 1;
+      window.clearTimeout(debounceTimer);
+      window.clearTimeout(flashShareHint._timer);
+      document.removeEventListener("keydown", onShortcut);
+      window.removeEventListener("popstate", handlePopstate);
+      window.removeEventListener("pagehide", suspendPage);
+      window.removeEventListener("pageshow", resumePage);
+      document.removeEventListener("chronohaze:page-swapped", disposePage);
+    }
+
+    document.addEventListener("keydown", onShortcut);
+    window.addEventListener("popstate", handlePopstate);
+    window.addEventListener("pagehide", suspendPage);
+    window.addEventListener("pageshow", resumePage);
+    document.addEventListener("chronohaze:page-swapped", disposePage);
 
     updateFallbackExternalLink();
     updateShareToolsVisibility();

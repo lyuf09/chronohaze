@@ -2,7 +2,6 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-SMOKE_ROOT="$ROOT/.tmp-smoke-root"
 PORT="${CHRONOHAZE_SMOKE_PORT:-4174}"
 SCHEME="${CHRONOHAZE_SMOKE_SCHEME:-https}"
 if [[ "$SCHEME" != "http" && "$SCHEME" != "https" ]]; then
@@ -10,6 +9,8 @@ if [[ "$SCHEME" != "http" && "$SCHEME" != "https" ]]; then
   exit 1
 fi
 BASE_URL="${SCHEME}://127.0.0.1:${PORT}/chronohaze/"
+SMOKE_ROOT="$(mktemp -d "${TMPDIR:-/tmp}/chronohaze-structured.XXXXXX")"
+RESULTS_DIR="$ROOT/test-results/$(basename "$SMOKE_ROOT")"
 
 cleanup() {
   if [[ -n "${SERVER_PID:-}" ]] && kill -0 "$SERVER_PID" >/dev/null 2>&1; then
@@ -20,9 +21,10 @@ cleanup() {
 }
 trap cleanup EXIT
 
-rm -rf "$SMOKE_ROOT"
-mkdir -p "$SMOKE_ROOT"
+mkdir -p "$RESULTS_DIR"
 ln -s "$ROOT" "$SMOKE_ROOT/chronohaze"
+READY_FILE=".ready-$(basename "$SMOKE_ROOT")"
+touch "$SMOKE_ROOT/$READY_FILE"
 
 if [[ "$SCHEME" == "https" ]]; then
   if ! command -v openssl >/dev/null 2>&1; then
@@ -56,18 +58,23 @@ EOF
     --port "$PORT" \
     --directory "$SMOKE_ROOT" \
     --cert "$CERT_FILE" \
-    --key "$KEY_FILE" >/tmp/chronohaze-playwright-structured-https.log 2>&1 &
+    --key "$KEY_FILE" >"$RESULTS_DIR/server.log" 2>&1 &
   CURL_ARGS=(-k -sSf)
   export CHRONOHAZE_SMOKE_IGNORE_HTTPS_ERRORS=1
 else
-  python3 -m http.server "$PORT" --bind 127.0.0.1 --directory "$SMOKE_ROOT" >/tmp/chronohaze-playwright-structured-http.log 2>&1 &
+  python3 -m http.server "$PORT" --bind 127.0.0.1 --directory "$SMOKE_ROOT" >"$RESULTS_DIR/server.log" 2>&1 &
   CURL_ARGS=(-sSf)
 fi
 SERVER_PID=$!
 
 SERVER_READY=0
 for _ in {1..30}; do
-  if curl "${CURL_ARGS[@]}" "${BASE_URL}index.html" >/dev/null 2>&1; then
+  if ! kill -0 "$SERVER_PID" >/dev/null 2>&1; then
+    cat "$RESULTS_DIR/server.log" >&2
+    echo "ERROR: smoke-test server exited before becoming ready" >&2
+    exit 1
+  fi
+  if curl "${CURL_ARGS[@]}" "${SCHEME}://127.0.0.1:${PORT}/${READY_FILE}" >/dev/null 2>&1; then
     SERVER_READY=1
     break
   fi
@@ -79,4 +86,4 @@ if [[ "$SERVER_READY" != "1" ]]; then
 fi
 
 export CHRONOHAZE_SMOKE_BASE_URL="$BASE_URL"
-npx playwright test -c "$ROOT/playwright.smoke.config.js" --project=chromium "$ROOT/tests/structured-data.spec.js"
+npx playwright test -c "$ROOT/playwright.smoke.config.js" --output "$RESULTS_DIR/artifacts" --project=chromium "$ROOT/tests/structured-data.spec.js" "$@"

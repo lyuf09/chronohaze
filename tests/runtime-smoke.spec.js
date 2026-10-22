@@ -749,6 +749,83 @@ test("home-to-music page swaps load the performance archive stylesheet before re
   expect(errors).toEqual([]);
 });
 
+test("page swaps replace localized title attributes and robots directives", async ({ page, baseURL }) => {
+  await page.goto("post/projected-gradient-descent-isabelle-hol.html?lang=en");
+  await page.evaluate(() => { window.__auditDocument = true; });
+  const swap = async (path) => {
+    await page.evaluate((href) => window.ChronohazeShared.navigateWithPageSwap(href), new URL(path, baseURL).href);
+    expect(await page.evaluate(() => window.__auditDocument)).toBe(true);
+  };
+
+  await swap("music.html?lang=en");
+  await expect(page).toHaveTitle("Music / Listening Room | Chronohaze");
+  await expect(page.locator("title")).not.toHaveAttribute("data-title-en");
+  await swap("post/stochasticgreedy-executable-refinement.html?lang=en");
+  await expect(page).toHaveTitle("From a Framework to a Randomized Algorithm That Actually Runs: Executable Refinement of StochasticGreedy | Chronohaze");
+  await expect(page.locator("title")).toHaveAttribute("data-title-en", await page.title());
+  await swap("post/projected-gradient-descent-isabelle-hol.html?lang=zh");
+  await expect(page).toHaveTitle("从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL | Chronohaze");
+  await swap("post/dual-score-saddle-certificates.html?lang=en");
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", "noindex, nofollow, noarchive");
+  await swap("music.html?lang=en");
+  await expect(page.locator('meta[name="robots"]')).toHaveCount(0);
+  await expect(page).toHaveTitle("Music / Listening Room | Chronohaze");
+});
+
+test("search shortcuts survive repeated page swaps and release other pages", async ({ page, baseURL }) => {
+  await page.goto("search.html?lang=en");
+  const focusHeading = async () => page.locator("h1").first().evaluate((node) => {
+    node.tabIndex = -1;
+    node.focus();
+  });
+  const swap = async (path) => page.evaluate((href) => window.ChronohazeShared.navigateWithPageSwap(href), new URL(path, baseURL).href);
+  for (let visit = 0; visit < 3; visit += 1) {
+    for (const key of ["/", "Control+k", "Meta+k"]) {
+      await focusHeading();
+      await page.keyboard.press(key);
+      await expect(page.locator("#site-search-input")).toBeFocused();
+    }
+    // A pending input debounce must not rewrite the destination page's URL.
+    await page.locator("#site-search-input").fill("orchid");
+    await swap("music.html?lang=en");
+    await expect(page).toHaveURL(new URL("music.html?lang=en", baseURL).href);
+    const intercepted = await page.evaluate(() => ["/", "k"].map((key) => {
+      const event = new KeyboardEvent("keydown", { key, ctrlKey: key === "k", bubbles: true, cancelable: true });
+      document.dispatchEvent(event);
+      return event.defaultPrevented;
+    }));
+    expect(intercepted).toEqual([false, false]);
+    await swap("search.html?lang=en&q=orchid");
+  }
+});
+
+test("nested missing URLs keep 404 recovery links and resources at the site root", async ({ page, request, baseURL }) => {
+  const html = await (await request.get("404.html")).text();
+  const failures = [];
+  page.on("response", (response) => {
+    if (response.status() >= 400 && ["font", "stylesheet", "script"].includes(response.request().resourceType())) {
+      failures.push(response.url());
+    }
+  });
+  await page.route("**/missing-audit.html*", (route) => route.fulfill({status: 404, contentType: "text/html", body: html}));
+  for (const path of ["photo/missing-audit.html", "music/deep/missing-audit.html"]) {
+    const response = await page.goto(new URL(path + "?lang=en", baseURL).href);
+    expect(response.status()).toBe(404);
+    await expect(page.locator("#pageTitle")).toHaveText("This page seems to be elsewhere");
+    for (const language of ["zh", "en"]) {
+      await page.locator('[data-lang="' + language + '"]').click();
+      const destinations = await page.locator(".action-link, .secondary-link, .brand").evaluateAll((links) => links.map((link) => new URL(link.href).pathname));
+      const root = new URL(baseURL).pathname;
+      expect(destinations).toEqual(["index.html", "index.html", "academic.html", "projects.html", "cv.html", "photography.html", "music.html"].map((path) => root + path));
+    }
+    await page.waitForFunction(() => !!window.__chronohazeAnalytics);
+    expect(await page.locator(".skip-link").evaluate((node) => new URL(node.href).pathname)).toBe(new URL(path, baseURL).pathname);
+  }
+  expect(failures).toEqual([]);
+  await page.locator("#homeLink").click();
+  await expect(page.locator("body.home-body")).toBeVisible();
+});
+
 test("mobile music links use text-only symbols instead of emoji presentation", async ({ page }) => {
   const errors = trackPageErrors(page);
   await page.setViewportSize({ width: 390, height: 844 });
