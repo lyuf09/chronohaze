@@ -264,6 +264,31 @@ test("analytics footer control opts out, clears cookies, and persists the choice
   expect(await page.evaluate(() => window.localStorage.getItem("chronohaze-analytics"))).toBe("off");
 });
 
+test("page navigation cancels pending image metadata without trying stale fallback URLs", async ({ page }) => {
+  const errors = trackPageErrors(page);
+  const requests = [];
+  let pending;
+  await page.route("**/assets/data/image-variants.json", async (route) => {
+    requests.push(route.request().url());
+    if (requests.length === 1) {
+      pending = route;
+      return;
+    }
+    await route.continue();
+  });
+  await page.goto("index.html?lang=en", { waitUntil: "domcontentloaded" });
+  await expect.poll(() => !!pending).toBe(true);
+  await page.goto("music.html?lang=en", { waitUntil: "domcontentloaded" });
+  await expect(page.locator(".music-room-shell").first()).toBeVisible();
+  await pending.abort().catch(() => {});
+  await expect.poll(() => requests.length).toBe(2);
+  // Exercise another navigation so callbacks from the old document have settled.
+  await page.goto("math.html?lang=en", { waitUntil: "load" });
+  await expect(page.locator(".math-fractal-highlight")).toBeVisible();
+  expect(requests.every((url) => new URL(url).pathname === "/chronohaze/assets/data/image-variants.json")).toBe(true);
+  expect(errors).toEqual([]);
+});
+
 test("bare home URL defaults to English and releases the critical loader at DOM ready", async ({ page }) => {
   const errors = trackPageErrors(page);
 
@@ -980,6 +1005,33 @@ test("network-localization research record is bilingual and contains no public P
   );
 
   expect(errors).toEqual([]);
+});
+
+test("music controls survive audio synchronization during a press", async ({ page }) => {
+  await page.goto("music.html?lang=en", { waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+  const card = page.locator(".music-room-track-card").nth(3);
+  const button = card.locator(".music-room-track-play");
+  const title = (await card.locator(".music-room-track-title").innerText()).trim();
+  await button.evaluate((node) => {
+    node.addEventListener("mousedown", () => {
+      document.dispatchEvent(new CustomEvent("chronohaze:persistent-audio-sync"));
+    }, { once: true });
+  });
+  await button.click();
+  await expect(page.locator(".persistent-audio-title")).toHaveText(title.toUpperCase());
+  const dock = page.locator(".persistent-audio-dock");
+  if (await dock.evaluate((node) => node.classList.contains("is-collapsed"))) {
+    await page.locator(".persistent-audio-peek").click();
+  }
+  const collapse = page.locator(".persistent-audio-collapse");
+  await collapse.evaluate((node) => {
+    node.addEventListener("mousedown", () => {
+      document.querySelector(".persistent-audio-element").dispatchEvent(new Event("timeupdate"));
+    }, { once: true });
+  });
+  await collapse.click();
+  await expect(dock).toHaveClass(/is-collapsed/);
 });
 
 test("music index renders and remains interactive", async ({ page }) => {

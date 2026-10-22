@@ -320,6 +320,16 @@
   var imageVariantManifest = null;
   var imageVariantManifestLoadTried = false;
   var imageVariantManifestPromise = null;
+  var pageDataRequests = new AbortController();
+
+  window.addEventListener("pagehide", function () {
+    pageDataRequests.abort();
+  });
+  window.addEventListener("pageshow", function (event) {
+    if (event.persisted) {
+      pageDataRequests = new AbortController();
+    }
+  });
 
   function getAssetCandidateUrls(relativePath) {
     var rel = String(relativePath || "").replace(/^\.\//, "");
@@ -359,21 +369,24 @@
   function fetchJsonFromCandidates(relativePath) {
     var candidates = getAssetCandidateUrls(relativePath);
     var idx = 0;
+    var signal = pageDataRequests.signal;
 
     function tryNext() {
+      if (signal.aborted) {
+        return Promise.resolve(null);
+      }
       if (idx >= candidates.length) {
         return Promise.reject(new Error("not found"));
       }
       var url = candidates[idx++];
-      return fetch(url)
+      return fetch(url, { signal: signal })
         .then(function (response) {
           if (!response.ok) {
-            throw new Error("HTTP " + response.status);
+            return tryNext();
           }
-          return response.json();
-        })
-        .catch(function () {
-          return tryNext();
+          // Alternate paths help with missing files, not a failed connection
+          // or a document being unloaded (which WebKit reports as TypeError).
+          return response.json().catch(tryNext);
         });
     }
 
@@ -4096,6 +4109,11 @@
     } catch (_err) {}
   }
 
+  function setAudioText(node, value) {
+    // Replacing an unchanged text node during a press cancels clicks in WebKit.
+    if (node.textContent !== value) node.textContent = value;
+  }
+
   function dispatchPersistentAudioSync() {
     if (typeof window.CustomEvent !== "function") {
       return;
@@ -4138,17 +4156,17 @@
         : getSecondaryPageDictionary(detectPreferredLanguage()).playerPlayAria
     );
 
-    controller.kicker.textContent = labels.kicker;
-    controller.peekButton.textContent = labels.peek;
+    setAudioText(controller.kicker, labels.kicker);
+    setAudioText(controller.peekButton, labels.peek);
     controller.peekButton.setAttribute("aria-label", labels.expandAria);
-    controller.collapseButton.textContent = "−";
+    setAudioText(controller.collapseButton, "−");
     controller.collapseButton.setAttribute("aria-label", labels.collapseAria);
     controller.collapseButton.setAttribute("title", labels.collapse);
-    controller.title.textContent = current ? current.title || "TRACK" : "TRACK";
-    controller.artist.textContent = current ? current.artist || "HAZEZZ" : "HAZEZZ";
-    controller.album.textContent = current ? current.album || "" : "";
+    setAudioText(controller.title, current ? current.title || "TRACK" : "TRACK");
+    setAudioText(controller.artist, current ? current.artist || "HAZEZZ" : "HAZEZZ");
+    setAudioText(controller.album, current ? current.album || "" : "");
     controller.album.hidden = !(current && current.album);
-    controller.openLink.textContent = labels.open;
+    setAudioText(controller.openLink, labels.open);
     controller.openLink.href =
       current && current.pageHref ? toChronohazeAbsoluteUrl(current.pageHref) : "#";
     controller.openLink.setAttribute(
@@ -4156,16 +4174,15 @@
       current && current.pageHref ? "false" : "true"
     );
     controller.openLink.hidden = !(current && current.pageHref);
-    controller.projectLink.textContent =
-      (current && current.projectLabel) || labels.project;
+    setAudioText(controller.projectLink, (current && current.projectLabel) || labels.project);
     controller.projectLink.href = current && current.projectHref ? current.projectHref : "#";
     controller.projectLink.hidden = !(current && current.projectHref);
 
-    controller.closeButton.textContent = "×";
+    setAudioText(controller.closeButton, "×");
     controller.closeButton.setAttribute("aria-label", labels.close);
     controller.closeButton.setAttribute("title", labels.close);
-    controller.prevButton.textContent = labels.prev;
-    controller.nextButton.textContent = labels.next;
+    setAudioText(controller.prevButton, labels.prev);
+    setAudioText(controller.nextButton, labels.next);
 
     var queue = current && Array.isArray(current.queue) ? current.queue : [];
     var queueIndex = current && isFinite(current.queueIndex) ? Number(current.queueIndex) : -1;
@@ -4186,8 +4203,7 @@
       setRangeProgress(controller.scrubber, 0, 1000);
     }
 
-    controller.time.textContent =
-      formatDuration(currentTime) + " / " + formatDuration(duration);
+    setAudioText(controller.time, formatDuration(currentTime) + " / " + formatDuration(duration));
 
     if (!hasTrack) {
       controller.isCollapsed = false;
@@ -13927,7 +13943,7 @@
           );
           var isPlaying = isCurrent && !controller.audio.paused && !controller.audio.ended;
           playButton.classList.toggle("is-playing", isPlaying);
-          playButton.textContent = isPlaying ? textFor("暂停", "Pause") : textFor("播放", "Play");
+          setAudioText(playButton, isPlaying ? textFor("暂停", "Pause") : textFor("播放", "Play"));
           playButton.setAttribute("aria-pressed", isPlaying ? "true" : "false");
         }
         bindResponsivePress(playButton, function () {
