@@ -267,7 +267,7 @@
           <p>我已经证明在给定 sampling model 下每一步可以得到怎样的 expected progress，也有 deterministic trace 可以模拟采样结果。但是当时还没有证明下面这件事：</p>
           <blockquote><p><strong>由随机比特驱动的程序产生的输出分布确实对应前面的概率模型，而且近似保证适用于这个程序。</strong></p></blockquote>
           <p>所以最近主要就在补这个证明。</p>
-          <p>这次要把 executable sampling、概率语义和之前的近似证明接起来，而不是仅仅把代码和定理放在同一个仓库里。</p>
+          <p>这次要把 executable sampling、概率语义和之前的近似证明接起来，不是简单地把代码和定理放在同一个仓库里。</p>
 
           <h2>之前的近似证明</h2>
           <p>StochasticGreedy 的算法很直接。</p>
@@ -322,7 +322,7 @@
           <p>这一部分才是我这次主要想完成的证明。</p>
           <p>核心的 semantic result 直接识别 executable randomized step 所诱导的 distribution 与 approximation analysis 中使用的 abstract uniform-with-replacement model。与此同时，可执行开发也建立了 randomized runner 应有的 well-formedness properties，包括 almost-sure termination 与 support 中所有输出的 feasibility。</p>
           <p>有了这个 distributional correspondence，之前的 expected-gain analysis 才可以应用到实际程序。</p>
-          <p>接着我证明，executable step 的 expected objective increment 与此前 abstract sampling analysis 中出现的 expected gain 完全一致。因此原有的 one-step theorem 不需要重新证明，而可以直接 transfer 到程序：</p>
+          <p>接着我证明，executable step 的 expected objective increment 与此前 abstract sampling analysis 中出现的 expected gain 完全一致。因此原有的 one-step theorem 不需要重新证明，可以直接 transfer 到程序：</p>
           <div class="theorem-line"><code>expected gain ≥ (sampling factor / k) · (f(OPT) - f(S))</code></div>
           <p>这个结果也说明之前把不同证明分开的做法确实有用。</p>
           <p>因为 sampling、weighted one-step analysis 和 recurrence 本来就是分开的，现在新程序只需要证明自己满足相同的 semantic interface，后面的 approximation proof 就可以直接复用。</p>
@@ -349,7 +349,7 @@
           <p>有了 generic runner 以后，我还做了一个 concrete weighted-coverage instance。</p>
           <p>这里还需要处理一个实现上的问题。</p>
           <p>数学 theorem 最自然地在 real-valued objective 上陈述，但真正 code generation 时，如果为了比较 marginal gains 把大量 real arithmetic 搬进程序，并不是我想要的实现。</p>
-          <p>所以 concrete executable layer 使用 exact natural-number weights 和整数式的 coverage score，而 specification layer 仍然使用 real-valued submodular objective。</p>
+          <p>所以 concrete executable layer 使用 exact natural-number weights 和整数式的 coverage score，但是 specification layer 还使用 real-valued submodular objective。</p>
           <p>然后证明两种 score comparison 对 argmax 产生完全相同的选择。</p>
           <p>这样程序实际运行的是 exact discrete computation，但是 approximation theorem 还可以在之前的 real-valued framework 里表述。</p>
           <p>最后这个具体 weighted-coverage runner 同样继承：</p>
@@ -392,7 +392,7 @@
 → concrete executable instance
 → resource accounting</strong></div>
           <p>每一步之间都需要对应的 theorem。</p>
-          <p>这也是为什么需要 executable refinement，而不只是生成代码。</p>
+          <p>这也是为什么需要 executable refinement，不能只生成代码。</p>
           <p><code>export_code</code> 本身并不难，写一个随机程序也不难，证明一个 abstract expectation inequality 我之前也已经做完了。</p>
           <p>难的是证明最后导出的程序和 theorem 分析的随机算法具有相同的概率语义。</p>
           <p><strong>发表范围：</strong>2026 年 AFP 正式发表的是 classical greedy 和 verified stateful lazy-greedy。这篇记录的 StochasticGreedy executable randomized semantics、run-level approximation 和 resource accounting 都是发表之后继续做的扩展。</p>
