@@ -196,7 +196,7 @@
             <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">GitHub repository</a>
           </div>
 
-          <p>2026 年 5 月 26 日我的 Isabelle/HOL 项目 <em>Greedy Algorithms for Cardinality-Constrained Submodular Maximization</em> 发表于 Archive of Formal Proofs（AFP）。这篇就简单记录一下我做了什么，还有形式化过程中哪些地方比想象中麻烦。</p>
+          <p>2026 年 5 月 26 日我的 Isabelle/HOL 项目 <em>Greedy Algorithms for Cardinality-Constrained Submodular Maximization</em> 发表于 Archive of Formal Proofs（AFP）。这篇就简单记录一下我做了什么，还有实际做形式化的时候哪些地方比想象中麻烦。</p>
 
           <p>这个项目研究的是有限 ground set 上带基数约束的单调非负子模最大化。在相应假设下 classical greedy 运行 <em>k</em> 步可以得到 1 − (1 − 1/<em>k</em>)<sup><em>k</em></sup> 的有限步近似保证，所以也有熟悉的 1 − 1/e 近似比。AFP 里还包含一个经过验证的 stateful lazy greedy 版本。它用缓存的边际增益上界来减少重复计算，但是最终选出的元素还得满足 greedy 的选择条件。</p>
 
@@ -210,7 +210,7 @@
 
           <p>这个定理我之前已经学过了，但是实际写进 Isabelle 后发现花时间最多的不是最后那条不等式，反倒是前面的定义和引理。哪里用到了单调性，哪里用到了子模性，哪些条件应该放在通用接口里，哪些只属于具体算法，都需要分清楚。我觉得这一部分比单纯把最终定理证明出来更有收获。</p>
 
-          <p>很感谢 Wenda Li 老师在项目中的指导，还有 Tobias Nipkow 老师在最后修改和 AFP 发表阶段的帮助。看到自己的项目正式进入 AFP 还是很开心的。</p>
+          <p>很感谢 Wenda Li 老师做这个项目时给我的指导，还有 Tobias Nipkow 老师在最后修改和 AFP 发表阶段提供的帮助。看到自己的项目正式进入 AFP 还是很开心的。</p>
 
           <p>发表的时候我就想继续把一些一阶优化和组合优化的证明形式化，也希望已有的定义和引理以后能直接复用。后来仓库里的 StochasticGreedy 就是在这个基础上继续做的。</p>
 
