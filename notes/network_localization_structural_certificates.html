@@ -221,37 +221,29 @@
           <p class="article-meta">Feier Lyu · 最初发布于 2026-07-22 · 更新于 2026-08-23 · 约 4 分钟</p>
           <p class="article-meta"><strong>研究参与者：</strong>Feier Lyu、Prof. Shoham Sabach、Owen Li</p>
           <p class="article-meta">Network Localization · Nonconvex Optimization · Negative Curvature · Structured Screening</p>
-          <p class="article-deck">关于网络定位中二阶几何的一份精炼公开概览。</p>
+<p class="article-deck">我们正在研究网络定位目标函数在可微驻点附近的二阶性质，尤其是不同边的几何关系如何影响 Hessian。</p>
           <div class="process-note">
-            <p>这项合作研究仍在进行中。公开页只保留问题背景、研究动机、目标与已经确认的高层结论。完整技术材料可按需提供，定稿后将以 preprint 为准。</p>
+            <p>这是仍在进行的合作研究。这里介绍问题背景、目前的研究方向和可以公开的结论；尚未定稿的判据、证明与实验暂不公开，后续以正式论文为准。</p>
           </div>
 
-          <p>过去几个月，我一直在研究一个看起来很简单、实际却相当顽固的非凸优化问题：</p>
+          <p>最近我在研究下面这类网络定位问题：</p>
           <div class="math-display" aria-label="网络定位目标函数">
             <var>F</var>(<var>x</var>) = ∑<sub>(<var>i</var>,<var>j</var>)∈<var>E</var></sub> (‖<var>x</var><sub><var>i</var></sub>−<var>x</var><sub><var>j</var></sub>‖−δ<sub><var>ij</var></sub>)<sup>2</sup>.
           </div>
-          <p>它可以描述网络定位（network localization）、多维尺度分析（multi-dimensional scaling）等问题：我们知道一些节点之间希望达到的距离 δ<sub>ij</sub>，然后试图寻找一组位置 <var>x</var><sub>i</sub>，使这些距离尽可能得到满足。</p>
-          <p>这个目标函数最麻烦的地方之一，是算法收敛到一个 critical point 并不代表问题结束了。已有工作已经说明，在这个模型中，非光滑 critical points 可以被进一步分析，并且存在能够逃离其中一部分坏点的构造；对于光滑的 stationary points，也可以利用二阶信息得到局部最优性的必要条件。</p>
-          <p>我最近关心的问题，正是从这里继续往下走：</p>
-          <blockquote><p><strong>对于一个 differentiable stationary point，我们还能从问题本身的结构中读出多少关于局部几何的信息？</strong></p></blockquote>
+          <p>给定图上的部分目标距离 δ<sub><var>ij</var></sub>，我们要找节点位置 <var>x</var><sub><var>i</var></sub>，让实际距离尽量接近这些目标值。这是一个非凸问题，因此算法停在驻点，并不意味着已经找到了局部极小点。</p>
+          <p>已有研究讨论过非光滑 critical points 以及某些情况下的逃逸构造。我现在主要看可微的 stationary points：除了直接计算 Hessian，我们能不能从图结构和节点之间的几何关系判断它是否可能存在负曲率方向？</p>
 
-          <h2>1. 为什么单边直觉不够</h2>
-          <p>对一条边而言，当前距离与目标距离之间的偏差会提供局部几何信号。最初的问题是：能否仅凭某一条边的符号信息判断一个 stationary point 的二阶性质？</p>
-          <p>目前已经确认的高层结论是：<strong>单条边的局部信息不足以独立决定完整二阶几何。</strong>它可以提供线索，但不能替代对网络耦合结构的分析。</p>
+          <h2>1. 从单条边看起</h2>
+          <p>最开始我想知道，一条边的当前长度与目标距离之差，能不能告诉我们驻点附近的二阶性质。这个差值确实会影响该边的二阶项，但<strong>单独一条边的信息不能决定整个 Hessian 是否有负方向</strong>。</p>
+          <p>原因是不同边的二阶贡献要加在一起。即使某条边单独看有负的曲率贡献，也不能直接推出整体 Hessian 有负特征值。</p>
 
-          <h2>2. 边不是独立存在的</h2>
-          <p>改变一个节点的位置，不只会改变我们正在观察的那条边。它同时会改变所有与这个节点相连的测量边。因此，即使某条边单独看起来提供了负曲率，周围其他边也可能产生正的二阶贡献，并把这种负曲率抵消掉。</p>
-          <p>这也是我现在觉得这个问题最有意思的地方之一：</p>
-          <blockquote><p><strong>负曲率不是单条边的属性，而是多个几何约束相互作用后的结果。</strong></p></blockquote>
-          <p>这使问题从单独检查一条边，转变为理解多个几何约束如何共同塑造局部 landscape。</p>
+          <h2>2. 还得看其他边</h2>
+          <p>移动一个节点时，所有与它相连的边都会发生变化。某条边对应的负贡献，可能被其他边在同一扰动方向上的正贡献抵消。因此，需要检查的是整个网络在某个方向上的二阶变化，而不是逐条边各自的符号。</p>
+          <p>这一点也解释了为什么我不想只停留在数值上检查 Hessian 的最小特征值。数值结果能告诉我们某个算例有没有负曲率，但还需要进一步分析，是哪些图结构或几何关系造成了这个结果。</p>
 
-          <h2>3. 研究目标</h2>
-          <p>完整 Hessian 的谱信息可以回答二阶问题，但它本身不能解释网络结构为何产生这些现象。当前目标是识别控制非最优 stationary points 局部几何的图结构与几何假设，并把这些依赖表达得足够清楚。</p>
-          <p>公开记录只说明这一研究方向，不公开正在形成的判据、证明或计算实例。</p>
-
-          <h2>4. 公开状态</h2>
-          <p>这项工作由 Feier Lyu、Prof. Shoham Sabach 与 Owen Li 共同参与，目前仍在推进。内部技术细节不在公开页面展示。</p>
-          <p>更完整的技术说明可按需提供；正式结论将以 preprint 或论文为准。</p>
+          <h2>3. 现在在研究什么</h2>
+          <p>目前我们的目标是找出可微驻点处二阶性质与图结构之间更明确的联系，并弄清楚哪些条件可以用于判断负曲率。这里先不写正在整理的具体判据，也不把单个实验现象当成一般结论。</p>
+          <p>这项工作由我与 Prof. Shoham Sabach、Owen Li 合作进行。更详细的技术材料可按需沟通，最终结论以之后的 preprint 或论文为准。</p>
 
           <div class="research-links" aria-label="相关学术页面">
             <a href="../research.html" data-preserve-lang="1">研究陈述</a>
@@ -264,37 +256,29 @@
           <p class="article-meta">Feier Lyu · Originally posted 2026-07-22 · Updated 2026-08-23 · 4 min read</p>
           <p class="article-meta"><strong>Research participants:</strong> Feier Lyu, Prof. Shoham Sabach, and Owen Li</p>
           <p class="article-meta">Network Localization · Nonconvex Optimization · Negative Curvature · Structured Screening</p>
-          <p class="article-deck">A concise public overview of second-order geometry in network localization.</p>
+<p class="article-deck">We are studying the second-order behaviour of a network-localisation objective at differentiable stationary points, particularly how the geometry of different edges affects the Hessian.</p>
           <div class="process-note">
-            <p>This collaboration is ongoing. The public page retains only the problem background, motivation, research objective, and confirmed high-level conclusions. Full technical material is available on request; a finalized preprint will be the authoritative version.</p>
+            <p>This is ongoing collaborative work. I am only outlining the problem, the questions we are investigating, and conclusions that can be discussed publicly. Criteria, proofs, and experiments that are still being developed are not included here; any final claims will be given in the paper.</p>
           </div>
 
-          <p>For the past few months, I have been studying a nonconvex optimization problem that looks simple and turns out to be remarkably stubborn:</p>
+          <p>I have been working on network-localisation problems with an objective of the form:</p>
           <div class="math-display" aria-label="Network localization objective">
             <var>F</var>(<var>x</var>) = ∑<sub>(<var>i</var>,<var>j</var>)∈<var>E</var></sub> (‖<var>x</var><sub><var>i</var></sub>−<var>x</var><sub><var>j</var></sub>‖−δ<sub><var>ij</var></sub>)<sup>2</sup>.
           </div>
-          <p>The objective models network localization, multidimensional scaling, and related problems. We know target distances δ<sub>ij</sub> for some pairs of nodes and seek positions <var>x</var><sub>i</sub> that satisfy those distances as closely as possible.</p>
-          <p>One difficulty is that convergence to a critical point does not end the story. Prior work shows that nonsmooth critical points in this model can be analyzed further, with constructions that escape some bad points. At smooth stationary points, second-order information also gives necessary conditions for local optimality.</p>
-          <p>The question I have been pursuing starts there:</p>
-          <blockquote><p><strong>At a differentiable stationary point, how much local geometry can we read from the structure of the problem itself?</strong></p></blockquote>
+          <p>We are given target distances δ<sub><var>ij</var></sub> for some edges of a graph and try to place the nodes at positions <var>x</var><sub><var>i</var></sub> that match those distances as closely as possible. The problem is nonconvex, so finding a stationary point does not mean we have found a local minimum.</p>
+          <p>Earlier work has considered nonsmooth critical points and escape constructions in certain cases. I am focusing on differentiable stationary points. Rather than only computing the Hessian, can we use the graph and the geometry of the node positions to understand when a negative-curvature direction might exist?</p>
 
-          <h2>1. Why edgewise intuition is not enough</h2>
-          <p>For one edge, the discrepancy between its current and target distances provides a local geometric signal. The initial question was whether the sign information from one edge could determine the second-order character of a stationary point.</p>
-          <p>The confirmed high-level conclusion is that <strong>local information from one edge does not independently determine the full second-order geometry.</strong> It can provide evidence, but it cannot replace analysis of the coupled network structure.</p>
+          <h2>1. Starting with one edge</h2>
+          <p>My initial question was whether the difference between an edge's current length and its target distance could tell us something about the second-order behaviour of a stationary point. The difference does affect that edge's Hessian contribution. But <strong>information from one edge alone cannot determine whether the full Hessian has a negative direction</strong>.</p>
+          <p>The contributions from different edges have to be added together. A negative contribution from one edge does not, by itself, imply that the full Hessian has a negative eigenvalue.</p>
 
-          <h2>2. Edges do not exist independently</h2>
-          <p>Moving one node changes more than the edge under inspection. It changes every measured edge incident to that node. An edge that appears negative in isolation can therefore be offset by positive second-order contributions from its neighbors.</p>
-          <p>This is now one of the aspects of the problem that I find most interesting:</p>
-          <blockquote><p><strong>Negative curvature is not a property of one edge. It is the outcome of interacting geometric constraints.</strong></p></blockquote>
-          <p>The problem therefore shifts from inspecting one edge in isolation to understanding how several geometric constraints jointly shape the local landscape.</p>
+          <h2>2. What the other edges change</h2>
+          <p>Moving one node changes every measured edge attached to it. A negative second-order contribution from one edge may be offset by positive contributions from others along the same perturbation direction. We therefore need to consider the second-order change of the whole network, not the sign of each edge in isolation.</p>
+          <p>This is also why I do not want to stop at numerically checking the smallest Hessian eigenvalue. A numerical result can tell us whether a particular example has negative curvature, but it does not explain which graph or geometric features are responsible.</p>
 
-          <h2>3. Research objective</h2>
-          <p>The spectrum of the full Hessian can answer a second-order question, but it does not by itself explain why the network structure produces that behavior. The current objective is to identify the graph and geometric assumptions that control local geometry near non-optimal stationary points and to make those dependencies explicit.</p>
-          <p>This public record states the direction only; it does not publish criteria, proofs, or computational examples that are still being developed.</p>
-
-          <h2>4. Public status</h2>
-          <p>This work is being developed by Feier Lyu, Prof. Shoham Sabach, and Owen Li. Internal technical details are not presented on the public page.</p>
-          <p>More complete technical material is available on request. Formal claims will follow the preprint or paper.</p>
+          <h2>3. What we are working on</h2>
+          <p>Our current aim is to understand the connection between graph structure and second-order behaviour at differentiable stationary points, and to identify conditions that help us assess negative curvature. I am not including criteria that are still being developed, or treating observations from individual experiments as general statements.</p>
+          <p>I am working on this with Prof. Shoham Sabach and Owen Li. Further technical details can be discussed on request; the eventual preprint or paper will contain the formal results.</p>
 
           <div class="research-links" aria-label="Related academic pages">
             <a href="../research.html" data-preserve-lang="1">Research Statement</a>
