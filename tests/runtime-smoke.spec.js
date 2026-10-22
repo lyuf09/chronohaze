@@ -3050,3 +3050,30 @@ test("SEO feeds exclude noindex notes and expose current dates", async ({ reques
   const lastBuildDate = feedText.match(/<lastBuildDate>([^<]+)<\/lastBuildDate>/)?.[1] || "";
   expect(Date.parse(lastBuildDate)).toBeGreaterThanOrEqual(Date.parse("2026-08-01T00:00:00Z"));
 });
+
+
+test("four earlier mathematics posts have complete Chinese and English views", async ({ page }) => {
+  const cases = [
+    ["metalcore-piano-lab", "Metalcore Piano Lab | From Audio to Chart", "音频怎么变成谱面", "How the audio becomes a chart"],
+    ["spring-2026", "Spring 2026 | A New Research Direction", "这学期我们计划研究", "Our plan this semester"],
+    ["isabelle-submodular-greedy", "Early Project Note: Formalising Submodular Greedy", "写进 Isabelle 后碰到的细节", "Details that needed more care in Isabelle"],
+    ["first-isabelle-proof", "My First Isabelle Formalization Project", "为什么用 Isabelle", "Why Isabelle?"],
+  ];
+  for (const [slug, englishTitle, chineseText, englishText] of cases) {
+    await page.goto(`post/${slug}.html?lang=en`, { waitUntil: "domcontentloaded" });
+    await waitForCriticalLoaderRelease(page);
+    await expect(page.locator('html')).toHaveAttribute("lang", "en");
+    await expect(page.locator('.article [data-lang-block="en"]')).toBeVisible();
+    await expect(page.locator('.article [data-lang-block="zh"]')).toBeHidden();
+    await expect(page.locator('.article [data-lang-block="en"] h1')).toContainText(englishTitle);
+    await expect(page.locator('.article [data-lang-block="en"]')).toContainText(englishText);
+    await expect(page.locator('.article [data-lang-block="en"] .math-post-nav')).toContainText("Previous note");
+    await expect(page).toHaveTitle(englishTitle + " | Chronohaze");
+    await page.goto(`post/${slug}.html?lang=zh`, { waitUntil: "domcontentloaded" });
+    await waitForCriticalLoaderRelease(page);
+    await expect(page.locator('html')).toHaveAttribute("lang", "zh-CN");
+    await expect(page.locator('.article [data-lang-block="zh"]')).toBeVisible();
+    await expect(page.locator('.article [data-lang-block="en"]')).toBeHidden();
+    await expect(page.locator('.article [data-lang-block="zh"]')).toContainText(chineseText);
+  }
+});
