@@ -227,80 +227,39 @@
   <p class="article-meta">Feier Lyu · Originally posted 2025年12月29日 · 约 4 分钟</p>
   <aside class="math-post-update" aria-label="项目更新：2026年7月">
     <p class="math-post-update-label">Updated 2026年7月 · 保留原始发布日期</p>
-    <p>2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库还进一步发展 StochasticGreedy theorem line，包括采样模型、近似证明与预言机调用复杂度界。以下正文保留为 2025年12月的阶段记录，状态更新不改变原始发布日期。</p>
+    <p>2026 年 5 月 26 日这个项目正式进入 AFP，发表范围包括 classical greedy 和 verified stateful lazy greedy。之后仓库还继续做了 StochasticGreedy 的采样、近似证明和 oracle-cost 分析。下面记录的还是 2025 年 12 月的进度，没有把发表后的结果写成当时就已经完成的工作。</p>
     <div class="research-link-row">
       <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
       <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a>
       <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">Repository</a>
     </div>
   </aside>
-  <p>在上一篇文章《我的第一个 Isabelle 形式化证明》中，我更多写的是我为什么选择 Isabelle，以及形式化证明对我而言意味着什么。这篇文章记录的是当时仍在推进的研究项目：单调子模函数下贪心算法的 (1−1/e) 近似保证的 Isabelle 形式化<strong>。</strong></p>
-      <p>这是一份写于正式发表之前的阶段性研究记录。</p>
-      <h3><strong>我在做什么</strong></h3>
-      <p>在组合优化中，单调子模函数的最大化问题有一个非常经典的结论：在基数约束下，简单的贪心算法可以达到 1 − 1/e 的近似比。</p>
-      <p>这个结果通常被称为 <strong>Nemhauser–Wolsey 定理</strong>，在机器学习、信息论、覆盖问题等领域被反复使用。</p>
-      <p>在纸笔证明中，这个结论往往以一种高度抽象和依赖直觉的方式出现，比如平均化论证、边际增益、递推不等式……但这些看似自然的步骤其实隐含了大量未被显式陈述的结构性假设。</p>
-      <p>这个项目的目标并不是重新发明这个定理，而是尝试回答一个更基础的问题：<strong>如果把这个证明完整地交给 Isabelle，它究竟需要我们说清楚哪些事情？</strong></p>
-      <h3><strong>项目结构：从定理到系统</strong></h3>
-      <p>我将目前的 Isabelle 形式化拆分为两个主要部分，对应两个核心文件：</p>
-      <ul>
-<li>
-<p><strong>Greedy_Submodular_Construct.thy</strong>这一部分负责<strong>算法与结构本身</strong>：</p>
-<ul>
-<li><p>贪心序列的形式化定义</p></li>
-<li><p>边际增益的抽象</p></li>
-<li><p>贪心过程中保持的不变量</p></li>
-</ul>
-<p>在这一层，避免了引入任何近似结论，只关注这个算法在 Isabelle 中到底是什么。</p>
-</li>
-<li>
-<p><strong>Greedy_Submodular_Approx.thy</strong>这一部分负责<strong>近似分析</strong>：</p>
-<ul>
-<li><p>平均化论证的形式化版本</p></li>
-<li><p>gap recurrence 的建立</p></li>
-<li><p>Nemhauser–Wolsey (1−1/e) 界的推导</p></li>
-</ul>
-</li>
-</ul>
-      <p>这样的拆分并不是为了代码整洁而是为了让证明结构在形式化中保持<strong>可复用性</strong>，因为构造与分析是两个不同层次的问题。</p>
-      <h3><strong>在 Isabelle 里，这件事为什么并不“显然”</strong></h3>
-      <p>在数学直觉中，很多推理可以一句话完成，而在 Isabelle 中，每一步都必须被拆解为可验证的逻辑关系。</p>
-      <p>在这个过程中，我逐渐意识到几件事：</p>
-      <ul>
-<li><p>一些“显然成立”的不等式，其实依赖于未被明确写出的单调性或子模性假设</p></li>
-<li><p>纸面证明中被模糊处理的“集合变化”，在形式化中必须精确刻画</p></li>
-<li><p>为了避免证明碎片化，<strong>模块化几乎是必需的，而不是可选项</strong></p></li>
-</ul>
-      <p>形式化并不是在“刁难”证明者，而是在迫使我们诚实地面对：<strong>哪些结论是由结构推出的，哪些只是我们习惯性地相信它成立。</strong></p>
-      <h3><strong>写作当时的状态</strong></h3>
-      <p>在 2025年12月，这还是一个<strong>进行中的研究项目</strong>。</p>
-      <p>目前已经完成的部分包括：</p>
-      <ul>
-<li><p>贪心算法的基本形式化框架</p></li>
-<li><p>边际增益与相关结构性引理</p></li>
-<li><p>近似分析所需的核心递推结构</p></li>
-</ul>
-      <p>仍在推进和调整的部分包括：</p>
-      <ul>
-<li><p>子模性假设的进一步模块化</p></li>
-<li><p>近似分析中若干技术性引理的重构</p></li>
-<li>
-<p>为后续实例化与扩展保留更干净的接口</p>
-<br>
-</li>
-</ul>
-      <h3><strong>当时计划的下一步</strong></h3>
-      <p>当时的后续计划包括：</p>
-      <ul>
-<li><p>将子模函数的假设进一步抽象为可复用的 locale</p></li>
-<li><p>尝试具体实例（如覆盖函数）的形式化实例化</p></li>
-<li><p>探索对其他贪心变体的形式化可能性</p></li>
-<li><p>评估代码抽取与可执行实验的可行性</p></li>
-</ul>
-      <p>这个项目更像是一条正在延展的研究路径，而不是一次性的证明任务。</p>
-      <h3><strong>项目链接</strong></h3>
-      <p>该项目的 GitHub 仓库在这里（持续更新中）：</p>
-      <p><a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">https://github.com/lyuf09/isabelle-submodular-greedy/tree/main</a></p>
+  <p>这篇写于 2025 年 12 月。当时我正在用 Isabelle/HOL 形式化基数约束下单调子模最大化的 greedy approximation theorem。上面的更新记录了后来的 AFP 发表情况，但是下面还是保留当时的进度。</p>
+
+  <h3><strong>我当时在证明什么</strong></h3>
+  <p>对于单调非负子模函数，在适当的基数约束下 classical greedy 可以得到 <code>1 - 1/e</code> 近似保证。这个结果一般被称为 Nemhauser–Wolsey 的经典贪心近似定理。</p>
+  <p>纸面证明里经常直接说“选边际增益最大的元素”，然后用子模性得到一个平均增益下界，最后解递推式。但是在 Isabelle 里每一步都要交代对象和条件：集合是不是有限的、贪心选择有没有候选元素、边际增益怎么定义，还有每一步到底用到了哪些单调性和子模性假设。</p>
+
+  <h3><strong>为什么把构造和分析分开</strong></h3>
+  <p>当时我主要把项目拆成两个 theory：</p>
+  <ul>
+    <li><strong><code>Greedy_Submodular_Construct.thy</code>：</strong>定义 greedy sequence、marginal gain 和构造过程里的 invariants。这里只处理算法本身，不先引入近似结论。</li>
+    <li><strong><code>Greedy_Submodular_Approx.thy</code>：</strong>处理平均增益下界、gap recurrence 和最后的 <code>1 - 1/e</code> 近似证明。</li>
+  </ul>
+  <p>我这样拆不是为了让文件看起来整齐，而是因为构造和近似分析需要的条件不完全一样。如果以后要加 lazy greedy 或其他变体，最好能直接复用后面的证明。</p>
+
+  <h3><strong>写进 Isabelle 后碰到的细节</strong></h3>
+  <p>在纸面上很多推理可以一句话完成，但是写进 Isabelle 的时候就得把每一步拆开。比如集合增加一个元素以后哪些性质还成立，或者那条看起来很直接的不等式具体用了哪个假设，都要核对。</p>
+  <p>这也是为什么我开始更在意 lemma 的组织方式。如果一个小条件被藏在很长的证明里，后面要复用时还得重新找出来。</p>
+
+  <h3><strong>2025 年 12 月的进度</strong></h3>
+  <p>当时已经有了基本的 greedy construction、边际增益的结构引理和近似证明需要的递推框架。</p>
+  <p>还在继续处理的包括子模性假设的模块化、几个技术引理的整理，以及以后做具体实例化需要的接口。</p>
+  <p>接下来计划尝试用 locale 抽象常用条件，加入 coverage function 这样的实例，并检查可执行实验和其他 greedy 变体能不能接进来。这些是当时的计划，后续成果以上面的发表更新和仓库记录为准。</p>
+
+  <h3><strong>项目链接</strong></h3>
+  <p><a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">github.com/lyuf09/isabelle-submodular-greedy</a></p>
+
   <nav class="math-post-nav" data-static-math-post-nav="1" aria-label="相邻笔记导航"><a class="math-post-nav-item" data-nav-dir="prev" href="../post/spring-2026.html" data-no-page-transition="1" aria-label="上一篇 · Spring 2026｜新科研记录的开始"><span class="math-post-nav-label">上一篇</span><span class="math-post-nav-title">Spring 2026｜新科研记录的开始</span></a><a class="math-post-nav-item" data-nav-dir="next" href="../post/first-isabelle-proof.html" data-no-page-transition="1" aria-label="下一篇 · 我的第一个 Isabelle 形式化证明"><span class="math-post-nav-label">下一篇</span><span class="math-post-nav-title">我的第一个 Isabelle 形式化证明</span></a></nav>
 <div class="academic-hub-links math-post-hub-links">
   <p class="academic-hub-links-label">继续浏览</p>

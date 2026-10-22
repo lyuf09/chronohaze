@@ -227,45 +227,24 @@
   <p class="article-meta">Feier Lyu · Originally posted 2025年10月18日 · 约 2 分钟</p>
   <aside class="math-post-update" aria-label="项目更新：2026年7月">
     <p class="math-post-update-label">Updated 2026年7月 · 保留原始发布日期</p>
-    <p>2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化 classical greedy algorithm 与 verified stateful lazy-greedy variant。发表后扩展：当前仓库还进一步发展 StochasticGreedy theorem line，包括采样模型、近似证明与预言机调用复杂度界。以下正文保留为 2025年10月的阶段记录，状态更新不改变原始发布日期。</p>
+    <p>后来的子模贪心项目在 2026 年 5 月 26 日正式进入 AFP，包含 classical greedy 和 verified stateful lazy greedy。发表后仓库还加入了 StochasticGreedy 的证明。这篇保留 2025 年 10 月刚开始学习 Isabelle 时的记录，没有把后来的进展写回当时。</p>
   </aside>
-  <p><strong>有些证明想被刻在更坚固的地方。</strong></p>
-      <p>纸上的推导可以泛黄，黑板上的公式终将被擦去，但形式化证明留下的，是可以被反复验证的真理。</p>
-      <h3><strong>我在做的主题</strong></h3>
-      <p>我目前研究的方向和 submodular function 以及 greedy algorithm 相关。具体来说，我正在尝试形式化 Nemhauser–Wolsey theorem 的证明，这是一条关于单调子模函数的贪心近似比保证的经典结果。</p>
-      <p>我要在 Isabelle 里完成：</p>
-      <ul>
-<li><p>把数学对象抽象成形式化定义（函数、集合、单调性、子模性…）</p></li>
-<li><p>搭建推理框架</p></li>
-<li><p>写出与数学证明完全等价的 machine-checkable version。</p></li>
-</ul>
-      <p>就像在对话一样，我要让 Isabelle 听懂我想说的话（但它不会宽容我任何一个跳步或模糊表达XD</p>
-      <h3>为什么我选择 Isabelle（而不是 Lean）</h3>
-      <p>数学本身就是严谨的，但人类的证明往往带着直觉和省略。而 Isabelle 逼着我去把直觉全部拆解成可验证的语句，这个过程虽然痛苦，但很真实（其实是我老师做 Isabelle ）</p>
-      <p>它让我看到了：</p>
-      <ul>
-<li><p>哪些我以为显然的步骤其实需要补充</p></li>
-<li><p>哪些论证的逻辑关系是我自己没意识到的</p></li>
-<li><p>证明结构如何在形式化中变得「可复用」</p></li>
-</ul>
-      <p>对我而言，这不仅仅是完成一个 formal proof，更像是学习“如何更诚实地写数学”。</p>
-      <h3>目前进展</h3>
-      <p>✔ 已完成：</p>
-      <ul>
-<li><p>定义 filter limit 与 sequential limit</p></li>
-<li><p>证明 filter limit 蕴含 sequential limit</p></li>
-<li><p>建立贪心算法的基本形式化骨架</p></li>
-</ul>
-      <p>进行中：</p>
-      <ul>
-<li><p>证明两种极限定义的等价性</p></li>
-<li><p>抽象出子模函数贪心近似的核心逻辑</p></li>
-</ul>
-      <p>未来计划：</p>
-      <ul>
-<li><p>完整复刻并扩展 Nemhauser–Wolsey 的形式化证明</p></li>
-<li><p>尝试将优化理论与形式化工具结合</p></li>
-</ul>
+  <p>我最开始接触 Isabelle 的时候想试试把自己已经学过的数学证明完整写成机器可以检查的版本。当时主要在做两个方向：一些关于极限定义的基本证明，还有单调子模函数的 greedy approximation theorem。</p>
+
+  <h3><strong>我当时在做什么</strong></h3>
+  <p>子模优化这边我准备形式化 Nemhauser–Wolsey 定理，也就是经典的基数约束贪心近似保证。需要先定义 ground set、marginal gain、monotonicity 和 submodularity，然后把每一步的贪心选择和最后的近似分析写清楚。</p>
+  <p>这个过程中最容易被略过的其实是基本条件。例如手写证明的时候我可能直接说“选边际增益最大的元素”，但是 Isabelle 会要求先处理有限性、候选集合和最大值是否存在。</p>
+
+  <h3><strong>为什么用 Isabelle</strong></h3>
+  <p>主要是当时接触的老师就在用 Isabelle，所以我也跟着学了。它和我平时手写证明最大的区别是不能靠一句“显然”跳过中间步骤。</p>
+  <p>一些我原本觉得很直接的结论，真正写的时候才发现还少了前提。有时候也会发现两个定义看起来等价，但是要把它们之间的关系证明出来还需要不少工作。</p>
+  <p>我还挺喜欢这个过程的。不是因为每个小 lemma 都很难，而是它会让我更清楚自己到底证明了什么。</p>
+
+  <h3><strong>2025 年 10 月的进度</strong></h3>
+  <p>当时已经完成了一些关于 filter limit 和 sequential limit 的定义，以及 filter limit 蕴含 sequential limit 的证明。子模贪心那边也搭好了基本的形式化结构。</p>
+  <p>接下来还想继续处理两种极限定义的等价性，补齐贪心近似证明需要的引理，再看看能不能把这些结果应用到其他优化问题里。</p>
+  <p>这是我最早的一篇 Isabelle 学习记录。后来的子模贪心项目已经正式进入 AFP，发表范围和后续扩展在上面的更新里都有说明。</p>
+
   <nav class="math-post-nav" data-static-math-post-nav="1" aria-label="相邻笔记导航"><a class="math-post-nav-item" data-nav-dir="prev" href="../post/isabelle-submodular-greedy.html" data-no-page-transition="1" aria-label="上一篇 · 早期项目记录：Submodular Greedy 的 Isabelle 形式化"><span class="math-post-nav-label">上一篇</span><span class="math-post-nav-title">早期项目记录：Submodular Greedy 的 Isabelle 形式化</span></a><span class="math-post-nav-item is-disabled" data-nav-dir="next" aria-disabled="true"><span class="math-post-nav-label">下一篇</span><span class="math-post-nav-title">暂无下一篇</span></span></nav>
 <div class="academic-hub-links math-post-hub-links">
   <p class="academic-hub-links-label">继续浏览</p>
