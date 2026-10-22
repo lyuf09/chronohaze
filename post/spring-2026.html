@@ -223,7 +223,8 @@
         </div>
       </div>
 <article class="article">
-  <h1>Spring 2026｜新科研记录的开始</h1>
+<div data-lang-block="zh">
+<h1>Spring 2026｜新科研记录的开始</h1>
   <p class="article-meta">Feier Lyu · 1月29日 · 约 2 分钟</p>
   <p>2026 年春季学期我开始在康奈尔大学 ORIE 系做本科科研，导师是 Shoham Sabach 教授。</p>
   <p>在这之前我已经做过一些 Isabelle 形式化相关的工作，也有过其他数学方向的研究训练。但是这次我想更系统地学一阶优化方法，然后尝试自己研究一个具体的问题。</p>
@@ -240,6 +241,28 @@
     <a href="../projects.html">Selected Work</a>
     <a href="../math.html">Technical Notes</a>
   </div>
+</div>
+</div>
+
+<div data-lang-block="en" hidden>
+<h1>Spring 2026 | A New Research Direction</h1>
+  <p class="article-meta">Feier Lyu · 29 January 2026 · ~2 min read</p>
+  <p>In spring 2026 I started undergraduate research in Cornell's School of Operations Research and Information Engineering (ORIE), supervised by Professor Shoham Sabach.</p>
+  <p>Before this, I had worked on some Isabelle formalisation projects and had research experience in other areas of maths. This time I wanted to study first-order optimisation methods more systematically and try investigating a specific problem myself.</p>
+  <p>Last semester I mainly read papers and learned the relevant theory with Professor Sabach. I also took his optimisation course. This semester I'm taking his Optimization for AI course as well, which I've been enjoying :)</p>
+  <p>Most of my undergraduate courses are in pure maths, so when I first started reading optimisation papers I needed some time to get used to how they define algorithms, state their assumptions and prove convergence. Professor Sabach also has a pure-maths background and later moved into optimisation research. That has made it easy for us to talk through the maths. He lets me read and try things on my own before we discuss which questions are worth pursuing.</p>
+  <p>Our plan this semester is to study <strong>first-order methods for constrained and composite optimisation</strong>. The important thing for now is to find a specific problem that's manageable but still has enough maths to work through properly. I don't want to rush into something too broad.</p>
+  <p>For me, this is also a chance to move from reading other people's proofs to trying a new research problem. I'll write down the calculations and ideas that seem worth keeping as I go.</p>
+
+<nav class="math-post-nav" data-static-math-post-nav="1" aria-label="Adjacent notes"><a class="math-post-nav-item" data-nav-dir="prev" href="../post/metalcore-piano-lab.html" data-no-page-transition="1" aria-label="Previous note · Metalcore Piano Lab | From Audio to Chart: A Discretization Experiment (WIP)"><span class="math-post-nav-label">Previous note</span><span class="math-post-nav-title">Metalcore Piano Lab | From Audio to Chart: A Discretization Experiment (WIP)</span></a><a class="math-post-nav-item" data-nav-dir="next" href="../post/isabelle-submodular-greedy.html" data-no-page-transition="1" aria-label="Next note · Early Project Note: Formalising Submodular Greedy"><span class="math-post-nav-label">Next note</span><span class="math-post-nav-title">Early Project Note: Formalising Submodular Greedy</span></a></nav>
+<div class="academic-hub-links math-post-hub-links">
+  <p class="academic-hub-links-label">Continue with</p>
+  <div class="research-link-row">
+    <a href="../research.html">Research Statement</a>
+    <a href="../projects.html">Selected Work</a>
+    <a href="../math.html">Technical Notes</a>
+  </div>
+</div>
 </div>
 </article>
 
@@ -271,5 +294,97 @@
   </div>
 </footer>
   </div>
+<script>
+  (function () {
+    const i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
+    const i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
+    const langBlocks = Array.from(document.querySelectorAll('[data-lang-block]'));
+    const queryLang = new URLSearchParams(window.location.search).get('lang');
+
+    const i18n = {
+      zh: {
+        htmlLang: 'zh-CN',
+        pageTitle: 'Spring 2026｜新科研记录的开始 | Chronohaze',
+        navAria: '主导航',
+        navHome: '主页',
+        navAcademic: '学术',
+        navPhoto: '摄影',
+        navMusic: '音乐',
+        navCV: 'CV',
+        academicSectionAria: '学术页面导航',
+        utilityResearch: 'Research Statement',
+        utilityProjects: 'Selected Work',
+        utilityNotes: 'Technical Notes',
+        footerContactLead: '学术联系邮箱：',
+        footerCities: 'Feier Lyu · 爱丁堡大学数学本科',
+        siteNotes: '网站说明',
+        a11y: '无障碍支持'
+      },
+      en: {
+        htmlLang: 'en',
+        pageTitle: 'Spring 2026 | A New Research Direction | Chronohaze',
+        navAria: 'Main navigation',
+        navHome: 'Home',
+        navAcademic: 'Academic',
+        navPhoto: 'Photography',
+        navMusic: 'Music',
+        navCV: 'CV',
+        academicSectionAria: 'Academic section navigation',
+        utilityResearch: 'Research Statement',
+        utilityProjects: 'Selected Work',
+        utilityNotes: 'Technical Notes',
+        footerContactLead: 'Academic contact: ',
+        footerCities: 'Feier Lyu · BSc Mathematics, University of Edinburgh',
+        siteNotes: 'Site Notes',
+        a11y: 'Accessibility'
+      }
+    };
+
+    function setLanguage(lang) {
+      const safeLang = lang === 'en' ? 'en' : 'zh';
+      const dict = i18n[safeLang];
+      document.documentElement.lang = dict.htmlLang;
+      document.title = dict.pageTitle;
+      const description = document.querySelector('meta[name="description"]');
+      if (description) {
+        const translated = description.getAttribute('data-content-' + safeLang);
+        if (translated) description.setAttribute('content', translated);
+      }
+
+      i18nNodes.forEach(function (node) {
+        const key = node.getAttribute('data-i18n');
+        const value = dict[key];
+        if (typeof value === 'string') node.textContent = value;
+      });
+
+      i18nAriaNodes.forEach(function (node) {
+        const key = node.getAttribute('data-i18n-aria');
+        const value = dict[key];
+        if (typeof value === 'string') node.setAttribute('aria-label', value);
+      });
+
+      langBlocks.forEach(function (block) {
+        block.hidden = block.getAttribute('data-lang-block') !== safeLang;
+      });
+
+      try {
+        window.localStorage.setItem('siteLang', safeLang);
+        window.localStorage.setItem('chronohaze-lang', safeLang);
+      } catch (err) {
+      }
+    }
+
+    let initialLang = 'zh';
+    try {
+      const siteLang = window.localStorage.getItem('siteLang');
+      const savedLang = window.localStorage.getItem('chronohaze-lang');
+      if (siteLang === 'zh' || siteLang === 'en') initialLang = siteLang;
+      else if (savedLang === 'zh' || savedLang === 'en') initialLang = savedLang;
+    } catch (err) {
+    }
+    if (queryLang === 'zh' || queryLang === 'en') initialLang = queryLang;
+    setLanguage(initialLang);
+  })();
+</script>
 </body>
 </html>
