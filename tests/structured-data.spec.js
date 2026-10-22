@@ -89,7 +89,7 @@ test("bilingual research posts expose one localized BlogPosting with real metada
     {
       url: "post/projected-gradient-descent-isabelle-hol.html?lang=en",
       headline: "Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL",
-      bodyIncludes: "Projected gradient descent is one of the basic algorithmic templates",
+      bodyIncludes: "projected-gradient mapping",
       bodyExcludes: "带约束光滑优化",
       published: "2026-05-22",
       modified: "2026-08-01",
@@ -98,7 +98,7 @@ test("bilingual research posts expose one localized BlogPosting with real metada
     {
       url: "notes/network_localization_structural_certificates.html?lang=en",
       headline: "Second-Order Geometry in Network Localization: A Research Overview",
-      bodyIncludes: "confirmed high-level conclusions",
+      bodyIncludes: "negative curvature",
       bodyExcludes: "网络定位中的二阶几何",
       published: "2026-07-22",
       modified: "2026-08-23",
@@ -144,8 +144,8 @@ test("bilingual research posts expose one localized BlogPosting with real metada
   collectNodesByType(payloads, "BlogPosting", posts);
   expect(posts).toHaveLength(1);
   expect(posts[0].headline).toBe("从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL");
-  expect(posts[0].articleBody).toContain("带约束光滑优化");
-  expect(posts[0].articleBody).not.toContain("Projected gradient descent is one of the basic algorithmic templates");
+  expect(posts[0].articleBody).toContain("光滑性");
+  expect(posts[0].articleBody).not.toContain("I chose projected gradient descent");
 });
 
 test("Academic and Research expose one page entity instead of duplicate AboutPage nodes", async ({ page }) => {
