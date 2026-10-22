@@ -864,11 +864,12 @@ test("PGD note leads with its mathematical value", async ({ page }) => {
   await expect(publicationUpdate).toContainText("Publication update — August 2026");
   await expect(publicationUpdate).toContainText("accepted and published in the Archive of Formal Proofs");
   await expect(chronology).toContainText("Submitted: July 2, 2026 · Published in AFP: July 2, 2026");
-  await expect(article).toContainText(
-    "Projected gradient descent is one of the basic algorithmic templates for constrained smooth optimization."
-  );
-  await expect(article).toContainText("projection inequality");
+  // Check the mathematical content rather than preserving particular editorial wording.
+  await expect(article).toContainText(/projected gradient descent|PGD/i);
+  await expect(article).toContainText("projection geometry");
+  await expect(article).toContainText("variational inequality");
   await expect(article).toContainText("projected-gradient mapping");
+  await expect(article).toContainText("telescoping");
   await expect(article).toContainText("linear convergence under strong convexity");
   await expect(article).not.toContainText("strange open interval after exams");
   await expect(article).not.toContainText("temporarily blocked by a technical issue");
@@ -892,8 +893,9 @@ test("network-localization research record is bilingual and contains no public P
   })).toBeVisible();
   const englishRecord = page.locator('[data-lang-block="en"]');
   await expect(englishRecord).toContainText("Prof. Shoham Sabach, and Owen Li");
-  await expect(englishRecord).toContainText("confirmed high-level conclusion");
-  await expect(englishRecord).toContainText("available on request");
+  await expect(englishRecord).toContainText("ongoing collaborative work");
+  await expect(englishRecord).toContainText(/criteria, proofs, and experiments.*not included/i);
+  await expect(englishRecord).toContainText("on request");
   await expect(englishRecord).not.toContainText("Cheap sufficient certificate first");
   await expect(englishRecord).not.toContainText("structured matrix test");
   await expect(englishRecord).not.toContainText("recover an escape direction");
