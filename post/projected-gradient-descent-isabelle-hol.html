@@ -245,37 +245,37 @@
             <p><strong>Submitted:</strong> 2026年7月2日 · <strong>Published in AFP:</strong> 2026年7月2日</p>
           </aside>
 
-<p>我选 projected gradient descent（PGD）来做形式化，主要是因为算法本身不复杂，但证明收敛时会同时用到光滑性、凸性和投影几何。我想把这些部分分开整理，而不只是写出最后的收敛定理。</p>
-          <p>这个项目后来以 <em>First-Order Methods for Smooth Convex Optimization in Isabelle/HOL</em> 为题发表于 AFP。正式条目不仅包含 PGD，还包括普通 gradient descent 的收敛分析、projected-gradient mapping 的残差和最优性结果，以及强凸条件下的线性收敛定理。这篇主要记录我是怎么组织这些证明的。</p>
+          <p>我选 projected gradient descent（PGD）来做形式化主要是因为这个算法本身不复杂，但是证明收敛时会同时用到光滑性、凸性和投影几何。我想把这些部分分开处理，不是只把最后的收敛定理写出来。</p>
+          <p>这个项目后来以 <em>First-Order Methods for Smooth Convex Optimization in Isabelle/HOL</em> 为题发表于 AFP。正式条目除了 PGD 还包含普通 gradient descent 的收敛分析、projected-gradient mapping 的残差和最优性结果，以及强凸条件下的线性收敛。这篇主要写一下我当时怎么组织这些证明。</p>
 
           <h2>为什么选 PGD</h2>
           <p>普通 gradient descent 的迭代是：</p>
           <p><code>x_{n+1} = x_n - alpha * G x_n</code></p>
-          <p>如果要求迭代点留在可行集合 <code>C</code> 内，就再加一步投影：</p>
+          <p>如果迭代点必须在可行集合 <code>C</code> 里就需要加上投影：</p>
           <p><code>x_{n+1} = P_C (x_n - alpha * G x_n)</code></p>
-          <p>其中 <code>G</code> 表示梯度，<code>P_C</code> 是到非空闭凸集 <code>C</code> 的 metric projection。写出迭代式很简单，真正麻烦的是后面每一步估计究竟需要哪些条件。</p>
-          <p>例如，要从投影步骤得到变分不等式，必须先处理好投影的定义与集合的性质。函数的 smoothness 也有不同的表述：证明下降时用 quadratic upper bound 很方便，但其他结果可能写成 Lipschitz gradient。我的做法是先把这些关系单独证明，再在具体算法中调用。</p>
+          <p>这里 <code>G</code> 表示梯度，<code>P_C</code> 是到非空闭凸集 <code>C</code> 的 metric projection。迭代式很好写，但是后面每条估计到底用了什么假设就没这么简单了。</p>
+          <p>比如要用 projection 的 variational inequality 就得先处理好投影本身的性质。Smoothness 也可以用 Lipschitz gradient 或 quadratic upper bound 来表述。做下降估计的时候后者比较方便，但是其他地方可能更适合用前者。所以我先把两者之间需要的关系证明好，再拿到具体算法里用。</p>
 
-          <h2>我怎么拆分这些证明</h2>
-          <p>仓库中的 Isabelle theories 大致按照证明依赖来安排，而不是按最终定理逐个堆起来。</p>
-          <p>最基础的是 gradient、convex differentiability 和 smoothness，包括凸可微函数的一阶不等式、光滑函数的二次上界，以及相关假设之间的联系。然后是与具体算法无关的下降、有限和、平均值和 telescoping 引理。这样到了收敛证明时，不用为每个算法重写一遍相同的求和步骤。</p>
-          <p>接下来先做无约束的 gradient descent：由单步下降估计得到光滑凸情形下的 <code>O(1/N)</code> 函数值界，并处理相关的 gradient residual 结果。</p>
-          <p>PGD 则多了一层 projection geometry。需要先建立 metric projection 的性质和相应的 variational inequality，之后才能证明迭代的可行性、单步估计和有限步收敛界。</p>
-          <p>再往后是 projected-gradient mapping。这里不能只说函数值在下降，还需要把 mapping 的残差和一阶最优性条件联系起来，得到相应的 optimality certificate 与 epsilon-stationarity 复杂度界。最后，在额外的 strong convexity 假设下，再证明距离与函数值的线性收敛结果。</p>
-          <p>我比较喜欢 residual 这一部分，因为它回答的是一个更具体的问题：除了函数值接近最优值，我们能不能从算法的某一步直接得到一个可检查的一阶最优性指标？当然，指标具体能说明什么，还要看定理里用到了哪些假设。</p>
+          <h2>我是怎么拆开证明的</h2>
+          <p>仓库里的 Isabelle theories 是按照证明依赖来分的，没有把所有东西直接堆进 PGD 的收敛证明。</p>
+          <p>最底层是 gradient、convex differentiability 和 smoothness 的基本结果，比如凸可微函数的一阶不等式、光滑函数的二次上界以及这些假设之间的关系。然后再把和具体算法无关的 descent、finite-sum、averaging 和 telescoping 引理单独整理出来。这样以后证明其他一阶算法时就不用重新写一遍相同的求和过程。</p>
+          <p>再往上先做没有约束的 gradient descent。由单步下降估计推出光滑凸情形下的 <code>O(1/N)</code> 函数值界，还包括相关的 gradient residual 结果。</p>
+          <p>PGD 这里还需要 projection geometry。先证明 metric projection 的性质和 variational inequality，之后才能处理每一步的可行性、下降估计和有限步收敛界。</p>
+          <p>然后是 projected-gradient mapping。仅仅证明函数值下降还不够，因为函数值的界和一阶最优性指标不是同一件事。我需要把 mapping 的残差与最优性条件联系起来，得到对应的 optimality certificate 和 epsilon-stationarity 复杂度界。最后再加上 strong convexity 的假设来证明距离和函数值的线性收敛。</p>
+          <p>我还挺喜欢 residual 这部分的。它回答的问题很直接：除了函数值有没有下降，我们能不能从某一步的迭代点算出一个可以检查的一阶最优性指标？当然具体能保证什么还是取决于定理里的假设。</p>
 
-          <h2>为什么要单独整理 Main_Results.thy</h2>
-          <p>我不想让后续使用这些结果的人，为了找一个 PGD 收敛定理就必须读完整个项目。所以这次把主要结论放进 <code>Main_Results.thy</code>，作为相对统一的导入入口。</p>
-          <p>这里集中提供 gradient descent 和 PGD 的收敛界、projected-gradient mapping 的最优性与残差结论，以及强凸情形的线性收敛定理。各个证明仍然放在对应的 theory 里，但使用时可以优先从 <code>Main_Results</code> 找到需要的结果。</p>
-          <p>这不只是改几个名称。如果以后我调整内部引理、拆分文件，尽量保持对外的 theorem aliases 稳定，就不必让依赖这些定理的其他项目跟着修改。</p>
+          <h2>为什么单独做 Main_Results.thy</h2>
+          <p>我不希望别人为了用一个 PGD 收敛定理就得先看完整个仓库。所以这次专门整理了 <code>Main_Results.thy</code> 作为统一的导入入口。</p>
+          <p>里面集中放了 gradient descent 和 PGD 的收敛界、projected-gradient mapping 的最优性和残差结论，还有强凸情形下的线性收敛定理。证明本身还是放在各自的 theory 里，但是使用时可以先从 <code>Main_Results</code> 找需要的定理。</p>
+          <p>这样以后即使我调整内部引理或者拆分文件，只要对外的 theorem aliases 没变，其他依赖这个项目的代码一般就不需要跟着改。</p>
 
-          <h2>和之前子模贪心项目的联系</h2>
-          <p>子模贪心项目里，我把具体的 greedy construction 与抽象的单步条件分开，让 lazy greedy 能复用 classical greedy 的近似证明。PGD 这里也有类似的考虑，只不过要拆开的变成 convexity、smoothness、projection、descent estimates 和 convergence rates。</p>
-          <p>我想弄清楚的是：哪些推导适用于一般下降序列，哪些必须用到投影，哪些结论又额外依赖强凸性。把条件写清楚，比把所有东西塞进一个大证明里更方便检查，也更方便以后复用。</p>
+          <h2>和子模贪心项目有什么联系</h2>
+          <p>做子模贪心项目的时候我把具体 greedy construction 和抽象的贪心步骤分开，这样 lazy greedy 就能直接复用 classical greedy 的近似证明。PGD 这边也是类似的思路，但是需要分开的变成了 convexity、smoothness、projection、descent estimates 和 convergence rates。</p>
+          <p>我主要想弄清楚哪些推导适用于一般的下降序列，哪些地方必须用到投影，哪些结论又需要额外的强凸性。把这些条件分开之后证明更容易核对，以后也更容易复用。</p>
 
           <h2>发表前做了什么</h2>
-          <p>这个 AFP 条目还包含 quadratic 和 projected quadratic 的例子。提交前的最后一段时间，我主要在统一定理名称、整理 <code>Main_Results.thy</code>、检查 theory 依赖和 build，并完成 AFP 需要的文档与参考文献，没有继续往里面加新算法。</p>
-          <p>这次做完以后，我在看一阶优化算法时，会更注意每条收敛结论具体用到了哪些条件，也会先想想哪些中间引理可以独立出来，而不是一上来就照着纸面证明逐行写进 Isabelle。</p>
+          <p>AFP 条目里还放了 quadratic 和 projected quadratic 的例子。提交前我主要在统一定理名称、整理 <code>Main_Results.thy</code>、检查 theory 之间的依赖和 build，并完成 AFP 的文档和参考文献。那个阶段就没有继续加新算法了。</p>
+          <p>做完这个项目以后我看一阶优化算法会更在意每条收敛结论到底用了哪些条件。如果之后还要形式化别的方法，我也会先看看有哪些中间引理可以单独抽出来，不会直接照着纸面证明从头写到尾。</p>
           <p>项目代码：<a href="https://github.com/lyuf09/projected-gradient-descent" target="_blank" rel="noopener noreferrer">github.com/lyuf09/projected-gradient-descent</a></p>
 
           <nav class="math-post-nav" data-static-math-post-nav="1" aria-label="相邻笔记导航"><a class="math-post-nav-item" data-nav-dir="prev" href="../post/submodular-greedy-formalization-enters-afp.html" data-no-page-transition="1" aria-label="上一篇 · 子模贪心算法形式化正式进入 AFP"><span class="math-post-nav-label">上一篇</span><span class="math-post-nav-title">子模贪心算法形式化正式进入 AFP</span></a><a class="math-post-nav-item" data-nav-dir="next" href="../post/theorem-to-framework-isabelle-submodular.html" data-no-page-transition="1" aria-label="下一篇 · Isabelle/HOL 中的 Classical Greedy、LazyGreedy 与 StochasticGreedy"><span class="math-post-nav-label">下一篇</span><span class="math-post-nav-title">Isabelle/HOL 中的 Classical Greedy、LazyGreedy 与 StochasticGreedy</span></a></nav>
@@ -304,37 +304,37 @@
             <p><strong>Submitted:</strong> July 2, 2026 · <strong>Published in AFP:</strong> July 2, 2026</p>
           </aside>
 
-<p>I chose projected gradient descent (PGD) for this formalisation because the algorithm is simple, but its convergence proof brings together smoothness, convexity, and projection geometry. I wanted to formalise those parts separately, rather than focus only on the final convergence theorem.</p>
-          <p>The project was later published in the AFP as <em>First-Order Methods for Smooth Convex Optimization in Isabelle/HOL</em>. The entry covers more than PGD: it includes convergence results for ordinary gradient descent, residual and optimality results for the projected-gradient mapping, and linear rates under strong convexity. This note is about how I organised the proofs.</p>
+          <p>I chose projected gradient descent (PGD) because the algorithm is simple, but its convergence proof needs smoothness, convexity, and projection geometry at the same time. I wanted to deal with these parts separately instead of only formalising the final convergence theorem.</p>
+          <p>The project was later published in the AFP as <em>First-Order Methods for Smooth Convex Optimization in Isabelle/HOL</em>. Besides PGD, the entry covers ordinary gradient descent, residual and optimality results for the projected-gradient mapping, and linear convergence under strong convexity. This note is about how I organised the proofs.</p>
 
           <h2>Why PGD</h2>
-          <p>The usual gradient descent iteration is:</p>
+          <p>Ordinary gradient descent uses the update:</p>
           <p><code>x_{n+1} = x_n - alpha * G x_n</code></p>
-          <p>With a constraint set <code>C</code>, we add a projection step:</p>
+          <p>If the iterates must stay in a feasible set <code>C</code>, we add a projection:</p>
           <p><code>x_{n+1} = P_C (x_n - alpha * G x_n)</code></p>
-          <p>Here <code>G</code> denotes the gradient and <code>P_C</code> is the metric projection onto a nonempty closed convex set <code>C</code>. The update rule is short. The harder part is keeping track of exactly which assumptions are needed for each estimate that follows.</p>
-          <p>For example, the variational inequality used in the convergence proof depends on the properties of the projection and the set. Smoothness can also be written in different ways: a quadratic upper bound is convenient for descent estimates, while other results use a Lipschitz-gradient assumption. I proved the relevant connections separately so they could be used when needed.</p>
+          <p>Here <code>G</code> denotes the gradient and <code>P_C</code> is the metric projection onto a nonempty closed convex set <code>C</code>. The update rule is easy to write down, but each estimate after it needs its own assumptions.</p>
+          <p>For example, the variational inequality for projection depends on the properties of the projection and the set. Smoothness can be stated using either a Lipschitz gradient or a quadratic upper bound. The latter is convenient for descent estimates, but the former can be useful elsewhere. So I proved the connections I needed first and then used them in the algorithm proofs.</p>
 
-          <h2>How I organised the proofs</h2>
-          <p>I arranged the Isabelle theories roughly in order of their mathematical dependencies, rather than putting everything into one proof of the final result.</p>
-          <p>The first part covers gradients, convex differentiability, and smoothness: first-order inequalities for convex differentiable functions, quadratic upper bounds, and connections between smoothness assumptions. I then separated out the descent, finite-sum, averaging, and telescoping lemmas that do not depend on a particular algorithm. There is no reason to redo the same summation argument for every first-order method.</p>
-          <p>Next comes unconstrained gradient descent. The one-step estimates lead to <code>O(1/N)</code> function-value bounds in the smooth convex case, along with results involving gradient residuals.</p>
-          <p>PGD needs an extra layer of projection geometry. I first established the relevant properties of metric projection and its variational inequality, then used them to prove feasibility preservation, one-step estimates, and finite-horizon convergence bounds.</p>
-          <p>The projected-gradient mapping is treated separately. A bound on objective values is not, by itself, the same thing as a first-order stationarity certificate. The mapping lets us formulate residual estimates, relate them to optimality conditions, and state epsilon-stationarity complexity results. Finally, adding strong convexity gives the linear convergence results for distance and function value.</p>
-          <p>I particularly liked working on the residual part. It answers a more specific question than whether the objective decreases: can an iterate give us a quantity that measures how close we are to first-order optimality? What that quantity tells us still depends on the assumptions of the theorem.</p>
+          <h2>How I split up the proofs</h2>
+          <p>I organised the Isabelle theories by their proof dependencies instead of putting everything into one PGD convergence proof.</p>
+          <p>The foundations cover gradients, convex differentiability, and smoothness: first-order inequalities for convex differentiable functions, quadratic upper bounds, and the relations between assumptions. I then separated out the descent, finite-sum, averaging, and telescoping lemmas that do not depend on one particular algorithm. This means I do not have to redo the same summation steps for another first-order method.</p>
+          <p>Next comes unconstrained gradient descent. The one-step descent estimates give <code>O(1/N)</code> function-value bounds in the smooth convex case, as well as results involving gradient residuals.</p>
+          <p>PGD needs an additional part on projection geometry. I first established properties of metric projection and its variational inequality, then used them for feasibility, descent estimates, and finite-horizon convergence bounds.</p>
+          <p>The projected-gradient mapping comes next. Showing that the objective decreases is not enough because a function-value bound and a first-order optimality measure are not the same thing. I related the mapping residual to optimality conditions and proved the corresponding certificates and epsilon-stationarity complexity bounds. With the additional strong convexity assumption, the development also covers linear convergence of distance and function value.</p>
+          <p>I liked the residual part in particular. The question is quite concrete: apart from checking whether the objective decreases, can we calculate something at an iterate that measures first-order stationarity? Exactly what that measure guarantees still depends on the assumptions.</p>
 
           <h2>Why I added Main_Results.thy</h2>
-          <p>I did not want someone using one PGD convergence theorem to have to understand the whole repository first. So I collected the main results in <code>Main_Results.thy</code> as a common import point.</p>
-          <p>It provides theorem aliases for gradient descent and PGD convergence bounds, projected-gradient mapping and residual results, and linear convergence under strong convexity. The proofs stay in their respective theory files, while the main results are easier to locate and import.</p>
-          <p>This is more than a naming change. If I reorganise intermediate lemmas or split theory files later, keeping the public aliases stable should reduce the changes needed in projects that depend on them.</p>
+          <p>I did not want someone to have to read the entire repository just to use one PGD convergence theorem. That is why I added <code>Main_Results.thy</code> as a common import point.</p>
+          <p>It collects theorem aliases for gradient descent and PGD convergence bounds, projected-gradient mapping and residual results, and linear convergence under strong convexity. The proofs still live in their own theory files, but the main results are easier to find and import.</p>
+          <p>If I reorganise the internal lemmas or split files later, keeping these public aliases stable should mean that other projects generally do not have to change with them.</p>
 
-          <h2>How it connects to the submodular greedy project</h2>
-          <p>In the submodular greedy project, I separated the concrete greedy construction from the abstract step condition, so that lazy greedy could reuse the classical approximation argument. I followed a similar idea here, but the pieces are different: convexity, smoothness, projection, descent estimates, and convergence rates.</p>
-          <p>The question I wanted to settle was which steps apply to a general descent sequence, which require projection, and which need strong convexity. Stating those dependencies explicitly makes the development easier to check and the intermediate results easier to reuse.</p>
+          <h2>How it connects to submodular greedy</h2>
+          <p>In the submodular greedy project I separated the concrete greedy construction from the abstract step condition, so lazy greedy could reuse the classical approximation proof. I followed a similar approach here, but the parts are now convexity, smoothness, projection, descent estimates, and convergence rates.</p>
+          <p>I wanted to know which arguments apply to general descent sequences, which really need projection, and which require strong convexity. Once those assumptions are separated, the proofs are easier to check and reuse.</p>
 
           <h2>Before publication</h2>
-          <p>The AFP entry also includes quadratic and projected-quadratic examples. In the final stage before submission, I focused on theorem names, <code>Main_Results.thy</code>, theory dependencies, builds, and the AFP document and references. I did not add more algorithms at that point.</p>
-          <p>After working on this project, I pay more attention to the assumptions behind each convergence claim. When I formalise another first-order method, I would rather identify the lemmas that can stand on their own than copy a handwritten proof line by line into Isabelle.</p>
+          <p>The AFP entry also includes quadratic and projected-quadratic examples. Before submission I focused on theorem names, <code>Main_Results.thy</code>, theory dependencies, builds, and the AFP document and references. I stopped adding new algorithms at that stage.</p>
+          <p>After this project I pay more attention to exactly which assumptions a convergence result uses. If I formalise another method, I would first look for intermediate lemmas I can separate out rather than follow a handwritten proof line by line.</p>
           <p>Repository: <a href="https://github.com/lyuf09/projected-gradient-descent" target="_blank" rel="noopener noreferrer">github.com/lyuf09/projected-gradient-descent</a></p>
 
           <nav class="math-post-nav" data-static-math-post-nav="1" aria-label="Adjacent notes"><a class="math-post-nav-item" data-nav-dir="prev" href="../post/submodular-greedy-formalization-enters-afp.html" data-no-page-transition="1" aria-label="Previous note · Formalizing Submodular Greedy Is Now in the AFP"><span class="math-post-nav-label">Previous note</span><span class="math-post-nav-title">Formalizing Submodular Greedy Is Now in the AFP</span></a><a class="math-post-nav-item" data-nav-dir="next" href="../post/theorem-to-framework-isabelle-submodular.html" data-no-page-transition="1" aria-label="Next note · Classical Greedy, LazyGreedy, and StochasticGreedy in Isabelle/HOL"><span class="math-post-nav-label">Next note</span><span class="math-post-nav-title">Classical Greedy, LazyGreedy, and StochasticGreedy in Isabelle/HOL</span></a></nav>
