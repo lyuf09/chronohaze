@@ -2496,22 +2496,28 @@ test("technical notes use explicit status labels and a local Julia fractal", asy
 
   const fractal = page.locator(".math-fractal-highlight");
   await expect(fractal).toBeVisible();
-  await expect(fractal.locator("img")).toHaveAttribute("src", "assets/template/julia.png");
+  await expect(fractal.locator("img")).toHaveAttribute("src", "assets/template/julia-banner.webp");
   await expect(fractal.locator("img")).toHaveAttribute("alt", "Julia fractal image");
-  await expect(fractal.locator("figcaption")).toHaveAttribute("data-copy-zh", "侧边视觉 · 我最喜欢的 Julia 分形");
-  await expect(fractal.locator("figcaption")).toHaveAttribute("data-copy-en", "Side visual · My favorite Julia fractal");
+  await expect(fractal.locator("figcaption")).toHaveAttribute("data-copy-zh", "我最喜欢的 Julia 分形");
+  await expect(fractal.locator("figcaption")).toHaveAttribute("data-copy-en", "My favorite Julia fractal");
   await expect(fractal.locator("a")).toHaveCount(0);
   const fractalLayout = await fractal.evaluate((figure) => {
-    const image = figure.querySelector("img").getBoundingClientRect();
+    const node = figure.querySelector("img");
+    const image = node.getBoundingClientRect();
     const caption = figure.querySelector("figcaption").getBoundingClientRect();
     return {
-      horizontalGap: caption.left - image.right,
-      captionWidth: caption.width,
+      width: image.width,
+      ratio: image.width / image.height,
+      verticalGap: caption.top - image.bottom,
+      border: getComputedStyle(node).borderTopWidth,
+      shadow: getComputedStyle(node).boxShadow,
     };
   });
-  expect(fractalLayout.horizontalGap).toBeGreaterThanOrEqual(12);
-  expect(fractalLayout.horizontalGap).toBeLessThanOrEqual(24);
-  expect(fractalLayout.captionWidth).toBeLessThanOrEqual(280);
+  expect(fractalLayout.width).toBeGreaterThanOrEqual(640);
+  expect(fractalLayout.ratio).toBeCloseTo(3, 1);
+  expect(fractalLayout.verticalGap).toBeGreaterThanOrEqual(12);
+  expect(fractalLayout.border).toBe("0px");
+  expect(fractalLayout.shadow).toBe("none");
   await expect(page.locator("#pinned-notes .math-note-status")).toHaveCount(3);
   await expect(page.locator("#exploratory-archive")).toHaveCount(0);
   await expect(page.locator("#notes-archive .math-note-status")).toHaveCount(9);

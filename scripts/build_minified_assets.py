@@ -8,6 +8,7 @@ from pathlib import Path
 VERSION = "20260906-latin-a11y1"
 PHOTO_STYLE_VERSION = "20260906-latin-a11y1"
 ACADEMIC_STYLE_VERSION = "20260906-latin-a11y1"
+MATH_STYLE_VERSION = "20261022-julia-banner1"
 BLUE_STYLE_VERSION = "20260906-latin-a11y1"
 HOME_VERSION = "20260906-latin-a11y1"
 PROTECT_VERSION = "20261022-audit-fixes1"
@@ -273,6 +274,8 @@ def rewrite_asset_refs(text: str, page_rel: Path) -> str:
     } or (bool(page_rel.parts) and page_rel.parts[0] in {"notes", "post"})
     if is_music_index:
         style_version = MUSIC_STYLE_VERSION
+    elif page_path == "math.html":
+        style_version = MATH_STYLE_VERSION
     elif is_blue_page:
         style_version = BLUE_STYLE_VERSION
     elif is_photo_detail:

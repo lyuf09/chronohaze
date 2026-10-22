@@ -3982,26 +3982,22 @@ body.photo-lightbox-open {
   width: min(100%, 980px);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 92px minmax(0, 280px);
-  align-items: center;
-  justify-content: start;
-  column-gap: 16px;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  gap: 12px;
 }
 
 .math-index-page .math-fractal-highlight img {
-  width: 92px;
-  flex: 0 0 92px;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
+  width: min(100%, 720px);
+  height: auto;
+  aspect-ratio: 3 / 1;
+  object-fit: contain;
   display: block;
-  border: 1px solid rgba(66, 72, 86, 0.3);
-  box-shadow: 0 14px 26px rgba(18, 24, 33, 0.14);
 }
 
 .math-index-page .math-fractal-highlight figcaption {
   margin: 0;
-  max-width: 280px;
-  justify-self: start;
+  text-align: center;
   color: rgba(58, 63, 73, 0.86);
   font-family: var(--font-serif-zh);
   font-size: 13px;
@@ -4010,7 +4006,7 @@ body.photo-lightbox-open {
 }
 
 .math-index-page .math-fractal-banner {
-  padding: 0 20px 18px;
+  padding: 0 20px 28px;
 }
 
 .math-index-page .section {
