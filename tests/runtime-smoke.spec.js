@@ -2480,10 +2480,10 @@ test("AFP publication status stays synchronized across work page and project his
   });
   await waitForCriticalLoaderRelease(page);
   await expect(page.getByRole("heading", { name: "Early Project Note: Formalising Submodular Greedy" })).toBeVisible();
-  await expect(page.locator(".article-meta")).toContainText("Feier Lyu");
-  await expect(page.locator(".article-meta")).not.toContainText("HazezZ");
-  await expect(page.locator(".math-post-update")).toContainText("Published in AFP on May 26, 2026");
-  await expect(page.locator(".math-post-update")).toContainText("Post-publication extension");
+  await expect(page.locator('[data-lang-block="en"] .article-meta')).toContainText("Feier Lyu");
+  await expect(page.locator('[data-lang-block="en"] .article-meta')).not.toContainText("HazezZ");
+  await expect(page.locator('[data-lang-block="en"] .math-post-update')).toContainText("Published in AFP on May 26, 2026");
+  await expect(page.locator('[data-lang-block="en"] .math-post-update')).toContainText("Post-publication extension");
 
   expect(errors).toEqual([]);
 });
@@ -3049,4 +3049,31 @@ test("SEO feeds exclude noindex notes and expose current dates", async ({ reques
   const feedText = await (await request.get("feed.xml")).text();
   const lastBuildDate = feedText.match(/<lastBuildDate>([^<]+)<\/lastBuildDate>/)?.[1] || "";
   expect(Date.parse(lastBuildDate)).toBeGreaterThanOrEqual(Date.parse("2026-08-01T00:00:00Z"));
+});
+
+
+test("four earlier mathematics posts have complete Chinese and English views", async ({ page }) => {
+  const cases = [
+    ["metalcore-piano-lab", "Metalcore Piano Lab | From Audio to Chart", "音频怎么变成谱面", "How the audio becomes a chart"],
+    ["spring-2026", "Spring 2026 | A New Research Direction", "这学期我们计划研究", "Our plan this semester"],
+    ["isabelle-submodular-greedy", "Early Project Note: Formalising Submodular Greedy", "写进 Isabelle 后碰到的细节", "Details that needed more care in Isabelle"],
+    ["first-isabelle-proof", "My First Isabelle Formalization Project", "为什么用 Isabelle", "Why Isabelle?"],
+  ];
+  for (const [slug, englishTitle, chineseText, englishText] of cases) {
+    await page.goto(`post/${slug}.html?lang=en`, { waitUntil: "domcontentloaded" });
+    await waitForCriticalLoaderRelease(page);
+    await expect(page.locator('html')).toHaveAttribute("lang", "en");
+    await expect(page.locator('.article [data-lang-block="en"]')).toBeVisible();
+    await expect(page.locator('.article [data-lang-block="zh"]')).toBeHidden();
+    await expect(page.locator('.article [data-lang-block="en"] h1')).toContainText(englishTitle);
+    await expect(page.locator('.article [data-lang-block="en"]')).toContainText(englishText);
+    await expect(page.locator('.article [data-lang-block="en"] .math-post-nav')).toContainText("Previous note");
+    expect(await page.title()).toContain(englishTitle);
+    await page.goto(`post/${slug}.html?lang=zh`, { waitUntil: "domcontentloaded" });
+    await waitForCriticalLoaderRelease(page);
+    await expect(page.locator('html')).toHaveAttribute("lang", "zh-CN");
+    await expect(page.locator('.article [data-lang-block="zh"]')).toBeVisible();
+    await expect(page.locator('.article [data-lang-block="en"]')).toBeHidden();
+    await expect(page.locator('.article [data-lang-block="zh"]')).toContainText(chineseText);
+  }
 });

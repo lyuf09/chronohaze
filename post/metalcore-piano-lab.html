@@ -223,7 +223,8 @@
         </div>
       </div>
 <article class="article">
-  <h1>Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP）</h1>
+<div data-lang-block="zh">
+<h1>Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP）</h1>
   <p class="article-meta">HazezZ · 2月7日 · 约 3 分钟</p>
   <p>我一直很想试试能不能把一段 metalcore / prog-metal 音频直接变成可以玩的音游谱面。音频里的节奏是连续时间上的信号，但是谱面最后得是一串确定时间和轨道的 notes。所以我想看看从音频分析到谱面生成到底需要哪些步骤。</p>
   <p><strong>Metalcore Piano Lab</strong> 是我做的一个浏览器端原型。它可以读入本地音频或 MIDI，然后尝试生成钢琴式的多轨谱面。目前还在开发，尤其是复杂节奏的识别和谱面的可玩性都还需要调整。</p>
@@ -271,6 +272,58 @@
     <a href="../math.html">Technical Notes</a>
   </div>
 </div>
+</div>
+
+<div data-lang-block="en" hidden>
+<h1>Metalcore Piano Lab | From Audio to Chart: A Discretization Experiment (WIP)</h1>
+  <p class="article-meta">HazezZ · 7 February 2026 · ~3 min read</p>
+  <p>I have wanted to see whether I could turn a metalcore or prog-metal track directly into a playable rhythm-game chart. The music is recorded as a continuous audio signal, but the chart needs notes at specific times and in specific lanes. I wanted to work out what needs to happen between those two things.</p>
+  <p><strong>Metalcore Piano Lab</strong> is a browser-based prototype I've been making. It takes local audio or MIDI files and tries to generate multi-lane, piano-style charts. It's still in development. Recognising complicated rhythms and making the charts comfortable to play both need more work.</p>
+
+  <h2>What it can do so far</h2>
+  <p>You can upload an MP3, WAV, M4A or MIDI file, click Analyze, and play the generated chart on your keyboard. It has 4-, 6- and 8-key layouts and several difficulty levels.</p>
+  <p>I mainly want to check whether the whole process from audio to chart actually works, and where it starts getting the rhythm wrong.</p>
+
+  <h2>How the audio becomes a chart</h2>
+  <p>At the moment, there are roughly five steps:</p>
+  <ul>
+    <li><strong>Onset detection:</strong> Find drum hits, picked notes and other noticeable attacks. These give me possible positions for notes in the chart.</li>
+    <li><strong>Tempo estimation and beat tracking:</strong> Build a beat grid from the detected events, then align the notes to it. Otherwise the timing can drift even when the detected onsets are reasonably accurate.</li>
+    <li><strong>Time-signature estimation:</strong> Group the events into beats and bars that make sense. Prog-metal often uses irregular groupings, so I can't assume the same accent pattern all the way through.</li>
+    <li><strong>Section detection and template alignment:</strong> I care quite a lot about whether repeated riffs produce similar charts. Playing the same section twice with completely different key patterns would feel strange, so the program needs to recognise repeated passages and align them.</li>
+    <li><strong>Playability checks:</strong> A chart can be generated correctly in terms of timing but still be awkward to play. I also have to consider note density, hand positions, repeated key presses and large jumps.</li>
+  </ul>
+
+  <h2>Why use metalcore for testing?</h2>
+  <p>Metalcore and prog-metal often have heavy syncopation, dense drums and unusual time signatures. These are exactly the things that make beat tracking and section alignment difficult. I think testing with this music tells me more about the program's limitations than only trying tracks with very regular rhythms.</p>
+
+  <h2>What still needs work</h2>
+  <p>This is a lightweight implementation that runs in the browser, without full stem separation. When a mix is dense or several instruments play at once, the onset detector can confuse their attacks.</p>
+  <p>Complicated polymeters, sudden tempo changes and strong syncopation can also affect the beat and time-signature estimates. Some notes end up off the intended beat, and repeated riffs sometimes produce inconsistent patterns.</p>
+
+  <h2>What I want to change next</h2>
+  <ul>
+    <li>Improve tempo and beat tracking when the tempo changes or the rhythm is heavily syncopated.</li>
+    <li>Improve section detection and template alignment so repeated passages produce more consistent charts.</li>
+    <li>Adjust difficulty scaling using note density, hand movement and the distance between keys.</li>
+    <li>Reduce unnecessary repeated presses, large jumps and awkward changes in hand position.</li>
+    <li>Calibrate timing offset and latency more carefully so the hit timing is right even when the analysis is accurate.</li>
+  </ul>
+  <p>Right now I care more about whether the chart is actually fun to play than how many events the program manages to detect.</p>
+
+  <h2>Project link</h2>
+  <p><a class="read-more" href="https://github.com/lyuf09/metalcore-piano-lab" target="_blank" rel="noopener noreferrer">github.com/lyuf09/metalcore-piano-lab</a></p>
+
+<nav class="math-post-nav" data-static-math-post-nav="1" aria-label="Adjacent notes"><a class="math-post-nav-item" data-nav-dir="prev" href="../post/theorem-to-framework-isabelle-submodular.html" data-no-page-transition="1" aria-label="Previous note · Classical Greedy, LazyGreedy, and StochasticGreedy in Isabelle/HOL"><span class="math-post-nav-label">Previous note</span><span class="math-post-nav-title">Classical Greedy, LazyGreedy, and StochasticGreedy in Isabelle/HOL</span></a><a class="math-post-nav-item" data-nav-dir="next" href="../post/spring-2026.html" data-no-page-transition="1" aria-label="Next note · Spring 2026 | A New Research Direction"><span class="math-post-nav-label">Next note</span><span class="math-post-nav-title">Spring 2026 | A New Research Direction</span></a></nav>
+<div class="academic-hub-links math-post-hub-links">
+  <p class="academic-hub-links-label">Continue with</p>
+  <div class="research-link-row">
+    <a href="../research.html">Research Statement</a>
+    <a href="../projects.html">Selected Work</a>
+    <a href="../math.html">Technical Notes</a>
+  </div>
+</div>
+</div>
 </article>
 
     </main>
@@ -301,5 +354,97 @@
   </div>
 </footer>
   </div>
+<script>
+  (function () {
+    const i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
+    const i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
+    const langBlocks = Array.from(document.querySelectorAll('[data-lang-block]'));
+    const queryLang = new URLSearchParams(window.location.search).get('lang');
+
+    const i18n = {
+      zh: {
+        htmlLang: 'zh-CN',
+        pageTitle: 'Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP） | Chronohaze',
+        navAria: '主导航',
+        navHome: '主页',
+        navAcademic: '学术',
+        navPhoto: '摄影',
+        navMusic: '音乐',
+        navCV: 'CV',
+        academicSectionAria: '学术页面导航',
+        utilityResearch: 'Research Statement',
+        utilityProjects: 'Selected Work',
+        utilityNotes: 'Technical Notes',
+        footerContactLead: '学术联系邮箱：',
+        footerCities: 'Feier Lyu · 爱丁堡大学数学本科',
+        siteNotes: '网站说明',
+        a11y: '无障碍支持'
+      },
+      en: {
+        htmlLang: 'en',
+        pageTitle: 'Metalcore Piano Lab | From Audio to Chart: A Discretization Experiment (WIP) | Chronohaze',
+        navAria: 'Main navigation',
+        navHome: 'Home',
+        navAcademic: 'Academic',
+        navPhoto: 'Photography',
+        navMusic: 'Music',
+        navCV: 'CV',
+        academicSectionAria: 'Academic section navigation',
+        utilityResearch: 'Research Statement',
+        utilityProjects: 'Selected Work',
+        utilityNotes: 'Technical Notes',
+        footerContactLead: 'Academic contact: ',
+        footerCities: 'Feier Lyu · BSc Mathematics, University of Edinburgh',
+        siteNotes: 'Site Notes',
+        a11y: 'Accessibility'
+      }
+    };
+
+    function setLanguage(lang) {
+      const safeLang = lang === 'en' ? 'en' : 'zh';
+      const dict = i18n[safeLang];
+      document.documentElement.lang = dict.htmlLang;
+      document.title = dict.pageTitle;
+      const description = document.querySelector('meta[name="description"]');
+      if (description) {
+        const translated = description.getAttribute('data-content-' + safeLang);
+        if (translated) description.setAttribute('content', translated);
+      }
+
+      i18nNodes.forEach(function (node) {
+        const key = node.getAttribute('data-i18n');
+        const value = dict[key];
+        if (typeof value === 'string') node.textContent = value;
+      });
+
+      i18nAriaNodes.forEach(function (node) {
+        const key = node.getAttribute('data-i18n-aria');
+        const value = dict[key];
+        if (typeof value === 'string') node.setAttribute('aria-label', value);
+      });
+
+      langBlocks.forEach(function (block) {
+        block.hidden = block.getAttribute('data-lang-block') !== safeLang;
+      });
+
+      try {
+        window.localStorage.setItem('siteLang', safeLang);
+        window.localStorage.setItem('chronohaze-lang', safeLang);
+      } catch (err) {
+      }
+    }
+
+    let initialLang = 'zh';
+    try {
+      const siteLang = window.localStorage.getItem('siteLang');
+      const savedLang = window.localStorage.getItem('chronohaze-lang');
+      if (siteLang === 'zh' || siteLang === 'en') initialLang = siteLang;
+      else if (savedLang === 'zh' || savedLang === 'en') initialLang = savedLang;
+    } catch (err) {
+    }
+    if (queryLang === 'zh' || queryLang === 'en') initialLang = queryLang;
+    setLanguage(initialLang);
+  })();
+</script>
 </body>
 </html>

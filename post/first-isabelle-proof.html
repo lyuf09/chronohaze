@@ -223,7 +223,8 @@
         </div>
       </div>
 <article class="article">
-  <h1>我的第一个 Isabelle 形式化证明</h1>
+<div data-lang-block="zh">
+<h1>我的第一个 Isabelle 形式化证明</h1>
   <p class="article-meta">Feier Lyu · Originally posted 2025年10月18日 · 约 2 分钟</p>
   <aside class="math-post-update" aria-label="项目更新：2026年7月">
     <p class="math-post-update-label">Updated 2026年7月 · 保留原始发布日期</p>
@@ -253,6 +254,41 @@
     <a href="../projects.html">Selected Work</a>
     <a href="../math.html">Technical Notes</a>
   </div>
+</div>
+</div>
+
+<div data-lang-block="en" hidden>
+<h1>My First Isabelle Formalization Project</h1>
+  <p class="article-meta">Feier Lyu · Originally posted 18 October 2025 · ~2 min read</p>
+  <aside class="math-post-update" aria-label="Project update, July 2026">
+    <p class="math-post-update-label">Updated July 2026 · original posting date retained</p>
+    <p>The submodular greedy project was later published in AFP on May 26, 2026. The entry covers classical greedy and a verified stateful lazy-greedy variant. Work on StochasticGreedy was added to the repository after publication. This note describes when I was just starting with Isabelle in October 2025, without treating the later results as work I had already finished.</p>
+  </aside>
+  <p>When I first started using Isabelle, I wanted to see whether I could take proofs I had already learned and write them in a form that a computer could check. At the time I was working on two things: some basic proofs about limits, and the greedy approximation theorem for monotone submodular functions.</p>
+
+  <h3><strong>What I was doing at the time</strong></h3>
+  <p>For submodular optimisation I wanted to formalise the Nemhauser–Wolsey theorem, which gives the classical greedy approximation guarantee under a cardinality constraint. I needed to define the ground set, marginal gains, monotonicity and submodularity, then make the greedy choices and the approximation proof precise.</p>
+  <p>The details most easily skipped were often the basic assumptions. In a handwritten proof I might simply say “choose an element with maximum marginal gain”. But Isabelle makes me check finiteness, the candidate set and whether a maximum actually exists.</p>
+
+  <h3><strong>Why Isabelle?</strong></h3>
+  <p>Mostly because the teachers I was working with at the time used Isabelle, so I started learning it too. The biggest difference from my handwritten proofs is that I can't just say something is “obvious” and skip the steps in between.</p>
+  <p>Sometimes a result that looked straightforward turned out to need an extra assumption. Sometimes two definitions seemed equivalent, but proving the relation between them took more work than I expected.</p>
+  <p>I actually quite like this part. Not because every small lemma is difficult, but because it makes me check exactly what I've proved.</p>
+
+  <h3><strong>Progress in October 2025</strong></h3>
+  <p>By then I had written some definitions for filter limits and sequential limits, and proved that a filter limit implies a sequential limit. I had also set up the basics for the submodular greedy formalisation.</p>
+  <p>Next I wanted to work on the equivalence of the two limit definitions, complete the lemmas needed for the greedy approximation proof, and see whether any of this could be useful for other optimisation problems.</p>
+  <p>This was one of my earliest notes about learning Isabelle. The submodular greedy project was later published in AFP, and the update above explains what the published entry covers and what was added afterwards.</p>
+
+<nav class="math-post-nav" data-static-math-post-nav="1" aria-label="Adjacent notes"><a class="math-post-nav-item" data-nav-dir="prev" href="../post/isabelle-submodular-greedy.html" data-no-page-transition="1" aria-label="Previous note · Early Project Note: Formalising Submodular Greedy"><span class="math-post-nav-label">Previous note</span><span class="math-post-nav-title">Early Project Note: Formalising Submodular Greedy</span></a><span class="math-post-nav-item is-disabled" data-nav-dir="next" aria-disabled="true"><span class="math-post-nav-label">Next note</span><span class="math-post-nav-title">No next note</span></span></nav>
+<div class="academic-hub-links math-post-hub-links">
+  <p class="academic-hub-links-label">Continue with</p>
+  <div class="research-link-row">
+    <a href="../research.html">Research Statement</a>
+    <a href="../projects.html">Selected Work</a>
+    <a href="../math.html">Technical Notes</a>
+  </div>
+</div>
 </div>
 </article>
 
@@ -284,5 +320,97 @@
   </div>
 </footer>
   </div>
+<script>
+  (function () {
+    const i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
+    const i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
+    const langBlocks = Array.from(document.querySelectorAll('[data-lang-block]'));
+    const queryLang = new URLSearchParams(window.location.search).get('lang');
+
+    const i18n = {
+      zh: {
+        htmlLang: 'zh-CN',
+        pageTitle: '我的第一个 Isabelle 形式化证明 | Chronohaze',
+        navAria: '主导航',
+        navHome: '主页',
+        navAcademic: '学术',
+        navPhoto: '摄影',
+        navMusic: '音乐',
+        navCV: 'CV',
+        academicSectionAria: '学术页面导航',
+        utilityResearch: 'Research Statement',
+        utilityProjects: 'Selected Work',
+        utilityNotes: 'Technical Notes',
+        footerContactLead: '学术联系邮箱：',
+        footerCities: 'Feier Lyu · 爱丁堡大学数学本科',
+        siteNotes: '网站说明',
+        a11y: '无障碍支持'
+      },
+      en: {
+        htmlLang: 'en',
+        pageTitle: 'My First Isabelle Formalization Project | Chronohaze',
+        navAria: 'Main navigation',
+        navHome: 'Home',
+        navAcademic: 'Academic',
+        navPhoto: 'Photography',
+        navMusic: 'Music',
+        navCV: 'CV',
+        academicSectionAria: 'Academic section navigation',
+        utilityResearch: 'Research Statement',
+        utilityProjects: 'Selected Work',
+        utilityNotes: 'Technical Notes',
+        footerContactLead: 'Academic contact: ',
+        footerCities: 'Feier Lyu · BSc Mathematics, University of Edinburgh',
+        siteNotes: 'Site Notes',
+        a11y: 'Accessibility'
+      }
+    };
+
+    function setLanguage(lang) {
+      const safeLang = lang === 'en' ? 'en' : 'zh';
+      const dict = i18n[safeLang];
+      document.documentElement.lang = dict.htmlLang;
+      document.title = dict.pageTitle;
+      const description = document.querySelector('meta[name="description"]');
+      if (description) {
+        const translated = description.getAttribute('data-content-' + safeLang);
+        if (translated) description.setAttribute('content', translated);
+      }
+
+      i18nNodes.forEach(function (node) {
+        const key = node.getAttribute('data-i18n');
+        const value = dict[key];
+        if (typeof value === 'string') node.textContent = value;
+      });
+
+      i18nAriaNodes.forEach(function (node) {
+        const key = node.getAttribute('data-i18n-aria');
+        const value = dict[key];
+        if (typeof value === 'string') node.setAttribute('aria-label', value);
+      });
+
+      langBlocks.forEach(function (block) {
+        block.hidden = block.getAttribute('data-lang-block') !== safeLang;
+      });
+
+      try {
+        window.localStorage.setItem('siteLang', safeLang);
+        window.localStorage.setItem('chronohaze-lang', safeLang);
+      } catch (err) {
+      }
+    }
+
+    let initialLang = 'zh';
+    try {
+      const siteLang = window.localStorage.getItem('siteLang');
+      const savedLang = window.localStorage.getItem('chronohaze-lang');
+      if (siteLang === 'zh' || siteLang === 'en') initialLang = siteLang;
+      else if (savedLang === 'zh' || savedLang === 'en') initialLang = savedLang;
+    } catch (err) {
+    }
+    if (queryLang === 'zh' || queryLang === 'en') initialLang = queryLang;
+    setLanguage(initialLang);
+  })();
+</script>
 </body>
 </html>

@@ -11804,6 +11804,15 @@
       return;
     }
 
+    // New article pages own both language blocks. Do not replace them with old inline translations.
+    var nativeZh = article.querySelector(':scope > [data-lang-block="zh"]');
+    var nativeEn = article.querySelector(':scope > [data-lang-block="en"]');
+    if (nativeZh && nativeEn) {
+      nativeZh.hidden = safeLang !== "zh";
+      nativeEn.hidden = safeLang !== "en";
+      return;
+    }
+
     if (!article.dataset.zhHtml) {
       article.dataset.zhHtml = article.innerHTML;
     }
@@ -11869,6 +11878,15 @@
 
     var article = document.querySelector(".article");
     if (!article) {
+      return;
+    }
+
+    // New article pages own both language blocks. Do not replace them with old inline translations.
+    var nativeZh = article.querySelector(':scope > [data-lang-block="zh"]');
+    var nativeEn = article.querySelector(':scope > [data-lang-block="en"]');
+    if (nativeZh && nativeEn) {
+      nativeZh.hidden = safeLang !== "zh";
+      nativeEn.hidden = safeLang !== "en";
       return;
     }
 
@@ -11961,6 +11979,15 @@
       return;
     }
 
+    // New article pages own both language blocks. Do not replace them with old inline translations.
+    var nativeZh = article.querySelector(':scope > [data-lang-block="zh"]');
+    var nativeEn = article.querySelector(':scope > [data-lang-block="en"]');
+    if (nativeZh && nativeEn) {
+      nativeZh.hidden = safeLang !== "zh";
+      nativeEn.hidden = safeLang !== "en";
+      return;
+    }
+
     if (!article.dataset.zhHtml) {
       article.dataset.zhHtml = article.innerHTML;
     }
@@ -11995,6 +12022,15 @@
 
     var article = document.querySelector(".article");
     if (!article) {
+      return;
+    }
+
+    // New article pages own both language blocks. Do not replace them with old inline translations.
+    var nativeZh = article.querySelector(':scope > [data-lang-block="zh"]');
+    var nativeEn = article.querySelector(':scope > [data-lang-block="en"]');
+    if (nativeZh && nativeEn) {
+      nativeZh.hidden = safeLang !== "zh";
+      nativeEn.hidden = safeLang !== "en";
       return;
     }
 
