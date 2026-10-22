@@ -3052,7 +3052,7 @@ test("SEO feeds exclude noindex notes and expose current dates", async ({ reques
 });
 
 
-test.only("four earlier mathematics posts have complete Chinese and English views", async ({ page }) => {
+test("four earlier mathematics posts have complete Chinese and English views", async ({ page }) => {
   const cases = [
     ["metalcore-piano-lab", "Metalcore Piano Lab | From Audio to Chart", "音频怎么变成谱面", "How the audio becomes a chart"],
     ["spring-2026", "Spring 2026 | A New Research Direction", "这学期我们计划研究", "Our plan this semester"],
@@ -3062,24 +3062,8 @@ test.only("four earlier mathematics posts have complete Chinese and English view
   // Intercept navigation to avoid reusing an older cached document.
   await page.route("**/post/*.html?*", route => route.continue());
   for (const [slug, englishTitle, chineseText, englishText] of cases) {
-    const rawResponse = await page.request.get(`post/${slug}.html?lang=en`);
-    const rawHTML = await rawResponse.text();
-    console.log("NOTE_RAW_DIAGNOSTIC", JSON.stringify({
-      slug, status: rawResponse.status(), length: rawHTML.length,
-      hasEnglishBlock: rawHTML.includes('data-lang-block="en"'),
-      hasNewCopy: rawHTML.includes("How the audio becomes a chart"),
-      title: rawHTML.match(/<title>([^<]+)/)?.[1],
-    }));
     await page.goto(`post/${slug}.html?lang=en`, { waitUntil: "domcontentloaded" });
     await waitForCriticalLoaderRelease(page);
-    const view = await page.evaluate(() => ({
-      url: location.href,
-      title: document.title,
-      articles: document.querySelectorAll(".article").length,
-      blocks: [...document.querySelectorAll("[data-lang-block]")].map(x => x.getAttribute("data-lang-block")),
-      bodyStart: document.body.innerText.slice(0, 240),
-    }));
-    console.log("NOTE_LOCALE_DIAGNOSTIC", JSON.stringify(view));
     await expect(page.locator('html')).toHaveAttribute("lang", "en");
     await expect(page.locator('.article [data-lang-block="en"]')).toBeVisible();
     await expect(page.locator('.article [data-lang-block="zh"]')).toBeHidden();
