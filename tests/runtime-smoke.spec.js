@@ -67,7 +67,7 @@ test("home page renders hero and player shell", async ({ page }) => {
   await expect(page.locator(".identity-panel-creative")).toContainText("创作身份 · HAZEZZ");
   await expect(page.locator("#now")).toContainText("StochasticGreedy / Isabelle/HOL");
   await expect(page.locator("#now")).toContainText("新乐队 / 贝斯");
-  await expect(page.locator("#now")).toContainText("音乐制作");
+  await expect(page.locator("#now")).toContainText("Kaleidoscope / EP");
   await expect(page.locator("#selected-evidence")).not.toContainText("Current research");
   await expect(page.locator("#welcome")).not.toContainText("Music & Image");
   await expect(page.locator("#now")).not.toContainText("Network localization & nonconvex optimization");
@@ -623,7 +623,7 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
     "最近加入了两个新乐队：remonko cake（柠檬籽蛋糕）和 the biscuit tin collective，都是担任贝斯手：）不如说，我最近不是很喜欢弹吉他和唱歌。"
   );
   await expect(page.locator('[data-i18n="nowCard3Body"]')).toHaveText(
-    "刚完成一首团体委托原创曲，也在继续写自己的歌和一些合作项目。"
+    "最近正在写一张音乐小说 EP，叫《Kaleidoscope》。"
   );
   await expect(page.locator('[data-i18n="nowTitle"]')).toHaveText("近况 / 2026年10月");
 
@@ -650,7 +650,7 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
     "I’ve recently joined two new bands, remonko cake and the biscuit tin collective, both on bass :) I haven’t been that into playing guitar or singing lately."
   );
   await expect(page.locator('[data-i18n="nowCard3Body"]')).toHaveText(
-    "I’ve just completed an original commissioned song for a group, and I’m continuing to write my own music alongside several collaborative projects."
+    "I’m currently writing Kaleidoscope, an EP combining music and fiction."
   );
   await expect(page.locator(".hero-authority-line")).toHaveText(
     "University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027"
