@@ -257,7 +257,7 @@ test("structured-data cleanup preserves spaces inside English strings", async ({
     .textContent();
   expect(raw).toContain("Research Statement");
   expect(raw).toContain("Research statement by Feier Lyu");
-  expect(raw).toContain("Machine-checked optimization and reusable proof structure");
+  expect(raw).toContain("Formal verification of optimization algorithms");
   expect(raw).not.toContain("Researchstatementby");
 });
 

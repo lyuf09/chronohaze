@@ -114,15 +114,15 @@
 <link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
   <title data-title-zh="从一套框架到真正会运行的随机算法：StochasticGreedy 的 executable refinement | Chronohaze" data-title-en="From a Framework to a Randomized Algorithm That Actually Runs: Executable Refinement of StochasticGreedy | Chronohaze">从一套框架到真正会运行的随机算法：StochasticGreedy 的 executable refinement | Chronohaze</title>
-  <meta name="description" content="把随机比特、可执行采样器、概率语义、期望近似保证与资源计数接进同一条 machine-checked chain。" data-content-zh="把随机比特、可执行采样器、概率语义、期望近似保证与资源计数接进同一条 machine-checked chain。" data-content-en="Connecting random bits, executable sampling, probability semantics, expected approximation guarantees, and resource accounting in one machine-checked chain." />
+  <meta name="description" content="未发表扩展的进展摘要；最新实现尚未公开。期望近似保证采用理想随机位语义，PCG 结果限定于优化前后的执行一致性。" data-content-zh="未发表扩展的进展摘要；最新实现尚未公开。期望近似保证采用理想随机位语义，PCG 结果限定于优化前后的执行一致性。" data-content-en="Progress summary of an unpublished extension; the latest implementation is not yet public. Expected approximation uses ideal random-bit semantics; PCG results concern execution preservation under optimization." />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Chronohaze" />
   <meta property="og:title" content="从一套框架到真正会运行的随机算法：StochasticGreedy 的 executable refinement" />
-  <meta property="og:description" content="把随机比特、可执行采样器、概率语义、期望近似保证与资源计数接进同一条 machine-checked chain。" />
+  <meta property="og:description" content="未发表扩展的进展摘要；最新实现尚未公开。期望近似保证采用理想随机位语义，PCG 结果限定于优化前后的执行一致性。" />
   <meta property="og:url" content="https://lyuf09.github.io/chronohaze/post/stochasticgreedy-executable-refinement.html" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="从一套框架到真正会运行的随机算法：StochasticGreedy 的 executable refinement" />
-  <meta name="twitter:description" content="把随机比特、可执行采样器、概率语义、期望近似保证与资源计数接进同一条 machine-checked chain。" />
+  <meta name="twitter:description" content="未发表扩展的进展摘要；最新实现尚未公开。期望近似保证采用理想随机位语义，PCG 结果限定于优化前后的执行一致性。" />
   <meta property="article:published_time" content="2026-10-03" />
   <meta property="article:modified_time" content="2026-10-03" />
   <meta property="article:author" content="Feier Lyu" />
@@ -258,144 +258,22 @@
       <article class="article stochastic-refinement-note">
         <div data-lang-block="zh">
           <h1>从一套框架到真正会运行的随机算法：StochasticGreedy 的 executable refinement</h1>
-          <p class="article-meta">Feier Lyu · 2026年10月3日 · 约 7 分钟</p>
-          <p class="article-tags">Isabelle/HOL · Submodular Maximization · StochasticGreedy · Randomized Algorithms · Formal Verification</p>
-          <p class="article-deck">我想证明实际运行的随机程序和近似分析里的概率模型对应的是同一个算法。</p>
-
-          <p>之前做 StochasticGreedy 的时候还有一个问题没有解决。</p>
-          <p>当时我已经有 uniform with-replacement sampling model、one-step expected-gain bound、gap recurrence、approximation guarantee 和 oracle-cost theorem。但是这些证明分析的是抽象概率模型，还没有接到真正可执行的随机程序上。</p>
-          <p>我已经证明在给定 sampling model 下每一步可以得到怎样的 expected progress，也有 deterministic trace 可以模拟采样结果。但是当时还没有证明下面这件事：</p>
-          <blockquote><p><strong>由随机比特驱动的程序产生的输出分布确实对应前面的概率模型，而且近似保证适用于这个程序。</strong></p></blockquote>
-          <p>所以最近主要就在补这个证明。</p>
-          <p>这次要把 executable sampling、概率语义和之前的近似证明接起来，不是简单地把代码和定理放在同一个仓库里。</p>
-
-          <h2>之前的近似证明</h2>
-          <p>StochasticGreedy 的算法很直接。</p>
-          <p>Classical greedy 每一轮扫描所有剩余元素，计算 marginal gain，然后选择最大的一个。StochasticGreedy 则只随机抽一个较小的 candidate pool，再在这个 sample 里面选 marginal gain 最大的元素。</p>
-          <p>如果 sample size 选得合适就能减少 full scan 需要的查询次数，而且还可以得到期望意义下的近似保证。</p>
-          <p>之前仓库里已经有对应的数学分析。</p>
-          <p>在抽象的 set-level 模型里我定义了 uniform with-replacement sampling space，证明 sample pool 命中 optimal residual elements 的概率，再利用 weighted sampling 和 expected one-step gain 的引理得到</p>
-          <div class="theorem-line"><code>expected gain ≥ (sampling factor / k) · current gap</code></div>
-          <p>形式的 progress inequality。</p>
-          <p>之后用 gap recurrence 迭代 <code>k</code> 步就能得到 exponential bound，再选择相应的 sample size 得到 <code>1 - 1/e - eps</code> 形式的 approximation guarantee。</p>
-          <p>到这里抽象概率模型的近似证明已经完成了。</p>
-          <p>但是<strong>这里的 expectation 还属于抽象的 sampling model，不是可执行随机程序的实际输出分布。</strong></p>
-          <p>从算法描述上看两者很接近，但是形式化时不能只凭这个直觉就把两个分布当成相同的对象。</p>
-          <p>所以接下来需要证明它们的概率语义确实相同。</p>
-
-          <h2>先证明可执行采样器的分布</h2>
-          <p>先从 sampling 开始。</p>
-          <p>我使用 Isabelle 的 executable randomized algorithms infrastructure 写了真正由 random bits 驱动的 uniform sampler，并把多个独立 draw 组合成 uniform-with-replacement sample pool。</p>
-          <p>Sampler 本身并不难写，但是还要证明它的 executable semantics 与之前的数学模型一致。</p>
-          <p>也就是说，不只是：</p>
-          <blockquote><p>这个程序看起来像是在均匀抽样。</p></blockquote>
-          <p>具体需要证明它的 <code>spmf</code> / <code>pmf</code> 等于之前定义的 uniform-with-replacement distribution。</p>
-          <p>完成这个证明后 random bits 生成的 sample pool 就有了与抽象模型一致的概率解释。</p>
-          <p>之前的 <code>uniform_wr_space</code> 只用于分析，现在还对应实际采样器的 denotational semantics。</p>
-
-          <h2>把 abstract argmax 换成可执行的 list algorithm</h2>
-          <p>接下来需要处理 <code>argmax</code>。</p>
-          <p>数学证明里我可以直接写：</p>
-          <blockquote><p>choose an element attaining the maximum marginal gain</p></blockquote>
-          <p>只要有限性和非空性成立，存在性证明就足够了。</p>
-          <p>但是这种 specification 可能依赖 Hilbert choice，没法直接生成寻找最大值元素的代码。证明最大值元素存在和真的算出它是两件事。</p>
-          <p>所以我另外实现了一个 total list-based argmax。</p>
-          <p>它顺序扫描 candidate list，维护当前最优元素，并证明：</p>
-          <ul>
-            <li>返回值一定来自输入 list；</li>
-            <li>返回值的 score 不小于任何其他 candidate；</li>
-            <li>它对应 abstract argmax 所要求的最大 marginal gain；</li>
-            <li>实现可以直接进行 SML code generation。</li>
-          </ul>
-          <p>然后这个 list argmax 再和 executable sampler 组合成真正的一步 stochastic greedy update。</p>
-          <p>这样 sample pool 由程序实际抽出，最大 marginal gain 元素也由 list algorithm 算出来，不再依赖抽象 choice。</p>
-
-          <h2>从单步更新到 randomized runner</h2>
-          <p>之后我定义了 recursive randomized runner。</p>
-          <p>单轮可执行算法会从当前 solution 中计算 remaining elements，以 uniform-with-replacement 的方式抽取 candidate pool，然后执行经过验证的 list-based selection procedure。</p>
-          <p>完整的 randomized runner 则使用 Isabelle executable randomized-algorithm framework 提供的 probabilistic bind structure，递归组合这些步骤。</p>
-          <p>到这里已经可以给程序 seed 并实际运行了。相同 seed 对应相同的 random bits，不同 seed 可能产生不同轨迹，而且可以 export 到 SML。</p>
-          <p>但是能运行还不代表概率分布就已经证明正确。</p>
-          <p>还需要证明整个 runner 的 probability distribution 符合抽象模型。</p>
-
-          <h2>证明程序分布与抽象分布相同</h2>
-          <p>这一部分才是我这次主要想完成的证明。</p>
-          <p>核心的 semantic result 直接识别 executable randomized step 所诱导的 distribution 与 approximation analysis 中使用的 abstract uniform-with-replacement model。与此同时，可执行开发也建立了 randomized runner 应有的 well-formedness properties，包括 almost-sure termination 与 support 中所有输出的 feasibility。</p>
-          <p>有了这个 distributional correspondence，之前的 expected-gain analysis 才可以应用到实际程序。</p>
-          <p>接着我证明，executable step 的 expected objective increment 与此前 abstract sampling analysis 中出现的 expected gain 完全一致。因此原有的 one-step theorem 不需要重新证明，可以直接 transfer 到程序：</p>
-          <div class="theorem-line"><code>expected gain ≥ (sampling factor / k) · (f(OPT) - f(S))</code></div>
-          <p>这个结果也说明之前把不同证明分开的做法确实有用。</p>
-          <p>因为 sampling、weighted one-step analysis 和 recurrence 本来就是分开的，现在新程序只需要证明自己满足相同的 semantic interface，后面的 approximation proof 就可以直接复用。</p>
-
-          <h2>整个程序的期望近似保证</h2>
-          <p>证明单步 expectation 之后还要处理整个 recursive runner 的期望。</p>
-          <p>这里我定义了 full run 的 expected objective value，并证明 recursive expectation identity：执行一轮 randomized step 后，再继续执行剩余轮数，其 expectation 可以按照对应 PMF 的 bind structure 分解。</p>
-          <p>有了这个 identity 就可以在 executable distribution 上做 recurrence induction。</p>
-          <p>最后得到 run-level theorem。</p>
-          <p>对于合适的 epsilon-driven sample size，执行 <code>k</code> 轮的 randomized algorithm：</p>
-          <ol>
-            <li>almost surely terminates；</li>
-            <li>所有可能输出都满足 feasibility 和 cardinality constraint；</li>
-            <li>并且同一个程序的输出 PMF 满足</li>
-          </ol>
-          <div class="theorem-line"><code>(1 - 1/e - eps) · f(OPT) ≤ E[f(output)]</code></div>
-          <p>这里关键的不是近似比例本身。</p>
-          <p><code>1 - 1/e - eps</code> 当然是我们一开始就知道想要得到的结果。</p>
-          <p>重要的是右边的 expectation 不再属于另外定义的 abstract recurrence，也不依赖假设存在某个符合条件的 stochastic process。</p>
-          <p>它对应的是<strong>实际 executable randomized runner 的输出 distribution。</strong></p>
-          <p>因此这个近似定理现在可以直接用于程序的输出。</p>
-
-          <h2>具体的 weighted-coverage 实例</h2>
-          <p>有了 generic runner 以后，我还做了一个 concrete weighted-coverage instance。</p>
-          <p>这里还需要处理一个实现上的问题。</p>
-          <p>数学 theorem 最自然地在 real-valued objective 上陈述，但真正 code generation 时，如果为了比较 marginal gains 把大量 real arithmetic 搬进程序，并不是我想要的实现。</p>
-          <p>所以 concrete executable layer 使用 exact natural-number weights 和整数式的 coverage score，但是 specification layer 还使用 real-valued submodular objective。</p>
-          <p>然后证明两种 score comparison 对 argmax 产生完全相同的选择。</p>
-          <p>这样程序实际运行的是 exact discrete computation，但是 approximation theorem 还可以在之前的 real-valued framework 里表述。</p>
-          <p>最后这个具体 weighted-coverage runner 同样继承：</p>
-          <ul>
-            <li>almost-sure termination；</li>
-            <li>feasible outputs；</li>
-            <li><code>1 - 1/e - eps</code> expected approximation guarantee；</li>
-            <li>SML code generation。</li>
-          </ul>
-          <p>这样 executable refinement 就不只适用于一个抽象函数，还可以实例化到具体的 weighted-coverage objective。</p>
-
-          <h2>对实际程序的 oracle cost 计数</h2>
-          <p>在之前的 theorem line 中，我已经有 trace-level oracle accounting。</p>
-          <p>这次把 counter 直接加进了 randomized runner。</p>
-          <p>我还开发了一个记录 score evaluations 的 instrumented executable runner。对应的 refinement theorem 证明，擦除 instrumentation 后会精确恢复原来的 randomized semantics。</p>
-          <p>在当前 baseline implementation 下，一轮对 sample pool 做 sequential argmax comparison，整个 <code>n</code>-round runner 的 score evaluation 有一个显式 upper bound；再按照 marginal gain 需要的 objective evaluations，可以继续得到对应的 oracle budget。</p>
-          <p>所以对于 weighted-coverage instance 现在可以在相同的定理条件下同时证明：</p>
-          <ul>
-            <li>程序 almost surely terminates；</li>
-            <li>输出始终 feasible；</li>
-            <li>它满足 expected approximation guarantee；</li>
-            <li>实际 evaluation count 满足形式化的 budget bound。</li>
-          </ul>
-          <p>相比单独写一个 asymptotic complexity bound，这里证明的是 instrumented execution 自己产生的 evaluation count。</p>
-
-          <h2>接下来还想优化什么</h2>
-          <p>counting development 也揭示了若干 implementation-level 的机会，可以进一步减少冗余的 oracle work。我目前正在细化 executable selection routine，同时证明这些优化保持完全相同的 randomized semantics，因此也能继承既有的 approximation guarantees。</p>
-          <p>我还在用实际执行和 benchmark 比较形式化的 cost model 和运行时间。两者不是同一个指标，还需要分开看。</p>
-
-          <h2>这次最想记录的结果</h2>
-          <p>之前这个项目已经从 classical greedy 扩展到了 LazyGreedy 和 StochasticGreedy。</p>
-          <p>但是这次还需要解决程序与概率模型之间的对应关系。</p>
-          <p>仅仅在同一个仓库里放 theorem 和 executable code 还不能说明程序满足那些定理。</p>
-          <p>我这次想证明的是下面这条关系：</p>
-          <div class="refinement-chain"><strong>mathematical specification
-→ executable implementation
-→ probability semantics
-→ expected progress
-→ global approximation theorem
-→ concrete executable instance
-→ resource accounting</strong></div>
-          <p>每一步之间都需要对应的 theorem。</p>
-          <p>这也是为什么需要 executable refinement，不能只生成代码。</p>
-          <p><code>export_code</code> 本身并不难，写一个随机程序也不难，证明一个 abstract expectation inequality 我之前也已经做完了。</p>
-          <p>难的是证明最后导出的程序和 theorem 分析的随机算法具有相同的概率语义。</p>
-          <p><strong>发表范围：</strong>2026 年 AFP 正式发表的是 classical greedy 和 verified stateful lazy-greedy。这篇记录的 StochasticGreedy executable randomized semantics、run-level approximation 和 resource accounting 都是发表之后继续做的扩展。</p>
+          <p class="article-meta">Feier Lyu · 2026年10月3日 · 约 2 分钟</p>
+          <p class="article-tags">Isabelle/HOL · StochasticGreedy · 未发表扩展</p>
+          <p class="article-deck">StochasticGreedy 可执行精化的简短进展摘要：已完成概率语义连接、期望近似保证与资源计数。</p>
+          <blockquote class="research-public-status"><p>本页介绍的是已发表 AFP 条目之后继续开展的扩展工作。最新实现尚未公开；下方 GitHub 链接指向较早的公开版本。</p></blockquote>
+          <h2>已完成的进展</h2>
+          <p>2026 年 AFP 正式发表的条目覆盖经典贪心算法与经验证的有状态惰性贪心变体。这里介绍的 StochasticGreedy 是发表后继续开展的未发表扩展。</p>
+          <p>扩展已将可执行采样器与抽象概率模型连接起来，并将单步期望增益分析用于完整运行的期望近似保证；同时建立了终止性、输出可行性与资源计数结果。具体的 weighted-coverage 实例支持精确离散计算与 SML 代码生成。</p>
+          <h2>随机语义的适用范围</h2>
+          <p>期望近似保证采用理想随机位语义。PCG 部分证明的是实现优化前后保持同一随机流和执行行为，并不证明 PCG 输出等同于独立公平随机位。</p>
+          <h2>当前工作与公开材料</h2>
+          <p>当前重点是实现改进、实验评估与论文范围整理。详细证明、最新源码与完整实验材料目前按需定向交流；正式发布时将整理有明确版本与复现入口的发布包。</p>
+          <div class="research-link-row">
+            <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">已发表 AFP 条目</a>
+            <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf" target="_blank" rel="noopener noreferrer">AFP 证明文档</a>
+            <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">GitHub · 较早公开版本</a>
+          </div>
 
           <div class="academic-hub-links math-post-hub-links">
             <p class="academic-hub-links-label">继续浏览</p>
@@ -409,138 +287,22 @@
 
         <div data-lang-block="en" hidden>
           <h1>From a Framework to a Randomized Algorithm That Actually Runs: Executable Refinement of StochasticGreedy</h1>
-          <p class="article-meta">Feier Lyu · October 3, 2026 · ~7 min read</p>
-          <p class="article-tags">Isabelle/HOL · Submodular Maximization · StochasticGreedy · Randomized Algorithms · Formal Verification</p>
-          <p class="article-deck">Putting the algorithm, its probability semantics, its approximation proof, and executable code into one machine-checked chain.</p>
-
-          <p>There was one problem I had not settled in the earlier StochasticGreedy development.</p>
-          <p>The theorem-level development of StochasticGreedy was already fairly complete: a uniform-with-replacement sampling model, a one-step expected-gain bound, a gap recurrence, the final approximation guarantee, and an oracle-cost theorem were all in place. But the probability analysis was still separate from an actually executable stochastic algorithm.</p>
-          <p>In other words, I had proved that if each step followed the sampling model, then it made the required expected progress. I also had deterministic traces that could simulate sampled outcomes. But I had not yet proved this:</p>
-          <blockquote><p><strong>The probability distribution produced by a real program driven by random bits is exactly the model used in the earlier analysis, and the final approximation guarantee belongs to that very same program.</strong></p></blockquote>
-          <p>So the next step was to prove that connection.</p>
-          <p>I wanted to connect the executable sampling semantics to the existing approximation proof, not just keep theorems and code in the same repository.</p>
-
-          <h2>What the earlier proof established</h2>
-          <p>The idea behind StochasticGreedy is simple.</p>
-          <p>Classical greedy scans every remaining element in each round, computes every marginal gain, and chooses the largest. StochasticGreedy samples a much smaller candidate pool and chooses the element with maximum marginal gain only within that sample.</p>
-          <p>With an appropriate sample size, it uses far fewer queries than a full scan while retaining, in expectation, an approximation guarantee close to classical greedy.</p>
-          <p>The repository already contained the full mathematical analysis. In a set-level abstract model, I defined a uniform-with-replacement sampling space and proved the probability that the sampled pool hits the optimal residual elements. Weighted sampling and an expected one-step-gain interface then turned that probability into a progress inequality of the form</p>
-          <div class="theorem-line"><code>expected gain ≥ (sampling factor / k) · current gap</code></div>
-          <p>The familiar recurrence follows. The current solution has a gap from <code>OPT</code>; every step removes a fixed fraction of that gap in expectation; after <code>k</code> iterations, this yields an exponential bound; instantiating the sample size then gives a <code>1 - 1/e - eps</code>-style approximation guarantee.</p>
-          <p>That completed the proof for the abstract sampling model.</p>
-          <p>The problem was that <strong>the expectation still belonged to an abstract sampling model, not to the output distribution of an executable randomized program.</strong></p>
-          <p>The algorithms look equivalent from their descriptions, but that does not prove the output distributions agree.</p>
-          <p>The next task was to prove that equality.</p>
-
-          <h2>Proving the executable sampler's distribution</h2>
-          <p>I started with sampling.</p>
-          <p>Using Isabelle's infrastructure for executable randomized algorithms, I implemented a uniform sampler driven by actual random bits and combined independent draws into a uniform-with-replacement sample pool.</p>
-          <p>The sampler was straightforward to write, but I also needed to prove that its executable semantics agrees with the earlier mathematical model.</p>
-          <p>The claim is not merely:</p>
-          <blockquote><p>This program looks as though it samples uniformly.</p></blockquote>
-          <p>Instead, the corresponding <code>spmf</code> / <code>pmf</code> is formally proved equal to the previously defined uniform-with-replacement distribution.</p>
-          <p>At that point, random bits, the executable sampler, and the abstract sample space are connected for the first time.</p>
-          <p>This distinction matters to me. Previously, <code>uniform_wr_space</code> was an object of analysis. It is now also the denotational semantics of a real program.</p>
-
-          <h2>Replacing abstract argmax with a list algorithm</h2>
-          <p>The next problem was <code>argmax</code>.</p>
-          <p>In a purely mathematical proof, I can write:</p>
-          <blockquote><p>choose an element attaining the maximum marginal gain</p></blockquote>
-          <p>Once finiteness and nonemptiness are established, an existence proof is enough.</p>
-          <p>Such a specification often relies on Hilbert choice. That works as a mathematical specification, but it does not give code generation a way to find the maximiser.</p>
-          <p>I therefore implemented a total, list-based argmax. It scans the candidate list, maintains the current best element, and comes with proofs that:</p>
-          <ul>
-            <li>the returned element belongs to the input list;</li>
-            <li>its score is at least that of every other candidate;</li>
-            <li>it realizes the maximum marginal gain required by the abstract argmax; and</li>
-            <li>the implementation supports direct SML code generation.</li>
-          </ul>
-          <p>The list argmax is then combined with the executable sampler to form a genuine stochastic-greedy update.</p>
-          <p>At this point, the program no longer depends on any abstract choice: the sample pool is actually drawn, and the maximum-marginal-gain element is actually computed.</p>
-
-          <h2>From a single step to a randomised runner</h2>
-          <p>The next object is a recursive randomized runner.</p>
-          <p>A single executable round computes the remaining elements, samples a candidate pool uniformly with replacement, and applies the verified list-based selection procedure.</p>
-          <p>The full randomized runner then composes these steps recursively using the probabilistic bind structure provided by Isabelle's executable randomized-algorithm framework.</p>
-          <p>It can now be given a seed and actually run. The same seed determines the same random bits; different seeds can produce different stochastic trajectories; and the complete algorithm can be exported to SML.</p>
-          <p>But a working program does not by itself establish the output distribution.</p>
-          <p>To call it verified stochastic greedy, I still needed to prove that the entire output distribution of the runner is the right one.</p>
-
-          <h2>Proving the program and model distributions agree</h2>
-          <p>This was the main proof I wanted to complete.</p>
-          <p>The central semantic result identifies the distribution induced by the executable randomized step with the abstract uniform-with-replacement model used in the approximation analysis. Along the way, the executable development establishes the expected well-formedness properties of the randomized runner, including almost-sure termination and feasibility of supported outputs.</p>
-          <p>This distributional correspondence is the bridge that allows the existing expected-gain analysis to be reused for the actual executable program.</p>
-          <p>I then prove that the expected objective increment of the executable step is exactly the expected gain appearing in the earlier abstract sampling analysis. This allows the abstract one-step progress bound to transfer directly to the executable program:</p>
-          <div class="theorem-line"><code>expected gain ≥ (sampling factor / k) · (f(OPT) - f(S))</code></div>
-          <p>Separating sampling, one-step analysis, and recurrence turned out to be useful. Once the executable step satisfies the same semantic interface, I can reuse the approximation proof.</p>
-
-          <h2>The approximation bound for the full program</h2>
-          <p>After connecting the single-step expectation, the next task is to propagate expectation through the full recursive runner.</p>
-          <p>I define the expected objective value of a full run and prove a recursive expectation identity: after one randomized step, the expectation of the remaining run decomposes according to the bind structure of the corresponding PMF.</p>
-          <p>This identity makes it possible to carry out the recurrence induction directly over the executable distribution.</p>
-          <p>The final result is a run-level theorem. For the appropriate epsilon-driven sample size, the <code>k</code>-round randomized algorithm:</p>
-          <ol>
-            <li>terminates almost surely;</li>
-            <li>produces only feasible outputs satisfying the cardinality constraint; and</li>
-            <li>has an output PMF satisfying</li>
-          </ol>
-          <div class="theorem-line"><code>(1 - 1/e - eps) · f(OPT) ≤ E[f(output)]</code></div>
-          <p>The important point is not the approximation ratio itself. <code>1 - 1/e - eps</code> was the target from the beginning.</p>
-          <p>What has changed is the right-hand side. This expectation no longer belongs to a manually defined abstract recurrence or to a hypothetical stochastic process satisfying a one-step assumption.</p>
-          <p>It is <strong>the output distribution of the executable randomized runner.</strong></p>
-          <p>The expected approximation theorem now applies to the executable runner's output.</p>
-
-          <h2>A concrete weighted-coverage instance</h2>
-          <p>With the generic runner in place, I also built a concrete weighted-coverage instance.</p>
-          <p>There is another implementation detail here. The mathematical theorem is most naturally stated for a real-valued objective. For code generation, however, I did not want marginal-gain comparisons to carry unnecessary real arithmetic into the implementation.</p>
-          <p>The concrete executable layer therefore uses exact natural-number weights and an integer coverage score, while the specification layer retains the real-valued submodular objective.</p>
-          <p>I then prove that the two score comparisons cause argmax to make exactly the same choices.</p>
-          <p>The program consequently performs simple exact discrete computation, while the approximation theorem remains stated in the original real-valued mathematical framework.</p>
-          <p>The resulting weighted-coverage runner inherits:</p>
-          <ul>
-            <li>almost-sure termination;</li>
-            <li>feasible outputs;</li>
-            <li>the <code>1 - 1/e - eps</code> expected approximation guarantee; and</li>
-            <li>SML code generation.</li>
-          </ul>
-          <p>So the refinement can also be instantiated with a concrete weighted-coverage objective.</p>
-
-          <h2>Counting oracle work in the actual program</h2>
-          <p>The earlier theorem line already contained trace-level oracle accounting. This time, I moved the counter into the randomized runner itself.</p>
-          <p>I also developed an instrumented version of the executable runner that records score evaluations. A refinement theorem shows that erasing the instrumentation recovers the original randomized semantics exactly.</p>
-          <p>For the current baseline implementation, sequential argmax comparison over one sample pool gives an explicit upper bound on score evaluations for the full <code>n</code>-round runner. Accounting for the objective evaluations required by a marginal gain then yields the corresponding oracle budget.</p>
-          <p>For the weighted-coverage instance, the same theorem package can now state that:</p>
-          <ul>
-            <li>the program terminates almost surely;</li>
-            <li>every output is feasible;</li>
-            <li>the expected approximation guarantee holds; and</li>
-            <li>the actual evaluation count satisfies a formal budget bound.</li>
-          </ul>
-          <p>This proves a bound on the evaluation count produced by the instrumented program, rather than only stating an asymptotic expression next to it.</p>
-
-          <h2>What I want to improve next</h2>
-          <p>The counting development also revealed several implementation-level opportunities for reducing redundant oracle work. I am currently refining the executable selection routine while proving that these optimizations preserve the same randomized semantics and therefore inherit the existing approximation guarantees.</p>
-          <p>This part of the project is closer to verified performance engineering than to the approximation theorem itself. I am also beginning to use concrete executions and benchmarks to study how the formally verified cost model relates to practical runtime behaviour.</p>
-
-          <h2>What I wanted to record</h2>
-          <p>The project already covered classical greedy, LazyGreedy, and StochasticGreedy.</p>
-          <p>But the executable implementation still needed a connection to the abstract probability model.</p>
-          <p>Having theorems and executable code in the same repository is not enough to show that the code satisfies those theorems.</p>
-          <p>The main relationships I wanted to prove were:</p>
-          <div class="refinement-chain"><strong>mathematical specification
-→ executable implementation
-→ probability semantics
-→ expected progress
-→ global approximation theorem
-→ concrete executable instance
-→ resource accounting</strong></div>
-          <p>Every arrow in that chain is itself a theorem.</p>
-          <p>This is why the executable refinement matters to the proof.</p>
-          <p><code>export_code</code> is not difficult by itself. Writing a randomized program is not difficult either, and I had already proved the abstract expectation inequality.</p>
-          <p>The difficult part is proving that the program eventually exported is genuinely the same randomized algorithm analyzed by the theorem.</p>
-          <p>The question is whether the program I actually run is the one covered by the mathematical guarantee.</p>
-          <p>I want to continue working on that connection between executable algorithms and their proofs.</p>
-          <p><strong>Scope note.</strong> The formally published 2026 AFP entry covers classical greedy together with the verified stateful lazy-greedy variant. The StochasticGreedy development described here—including its executable randomized semantics, run-level expected approximation guarantee, and resource-accounting layer—is ongoing post-publication work extending that entry.</p>
+          <p class="article-meta">Feier Lyu · October 3, 2026 · ~2 min read</p>
+          <p class="article-tags">Isabelle/HOL · StochasticGreedy · Unpublished extension</p>
+          <p class="article-deck">A brief progress summary of executable StochasticGreedy: the probability-semantics connection, expected approximation guarantee, and resource accounting are complete.</p>
+          <blockquote class="research-public-status"><p>This page describes ongoing work extending the published AFP entry. The latest implementation is not yet public; the GitHub link below points to an earlier public version.</p></blockquote>
+          <h2>Completed progress</h2>
+          <p>The formally published 2026 AFP entry covers classical greedy and a verified stateful lazy-greedy variant. The StochasticGreedy work described here is an unpublished extension developed after that entry.</p>
+          <p>The extension connects executable sampling to the abstract probability model and transfers the one-step expected-gain analysis to the expected approximation guarantee for the complete run. It also establishes termination, output feasibility, and resource-accounting results. A concrete weighted-coverage instance supports exact discrete computation and SML code generation.</p>
+          <h2>Scope of the random semantics</h2>
+          <p>The expected approximation guarantee uses ideal random-bit semantics. The PCG results establish that implementation optimizations preserve the same random stream and execution behavior; they do not establish that PCG output is equivalent to independent fair random bits.</p>
+          <h2>Current work and public materials</h2>
+          <p>Current work focuses on implementation improvements, experimental evaluation, and defining the paper scope. Detailed proofs, the latest source, and the complete experimental materials are currently shared for focused discussions on request. A formal release will provide a clearly versioned package and an entry point for reproduction.</p>
+          <div class="research-link-row">
+            <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">Published AFP entry</a>
+            <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf" target="_blank" rel="noopener noreferrer">AFP proof document</a>
+            <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">GitHub · Earlier public development</a>
+          </div>
 
           <div class="academic-hub-links math-post-hub-links">
             <p class="academic-hub-links-label">Continue with</p>

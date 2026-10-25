@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22",
+  "generated_at": "2026-10-25",
   "source": "math.html",
   "items": [
     {
@@ -8,8 +8,8 @@
       "date": "2026-10-03",
       "title": "从一套框架到真正会运行的随机算法：StochasticGreedy 的 executable refinement",
       "title_en": "From a Framework to a Randomized Algorithm That Actually Runs: Executable Refinement of StochasticGreedy",
-      "excerpt": "把随机比特、可执行采样器、概率语义、期望近似保证与资源计数接进同一条 machine-checked chain。",
-      "excerpt_en": "Connecting random bits, executable sampling, probability semantics, expected approximation guarantees, and resource accounting in one machine-checked chain.",
+      "excerpt": "未发表扩展的进展摘要；最新实现尚未公开。期望近似保证采用理想随机位语义，PCG 结果限定于优化前后的执行一致性。",
+      "excerpt_en": "Progress summary of an unpublished extension; the latest implementation is not yet public. Expected approximation uses ideal random-bit semantics; PCG results concern execution preservation under optimization.",
       "readmore_url": "post/stochasticgreedy-executable-refinement.html",
       "tags": [
         "math",
@@ -20,9 +20,10 @@
         "StochasticGreedy",
         "Formal Verification"
       ],
-      "reading_time_zh": "约 7 分钟",
-      "reading_time_en": "~7 min read",
-      "note_status": "Post-publication executable refinement"
+      "reading_time_zh": "约 2 分钟",
+      "reading_time_en": "~2 min read",
+      "note_status": "Unpublished extension",
+      "link_label_zh": "阅读进展摘要"
     },
     {
       "order": 2,
@@ -167,8 +168,8 @@
       "date": "2025-12-29",
       "title": "早期项目记录：Submodular Greedy 的 Isabelle 形式化",
       "title_en": "Early Project Note: Formalising Submodular Greedy",
-      "excerpt": "2025年12月的阶段记录；项目此后已于 AFP 2026 正式发表，当前仓库另含发表后的 StochasticGreedy 扩展。",
-      "excerpt_en": "A December 2025 stage record; the project was subsequently published in AFP 2026, and the current repository also contains a post-publication StochasticGreedy extension.",
+      "excerpt": "2025年12月的阶段记录；项目此后已于 AFP 2026 正式发表。后续 StochasticGreedy 为未发表扩展，最新实现尚未公开。",
+      "excerpt_en": "A December 2025 stage record; the project was subsequently published in AFP 2026. The later StochasticGreedy extension is unpublished, and its latest implementation is not yet public.",
       "readmore_url": "post/isabelle-submodular-greedy.html",
       "tags": [
         "math",

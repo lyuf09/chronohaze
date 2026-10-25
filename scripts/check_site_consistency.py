@@ -28,24 +28,23 @@ SUBMODULAR_PUBLISHED_SCOPE = (
     "monotone submodular maximization."
 )
 SUBMODULAR_POST_PUBLICATION_SCOPE = (
-    "Post-publication extension: the current repository additionally develops a "
-    "stochastic-greedy line, including the sampling model, approximation proof, "
-    "and oracle-cost bounds."
+    "Unpublished extension: StochasticGreedy now connects executable sampling, "
+    "ideal random-bit semantics, expected approximation guarantees, and resource accounting. "
+    "The latest implementation is not yet public; the GitHub link below points to an earlier public version."
 )
 SUBMODULAR_PROJECTS_STATUS_MARKERS = (
     "Published in the Archive of Formal Proofs on May 26, 2026.",
     "verified stateful lazy-greedy variant",
-    "post-publication stochastic-greedy extension",
-    "the sampling model, approximation proof, and oracle-cost bounds",
+    SUBMODULAR_POST_PUBLICATION_SCOPE,
 )
 SUBMODULAR_ACADEMIC_STATUS_MARKERS = (
     "Published May 26, 2026",
-    "full Isabelle/HOL development under the supervision of Wenda Li",
+    "I developed the full Isabelle/HOL formalization, with feedback and guidance from Wenda Li.",
 )
 SUBMODULAR_CV_STATUS_MARKERS = (
     "Feier Lyu. “Greedy Algorithms for Cardinality-Constrained Submodular Maximization.”",
     "Formalizes deterministic greedy and a verified stateful lazy-greedy implementation",
-    "full Isabelle/HOL development under the supervision of Wenda Li",
+    "I developed the full Isabelle/HOL formalization, with feedback and guidance from Wenda Li.",
 )
 LEGACY_SUBMODULAR_STATUS_PATTERNS = (
     "future extension / experimental branch",

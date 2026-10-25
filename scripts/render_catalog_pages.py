@@ -137,6 +137,7 @@ MATH_STATUS_ZH = {
     "Historical note · Superseded": "历史研究记录 · 已被新版取代",
     "Exploratory derivation": "探索性推导",
     "Reading note": "阅读笔记",
+    "Unpublished extension": "未发表扩展",
 }
 
 

@@ -130,6 +130,7 @@
     "Ongoing joint research": "进行中的合作研究",
     "Exploratory derivation": "探索性推导",
     "Reading note": "阅读笔记",
+    "Unpublished extension": "未发表扩展",
   };
 
   function localizeMathDateLabelZh(value) {

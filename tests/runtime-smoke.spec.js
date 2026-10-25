@@ -50,8 +50,8 @@ test("home page renders hero and player shell", async ({ page }) => {
   ).toHaveCount(3);
   await expect(page.getByRole("heading", { name: "当前工作" })).toBeVisible();
   await expect(page.locator(".selected-evidence-status")).toHaveText([
-    "已发表 · AFP · 2026 · 独立作者",
-    "已发表 · AFP · 2026 · 形式化开发 · WENDA LI 指导",
+    "已发表 · AFP · 2026 · 唯一作者",
+    "已发表 · AFP · 2026 · 唯一作者",
     "进行中 · 合作研究",
   ]);
   await expect(page.getByRole("heading", { name: "Isabelle/HOL 中的光滑凸优化一阶方法" })).toBeVisible();
@@ -77,7 +77,7 @@ test("home page renders hero and player shell", async ({ page }) => {
     "University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027"
   );
   await expect(page.locator(".hero-research-signal")).toHaveText(
-    "Archive of Formal Proofs 收录两项成果 · 一项独立完成的形式化 · 一项在 Wenda Li 指导下完成"
+    "两项 Archive of Formal Proofs 形式化成果，均为唯一作者。"
   );
   await expect(page.locator(".hero-academic-links .hero-academic-link")).toHaveText([
     "学术",
@@ -95,7 +95,7 @@ test("home page renders hero and player shell", async ({ page }) => {
     "由 GitHub Pages 托管"
   );
   await expect(page.locator("main")).not.toContainText("2005 年出生");
-  await expect(page.locator("#welcome")).toContainText("理性与浪漫在这里并置");
+  await expect(page.locator("#welcome")).toContainText("这里记录我的数学研究、音乐制作与摄影");
   await expect(page.locator('link[rel="preload"][as="image"]')).toHaveAttribute(
     "imagesrcset",
     /hero_portrait-600\.webp 600w.*hero_portrait-960\.webp 960w.*hero_portrait-1600\.webp 1600w/
@@ -305,7 +305,7 @@ test("bare home URL defaults to English and releases the critical loader at DOM 
   await expect(page.locator(".hero-kicker")).toHaveText("Origin / Chronohaze");
   await expect(page.locator(".selected-evidence-status")).toHaveText([
     "PUBLISHED · AFP · 2026 · SOLE AUTHOR",
-    "PUBLISHED · AFP · 2026 · FORMALIZATION · SUPERVISED BY WENDA LI",
+    "PUBLISHED · AFP · 2026 · SOLE AUTHOR",
     "ONGOING · JOINT RESEARCH",
   ]);
   await expect(page.getByRole("heading", { name: "First-Order Methods for Smooth Convex Optimization in Isabelle/HOL" })).toBeVisible();
@@ -611,16 +611,16 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
     "University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027"
   );
   await expect(page.locator(".hero-research-signal")).toHaveText(
-    "Archive of Formal Proofs 收录两项成果 · 一项独立完成的形式化 · 一项在 Wenda Li 指导下完成"
+    "两项 Archive of Formal Proofs 形式化成果，均为唯一作者。"
   );
   await expect(page.locator('.hero-academic-link[href="research.html"]')).toHaveText("研究陈述");
   await expect(page.locator('.hero-academic-link[href="projects.html"]')).toHaveText("精选工作");
   await expect(page.locator('.hero-academic-link[href="cv.html"]')).toHaveText("个人档案");
   await expect(page.locator('[data-i18n="nowCard1Body"]')).toHaveText(
-    "近似保证与预言机调用复杂度定理线已经就位；当前工作聚焦于概率语义层，以连接可复用证明与可执行采样。"
+    "未发表扩展：概率语义连接、期望近似保证与资源计数已完成；当前重点是实现改进、实验评估与论文范围整理。最新实现尚未公开。"
   );
   await expect(page.locator('[data-i18n="nowCard2Body"]')).toHaveText(
-    "最近在练 millsage 的《起死開戦》，这个难度完全邦一贝但是我能练下来。"
+    "最近在练 millsage 的《起死開戦》，主要在处理高难度的贝斯段落。"
   );
   await expect(page.locator('[data-i18n="nowCard3Body"]')).toHaveText(
     "刚完成一首团体委托原创曲，也在继续写自己的歌和一些合作项目。"
@@ -644,10 +644,10 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
   await expect(page.locator(".hero-world-line")).toHaveCount(0);
   await expect(page.locator('[data-i18n="nowTitle"]')).toHaveText("Now / September 2026");
   await expect(page.locator('[data-i18n="nowCard1Body"]')).toHaveText(
-    "The approximation and oracle-cost theorem line is in place; current work focuses on the probabilistic-semantics layer needed to connect reusable proofs with executable sampling."
+    "Unpublished extension: the probability-semantics connection, expected approximation guarantee, and resource accounting are complete. Current work focuses on implementation improvements, experimental evaluation, and defining the paper scope. The latest implementation is not yet public."
   );
   await expect(page.locator('[data-i18n="nowCard2Body"]')).toHaveText(
-    "Recently practicing millsage’s “起死開戦.” The bass part is brutally difficult, but I know I can get it down."
+    "I’m practicing the demanding bass part in millsage’s “起死開戦.”"
   );
   await expect(page.locator('[data-i18n="nowCard3Body"]')).toHaveText(
     "I’ve just completed an original commissioned song for a group, and I’m continuing to write my own music alongside several collaborative projects."
@@ -656,7 +656,7 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
     "University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027"
   );
   await expect(page.locator(".hero-research-signal")).toHaveText(
-    "Two Archive of Formal Proofs entries · one independent formalization · one developed under the supervision of Wenda Li"
+    "Sole author of two entries in the Archive of Formal Proofs."
   );
   await expect(page.locator("main")).not.toContainText("Born in 2005");
   await expect(page.getByRole("heading", { name: "Research Snapshot" })).toBeVisible();
@@ -918,9 +918,8 @@ test("network-localization research record is bilingual and contains no public P
   })).toBeVisible();
   const englishRecord = page.locator('[data-lang-block="en"]');
   await expect(englishRecord).toContainText("Prof. Shoham Sabach, and Owen Li");
-  await expect(englishRecord).toContainText("ongoing collaborative work");
-  await expect(englishRecord).toContainText(/criteria, proofs, and experiments.*not included/i);
-  await expect(englishRecord).toContainText("on request");
+  await expect(englishRecord).toContainText("collaborative project is ongoing");
+  await expect(englishRecord).toContainText("technical results are not yet public");
   await expect(englishRecord).not.toContainText("Cheap sufficient certificate first");
   await expect(englishRecord).not.toContainText("structured matrix test");
   await expect(englishRecord).not.toContainText("recover an escape direction");
@@ -955,9 +954,8 @@ test("network-localization research record is bilingual and contains no public P
     exact: true,
   })).toBeVisible();
   await expect(chineseRecord).toContainText("Prof. Shoham Sabach、Owen Li");
-  // Check that the public scope and the contact option are explained, not fixed wording.
-  await expect(chineseRecord).toContainText(/可以公开的结论|已确认的高层结论|已经确认的高层结论/);
-  await expect(chineseRecord).toContainText(/按需(提供|沟通)/);
+  // Keep the ongoing status and publication boundary clear.
+  await expect(chineseRecord).toContainText("研究仍在进行，技术结果尚未公开");
   await expect(page.locator('[data-lang-block="en"]')).toBeHidden();
   await expect(chineseRecord).not.toContainText("结构化矩阵测试");
   await expect(chineseRecord).not.toContainText("escape direction");
@@ -1851,7 +1849,7 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   });
   await expect(collaboration).toContainText("2026–Present");
   await expect(collaboration).toContainText("network structure and second-order geometry");
-  await expect(collaboration).toContainText("confirmed high-level conclusions");
+  await expect(collaboration).toContainText("Technical results are not yet public");
   await expect(cvEnglish.locator("#cv-en-projects")).not.toContainText("Independent Research — Optimization");
   const pgdProject = cvEnglish.locator(".cv-project-list li").filter({
     has: page.getByRole("heading", { name: "First-Order Methods for Smooth Convex Optimization in Isabelle/HOL" }),
@@ -1859,7 +1857,7 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   await expect(pgdProject).toContainText("Archive of Formal Proofs · July 2026");
   await expect(pgdProject).toContainText("residual certificates");
   const submodularProject = cvEnglish.locator(".cv-project-list li").filter({ hasText: "Wenda Li" });
-  await expect(submodularProject).toContainText("I was responsible for the full Isabelle/HOL development");
+  await expect(submodularProject).toContainText("I developed the full Isabelle/HOL formalization, with feedback and guidance from Wenda Li.");
   const industry = cvEnglish.locator(".cv-experience-item").filter({
     has: page.getByRole("heading", { name: "Data Engineering Intern" }),
   });
@@ -1908,7 +1906,7 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   await expect(cvChinese.locator("#cv-zh-projects")).toContainText("Archive of Formal Proofs · 2026年7月");
   await expect(cvChinese.locator("#cv-zh-projects")).not.toContainText("等待审核");
   await expect(cvChinese.locator("#cv-zh-projects")).toContainText(
-    "在 Wenda Li 指导下负责完整的 Isabelle/HOL 形式化开发"
+    "我完成了全部 Isabelle/HOL 形式化开发，Wenda Li 提供了审阅意见和指导。"
   );
   await expect(cvChinese.locator("#cv-zh-projects")).not.toContainText(
     /Selected Work|Submitted Formalization|Patents|development/
@@ -1925,11 +1923,11 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   await expect(page.locator("body.research-landing-page")).toBeVisible();
   await expect(page.locator('.research-hero [data-lang-block="zh"] h1')).toHaveText("研究陈述");
   await expect(page.locator('.research-hero [data-lang-block="zh"]')).toContainText(
-    "结构性假设如何决定优化算法的保证"
+    "我的工作目前有两个方向"
   );
   await expect(page.locator('#research-questions [data-lang-block="zh"] li')).toHaveCount(3);
   await expect(page.locator('#research-questions ol[data-lang-block="zh"]')).toContainText(
-    "统一的概率运行语义"
+    "已建立的概率运行语义"
   );
   await expect(page.locator('#research-questions ol[data-lang-block="zh"]')).toContainText("哪些图结构与几何条件控制其二阶行为");
   await expect(page.locator("#research-projects")).toBeVisible();
@@ -1941,14 +1939,11 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
     '#research-projects [data-lang-block="zh"] .research-project-card'
   ).first();
   await expect(formalizationLine).toContainText("2026年5月26日正式发表于 AFP");
-  await expect(formalizationLine).toContainText("发表后，当前仓库继续发展");
-  await expect(formalizationLine).toContainText("采样模型、近似证明与预言机调用复杂度界");
+  await expect(formalizationLine).toContainText("未发表扩展：StochasticGreedy");
+  await expect(formalizationLine).toContainText("理想随机位语义、期望近似保证与资源计数");
   await expect(page.locator("#research-outputs .research-output-card")).toHaveCount(0);
   await expect(page.locator("#research-outputs a")).toHaveText("查看代表性工作");
   await expect(page.locator("#research-outputs a")).toHaveAttribute("href", "projects.html");
-  await expect(page.locator("#research-now")).toContainText(
-    "在 Isabelle/HOL 中表现为定理接口，在定位问题中表现为控制曲率的几何条件"
-  );
   await expect(formalizationLine.getByRole("link", { name: "PGD AFP 条目", exact: true })).toHaveAttribute(
     "href",
     "https://isa-afp.org/entries/Projected_Gradient_Descent.html"
@@ -1966,13 +1961,10 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
     "My work currently has two main directions. The first is formal verification of optimization algorithms in Isabelle/HOL, including submodular greedy methods and projected gradient descent. The second is nonconvex network localization, where I study how network structure shapes second-order geometry near stationary points."
   );
   await expect(page.locator("#research-questions .research-question-list")).toContainText(
-    "How can the expected approximation guarantee and the executable trace-level oracle-cost guarantee be unified within a single probabilistic run semantics?"
+    "How can executable selection be improved and evaluated using the established probabilistic run semantics and resource-accounting guarantees?"
   );
   await expect(page.locator("#research-outputs .research-output-card")).toHaveCount(0);
   await expect(page.locator("#research-outputs a")).toHaveText("View Selected Work");
-  await expect(page.locator("#research-now")).toContainText(
-    "Both directions make hidden dependencies explicit: as theorem interfaces in Isabelle/HOL, and as geometric conditions for curvature in localization."
-  );
 
   expect(errors).toEqual([]);
 });
@@ -2415,7 +2407,7 @@ test("academic page isolates languages and renders a concise academic index", as
   await expect(page.getByText("Selected Publications & Ongoing Research", { exact: true })).toBeVisible();
   await expect(page.locator('.research-hero [data-lang-block="en"]')).toContainText("Feier Lyu (Fay Lyu)");
   await expect(page.locator('.research-hero [data-lang-block="en"]')).toContainText(
-    "My current work centers on reusable Isabelle/HOL infrastructure"
+    "My current projects cover formalizations of submodular greedy methods"
   );
   await expect(page.locator('.research-hero [data-lang-block="en"]')).toContainText(
     'Collaborative work on network structure and second-order geometry'
@@ -2470,8 +2462,8 @@ test("AFP publication status stays synchronized across work page and project his
     '#selected-work-list [data-lang-block="en"] > .academic-evidence > .academic-evidence-list li'
   ).nth(1);
   await expect(publishedProject).toContainText("Published in the Archive of Formal Proofs on May 26, 2026");
-  await expect(publishedProject).toContainText("under the supervision of Wenda Li");
-  await expect(publishedProject).toContainText("post-publication stochastic-greedy extension");
+  await expect(publishedProject).toContainText("with feedback and guidance from Wenda Li");
+  await expect(publishedProject).toContainText("Unpublished extension: StochasticGreedy");
   await expect(publishedProject.getByRole("link", { name: "DOI", exact: true })).toHaveAttribute(
     "href",
     "https://doi.org/10.5281/zenodo.21054718"
@@ -2481,7 +2473,7 @@ test("AFP publication status stays synchronized across work page and project his
   ).nth(2);
   await expect(localizationProject).toContainText("Ongoing collaboration with Shoham Sabach and Owen Li");
   await expect(localizationProject).toContainText(
-    "This page states only the background, research objective, and confirmed high-level conclusions"
+    "Technical results are not yet public"
   );
   await expect(localizationProject.getByRole("link", { name: "Research overview" })).toHaveAttribute(
     "href",
@@ -2490,7 +2482,7 @@ test("AFP publication status stays synchronized across work page and project his
   const exploratoryArchive = page.locator("#exploratory-work-en");
   await expect(exploratoryArchive).toContainText("Exploratory Archive");
   await expect(exploratoryArchive).toContainText("TTGDA and Second-Order Tracking");
-  await expect(exploratoryArchive).toContainText("not part of the primary Selected Work sequence");
+  await expect(exploratoryArchive).toContainText("2026-06-20");
   const bodyReadability = await publishedProject.locator("p:not(.academic-proof-kicker)").first().evaluate((node) => {
     const style = window.getComputedStyle(node);
     return {
@@ -2505,8 +2497,8 @@ test("AFP publication status stays synchronized across work page and project his
   );
   await expect(creativePrototype).toContainText("CREATIVE COMPUTATION");
   await expect(creativePrototype).toContainText("Experimental Prototype");
-  await expect(creativePrototype).toContainText("Side project");
-  await expect(creativePrototype).toContainText("not presented as a research output");
+  await expect(creativePrototype).toContainText("Personal project");
+  await expect(creativePrototype).toContainText("In development");
   await expect(creativePrototype).toContainText("Metalcore Piano Lab");
 
   await page.goto("post/theorem-to-framework-isabelle-submodular.html?lang=en", {
@@ -2579,7 +2571,7 @@ test("technical notes use explicit status labels and a local Julia fractal", asy
     "Published · AFP · Sole author",
     "Publication retrospective · AFP",
     "Ongoing joint research",
-    "Post-publication executable refinement",
+    "Unpublished extension",
     "Historical note · Superseded",
     "Exploratory derivation",
     "Reading note",
@@ -2691,6 +2683,25 @@ test("shared modal-invariants note is formal, direct-link only, and non-indexabl
 test("the latest executable-refinement note leads the math archive and AFP work exposes primary evidence", async ({ page }) => {
   const errors = trackPageErrors(page);
 
+  for (const lang of ["zh", "en"]) {
+    await page.goto(`post/stochasticgreedy-executable-refinement.html?lang=${lang}`, { waitUntil: "domcontentloaded" });
+    await waitForCriticalLoaderRelease(page);
+    const summary = page.locator(`article [data-lang-block="${lang}"]`);
+    await expect(summary.locator(".research-public-status")).toBeVisible();
+    await expect(summary.locator(".research-public-status")).toContainText(
+      lang === "zh" ? "最新实现尚未公开" : "The latest implementation is not yet public"
+    );
+    await expect(summary).toContainText(lang === "zh" ? "理想随机位语义" : "ideal random-bit semantics");
+    await expect(summary).toContainText(
+      lang === "zh" ? "并不证明 PCG 输出等同于独立公平随机位" : "do not establish that PCG output is equivalent to independent fair random bits"
+    );
+    await expect(summary.getByRole("link", {
+      name: lang === "zh" ? "GitHub · 较早公开版本" : "GitHub · Earlier public development",
+      exact: true,
+    })).toHaveAttribute("href", "https://github.com/lyuf09/isabelle-submodular-greedy");
+  }
+
+
   await page.goto("math.html?lang=zh", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
   await expect(page.getByRole("heading", { name: "技术笔记" })).toBeVisible();
@@ -2714,7 +2725,7 @@ test("the latest executable-refinement note leads the math archive and AFP work 
   const archiveNotes = page.locator(".math-list .math-card");
   await expect(archiveNotes).toHaveCount(9);
   await expect(archiveNotes.nth(0)).toContainText("从一套框架到真正会运行的随机算法");
-  await expect(archiveNotes.nth(0)).toContainText("Post-publication executable refinement");
+  await expect(archiveNotes.nth(0)).toContainText("未发表扩展");
   await expect(archiveNotes.nth(1)).toContainText("网络定位中的二阶几何：研究概览");
   await expect(archiveNotes.nth(1)).toContainText("进行中的合作研究");
   await expect(archiveNotes.nth(2)).toContainText("子模贪心算法形式化正式进入 AFP");
@@ -2737,7 +2748,7 @@ test("the latest executable-refinement note leads the math archive and AFP work 
     "href",
     "https://doi.org/10.5281/zenodo.21054718"
   );
-  await expect(zhNote.getByRole("link", { name: "GitHub repository" })).toHaveAttribute(
+  await expect(zhNote.getByRole("link", { name: "GitHub · 较早公开版本" })).toHaveAttribute(
     "href",
     "https://github.com/lyuf09/isabelle-submodular-greedy"
   );

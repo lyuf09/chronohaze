@@ -6286,7 +6286,7 @@
       "At first, these flowers were intense, an unbearable sadness, bitterness, resistance to his leaving. Over time, they softened into quieter feelings.",
       "A mild, persistent care, occasional gratitude, and when I looked back again, a trace of dislike tangled in with everything else.",
       "I buried those emotions quietly in the soil, and in the end they grew into a garden no one could see, one that exists only inside the night. In reality, my garden at home has never had flowers at all, so this garden is entirely abstract. A private landscape imagined into being.",
-      "The song is light and clean, but the emotion stays sharply defined. Clean guitar in a gentle mixed time signature gives the melody a particular emptiness, something you can hear, yet can’t quite hold onto, like thoughts that return again and again, never fully released. It’s a rhythm that almost disappears, and yet leaves its full weight behind.<br />And a small frustration: at the time I was carrying my bass and couldn’t bring my guitar to uni, so the 700pounds Ibanez I bought on the spot never quite produced the harmonics I wanted:(",
+      "The song is light and clean, but the emotion stays sharply defined. Clean guitar in a gentle mixed time signature gives the melody a particular emptiness, something you can hear, yet can’t quite hold onto, like thoughts that return again and again, never fully released. It’s a rhythm that almost disappears, and yet leaves its full weight behind.<br />And a small frustration: at the time I was carrying my bass and couldn’t bring my guitar to uni, so the £700 Ibanez I bought on the spot never quite produced the harmonics I wanted:(",
       "Although the song points to the same person as the rest of the series, “Moonlit Garden” is almost the gentlest piece I’ve written. It isn’t sharp, and it isn’t an accusation. Instead it’s a kind of understanding that only appears at night, after so many emotions, finally worn down by time into something quiet.",
       "In the final electric piano section, I brought back a motif from Ipomoea alba. In that moment, the feeling is both an echo and a regret. Lifting something unspeakable from deep inside, and then placing it softly back into the night. There is a slight unwillingness to let go, but it settles, in the end, into a small, downward leaning calm.",
       "It’s like a whisper sung from the edge of memory.<br />A song written to help you fall asleep, yet one that makes you not want to.",
@@ -6601,7 +6601,7 @@
     var paragraphs = [
       "“Honkaku Mystery” is a high speed rock/metalcore track, a tribute to the mood of narrative misdirection (and honestly, I rarely write something this fast). On the surface it feels like a clean, efficient investigation, underneath, it’s a reverse interrogation of the self and of memory.",
       "Here, deduction is treated as a posture, not to obtain an answer, but to see clearly what happens when the truth becomes ugly enough for reason itself to fracture.",
-      "The “he” in the song is more like a part of my own body, yet he could also be anyoneme, the kind of person who believes the world can be explained, that causality can be connected into a line, that an ending will always arrive. But when he strings clue after clue together with red thread, that thread is both the red line on a detective board and the red line of causality. The tighter it pulls, the closer it gets to “the truth”, and the sooner logic collapses. Because the truth is too ugly, to the point where no elegant structure can keep wrapping it up.",
+      "The “he” in the song is more like a part of my own body, yet he could also be anyone, the kind of person who believes the world can be explained, that causality can be connected into a line, that an ending will always arrive. But when he strings clue after clue together with red thread, that thread is both the red line on a detective board and the red line of causality. The tighter it pulls, the closer it gets to “the truth”, and the sooner logic collapses. Because the truth is too ugly, to the point where no elegant structure can keep wrapping it up.",
       "“A room surrounded by screens” is a space enclosed by memory, imagination, information, and self-projection, an absolute information cocoon. Thinking you’re investigating, you’re actually sinking deeper into your own screens and old shadows, thinking you’re unraveling the knot, you’re only repeatedly confirming conclusions that have already been written by emotion.",
       "The cruelest part is that even when the truth is uncovered, nothing follows.",
       "The “god who does not judge” points exactly to that emptiness: no verdict, no finale, no fair gavel coming down. So the laugh at the end isn’t relief, it’s a cold laugh. When deduction reaches its limit, what remains is only the most ordinary human circuitry, habitual awareness and habitual thinking, still running in the ruins.",
@@ -7940,17 +7940,9 @@
     }
 
     var paragraphs = [
-      "“Z (Eclipse) RO.”",
-      "This song was born in a state of occluded consciousness.<br />Not a collapse, not an eruption, more like a long silence before light is swallowed, dragged into the interior of shadow and made to echo slowly from within.",
-      "The entire work is pure abstract, stream of consciousness narration.<br />No concrete characters, no real-world timeline.<br />It is closer to a celestial space suspended outside reality,<br />cold light, reverberation, and weightlessness.",
-      "Tinnitus, elongated vision, consciousness washed and corroded, broken clock hands,<br />these are not events, but states made visible.<br />Like a system error, or like the residual “deviation” left behind after emotion has been standardized.",
-      "The recurring words“fragments,” “lens,” “projector”<br />refer to slices of life that are watched, recorded, and archived.<br />Within that structure, value is measured, emotion is calibrated,<br />and the “self” gradually degrades into a replaceable unit.",
-      "In the world-setting I wrote at the time:<br />people can disguise themselves;<br />all value can be weighed internally;<br />sunrise does not necessarily mean brightness, and the sun is merely a morning star.<br />Only when we are truly awake does daybreak actually happen.",
-      "At the far end of this celestial space stands a giant clock on the moon.<br />The sound of the second hand is amplified without limit.<br />If you could reach it, you could tune time, return to any point.<br />And yet what returns in recurring dreams is not the clock, but the sea.",
-      "Dreams always bring a coastline.<br />You can run, you can approach, you can see the color of the waves,<br />but it remains, in the end, like a static background wall.<br />I can never truly enter the water.<br />It is the only image that carries real-world weight,<br />and the deepest echo inside the song.",
-      "Structurally, “Z (E) RO” opens into a driving passage with a djent-like texture in its later section,<br />like crossing a threshold, or like the narrative finally falling into something concrete.<br />That melody carries a strong sense of fantasy storytelling; it is the core of the track (and my favorite part).",
-      "In the end, everything finishes by returning to zero.<br />Not ending with an answer, but ending by no longer asking.",
-      "It is a piece about deviation, occlusion, and self-calibration,<br />an awareness log recorded in the shadow of a celestial body.",
+      "I wrote “Z (Eclipse) RO” between late 2021 and early 2022. The lyrics return to tinnitus, broken clock hands, a giant clock on the moon, and a sea I can never enter in dreams.",
+      "I used those images in a story without specific characters or a real-world timeline. The coastline came from a recurring dream: I could see the colour of the waves but never reach the water.",
+      "Later in the track, I wrote a driving passage with a djent-like texture. Its melody has a sense of fantasy storytelling; it is the core of the song and still my favourite part.",
     ];
 
     intro.innerHTML = paragraphs.join("<br /><br />");
@@ -8870,7 +8862,7 @@
       "“Cardiac Alarm” was my first attempt at writing something post hardcore.",
       "Ironically while I intended it to be heavier, the result barely qualifies as “core” at all.<br />Instead, it became a narrative that trembles under pressure,<br />not explosive, but persistently overloaded.",
       "Its underlying colour is deep red, like a warning light before the end,<br />no time left to explain anything.<br />When memory suddenly surges back,<br />the body reacts before consciousness does:<br />heart rate destabilized, breathing thinned, frames skipping,<br />as if the chest had been pierced by a weapon without form.",
-      "During its creation, I had been listening obsessively to Forget and Forgive.<br />That tender sense of collapse clung to the melody (when will faf return).<br />I even wrote sweep picking patterns; ironically, as of February 2026, I still can’t strum properly haha.<br />In this song, that awkwardness remains as something honest.",
+      "During its creation, I had been listening obsessively to Forget and Forgive.<br />That tender sense of collapse clung to the melody (when will faf return).<br />I wrote a sweep-picking passage before I could play it myself.",
       "At the time, I uploaded it to Niconico,<br />where Avogado6 purchased an advertisement for it.<br />To me, that felt like a strange echo:<br />a song about sinking and endings,<br />quietly nudged by the world somewhere in a corner,<br />leaving proof that it had once been seen.",
     ];
 
@@ -9461,7 +9453,7 @@
     var paragraphs = [
       "“Dissociative Amnesia” was written in February 2021, and it is one of the earliest works currently included in my portfolio (back then I was writing at my fastest pace, one song a day, or one every two days).",
       "There were many other pieces written before and after that remain unreleased,<br />but this particular moment became a personal threshold:<br />the earliest point in time whose “old self” I can tolerate letting others see.",
-      "The writing process was entirely spontaneous.<br />At the time, classes taught me almost nothing I could actually use for composition;<br />I hadn’t started learning bass or arrangement techniques,<br />and the lyrics were literally machine-translated<br />(because writing lyrics in native lagurage felt unbearably cringe for a kid).<br />More than anything, this song is a document of how songwriting begins.",
+      "The writing process was entirely spontaneous.<br />At the time, classes taught me almost nothing I could actually use for composition;<br />I hadn’t started learning bass or arrangement techniques,<br />and the lyrics were literally machine-translated<br />(because writing lyrics in my native language felt unbearably cringe for a kid).<br />More than anything, this song is a document of how songwriting begins.",
       "The theme came from a chance encounter with the concept of “dissociative amnesia.”<br />The piece is not based on lived experience (I don't drink any alcohol even now);<br />it is closer to an imagined psychological writing that borrows the imagery of a disorder<br />(a teenager under sixteen has very little “life” to draw from anyway).",
       "Musically, it leans strongly toward electronic / dance-pop.<br />I had listened to far too much Ayase (from Yoasobi): the groove moves in a straight line, pushing forward.<br />Yet the melodic contour already hints at something that would keep developing in later works,<br />emotional tension, and an instinct for building a chorus,<br />even though the arrangement and production remain unmistakably immature.<br />The core melodic motif, however, still has a texture I genuinely like today.",
       "Before technique and method existed, intuition arrived first.",
@@ -10312,12 +10304,10 @@
     }
 
     var paragraphs = [
-      "“I hate you all.” is a fast song written in a defensive stance. The hate is real, but it functions more like a protective shell than a final verdict.",
-      "The “me” in the lyrics isn’t who I am now. It’s the version of me back then: childish, instinctive, hard on the outside and brittle underneath. I couldn’t handle the social detours, the unspoken rules, the gestures that looked polite but weren’t sincere. I only knew how to get angry directly when I was angry, and laugh directly when I was happy. Looking back, she feels a bit like Girls Band Cry’s Nina (except the show hadn’t even aired yet; if it had, I would’ve pointed at the screen and said: that’s literally me).",
-      "The origin of this song is very specific: the window of my dorm room when I was studying in Manchester. It was March, and it was still snowing. That out of season cold felt like a kind of sarcasm, things were supposed to be warming up, yet the world insisted on moving in reverse. And that’s where the opening chain of “Why…?” came from.",
-      "The “you all” points to a group of people who used to count as friends. What remained in the end wasn’t the argument itself, but something long lasting and difficult to name, something close to a psychological wound (a description I don’t even like using). It hit especially hard because the ones causing the harm were “grown men,” using filthy words to attack a kid who hadn’t truly hurt anyone (sure, I was immature, but what did that kid even do?). That kind of unfairness sharpens your pride into something jagged, and turns expression into a weapon.",
-      "But “I hate you all.” isn’t a song meant for serious, lifelong hatred (I don’t like writing music just to truly hate someone). It’s more like a J-rock-style release, deliberately bright in places. Because I didn’t want to pin myself inside hatred forever, this song captures a real reaction from a specific phase of my life: when I didn’t yet know how to process complicated emotions, at least I could still write them down.",
-      "The translated version of this song is simply its title:<br /><br />I hate you all.<br />It was the only sentence I could say out loud that year.",
+      "“I hate you all.” is a fast J-rock song about the direct, slightly childish anger I felt then. Looking back, it reminds me a little of Nina from Girls Band Cry (except the show had not aired yet!).",
+      "I started writing it by the window of my dorm room while studying in Manchester. It was March and still snowing. That was where the opening string of “Why…?” questions came from.",
+      "I put the feelings left by a falling-out with friends into the song, but kept the music deliberately bright in places. I did not want to stay angry forever; writing it was a way to let it out.",
+      "“I hate you all.” was the sentence I could say directly that year.",
     ];
 
     intro.innerHTML = paragraphs.join("<br /><br />");
@@ -11611,6 +11601,7 @@
       [/钢琴录制：/g, "Piano recording: "],
       [/部分吉他录制：/g, "Partial guitar recording: "],
       [/吉他实录：/g, "Guitar tracking: "],
+      [/吉他录音：署名待核对/g, "Guitar recording: credit to be confirmed"],
       [/吉他录音：/g, "Guitar recording: "],
       [/吉他录制：/g, "Guitar recording: "],
       [/吉他混音：/g, "Guitar & mix: "],

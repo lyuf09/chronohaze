@@ -153,16 +153,16 @@
   <link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
   <title>早期项目记录：Submodular Greedy 的 Isabelle 形式化</title>
-  <meta name="description" content="2025年12月的阶段记录；项目此后已于 AFP 2026 正式发表，当前仓库另含发表后的 StochasticGreedy 扩展。" data-content-zh="2025 年 12 月的 Isabelle/HOL 子模贪心形式化阶段记录；项目后来发表于 AFP 2026，并继续扩展 StochasticGreedy。" data-content-en="A December 2025 project note on formalizing submodular greedy algorithms in Isabelle/HOL, later published in AFP 2026 and extended with StochasticGreedy." />
+  <meta name="description" content="2025年12月的阶段记录；项目此后已于 AFP 2026 正式发表。后续 StochasticGreedy 为未发表扩展，最新实现尚未公开。" data-content-zh="2025 年 12 月的 Isabelle/HOL 子模贪心形式化阶段记录；项目后来发表于 AFP 2026，并继续扩展 StochasticGreedy。" data-content-en="A December 2025 project note on formalizing submodular greedy algorithms in Isabelle/HOL, later published in AFP 2026 and extended with StochasticGreedy." />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Chronohaze" />
   <meta property="og:title" content="早期项目记录：Submodular Greedy 的 Isabelle 形式化 | Chronohaze" />
-  <meta property="og:description" content="2025年12月的阶段记录；项目此后已于 AFP 2026 正式发表，当前仓库另含发表后的 StochasticGreedy 扩展。" />
+  <meta property="og:description" content="2025年12月的阶段记录；项目此后已于 AFP 2026 正式发表。后续 StochasticGreedy 为未发表扩展，最新实现尚未公开。" />
   <meta property="og:url" content="https://lyuf09.github.io/chronohaze/post/isabelle-submodular-greedy.html" />
   <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/isabelle-submodular-greedy.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="早期项目记录：Submodular Greedy 的 Isabelle 形式化 | Chronohaze" />
-  <meta name="twitter:description" content="2025年12月的阶段记录；项目此后已于 AFP 2026 正式发表，当前仓库另含发表后的 StochasticGreedy 扩展。" />
+  <meta name="twitter:description" content="2025年12月的阶段记录；项目此后已于 AFP 2026 正式发表。后续 StochasticGreedy 为未发表扩展，最新实现尚未公开。" />
   <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/isabelle-submodular-greedy.png" />
   <link rel="canonical" href="https://lyuf09.github.io/chronohaze/post/isabelle-submodular-greedy.html" />
   <!-- GENERATED:hreflang:start -->
@@ -229,10 +229,11 @@
   <aside class="math-post-update" aria-label="项目更新：2026年7月">
     <p class="math-post-update-label">Updated 2026年7月 · 保留原始发布日期</p>
     <p>2026 年 5 月 26 日这个项目正式进入 AFP，发表范围包括 classical greedy 和 verified stateful lazy greedy。之后仓库还继续做了 StochasticGreedy 的采样、近似证明和 oracle-cost 分析。下面记录的还是 2025 年 12 月的进度，没有把发表后的结果写成当时就已经完成的工作。</p>
+    <p class="research-public-status">当前公开状态：后续 StochasticGreedy 工作属于未发表扩展，最新实现尚未公开；下方 GitHub 链接指向较早公开版本。</p>
     <div class="research-link-row">
       <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
       <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a>
-      <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">Repository</a>
+      <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">GitHub · 较早公开版本</a>
     </div>
   </aside>
   <p>这篇写于 2025 年 12 月。当时我正在用 Isabelle/HOL 形式化基数约束下单调子模最大化的 greedy approximation theorem。上面的更新记录了后来的 AFP 发表情况，但是下面还是保留当时的进度。</p>
@@ -259,7 +260,7 @@
   <p>接下来计划尝试用 locale 抽象常用条件，加入 coverage function 这样的实例，并检查可执行实验和其他 greedy 变体能不能接进来。这些是当时的计划，后续成果以上面的发表更新和仓库记录为准。</p>
 
   <h3><strong>项目链接</strong></h3>
-  <p><a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">github.com/lyuf09/isabelle-submodular-greedy</a></p>
+  <p><a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">GitHub · 较早公开版本</a></p>
 
   <nav class="math-post-nav" data-static-math-post-nav="1" aria-label="相邻笔记导航"><a class="math-post-nav-item" data-nav-dir="prev" href="../post/spring-2026.html" data-no-page-transition="1" aria-label="上一篇 · Spring 2026｜新科研记录的开始"><span class="math-post-nav-label">上一篇</span><span class="math-post-nav-title">Spring 2026｜新科研记录的开始</span></a><a class="math-post-nav-item" data-nav-dir="next" href="../post/first-isabelle-proof.html" data-no-page-transition="1" aria-label="下一篇 · 我的第一个 Isabelle 形式化证明"><span class="math-post-nav-label">下一篇</span><span class="math-post-nav-title">我的第一个 Isabelle 形式化证明</span></a></nav>
 <div class="academic-hub-links math-post-hub-links">
@@ -278,10 +279,11 @@
   <aside class="math-post-update" aria-label="Project update, July 2026">
     <p class="math-post-update-label">Updated July 2026 · original posting date retained</p>
     <p><strong>Published in AFP on May 26, 2026:</strong> the entry covers classical greedy and a verified stateful lazy-greedy variant. <strong>Post-publication extension:</strong> the repository later added StochasticGreedy sampling, approximation proofs and oracle-cost analysis. The text below describes where the project stood in December 2025. It does not claim the later work was already complete.</p>
+    <p class="research-public-status">Current public status: the subsequent StochasticGreedy work is an unpublished extension. The latest implementation is not yet public; the GitHub link below points to an earlier public version.</p>
     <div class="research-link-row">
       <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
       <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a>
-      <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">Repository</a>
+      <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">GitHub · Earlier public development</a>
     </div>
   </aside>
   <p>I wrote this note in December 2025, when I was formalising the greedy approximation theorem for cardinality-constrained monotone submodular maximisation in Isabelle/HOL. The update above records its later publication in AFP, but the main text keeps the progress as it was at the time.</p>
@@ -308,7 +310,7 @@
   <p>My next plans were to use locales for common assumptions, add examples such as coverage functions, and see whether executable experiments or other greedy variants could fit into the project. Those were my plans at the time. The publication update and repository record show what happened later.</p>
 
   <h3><strong>Project link</strong></h3>
-  <p><a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">github.com/lyuf09/isabelle-submodular-greedy</a></p>
+  <p><a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">GitHub · Earlier public development</a></p>
 
 <nav class="math-post-nav" data-static-math-post-nav="1" aria-label="Adjacent notes"><a class="math-post-nav-item" data-nav-dir="prev" href="../post/spring-2026.html" data-no-page-transition="1" aria-label="Previous note · Spring 2026 | A New Research Direction"><span class="math-post-nav-label">Previous note</span><span class="math-post-nav-title">Spring 2026 | A New Research Direction</span></a><a class="math-post-nav-item" data-nav-dir="next" href="../post/first-isabelle-proof.html" data-no-page-transition="1" aria-label="Next note · My First Isabelle Formalization Project"><span class="math-post-nav-label">Next note</span><span class="math-post-nav-title">My First Isabelle Formalization Project</span></a></nav>
 <div class="academic-hub-links math-post-hub-links">

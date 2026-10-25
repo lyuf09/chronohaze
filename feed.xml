@@ -5,7 +5,7 @@
     <link>https://lyuf09.github.io/chronohaze/</link>
     <description>Research notes and technical updates from Feier Lyu on optimization, Isabelle/HOL, and related mathematical work.</description>
     <language>en</language>
-    <lastBuildDate>Thu, 22 Oct 2026 13:57:56 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 25 Oct 2026 02:19:23 +0000</lastBuildDate>
     <generator>Chronohaze static feed builder</generator>
     <atom:link href="https://lyuf09.github.io/chronohaze/feed.xml" rel="self" type="application/rss+xml" />
 
@@ -14,7 +14,7 @@
       <link>https://lyuf09.github.io/chronohaze/post/stochasticgreedy-executable-refinement.html</link>
       <guid>https://lyuf09.github.io/chronohaze/post/stochasticgreedy-executable-refinement.html</guid>
       <pubDate>Sat, 03 Oct 2026 12:00:00 +0000</pubDate>
-      <description>Connecting random bits, executable sampling, probability semantics, expected approximation guarantees, and resource accounting in one machine-checked chain.</description>
+      <description>Progress summary of an unpublished extension; the latest implementation is not yet public. Expected approximation uses ideal random-bit semantics; PCG results concern execution preservation under optimization.</description>
     </item>
 
     <item>
@@ -79,7 +79,7 @@
       <link>https://lyuf09.github.io/chronohaze/post/isabelle-submodular-greedy.html</link>
       <guid>https://lyuf09.github.io/chronohaze/post/isabelle-submodular-greedy.html</guid>
       <pubDate>Mon, 29 Dec 2025 12:00:00 +0000</pubDate>
-      <description>A December 2025 stage record; the project was subsequently published in AFP 2026, and the current repository also contains a post-publication StochasticGreedy extension.</description>
+      <description>A December 2025 stage record; the project was subsequently published in AFP 2026. The later StochasticGreedy extension is unpublished, and its latest implementation is not yet public.</description>
     </item>
 
     <item>
