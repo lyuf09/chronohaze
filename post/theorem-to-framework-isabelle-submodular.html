@@ -228,9 +228,9 @@
           <h1>从一个定理到一套框架：我的 Isabelle 子模优化项目新进展</h1>
           <p class="article-meta">Feier Lyu · Originally posted 2026年3月14日 · 约 6 分钟</p>
 
-          <aside class="math-post-update" aria-label="项目更新：2026年7月">
-            <p class="math-post-update-label">Updated 2026年7月 · 保留原始发布日期</p>
-            <p><strong>2026 年 5 月 26 日发表于 AFP：</strong>正式条目包含 classical greedy 和经过验证的 stateful lazy greedy。<strong>发表后：</strong>仓库继续加入 StochasticGreedy 的采样模型、近似证明和 oracle-cost bounds。这篇还保留 3 月 14 日的原始发布日期。</p>
+          <aside class="math-post-update" aria-label="项目更新：2026年10月25日">
+            <p class="math-post-update-label">更新于 2026年10月25日</p>
+            <p><strong>2026 年 5 月 26 日发表于 AFP：</strong>正式条目包含 classical greedy 和经过验证的 stateful lazy greedy。<strong>发表后：</strong>仓库继续加入 StochasticGreedy 的采样模型、近似证明和 oracle-cost bounds。</p>
             <p class="research-public-status">当前公开状态：后续 StochasticGreedy 工作属于未发表扩展，最新实现尚未公开；下方 GitHub 链接指向较早公开版本。</p>
     <div class="research-link-row">
               <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
@@ -241,7 +241,6 @@
           </aside>
 
           <p>这段时间继续做 Isabelle 的子模贪心项目后，我开始把更多精力放在不同算法怎么复用同一套证明上。最早我只想把 classical greedy 的近似保证形式化，但是后来加入了 LazyGreedy，还整理了具体实例和复杂度分析。</p>
-          <p>这篇原本写于 2026 年 3 月 14 日。上面的发表更新记录的是后来发生的事，下面仍然按当时的项目思路来写。</p>
 
           <h3><strong>Classical greedy：把构造和近似证明分开</strong></h3>
           <p>Classical greedy 是整个项目的基础。我先定义贪心序列和边际增益，再证明每一步的选择满足需要的条件，还有整个构造过程中的不变量。之后才使用单调性、子模性和 gap recurrence 推出 Nemhauser–Wolsey 的 <code>1 - 1/e</code> 近似保证。</p>
@@ -281,9 +280,9 @@
           <h1>Classical Greedy, LazyGreedy, and StochasticGreedy in Isabelle/HOL</h1>
           <p class="article-meta">Feier Lyu · Originally posted March 14, 2026 · 8 min read</p>
 
-          <aside class="math-post-update" aria-label="Project update, July 2026">
-            <p class="math-post-update-label">Updated July 2026 - original post date retained.</p>
-            <p><strong>Published May 26, 2026:</strong> the AFP entry contains classical greedy and a verified stateful lazy-greedy variant. <strong>Post-publication extension:</strong> the repository continued with StochasticGreedy sampling, approximation, and oracle-cost bounds. This update does not change the original March 14 date.</p>
+          <aside class="math-post-update" aria-label="Project update, October 25, 2026">
+            <p class="math-post-update-label">Updated October 25, 2026</p>
+            <p><strong>Published May 26, 2026:</strong> the AFP entry contains classical greedy and a verified stateful lazy-greedy variant. <strong>Post-publication extension:</strong> the repository continued with StochasticGreedy sampling, approximation, and oracle-cost bounds.</p>
             <p class="research-public-status">Current public status: the subsequent StochasticGreedy work is an unpublished extension. The latest implementation is not yet public; the GitHub link below points to an earlier public version.</p>
     <div class="research-link-row">
               <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
@@ -294,7 +293,6 @@
           </aside>
 
             <p>After spending more time on the Isabelle submodular greedy project, I started focusing on how different algorithms could reuse the same proofs. I had originally planned to formalise the classical greedy approximation guarantee. I later added LazyGreedy and worked on concrete instances and complexity bounds.</p>
-          <p>This note was originally posted on 14 March 2026. The publication update above records what happened later, but the main text describes the project as I was organising it at that stage.</p>
 
           <h3><strong>Classical greedy: separating the construction from the approximation proof</strong></h3>
           <p>Classical greedy is the starting point. I defined the greedy sequence and marginal gains, then proved the conditions for each selection step and the invariants of the construction. Only after that did I use monotonicity, submodularity, and the gap recurrence to obtain the Nemhauser–Wolsey <code>1 - 1/e</code> approximation guarantee.</p>

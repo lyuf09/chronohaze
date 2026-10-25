@@ -620,7 +620,7 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
     "未发表扩展：已完成概率语义连接与期望近似证明，并建立预言机调用次数界；当前重点是实现改进、实验评估与论文范围整理。最新实现尚未公开。"
   );
   await expect(page.locator('[data-i18n="nowCard2Body"]')).toHaveText(
-    "最近加入了两个新乐队：remonko cake（柠檬籽蛋糕）和 the biscuit tin collective，都是担任贝斯手：）不如说，我最近不是很喜欢弹吉他和唱歌。"
+    "最近加入了两个新乐队：remonko cake（柠檬籽蛋糕）和 the biscuit tin collective，都是担任贝斯手：）最近把更多时间放在贝斯和乐队排练上。"
   );
   await expect(page.locator('[data-i18n="nowCard3Body"]')).toHaveText(
     "最近正在写一张音乐小说 EP，叫《Kaleidoscope》。"
@@ -647,7 +647,7 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
     "Unpublished extension: the probability-semantics connection and expected approximation guarantee are established, along with oracle-cost bounds. Current work focuses on implementation improvements, experimental evaluation, and defining the paper scope. The latest implementation is not yet public."
   );
   await expect(page.locator('[data-i18n="nowCard2Body"]')).toHaveText(
-    "I’ve recently joined two new bands, remonko cake and the biscuit tin collective, both on bass :) I haven’t been that into playing guitar or singing lately."
+    "I’ve recently joined two new bands, remonko cake and the biscuit tin collective, both on bass :) Lately I’ve been spending more time on bass and band rehearsals."
   );
   await expect(page.locator('[data-i18n="nowCard3Body"]')).toHaveText(
     "I’m currently writing Kaleidoscope, an EP combining music and fiction."
@@ -1041,7 +1041,7 @@ test("music index renders and remains interactive", async ({ page }) => {
   await expect(page.locator(".music-room-shell").first()).toBeVisible();
   await expect(page.locator(".music-room-current-project")).toBeVisible();
   await expect(page.locator(".music-room-current-project-heading")).toHaveText(
-    "当前 / 即将发行专辑"
+    "当前 / 创作中的 EP"
   );
   await expect(page.locator(".music-room-current-project-enter")).toHaveCount(0);
   await expect(page.locator('a[href*="lyuf09.github.io/kaleidoscope"]')).toHaveCount(0);
@@ -1051,7 +1051,7 @@ test("music index renders and remains interactive", async ({ page }) => {
   await expect(page.locator(".music-room-current-project-title")).toHaveText("Kaleidoscope");
   await expect(page.locator(".music-room-current-project-title-zh")).toHaveText("万花镜");
   await expect(page.locator(".music-room-current-project-detail")).toHaveText(
-    "2027 · 专辑 · 9 首曲目"
+    "音乐小说 EP · 创作中"
   );
   await expect(page.locator(".music-room-current-project-tracklist li")).toHaveCount(9);
   await expect(page.locator(".music-room-current-project-play")).toBeDisabled();
@@ -1158,13 +1158,13 @@ test("music index renders and remains interactive", async ({ page }) => {
   );
   await expect(page.locator(".music-hero-kicker")).toHaveText("MUSIC / LISTENING ROOM");
   await expect(page.locator(".music-room-current-project-heading")).toHaveText(
-    "CURRENT / FORTHCOMING ALBUM"
+    "CURRENT / EP IN PROGRESS"
   );
   await expect(page.locator(".music-room-current-project-detail")).toHaveText(
-    "2027 · Album · 9 tracks"
+    "Music-and-fiction EP · In progress"
   );
   await expect(page.locator(".music-room-current-project-summary")).toHaveText(
-    "A nine-part concept album accompanied by a novella and visual archive."
+    "Kaleidoscope is an EP in progress, combining music and fiction."
   );
   await expect(page.locator(".music-hero-roles")).toHaveText(
     "Composer · Arranger · Bassist · Guitarist · Producer"
@@ -1579,13 +1579,14 @@ test("Affizieren shows metadata duration and progressive technical disclosure be
   );
   await page.locator(".affizieren-note-details > summary").click();
   await expect(page.locator(".affizieren-note-full-copy")).toContainText(
-    "The non-repeating guitar line makes this section deliberately difficult to reproduce live."
+    "The solo is technically demanding, and I can’t play it perfectly live."
   );
+  await expect(page.locator(".affizieren-note-full-copy")).toContainText("I wrote it by accident");
   await expect(page.locator(".affizieren-note-full-copy")).toContainText(
     "the piano sound from Guitar Pro"
   );
   await expect(page.locator(".affizieren-note-full-copy")).not.toContainText(
-    "isn’t a section I can perform perfectly live"
+    "deliberately difficult to reproduce live"
   );
   await expect(page.locator(".affizieren-note-full-copy")).not.toContainText("-bar");
   await expect(page.locator(".music-player-time").first()).toContainText("/ 05:48");
@@ -1631,7 +1632,7 @@ test("Affizieren shows metadata duration and progressive technical disclosure be
   await expect(page.locator(".album-intro")).toContainText("2022–2024");
   await expect(page.locator(".album-intro")).toContainText("HazezZ composed every track");
   await expect(page.locator(".album-intro")).toContainText(
-    "leaving the older songs scattered"
+    "keep a record of what I was writing"
   );
 
   expect(errors).toEqual([]);
@@ -2084,6 +2085,7 @@ test("album page renders cover and track links", async ({ page }) => {
   await expect(page.locator(".album-intro")).toContainText("作品本身就是留下来的部分");
   await expect(page.locator(".album-intro")).not.toContainText("屏幕、时差");
   await expect(page.locator(".album-intro")).not.toContainText("如果有一天被听见");
+  await expect(page.locator('.album-track-link[href="track-felix.html"] .album-track-status')).toHaveText("待上传音频");
   await expect.poll(async () => page.locator(".album-tracklist .album-track-link").count()).toBeGreaterThan(10);
   await expect
     .poll(async () => page.locator(".album-tracklist [data-track-status], .album-tracklist .track-status-badge").count())
@@ -2106,6 +2108,21 @@ test("album page renders cover and track links", async ({ page }) => {
   );
   await expect(page.locator(".page-last-updated-row")).toHaveCount(0);
   await expect(page.locator("main")).not.toContainText("最近更新");
+  await expect(page.locator('.album-track-link[href="track-felix.html"] .album-track-status')).toHaveText("Audio pending");
+  await expect(page.locator('.album-novella-entry')).toContainText("Serial in progress");
+
+  await page.goto("music/ipomoea-alba/novella/", { waitUntil: "domcontentloaded" });
+  await expect(page.locator('.ia-chapter-list a[href]')).toHaveCount(1);
+  await expect(page.locator('.ia-chapter-list a[href]')).toHaveAttribute("href", "prologue.html");
+  await expect(page.locator('.ia-chapter-list a[aria-disabled="true"][href]')).toHaveCount(0);
+  await page.locator('.ia-start-link').click();
+  await expect(page.locator('.ia-manuscript')).not.toContainText("[ 正文 ]");
+  await expect(page.locator('.ia-next')).toHaveAttribute("aria-disabled", "true");
+  await expect(page.locator('.ia-next')).not.toHaveAttribute("href");
+  await page.goto("music/ipomoea-alba/novella/01.html", { waitUntil: "domcontentloaded" });
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", "noindex");
+  await expect(page.locator('.ia-manuscript')).toContainText("本章仍在写作，暂未开放");
+  await expect(page.locator('.ia-manuscript')).not.toContainText("[ 正文 ]");
 
   expect(errors).toEqual([]);
 });
@@ -2508,7 +2525,8 @@ test("AFP publication status stays synchronized across work page and project his
   const update = page.locator('[data-lang-block="en"] .math-post-update');
   await expect(update).toBeVisible();
   await expect(update).toContainText("Published May 26, 2026");
-  await expect(update).toContainText("original March 14 date");
+  await expect(update).toContainText("Updated October 25, 2026");
+  await expect(page.locator('[data-lang-block="en"] .article-meta').first()).toContainText("Originally posted 2026-03-14");
   await expect(update).toContainText("Post-publication extension");
   await expect(update.getByRole("link", { name: "AFP entry" })).toHaveAttribute(
     "href",

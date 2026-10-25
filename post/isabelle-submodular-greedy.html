@@ -226,9 +226,9 @@
 <div data-lang-block="zh">
 <h1>早期项目记录：Submodular Greedy 的 Isabelle 形式化</h1>
   <p class="article-meta">Feier Lyu · Originally posted 2025年12月29日 · 约 4 分钟</p>
-  <aside class="math-post-update" aria-label="项目更新：2026年7月">
-    <p class="math-post-update-label">Updated 2026年7月 · 保留原始发布日期</p>
-    <p>2026 年 5 月 26 日这个项目正式进入 AFP，发表范围包括 classical greedy 和 verified stateful lazy greedy。之后仓库还继续做了 StochasticGreedy 的采样、近似证明和 oracle-cost 分析。下面记录的还是 2025 年 12 月的进度，没有把发表后的结果写成当时就已经完成的工作。</p>
+  <aside class="math-post-update" aria-label="项目更新：2026年10月25日">
+    <p class="math-post-update-label">更新于 2026年10月25日</p>
+    <p>2026 年 5 月 26 日这个项目正式进入 AFP，发表范围包括 classical greedy 和 verified stateful lazy greedy。之后仓库还继续做了 StochasticGreedy 的采样、近似证明和 oracle-cost 分析。</p>
     <p class="research-public-status">当前公开状态：后续 StochasticGreedy 工作属于未发表扩展，最新实现尚未公开；下方 GitHub 链接指向较早公开版本。</p>
     <div class="research-link-row">
       <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
@@ -236,7 +236,7 @@
       <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">GitHub · 较早公开版本</a>
     </div>
   </aside>
-  <p>这篇写于 2025 年 12 月。当时我正在用 Isabelle/HOL 形式化基数约束下单调子模最大化的 greedy approximation theorem。上面的更新记录了后来的 AFP 发表情况，但是下面还是保留当时的进度。</p>
+  <p>当时我正在用 Isabelle/HOL 形式化基数约束下单调子模最大化的 greedy approximation theorem。</p>
 
   <h3><strong>我当时在证明什么</strong></h3>
   <p>对于单调非负子模函数，在适当的基数约束下 classical greedy 可以得到 <code>1 - 1/e</code> 近似保证。这个结果一般被称为 Nemhauser–Wolsey 的经典贪心近似定理。</p>
@@ -257,7 +257,7 @@
   <h3><strong>2025 年 12 月的进度</strong></h3>
   <p>当时已经有了基本的 greedy construction、边际增益的结构引理和近似证明需要的递推框架。</p>
   <p>还在继续处理的包括子模性假设的模块化、几个技术引理的整理，以及以后做具体实例化需要的接口。</p>
-  <p>接下来计划尝试用 locale 抽象常用条件，加入 coverage function 这样的实例，并检查可执行实验和其他 greedy 变体能不能接进来。这些是当时的计划，后续成果以上面的发表更新和仓库记录为准。</p>
+  <p>当时我想尝试用 locale 抽象常用条件，加入 coverage function 这样的实例，并检查可执行实验和其他 greedy 变体能不能接进来。</p>
 
   <h3><strong>项目链接</strong></h3>
   <p><a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">GitHub · 较早公开版本</a></p>
@@ -276,9 +276,9 @@
 <div data-lang-block="en" hidden>
 <h1>Early Project Note: Formalising Submodular Greedy</h1>
   <p class="article-meta">Feier Lyu · Originally posted 29 December 2025 · ~4 min read</p>
-  <aside class="math-post-update" aria-label="Project update, July 2026">
-    <p class="math-post-update-label">Updated July 2026 · original posting date retained</p>
-    <p><strong>Published in AFP on May 26, 2026:</strong> the entry covers classical greedy and a verified stateful lazy-greedy variant. <strong>Post-publication extension:</strong> the repository later added StochasticGreedy sampling, approximation proofs and oracle-cost analysis. The text below describes where the project stood in December 2025. It does not claim the later work was already complete.</p>
+  <aside class="math-post-update" aria-label="Project update, October 25, 2026">
+    <p class="math-post-update-label">Updated October 25, 2026</p>
+    <p><strong>Published in AFP on May 26, 2026:</strong> the entry covers classical greedy and a verified stateful lazy-greedy variant. <strong>Post-publication extension:</strong> the repository later added StochasticGreedy sampling, approximation proofs and oracle-cost analysis. </p>
     <p class="research-public-status">Current public status: the subsequent StochasticGreedy work is an unpublished extension. The latest implementation is not yet public; the GitHub link below points to an earlier public version.</p>
     <div class="research-link-row">
       <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
@@ -286,7 +286,7 @@
       <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">GitHub · Earlier public development</a>
     </div>
   </aside>
-  <p>I wrote this note in December 2025, when I was formalising the greedy approximation theorem for cardinality-constrained monotone submodular maximisation in Isabelle/HOL. The update above records its later publication in AFP, but the main text keeps the progress as it was at the time.</p>
+  <p>I was formalising the greedy approximation theorem for cardinality-constrained monotone submodular maximisation in Isabelle/HOL.</p>
 
   <h3><strong>What I was trying to prove</strong></h3>
   <p>For a monotone non-negative submodular function, classical greedy has a <code>1 - 1/e</code> approximation guarantee under the appropriate cardinality constraint. This is the classical Nemhauser–Wolsey greedy approximation result.</p>
@@ -307,7 +307,7 @@
   <h3><strong>Progress in December 2025</strong></h3>
   <p>At the time I had the basic greedy construction, lemmas about marginal gains and the recurrence needed for the approximation proof.</p>
   <p>I was still working on separating out the submodularity assumptions, reorganising a few technical lemmas and making the definitions easier to use in concrete examples.</p>
-  <p>My next plans were to use locales for common assumptions, add examples such as coverage functions, and see whether executable experiments or other greedy variants could fit into the project. Those were my plans at the time. The publication update and repository record show what happened later.</p>
+  <p>My next plans were to use locales for common assumptions, add examples such as coverage functions, and see whether executable experiments or other greedy variants could fit into the project.</p>
 
   <h3><strong>Project link</strong></h3>
   <p><a href="https://github.com/lyuf09/isabelle-submodular-greedy/tree/main" target="_blank" rel="noopener noreferrer">GitHub · Earlier public development</a></p>

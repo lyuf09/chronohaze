@@ -17651,3 +17651,5 @@ html:lang(zh) .music-index-page .music-room-track-open {
   font-size: 17px;
   font-weight: 400;
 }
+
+.research-page .research-project-kind { color: #303945; }
