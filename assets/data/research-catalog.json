@@ -10,10 +10,10 @@
     "items": [
       {
         "label": "Last updated",
-        "value": "2026-10-24 · 10:19 PM ET",
-        "datetime": "2026-10-24T22:19:23-04:00",
+        "value": "2026-10-25 · 05:46 AM ET",
+        "datetime": "2026-10-25T05:46:50-04:00",
         "timezone": "America/New_York",
-        "date_only": "2026-10-24",
+        "date_only": "2026-10-25",
         "display_format": "YYYY-MM-DD · hh:mm A ET"
       }
     ]
@@ -33,7 +33,7 @@
       "problem": "在 Isabelle/HOL 中形式化算法假设、状态不变量、关键不等式与收敛结论。",
       "method": "",
       "status": "",
-      "current_status": "2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化经典贪心算法与经验证的有状态惰性贪心变体。未发表扩展：StochasticGreedy 已连接可执行采样、理想随机位语义、期望近似保证与资源计数。最新实现尚未公开；下方 GitHub 链接指向较早公开版本。另一项光滑凸一阶优化形式化已于2026年7月2日正式发表于 Archive of Formal Proofs；涵盖下降论证、投影几何、投影梯度映射、残差证书及收敛率。",
+      "current_status": "2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化经典贪心算法与经验证的有状态惰性贪心变体。 未发表扩展：StochasticGreedy 已连接可执行采样、理想随机位语义、期望近似保证与预言机调用次数界。最新实现尚未公开；下方 GitHub 链接指向较早公开版本。 另一项光滑凸一阶优化形式化已于2026年7月2日正式发表于 Archive of Formal Proofs；涵盖下降论证、投影几何、投影梯度映射、残差证书及收敛率。",
       "contribution": "在复用证明结构的基础上，当前扩展工作重点是实现改进、实验评估与论文范围整理。",
       "links": [
         {
@@ -64,8 +64,8 @@
       ],
       "status_key": "",
       "status_label": "",
-      "status_detail": "2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化经典贪心算法与经验证的有状态惰性贪心变体。未发表扩展：StochasticGreedy 已连接可执行采样、理想随机位语义、期望近似保证与资源计数。最新实现尚未公开；下方 GitHub 链接指向较早公开版本。另一项光滑凸一阶优化形式化已于2026年7月2日正式发表于 Archive of Formal Proofs；涵盖下降论证、投影几何、投影梯度映射、残差证书及收敛率。",
-      "status_display": "2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化经典贪心算法与经验证的有状态惰性贪心变体。未发表扩展：StochasticGreedy 已连接可执行采样、理想随机位语义、期望近似保证与资源计数。最新实现尚未公开；下方 GitHub 链接指向较早公开版本。另一项光滑凸一阶优化形式化已于2026年7月2日正式发表于 Archive of Formal Proofs；涵盖下降论证、投影几何、投影梯度映射、残差证书及收敛率。"
+      "status_detail": "2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化经典贪心算法与经验证的有状态惰性贪心变体。 未发表扩展：StochasticGreedy 已连接可执行采样、理想随机位语义、期望近似保证与预言机调用次数界。最新实现尚未公开；下方 GitHub 链接指向较早公开版本。 另一项光滑凸一阶优化形式化已于2026年7月2日正式发表于 Archive of Formal Proofs；涵盖下降论证、投影几何、投影梯度映射、残差证书及收敛率。",
+      "status_display": "2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化经典贪心算法与经验证的有状态惰性贪心变体。 未发表扩展：StochasticGreedy 已连接可执行采样、理想随机位语义、期望近似保证与预言机调用次数界。最新实现尚未公开；下方 GitHub 链接指向较早公开版本。 另一项光滑凸一阶优化形式化已于2026年7月2日正式发表于 Archive of Formal Proofs；涵盖下降论证、投影几何、投影梯度映射、残差证书及收敛率。"
     },
     {
       "kind": "主要方向 02",
@@ -101,9 +101,9 @@
       "optimization",
       "formal-methods"
     ],
-    "sort": 20261024,
+    "sort": 20261025,
     "scope": "site",
-    "content": "研究陈述 我的工作目前有两个方向。一是优化算法的 Isabelle/HOL 形式化验证，包括子模贪心方法与投影梯度下降；二是非凸网络定位，研究图结构与节点几何如何影响驻点附近的二阶性质。 主要研究方向 主要方向 01 优化算法的形式化验证 在 Isabelle/HOL 中形式化算法假设、状态不变量、关键不等式与收敛结论。 2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化经典贪心算法与经验证的有状态惰性贪心变体。未发表扩展：StochasticGreedy 已连接可执行采样、理想随机位语义、期望近似保证与资源计数。最新实现尚未公开；下方 GitHub 链接指向较早公开版本。另一项光滑凸一阶优化形式化已于2026年7月2日正式发表于 Archive of Formal Proofs；涵盖下降论证、投影几何、投影梯度映射、残差证书及收敛率。 在复用证明结构的基础上，当前扩展工作重点是实现改进、实验评估与论文范围整理。 PGD AFP 条目 Submodular AFP 条目 DOI: 10.5281/zenodo.21054718 证明文档 GitHub · 较早公开版本 主要方向 02 网络定位中的二阶几何 与 Shoham Sabach、Owen Li 的合作研究网络结构如何影响非最优 stationary points 附近的二阶几何。 项目仍在进行，技术结果尚未公开。",
+    "content": "研究陈述 我的工作目前有两个方向。一是优化算法的 Isabelle/HOL 形式化验证，包括子模贪心方法与投影梯度下降；二是非凸网络定位，研究图结构与节点几何如何影响驻点附近的二阶性质。 主要研究方向 主要方向 01 优化算法的形式化验证 在 Isabelle/HOL 中形式化算法假设、状态不变量、关键不等式与收敛结论。 2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化经典贪心算法与经验证的有状态惰性贪心变体。 未发表扩展：StochasticGreedy 已连接可执行采样、理想随机位语义、期望近似保证与预言机调用次数界。最新实现尚未公开；下方 GitHub 链接指向较早公开版本。 另一项光滑凸一阶优化形式化已于2026年7月2日正式发表于 Archive of Formal Proofs；涵盖下降论证、投影几何、投影梯度映射、残差证书及收敛率。 在复用证明结构的基础上，当前扩展工作重点是实现改进、实验评估与论文范围整理。 PGD AFP 条目 Submodular AFP 条目 DOI: 10.5281/zenodo.21054718 证明文档 GitHub · 较早公开版本 主要方向 02 网络定位中的二阶几何 与 Shoham Sabach、Owen Li 的合作研究网络结构如何影响非最优 stationary points 附近的二阶几何。 项目仍在进行，技术结果尚未公开。",
     "meta_title": "",
     "meta_description": "Research statement by Feier Lyu (Fay Lyu) on reusable Isabelle/HOL infrastructure for optimization and second-order geometry in network localization."
   },

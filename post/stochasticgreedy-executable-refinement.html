@@ -124,7 +124,7 @@
   <meta name="twitter:title" content="从一套框架到真正会运行的随机算法：StochasticGreedy 的 executable refinement" />
   <meta name="twitter:description" content="未发表扩展的进展摘要；最新实现尚未公开。期望近似保证采用理想随机位语义，PCG 结果限定于优化前后的执行一致性。" />
   <meta property="article:published_time" content="2026-10-03" />
-  <meta property="article:modified_time" content="2026-10-03" />
+  <meta property="article:modified_time" content="2026-10-25" />
   <meta property="article:author" content="Feier Lyu" />
   <meta property="article:tag" content="Isabelle/HOL" />
   <meta property="article:tag" content="Submodular Maximization" />
@@ -258,17 +258,17 @@
       <article class="article stochastic-refinement-note">
         <div data-lang-block="zh">
           <h1>从一套框架到真正会运行的随机算法：StochasticGreedy 的 executable refinement</h1>
-          <p class="article-meta">Feier Lyu · 2026年10月3日 · 约 2 分钟</p>
+          <p class="article-meta">Feier Lyu · 首次发布于 2026年10月3日 · 更新于 2026年10月25日 · 约 2 分钟</p>
           <p class="article-tags">Isabelle/HOL · StochasticGreedy · 未发表扩展</p>
-          <p class="article-deck">StochasticGreedy 可执行精化的简短进展摘要：已完成概率语义连接、期望近似保证与资源计数。</p>
+          <p class="article-deck">StochasticGreedy 可执行精化的简短进展摘要：已完成概率语义连接与期望近似证明，并建立预言机调用次数界。</p>
           <blockquote class="research-public-status"><p>本页介绍的是已发表 AFP 条目之后继续开展的扩展工作。最新实现尚未公开；下方 GitHub 链接指向较早的公开版本。</p></blockquote>
           <h2>已完成的进展</h2>
           <p>2026 年 AFP 正式发表的条目覆盖经典贪心算法与经验证的有状态惰性贪心变体。这里介绍的 StochasticGreedy 是发表后继续开展的未发表扩展。</p>
-          <p>扩展已将可执行采样器与抽象概率模型连接起来，并将单步期望增益分析用于完整运行的期望近似保证；同时建立了终止性、输出可行性与资源计数结果。具体的 weighted-coverage 实例支持精确离散计算与 SML 代码生成。</p>
+          <p>扩展已将可执行采样器与抽象概率模型连接起来，并将单步期望增益分析用于完整运行的期望近似保证；同时证明了几乎必然终止、输出可行性与预言机调用次数界。具体的 weighted-coverage 实例支持精确离散计算与 SML 代码生成。</p>
           <h2>随机语义的适用范围</h2>
           <p>期望近似保证采用理想随机位语义。PCG 部分证明的是实现优化前后保持同一随机流和执行行为，并不证明 PCG 输出等同于独立公平随机位。</p>
           <h2>当前工作与公开材料</h2>
-          <p>当前重点是实现改进、实验评估与论文范围整理。详细证明、最新源码与完整实验材料目前按需定向交流；正式发布时将整理有明确版本与复现入口的发布包。</p>
+          <p>当前重点是实现改进、实验评估与论文范围整理。完整的期望实现成本分析仍是可能的后续工作。详细证明、最新源码与完整实验材料目前按需定向交流；正式发布时将整理有明确版本与复现入口的发布包。</p>
           <div class="research-link-row">
             <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">已发表 AFP 条目</a>
             <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf" target="_blank" rel="noopener noreferrer">AFP 证明文档</a>
@@ -287,17 +287,17 @@
 
         <div data-lang-block="en" hidden>
           <h1>From a Framework to a Randomized Algorithm That Actually Runs: Executable Refinement of StochasticGreedy</h1>
-          <p class="article-meta">Feier Lyu · October 3, 2026 · ~2 min read</p>
+          <p class="article-meta">Feier Lyu · Originally posted October 3, 2026 · Updated October 25, 2026 · ~2 min read</p>
           <p class="article-tags">Isabelle/HOL · StochasticGreedy · Unpublished extension</p>
-          <p class="article-deck">A brief progress summary of executable StochasticGreedy: the probability-semantics connection, expected approximation guarantee, and resource accounting are complete.</p>
+          <p class="article-deck">A brief progress summary of executable StochasticGreedy: the probability-semantics connection and expected approximation guarantee are established, together with oracle-cost bounds.</p>
           <blockquote class="research-public-status"><p>This page describes ongoing work extending the published AFP entry. The latest implementation is not yet public; the GitHub link below points to an earlier public version.</p></blockquote>
           <h2>Completed progress</h2>
           <p>The formally published 2026 AFP entry covers classical greedy and a verified stateful lazy-greedy variant. The StochasticGreedy work described here is an unpublished extension developed after that entry.</p>
-          <p>The extension connects executable sampling to the abstract probability model and transfers the one-step expected-gain analysis to the expected approximation guarantee for the complete run. It also establishes termination, output feasibility, and resource-accounting results. A concrete weighted-coverage instance supports exact discrete computation and SML code generation.</p>
+          <p>The extension connects executable sampling to the abstract probability model and transfers the one-step expected-gain analysis to the expected approximation guarantee for the complete run. It also establishes almost-sure termination, output feasibility, and oracle-cost bounds. A concrete weighted-coverage instance supports exact discrete computation and SML code generation.</p>
           <h2>Scope of the random semantics</h2>
           <p>The expected approximation guarantee uses ideal random-bit semantics. The PCG results establish that implementation optimizations preserve the same random stream and execution behavior; they do not establish that PCG output is equivalent to independent fair random bits.</p>
           <h2>Current work and public materials</h2>
-          <p>Current work focuses on implementation improvements, experimental evaluation, and defining the paper scope. Detailed proofs, the latest source, and the complete experimental materials are currently shared for focused discussions on request. A formal release will provide a clearly versioned package and an entry point for reproduction.</p>
+          <p>Current work focuses on implementation improvements, experimental evaluation, and defining the paper scope. A full expected implementation-cost analysis is a possible next step. Detailed proofs, the latest source, and the complete experimental materials are currently shared for focused discussions on request. A formal release will provide a clearly versioned package and an entry point for reproduction.</p>
           <div class="research-link-row">
             <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">Published AFP entry</a>
             <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf" target="_blank" rel="noopener noreferrer">AFP proof document</a>

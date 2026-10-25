@@ -7340,7 +7340,7 @@
       "This structural replacement slowly pulled the song away from the category of “written for someone.”<br />It became more like a strip of film, repeatedly overwritten, re-recorded, and developed over time.",
       "If I had to describe the colour of this song, it would be closest to a plum-purple hue: neither the warm palette typical of romance narratives, nor a fully settled coldness, but a blended tone that was once intense and has since been darkened by time.",
       "That colour holds both the vividness of early emotion and the shadowed layers left by later shifts in relationships. It doesn’t point to a single, specific memory, rather, it’s a composite spectrum formed by multiple time-slices overlapping.",
-      "In terms of craft, “Moonlapse” isn’t my most technically polished work. Instead, it keeps obvious early-stage fingerprints, like guitar parts that are inexplicably fast, and some very odd breakdown.",
+      "In terms of craft, “Moonlapse” isn’t my most technically polished work. Instead, it keeps obvious early-stage fingerprints, like guitar parts that are inexplicably fast, and some very odd breakdowns.",
       "But precisely because of that, it captures a kind of raw state that’s hard to reproduce. To me, “Moonlapse” is more like a time specimen sealed in sound. It records not only a relationship, but also the way I wrote in that period, the structure of my emotions, and the constantly shifting sense of distance between people.",
       "When the melody plays again, what it awakens may not be a specific person,<br />but that era of making itself, still carrying the residual warmth of plum-purple.",
     ];

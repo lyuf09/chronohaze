@@ -87,6 +87,15 @@ test("structured data JSON-LD is parseable and page-specific types are present",
 test("bilingual research posts expose one localized BlogPosting with real metadata", async ({ page }) => {
   const cases = [
     {
+      url: "post/stochasticgreedy-executable-refinement.html?lang=en",
+      headline: "From a Framework to a Randomized Algorithm That Actually Runs: Executable Refinement of StochasticGreedy",
+      bodyIncludes: "almost-sure termination",
+      bodyExcludes: "resource accounting are complete",
+      published: "2026-10-03",
+      modified: "2026-10-25",
+      keywords: ["Isabelle/HOL", "Submodular Maximization", "StochasticGreedy", "Randomized Algorithms", "Formal Verification"],
+    },
+    {
       url: "post/projected-gradient-descent-isabelle-hol.html?lang=en",
       headline: "Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL",
       bodyIncludes: "projected-gradient mapping",

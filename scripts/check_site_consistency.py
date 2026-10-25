@@ -29,7 +29,7 @@ SUBMODULAR_PUBLISHED_SCOPE = (
 )
 SUBMODULAR_POST_PUBLICATION_SCOPE = (
     "Unpublished extension: StochasticGreedy now connects executable sampling, "
-    "ideal random-bit semantics, expected approximation guarantees, and resource accounting. "
+    "ideal random-bit semantics, expected approximation guarantees, and oracle-cost bounds. "
     "The latest implementation is not yet public; the GitHub link below points to an earlier public version."
 )
 SUBMODULAR_PROJECTS_STATUS_MARKERS = (

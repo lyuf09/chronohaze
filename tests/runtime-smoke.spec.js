@@ -617,7 +617,7 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
   await expect(page.locator('.hero-academic-link[href="projects.html"]')).toHaveText("精选工作");
   await expect(page.locator('.hero-academic-link[href="cv.html"]')).toHaveText("个人档案");
   await expect(page.locator('[data-i18n="nowCard1Body"]')).toHaveText(
-    "未发表扩展：概率语义连接、期望近似保证与资源计数已完成；当前重点是实现改进、实验评估与论文范围整理。最新实现尚未公开。"
+    "未发表扩展：已完成概率语义连接与期望近似证明，并建立预言机调用次数界；当前重点是实现改进、实验评估与论文范围整理。最新实现尚未公开。"
   );
   await expect(page.locator('[data-i18n="nowCard2Body"]')).toHaveText(
     "最近加入了两个新乐队：remonko cake（柠檬籽蛋糕）和 the biscuit tin collective，都是担任贝斯手：）不如说，我最近不是很喜欢弹吉他和唱歌。"
@@ -644,7 +644,7 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
   await expect(page.locator(".hero-world-line")).toHaveCount(0);
   await expect(page.locator('[data-i18n="nowTitle"]')).toHaveText("Now / October 2026");
   await expect(page.locator('[data-i18n="nowCard1Body"]')).toHaveText(
-    "Unpublished extension: the probability-semantics connection, expected approximation guarantee, and resource accounting are complete. Current work focuses on implementation improvements, experimental evaluation, and defining the paper scope. The latest implementation is not yet public."
+    "Unpublished extension: the probability-semantics connection and expected approximation guarantee are established, along with oracle-cost bounds. Current work focuses on implementation improvements, experimental evaluation, and defining the paper scope. The latest implementation is not yet public."
   );
   await expect(page.locator('[data-i18n="nowCard2Body"]')).toHaveText(
     "I’ve recently joined two new bands, remonko cake and the biscuit tin collective, both on bass :) I haven’t been that into playing guitar or singing lately."
@@ -1822,7 +1822,7 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   await expect(page.locator(".cv-utility-bar")).toBeVisible();
   await expect(page.locator("a.cv-research-link")).toBeVisible();
   await expect(page.locator(".page-last-updated-label")).toHaveText("Last updated:");
-  await expect(page.locator(".page-last-updated-time")).toHaveText("August 2026");
+  await expect(page.locator(".page-last-updated-time")).toHaveText("October 2026");
   await expect(cvEnglish.locator("#cv-en-highlights")).toContainText("Expected graduation: 2027");
   await expect(cvEnglish.getByRole("heading", { name: "Academic Profile" })).toBeVisible();
   await expect(cvEnglish.locator("#cv-en-projects")).toContainText("Archive of Formal Proofs · July 2026");
@@ -1902,7 +1902,7 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   await waitForCriticalLoaderRelease(page);
   const cvChinese = page.locator('[data-lang-block="zh"]');
   await expect(page.locator(".page-last-updated-label")).toHaveText("最近更新：");
-  await expect(page.locator(".page-last-updated-time")).toHaveText("2026 年 8 月");
+  await expect(page.locator(".page-last-updated-time")).toHaveText("2026 年 10 月");
   await expect(cvChinese.locator("#cv-zh-projects")).toContainText("Archive of Formal Proofs · 2026年7月");
   await expect(cvChinese.locator("#cv-zh-projects")).not.toContainText("等待审核");
   await expect(cvChinese.locator("#cv-zh-projects")).toContainText(
@@ -1940,7 +1940,7 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   ).first();
   await expect(formalizationLine).toContainText("2026年5月26日正式发表于 AFP");
   await expect(formalizationLine).toContainText("未发表扩展：StochasticGreedy");
-  await expect(formalizationLine).toContainText("理想随机位语义、期望近似保证与资源计数");
+  await expect(formalizationLine).toContainText("理想随机位语义、期望近似保证与预言机调用次数界");
   await expect(page.locator("#research-outputs .research-output-card")).toHaveCount(0);
   await expect(page.locator("#research-outputs a")).toHaveText("查看代表性工作");
   await expect(page.locator("#research-outputs a")).toHaveAttribute("href", "projects.html");
@@ -1961,7 +1961,7 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
     "My work currently has two main directions. The first is formal verification of optimization algorithms in Isabelle/HOL, including submodular greedy methods and projected gradient descent. The second is nonconvex network localization, where I study how network structure shapes second-order geometry near stationary points."
   );
   await expect(page.locator("#research-questions .research-question-list")).toContainText(
-    "How can executable selection be improved and evaluated using the established probabilistic run semantics and resource-accounting guarantees?"
+    "How can executable selection be improved and evaluated using the established probabilistic run semantics and oracle-cost bounds?"
   );
   await expect(page.locator("#research-outputs .research-output-card")).toHaveCount(0);
   await expect(page.locator("#research-outputs a")).toHaveText("View Selected Work");

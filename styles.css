@@ -17642,3 +17642,12 @@ html:lang(zh) .music-index-page .music-room-track-open {
     grid-template-columns: 46px minmax(0, 1fr);
   }
 }
+
+/* Research prose: retain the headings and palette, improve long-form reading. */
+.research-page .research-thesis-line,
+.research-page .research-question-list p,
+.research-page .research-project-card > p:not(.research-project-kind) {
+  color: #303945;
+  font-size: 17px;
+  font-weight: 400;
+}

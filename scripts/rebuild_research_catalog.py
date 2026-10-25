@@ -351,9 +351,16 @@ def parse_research_page(text: str) -> Dict[str, Any]:
                 field_map[label] = clean(label_m.group(2))
             # Newer research cards use concise prose rather than explicit field labels.
             # Preserve those paragraphs in the canonical catalog and search index.
+            if len(unlabeled_paragraphs) > 3:
+                prose_fields = (
+                    unlabeled_paragraphs[0],
+                    " ".join(unlabeled_paragraphs[1:-1]),
+                    unlabeled_paragraphs[-1],
+                )
+            else:
+                prose_fields = unlabeled_paragraphs
             for key, paragraph_text in zip(
-                ("problem", "current_status", "contribution"),
-                unlabeled_paragraphs,
+                ("problem", "current_status", "contribution"), prose_fields
             ):
                 field_map.setdefault(key, paragraph_text)
             links_row_m = re.search(r'<div class="research-link-row">(.*?)</div>', body, re.S)
