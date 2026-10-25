@@ -66,7 +66,7 @@ test("home page renders hero and player shell", async ({ page }) => {
   await expect(page.locator(".identity-panel-math")).toContainText("学术身份 · FEIER LYU");
   await expect(page.locator(".identity-panel-creative")).toContainText("创作身份 · HAZEZZ");
   await expect(page.locator("#now")).toContainText("StochasticGreedy / Isabelle/HOL");
-  await expect(page.locator("#now")).toContainText("起死開戦 / Bass");
+  await expect(page.locator("#now")).toContainText("新乐队 / 贝斯");
   await expect(page.locator("#now")).toContainText("音乐制作");
   await expect(page.locator("#selected-evidence")).not.toContainText("Current research");
   await expect(page.locator("#welcome")).not.toContainText("Music & Image");
@@ -620,12 +620,12 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
     "未发表扩展：概率语义连接、期望近似保证与资源计数已完成；当前重点是实现改进、实验评估与论文范围整理。最新实现尚未公开。"
   );
   await expect(page.locator('[data-i18n="nowCard2Body"]')).toHaveText(
-    "最近在练 millsage 的《起死開戦》，主要在处理高难度的贝斯段落。"
+    "最近加入了两个新乐队：remonko cake（柠檬籽蛋糕）和 the biscuit tin collective，都是担任贝斯手：）不如说，我最近不是很喜欢弹吉他和唱歌。"
   );
   await expect(page.locator('[data-i18n="nowCard3Body"]')).toHaveText(
     "刚完成一首团体委托原创曲，也在继续写自己的歌和一些合作项目。"
   );
-  await expect(page.locator('[data-i18n="nowTitle"]')).toHaveText("近况 / 2026年9月");
+  await expect(page.locator('[data-i18n="nowTitle"]')).toHaveText("近况 / 2026年10月");
 
   await page.goto("index.html?lang=en", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
@@ -642,12 +642,12 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
     "I work on optimization and formal verification. As HazezZ, I write and produce music and make photographs."
   );
   await expect(page.locator(".hero-world-line")).toHaveCount(0);
-  await expect(page.locator('[data-i18n="nowTitle"]')).toHaveText("Now / September 2026");
+  await expect(page.locator('[data-i18n="nowTitle"]')).toHaveText("Now / October 2026");
   await expect(page.locator('[data-i18n="nowCard1Body"]')).toHaveText(
     "Unpublished extension: the probability-semantics connection, expected approximation guarantee, and resource accounting are complete. Current work focuses on implementation improvements, experimental evaluation, and defining the paper scope. The latest implementation is not yet public."
   );
   await expect(page.locator('[data-i18n="nowCard2Body"]')).toHaveText(
-    "I’m practicing the demanding bass part in millsage’s “起死開戦.”"
+    "I’ve recently joined two new bands, remonko cake and the biscuit tin collective, both on bass :) I haven’t been that into playing guitar or singing lately."
   );
   await expect(page.locator('[data-i18n="nowCard3Body"]')).toHaveText(
     "I’ve just completed an original commissioned song for a group, and I’m continuing to write my own music alongside several collaborative projects."
@@ -666,7 +666,7 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
   await expect(page.locator(".hero-portrait")).toHaveAttribute("alt", "Portrait of Feier Lyu (HazezZ)");
   await expect(page.locator(".now-grid")).toHaveAttribute(
     "aria-label",
-    "Current research and studio work in September 2026"
+    "Current research and studio work in October 2026"
   );
   await expect(page.locator('meta[name="description"]')).toHaveAttribute(
     "content",
