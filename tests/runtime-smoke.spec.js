@@ -1164,7 +1164,7 @@ test("music index renders and remains interactive", async ({ page }) => {
     "Music-and-fiction EP · In progress"
   );
   await expect(page.locator(".music-room-current-project-summary")).toHaveText(
-    "Kaleidoscope is an EP in progress, combining music and fiction."
+    "An EP integrating music and fiction, in progress."
   );
   await expect(page.locator(".music-hero-roles")).toHaveText(
     "Composer · Arranger · Bassist · Guitarist · Producer"
