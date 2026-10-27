@@ -1163,9 +1163,11 @@ test("music index renders and remains interactive", async ({ page }) => {
   await expect(page.locator(".music-room-current-project-detail")).toHaveText(
     "Music-and-fiction EP · In progress"
   );
-  await expect(page.locator(".music-room-current-project-summary")).toHaveText(
-    "An EP integrating music and fiction, in progress."
-  );
+  await expect(page.locator(".music-room-current-project-summary p")).toHaveText([
+    "As the west greenhouse of an old botanical garden approaches permanent closure, Ena revisits records from three years earlier—and begins to question memories she had long taken for granted.",
+    "Kaleidoscope is a narrative project comprising a nine-chapter novel and nine original tracks. The text and music follow the same sequence, approaching a shared story through different forms.",
+    "The novel is complete and available to read. The music is currently in production.",
+  ]);
   await expect(page.locator(".music-hero-roles")).toHaveText(
     "Composer · Arranger · Bassist · Guitarist · Producer"
   );
