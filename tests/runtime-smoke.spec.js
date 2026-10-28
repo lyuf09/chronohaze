@@ -1008,7 +1008,7 @@ test("network-localization research record is bilingual and contains no public P
 test("mini player exposes only valid track links across playback entry points", async ({ page }) => {
   const entries = [
     ["index.html?lang=zh", "#audioToggle", "music/track-04.html"],
-    ["music.html?lang=en", ".music-room-track-card:last-child .music-room-track-play", "music/track-07.html"],
+    ["music.html?lang=en", '.music-room-track-card:has(a[href="music/track-07.html"]) .music-room-track-play', "music/track-07.html"],
     ["music/track-07.html?lang=zh", ".music-detail-article .music-player-play", "music/track-07.html"],
   ];
   for (const [route, playSelector, detailPath] of entries) {
@@ -1105,12 +1105,12 @@ test("music index renders and remains interactive", async ({ page }) => {
   );
   expect(archiveLinksAreReal).toBe(true);
   await expect.poll(async () => page.locator(".music-room-track-card").count()).toBeGreaterThan(3);
-  await expect(page.locator(".music-room-track-roles")).toHaveCount(6);
+  await expect(page.locator(".music-room-track-roles")).toHaveCount(5);
   await expect(page.locator(".music-room-track-card").first().locator(".music-room-track-role")).toHaveCount(9);
   await expect(page.locator(".music-room-track-card").first().locator(".music-room-track-roles")).toContainText("贝斯");
   await expect(page.locator(".music-room-track-card").first().locator(".music-room-track-roles")).toContainText("编程");
   await expect(page.locator(".music-room-track-card").first().locator(".music-room-track-roles")).toContainText("混音");
-  await expect(page.locator(".music-room-track-card").nth(2).locator(".music-room-track-role")).toHaveCount(3);
+  await expect(page.locator(".music-room-track-card").nth(2).locator(".music-room-track-role")).toHaveCount(5);
   await expect.poll(async () => page.locator(".music-room-album").count()).toBeGreaterThan(1);
   await expect(page.locator(".music-room-album-credit")).toHaveText(
     "除特别说明外，作品的写作、编曲、演奏、录制与制作均由 HazezZ 完成。"
@@ -1218,13 +1218,15 @@ test("music index renders and remains interactive", async ({ page }) => {
   const selectedTrackAudioPaths = [
     "assets/audio/juke/d535eae92e52004a1b3bdb88eca4f651.mp3",
     "assets/audio/juke/HaM51513.mp3",
-    "assets/audio/juke/VT7YkfpcJRtuPmllJp8L77VX1dcG9ly7.mp3",
     "assets/audio/juke/春日和煦26.mp3",
-    "assets/audio/juke/orchid51513.mp3",
     "assets/audio/juke/hakoniwa-new.mp3",
+    "assets/audio/juke/orchid51513.mp3",
   ];
   const selectedTrackCards = page.locator(".music-room-track-card");
   await expect(selectedTrackCards).toHaveCount(selectedTrackAudioPaths.length);
+  await expect(selectedTrackCards.locator('a[href="music/track-20.html"]')).toHaveCount(0);
+  await expect(selectedTrackCards.last()).toHaveAttribute("data-cover-orientation", "portrait");
+  await expect(selectedTrackCards.last().locator(".music-room-track-title")).toHaveText("Orchid");
   for (let index = 0; index < selectedTrackAudioPaths.length; index += 1) {
     const card = selectedTrackCards.nth(index);
     const title = (await card.locator(".music-room-track-title").innerText()).trim();

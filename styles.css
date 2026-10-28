@@ -17486,12 +17486,8 @@ html:lang(zh) .music-index-page .music-room-track-open {
 }
 
 .music-index-page .music-room-track-card:nth-child(2) .music-room-track-cover,
-.music-index-page .music-room-track-card:nth-child(4) .music-room-track-cover {
-  --music-room-track-cover-ratio: 2 / 1;
-}
-
 .music-index-page .music-room-track-card:nth-child(3) .music-room-track-cover {
-  --music-room-track-cover-ratio: 1280 / 553;
+  --music-room-track-cover-ratio: 2 / 1;
 }
 
 .music-index-page .music-room-track-card[data-cover-orientation="portrait"] .music-room-track-cover {
@@ -17504,7 +17500,7 @@ html:lang(zh) .music-index-page .music-room-track-open {
 }
 
 @media (min-width: 981px) {
-  .music-index-page .music-room-track-card {
+  .music-index-page .music-room-selected-grid > .music-room-track-card {
     grid-column: span 6;
   }
 
