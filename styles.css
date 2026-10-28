@@ -17512,7 +17512,7 @@ html:lang(zh) .music-index-page .music-room-track-open {
 }
 
 @media (min-width: 981px) {
-  .music-index-page .music-room-track-card:not([data-cover-orientation="portrait"]) {
+  .music-index-page .music-room-track-card {
     grid-column: span 6;
   }
 

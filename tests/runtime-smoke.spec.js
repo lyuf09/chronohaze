@@ -1067,7 +1067,7 @@ test("music index renders and remains interactive", async ({ page }) => {
   );
   expect(archiveLinksAreReal).toBe(true);
   await expect.poll(async () => page.locator(".music-room-track-card").count()).toBeGreaterThan(3);
-  await expect(page.locator(".music-room-track-roles")).toHaveCount(5);
+  await expect(page.locator(".music-room-track-roles")).toHaveCount(6);
   await expect(page.locator(".music-room-track-card").first().locator(".music-room-track-role")).toHaveCount(9);
   await expect(page.locator(".music-room-track-card").first().locator(".music-room-track-roles")).toContainText("贝斯");
   await expect(page.locator(".music-room-track-card").first().locator(".music-room-track-roles")).toContainText("编程");
@@ -1183,6 +1183,7 @@ test("music index renders and remains interactive", async ({ page }) => {
     "assets/audio/juke/VT7YkfpcJRtuPmllJp8L77VX1dcG9ly7.mp3",
     "assets/audio/juke/春日和煦26.mp3",
     "assets/audio/juke/orchid51513.mp3",
+    "assets/audio/juke/hakoniwa-new.mp3",
   ];
   const selectedTrackCards = page.locator(".music-room-track-card");
   await expect(selectedTrackCards).toHaveCount(selectedTrackAudioPaths.length);
@@ -1279,7 +1280,7 @@ test("music index renders and remains interactive", async ({ page }) => {
 
   await page.setViewportSize({ width: 1280, height: 900 });
   const playingAudioSrc = await page.locator(".persistent-audio-element").getAttribute("src");
-  expect(playingAudioSrc).toContain("assets/audio/juke/orchid51513.mp3");
+  expect(playingAudioSrc).toContain(selectedTrackAudioPaths[selectedTrackAudioPaths.length - 1]);
   await expect(page.locator(".persistent-audio-dock")).toBeVisible();
   await page.locator('.nav a[href="academic.html"]').click();
   await expect(page).toHaveURL(/academic\.html\?lang=en$/);
