@@ -1070,6 +1070,45 @@ test("music controls survive audio synchronization during a press", async ({ pag
   await expect(dock).toHaveClass(/is-collapsed/);
 });
 
+test("music album cards preserve full artwork across mobile widths", async ({ page }) => {
+  await page.goto("music.html?lang=en", { waitUntil: "domcontentloaded" });
+  const covers = page.locator(".music-room-album-cover");
+  await expect(covers).toHaveCount(2);
+  await expect.poll(() => covers.locator("img").evaluateAll(images =>
+    images.every(image => image.complete && image.naturalWidth > 0)
+  )).toBe(true);
+
+  for (const width of [320, 390, 440, 768, 956]) {
+    await page.setViewportSize({ width, height: 844 });
+    await expect.poll(async () => {
+      const artwork = await covers.evaluateAll(nodes => nodes.map(cover => {
+        const image = cover.querySelector("img");
+        const box = cover.getBoundingClientRect();
+        const imageBox = image.getBoundingClientRect();
+        return {
+          width: box.width,
+          height: box.height,
+          cardWidth: cover.closest(".music-room-album-link").getBoundingClientRect().width,
+          naturalRatio: image.naturalWidth / image.naturalHeight,
+          imageWidth: imageBox.width,
+          imageHeight: imageBox.height,
+          imageLeft: imageBox.left - box.left,
+          imageTop: imageBox.top - box.top,
+          fit: getComputedStyle(image).objectFit,
+        };
+      }));
+      return artwork.filter(cover =>
+        Math.abs(cover.width - cover.cardWidth) >= 1 ||
+        Math.abs(cover.height - cover.width / cover.naturalRatio) >= 2 ||
+        Math.abs(cover.imageWidth - cover.width) >= 1 ||
+        Math.abs(cover.imageHeight - cover.height) >= 1 ||
+        Math.abs(cover.imageLeft) >= 1 || Math.abs(cover.imageTop) >= 1 ||
+        cover.fit !== "contain"
+      );
+    }, { message: `full artwork at ${width}px` }).toEqual([]);
+  }
+});
+
 test("music index renders and remains interactive", async ({ page }) => {
   const errors = trackPageErrors(page);
   await page.goto("music.html?lang=zh", { waitUntil: "domcontentloaded" });

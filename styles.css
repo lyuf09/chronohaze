@@ -16385,11 +16385,24 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
   }
 
   .music-index-page .music-room-album-link {
-    grid-template-columns: 1fr;
+    display: block;
   }
 
   .music-index-page .music-room-album-cover {
-    min-height: 360px;
+    display: block;
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    aspect-ratio: 1 / 1;
+  }
+
+  .music-index-page .music-room-album[data-cover-orientation="landscape"] .music-room-album-cover {
+    aspect-ratio: 4 / 3;
+  }
+
+  .music-index-page .music-room-album-cover img {
+    height: auto;
+    object-fit: contain;
   }
 
   .music-index-page .music-room-selected-grid {
@@ -16515,10 +16528,6 @@ html:lang(en) .photo-detail-page .photo-detail-statement p {
   .music-index-page .music-room-section-lead {
     font-size: 12.5px;
     line-height: 1.6;
-  }
-
-  .music-index-page .music-room-album-cover {
-    min-height: 280px;
   }
 
   .music-index-page .music-room-album-meta {
@@ -17439,15 +17448,6 @@ html:lang(zh) .music-index-page .music-room-track-open {
     aspect-ratio: 4 / 3;
   }
 
-  [data-cover-orientation="landscape"] .music-room-album-cover {
-    min-height: 0;
-    aspect-ratio: auto;
-  }
-
-  [data-cover-orientation="landscape"] .music-room-album-cover img {
-    height: auto;
-  }
-
   .music-index-page .music-room-track-meta {
     padding: 16px 14px 15px;
   }
@@ -17548,22 +17548,6 @@ html:lang(zh) .music-index-page .music-room-track-open {
 }
 
 @media (max-width: 760px) {
-  .music-index-page .music-room-album-cover {
-    min-height: 280px;
-    aspect-ratio: var(--music-room-album-cover-ratio, 4 / 3);
-  }
-
-  .music-index-page .music-room-album:nth-child(2) .music-room-album-cover {
-    --music-room-album-cover-ratio: 1 / 1;
-  }
-
-  .music-index-page .music-room-album-cover img {
-    position: absolute;
-    inset: 0;
-    height: 100%;
-    object-fit: cover;
-  }
-
   .music-index-page .music-room-track-card[data-cover-orientation] .music-room-track-cover {
     aspect-ratio: var(--music-room-track-cover-ratio, 16 / 9);
   }
