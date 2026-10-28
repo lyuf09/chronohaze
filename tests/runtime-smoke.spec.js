@@ -1005,6 +1005,44 @@ test("network-localization research record is bilingual and contains no public P
   expect(errors).toEqual([]);
 });
 
+test("mini player exposes only valid track links across playback entry points", async ({ page }) => {
+  const entries = [
+    ["index.html?lang=zh", "#audioToggle", "music/track-04.html"],
+    ["music.html?lang=en", ".music-room-track-card:last-child .music-room-track-play", "music/track-07.html"],
+    ["music/track-07.html?lang=zh", ".music-detail-article .music-player-play", "music/track-07.html"],
+  ];
+  for (const [route, playSelector, detailPath] of entries) {
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    await waitForCriticalLoaderRelease(page);
+    await page.locator(playSelector).click();
+    const dock = page.locator(".persistent-audio-dock");
+    if (await dock.evaluate(node => node.classList.contains("is-collapsed"))) {
+      await page.locator(".persistent-audio-peek").click();
+    }
+    await expect(page.locator(".persistent-audio-project")).toHaveCount(0);
+    await expect(page.locator(".persistent-audio-open")).toBeVisible();
+    await expect(page.locator(".persistent-audio-open")).toHaveAttribute("href", new RegExp(detailPath.replace(/\./g, "\\.")));
+    await expect(dock.locator('a[href="#"]:visible')).toHaveCount(0);
+  }
+
+  // Seed after pagehide persists the old player, before the next page restores it.
+  // Album previews can lack a detail page and legacy snapshots can retain a project URL.
+  await page.addInitScript(() => {
+    const key = "chronohaze:persistent-audio:v1";
+    const snapshot = JSON.parse(sessionStorage.getItem(key));
+    snapshot.pageHref = "";
+    snapshot.projectHref = new URL("../music.html", location.href).href;
+    snapshot.projectLabel = "查看作品 ↗︎";
+    snapshot.paused = true;
+    sessionStorage.setItem(key, JSON.stringify(snapshot));
+  });
+  await page.reload({ waitUntil: "domcontentloaded" });
+  await waitForCriticalLoaderRelease(page);
+  await expect(page.locator(".persistent-audio-project")).toHaveCount(0);
+  await expect(page.locator(".persistent-audio-open")).toBeHidden();
+  await expect(page.locator('.persistent-audio-dock a:visible')).toHaveCount(0);
+});
+
 test("music controls survive audio synchronization during a press", async ({ page }) => {
   await page.goto("music.html?lang=en", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);

@@ -4046,7 +4046,6 @@
           peek: "AUDIO",
           collapse: "Hide",
           open: "Open track",
-          project: "View project ↗︎",
           close: "Stop",
           prev: "Prev",
           next: "Next",
@@ -4058,7 +4057,6 @@
           peek: "播放",
           collapse: "收起",
           open: "打开曲目",
-          project: "查看作品 ↗︎",
           close: "停止",
           prev: "上一首",
           next: "下一首",
@@ -4093,8 +4091,6 @@
           artist: persistentAudioController.current.artist || "",
           album: persistentAudioController.current.album || "",
           pageHref: persistentAudioController.current.pageHref || "",
-          projectHref: persistentAudioController.current.projectHref || "",
-          projectLabel: persistentAudioController.current.projectLabel || "",
           prevHref: persistentAudioController.current.prevHref || "",
           nextHref: persistentAudioController.current.nextHref || "",
           queue: Array.isArray(persistentAudioController.current.queue)
@@ -4174,9 +4170,6 @@
       current && current.pageHref ? "false" : "true"
     );
     controller.openLink.hidden = !(current && current.pageHref);
-    setAudioText(controller.projectLink, (current && current.projectLabel) || labels.project);
-    controller.projectLink.href = current && current.projectHref ? current.projectHref : "#";
-    controller.projectLink.hidden = !(current && current.projectHref);
 
     setAudioText(controller.closeButton, "×");
     controller.closeButton.setAttribute("aria-label", labels.close);
@@ -4355,12 +4348,6 @@
     openLink.className = "persistent-audio-open";
     openLink.href = "#";
 
-    var projectLink = document.createElement("a");
-    projectLink.className = "persistent-audio-project";
-    projectLink.href = "#";
-    projectLink.rel = "external";
-    projectLink.hidden = true;
-
     var nextButton = document.createElement("button");
     nextButton.type = "button";
     nextButton.className = "persistent-audio-nav";
@@ -4369,7 +4356,6 @@
     links.className = "persistent-audio-links";
     links.appendChild(prevButton);
     links.appendChild(openLink);
-    links.appendChild(projectLink);
     links.appendChild(nextButton);
 
     var audio = document.createElement("audio");
@@ -4401,7 +4387,6 @@
       scrubber: scrubber,
       time: time,
       openLink: openLink,
-      projectLink: projectLink,
       prevButton: prevButton,
       nextButton: nextButton,
       closeButton: closeButton,
@@ -4555,8 +4540,6 @@
             artist: String(snapshot.artist || "HAZEZZ"),
             album: String(snapshot.album || ""),
             pageHref: String(snapshot.pageHref || ""),
-            projectHref: String(snapshot.projectHref || ""),
-            projectLabel: String(snapshot.projectLabel || ""),
             prevHref: String(snapshot.prevHref || ""),
             nextHref: String(snapshot.nextHref || ""),
             queue: Array.isArray(snapshot.queue) ? snapshot.queue : [],
@@ -4596,8 +4579,6 @@
       artist: String(nextTrack.artist || "HAZEZZ"),
       album: String(nextTrack.album || ""),
       pageHref: String(nextTrack.pageHref || ""),
-      projectHref: String(nextTrack.projectHref || ""),
-      projectLabel: String(nextTrack.projectLabel || ""),
       prevHref: String(nextTrack.prevHref || ""),
       nextHref: String(nextTrack.nextHref || ""),
       queue: Array.isArray(nextTrack.queue) ? nextTrack.queue : [],

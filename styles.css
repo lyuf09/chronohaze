@@ -5237,8 +5237,7 @@ body:is(
 .persistent-audio-collapse,
 .persistent-audio-close,
 .persistent-audio-nav,
-.persistent-audio-open,
-.persistent-audio-project {
+.persistent-audio-open {
   font-family: var(--font-editorial-serif);
   font-size: 11px;
   letter-spacing: 0.06em;
@@ -5290,8 +5289,7 @@ body:is(
 .persistent-audio-collapse:hover,
 .persistent-audio-close:hover,
 .persistent-audio-nav:hover,
-.persistent-audio-open:hover,
-.persistent-audio-project:hover {
+.persistent-audio-open:hover {
   opacity: 0.72;
   transform: translateY(-0.5px);
 }
@@ -5353,19 +5351,17 @@ body:is(
   margin-top: 8px;
 }
 
-.persistent-audio-open,
-.persistent-audio-project {
+.persistent-audio-dock [hidden] {
+  display: none !important;
+}
+
+.persistent-audio-open {
   color: rgba(35, 41, 50, 0.74);
   text-decoration: none;
 }
 
-.persistent-audio-project {
-  color: rgba(43, 67, 51, 0.82);
-}
-
 .persistent-audio-nav,
-.persistent-audio-open,
-.persistent-audio-project {
+.persistent-audio-open {
   min-height: 36px;
   display: inline-flex;
   align-items: center;
@@ -5376,7 +5372,6 @@ body:is(
 .persistent-audio-close,
 .persistent-audio-nav,
 .persistent-audio-open,
-.persistent-audio-project,
 .persistent-audio-dock .music-player-play,
 .persistent-audio-dock .music-player-scrubber,
 .nav a,
@@ -9951,7 +9946,6 @@ body {
     .music-player-play,
     .music-player-nav-link,
     .persistent-audio-open,
-    .persistent-audio-project,
     .persistent-audio-nav,
     .persistent-audio-collapse,
     .persistent-audio-close,
@@ -11233,8 +11227,7 @@ body {
   .persistent-audio-kicker,
   .persistent-audio-collapse,
   .persistent-audio-nav,
-  .persistent-audio-open,
-  .persistent-audio-project {
+  .persistent-audio-open {
     font-size: 9px;
   }
 
@@ -11291,8 +11284,7 @@ body {
   }
 
   .persistent-audio-nav,
-  .persistent-audio-open,
-  .persistent-audio-project {
+  .persistent-audio-open {
     min-height: 44px;
   }
 

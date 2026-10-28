@@ -6,15 +6,16 @@ import re
 from pathlib import Path
 
 VERSION = "20260906-latin-a11y1"
-PHOTO_STYLE_VERSION = "20260906-latin-a11y1"
+PLAYER_STYLE_VERSION = "20261028-player-links1"
+PHOTO_STYLE_VERSION = PLAYER_STYLE_VERSION
 ACADEMIC_STYLE_VERSION = "20260906-latin-a11y1"
 MATH_STYLE_VERSION = "20261022-julia-banner1"
-BLUE_STYLE_VERSION = "20260906-latin-a11y1"
+BLUE_STYLE_VERSION = PLAYER_STYLE_VERSION
 HOME_VERSION = "20260906-latin-a11y1"
-PROTECT_VERSION = "20261028-hakoniwa1"
+PROTECT_VERSION = "20261028-player-links1"
 PHOTO_PROTECT_VERSION = PROTECT_VERSION
 MUSIC_PROTECT_VERSION = PROTECT_VERSION
-MUSIC_STYLE_VERSION = "20261028-selected-six1"
+MUSIC_STYLE_VERSION = PLAYER_STYLE_VERSION
 CATALOG_VERSION = "20260801-bilingual-seo1"
 STRUCTURED_DATA_VERSION = "20260801-bilingual-seo1"
 SEARCH_VERSION = "20261022-audit-fixes1"
@@ -283,7 +284,7 @@ def rewrite_asset_refs(text: str, page_rel: Path) -> str:
     elif is_academic_page:
         style_version = ACADEMIC_STYLE_VERSION
     else:
-        style_version = VERSION
+        style_version = PLAYER_STYLE_VERSION
     if is_music_index:
         protect_version = MUSIC_PROTECT_VERSION
     elif is_photo_page:
