@@ -188,9 +188,10 @@
   </script>
 <link rel="preload" href="assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="assets/fonts/noto-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="styles.min.css?v=20261025-research-reading1" />
+<link rel="stylesheet" href="styles.min.css?v=20260906-latin-a11y1" />
   <link rel="stylesheet" href="assets/css/academic-mobile.css?v=20260418-mobile1" />
   <script defer src="protect-media.min.js?v=20261028-selected-five1"></script>
+<link rel="stylesheet" href="assets/css/academic-reading.css?v=20261029-reading1" />
 
   <!-- Chronohaze analytics preference and opt-out control -->
   <script id="chronohaze-analytics-bootstrap">
@@ -290,24 +291,17 @@
               <p class="research-project-kind">主要方向 01</p>
               <h3>优化算法的形式化验证</h3>
               <p>在 Isabelle/HOL 中形式化算法假设、状态不变量、关键不等式与收敛结论。</p>
-              <p>2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化经典贪心算法与经验证的有状态惰性贪心变体。</p>
-              <p>未发表扩展：StochasticGreedy 已连接可执行采样、理想随机位语义、期望近似保证与预言机调用次数界。最新实现尚未公开；下方 GitHub 链接指向较早公开版本。</p>
-              <p>另一项光滑凸一阶优化形式化已于2026年7月2日正式发表于 Archive of Formal Proofs；涵盖下降论证、投影几何、投影梯度映射、残差证书及收敛率。</p>
-              <p>在复用证明结构的基础上，当前扩展工作重点是实现改进、实验评估与论文范围整理。</p>
-              <div class="research-link-row">
-                <a href="https://isa-afp.org/entries/Projected_Gradient_Descent.html" target="_blank" rel="noopener noreferrer">PGD AFP 条目</a>
-                <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">Submodular AFP 条目</a>
-                <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a>
-                <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf" target="_blank" rel="noopener noreferrer">证明文档</a>
-                <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">GitHub · 较早公开版本</a>
-              </div>
+              <p>我关心的是：当算法从抽象选择规则变成带状态、缓存或随机采样的实现时，原来的保证还需要哪些条件？把这些条件写成可检查的接口，能让后续变体复用证明，也能暴露实现与数学模型之间的差距。</p>
+              <p>未发表扩展：StochasticGreedy 已连接可执行采样、理想随机位语义、期望近似保证与预言机调用次数界。下一步是改进选择过程、比较实际运行表现，并明确随机语义能支持哪些实现层面的结论。最新实现尚未公开。</p>
+              <div class="research-link-row"><a href="post/stochasticgreedy-executable-refinement.html?lang=zh">阅读当前研究记录</a></div>
             </article>
 
             <article class="research-project-card">
               <p class="research-project-kind">主要方向 02</p>
               <h3>网络定位中的二阶几何</h3>
-              <p>与 Shoham Sabach、Owen Li 的合作研究网络结构如何影响非最优驻点 附近的二阶几何。</p>
-              <p>项目仍在进行，技术结果尚未公开。</p>
+              <p>与 Shoham Sabach、Owen Li 合作研究网络结构如何影响非最优驻点附近的二阶几何。</p>
+              <p>驻点并不一定是局部极小值。数值特征值可以检查一个算例，但我更想知道，哪些图结构与节点几何能够解释负曲率从何而来。单条边的负贡献可能被其他边抵消，因此需要分析整个网络沿同一扰动方向的二阶变化。</p>
+              <p>下一步是把这些结构条件与数值算例对照，判断它们何时能识别非最优驻点。项目仍在进行，技术结果尚未公开。</p>
             </article>
 
           </div>
@@ -316,26 +310,27 @@
               <p class="research-project-kind">PRIMARY DIRECTION 01</p>
               <h3>Formal verification of optimization algorithms</h3>
               <p>I formalize algorithm assumptions, state invariants, key inequalities, and convergence results in Isabelle/HOL.</p>
-              <p>Published in AFP on May 26, 2026: a formalization of the classical greedy algorithm and a verified stateful lazy-greedy variant for cardinality-constrained monotone submodular maximization.</p>
-              <p>Unpublished extension: StochasticGreedy now connects executable sampling, ideal random-bit semantics, expected approximation guarantees, and oracle-cost bounds. The latest implementation is not yet public; the GitHub link below points to an earlier public version.</p>
-              <p>A second formalization on smooth convex first-order optimization was published in the Archive of Formal Proofs on July 2, 2026. It covers descent arguments, projection geometry, projected-gradient mappings, residual certificates, and convergence rates.</p>
-              <p>Building on the reusable proof structure, current extension work focuses on implementation improvements, experimental evaluation, and defining the paper scope.</p>
-              <div class="research-link-row">
-                <a href="https://isa-afp.org/entries/Projected_Gradient_Descent.html" target="_blank" rel="noopener noreferrer">PGD AFP entry</a>
-                <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">Submodular AFP entry</a>
-                <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a>
-                <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf" target="_blank" rel="noopener noreferrer">Proof document</a>
-                <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">GitHub · Earlier public development</a>
-              </div>
+              <p>What happens to a guarantee when an abstract selection rule becomes an implementation with state, caching, or random sampling? Making those conditions explicit and checkable lets later variants reuse proofs and exposes gaps between the implementation and its mathematical model.</p>
+              <p>Unpublished extension: StochasticGreedy connects executable sampling, ideal random-bit semantics, expected approximation guarantees, and oracle-cost bounds. Next I want to improve selection, compare practical performance, and clarify which implementation claims the random semantics supports. The latest implementation is not yet public.</p>
+              <div class="research-link-row"><a href="post/stochasticgreedy-executable-refinement.html?lang=en">Read the current research note</a></div>
             </article>
 
             <article class="research-project-card">
               <p class="research-project-kind">PRIMARY DIRECTION 02</p>
               <h3>Second-order geometry in network localization</h3>
-              <p>Ongoing collaboration with Shoham Sabach and Owen Li on how network structure shapes second-order geometry near non-optimal stationary points. The project is ongoing; technical results are not yet public.</p>
+              <p>I work with Shoham Sabach and Owen Li on how network structure shapes second-order geometry near non-optimal stationary points.</p>
+              <p>A stationary point need not be a local minimum. Numerical eigenvalues can check a particular example; I want to understand which graph structures and node geometries explain negative curvature. One edge's negative contribution can be cancelled by others, so the second-order change must be studied along a common perturbation of the whole network.</p>
+              <p>Next I want to compare structural conditions with numerical examples and understand when they detect non-optimal stationary points. The project is ongoing; technical results are not yet public.</p>
             </article>
 
           </div>
+        </div>
+      </section>
+
+      <section class="section research-perspective" id="research-perspective">
+        <div class="container">
+          <div data-lang-block="zh"><h2>两条研究线如何影响我的思考</h2><p>形式化工作让我习惯追问每一步究竟用了哪个假设；网络定位则让我看到，局部计算必须放回整个图中才有意义。两者都使我更关心一个结论为什么成立，以及当实现或结构改变时，哪些部分还能保留。这也是我接下来希望继续研究的优化问题。</p></div>
+          <div data-lang-block="en" hidden><h2>How the two directions shape my thinking</h2><p>Formalization has made me ask exactly which assumption each step uses. Network localization has shown me why a local calculation must be placed back in the full graph. Both lead me to ask why a result holds and which parts survive a change in implementation or structure. Those are the optimization questions I want to keep pursuing.</p></div>
         </div>
       </section>
 

@@ -1,0 +1,47 @@
+/* Academic reading: preserve the blue-gray art direction with firmer body text. */
+html[lang] :is(.academic-page, .projects-page, .research-landing-page, .cv-page, .math-index-page) main {
+  --academic-ink: #293443;
+}
+html[lang] :is(.academic-page, .projects-page, .research-landing-page, .cv-page, .math-index-page) main :is(.research-positioning, .academic-snapshot-list span, .academic-evidence-list p, .research-project-card > p, .research-question-list p, .policy p, .policy li, .math-desc, .research-perspective p) {
+  color: var(--academic-ink);
+  font-family: var(--font-editorial-sans);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.82;
+  letter-spacing: 0;
+}
+html[lang] :is(.academic-page, .projects-page, .research-landing-page, .cv-page) main .academic-proof-kicker {
+  color: #475467;
+  font-family: var(--font-editorial-sans);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.projects-page .academic-evidence-list h3 { line-height: 1.35; }
+html[lang] body:is(.academic-page, .projects-page, .research-landing-page, .cv-page) main p.academic-proof-kicker {
+  color: #475467;
+  font-family: var(--font-editorial-sans);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.academic-page .academic-evidence-list h3 a {
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.research-landing-page .research-perspective .container { max-width: 900px; }
+.research-landing-page .research-perspective p { max-width: 72ch; }
+.cv-page .cv-download-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid #69778b;
+  border-radius: 4px;
+  color: #293443;
+  font-size: 15px;
+}
+@media (max-width: 760px) {
+  html[lang] :is(.academic-page, .projects-page, .research-landing-page, .cv-page, .math-index-page) main :is(.research-positioning, .academic-snapshot-list span, .academic-evidence-list p, .research-project-card > p, .research-question-list p, .policy p, .policy li, .math-desc, .research-perspective p) { font-size: 16px; line-height: 1.8; }
+}

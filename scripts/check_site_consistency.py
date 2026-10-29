@@ -39,12 +39,20 @@ SUBMODULAR_PROJECTS_STATUS_MARKERS = (
 )
 SUBMODULAR_ACADEMIC_STATUS_MARKERS = (
     "Published May 26, 2026",
-    "I developed the full Isabelle/HOL formalization, with feedback and guidance from Wenda Li.",
+    "approximation guarantees for classical and stateful lazy-greedy algorithms",
 )
 SUBMODULAR_CV_STATUS_MARKERS = (
     "Feier Lyu. “Greedy Algorithms for Cardinality-Constrained Submodular Maximization.”",
-    "Formalizes deterministic greedy and a verified stateful lazy-greedy implementation",
-    "I developed the full Isabelle/HOL formalization, with feedback and guidance from Wenda Li.",
+    "Archive of Formal Proofs · May 2026",
+    "With feedback and guidance from Wenda Li.",
+)
+# The statement explains motivation and next questions; publication scope and
+# repository status are detailed on Selected Work and the linked research note.
+SUBMODULAR_RESEARCH_STATUS_MARKERS = (
+    "Unpublished extension: StochasticGreedy",
+    "ideal random-bit semantics, expected approximation guarantees, and oracle-cost bounds",
+    "The latest implementation is not yet public.",
+    'href="post/stochasticgreedy-executable-refinement.html?lang=en"',
 )
 LEGACY_SUBMODULAR_STATUS_PATTERNS = (
     "future extension / experimental branch",
@@ -281,7 +289,7 @@ def check_submodular_status(path: Path, text: str, require_canonical: bool = Fal
     elif path.name == "cv.html":
         required_statements = SUBMODULAR_CV_STATUS_MARKERS
     else:
-        required_statements = (SUBMODULAR_PUBLISHED_SCOPE, SUBMODULAR_POST_PUBLICATION_SCOPE)
+        required_statements = SUBMODULAR_RESEARCH_STATUS_MARKERS
     for required in required_statements:
         if required not in text:
             findings.append(

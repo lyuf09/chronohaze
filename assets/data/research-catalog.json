@@ -10,10 +10,10 @@
     "items": [
       {
         "label": "Last updated",
-        "value": "2026-10-25 · 12:38 PM ET",
-        "datetime": "2026-10-25T12:38:53-04:00",
+        "value": "2026-10-28 · 08:57 PM ET",
+        "datetime": "2026-10-28T20:57:29-04:00",
         "timezone": "America/New_York",
-        "date_only": "2026-10-25",
+        "date_only": "2026-10-28",
         "display_format": "YYYY-MM-DD · hh:mm A ET"
       }
     ]
@@ -33,53 +33,33 @@
       "problem": "在 Isabelle/HOL 中形式化算法假设、状态不变量、关键不等式与收敛结论。",
       "method": "",
       "status": "",
-      "current_status": "2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化经典贪心算法与经验证的有状态惰性贪心变体。 未发表扩展：StochasticGreedy 已连接可执行采样、理想随机位语义、期望近似保证与预言机调用次数界。最新实现尚未公开；下方 GitHub 链接指向较早公开版本。 另一项光滑凸一阶优化形式化已于2026年7月2日正式发表于 Archive of Formal Proofs；涵盖下降论证、投影几何、投影梯度映射、残差证书及收敛率。",
-      "contribution": "在复用证明结构的基础上，当前扩展工作重点是实现改进、实验评估与论文范围整理。",
+      "current_status": "我关心的是：当算法从抽象选择规则变成带状态、缓存或随机采样的实现时，原来的保证还需要哪些条件？把这些条件写成可检查的接口，能让后续变体复用证明，也能暴露实现与数学模型之间的差距。",
+      "contribution": "未发表扩展：StochasticGreedy 已连接可执行采样、理想随机位语义、期望近似保证与预言机调用次数界。下一步是改进选择过程、比较实际运行表现，并明确随机语义能支持哪些实现层面的结论。最新实现尚未公开。",
       "links": [
         {
-          "href": "https://isa-afp.org/entries/Projected_Gradient_Descent.html",
-          "label": "PGD AFP 条目",
-          "external": true
-        },
-        {
-          "href": "https://isa-afp.org/entries/Submodular_Greedy.html#",
-          "label": "Submodular AFP 条目",
-          "external": true
-        },
-        {
-          "href": "https://doi.org/10.5281/zenodo.21054718",
-          "label": "DOI: 10.5281/zenodo.21054718",
-          "external": true
-        },
-        {
-          "href": "https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf",
-          "label": "证明文档",
-          "external": true
-        },
-        {
-          "href": "https://github.com/lyuf09/isabelle-submodular-greedy",
-          "label": "GitHub · 较早公开版本",
-          "external": true
+          "href": "post/stochasticgreedy-executable-refinement.html?lang=zh",
+          "label": "阅读当前研究记录",
+          "external": false
         }
       ],
       "status_key": "",
       "status_label": "",
-      "status_detail": "2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化经典贪心算法与经验证的有状态惰性贪心变体。 未发表扩展：StochasticGreedy 已连接可执行采样、理想随机位语义、期望近似保证与预言机调用次数界。最新实现尚未公开；下方 GitHub 链接指向较早公开版本。 另一项光滑凸一阶优化形式化已于2026年7月2日正式发表于 Archive of Formal Proofs；涵盖下降论证、投影几何、投影梯度映射、残差证书及收敛率。",
-      "status_display": "2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化经典贪心算法与经验证的有状态惰性贪心变体。 未发表扩展：StochasticGreedy 已连接可执行采样、理想随机位语义、期望近似保证与预言机调用次数界。最新实现尚未公开；下方 GitHub 链接指向较早公开版本。 另一项光滑凸一阶优化形式化已于2026年7月2日正式发表于 Archive of Formal Proofs；涵盖下降论证、投影几何、投影梯度映射、残差证书及收敛率。"
+      "status_detail": "我关心的是：当算法从抽象选择规则变成带状态、缓存或随机采样的实现时，原来的保证还需要哪些条件？把这些条件写成可检查的接口，能让后续变体复用证明，也能暴露实现与数学模型之间的差距。",
+      "status_display": "我关心的是：当算法从抽象选择规则变成带状态、缓存或随机采样的实现时，原来的保证还需要哪些条件？把这些条件写成可检查的接口，能让后续变体复用证明，也能暴露实现与数学模型之间的差距。"
     },
     {
       "kind": "主要方向 02",
       "title": "网络定位中的二阶几何",
-      "problem": "与 Shoham Sabach、Owen Li 的合作研究网络结构如何影响非最优驻点 附近的二阶几何。",
+      "problem": "与 Shoham Sabach、Owen Li 合作研究网络结构如何影响非最优驻点附近的二阶几何。",
       "method": "",
       "status": "",
-      "current_status": "项目仍在进行，技术结果尚未公开。",
-      "contribution": "",
+      "current_status": "驻点并不一定是局部极小值。数值特征值可以检查一个算例，但我更想知道，哪些图结构与节点几何能够解释负曲率从何而来。单条边的负贡献可能被其他边抵消，因此需要分析整个网络沿同一扰动方向的二阶变化。",
+      "contribution": "下一步是把这些结构条件与数值算例对照，判断它们何时能识别非最优驻点。项目仍在进行，技术结果尚未公开。",
       "links": [],
       "status_key": "",
       "status_label": "",
-      "status_detail": "项目仍在进行，技术结果尚未公开。",
-      "status_display": "项目仍在进行，技术结果尚未公开。"
+      "status_detail": "驻点并不一定是局部极小值。数值特征值可以检查一个算例，但我更想知道，哪些图结构与节点几何能够解释负曲率从何而来。单条边的负贡献可能被其他边抵消，因此需要分析整个网络沿同一扰动方向的二阶变化。",
+      "status_display": "驻点并不一定是局部极小值。数值特征值可以检查一个算例，但我更想知道，哪些图结构与节点几何能够解释负曲率从何而来。单条边的负贡献可能被其他边抵消，因此需要分析整个网络沿同一扰动方向的二阶变化。"
     }
   ],
   "outputs_section": {},
@@ -101,13 +81,13 @@
       "optimization",
       "formal-methods"
     ],
-    "sort": 20261025,
+    "sort": 20261028,
     "scope": "site",
-    "content": "研究陈述 我的工作目前有两个方向。一是优化算法的 Isabelle/HOL 形式化验证，包括子模贪心方法与投影梯度下降；二是非凸网络定位，研究图结构与节点几何如何影响驻点附近的二阶性质。 主要研究方向 主要方向 01 优化算法的形式化验证 在 Isabelle/HOL 中形式化算法假设、状态不变量、关键不等式与收敛结论。 2026年5月26日正式发表于 AFP：对基数约束下的单调子模最大化，形式化经典贪心算法与经验证的有状态惰性贪心变体。 未发表扩展：StochasticGreedy 已连接可执行采样、理想随机位语义、期望近似保证与预言机调用次数界。最新实现尚未公开；下方 GitHub 链接指向较早公开版本。 另一项光滑凸一阶优化形式化已于2026年7月2日正式发表于 Archive of Formal Proofs；涵盖下降论证、投影几何、投影梯度映射、残差证书及收敛率。 在复用证明结构的基础上，当前扩展工作重点是实现改进、实验评估与论文范围整理。 PGD AFP 条目 Submodular AFP 条目 DOI: 10.5281/zenodo.21054718 证明文档 GitHub · 较早公开版本 主要方向 02 网络定位中的二阶几何 与 Shoham Sabach、Owen Li 的合作研究网络结构如何影响非最优驻点 附近的二阶几何。 项目仍在进行，技术结果尚未公开。",
+    "content": "研究陈述 我的工作目前有两个方向。一是优化算法的 Isabelle/HOL 形式化验证，包括子模贪心方法与投影梯度下降；二是非凸网络定位，研究图结构与节点几何如何影响驻点附近的二阶性质。 主要研究方向 主要方向 01 优化算法的形式化验证 在 Isabelle/HOL 中形式化算法假设、状态不变量、关键不等式与收敛结论。 我关心的是：当算法从抽象选择规则变成带状态、缓存或随机采样的实现时，原来的保证还需要哪些条件？把这些条件写成可检查的接口，能让后续变体复用证明，也能暴露实现与数学模型之间的差距。 未发表扩展：StochasticGreedy 已连接可执行采样、理想随机位语义、期望近似保证与预言机调用次数界。下一步是改进选择过程、比较实际运行表现，并明确随机语义能支持哪些实现层面的结论。最新实现尚未公开。 阅读当前研究记录 主要方向 02 网络定位中的二阶几何 与 Shoham Sabach、Owen Li 合作研究网络结构如何影响非最优驻点附近的二阶几何。 驻点并不一定是局部极小值。数值特征值可以检查一个算例，但我更想知道，哪些图结构与节点几何能够解释负曲率从何而来。单条边的负贡献可能被其他边抵消，因此需要分析整个网络沿同一扰动方向的二阶变化。 下一步是把这些结构条件与数值算例对照，判断它们何时能识别非最优驻点。项目仍在进行，技术结果尚未公开。",
     "meta_title": "",
     "meta_description": "Research statement by Feier Lyu (Fay Lyu) on reusable Isabelle/HOL infrastructure for optimization and second-order geometry in network localization."
   },
   "output_groups": [],
-  "generated_at": "2026-10-25",
+  "generated_at": "2026-10-29",
   "source": "research.html"
 }

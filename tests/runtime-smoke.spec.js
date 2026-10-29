@@ -50,18 +50,18 @@ test("home page renders hero and player shell", async ({ page }) => {
   ).toHaveCount(3);
   await expect(page.getByRole("heading", { name: "当前工作" })).toBeVisible();
   await expect(page.locator(".selected-evidence-status")).toHaveText([
-    "已发表 · AFP · 2026 · 唯一作者",
-    "已发表 · AFP · 2026 · 唯一作者",
+    "已发表 · AFP · 2026",
+    "已发表 · AFP · 2026",
     "进行中 · 合作研究",
   ]);
   await expect(page.getByRole("heading", { name: "Isabelle/HOL 中的光滑凸优化一阶方法" })).toBeVisible();
-  await expect(page.locator(".selected-evidence-card").nth(0)).toContainText("投影几何、投影梯度映射、收敛证书与线性收敛率");
+  await expect(page.locator(".selected-evidence-card").nth(0)).toContainText("投影几何、投影梯度映射、收敛证书与强凸条件下的线性收敛率");
   await expect(page.getByRole("heading", { name: "基数约束子模最大化的贪心算法" })).toBeVisible();
   await expect(
     page.getByRole("heading", { name: "网络定位中的二阶几何" })
   ).toBeVisible();
   await expect(page.locator(".selected-evidence-card").nth(2)).toContainText(
-    "围绕网络结构与二阶几何开展的合作研究。"
+    "与 Shoham Sabach、Owen Li 合作研究网络结构与二阶几何；我与 Owen 共同承担理论推导和数值实验。"
   );
   await expect(page.locator(".identity-panel-math")).toContainText("学术身份 · FEIER LYU");
   await expect(page.locator(".identity-panel-creative")).toContainText("创作身份 · HAZEZZ");
@@ -81,7 +81,7 @@ test("home page renders hero and player shell", async ({ page }) => {
   );
   await expect(page.locator(".hero-academic-links .hero-academic-link")).toHaveText([
     "学术",
-    "研究陈述",
+    "下载 CV（PDF）",
     "精选工作",
     "个人档案",
     "GitHub",
@@ -304,8 +304,8 @@ test("bare home URL defaults to English and releases the critical loader at DOM 
   await expect(page.locator('.lang-btn[data-lang="en"]')).toHaveClass(/active/);
   await expect(page.locator(".hero-kicker")).toHaveText("Origin / Chronohaze");
   await expect(page.locator(".selected-evidence-status")).toHaveText([
-    "PUBLISHED · AFP · 2026 · SOLE AUTHOR",
-    "PUBLISHED · AFP · 2026 · SOLE AUTHOR",
+    "PUBLISHED · AFP · 2026",
+    "PUBLISHED · AFP · 2026",
     "ONGOING · JOINT RESEARCH",
   ]);
   await expect(page.getByRole("heading", { name: "First-Order Methods for Smooth Convex Optimization in Isabelle/HOL" })).toBeVisible();
@@ -613,7 +613,7 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
   await expect(page.locator(".hero-research-signal")).toHaveText(
     "两项 Archive of Formal Proofs 形式化成果，均为唯一作者。"
   );
-  await expect(page.locator('.hero-academic-link[href="research.html"]')).toHaveText("研究陈述");
+  await expect(page.locator('.hero-academic-link[href="assets/Feier-Lyu-CV.pdf"]')).toHaveText("下载 CV（PDF）");
   await expect(page.locator('.hero-academic-link[href="projects.html"]')).toHaveText("精选工作");
   await expect(page.locator('.hero-academic-link[href="cv.html"]')).toHaveText("个人档案");
   await expect(page.locator('[data-i18n="nowCard1Body"]')).toHaveText(
@@ -661,7 +661,7 @@ test("home hero keeps localized Chinese and English copy", async ({ page }) => {
   await expect(page.locator("main")).not.toContainText("Born in 2005");
   await expect(page.getByRole("heading", { name: "Research Snapshot" })).toBeVisible();
   await expect(page.locator(".selected-evidence-card").nth(2)).toContainText(
-    "A collaborative study of network structure and second-order geometry."
+    "With Shoham Sabach and Owen Li, I study network structure and second-order geometry. Owen and I share theoretical derivations and numerical experiments."
   );
   await expect(page.locator(".hero-portrait")).toHaveAttribute("alt", "Portrait of Feier Lyu (HazezZ)");
   await expect(page.locator(".now-grid")).toHaveAttribute(
@@ -1938,9 +1938,9 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
     has: page.getByRole("heading", { name: "First-Order Methods for Smooth Convex Optimization in Isabelle/HOL" }),
   });
   await expect(pgdProject).toContainText("Archive of Formal Proofs · July 2026");
-  await expect(pgdProject).toContainText("residual certificates");
+  await expect(pgdProject).toContainText("An Isabelle/HOL formalization of smooth convex first-order optimization");
   const submodularProject = cvEnglish.locator(".cv-project-list li").filter({ hasText: "Wenda Li" });
-  await expect(submodularProject).toContainText("I developed the full Isabelle/HOL formalization, with feedback and guidance from Wenda Li.");
+  await expect(submodularProject).toContainText("With feedback and guidance from Wenda Li.");
   const industry = cvEnglish.locator(".cv-experience-item").filter({
     has: page.getByRole("heading", { name: "Data Engineering Intern" }),
   });
@@ -1989,7 +1989,7 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   await expect(cvChinese.locator("#cv-zh-projects")).toContainText("Archive of Formal Proofs · 2026年7月");
   await expect(cvChinese.locator("#cv-zh-projects")).not.toContainText("等待审核");
   await expect(cvChinese.locator("#cv-zh-projects")).toContainText(
-    "我完成了全部 Isabelle/HOL 形式化开发，Wenda Li 提供了审阅意见和指导。"
+    "Wenda Li 提供了审阅意见和指导。"
   );
   await expect(cvChinese.locator("#cv-zh-projects")).not.toContainText(
     /Selected Work|Submitted Formalization|Patents|development/
@@ -2021,20 +2021,16 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   const formalizationLine = page.locator(
     '#research-projects [data-lang-block="zh"] .research-project-card'
   ).first();
-  await expect(formalizationLine).toContainText("2026年5月26日正式发表于 AFP");
+  await expect(formalizationLine).toContainText("原来的保证还需要哪些条件");
   await expect(formalizationLine).toContainText("未发表扩展：StochasticGreedy");
   await expect(formalizationLine).toContainText("理想随机位语义、期望近似保证与预言机调用次数界");
   await expect(page.locator("#research-outputs .research-output-card")).toHaveCount(0);
   await expect(page.locator("#research-outputs a")).toHaveText("查看代表性工作");
   await expect(page.locator("#research-outputs a")).toHaveAttribute("href", "projects.html");
-  await expect(formalizationLine.getByRole("link", { name: "PGD AFP 条目", exact: true })).toHaveAttribute(
-    "href",
-    "https://isa-afp.org/entries/Projected_Gradient_Descent.html"
+  await expect(formalizationLine.getByRole("link", { name: "阅读当前研究记录", exact: true })).toHaveAttribute(
+    "href", "post/stochasticgreedy-executable-refinement.html?lang=zh"
   );
-  await expect(formalizationLine.getByRole("link", { name: "Submodular AFP 条目", exact: true })).toHaveAttribute(
-    "href",
-    "https://isa-afp.org/entries/Submodular_Greedy.html#"
-  );
+  await expect(page.locator("#research-perspective")).toContainText("每一步究竟用了哪个假设");
   await expect(page.locator('main')).not.toContainText('Metalcore Piano Lab');
   await expect(page.locator('main')).not.toContainText('SUPPORTING COMPUTATIONAL');
 
@@ -2050,6 +2046,42 @@ test("cv and research pages render key faculty-entry nodes", async ({ page }) =>
   await expect(page.locator("#research-outputs a")).toHaveText("View Selected Work");
 
   expect(errors).toEqual([]);
+});
+
+test("academic prose is legible and CV entrances expose a valid PDF download", async ({ page, request }) => {
+  for (const lang of ["en", "zh"]) {
+    for (const name of ["index", "cv"]) {
+      await page.goto(`${name}.html?lang=${lang}`, { waitUntil: "domcontentloaded" });
+      await waitForCriticalLoaderRelease(page);
+      const link = page.locator('a[download][href="assets/Feier-Lyu-CV.pdf"]');
+      await expect(link).toHaveText(lang === "en" ? "Download CV (PDF)" : "下载 CV（PDF）");
+      const [download] = await Promise.all([page.waitForEvent("download"), link.click()]);
+      expect(download.suggestedFilename()).toBe("Feier-Lyu-CV.pdf");
+      // Chromium may cancel saving from the local self-signed HTTPS server.
+      // Check the browser download event and validate the actual payload below.
+    }
+    for (const [name, selector] of [
+      ["academic", ".academic-evidence-list p:not(.academic-proof-kicker)"],
+      ["projects", ".academic-evidence-list p:not(.academic-proof-kicker)"],
+      ["research", ".research-thesis-line"],
+      ["cv", ".policy p"],
+    ]) {
+      await page.goto(`${name}.html?lang=${lang}`, { waitUntil: "domcontentloaded" });
+      await waitForCriticalLoaderRelease(page);
+      const textStyle = await page.locator(selector).first().evaluate((el) => {
+        const style = getComputedStyle(el);
+        return { font: style.fontFamily, size: parseFloat(style.fontSize), leading: parseFloat(style.lineHeight), color: style.color };
+      });
+      expect(textStyle.font).toContain(lang === "en" ? "Chronohaze Sans Latin" : "Chronohaze Sans SC");
+      expect(textStyle.size).toBeGreaterThanOrEqual(16);
+      expect(textStyle.leading / textStyle.size).toBeGreaterThanOrEqual(1.75);
+      expect(textStyle.color).toBe("rgb(41, 52, 67)");
+    }
+  }
+  const response = await request.get("assets/Feier-Lyu-CV.pdf");
+  expect(response.ok()).toBe(true);
+  expect(response.headers()["content-type"]).toContain("application/pdf");
+  expect((await response.body()).subarray(0, 5).toString()).toBe("%PDF-");
 });
 
 test("Chinese academic surfaces do not expose English interface labels", async ({ page }) => {
@@ -2484,7 +2516,7 @@ test("academic page isolates languages and renders a concise academic index", as
   await expect(page.locator('.research-hero [data-lang-block="zh"]')).toContainText(
     '合作研究网络结构与二阶几何'
   );
-  await expect(evidence.getByRole("link", { name: "AFP 条目" }).first()).toHaveAttribute(
+  await expect(evidence.getByRole("link", { name: "Greedy Algorithms for Cardinality-Constrained Submodular Maximization" })).toHaveAttribute(
     "href",
     "https://isa-afp.org/entries/Submodular_Greedy.html#"
   );
@@ -2572,7 +2604,7 @@ test("AFP publication status stays synchronized across work page and project his
   ).nth(2);
   await expect(localizationProject).toContainText("Ongoing collaboration with Shoham Sabach and Owen Li");
   await expect(localizationProject).toContainText(
-    "Technical results are not yet public"
+    "technical results are not yet public"
   );
   await expect(localizationProject.getByRole("link", { name: "Research overview" })).toHaveAttribute(
     "href",
