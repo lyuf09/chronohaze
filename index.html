@@ -1,0 +1,1217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <style id="chronohaze-critical-loader-style">
+    html.chronohaze-critical-loading,
+    html.chronohaze-critical-loading body {
+      min-height: 100%;
+      background: #10141b;
+    }
+
+    html.chronohaze-critical-loading body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    html.chronohaze-critical-loading body > :not(.chronohaze-loader) {
+      visibility: hidden !important;
+    }
+
+    html.chronohaze-critical-loading::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 2147483000;
+      background:
+        linear-gradient(90deg, rgba(138, 160, 200, 0.09) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(138, 160, 200, 0.07) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(13, 17, 24, 0.992) 0%, rgba(19, 24, 33, 0.992) 55%, rgba(13, 17, 24, 0.996) 100%);
+      background-size: 54px 54px, 54px 54px, 100% 100%;
+    }
+
+    html.chronohaze-critical-loading::after {
+      content: "CHRONOHAZE";
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      z-index: 2147483001;
+      width: min(500px, calc(100vw - 40px));
+      padding: 30px 32px;
+      transform: translate(-50%, -50%);
+      white-space: pre-line;
+      color: rgba(232, 234, 237, 0.9);
+      font: 300 clamp(22px, 3.2vw, 34px)/1.48 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.055em;
+      border: 1px solid rgba(154, 172, 204, 0.3);
+      border-radius: 0;
+      background: linear-gradient(180deg, rgba(20, 25, 34, 0.84) 0%, rgba(13, 17, 24, 0.82) 100%);
+      box-shadow: 0 24px 58px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.045);
+    }
+
+    html[lang^="zh"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A 页面加载中";
+    }
+
+    html[lang^="en"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A Loading";
+    }
+
+    html.chronohaze-critical-loading-mobile body {
+      overflow: auto;
+    }
+
+    html.chronohaze-critical-loading-mobile body > :not(.chronohaze-loader) {
+      visibility: visible !important;
+    }
+
+    html.chronohaze-critical-loading-mobile::before {
+      background: linear-gradient(180deg, rgba(13, 17, 24, 0.18) 0%, rgba(19, 24, 33, 0.22) 100%);
+      pointer-events: none;
+    }
+
+    html.chronohaze-critical-loading-mobile::after {
+      content: "CHRONOHAZE";
+      left: 16px;
+      top: 16px;
+      width: auto;
+      max-width: calc(100vw - 32px);
+      padding: 10px 12px;
+      transform: none;
+      white-space: normal;
+      color: rgba(232, 234, 237, 0.78);
+      font: 400 12px/1.3 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.18em;
+      border: 1px solid rgba(154, 172, 204, 0.18);
+      background: rgba(16, 20, 27, 0.34);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+      backdrop-filter: blur(2px);
+    }
+  </style>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var isMobile = window.matchMedia && window.matchMedia("(max-width: 760px)").matches;
+      root.classList.add("chronohaze-critical-loading");
+      if (isMobile) {
+        root.classList.add("chronohaze-critical-loading-mobile");
+      }
+      window.__chronohazeReleaseCriticalLoader = function () {
+        root.classList.remove("chronohaze-critical-loading");
+        root.classList.remove("chronohaze-critical-loading-mobile");
+      };
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", window.__chronohazeReleaseCriticalLoader, { once: true });
+      } else {
+        window.requestAnimationFrame(window.__chronohazeReleaseCriticalLoader);
+      }
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, 500);
+    })();
+  </script>
+<meta name="google-site-verification" content="WOKAbUz-MFzi1b575geqmaZfOSncPi4_efruJBxqIcI" />
+<script>
+    (function () {
+      try {
+        var url = new URL(window.location.href);
+        var queryLang = url.searchParams.get("lang");
+        var valid = function (value) {
+          return value === "zh" || value === "en";
+        };
+        if (valid(queryLang)) {
+          window.localStorage.setItem("siteLang", queryLang);
+          window.localStorage.setItem("chronohaze-lang", queryLang);
+          window.__chronohazePreferredLang = queryLang;
+          document.documentElement.lang = queryLang === "en" ? "en" : "zh-CN";
+          document.documentElement.setAttribute("data-site-lang", queryLang);
+          return;
+        }
+
+        window.__chronohazePreferredLang = "en";
+        document.documentElement.lang = "en";
+        document.documentElement.setAttribute("data-site-lang", "en");
+      } catch (_err) {}
+    })();
+  </script>
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico?v=4" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=4" />
+  <title>Feier Lyu | Optimization &amp; Formal Verification</title>
+  <meta name="description" content="Feier Lyu (Fay Lyu) is a Mathematics BSc student at the University of Edinburgh working on optimization theory and formal verification, with two publications in the Archive of Formal Proofs." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Chronohaze" />
+  <meta property="og:title" content="Feier Lyu | Optimization &amp; Formal Verification" />
+  <meta property="og:description" content="In the haze of time, I look for structure in complexity. Feier Lyu is a Mathematics BSc student at the University of Edinburgh working on optimization, formal verification, and Isabelle/HOL." />
+  <meta property="og:url" content="https://lyuf09.github.io/chronohaze/" />
+  <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/index.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Feier Lyu | Optimization &amp; Formal Verification" />
+  <meta name="twitter:description" content="In the haze of time, I look for structure in complexity. Feier Lyu is a Mathematics BSc student at the University of Edinburgh working on optimization, formal verification, and Isabelle/HOL." />
+  <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/index.png" />
+  <link rel="canonical" href="https://lyuf09.github.io/chronohaze/" />
+  <!-- GENERATED:hreflang:start -->
+  <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/?lang=zh" />
+  <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/" />
+  <!-- GENERATED:hreflang:end -->
+  <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
+<link rel="preload" href="assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="assets/fonts/noto-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/cinzel-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" as="image" href="assets/template/hero_portrait-960.webp" type="image/webp" imagesrcset="assets/template/hero_portrait-600.webp 600w, assets/template/hero_portrait-960.webp 960w, assets/template/hero_portrait-1600.webp 1600w" imagesizes="(max-width: 640px) 88vw, (max-width: 900px) 92vw, 46vw" />
+  <link rel="stylesheet" href="styles.min.css?v=20261103-history-search1" />
+  <link rel="stylesheet" href="home.min.css?v=20260906-latin-a11y1" />
+  <script defer src="protect-media.min.js?v=20261103-history-search1"></script>
+
+  <!-- Chronohaze analytics preference and opt-out control -->
+  <script id="chronohaze-analytics-bootstrap">
+    (function () {
+      var measurementId = "G-JWZY2TVYFZ";
+      var storedPreference;
+      try { storedPreference = window.localStorage.getItem("chronohaze-analytics"); } catch (_err) {}
+      var doNotTrack = navigator.doNotTrack === "1" || window.doNotTrack === "1";
+      var enabled = storedPreference === "on" || (storedPreference !== "off" && !doNotTrack);
+      window["ga-disable-" + measurementId] = !enabled;
+      window.__chronohazeAnalyticsInitialEnabled = enabled;
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/css/analytics-control.min.css?v=20260906-latin-a11y1" />
+  <script id="chronohaze-analytics-runtime" defer src="assets/js/analytics-control.min.js?v=20260906-latin-a11y1" data-analytics-collection="enabled"></script>
+</head>
+<body class="home-body">
+  <a class="skip-link" href="#main-content">Skip to content / 跳到正文</a>
+<div class="home-page" id="top">
+    <header class="home-topbar">
+      <a class="home-brand" href="#top">CHRONOHAZE</a>
+
+      <div class="lang-pill" aria-label="Language switch">
+        <button class="lang-btn" type="button" data-lang="zh" aria-label="Switch site language to Chinese" aria-pressed="false">中</button>
+        <button class="lang-btn active" type="button" data-lang="en" aria-label="Switch site language to English" aria-pressed="true">EN</button>
+      </div>
+
+      <button class="menu-open" type="button" aria-controls="drawer" aria-expanded="false" aria-label="Menu [ + ]" data-i18n-aria="menuOpenAria" id="openMenu">+</button>
+    </header>
+
+    <main id="main-content">
+      <section class="hero-split" id="home">
+        <div class="hero-left" data-floating-logo-tone="dark">
+          <div class="hero-portrait-frame">
+            <picture class="responsive-picture" style="display:block;width:100%;">
+              <source type="image/webp" srcset="assets/template/hero_portrait-600.webp 600w, assets/template/hero_portrait-960.webp 960w, assets/template/hero_portrait-1600.webp 1600w" sizes="(max-width: 640px) 88vw, (max-width: 900px) 92vw, 46vw" />
+              <img class="hero-portrait" src="assets/template/hero_portrait-960.jpg" srcset="assets/template/hero_portrait-600.jpg 600w, assets/template/hero_portrait-960.jpg 960w, assets/template/hero_portrait-1600.jpg 1600w" alt="Portrait of Feier Lyu (HazezZ)" data-i18n-alt="heroPortraitAlt" width="3000" height="4000" data-reveal="zoom" data-reveal-delay="0" data-reveal-wait="image-load" data-eager="true" loading="eager" decoding="async" fetchpriority="high" sizes="(max-width: 640px) 88vw, (max-width: 900px) 92vw, 46vw" />
+            </picture>
+          </div>
+        </div>
+
+        <div class="hero-right" data-floating-logo-tone="light">
+          <div class="hero-right-inner">
+            <p class="hero-kicker" data-i18n="heroKicker">Origin / Chronohaze</p>
+            <h1><span class="hero-primary-name" data-i18n="heroTitle">Feier Lyu</span><span class="hero-secondary-name" data-i18n="heroSecondaryName">Fay</span></h1>
+            <p class="hero-role-line" data-i18n="heroRole">OPTIMIZATION · FORMAL VERIFICATION · MACHINE-CHECKED MATHEMATICS</p>
+            <p data-i18n="heroIntro" data-i18n-html="true"><span class="hero-poetic-line">In the haze of time, I look for structure in complexity.</span> <span class="hero-identity-line">I work on optimization and formal verification. As HazezZ, I write and produce music and make photographs.</span></p>
+            <p class="hero-authority-line" data-i18n="heroAuthority">University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027</p>
+            <p class="hero-research-signal" data-i18n="heroResearchSignal">Sole author of two entries in the Archive of Formal Proofs.</p>
+            <div class="hero-academic-module" data-search-ignore>
+              <p class="hero-academic-kicker" data-i18n="academicKicker">Quick links</p>
+              <div class="hero-academic-links">
+                <a class="hero-academic-link" href="academic.html" data-i18n="academicResearch">Academic</a>
+                <a class="hero-academic-link" href="assets/Feier-Lyu-CV.pdf" download data-i18n="downloadCV">Download CV (PDF)</a>
+                <a class="hero-academic-link" href="projects.html" data-i18n="academicProjects">Selected Work</a>
+                <a class="hero-academic-link" href="cv.html" data-i18n="academicCV">Profile</a>
+                <a class="hero-academic-link" href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer" data-i18n="academicGitHub">GitHub</a>
+              </div>
+            </div>
+
+            <a class="contact-btn" href="#contact" data-i18n="contactBtn">Contact me</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="identity-duality" id="welcome" aria-labelledby="identityDualityTitle" data-floating-logo-tone="light">
+        <div class="identity-duality-head" data-reveal="fade" data-reveal-delay="20">
+          <p data-i18n="identityDualityKicker">EXPLORE</p>
+          <h2 id="identityDualityTitle" data-i18n="identityDualityTitle">Research, music &amp; photographs</h2>
+          <p class="identity-duality-intro" data-i18n="aboutP3">Here I share my mathematics research, music, and photography.</p>
+        </div>
+        <div class="identity-duality-grid">
+          <article class="identity-panel identity-panel-math" data-reveal="entry-panel" data-reveal-delay="80" data-floating-logo-tone="light">
+            <p class="identity-panel-eyebrow" data-i18n="identityMathEyebrow">ACADEMIC IDENTITY · FEIER LYU</p>
+            <h3 data-i18n="identityMathTitle">Mathematics</h3>
+            <p data-i18n="identityMathBody">Isabelle/HOL formalizations of optimization algorithms and research on network localization.</p>
+            <div class="identity-panel-links">
+              <a href="projects.html" data-i18n="identityMathLink1">Selected Work</a>
+              <a href="research.html" data-i18n="identityMathLink2">Research Statement</a>
+              <a href="math.html" data-i18n="identityMathLink3">Technical notes</a>
+            </div>
+          </article>
+          <article class="identity-panel identity-panel-creative" data-reveal="entry-panel" data-reveal-delay="150" data-floating-logo-tone="dark">
+            <p class="identity-panel-eyebrow" data-i18n="identityCreativeEyebrow">CREATIVE IDENTITY · HAZEZZ</p>
+            <h3 data-i18n="identityCreativeTitle">Music &amp; Image</h3>
+            <p data-i18n="identityCreativeBody">I write and arrange music, perform, and make photographic series.</p>
+            <div class="player-shell" id="playerShell" data-search-ignore>
+              <button class="player-toggle" type="button" aria-label="Play or pause featured track" aria-pressed="false" data-i18n-aria="audioToggleAria" id="audioToggle"></button>
+              <div class="player-center">
+                <p>AFFIZIEREN - HAZEZZ</p>
+                <div class="player-track"><span id="playerProgress"></span></div>
+              </div>
+              <p class="player-time" id="playerTime">00:00 / 00:00</p>
+              <div class="player-support" id="playerSupport">
+                <span class="player-status" id="playerStatus">Preparing audio…</span>
+                <a class="player-fallback-link" id="playerFallbackLink" href="music/track-04.html" hidden>Open track page</a>
+              </div>
+              <audio
+                id="heroAudio"
+                preload="metadata"
+                data-duration-seconds="348.6041"
+                data-eager-media="1"
+                playsinline
+                oncontextmenu="return false"
+              >
+                <source src="assets/audio/juke/d535eae92e52004a1b3bdb88eca4f651.mp3" type="audio/mpeg" />
+              </audio>
+            </div>
+            <div class="identity-visual-links">
+              <a class="identity-visual-link identity-visual-music" href="music.html" style="--identity-image: image-set(url('assets/template/entry-music-5323-1600.webp') type('image/webp') 1x, url('assets/template/entry-music-5323.jpg') type('image/jpeg') 1x);"><span data-i18n="identityCreativeLink1">Music / Performance</span></a>
+              <a class="identity-visual-link identity-visual-photo" href="photography.html" style="--identity-image: image-set(url('assets/template/entry-photo-5322-1600.webp') type('image/webp') 1x, url('assets/template/entry-photo-5322.jpg') type('image/jpeg') 1x);"><span data-i18n="identityCreativeLink2">Photography / Moving Image</span></a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="selected-evidence" id="selected-evidence" aria-labelledby="selectedEvidenceTitle" data-floating-logo-tone="light">
+        <div class="selected-evidence-shell" data-reveal="fade" data-reveal-delay="40">
+          <div class="selected-evidence-head">
+            <p class="selected-evidence-kicker" data-i18n="selectedEvidenceKicker">CURRENT WORK</p>
+            <h2 id="selectedEvidenceTitle" data-i18n="selectedEvidenceTitle">Research Snapshot</h2>
+          </div>
+          <div class="selected-evidence-grid" role="list" data-i18n-aria="selectedEvidenceGridAria" aria-label="Selected publications and ongoing research">
+            <article class="selected-evidence-card" role="listitem" data-reveal="slide-up" data-reveal-delay="80">
+              <p class="selected-evidence-status" data-i18n="selectedEvidenceCard1Status">PUBLISHED · AFP · 2026</p>
+              <h3 data-i18n="selectedEvidenceCard1Title">First-Order Methods for Smooth Convex Optimization in Isabelle/HOL</h3>
+              <p data-i18n="selectedEvidenceCard1Body">Reusable Isabelle/HOL infrastructure for smooth convex first-order optimization, including projection geometry, projected-gradient mappings, convergence certificates, and linear rates under strong convexity.</p>
+              <div class="selected-evidence-links">
+                <a class="selected-evidence-link" href="https://isa-afp.org/entries/Projected_Gradient_Descent.html" target="_blank" rel="noopener noreferrer" data-i18n="selectedEvidenceCard1Link">AFP entry</a>
+                <a class="selected-evidence-link" href="https://isa-afp.org/browser_info/current/AFP/Projected_Gradient_Descent/document.pdf" target="_blank" rel="noopener noreferrer" data-i18n="selectedEvidenceCard1Proof">Proof document</a>
+                <a class="selected-evidence-link" href="post/projected-gradient-descent-isabelle-hol.html" data-i18n="selectedEvidenceCard1Note">Project note</a>
+                <a class="selected-evidence-link" href="https://github.com/lyuf09/projected-gradient-descent" target="_blank" rel="noopener noreferrer">GitHub</a>
+              </div>
+            </article>
+            <article class="selected-evidence-card" role="listitem" data-reveal="slide-up" data-reveal-delay="140">
+              <p class="selected-evidence-status" data-i18n="selectedEvidenceCard2Status">PUBLISHED · AFP · 2026</p>
+              <h3 data-i18n="selectedEvidenceCard2Title">Greedy Algorithms for Cardinality-Constrained Submodular Maximization</h3>
+              <p data-i18n="selectedEvidenceCard2Body">Classical greedy and a verified stateful lazy-greedy variant for cardinality-constrained monotone submodular maximization. Developed with guidance from Wenda Li.</p>
+              <a class="selected-evidence-link" href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer" data-i18n="selectedEvidenceCard2Link">AFP entry</a>
+            </article>
+            <article class="selected-evidence-card" role="listitem" data-reveal="slide-up" data-reveal-delay="200">
+              <p class="selected-evidence-status" data-i18n="selectedEvidenceCard3Status">ONGOING · JOINT RESEARCH</p>
+              <h3 data-i18n="selectedEvidenceCard3Title">Second-Order Geometry in Network Localization</h3>
+              <p data-i18n="selectedEvidenceCard3Body">With Shoham Sabach and Owen Li, I study network structure and second-order geometry. Owen and I share theoretical derivations and numerical experiments.</p>
+              <a class="selected-evidence-link" href="notes/network_localization_structural_certificates.html" data-i18n="selectedEvidenceCard3Link">Research record</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="now-strip" id="now" data-floating-logo-tone="dark">
+        <div class="now-shell" data-reveal="fade" data-reveal-delay="40">
+          <div class="now-head">
+            <h2 data-i18n="nowTitle">Now / October 2026</h2>
+            <div class="now-freshness" data-reveal="fade" data-reveal-delay="80">
+              <span class="now-freshness-label" data-i18n="nowFreshnessLabel">Last updated</span>
+              <time class="now-freshness-time" datetime="2026-10">2026. 10</time>
+            </div>
+          </div>
+          <div class="now-grid" aria-label="Current research and studio work in October 2026" data-i18n-aria="nowGridAria">
+            <article class="now-card" data-reveal="slide-up" data-reveal-delay="80">
+              <h3 data-i18n="nowCard1Title">StochasticGreedy / Isabelle/HOL</h3>
+              <p data-i18n="nowCard1Body">Unpublished extension: the probability-semantics connection and expected approximation guarantee are established, along with oracle-cost bounds. Current work focuses on implementation improvements, experimental evaluation, and defining the paper scope. The latest implementation is not yet public.</p>
+            </article>
+            <article class="now-card" data-reveal="slide-up" data-reveal-delay="150">
+              <h3 data-i18n="nowCard2Title">New bands / Bass</h3>
+              <p data-i18n="nowCard2Body">I’ve recently joined two new bands, remonko cake and the biscuit tin collective, both on bass :) Lately I’ve been spending more time on bass and band rehearsals.</p>
+            </article>
+            <article class="now-card" data-reveal="slide-up" data-reveal-delay="220">
+              <h3 data-i18n="nowCard3Title">Kaleidoscope / EP</h3>
+              <p data-i18n="nowCard3Body">I’m currently writing Kaleidoscope, an EP combining music and fiction.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="home-footer" id="contact" data-floating-logo-tone="light">
+      <div class="home-footer-top">
+        <a class="home-footer-brand" href="#top">CHRONOHAZE</a>
+      </div>
+
+      <div class="home-footer-main">
+        <div class="home-footer-col home-footer-contact">
+          <p data-i18n="footerContactLead">Contact via email:</p>
+          <a class="home-footer-email obf-email-link" href="#email-main" data-email-link="1" data-email-key="main">moc.duolci@035reief</a>
+          <p class="home-footer-cities" data-i18n="footerCities">Edinburgh · Ithaca · Chongqing — places that shaped the work.</p>
+          <div class="home-footer-social" aria-label="Social links">
+            <a href="https://www.instagram.com/lyuf09" target="_blank" rel="noopener noreferrer" aria-label="Visit my Instagram profile">Instagram</a>
+            <a href="https://space.bilibili.com/35902781" target="_blank" rel="noopener noreferrer" aria-label="Visit my Bilibili space">Bilibili</a>
+            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer" aria-label="Visit my LinkedIn profile">LinkedIn</a>
+            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer" aria-label="Visit my GitHub profile">GitHub</a>
+          </div>
+        </div>
+
+        <div class="home-footer-col home-footer-policy">
+          <a href="policy.html" data-i18n="siteNotes">Privacy Policy</a>
+          <a href="accessibility.html" data-i18n="a11y">Accessibility</a>
+        </div>
+      </div>
+
+      <div class="home-footer-bottom">
+        <p data-i18n="footerCopy">© 2026 by CHRONOHAZE. Hosted on GitHub Pages.</p>
+      </div>
+  <div class="analytics-control-shell" data-analytics-collection="enabled">
+    <p class="analytics-control" data-analytics-control>
+      <span data-analytics-status>Analytics: On</span><span aria-hidden="true"> · </span><button type="button" data-analytics-toggle>Turn off</button>
+    </p>
+  </div>
+</footer>
+
+    <div class="drawer-backdrop" id="backdrop" hidden></div>
+    <aside class="drawer" id="drawer" aria-hidden="true">
+      <button class="drawer-close" type="button" data-i18n="menuClose" id="closeMenu">Close [ - ]</button>
+      <nav class="drawer-nav" aria-label="Menu" data-i18n-aria="drawerAria">
+        <a href="#top" data-i18n="menuHome">Home</a>
+        <a href="academic.html" data-i18n="menuAcademic">Academic</a>
+        <a href="cv.html" data-i18n="menuProfile">Profile</a>
+        <div class="drawer-studio-group">
+          <p class="drawer-studio-label" data-i18n="menuStudio">Studio</p>
+          <div class="drawer-studio-links">
+            <a href="music.html" data-i18n="menuMusic">Music</a>
+            <a href="photography.html" data-i18n="menuPhoto">Photography</a>
+          </div>
+        </div>
+        <a href="search.html" data-i18n="menuSearch">Search</a>
+      </nav>
+      <div class="drawer-logo-decoration" aria-hidden="true">
+        <img src="assets/logo-float.png" alt="" width="256" height="256" loading="lazy" decoding="async" />
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    (function () {
+      const openBtn = document.getElementById('openMenu');
+      const closeBtn = document.getElementById('closeMenu');
+      const drawer = document.getElementById('drawer');
+      const backdrop = document.getElementById('backdrop');
+      const audio = document.getElementById('heroAudio');
+      const toggle = document.getElementById('audioToggle');
+      const progress = document.getElementById('playerProgress');
+      const timeLabel = document.getElementById('playerTime');
+      const playerShell = document.getElementById('playerShell');
+      const playerStatus = document.getElementById('playerStatus');
+      const playerFallbackLink = document.getElementById('playerFallbackLink');
+      const homeMathPreview = document.getElementById('homeMathPreview');
+      const langButtons = Array.from(document.querySelectorAll('.lang-btn[data-lang]'));
+      const revealNodes = Array.from(document.querySelectorAll('[data-reveal]'));
+      const i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
+      const i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
+      const i18nAltNodes = Array.from(document.querySelectorAll('[data-i18n-alt]'));
+      let drawerLinks = Array.from(drawer.querySelectorAll('a'));
+      let homeMathItems = null;
+      let menuScrollY = 0;
+      let lastMenuFocus = null;
+
+
+      function ensureDrawerNav(lang) {
+        const safeLang = lang === 'en' ? 'en' : 'zh';
+        const dict = i18n[safeLang] || i18n.zh;
+        const nav = drawer.querySelector('.drawer-nav');
+        if (!nav) return;
+        nav.textContent = '';
+
+        [
+          { href: '#top', key: 'menuHome' },
+          { href: 'academic.html', key: 'menuAcademic' },
+          { href: 'cv.html', key: 'menuProfile' }
+        ].forEach(function (entry) {
+          const link = document.createElement('a');
+          link.setAttribute('href', entry.href);
+          link.setAttribute('data-i18n', entry.key);
+          link.textContent = dict[entry.key] || '';
+          nav.appendChild(link);
+        });
+
+        const studioGroup = document.createElement('div');
+        studioGroup.className = 'drawer-studio-group';
+        const studioLabel = document.createElement('p');
+        studioLabel.className = 'drawer-studio-label';
+        studioLabel.setAttribute('data-i18n', 'menuStudio');
+        studioLabel.textContent = dict.menuStudio;
+        const studioLinks = document.createElement('div');
+        studioLinks.className = 'drawer-studio-links';
+        [
+          { href: 'music.html', key: 'menuMusic' },
+          { href: 'photography.html', key: 'menuPhoto' }
+        ].forEach(function (entry) {
+          const link = document.createElement('a');
+          link.setAttribute('href', entry.href);
+          link.setAttribute('data-i18n', entry.key);
+          link.textContent = dict[entry.key] || '';
+          studioLinks.appendChild(link);
+        });
+        studioGroup.appendChild(studioLabel);
+        studioGroup.appendChild(studioLinks);
+        nav.appendChild(studioGroup);
+
+        const searchLink = document.createElement('a');
+        searchLink.setAttribute('href', 'search.html');
+        searchLink.setAttribute('data-i18n', 'menuSearch');
+        searchLink.textContent = dict.menuSearch;
+        nav.appendChild(searchLink);
+
+        drawerLinks = Array.from(nav.querySelectorAll('a'));
+      }
+
+      if (audio && timeLabel) {
+        const sourceNode = audio.querySelector('source[src]');
+        if ((!audio.getAttribute('src') || !audio.getAttribute('src').trim()) && sourceNode) {
+          const sourceSrc = sourceNode.getAttribute('src');
+          if (sourceSrc) audio.setAttribute('src', sourceSrc);
+        }
+      }
+
+      const titleByLang = {
+        zh: '起点｜Fay / Feier Lyu｜爱丁堡大学数学 · 优化与形式化验证',
+        en: 'Feier Lyu | Optimization & Formal Verification'
+      };
+
+      let currentLang = 'en';
+
+      const i18n = {
+        zh: {
+          metaDescription: 'Fay / Feier Lyu（HazezZ），爱丁堡大学数学本科生，研究优化理论、形式化验证与 Isabelle/HOL，已有两项 Archive of Formal Proofs 正式成果。',
+          socialTitle: '起点｜Fay / Feier Lyu · Chronohaze',
+          socialDescription: '在时间的薄雾里，为复杂性寻找结构。Fay / Feier Lyu，爱丁堡大学数学本科生，研究优化理论、形式化验证与 Isabelle/HOL。',
+          menuOpenAria: '菜单 [ + ]',
+          audioToggleAria: '播放或暂停精选音频',
+          playerStatusLoading: '准备音频…',
+          playerStatusReady: '',
+          playerStatusError: '当前设备/网络下暂不可播',
+          playerFallbackLink: '去音乐页试听',
+          playerUnavailableTitle: '当前设备或网络下无法直接播放，可前往音乐页试听。',
+          drawerAria: '站点菜单',
+          heroPortraitAlt: 'Feier Lyu（HazezZ）的肖像',
+          heroKicker: '起点 / Chronohaze',
+          heroTitle: 'Feier Lyu',
+          heroSecondaryName: 'Fay',
+          heroRole: 'OPTIMIZATION · FORMAL VERIFICATION · MACHINE-CHECKED MATHEMATICS',
+          heroIntro: '<span class="hero-poetic-line">在时间的薄雾里，为复杂性寻找结构。</span> <span class="hero-identity-line">我研究优化与形式化验证；也以 HazezZ 的名义写作、制作音乐与摄影。</span>',
+          heroAuthority: 'University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027',
+          heroResearchSignal: '两项 Archive of Formal Proofs 形式化成果，均为唯一作者。',
+          academicKicker: '快捷入口',
+          academicResearch: '学术',
+          academicStatement: '研究陈述',
+          downloadCV: '下载 CV（PDF）',
+          academicProjects: '精选工作',
+          academicCV: '个人档案',
+          academicGitHub: 'GitHub',
+          contactBtn: '联系我',
+          aboutTitle: '关于我',
+          aboutP1: '<span class="about-inline-en">Feier Lyu（常用英文名 Fay Lyu）</span>，爱丁堡大学数学本科生，2025–2026 学年于康奈尔大学交换；也以 HazezZ 名义创作音乐。',
+          aboutP2: '我在优化理论与形式化验证的交界处工作，研究如何把算法假设、证明结构与收敛结论组织成可复用、可机器检查的数学。',
+          aboutP3: '这里记录我的数学研究、音乐制作与摄影。',
+          aboutLanguages: '<span class="about-language-label">语言：</span>中文 / 英语 / 日语<br />我主要以中文和英文写作，也会用日文进行歌词、标题与创作表达。',
+          nowKicker: 'NOW / 2026年10月',
+          nowTitle: '近况 / 2026年10月',
+          nowFreshnessLabel: '近况更新',
+          nowGridAria: '2026年10月的研究与创作近况',
+          nowCard1Title: 'StochasticGreedy / Isabelle/HOL',
+          nowCard1Body: '未发表扩展：已完成概率语义连接与期望近似证明，并建立预言机调用次数界；当前重点是实现改进、实验评估与论文范围整理。最新实现尚未公开。',
+          nowCard2Title: '新乐队 / 贝斯',
+          nowCard2Body: '最近加入了两个新乐队：remonko cake（柠檬籽蛋糕）和 the biscuit tin collective，都是担任贝斯手：）最近把更多时间放在贝斯和乐队排练上。',
+          nowCard3Title: 'Kaleidoscope / EP',
+          nowCard3Body: '最近正在写一张音乐小说 EP，叫《Kaleidoscope》。',
+          selectedEvidenceKicker: '研究概览',
+          selectedEvidenceTitle: '当前工作',
+          selectedEvidenceGridAria: '代表性发表成果与进行中研究',
+          selectedEvidenceCard1Status: '已发表 · AFP · 2026',
+          selectedEvidenceCard1Title: 'Isabelle/HOL 中的光滑凸优化一阶方法',
+          selectedEvidenceCard1Body: '构建可复用的光滑凸一阶优化 Isabelle/HOL 基础设施，涵盖投影几何、投影梯度映射、收敛证书与强凸条件下的线性收敛率。',
+          selectedEvidenceCard1Link: '查看 AFP 条目',
+          selectedEvidenceCard1Proof: '证明文档',
+          selectedEvidenceCard1Note: '项目回顾',
+          selectedEvidenceCard2Status: '已发表 · AFP · 2026',
+          selectedEvidenceCard2Title: '基数约束子模最大化的贪心算法',
+          selectedEvidenceCard2Body: '形式化经典贪心算法与经验证的有状态惰性贪心变体。该项目得到 Wenda Li 的指导。',
+          selectedEvidenceCard2Link: '查看 AFP 条目',
+          selectedEvidenceCard3Status: '进行中 · 合作研究',
+          selectedEvidenceCard3Title: '网络定位中的二阶几何',
+          selectedEvidenceCard3Body: '与 Shoham Sabach、Owen Li 合作研究网络结构与二阶几何；我与 Owen 共同承担理论推导和数值实验。',
+          selectedEvidenceCard3Link: '研究记录',
+          identityDualityKicker: '数学与创作',
+          identityDualityTitle: '研究、音乐与摄影',
+          identityMathEyebrow: '学术身份 · FEIER LYU',
+          identityMathTitle: '数学',
+          identityMathBody: '优化算法的 Isabelle/HOL 形式化与网络定位研究。',
+          identityMathLink1: '代表性工作',
+          identityMathLink2: '研究陈述',
+          identityMathLink3: '技术笔记',
+          identityCreativeEyebrow: '创作身份 · HAZEZZ',
+          identityCreativeTitle: '音乐与影像',
+          identityCreativeBody: '我写歌、编曲，也参与演出和拍摄摄影系列。',
+          identityCreativeLink1: '音乐与演出',
+          identityCreativeLink2: '摄影与动态影像',
+          mathTitle: '数学',
+          mathLead: '这里收集我近期关于优化、形式化证明与极小极大问题的研究笔记；有些是正在形成中的想法，也有些是已整理成可公开阅读的技术记录。',
+          cardMoreLabel: '查看更多',
+          cardMoreTitle: '数学文章合集',
+          cardMoreBody: '查看精选技术笔记与研究记录。',
+          readMore: '阅读更多',
+          portfolioLabel: '摄影作品集',
+          musicLabel: '音乐作品集',
+          footerContactLead: '联系邮箱：',
+          footerCities: '爱丁堡 · 伊萨卡 · 重庆——塑造这些工作的地方。',
+          footerCopy: '© 2026 CHRONOHAZE。由 GitHub Pages 托管。',
+          siteNotes: '网站说明',
+          a11y: '无障碍支持',
+          menuClose: '关闭 [ - ]',
+          menuHome: '主页',
+          menuAcademic: '学术',
+          menuProfile: '个人档案',
+          menuStudio: '工作室',
+          menuPhoto: '摄影',
+          menuMusic: '音乐',
+          menuOlfactory: '调香',
+          menuCV: '个人档案',
+          menuSearch: '搜索'
+        },
+        en: {
+          metaDescription: 'Feier Lyu (Fay Lyu) is a Mathematics BSc student at the University of Edinburgh working on optimization theory and formal verification, with two publications in the Archive of Formal Proofs.',
+          socialTitle: 'Feier Lyu | Optimization & Formal Verification',
+          socialDescription: 'In the haze of time, I look for structure in complexity. Feier Lyu is a Mathematics BSc student at the University of Edinburgh working on optimization, formal verification, and Isabelle/HOL.',
+          menuOpenAria: 'Menu [ + ]',
+          audioToggleAria: 'Play or pause featured track',
+          playerStatusLoading: 'Preparing audio…',
+          playerStatusReady: '',
+          playerStatusError: 'Playback unavailable on this device/network',
+          playerFallbackLink: 'Open track page',
+          playerUnavailableTitle: 'Playback is unavailable on this device or network. Open the track page instead.',
+          drawerAria: 'Menu',
+          heroPortraitAlt: 'Portrait of Feier Lyu (HazezZ)',
+          heroKicker: 'Origin / Chronohaze',
+          heroTitle: 'Feier Lyu',
+          heroSecondaryName: 'Fay',
+          heroRole: 'OPTIMIZATION · FORMAL VERIFICATION · MACHINE-CHECKED MATHEMATICS',
+          heroIntro: '<span class="hero-poetic-line">In the haze of time, I look for structure in complexity.</span> <span class="hero-identity-line">I work on optimization and formal verification. As HazezZ, I write and produce music and make photographs.</span>',
+          heroAuthority: 'University of Edinburgh, BSc Mathematics · Cornell University Exchange · Expected Graduation 2027',
+          heroResearchSignal: 'Sole author of two entries in the Archive of Formal Proofs.',
+          academicKicker: 'Quick links',
+          academicResearch: 'Academic',
+          academicStatement: 'Research Statement',
+          downloadCV: 'Download CV (PDF)',
+          academicProjects: 'Selected Work',
+          academicCV: 'Profile',
+          academicGitHub: 'GitHub',
+          contactBtn: 'Contact me',
+          aboutTitle: 'About me',
+          aboutP1: 'My current work develops machine-checked structures for optimization arguments, with particular emphasis on first-order methods and approximation guarantees for submodular optimization in <span class="about-inline-en">Isabelle/HOL</span>.',
+          aboutP2: 'I work at the intersection of optimization theory and formal verification, organizing algorithmic assumptions, proof structure, and convergence arguments into reusable machine-checked mathematics.',
+          aboutP3: 'Here I share my mathematics research, music, and photography.',
+          aboutLanguages: '<span class="about-language-label">Languages:</span> Chinese / English / 日本語<br />I mainly write in Chinese and English, and also use Japanese for lyrics, titles, and creative expression.',
+          nowKicker: 'NOW / OCTOBER 2026',
+          nowTitle: 'Now / October 2026',
+          nowFreshnessLabel: 'Last updated',
+          nowGridAria: 'Current research and studio work in October 2026',
+          nowCard1Title: 'StochasticGreedy / Isabelle/HOL',
+          nowCard1Body: 'Unpublished extension: the probability-semantics connection and expected approximation guarantee are established, along with oracle-cost bounds. Current work focuses on implementation improvements, experimental evaluation, and defining the paper scope. The latest implementation is not yet public.',
+          nowCard2Title: 'New bands / Bass',
+          nowCard2Body: 'I’ve recently joined two new bands, remonko cake and the biscuit tin collective, both on bass :) Lately I’ve been spending more time on bass and band rehearsals.',
+          nowCard3Title: 'Kaleidoscope / EP',
+          nowCard3Body: 'I’m currently writing Kaleidoscope, an EP combining music and fiction.',
+          selectedEvidenceKicker: 'CURRENT WORK',
+          selectedEvidenceTitle: 'Research Snapshot',
+          selectedEvidenceGridAria: 'Selected publications and ongoing research',
+          selectedEvidenceCard1Status: 'PUBLISHED · AFP · 2026',
+          selectedEvidenceCard1Title: 'First-Order Methods for Smooth Convex Optimization in Isabelle/HOL',
+          selectedEvidenceCard1Body: 'Reusable Isabelle/HOL infrastructure for smooth convex first-order optimization, including projection geometry, projected-gradient mappings, convergence certificates, and linear rates under strong convexity.',
+          selectedEvidenceCard1Link: 'AFP entry',
+          selectedEvidenceCard1Proof: 'Proof document',
+          selectedEvidenceCard1Note: 'Project note',
+          selectedEvidenceCard2Status: 'PUBLISHED · AFP · 2026',
+          selectedEvidenceCard2Title: 'Greedy Algorithms for Cardinality-Constrained Submodular Maximization',
+          selectedEvidenceCard2Body: 'Classical greedy and a verified stateful lazy-greedy variant for cardinality-constrained monotone submodular maximization. Developed with guidance from Wenda Li.',
+          selectedEvidenceCard2Link: 'AFP entry',
+          selectedEvidenceCard3Status: 'ONGOING · JOINT RESEARCH',
+          selectedEvidenceCard3Title: 'Second-Order Geometry in Network Localization',
+          selectedEvidenceCard3Body: 'With Shoham Sabach and Owen Li, I study network structure and second-order geometry. Owen and I share theoretical derivations and numerical experiments.',
+          selectedEvidenceCard3Link: 'Research record',
+          identityDualityKicker: 'EXPLORE',
+          identityDualityTitle: 'Research, music & photographs',
+          identityMathEyebrow: 'ACADEMIC IDENTITY · FEIER LYU',
+          identityMathTitle: 'Mathematics',
+          identityMathBody: 'Isabelle/HOL formalizations of optimization algorithms and research on network localization.',
+          identityMathLink1: 'Selected Work',
+          identityMathLink2: 'Research Statement',
+          identityMathLink3: 'Technical notes',
+          identityCreativeEyebrow: 'CREATIVE IDENTITY · HAZEZZ',
+          identityCreativeTitle: 'Music & Image',
+          identityCreativeBody: 'I write and arrange music, perform, and make photographic series.',
+          identityCreativeLink1: 'Music / Performance',
+          identityCreativeLink2: 'Photography / Moving Image',
+          mathTitle: 'Mathematics',
+          mathLead: 'This section collects my recent research notes on optimization, formal proof, and minimax problems; some are ideas still taking shape, while others have been organized into public technical records.',
+          cardMoreLabel: 'View All',
+          cardMoreTitle: 'Mathematics Archive',
+          cardMoreBody: 'Browse selected technical notes and research records.',
+          readMore: 'Read More',
+          portfolioLabel: 'Photography Portfolio',
+          musicLabel: 'Music Portfolio',
+          footerContactLead: 'Contact via email:',
+          footerCities: 'Edinburgh · Ithaca · Chongqing — places that shaped the work.',
+          footerCopy: '© 2026 by CHRONOHAZE. Hosted on GitHub Pages.',
+          siteNotes: 'Privacy Policy',
+          a11y: 'Accessibility',
+          menuClose: 'Close  [ - ]',
+          menuHome: 'Home',
+          menuAcademic: 'Academic',
+          menuProfile: 'Profile',
+          menuStudio: 'Studio',
+          menuPhoto: 'Photography',
+          menuMusic: 'Music',
+          menuOlfactory: 'Olfactory',
+          menuCV: 'Profile',
+          menuSearch: 'Search'
+        }
+      };
+
+      function shouldLockMenuScroll() {
+        return window.matchMedia('(max-width: 768px)').matches;
+      }
+
+      function lockMenuScroll() {
+        if (!shouldLockMenuScroll() || document.body.classList.contains('menu-scroll-locked')) return;
+        menuScrollY = window.scrollY || window.pageYOffset || 0;
+        document.body.style.setProperty('--menu-scroll-top', '-' + String(menuScrollY) + 'px');
+        document.body.classList.add('menu-scroll-locked');
+        document.documentElement.classList.add('menu-scroll-locked');
+      }
+
+      function unlockMenuScroll() {
+        const wasLocked = document.body.classList.contains('menu-scroll-locked');
+        document.body.classList.remove('menu-scroll-locked');
+        document.documentElement.classList.remove('menu-scroll-locked');
+        document.body.style.removeProperty('--menu-scroll-top');
+        if (wasLocked) {
+          window.scrollTo(0, menuScrollY);
+        }
+      }
+
+      function setMenu(open) {
+        drawer.classList.toggle('open', open);
+        backdrop.hidden = !open;
+        drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+        openBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (open) {
+          const activeElement = document.activeElement;
+          lastMenuFocus =
+            activeElement instanceof HTMLElement &&
+            activeElement !== document.body &&
+            activeElement !== document.documentElement
+              ? activeElement
+              : openBtn;
+          lockMenuScroll();
+          window.requestAnimationFrame(function () {
+            closeBtn.focus();
+          });
+        } else {
+          unlockMenuScroll();
+          if (lastMenuFocus && typeof lastMenuFocus.focus === 'function') {
+            window.requestAnimationFrame(function () {
+              lastMenuFocus.focus();
+            });
+          }
+        }
+      }
+
+      function navigateHomeMathCard(href) {
+        if (!href) return;
+        if (window.ChronohazeShared && typeof window.ChronohazeShared.navigateWithPageSwap === 'function') {
+          window.ChronohazeShared.navigateWithPageSwap(new URL(href, window.location.href).href);
+          return;
+        }
+        window.location.href = href;
+      }
+
+      function bindMathCards() {
+        Array.from(document.querySelectorAll('.math-grid article[data-post-url]')).forEach(function (card) {
+          if (card.dataset.boundNavigation === 'true') return;
+          const href = card.getAttribute('data-post-url');
+          if (!href) return;
+          card.dataset.boundNavigation = 'true';
+          card.addEventListener('click', function (event) {
+            if (event.target && event.target.closest && event.target.closest('a')) return;
+            navigateHomeMathCard(href);
+          });
+          card.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault();
+              navigateHomeMathCard(href);
+            }
+          });
+        });
+      }
+
+      function renderHomeMathPreview(items) {
+        if (!homeMathPreview || !Array.isArray(items) || !items.length) return;
+        homeMathItems = items.slice(0, 4);
+        const dict = i18n[currentLang] || i18n.zh;
+        const delays = [140, 240, 340];
+        const combineMeta = function (primary, secondary) {
+          const first = typeof primary === 'string' ? primary.trim() : '';
+          const second = typeof secondary === 'string' ? secondary.trim() : '';
+          if (first && second) return first + ' · ' + second;
+          return first || second || '';
+        };
+
+        const safeHref = function (raw) {
+          const value = typeof raw === 'string' ? raw.trim() : '';
+          if (!value) return '#';
+          try {
+            const url = new URL(value, window.location.href);
+            const postRoot = new URL('post/', window.location.href).pathname;
+            const notesRoot = new URL('notes/', window.location.href).pathname;
+            const isPost = url.pathname.startsWith(postRoot) && /\.html$/i.test(url.pathname);
+            const isNote = url.pathname.startsWith(notesRoot) && /\.(?:html|pdf)$/i.test(url.pathname);
+            if (url.origin !== window.location.origin) return '#';
+            if (!isPost && !isNote) return '#';
+            return url.pathname + url.search + url.hash;
+          } catch (_error) {
+            return '#';
+          }
+        };
+
+        const fragment = document.createDocumentFragment();
+        homeMathItems.forEach(function (item, idx) {
+          const href = safeHref(item && (item.url || item.readmore_url) ? String(item.url || item.readmore_url) : '');
+          const titleZh = item && item.title ? String(item.title) : '';
+          const titleEn = item && item.title_en ? String(item.title_en) : titleZh;
+          const excerptZh = item && item.excerpt ? String(item.excerpt) : '';
+          const excerptEn = item && item.excerpt_en ? String(item.excerpt_en) : excerptZh;
+          const metaZh = combineMeta('HazezZ', item && item.reading_time_zh ? String(item.reading_time_zh) : '');
+          const metaEn = combineMeta('HazezZ', item && item.reading_time_en ? String(item.reading_time_en) : '');
+          const linkLabelZh = item && item.link_label_zh ? String(item.link_label_zh) : dict.readMore;
+          const linkLabelEn = item && item.link_label_en ? String(item.link_label_en) : 'Read More';
+          const delay = delays[idx] || (40 + idx * 100);
+
+          const article = document.createElement('article');
+          article.dataset.postUrl = href;
+          article.tabIndex = 0;
+          article.setAttribute('role', 'link');
+          article.setAttribute('data-reveal', 'slide-up');
+          article.setAttribute('data-reveal-delay', String(delay));
+          article.className = 'is-visible';
+
+          const author = document.createElement('p');
+          author.className = 'author';
+          author.setAttribute('data-copy-zh', metaZh);
+          author.setAttribute('data-copy-en', metaEn);
+          author.textContent = metaZh;
+
+          const title = document.createElement('h3');
+          title.setAttribute('data-copy-zh', titleZh);
+          title.setAttribute('data-copy-en', titleEn);
+          title.textContent = titleZh;
+
+          const excerpt = document.createElement('p');
+          excerpt.setAttribute('data-copy-zh', excerptZh);
+          excerpt.setAttribute('data-copy-en', excerptEn);
+          excerpt.textContent = excerptZh;
+
+          const link = document.createElement('a');
+          link.href = href;
+          link.setAttribute('data-copy-zh', linkLabelZh);
+          link.setAttribute('data-copy-en', linkLabelEn);
+          link.textContent = currentLang === 'en' ? linkLabelEn : linkLabelZh;
+
+          article.appendChild(author);
+          article.appendChild(title);
+          article.appendChild(excerpt);
+          article.appendChild(link);
+          fragment.appendChild(article);
+        });
+
+        homeMathPreview.replaceChildren(fragment);
+        bindMathCards();
+        syncHomeMathPreviewCopy();
+      }
+
+      function syncHomeMathPreviewCopy() {
+        if (!homeMathPreview) return;
+        Array.from(homeMathPreview.querySelectorAll('[data-copy-zh][data-copy-en]')).forEach(function (node) {
+          const key = currentLang === 'en' ? 'data-copy-en' : 'data-copy-zh';
+          const value = node.getAttribute(key);
+          if (value) node.textContent = value;
+        });
+        Array.from(homeMathPreview.querySelectorAll('a[data-i18n="readMore"]')).forEach(function (link) {
+          link.textContent = (i18n[currentLang] || i18n.zh).readMore;
+        });
+      }
+
+      function refreshHomeMathPreview() {
+        if (!homeMathPreview) return;
+        const pinnedTtgdaPreview = {
+          title: 'Schur-Complement Hessian Tracking in TTGDA',
+          title_en: 'Schur-Complement Hessian Tracking in TTGDA',
+          url: 'notes/ttgda_second_order_tracking_note.html',
+          excerpt: '关于 TTGDA 的技术笔记：从 value function 的 Schur-complement Hessian 出发，思考 two-timescale tracking 是否可能支持二阶 saddle escaping。',
+          excerpt_en: 'A technical note on whether TTGDA tracking can be extended toward second-order saddle escaping via the Schur-complement Hessian.',
+          reading_time_zh: 'Technical note · Optimization / Minimax Learning · June 2026',
+          reading_time_en: 'Technical note · Optimization / Minimax Learning · June 2026',
+          link_label_zh: '查看笔记',
+          link_label_en: 'Read Note'
+        };
+        fetch('assets/data/math-catalog.json', { cache: 'no-store' })
+          .then(function (response) {
+            if (!response.ok) throw new Error('math catalog unavailable');
+            return response.json();
+          })
+          .then(function (payload) {
+            if (!payload || !Array.isArray(payload.items) || !payload.items.length) return;
+            const itemsByUrl = new Map(payload.items.map(function (item) {
+              return [item && item.url, item];
+            }));
+            const pinnedUrls = [
+              pinnedTtgdaPreview.url,
+              'notes/network_localization_structural_certificates.html',
+              'post/projected-gradient-descent-isabelle-hol.html',
+              'post/submodular-greedy-formalization-enters-afp.html'
+            ];
+            const pinnedNotes = pinnedUrls.map(function (url) {
+              return url === pinnedTtgdaPreview.url ? pinnedTtgdaPreview : itemsByUrl.get(url);
+            }).filter(Boolean);
+            renderHomeMathPreview(pinnedNotes);
+          })
+          .catch(function () {
+          });
+      }
+
+      function getPlayerDict() {
+        return i18n[currentLang] || i18n.zh;
+      }
+
+      function setPlayerState(state) {
+        if (!playerShell || !playerStatus) return;
+        const dict = getPlayerDict();
+        const nextState = state || 'loading';
+        playerShell.dataset.audioState = nextState;
+        playerShell.classList.toggle('is-audio-unavailable', nextState === 'error');
+        playerStatus.textContent = nextState === 'error'
+          ? dict.playerStatusError
+          : nextState === 'ready'
+            ? dict.playerStatusReady
+            : dict.playerStatusLoading;
+        if (playerFallbackLink) {
+          playerFallbackLink.hidden = nextState !== 'error';
+          playerFallbackLink.textContent = dict.playerFallbackLink;
+        }
+        playerShell.setAttribute('title', nextState === 'error' ? dict.playerUnavailableTitle : '');
+      }
+
+      function setLanguage(lang) {
+        const safeLang = lang === 'en' ? 'en' : 'zh';
+        const dict = i18n[safeLang];
+        currentLang = safeLang;
+
+        document.documentElement.lang = safeLang === 'en' ? 'en' : 'zh-CN';
+        document.title = titleByLang[safeLang];
+
+        const setMeta = function (selector, value) {
+          const node = document.querySelector(selector);
+          if (node && typeof value === 'string') node.setAttribute('content', value);
+        };
+        setMeta('meta[name="description"]', dict.metaDescription);
+        setMeta('meta[property="og:title"]', dict.socialTitle);
+        setMeta('meta[property="og:description"]', dict.socialDescription);
+        setMeta('meta[name="twitter:title"]', dict.socialTitle);
+        setMeta('meta[name="twitter:description"]', dict.socialDescription);
+
+        const visibleUrl = new URL(window.location.href);
+        visibleUrl.searchParams.set('lang', safeLang);
+        window.history.replaceState(window.history.state, '', visibleUrl.toString());
+
+        const canonical = document.querySelector('link[rel="canonical"]');
+        const canonicalBase = new URL(canonical ? canonical.href : window.location.href);
+        canonicalBase.search = '';
+        canonicalBase.hash = '';
+        const languageUrl = function (value) {
+          const next = new URL(canonicalBase.toString());
+          next.searchParams.set('lang', value);
+          return next.toString();
+        };
+        if (canonical) canonical.href = languageUrl(safeLang);
+        const zhAlternate = document.querySelector('link[rel="alternate"][hreflang="zh-CN"]');
+        const enAlternate = document.querySelector('link[rel="alternate"][hreflang="en"]');
+        const defaultAlternate = document.querySelector('link[rel="alternate"][hreflang="x-default"]');
+        if (zhAlternate) zhAlternate.href = languageUrl('zh');
+        if (enAlternate) enAlternate.href = languageUrl('en');
+        if (defaultAlternate) defaultAlternate.href = canonicalBase.toString();
+        setMeta('meta[property="og:url"]', languageUrl(safeLang));
+
+        ensureDrawerNav(safeLang);
+
+        i18nNodes.forEach(function (node) {
+          const key = node.getAttribute('data-i18n');
+          const value = dict[key];
+          if (typeof value !== 'string') return;
+          if (node.getAttribute('data-i18n-html') === 'true') {
+            node.innerHTML = value;
+          } else {
+            node.textContent = value;
+          }
+        });
+
+        Array.from(document.querySelectorAll('[data-copy-zh][data-copy-en]')).forEach(function (node) {
+          const key = safeLang === 'en' ? 'data-copy-en' : 'data-copy-zh';
+          const value = node.getAttribute(key);
+          if (typeof value === 'string') {
+            node.textContent = value;
+          }
+        });
+
+        if (homeMathPreview) {
+          if (Array.isArray(homeMathItems) && homeMathItems.length) {
+            renderHomeMathPreview(homeMathItems);
+          } else {
+            syncHomeMathPreviewCopy();
+          }
+        }
+
+        i18nAriaNodes.forEach(function (node) {
+          const key = node.getAttribute('data-i18n-aria');
+          const value = dict[key];
+          if (typeof value === 'string') {
+            node.setAttribute('aria-label', value);
+          }
+        });
+
+        i18nAltNodes.forEach(function (node) {
+          const key = node.getAttribute('data-i18n-alt');
+          const value = dict[key];
+          if (typeof value === 'string') {
+            node.setAttribute('alt', value);
+          }
+        });
+
+        langButtons.forEach(function (btn) {
+          const isActive = btn.getAttribute('data-lang') === safeLang;
+          btn.classList.toggle('active', isActive);
+          btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        });
+
+        setPlayerState(playerShell && playerShell.dataset.audioState ? playerShell.dataset.audioState : 'loading');
+
+        try {
+          window.localStorage.setItem('siteLang', safeLang);
+          window.localStorage.setItem('chronohaze-lang', safeLang);
+        } catch (err) {
+        }
+      }
+
+      openBtn.addEventListener('click', function () { setMenu(true); });
+      closeBtn.addEventListener('click', function () { setMenu(false); });
+      backdrop.addEventListener('click', function () { setMenu(false); });
+      drawer.querySelector('.drawer-nav').addEventListener('click', function (event) {
+        if (event.target.closest('a')) {
+          setMenu(false);
+        }
+      });
+      drawer.addEventListener('keydown', function (event) {
+        if (!drawer.classList.contains('open')) return;
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          setMenu(false);
+          return;
+        }
+        if (event.key !== 'Tab') return;
+        const focusables = [closeBtn].concat(drawerLinks).filter(function (node) {
+          return node && !node.hidden && !node.hasAttribute('disabled');
+        });
+        if (!focusables.length) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      });
+      window.addEventListener('pagehide', function () {
+        unlockMenuScroll();
+      });
+      langButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLanguage(btn.getAttribute('data-lang'));
+        });
+      });
+      (function setupRevealAnimations() {
+        if (!revealNodes.length) return;
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let observer = null;
+        const waitForLoad = new Set();
+        revealNodes.forEach(function (node) {
+          const delay = Number(node.getAttribute('data-reveal-delay') || 0);
+          node.style.setProperty('--reveal-delay', String(Math.max(0, delay)) + 'ms');
+        });
+        if (prefersReducedMotion) {
+          revealNodes.forEach(function (node) { node.classList.add('is-visible'); });
+          return;
+        }
+        if (typeof window.IntersectionObserver !== 'function') {
+          revealNodes.forEach(function (node) { node.classList.add('is-visible'); });
+          return;
+        }
+        revealNodes.forEach(function (node) {
+          if (node.tagName !== 'IMG') return;
+          if (node.getAttribute('data-reveal-wait') !== 'image-load') return;
+          if (node.complete) return;
+          waitForLoad.add(node);
+          const release = function () {
+            waitForLoad.delete(node);
+            if (node.getAttribute('data-reveal-in-view') === 'true') {
+              node.classList.add('is-visible');
+              if (observer) observer.unobserve(node);
+            }
+          };
+          node.addEventListener('load', release, { once: true });
+          node.addEventListener('error', release, { once: true });
+        });
+        observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            entry.target.setAttribute('data-reveal-in-view', 'true');
+            if (waitForLoad.has(entry.target)) return;
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          });
+        }, {
+          threshold: 0.08,
+          rootMargin: '0px 0px -4% 0px'
+        });
+        revealNodes.forEach(function (node) { observer.observe(node); });
+      })();
+
+      (function setupLazyBackgrounds() {
+        const lazyBackgrounds = Array.from(document.querySelectorAll('[data-lazy-bg]'));
+        if (!lazyBackgrounds.length) return;
+        const reveal = function (node) {
+          node.classList.add('is-bg-ready');
+          node.removeAttribute('data-lazy-bg');
+        };
+        if (typeof window.IntersectionObserver !== 'function') {
+          lazyBackgrounds.forEach(reveal);
+          return;
+        }
+        const observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            reveal(entry.target);
+            observer.unobserve(entry.target);
+          });
+          }, { rootMargin: '120px 0px', threshold: 0.01 });
+        lazyBackgrounds.forEach(function (node) { observer.observe(node); });
+      })();
+
+      bindMathCards();
+
+      function fmt(sec) {
+        if (!Number.isFinite(sec)) return '00:00';
+        const s = Math.max(0, Math.floor(sec));
+        const m = Math.floor(s / 60);
+        const r = s % 60;
+        return String(m).padStart(2, '0') + ':' + String(r).padStart(2, '0');
+      }
+
+      function getPlayerDuration() {
+        return Number.isFinite(audio.duration) && audio.duration > 0 ? audio.duration : 0;
+      }
+
+      function syncPlayer() {
+        const duration = getPlayerDuration();
+        const ratio = duration ? (audio.currentTime / duration) : 0;
+        progress.style.width = (ratio * 100).toFixed(2) + '%';
+        timeLabel.textContent = fmt(audio.currentTime) + ' / ' + fmt(duration);
+        const isPlaying = !audio.paused && !audio.ended;
+        toggle.classList.toggle('is-playing', isPlaying);
+        toggle.setAttribute('aria-pressed', isPlaying ? 'true' : 'false');
+        if (audio.error) {
+          setPlayerState('error');
+          return;
+        }
+        if ((Number.isFinite(audio.duration) && audio.duration > 0) || audio.readyState >= 2) {
+          setPlayerState('ready');
+        } else {
+          setPlayerState('loading');
+        }
+      }
+
+      toggle.addEventListener('click', function () {
+        if (toggle.disabled) return;
+        if (audio.paused) {
+          setPlayerState('loading');
+          const playPromise = audio.play();
+          if (playPromise && typeof playPromise.catch === 'function') {
+            playPromise.catch(function () {
+              syncPlayer();
+            });
+          }
+        } else {
+          audio.pause();
+        }
+      });
+
+      audio.addEventListener('timeupdate', syncPlayer);
+      audio.addEventListener('loadedmetadata', syncPlayer);
+      audio.addEventListener('durationchange', syncPlayer);
+      audio.addEventListener('loadeddata', syncPlayer);
+      audio.addEventListener('canplay', syncPlayer);
+      audio.addEventListener('play', syncPlayer);
+      audio.addEventListener('pause', syncPlayer);
+      audio.addEventListener('stalled', syncPlayer);
+      audio.addEventListener('error', syncPlayer);
+      audio.addEventListener('error', function () {
+        const duration = getPlayerDuration();
+        timeLabel.textContent = '00:00 / ' + fmt(duration);
+        toggle.disabled = true;
+        toggle.setAttribute('aria-disabled', 'true');
+        toggle.classList.remove('is-playing');
+        toggle.setAttribute('aria-pressed', 'false');
+        setPlayerState('error');
+      });
+
+      let initialLang = 'en';
+      try {
+        const queryLang = new URL(window.location.href).searchParams.get('lang');
+        if (queryLang === 'zh' || queryLang === 'en') {
+          initialLang = queryLang;
+        } else if (window.__chronohazePreferredLang === 'zh' || window.__chronohazePreferredLang === 'en') {
+          initialLang = window.__chronohazePreferredLang;
+        }
+      } catch (err) {
+      }
+
+      setPlayerState('loading');
+      setLanguage(initialLang);
+      refreshHomeMathPreview();
+      syncPlayer();
+
+      if (audio.readyState < 1) {
+        try {
+          audio.load();
+        } catch (err) {
+        }
+      }
+    })();
+  </script>
+</body>
+</html>

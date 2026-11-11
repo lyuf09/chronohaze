@@ -1,0 +1,87 @@
+name: Site Build & Checks
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "25 7 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    concurrency:
+      group: site-checks-${{ github.ref }}
+      cancel-in-progress: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: "package.json"
+
+      - name: Install build dependencies
+        timeout-minutes: 20
+        env:
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pillow
+          if [ -f package-lock.json ]; then
+            npm ci --no-audit --prefer-offline
+          else
+            npm install --package-lock-only --no-audit --prefer-offline
+            npm ci --no-audit --prefer-offline
+          fi
+          if [ -f /etc/apt/apt-mirrors.txt ]; then
+            sudo sed -i '\|azure.archive.ubuntu.com|d' /etc/apt/apt-mirrors.txt
+          fi
+          # Playwright invokes apt again for browser dependencies. Keep the
+          # network limits active for those nested invocations as well.
+          printf '%s\n' \
+            'Acquire::Retries "3";' \
+            'Acquire::http::Timeout "30";' \
+            'Acquire::https::Timeout "30";' \
+            | sudo tee /etc/apt/apt.conf.d/80chronohaze-network >/dev/null
+          sudo apt-get \
+            -o Acquire::Retries=3 \
+            -o Acquire::http::Timeout=30 \
+            -o Acquire::https::Timeout=30 \
+            update
+          sudo apt-get \
+            -o Acquire::Retries=3 \
+            -o Acquire::http::Timeout=30 \
+            -o Acquire::https::Timeout=30 \
+            install -y libavif-bin fonts-noto-cjk
+          if [ "$GITHUB_EVENT_NAME" = "schedule" ]; then
+            npx playwright install --with-deps chromium webkit
+          else
+            npx playwright install --with-deps chromium
+          fi
+
+      - name: Build generated data and run consistency checks
+        run: bash scripts/check_all.sh
+
+      - name: Run runtime smoke (Playwright)
+        env:
+          CHRONOHAZE_SMOKE_PROJECTS: ${{ github.event_name == 'schedule' && 'chromium,webkit,iphone13' || 'chromium' }}
+        run: bash scripts/run_playwright_smoke.sh
+
+      - name: Validate structured data JSON-LD (Playwright)
+        run: bash scripts/run_playwright_structured_data_check.sh

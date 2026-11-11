@@ -1,0 +1,576 @@
+{
+  "generated_at": "2026-10-29",
+  "source": "music.html",
+  "items": [
+    {
+      "order": 1,
+      "url": "music/album-ipomoea-alba.html",
+      "type": "album",
+      "year": "",
+      "date": "",
+      "status": "",
+      "title": "Ipomoea Alba",
+      "artist": "15 首曲目 · 专辑页",
+      "tags": [
+        "album"
+      ],
+      "has_audio": true
+    },
+    {
+      "order": 2,
+      "url": "music/album-teenage-best.html",
+      "type": "album",
+      "year": "",
+      "date": "",
+      "status": "",
+      "title": "「劇場の雨が止む日のどこかで、 君に話しかけるつもりだ」",
+      "artist": "HazezZ 青少年时期精选集 · 专辑页",
+      "tags": [
+        "album"
+      ],
+      "has_audio": true
+    },
+    {
+      "order": 3,
+      "url": "music/track-orchid.html",
+      "type": "single",
+      "year": "2026",
+      "date": "2026-04-17",
+      "status": "",
+      "title": "Orchid",
+      "artist": "HazezZ",
+      "tags": [
+        "single",
+        "jrock",
+        "progcore"
+      ],
+      "has_audio": true
+    },
+    {
+      "order": 4,
+      "url": "music/track-01.html",
+      "type": "single",
+      "year": "2025",
+      "date": "2025-10-21",
+      "status": "",
+      "title": "春日和煦",
+      "artist": "HazezZ",
+      "tags": [
+        "single",
+        "jrock",
+        "progcore"
+      ],
+      "has_audio": true
+    },
+    {
+      "order": 5,
+      "url": "music/track-02.html",
+      "type": "single",
+      "year": "2025",
+      "date": "2025-03-22",
+      "status": "",
+      "title": "He and Me",
+      "artist": "HazezZ",
+      "tags": [
+        "single",
+        "progcore"
+      ],
+      "has_audio": true
+    },
+    {
+      "order": 6,
+      "url": "music/track-03.html",
+      "type": "single",
+      "year": "2025",
+      "date": "2025-02-01",
+      "status": "",
+      "title": "花园",
+      "artist": "HazezZ",
+      "tags": [
+        "single",
+        "mathrock",
+        "pop"
+      ],
+      "has_audio": true
+    },
+    {
+      "order": 7,
+      "url": "music/track-felix.html",
+      "type": "single",
+      "year": "2024",
+      "date": "2024-12",
+      "status": "unreleased",
+      "title": "Felix",
+      "artist": "HazezZ",
+      "tags": [
+        "single"
+      ],
+      "has_audio": false
+    },
+    {
+      "order": 8,
+      "url": "music/track-04.html",
+      "type": "single",
+      "year": "2024",
+      "date": "2024-12-21",
+      "status": "",
+      "title": "Affizieren",
+      "artist": "HazezZ",
+      "tags": [
+        "single",
+        "progcore"
+      ],
+      "has_audio": true
+    },
+    {
+      "order": 9,
+      "url": "music/track-05.html",
+      "type": "single",
+      "year": "2024",
+      "date": "2024-08-29",
+      "status": "",
+      "title": "淤",
+      "artist": "HazezZ",
+      "tags": [
+        "single",
+        "postrock",
+        "progcore"
+      ],
+      "has_audio": true
+    },
+    {
+      "order": 10,
+      "url": "music/track-06.html",
+      "type": "single",
+      "year": "2024",
+      "date": "2024-07-05",
+      "status": "",
+      "title": "Mr.Idiographic",
+      "artist": "HazezZ",
+      "tags": [
+        "single",
+        "jazz",
+        "progcore",
+        "pop"
+      ],
+      "has_audio": true
+    },
+    {
+      "order": 11,
+      "url": "music/track-07.html",
+      "type": "single",
+      "year": "2024",
+      "date": "2024-02-14",
+      "status": "",
+      "title": "箱庭",
+      "artist": "HazezZ",
+      "tags": [
+        "single",
+        "pop",
+        "progcore"
+      ],
+      "has_audio": true
+    },
+    {
+      "order": 12,
+      "url": "music/track-08.html",
+      "type": "single",
+      "year": "2023",
+      "date": "2023-11-11",
+      "status": "",
+      "title": "本格推理",
+      "artist": "HazezZ",
+      "tags": [
+        "single",
+        "jrock",
+        "mathrock",
+        "progcore"
+      ],
+      "has_audio": true
+    },
+    {
+      "order": 13,
+      "url": "music/track-09.html",
+      "type": "single",
+      "year": "2023",
+      "date": "2023-08-30",
+      "status": "",
+      "title": "Epilogue",
+      "artist": "HazezZ",
+      "tags": [
+        "single",
+        "jrock",
+        "progcore",
+        "pop"
+      ],
+      "has_audio": true
+    },
+    {
+      "order": 14,
+      "url": "music/track-10.html",
+      "type": "single",
+      "year": "2023",
+      "date": "2023-08-27",
+      "status": "unreleased",
+      "title": "恋に落ちてしまえない",
+      "artist": "HazezZ",
+      "tags": [
+        "single",
+        "collab"
+      ],
+      "has_audio": false
+    },
+    {
+      "order": 15,
+      "url": "music/track-11.html",
+      "type": "single",
+      "year": "2023",
+      "date": "2023-08-23",
+      "status": "",
+      "title": "我恨你们所有人",
+      "artist": "HazezZ",
+      "tags": [
+        "single",
+        "jrock",
+        "progcore"
+      ],
+      "has_audio": true
+    },
+    {
+      "order": 16,
+      "url": "music/track-12.html",
+      "type": "single",
+      "year": "2023",
+      "date": "2023-08-11",
+      "status": "",
+      "title": "Rainy days",
+      "artist": "HazezZ",
+      "tags": [
+        "single",
+        "progcore",
+        "posthardcore"
+      ],
+      "has_audio": true
+    },
+    {
+      "order": 17,
+      "url": "music/track-13.html",
+      "type": "single",
+      "year": "2023",
+      "date": "2023-05-30",
+      "status": "",
+      "title": "小葉紫檀",
+      "artist": "HazezZ",
+      "tags": [
+        "single",
+        "mathrock",
+        "progcore"
+      ],
+      "has_audio": true
+    },
+    {
+      "order": 18,
+      "url": "music/track-14.html",
+      "type": "single",
+      "year": "2023",
+      "date": "2023-04-29",
+      "status": "",
+      "title": "柳",
+      "artist": "Armeria / HazezZ",
+      "tags": [
+        "single",
+        "collab",
+        "posthardcore",
+        "progcore"
+      ],
+      "has_audio": true
+    },
+    {
+      "order": 19,
+      "url": "music/track-15.html",
+      "type": "single",
+      "year": "2023",
+      "date": "2023-04-21",
+      "status": "",
+      "title": "夜顔",
+      "artist": "HazezZ",
+      "tags": [
+        "single",
+        "posthardcore",
+        "emorock"
+      ],
+      "has_audio": true
+    },
+    {
+      "order": 20,
+      "url": "music/track-16.html",
+      "type": "single",
+      "year": "2023",
+      "date": "2023-02-24",
+      "status": "",
+      "title": "現人",
+      "artist": "HazezZ",
+      "tags": [
+        "single",
+        "progcore",
+        "mathrock"
+      ],
+      "has_audio": true
+    },
+    {
+      "order": 21,
+      "url": "music/track-17.html",
+      "type": "single",
+      "year": "2023",
+      "date": "2023-02-18",
+      "status": "",
+      "title": "Moonlapse (feat. 起子)",
+      "artist": "HazezZ",
+      "tags": [
+        "single",
+        "collab",
+        "posthardcore",
+        "progcore"
+      ],
+      "has_audio": true
+    },
+    {
+      "order": 22,
+      "url": "music/track-negau.html",
+      "type": "single",
+      "year": "2022",
+      "date": "2022-12",
+      "status": "unreleased",
+      "title": "願う",
+      "artist": "HazezZ",
+      "tags": [
+        "single"
+      ],
+      "has_audio": false
+    },
+    {
+      "order": 23,
+      "url": "music/track-seaside-town.html",
+      "type": "single",
+      "year": "2022",
+      "date": "2022-07",
+      "status": "unreleased",
+      "title": "写不下的海边小镇和你",
+      "artist": "HazezZ",
+      "tags": [
+        "single"
+      ],
+      "has_audio": false
+    },
+    {
+      "order": 24,
+      "url": "music/track-18.html",
+      "type": "single",
+      "year": "2022",
+      "date": "2022-08-30",
+      "status": "",
+      "title": "Ipomoea alba",
+      "artist": "HazezZ",
+      "tags": [
+        "single",
+        "collab",
+        "progcore",
+        "instrumental"
+      ],
+      "has_audio": true
+    },
+    {
+      "order": 25,
+      "url": "music/track-19.html",
+      "type": "single",
+      "year": "2022",
+      "date": "2022-07-09",
+      "status": "",
+      "title": "Agny",
+      "artist": "湖323 / HazezZ",
+      "tags": [
+        "single",
+        "collab",
+        "hardrock"
+      ],
+      "has_audio": true
+    },
+    {
+      "order": 26,
+      "url": "music/track-20.html",
+      "type": "single",
+      "year": "2022",
+      "date": "2022-05-20",
+      "status": "",
+      "title": "スパーノヴァ",
+      "artist": "HazezZ",
+      "tags": [
+        "single",
+        "mathrock",
+        "posthardcore",
+        "progcore"
+      ],
+      "has_audio": true
+    },
+    {
+      "order": 27,
+      "url": "music/track-21.html",
+      "type": "single",
+      "year": "2022",
+      "date": "2022-03-03",
+      "status": "",
+      "title": "孤星Prelude",
+      "artist": "HazezZ",
+      "tags": [
+        "single",
+        "instrumental",
+        "pop"
+      ],
+      "has_audio": true
+    },
+    {
+      "order": 28,
+      "url": "music/track-22.html",
+      "type": "single",
+      "year": "2022",
+      "date": "2022-02-04",
+      "status": "",
+      "title": "Z（E）RO",
+      "artist": "HazezZ",
+      "tags": [
+        "single",
+        "progcore",
+        "jrock",
+        "mathrock"
+      ],
+      "has_audio": true
+    },
+    {
+      "order": 29,
+      "url": "music/track-23.html",
+      "type": "single",
+      "year": "2021",
+      "date": "2021-12-06",
+      "status": "",
+      "title": "フォーマルハウト/南鱼座α",
+      "artist": "HazezZ",
+      "tags": [
+        "single",
+        "jrock"
+      ],
+      "has_audio": true
+    },
+    {
+      "order": 30,
+      "url": "music/track-24.html",
+      "type": "single",
+      "year": "2021",
+      "date": "2021-11-25",
+      "status": "",
+      "title": "罪",
+      "artist": "HazezZ / iine_p (薛天from灯诱）",
+      "tags": [
+        "single",
+        "collab",
+        "jrock",
+        "mathrock",
+        "indie"
+      ],
+      "has_audio": true
+    },
+    {
+      "order": 31,
+      "url": "music/track-25.html",
+      "type": "single",
+      "year": "2021",
+      "date": "2021-11-19",
+      "status": "",
+      "title": "水母与湖",
+      "artist": "HazezZ",
+      "tags": [
+        "single",
+        "indie",
+        "postrock"
+      ],
+      "has_audio": true
+    },
+    {
+      "order": 32,
+      "url": "music/track-26.html",
+      "type": "single",
+      "year": "2021",
+      "date": "2021-10-29",
+      "status": "",
+      "title": "夜明け、明暗の境目/凌晨、明暗交界处",
+      "artist": "HazezZ",
+      "tags": [
+        "single",
+        "indie",
+        "jrock"
+      ],
+      "has_audio": true
+    },
+    {
+      "order": 33,
+      "url": "music/track-27.html",
+      "type": "single",
+      "year": "2021",
+      "date": "2021-10-17",
+      "status": "",
+      "title": "心臓警報",
+      "artist": "HazezZ",
+      "tags": [
+        "single",
+        "emorock",
+        "jrock"
+      ],
+      "has_audio": true
+    },
+    {
+      "order": 34,
+      "url": "music/track-28.html",
+      "type": "single",
+      "year": "2021",
+      "date": "2021-10-09",
+      "status": "",
+      "title": "影",
+      "artist": "HazezZ",
+      "tags": [
+        "single",
+        "indie",
+        "postrock"
+      ],
+      "has_audio": true
+    },
+    {
+      "order": 35,
+      "url": "music/track-29.html",
+      "type": "single",
+      "year": "2021",
+      "date": "2021-06-03",
+      "status": "",
+      "title": "未来に出会えたらいいな",
+      "artist": "HazezZ",
+      "tags": [
+        "single",
+        "jrock"
+      ],
+      "has_audio": true
+    },
+    {
+      "order": 36,
+      "url": "music/track-30.html",
+      "type": "single",
+      "year": "2021",
+      "date": "2021-02-02",
+      "status": "",
+      "title": "分离性遗忘症",
+      "artist": "HazezZ",
+      "tags": [
+        "single",
+        "pop"
+      ],
+      "has_audio": true
+    }
+  ]
+}

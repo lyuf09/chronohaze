@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <style id="chronohaze-critical-loader-style">
+    html.chronohaze-critical-loading,
+    html.chronohaze-critical-loading body {
+      min-height: 100%;
+      background: #10141b;
+    }
+
+    html.chronohaze-critical-loading body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    html.chronohaze-critical-loading body > :not(.chronohaze-loader) {
+      visibility: hidden !important;
+    }
+
+    html.chronohaze-critical-loading::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 2147483000;
+      background:
+        linear-gradient(90deg, rgba(138, 160, 200, 0.09) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(138, 160, 200, 0.07) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(13, 17, 24, 0.992) 0%, rgba(19, 24, 33, 0.992) 55%, rgba(13, 17, 24, 0.996) 100%);
+      background-size: 54px 54px, 54px 54px, 100% 100%;
+    }
+
+    html.chronohaze-critical-loading::after {
+      content: "CHRONOHAZE";
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      z-index: 2147483001;
+      width: min(500px, calc(100vw - 40px));
+      padding: 30px 32px;
+      transform: translate(-50%, -50%);
+      white-space: pre-line;
+      color: rgba(232, 234, 237, 0.9);
+      font: 300 clamp(22px, 3.2vw, 34px)/1.48 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.055em;
+      border: 1px solid rgba(154, 172, 204, 0.3);
+      border-radius: 0;
+      background: linear-gradient(180deg, rgba(20, 25, 34, 0.84) 0%, rgba(13, 17, 24, 0.82) 100%);
+      box-shadow: 0 24px 58px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.045);
+    }
+
+    html[lang^="zh"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A 页面加载中";
+    }
+
+    html[lang^="en"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A Loading";
+    }
+
+    html.chronohaze-critical-loading-mobile body {
+      overflow: auto;
+    }
+
+    html.chronohaze-critical-loading-mobile body > :not(.chronohaze-loader) {
+      visibility: visible !important;
+    }
+
+    html.chronohaze-critical-loading-mobile::before {
+      background: linear-gradient(180deg, rgba(13, 17, 24, 0.18) 0%, rgba(19, 24, 33, 0.22) 100%);
+      pointer-events: none;
+    }
+
+    html.chronohaze-critical-loading-mobile::after {
+      content: "CHRONOHAZE";
+      left: 16px;
+      top: 16px;
+      width: auto;
+      max-width: calc(100vw - 32px);
+      padding: 10px 12px;
+      transform: none;
+      white-space: normal;
+      color: rgba(232, 234, 237, 0.78);
+      font: 400 12px/1.3 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.18em;
+      border: 1px solid rgba(154, 172, 204, 0.18);
+      background: rgba(16, 20, 27, 0.34);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+      backdrop-filter: blur(2px);
+    }
+  </style>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var isMobile = window.matchMedia && window.matchMedia("(max-width: 760px)").matches;
+      root.classList.add("chronohaze-critical-loading");
+      if (isMobile) {
+        root.classList.add("chronohaze-critical-loading-mobile");
+      }
+      window.__chronohazeReleaseCriticalLoader = function () {
+        root.classList.remove("chronohaze-critical-loading");
+        root.classList.remove("chronohaze-critical-loading-mobile");
+      };
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", window.__chronohazeReleaseCriticalLoader, { once: true });
+      } else {
+        window.requestAnimationFrame(window.__chronohazeReleaseCriticalLoader);
+      }
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, 500);
+    })();
+  </script>
+<script>
+    (function () {
+      try {
+        var url = new URL(window.location.href);
+        var queryLang = url.searchParams.get("lang");
+        var valid = function (value) {
+          return value === "zh" || value === "en";
+        };
+        var defaultLang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+        var defaultSafe = defaultLang.indexOf("en") === 0 ? "en" : "zh";
+
+        if (valid(queryLang)) {
+          window.localStorage.setItem("siteLang", queryLang);
+          window.localStorage.setItem("chronohaze-lang", queryLang);
+          window.__chronohazePreferredLang = queryLang;
+          document.documentElement.lang = queryLang === "en" ? "en" : "zh-CN";
+          document.documentElement.setAttribute("data-site-lang", queryLang);
+          return;
+        }
+
+        var storedLang = window.localStorage.getItem("siteLang");
+        if (!valid(storedLang)) {
+          storedLang = window.localStorage.getItem("chronohaze-lang");
+        }
+        if (!valid(storedLang)) {
+          return;
+        }
+
+        window.__chronohazePreferredLang = storedLang;
+        document.documentElement.lang = storedLang === "en" ? "en" : "zh-CN";
+        document.documentElement.setAttribute("data-site-lang", storedLang);
+
+        if (storedLang !== defaultSafe) {
+          url.searchParams.set("lang", storedLang);
+          window.location.replace(url.toString());
+        }
+      } catch (_err) {}
+    })();
+  </script>
+  <link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
+  <title>从一个定理到一套框架：我的 Isabelle 子模优化项目新进展</title>
+  <meta name="description" content="AFP 2026 条目收录 classical greedy 与 verified stateful lazy-greedy；发表后的仓库继续发展 StochasticGreedy theorem line，包括采样模型、近似证明与预言机调用复杂度界。" data-content-zh="AFP 2026 条目覆盖 classical greedy 与 verified stateful lazy greedy；仓库继续扩展 StochasticGreedy 的采样、近似与预言机复杂度结果。" data-content-en="The AFP 2026 entry covers classical greedy and verified stateful lazy greedy; the repository now extends the theorem line with StochasticGreedy sampling, approximation, and oracle-complexity results." />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Chronohaze" />
+  <meta property="og:title" content="从一个定理到一套框架：我的 Isabelle 子模优化项目新进展 | Chronohaze" />
+  <meta property="og:description" content="AFP 2026 条目收录 classical greedy 与 verified stateful lazy-greedy；发表后的仓库继续发展 StochasticGreedy theorem line，包括采样模型、近似证明与预言机调用复杂度界。" />
+  <meta property="og:url" content="https://lyuf09.github.io/chronohaze/post/theorem-to-framework-isabelle-submodular.html" />
+  <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/theorem-to-framework-isabelle-submodular.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="从一个定理到一套框架：我的 Isabelle 子模优化项目新进展 | Chronohaze" />
+  <meta name="twitter:description" content="AFP 2026 条目收录 classical greedy 与 verified stateful lazy-greedy；发表后的仓库继续发展 StochasticGreedy theorem line，包括采样模型、近似证明与预言机调用复杂度界。" />
+  <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/theorem-to-framework-isabelle-submodular.png" />
+  <link rel="canonical" href="https://lyuf09.github.io/chronohaze/post/theorem-to-framework-isabelle-submodular.html" />
+  <!-- GENERATED:hreflang:start -->
+  <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/post/theorem-to-framework-isabelle-submodular.html?lang=zh" />
+  <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/post/theorem-to-framework-isabelle-submodular.html?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/post/theorem-to-framework-isabelle-submodular.html" />
+  <!-- GENERATED:hreflang:end -->
+  <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
+<link rel="preload" href="../assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="../assets/fonts/noto-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="../styles.min.css?v=20261103-history-search1" />
+  <script defer src="../protect-media.min.js?v=20261103-history-search1"></script>
+
+  <!-- Chronohaze analytics preference and opt-out control -->
+  <script id="chronohaze-analytics-bootstrap">
+    (function () {
+      var measurementId = "G-JWZY2TVYFZ";
+      var storedPreference;
+      try { storedPreference = window.localStorage.getItem("chronohaze-analytics"); } catch (_err) {}
+      var doNotTrack = navigator.doNotTrack === "1" || window.doNotTrack === "1";
+      var enabled = storedPreference === "on" || (storedPreference !== "off" && !doNotTrack);
+      window["ga-disable-" + measurementId] = !enabled;
+      window.__chronohazeAnalyticsInitialEnabled = enabled;
+    })();
+  </script>
+  <link rel="stylesheet" href="../assets/css/analytics-control.min.css?v=20260906-latin-a11y1" />
+  <script id="chronohaze-analytics-runtime" defer src="../assets/js/analytics-control.min.js?v=20260906-latin-a11y1" data-analytics-collection="enabled"></script>
+</head>
+<body class="math-post-page">
+  <a class="skip-link" href="#main-content">Skip to content / 跳到正文</a>
+<div class="page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="../index.html">
+          <img src="../assets/logo-header.png" alt="Chronohaze site logo" />
+          <span>CHRONOHAZE</span>
+        </a>
+        <nav class="nav" aria-label="主导航" data-i18n-aria="navAria">
+          <a href="../index.html" data-i18n="navHome">主页</a>
+          <a class="active" href="../academic.html" data-i18n="navAcademic">学术</a>
+          <a href="../music.html" data-i18n="navMusic">音乐</a>
+          <a href="../photography.html" data-i18n="navPhoto">摄影</a>
+          <a href="../cv.html" data-i18n="navCV">CV</a>
+        </nav>
+      </div>
+    </header>
+
+    
+<main id="main-content" class="main">
+      <div class="container">
+        <div class="cv-utility-bar">
+          <div class="cv-utility-top">
+            <nav class="academic-local-nav" aria-label="Academic section links" data-i18n-aria="academicSectionAria">
+              <a class="academic-local-link" href="../research.html" data-i18n="utilityResearch">Research Statement</a>
+              <a class="academic-local-link" href="../projects.html" data-i18n="utilityProjects">Selected Work</a>
+              <a class="academic-local-link is-active" href="../math.html" data-i18n="utilityNotes">Technical Notes</a>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <article class="article">
+        <div data-lang-block="zh">
+          <h1>从一个定理到一套框架：我的 Isabelle 子模优化项目新进展</h1>
+          <p class="article-meta">Feier Lyu · Originally posted 2026年3月14日 · 约 6 分钟</p>
+
+          <aside class="math-post-update" aria-label="项目更新：2026年10月25日">
+            <p class="math-post-update-label">更新于 2026年10月25日</p>
+            <p><strong>2026 年 5 月 26 日发表于 AFP：</strong>正式条目包含 classical greedy 和经过验证的 stateful lazy greedy。<strong>发表后：</strong>仓库继续加入 StochasticGreedy 的采样模型、近似证明和 oracle-cost bounds。</p>
+            <p class="research-public-status">当前公开状态：后续 StochasticGreedy 工作属于未发表扩展，最新实现尚未公开；下方 GitHub 链接指向较早公开版本。</p>
+    <div class="research-link-row">
+              <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
+              <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a>
+              <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf" target="_blank" rel="noopener noreferrer">Proof document</a>
+              <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">GitHub · 较早公开版本</a>
+            </div>
+          </aside>
+
+          <p>这段时间继续做 Isabelle 的子模贪心项目后，我开始把更多精力放在不同算法怎么复用同一套证明上。最早我只想把 classical greedy 的近似保证形式化，但是后来加入了 LazyGreedy，还整理了具体实例和复杂度分析。</p>
+
+          <h3><strong>Classical greedy：把构造和近似证明分开</strong></h3>
+          <p>Classical greedy 是整个项目的基础。我先定义贪心序列和边际增益，再证明每一步的选择满足需要的条件，还有整个构造过程中的不变量。之后才使用单调性、子模性和 gap recurrence 推出 Nemhauser–Wolsey 的 <code>1 - 1/e</code> 近似保证。</p>
+          <p>我不想把这些东西全部写死在一个定理里。所以抽象假设、实际的 greedy construction 和 approximation proof 是分开的。这样以后只要证明某个新算法符合相同的单步条件，就有机会直接用后面的分析，不用重新做一次递推。</p>
+
+          <h3><strong>LazyGreedy：证明缓存状态没有改变选择结果</strong></h3>
+          <p>LazyGreedy 的区别是它维护了缓存的 marginal-gain upper bounds，不是每一步都重新算所有元素的真实增益。但是这样就得额外证明缓存值和真实增益之间的关系。</p>
+          <p>所以在 Isabelle 里我给它定义了显式的 algorithmic state 和相应不变量，然后证明 lazy selection 满足 classical greedy 所要求的选择条件。做到这里就可以复用原来的 approximation guarantee。对应的 oracle-cost accounting 也放进了项目里。</p>
+          <p>我觉得这里比较有意思的是证明对象不再只有集合和函数，还包括算法自己保存的状态。数学上说“用缓存减少计算”很简单，但是形式化的时候还得证明这个缓存不会让算法选错。</p>
+
+          <h3><strong>具体实例和可执行检查</strong></h3>
+          <p>我还加入了 toy coverage instances、executable exhaustive baselines 和一些用来核对定理边界的例子。比如 greedy 严格次优但是还满足近似界的情况，以及失去子模性之后经典保证可能失效的反例。</p>
+          <p>这些例子不代替抽象证明，但是能帮我检查定义是不是符合预期。覆盖函数的具体实例化还有 exhaustive optimum 与抽象 <code>OPT_k</code> 之间的联系，也能让后面的算法实验复用已有结论。</p>
+
+          <h3><strong>发表后继续做的 StochasticGreedy</strong></h3>
+          <p>AFP 在 2026 年 5 月 26 日发表的版本包含 classical greedy 和 stateful lazy greedy。StochasticGreedy 是发表之后继续加入仓库的工作，不能算进当时的 AFP 条目。</p>
+          <p>这一部分先建立了 deterministic trace 和 uniform with-replacement sampling model，再证明采样命中率、expected one-step gain、gap recurrence 以及对应的 <span lang="en">k</span>-step approximation bound。</p>
+          <p>复杂度方面也加入了 trace-level 的 gain-evaluation counters、sample-size 条件和 oracle-cost theorems。这样可以在同一套 epsilon 参数条件下陈述近似比和查询次数。</p>
+          <p>不过在这篇文章所记录的阶段 executable deterministic trace 和抽象概率递推还不是一个经过统一证明的可执行随机程序。两部分各自有结果，但是不能直接把它们说成完整的 executable randomized semantics。后续的 executable refinement 是另外一阶段的工作。</p>
+
+          <h3><strong>这段工作对我最有用的地方</strong></h3>
+          <p>做到这里我更清楚为什么要把 greedy step、approximation proof 和具体实现分开。以后加 LazyGreedy 或 StochasticGreedy 的时候可以直接检查哪些条件已经满足，哪些还需要补新引理。</p>
+          <p>我更希望这套 Isabelle 代码以后还能继续添加其他变体，不用每加一个算法就把经典定理从头证明一遍。</p>
+
+<nav class="math-post-nav" data-static-math-post-nav="1" aria-label="相邻笔记导航"><a class="math-post-nav-item" data-nav-dir="prev" href="../post/projected-gradient-descent-isabelle-hol.html" data-no-page-transition="1" aria-label="上一篇 · 从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL"><span class="math-post-nav-label">上一篇</span><span class="math-post-nav-title">从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL</span></a><a class="math-post-nav-item" data-nav-dir="next" href="../post/metalcore-piano-lab.html" data-no-page-transition="1" aria-label="下一篇 · Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP）"><span class="math-post-nav-label">下一篇</span><span class="math-post-nav-title">Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP）</span></a></nav>
+<div class="academic-hub-links math-post-hub-links">
+  <p class="academic-hub-links-label">继续浏览</p>
+  <div class="research-link-row">
+    <a href="../research.html">Research Statement</a>
+    <a href="../projects.html">Selected Work</a>
+    <a href="../math.html">Technical Notes</a>
+  </div>
+</div>
+        </div>
+
+        <div data-lang-block="en" hidden>
+          <h1>Classical Greedy, LazyGreedy, and StochasticGreedy in Isabelle/HOL</h1>
+          <p class="article-meta">Feier Lyu · Originally posted March 14, 2026 · 8 min read</p>
+
+          <aside class="math-post-update" aria-label="Project update, October 25, 2026">
+            <p class="math-post-update-label">Updated October 25, 2026</p>
+            <p><strong>Published May 26, 2026:</strong> the AFP entry contains classical greedy and a verified stateful lazy-greedy variant. <strong>Post-publication extension:</strong> the repository continued with StochasticGreedy sampling, approximation, and oracle-cost bounds.</p>
+            <p class="research-public-status">Current public status: the subsequent StochasticGreedy work is an unpublished extension. The latest implementation is not yet public; the GitHub link below points to an earlier public version.</p>
+    <div class="research-link-row">
+              <a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a>
+              <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI: 10.5281/zenodo.21054718</a>
+              <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf" target="_blank" rel="noopener noreferrer">Proof document</a>
+              <a href="https://github.com/lyuf09/isabelle-submodular-greedy" target="_blank" rel="noopener noreferrer">GitHub · Earlier public development</a>
+            </div>
+          </aside>
+
+            <p>After spending more time on the Isabelle submodular greedy project, I started focusing on how different algorithms could reuse the same proofs. I had originally planned to formalise the classical greedy approximation guarantee. I later added LazyGreedy and worked on concrete instances and complexity bounds.</p>
+
+          <h3><strong>Classical greedy: separating the construction from the approximation proof</strong></h3>
+          <p>Classical greedy is the starting point. I defined the greedy sequence and marginal gains, then proved the conditions for each selection step and the invariants of the construction. Only after that did I use monotonicity, submodularity, and the gap recurrence to obtain the Nemhauser–Wolsey <code>1 - 1/e</code> approximation guarantee.</p>
+          <p>I did not want to put all of this into one theorem. The abstract assumptions, the concrete greedy construction, and the approximation proof are separate. If another algorithm satisfies the same step condition, it may be able to reuse the analysis without proving the recurrence again.</p>
+
+          <h3><strong>LazyGreedy: checking that cached state preserves the greedy choice</strong></h3>
+          <p>LazyGreedy keeps cached upper bounds on marginal gains instead of recomputing every true gain at each iteration. But this also means the formalisation has to show that the cached values remain related to the actual gains in the right way.</p>
+          <p>I defined the algorithmic state and its invariants, then proved that lazy selection satisfies the classical greedy-step condition. This allows it to reuse the approximation guarantee. The project also includes oracle-cost accounting for the lazy variant.</p>
+          <p>The interesting part for me was that the proof now had to talk about the state saved by the algorithm, not just sets and functions. Saying that a cache saves evaluations is easy. Proving that it does not change the required choice takes more work.</p>
+
+          <h3><strong>Concrete examples and executable checks</strong></h3>
+          <p>I also added toy coverage instances, executable exhaustive baselines, and examples that check the boundaries of the approximation theorem. These include cases where greedy is strictly suboptimal but still satisfies the bound, and counterexamples where the classical guarantee fails without submodularity.</p>
+          <p>These examples do not replace the abstract proof. They help check the definitions and make it easier to instantiate the theory with coverage objectives. The connection between executable exhaustive optima and the abstract <code>OPT_k</code> is useful for later experiments too.</p>
+
+          <h3><strong>StochasticGreedy after publication</strong></h3>
+          <p>The AFP entry published on 26 May 2026 covers classical greedy and the verified stateful lazy-greedy variant. StochasticGreedy was added to the repository after publication, so it is not part of the published entry.</p>
+          <p>This extension first developed deterministic traces and a uniform-with-replacement sampling model, followed by sampling probabilities, an expected one-step-gain bound, a gap recurrence, and a <code>k</code>-step approximation result.</p>
+          <p>The complexity analysis also includes trace-level gain-evaluation counters, sample-size conditions, and oracle-cost theorems. They let us state the approximation and query bounds under a common choice of epsilon parameters.</p>
+          <p>At the stage recorded here, the executable deterministic traces and the abstract probabilistic recurrence were still separate. Having results on both sides was not yet a proof of full executable randomized semantics. The later executable refinement belongs to a different stage of the project.</p>
+
+          <h3><strong>What I took from this stage</strong></h3>
+          <p>Working on these variants made it much clearer to me why the greedy-step condition, approximation proof, and implementation should be separated. When adding LazyGreedy or StochasticGreedy I can check which assumptions already hold and which new lemmas are needed.</p>
+          <p>I want to keep the development easy to extend so that adding another greedy variant does not mean proving the classical approximation theorem again from scratch.</p>
+
+          <nav class="math-post-nav" data-static-math-post-nav="1" aria-label="Adjacent notes"><a class="math-post-nav-item" data-nav-dir="prev" href="../post/projected-gradient-descent-isabelle-hol.html" data-no-page-transition="1" aria-label="Previous note · Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL"><span class="math-post-nav-label">Previous note</span><span class="math-post-nav-title">Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL</span></a><a class="math-post-nav-item" data-nav-dir="next" href="../post/metalcore-piano-lab.html" data-no-page-transition="1" aria-label="Next note · Metalcore Piano Lab | From Audio to Chart: A Discretization Experiment (WIP)"><span class="math-post-nav-label">Next note</span><span class="math-post-nav-title">Metalcore Piano Lab | From Audio to Chart: A Discretization Experiment (WIP)</span></a></nav>
+<div class="academic-hub-links math-post-hub-links">
+  <p class="academic-hub-links-label">Continue with</p>
+  <div class="research-link-row">
+    <a href="../research.html">Research Statement</a>
+    <a href="../projects.html">Selected Work</a>
+    <a href="../math.html">Technical Notes</a>
+  </div>
+</div>
+        </div>
+      </article>
+    </main>
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <p class="footer-title">CHRONOHAZE</p>
+          <p class="footer-note"><span data-i18n="footerContactLead">学术联系邮箱：</span><a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a></p>
+          <p class="footer-note" data-i18n="footerCities">Feier Lyu · 爱丁堡大学数学本科</p>
+          <p class="footer-copy">© 2026 by CHRONOHAZE. Hosted on GitHub Pages.</p>
+          <div class="social" aria-label="Social links">
+            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://www.instagram.com/lyuf09" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://space.bilibili.com/35902781" target="_blank" rel="noopener noreferrer">Bilibili</a>
+            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+        <div class="footer-right">
+          <a href="../policy.html" data-i18n="siteNotes">网站说明</a>
+          <a href="../accessibility.html" data-i18n="a11y">无障碍支持</a>
+        </div>
+      </div>
+  <div class="analytics-control-shell" data-analytics-collection="enabled">
+    <p class="analytics-control" data-analytics-control>
+      <span data-analytics-status>Analytics: On</span><span aria-hidden="true"> · </span><button type="button" data-analytics-toggle>Turn off</button>
+    </p>
+  </div>
+</footer>
+  </div>
+
+<script>
+  (function () {
+    const i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
+    const i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
+    const langBlocks = Array.from(document.querySelectorAll('[data-lang-block]'));
+    const queryLang = new URLSearchParams(window.location.search).get('lang');
+
+    const i18n = {
+      zh: {
+        htmlLang: 'zh-CN',
+        pageTitle: '从一个定理到一套框架：我的 Isabelle 子模优化项目新进展 | Chronohaze',
+        navAria: '主导航',
+        navHome: '主页',
+        navAcademic: '学术',
+        navPhoto: '摄影',
+        navMusic: '音乐',
+        navCV: 'CV',
+        academicSectionAria: '学术页面导航',
+        utilityResearch: 'Research Statement',
+        utilityProjects: 'Selected Work',
+        utilityNotes: 'Technical Notes',
+        footerContactLead: '学术联系邮箱：',
+        footerCities: 'Feier Lyu · 爱丁堡大学数学本科',
+        siteNotes: '网站说明',
+        a11y: '无障碍支持'
+      },
+      en: {
+        htmlLang: 'en',
+        pageTitle: 'Classical Greedy, LazyGreedy, and StochasticGreedy in Isabelle/HOL | Chronohaze',
+        navAria: 'Main navigation',
+        navHome: 'Home',
+        navAcademic: 'Academic',
+        navPhoto: 'Photography',
+        navMusic: 'Music',
+        navCV: 'CV',
+        academicSectionAria: 'Academic section navigation',
+        utilityResearch: 'Research Statement',
+        utilityProjects: 'Selected Work',
+        utilityNotes: 'Technical Notes',
+        footerContactLead: 'Academic contact: ',
+        footerCities: 'Feier Lyu · BSc Mathematics, University of Edinburgh',
+        siteNotes: 'Site Notes',
+        a11y: 'Accessibility'
+      }
+    };
+
+    function setLanguage(lang) {
+      const safeLang = lang === 'en' ? 'en' : 'zh';
+      const dict = i18n[safeLang];
+      document.documentElement.lang = dict.htmlLang;
+      document.title = dict.pageTitle;
+
+      i18nNodes.forEach(function (node) {
+        const key = node.getAttribute('data-i18n');
+        const value = dict[key];
+        if (typeof value === 'string') node.textContent = value;
+      });
+
+      i18nAriaNodes.forEach(function (node) {
+        const key = node.getAttribute('data-i18n-aria');
+        const value = dict[key];
+        if (typeof value === 'string') node.setAttribute('aria-label', value);
+      });
+
+      langBlocks.forEach(function (block) {
+        block.hidden = block.getAttribute('data-lang-block') !== safeLang;
+      });
+
+      try {
+        window.localStorage.setItem('siteLang', safeLang);
+        window.localStorage.setItem('chronohaze-lang', safeLang);
+      } catch (err) {
+      }
+    }
+
+    let initialLang = 'zh';
+    try {
+      const siteLang = window.localStorage.getItem('siteLang');
+      const savedLang = window.localStorage.getItem('chronohaze-lang');
+      if (siteLang === 'zh' || siteLang === 'en') initialLang = siteLang;
+      else if (savedLang === 'zh' || savedLang === 'en') initialLang = savedLang;
+    } catch (err) {
+    }
+    if (queryLang === 'zh' || queryLang === 'en') initialLang = queryLang;
+    setLanguage(initialLang);
+  })();
+</script>
+</body>
+</html>

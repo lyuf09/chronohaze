@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <style id="chronohaze-critical-loader-style">
+    html.chronohaze-critical-loading,
+    html.chronohaze-critical-loading body {
+      min-height: 100%;
+      background: #10141b;
+    }
+
+    html.chronohaze-critical-loading body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    html.chronohaze-critical-loading body > :not(.chronohaze-loader) {
+      visibility: hidden !important;
+    }
+
+    html.chronohaze-critical-loading::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 2147483000;
+      background:
+        linear-gradient(90deg, rgba(138, 160, 200, 0.09) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(138, 160, 200, 0.07) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(13, 17, 24, 0.992) 0%, rgba(19, 24, 33, 0.992) 55%, rgba(13, 17, 24, 0.996) 100%);
+      background-size: 54px 54px, 54px 54px, 100% 100%;
+    }
+
+    html.chronohaze-critical-loading::after {
+      content: "CHRONOHAZE";
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      z-index: 2147483001;
+      width: min(500px, calc(100vw - 40px));
+      padding: 30px 32px;
+      transform: translate(-50%, -50%);
+      white-space: pre-line;
+      color: rgba(232, 234, 237, 0.9);
+      font: 300 clamp(22px, 3.2vw, 34px)/1.48 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.055em;
+      border: 1px solid rgba(154, 172, 204, 0.3);
+      border-radius: 0;
+      background: linear-gradient(180deg, rgba(20, 25, 34, 0.84) 0%, rgba(13, 17, 24, 0.82) 100%);
+      box-shadow: 0 24px 58px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.045);
+    }
+
+    html[lang^="zh"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A 页面加载中";
+    }
+
+    html[lang^="en"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A Loading";
+    }
+
+    html.chronohaze-critical-loading-mobile body {
+      overflow: auto;
+    }
+
+    html.chronohaze-critical-loading-mobile body > :not(.chronohaze-loader) {
+      visibility: visible !important;
+    }
+
+    html.chronohaze-critical-loading-mobile::before {
+      background: linear-gradient(180deg, rgba(13, 17, 24, 0.18) 0%, rgba(19, 24, 33, 0.22) 100%);
+      pointer-events: none;
+    }
+
+    html.chronohaze-critical-loading-mobile::after {
+      content: "CHRONOHAZE";
+      left: 16px;
+      top: 16px;
+      width: auto;
+      max-width: calc(100vw - 32px);
+      padding: 10px 12px;
+      transform: none;
+      white-space: normal;
+      color: rgba(232, 234, 237, 0.78);
+      font: 400 12px/1.3 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.18em;
+      border: 1px solid rgba(154, 172, 204, 0.18);
+      background: rgba(16, 20, 27, 0.34);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+      backdrop-filter: blur(2px);
+    }
+  </style>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var isMobile = window.matchMedia && window.matchMedia("(max-width: 760px)").matches;
+      root.classList.add("chronohaze-critical-loading");
+      if (isMobile) {
+        root.classList.add("chronohaze-critical-loading-mobile");
+      }
+      window.__chronohazeReleaseCriticalLoader = function () {
+        root.classList.remove("chronohaze-critical-loading");
+        root.classList.remove("chronohaze-critical-loading-mobile");
+      };
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", window.__chronohazeReleaseCriticalLoader, { once: true });
+      } else {
+        window.requestAnimationFrame(window.__chronohazeReleaseCriticalLoader);
+      }
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, 500);
+    })();
+  </script>
+<script>
+    (function () {
+      try {
+        var url = new URL(window.location.href);
+        var queryLang = url.searchParams.get("lang");
+        var valid = function (value) {
+          return value === "zh" || value === "en";
+        };
+        var defaultLang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+        var defaultSafe = defaultLang.indexOf("en") === 0 ? "en" : "zh";
+
+        if (valid(queryLang)) {
+          window.localStorage.setItem("siteLang", queryLang);
+          window.localStorage.setItem("chronohaze-lang", queryLang);
+          window.__chronohazePreferredLang = queryLang;
+          document.documentElement.lang = queryLang === "en" ? "en" : "zh-CN";
+          document.documentElement.setAttribute("data-site-lang", queryLang);
+          return;
+        }
+
+        var storedLang = window.localStorage.getItem("siteLang");
+        if (!valid(storedLang)) {
+          storedLang = window.localStorage.getItem("chronohaze-lang");
+        }
+        if (!valid(storedLang)) {
+          return;
+        }
+
+        window.__chronohazePreferredLang = storedLang;
+        document.documentElement.lang = storedLang === "en" ? "en" : "zh-CN";
+        document.documentElement.setAttribute("data-site-lang", storedLang);
+
+        if (storedLang !== defaultSafe) {
+          url.searchParams.set("lang", storedLang);
+          window.location.replace(url.toString());
+        }
+      } catch (_err) {}
+    })();
+  </script>
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico?v=4" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=4" />
+  <title data-title-zh="学术档案 | Feier Lyu" data-title-en="Academic Profile | Feier Lyu">Academic Profile | Feier Lyu</title>
+  <meta name="description" content="Public academic profile and selected work by Feier Lyu (Fay Lyu)." data-content-zh="Feier Lyu（Fay Lyu）的公开学术档案：教育背景、研究兴趣、代表性成果、学术经历与联系方式。" data-content-en="Public academic profile for Feier Lyu (Fay Lyu), including education, research interests, selected work, academic experience, and contact details." />
+  <meta property="og:type" content="profile" />
+  <meta property="og:site_name" content="Chronohaze" />
+  <meta property="og:title" content="Academic Profile | Feier Lyu" />
+  <meta property="og:description" content="Public academic profile and selected work by Feier Lyu (Fay Lyu)." />
+  <meta property="og:url" content="https://lyuf09.github.io/chronohaze/cv.html" />
+  <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/cv.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Academic Profile | Feier Lyu" />
+  <meta name="twitter:description" content="Public academic profile and selected work by Feier Lyu (Fay Lyu)." />
+  <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/cv.png" />
+  <link rel="canonical" href="https://lyuf09.github.io/chronohaze/cv.html" />
+  <!-- GENERATED:hreflang:start -->
+  <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/cv.html?lang=zh" />
+  <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/cv.html?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/cv.html" />
+  <!-- GENERATED:hreflang:end -->
+  <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfilePage",
+      "@id": "https://lyuf09.github.io/chronohaze/cv.html#page",
+      "url": "https://lyuf09.github.io/chronohaze/cv.html",
+      "name": "Academic Profile | Feier Lyu",
+      "mainEntity": {
+        "@id": "https://lyuf09.github.io/chronohaze/#person"
+      },
+      "about": {
+        "@id": "https://lyuf09.github.io/chronohaze/#person"
+      }
+    }
+  </script>
+<link rel="preload" href="assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="assets/fonts/noto-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="styles.min.css?v=20261103-history-search1" />
+  <script defer src="protect-media.min.js?v=20261103-history-search1"></script>
+<link rel="stylesheet" href="assets/css/academic-reading.css?v=20261029-reading1" />
+
+  <!-- Chronohaze analytics preference and opt-out control -->
+  <script id="chronohaze-analytics-bootstrap">
+    (function () {
+      var measurementId = "G-JWZY2TVYFZ";
+      var storedPreference;
+      try { storedPreference = window.localStorage.getItem("chronohaze-analytics"); } catch (_err) {}
+      var doNotTrack = navigator.doNotTrack === "1" || window.doNotTrack === "1";
+      var enabled = storedPreference === "on" || (storedPreference !== "off" && !doNotTrack);
+      window["ga-disable-" + measurementId] = !enabled;
+      window.__chronohazeAnalyticsInitialEnabled = enabled;
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/css/analytics-control.min.css?v=20260906-latin-a11y1" />
+  <script id="chronohaze-analytics-runtime" defer src="assets/js/analytics-control.min.js?v=20260906-latin-a11y1" data-analytics-collection="enabled"></script>
+</head>
+<body class="cv-page">
+  <a class="skip-link" href="#main-content">Skip to content / 跳到正文</a>
+<div class="page">
+    <header class="site-header">
+      <div class="container header-inner header-inner--with-lang">
+        <a class="brand" href="index.html">
+          <img src="assets/logo-header.png" alt="Chronohaze site logo" />
+          <span>CHRONOHAZE</span>
+        </a>
+        <nav class="nav" aria-label="主导航" data-i18n-aria="navAria">
+          <a href="index.html" data-i18n="navHome">主页</a>
+          <a href="academic.html" data-i18n="navAcademic">学术</a>
+          <a href="music.html" data-i18n="navMusic">音乐</a>
+          <a href="photography.html" data-i18n="navPhoto">摄影</a>
+          <a class="active" href="cv.html" data-i18n="navCV">CV</a>
+        </nav>
+        <div class="floating-lang-switch" role="group" aria-label="Language switch">
+          <button class="floating-lang-btn" type="button" data-lang="zh" aria-label="Switch site language to Chinese">ZH</button>
+          <button class="floating-lang-btn" type="button" data-lang="en" aria-label="Switch site language to English">EN</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content" class="main">
+      <article class="policy cv-policy">
+        <div class="cv-utility-bar">
+          <div class="cv-utility-top">
+            <a class="cv-research-link" href="research.html" data-i18n="researchLandingCta">研究陈述</a>
+            <a class="cv-download-link" href="assets/Feier-Lyu-CV.pdf" download data-i18n="downloadCV">Download CV (PDF)</a>
+          </div>
+          <div class="page-last-updated-row" data-page-meta="cv">
+            <div class="page-last-updated-pill" data-status-lang="zh">
+              <span class="page-last-updated-label" data-i18n="cvLastUpdatedLabel">最近更新：</span>
+              <time class="page-last-updated-time" datetime="2026-10" data-i18n="cvLastUpdatedValue">2026 年 10 月</time>
+            </div>
+          </div>
+          <nav class="cv-toc" aria-label="CV section navigation">
+            <a class="cv-toc-link" href="#cv-zh-highlights" data-cv-toc-link="highlights">教育与兴趣</a>
+            <a class="cv-toc-link" href="#cv-zh-projects" data-cv-toc-link="projects">学术记录</a>
+            <a class="cv-toc-link" href="#cv-zh-experience" data-cv-toc-link="experience">行业经历与联系</a>
+          </nav>
+        </div>
+
+        <div data-lang-block="zh">
+          <h1>学术档案</h1>
+          <p><strong>Feier Lyu</strong>（Fay Lyu）</p>
+
+          <section id="cv-zh-highlights">
+            <h2>教育背景</h2>
+            <p>爱丁堡大学数学本科（BSc Mathematics）<br />康奈尔大学交换学生，2025–2026<br />预计 2027 年毕业</p>
+
+            <h2>研究兴趣</h2>
+            <p>优化理论与形式化验证；当前项目包括子模贪心与投影梯度下降的 Isabelle/HOL 形式化，以及网络定位中的二阶几何。</p>
+          </section>
+
+          <section id="cv-zh-projects">
+            <h2>发表成果</h2>
+            <ol class="cv-project-list">
+              <li>
+                <h3>Feier Lyu. “First-Order Methods for Smooth Convex Optimization in Isabelle/HOL.”</h3>
+                <p>Archive of Formal Proofs · 2026年7月</p>
+                <p>光滑凸一阶优化的 Isabelle/HOL 形式化。</p>
+                <p class="cv-entry-links"><a href="https://isa-afp.org/entries/Projected_Gradient_Descent.html" target="_blank" rel="noopener noreferrer">AFP 条目</a> · <a href="https://isa-afp.org/browser_info/current/AFP/Projected_Gradient_Descent/document.pdf" target="_blank" rel="noopener noreferrer">证明文档</a> · <a href="post/projected-gradient-descent-isabelle-hol.html">项目回顾</a> · <a href="https://github.com/lyuf09/projected-gradient-descent" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+              </li>
+              <li>
+                <h3>Feier Lyu. “Greedy Algorithms for Cardinality-Constrained Submodular Maximization.”</h3>
+                <p>Archive of Formal Proofs · 2026年5月</p>
+                <p>Wenda Li 提供了审阅意见和指导。</p>
+                <p class="cv-entry-links"><a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP 条目</a> · <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf" target="_blank" rel="noopener noreferrer">证明文档</a> · <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI</a></p>
+              </li>
+            </ol>
+
+            <h2>研究经历</h2>
+            <section class="cv-experience-item">
+              <h3>与 Shoham Sabach、Owen Li 的研究合作</h3>
+              <p>2026–至今</p>
+              <p>围绕网络定位中的网络结构与二阶几何开展持续合作。我与 Owen Li 共同承担理论推导和数值实验，研究图结构与节点几何对可微驻点处二阶性质的影响。技术结果尚未公开。</p>
+            </section>
+
+            <h2>专利</h2>
+            <ol class="cv-project-list">
+              <li>
+                <h3>Anti-Segregation Spreading Method and Device（说明性英译）</h3>
+                <p>法定角色：共同发明人（Co-inventor）。中国发明专利申请，申请号 202411275605.1，审查中。</p>
+                <p>相关实用新型：Anti-Segregation Spreading Device（说明性英译）；法定角色：共同发明人（Co-inventor）；专利号 ZL202422234130.3，2025年7月4日授权。</p>
+                <p>设计用于改善工业铺料过程中物料均匀性的机械系统。</p>
+              </li>
+            </ol>
+          </section>
+
+          <section id="cv-zh-experience">
+            <h2>行业经历</h2>
+            <section class="cv-experience-item">
+              <h3>数据工程实习生</h3>
+              <p>Liblib AI（Beijing Qidian Xingyu Technology Co., Ltd.）<br />2025 年 6 月–7 月</p>
+              <p>在阿里云 DataWorks 中编写 SQL，响应运营团队的数据需求，包括多源连接、筛选、聚合与结果验证。</p>
+            </section>
+
+            <h2>联系方式</h2>
+            <p>Feier Lyu（Fay Lyu）<br />学校邮箱：<a href="#email-school" data-email-link="1" data-email-key="school" class="obf-email-link">ku.ca.de@6338252s</a><br />备用邮箱：<a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a><br /><a href="https://orcid.org/0009-0000-5670-8831" target="_blank" rel="noopener noreferrer">ORCID 0009-0000-5670-8831</a><br /><a href="https://isa-afp.org/authors/lyu/" target="_blank" rel="noopener noreferrer">AFP author profile</a></p>
+          </section>
+        </div>
+
+        <div data-lang-block="en" hidden>
+          <h1>Academic Profile</h1>
+          <p><strong>Feier Lyu</strong> (Fay Lyu)</p>
+
+          <section id="cv-en-highlights">
+            <h2>Education</h2>
+            <p>BSc Mathematics, University of Edinburgh<br />Exchange student at Cornell University, 2025–2026<br />Expected graduation: 2027</p>
+
+            <h2>Research Interests</h2>
+            <p>Optimization theory and formal verification. Current projects formalize submodular greedy methods and projected gradient descent in Isabelle/HOL, and study second-order geometry in network localization.</p>
+          </section>
+
+          <section id="cv-en-projects">
+            <h2>Publications</h2>
+            <ol class="cv-project-list">
+              <li>
+                <h3>Feier Lyu. “First-Order Methods for Smooth Convex Optimization in Isabelle/HOL.”</h3>
+                <p>Archive of Formal Proofs · July 2026</p>
+                <p>An Isabelle/HOL formalization of smooth convex first-order optimization.</p>
+                <p class="cv-entry-links"><a href="https://isa-afp.org/entries/Projected_Gradient_Descent.html" target="_blank" rel="noopener noreferrer">AFP entry</a> · <a href="https://isa-afp.org/browser_info/current/AFP/Projected_Gradient_Descent/document.pdf" target="_blank" rel="noopener noreferrer">Proof document</a> · <a href="post/projected-gradient-descent-isabelle-hol.html">Project note</a> · <a href="https://github.com/lyuf09/projected-gradient-descent" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+              </li>
+              <li>
+                <h3>Feier Lyu. “Greedy Algorithms for Cardinality-Constrained Submodular Maximization.”</h3>
+                <p>Archive of Formal Proofs · May 2026</p>
+                <p>With feedback and guidance from Wenda Li.</p>
+                <p class="cv-entry-links"><a href="https://isa-afp.org/entries/Submodular_Greedy.html#" target="_blank" rel="noopener noreferrer">AFP entry</a> · <a href="https://isa-afp.org/browser_info/current/AFP/Submodular_Greedy/document.pdf" target="_blank" rel="noopener noreferrer">Proof document</a> · <a href="https://doi.org/10.5281/zenodo.21054718" target="_blank" rel="noopener noreferrer">DOI</a></p>
+              </li>
+            </ol>
+
+            <h2>Research Experience</h2>
+            <section class="cv-experience-item">
+              <h3>Research Collaboration with Shoham Sabach and Owen Li</h3>
+              <p>2026–Present</p>
+              <p>Ongoing collaboration on network structure and second-order geometry in network localization. Owen Li and I both contribute theoretical derivations and numerical experiments, studying how graph structure and node geometry affect second-order behavior at differentiable stationary points. Technical results are not yet public.</p>
+            </section>
+
+            <h2>Patents</h2>
+            <ol class="cv-project-list">
+              <li>
+                <h3>Anti-Segregation Spreading Method and Device <span class="cv-title-qualifier">(descriptive English translation)</span></h3>
+                <p>Role: Co-inventor. Chinese invention patent application, Application No. 202411275605.1, pending.</p>
+                <p>Related utility model: Anti-Segregation Spreading Device <span class="cv-title-qualifier">(descriptive English translation)</span>; role: Co-inventor; Patent No. ZL202422234130.3, granted July 4, 2025.</p>
+                <p>Designed a mechanical system to improve material homogeneity in industrial spreading processes.</p>
+              </li>
+            </ol>
+          </section>
+
+          <section id="cv-en-experience">
+            <h2>Industry Experience</h2>
+            <section class="cv-experience-item">
+              <h3>Data Engineering Intern</h3>
+              <p>Liblib AI (Beijing Qidian Xingyu Technology Co., Ltd.)<br />Jun 2025 – Jul 2025</p>
+              <p>Wrote SQL in Alibaba Cloud DataWorks to answer data requests from the operations team, including multi-source joins, filtering, aggregation, and result validation.</p>
+            </section>
+
+            <h2>Contact</h2>
+            <p>Feier Lyu (Fay Lyu)<br />University email: <a href="#email-school" data-email-link="1" data-email-key="school" class="obf-email-link">ku.ca.de@6338252s</a><br />Backup email: <a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a><br /><a href="https://orcid.org/0009-0000-5670-8831" target="_blank" rel="noopener noreferrer">ORCID 0009-0000-5670-8831</a><br /><a href="https://isa-afp.org/authors/lyu/" target="_blank" rel="noopener noreferrer">AFP author profile</a></p>
+          </section>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <p class="footer-title">CHRONOHAZE</p>
+          <p class="footer-note"><span data-i18n="footerContactLead">学术联系邮箱：</span><a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a></p>
+          <p class="footer-note" data-i18n="footerCities">Feier Lyu · 爱丁堡大学数学本科</p>
+          <p class="footer-copy">© 2026 by CHRONOHAZE. Hosted on GitHub Pages.</p>
+          <div class="social" aria-label="Social links">
+            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://www.instagram.com/lyuf09" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://space.bilibili.com/35902781" target="_blank" rel="noopener noreferrer">Bilibili</a>
+            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+        <div class="footer-right">
+          <a href="policy.html" data-i18n="siteNotes">网站说明</a>
+          <a href="accessibility.html" data-i18n="a11y">无障碍支持</a>
+        </div>
+      </div>
+  <div class="analytics-control-shell" data-analytics-collection="enabled">
+    <p class="analytics-control" data-analytics-control>
+      <span data-analytics-status>Analytics: On</span><span aria-hidden="true"> · </span><button type="button" data-analytics-toggle>Turn off</button>
+    </p>
+  </div>
+</footer>
+  </div>
+  <script>
+    (function () {
+      var i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
+      var i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
+      var langBlocks = Array.from(document.querySelectorAll('[data-lang-block]'));
+      var langBlockRecords = langBlocks.map(function (block) {
+        var marker = document.createComment('language-block');
+        block.parentNode.insertBefore(marker, block);
+        return { block: block, marker: marker };
+      });
+      var pageLangButtons = Array.from(document.querySelectorAll('.floating-lang-btn[data-lang]'));
+      var langTabs = Array.from(document.querySelectorAll('[data-cv-lang-tab]'));
+      var tocLinks = Array.from(document.querySelectorAll('[data-cv-toc-link]'));
+
+      var i18n = {
+        zh: {
+          htmlLang: 'zh-CN',
+          pageTitle: '学术档案 | Feier Lyu',
+          navAria: '主导航',
+          navHome: '主页',
+          navAcademic: '学术',
+          navPhoto: '摄影',
+          navMusic: '音乐',
+          navProjects: '项目',
+          navResearch: '研究',
+          footerContactLead: '学术联系邮箱：',
+          footerCities: 'Feier Lyu · 爱丁堡大学数学本科',
+          siteNotes: '网站说明',
+          a11y: '无障碍支持',
+          navSearch: '搜索',
+          cvLastUpdatedLabel: '最近更新：',
+          cvLastUpdatedValue: '2026 年 10 月',
+          tocHighlights: '教育与兴趣',
+          tocProjects: '学术记录',
+          tocExperience: '行业经历与联系',
+          researchLandingCta: '研究陈述',
+          downloadCV: '下载 CV（PDF）'
+        },
+        en: {
+          htmlLang: 'en',
+          pageTitle: 'Academic Profile | Feier Lyu',
+          navAria: 'Main navigation',
+          navHome: 'Home',
+          navAcademic: 'Academic',
+          navPhoto: 'Photography',
+          navMusic: 'Music',
+          navProjects: 'Projects',
+          navResearch: 'Research',
+          footerContactLead: 'Academic contact: ',
+          footerCities: 'Feier Lyu · BSc Mathematics, University of Edinburgh',
+          siteNotes: 'Privacy Policy',
+          a11y: 'Accessibility',
+          navSearch: 'Search',
+          cvLastUpdatedLabel: 'Last updated:',
+          cvLastUpdatedValue: 'October 2026',
+          tocHighlights: 'Education & Interests',
+          tocProjects: 'Academic Record',
+          tocExperience: 'Industry & Contact',
+          researchLandingCta: 'Research',
+          downloadCV: 'Download CV (PDF)'
+        }
+      };
+
+      var tocTargetMap = {
+        zh: {
+          highlights: 'cv-zh-highlights',
+          projects: 'cv-zh-projects',
+          experience: 'cv-zh-experience'
+        },
+        en: {
+          highlights: 'cv-en-highlights',
+          projects: 'cv-en-projects',
+          experience: 'cv-en-experience'
+        }
+      };
+
+      function setLanguage(lang) {
+        var safeLang = lang === 'en' ? 'en' : 'zh';
+        var dict = i18n[safeLang];
+        document.documentElement.lang = dict.htmlLang;
+        document.title = dict.pageTitle;
+
+        i18nNodes.forEach(function (node) {
+          var key = node.getAttribute('data-i18n');
+          if (typeof dict[key] === 'string') {
+            node.textContent = dict[key];
+          }
+        });
+
+        i18nAriaNodes.forEach(function (node) {
+          var key = node.getAttribute('data-i18n-aria');
+          if (typeof dict[key] === 'string') {
+            node.setAttribute('aria-label', dict[key]);
+          }
+        });
+
+        langBlockRecords.forEach(function (record) {
+          var block = record.block;
+          var active = block.getAttribute('data-lang-block') === safeLang;
+          block.hidden = !active;
+          block.setAttribute('aria-hidden', active ? 'false' : 'true');
+          if ('inert' in block) {
+            block.inert = !active;
+          }
+
+          if (active && !block.isConnected && record.marker.parentNode) {
+            record.marker.parentNode.insertBefore(block, record.marker.nextSibling);
+          } else if (!active && block.isConnected) {
+            block.remove();
+          }
+        });
+
+        document.body.setAttribute('data-rendered-lang', safeLang);
+
+        pageLangButtons.forEach(function (button) {
+          var buttonLang = button.getAttribute('data-lang');
+          var active = buttonLang === safeLang;
+          button.classList.toggle('active', active);
+          button.setAttribute('aria-pressed', active ? 'true' : 'false');
+          button.setAttribute(
+            'aria-label',
+            safeLang === 'en'
+              ? (buttonLang === 'zh' ? 'Switch site language to Chinese' : 'Switch site language to English')
+              : (buttonLang === 'zh' ? '切换网站语言为中文' : '切换网站语言为英文')
+          );
+        });
+
+        langTabs.forEach(function (tab) {
+          var active = tab.getAttribute('data-cv-lang-tab') === safeLang;
+          tab.classList.toggle('is-active', active);
+          tab.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+
+        tocLinks.forEach(function (link) {
+          var key = link.getAttribute('data-cv-toc-link');
+          if (!key) {
+            return;
+          }
+          var targetId = tocTargetMap[safeLang] && tocTargetMap[safeLang][key];
+          if (targetId) {
+            link.setAttribute('href', '#' + targetId);
+          }
+          if (key === 'highlights') {
+            link.textContent = dict.tocHighlights;
+          } else if (key === 'projects') {
+            link.textContent = dict.tocProjects;
+          } else if (key === 'experience') {
+            link.textContent = dict.tocExperience;
+          }
+        });
+
+        try {
+          window.localStorage.setItem('siteLang', safeLang);
+          window.localStorage.setItem('chronohaze-lang', safeLang);
+        } catch (err) {
+        }
+      }
+
+      var initialLang = 'zh';
+      try {
+        var siteLang = window.localStorage.getItem('siteLang');
+        var savedLang = window.localStorage.getItem('chronohaze-lang');
+        if (siteLang === 'zh' || siteLang === 'en') {
+          initialLang = siteLang;
+        } else if (savedLang === 'zh' || savedLang === 'en') {
+          initialLang = savedLang;
+        }
+      } catch (err) {
+      }
+
+      var queryLang = new URLSearchParams(window.location.search).get('lang');
+      if (queryLang === 'zh' || queryLang === 'en') {
+        initialLang = queryLang;
+      }
+
+      pageLangButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var nextLang = button.getAttribute('data-lang');
+          if (nextLang !== 'zh' && nextLang !== 'en') {
+            return;
+          }
+          setLanguage(nextLang);
+          var url = new URL(window.location.href);
+          url.searchParams.set('lang', nextLang);
+          window.history.replaceState({}, '', url.toString());
+        });
+      });
+
+      langTabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          var nextLang = tab.getAttribute('data-cv-lang-tab');
+          if (nextLang !== 'zh' && nextLang !== 'en') {
+            return;
+          }
+          setLanguage(nextLang);
+          var url = new URL(window.location.href);
+          url.searchParams.set('lang', nextLang);
+          window.history.replaceState({}, '', url.toString());
+        });
+      });
+
+      tocLinks.forEach(function (link) {
+        link.addEventListener('click', function (event) {
+          var href = link.getAttribute('href') || '';
+          if (!href || href.charAt(0) !== '#') {
+            return;
+          }
+          var target = document.querySelector(href);
+          if (!target) {
+            return;
+          }
+          event.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          var url = new URL(window.location.href);
+          url.hash = href;
+          window.history.replaceState({}, '', url.toString());
+        });
+      });
+
+      setLanguage(initialLang);
+    })();
+  </script>
+</body>
+</html>

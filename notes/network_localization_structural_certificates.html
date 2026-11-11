@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
+  <title data-title-zh="网络定位中的二阶几何：研究概览 | Chronohaze" data-title-en="Second-Order Geometry in Network Localization: A Research Overview | Chronohaze">网络定位中的二阶几何：研究概览 | Chronohaze</title>
+  <meta name="description" content="A concise public overview of ongoing collaborative research on second-order geometry in network localization." data-content-zh="网络定位二阶几何合作研究的精炼公开概览。" data-content-en="A concise public overview of ongoing collaborative research on second-order geometry in network localization." />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Chronohaze" />
+  <meta property="og:title" content="网络定位中的二阶几何：研究概览" />
+  <meta property="og:description" content="网络定位二阶几何合作研究的精炼公开概览。" />
+  <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/network-localization.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="A five-node network and a negative-curvature direction on a dark Hessian field." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="网络定位中的二阶几何：研究概览" />
+  <meta name="twitter:description" content="网络定位二阶几何合作研究的精炼公开概览。" />
+  <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/network-localization.png" />
+  <meta name="twitter:image:alt" content="A five-node network and a negative-curvature direction on a dark Hessian field." />
+  <meta property="article:published_time" content="2026-07-22" />
+  <meta property="article:modified_time" content="2026-08-23" />
+  <meta property="article:author" content="Feier Lyu" />
+  <meta property="article:tag" content="Network Localization" />
+  <meta property="article:tag" content="Nonconvex Optimization" />
+  <meta property="article:tag" content="Negative Curvature" />
+  <meta property="article:tag" content="Second-Order Geometry" />
+  <meta property="og:url" content="https://lyuf09.github.io/chronohaze/notes/network_localization_structural_certificates.html" />
+  <link rel="canonical" href="https://lyuf09.github.io/chronohaze/notes/network_localization_structural_certificates.html" />
+  <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/notes/network_localization_structural_certificates.html?lang=zh" />
+  <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/notes/network_localization_structural_certificates.html?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/notes/network_localization_structural_certificates.html" />
+  <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
+  <link rel="preload" href="../assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="../assets/fonts/noto-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="../styles.min.css?v=20261103-history-search1" />
+  <script defer src="../protect-media.min.js?v=20261103-history-search1"></script>
+  <style>
+    .network-note {
+      --note-accent: rgba(74, 98, 138, 0.78);
+      max-width: min(100%, 780px);
+    }
+
+    .network-note .article-deck {
+      margin: 18px 0 28px;
+      color: rgba(48, 58, 75, 0.86);
+      font-family: var(--font-serif);
+      font-size: clamp(20px, 2.4vw, 27px);
+      line-height: 1.45;
+    }
+
+    .network-note .process-note {
+      margin: 24px 0 34px;
+      padding: 20px 22px;
+      border-left: 3px solid var(--note-accent);
+      background: rgba(222, 230, 241, 0.58);
+    }
+
+    .network-note .process-note p {
+      margin: 0;
+      color: rgba(39, 48, 63, 0.9);
+    }
+
+    .network-note .math-display {
+      overflow-x: auto;
+      margin: 26px 0;
+      padding: 20px 22px;
+      border: 1px solid rgba(78, 94, 119, 0.17);
+      border-left: 3px solid var(--note-accent);
+      background: rgba(236, 240, 246, 0.78);
+      color: rgba(30, 36, 47, 0.96);
+      font-family: var(--font-editorial-serif);
+      font-size: clamp(18px, 2.25vw, 23px);
+      line-height: 1.55;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .network-note .math-display + .math-display {
+      margin-top: -14px;
+    }
+
+    .network-note blockquote {
+      margin: 24px 0;
+      padding: 2px 0 2px 22px;
+      border-left: 2px solid rgba(74, 98, 138, 0.46);
+      color: rgba(37, 46, 61, 0.92);
+    }
+
+    .network-note blockquote p {
+      margin: 0;
+      color: inherit;
+      font-size: 18px;
+    }
+
+    .network-note .screening-flow {
+      margin: 26px 0 30px;
+      padding: 0;
+      list-style: none;
+      counter-reset: screening-step;
+    }
+
+    .network-note .screening-flow li {
+      position: relative;
+      margin: 0;
+      padding: 15px 18px 15px 52px;
+      border: 1px solid rgba(78, 94, 119, 0.15);
+      background: rgba(241, 244, 248, 0.72);
+      counter-increment: screening-step;
+    }
+
+    .network-note .screening-flow li::before {
+      content: counter(screening-step, decimal-leading-zero);
+      position: absolute;
+      left: 17px;
+      top: 16px;
+      color: rgba(65, 83, 113, 0.8);
+      font: 500 11px/1.5 Arial, sans-serif;
+      letter-spacing: 0.08em;
+    }
+
+    .network-note .screening-flow li + li {
+      margin-top: 18px;
+    }
+
+    .network-note .screening-flow li + li::after {
+      content: "↓";
+      position: absolute;
+      left: 50%;
+      top: -20px;
+      transform: translateX(-50%);
+      color: rgba(65, 83, 113, 0.62);
+      font: 400 15px/1 Arial, sans-serif;
+    }
+
+    .network-note .research-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 34px;
+    }
+
+    .network-note .research-links a {
+      padding: 9px 13px;
+      border: 1px solid rgba(65, 83, 113, 0.22);
+      background: rgba(243, 246, 250, 0.65);
+      color: rgba(35, 46, 65, 0.9);
+      font-size: 12px;
+    }
+
+    @media (max-width: 640px) {
+      .network-note .math-display {
+        margin-right: -4px;
+        margin-left: -4px;
+        padding: 17px 14px;
+        font-size: 17px;
+        text-align: left;
+      }
+
+      .network-note .screening-flow li {
+        padding-right: 14px;
+        padding-left: 46px;
+      }
+    }
+  </style>
+
+  <!-- Chronohaze analytics preference and opt-out control -->
+  <script id="chronohaze-analytics-bootstrap">
+    (function () {
+      var measurementId = "G-JWZY2TVYFZ";
+      var storedPreference;
+      try { storedPreference = window.localStorage.getItem("chronohaze-analytics"); } catch (_err) {}
+      var doNotTrack = navigator.doNotTrack === "1" || window.doNotTrack === "1";
+      var enabled = storedPreference === "on" || (storedPreference !== "off" && !doNotTrack);
+      window["ga-disable-" + measurementId] = !enabled;
+      window.__chronohazeAnalyticsInitialEnabled = enabled;
+    })();
+  </script>
+  <link rel="stylesheet" href="../assets/css/analytics-control.min.css?v=20260906-latin-a11y1" />
+  <script id="chronohaze-analytics-runtime" defer src="../assets/js/analytics-control.min.js?v=20260906-latin-a11y1" data-analytics-collection="control-only"></script>
+</head>
+<body class="math-post-page note-detail-page">
+  <a class="skip-link" href="#main-content">Skip to content / 跳到正文</a>
+<div class="page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="../index.html" data-preserve-lang="1">
+          <img src="../assets/logo-header.png" alt="Chronohaze site logo" />
+          <span>CHRONOHAZE</span>
+        </a>
+        <nav class="nav" aria-label="主导航" data-i18n-aria="navAria">
+          <a href="../index.html" data-preserve-lang="1" data-i18n="navHome">主页</a>
+          <a class="active" href="../academic.html" data-preserve-lang="1" data-i18n="navAcademic">学术</a>
+          <a href="../music.html" data-preserve-lang="1" data-i18n="navMusic">音乐</a>
+          <a href="../photography.html" data-preserve-lang="1" data-i18n="navPhoto">摄影</a>
+          <a href="../cv.html" data-preserve-lang="1" data-i18n="navCV">CV</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" class="main">
+      <div class="container">
+        <div class="cv-utility-bar">
+          <div class="cv-utility-top">
+            <nav class="academic-local-nav" aria-label="学术页面导航" data-i18n-aria="academicSectionAria">
+              <a class="academic-local-link" href="../projects.html" data-preserve-lang="1" data-i18n="utilityProjects">Selected Work</a>
+              <a class="academic-local-link" href="../research.html" data-preserve-lang="1" data-i18n="utilityResearch">Research Statement</a>
+              <a class="academic-local-link is-active" href="../math.html" data-preserve-lang="1" data-i18n="utilityNotes">Technical Notes</a>
+            </nav>
+          </div>
+        </div>
+      </div>
+
+      <article class="article network-note">
+        <div data-lang-block="zh">
+          <h1>网络定位中的二阶几何：研究概览</h1>
+          <p class="article-meta">Feier Lyu · 最初发布于 2026-07-22 · 更新于 2026-08-23 · 约 4 分钟</p>
+          <p class="article-meta"><strong>研究参与者：</strong>Feier Lyu、Prof. Shoham Sabach、Owen Li</p>
+          <p class="article-meta">Network Localization · Nonconvex Optimization · Negative Curvature · Structured Screening</p>
+          <p class="article-deck">我们现在在研究网络定位问题里可微驻点附近的二阶性质，主要想知道不同边的几何关系会怎样影响 Hessian。</p>
+          <div class="process-note">
+            <p>这项合作研究仍在进行，技术结果尚未公开。</p>
+          </div>
+
+          <p>最近我一直在研究下面这类网络定位问题：</p>
+          <div class="math-display" aria-label="网络定位目标函数">
+            <var>F</var>(<var>x</var>) = ∑<sub>(<var>i</var>,<var>j</var>)∈<var>E</var></sub> (‖<var>x</var><sub><var>i</var></sub>−<var>x</var><sub><var>j</var></sub>‖−δ<sub><var>ij</var></sub>)<sup>2</sup>.
+          </div>
+          <p>我们知道图上部分边的目标距离 δ<sub><var>ij</var></sub>，需要找到节点的位置 <var>x</var><sub><var>i</var></sub>，让实际距离尽量接近目标距离。这是一个非凸优化问题，所以算法找到驻点并不代表已经找到了局部极小点。</p>
+          <p>之前已经有工作研究过非光滑临界点，还有某些情况下从坏点逃逸的构造。我现在主要关注可微的 驻点：除了直接看 Hessian 的特征值，我们能不能从图结构和节点的几何关系判断有没有负曲率方向？</p>
+
+          <h2>1. 先看单条边</h2>
+          <p>最开始我想知道一条边的实际长度和目标距离之间的差值能不能决定驻点的二阶性质。这个差值确实会影响这条边在 Hessian 里的贡献，但是<strong>只看一条边还不能判断整个 Hessian 有没有负方向</strong>。</p>
+          <p>因为最后需要把所有边的二阶贡献加起来。一条边单独有负的曲率贡献不代表整个 Hessian 就一定有负特征值。</p>
+
+          <h2>2. 还得把其他边算进去</h2>
+          <p>移动一个节点会同时改变所有连到这个节点的测量边。所以某条边在一个扰动方向上的负贡献可能被其他边的正贡献抵消。我们需要看的是整个网络沿同一个方向的二阶变化，不能把每条边分开判断。</p>
+          <p>这也是为什么我不想只靠数值计算 Hessian 的最小特征值。这样确实可以检查一个具体算例有没有负曲率，但是我更想知道到底是哪些图结构和几何条件造成了这个结果。</p>
+
+          <h2>3. 现在做到哪里</h2>
+          <p>我们还在研究可微驻点处的二阶性质与图结构的联系，以及哪些条件能帮助我们判断负曲率。</p>
+          <p>这个项目是我和 Prof. Shoham Sabach、Owen Li 一起做的。我与 Owen Li 共同承担理论推导和数值实验，研究图结构与节点几何对可微驻点处二阶性质的影响。</p>
+
+          <div class="research-links" aria-label="相关学术页面">
+            <a href="../research.html" data-preserve-lang="1">研究陈述</a>
+            <a href="../projects.html" data-preserve-lang="1">代表性工作</a>
+          </div>
+        </div>
+
+        <div data-lang-block="en" hidden>
+          <h1>Second-Order Geometry in Network Localization: A Research Overview</h1>
+          <p class="article-meta">Feier Lyu · Originally posted 2026-07-22 · Updated 2026-08-23 · 4 min read</p>
+          <p class="article-meta"><strong>Research participants:</strong> Feier Lyu, Prof. Shoham Sabach, and Owen Li</p>
+          <p class="article-meta">Network Localization · Nonconvex Optimization · Negative Curvature · Structured Screening</p>
+          <p class="article-deck">We are looking at the second-order behaviour of a network-localisation objective near differentiable stationary points. More specifically, we want to understand how the geometry of different edges affects the Hessian.</p>
+          <div class="process-note">
+            <p>This collaborative project is ongoing; technical results are not yet public.</p>
+          </div>
+
+          <p>Recently I've been looking at network-localisation problems of the form:</p>
+          <div class="math-display" aria-label="Network localization objective">
+            <var>F</var>(<var>x</var>) = ∑<sub>(<var>i</var>,<var>j</var>)∈<var>E</var></sub> (‖<var>x</var><sub><var>i</var></sub>−<var>x</var><sub><var>j</var></sub>‖−δ<sub><var>ij</var></sub>)<sup>2</sup>.
+          </div>
+          <p>We know the target distances δ<sub><var>ij</var></sub> for some edges of a graph. The task is to find positions <var>x</var><sub><var>i</var></sub> so that the actual distances are as close as possible to those targets. This is a nonconvex problem, so finding a stationary point does not mean we have found a local minimum.</p>
+          <p>Previous work has looked at nonsmooth critical points, including escape constructions in certain cases. I'm mainly interested in differentiable stationary points. Apart from directly checking the Hessian eigenvalues, can we use the graph structure and node geometry to tell whether a negative-curvature direction exists?</p>
+
+          <h2>1. Starting with one edge</h2>
+          <p>I first wanted to know whether the difference between an edge's actual length and its target distance could determine the second-order behaviour at a stationary point. It does affect that edge's contribution to the Hessian. But <strong>one edge alone is not enough to determine whether the full Hessian has a negative direction</strong>.</p>
+          <p>We need to add the second-order contributions of all the edges. A negative contribution from one edge does not necessarily give the full Hessian a negative eigenvalue.</p>
+
+          <h2>2. The other edges matter too</h2>
+          <p>Moving one node also changes every measured edge attached to it. So a negative contribution from one edge along a particular direction may be cancelled by positive contributions from others. We have to consider the second-order change of the whole network along the same direction, not each edge separately.</p>
+          <p>This is why I don't want to rely only on numerical checks of the smallest Hessian eigenvalue. Those checks can tell us whether a particular example has negative curvature, but I also want to know which graph structures or geometric conditions explain the result.</p>
+
+          <h2>3. Current work</h2>
+          <p>We're investigating how second-order behaviour at differentiable stationary points depends on the graph, and which conditions help us detect negative curvature.</p>
+          <p>I'm working on this project with Prof. Shoham Sabach and Owen Li. Owen Li and I both contribute theoretical derivations and numerical experiments, studying how graph structure and node geometry affect second-order behavior at differentiable stationary points.</p>
+
+          <div class="research-links" aria-label="Related academic pages">
+            <a href="../research.html" data-preserve-lang="1">Research Statement</a>
+            <a href="../projects.html" data-preserve-lang="1">Selected Work</a>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <p class="footer-title">CHRONOHAZE</p>
+          <p class="footer-note"><span data-i18n="footerContactLead">学术联系邮箱：</span><a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a></p>
+          <p class="footer-note" data-i18n="footerCities">Feier Lyu · 爱丁堡大学数学本科</p>
+          <p class="footer-copy">© 2026 by CHRONOHAZE. Hosted on GitHub Pages.</p>
+          <div class="social" aria-label="Social links">
+            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://www.instagram.com/lyuf09" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://space.bilibili.com/35902781" target="_blank" rel="noopener noreferrer">Bilibili</a>
+            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+        <div class="footer-right">
+          <a href="../policy.html" data-preserve-lang="1" data-i18n="siteNotes">网站说明</a>
+          <a href="../accessibility.html" data-preserve-lang="1" data-i18n="a11y">无障碍支持</a>
+        </div>
+      </div>
+  <div class="analytics-control-shell" data-analytics-collection="control-only">
+    <p class="analytics-control" data-analytics-control>
+      <span data-analytics-status>Analytics: On</span><span aria-hidden="true"> · </span><button type="button" data-analytics-toggle>Turn off</button>
+    </p>
+  </div>
+</footer>
+  </div>
+
+  <script>
+    (function () {
+      const i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
+      const i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
+      const langBlocks = Array.from(document.querySelectorAll('[data-lang-block]'));
+      const localizedLinks = Array.from(document.querySelectorAll('[data-preserve-lang]'));
+      const queryLang = new URLSearchParams(window.location.search).get('lang');
+      const titleNode = document.querySelector('title');
+      const descriptionNode = document.querySelector('meta[name="description"]');
+
+      const i18n = {
+        zh: {
+          htmlLang: 'zh-CN',
+          navAria: '主导航',
+          navHome: '主页',
+          navAcademic: '学术',
+          navMusic: '音乐',
+          navPhoto: '摄影',
+          navCV: 'CV',
+          academicSectionAria: '学术页面导航',
+          utilityProjects: '代表性工作',
+          utilityResearch: '研究陈述',
+          utilityNotes: '技术笔记',
+          footerContactLead: '学术联系邮箱：',
+          footerCities: 'Feier Lyu · 爱丁堡大学数学本科',
+          siteNotes: '网站说明',
+          a11y: '无障碍支持'
+        },
+        en: {
+          htmlLang: 'en',
+          navAria: 'Main navigation',
+          navHome: 'Home',
+          navAcademic: 'Academic',
+          navMusic: 'Music',
+          navPhoto: 'Photography',
+          navCV: 'CV',
+          academicSectionAria: 'Academic section navigation',
+          utilityProjects: 'Selected Work',
+          utilityResearch: 'Research Statement',
+          utilityNotes: 'Technical Notes',
+          footerContactLead: 'Academic contact: ',
+          footerCities: 'Feier Lyu · BSc Mathematics, University of Edinburgh',
+          siteNotes: 'Site Notes',
+          a11y: 'Accessibility'
+        }
+      };
+
+      function setLanguage(lang) {
+        const safeLang = lang === 'en' ? 'en' : 'zh';
+        const dict = i18n[safeLang];
+        document.documentElement.lang = dict.htmlLang;
+        document.documentElement.setAttribute('data-site-lang', safeLang);
+
+        i18nNodes.forEach(function (node) {
+          const value = dict[node.getAttribute('data-i18n')];
+          if (typeof value === 'string') node.textContent = value;
+        });
+
+        i18nAriaNodes.forEach(function (node) {
+          const value = dict[node.getAttribute('data-i18n-aria')];
+          if (typeof value === 'string') node.setAttribute('aria-label', value);
+        });
+
+        langBlocks.forEach(function (block) {
+          block.hidden = block.getAttribute('data-lang-block') !== safeLang;
+        });
+
+        localizedLinks.forEach(function (link) {
+          try {
+            const url = new URL(link.getAttribute('href'), window.location.href);
+            url.searchParams.set('lang', safeLang);
+            link.setAttribute('href', url.pathname + url.search + url.hash);
+          } catch (_err) {}
+        });
+
+        const localizedTitle = titleNode
+          ? titleNode.getAttribute('data-title-' + safeLang) || document.title
+          : document.title;
+        const localizedDescription = descriptionNode
+          ? descriptionNode.getAttribute('data-content-' + safeLang) || descriptionNode.getAttribute('content')
+          : '';
+        document.title = localizedTitle;
+        if (descriptionNode) descriptionNode.setAttribute('content', localizedDescription);
+        ['meta[property="og:title"]', 'meta[name="twitter:title"]'].forEach(function (selector) {
+          const node = document.querySelector(selector);
+          if (node) node.setAttribute('content', localizedTitle.replace(/ \| Chronohaze$/, ''));
+        });
+        ['meta[property="og:description"]', 'meta[name="twitter:description"]'].forEach(function (selector) {
+          const node = document.querySelector(selector);
+          if (node) node.setAttribute('content', localizedDescription);
+        });
+
+        try {
+          window.localStorage.setItem('siteLang', safeLang);
+          window.localStorage.setItem('chronohaze-lang', safeLang);
+        } catch (_err) {}
+      }
+
+      let initialLang = 'zh';
+      try {
+        const stored = window.localStorage.getItem('siteLang') || window.localStorage.getItem('chronohaze-lang');
+        if (stored === 'zh' || stored === 'en') initialLang = stored;
+      } catch (_err) {}
+      if (queryLang === 'zh' || queryLang === 'en') initialLang = queryLang;
+      setLanguage(initialLang);
+
+      const link = document.querySelector('[data-note-email-link="1"]');
+      const address = ['feier530', ['icloud', 'com'].join('.')].join('@');
+      if (link) {
+        link.href = 'mailto:' + address;
+        link.textContent = address;
+        link.setAttribute('aria-label', 'Email ' + address);
+      }
+    })();
+  </script>
+</body>
+</html>

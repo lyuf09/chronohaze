@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <style id="chronohaze-critical-loader-style">
+    html.chronohaze-critical-loading,
+    html.chronohaze-critical-loading body {
+      min-height: 100%;
+      background: #10141b;
+    }
+
+    html.chronohaze-critical-loading body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    html.chronohaze-critical-loading body > :not(.chronohaze-loader) {
+      visibility: hidden !important;
+    }
+
+    html.chronohaze-critical-loading::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 2147483000;
+      background:
+        linear-gradient(90deg, rgba(138, 160, 200, 0.09) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(138, 160, 200, 0.07) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(13, 17, 24, 0.992) 0%, rgba(19, 24, 33, 0.992) 55%, rgba(13, 17, 24, 0.996) 100%);
+      background-size: 54px 54px, 54px 54px, 100% 100%;
+    }
+
+    html.chronohaze-critical-loading::after {
+      content: "CHRONOHAZE";
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      z-index: 2147483001;
+      width: min(500px, calc(100vw - 40px));
+      padding: 30px 32px;
+      transform: translate(-50%, -50%);
+      white-space: pre-line;
+      color: rgba(232, 234, 237, 0.9);
+      font: 300 clamp(22px, 3.2vw, 34px)/1.48 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.055em;
+      border: 1px solid rgba(154, 172, 204, 0.3);
+      border-radius: 0;
+      background: linear-gradient(180deg, rgba(20, 25, 34, 0.84) 0%, rgba(13, 17, 24, 0.82) 100%);
+      box-shadow: 0 24px 58px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.045);
+    }
+
+    html[lang^="zh"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A 页面加载中";
+    }
+
+    html[lang^="en"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A Loading";
+    }
+
+    html.chronohaze-critical-loading-mobile body {
+      overflow: auto;
+    }
+
+    html.chronohaze-critical-loading-mobile body > :not(.chronohaze-loader) {
+      visibility: visible !important;
+    }
+
+    html.chronohaze-critical-loading-mobile::before {
+      background: linear-gradient(180deg, rgba(13, 17, 24, 0.18) 0%, rgba(19, 24, 33, 0.22) 100%);
+      pointer-events: none;
+    }
+
+    html.chronohaze-critical-loading-mobile::after {
+      content: "CHRONOHAZE";
+      left: 16px;
+      top: 16px;
+      width: auto;
+      max-width: calc(100vw - 32px);
+      padding: 10px 12px;
+      transform: none;
+      white-space: normal;
+      color: rgba(232, 234, 237, 0.78);
+      font: 400 12px/1.3 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.18em;
+      border: 1px solid rgba(154, 172, 204, 0.18);
+      background: rgba(16, 20, 27, 0.34);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+      backdrop-filter: blur(2px);
+    }
+  </style>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var isMobile = window.matchMedia && window.matchMedia("(max-width: 760px)").matches;
+      root.classList.add("chronohaze-critical-loading");
+      if (isMobile) {
+        root.classList.add("chronohaze-critical-loading-mobile");
+      }
+      window.__chronohazeReleaseCriticalLoader = function () {
+        root.classList.remove("chronohaze-critical-loading");
+        root.classList.remove("chronohaze-critical-loading-mobile");
+      };
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", window.__chronohazeReleaseCriticalLoader, { once: true });
+      } else {
+        window.requestAnimationFrame(window.__chronohazeReleaseCriticalLoader);
+      }
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, 500);
+    })();
+  </script>
+<script>
+    (function () {
+      try {
+        var url = new URL(window.location.href);
+        var queryLang = url.searchParams.get("lang");
+        var valid = function (value) {
+          return value === "zh" || value === "en";
+        };
+        var defaultLang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+        var defaultSafe = defaultLang.indexOf("en") === 0 ? "en" : "zh";
+
+        if (valid(queryLang)) {
+          window.localStorage.setItem("siteLang", queryLang);
+          window.localStorage.setItem("chronohaze-lang", queryLang);
+          window.__chronohazePreferredLang = queryLang;
+          document.documentElement.lang = queryLang === "en" ? "en" : "zh-CN";
+          document.documentElement.setAttribute("data-site-lang", queryLang);
+          return;
+        }
+
+        var storedLang = window.localStorage.getItem("siteLang");
+        if (!valid(storedLang)) {
+          storedLang = window.localStorage.getItem("chronohaze-lang");
+        }
+        if (!valid(storedLang)) {
+          return;
+        }
+
+        window.__chronohazePreferredLang = storedLang;
+        document.documentElement.lang = storedLang === "en" ? "en" : "zh-CN";
+        document.documentElement.setAttribute("data-site-lang", storedLang);
+
+        if (storedLang !== defaultSafe) {
+          url.searchParams.set("lang", storedLang);
+          window.location.replace(url.toString());
+        }
+      } catch (_err) {}
+    })();
+  </script>
+  <link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
+  <title data-title-zh="从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL | Chronohaze" data-title-en="Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL | Chronohaze">Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL | Chronohaze</title>
+  <meta name="description" content="A publication retrospective on the sole-authored AFP entry First-Order Methods for Smooth Convex Optimization in Isabelle/HOL." data-content-zh="关于 AFP 正式条目《First-Order Methods for Smooth Convex Optimization in Isabelle/HOL》的发表回顾与形式化设计记录。" data-content-en="A publication retrospective on the sole-authored AFP entry First-Order Methods for Smooth Convex Optimization in Isabelle/HOL." />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Chronohaze" />
+  <meta property="og:title" content="Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL | Chronohaze" />
+  <meta property="og:description" content="A machine-checked development of projected gradient descent in Isabelle/HOL, covering smooth convexity, projection geometry, descent estimates, projected-gradient mappings, residual certificates, and linear convergence." />
+  <meta property="og:url" content="https://lyuf09.github.io/chronohaze/post/projected-gradient-descent-isabelle-hol.html" />
+  <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/projected-gradient-descent-isabelle-hol.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL | Chronohaze" />
+  <meta name="twitter:description" content="A machine-checked development of projected gradient descent in Isabelle/HOL, covering smooth convexity, projection geometry, descent estimates, projected-gradient mappings, residual certificates, and linear convergence." />
+  <meta property="article:published_time" content="2026-05-22" />
+  <meta property="article:modified_time" content="2026-08-01" />
+  <meta property="article:author" content="Feier Lyu" />
+  <meta property="article:tag" content="Isabelle/HOL" />
+  <meta property="article:tag" content="Optimization" />
+  <meta property="article:tag" content="Formalisation" />
+  <meta property="article:tag" content="AFP" />
+  <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/projected-gradient-descent-isabelle-hol.png" />
+  <link rel="canonical" href="https://lyuf09.github.io/chronohaze/post/projected-gradient-descent-isabelle-hol.html" />
+  <!-- GENERATED:hreflang:start -->
+  <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/post/projected-gradient-descent-isabelle-hol.html?lang=zh" />
+  <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/post/projected-gradient-descent-isabelle-hol.html?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/post/projected-gradient-descent-isabelle-hol.html" />
+  <!-- GENERATED:hreflang:end -->
+  <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
+<link rel="preload" href="../assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="../assets/fonts/noto-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="../styles.min.css?v=20261103-history-search1" />
+  <script defer src="../protect-media.min.js?v=20261103-history-search1"></script>
+
+  <!-- Chronohaze analytics preference and opt-out control -->
+  <script id="chronohaze-analytics-bootstrap">
+    (function () {
+      var measurementId = "G-JWZY2TVYFZ";
+      var storedPreference;
+      try { storedPreference = window.localStorage.getItem("chronohaze-analytics"); } catch (_err) {}
+      var doNotTrack = navigator.doNotTrack === "1" || window.doNotTrack === "1";
+      var enabled = storedPreference === "on" || (storedPreference !== "off" && !doNotTrack);
+      window["ga-disable-" + measurementId] = !enabled;
+      window.__chronohazeAnalyticsInitialEnabled = enabled;
+    })();
+  </script>
+  <link rel="stylesheet" href="../assets/css/analytics-control.min.css?v=20260906-latin-a11y1" />
+  <script id="chronohaze-analytics-runtime" defer src="../assets/js/analytics-control.min.js?v=20260906-latin-a11y1" data-analytics-collection="enabled"></script>
+</head>
+<body class="math-post-page">
+  <a class="skip-link" href="#main-content">Skip to content / 跳到正文</a>
+<div class="page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="../index.html">
+          <img src="../assets/logo-header.png" alt="Chronohaze site logo" />
+          <span>CHRONOHAZE</span>
+        </a>
+        <nav class="nav" aria-label="主导航" data-i18n-aria="navAria">
+          <a href="../index.html" data-i18n="navHome">主页</a>
+          <a class="active" href="../academic.html" data-i18n="navAcademic">学术</a>
+          <a href="../music.html" data-i18n="navMusic">音乐</a>
+          <a href="../photography.html" data-i18n="navPhoto">摄影</a>
+          <a href="../cv.html" data-i18n="navCV">CV</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" class="main">
+      <div class="container">
+        <div class="cv-utility-bar">
+          <div class="cv-utility-top">
+            <nav class="academic-local-nav" aria-label="Academic section links" data-i18n-aria="academicSectionAria">
+              <a class="academic-local-link" href="../research.html" data-i18n="utilityResearch">Research Statement</a>
+              <a class="academic-local-link" href="../projects.html" data-i18n="utilityProjects">Selected Work</a>
+              <a class="academic-local-link is-active" href="../math.html" data-i18n="utilityNotes">Technical Notes</a>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <article class="article">
+        <div data-lang-block="zh" hidden>
+          <h1>从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL</h1>
+          <p class="article-meta">Feier Lyu · Originally posted 2026年5月22日 · 约 5 分钟</p>
+          <p class="article-meta">标签：Isabelle/HOL · Optimization · Formalisation · AFP</p>
+          <aside class="math-post-update" aria-label="发表更新">
+            <p class="math-post-update-label">发表更新 — 2026年8月</p>
+            <p>该项目现已通过审核，并以 <em>First-Order Methods for Smooth Convex Optimization in Isabelle/HOL</em> 正式发表于 Archive of Formal Proofs。</p>
+            <p><a href="https://isa-afp.org/entries/Projected_Gradient_Descent.html" target="_blank" rel="noopener noreferrer">查看 AFP 条目 →</a></p>
+          </aside>
+          <aside class="math-post-update" aria-label="时间线说明">
+            <p class="math-post-update-label">时间线说明</p>
+            <p><strong>Originally posted:</strong> 2026年5月22日。本笔记早于子模贪心条目在 2026年5月26日正式发表于 AFP，因此“继续往前”指研究项目的延续，不是“发表之后”。</p>
+            <p><strong>Submitted:</strong> 2026年7月2日 · <strong>Published in AFP:</strong> 2026年7月2日</p>
+          </aside>
+
+          <p>我选 projected gradient descent（PGD）来做形式化主要是因为这个算法本身不复杂，但是证明收敛时会同时用到光滑性、凸性和投影几何。我想把这些部分分开处理，不是只把最后的收敛定理写出来。</p>
+          <p>这个项目后来以 <em>First-Order Methods for Smooth Convex Optimization in Isabelle/HOL</em> 为题发表于 AFP。正式条目除了 PGD 还包含普通 gradient descent 的收敛分析、projected-gradient mapping 的残差和最优性结果，以及强凸条件下的线性收敛。这篇主要写一下我当时怎么组织这些证明。</p>
+
+          <h2>为什么选 PGD</h2>
+          <p>普通 gradient descent 的迭代是：</p>
+          <p><code>x_{n+1} = x_n - alpha * G x_n</code></p>
+          <p>如果迭代点必须在可行集合 <code>C</code> 里就需要加上投影：</p>
+          <p><code>x_{n+1} = P_C (x_n - alpha * G x_n)</code></p>
+          <p>这里 <code>G</code> 表示梯度，<code>P_C</code> 是到非空闭凸集 <code>C</code> 的 metric projection。迭代式很好写，但是后面每条估计到底用了什么假设就没这么简单了。</p>
+          <p>比如要用 projection 的 variational inequality 就得先处理好投影本身的性质。Smoothness 也可以用 Lipschitz gradient 或 quadratic upper bound 来表述。做下降估计的时候后者比较方便，但是其他地方可能更适合用前者。所以我先把两者之间需要的关系证明好，再拿到具体算法里用。</p>
+
+          <h2>我是怎么拆开证明的</h2>
+          <p>仓库里的 Isabelle theories 是按照证明依赖来分的，没有把所有东西直接堆进 PGD 的收敛证明。</p>
+          <p>最底层是 gradient、convex differentiability 和 smoothness 的基本结果，比如凸可微函数的一阶不等式、光滑函数的二次上界以及这些假设之间的关系。然后再把和具体算法无关的 descent、finite-sum、averaging 和 telescoping 引理单独整理出来。这样以后证明其他一阶算法时就不用重新写一遍相同的求和过程。</p>
+          <p>再往上先做没有约束的 gradient descent。由单步下降估计推出光滑凸情形下的 <code>O(1/N)</code> 函数值界，还包括相关的 gradient residual 结果。</p>
+          <p>PGD 这里还需要 projection geometry。先证明 metric projection 的性质和 variational inequality，之后才能处理每一步的可行性、下降估计和有限步收敛界。</p>
+          <p>然后是 projected-gradient mapping。仅仅证明函数值下降还不够，因为函数值的界和一阶最优性指标不是同一件事。我需要把 mapping 的残差与最优性条件联系起来，得到对应的 optimality certificate 和 epsilon-stationarity 复杂度界。最后再加上 strong convexity 的假设来证明距离和函数值的线性收敛。</p>
+          <p>我还挺喜欢 residual 这部分的。它回答的问题很直接：除了函数值有没有下降，我们能不能从某一步的迭代点算出一个可以检查的一阶最优性指标？当然具体能保证什么还是取决于定理里的假设。</p>
+
+          <h2>为什么单独做 Main_Results.thy</h2>
+          <p>我不希望别人为了用一个 PGD 收敛定理就得先看完整个仓库。所以这次专门整理了 <code>Main_Results.thy</code> 作为统一的导入入口。</p>
+          <p>里面集中放了 gradient descent 和 PGD 的收敛界、projected-gradient mapping 的最优性和残差结论，还有强凸情形下的线性收敛定理。证明本身还是放在各自的 theory 里，但是使用时可以先从 <code>Main_Results</code> 找需要的定理。</p>
+          <p>这样以后即使我调整内部引理或者拆分文件，只要对外的 theorem aliases 没变，其他依赖这个项目的代码一般就不需要跟着改。</p>
+
+          <h2>和子模贪心项目有什么联系</h2>
+          <p>做子模贪心项目的时候我把具体 greedy construction 和抽象的贪心步骤分开，这样 lazy greedy 就能直接复用 classical greedy 的近似证明。PGD 这边也是类似的思路，但是需要分开的变成了 convexity、smoothness、projection、descent estimates 和 convergence rates。</p>
+          <p>我主要想弄清楚哪些推导适用于一般的下降序列，哪些地方必须用到投影，哪些结论又需要额外的强凸性。把这些条件分开之后证明更容易核对，以后也更容易复用。</p>
+
+          <h2>发表前做了什么</h2>
+          <p>AFP 条目里还放了 quadratic 和 projected quadratic 的例子。提交前我主要在统一定理名称、整理 <code>Main_Results.thy</code>、检查 theory 之间的依赖和 build，并完成 AFP 的文档和参考文献。那个阶段就没有继续加新算法了。</p>
+          <p>做完这个项目以后我看一阶优化算法会更在意每条收敛结论到底用了哪些条件。如果之后还要形式化别的方法，我也会先看看有哪些中间引理可以单独抽出来，不会直接照着纸面证明从头写到尾。</p>
+          <p>项目代码：<a href="https://github.com/lyuf09/projected-gradient-descent" target="_blank" rel="noopener noreferrer">github.com/lyuf09/projected-gradient-descent</a></p>
+
+          <nav class="math-post-nav" data-static-math-post-nav="1" aria-label="相邻笔记导航"><a class="math-post-nav-item" data-nav-dir="prev" href="../post/submodular-greedy-formalization-enters-afp.html" data-no-page-transition="1" aria-label="上一篇 · 子模贪心算法形式化正式进入 AFP"><span class="math-post-nav-label">上一篇</span><span class="math-post-nav-title">子模贪心算法形式化正式进入 AFP</span></a><a class="math-post-nav-item" data-nav-dir="next" href="../post/theorem-to-framework-isabelle-submodular.html" data-no-page-transition="1" aria-label="下一篇 · Isabelle/HOL 中的 Classical Greedy、LazyGreedy 与 StochasticGreedy"><span class="math-post-nav-label">下一篇</span><span class="math-post-nav-title">Isabelle/HOL 中的 Classical Greedy、LazyGreedy 与 StochasticGreedy</span></a></nav>
+<div class="academic-hub-links math-post-hub-links">
+  <p class="academic-hub-links-label">继续浏览</p>
+  <div class="research-link-row">
+    <a href="../research.html">Research Statement</a>
+    <a href="../projects.html">Selected Work</a>
+    <a href="../math.html">Technical Notes</a>
+  </div>
+</div>
+        </div>
+
+        <div data-lang-block="en">
+          <h1>Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL</h1>
+          <p class="article-meta">Feier Lyu · Originally posted May 22, 2026 · 5 min read</p>
+          <p class="article-meta">Tags: Isabelle/HOL · Optimization · Formalisation · AFP</p>
+          <aside class="math-post-update" aria-label="Publication update">
+            <p class="math-post-update-label">Publication update — August 2026</p>
+            <p>This project has now been accepted and published in the Archive of Formal Proofs as <em>First-Order Methods for Smooth Convex Optimization in Isabelle/HOL</em>. The published entry is available here.</p>
+            <p><a href="https://isa-afp.org/entries/Projected_Gradient_Descent.html" target="_blank" rel="noopener noreferrer">View AFP Entry →</a></p>
+          </aside>
+          <aside class="math-post-update" aria-label="Chronology note">
+            <p class="math-post-update-label">Chronology note</p>
+            <p><strong>Originally posted:</strong> May 22, 2026. This note predates the submodular-greedy entry's AFP publication on May 26, so “moving forward” refers to continuing the research program, not to work begun after publication.</p>
+            <p><strong>Submitted:</strong> July 2, 2026 · <strong>Published in AFP:</strong> July 2, 2026</p>
+          </aside>
+
+          <p>I chose projected gradient descent (PGD) because the algorithm is simple, but its convergence proof needs smoothness, convexity, and projection geometry at the same time. I wanted to deal with these parts separately instead of only formalising the final convergence theorem.</p>
+          <p>The project was later published in the AFP as <em>First-Order Methods for Smooth Convex Optimization in Isabelle/HOL</em>. Besides PGD, the entry covers ordinary gradient descent, residual and optimality results for the projected-gradient mapping, and linear convergence under strong convexity. This note is about how I organised the proofs.</p>
+
+          <h2>Why PGD</h2>
+          <p>Ordinary gradient descent uses the update:</p>
+          <p><code>x_{n+1} = x_n - alpha * G x_n</code></p>
+          <p>If the iterates must stay in a feasible set <code>C</code>, we add a projection:</p>
+          <p><code>x_{n+1} = P_C (x_n - alpha * G x_n)</code></p>
+          <p>Here <code>G</code> denotes the gradient and <code>P_C</code> is the metric projection onto a nonempty closed convex set <code>C</code>. The update rule is easy to write down, but each estimate after it needs its own assumptions.</p>
+          <p>For example, the variational inequality for projection depends on the properties of the projection and the set. Smoothness can be stated using either a Lipschitz gradient or a quadratic upper bound. The latter is convenient for descent estimates, but the former can be useful elsewhere. So I proved the connections I needed first and then used them in the algorithm proofs.</p>
+
+          <h2>How I split up the proofs</h2>
+          <p>I organised the Isabelle theories by their proof dependencies instead of putting everything into one PGD convergence proof.</p>
+          <p>The foundations cover gradients, convex differentiability, and smoothness: first-order inequalities for convex differentiable functions, quadratic upper bounds, and the relations between assumptions. I then separated out the descent, finite-sum, averaging, and telescoping lemmas that do not depend on one particular algorithm. This means I do not have to redo the same summation steps for another first-order method.</p>
+          <p>Next comes unconstrained gradient descent. The one-step descent estimates give <code>O(1/N)</code> function-value bounds in the smooth convex case, as well as results involving gradient residuals.</p>
+          <p>PGD needs an additional part on projection geometry. I first established properties of metric projection and its variational inequality, then used them for feasibility, descent estimates, and finite-horizon convergence bounds.</p>
+          <p>The projected-gradient mapping comes next. Showing that the objective decreases is not enough because a function-value bound and a first-order optimality measure are not the same thing. I related the mapping residual to optimality conditions and proved the corresponding certificates and epsilon-stationarity complexity bounds. With the additional strong convexity assumption, the development also covers linear convergence of distance and function value.</p>
+          <p>I liked the residual part in particular. The question is quite concrete: apart from checking whether the objective decreases, can we calculate something at an iterate that measures first-order stationarity? Exactly what that measure guarantees still depends on the assumptions.</p>
+
+          <h2>Why I added Main_Results.thy</h2>
+          <p>I did not want someone to have to read the entire repository just to use one PGD convergence theorem. That is why I added <code>Main_Results.thy</code> as a common import point.</p>
+          <p>It collects theorem aliases for gradient descent and PGD convergence bounds, projected-gradient mapping and residual results, and linear convergence under strong convexity. The proofs still live in their own theory files, but the main results are easier to find and import.</p>
+          <p>If I reorganise the internal lemmas or split files later, keeping these public aliases stable should mean that other projects generally do not have to change with them.</p>
+
+          <h2>How it connects to submodular greedy</h2>
+          <p>In the submodular greedy project I separated the concrete greedy construction from the abstract step condition, so lazy greedy could reuse the classical approximation proof. I followed a similar approach here, but the parts are now convexity, smoothness, projection, descent estimates, and convergence rates.</p>
+          <p>I wanted to know which arguments apply to general descent sequences, which really need projection, and which require strong convexity. Once those assumptions are separated, the proofs are easier to check and reuse.</p>
+
+          <h2>Before publication</h2>
+          <p>The AFP entry also includes quadratic and projected-quadratic examples. Before submission I focused on theorem names, <code>Main_Results.thy</code>, theory dependencies, builds, and the AFP document and references. I stopped adding new algorithms at that stage.</p>
+          <p>After this project I pay more attention to exactly which assumptions a convergence result uses. If I formalise another method, I would first look for intermediate lemmas I can separate out rather than follow a handwritten proof line by line.</p>
+          <p>Repository: <a href="https://github.com/lyuf09/projected-gradient-descent" target="_blank" rel="noopener noreferrer">github.com/lyuf09/projected-gradient-descent</a></p>
+
+          <nav class="math-post-nav" data-static-math-post-nav="1" aria-label="Adjacent notes"><a class="math-post-nav-item" data-nav-dir="prev" href="../post/submodular-greedy-formalization-enters-afp.html" data-no-page-transition="1" aria-label="Previous note · Formalizing Submodular Greedy Is Now in the AFP"><span class="math-post-nav-label">Previous note</span><span class="math-post-nav-title">Formalizing Submodular Greedy Is Now in the AFP</span></a><a class="math-post-nav-item" data-nav-dir="next" href="../post/theorem-to-framework-isabelle-submodular.html" data-no-page-transition="1" aria-label="Next note · Classical Greedy, LazyGreedy, and StochasticGreedy in Isabelle/HOL"><span class="math-post-nav-label">Next note</span><span class="math-post-nav-title">Classical Greedy, LazyGreedy, and StochasticGreedy in Isabelle/HOL</span></a></nav>
+<div class="academic-hub-links math-post-hub-links">
+  <p class="academic-hub-links-label">Continue with</p>
+  <div class="research-link-row">
+    <a href="../research.html">Research Statement</a>
+    <a href="../projects.html">Selected Work</a>
+    <a href="../math.html">Technical Notes</a>
+  </div>
+</div>
+        </div>
+      </article>
+    </main>
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <p class="footer-title">CHRONOHAZE</p>
+          <p class="footer-note"><span data-i18n="footerContactLead">学术联系邮箱：</span><a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a></p>
+          <p class="footer-note" data-i18n="footerCities">Feier Lyu · 爱丁堡大学数学本科</p>
+          <p class="footer-copy">© 2026 by CHRONOHAZE. Hosted on GitHub Pages.</p>
+          <div class="social" aria-label="Social links">
+            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://www.instagram.com/lyuf09" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://space.bilibili.com/35902781" target="_blank" rel="noopener noreferrer">Bilibili</a>
+            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+        <div class="footer-right">
+          <a href="../policy.html" data-i18n="siteNotes">网站说明</a>
+          <a href="../accessibility.html" data-i18n="a11y">无障碍支持</a>
+        </div>
+      </div>
+  <div class="analytics-control-shell" data-analytics-collection="enabled">
+    <p class="analytics-control" data-analytics-control>
+      <span data-analytics-status>Analytics: On</span><span aria-hidden="true"> · </span><button type="button" data-analytics-toggle>Turn off</button>
+    </p>
+  </div>
+</footer>
+  </div>
+
+<script>
+  (function () {
+    const i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
+    const i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
+    const langBlocks = Array.from(document.querySelectorAll('[data-lang-block]'));
+    const queryLang = new URLSearchParams(window.location.search).get('lang');
+
+    const i18n = {
+      zh: {
+        htmlLang: 'zh-CN',
+        pageTitle: '从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL | Chronohaze',
+        pageDescription: '关于 AFP 正式条目《First-Order Methods for Smooth Convex Optimization in Isabelle/HOL》的发表回顾与形式化设计记录。',
+        navAria: '主导航',
+        navHome: '主页',
+        navAcademic: '学术',
+        navPhoto: '摄影',
+        navMusic: '音乐',
+        navCV: 'CV',
+        academicSectionAria: '学术页面导航',
+        utilityResearch: 'Research Statement',
+        utilityProjects: 'Selected Work',
+        utilityNotes: 'Technical Notes',
+        footerContactLead: '学术联系邮箱：',
+        footerCities: 'Feier Lyu · 爱丁堡大学数学本科',
+        siteNotes: '网站说明',
+        a11y: '无障碍支持'
+      },
+      en: {
+        htmlLang: 'en',
+        pageTitle: 'Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL | Chronohaze',
+        pageDescription: 'A publication retrospective on the sole-authored AFP entry First-Order Methods for Smooth Convex Optimization in Isabelle/HOL.',
+        navAria: 'Main navigation',
+        navHome: 'Home',
+        navAcademic: 'Academic',
+        navPhoto: 'Photography',
+        navMusic: 'Music',
+        navCV: 'CV',
+        academicSectionAria: 'Academic section navigation',
+        utilityResearch: 'Research Statement',
+        utilityProjects: 'Selected Work',
+        utilityNotes: 'Technical Notes',
+        footerContactLead: 'Academic contact: ',
+        footerCities: 'Feier Lyu · BSc Mathematics, University of Edinburgh',
+        siteNotes: 'Site Notes',
+        a11y: 'Accessibility'
+      }
+    };
+
+    function setLanguage(lang) {
+      const safeLang = lang === 'en' ? 'en' : 'zh';
+      const dict = i18n[safeLang];
+      document.documentElement.lang = dict.htmlLang;
+      document.title = dict.pageTitle;
+
+      ['meta[name="description"]', 'meta[property="og:description"]', 'meta[name="twitter:description"]'].forEach(function (selector) {
+        const node = document.querySelector(selector);
+        if (node) node.setAttribute('content', dict.pageDescription);
+      });
+      ['meta[property="og:title"]', 'meta[name="twitter:title"]'].forEach(function (selector) {
+        const node = document.querySelector(selector);
+        if (node) node.setAttribute('content', dict.pageTitle);
+      });
+
+      i18nNodes.forEach(function (node) {
+        const key = node.getAttribute('data-i18n');
+        const value = dict[key];
+        if (typeof value === 'string') node.textContent = value;
+      });
+
+      i18nAriaNodes.forEach(function (node) {
+        const key = node.getAttribute('data-i18n-aria');
+        const value = dict[key];
+        if (typeof value === 'string') node.setAttribute('aria-label', value);
+      });
+
+      langBlocks.forEach(function (block) {
+        block.hidden = block.getAttribute('data-lang-block') !== safeLang;
+      });
+
+      try {
+        window.localStorage.setItem('siteLang', safeLang);
+        window.localStorage.setItem('chronohaze-lang', safeLang);
+      } catch (err) {
+      }
+    }
+
+    let initialLang = 'en';
+    try {
+      const siteLang = window.localStorage.getItem('siteLang');
+      const savedLang = window.localStorage.getItem('chronohaze-lang');
+      if (siteLang === 'zh' || siteLang === 'en') initialLang = siteLang;
+      else if (savedLang === 'zh' || savedLang === 'en') initialLang = savedLang;
+    } catch (err) {
+    }
+    if (queryLang === 'zh' || queryLang === 'en') initialLang = queryLang;
+    setLanguage(initialLang);
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+<style id="chronohaze-critical-loader-style">
+    html.chronohaze-critical-loading,
+    html.chronohaze-critical-loading body {
+      min-height: 100%;
+      background: #10141b;
+    }
+
+    html.chronohaze-critical-loading body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    html.chronohaze-critical-loading body > :not(.chronohaze-loader) {
+      visibility: hidden !important;
+    }
+
+    html.chronohaze-critical-loading::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 2147483000;
+      background:
+        linear-gradient(90deg, rgba(138, 160, 200, 0.09) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(138, 160, 200, 0.07) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(13, 17, 24, 0.992) 0%, rgba(19, 24, 33, 0.992) 55%, rgba(13, 17, 24, 0.996) 100%);
+      background-size: 54px 54px, 54px 54px, 100% 100%;
+    }
+
+    html.chronohaze-critical-loading::after {
+      content: "CHRONOHAZE";
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      z-index: 2147483001;
+      width: min(500px, calc(100vw - 40px));
+      padding: 30px 32px;
+      transform: translate(-50%, -50%);
+      white-space: pre-line;
+      color: rgba(232, 234, 237, 0.9);
+      font: 300 clamp(22px, 3.2vw, 34px)/1.48 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.055em;
+      border: 1px solid rgba(154, 172, 204, 0.3);
+      border-radius: 0;
+      background: linear-gradient(180deg, rgba(20, 25, 34, 0.84) 0%, rgba(13, 17, 24, 0.82) 100%);
+      box-shadow: 0 24px 58px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.045);
+    }
+
+    html[lang^="zh"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A 页面加载中";
+    }
+
+    html[lang^="en"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A Loading";
+    }
+
+    html.chronohaze-critical-loading-mobile body {
+      overflow: auto;
+    }
+
+    html.chronohaze-critical-loading-mobile body > :not(.chronohaze-loader) {
+      visibility: visible !important;
+    }
+
+    html.chronohaze-critical-loading-mobile::before {
+      background: linear-gradient(180deg, rgba(13, 17, 24, 0.18) 0%, rgba(19, 24, 33, 0.22) 100%);
+      pointer-events: none;
+    }
+
+    html.chronohaze-critical-loading-mobile::after {
+      content: "CHRONOHAZE";
+      left: 16px;
+      top: 16px;
+      width: auto;
+      max-width: calc(100vw - 32px);
+      padding: 10px 12px;
+      transform: none;
+      white-space: normal;
+      color: rgba(232, 234, 237, 0.78);
+      font: 400 12px/1.3 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.18em;
+      border: 1px solid rgba(154, 172, 204, 0.18);
+      background: rgba(16, 20, 27, 0.34);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+      backdrop-filter: blur(2px);
+    }
+  </style>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var isMobile = window.matchMedia && window.matchMedia("(max-width: 760px)").matches;
+      root.classList.add("chronohaze-critical-loading");
+      if (isMobile) {
+        root.classList.add("chronohaze-critical-loading-mobile");
+      }
+      window.__chronohazeReleaseCriticalLoader = function () {
+        root.classList.remove("chronohaze-critical-loading");
+        root.classList.remove("chronohaze-critical-loading-mobile");
+      };
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", window.__chronohazeReleaseCriticalLoader, { once: true });
+      } else {
+        window.requestAnimationFrame(window.__chronohazeReleaseCriticalLoader);
+      }
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, 500);
+    })();
+  </script>
+
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://lyuf09.github.io/chronohaze/assets/favicon.ico?v=4" rel="icon" type="image/x-icon"/>
+<link href="https://lyuf09.github.io/chronohaze/assets/apple-touch-icon.png?v=4" rel="apple-touch-icon"/>
+<title data-title-zh="摄影 | Chronohaze" data-title-en="Photography | Chronohaze">Photography | Chronohaze</title>
+<meta content="Selected photography and yearly archives: visual records of time, distance, and memory." data-content-zh="摄影精选与按年份归档：关于时间、距离与记忆的视觉记录。" data-content-en="Selected photography and yearly archives: visual records of time, distance, and memory." name="description"/>
+<meta content="website" property="og:type"/>
+<meta content="Chronohaze" property="og:site_name"/>
+<meta content="Photography | Chronohaze" property="og:title"/>
+<meta content="Selected photography and yearly archives: visual records of time, distance, and memory." property="og:description"/>
+<meta content="https://lyuf09.github.io/chronohaze/photography.html" property="og:url"/>
+<meta content="https://lyuf09.github.io/chronohaze/assets/og/site/portfolio-1.png" property="og:image"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Photography | Chronohaze" name="twitter:title"/>
+<meta content="Selected photography and yearly archives: visual records of time, distance, and memory." name="twitter:description"/>
+<meta content="https://lyuf09.github.io/chronohaze/assets/og/site/portfolio-1.png" name="twitter:image"/>
+<link href="https://lyuf09.github.io/chronohaze/photography.html" rel="canonical"/>
+<!-- GENERATED:hreflang:start -->
+<link href="https://lyuf09.github.io/chronohaze/photography.html?lang=zh" hreflang="zh-CN" rel="alternate"/>
+<link href="https://lyuf09.github.io/chronohaze/photography.html?lang=en" hreflang="en" rel="alternate"/>
+<link href="https://lyuf09.github.io/chronohaze/photography.html" hreflang="x-default" rel="alternate"/>
+<!-- GENERATED:hreflang:end -->
+<link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
+<link rel="preload" as="image" href="assets/template/photo-top-960.webp" type="image/webp" imagesrcset="assets/template/photo-top-960.webp 960w, assets/template/photo-top-1600.webp 1600w" imagesizes="(max-width: 900px) 100vw, 980px"/>
+<link href="styles.min.css?v=20261103-history-search1" rel="stylesheet"/>
+<link href="assets/css/editorial-evidence.css?v=20260722-readable1" rel="stylesheet"/>
+<script defer="" src="protect-media.min.js?v=20261103-history-search1"></script>
+<script defer="" src="assets/js/catalog-pages.min.js?v=20260801-bilingual-seo1"></script>
+
+  <!-- Chronohaze analytics preference and opt-out control -->
+  <script id="chronohaze-analytics-bootstrap">
+    (function () {
+      var measurementId = "G-JWZY2TVYFZ";
+      var storedPreference;
+      try { storedPreference = window.localStorage.getItem("chronohaze-analytics"); } catch (_err) {}
+      var doNotTrack = navigator.doNotTrack === "1" || window.doNotTrack === "1";
+      var enabled = storedPreference === "on" || (storedPreference !== "off" && !doNotTrack);
+      window["ga-disable-" + measurementId] = !enabled;
+      window.__chronohazeAnalyticsInitialEnabled = enabled;
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/css/analytics-control.min.css?v=20260906-latin-a11y1" />
+  <script id="chronohaze-analytics-runtime" defer src="assets/js/analytics-control.min.js?v=20260906-latin-a11y1" data-analytics-collection="enabled"></script>
+</head>
+<body class="photo-index-page">
+  <a class="skip-link" href="#main-content">Skip to content / 跳到正文</a>
+<div class="page">
+<header class="site-header">
+<div class="container header-inner">
+<a class="brand" href="index.html">
+<img alt="Chronohaze site logo" src="assets/logo-header.png"/>
+<span>CHRONOHAZE</span>
+</a>
+<nav aria-label="主导航" class="nav">
+          <a href="index.html" data-i18n="navHome">主页</a>
+          <a href="academic.html" data-i18n="navAcademic">学术</a>
+          <a href="music.html" data-i18n="navMusic">音乐</a>
+          <a class="active" href="photography.html" data-i18n="navPhoto" aria-current="page">摄影</a>
+          <a href="cv.html" data-i18n="navCV">CV</a>
+        </nav>
+</div>
+</header>
+<main id="main-content" class="main">
+<section aria-label="摄影作品集主图" data-aria-label-en="Photography portfolio hero" data-aria-label-zh="摄影作品集主图" class="photo-hero">
+<div class="container photo-hero-inner">
+<picture class="responsive-picture" style="display:block;width:100%;">
+<source sizes="(max-width: 900px) 100vw, 980px" srcset="assets/template/photo-top-960.webp 960w, assets/template/photo-top-1600.webp 1600w" type="image/webp"/>
+<img alt="蓝色屏幕光照亮躺卧人物的摄影作品" data-alt-en="A reclining figure illuminated by blue screen light" data-alt-zh="蓝色屏幕光照亮躺卧人物的摄影作品" data-eager="true" decoding="async" fetchpriority="high" loading="eager" sizes="(max-width: 900px) 100vw, 980px" src="assets/template/photo-top-960.webp"/>
+</picture>
+</div>
+</section>
+<section class="page-head">
+<div class="container">
+<span class="photo-head-kicker" data-copy-en="PHOTOGRAPHY" data-copy-zh="PHOTOGRAPHY">PHOTOGRAPHY</span>
+<h1 class="page-title">摄影 / Selected Works</h1>
+</div>
+</section>
+<section aria-label="观看方法" data-aria-label-en="Method of Seeing" data-aria-label-zh="观看方法" class="section photo-seeing-note">
+<div class="container photo-seeing-note-inner">
+<span class="photo-seeing-note-kicker" data-copy-en="METHOD OF SEEING" data-copy-zh="观看方法">观看方法</span>
+<div class="photo-seeing-note-copy">
+<p data-copy-en="I photograph not to preserve places, but to record how time changes the distance between place and memory." data-copy-zh="我拍摄的不是地点本身，而是时间如何改变地点与记忆之间的距离。">我拍摄的不是地点本身，而是时间如何改变地点与记忆之间的距离。</p>
+<p data-copy-en="These series were photographed in Chongqing, Glasgow, and Edinburgh, with recurring windows, reflections, flowers, and blue light." data-copy-zh="这些系列拍于重庆、格拉斯哥和爱丁堡，常见的画面是窗、玻璃反射、花和偏蓝的光。">这些系列拍于重庆、格拉斯哥和爱丁堡，常见的画面是窗、玻璃反射、花和偏蓝的光。</p>
+</div>
+</div>
+</section>
+<section aria-label="画面里" data-aria-label-en="Visual Vocabulary" data-aria-label-zh="画面里" class="section photo-vocabulary">
+<div class="container photo-vocabulary-inner">
+<span class="photo-vocabulary-kicker" data-copy-en="IN THE FRAME" data-copy-zh="画面里">画面里</span>
+<p data-copy-en="blue-gray light · glass reflections · city views · camera shake · flowers and windows" data-copy-zh="蓝灰色光线 · 玻璃反射 · 城市景观 · 相机晃动 · 花与窗">蓝灰色光线 · 玻璃反射 · 城市景观 · 相机晃动 · 花与窗</p>
+</div>
+</section>
+<section class="section photo-featured">
+<div class="container photo-section-head">
+<h2 class="photo-section-title" data-copy-en="Curated Highlights" data-copy-zh="精选导览">精选导览</h2>
+<p class="photo-section-lead" data-copy-en="Three entry points into the recurring visual language of the archive. Each series also remains in its year below." data-copy-zh="从三个系列进入这套影像档案反复出现的视觉语言；这些作品也会保留在下方对应年份中。">从三个系列进入这套影像档案反复出现的视觉语言；这些作品也会保留在下方对应年份中。</p>
+</div>
+<div class="container photo-featured-grid">
+<!-- GENERATED:photo-featured:start -->
+<article class="photo-feature-card">
+<a class="photo-feature-link" href="photo/photo-07.html">
+<picture class="responsive-picture" style="display:block;width:100%;">
+<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2-960.webp 960w, assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2-1600.webp 1600w" type="image/webp"/>
+<img alt="参照系 — 中国重庆" data-alt-en="Reference Frame — Chongqing, China" data-alt-zh="参照系 — 中国重庆" decoding="async" height="3200" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2-960.webp" width="4000"/>
+</picture>
+<div class="photo-feature-meta">
+<p class="photo-feature-theme" data-copy-en="Reference Frame" data-copy-zh="参照系">参照系</p>
+<p class="photo-feature-caption" data-copy-en="CHONGQING, 2023" data-copy-zh="重庆，2023">重庆，2023</p>
+<p class="photo-feature-concept" data-copy-en="Chongqing photographed from above, with city lights blurred by camera movement." data-copy-zh="从高处拍摄重庆，移动相机让城市灯光在画面中拉开。">从高处拍摄重庆，移动相机让城市灯光在画面中拉开。</p>
+<span class="photo-feature-view" data-copy-en="View series" data-copy-zh="进入系列">进入系列</span>
+</div>
+</a>
+</article>
+<article class="photo-feature-card">
+<a class="photo-feature-link" href="photo/photo-11.html">
+<picture class="responsive-picture" style="display:block;width:100%;">
+<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2-960.webp 960w, assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2-1600.webp 1600w" type="image/webp"/>
+<img alt="铁与蕨 — 英国格拉斯哥" data-alt-en="Iron and Fern — Glasgow, UK" data-alt-zh="铁与蕨 — 英国格拉斯哥" decoding="async" height="2844" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2-960.webp" width="1600"/>
+</picture>
+<div class="photo-feature-meta">
+<p class="photo-feature-theme" data-copy-en="Iron and Fern" data-copy-zh="铁与蕨">铁与蕨</p>
+<p class="photo-feature-caption" data-copy-en="GLASGOW, 2023" data-copy-zh="格拉斯哥，2023">格拉斯哥，2023</p>
+<p class="photo-feature-concept" data-copy-en="Ferns and metal structures photographed together in Glasgow." data-copy-zh="在格拉斯哥拍摄，把蕨类植物与金属结构放进同一个画面。">在格拉斯哥拍摄，把蕨类植物与金属结构放进同一个画面。</p>
+<span class="photo-feature-view" data-copy-en="View series" data-copy-zh="进入系列">进入系列</span>
+</div>
+</a>
+</article>
+<article class="photo-feature-card">
+<a class="photo-feature-link" href="photo/photo-13.html">
+<picture class="responsive-picture" style="display:block;width:100%;">
+<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2-960.webp 960w, assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2-1600.webp 1600w" type="image/webp"/>
+<img alt="你的记忆 — 英国爱丁堡" data-alt-en="Memories of You — Edinburgh, UK" data-alt-zh="你的记忆 — 英国爱丁堡" decoding="async" height="2592" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2-960.webp" width="1728"/>
+</picture>
+<div class="photo-feature-meta">
+<p class="photo-feature-theme" data-copy-en="Memories of You" data-copy-zh="你的记忆">你的记忆</p>
+<p class="photo-feature-caption" data-copy-en="EDINBURGH, 2025" data-copy-zh="爱丁堡，2025">爱丁堡，2025</p>
+<p class="photo-feature-concept" data-copy-en="Flowers beside windows, photographed in the pale light of Edinburgh." data-copy-zh="爱丁堡窗边的花，和落在室内的浅淡光线。">爱丁堡窗边的花，和落在室内的浅淡光线。</p>
+<span class="photo-feature-view" data-copy-en="View series" data-copy-zh="进入系列">进入系列</span>
+</div>
+</a>
+</article>
+<!-- GENERATED:photo-featured:end -->
+</div>
+</section>
+<section class="section photo-archive">
+<div class="container photo-section-head">
+<h2 class="photo-section-title" data-copy-en="Complete Archive" data-copy-zh="完整归档">完整归档</h2>
+<p class="photo-section-lead" data-copy-en="A complete chronological index. Works highlighted above remain here so each year stays intact." data-copy-zh="按时间排列的完整索引；上方精选作品仍保留在这里，以保证每个年份的记录完整。">按时间排列的完整索引；上方精选作品仍保留在这里，以保证每个年份的记录完整。</p>
+</div>
+<div class="container photo-archive-groups">
+<!-- GENERATED:photo-archive:start -->
+<section class="photo-archive-group" aria-labelledby="photo-archive-year-2026">
+<h3 class="photo-archive-year" id="photo-archive-year-2026">2026</h3>
+<div class="photo-grid photo-archive-grid">
+<article class="photo-card">
+<a class="photo-card-link" href="photo/photo-18.html">
+<picture class="responsive-picture" style="display:block;width:100%;">
+<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/edinburgh-20261009-03-960.webp 960w, assets/images/wix/edinburgh-20261009-03-1600.webp 1600w" type="image/webp"/>
+<img alt="湿光 — 英国爱丁堡" data-alt-en="Wet Light — Edinburgh, UK" data-alt-zh="湿光 — 英国爱丁堡" decoding="async" height="900" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/edinburgh-20261009-03-960.webp" width="1600"/>
+</picture>
+<div class="photo-meta">
+<p class="photo-title" data-copy-en="Wet Light" data-copy-zh="湿光">湿光</p>
+<p class="photo-date" data-copy-en="09/10/2026" data-copy-zh="09/10/2026">09/10/2026</p>
+<p class="photo-subtitle" data-copy-en="Read More" data-copy-zh="阅读全文">阅读全文</p>
+</div>
+</a>
+</article>
+<article class="photo-card">
+<a class="photo-card-link" href="photo/photo-17.html">
+<picture class="responsive-picture" style="display:block;width:100%;">
+<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/ithaca-20260518-01-960.webp 960w, assets/images/wix/ithaca-20260518-01-1600.webp 1600w" type="image/webp"/>
+<img alt="最后的常景 — 美国伊萨卡" data-alt-en="The Last Ordinary Views — Ithaca, USA" data-alt-zh="最后的常景 — 美国伊萨卡" decoding="async" height="1728" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/ithaca-20260518-01-960.webp" width="2592"/>
+</picture>
+<div class="photo-meta">
+<p class="photo-title" data-copy-en="The Last Ordinary Views" data-copy-zh="最后的常景">最后的常景</p>
+<p class="photo-date" data-copy-en="18/05/2026" data-copy-zh="18/05/2026">18/05/2026</p>
+<p class="photo-subtitle" data-copy-en="Read More" data-copy-zh="阅读全文">阅读全文</p>
+</div>
+</a>
+</article>
+<article class="photo-card">
+<a class="photo-card-link" href="photo/photo-16.html">
+<picture class="responsive-picture" style="display:block;width:100%;">
+<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/ithaca-20260517-01-960.webp 960w, assets/images/wix/ithaca-20260517-01-1600.webp 1600w" type="image/webp"/>
+<img alt="街道复健 — 美国伊萨卡" data-alt-en="Street Rehabilitation — Ithaca, USA" data-alt-zh="街道复健 — 美国伊萨卡" decoding="async" height="2592" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/ithaca-20260517-01-960.webp" width="1728"/>
+</picture>
+<div class="photo-meta">
+<p class="photo-title" data-copy-en="Street Rehabilitation" data-copy-zh="街道复健">街道复健</p>
+<p class="photo-date" data-copy-en="17/05/2026" data-copy-zh="17/05/2026">17/05/2026</p>
+<p class="photo-subtitle" data-copy-en="Read More" data-copy-zh="阅读全文">阅读全文</p>
+</div>
+</a>
+</article>
+<article class="photo-card">
+<a class="photo-card-link" href="photo/photo-15.html">
+<picture class="responsive-picture" style="display:block;width:100%;">
+<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/ithaca-20260516-02-960.webp 960w, assets/images/wix/ithaca-20260516-02-1600.webp 1600w" type="image/webp"/>
+<img alt="未成晴日 — 美国伊萨卡" data-alt-en="An Unfinished Clearing — Ithaca, USA" data-alt-zh="未成晴日 — 美国伊萨卡" decoding="async" height="2592" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/ithaca-20260516-02-960.webp" width="1728"/>
+</picture>
+<div class="photo-meta">
+<p class="photo-title" data-copy-en="An Unfinished Clearing" data-copy-zh="未成晴日">未成晴日</p>
+<p class="photo-date" data-copy-en="16/05/2026" data-copy-zh="16/05/2026">16/05/2026</p>
+<p class="photo-subtitle" data-copy-en="Read More" data-copy-zh="阅读全文">阅读全文</p>
+</div>
+</a>
+</article>
+</div>
+</section>
+<section class="photo-archive-group" aria-labelledby="photo-archive-year-2025">
+<h3 class="photo-archive-year" id="photo-archive-year-2025">2025</h3>
+<div class="photo-grid photo-archive-grid">
+<article class="photo-card">
+<a class="photo-card-link" href="photo/photo-14.html">
+<picture class="responsive-picture" style="display:block;width:100%;">
+<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_4195bebf7fb244e8b7591015da58bef7~mv2-960.webp 960w, assets/images/wix/64569d_4195bebf7fb244e8b7591015da58bef7~mv2-1600.webp 1600w" type="image/webp"/>
+<img alt="隐入口 — 美国伊萨卡" data-alt-en="Hidden Entrance — Ithaca, USA" data-alt-zh="隐入口 — 美国伊萨卡" decoding="async" height="2592" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_4195bebf7fb244e8b7591015da58bef7~mv2-960.webp" width="1728"/>
+</picture>
+<div class="photo-meta">
+<p class="photo-title" data-copy-en="Hidden Entrance" data-copy-zh="隐入口">隐入口</p>
+<p class="photo-date" data-copy-en="30/08/2025" data-copy-zh="30/08/2025">30/08/2025</p>
+<p class="photo-subtitle" data-copy-en="Read More" data-copy-zh="阅读全文">阅读全文</p>
+</div>
+</a>
+</article>
+<article class="photo-card">
+<a class="photo-card-link" href="photo/photo-13.html">
+<picture class="responsive-picture" style="display:block;width:100%;">
+<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2-960.webp 960w, assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2-1600.webp 1600w" type="image/webp"/>
+<img alt="你的记忆 — 英国爱丁堡" data-alt-en="Memories of You — Edinburgh, UK" data-alt-zh="你的记忆 — 英国爱丁堡" decoding="async" height="2592" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2-960.webp" width="1728"/>
+</picture>
+<div class="photo-meta">
+<p class="photo-title" data-copy-en="Memories of You" data-copy-zh="你的记忆">你的记忆</p>
+<p class="photo-date" data-copy-en="05/04/2025" data-copy-zh="05/04/2025">05/04/2025</p>
+<p class="photo-subtitle" data-copy-en="Read More" data-copy-zh="阅读全文">阅读全文</p>
+</div>
+</a>
+</article>
+<article class="photo-card">
+<a class="photo-card-link" href="photo/photo-12.html">
+<picture class="responsive-picture" style="display:block;width:100%;">
+<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_454a21afe61843aca2fb15da42e5d073~mv2-960.webp 960w, assets/images/wix/64569d_454a21afe61843aca2fb15da42e5d073~mv2-1600.webp 1600w" type="image/webp"/>
+<img alt="低日照窗 — 英国爱丁堡" data-alt-en="Low Sun at the Window — Edinburgh, UK" data-alt-zh="低日照窗 — 英国爱丁堡" decoding="async" height="2557" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_454a21afe61843aca2fb15da42e5d073~mv2-960.webp" width="1704"/>
+</picture>
+<div class="photo-meta">
+<p class="photo-title" data-copy-en="Low Sun at the Window" data-copy-zh="低日照窗">低日照窗</p>
+<p class="photo-date" data-copy-en="02/01/2025" data-copy-zh="02/01/2025">02/01/2025</p>
+<p class="photo-subtitle" data-copy-en="Read More" data-copy-zh="阅读全文">阅读全文</p>
+</div>
+</a>
+</article>
+</div>
+</section>
+<section class="photo-archive-group" aria-labelledby="photo-archive-year-2024">
+<h3 class="photo-archive-year" id="photo-archive-year-2024">2024</h3>
+<div class="photo-grid photo-archive-grid">
+<article class="photo-card">
+<a class="photo-card-link" href="photo/photo-10.html">
+<picture class="responsive-picture" style="display:block;width:100%;">
+<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_f4a44566b6e540c2b6f4ea143c92a1dd~mv2-960.webp 960w, assets/images/wix/64569d_f4a44566b6e540c2b6f4ea143c92a1dd~mv2-1600.webp 1600w" type="image/webp"/>
+<img alt="框景练习 — 英国爱丁堡" data-alt-en="Framing Study — Edinburgh, UK" data-alt-zh="框景练习 — 英国爱丁堡" decoding="async" height="2667" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_f4a44566b6e540c2b6f4ea143c92a1dd~mv2-960.webp" width="4000"/>
+</picture>
+<div class="photo-meta">
+<p class="photo-title" data-copy-en="Framing Study" data-copy-zh="框景练习">框景练习</p>
+<p class="photo-date" data-copy-en="20/04/2024" data-copy-zh="20/04/2024">20/04/2024</p>
+<p class="photo-subtitle" data-copy-en="Read More" data-copy-zh="阅读全文">阅读全文</p>
+</div>
+</a>
+</article>
+</div>
+</section>
+<section class="photo-archive-group" aria-labelledby="photo-archive-year-2023">
+<h3 class="photo-archive-year" id="photo-archive-year-2023">2023</h3>
+<div class="photo-grid photo-archive-grid">
+<article class="photo-card">
+<a class="photo-card-link" href="photo/photo-11.html">
+<picture class="responsive-picture" style="display:block;width:100%;">
+<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2-960.webp 960w, assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2-1600.webp 1600w" type="image/webp"/>
+<img alt="铁与蕨 — 英国格拉斯哥" data-alt-en="Iron and Fern — Glasgow, UK" data-alt-zh="铁与蕨 — 英国格拉斯哥" decoding="async" height="2844" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_2127d9f060d246eda9d69543d4e15395~mv2-960.webp" width="1600"/>
+</picture>
+<div class="photo-meta">
+<p class="photo-title" data-copy-en="Iron and Fern" data-copy-zh="铁与蕨">铁与蕨</p>
+<p class="photo-date" data-copy-en="21/10/2023" data-copy-zh="21/10/2023">21/10/2023</p>
+<p class="photo-subtitle" data-copy-en="Read More" data-copy-zh="阅读全文">阅读全文</p>
+</div>
+</a>
+</article>
+<article class="photo-card">
+<a class="photo-card-link" href="photo/photo-09.html">
+<picture class="responsive-picture" style="display:block;width:100%;">
+<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_06f8f207dc77495c9940089581f9853f~mv2-960.webp 960w, assets/images/wix/64569d_06f8f207dc77495c9940089581f9853f~mv2-1600.webp 1600w" type="image/webp"/>
+<img alt="灰潮 — 英国爱丁堡" data-alt-en="Grey Tide — Edinburgh, UK" data-alt-zh="灰潮 — 英国爱丁堡" decoding="async" height="3000" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_06f8f207dc77495c9940089581f9853f~mv2-960.webp" width="4000"/>
+</picture>
+<div class="photo-meta">
+<p class="photo-title" data-copy-en="Grey Tide" data-copy-zh="灰潮">灰潮</p>
+<p class="photo-date" data-copy-en="17/09/2023" data-copy-zh="17/09/2023">17/09/2023</p>
+<p class="photo-subtitle" data-copy-en="Read More" data-copy-zh="阅读全文">阅读全文</p>
+</div>
+</a>
+</article>
+<article class="photo-card">
+<a class="photo-card-link" href="photo/photo-08.html">
+<picture class="responsive-picture" style="display:block;width:100%;">
+<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_0f30307d9b61425fa68251b5cb0ec6f3~mv2-960.webp 960w, assets/images/wix/64569d_0f30307d9b61425fa68251b5cb0ec6f3~mv2-1600.webp 1600w" type="image/webp"/>
+<img alt="隙光 — 中国重庆" data-alt-en="Sliver of Light — Chongqing, China" data-alt-zh="隙光 — 中国重庆" decoding="async" height="3857" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_0f30307d9b61425fa68251b5cb0ec6f3~mv2-960.webp" width="2571"/>
+</picture>
+<div class="photo-meta">
+<p class="photo-title" data-copy-en="Sliver of Light" data-copy-zh="隙光">隙光</p>
+<p class="photo-date" data-copy-en="09/08/2023" data-copy-zh="09/08/2023">09/08/2023</p>
+<p class="photo-subtitle" data-copy-en="Read More" data-copy-zh="阅读全文">阅读全文</p>
+</div>
+</a>
+</article>
+<article class="photo-card">
+<a class="photo-card-link" href="photo/photo-07.html">
+<picture class="responsive-picture" style="display:block;width:100%;">
+<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2-960.webp 960w, assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2-1600.webp 1600w" type="image/webp"/>
+<img alt="参照系 — 中国重庆" data-alt-en="Reference Frame — Chongqing, China" data-alt-zh="参照系 — 中国重庆" decoding="async" height="3200" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_579d08bc89b24604ae2cabe0f85a7bcc~mv2-960.webp" width="4000"/>
+</picture>
+<div class="photo-meta">
+<p class="photo-title" data-copy-en="Reference Frame" data-copy-zh="参照系">参照系</p>
+<p class="photo-date" data-copy-en="01/04/2023" data-copy-zh="01/04/2023">01/04/2023</p>
+<p class="photo-subtitle" data-copy-en="Read More" data-copy-zh="阅读全文">阅读全文</p>
+</div>
+</a>
+</article>
+<article class="photo-card">
+<a class="photo-card-link" href="photo/photo-06.html">
+<picture class="responsive-picture" style="display:block;width:100%;">
+<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_6abc632673934656beef94d62d3bdc89~mv2-960.webp 960w, assets/images/wix/64569d_6abc632673934656beef94d62d3bdc89~mv2-1600.webp 1600w" type="image/webp"/>
+<img alt="雪幕 — 英国奥斯沃斯特里" data-alt-en="Snow Curtain — Oswestry, UK" data-alt-zh="雪幕 — 英国奥斯沃斯特里" decoding="async" height="1593" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_6abc632673934656beef94d62d3bdc89~mv2-960.webp" width="2832"/>
+</picture>
+<div class="photo-meta">
+<p class="photo-title" data-copy-en="Snow Curtain" data-copy-zh="雪幕">雪幕</p>
+<p class="photo-date" data-copy-en="11/03/2023" data-copy-zh="11/03/2023">11/03/2023</p>
+<p class="photo-subtitle" data-copy-en="Read More" data-copy-zh="阅读全文">阅读全文</p>
+</div>
+</a>
+</article>
+</div>
+</section>
+<section class="photo-archive-group" aria-labelledby="photo-archive-year-2022">
+<h3 class="photo-archive-year" id="photo-archive-year-2022">2022</h3>
+<div class="photo-grid photo-archive-grid">
+<article class="photo-card">
+<a class="photo-card-link" href="photo/photo-04.html">
+<picture class="responsive-picture" style="display:block;width:100%;">
+<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_b17cf5f86f28473cbd8435965bb115f9~mv2-960.webp 960w, assets/images/wix/64569d_b17cf5f86f28473cbd8435965bb115f9~mv2-1600.webp 1600w" type="image/webp"/>
+<img alt="场外光 — 英国奥斯沃斯特里" data-alt-en="Offstage Light — Oswestry, UK" data-alt-zh="场外光 — 英国奥斯沃斯特里" decoding="async" height="2667" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_b17cf5f86f28473cbd8435965bb115f9~mv2-960.webp" width="4000"/>
+</picture>
+<div class="photo-meta">
+<p class="photo-title" data-copy-en="Offstage Light" data-copy-zh="场外光">场外光</p>
+<p class="photo-date" data-copy-en="14/06/2022" data-copy-zh="14/06/2022">14/06/2022</p>
+<p class="photo-subtitle" data-copy-en="Read More" data-copy-zh="阅读全文">阅读全文</p>
+</div>
+</a>
+</article>
+<article class="photo-card">
+<a class="photo-card-link" href="photo/photo-03.html">
+<picture class="responsive-picture" style="display:block;width:100%;">
+<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_1f61221c68ef4c35b613cb2cc6ab4836~mv2-960.webp 960w, assets/images/wix/64569d_1f61221c68ef4c35b613cb2cc6ab4836~mv2-1600.webp 1600w" type="image/webp"/>
+<img alt="暗蓝花室 — 英国奥斯沃斯特里" data-alt-en="Blue Room for Flowers — Oswestry, UK" data-alt-zh="暗蓝花室 — 英国奥斯沃斯特里" decoding="async" height="2667" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_1f61221c68ef4c35b613cb2cc6ab4836~mv2-960.webp" width="4000"/>
+</picture>
+<div class="photo-meta">
+<p class="photo-title" data-copy-en="Blue Room for Flowers" data-copy-zh="暗蓝花室">暗蓝花室</p>
+<p class="photo-date" data-copy-en="01/06/2022" data-copy-zh="01/06/2022">01/06/2022</p>
+<p class="photo-subtitle" data-copy-en="Read More" data-copy-zh="阅读全文">阅读全文</p>
+</div>
+</a>
+</article>
+<article class="photo-card">
+<a class="photo-card-link" href="photo/photo-02.html">
+<picture class="responsive-picture" style="display:block;width:100%;">
+<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_d7ae8483633d46f0819abd80335c3524~mv2-960.webp 960w, assets/images/wix/64569d_d7ae8483633d46f0819abd80335c3524~mv2-1600.webp 1600w" type="image/webp"/>
+<img alt="未成花 — 英国奥斯沃斯特里" data-alt-en="Before Bloom — Oswestry, UK" data-alt-zh="未成花 — 英国奥斯沃斯特里" decoding="async" height="2667" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_d7ae8483633d46f0819abd80335c3524~mv2-960.webp" width="4000"/>
+</picture>
+<div class="photo-meta">
+<p class="photo-title" data-copy-en="Before Bloom" data-copy-zh="未成花">未成花</p>
+<p class="photo-date" data-copy-en="01/05/2022" data-copy-zh="01/05/2022">01/05/2022</p>
+<p class="photo-subtitle" data-copy-en="Read More" data-copy-zh="阅读全文">阅读全文</p>
+</div>
+</a>
+</article>
+<article class="photo-card">
+<a class="photo-card-link" href="photo/photo-01.html">
+<picture class="responsive-picture" style="display:block;width:100%;">
+<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_58fc50d6b50e41e9a0b664f30ab32237~mv2-960.webp 960w, assets/images/wix/64569d_58fc50d6b50e41e9a0b664f30ab32237~mv2-1600.webp 1600w" type="image/webp"/>
+<img alt="暗场 — 英国奥斯沃斯特里" data-alt-en="Dark Field — Oswestry, UK" data-alt-zh="暗场 — 英国奥斯沃斯特里" decoding="async" height="2667" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_58fc50d6b50e41e9a0b664f30ab32237~mv2-960.webp" width="4000"/>
+</picture>
+<div class="photo-meta">
+<p class="photo-title" data-copy-en="Dark Field" data-copy-zh="暗场">暗场</p>
+<p class="photo-date" data-copy-en="12/04/2022" data-copy-zh="12/04/2022">12/04/2022</p>
+<p class="photo-subtitle" data-copy-en="Read More" data-copy-zh="阅读全文">阅读全文</p>
+</div>
+</a>
+</article>
+<article class="photo-card">
+<a class="photo-card-link" href="photo/photo-05.html">
+<picture class="responsive-picture" style="display:block;width:100%;">
+<source sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" srcset="assets/images/wix/64569d_907e18a111724364af408b96a36d12e3~mv2-960.webp 960w, assets/images/wix/64569d_907e18a111724364af408b96a36d12e3~mv2-1600.webp 1600w" type="image/webp"/>
+<img alt="2022、夏、某 — 英国韦茅斯" data-alt-en="Summer 2022, Somewhere — Weymouth, UK" data-alt-zh="2022、夏、某 — 英国韦茅斯" decoding="async" height="4000" loading="lazy" sizes="(max-width: 640px) 92vw, (max-width: 980px) 46vw, 29vw" src="assets/images/wix/64569d_907e18a111724364af408b96a36d12e3~mv2-960.webp" width="2666"/>
+</picture>
+<div class="photo-meta">
+<p class="photo-title" data-copy-en="Summer 2022, Somewhere" data-copy-zh="2022、夏、某">2022、夏、某</p>
+<p class="photo-date" data-copy-en="Summer 2022" data-copy-zh="2022年夏">2022年夏</p>
+<p class="photo-subtitle" data-copy-en="Read More" data-copy-zh="阅读全文">阅读全文</p>
+</div>
+</a>
+</article>
+<article class="photo-card photo-card-film">
+<a class="photo-card-link" href="photo/blue.html">
+<div aria-hidden="true" class="photo-film-thumb"></div>
+<div class="photo-meta">
+<p class="photo-title" data-copy-en="Blue" data-copy-zh="Blue">Blue</p>
+<p class="photo-date" data-copy-en="2022 · Moving image" data-copy-zh="2022 · 影像">2022 · 影像</p>
+<p class="photo-subtitle" data-copy-en="A-level photography final piece" data-copy-zh="毕业作品视频">毕业作品视频</p>
+</div>
+</a>
+</article>
+</div>
+</section>
+<!-- GENERATED:photo-archive:end -->
+</div>
+</section>
+<section aria-label="Blue / 跨媒介作品" data-aria-label-en="Blue / Moving Image Work" data-aria-label-zh="Blue / 跨媒介作品" class="section photo-blue-evidence">
+<div class="container photo-section-head">
+<h2 class="photo-section-title" data-copy-en="Blue / Moving Image Work" data-copy-zh="Blue / 跨媒介作品">Blue / 跨媒介作品</h2>
+</div>
+<div class="container photo-blue-evidence-card">
+<a class="photo-blue-evidence-copy" href="photo/blue.html">
+<h3>Blue</h3>
+<p class="photo-blue-evidence-mediums" data-copy-en="Photography / moving image / improvised piano score / DVD object" data-copy-zh="摄影 / 影像 / 即兴钢琴配乐 / DVD 实体作品">摄影 / 影像 / 即兴钢琴配乐 / DVD 实体作品</p>
+<p class="photo-blue-evidence-result" data-copy-en="A-level Photography final outcome, awarded full marks." data-copy-zh="A-level 摄影结课作品，获满分。">A-level 摄影结课作品，获满分。</p>
+<span class="photo-blue-evidence-link" data-copy-en="View full work" data-copy-zh="查看完整作品">查看完整作品</span>
+</a>
+<a class="photo-blue-evidence-stills" href="photo/blue.html" aria-label="查看 Blue 的五张静帧与完整作品" data-aria-label-en="View five still frames and the complete Blue project" data-aria-label-zh="查看 Blue 的五张静帧与完整作品">
+<picture><source type="image/webp" srcset="assets/template/blue-still-01-960.webp?v=20260727-blue2 960w, assets/template/blue-still-01-1600.webp?v=20260727-blue2 1600w" sizes="(max-width: 760px) 92vw, 32vw"/><img src="assets/template/blue-still-01.jpg?v=20260727-blue2" alt="" aria-hidden="true" width="640" height="320" loading="lazy" decoding="async"/></picture>
+<picture><source type="image/webp" srcset="assets/template/blue-still-02-960.webp?v=20260727-blue2 960w, assets/template/blue-still-02-1600.webp?v=20260727-blue2 1600w" sizes="(max-width: 760px) 46vw, 16vw"/><img src="assets/template/blue-still-02.jpg?v=20260727-blue2" alt="" aria-hidden="true" width="640" height="320" loading="lazy" decoding="async"/></picture>
+<picture><source type="image/webp" srcset="assets/template/blue-still-03-960.webp?v=20260727-blue2 960w, assets/template/blue-still-03-1600.webp?v=20260727-blue2 1600w" sizes="(max-width: 760px) 46vw, 16vw"/><img src="assets/template/blue-still-03.jpg?v=20260727-blue2" alt="" aria-hidden="true" width="640" height="320" loading="lazy" decoding="async"/></picture>
+<picture><source type="image/webp" srcset="assets/template/blue-still-04-960.webp?v=20260727-blue2 960w, assets/template/blue-still-04-1600.webp?v=20260727-blue2 1600w" sizes="(max-width: 760px) 46vw, 16vw"/><img src="assets/template/blue-still-04.jpg?v=20260727-blue2" alt="" aria-hidden="true" width="640" height="320" loading="lazy" decoding="async"/></picture>
+<picture><source type="image/webp" srcset="assets/template/blue-still-05-960.webp?v=20260727-blue2 960w, assets/template/blue-still-05-1600.webp?v=20260727-blue2 1600w" sizes="(max-width: 760px) 46vw, 16vw"/><img src="assets/template/blue-still-05.jpg?v=20260727-blue2" alt="" aria-hidden="true" width="640" height="320" loading="lazy" decoding="async"/></picture>
+</a>
+</div>
+</section>
+<section aria-label="摄影后记" data-aria-label-en="Photography afterword" data-aria-label-zh="摄影后记" class="section photo-background">
+<div class="container photo-section-head">
+<h2 class="photo-section-title" data-copy-en="Afterword" data-copy-zh="后记">后记</h2>
+</div>
+<div class="container photo-intro-layout">
+<div class="photo-intro-text">
+<p data-copy-en="Photography is one of the first creative mediums I studied in a structured way. This sunlit photograph was taken during a photography trip to Manchester Art Gallery when I was seventeen, with a classmate capturing the moment for me." data-copy-zh="摄影是我最早系统学习过的创作媒介之一。这张阳光明媚的照片摄于我十七岁参加曼彻斯特美术馆拍摄之旅时，由同学替我留下。">摄影是我最早系统学习过的创作媒介之一。这张阳光明媚的照片摄于我十七岁参加曼彻斯特美术馆拍摄之旅时，由同学替我留下。</p>
+<p data-copy-en="Since starting university, I have photographed less regularly. I still take photographs in the cities where I live and travel, especially when reflections, windows, or a change in the light catch my eye." data-copy-zh="进入大学以后，系统性拍摄的频率下降了。我仍会在生活和旅行的城市拍照，尤其会留意玻璃反射、窗，以及光线变化的时刻。">进入大学以后，系统性拍摄的频率下降了。我仍会在生活和旅行的城市拍照，尤其会留意玻璃反射、窗，以及光线变化的时刻。</p>
+</div>
+<figure class="photo-intro-figure">
+<picture class="responsive-picture" style="display:block;width:100%;">
+<source sizes="(max-width: 760px) 92vw, 420px" srcset="assets/template/photographer-17-960.webp 960w, assets/template/photographer-17-1600.webp 1600w" type="image/webp"/>
+<img alt="17岁拿着相机的 HazezZ" data-alt-en="HazezZ holding a camera at age seventeen" data-alt-zh="17岁拿着相机的 HazezZ" decoding="async" loading="lazy" sizes="(max-width: 760px) 92vw, 420px" src="assets/template/photographer-17-960.webp"/>
+</picture>
+</figure>
+</div>
+</section>
+</main>
+<footer class="site-footer">
+<div class="container footer-grid">
+<div>
+<p class="footer-title">CHRONOHAZE</p>
+<p class="footer-note">联系邮箱：<a class="obf-email-link" data-email-key="main" data-email-link="1" href="#">moc.duolci@035reief</a></p>
+<p class="footer-note">重庆 · Edinburgh · Ithaca</p>
+<p class="footer-copy">© 2026 by CHRONOHAZE. Hosted on GitHub Pages.</p>
+<div aria-label="Social links" class="social">
+<a href="https://www.linkedin.com/in/fay-lyu-uoe/" rel="noopener noreferrer" target="_blank">LinkedIn</a>
+<a href="https://www.instagram.com/lyuf09" rel="noopener noreferrer" target="_blank">Instagram</a>
+<a href="https://space.bilibili.com/35902781" rel="noopener noreferrer" target="_blank">Bilibili</a>
+<a href="https://github.com/lyuf09" rel="noopener noreferrer" target="_blank">GitHub</a>
+</div>
+</div>
+<div class="footer-right">
+<a href="policy.html">网站说明</a>
+<a href="accessibility.html">无障碍支持</a>
+</div>
+</div>
+  <div class="analytics-control-shell" data-analytics-collection="enabled">
+    <p class="analytics-control" data-analytics-control>
+      <span data-analytics-status>Analytics: On</span><span aria-hidden="true"> · </span><button type="button" data-analytics-toggle>Turn off</button>
+    </p>
+  </div>
+</footer>
+</div>
+</body>
+</html>

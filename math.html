@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <style id="chronohaze-critical-loader-style">
+    html.chronohaze-critical-loading,
+    html.chronohaze-critical-loading body {
+      min-height: 100%;
+      background: #10141b;
+    }
+
+    html.chronohaze-critical-loading body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    html.chronohaze-critical-loading body > :not(.chronohaze-loader) {
+      visibility: hidden !important;
+    }
+
+    html.chronohaze-critical-loading::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 2147483000;
+      background:
+        linear-gradient(90deg, rgba(138, 160, 200, 0.09) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(138, 160, 200, 0.07) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(13, 17, 24, 0.992) 0%, rgba(19, 24, 33, 0.992) 55%, rgba(13, 17, 24, 0.996) 100%);
+      background-size: 54px 54px, 54px 54px, 100% 100%;
+    }
+
+    html.chronohaze-critical-loading::after {
+      content: "CHRONOHAZE";
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      z-index: 2147483001;
+      width: min(500px, calc(100vw - 40px));
+      padding: 30px 32px;
+      transform: translate(-50%, -50%);
+      white-space: pre-line;
+      color: rgba(232, 234, 237, 0.9);
+      font: 300 clamp(22px, 3.2vw, 34px)/1.48 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.055em;
+      border: 1px solid rgba(154, 172, 204, 0.3);
+      border-radius: 0;
+      background: linear-gradient(180deg, rgba(20, 25, 34, 0.84) 0%, rgba(13, 17, 24, 0.82) 100%);
+      box-shadow: 0 24px 58px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.045);
+    }
+
+    html[lang^="zh"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A 页面加载中";
+    }
+
+    html[lang^="en"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A Loading";
+    }
+
+    html.chronohaze-critical-loading-mobile body {
+      overflow: auto;
+    }
+
+    html.chronohaze-critical-loading-mobile body > :not(.chronohaze-loader) {
+      visibility: visible !important;
+    }
+
+    html.chronohaze-critical-loading-mobile::before {
+      background: linear-gradient(180deg, rgba(13, 17, 24, 0.18) 0%, rgba(19, 24, 33, 0.22) 100%);
+      pointer-events: none;
+    }
+
+    html.chronohaze-critical-loading-mobile::after {
+      content: "CHRONOHAZE";
+      left: 16px;
+      top: 16px;
+      width: auto;
+      max-width: calc(100vw - 32px);
+      padding: 10px 12px;
+      transform: none;
+      white-space: normal;
+      color: rgba(232, 234, 237, 0.78);
+      font: 400 12px/1.3 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.18em;
+      border: 1px solid rgba(154, 172, 204, 0.18);
+      background: rgba(16, 20, 27, 0.34);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+      backdrop-filter: blur(2px);
+    }
+  </style>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var isMobile = window.matchMedia && window.matchMedia("(max-width: 760px)").matches;
+      root.classList.add("chronohaze-critical-loading");
+      if (isMobile) {
+        root.classList.add("chronohaze-critical-loading-mobile");
+      }
+      window.__chronohazeReleaseCriticalLoader = function () {
+        root.classList.remove("chronohaze-critical-loading");
+        root.classList.remove("chronohaze-critical-loading-mobile");
+      };
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", window.__chronohazeReleaseCriticalLoader, { once: true });
+      } else {
+        window.requestAnimationFrame(window.__chronohazeReleaseCriticalLoader);
+      }
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, 500);
+    })();
+  </script>
+<script>
+    (function () {
+      try {
+        var url = new URL(window.location.href);
+        var queryLang = url.searchParams.get("lang");
+        var valid = function (value) {
+          return value === "zh" || value === "en";
+        };
+        var defaultLang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+        var defaultSafe = defaultLang.indexOf("en") === 0 ? "en" : "zh";
+
+        if (valid(queryLang)) {
+          window.localStorage.setItem("siteLang", queryLang);
+          window.localStorage.setItem("chronohaze-lang", queryLang);
+          window.__chronohazePreferredLang = queryLang;
+          document.documentElement.lang = queryLang === "en" ? "en" : "zh-CN";
+          document.documentElement.setAttribute("data-site-lang", queryLang);
+          return;
+        }
+
+        var storedLang = window.localStorage.getItem("siteLang");
+        if (!valid(storedLang)) {
+          storedLang = window.localStorage.getItem("chronohaze-lang");
+        }
+        if (!valid(storedLang)) {
+          return;
+        }
+
+        window.__chronohazePreferredLang = storedLang;
+        document.documentElement.lang = storedLang === "en" ? "en" : "zh-CN";
+        document.documentElement.setAttribute("data-site-lang", storedLang);
+
+        if (storedLang !== defaultSafe) {
+          url.searchParams.set("lang", storedLang);
+          window.location.replace(url.toString());
+        }
+      } catch (_err) {}
+    })();
+  </script>
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico?v=4" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=4" />
+  <title>Technical Notes | Feier Lyu (Fay Lyu) | Chronohaze</title>
+  <meta name="description" content="Feier Lyu（Fay Lyu）的学术笔记与 Technical Notes：置顶核心材料，并按时间整理部分技术笔记与研究记录。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Chronohaze" />
+  <meta property="og:title" content="Technical Notes | Feier Lyu (Fay Lyu)" />
+  <meta property="og:description" content="Selected technical notes and a time-ordered record of ongoing research and formalization work." />
+  <meta property="og:url" content="https://lyuf09.github.io/chronohaze/math.html" />
+  <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/math.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Technical Notes | Feier Lyu (Fay Lyu)" />
+  <meta name="twitter:description" content="Selected technical notes and a time-ordered record of ongoing research and formalization work." />
+  <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/math.png" />
+  <link rel="canonical" href="https://lyuf09.github.io/chronohaze/math.html" />
+  <!-- GENERATED:hreflang:start -->
+  <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/math.html?lang=zh" />
+  <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/math.html?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/math.html" />
+  <!-- GENERATED:hreflang:end -->
+  <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
+
+  <script>
+    (function () {
+      var lang = "zh";
+      try {
+        var query = new URLSearchParams(window.location.search).get("lang");
+        if (query === "zh" || query === "en") {
+          lang = query;
+        } else {
+          var siteLang = window.localStorage.getItem("siteLang");
+          var legacyLang = window.localStorage.getItem("chronohaze-lang");
+          if (siteLang === "zh" || siteLang === "en") {
+            lang = siteLang;
+          } else if (legacyLang === "zh" || legacyLang === "en") {
+            lang = legacyLang;
+          }
+        }
+      } catch (_err) {}
+
+      var meta = lang === "en"
+        ? {
+            title: "Technical Notes | Chronohaze",
+            description: "Selected technical notes and a time-ordered record of ongoing research and formalization work.",
+            url: "https://lyuf09.github.io/chronohaze/math.html?lang=en"
+          }
+        : {
+            title: "学术笔记 / Technical Notes | Chronohaze",
+            description: "学术笔记与 Technical Notes：置顶核心材料，并按时间整理部分技术笔记与研究记录。",
+            url: "https://lyuf09.github.io/chronohaze/math.html?lang=zh"
+          };
+
+      document.title = meta.title;
+      document.documentElement.lang = lang === "en" ? "en" : "zh-CN";
+
+      function setMeta(selector, value) {
+        var node = document.querySelector(selector);
+        if (node && value) node.setAttribute("content", value);
+      }
+
+      setMeta('meta[name="description"]', meta.description);
+      setMeta('meta[property="og:title"]', meta.title);
+      setMeta('meta[property="og:description"]', meta.description);
+      setMeta('meta[property="og:url"]', meta.url);
+      setMeta('meta[name="twitter:title"]', meta.title);
+      setMeta('meta[name="twitter:description"]', meta.description);
+    })();
+  </script>
+<link rel="preload" href="assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="assets/fonts/noto-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="styles.min.css?v=20261103-history-search1" />
+  <link rel="stylesheet" href="assets/css/editorial-evidence.css?v=20260722-readable1" />
+  <link rel="stylesheet" href="assets/css/academic-mobile.css?v=20260418-mobile1" />
+  <script defer src="protect-media.min.js?v=20261103-history-search1"></script>
+  <script defer src="assets/js/catalog-pages.min.js?v=20260801-bilingual-seo1"></script>
+  <style>
+    .math-tag-overview {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .math-tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0 0;
+    }
+
+    .math-tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(89, 103, 128, 0.16);
+      background: rgba(116, 136, 164, 0.08);
+      color: rgba(45, 54, 70, 0.88);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    @media (max-width: 760px) {
+      .math-tag-overview {
+        gap: 8px;
+      }
+
+      .math-tag {
+        min-height: 26px;
+        padding: 0 9px;
+        font-size: 10.5px;
+      }
+    }
+  </style>
+<link rel="stylesheet" href="assets/css/academic-reading.css?v=20261029-reading1" />
+
+  <!-- Chronohaze analytics preference and opt-out control -->
+  <script id="chronohaze-analytics-bootstrap">
+    (function () {
+      var measurementId = "G-JWZY2TVYFZ";
+      var storedPreference;
+      try { storedPreference = window.localStorage.getItem("chronohaze-analytics"); } catch (_err) {}
+      var doNotTrack = navigator.doNotTrack === "1" || window.doNotTrack === "1";
+      var enabled = storedPreference === "on" || (storedPreference !== "off" && !doNotTrack);
+      window["ga-disable-" + measurementId] = !enabled;
+      window.__chronohazeAnalyticsInitialEnabled = enabled;
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/css/analytics-control.min.css?v=20260906-latin-a11y1" />
+  <script id="chronohaze-analytics-runtime" defer src="assets/js/analytics-control.min.js?v=20260906-latin-a11y1" data-analytics-collection="enabled"></script>
+</head>
+<body class="math-index-page">
+  <a class="skip-link" href="#main-content">Skip to content / 跳到正文</a>
+<div class="page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="index.html">
+          <img src="assets/logo-header.png" alt="Chronohaze site logo" />
+          <span>CHRONOHAZE</span>
+        </a>
+        <nav class="nav" aria-label="主导航">
+          <a href="index.html" data-i18n="navHome">主页</a>
+          <a class="active" href="academic.html" data-i18n="navAcademic">学术</a>
+          <a href="music.html" data-i18n="navMusic">音乐</a>
+          <a href="photography.html" data-i18n="navPhoto">摄影</a>
+          <a href="cv.html" data-i18n="navCV">CV</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" class="main">
+      <div class="container">
+        <div class="cv-utility-bar">
+          <div class="cv-utility-top">
+            <nav class="academic-local-nav" aria-label="Academic section links">
+              <a class="academic-local-link" href="projects.html" data-copy-zh="代表性工作" data-copy-en="Selected Work">代表性工作</a>
+              <a class="academic-local-link" href="research.html" data-copy-zh="研究陈述" data-copy-en="Research Statement">研究陈述</a>
+              <a class="academic-local-link is-active" href="math.html" data-copy-zh="技术笔记" data-copy-en="Technical Notes">技术笔记</a>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <section class="page-head">
+        <div class="container">
+          <h1 class="page-title" data-copy-zh="技术笔记" data-copy-en="Technical Notes">技术笔记</h1>
+          <p class="page-subtitle" data-copy-zh="Feier Lyu（Fay Lyu）" data-copy-en="Feier Lyu (Fay Lyu)">Feier Lyu（Fay Lyu）</p>
+          <p data-copy-zh="置顶最能代表当前研究思考的材料，并按时间整理部分技术笔记与研究记录。" data-copy-en="Selected technical notes and a time-ordered record of ongoing research and formalization work.">置顶最能代表当前研究思考的材料，并按时间整理部分技术笔记与研究记录。</p>
+          <div class="math-tag-overview">
+            <span class="math-tag">Isabelle/HOL</span>
+            <span class="math-tag">Duality</span>
+            <span class="math-tag">Optimization</span>
+            <span class="math-tag">Prototype</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section academic-proof-section" id="pinned-notes">
+        <div class="container">
+          <div class="academic-evidence">
+            <p class="academic-proof-kicker" data-copy-zh="置顶笔记" data-copy-en="PINNED NOTES">置顶笔记</p>
+            <h2 data-copy-zh="置顶笔记" data-copy-en="Pinned Notes">置顶笔记</h2>
+            <ol class="academic-evidence-list">
+              <li>
+                <span class="academic-evidence-index">01</span>
+                <div>
+                  <span class="math-note-status" data-copy-zh="已发表的形式化项目" data-copy-en="Published formalization">已发表的形式化项目</span>
+                  <h3><a href="post/submodular-greedy-formalization-enters-afp.html">Isabelle Submodular Greedy Project</a></h3>
+                  <p data-copy-zh="已发表的形式化项目 · Archive of Formal Proofs · 2026-05-26" data-copy-en="Published formalization · Archive of Formal Proofs · May 26, 2026">已发表的形式化项目 · Archive of Formal Proofs · 2026-05-26</p>
+                </div>
+              </li>
+              <li>
+                <span class="academic-evidence-index">02</span>
+                <div>
+                  <span class="math-note-status" data-copy-zh="已发表 · AFP · 独立作者" data-copy-en="Published · AFP · Sole author">已发表 · AFP · 独立作者</span>
+                  <h3><a href="post/projected-gradient-descent-isabelle-hol.html">Projected Gradient Descent in Isabelle/HOL</a></h3>
+                  <p data-copy-zh="AFP · 2026-07-02 · 独立作者" data-copy-en="AFP · July 2, 2026 · Sole author">AFP · 2026-07-02 · 独立作者</p>
+                </div>
+              </li>
+              <li>
+                <span class="academic-evidence-index">03</span>
+                <div>
+                  <span class="math-note-status" data-copy-zh="进行中的合作研究" data-copy-en="Ongoing joint research">进行中的合作研究</span>
+                  <h3><a href="notes/network_localization_structural_certificates.html" data-copy-zh="网络定位中的二阶几何" data-copy-en="Second-Order Geometry in Network Localization">网络定位中的二阶几何</a></h3>
+                  <p data-copy-zh="与 Prof. Shoham Sabach、Owen Li 合作 · 精炼公开概览" data-copy-en="With Prof. Shoham Sabach and Owen Li · Concise public overview">与 Prof. Shoham Sabach、Owen Li 合作 · 精炼公开概览</p>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <aside class="math-fractal-banner" aria-label="Creative mathematical visual">
+        <div class="container">
+          <figure class="math-fractal-highlight">
+            <img src="assets/template/julia-banner.webp" width="2172" height="724" alt="Julia 分形图" data-alt-zh="Julia 分形图" data-alt-en="Julia fractal image" loading="lazy" decoding="async" />
+            <figcaption data-copy-zh="我最喜欢的 Julia 分形" data-copy-en="My favorite Julia fractal">我最喜欢的 Julia 分形</figcaption>
+          </figure>
+        </div>
+      </aside>
+
+      <section class="section" id="notes-archive">
+        <div class="container research-section-head">
+          <h2 data-copy-zh="研究记录归档" data-copy-en="Research Records">研究记录归档</h2>
+          <p data-copy-zh="2026 — 按时间排列的部分技术笔记与研究记录。" data-copy-en="2026 — Selected technical notes and research records in chronological order.">2026 — 按时间排列的部分技术笔记与研究记录。</p>
+        </div>
+        <div class="container math-list">
+          <!-- GENERATED:math-list:start -->
+          <article class="math-card" data-href="post/stochasticgreedy-executable-refinement.html" tabindex="0" role="link" data-catalog-date="2026-10-03" data-date-label-zh="更新于 2026-10-25" data-date-label-en="Updated 2026-10-25" data-reading-time-zh="约 2 分钟" data-reading-time-en="~2 min read" data-link-label-zh="阅读进展摘要">
+            <p class="math-date" data-copy-zh="更新于 2026-10-25" data-copy-en="Updated 2026-10-25">更新于 2026-10-25</p>
+            <span class="math-note-status" data-copy-zh="未发表扩展" data-copy-en="Unpublished extension">未发表扩展</span>
+            <h3 class="math-title"><a class="math-title-link" href="post/stochasticgreedy-executable-refinement.html" data-copy-zh="从一套框架到真正会运行的随机算法：StochasticGreedy 的 executable refinement" data-copy-en="From a Framework to a Randomized Algorithm That Actually Runs: Executable Refinement of StochasticGreedy">从一套框架到真正会运行的随机算法：StochasticGreedy 的 executable refinement</a></h3>
+            <p class="math-desc" data-copy-zh="未发表扩展的进展摘要；最新实现尚未公开。期望近似保证采用理想随机位语义，PCG 结果限定于优化前后的执行一致性。" data-copy-en="Progress summary of an unpublished extension; the latest implementation is not yet public. Expected approximation uses ideal random-bit semantics; PCG results concern execution preservation under optimization.">未发表扩展的进展摘要；最新实现尚未公开。期望近似保证采用理想随机位语义，PCG 结果限定于优化前后的执行一致性。</p>
+            <div class="math-tag-row">
+              <span class="math-tag">Isabelle/HOL</span>
+              <span class="math-tag">StochasticGreedy</span>
+              <span class="math-tag">Formal Verification</span>
+            </div>
+            <a class="math-more" href="post/stochasticgreedy-executable-refinement.html" data-copy-zh="阅读进展摘要" data-copy-en="Read More">阅读进展摘要</a>
+          </article>
+          <article class="math-card" data-href="notes/network_localization_structural_certificates.html" tabindex="0" role="link" data-catalog-date="2026-07-22" data-date-label-zh="更新于 2026-08-23" data-date-label-en="Updated 2026-08-23" data-reading-time-zh="约 4 分钟" data-reading-time-en="4 min read" data-link-label-zh="阅读研究概览" data-link-label-en="Read research overview">
+            <p class="math-date" data-copy-zh="更新于 2026-08-23" data-copy-en="Updated 2026-08-23">更新于 2026-08-23</p>
+            <span class="math-note-status" data-copy-zh="进行中的合作研究" data-copy-en="Ongoing joint research">进行中的合作研究</span>
+            <h3 class="math-title"><a class="math-title-link" href="notes/network_localization_structural_certificates.html" data-copy-zh="网络定位中的二阶几何：研究概览" data-copy-en="Second-Order Geometry in Network Localization: A Research Overview">网络定位中的二阶几何：研究概览</a></h3>
+            <p class="math-desc" data-copy-zh="与 Prof. Shoham Sabach、Owen Li 合作的网络定位二阶几何研究概览；只保留背景、目标与已经确认的高层结论。" data-copy-en="A concise overview of collaborative research with Prof. Shoham Sabach and Owen Li on second-order geometry in network localization.">与 Prof. Shoham Sabach、Owen Li 合作的网络定位二阶几何研究概览；只保留背景、目标与已经确认的高层结论。</p>
+            <div class="math-tag-row">
+              <span class="math-tag">Network Localization</span>
+              <span class="math-tag">Negative Curvature</span>
+              <span class="math-tag">Second-Order Geometry</span>
+            </div>
+            <a class="math-more" href="notes/network_localization_structural_certificates.html" data-copy-zh="阅读研究概览" data-copy-en="Read research overview">阅读研究概览</a>
+          </article>
+          <article class="math-card" data-href="post/submodular-greedy-formalization-enters-afp.html" tabindex="0" role="link" data-catalog-date="2026-06-30" data-date-label-zh="原始发布 · 2026-06-30" data-date-label-en="Originally posted · 2026-06-30" data-reading-time-zh="约 6 分钟" data-reading-time-en="7 min read">
+            <p class="math-date" data-copy-zh="原始发布 · 2026-06-30" data-copy-en="Originally posted · 2026-06-30">原始发布 · 2026-06-30</p>
+            <span class="math-note-status" data-copy-zh="已发表的形式化项目" data-copy-en="Published formalization">已发表的形式化项目</span>
+            <h3 class="math-title"><a class="math-title-link" href="post/submodular-greedy-formalization-enters-afp.html" data-copy-zh="子模贪心算法形式化正式进入 AFP" data-copy-en="Formalizing Submodular Greedy Is Now in the AFP">子模贪心算法形式化正式进入 AFP</a></h3>
+            <p class="math-desc" data-copy-zh="记录 Isabelle/HOL 子模贪心算法形式化正式发表于 Archive of Formal Proofs，以及形式化过程中逐渐显露出的算法证明结构。" data-copy-en="A short reflection on the publication of an Isabelle/HOL formalization of submodular greedy algorithms in the Archive of Formal Proofs, and on the proof architecture exposed by formalization.">记录 Isabelle/HOL 子模贪心算法形式化正式发表于 Archive of Formal Proofs，以及形式化过程中逐渐显露出的算法证明结构。</p>
+            <div class="math-tag-row">
+              <span class="math-tag">Isabelle/HOL</span>
+              <span class="math-tag">Approximation Algorithms</span>
+              <span class="math-tag">AFP</span>
+            </div>
+            <a class="math-more" href="post/submodular-greedy-formalization-enters-afp.html" data-copy-zh="阅读全文" data-copy-en="Read More">阅读全文</a>
+          </article>
+          <article class="math-card" data-href="post/projected-gradient-descent-isabelle-hol.html" tabindex="0" role="link" data-catalog-date="2026-05-22" data-date-label-zh="原始发布 · 2026-05-22" data-date-label-en="Originally posted · 2026-05-22" data-reading-time-zh="约 5 分钟" data-reading-time-en="5 min read">
+            <p class="math-date" data-copy-zh="原始发布 · 2026-05-22" data-copy-en="Originally posted · 2026-05-22">原始发布 · 2026-05-22</p>
+            <span class="math-note-status" data-copy-zh="Publication retrospective · AFP" data-copy-en="Publication retrospective · AFP">Publication retrospective · AFP</span>
+            <h3 class="math-title"><a class="math-title-link" href="post/projected-gradient-descent-isabelle-hol.html" data-copy-zh="从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL" data-copy-en="Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL">从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL</a></h3>
+            <p class="math-desc" data-copy-zh="这篇 5 月 22 日的原始笔记保留项目设计时期的叙事；该独立形式化现已以《First-Order Methods for Smooth Convex Optimization in Isabelle/HOL》正式发表于 AFP。" data-copy-en="Originally posted on May 22, this note preserves the design-stage narrative; the sole-authored formalization is now published in AFP as First-Order Methods for Smooth Convex Optimization in Isabelle/HOL.">这篇 5 月 22 日的原始笔记保留项目设计时期的叙事；该独立形式化现已以《First-Order Methods for Smooth Convex Optimization in Isabelle/HOL》正式发表于 AFP。</p>
+            <div class="math-tag-row">
+              <span class="math-tag">Isabelle/HOL</span>
+              <span class="math-tag">Optimization</span>
+            </div>
+            <a class="math-more" href="post/projected-gradient-descent-isabelle-hol.html" data-copy-zh="阅读全文" data-copy-en="Read More">阅读全文</a>
+          </article>
+          <article class="math-card" data-href="post/theorem-to-framework-isabelle-submodular.html" tabindex="0" role="link" data-catalog-date="2026-03-14" data-date-label-zh="原始发布 · 2026-03-14" data-date-label-en="Originally posted · 2026-03-14" data-reading-time-zh="约 6 分钟" data-reading-time-en="8 min read">
+            <p class="math-date" data-copy-zh="原始发布 · 2026-03-14" data-copy-en="Originally posted · 2026-03-14">原始发布 · 2026-03-14</p>
+            <span class="math-note-status" data-copy-zh="已发表的形式化项目" data-copy-en="Published formalization">已发表的形式化项目</span>
+            <h3 class="math-title"><a class="math-title-link" href="post/theorem-to-framework-isabelle-submodular.html" data-copy-zh="Isabelle/HOL 中的 Classical Greedy、LazyGreedy 与 StochasticGreedy" data-copy-en="Classical Greedy, LazyGreedy, and StochasticGreedy in Isabelle/HOL">Isabelle/HOL 中的 Classical Greedy、LazyGreedy 与 StochasticGreedy</a></h3>
+            <p class="math-desc" data-copy-zh="原文发布于 3 月 14 日；7 月更新仅补充后续状态。子模贪心条目于 5 月 26 日正式发表于 AFP，发表后仓库继续发展 StochasticGreedy theorem line。" data-copy-en="Originally posted on March 14; the July update adds later status without changing the original date. The submodular entry was published in AFP on May 26, and the repository continued afterward with the StochasticGreedy theorem line.">原文发布于 3 月 14 日；7 月更新仅补充后续状态。子模贪心条目于 5 月 26 日正式发表于 AFP，发表后仓库继续发展 StochasticGreedy theorem line。</p>
+            <div class="math-tag-row">
+              <span class="math-tag">Isabelle/HOL</span>
+              <span class="math-tag">Optimization</span>
+            </div>
+            <a class="math-more" href="post/theorem-to-framework-isabelle-submodular.html" data-copy-zh="阅读全文" data-copy-en="Read More">阅读全文</a>
+          </article>
+          <article class="math-card" data-href="post/metalcore-piano-lab.html" tabindex="0" role="link" data-reading-time-zh="约 3 分钟" data-reading-time-en="3 min read">
+            <p class="math-date" data-copy-zh="2026-02-07" data-copy-en="2026-02-07">2026-02-07</p>
+            <span class="math-note-status" data-copy-zh="探索性推导" data-copy-en="Exploratory derivation">探索性推导</span>
+            <h3 class="math-title"><a class="math-title-link" href="post/metalcore-piano-lab.html" data-copy-zh="Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP）" data-copy-en="Metalcore Piano Lab | From Audio to Chart: A Discretization Experiment (WIP)">Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP）</a></h3>
+            <p class="math-desc" data-copy-zh="从连续音频到可玩的谱面：起音检测、节拍网格、段落对齐与可玩性约束。" data-copy-en="From continuous audio to playable charts: onset detection, beat grids, section alignment, and playability constraints.">从连续音频到可玩的谱面：起音检测、节拍网格、段落对齐与可玩性约束。</p>
+            <div class="math-tag-row">
+              <span class="math-tag">Prototype</span>
+            </div>
+            <a class="math-more" href="post/metalcore-piano-lab.html" data-copy-zh="阅读全文" data-copy-en="Read More">阅读全文</a>
+          </article>
+          <article class="math-card" data-href="post/spring-2026.html" tabindex="0" role="link" data-reading-time-zh="约 2 分钟" data-reading-time-en="2 min read">
+            <p class="math-date" data-copy-zh="2026-01-29" data-copy-en="2026-01-29">2026-01-29</p>
+            <span class="math-note-status" data-copy-zh="探索性推导" data-copy-en="Exploratory derivation">探索性推导</span>
+            <h3 class="math-title"><a class="math-title-link" href="post/spring-2026.html" data-copy-zh="Spring 2026｜新科研记录的开始" data-copy-en="Spring 2026 | A New Research Direction">Spring 2026｜新科研记录的开始</a></h3>
+            <p class="math-desc" data-copy-zh="从纯数学走向优化研究：一个学期的研究训练与新的问题切入口。" data-copy-en="Beginning undergraduate research in Cornell ORIE on first-order methods for constrained and composite optimization.">从纯数学走向优化研究：一个学期的研究训练与新的问题切入口。</p>
+            <div class="math-tag-row">
+              <span class="math-tag">Optimization</span>
+            </div>
+            <a class="math-more" href="post/spring-2026.html" data-copy-zh="阅读全文" data-copy-en="Read More">阅读全文</a>
+          </article>
+          <article class="math-card" data-href="post/isabelle-submodular-greedy.html" tabindex="0" role="link" data-reading-time-zh="约 4 分钟" data-reading-time-en="4 min read">
+            <p class="math-date" data-copy-zh="2025-12-29" data-copy-en="2025-12-29">2025-12-29</p>
+            <span class="math-note-status" data-copy-zh="已发表的形式化项目" data-copy-en="Published formalization">已发表的形式化项目</span>
+            <h3 class="math-title"><a class="math-title-link" href="post/isabelle-submodular-greedy.html" data-copy-zh="早期项目记录：Submodular Greedy 的 Isabelle 形式化" data-copy-en="Early Project Note: Formalising Submodular Greedy">早期项目记录：Submodular Greedy 的 Isabelle 形式化</a></h3>
+            <p class="math-desc" data-copy-zh="2025年12月的阶段记录；项目此后已于 AFP 2026 正式发表。后续 StochasticGreedy 为未发表扩展，最新实现尚未公开。" data-copy-en="A December 2025 stage record; the project was subsequently published in AFP 2026. The later StochasticGreedy extension is unpublished, and its latest implementation is not yet public.">2025年12月的阶段记录；项目此后已于 AFP 2026 正式发表。后续 StochasticGreedy 为未发表扩展，最新实现尚未公开。</p>
+            <div class="math-tag-row">
+              <span class="math-tag">Isabelle/HOL</span>
+              <span class="math-tag">Optimization</span>
+            </div>
+            <a class="math-more" href="post/isabelle-submodular-greedy.html" data-copy-zh="阅读全文" data-copy-en="Read More">阅读全文</a>
+          </article>
+          <article class="math-card" data-href="post/first-isabelle-proof.html" tabindex="0" role="link" data-reading-time-zh="约 2 分钟" data-reading-time-en="2 min read">
+            <p class="math-date" data-copy-zh="2025-10-18" data-copy-en="2025-10-18">2025-10-18</p>
+            <span class="math-note-status" data-copy-zh="已发表的形式化项目" data-copy-en="Published formalization">已发表的形式化项目</span>
+            <h3 class="math-title"><a class="math-title-link" href="post/first-isabelle-proof.html" data-copy-zh="我的第一个 Isabelle 形式化证明" data-copy-en="My First Isabelle Formalization Project">我的第一个 Isabelle 形式化证明</a></h3>
+            <p class="math-desc" data-copy-zh="把可验证性嵌进证明过程：从动机到 Nemhauser–Wolsey theorem。" data-copy-en="Embedding verifiability into proof writing: from motivation to the Nemhauser–Wolsey theorem.">把可验证性嵌进证明过程：从动机到 Nemhauser–Wolsey theorem。</p>
+            <div class="math-tag-row">
+              <span class="math-tag">Isabelle/HOL</span>
+            </div>
+            <a class="math-more" href="post/first-isabelle-proof.html" data-copy-zh="阅读全文" data-copy-en="Read More">阅读全文</a>
+          </article>
+          <!-- GENERATED:math-list:end -->
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <p class="footer-title">CHRONOHAZE</p>
+          <p class="footer-note">学术联系邮箱：<a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a></p>
+          <p class="footer-note">Feier Lyu · BSc Mathematics, University of Edinburgh</p>
+          <p class="footer-copy">© 2026 by CHRONOHAZE. Hosted on GitHub Pages.</p>
+          <div class="social" aria-label="Social links">
+            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://www.instagram.com/lyuf09" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://space.bilibili.com/35902781" target="_blank" rel="noopener noreferrer">Bilibili</a>
+            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+        <div class="footer-right">
+          <a href="policy.html">网站说明</a>
+          <a href="accessibility.html">无障碍支持</a>
+        </div>
+      </div>
+  <div class="analytics-control-shell" data-analytics-collection="enabled">
+    <p class="analytics-control" data-analytics-control>
+      <span data-analytics-status>Analytics: On</span><span aria-hidden="true"> · </span><button type="button" data-analytics-toggle>Turn off</button>
+    </p>
+  </div>
+</footer>
+  </div>
+</body>
+</html>

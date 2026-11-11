@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <style id="chronohaze-critical-loader-style">
+    html.chronohaze-critical-loading,
+    html.chronohaze-critical-loading body {
+      min-height: 100%;
+      background: #10141b;
+    }
+
+    html.chronohaze-critical-loading body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    html.chronohaze-critical-loading body > :not(.chronohaze-loader) {
+      visibility: hidden !important;
+    }
+
+    html.chronohaze-critical-loading::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 2147483000;
+      background:
+        linear-gradient(90deg, rgba(138, 160, 200, 0.09) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(138, 160, 200, 0.07) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(13, 17, 24, 0.992) 0%, rgba(19, 24, 33, 0.992) 55%, rgba(13, 17, 24, 0.996) 100%);
+      background-size: 54px 54px, 54px 54px, 100% 100%;
+    }
+
+    html.chronohaze-critical-loading::after {
+      content: "CHRONOHAZE";
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      z-index: 2147483001;
+      width: min(500px, calc(100vw - 40px));
+      padding: 30px 32px;
+      transform: translate(-50%, -50%);
+      white-space: pre-line;
+      color: rgba(232, 234, 237, 0.9);
+      font: 300 clamp(22px, 3.2vw, 34px)/1.48 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.055em;
+      border: 1px solid rgba(154, 172, 204, 0.3);
+      border-radius: 0;
+      background: linear-gradient(180deg, rgba(20, 25, 34, 0.84) 0%, rgba(13, 17, 24, 0.82) 100%);
+      box-shadow: 0 24px 58px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.045);
+    }
+
+    html[lang^="zh"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A 页面加载中";
+    }
+
+    html[lang^="en"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A Loading";
+    }
+
+    html.chronohaze-critical-loading-mobile body {
+      overflow: auto;
+    }
+
+    html.chronohaze-critical-loading-mobile body > :not(.chronohaze-loader) {
+      visibility: visible !important;
+    }
+
+    html.chronohaze-critical-loading-mobile::before {
+      background: linear-gradient(180deg, rgba(13, 17, 24, 0.18) 0%, rgba(19, 24, 33, 0.22) 100%);
+      pointer-events: none;
+    }
+
+    html.chronohaze-critical-loading-mobile::after {
+      content: "CHRONOHAZE";
+      left: 16px;
+      top: 16px;
+      width: auto;
+      max-width: calc(100vw - 32px);
+      padding: 10px 12px;
+      transform: none;
+      white-space: normal;
+      color: rgba(232, 234, 237, 0.78);
+      font: 400 12px/1.3 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.18em;
+      border: 1px solid rgba(154, 172, 204, 0.18);
+      background: rgba(16, 20, 27, 0.34);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+      backdrop-filter: blur(2px);
+    }
+  </style>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var isMobile = window.matchMedia && window.matchMedia("(max-width: 760px)").matches;
+      root.classList.add("chronohaze-critical-loading");
+      if (isMobile) {
+        root.classList.add("chronohaze-critical-loading-mobile");
+      }
+      window.__chronohazeReleaseCriticalLoader = function () {
+        root.classList.remove("chronohaze-critical-loading");
+        root.classList.remove("chronohaze-critical-loading-mobile");
+      };
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", window.__chronohazeReleaseCriticalLoader, { once: true });
+      } else {
+        window.requestAnimationFrame(window.__chronohazeReleaseCriticalLoader);
+      }
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, 500);
+    })();
+  </script>
+<script>
+    (function () {
+      try {
+        var url = new URL(window.location.href);
+        var queryLang = url.searchParams.get("lang");
+        var valid = function (value) {
+          return value === "zh" || value === "en";
+        };
+        var defaultLang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+        var defaultSafe = defaultLang.indexOf("en") === 0 ? "en" : "zh";
+
+        if (valid(queryLang)) {
+          window.localStorage.setItem("siteLang", queryLang);
+          window.localStorage.setItem("chronohaze-lang", queryLang);
+          window.__chronohazePreferredLang = queryLang;
+          document.documentElement.lang = queryLang === "en" ? "en" : "zh-CN";
+          document.documentElement.setAttribute("data-site-lang", queryLang);
+          return;
+        }
+
+        var storedLang = window.localStorage.getItem("siteLang");
+        if (!valid(storedLang)) {
+          storedLang = window.localStorage.getItem("chronohaze-lang");
+        }
+        if (!valid(storedLang)) {
+          return;
+        }
+
+        window.__chronohazePreferredLang = storedLang;
+        document.documentElement.lang = storedLang === "en" ? "en" : "zh-CN";
+        document.documentElement.setAttribute("data-site-lang", storedLang);
+
+        if (storedLang !== defaultSafe) {
+          url.searchParams.set("lang", storedLang);
+          window.location.replace(url.toString());
+        }
+      } catch (_err) {}
+    })();
+  </script>
+  <link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
+  <title>Ipomoea Alba | Album | Chronohaze</title>
+  <meta name="description" content="音乐专辑页面：Ipomoea Alba | Album。曲目、概念与入口导航。" data-content-zh="音乐专辑页面：Ipomoea Alba。包含曲目列表、专辑概念与各作品入口。" data-content-en="Ipomoea Alba album page by HazezZ, with the complete track list, album concept, and links to individual works." />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Chronohaze" />
+  <meta property="og:title" content="Ipomoea Alba | Album | Chronohaze" />
+  <meta property="og:description" content="音乐专辑页面：Ipomoea Alba | Album。曲目、概念与入口导航。" />
+  <meta property="og:url" content="https://lyuf09.github.io/chronohaze/music/album-ipomoea-alba.html" />
+  <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/album-ipomoea-alba.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ipomoea Alba | Album | Chronohaze" />
+  <meta name="twitter:description" content="音乐专辑页面：Ipomoea Alba | Album。曲目、概念与入口导航。" />
+  <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/album-ipomoea-alba.png" />
+  <link rel="canonical" href="https://lyuf09.github.io/chronohaze/music/album-ipomoea-alba.html" />
+  <!-- GENERATED:hreflang:start -->
+  <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/music/album-ipomoea-alba.html?lang=zh" />
+  <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/music/album-ipomoea-alba.html?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/music/album-ipomoea-alba.html" />
+  <!-- GENERATED:hreflang:end -->
+  <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
+<link rel="preload" href="../assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="../assets/fonts/noto-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="../styles.min.css?v=20261103-history-search1" />
+  <link rel="stylesheet" href="ipomoea-alba/novella/novella.css?v=20261001-ia1" />
+  <script defer src="../protect-media.min.js?v=20261103-history-search1"></script>
+
+  <!-- Chronohaze analytics preference and opt-out control -->
+  <script id="chronohaze-analytics-bootstrap">
+    (function () {
+      var measurementId = "G-JWZY2TVYFZ";
+      var storedPreference;
+      try { storedPreference = window.localStorage.getItem("chronohaze-analytics"); } catch (_err) {}
+      var doNotTrack = navigator.doNotTrack === "1" || window.doNotTrack === "1";
+      var enabled = storedPreference === "on" || (storedPreference !== "off" && !doNotTrack);
+      window["ga-disable-" + measurementId] = !enabled;
+      window.__chronohazeAnalyticsInitialEnabled = enabled;
+    })();
+  </script>
+  <link rel="stylesheet" href="../assets/css/analytics-control.min.css?v=20260906-latin-a11y1" />
+  <script id="chronohaze-analytics-runtime" defer src="../assets/js/analytics-control.min.js?v=20260906-latin-a11y1" data-analytics-collection="enabled"></script>
+</head>
+<body class="music-album-page" data-hide-last-updated="true">
+  <a class="skip-link" href="#main-content">Skip to content / 跳到正文</a>
+<div class="page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="../index.html">
+          <img src="../assets/logo-header.png" alt="Chronohaze site logo" />
+          <span>CHRONOHAZE</span>
+        </a>
+        <nav class="nav" aria-label="主导航">
+          <a href="../index.html" data-i18n="navHome">主页</a>
+          <a href="../academic.html" data-i18n="navAcademic">学术</a>
+          <a class="active" href="../music.html" data-i18n="navMusic">音乐</a>
+          <a href="../photography.html" data-i18n="navPhoto">摄影</a>
+          <a href="../cv.html" data-i18n="navCV">CV</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" class="main">
+      <section class="album-head">
+        <div class="container">
+          <h1 class="album-title">Ipomoea Alba</h1>
+          <p class="album-subtitle">专辑页 · 点击曲目可跳转到对应作品页</p>
+        </div>
+      </section>
+
+      <section class="album-main">
+        <div class="container album-layout with-intro">
+          <figure class="album-cover">
+            <picture class="responsive-picture" style="display:block;width:100%;">
+<source type="image/webp" srcset="../assets/template/ipomoea-alba-album-cover-960.webp 960w, ../assets/template/ipomoea-alba-album-cover-1600.webp 1600w" sizes="(max-width: 900px) 92vw, (max-width: 1280px) 44vw, 40vw" />
+              <img src="../assets/template/ipomoea-alba-album-cover.jpg" alt="Ipomoea Alba 专辑封面" width="1800" height="1350" data-eager="true" loading="eager" decoding="async" fetchpriority="high" sizes="(max-width: 900px) 92vw, (max-width: 1280px) 44vw, 40vw" />
+            </picture>
+            <figcaption class="album-cover-credit">Art by HazezZ</figcaption>
+          </figure>
+          <div class="album-intro" aria-label="专辑介绍">
+            <p class="album-authorship" data-copy-en="Written, arranged, performed and produced by HazezZ, unless otherwise noted." data-copy-zh="除特别说明外，作品的写作、编曲、演奏、录制与制作均由 HazezZ 完成。">除特别说明外，作品的写作、编曲、演奏、录制与制作均由 HazezZ 完成。</p>
+            <p class="album-note">Ipomoea alba 在月光里开放。</p>
+            <p class="album-note">这张专辑从雨、白色花朵与潮湿空气开始，把一段长期写作中的旋律、低频和未完成感收拢到同一条叙事里。</p>
+            <p class="album-note">其中有海、深蓝色的执念，以及现实与想象逐渐拉开距离时留下的张力。</p>
+            <p class="album-note">情绪可以写成一整张专辑，现实却不必交付任何对应的份额。</p>
+            <p class="album-note">后来我不再追问，也不再用结局证明意义；作品本身就是留下来的部分。</p>
+            <p class="album-note">海仍然很远，月光仍会照到同一片水面。</p>
+            <p class="album-production-note">注：部分曲目尚未实录或重制，后续会继续完善。</p>
+          </div>
+
+          <aside class="album-novella-entry" aria-labelledby="companion-novella-title">
+            <p class="album-novella-kicker" id="companion-novella-title">Companion Novella</p>
+            <p class="album-novella-description">A work of fiction about memory, projection, and the distance between what happened and what remained.</p>
+            <p class="album-novella-description" data-copy-zh="连载中，目前开放序章；后续章节仍在写作，暂未开放。" data-copy-en="Serial in progress. The prologue is available; later chapters are still being written.">连载中，目前开放序章；后续章节仍在写作，暂未开放。</p>
+            <a class="album-novella-link" href="ipomoea-alba/novella/" data-copy-zh="阅读序章与目录 →" data-copy-en="Read the prologue and contents →">阅读序章与目录 →</a>
+          </aside>
+
+          <div class="album-track-panel">
+            <ol class="album-tracklist">
+              <li>
+                <a class="album-track-link" href="track-18.html">
+                  <span class="album-track-no">Track 01</span>
+                  <span class="album-track-name">Ipomoea Alba <span class="album-track-feature">✿ 主打</span></span>
+                </a>
+              </li>
+              <li>
+                <a class="album-track-link" href="track-seaside-town.html">
+                  <span class="album-track-no">Track 02</span>
+                  <span class="album-track-name">17, with you</span>
+                </a>
+              </li>
+              <li>
+                <a class="album-track-link" href="track-18.html">
+                  <span class="album-track-no">Track 03</span>
+                  <span class="album-track-name">海底的独白</span>
+                </a>
+              </li>
+              <li>
+                <a class="album-track-link" href="track-15.html">
+                  <span class="album-track-no">Track 04</span>
+                  <span class="album-track-name">夜顔</span>
+                </a>
+              </li>
+              <li>
+                <a class="album-track-link" href="track-negau.html">
+                  <span class="album-track-no">Track 05</span>
+                  <span class="album-track-name">祈愿（願う）</span>
+                </a>
+              </li>
+              <li>
+                <a class="album-track-link" href="track-12.html">
+                  <span class="album-track-no">Track 06</span>
+                  <span class="album-track-name">Rainy days</span>
+                </a>
+              </li>
+              <li>
+                <a class="album-track-link" href="track-09.html">
+                  <span class="album-track-no">Track 07</span>
+                  <span class="album-track-name">Epilogue</span>
+                </a>
+              </li>
+              <li>
+                <a class="album-track-link" href="track-06.html">
+                  <span class="album-track-no">Track 08</span>
+                  <span class="album-track-name">Mr.Idiographic</span>
+                </a>
+              </li>
+              <li>
+                <a class="album-track-link" href="track-03.html">
+                  <span class="album-track-no">Track 09</span>
+                  <span class="album-track-name">花园</span>
+                </a>
+              </li>
+              <li>
+                <a class="album-track-link" href="track-04.html">
+                  <span class="album-track-no">Track 10</span>
+                  <span class="album-track-name">Affizieren <span class="album-track-feature">✿ 主打</span></span>
+                </a>
+              </li>
+              <li>
+                <a class="album-track-link" href="track-02.html">
+                  <span class="album-track-no">Track 11</span>
+                  <span class="album-track-name">He and Me <span class="album-track-feature">✿ 主打</span></span>
+                </a>
+              </li>
+              <li>
+                <a class="album-track-link is-pending" data-track-status="coming-soon" href="track-the-rain-in-my-head.html">
+                  <span class="album-track-no">Track 12</span>
+                  <span class="album-track-name">The rain in my head</span>
+                </a>
+              </li>
+              <li>
+                <a class="album-track-link is-pending" data-track-status="coming-soon" href="track-felix.html">
+                  <span class="album-track-no">Track 13</span>
+                  <span class="album-track-name">Felix</span>
+                </a>
+              </li>
+              <li>
+                <a class="album-track-link" href="track-18.html">
+                  <span class="album-track-no">Track 14</span>
+                  <span class="album-track-name">Ipomoea Alba PianoVer.</span>
+                </a>
+              </li>
+              <li>
+                <a class="album-track-link is-pending" data-track-status="coming-soon" href="track-kaleidoscope.html">
+                  <span class="album-track-no">Bonus Track 15</span>
+                  <span class="album-track-name">鼓動</span>
+                </a>
+              </li>
+            </ol>
+            <a class="album-back-link" href="../music.html">← 返回音乐</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <p class="footer-title">CHRONOHAZE</p>
+          <p class="footer-note">联系邮箱：<a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a></p>
+          <p class="footer-note">重庆 · Edinburgh · Ithaca</p>
+          <p class="footer-copy">© 2026 by CHRONOHAZE. Hosted on GitHub Pages.</p>
+          <div class="social" aria-label="Social links">
+            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://www.instagram.com/lyuf09" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://space.bilibili.com/35902781" target="_blank" rel="noopener noreferrer">Bilibili</a>
+            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+        <div class="footer-right">
+          <a href="../policy.html">网站说明</a>
+          <a href="../accessibility.html">无障碍支持</a>
+        </div>
+      </div>
+  <div class="analytics-control-shell" data-analytics-collection="enabled">
+    <p class="analytics-control" data-analytics-control>
+      <span data-analytics-status>Analytics: On</span><span aria-hidden="true"> · </span><button type="button" data-analytics-toggle>Turn off</button>
+    </p>
+  </div>
+</footer>
+  </div>
+</body>
+</html>

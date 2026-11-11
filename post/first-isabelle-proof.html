@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <style id="chronohaze-critical-loader-style">
+    html.chronohaze-critical-loading,
+    html.chronohaze-critical-loading body {
+      min-height: 100%;
+      background: #10141b;
+    }
+
+    html.chronohaze-critical-loading body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    html.chronohaze-critical-loading body > :not(.chronohaze-loader) {
+      visibility: hidden !important;
+    }
+
+    html.chronohaze-critical-loading::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 2147483000;
+      background:
+        linear-gradient(90deg, rgba(138, 160, 200, 0.09) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(138, 160, 200, 0.07) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(13, 17, 24, 0.992) 0%, rgba(19, 24, 33, 0.992) 55%, rgba(13, 17, 24, 0.996) 100%);
+      background-size: 54px 54px, 54px 54px, 100% 100%;
+    }
+
+    html.chronohaze-critical-loading::after {
+      content: "CHRONOHAZE";
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      z-index: 2147483001;
+      width: min(500px, calc(100vw - 40px));
+      padding: 30px 32px;
+      transform: translate(-50%, -50%);
+      white-space: pre-line;
+      color: rgba(232, 234, 237, 0.9);
+      font: 300 clamp(22px, 3.2vw, 34px)/1.48 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.055em;
+      border: 1px solid rgba(154, 172, 204, 0.3);
+      border-radius: 0;
+      background: linear-gradient(180deg, rgba(20, 25, 34, 0.84) 0%, rgba(13, 17, 24, 0.82) 100%);
+      box-shadow: 0 24px 58px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.045);
+    }
+
+    html[lang^="zh"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A 页面加载中";
+    }
+
+    html[lang^="en"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A Loading";
+    }
+
+    html.chronohaze-critical-loading-mobile body {
+      overflow: auto;
+    }
+
+    html.chronohaze-critical-loading-mobile body > :not(.chronohaze-loader) {
+      visibility: visible !important;
+    }
+
+    html.chronohaze-critical-loading-mobile::before {
+      background: linear-gradient(180deg, rgba(13, 17, 24, 0.18) 0%, rgba(19, 24, 33, 0.22) 100%);
+      pointer-events: none;
+    }
+
+    html.chronohaze-critical-loading-mobile::after {
+      content: "CHRONOHAZE";
+      left: 16px;
+      top: 16px;
+      width: auto;
+      max-width: calc(100vw - 32px);
+      padding: 10px 12px;
+      transform: none;
+      white-space: normal;
+      color: rgba(232, 234, 237, 0.78);
+      font: 400 12px/1.3 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.18em;
+      border: 1px solid rgba(154, 172, 204, 0.18);
+      background: rgba(16, 20, 27, 0.34);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+      backdrop-filter: blur(2px);
+    }
+  </style>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var isMobile = window.matchMedia && window.matchMedia("(max-width: 760px)").matches;
+      root.classList.add("chronohaze-critical-loading");
+      if (isMobile) {
+        root.classList.add("chronohaze-critical-loading-mobile");
+      }
+      window.__chronohazeReleaseCriticalLoader = function () {
+        root.classList.remove("chronohaze-critical-loading");
+        root.classList.remove("chronohaze-critical-loading-mobile");
+      };
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", window.__chronohazeReleaseCriticalLoader, { once: true });
+      } else {
+        window.requestAnimationFrame(window.__chronohazeReleaseCriticalLoader);
+      }
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, 500);
+    })();
+  </script>
+<script>
+    (function () {
+      try {
+        var url = new URL(window.location.href);
+        var queryLang = url.searchParams.get("lang");
+        var valid = function (value) {
+          return value === "zh" || value === "en";
+        };
+        var defaultLang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+        var defaultSafe = defaultLang.indexOf("en") === 0 ? "en" : "zh";
+
+        if (valid(queryLang)) {
+          window.localStorage.setItem("siteLang", queryLang);
+          window.localStorage.setItem("chronohaze-lang", queryLang);
+          window.__chronohazePreferredLang = queryLang;
+          document.documentElement.lang = queryLang === "en" ? "en" : "zh-CN";
+          document.documentElement.setAttribute("data-site-lang", queryLang);
+          return;
+        }
+
+        var storedLang = window.localStorage.getItem("siteLang");
+        if (!valid(storedLang)) {
+          storedLang = window.localStorage.getItem("chronohaze-lang");
+        }
+        if (!valid(storedLang)) {
+          return;
+        }
+
+        window.__chronohazePreferredLang = storedLang;
+        document.documentElement.lang = storedLang === "en" ? "en" : "zh-CN";
+        document.documentElement.setAttribute("data-site-lang", storedLang);
+
+        if (storedLang !== defaultSafe) {
+          url.searchParams.set("lang", storedLang);
+          window.location.replace(url.toString());
+        }
+      } catch (_err) {}
+    })();
+  </script>
+  <link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
+  <title>我的第一个 Isabelle 形式化证明</title>
+  <meta name="description" content="我的第一个 Isabelle 形式化证明项目：从直觉到可验证证明结构。" data-content-zh="我的第一个 Isabelle 形式化证明项目：从数学直觉走向显式、可机器检查的证明结构。" data-content-en="My first Isabelle formalization project: from mathematical intuition to explicit, machine-checkable proof structure." />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Chronohaze" />
+  <meta property="og:title" content="我的第一个 Isabelle 形式化证明 | Chronohaze" />
+  <meta property="og:description" content="我的第一个 Isabelle 形式化证明项目：从直觉到可验证证明结构。" />
+  <meta property="og:url" content="https://lyuf09.github.io/chronohaze/post/first-isabelle-proof.html" />
+  <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/first-isabelle-proof.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="我的第一个 Isabelle 形式化证明 | Chronohaze" />
+  <meta name="twitter:description" content="我的第一个 Isabelle 形式化证明项目：从直觉到可验证证明结构。" />
+  <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/math/first-isabelle-proof.png" />
+  <link rel="canonical" href="https://lyuf09.github.io/chronohaze/post/first-isabelle-proof.html" />
+  <!-- GENERATED:hreflang:start -->
+  <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/post/first-isabelle-proof.html?lang=zh" />
+  <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/post/first-isabelle-proof.html?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/post/first-isabelle-proof.html" />
+  <!-- GENERATED:hreflang:end -->
+  <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
+<link rel="preload" href="../assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="../assets/fonts/noto-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="../styles.min.css?v=20261103-history-search1" />
+  <script defer src="../protect-media.min.js?v=20261103-history-search1"></script>
+
+  <!-- Chronohaze analytics preference and opt-out control -->
+  <script id="chronohaze-analytics-bootstrap">
+    (function () {
+      var measurementId = "G-JWZY2TVYFZ";
+      var storedPreference;
+      try { storedPreference = window.localStorage.getItem("chronohaze-analytics"); } catch (_err) {}
+      var doNotTrack = navigator.doNotTrack === "1" || window.doNotTrack === "1";
+      var enabled = storedPreference === "on" || (storedPreference !== "off" && !doNotTrack);
+      window["ga-disable-" + measurementId] = !enabled;
+      window.__chronohazeAnalyticsInitialEnabled = enabled;
+    })();
+  </script>
+  <link rel="stylesheet" href="../assets/css/analytics-control.min.css?v=20260906-latin-a11y1" />
+  <script id="chronohaze-analytics-runtime" defer src="../assets/js/analytics-control.min.js?v=20260906-latin-a11y1" data-analytics-collection="enabled"></script>
+</head>
+<body class="math-post-page">
+  <a class="skip-link" href="#main-content">Skip to content / 跳到正文</a>
+<div class="page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="../index.html">
+          <img src="../assets/logo-header.png" alt="Chronohaze site logo" />
+          <span>CHRONOHAZE</span>
+        </a>
+        <nav class="nav" aria-label="主导航">
+          <a href="../index.html" data-i18n="navHome">主页</a>
+          <a class="active" href="../academic.html" data-i18n="navAcademic">学术</a>
+          <a href="../music.html" data-i18n="navMusic">音乐</a>
+          <a href="../photography.html" data-i18n="navPhoto">摄影</a>
+          <a href="../cv.html" data-i18n="navCV">CV</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" class="main">
+      <div class="container">
+        <div class="cv-utility-bar">
+          <div class="cv-utility-top">
+            <nav class="academic-local-nav" aria-label="Academic section links" data-i18n-aria="academicSectionAria">
+              <a class="academic-local-link" href="../research.html" data-i18n="utilityResearch">Research Statement</a>
+              <a class="academic-local-link" href="../projects.html" data-i18n="utilityProjects">Selected Work</a>
+              <a class="academic-local-link is-active" href="../math.html" data-i18n="utilityNotes">Technical Notes</a>
+            </nav>
+          </div>
+        </div>
+      </div>
+<article class="article">
+<div data-lang-block="zh">
+<h1>我的第一个 Isabelle 形式化证明</h1>
+  <p class="article-meta">Feier Lyu · Originally posted 2025年10月18日 · 约 2 分钟</p>
+  <aside class="math-post-update" aria-label="项目更新：2026年10月25日">
+    <p class="math-post-update-label">更新于 2026年10月25日</p>
+    <p>后来的子模贪心项目在 2026 年 5 月 26 日正式进入 AFP，包含 classical greedy 和 verified stateful lazy greedy。StochasticGreedy 是发表后的未发表扩展，最新实现尚未公开。</p>
+  </aside>
+  <p>我最开始接触 Isabelle 的时候想试试把自己已经学过的数学证明完整写成机器可以检查的版本。当时主要在做两个方向：一些关于极限定义的基本证明，还有单调子模函数的 greedy approximation theorem。</p>
+
+  <h3><strong>我当时在做什么</strong></h3>
+  <p>子模优化这边我准备形式化 Nemhauser–Wolsey 定理，也就是经典的基数约束贪心近似保证。需要先定义 ground set、marginal gain、monotonicity 和 submodularity，然后把每一步的贪心选择和最后的近似分析写清楚。</p>
+  <p>这个过程中最容易被略过的其实是基本条件。例如手写证明的时候我可能直接说“选边际增益最大的元素”，但是 Isabelle 会要求先处理有限性、候选集合和最大值是否存在。</p>
+
+  <h3><strong>为什么用 Isabelle</strong></h3>
+  <p>主要是当时接触的老师就在用 Isabelle，所以我也跟着学了。它和我平时手写证明最大的区别是不能靠一句“显然”跳过中间步骤。</p>
+  <p>一些我原本觉得很直接的结论，真正写的时候才发现还少了前提。有时候也会发现两个定义看起来等价，但是要把它们之间的关系证明出来还需要不少工作。</p>
+  <p>我还挺喜欢这个过程的。不是因为每个小 lemma 都很难，而是它会让我更清楚自己到底证明了什么。</p>
+
+  <h3><strong>2025 年 10 月的进度</strong></h3>
+  <p>当时已经完成了一些关于 filter limit 和 sequential limit 的定义，以及 filter limit 蕴含 sequential limit 的证明。子模贪心那边也搭好了基本的形式化结构。</p>
+  <p>接下来还想继续处理两种极限定义的等价性，补齐贪心近似证明需要的引理，再看看能不能把这些结果应用到其他优化问题里。</p>
+  <p>这是我最早的一篇 Isabelle 学习记录。后来的子模贪心项目已经正式进入 AFP，发表范围和后续扩展在上面的更新里都有说明。</p>
+
+  <nav class="math-post-nav" data-static-math-post-nav="1" aria-label="相邻笔记导航"><a class="math-post-nav-item" data-nav-dir="prev" href="../post/isabelle-submodular-greedy.html" data-no-page-transition="1" aria-label="上一篇 · 早期项目记录：Submodular Greedy 的 Isabelle 形式化"><span class="math-post-nav-label">上一篇</span><span class="math-post-nav-title">早期项目记录：Submodular Greedy 的 Isabelle 形式化</span></a><span class="math-post-nav-item is-disabled" data-nav-dir="next" aria-disabled="true"><span class="math-post-nav-label">下一篇</span><span class="math-post-nav-title">暂无下一篇</span></span></nav>
+<div class="academic-hub-links math-post-hub-links">
+  <p class="academic-hub-links-label">继续浏览</p>
+  <div class="research-link-row">
+    <a href="../research.html">Research Statement</a>
+    <a href="../projects.html">Selected Work</a>
+    <a href="../math.html">Technical Notes</a>
+  </div>
+</div>
+</div>
+
+<div data-lang-block="en" hidden>
+<h1>My First Isabelle Formalization Project</h1>
+  <p class="article-meta">Feier Lyu · Originally posted 18 October 2025 · ~2 min read</p>
+  <aside class="math-post-update" aria-label="Project update, October 25, 2026">
+    <p class="math-post-update-label">Updated October 25, 2026</p>
+    <p>The submodular greedy project was later published in AFP on May 26, 2026. The entry covers classical greedy and a verified stateful lazy-greedy variant. StochasticGreedy is an unpublished extension developed after the AFP entry; the latest implementation is not yet public. </p>
+  </aside>
+  <p>When I first started using Isabelle, I wanted to see whether I could take proofs I had already learned and write them in a form that a computer could check. At the time I was working on two things: some basic proofs about limits, and the greedy approximation theorem for monotone submodular functions.</p>
+
+  <h3><strong>What I was doing at the time</strong></h3>
+  <p>For submodular optimisation I wanted to formalise the Nemhauser–Wolsey theorem, which gives the classical greedy approximation guarantee under a cardinality constraint. I needed to define the ground set, marginal gains, monotonicity and submodularity, then make the greedy choices and the approximation proof precise.</p>
+  <p>The details most easily skipped were often the basic assumptions. In a handwritten proof I might simply say “choose an element with maximum marginal gain”. But Isabelle makes me check finiteness, the candidate set and whether a maximum actually exists.</p>
+
+  <h3><strong>Why Isabelle?</strong></h3>
+  <p>Mostly because the teachers I was working with at the time used Isabelle, so I started learning it too. The biggest difference from my handwritten proofs is that I can't just say something is “obvious” and skip the steps in between.</p>
+  <p>Sometimes a result that looked straightforward turned out to need an extra assumption. Sometimes two definitions seemed equivalent, but proving the relation between them took more work than I expected.</p>
+  <p>I actually quite like this part. Not because every small lemma is difficult, but because it makes me check exactly what I've proved.</p>
+
+  <h3><strong>Progress in October 2025</strong></h3>
+  <p>By then I had written some definitions for filter limits and sequential limits, and proved that a filter limit implies a sequential limit. I had also set up the basics for the submodular greedy formalisation.</p>
+  <p>Next I wanted to work on the equivalence of the two limit definitions, complete the lemmas needed for the greedy approximation proof, and see whether any of this could be useful for other optimisation problems.</p>
+  <p>This was one of my earliest notes about learning Isabelle. The submodular greedy project was later published in AFP, and the update above explains what the published entry covers and what was added afterwards.</p>
+
+<nav class="math-post-nav" data-static-math-post-nav="1" aria-label="Adjacent notes"><a class="math-post-nav-item" data-nav-dir="prev" href="../post/isabelle-submodular-greedy.html" data-no-page-transition="1" aria-label="Previous note · Early Project Note: Formalising Submodular Greedy"><span class="math-post-nav-label">Previous note</span><span class="math-post-nav-title">Early Project Note: Formalising Submodular Greedy</span></a><span class="math-post-nav-item is-disabled" data-nav-dir="next" aria-disabled="true"><span class="math-post-nav-label">Next note</span><span class="math-post-nav-title">No next note</span></span></nav>
+<div class="academic-hub-links math-post-hub-links">
+  <p class="academic-hub-links-label">Continue with</p>
+  <div class="research-link-row">
+    <a href="../research.html">Research Statement</a>
+    <a href="../projects.html">Selected Work</a>
+    <a href="../math.html">Technical Notes</a>
+  </div>
+</div>
+</div>
+</article>
+
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <p class="footer-title">CHRONOHAZE</p>
+          <p class="footer-note">学术联系邮箱：<a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a></p>
+          <p class="footer-note">Feier Lyu · 爱丁堡大学数学本科</p>
+          <p class="footer-copy">© 2026 by CHRONOHAZE. Hosted on GitHub Pages.</p>
+          <div class="social" aria-label="Social links">
+            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://www.instagram.com/lyuf09" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://space.bilibili.com/35902781" target="_blank" rel="noopener noreferrer">Bilibili</a>
+            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+        <div class="footer-right">
+          <a href="../policy.html">网站说明</a>
+          <a href="../accessibility.html">无障碍支持</a>
+        </div>
+      </div>
+  <div class="analytics-control-shell" data-analytics-collection="enabled">
+    <p class="analytics-control" data-analytics-control>
+      <span data-analytics-status>Analytics: On</span><span aria-hidden="true"> · </span><button type="button" data-analytics-toggle>Turn off</button>
+    </p>
+  </div>
+</footer>
+  </div>
+<script>
+  (function () {
+    const i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
+    const i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
+    const langBlocks = Array.from(document.querySelectorAll('[data-lang-block]'));
+    const queryLang = new URLSearchParams(window.location.search).get('lang');
+
+    const i18n = {
+      zh: {
+        htmlLang: 'zh-CN',
+        pageTitle: '我的第一个 Isabelle 形式化证明 | Chronohaze',
+        navAria: '主导航',
+        navHome: '主页',
+        navAcademic: '学术',
+        navPhoto: '摄影',
+        navMusic: '音乐',
+        navCV: 'CV',
+        academicSectionAria: '学术页面导航',
+        utilityResearch: 'Research Statement',
+        utilityProjects: 'Selected Work',
+        utilityNotes: 'Technical Notes',
+        footerContactLead: '学术联系邮箱：',
+        footerCities: 'Feier Lyu · 爱丁堡大学数学本科',
+        siteNotes: '网站说明',
+        a11y: '无障碍支持'
+      },
+      en: {
+        htmlLang: 'en',
+        pageTitle: 'My First Isabelle Formalization Project | Chronohaze',
+        navAria: 'Main navigation',
+        navHome: 'Home',
+        navAcademic: 'Academic',
+        navPhoto: 'Photography',
+        navMusic: 'Music',
+        navCV: 'CV',
+        academicSectionAria: 'Academic section navigation',
+        utilityResearch: 'Research Statement',
+        utilityProjects: 'Selected Work',
+        utilityNotes: 'Technical Notes',
+        footerContactLead: 'Academic contact: ',
+        footerCities: 'Feier Lyu · BSc Mathematics, University of Edinburgh',
+        siteNotes: 'Site Notes',
+        a11y: 'Accessibility'
+      }
+    };
+
+    function setLanguage(lang) {
+      const safeLang = lang === 'en' ? 'en' : 'zh';
+      const dict = i18n[safeLang];
+      document.documentElement.lang = dict.htmlLang;
+      document.title = dict.pageTitle;
+      const description = document.querySelector('meta[name="description"]');
+      if (description) {
+        const translated = description.getAttribute('data-content-' + safeLang);
+        if (translated) description.setAttribute('content', translated);
+      }
+
+      i18nNodes.forEach(function (node) {
+        const key = node.getAttribute('data-i18n');
+        const value = dict[key];
+        if (typeof value === 'string') node.textContent = value;
+      });
+
+      i18nAriaNodes.forEach(function (node) {
+        const key = node.getAttribute('data-i18n-aria');
+        const value = dict[key];
+        if (typeof value === 'string') node.setAttribute('aria-label', value);
+      });
+
+      langBlocks.forEach(function (block) {
+        block.hidden = block.getAttribute('data-lang-block') !== safeLang;
+      });
+
+      try {
+        window.localStorage.setItem('siteLang', safeLang);
+        window.localStorage.setItem('chronohaze-lang', safeLang);
+      } catch (err) {
+      }
+    }
+
+    let initialLang = 'zh';
+    try {
+      const siteLang = window.localStorage.getItem('siteLang');
+      const savedLang = window.localStorage.getItem('chronohaze-lang');
+      if (siteLang === 'zh' || siteLang === 'en') initialLang = siteLang;
+      else if (savedLang === 'zh' || savedLang === 'en') initialLang = savedLang;
+    } catch (err) {
+    }
+    if (queryLang === 'zh' || queryLang === 'en') initialLang = queryLang;
+    setLanguage(initialLang);
+  })();
+</script>
+</body>
+</html>

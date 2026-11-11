@@ -1,0 +1,91 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install generation dependencies
+        timeout-minutes: 20
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pillow
+          if [ -f /etc/apt/apt-mirrors.txt ]; then
+            sudo sed -i '\|azure.archive.ubuntu.com|d' /etc/apt/apt-mirrors.txt
+          fi
+          printf '%s\n' \
+            'Acquire::Retries "3";' \
+            'Acquire::http::Timeout "30";' \
+            'Acquire::https::Timeout "30";' \
+            | sudo tee /etc/apt/apt.conf.d/80chronohaze-network >/dev/null
+          sudo apt-get \
+            -o Acquire::Retries=3 \
+            -o Acquire::http::Timeout=30 \
+            -o Acquire::https::Timeout=30 \
+            update
+          sudo apt-get \
+            -o Acquire::Retries=3 \
+            -o Acquire::http::Timeout=30 \
+            -o Acquire::https::Timeout=30 \
+            install -y fonts-noto-cjk ripgrep
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Build generated data and run pre-deploy consistency checks
+        run: bash scripts/check_all.sh
+
+      - name: Prepare site
+        run: |
+          rm -rf _site
+          mkdir -p _site
+          tar \
+            --exclude='./.git' \
+            --exclude='./.github' \
+            --exclude='./_site' \
+            --exclude='./node_modules' \
+            --exclude='./tests' \
+            --exclude='./scripts' \
+            --exclude='./docs' \
+            --exclude='./package.json' \
+            --exclude='./playwright.smoke.config.js' \
+            --exclude='./.DS_Store' \
+            -cf - . | (cd _site && tar -xf -)
+          touch _site/.nojekyll
+          python scripts/prune_deploy_assets.py --site _site --max-bytes 1000000000
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

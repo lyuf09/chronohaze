@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <style id="chronohaze-critical-loader-style">
+    html.chronohaze-critical-loading,
+    html.chronohaze-critical-loading body {
+      min-height: 100%;
+      background: #10141b;
+    }
+
+    html.chronohaze-critical-loading body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    html.chronohaze-critical-loading body > :not(.chronohaze-loader) {
+      visibility: hidden !important;
+    }
+
+    html.chronohaze-critical-loading::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 2147483000;
+      background:
+        linear-gradient(90deg, rgba(138, 160, 200, 0.09) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(138, 160, 200, 0.07) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(13, 17, 24, 0.992) 0%, rgba(19, 24, 33, 0.992) 55%, rgba(13, 17, 24, 0.996) 100%);
+      background-size: 54px 54px, 54px 54px, 100% 100%;
+    }
+
+    html.chronohaze-critical-loading::after {
+      content: "CHRONOHAZE";
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      z-index: 2147483001;
+      width: min(500px, calc(100vw - 40px));
+      padding: 30px 32px;
+      transform: translate(-50%, -50%);
+      white-space: pre-line;
+      color: rgba(232, 234, 237, 0.9);
+      font: 300 clamp(22px, 3.2vw, 34px)/1.48 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.055em;
+      border: 1px solid rgba(154, 172, 204, 0.3);
+      border-radius: 0;
+      background: linear-gradient(180deg, rgba(20, 25, 34, 0.84) 0%, rgba(13, 17, 24, 0.82) 100%);
+      box-shadow: 0 24px 58px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.045);
+    }
+
+    html[lang^="zh"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A 页面加载中";
+    }
+
+    html[lang^="en"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A Loading";
+    }
+
+    html.chronohaze-critical-loading-mobile body {
+      overflow: auto;
+    }
+
+    html.chronohaze-critical-loading-mobile body > :not(.chronohaze-loader) {
+      visibility: visible !important;
+    }
+
+    html.chronohaze-critical-loading-mobile::before {
+      background: linear-gradient(180deg, rgba(13, 17, 24, 0.18) 0%, rgba(19, 24, 33, 0.22) 100%);
+      pointer-events: none;
+    }
+
+    html.chronohaze-critical-loading-mobile::after {
+      content: "CHRONOHAZE";
+      left: 16px;
+      top: 16px;
+      width: auto;
+      max-width: calc(100vw - 32px);
+      padding: 10px 12px;
+      transform: none;
+      white-space: normal;
+      color: rgba(232, 234, 237, 0.78);
+      font: 400 12px/1.3 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.18em;
+      border: 1px solid rgba(154, 172, 204, 0.18);
+      background: rgba(16, 20, 27, 0.34);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+      backdrop-filter: blur(2px);
+    }
+  </style>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var isMobile = window.matchMedia && window.matchMedia("(max-width: 760px)").matches;
+      root.classList.add("chronohaze-critical-loading");
+      if (isMobile) {
+        root.classList.add("chronohaze-critical-loading-mobile");
+      }
+      window.__chronohazeReleaseCriticalLoader = function () {
+        root.classList.remove("chronohaze-critical-loading");
+        root.classList.remove("chronohaze-critical-loading-mobile");
+      };
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", window.__chronohazeReleaseCriticalLoader, { once: true });
+      } else {
+        window.requestAnimationFrame(window.__chronohazeReleaseCriticalLoader);
+      }
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, 500);
+    })();
+  </script>
+<script>
+    (function () {
+      try {
+        var url = new URL(window.location.href);
+        var queryLang = url.searchParams.get("lang");
+        var valid = function (value) {
+          return value === "zh" || value === "en";
+        };
+        var defaultLang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+        var defaultSafe = defaultLang.indexOf("en") === 0 ? "en" : "zh";
+
+        if (valid(queryLang)) {
+          window.localStorage.setItem("siteLang", queryLang);
+          window.localStorage.setItem("chronohaze-lang", queryLang);
+          window.__chronohazePreferredLang = queryLang;
+          document.documentElement.lang = queryLang === "en" ? "en" : "zh-CN";
+          document.documentElement.setAttribute("data-site-lang", queryLang);
+          return;
+        }
+
+        var storedLang = window.localStorage.getItem("siteLang");
+        if (!valid(storedLang)) {
+          storedLang = window.localStorage.getItem("chronohaze-lang");
+        }
+        if (!valid(storedLang)) {
+          return;
+        }
+
+        window.__chronohazePreferredLang = storedLang;
+        document.documentElement.lang = storedLang === "en" ? "en" : "zh-CN";
+        document.documentElement.setAttribute("data-site-lang", storedLang);
+
+        if (storedLang !== defaultSafe) {
+          url.searchParams.set("lang", storedLang);
+          window.location.replace(url.toString());
+        }
+      } catch (_err) {}
+    })();
+  </script>
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico?v=4" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=4" />
+  <title data-title-zh="研究陈述 | Feier Lyu" data-title-en="Research Statement | Feier Lyu">Research Statement | Feier Lyu</title>
+  <meta name="description" content="Research statement by Feier Lyu (Fay Lyu) on reusable Isabelle/HOL infrastructure for optimization and second-order geometry in network localization." data-content-zh="Feier Lyu（Fay Lyu）的研究陈述：面向优化的可复用 Isabelle/HOL 基础设施，以及网络定位中的二阶几何。" data-content-en="Research statement by Feier Lyu (Fay Lyu) on reusable Isabelle/HOL infrastructure for optimization and second-order geometry in network localization." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Chronohaze" />
+  <meta property="og:title" content="Research Statement | Feier Lyu" />
+  <meta property="og:description" content="Research statement on machine-checked optimization, reusable proof structure, invariance, duality, and localization." />
+  <meta property="og:url" content="https://lyuf09.github.io/chronohaze/research.html" />
+  <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/research.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Research Statement | Feier Lyu" />
+  <meta name="twitter:description" content="Research statement on machine-checked optimization, reusable proof structure, invariance, duality, and localization." />
+  <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/research.png" />
+  <link rel="canonical" href="https://lyuf09.github.io/chronohaze/research.html" />
+  <!-- GENERATED:hreflang:start -->
+  <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/research.html?lang=zh" />
+  <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/research.html?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/research.html" />
+  <!-- GENERATED:hreflang:end -->
+  <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "AboutPage",
+      "@id": "https://lyuf09.github.io/chronohaze/research.html#page",
+      "url": "https://lyuf09.github.io/chronohaze/research.html",
+      "name": "Research Statement | Feier Lyu",
+      "mainEntity": {
+        "@id": "https://lyuf09.github.io/chronohaze/#person"
+      },
+      "about": {
+        "@id": "https://lyuf09.github.io/chronohaze/#person"
+      }
+    }
+  </script>
+<link rel="preload" href="assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="assets/fonts/noto-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="styles.min.css?v=20261103-history-search1" />
+  <link rel="stylesheet" href="assets/css/academic-mobile.css?v=20260418-mobile1" />
+  <script defer src="protect-media.min.js?v=20261103-history-search1"></script>
+<link rel="stylesheet" href="assets/css/academic-reading.css?v=20261029-reading1" />
+
+  <!-- Chronohaze analytics preference and opt-out control -->
+  <script id="chronohaze-analytics-bootstrap">
+    (function () {
+      var measurementId = "G-JWZY2TVYFZ";
+      var storedPreference;
+      try { storedPreference = window.localStorage.getItem("chronohaze-analytics"); } catch (_err) {}
+      var doNotTrack = navigator.doNotTrack === "1" || window.doNotTrack === "1";
+      var enabled = storedPreference === "on" || (storedPreference !== "off" && !doNotTrack);
+      window["ga-disable-" + measurementId] = !enabled;
+      window.__chronohazeAnalyticsInitialEnabled = enabled;
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/css/analytics-control.min.css?v=20260906-latin-a11y1" />
+  <script id="chronohaze-analytics-runtime" defer src="assets/js/analytics-control.min.js?v=20260906-latin-a11y1" data-analytics-collection="enabled"></script>
+</head>
+<body class="research-landing-page research-page" data-research-catalog-ready="1">
+  <a class="skip-link" href="#main-content">Skip to content / 跳到正文</a>
+<div class="page">
+    <header class="site-header">
+      <div class="container header-inner header-inner--with-lang">
+        <a class="brand" href="index.html">
+          <img src="assets/logo-header.png" alt="Chronohaze site logo" />
+          <span>CHRONOHAZE</span>
+        </a>
+        <nav class="nav" aria-label="主导航" data-i18n-aria="navAria">
+          <a href="index.html" data-i18n="navHome">主页</a>
+          <a class="active" href="academic.html" data-i18n="navAcademic">学术</a>
+          <a href="music.html" data-i18n="navMusic">音乐</a>
+          <a href="photography.html" data-i18n="navPhoto">摄影</a>
+          <a href="cv.html" data-i18n="navCV">CV</a>
+        </nav>
+        <div class="floating-lang-switch" role="group" aria-label="Language switch">
+          <button class="floating-lang-btn" type="button" data-lang="zh" aria-label="Switch site language to Chinese">ZH</button>
+          <button class="floating-lang-btn" type="button" data-lang="en" aria-label="Switch site language to English">EN</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content" class="main">
+      <div class="container">
+        <div class="cv-utility-bar">
+          <div class="cv-utility-top">
+          </div>
+          <nav class="academic-local-nav" aria-label="Academic section links" data-i18n-aria="academicSectionAria">
+            <a class="academic-local-link" href="projects.html" data-i18n="utilityProjects">代表性工作</a>
+            <a class="academic-local-link is-active" href="research.html" data-i18n="utilityResearch">研究陈述</a>
+            <a class="academic-local-link" href="math.html" data-i18n="utilityNotes">技术笔记</a>
+          </nav>
+        </div>
+      </div>
+
+      <section class="research-hero">
+        <div class="container research-hero-inner">
+          <div class="research-hero-copy">
+            <div data-lang-block="zh">
+              <h1>研究陈述</h1>
+              <p class="research-positioning"><strong>Feier Lyu</strong>（Fay Lyu）</p>
+              <p class="research-positioning research-thesis-line">我的工作目前有两个方向。一是优化算法的 Isabelle/HOL 形式化验证，包括子模贪心方法与投影梯度下降；二是非凸网络定位，研究图结构与节点几何如何影响驻点附近的二阶性质。</p>
+            </div>
+            <div data-lang-block="en" hidden>
+              <h1>Research Statement</h1>
+              <p class="research-positioning"><strong>Feier Lyu</strong> (Fay Lyu)</p>
+              <p class="research-positioning research-thesis-line">My work currently has two main directions. The first is formal verification of optimization algorithms in Isabelle/HOL, including submodular greedy methods and projected gradient descent. The second is nonconvex network localization, where I study how network structure shapes second-order geometry near stationary points.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section research-questions-section" id="research-questions">
+        <div class="container research-section-head" id="research-now">
+          <div data-lang-block="zh"><h2>当前正在解决的三个问题</h2></div>
+          <div data-lang-block="en" hidden><h2>Three current questions</h2></div>
+        </div>
+        <div class="container">
+          <ol class="research-question-list" data-lang-block="zh">
+            <li><span>01</span><p>如何把经典贪心、有状态惰性贪心与 StochasticGreedy 的假设、状态不变量和近似保证组织成可复用的 Isabelle/HOL 接口？</p></li>
+            <li><span>02</span><p>如何基于已建立的概率运行语义与预言机调用次数界，进一步改进可执行选择过程并评估实际运行表现？</p></li>
+            <li><span>03</span><p>对网络定位中的非最优驻点，哪些图结构与几何条件控制其二阶行为？</p></li>
+          </ol>
+          <ol class="research-question-list" data-lang-block="en" hidden>
+            <li><span>01</span><p>How can the assumptions, state invariants, and approximation guarantees for classical greedy, stateful lazy-greedy, and stochastic-greedy be exposed through reusable Isabelle/HOL interfaces?</p></li>
+            <li><span>02</span><p>How can executable selection be improved and evaluated using the established probabilistic run semantics and oracle-cost bounds?</p></li>
+            <li><span>03</span><p>Which graph and geometric conditions control second-order behavior near non-optimal stationary points in network localization?</p></li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="section research-projects-section" id="research-projects">
+        <div class="container research-section-head">
+          <div data-lang-block="zh"><h2>主要研究方向</h2></div>
+          <div data-lang-block="en" hidden><h2>Primary Research Directions</h2></div>
+        </div>
+        <div class="container research-project-grid research-direction-hierarchy">
+          <div data-lang-block="zh" class="research-direction-grid">
+            <article class="research-project-card">
+              <p class="research-project-kind">主要方向 01</p>
+              <h3>优化算法的形式化验证</h3>
+              <p>在 Isabelle/HOL 中形式化算法假设、状态不变量、关键不等式与收敛结论。</p>
+              <p>我关心的是：当算法从抽象选择规则变成带状态、缓存或随机采样的实现时，原来的保证还需要哪些条件？把这些条件写成可检查的接口，能让后续变体复用证明，也能暴露实现与数学模型之间的差距。</p>
+              <p>未发表扩展：StochasticGreedy 已连接可执行采样、理想随机位语义、期望近似保证与预言机调用次数界。下一步是改进选择过程、比较实际运行表现，并明确随机语义能支持哪些实现层面的结论。最新实现尚未公开。</p>
+              <div class="research-link-row"><a href="post/stochasticgreedy-executable-refinement.html?lang=zh">阅读当前研究记录</a></div>
+            </article>
+
+            <article class="research-project-card">
+              <p class="research-project-kind">主要方向 02</p>
+              <h3>网络定位中的二阶几何</h3>
+              <p>与 Shoham Sabach、Owen Li 合作研究网络结构如何影响非最优驻点附近的二阶几何。</p>
+              <p>驻点并不一定是局部极小值。数值特征值可以检查一个算例，但我更想知道，哪些图结构与节点几何能够解释负曲率从何而来。单条边的负贡献可能被其他边抵消，因此需要分析整个网络沿同一扰动方向的二阶变化。</p>
+              <p>下一步是把这些结构条件与数值算例对照，判断它们何时能识别非最优驻点。项目仍在进行，技术结果尚未公开。</p>
+            </article>
+
+          </div>
+          <div data-lang-block="en" class="research-direction-grid" hidden>
+            <article class="research-project-card">
+              <p class="research-project-kind">PRIMARY DIRECTION 01</p>
+              <h3>Formal verification of optimization algorithms</h3>
+              <p>I formalize algorithm assumptions, state invariants, key inequalities, and convergence results in Isabelle/HOL.</p>
+              <p>What happens to a guarantee when an abstract selection rule becomes an implementation with state, caching, or random sampling? Making those conditions explicit and checkable lets later variants reuse proofs and exposes gaps between the implementation and its mathematical model.</p>
+              <p>Unpublished extension: StochasticGreedy connects executable sampling, ideal random-bit semantics, expected approximation guarantees, and oracle-cost bounds. Next I want to improve selection, compare practical performance, and clarify which implementation claims the random semantics supports. The latest implementation is not yet public.</p>
+              <div class="research-link-row"><a href="post/stochasticgreedy-executable-refinement.html?lang=en">Read the current research note</a></div>
+            </article>
+
+            <article class="research-project-card">
+              <p class="research-project-kind">PRIMARY DIRECTION 02</p>
+              <h3>Second-order geometry in network localization</h3>
+              <p>I work with Shoham Sabach and Owen Li on how network structure shapes second-order geometry near non-optimal stationary points.</p>
+              <p>A stationary point need not be a local minimum. Numerical eigenvalues can check a particular example; I want to understand which graph structures and node geometries explain negative curvature. One edge's negative contribution can be cancelled by others, so the second-order change must be studied along a common perturbation of the whole network.</p>
+              <p>Next I want to compare structural conditions with numerical examples and understand when they detect non-optimal stationary points. The project is ongoing; technical results are not yet public.</p>
+            </article>
+
+          </div>
+        </div>
+      </section>
+
+      <section class="section research-perspective" id="research-perspective">
+        <div class="container">
+          <div data-lang-block="zh"><h2>两条研究线如何影响我的思考</h2><p>形式化工作让我习惯追问每一步究竟用了哪个假设；网络定位则让我看到，局部计算必须放回整个图中才有意义。两者都使我更关心一个结论为什么成立，以及当实现或结构改变时，哪些部分还能保留。这也是我接下来希望继续研究的优化问题。</p></div>
+          <div data-lang-block="en" hidden><h2>How the two directions shape my thinking</h2><p>Formalization has made me ask exactly which assumption each step uses. Network localization has shown me why a local calculation must be placed back in the full graph. Both lead me to ask why a result holds and which parts survive a change in implementation or structure. Those are the optimization questions I want to keep pursuing.</p></div>
+        </div>
+      </section>
+
+      <section class="section research-selected-work-cta" id="research-outputs">
+        <div class="container research-outputs-shell">
+          <div class="research-link-row" data-lang-block="zh">
+            <a href="projects.html">查看代表性工作</a>
+          </div>
+          <div class="research-link-row" data-lang-block="en" hidden>
+            <a href="projects.html">View Selected Work</a>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <p class="footer-title">CHRONOHAZE</p>
+          <p class="footer-note"><span data-i18n="footerContactLead">学术联系邮箱：</span><a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a></p>
+          <p class="footer-note" data-i18n="footerCities">Feier Lyu · 爱丁堡大学数学本科</p>
+          <p class="footer-copy">© 2026 by CHRONOHAZE. Hosted on GitHub Pages.</p>
+          <div class="social" aria-label="Social links">
+            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://www.instagram.com/lyuf09" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://space.bilibili.com/35902781" target="_blank" rel="noopener noreferrer">Bilibili</a>
+            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+        <div class="footer-right">
+          <a href="policy.html" data-i18n="siteNotes">网站说明</a>
+          <a href="accessibility.html" data-i18n="a11y">无障碍支持</a>
+        </div>
+      </div>
+  <div class="analytics-control-shell" data-analytics-collection="enabled">
+    <p class="analytics-control" data-analytics-control>
+      <span data-analytics-status>Analytics: On</span><span aria-hidden="true"> · </span><button type="button" data-analytics-toggle>Turn off</button>
+    </p>
+  </div>
+</footer>
+  </div>
+  <script>
+    (function () {
+      var i18nNodes = Array.from(document.querySelectorAll("[data-i18n]"));
+      var i18nAriaNodes = Array.from(document.querySelectorAll("[data-i18n-aria]"));
+      var langBlocks = Array.from(document.querySelectorAll("[data-lang-block]"));
+      var langBlockRecords = langBlocks.map(function (block) {
+        var marker = document.createComment("language-block");
+        block.parentNode.insertBefore(marker, block);
+        return { block: block, marker: marker };
+      });
+      var pageLangButtons = Array.from(document.querySelectorAll(".floating-lang-btn[data-lang]"));
+      var i18n = {
+        zh: {
+          htmlLang: "zh-CN",
+          pageTitle: "研究陈述 | Feier Lyu",
+          academicSectionAria: "学术页面导航",
+          navAria: "主导航",
+          navHome: "主页",
+          navAcademic: "学术",
+          navPhoto: "摄影",
+          navMusic: "音乐",
+          navCV: "CV",
+          navSearch: "搜索",
+          utilityResearch: "研究陈述",
+          utilityProjects: "代表性工作",
+          utilityNotes: "技术笔记",
+          footerContactLead: "学术联系邮箱：",
+          footerCities: "Feier Lyu · 爱丁堡大学数学本科",
+          siteNotes: "网站说明",
+          a11y: "无障碍支持"
+        },
+        en: {
+          htmlLang: "en",
+          pageTitle: "Research Statement | Feier Lyu",
+          academicSectionAria: "Academic section navigation",
+          navAria: "Main navigation",
+          navHome: "Home",
+          navAcademic: "Academic",
+          navPhoto: "Photography",
+          navMusic: "Music",
+          navCV: "CV",
+          navSearch: "Search",
+          utilityResearch: "Research Statement",
+          utilityProjects: "Selected Work",
+          utilityNotes: "Technical Notes",
+          footerContactLead: "Academic contact: ",
+          footerCities: "Feier Lyu · BSc Mathematics, University of Edinburgh",
+          siteNotes: "Privacy Policy",
+          a11y: "Accessibility"
+        }
+      };
+
+      function setLanguage(lang) {
+        var safeLang = lang === "en" ? "en" : "zh";
+        var dict = i18n[safeLang];
+        document.documentElement.lang = dict.htmlLang;
+        document.title = dict.pageTitle;
+
+        i18nNodes.forEach(function (node) {
+          var key = node.getAttribute("data-i18n");
+          if (typeof dict[key] === "string") {
+            node.textContent = dict[key];
+          }
+        });
+
+        i18nAriaNodes.forEach(function (node) {
+          var key = node.getAttribute("data-i18n-aria");
+          if (typeof dict[key] === "string") {
+            node.setAttribute("aria-label", dict[key]);
+          }
+        });
+
+        langBlockRecords.forEach(function (record) {
+          var block = record.block;
+          var active = block.getAttribute("data-lang-block") === safeLang;
+          block.hidden = !active;
+          block.setAttribute("aria-hidden", active ? "false" : "true");
+          if ("inert" in block) {
+            block.inert = !active;
+          }
+
+          if (active && !block.isConnected && record.marker.parentNode) {
+            record.marker.parentNode.insertBefore(block, record.marker.nextSibling);
+          } else if (!active && block.isConnected) {
+            block.remove();
+          }
+        });
+
+        document.body.setAttribute("data-rendered-lang", safeLang);
+
+        pageLangButtons.forEach(function (button) {
+          var buttonLang = button.getAttribute("data-lang");
+          var active = buttonLang === safeLang;
+          button.classList.toggle("active", active);
+          button.setAttribute("aria-pressed", active ? "true" : "false");
+          button.setAttribute(
+            "aria-label",
+            safeLang === "en"
+              ? (buttonLang === "zh" ? "Switch site language to Chinese" : "Switch site language to English")
+              : (buttonLang === "zh" ? "切换网站语言为中文" : "切换网站语言为英文")
+          );
+        });
+
+        try {
+          window.localStorage.setItem("siteLang", safeLang);
+          window.localStorage.setItem("chronohaze-lang", safeLang);
+        } catch (_err) {}
+      }
+
+      var initialLang = "en";
+      try {
+        var siteLang = window.localStorage.getItem("siteLang");
+        var savedLang = window.localStorage.getItem("chronohaze-lang");
+        if (siteLang === "zh" || siteLang === "en") {
+          initialLang = siteLang;
+        } else if (savedLang === "zh" || savedLang === "en") {
+          initialLang = savedLang;
+        }
+      } catch (_err) {}
+
+      var queryLang = new URLSearchParams(window.location.search).get("lang");
+      if (queryLang === "zh" || queryLang === "en") {
+        initialLang = queryLang;
+      }
+
+      pageLangButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          var nextLang = button.getAttribute("data-lang");
+          if (nextLang !== "zh" && nextLang !== "en") {
+            return;
+          }
+          setLanguage(nextLang);
+          var url = new URL(window.location.href);
+          url.searchParams.set("lang", nextLang);
+          window.history.replaceState({}, "", url.toString());
+        });
+      });
+
+      setLanguage(initialLang);
+    })();
+  </script>
+</body>
+</html>

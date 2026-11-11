@@ -1,0 +1,545 @@
+(function () {
+  "use strict";
+
+  var photoCatalogPayload = null;
+
+  function fetchJsonWithCandidates(relativePath) {
+    var rel = String(relativePath || "").replace(/^\.\//, "");
+    var urls = [];
+    var active = true;
+    var abortController = typeof AbortController === "function" ? new AbortController() : null;
+
+    function stop() {
+      active = false;
+      if (abortController) abortController.abort();
+    }
+
+    window.addEventListener("pagehide", stop, { once: true });
+
+    function push(url) {
+      if (!url || urls.indexOf(url) >= 0) return;
+      urls.push(url);
+    }
+
+    try {
+      var page = new URL(window.location.href);
+      var pageBase = String(page.pathname || "").replace(/[^/]*$/, "/");
+      if (/\/chronohaze(?:\/|$)/.test(page.pathname || "")) {
+        var repoBase = (page.pathname || "").replace(/^(.*?\/chronohaze)\/.*$/, "$1");
+        if (repoBase) {
+          push(page.origin + repoBase + "/" + rel);
+          push(repoBase + "/" + rel);
+        }
+      }
+      push(page.origin + "/" + rel);
+      push("/" + rel);
+      push(page.origin + pageBase + rel);
+      push(pageBase + rel);
+    } catch (_e) {}
+
+    push(rel);
+    push("./" + rel);
+
+    var i = 0;
+    function next() {
+      if (!active) return Promise.reject(new Error("cancelled"));
+      if (i >= urls.length) return Promise.reject(new Error("not found"));
+      var url = urls[i++];
+      var options = abortController ? { signal: abortController.signal } : undefined;
+      return fetch(url, options)
+        .then(function (res) {
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          return res.json();
+        })
+        .catch(function () {
+          if (!active) throw new Error("cancelled");
+          return next();
+        });
+    }
+    return next().finally(function () {
+      window.removeEventListener("pagehide", stop);
+    });
+  }
+
+  function textNode(tag, className, value) {
+    var node = document.createElement(tag);
+    if (className) node.className = className;
+    node.textContent = value || "";
+    return node;
+  }
+
+  function getPreferredPageLanguage() {
+    if (window.__chronohazePreferredLang === "zh" || window.__chronohazePreferredLang === "en") {
+      return window.__chronohazePreferredLang;
+    }
+    var queryLang = null;
+    try {
+      queryLang = new URLSearchParams(window.location.search).get("lang");
+    } catch (_e) {}
+    if (queryLang === "zh" || queryLang === "en") {
+      window.__chronohazePreferredLang = queryLang;
+      return queryLang;
+    }
+    try {
+      var siteLang = window.localStorage.getItem("siteLang");
+      if (siteLang === "zh" || siteLang === "en") {
+        window.__chronohazePreferredLang = siteLang;
+        return siteLang;
+      }
+      var savedLang = window.localStorage.getItem("chronohaze-lang");
+      if (savedLang === "zh" || savedLang === "en") {
+        window.__chronohazePreferredLang = savedLang;
+        return savedLang;
+      }
+    } catch (_e2) {}
+    window.__chronohazePreferredLang = "en";
+    return "en";
+  }
+
+  function setBilingualCopy(node, obj) {
+    if (!node || !obj || typeof obj !== "object") return;
+    if (typeof obj.zh === "string") node.setAttribute("data-copy-zh", obj.zh);
+    if (typeof obj.en === "string") node.setAttribute("data-copy-en", obj.en);
+  }
+
+  function localizedValue(item, zhKey, enKey, fallback) {
+    var zh = item && item[zhKey];
+    var en = item && item[enKey];
+    if (zh && typeof zh === "object") {
+      return {
+        zh: typeof zh.zh === "string" ? zh.zh : fallback || "",
+        en: typeof zh.en === "string" ? zh.en : typeof zh.zh === "string" ? zh.zh : fallback || "",
+      };
+    }
+    return {
+      zh: typeof zh === "string" ? zh : fallback || "",
+      en: typeof en === "string" ? en : typeof zh === "string" ? zh : fallback || "",
+    };
+  }
+
+  function combineMeta(primary, secondary) {
+    var first = typeof primary === "string" ? primary.trim() : "";
+    var second = typeof secondary === "string" ? secondary.trim() : "";
+    if (first && second) return first + " · " + second;
+    return first || second || "";
+  }
+
+  var MATH_STATUS_ZH = {
+    "Published formalization": "已发表的形式化项目",
+    "Submitted formalization": "已提交的形式化项目",
+    "Ongoing joint research": "进行中的合作研究",
+    "Exploratory derivation": "探索性推导",
+    "Reading note": "阅读笔记",
+    "Unpublished extension": "未发表扩展",
+  };
+
+  function localizeMathDateLabelZh(value) {
+    return String(value || "")
+      .replace("Technical note ·", "技术笔记 ·")
+      .replace("Originally posted ·", "原始发布 ·")
+      .replace(" · updated", " · 已更新");
+  }
+
+  function isDateLikeText(value) {
+    var text = typeof value === "string" ? value.trim() : "";
+    if (!text) return false;
+    return /^\d{2}\/\d{2}\/\d{4}(?:\s*-\s*.+)?$/.test(text) || text === "2022、夏、某" || text === "Summer 2022, Somewhere";
+  }
+
+  function firstMeaningfulText(values) {
+    for (var i = 0; i < values.length; i += 1) {
+      var candidate = typeof values[i] === "string" ? values[i].trim() : "";
+      if (!candidate) continue;
+      if (/^(read more|阅读全文)$/i.test(candidate)) continue;
+      if (isDateLikeText(candidate)) continue;
+      return candidate;
+    }
+    return "";
+  }
+
+  function buildPhotoFeaturedAlt(item, lang) {
+    var altCopy = item && item.alt && typeof item.alt === "object" ? item.alt : null;
+    if (altCopy) {
+      var localizedAlt = lang === "en" ? altCopy.en || altCopy.zh : altCopy.zh || altCopy.en;
+      if (localizedAlt) return localizedAlt;
+    }
+    var themeCopy = item && item.theme && typeof item.theme === "object" ? item.theme : null;
+    var locationCopy = item && item.location && typeof item.location === "object" ? item.location : null;
+    var theme = lang === "en"
+      ? ((themeCopy && themeCopy.en) || (themeCopy && themeCopy.zh) || "")
+      : ((themeCopy && themeCopy.zh) || (themeCopy && themeCopy.en) || "");
+    var location = lang === "en"
+      ? ((locationCopy && locationCopy.en) || (locationCopy && locationCopy.zh) || "")
+      : ((locationCopy && locationCopy.zh) || (locationCopy && locationCopy.en) || "");
+    var descriptor = firstMeaningfulText([
+      theme,
+      lang === "en" ? item && item.title_en : item && item.title,
+      item && item.title,
+      item && item.title_en,
+    ]);
+    if (descriptor && location) {
+      return descriptor + " — " + location;
+    }
+    if (descriptor) {
+      return descriptor;
+    }
+    if (location) {
+      return (lang === "en" ? "Photograph from " : "摄影作品：") + location;
+    }
+    return lang === "en" ? "Featured photography preview" : "精选摄影作品预览";
+  }
+
+  function previewImagePath(path, width) {
+    var source = String(path || "");
+    if (!/\.(jpe?g|png)$/i.test(source)) return source;
+    return source.replace(/\.(jpe?g|png)$/i, "-" + String(width || 960) + ".webp");
+  }
+
+  function primePhotoPreviewImage(img, path, width) {
+    if (!img || !path) return;
+    img.src = previewImagePath(path, width || 960);
+    img.dataset.responsiveBaseSrc = path;
+    img.dataset.fullResSrc = path;
+    img.dataset.photoThumbOptimized = "1";
+  }
+
+  function buildPhotoArchiveAlt(item, lang) {
+    var label = firstMeaningfulText([
+      lang === "en" ? item && item.title_en : item && item.title,
+      lang === "en" ? item && item.date_en : item && item.date,
+      item && item.title,
+      item && item.date,
+      item && item.title_en,
+      item && item.date_en,
+    ]);
+    if (label) {
+      return lang === "en"
+        ? "Preview image for the photography series " + label
+        : "摄影系列预览图：" + label;
+    }
+    return lang === "en" ? "Photography archive preview" : "摄影归档预览图";
+  }
+
+  function buildMathCard(item) {
+    var href = (item && (item.url || item.readmore_url)) || "#";
+    var lang = getPreferredPageLanguage();
+    var titleZh = (item && item.title) || "";
+    var titleEn = (item && item.title_en) || titleZh;
+    var excerptZh = (item && item.excerpt) || "";
+    var excerptEn = (item && item.excerpt_en) || excerptZh;
+    var dateLabelZh = localizeMathDateLabelZh((item && item.date_label_zh) || "");
+    var dateLabelEn = (item && item.date_label_en) || dateLabelZh;
+    var metaZh = dateLabelZh || combineMeta((item && item.date) || "", (item && item.reading_time_zh) || "");
+    var metaEn = dateLabelEn || combineMeta((item && item.date) || "", (item && item.reading_time_en) || "");
+    var linkLabelZh = (item && item.link_label_zh) || "阅读全文";
+    var linkLabelEn = (item && item.link_label_en) || (linkLabelZh === "Read PDF" ? "Read PDF" : "Read More");
+    var linkTarget = (item && item.link_target) || "";
+    var linkRel = (item && item.link_rel) || (linkTarget === "_blank" ? "noopener" : "");
+    var article = document.createElement("article");
+    article.className = "math-card";
+    article.setAttribute("data-href", href);
+    article.setAttribute("tabindex", "0");
+    article.setAttribute("role", "link");
+
+    var dateNode = textNode("p", "math-date", lang === "en" ? metaEn : metaZh);
+    setBilingualCopy(dateNode, { zh: metaZh, en: metaEn });
+    article.appendChild(dateNode);
+
+    var noteStatusEn = (item && (item.note_status_en || item.note_status)) || "";
+    var noteStatusZh =
+      (item && item.note_status_zh) || MATH_STATUS_ZH[noteStatusEn] || noteStatusEn;
+    if (noteStatusEn || noteStatusZh) {
+      var statusNode = textNode(
+        "span",
+        "math-note-status",
+        lang === "en" ? noteStatusEn : noteStatusZh
+      );
+      setBilingualCopy(statusNode, { zh: noteStatusZh, en: noteStatusEn });
+      article.appendChild(statusNode);
+    }
+
+    var h3 = textNode("h3", "math-title", "");
+    var titleLink = textNode("a", "math-title-link", lang === "en" ? titleEn : titleZh);
+    titleLink.href = href;
+    if (linkTarget) titleLink.target = linkTarget;
+    if (linkRel) titleLink.rel = linkRel;
+    setBilingualCopy(titleLink, { zh: titleZh, en: titleEn });
+    h3.appendChild(titleLink);
+    article.appendChild(h3);
+
+    var desc = textNode("p", "math-desc", lang === "en" ? excerptEn : excerptZh);
+    setBilingualCopy(desc, { zh: excerptZh, en: excerptEn });
+    article.appendChild(desc);
+
+    var tagTexts = Array.isArray(item && item.line_tags) ? item.line_tags : [];
+    if (!tagTexts.length && Array.isArray(item && item.tags)) {
+      tagTexts = item.tags;
+    }
+    if (tagTexts.length) {
+      var tagRow = document.createElement("div");
+      tagRow.className = "math-tag-row";
+      tagTexts.forEach(function (tagText) {
+        if (typeof tagText !== "string" || !tagText.trim()) return;
+        var tag = textNode("span", "math-tag", tagText.trim());
+        tagRow.appendChild(tag);
+      });
+      if (tagRow.childNodes.length) {
+        article.appendChild(tagRow);
+      }
+    }
+
+    var more = textNode("a", "math-more", lang === "en" ? linkLabelEn : linkLabelZh);
+    more.href = (item && item.readmore_url) || href;
+    if (linkTarget) more.target = linkTarget;
+    if (linkRel) more.rel = linkRel;
+    setBilingualCopy(more, { zh: linkLabelZh, en: linkLabelEn });
+    article.appendChild(more);
+
+    return article;
+  }
+
+  function renderMathCatalog(payload) {
+    if (!payload || !Array.isArray(payload.items)) return;
+    var list = document.querySelector(".math-index-page .math-list");
+    if (!list) return;
+    var frag = document.createDocumentFragment();
+    payload.items.forEach(function (item) {
+      if (!item || !item.url) return;
+      frag.appendChild(buildMathCard(item));
+    });
+    if (!frag.childNodes.length) return;
+    list.textContent = "";
+    list.appendChild(frag);
+    list.dataset.catalogRendered = "1";
+    syncMathPageLanguage();
+  }
+
+  function syncMathPageLanguage() {
+    if (!document.body || !document.body.classList.contains("math-index-page")) return;
+    var lang = getPreferredPageLanguage();
+    Array.from(document.querySelectorAll(".math-index-page [data-copy-zh][data-copy-en]")).forEach(function (node) {
+      var key = lang === "en" ? "data-copy-en" : "data-copy-zh";
+      var value = node.getAttribute(key);
+      if (value) node.textContent = value;
+    });
+    Array.from(document.querySelectorAll(".math-index-page .math-more")).forEach(function (node) {
+      if (node.hasAttribute("data-copy-zh") || node.hasAttribute("data-copy-en")) return;
+      node.textContent = lang === "en" ? "Read More" : "阅读全文";
+    });
+  }
+
+  function buildPhotoFeaturedCard(item) {
+    var lang = getPreferredPageLanguage();
+    var article = document.createElement("article");
+    article.className = "photo-feature-card";
+
+    var a = document.createElement("a");
+    a.className = "photo-feature-link";
+    a.href = (item && item.url) || "#";
+
+    var img = document.createElement("img");
+    primePhotoPreviewImage(img, item.cover || "", 960);
+    var themeCopy = item && item.theme && typeof item.theme === "object" ? item.theme : null;
+    img.alt = buildPhotoFeaturedAlt(item, lang);
+    img.loading = "lazy";
+    img.decoding = "async";
+    a.appendChild(img);
+
+    var meta = document.createElement("div");
+    meta.className = "photo-feature-meta";
+
+    var theme = textNode(
+      "p",
+      "photo-feature-theme",
+      lang === "en" && themeCopy && themeCopy.en ? themeCopy.en : themeCopy && themeCopy.zh ? themeCopy.zh : ""
+    );
+    var locationCopy = item && item.location && typeof item.location === "object" ? item.location : null;
+    var conceptCopy = item && item.concept && typeof item.concept === "object" ? item.concept : null;
+    var location = textNode(
+      "p",
+      "photo-feature-location",
+      lang === "en" && locationCopy && locationCopy.en
+        ? locationCopy.en
+        : locationCopy && locationCopy.zh
+          ? locationCopy.zh
+          : ""
+    );
+    var concept = textNode(
+      "p",
+      "photo-feature-concept",
+      lang === "en" && conceptCopy && conceptCopy.en
+        ? conceptCopy.en
+        : conceptCopy && conceptCopy.zh
+          ? conceptCopy.zh
+          : ""
+    );
+    setBilingualCopy(theme, themeCopy);
+    setBilingualCopy(location, locationCopy);
+    setBilingualCopy(concept, conceptCopy);
+    meta.appendChild(theme);
+    meta.appendChild(location);
+    meta.appendChild(concept);
+
+    a.appendChild(meta);
+    article.appendChild(a);
+    return article;
+  }
+
+  function buildPhotoArchiveCard(item) {
+    var lang = getPreferredPageLanguage();
+    var isFilm = !!(item && item.is_film);
+    var article = document.createElement("article");
+    article.className = isFilm ? "photo-card photo-card-film" : "photo-card";
+
+    var a = document.createElement("a");
+    a.className = "photo-card-link";
+    a.href = (item && item.url) || "#";
+
+    if (isFilm) {
+      var filmThumb = document.createElement("div");
+      filmThumb.className = "photo-film-thumb";
+      filmThumb.setAttribute("aria-hidden", "true");
+      a.appendChild(filmThumb);
+    } else {
+      var img = document.createElement("img");
+      primePhotoPreviewImage(img, item.cover || "", 960);
+      // The adjacent title and date already provide the link name. Keeping the
+      // thumbnail decorative avoids repeating the same series name to screen readers.
+      img.alt = "";
+      img.setAttribute("aria-hidden", "true");
+      img.loading = "lazy";
+      img.decoding = "async";
+      a.appendChild(img);
+    }
+
+    var meta = document.createElement("div");
+    meta.className = "photo-meta";
+    var dateCopy = localizedValue(item, "date", "date_en", (item && item.title) || "");
+    var subtitleCopy = localizedValue(item, "subtitle", "subtitle_en", "阅读全文");
+    var dateNode = textNode("p", "photo-date", lang === "en" ? dateCopy.en : dateCopy.zh);
+    setBilingualCopy(dateNode, dateCopy);
+    meta.appendChild(dateNode);
+    var subtitleNode = textNode(
+      "p",
+      "photo-subtitle",
+      lang === "en" ? subtitleCopy.en || "Read More" : subtitleCopy.zh || "阅读全文"
+    );
+    setBilingualCopy(subtitleNode, {
+      zh: subtitleCopy.zh || "阅读全文",
+      en: subtitleCopy.en || "Read More",
+    });
+    meta.appendChild(subtitleNode);
+    a.appendChild(meta);
+
+    var closure = document.createElement("span");
+    closure.className = "photo-card-closure";
+    closure.setAttribute("aria-hidden", "true");
+    a.appendChild(closure);
+
+    article.appendChild(a);
+
+    return article;
+  }
+
+  function renderPhotoCatalog(payload) {
+    if (!payload || typeof payload !== "object") return;
+    var featuredGrid = document.querySelector(".photo-index-page .photo-featured-grid");
+    var archiveGrid = document.querySelector(".photo-index-page .photo-grid");
+
+    if (featuredGrid && Array.isArray(payload.featured) && payload.featured.length) {
+      var fragFeatured = document.createDocumentFragment();
+      payload.featured.forEach(function (item) {
+        if (!item || !item.url) return;
+        fragFeatured.appendChild(buildPhotoFeaturedCard(item));
+      });
+      if (fragFeatured.childNodes.length) {
+        featuredGrid.textContent = "";
+        featuredGrid.appendChild(fragFeatured);
+        featuredGrid.dataset.catalogRendered = "1";
+      }
+    }
+
+    if (archiveGrid && Array.isArray(payload.archive) && payload.archive.length) {
+      var fragArchive = document.createDocumentFragment();
+      payload.archive.forEach(function (item) {
+        if (!item || !item.url) return;
+        fragArchive.appendChild(buildPhotoArchiveCard(item));
+      });
+      if (fragArchive.childNodes.length) {
+        archiveGrid.textContent = "";
+        archiveGrid.appendChild(fragArchive);
+        archiveGrid.dataset.catalogRendered = "1";
+      }
+    }
+  }
+
+  function syncPhotoCatalogLanguage() {
+    if (!document.body || !document.body.classList.contains("photo-index-page")) return;
+    var lang = getPreferredPageLanguage();
+    Array.from(document.querySelectorAll(".photo-index-page [data-copy-zh][data-copy-en]")).forEach(function (node) {
+      var key = lang === "en" ? "data-copy-en" : "data-copy-zh";
+      var value = node.getAttribute(key);
+      if (value) node.textContent = value;
+    });
+    if (photoCatalogPayload) renderPhotoCatalog(photoCatalogPayload);
+  }
+
+  function hasServerRenderedPhotoCatalog() {
+    var featuredGrid = document.querySelector(".photo-index-page .photo-featured-grid");
+    var archiveGrid = document.querySelector(".photo-index-page .photo-grid");
+    return !!(
+      featuredGrid &&
+      archiveGrid &&
+      featuredGrid.querySelector(".photo-feature-card") &&
+      archiveGrid.querySelector(".photo-card")
+    );
+  }
+
+  function bootMathCatalogPage() {
+    if (!document.body || !document.body.classList.contains("math-index-page")) return;
+    if (document.body.dataset.mathCatalogBooted === "1") return;
+    document.body.dataset.mathCatalogBooted = "1";
+    if (typeof window !== "undefined" && !window.__chronohazeMathLanguageHooked) {
+      window.__chronohazeMathLanguageHooked = true;
+      window.addEventListener("pageshow", syncMathPageLanguage);
+      window.addEventListener("load", syncMathPageLanguage);
+    }
+    syncMathPageLanguage();
+    if (document.querySelector(".math-index-page .math-list .math-card")) {
+      return;
+    }
+    fetchJsonWithCandidates("assets/data/math-catalog.json")
+      .then(renderMathCatalog)
+      .catch(function () {});
+  }
+
+  function bootPhotoCatalogPage() {
+    if (!document.body || !document.body.classList.contains("photo-index-page")) return;
+    if (document.body.dataset.photoCatalogBooted === "1") return;
+    document.body.dataset.photoCatalogBooted = "1";
+    if (typeof window !== "undefined") {
+      window.__chronohazeSyncPhotoCatalogLanguage = syncPhotoCatalogLanguage;
+    }
+    syncPhotoCatalogLanguage();
+    if (hasServerRenderedPhotoCatalog()) {
+      return;
+    }
+    fetchJsonWithCandidates("assets/data/photo-catalog.json")
+      .then(function (payload) {
+        photoCatalogPayload = payload;
+        renderPhotoCatalog(payload);
+      })
+      .catch(function () {});
+  }
+
+  function boot() {
+    bootMathCatalogPage();
+    bootPhotoCatalogPage();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot, { once: true });
+  } else {
+    boot();
+  }
+})();

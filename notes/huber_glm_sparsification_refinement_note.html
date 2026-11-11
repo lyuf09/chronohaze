@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'self'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="robots" content="noindex,follow" />
+  <title>Exact Huber GLMs after Sparsification: Active Curvature and Kink Switching | Chronohaze</title>
+  <meta name="description" content="A technical note on exact Huber GLMs after sparsification, focusing on active quadratic curvature, affine tails, and kink switching near the Huber threshold." />
+  <link rel="canonical" href="https://lyuf09.github.io/chronohaze/notes/huber_glm_sparsification_refinement_note.html" />
+  <link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
+  <link rel="preload" href="../assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="../assets/fonts/noto-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="../styles.min.css?v=20261103-history-search1" />
+  <script defer src="../protect-media.min.js?v=20261103-history-search1"></script>
+  <style>
+    body.note-detail-page {
+      margin: 0;
+      background: #10141b;
+      color: rgba(232, 234, 237, 0.92);
+    }
+
+    .note-detail-page .main {
+      background:
+        radial-gradient(circle at 18% 12%, rgba(120, 138, 171, 0.1), transparent 34%),
+        radial-gradient(circle at 82% 18%, rgba(170, 182, 204, 0.08), transparent 32%),
+        linear-gradient(180deg, #111720 0%, #0f141c 52%, #10141b 100%);
+    }
+
+    .note-detail-page .cv-utility-bar {
+      margin-top: 0;
+    }
+
+    .note-detail-shell {
+      width: min(1120px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: 56px 0 84px;
+    }
+
+    .note-detail-back {
+      display: inline-flex;
+      margin-bottom: 28px;
+      color: rgba(214, 220, 230, 0.78);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .note-detail-title {
+      max-width: 900px;
+      margin: 0;
+      color: rgba(245, 247, 250, 0.96);
+      font-family: var(--font-editorial-serif);
+      font-size: clamp(34px, 5vw, 64px);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .note-detail-meta {
+      margin: 18px 0 0;
+      color: rgba(190, 199, 214, 0.78);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .note-detail-lead {
+      max-width: 760px;
+      margin: 26px 0 0;
+      color: rgba(228, 232, 238, 0.88);
+      font-size: 17px;
+      line-height: 1.82;
+    }
+
+    .note-pdf-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 28px 0 18px;
+    }
+
+    .note-pdf-action {
+      display: inline-flex;
+      align-items: center;
+      min-height: 40px;
+      padding: 0 16px;
+      border: 1px solid rgba(190, 199, 214, 0.28);
+      color: rgba(246, 248, 252, 0.92);
+      background: rgba(255, 255, 255, 0.05);
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .note-pdf-frame-wrap {
+      overflow: hidden;
+      border: 1px solid rgba(190, 199, 214, 0.24);
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.24);
+    }
+
+    .note-pdf-frame {
+      display: block;
+      width: 100%;
+      height: min(78vh, 940px);
+      min-height: 620px;
+      border: 0;
+      background: #151923;
+    }
+
+    .note-pdf-fallback {
+      margin: 14px 0 0;
+      color: rgba(190, 199, 214, 0.72);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 760px) {
+      .note-detail-shell {
+        width: min(100% - 24px, 1120px);
+        padding: 48px 0 56px;
+      }
+
+      .note-detail-lead {
+        font-size: 14px;
+        line-height: 1.72;
+      }
+
+      .note-pdf-frame {
+        height: 72vh;
+        min-height: 440px;
+      }
+    }
+  </style>
+
+  <!-- Chronohaze analytics preference and opt-out control -->
+  <script id="chronohaze-analytics-bootstrap">
+    (function () {
+      var measurementId = "G-JWZY2TVYFZ";
+      var storedPreference;
+      try { storedPreference = window.localStorage.getItem("chronohaze-analytics"); } catch (_err) {}
+      var doNotTrack = navigator.doNotTrack === "1" || window.doNotTrack === "1";
+      var enabled = storedPreference === "on" || (storedPreference !== "off" && !doNotTrack);
+      window["ga-disable-" + measurementId] = !enabled;
+      window.__chronohazeAnalyticsInitialEnabled = enabled;
+    })();
+  </script>
+  <link rel="stylesheet" href="../assets/css/analytics-control.min.css?v=20260906-latin-a11y1" />
+  <script id="chronohaze-analytics-runtime" defer src="../assets/js/analytics-control.min.js?v=20260906-latin-a11y1" data-analytics-collection="control-only"></script>
+</head>
+<body class="math-post-page note-detail-page">
+  <a class="skip-link" href="#main-content">Skip to content / 跳到正文</a>
+<div class="page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="../index.html">
+          <img src="../assets/logo-header.png" alt="Chronohaze site logo" />
+          <span>CHRONOHAZE</span>
+        </a>
+        <nav class="nav" aria-label="Main navigation">
+          <a href="../index.html">Home</a>
+          <a class="active" href="../academic.html">Academic</a>
+          <a href="../music.html">Music</a>
+          <a href="../photography.html">Photography</a>
+          <a href="../cv.html">CV</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" class="main">
+      <div class="container">
+        <div class="cv-utility-bar">
+          <div class="cv-utility-top">
+            <nav class="academic-local-nav" aria-label="Academic section links">
+              <a class="academic-local-link" href="../projects.html">Selected Work</a>
+              <a class="academic-local-link" href="../research.html">Research Statement</a>
+              <a class="academic-local-link is-active" href="../math.html">Technical Notes</a>
+            </nav>
+          </div>
+        </div>
+      </div>
+
+      <section class="note-detail-shell">
+        <a class="note-detail-back" href="../math.html">Back to Technical Notes</a>
+        <h1 class="note-detail-title">Exact Huber GLMs after Sparsification: Active Curvature and Kink Switching</h1>
+        <p class="note-detail-meta">Feier Lyu · Exploratory derivation · Optimization / Sparsification / GLMs · April 2026 · updated July 2026</p>
+        <p class="note-detail-lead">
+          This note asks whether a sparsified local refinement step can preserve the active quadratic curvature of exact Huber losses while controlling affine-tail behavior and switching near the Huber kink.
+        </p>
+        <div class="note-pdf-actions">
+          <a class="note-pdf-action" href="huber_glm_sparsification_refinement_note.pdf" target="_blank" rel="noopener">Open PDF</a>
+          <a class="note-pdf-action" href="../math.html">Notes Index</a>
+        </div>
+        <div class="note-pdf-frame-wrap">
+          <iframe class="note-pdf-frame" src="huber_glm_sparsification_refinement_note.pdf#view=FitH" title="Exact Huber GLMs after sparsification note PDF preview"></iframe>
+        </div>
+        <p class="note-pdf-fallback">
+          If the preview does not load in your browser, use
+          <a href="huber_glm_sparsification_refinement_note.pdf" target="_blank" rel="noopener">Open PDF</a>.
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <p class="footer-title">CHRONOHAZE</p>
+          <p class="footer-note"><span>Academic contact: </span><a href="#" data-note-email-link="1">moc.duolci@035reief</a></p>
+          <p class="footer-note">Feier Lyu · BSc Mathematics, University of Edinburgh</p>
+          <p class="footer-copy">© 2026 by CHRONOHAZE. Hosted on GitHub Pages.</p>
+          <div class="social" aria-label="Social links">
+            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://www.instagram.com/lyuf09" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://space.bilibili.com/35902781" target="_blank" rel="noopener noreferrer">Bilibili</a>
+            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+        <div class="footer-right">
+          <a href="../policy.html">Site Notes</a>
+          <a href="../accessibility.html">Accessibility</a>
+        </div>
+      </div>
+  <div class="analytics-control-shell" data-analytics-collection="control-only">
+    <p class="analytics-control" data-analytics-control>
+      <span data-analytics-status>Analytics: On</span><span aria-hidden="true"> · </span><button type="button" data-analytics-toggle>Turn off</button>
+    </p>
+  </div>
+</footer>
+  </div>
+  <script>
+    (function () {
+      const emailLinks = Array.from(document.querySelectorAll('[data-note-email-link="1"]'));
+
+      function enhanceEmailLinks() {
+        const user = 'feier530';
+        const domain = ['icloud', 'com'].join('.');
+        const address = [user, domain].join('@');
+        emailLinks.forEach(function (link) {
+          link.href = 'mailto:' + address;
+          link.textContent = address;
+          link.setAttribute('aria-label', 'Email ' + address);
+        });
+      }
+
+      enhanceEmailLinks();
+    })();
+  </script>
+</body>
+</html>

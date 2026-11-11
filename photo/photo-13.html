@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <style id="chronohaze-critical-loader-style">
+    html.chronohaze-critical-loading,
+    html.chronohaze-critical-loading body {
+      min-height: 100%;
+      background: #10141b;
+    }
+
+    html.chronohaze-critical-loading body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    html.chronohaze-critical-loading body > :not(.chronohaze-loader) {
+      visibility: hidden !important;
+    }
+
+    html.chronohaze-critical-loading::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 2147483000;
+      background:
+        linear-gradient(90deg, rgba(138, 160, 200, 0.09) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(138, 160, 200, 0.07) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(13, 17, 24, 0.992) 0%, rgba(19, 24, 33, 0.992) 55%, rgba(13, 17, 24, 0.996) 100%);
+      background-size: 54px 54px, 54px 54px, 100% 100%;
+    }
+
+    html.chronohaze-critical-loading::after {
+      content: "CHRONOHAZE";
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      z-index: 2147483001;
+      width: min(500px, calc(100vw - 40px));
+      padding: 30px 32px;
+      transform: translate(-50%, -50%);
+      white-space: pre-line;
+      color: rgba(232, 234, 237, 0.9);
+      font: 300 clamp(22px, 3.2vw, 34px)/1.48 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.055em;
+      border: 1px solid rgba(154, 172, 204, 0.3);
+      border-radius: 0;
+      background: linear-gradient(180deg, rgba(20, 25, 34, 0.84) 0%, rgba(13, 17, 24, 0.82) 100%);
+      box-shadow: 0 24px 58px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.045);
+    }
+
+    html[lang^="zh"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A 页面加载中";
+    }
+
+    html[lang^="en"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A Loading";
+    }
+
+    html.chronohaze-critical-loading-mobile body {
+      overflow: auto;
+    }
+
+    html.chronohaze-critical-loading-mobile body > :not(.chronohaze-loader) {
+      visibility: visible !important;
+    }
+
+    html.chronohaze-critical-loading-mobile::before {
+      background: linear-gradient(180deg, rgba(13, 17, 24, 0.18) 0%, rgba(19, 24, 33, 0.22) 100%);
+      pointer-events: none;
+    }
+
+    html.chronohaze-critical-loading-mobile::after {
+      content: "CHRONOHAZE";
+      left: 16px;
+      top: 16px;
+      width: auto;
+      max-width: calc(100vw - 32px);
+      padding: 10px 12px;
+      transform: none;
+      white-space: normal;
+      color: rgba(232, 234, 237, 0.78);
+      font: 400 12px/1.3 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.18em;
+      border: 1px solid rgba(154, 172, 204, 0.18);
+      background: rgba(16, 20, 27, 0.34);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+      backdrop-filter: blur(2px);
+    }
+  </style>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var isMobile = window.matchMedia && window.matchMedia("(max-width: 760px)").matches;
+      root.classList.add("chronohaze-critical-loading");
+      if (isMobile) {
+        root.classList.add("chronohaze-critical-loading-mobile");
+      }
+      window.__chronohazeReleaseCriticalLoader = function () {
+        root.classList.remove("chronohaze-critical-loading");
+        root.classList.remove("chronohaze-critical-loading-mobile");
+      };
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", window.__chronohazeReleaseCriticalLoader, { once: true });
+      } else {
+        window.requestAnimationFrame(window.__chronohazeReleaseCriticalLoader);
+      }
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, 500);
+    })();
+  </script>
+<script>
+    (function () {
+      try {
+        var url = new URL(window.location.href);
+        var queryLang = url.searchParams.get("lang");
+        var valid = function (value) {
+          return value === "zh" || value === "en";
+        };
+        var defaultLang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+        var defaultSafe = defaultLang.indexOf("en") === 0 ? "en" : "zh";
+
+        if (valid(queryLang)) {
+          window.localStorage.setItem("siteLang", queryLang);
+          window.localStorage.setItem("chronohaze-lang", queryLang);
+          window.__chronohazePreferredLang = queryLang;
+          document.documentElement.lang = queryLang === "en" ? "en" : "zh-CN";
+          document.documentElement.setAttribute("data-site-lang", queryLang);
+          return;
+        }
+
+        var storedLang = window.localStorage.getItem("siteLang");
+        if (!valid(storedLang)) {
+          storedLang = window.localStorage.getItem("chronohaze-lang");
+        }
+        if (!valid(storedLang)) {
+          return;
+        }
+
+        window.__chronohazePreferredLang = storedLang;
+        document.documentElement.lang = storedLang === "en" ? "en" : "zh-CN";
+        document.documentElement.setAttribute("data-site-lang", storedLang);
+
+        if (storedLang !== defaultSafe) {
+          url.searchParams.set("lang", storedLang);
+          window.location.replace(url.toString());
+        }
+      } catch (_err) {}
+    })();
+  </script>
+  <link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
+  <title>你的记忆 | 摄影 | Chronohaze</title>
+  <meta name="description" content="花、窗与浅光，把私人记忆推成一个可以进入的房间。" data-content-zh="花、窗与浅光，把私人记忆推成一个可以进入的房间。" data-content-en="Flowers, windows, and pale light turn private memory into a room one can enter." />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Chronohaze" />
+  <meta property="og:title" content="你的记忆 | Chronohaze" />
+  <meta property="og:description" content="花、窗与浅光，把私人记忆推成一个可以进入的房间。" />
+  <meta property="og:url" content="https://lyuf09.github.io/chronohaze/photo/photo-13.html" />
+  <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/photo-13.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="你的记忆 | Chronohaze" />
+  <meta name="twitter:description" content="花、窗与浅光，把私人记忆推成一个可以进入的房间。" />
+  <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/photo-13.png" />
+  <link rel="canonical" href="https://lyuf09.github.io/chronohaze/photo/photo-13.html" />
+  <!-- GENERATED:hreflang:start -->
+  <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/photo/photo-13.html?lang=zh" />
+  <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/photo/photo-13.html?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/photo/photo-13.html" />
+  <!-- GENERATED:hreflang:end -->
+  <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
+<link rel="preload" href="../assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="../assets/fonts/noto-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="../styles.min.css?v=20261103-history-search1" />
+  <script defer src="../protect-media.min.js?v=20261103-history-search1"></script>
+
+  <!-- Chronohaze analytics preference and opt-out control -->
+  <script id="chronohaze-analytics-bootstrap">
+    (function () {
+      var measurementId = "G-JWZY2TVYFZ";
+      var storedPreference;
+      try { storedPreference = window.localStorage.getItem("chronohaze-analytics"); } catch (_err) {}
+      var doNotTrack = navigator.doNotTrack === "1" || window.doNotTrack === "1";
+      var enabled = storedPreference === "on" || (storedPreference !== "off" && !doNotTrack);
+      window["ga-disable-" + measurementId] = !enabled;
+      window.__chronohazeAnalyticsInitialEnabled = enabled;
+    })();
+  </script>
+  <link rel="stylesheet" href="../assets/css/analytics-control.min.css?v=20260906-latin-a11y1" />
+  <script id="chronohaze-analytics-runtime" defer src="../assets/js/analytics-control.min.js?v=20260906-latin-a11y1" data-analytics-collection="enabled"></script>
+</head>
+<body class="photo-detail-page">
+  <a class="skip-link" href="#main-content">Skip to content / 跳到正文</a>
+<div class="page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="../index.html">
+          <img src="../assets/logo-header.png" alt="Chronohaze site logo" />
+          <span>CHRONOHAZE</span>
+        </a>
+        <nav class="nav" aria-label="主导航">
+          <a href="../index.html" data-i18n="navHome">主页</a>
+          <a href="../academic.html" data-i18n="navAcademic">学术</a>
+          <a href="../music.html" data-i18n="navMusic">音乐</a>
+          <a class="active" href="../photography.html" data-i18n="navPhoto">摄影</a>
+          <a href="../cv.html" data-i18n="navCV">CV</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" class="main">
+      <article class="article photo-detail-article">
+        <h1 data-copy-en="Memories of You" data-copy-zh="你的记忆">你的记忆</h1>
+        <p class="photo-detail-date" data-copy-en="5 April 2025" data-copy-zh="2025 年 4 月 5 日">2025 年 4 月 5 日</p>
+        <p class="article-meta" data-copy-en="Edinburgh, UK · 2025" data-copy-zh="英国爱丁堡 · 2025年">英国爱丁堡 · 2025年</p>
+        <section class="photo-detail-statement" aria-label="Series statement">
+          <div data-lang-block="zh">
+            <p>这组照片拍摄于爱丁堡 Meadows 与主图书馆附近，把春天放在校园建筑与日常通行之间观看。草坪上不知由谁整理的小花园、道路旁的花枝、树影、玻璃立面、石墙与自行车共同构成一种介于生活和记忆之间的场景。对一段行走中残留情绪的整理：明亮、柔软，透明的不确定感。</p>
+          </div>
+          <div data-lang-block="en">
+            <p>This series was made around the Meadows and the area near the Main Library in Edinburgh, looking at spring through the overlap between campus architecture and everyday passage. A small garden arranged by an unknown hand on the lawn, blossoms along the road, tree shadows, glass facades, stone walls, and bicycles together form a scene suspended between daily life and memory. The images become an attempt to gather what remains from a walk: bright, soft, and filled with a translucent sense of uncertainty.</p>
+          </div>
+        </section>
+        <div class="photo-detail-gallery">
+          <figure class="photo-detail-item"><img src="../assets/images/wix/64569d_db5c80b9c2dc4e60bd05ff0831f66e12~mv2.jpg" alt="05/04/2025 - Memories of you photograph 9 — 英国爱丁堡 · 2025年" loading="lazy" /></figure><figure class="photo-detail-item"><img src="../assets/images/wix/64569d_cc1e18c42a3f4fb0974d3abda6f76e2b~mv2.jpg" alt="05/04/2025 - Memories of you photograph 1 — 英国爱丁堡 · 2025年" loading="lazy" /></figure><figure class="photo-detail-item"><img src="../assets/images/wix/64569d_c9fcec2ffda041afb21dfd8f54bdb206~mv2.jpg" alt="05/04/2025 - Memories of you photograph 2 — 英国爱丁堡 · 2025年" loading="lazy" /></figure><figure class="photo-detail-item"><img src="../assets/images/wix/64569d_20e2590494ed45aab44bddb0e68ac10e~mv2.jpg" alt="05/04/2025 - Memories of you photograph 3 — 英国爱丁堡 · 2025年" loading="lazy" /></figure><figure class="photo-detail-item"><img src="../assets/images/wix/64569d_e2ea9ed6fd2a4e729700fc2716450e5e~mv2.jpg" alt="05/04/2025 - Memories of you photograph 4 — 英国爱丁堡 · 2025年" loading="lazy" /></figure><figure class="photo-detail-item"><img src="../assets/images/wix/64569d_5a7b38fc3bc84c1a8e71f0f2d148b1a7~mv2.jpg" alt="05/04/2025 - Memories of you photograph 5 — 英国爱丁堡 · 2025年" loading="lazy" /></figure><figure class="photo-detail-item"><img src="../assets/images/wix/64569d_66d4f42ee0f34be8a89ec856e0254f22~mv2.jpg" alt="05/04/2025 - Memories of you photograph 6 — 英国爱丁堡 · 2025年" loading="lazy" /></figure><figure class="photo-detail-item"><img src="../assets/images/wix/64569d_4c72cf2663cc4740ae26a3621f5f8633~mv2.jpg" alt="05/04/2025 - Memories of you photograph 7 — 英国爱丁堡 · 2025年" loading="lazy" /></figure><figure class="photo-detail-item"><img src="../assets/images/wix/64569d_37bfe52cc93f4dbba5604d4e1e8406af~mv2.jpg" alt="05/04/2025 - Memories of you photograph 8 — 英国爱丁堡 · 2025年" loading="lazy" /></figure><figure class="photo-detail-item"><img src="../assets/images/wix/64569d_03eb3aa7c19a4560932b46bfb5cd8cec~mv2.jpg" alt="05/04/2025 - Memories of you photograph 10 — 英国爱丁堡 · 2025年" loading="lazy" /></figure><figure class="photo-detail-item"><img src="../assets/images/wix/64569d_62839f58126b414490a257dcce918681~mv2.jpg" alt="05/04/2025 - Memories of you photograph 11 — 英国爱丁堡 · 2025年" loading="lazy" /></figure><figure class="photo-detail-item"><img src="../assets/images/wix/64569d_8cbbdf8972e0431a8955bc07da2dd98a~mv2.jpg" alt="05/04/2025 - Memories of you photograph 12 — 英国爱丁堡 · 2025年" loading="lazy" /></figure><figure class="photo-detail-item"><img src="../assets/images/wix/64569d_27c782ee2603435da5fa719127442d5a~mv2.jpg" alt="05/04/2025 - Memories of you photograph 13 — 英国爱丁堡 · 2025年" loading="lazy" /></figure><figure class="photo-detail-item"><img src="../assets/images/wix/64569d_c5eeee8aef564e078aaf8b606e271014~mv2.jpg" alt="05/04/2025 - Memories of you photograph 14 — 英国爱丁堡 · 2025年" loading="lazy" /></figure><figure class="photo-detail-item"><img src="../assets/images/wix/64569d_a51b6cba8d4747c3b99f0d09b4f6388c~mv2.jpg" alt="05/04/2025 - Memories of you photograph 15 — 英国爱丁堡 · 2025年" loading="lazy" /></figure><figure class="photo-detail-item"><img src="../assets/images/wix/64569d_dc4aaf9c0ad24d8ebfcf251326c9aad7~mv2.jpg" alt="05/04/2025 - Memories of you photograph 16 — 英国爱丁堡 · 2025年" loading="lazy" /></figure><figure class="photo-detail-item"><img src="../assets/images/wix/64569d_298427b8c3544dc6a2f432ee408eafd0~mv2.jpg" alt="05/04/2025 - Memories of you photograph 17 — 英国爱丁堡 · 2025年" loading="lazy" /></figure><figure class="photo-detail-item"><img src="../assets/images/wix/64569d_f64e1b42953f4630a2dc506d8874bf42~mv2.jpg" alt="05/04/2025 - Memories of you photograph 18 — 英国爱丁堡 · 2025年" loading="lazy" /></figure>
+        </div>
+        <p><a class="read-more" href="../photography.html">← 返回摄影</a></p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <p class="footer-title">CHRONOHAZE</p>
+          <p class="footer-note">联系邮箱：<a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a></p>
+          <p class="footer-note">重庆 · Edinburgh · Ithaca</p>
+          <p class="footer-copy">© 2026 by CHRONOHAZE. Hosted on GitHub Pages.</p>
+          <div class="social" aria-label="Social links">
+            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://www.instagram.com/lyuf09" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://space.bilibili.com/35902781" target="_blank" rel="noopener noreferrer">Bilibili</a>
+            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+        <div class="footer-right">
+          <a href="../policy.html">网站说明</a>
+          <a href="../accessibility.html">无障碍支持</a>
+        </div>
+      </div>
+  <div class="analytics-control-shell" data-analytics-collection="enabled">
+    <p class="analytics-control" data-analytics-control>
+      <span data-analytics-status>Analytics: On</span><span aria-hidden="true"> · </span><button type="button" data-analytics-toggle>Turn off</button>
+    </p>
+  </div>
+</footer>
+  </div>
+</body>
+</html>

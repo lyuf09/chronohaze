@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'self'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="robots" content="noindex, noarchive, nosnippet" />
+  <title>Modal Invariants and a Sharp Stability Threshold for Quadratic Symplectic Euler | Feier Lyu</title>
+  <meta name="description" content="A technical note on canonical modal reduction, a sharp stability threshold, and spectral anisotropy for positive-definite quadratic symplectic Euler." />
+  <link rel="canonical" href="https://lyuf09.github.io/chronohaze/shared/modal_invariants_symplectic_euler.html" />
+  <link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
+  <link rel="preload" href="../assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="../assets/fonts/noto-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="../styles.min.css?v=20261103-history-search1" />
+  <style>
+    :root {
+      color-scheme: dark;
+      --shared-ink: rgba(241, 244, 248, 0.94);
+      --shared-muted: rgba(194, 203, 217, 0.76);
+      --shared-line: rgba(183, 197, 219, 0.2);
+      --shared-accent: #b7c8e3;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body.shared-note-page {
+      margin: 0;
+      min-width: 320px;
+      background: #0f141c;
+      color: var(--shared-ink);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .shared-note-page a {
+      color: inherit;
+    }
+
+    .shared-main {
+      min-height: calc(100vh - 76px);
+      background:
+        radial-gradient(circle at 16% 5%, rgba(108, 129, 165, 0.13), transparent 31%),
+        radial-gradient(circle at 88% 28%, rgba(157, 176, 207, 0.08), transparent 29%),
+        linear-gradient(180deg, #111821 0%, #0f141c 58%, #10151d 100%);
+    }
+
+    .shared-note-page .cv-utility-bar {
+      margin-top: 0;
+    }
+
+    .shared-shell {
+      width: min(1120px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: 56px 0 84px;
+    }
+
+    .shared-back {
+      display: inline-flex;
+      margin-bottom: 28px;
+      color: rgba(214, 220, 230, 0.78);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .shared-section + .shared-section {
+      margin-top: 42px;
+    }
+
+    .shared-kicker {
+      margin: 0;
+      color: var(--shared-accent);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .shared-title {
+      max-width: 880px;
+      margin: 14px 0 0;
+      color: rgba(248, 249, 251, 0.98);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(43px, 7vw, 76px);
+      font-weight: 300;
+      line-height: 0.98;
+      letter-spacing: -0.015em;
+    }
+
+    .shared-identity {
+      margin-top: 26px;
+      padding-left: 18px;
+      border-left: 2px solid rgba(183, 200, 227, 0.52);
+    }
+
+    .shared-author {
+      margin: 0;
+      color: rgba(245, 247, 250, 0.96);
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    .shared-affiliation {
+      margin: 5px 0 0;
+      color: var(--shared-muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .shared-section-label {
+      margin: 0 0 14px;
+      color: rgba(183, 200, 227, 0.82);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .shared-abstract {
+      max-width: 790px;
+      margin: 0;
+      color: rgba(228, 233, 240, 0.9);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(22px, 3vw, 29px);
+      line-height: 1.48;
+    }
+
+    .shared-math {
+      white-space: nowrap;
+      font-style: italic;
+    }
+
+    .shared-results {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin: 0;
+      padding: 0;
+      border-top: 1px solid var(--shared-line);
+      list-style: none;
+    }
+
+    .shared-results li {
+      min-height: 218px;
+      padding: 24px 23px 22px;
+      border-bottom: 1px solid var(--shared-line);
+    }
+
+    .shared-results li + li {
+      border-left: 1px solid var(--shared-line);
+    }
+
+    .shared-result-number {
+      display: block;
+      margin-bottom: 28px;
+      color: rgba(183, 200, 227, 0.66);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 18px;
+    }
+
+    .shared-result-title {
+      display: block;
+      margin-bottom: 10px;
+      color: rgba(242, 245, 249, 0.95);
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .shared-result-copy {
+      margin: 0;
+      color: var(--shared-muted);
+      font-size: 13px;
+      line-height: 1.68;
+    }
+
+    .shared-pdf-intro {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.35fr);
+      gap: 42px;
+      padding: 30px;
+      border: 1px solid var(--shared-line);
+      background: rgba(255, 255, 255, 0.035);
+      box-shadow: 0 24px 72px rgba(0, 0, 0, 0.18);
+    }
+
+    .shared-pdf-intro h2 {
+      margin: 0;
+      color: rgba(247, 249, 252, 0.97);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 31px;
+      font-weight: 400;
+      line-height: 1.1;
+    }
+
+    .shared-reading-note {
+      margin: 12px 0 22px;
+      color: var(--shared-muted);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .shared-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .shared-action {
+      display: inline-flex;
+      min-height: 42px;
+      padding: 0 16px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(189, 204, 226, 0.3);
+      color: rgba(244, 247, 251, 0.94);
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .shared-action-primary {
+      border-color: rgba(194, 211, 236, 0.68);
+      background: rgba(177, 198, 229, 0.15);
+    }
+
+    .shared-pdf-frame-wrap {
+      overflow: hidden;
+      margin-top: 18px;
+      border: 1px solid rgba(190, 199, 214, 0.24);
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.24);
+    }
+
+    .shared-pdf-frame {
+      display: block;
+      width: 100%;
+      height: min(78vh, 940px);
+      min-height: 620px;
+      border: 0;
+      background: #151923;
+    }
+
+    .shared-pdf-fallback {
+      margin: 14px 0 0;
+      color: rgba(190, 199, 214, 0.72);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .shared-pdf-fallback a {
+      color: rgba(218, 229, 248, 0.96);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .shared-source {
+      padding-left: 30px;
+      border-left: 1px solid var(--shared-line);
+    }
+
+    .shared-source-label {
+      margin: 0 0 10px;
+      color: rgba(183, 200, 227, 0.76);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .shared-source-citation {
+      margin: 0;
+      color: rgba(225, 230, 237, 0.88);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 20px;
+      line-height: 1.5;
+    }
+
+    .shared-source-link {
+      display: inline-block;
+      margin-top: 14px;
+      color: rgba(210, 224, 245, 0.94);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-underline-offset: 4px;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 760px) {
+      .shared-shell {
+        width: min(100% - 24px, 1120px);
+        padding: 48px 0 56px;
+      }
+
+      .shared-section + .shared-section {
+        margin-top: 34px;
+      }
+
+      .shared-title {
+        font-size: clamp(40px, 13vw, 58px);
+        line-height: 1;
+      }
+
+      .shared-abstract {
+        font-size: 22px;
+        line-height: 1.52;
+      }
+
+      .shared-results {
+        display: block;
+      }
+
+      .shared-results li {
+        min-height: 0;
+        padding: 22px 4px 24px;
+      }
+
+      .shared-results li + li {
+        border-left: 0;
+      }
+
+      .shared-result-number {
+        margin-bottom: 12px;
+      }
+
+      .shared-pdf-intro {
+        display: block;
+        padding: 23px 20px;
+      }
+
+      .shared-source {
+        margin-top: 30px;
+        padding: 27px 0 0;
+        border-top: 1px solid var(--shared-line);
+        border-left: 0;
+      }
+
+      .shared-action {
+        flex: 1 1 150px;
+      }
+
+      .shared-pdf-frame {
+        height: 72vh;
+        min-height: 440px;
+      }
+    }
+  </style>
+
+  <!-- Chronohaze analytics preference and opt-out control -->
+  <script id="chronohaze-analytics-bootstrap">
+    (function () {
+      var measurementId = "G-JWZY2TVYFZ";
+      var storedPreference;
+      try { storedPreference = window.localStorage.getItem("chronohaze-analytics"); } catch (_err) {}
+      var doNotTrack = navigator.doNotTrack === "1" || window.doNotTrack === "1";
+      var enabled = storedPreference === "on" || (storedPreference !== "off" && !doNotTrack);
+      window["ga-disable-" + measurementId] = !enabled;
+      window.__chronohazeAnalyticsInitialEnabled = enabled;
+    })();
+  </script>
+  <link rel="stylesheet" href="../assets/css/analytics-control.min.css?v=20260906-latin-a11y1" />
+  <script id="chronohaze-analytics-runtime" defer src="../assets/js/analytics-control.min.js?v=20260906-latin-a11y1" data-analytics-collection="control-only"></script>
+</head>
+<body class="math-post-page note-detail-page shared-note-page">
+  <a class="skip-link" href="#main-content">Skip to content / 跳到正文</a>
+<div class="page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="../index.html">
+          <img src="../assets/logo-header.png" alt="Chronohaze site logo" />
+          <span>CHRONOHAZE</span>
+        </a>
+        <nav class="nav" aria-label="Main navigation">
+          <a href="../index.html">Home</a>
+          <a class="active" href="../academic.html">Academic</a>
+          <a href="../music.html">Music</a>
+          <a href="../photography.html">Photography</a>
+          <a href="../cv.html">CV</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" class="main shared-main">
+      <div class="container">
+        <div class="cv-utility-bar">
+          <div class="cv-utility-top">
+            <nav class="academic-local-nav" aria-label="Academic section links">
+              <a class="academic-local-link" href="../projects.html">Selected Work</a>
+              <a class="academic-local-link" href="../research.html">Research Statement</a>
+              <a class="academic-local-link" href="../math.html">Technical Notes</a>
+            </nav>
+          </div>
+        </div>
+      </div>
+
+      <article class="shared-shell">
+        <a class="shared-back" href="../academic.html">Back to Academic</a>
+
+      <section class="shared-section" aria-label="Type and date">
+        <p class="shared-kicker">Technical Note · July 2026</p>
+      </section>
+
+      <section class="shared-section" aria-labelledby="shared-note-title">
+        <h1 class="shared-title" id="shared-note-title">Modal Invariants and a Sharp Stability Threshold for Quadratic Symplectic Euler</h1>
+        <div class="shared-identity">
+          <p class="shared-author">Feier Lyu</p>
+          <p class="shared-affiliation">BSc Mathematics (expected 2027), University of Edinburgh</p>
+        </div>
+      </section>
+
+      <section class="shared-section" aria-labelledby="shared-abstract-label">
+        <p class="shared-section-label" id="shared-abstract-label">Abstract</p>
+        <p class="shared-abstract">
+          This three-page note (plus a one-page reference list) gives a canonical modal reduction of symplectic Euler applied to a positive-definite separable quadratic Hamiltonian. It identifies
+          <span class="shared-math">η<sup>2</sup>ρ(BC) &lt; 1</span>
+          as the exact threshold for both absolute convergence of the modified-Hamiltonian series and power-boundedness of the linear symplectic Euler update. It also shows that spectral anisotropy—rather than dimension alone—determines whether the modified Hamiltonian and the elementary quadratic invariant are functionally independent.
+        </p>
+      </section>
+
+      <section class="shared-section" aria-labelledby="shared-results-label">
+        <p class="shared-section-label" id="shared-results-label">Three Core Results</p>
+        <ol class="shared-results">
+          <li>
+            <span class="shared-result-number">01</span>
+            <strong class="shared-result-title">Canonical modal reduction</strong>
+            <p class="shared-result-copy">A linear canonical transformation separates the positive-definite quadratic dynamics into independent two-dimensional modes, each carrying an explicit quadratic invariant.</p>
+          </li>
+          <li>
+            <span class="shared-result-number">02</span>
+            <strong class="shared-result-title">One sharp threshold</strong>
+            <p class="shared-result-copy">The condition <span class="shared-math">η<sup>2</sup>ρ(BC) &lt; 1</span> is simultaneously the convergence threshold for the modified-Hamiltonian series and the power-boundedness threshold for the discrete update.</p>
+          </li>
+          <li>
+            <span class="shared-result-number">03</span>
+            <strong class="shared-result-title">Spectral anisotropy</strong>
+            <p class="shared-result-copy">Functional independence of the conserved quantities is governed by variation among the modal eigenvalues; an isotropic spectrum keeps the two invariants proportional.</p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="shared-section" aria-labelledby="shared-reading-title">
+        <div class="shared-pdf-intro">
+          <div>
+            <p class="shared-section-label">PDF</p>
+            <h2 id="shared-reading-title">Read the note</h2>
+            <p class="shared-reading-note">Three pages of analysis, followed by a one-page reference list.</p>
+            <div class="shared-actions">
+              <a class="shared-action shared-action-primary" href="modal_invariants_symplectic_euler.pdf" target="_blank" rel="noopener nofollow">Open PDF</a>
+              <a class="shared-action" href="../academic.html">Academic Profile</a>
+            </div>
+          </div>
+          <div class="shared-source">
+            <p class="shared-source-label">Source paper</p>
+            <p class="shared-source-citation">
+              Jonas E. Katona, Xiuyuan Wang, and Andre Wibisono. “A Symplectic Analysis of Alternating Mirror Descent.” <em>Journal of Machine Learning Research</em> 27(44):1–61, 2026.
+            </p>
+            <a class="shared-source-link" href="https://jmlr.org/papers/v27/24-0792.html" target="_blank" rel="noopener noreferrer">View at JMLR</a>
+          </div>
+        </div>
+
+        <div class="shared-pdf-frame-wrap">
+          <iframe
+            class="shared-pdf-frame"
+            src="modal_invariants_symplectic_euler.pdf#view=FitH"
+            title="Modal invariants and sharp symplectic Euler stability threshold PDF preview"
+            loading="lazy"
+          ></iframe>
+        </div>
+
+        <p class="shared-pdf-fallback">
+          If the preview does not load in your browser, use
+          <a href="modal_invariants_symplectic_euler.pdf" target="_blank" rel="noopener nofollow">Open PDF</a>.
+        </p>
+      </section>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <p class="footer-title">CHRONOHAZE</p>
+          <p class="footer-note"><span>Academic contact: </span><a href="#" data-shared-email="1">moc.duolci@035reief</a></p>
+          <p class="footer-note">Feier Lyu · BSc Mathematics (expected 2027), University of Edinburgh</p>
+          <p class="footer-copy">© 2026 by CHRONOHAZE. Hosted on GitHub Pages.</p>
+          <div class="social" aria-label="Social links">
+            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://www.instagram.com/lyuf09" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://space.bilibili.com/35902781" target="_blank" rel="noopener noreferrer">Bilibili</a>
+            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+        <div class="footer-right">
+          <a href="../policy.html">Site Notes</a>
+          <a href="../accessibility.html">Accessibility</a>
+        </div>
+      </div>
+  <div class="analytics-control-shell" data-analytics-collection="control-only">
+    <p class="analytics-control" data-analytics-control>
+      <span data-analytics-status>Analytics: On</span><span aria-hidden="true"> · </span><button type="button" data-analytics-toggle>Turn off</button>
+    </p>
+  </div>
+</footer>
+  </div>
+
+  <script>
+    (function () {
+      const links = Array.from(document.querySelectorAll('[data-shared-email="1"]'));
+      const user = 'feier530';
+      const domain = ['icloud', 'com'].join('.');
+      const address = [user, domain].join('@');
+
+      links.forEach(function (link) {
+        link.href = 'mailto:' + address;
+        link.textContent = address;
+        link.setAttribute('aria-label', 'Email ' + address);
+      });
+    })();
+  </script>
+</body>
+</html>

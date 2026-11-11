@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <style id="chronohaze-critical-loader-style">
+    html.chronohaze-critical-loading,
+    html.chronohaze-critical-loading body {
+      min-height: 100%;
+      background: #10141b;
+    }
+
+    html.chronohaze-critical-loading body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    html.chronohaze-critical-loading body > :not(.chronohaze-loader) {
+      visibility: hidden !important;
+    }
+
+    html.chronohaze-critical-loading::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 2147483000;
+      background:
+        linear-gradient(90deg, rgba(138, 160, 200, 0.09) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(138, 160, 200, 0.07) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(13, 17, 24, 0.992) 0%, rgba(19, 24, 33, 0.992) 55%, rgba(13, 17, 24, 0.996) 100%);
+      background-size: 54px 54px, 54px 54px, 100% 100%;
+    }
+
+    html.chronohaze-critical-loading::after {
+      content: "CHRONOHAZE";
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      z-index: 2147483001;
+      width: min(500px, calc(100vw - 40px));
+      padding: 30px 32px;
+      transform: translate(-50%, -50%);
+      white-space: pre-line;
+      color: rgba(232, 234, 237, 0.9);
+      font: 300 clamp(22px, 3.2vw, 34px)/1.48 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.055em;
+      border: 1px solid rgba(154, 172, 204, 0.3);
+      border-radius: 0;
+      background: linear-gradient(180deg, rgba(20, 25, 34, 0.84) 0%, rgba(13, 17, 24, 0.82) 100%);
+      box-shadow: 0 24px 58px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.045);
+    }
+
+    html[lang^="zh"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A 页面加载中";
+    }
+
+    html[lang^="en"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A Loading";
+    }
+
+    html.chronohaze-critical-loading-mobile body {
+      overflow: auto;
+    }
+
+    html.chronohaze-critical-loading-mobile body > :not(.chronohaze-loader) {
+      visibility: visible !important;
+    }
+
+    html.chronohaze-critical-loading-mobile::before {
+      background: linear-gradient(180deg, rgba(13, 17, 24, 0.18) 0%, rgba(19, 24, 33, 0.22) 100%);
+      pointer-events: none;
+    }
+
+    html.chronohaze-critical-loading-mobile::after {
+      content: "CHRONOHAZE";
+      left: 16px;
+      top: 16px;
+      width: auto;
+      max-width: calc(100vw - 32px);
+      padding: 10px 12px;
+      transform: none;
+      white-space: normal;
+      color: rgba(232, 234, 237, 0.78);
+      font: 400 12px/1.3 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.18em;
+      border: 1px solid rgba(154, 172, 204, 0.18);
+      background: rgba(16, 20, 27, 0.34);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+      backdrop-filter: blur(2px);
+    }
+  </style>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var isMobile = window.matchMedia && window.matchMedia("(max-width: 760px)").matches;
+      root.classList.add("chronohaze-critical-loading");
+      if (isMobile) {
+        root.classList.add("chronohaze-critical-loading-mobile");
+      }
+      window.__chronohazeReleaseCriticalLoader = function () {
+        root.classList.remove("chronohaze-critical-loading");
+        root.classList.remove("chronohaze-critical-loading-mobile");
+      };
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", window.__chronohazeReleaseCriticalLoader, { once: true });
+      } else {
+        window.requestAnimationFrame(window.__chronohazeReleaseCriticalLoader);
+      }
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, 500);
+    })();
+  </script>
+<script>
+    (function () {
+      try {
+        var url = new URL(window.location.href);
+        var queryLang = url.searchParams.get("lang");
+        var valid = function (value) {
+          return value === "zh" || value === "en";
+        };
+        var defaultLang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+        var defaultSafe = defaultLang.indexOf("en") === 0 ? "en" : "zh";
+
+        if (valid(queryLang)) {
+          window.localStorage.setItem("siteLang", queryLang);
+          window.localStorage.setItem("chronohaze-lang", queryLang);
+          window.__chronohazePreferredLang = queryLang;
+          document.documentElement.lang = queryLang === "en" ? "en" : "zh-CN";
+          document.documentElement.setAttribute("data-site-lang", queryLang);
+          return;
+        }
+
+        var storedLang = window.localStorage.getItem("siteLang");
+        if (!valid(storedLang)) {
+          storedLang = window.localStorage.getItem("chronohaze-lang");
+        }
+        if (!valid(storedLang)) {
+          return;
+        }
+
+        window.__chronohazePreferredLang = storedLang;
+        document.documentElement.lang = storedLang === "en" ? "en" : "zh-CN";
+        document.documentElement.setAttribute("data-site-lang", storedLang);
+
+        if (storedLang !== defaultSafe) {
+          url.searchParams.set("lang", storedLang);
+          window.location.replace(url.toString());
+        }
+      } catch (_err) {}
+    })();
+  </script>
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico?v=4" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=4" />
+  <title>网站说明 | Chronohaze</title>
+  <meta name="description" content="Chronohaze 网站说明页面。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Chronohaze" />
+  <meta property="og:title" content="网站说明 | Chronohaze" />
+  <meta property="og:description" content="Chronohaze 网站说明页面。" />
+  <meta property="og:url" content="https://lyuf09.github.io/chronohaze/policy.html" />
+  <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="网站说明 | Chronohaze" />
+  <meta name="twitter:description" content="Chronohaze 网站说明页面。" />
+  <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/logo.png" />
+  <link rel="canonical" href="https://lyuf09.github.io/chronohaze/policy.html" />
+  <!-- GENERATED:hreflang:start -->
+  <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/policy.html?lang=zh" />
+  <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/policy.html?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/policy.html" />
+  <!-- GENERATED:hreflang:end -->
+  <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
+<link rel="preload" href="assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="assets/fonts/noto-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="styles.min.css?v=20261103-history-search1" />
+  <script defer src="protect-media.min.js?v=20261103-history-search1"></script>
+
+  <!-- Chronohaze analytics preference and opt-out control -->
+  <script id="chronohaze-analytics-bootstrap">
+    (function () {
+      var measurementId = "G-JWZY2TVYFZ";
+      var storedPreference;
+      try { storedPreference = window.localStorage.getItem("chronohaze-analytics"); } catch (_err) {}
+      var doNotTrack = navigator.doNotTrack === "1" || window.doNotTrack === "1";
+      var enabled = storedPreference === "on" || (storedPreference !== "off" && !doNotTrack);
+      window["ga-disable-" + measurementId] = !enabled;
+      window.__chronohazeAnalyticsInitialEnabled = enabled;
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/css/analytics-control.min.css?v=20260906-latin-a11y1" />
+  <script id="chronohaze-analytics-runtime" defer src="assets/js/analytics-control.min.js?v=20260906-latin-a11y1" data-analytics-collection="enabled"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content / 跳到正文</a>
+<div class="page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="index.html">
+          <img src="assets/logo-header.png" alt="Chronohaze site logo" />
+          <span>CHRONOHAZE</span>
+        </a>
+        <nav class="nav" aria-label="主导航" data-i18n-aria="navAria">
+          <a href="index.html" data-i18n="navHome">主页</a>
+          <a href="academic.html" data-i18n="navAcademic">学术</a>
+          <a href="music.html" data-i18n="navMusic">音乐</a>
+          <a href="photography.html" data-i18n="navPhoto">摄影</a>
+          <a href="cv.html" data-i18n="navCV">CV</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" class="main">
+      <article class="policy">
+        <div data-lang-block="zh">
+          <h1>网站说明（隐私与版权）</h1>
+          <p>最近更新：2026 年 9 月 7 日</p>
+
+          <h2>1. 数据与隐私</h2>
+          <p>本网站为个人静态展示站点，不提供账号注册、在线支付或用户评论功能。站点本身不主动建立用户画像，也不进行站内广告定向。</p>
+          <p>网站托管于 GitHub Pages。访问过程中，平台层可能会处理基础网络与日志信息（例如请求日志、IP 地址、设备和浏览器信息等）以保障服务可用性与安全性。具体请参阅 GitHub 官方隐私声明。</p>
+
+          <h2>2. Analytics、Cookie 与本地存储</h2>
+          <p>本站使用 Google Analytics 了解汇总的页面浏览量、导航模式和设备类别，以便改进网站。Analytics 默认开启，不用于广告、个性化或跨站画像。Google Analytics 可能设置 <code>_ga</code>、<code>_ga_&lt;container-id&gt;</code> 等第一方 Cookie；本站将其有效期设置为最近一次 Analytics 事件后的最多 90 天。Google 会在每次发送 Analytics 命中时更新 Cookie 到期时间，详见 <a href="https://developers.google.com/analytics/devguides/collection/ga4/reference/config#cookie_expires" target="_blank" rel="noopener noreferrer">Google 的 <code>cookie_expires</code> 文档</a>。</p>
+          <p>你可以随时使用全站页脚中的“Turn off analytics”关闭 Analytics。关闭后，此浏览器不会再发送新的 Analytics 事件，相关的可见 Analytics Cookie 会被清除，并在本地保存你的选择。你可以使用同一个控件重新开启 Analytics。浏览器的 Do Not Track 信号也会受到尊重，除非你之后明确重新开启 Analytics。</p>
+          <p>本站还使用浏览器本地存储保存语言选择（<code>siteLang</code>、<code>chronohaze-lang</code>）、Analytics 偏好（<code>chronohaze-analytics</code>）、搜索界面状态（<code>chronohaze:search-state:v1</code>）和最近搜索词（<code>chronohaze:search-history:v1</code>）。搜索状态与最近搜索词仅保存在此浏览器中，可使用搜索页的“清空记录 / Clear history”删除。临时音频播放状态以 <code>chronohaze:persistent-audio:v1</code> 保存在 sessionStorage 中，通常会在浏览器会话结束时失效。这些存储值用于维持站内设置，不会由本站单独上传。</p>
+          <p>Google Signals 和广告个性化信号已在代码中关闭。关于 Google 如何处理 Analytics 数据，请参阅 <a href="https://support.google.com/analytics/answer/6004245" target="_blank" rel="noopener noreferrer">Google Analytics 数据保护说明</a>。</p>
+
+          <h2>3. 邮件联系</h2>
+          <p>当你主动通过邮件联系站长时，你提供的邮箱地址和邮件内容仅用于回复与沟通，不会出售或用于与本次联系无关的营销用途。</p>
+
+          <h2>4. 第三方链接</h2>
+          <p>站内可能包含跳转至第三方平台（如社交媒体、音乐平台）的链接。跳转后由对应平台独立处理数据与 Cookie，适用其各自政策。</p>
+
+          <h2>5. 版权与使用</h2>
+          <p>除特别标注外，本站文字、摄影作品、音频作品及页面设计均归站长所有。未经许可，请勿转载、商用、二次发行或用于训练数据集。</p>
+
+          <h2>6. 说明更新</h2>
+          <p>当站点功能或数据处理方式发生变化时，本页面会同步更新。</p>
+
+          <h2>7. 联系方式</h2>
+          <p>邮箱：<a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a></p>
+        </div>
+
+        <div data-lang-block="en" hidden>
+          <h1>Site Policy (Privacy &amp; Copyright)</h1>
+          <p>Last updated: September 7, 2026</p>
+
+          <h2>1. Data &amp; Privacy</h2>
+          <p>This website is a personal static portfolio. It does not provide account registration, online payment, or user comments. The site does not intentionally build user profiles or run on-site ad targeting.</p>
+          <p>The site is hosted on GitHub Pages. During your visit, platform-level infrastructure may process baseline network and log information (such as request logs, IP address, device, and browser data) for service availability and security. Please refer to GitHub's official privacy statement for details.</p>
+
+          <h2>2. Analytics, Cookies &amp; Local Storage</h2>
+          <p>This site uses Google Analytics to understand aggregate page views, navigation patterns, and device categories so I can improve the site. Analytics is enabled by default and is not used for advertising, personalization, or cross-site profiling. Google Analytics may set first-party cookies such as <code>_ga</code> and <code>_ga_&lt;container-id&gt;</code>; this site configures them to expire no later than 90 days after the most recent Analytics event. Google updates the expiry whenever an Analytics hit is sent, as described in its <a href="https://developers.google.com/analytics/devguides/collection/ga4/reference/config#cookie_expires" target="_blank" rel="noopener noreferrer"><code>cookie_expires</code> documentation</a>.</p>
+          <p>You can opt out at any time using “Turn off analytics” in the footer. After opting out, no further analytics events will be sent from this browser, visible Analytics cookies will be removed, and your preference will be stored locally. You can re-enable analytics using the same control. A browser-level Do Not Track signal is also respected unless you later choose to turn analytics back on.</p>
+          <p>The site also uses browser local storage for language preferences (<code>siteLang</code> and <code>chronohaze-lang</code>), the Analytics preference (<code>chronohaze-analytics</code>), search interface state (<code>chronohaze:search-state:v1</code>), and recent search terms (<code>chronohaze:search-history:v1</code>). Search state and recent search terms are stored only in this browser and can be removed using “Clear history.” Temporary audio playback state is stored under <code>chronohaze:persistent-audio:v1</code> in session storage and normally expires when the browser session ends. These storage values maintain site settings and are not separately uploaded by this site.</p>
+          <p>Google Signals and advertising-personalization signals are disabled in the site configuration. For information about Google's handling of Analytics data, see <a href="https://support.google.com/analytics/answer/6004245" target="_blank" rel="noopener noreferrer">Google's Analytics data safeguards</a>.</p>
+
+          <h2>3. Email Contact</h2>
+          <p>If you contact the site owner by email, your email address and message content are used only for reply and communication, and will not be sold or used for unrelated marketing purposes.</p>
+
+          <h2>4. Third-Party Links</h2>
+          <p>This site may include links to third-party platforms (such as social media or music platforms). After redirection, data and cookies are handled independently by those platforms under their own policies.</p>
+
+          <h2>5. Copyright &amp; Use</h2>
+          <p>Unless otherwise noted, all texts, photographs, audio works, and page designs on this site belong to the site owner. Reposting, commercial use, redistribution, or dataset training use is not allowed without permission.</p>
+
+          <h2>6. Policy Updates</h2>
+          <p>This page will be updated when site features or data handling practices change.</p>
+
+          <h2>7. Contact</h2>
+          <p>Email: <a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a></p>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <p class="footer-title">CHRONOHAZE</p>
+          <p class="footer-note"><span data-i18n="footerContactLead">联系邮箱：</span><a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a></p>
+          <p class="footer-note" data-i18n="footerCities">重庆 · Edinburgh · Ithaca</p>
+          <p class="footer-copy">© 2026 by CHRONOHAZE. Hosted on GitHub Pages.</p>
+          <div class="social" aria-label="Social links">
+            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://www.instagram.com/lyuf09" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://space.bilibili.com/35902781" target="_blank" rel="noopener noreferrer">Bilibili</a>
+            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+        <div class="footer-right">
+          <a href="policy.html" data-i18n="siteNotes">网站说明</a>
+          <a href="accessibility.html" data-i18n="a11y">无障碍支持</a>
+        </div>
+      </div>
+  <div class="analytics-control-shell" data-analytics-collection="enabled">
+    <p class="analytics-control" data-analytics-control>
+      <span data-analytics-status>Analytics: On</span><span aria-hidden="true"> · </span><button type="button" data-analytics-toggle>Turn off</button>
+    </p>
+  </div>
+</footer>
+  </div>
+  <script>
+    (function () {
+      const i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
+      const i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
+      const langBlocks = Array.from(document.querySelectorAll('[data-lang-block]'));
+
+      const i18n = {
+        zh: {
+          htmlLang: 'zh-CN',
+          pageTitle: '网站说明 | Chronohaze',
+          pageDescription: 'Chronohaze 网站说明页面，介绍隐私、数据处理、版权与内容使用规则。',
+          navAria: '主导航',
+          navHome: '主页',
+          navAcademic: '学术',
+          navPhoto: '摄影',
+          navMusic: '音乐',
+          navCV: 'CV',
+          navSearch: '搜索',
+          footerContactLead: '联系邮箱：',
+          footerCities: '重庆 · Edinburgh · Ithaca',
+          siteNotes: '网站说明',
+          a11y: '无障碍支持'
+        },
+        en: {
+          htmlLang: 'en',
+          pageTitle: 'Privacy Policy | Chronohaze',
+          pageDescription: 'Privacy, data handling, copyright, and content usage information for Chronohaze.',
+          navAria: 'Main navigation',
+          navHome: 'Home',
+          navAcademic: 'Academic',
+          navPhoto: 'Photography',
+          navMusic: 'Music',
+          navCV: 'CV',
+          navSearch: 'Search',
+          footerContactLead: 'Contact by email: ',
+          footerCities: 'Chongqing · Edinburgh · Ithaca',
+          siteNotes: 'Privacy Policy',
+          a11y: 'Accessibility'
+        }
+      };
+
+      function setLanguage(lang) {
+        const safeLang = lang === 'en' ? 'en' : 'zh';
+        const dict = i18n[safeLang];
+        document.documentElement.lang = dict.htmlLang;
+        document.title = dict.pageTitle;
+
+        ['meta[name="description"]', 'meta[property="og:description"]', 'meta[name="twitter:description"]'].forEach(function (selector) {
+          const node = document.querySelector(selector);
+          if (node) node.setAttribute('content', dict.pageDescription);
+        });
+        ['meta[property="og:title"]', 'meta[name="twitter:title"]'].forEach(function (selector) {
+          const node = document.querySelector(selector);
+          if (node) node.setAttribute('content', dict.pageTitle);
+        });
+
+        i18nNodes.forEach(function (node) {
+          const key = node.getAttribute('data-i18n');
+          const value = dict[key];
+          if (typeof value === 'string') {
+            node.textContent = value;
+          }
+        });
+
+        i18nAriaNodes.forEach(function (node) {
+          const key = node.getAttribute('data-i18n-aria');
+          const value = dict[key];
+          if (typeof value === 'string') {
+            node.setAttribute('aria-label', value);
+          }
+        });
+
+        langBlocks.forEach(function (block) {
+          block.hidden = block.getAttribute('data-lang-block') !== safeLang;
+        });
+
+        try {
+          window.localStorage.setItem('siteLang', safeLang);
+          window.localStorage.setItem('chronohaze-lang', safeLang);
+        } catch (err) {
+        }
+      }
+
+      let initialLang = 'zh';
+      try {
+        const siteLang = window.localStorage.getItem('siteLang');
+        const savedLang = window.localStorage.getItem('chronohaze-lang');
+        if (siteLang === 'zh' || siteLang === 'en') {
+          initialLang = siteLang;
+        } else if (savedLang === 'zh' || savedLang === 'en') {
+          initialLang = savedLang;
+        }
+      } catch (err) {
+      }
+
+      const queryLang = new URLSearchParams(window.location.search).get('lang');
+      if (queryLang === 'zh' || queryLang === 'en') {
+        initialLang = queryLang;
+      }
+
+      setLanguage(initialLang);
+    })();
+  </script>
+</body>
+</html>

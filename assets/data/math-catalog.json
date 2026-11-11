@@ -1,0 +1,209 @@
+{
+  "generated_at": "2026-10-29",
+  "source": "math.html",
+  "items": [
+    {
+      "order": 1,
+      "url": "post/stochasticgreedy-executable-refinement.html",
+      "date": "2026-10-03",
+      "title": "从一套框架到真正会运行的随机算法：StochasticGreedy 的 executable refinement",
+      "title_en": "From a Framework to a Randomized Algorithm That Actually Runs: Executable Refinement of StochasticGreedy",
+      "excerpt": "未发表扩展的进展摘要；最新实现尚未公开。期望近似保证采用理想随机位语义，PCG 结果限定于优化前后的执行一致性。",
+      "excerpt_en": "Progress summary of an unpublished extension; the latest implementation is not yet public. Expected approximation uses ideal random-bit semantics; PCG results concern execution preservation under optimization.",
+      "readmore_url": "post/stochasticgreedy-executable-refinement.html",
+      "tags": [
+        "math",
+        "article"
+      ],
+      "line_tags": [
+        "Isabelle/HOL",
+        "StochasticGreedy",
+        "Formal Verification"
+      ],
+      "reading_time_zh": "约 2 分钟",
+      "reading_time_en": "~2 min read",
+      "note_status": "Unpublished extension",
+      "date_label_zh": "更新于 2026-10-25",
+      "date_label_en": "Updated 2026-10-25",
+      "link_label_zh": "阅读进展摘要"
+    },
+    {
+      "order": 2,
+      "url": "notes/network_localization_structural_certificates.html",
+      "date": "2026-07-22",
+      "title": "网络定位中的二阶几何：研究概览",
+      "title_en": "Second-Order Geometry in Network Localization: A Research Overview",
+      "excerpt": "与 Prof. Shoham Sabach、Owen Li 合作的网络定位二阶几何研究概览；只保留背景、目标与已经确认的高层结论。",
+      "excerpt_en": "A concise overview of collaborative research with Prof. Shoham Sabach and Owen Li on second-order geometry in network localization.",
+      "readmore_url": "notes/network_localization_structural_certificates.html",
+      "tags": [
+        "math",
+        "article"
+      ],
+      "line_tags": [
+        "Network Localization",
+        "Negative Curvature",
+        "Second-Order Geometry"
+      ],
+      "reading_time_zh": "约 4 分钟",
+      "reading_time_en": "4 min read",
+      "note_status": "Ongoing joint research",
+      "date_label_zh": "更新于 2026-08-23",
+      "date_label_en": "Updated 2026-08-23",
+      "link_label_zh": "阅读研究概览",
+      "link_label_en": "Read research overview",
+      "pdf": false
+    },
+    {
+      "order": 3,
+      "url": "post/submodular-greedy-formalization-enters-afp.html",
+      "date": "2026-06-30",
+      "title": "子模贪心算法形式化正式进入 AFP",
+      "title_en": "Formalizing Submodular Greedy Is Now in the AFP",
+      "excerpt": "记录 Isabelle/HOL 子模贪心算法形式化正式发表于 Archive of Formal Proofs，以及形式化过程中逐渐显露出的算法证明结构。",
+      "excerpt_en": "A short reflection on the publication of an Isabelle/HOL formalization of submodular greedy algorithms in the Archive of Formal Proofs, and on the proof architecture exposed by formalization.",
+      "readmore_url": "post/submodular-greedy-formalization-enters-afp.html",
+      "tags": [
+        "math",
+        "article"
+      ],
+      "line_tags": [
+        "Isabelle/HOL",
+        "Approximation Algorithms",
+        "AFP"
+      ],
+      "reading_time_zh": "约 6 分钟",
+      "reading_time_en": "7 min read",
+      "note_status": "Published formalization",
+      "date_label_zh": "原始发布 · 2026-06-30",
+      "date_label_en": "Originally posted · 2026-06-30"
+    },
+    {
+      "order": 4,
+      "url": "post/projected-gradient-descent-isabelle-hol.html",
+      "date": "2026-05-22",
+      "title": "从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL",
+      "title_en": "Moving Forward After Submodular Optimization: Projected Gradient Descent in Isabelle/HOL",
+      "excerpt": "这篇 5 月 22 日的原始笔记保留项目设计时期的叙事；该独立形式化现已以《First-Order Methods for Smooth Convex Optimization in Isabelle/HOL》正式发表于 AFP。",
+      "excerpt_en": "Originally posted on May 22, this note preserves the design-stage narrative; the sole-authored formalization is now published in AFP as First-Order Methods for Smooth Convex Optimization in Isabelle/HOL.",
+      "readmore_url": "post/projected-gradient-descent-isabelle-hol.html",
+      "tags": [
+        "math",
+        "article"
+      ],
+      "line_tags": [
+        "Isabelle/HOL",
+        "Optimization"
+      ],
+      "reading_time_zh": "约 5 分钟",
+      "reading_time_en": "5 min read",
+      "note_status": "Publication retrospective · AFP",
+      "date_label_zh": "原始发布 · 2026-05-22",
+      "date_label_en": "Originally posted · 2026-05-22"
+    },
+    {
+      "order": 5,
+      "url": "post/theorem-to-framework-isabelle-submodular.html",
+      "date": "2026-03-14",
+      "title": "Isabelle/HOL 中的 Classical Greedy、LazyGreedy 与 StochasticGreedy",
+      "title_en": "Classical Greedy, LazyGreedy, and StochasticGreedy in Isabelle/HOL",
+      "excerpt": "原文发布于 3 月 14 日；7 月更新仅补充后续状态。子模贪心条目于 5 月 26 日正式发表于 AFP，发表后仓库继续发展 StochasticGreedy theorem line。",
+      "excerpt_en": "Originally posted on March 14; the July update adds later status without changing the original date. The submodular entry was published in AFP on May 26, and the repository continued afterward with the StochasticGreedy theorem line.",
+      "readmore_url": "post/theorem-to-framework-isabelle-submodular.html",
+      "tags": [
+        "math",
+        "article"
+      ],
+      "line_tags": [
+        "Isabelle/HOL",
+        "Optimization"
+      ],
+      "reading_time_zh": "约 6 分钟",
+      "reading_time_en": "8 min read",
+      "note_status": "Published formalization",
+      "date_label_zh": "原始发布 · 2026-03-14",
+      "date_label_en": "Originally posted · 2026-03-14"
+    },
+    {
+      "order": 6,
+      "url": "post/metalcore-piano-lab.html",
+      "date": "2026-02-07",
+      "title": "Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP）",
+      "title_en": "Metalcore Piano Lab | From Audio to Chart: A Discretization Experiment (WIP)",
+      "excerpt": "从连续音频到可玩的谱面：起音检测、节拍网格、段落对齐与可玩性约束。",
+      "excerpt_en": "From continuous audio to playable charts: onset detection, beat grids, section alignment, and playability constraints.",
+      "readmore_url": "post/metalcore-piano-lab.html",
+      "tags": [
+        "math",
+        "article"
+      ],
+      "line_tags": [
+        "Prototype"
+      ],
+      "reading_time_zh": "约 3 分钟",
+      "reading_time_en": "3 min read",
+      "note_status": "Exploratory derivation"
+    },
+    {
+      "order": 7,
+      "url": "post/spring-2026.html",
+      "date": "2026-01-29",
+      "title": "Spring 2026｜新科研记录的开始",
+      "title_en": "Spring 2026 | A New Research Direction",
+      "excerpt": "从纯数学走向优化研究：一个学期的研究训练与新的问题切入口。",
+      "excerpt_en": "Beginning undergraduate research in Cornell ORIE on first-order methods for constrained and composite optimization.",
+      "readmore_url": "post/spring-2026.html",
+      "tags": [
+        "math",
+        "article"
+      ],
+      "line_tags": [
+        "Optimization"
+      ],
+      "reading_time_zh": "约 2 分钟",
+      "reading_time_en": "2 min read",
+      "note_status": "Exploratory derivation"
+    },
+    {
+      "order": 8,
+      "url": "post/isabelle-submodular-greedy.html",
+      "date": "2025-12-29",
+      "title": "早期项目记录：Submodular Greedy 的 Isabelle 形式化",
+      "title_en": "Early Project Note: Formalising Submodular Greedy",
+      "excerpt": "2025年12月的阶段记录；项目此后已于 AFP 2026 正式发表。后续 StochasticGreedy 为未发表扩展，最新实现尚未公开。",
+      "excerpt_en": "A December 2025 stage record; the project was subsequently published in AFP 2026. The later StochasticGreedy extension is unpublished, and its latest implementation is not yet public.",
+      "readmore_url": "post/isabelle-submodular-greedy.html",
+      "tags": [
+        "math",
+        "article"
+      ],
+      "line_tags": [
+        "Isabelle/HOL",
+        "Optimization"
+      ],
+      "reading_time_zh": "约 4 分钟",
+      "reading_time_en": "4 min read",
+      "note_status": "Published formalization"
+    },
+    {
+      "order": 9,
+      "url": "post/first-isabelle-proof.html",
+      "date": "2025-10-18",
+      "title": "我的第一个 Isabelle 形式化证明",
+      "title_en": "My First Isabelle Formalization Project",
+      "excerpt": "把可验证性嵌进证明过程：从动机到 Nemhauser–Wolsey theorem。",
+      "excerpt_en": "Embedding verifiability into proof writing: from motivation to the Nemhauser–Wolsey theorem.",
+      "readmore_url": "post/first-isabelle-proof.html",
+      "tags": [
+        "math",
+        "article"
+      ],
+      "line_tags": [
+        "Isabelle/HOL"
+      ],
+      "reading_time_zh": "约 2 分钟",
+      "reading_time_en": "2 min read",
+      "note_status": "Published formalization"
+    }
+  ]
+}
