@@ -29,6 +29,23 @@ async function waitForCriticalLoaderRelease(page) {
   });
 }
 
+test("English-only reflection keeps its language and article metadata through page swaps", async ({ page }) => {
+  await page.goto("index.html?lang=zh");
+  await page.getByRole("link", { name: "When Proofs Are No Longer the Bottleneck", exact: true }).click();
+  await expect(page.locator("article.research-reflection")).toBeVisible();
+  await expect(page.locator("article.research-reflection")).toHaveAttribute("lang", "en");
+  await expect(page.locator('.reflection-body p').last()).toHaveText("As for mathematical research, I'm still genuinely excited about what comes next.");
+  await expect(page.locator('meta[property="article:published_time"]')).toHaveAttribute("content", "2026-10-08");
+  await expect(page.locator('meta[property="og:type"]')).toHaveAttribute("content", "article");
+  await expect(page.locator('meta[property="article:tag"]')).toHaveCount(3);
+  await expect(page.locator('link[hreflang="zh-CN"]')).toHaveCount(0);
+  await expect(page.locator('link[hreflang="en"]')).toHaveCount(1);
+  await page.locator('.math-post-hub-links a').click();
+  await expect(page.locator('#notes-archive .math-card').first()).toContainText("When Proofs Are No Longer the Bottleneck");
+  await expect(page.locator('link[hreflang="zh-CN"]')).toHaveCount(1);
+  await expect(page.locator('meta[property="article:published_time"]')).toHaveCount(0);
+});
+
 test("home page renders hero and player shell", async ({ page }) => {
   const errors = trackPageErrors(page);
   await page.goto("index.html?lang=zh", { waitUntil: "domcontentloaded" });

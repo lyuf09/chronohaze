@@ -10,10 +10,10 @@
     "items": [
       {
         "label": "Last updated",
-        "value": "2026-10-28 · 08:57 PM ET",
-        "datetime": "2026-10-28T20:57:29-04:00",
+        "value": "2026-11-17 · 06:05 AM ET",
+        "datetime": "2026-11-17T06:05:54-05:00",
         "timezone": "America/New_York",
-        "date_only": "2026-10-28",
+        "date_only": "2026-11-17",
         "display_format": "YYYY-MM-DD · hh:mm A ET"
       }
     ]
@@ -81,13 +81,13 @@
       "optimization",
       "formal-methods"
     ],
-    "sort": 20261028,
+    "sort": 20261117,
     "scope": "site",
     "content": "研究陈述 我的工作目前有两个方向。一是优化算法的 Isabelle/HOL 形式化验证，包括子模贪心方法与投影梯度下降；二是非凸网络定位，研究图结构与节点几何如何影响驻点附近的二阶性质。 主要研究方向 主要方向 01 优化算法的形式化验证 在 Isabelle/HOL 中形式化算法假设、状态不变量、关键不等式与收敛结论。 我关心的是：当算法从抽象选择规则变成带状态、缓存或随机采样的实现时，原来的保证还需要哪些条件？把这些条件写成可检查的接口，能让后续变体复用证明，也能暴露实现与数学模型之间的差距。 未发表扩展：StochasticGreedy 已连接可执行采样、理想随机位语义、期望近似保证与预言机调用次数界。下一步是改进选择过程、比较实际运行表现，并明确随机语义能支持哪些实现层面的结论。最新实现尚未公开。 阅读当前研究记录 主要方向 02 网络定位中的二阶几何 与 Shoham Sabach、Owen Li 合作研究网络结构如何影响非最优驻点附近的二阶几何。 驻点并不一定是局部极小值。数值特征值可以检查一个算例，但我更想知道，哪些图结构与节点几何能够解释负曲率从何而来。单条边的负贡献可能被其他边抵消，因此需要分析整个网络沿同一扰动方向的二阶变化。 下一步是把这些结构条件与数值算例对照，判断它们何时能识别非最优驻点。项目仍在进行，技术结果尚未公开。",
     "meta_title": "",
     "meta_description": "Research statement by Feier Lyu (Fay Lyu) on reusable Isabelle/HOL infrastructure for optimization and second-order geometry in network localization."
   },
   "output_groups": [],
-  "generated_at": "2026-10-29",
+  "generated_at": "2026-11-17",
   "source": "research.html"
 }

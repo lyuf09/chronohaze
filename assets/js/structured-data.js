@@ -490,7 +490,7 @@
             }
           : undefined,
         url: base.canonical,
-        inLanguage: base.htmlLang,
+        inLanguage: article.getAttribute("lang") || base.htmlLang,
         keywords: keywords.length ? keywords : undefined,
       },
     ];

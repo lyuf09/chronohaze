@@ -23,6 +23,7 @@ REQUIRED_ITEM_KEYS = (
 )
 
 HTML_CONTENT_REFRESH_URLS = {
+    "post/when-proofs-are-no-longer-the-bottleneck.html",
     "academic.html",
     "cv.html",
     "index.html",

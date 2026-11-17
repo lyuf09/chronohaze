@@ -14288,10 +14288,17 @@
       node.setAttribute("href", href);
     }
 
-    var canonicalHref = variantHref(safeLang);
+    var singleLanguageArticle = document.querySelector('article[data-article-language]');
+    var articleLanguage = singleLanguageArticle && singleLanguageArticle.getAttribute('data-article-language');
+    var canonicalHref = articleLanguage ? canonicalBase.toString() : variantHref(safeLang);
     canonicalNode.setAttribute("href", canonicalHref);
-    ensureAlternate("zh-CN", variantHref("zh"));
-    ensureAlternate("en", variantHref("en"));
+    if (articleLanguage) {
+      document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(function (node) { node.remove(); });
+      ensureAlternate(articleLanguage, canonicalBase.toString());
+    } else {
+      ensureAlternate("zh-CN", variantHref("zh"));
+      ensureAlternate("en", variantHref("en"));
+    }
     ensureAlternate("x-default", canonicalBase.toString());
 
     setMetaTagContent('meta[property="og:url"]', canonicalHref);
@@ -17998,6 +18005,7 @@
     [
       'meta[name="description"]',
       'meta[name="robots"]',
+      'meta[property="og:type"]',
       'meta[property="og:title"]',
       'meta[property="og:description"]',
       'meta[property="og:url"]',
@@ -18010,6 +18018,15 @@
       'link[rel="apple-touch-icon"]',
     ].forEach(function (selector) {
       syncHeadNode(selector, sourceDocument);
+    });
+
+    // Article metadata and language alternates belong to the destination page.
+    // Both may have several entries (for example article tags).
+    ['meta[property^="article:"]', 'link[rel="alternate"][hreflang]'].forEach(function (selector) {
+      document.head.querySelectorAll(selector).forEach(function (node) { node.remove(); });
+      sourceDocument.head.querySelectorAll(selector).forEach(function (node) {
+        document.head.appendChild(document.importNode(node, true));
+      });
     });
 
     var canonical = document.head.querySelector('link[rel="canonical"]');

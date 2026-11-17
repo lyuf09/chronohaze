@@ -1,9 +1,33 @@
 {
-  "generated_at": "2026-10-29",
+  "generated_at": "2026-11-17",
   "source": "math.html",
   "items": [
     {
       "order": 1,
+      "url": "post/when-proofs-are-no-longer-the-bottleneck.html",
+      "date": "2026-10-08",
+      "title": "When Proofs Are No Longer the Bottleneck",
+      "title_en": "When Proofs Are No Longer the Bottleneck",
+      "excerpt": "Some thoughts on AI, mathematical research, and why I'm still excited about the future.",
+      "excerpt_en": "Some thoughts on AI, mathematical research, and why I'm still excited about the future.",
+      "readmore_url": "post/when-proofs-are-no-longer-the-bottleneck.html",
+      "tags": [
+        "math",
+        "article"
+      ],
+      "line_tags": [
+        "AI & Mathematics",
+        "Formal Verification",
+        "Personal Essay"
+      ],
+      "reading_time_zh": "英文原文",
+      "reading_time_en": "English original",
+      "note_status": "Research Reflection",
+      "link_label_zh": "阅读英文原文",
+      "link_label_en": "Read essay"
+    },
+    {
+      "order": 2,
       "url": "post/stochasticgreedy-executable-refinement.html",
       "date": "2026-10-03",
       "title": "从一套框架到真正会运行的随机算法：StochasticGreedy 的 executable refinement",
@@ -28,7 +52,7 @@
       "link_label_zh": "阅读进展摘要"
     },
     {
-      "order": 2,
+      "order": 3,
       "url": "notes/network_localization_structural_certificates.html",
       "date": "2026-07-22",
       "title": "网络定位中的二阶几何：研究概览",
@@ -55,7 +79,7 @@
       "pdf": false
     },
     {
-      "order": 3,
+      "order": 4,
       "url": "post/submodular-greedy-formalization-enters-afp.html",
       "date": "2026-06-30",
       "title": "子模贪心算法形式化正式进入 AFP",
@@ -79,7 +103,7 @@
       "date_label_en": "Originally posted · 2026-06-30"
     },
     {
-      "order": 4,
+      "order": 5,
       "url": "post/projected-gradient-descent-isabelle-hol.html",
       "date": "2026-05-22",
       "title": "从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL",
@@ -102,7 +126,7 @@
       "date_label_en": "Originally posted · 2026-05-22"
     },
     {
-      "order": 5,
+      "order": 6,
       "url": "post/theorem-to-framework-isabelle-submodular.html",
       "date": "2026-03-14",
       "title": "Isabelle/HOL 中的 Classical Greedy、LazyGreedy 与 StochasticGreedy",
@@ -125,7 +149,7 @@
       "date_label_en": "Originally posted · 2026-03-14"
     },
     {
-      "order": 6,
+      "order": 7,
       "url": "post/metalcore-piano-lab.html",
       "date": "2026-02-07",
       "title": "Metalcore Piano Lab｜从音频到谱面：一个离散化的实验（WIP）",
@@ -145,7 +169,7 @@
       "note_status": "Exploratory derivation"
     },
     {
-      "order": 7,
+      "order": 8,
       "url": "post/spring-2026.html",
       "date": "2026-01-29",
       "title": "Spring 2026｜新科研记录的开始",
@@ -165,7 +189,7 @@
       "note_status": "Exploratory derivation"
     },
     {
-      "order": 8,
+      "order": 9,
       "url": "post/isabelle-submodular-greedy.html",
       "date": "2025-12-29",
       "title": "早期项目记录：Submodular Greedy 的 Isabelle 形式化",
@@ -186,7 +210,7 @@
       "note_status": "Published formalization"
     },
     {
-      "order": 9,
+      "order": 10,
       "url": "post/first-isabelle-proof.html",
       "date": "2025-10-18",
       "title": "我的第一个 Isabelle 形式化证明",

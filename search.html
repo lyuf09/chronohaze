@@ -130,7 +130,7 @@
 <link href="https://lyuf09.github.io/chronohaze/search.html" rel="canonical"/>
 <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
 <link href="styles.min.css?v=20261103-history-search1" rel="stylesheet"/>
-<script defer="" src="protect-media.min.js?v=20261103-history-search1"></script>
+<script defer="" src="protect-media.min.js?v=20261117-article-language1"></script>
 <script defer="" src="assets/js/search-page.min.js?v=20261103-history-search1"></script>
 
   <!-- Chronohaze analytics preference and opt-out control -->
@@ -248,7 +248,7 @@
 </div>
 <script id="search-inline-fallback" type="application/json">
 {
-  "generated_at": "2026-10-29",
+  "generated_at": "2026-11-17",
   "items": [
     {
       "title": "Research Statement | Feier Lyu (Fay Lyu)",
@@ -261,7 +261,7 @@
         "optimization",
         "formal-methods"
       ],
-      "sort": 20261028,
+      "sort": 20261117,
       "scope": "site",
       "content": "研究陈述 我的工作目前有两个方向。一是优化算法的 Isabelle/HOL 形式化验证，包括子模贪心方法与投影梯度下降；二是非凸网络定位，研究图结构与节点几何如何影响驻点附近的二阶性质。 主要研究方向 主要方向 01 优化算法的形式化验证 在 Isabelle/HOL 中形式化算法假设、状态不变量、关键不等式与收敛结论。 我关心的是：当算法从抽象选择规则变成带状态、缓存或随机采样的实现时，原来的保证还需要哪些条件？把这些条件写成可检查的接口，能让后续变体复用证明，也能暴露实现与数学模型之间的差距。 未发表扩展：StochasticGreedy 已连接可执行采样、理想随机位语义、期望近似保证与预言机调用次数界。下一步是改进选择过程、比较实际运行表现，并明确随机语义能支持哪些实现层面的结论。最新实现尚未公开。 阅读当前研究记录 主要方向 02 网络定位中的二阶几何 与 Shoham Sabach、Owen Li 合作研究网络结构如何影响非最优驻点附近的二阶几何。 驻点并不一定是局部极小值。数值特征值可以检查一个算例，但我更想知道，哪些图结构与节点几何能够解释负曲率从何而来。单条边的负贡献可能被其他边抵消，因此需要分析整个网络沿同一扰动方向的二阶变化。 下一步是把这些结构条件与数值算例对照，判断它们何时能识别非最优驻点。项目仍在进行，技术结果尚未公开。",
       "title_en": "Research Statement | Feier Lyu (Fay Lyu)",
@@ -279,6 +279,22 @@
       "sort": 20261009,
       "scope": "photo",
       "content": "湿光 2026 年 10 月 9 日 英国爱丁堡 · 2026年 ← 返回摄影"
+    },
+    {
+      "title": "When Proofs Are No Longer the Bottleneck",
+      "title_en": "When Proofs Are No Longer the Bottleneck",
+      "url": "post/when-proofs-are-no-longer-the-bottleneck.html",
+      "section": "Technical Notes",
+      "date": "2026-10-08",
+      "excerpt": "Some thoughts on AI, mathematical research, and why I'm still excited about the future.",
+      "excerpt_en": "Some thoughts on AI, mathematical research, and why I'm still excited about the future.",
+      "tags": [
+        "math",
+        "article"
+      ],
+      "sort": 20261008,
+      "scope": "math",
+      "content": "Selected Work Research Statement Technical Notes Research Reflection · English original When Proofs Are No Longer the Bottleneck Feier Lyu · 8 October 2026 Some thoughts on AI, mathematical research, and why I'm still excited about the future. AI & Mathematics · Formal Verification · Personal Essay When OpenAI released a large collection of mathematical research manuscripts generated using an unreleased frontier model in October 2026, the reactions were all over the place. Some people were already talking as if mathematics were coming to an end. My first instinct was to argue against that. But after thinking about it for a while, I realised this was something I wanted to reflect on more seriously. I agree that AI is changing how mathematical research gets done. I just don't think that means mathematics itself is approaching its end. First of all, an AI-generated paper is not the same as a correct proof, and neither is necessarily the same as an important mathematical contribution recognised by the community. There are at least three different things involved here: finding potentially true new theorems and constructing arguments for them; rigorously checking those arguments, possibl…"
     },
     {
       "title": "从一套框架到真正会运行的随机算法：StochasticGreedy 的 executable refinement",
@@ -1396,7 +1412,7 @@
       ],
       "sort": 0,
       "scope": "math",
-      "content": "代表性工作 研究陈述 技术笔记 技术笔记 Feier Lyu（Fay Lyu） 置顶最能代表当前研究思考的材料，并按时间整理部分技术笔记与研究记录。 Isabelle/HOL Duality Optimization Prototype 置顶笔记 置顶笔记 01 已发表的形式化项目 Isabelle Submodular Greedy Project 已发表的形式化项目 · Archive of Formal Proofs · 2026-05-26 02 已发表 · AFP · 独立作者 Projected Gradient Descent in Isabelle/HOL AFP · 2026-07-02 · 独立作者 03 进行中的合作研究 网络定位中的二阶几何 与 Prof. Shoham Sabach、Owen Li 合作 · 精炼公开概览 我最喜欢的 Julia 分形 研究记录归档 2026 — 按时间排列的部分技术笔记与研究记录。 更新于 2026-10-25 未发表扩展 从一套框架到真正会运行的随机算法：StochasticGreedy 的 executable refinement 未发表扩展的进展摘要；最新实现尚未公开。期望近似保证采用理想随机位语义，PCG 结果限定于优化前后的执行一致性。 Isabelle/HOL StochasticGreedy Formal Verification 阅读进展摘要 更新于 2026-08-23 进行中的合作研究 网络定位中的二阶几何：研究概览 与 Prof. Shoham Sabach、Owen Li 合作的网络定位二阶几何研究概览；只保留背景、目标与已经确认的高层结论。 Network Localization Negative Curvature Second-Order Geometry 阅读研究概览 原始发布 · 2026-06-30 已发表的形式化项目 子模贪心算法形式化正式进入 AFP 记录 Isabelle/HOL 子模贪心算法形式化正式发表于 Archive of Formal Proofs，以及形式化过程中逐渐显露出的算法证明结构。 Isabelle/HOL Approximation Algorithms AFP 阅读全文 原始发布 · 2026-05-22 Publication retrospective · AFP 从子模优化之后继续往前：Projected Gradient Descent in Isabelle/HOL 这篇 5 月 22 日的原始笔记保留项目设计时期的叙事；该独立形式化现已以《First-Order Methods for Smooth Convex Optimization in Isabelle/HOL》正式发表于 AFP。 Isabelle/HOL…",
+      "content": "代表性工作 研究陈述 技术笔记 技术笔记 Feier Lyu（Fay Lyu） 置顶最能代表当前研究思考的材料，并按时间整理部分技术笔记与研究记录。 Isabelle/HOL Duality Optimization Prototype 置顶笔记 置顶笔记 01 已发表的形式化项目 Isabelle Submodular Greedy Project 已发表的形式化项目 · Archive of Formal Proofs · 2026-05-26 02 已发表 · AFP · 独立作者 Projected Gradient Descent in Isabelle/HOL AFP · 2026-07-02 · 独立作者 03 进行中的合作研究 网络定位中的二阶几何 与 Prof. Shoham Sabach、Owen Li 合作 · 精炼公开概览 我最喜欢的 Julia 分形 研究记录归档 2026 — 按时间排列的部分技术笔记与研究记录。 2026-10-08 Research Reflection When Proofs Are No Longer the Bottleneck Some thoughts on AI, mathematical research, and why I'm still excited about the future. AI & Mathematics Formal Verification Personal Essay 阅读英文原文 更新于 2026-10-25 未发表扩展 从一套框架到真正会运行的随机算法：StochasticGreedy 的 executable refinement 未发表扩展的进展摘要；最新实现尚未公开。期望近似保证采用理想随机位语义，PCG 结果限定于优化前后的执行一致性。 Isabelle/HOL StochasticGreedy Formal Verification 阅读进展摘要 更新于 2026-08-23 进行中的合作研究 网络定位中的二阶几何：研究概览 与 Prof. Shoham Sabach、Owen Li 合作的网络定位二阶几何研究概览；只保留背景、目标与已经确认的高层结论。 Network Localization Negative Curvature Second-Order Geometry 阅读研究概览 原始发布 · 2026-06-30 已发表的形式化项目 子模贪心算法形式化正式进入 AFP 记录 Isabelle/HOL 子模贪心算法形式化正式发表于 Archive of Formal Proofs，以及形式化过程中逐渐显露出的算法证明结构。 Isabelle/HOL Approximation Algorithms AFP 阅读全文 原始发布 · 2026-05-…",
       "title_en": "Technical Notes"
     },
     {

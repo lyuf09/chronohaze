@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <style id="chronohaze-critical-loader-style">
+    html.chronohaze-critical-loading,
+    html.chronohaze-critical-loading body {
+      min-height: 100%;
+      background: #10141b;
+    }
+
+    html.chronohaze-critical-loading body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    html.chronohaze-critical-loading body > :not(.chronohaze-loader) {
+      visibility: hidden !important;
+    }
+
+    html.chronohaze-critical-loading::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 2147483000;
+      background:
+        linear-gradient(90deg, rgba(138, 160, 200, 0.09) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(138, 160, 200, 0.07) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(13, 17, 24, 0.992) 0%, rgba(19, 24, 33, 0.992) 55%, rgba(13, 17, 24, 0.996) 100%);
+      background-size: 54px 54px, 54px 54px, 100% 100%;
+    }
+
+    html.chronohaze-critical-loading::after {
+      content: "CHRONOHAZE";
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      z-index: 2147483001;
+      width: min(500px, calc(100vw - 40px));
+      padding: 30px 32px;
+      transform: translate(-50%, -50%);
+      white-space: pre-line;
+      color: rgba(232, 234, 237, 0.9);
+      font: 300 clamp(22px, 3.2vw, 34px)/1.48 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.055em;
+      border: 1px solid rgba(154, 172, 204, 0.3);
+      border-radius: 0;
+      background: linear-gradient(180deg, rgba(20, 25, 34, 0.84) 0%, rgba(13, 17, 24, 0.82) 100%);
+      box-shadow: 0 24px 58px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.045);
+    }
+
+    html[lang^="zh"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A 页面加载中";
+    }
+
+    html[lang^="en"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A Loading";
+    }
+
+    html.chronohaze-critical-loading-mobile body {
+      overflow: auto;
+    }
+
+    html.chronohaze-critical-loading-mobile body > :not(.chronohaze-loader) {
+      visibility: visible !important;
+    }
+
+    html.chronohaze-critical-loading-mobile::before {
+      background: linear-gradient(180deg, rgba(13, 17, 24, 0.18) 0%, rgba(19, 24, 33, 0.22) 100%);
+      pointer-events: none;
+    }
+
+    html.chronohaze-critical-loading-mobile::after {
+      content: "CHRONOHAZE";
+      left: 16px;
+      top: 16px;
+      width: auto;
+      max-width: calc(100vw - 32px);
+      padding: 10px 12px;
+      transform: none;
+      white-space: normal;
+      color: rgba(232, 234, 237, 0.78);
+      font: 400 12px/1.3 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.18em;
+      border: 1px solid rgba(154, 172, 204, 0.18);
+      background: rgba(16, 20, 27, 0.34);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+      backdrop-filter: blur(2px);
+    }
+  </style>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var isMobile = window.matchMedia && window.matchMedia("(max-width: 760px)").matches;
+      root.classList.add("chronohaze-critical-loading");
+      if (isMobile) {
+        root.classList.add("chronohaze-critical-loading-mobile");
+      }
+      window.__chronohazeReleaseCriticalLoader = function () {
+        root.classList.remove("chronohaze-critical-loading");
+        root.classList.remove("chronohaze-critical-loading-mobile");
+      };
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", window.__chronohazeReleaseCriticalLoader, { once: true });
+      } else {
+        window.requestAnimationFrame(window.__chronohazeReleaseCriticalLoader);
+      }
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, 500);
+    })();
+  </script>
+<link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=4" />
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=4" />
+  <title data-title-zh="When Proofs Are No Longer the Bottleneck | Chronohaze" data-title-en="When Proofs Are No Longer the Bottleneck | Chronohaze">When Proofs Are No Longer the Bottleneck | Chronohaze</title>
+  <meta name="description" content="A personal reflection on AI-generated mathematics, formal verification, and what makes mathematical research meaningful." data-content-zh="A personal reflection on AI-generated mathematics, formal verification, and what makes mathematical research meaningful." data-content-en="A personal reflection on AI-generated mathematics, formal verification, and what makes mathematical research meaningful." />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Chronohaze" />
+  <meta property="og:title" content="When Proofs Are No Longer the Bottleneck" />
+  <meta property="og:description" content="A personal reflection on AI-generated mathematics, formal verification, and what makes mathematical research meaningful." />
+  <meta property="og:url" content="https://lyuf09.github.io/chronohaze/post/when-proofs-are-no-longer-the-bottleneck.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="When Proofs Are No Longer the Bottleneck" />
+  <meta name="twitter:description" content="A personal reflection on AI-generated mathematics, formal verification, and what makes mathematical research meaningful." />
+  <meta property="article:published_time" content="2026-10-08" />
+  <meta property="article:modified_time" content="2026-10-08" />
+  <meta property="article:author" content="Feier Lyu" />
+  <meta property="article:tag" content="AI &amp; Mathematics" />
+  <meta property="article:tag" content="Formal Verification" />
+  <meta property="article:tag" content="Personal Essay" />
+  <link rel="canonical" href="https://lyuf09.github.io/chronohaze/post/when-proofs-are-no-longer-the-bottleneck.html" />
+  <!-- GENERATED:hreflang:start -->
+  <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/post/when-proofs-are-no-longer-the-bottleneck.html" />
+  <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/post/when-proofs-are-no-longer-the-bottleneck.html" />
+  <!-- GENERATED:hreflang:end -->
+  <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
+  <link rel="preload" href="../assets/fonts/cormorant-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="../assets/fonts/noto-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="../styles.min.css?v=20261103-history-search1" />
+  <script defer src="../protect-media.min.js?v=20261117-article-language1"></script>
+  <style>
+    .research-reflection { max-width: min(100%, 800px); }
+    .research-reflection .article-deck {
+      margin: 18px 0 28px;
+      color: rgba(48, 58, 75, 0.88);
+      font-family: var(--font-serif);
+      font-size: clamp(20px, 2.4vw, 27px);
+      line-height: 1.5;
+    }
+    .research-reflection .article-tags {
+      margin: 0 0 20px;
+      color: rgba(65, 76, 96, 0.78);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+    .research-reflection h1 { text-wrap: balance; }
+    .research-reflection .reflection-body p { line-height: 1.85; }
+  </style>
+
+  <!-- Chronohaze analytics preference and opt-out control -->
+  <script id="chronohaze-analytics-bootstrap">
+    (function () {
+      var measurementId = "G-JWZY2TVYFZ";
+      var storedPreference;
+      try { storedPreference = window.localStorage.getItem("chronohaze-analytics"); } catch (_err) {}
+      var doNotTrack = navigator.doNotTrack === "1" || window.doNotTrack === "1";
+      var enabled = storedPreference === "on" || (storedPreference !== "off" && !doNotTrack);
+      window["ga-disable-" + measurementId] = !enabled;
+      window.__chronohazeAnalyticsInitialEnabled = enabled;
+    })();
+  </script>
+  <link rel="stylesheet" href="../assets/css/analytics-control.min.css?v=20260906-latin-a11y1" />
+  <script id="chronohaze-analytics-runtime" defer src="../assets/js/analytics-control.min.js?v=20260906-latin-a11y1" data-analytics-collection="control-only"></script>
+</head>
+<body class="math-post-page note-detail-page">
+  <a class="skip-link" href="#main-content">Skip to content / 跳到正文</a>
+<div class="page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="../index.html" data-preserve-lang="1">
+          <img src="../assets/logo-header.png" alt="Chronohaze site logo" />
+          <span>CHRONOHAZE</span>
+        </a>
+        <nav class="nav" aria-label="主导航" data-i18n-aria="navAria">
+          <a href="../index.html" data-preserve-lang="1" data-i18n="navHome">主页</a>
+          <a class="active" href="../academic.html" data-preserve-lang="1" data-i18n="navAcademic">学术</a>
+          <a href="../music.html" data-preserve-lang="1" data-i18n="navMusic">音乐</a>
+          <a href="../photography.html" data-preserve-lang="1" data-i18n="navPhoto">摄影</a>
+          <a href="../cv.html" data-preserve-lang="1" data-i18n="navCV">CV</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" class="main">
+      <div class="container">
+        <div class="cv-utility-bar">
+          <div class="cv-utility-top">
+            <nav class="academic-local-nav" aria-label="学术页面导航" data-i18n-aria="academicSectionAria">
+              <a class="academic-local-link" href="../projects.html" data-preserve-lang="1" data-i18n="utilityProjects">Selected Work</a>
+              <a class="academic-local-link" href="../research.html" data-preserve-lang="1" data-i18n="utilityResearch">Research Statement</a>
+              <a class="academic-local-link is-active" href="../math.html" data-preserve-lang="1" data-i18n="utilityNotes">Technical Notes</a>
+            </nav>
+          </div>
+        </div>
+      </div>
+
+      <article class="article research-reflection" lang="en" data-article-language="en">
+        <header>
+          <p class="article-tags">Research Reflection · English original</p>
+          <h1>When Proofs Are No Longer the Bottleneck</h1>
+          <p class="article-meta">Feier Lyu · <time datetime="2026-10-08">8 October 2026</time></p>
+          <p class="article-deck"><em>Some thoughts on AI, mathematical research, and why I&#x27;m still excited about the future.</em></p>
+          <p class="article-tags">AI &amp; Mathematics · Formal Verification · Personal Essay</p>
+        </header>
+        <div class="reflection-body">
+          <p>When OpenAI released a large collection of mathematical research manuscripts generated using an unreleased frontier model in October 2026, the reactions were all over the place. Some people were already talking as if mathematics were coming to an end. My first instinct was to argue against that. But after thinking about it for a while, I realised this was something I wanted to reflect on more seriously.</p>
+          <p>I agree that AI is changing how mathematical research gets done. I just don't think that means mathematics itself is approaching its end.</p>
+          <p>First of all, an AI-generated paper is not the same as a correct proof, and neither is necessarily the same as an important mathematical contribution recognised by the community. There are at least three different things involved here: finding potentially true new theorems and constructing arguments for them; rigorously checking those arguments, possibly using proof assistants such as Lean; and understanding what the results actually mean, how they relate to existing theory, and what new questions they open up.</p>
+          <p>OpenAI provided formal proofs for some of the results, but not all of them. The extent of verification, mathematical significance, and external scrutiny also varied considerably. They acknowledged that results which had not been formalised could still contain errors. And indeed, the day after the initial release, three manuscripts were withdrawn and another fourteen revised. An error in a key expression in one manuscript concerning algebraic varieties invalidated part of its argument, which also affected two other manuscripts that depended on it.</p>
+          <p>But I don't think these problems make the entire release insignificant. Even if only a fraction of the results eventually withstand careful scrutiny, the implications for mathematical research could still be enormous.</p>
+          <p>What really struck me about this release is that <strong>some of the creative work of finding proofs, which previously required years of accumulated mathematical experience, is becoming something we can automate.</strong></p>
+          <p>Traditionally, a lot of mathematical research has followed a familiar pattern: identify a problem, search for a proof, then try to understand and generalise what you've found. Of course, actual research is rarely that linear, but finding a proof has often been one of the most time-consuming and uncertain parts of the process.</p>
+          <p>Now imagine that future mathematical AI systems can complete in a few hours what might once have taken months or even years. The bottleneck would start to shift.</p>
+          <p>We would still need to decide which problems are worth studying in the first place. Why this problem? What kind of result would actually matter? Then AI could help explore possible theorems, proofs, counterexamples, and computational experiments. After that comes verification, interpretation, connecting results to existing mathematics, and figuring out what questions to ask next.</p>
+          <p>And perhaps AI will become increasingly good at asking those questions too. I don't want to assume that problem selection, mathematical interpretation, or any other particular part of research will always remain exclusively human.</p>
+          <p>What I currently believe is that <strong>the ability to generate proofs and the ability to build useful mathematical knowledge may no longer be as closely connected as they once were.</strong></p>
+          <p>In the foreseeable future, I don't think mathematicians necessarily need to find some special kind of work that AI will <em>never</em> be able to do. What matters more is being able to use increasingly powerful mathematical tools to participate in high-quality research.</p>
+          <p>There is also an important distinction between "mathematicians being replaced" and "mathematics coming to an end". These are fundamentally different claims. The former concerns employment, competition, and the changing structure of research institutions. The latter concerns whether mathematical knowledge is still worth exploring. And I really don't see how the second follows from what OpenAI has just demonstrated.</p>
+          <p>Another subtle issue, especially relevant to formal verification, is this:</p>
+          <p><strong>Just because a proof checker accepts a piece of code doesn't mean we've established that the theorem it checked is actually the theorem the paper claims to prove.</strong></p>
+          <p>These are two different levels of correctness.</p>
+          <p>Formal proof primarily establishes that a derivation is valid within a specified logical foundation and set of dependencies. Researchers still need to check whether the formal statement faithfully represents the original mathematical problem, and whether its assumptions and dependencies are appropriate.</p>
+          <p>This is something I've had to deal with myself as an Archive of Formal Proofs (AFP) author.</p>
+          <p>When I first started working with Isabelle, I barely even knew how to ask GPT for a useful tutorial. I'd copy the code it generated into Isabelle, and everything would immediately turn red with errors. It used to feel like an area where you needed years of specialised training before you could really get anywhere. Now people can generate pages and pages of formal proof code with AI and put them online almost immediately. It's honestly a little surreal to watch that change happen.</p>
+          <p>Of course, this doesn't mean that every piece of Isabelle or Lean code accepted by a proof checker automatically has academic value.</p>
+          <p>If the main contribution of a project is simply the amount of proof code written, the difficulty of formalising something, or the number of hours of manual work involved, I suspect it will become increasingly difficult to argue that this alone constitutes a sufficiently important research contribution.</p>
+          <p>I haven't looked closely at the statistics myself, but one of my supervisors mentioned that formal-proof work used to be accepted relatively readily, whereas the acceptance environment seems to have become much more competitive. I wouldn't treat that as an established trend without checking the data, but it does make me think about how the standards for contribution might change.</p>
+          <p>At the same time, I actually think the demand for formal verification could grow substantially.</p>
+          <p>One direction I find particularly interesting is <strong>building bridges between mathematical theories and reliable algorithmic implementations</strong>. As AI generates more mathematical results, formal verification may increasingly become part of the infrastructure needed to establish trustworthy mathematical knowledge, rather than simply being a specialised research activity in its own right.</p>
+          <p>There's also a part of me that finds it quite funny that my relatively niche interest suddenly seems to be becoming mainstream.</p>
+          <p>Thinking about the localisation project I've been working on for the past ten months makes this even more concrete for me.</p>
+          <p>AI can quickly generate Hessians, compute eigenvalues, identify possible structures, and even attempt proofs. But does a proposed family of negative-curvature directions actually cover the possibilities we're trying to investigate? What conclusions can finite numerical samples really support? How should zero eigenvalues arising from symmetry be handled?</p>
+          <p>These questions determine what the results actually establish.</p>
+          <p>I'm certainly not claiming that AI cannot make these judgements. It might become very good at them. But something I'm still learning, and something I care deeply about, is one of the most basic skills in mathematical research:</p>
+          <p><strong>Knowing what the evidence is sufficient to establish, and what it isn't.</strong></p>
+          <p>If mathematical research becomes a competition over who can get AI to prove a standard convergence bound the fastest, then yes, I imagine that competition will become increasingly difficult for humans.</p>
+          <p>But if your strength lies in understanding the structure of a problem, designing methods, and distinguishing essential assumptions from technical ones, then AI could greatly expand the range of problems you're able to explore.</p>
+          <p>None of this means that solid mathematical foundations will become unnecessary. Quite the opposite. Please don't take the rapid progress of mathematical AI as a reason to stop studying mathematics seriously. I'm saying this as much to myself as to anyone else.</p>
+          <p>There are also several risks that I think deserve much more attention.</p>
+          <p>Mathematical results may become so abundant that the value attached to individual contributions changes dramatically. Some of the research tasks through which young mathematicians traditionally develop their skills may become less available. And access to the most powerful AI systems could become a new barrier to participating in competitive research.</p>
+          <p>For friends who are currently applying to PhD programmes, I also think it's worth paying attention to how prospective research groups are adapting. Are they already using AI-assisted mathematical research, formal verification, and computational experiments? How do they think about these tools, and what kinds of research practices are they developing around them?</p>
+          <p>Outside mathematics, I have quite a few other interests. I write songs, compose and arrange music, play guitar and bass, and do music production. I'm also working with friends on a game that brings together storytelling, visual design, and music.</p>
+          <p>And I actually approach these things in a very similar way.</p>
+          <p>When I'm making music, I care about why a particular piano sound works for what I'm trying to express. Why does a section need a certain rhythm? Why does one arrangement convey the feeling I want, while another doesn't? What exactly makes something work, beyond the fact that it sounds technically good?</p>
+          <p>Mathematics and music are obviously very different. I'm not trying to suggest otherwise. But I do think they share something important: <strong>the ability to produce a high-quality result and the reason someone wants to pursue a creative activity in the first place are two different questions.</strong></p>
+          <p>That's also why my interest in mathematics has never depended entirely on humans being able to prove theorems that AI cannot.</p>
+          <p>I want to understand things. I want to explore problems, work out why certain ideas work, and see where they lead. Having increasingly powerful tools available doesn't make those motivations disappear.</p>
+          <p>As for mathematical research, I'm still genuinely excited about what comes next.</p>
+        </div>
+        <div class="academic-hub-links math-post-hub-links">
+          <p class="academic-hub-links-label">Continue reading</p>
+          <div class="research-link-row">
+            <a href="../math.html#notes-archive" data-preserve-lang="1">Research Notes Archive</a>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <p class="footer-title">CHRONOHAZE</p>
+          <p class="footer-note"><span data-i18n="footerContactLead">学术联系邮箱：</span><a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a></p>
+          <p class="footer-note" data-i18n="footerCities">Feier Lyu · 爱丁堡大学数学本科</p>
+          <p class="footer-copy">© 2026 by CHRONOHAZE. Hosted on GitHub Pages.</p>
+          <div class="social" aria-label="Social links">
+            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://www.instagram.com/lyuf09" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://space.bilibili.com/35902781" target="_blank" rel="noopener noreferrer">Bilibili</a>
+            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+        <div class="footer-right">
+          <a href="../policy.html" data-preserve-lang="1" data-i18n="siteNotes">网站说明</a>
+          <a href="../accessibility.html" data-preserve-lang="1" data-i18n="a11y">无障碍支持</a>
+        </div>
+      </div>
+  <div class="analytics-control-shell" data-analytics-collection="control-only">
+    <p class="analytics-control" data-analytics-control>
+      <span data-analytics-status>Analytics: On</span><span aria-hidden="true"> · </span><button type="button" data-analytics-toggle>Turn off</button>
+    </p>
+  </div>
+</footer>
+  </div>
+
+  <script>
+    (function () {
+      const i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
+      const i18nAriaNodes = Array.from(document.querySelectorAll('[data-i18n-aria]'));
+      const langBlocks = Array.from(document.querySelectorAll('[data-lang-block]'));
+      const localizedLinks = Array.from(document.querySelectorAll('[data-preserve-lang]'));
+      const queryLang = new URLSearchParams(window.location.search).get('lang');
+      const titleNode = document.querySelector('title');
+      const descriptionNode = document.querySelector('meta[name="description"]');
+
+      const i18n = {
+        zh: {
+          htmlLang: 'zh-CN', navAria: '主导航', navHome: '主页', navAcademic: '学术', navMusic: '音乐', navPhoto: '摄影', navCV: 'CV',
+          academicSectionAria: '学术页面导航', utilityProjects: '代表性工作', utilityResearch: '研究陈述', utilityNotes: '技术笔记',
+          footerContactLead: '学术联系邮箱：', footerCities: 'Feier Lyu · 爱丁堡大学数学本科', siteNotes: '网站说明', a11y: '无障碍支持'
+        },
+        en: {
+          htmlLang: 'en', navAria: 'Main navigation', navHome: 'Home', navAcademic: 'Academic', navMusic: 'Music', navPhoto: 'Photography', navCV: 'CV',
+          academicSectionAria: 'Academic section navigation', utilityProjects: 'Selected Work', utilityResearch: 'Research Statement', utilityNotes: 'Technical Notes',
+          footerContactLead: 'Academic contact: ', footerCities: 'Feier Lyu · BSc Mathematics, University of Edinburgh', siteNotes: 'Site Notes', a11y: 'Accessibility'
+        }
+      };
+
+      function setLanguage(lang) {
+        const safeLang = lang === 'en' ? 'en' : 'zh';
+        const dict = i18n[safeLang];
+        document.documentElement.lang = dict.htmlLang;
+        document.documentElement.setAttribute('data-site-lang', safeLang);
+        i18nNodes.forEach(function (node) {
+          const value = dict[node.getAttribute('data-i18n')];
+          if (typeof value === 'string') node.textContent = value;
+        });
+        i18nAriaNodes.forEach(function (node) {
+          const value = dict[node.getAttribute('data-i18n-aria')];
+          if (typeof value === 'string') node.setAttribute('aria-label', value);
+        });
+        langBlocks.forEach(function (block) {
+          block.hidden = block.getAttribute('data-lang-block') !== safeLang;
+        });
+        localizedLinks.forEach(function (link) {
+          try {
+            const url = new URL(link.getAttribute('href'), window.location.href);
+            url.searchParams.set('lang', safeLang);
+            link.setAttribute('href', url.pathname + url.search + url.hash);
+          } catch (_err) {}
+        });
+        const localizedTitle = titleNode ? titleNode.getAttribute('data-title-' + safeLang) || document.title : document.title;
+        const localizedDescription = descriptionNode ? descriptionNode.getAttribute('data-content-' + safeLang) || descriptionNode.getAttribute('content') : '';
+        document.title = localizedTitle;
+        if (descriptionNode) descriptionNode.setAttribute('content', localizedDescription);
+        ['meta[property="og:title"]', 'meta[name="twitter:title"]'].forEach(function (selector) {
+          const node = document.querySelector(selector);
+          if (node) node.setAttribute('content', localizedTitle.replace(/ \| Chronohaze$/, ''));
+        });
+        ['meta[property="og:description"]', 'meta[name="twitter:description"]'].forEach(function (selector) {
+          const node = document.querySelector(selector);
+          if (node) node.setAttribute('content', localizedDescription);
+        });
+        try {
+          window.localStorage.setItem('siteLang', safeLang);
+          window.localStorage.setItem('chronohaze-lang', safeLang);
+        } catch (_err) {}
+      }
+
+      let initialLang = 'en';
+      try {
+        const stored = window.localStorage.getItem('siteLang') || window.localStorage.getItem('chronohaze-lang');
+        if (stored === 'zh' || stored === 'en') initialLang = stored;
+      } catch (_err) {}
+      if (queryLang === 'zh' || queryLang === 'en') initialLang = queryLang;
+      setLanguage(initialLang);
+    })();
+  </script>
+</body>
+</html>

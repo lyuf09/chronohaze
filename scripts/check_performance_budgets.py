@@ -49,7 +49,8 @@ def main() -> int:
         # project-aware player bridge while keeping the release itself forthcoming.
         ("protect-media.min.js", 564_000, "core frontend runtime bundle"),
         ("styles.min.css", 336_000, "global styles"),
-        ("home.min.css", 48_000, "home page styles"),
+        # Includes the compact Selected Writing entry below Research Snapshot.
+        ("home.min.css", 50_000, "home page styles"),
         ("assets/logo-header.png", 30_000, "header logo"),
         ("assets/js/search-page.min.js", 60_000, "search page runtime"),
         ("assets/js/structured-data.min.js", 20_000, "structured data module"),
@@ -81,7 +82,7 @@ def main() -> int:
             # bounded cost to the shared structured-data module.
             684_000,
         ),
-        ("key CSS payload", ["styles.min.css", "home.min.css"], 383_000),
+        ("key CSS payload", ["styles.min.css", "home.min.css"], 385_000),
     ]
     for label, rels, max_bytes in aggregate_groups:
         total = 0

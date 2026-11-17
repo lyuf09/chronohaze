@@ -129,7 +129,14 @@ def is_bilingual_page(rel_path: str) -> bool:
     return rel.startswith(("music/", "post/", "photo/")) and rel.endswith(".html")
 
 
-def build_hreflang_block(canonical_url: str) -> str:
+def build_hreflang_block(canonical_url: str, article_language: str = "") -> str:
+    if article_language:
+        return "\n".join([
+            "  " + HREFLANG_MARKER_START,
+            f'  <link rel="alternate" hreflang="{article_language}" href="{canonical_url}" />',
+            f'  <link rel="alternate" hreflang="x-default" href="{canonical_url}" />',
+            "  " + HREFLANG_MARKER_END,
+        ])
     sep = "&" if "?" in canonical_url else "?"
     zh_url = f"{canonical_url}{sep}lang=zh"
     en_url = f"{canonical_url}{sep}lang=en"
@@ -145,7 +152,8 @@ def build_hreflang_block(canonical_url: str) -> str:
 
 
 def upsert_hreflang_block(text: str, canonical_url: str) -> str:
-    block = build_hreflang_block(canonical_url)
+    language_match = re.search(r'<article\b[^>]*\bdata-article-language="([a-zA-Z-]+)"', text)
+    block = build_hreflang_block(canonical_url, language_match.group(1) if language_match else "")
     link_pattern = re.compile(
         r'^[ \t]*<link\b(?=[^>]*\brel=["\']alternate["\'])(?=[^>]*\bhreflang=["\'][^"\']+["\'])[^>]*?/?>[ \t]*\n?',
         flags=re.I | re.M,

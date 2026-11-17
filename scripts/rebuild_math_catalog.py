@@ -37,7 +37,7 @@ def clean(fragment: str) -> str:
 
 
 def attrs_dict(fragment: str) -> Dict[str, str]:
-    return {k: v for k, v in ATTR_RE.findall(fragment or "")}
+    return {k: html.unescape(v) for k, v in ATTR_RE.findall(fragment or "")}
 
 
 def split_meta(raw: str) -> List[str]:
