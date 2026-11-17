@@ -1852,7 +1852,7 @@ test("server-rendered math catalog does not refetch its JSON payload", async ({ 
 
   await page.goto("math.html?lang=en", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
-  await expect(page.locator(".math-list .math-card")).toHaveCount(9);
+  await expect(page.locator(".math-list .math-card")).toHaveCount(10);
   expect(catalogRequests).toBe(0);
 });
 
@@ -1864,15 +1864,15 @@ test("touch links inside technical-note cards remain directly navigable", async 
 
   const latestCard = page.locator(".math-list .math-card").first();
   await latestCard.locator(".math-title-link").tap();
-  await expect(page).toHaveURL(/post\/stochasticgreedy-executable-refinement\.html/);
+  await expect(page).toHaveURL(/post\/when-proofs-are-no-longer-the-bottleneck\.html/);
   await expect(page.getByRole("heading", {
-    name: "从一套框架到真正会运行的随机算法：StochasticGreedy 的 executable refinement",
+    name: "When Proofs Are No Longer the Bottleneck",
     exact: true,
   })).toBeVisible();
 
   await page.goto("math.html?lang=zh", { waitUntil: "domcontentloaded" });
   await waitForCriticalLoaderRelease(page);
-  const networkCard = page.locator(".math-list .math-card").nth(1);
+  const networkCard = page.locator('.math-card[data-href="notes/network_localization_structural_certificates.html"]');
   await networkCard.locator(".math-more").tap();
   await expect(page).toHaveURL(/notes\/network_localization_structural_certificates\.html/);
   await expect(page.getByRole("heading", {
@@ -2808,7 +2808,7 @@ test("technical notes use explicit status labels and a local Julia fractal", asy
   expect(fractalLayout.shadow).toBe("none");
   await expect(page.locator("#pinned-notes .math-note-status")).toHaveCount(3);
   await expect(page.locator("#exploratory-archive")).toHaveCount(0);
-  await expect(page.locator("#notes-archive .math-note-status")).toHaveCount(9);
+  await expect(page.locator("#notes-archive .math-note-status")).toHaveCount(10);
   const labels = await page.locator(".math-note-status").allTextContents();
   const allowed = new Set([
     "Published formalization",
@@ -2819,6 +2819,7 @@ test("technical notes use explicit status labels and a local Julia fractal", asy
     "Historical note · Superseded",
     "Exploratory derivation",
     "Reading note",
+    "Research Reflection",
   ]);
   expect(labels.every((label) => allowed.has(label.trim()))).toBe(true);
   const verticalOrder = await page.evaluate(() => ({
@@ -2924,7 +2925,7 @@ test("shared modal-invariants note is formal, direct-link only, and non-indexabl
   expect(errors).toEqual([]);
 });
 
-test("the latest executable-refinement note leads the math archive and AFP work exposes primary evidence", async ({ page }) => {
+test("the reflection leads the math archive and AFP work exposes primary evidence", async ({ page }) => {
   const errors = trackPageErrors(page);
 
   for (const lang of ["zh", "en"]) {
@@ -2967,13 +2968,16 @@ test("the latest executable-refinement note leads the math archive and AFP work 
   await expect(page.locator('main a[href="notes/ttgda_second_order_tracking_note.html"]')).toHaveCount(0);
   await expect(page.locator("#notes-archive")).toBeVisible();
   const archiveNotes = page.locator(".math-list .math-card");
-  await expect(archiveNotes).toHaveCount(9);
-  await expect(archiveNotes.nth(0)).toContainText("从一套框架到真正会运行的随机算法");
-  await expect(archiveNotes.nth(0)).toContainText("未发表扩展");
-  await expect(archiveNotes.nth(1)).toContainText("网络定位中的二阶几何：研究概览");
-  await expect(archiveNotes.nth(1)).toContainText("进行中的合作研究");
-  await expect(archiveNotes.nth(2)).toContainText("子模贪心算法形式化正式进入 AFP");
-  await expect(archiveNotes.nth(2).locator(".math-date")).toContainText("原始发布 · 2026-06-30");
+  await expect(archiveNotes).toHaveCount(10);
+  await expect(archiveNotes.nth(0)).toContainText("When Proofs Are No Longer the Bottleneck");
+  await expect(archiveNotes.nth(0)).toContainText("Research Reflection");
+  await expect(archiveNotes.nth(0).locator(".math-date")).toHaveText("2026-10-08");
+  await expect(archiveNotes.nth(1)).toContainText("从一套框架到真正会运行的随机算法");
+  await expect(archiveNotes.nth(1)).toContainText("未发表扩展");
+  await expect(archiveNotes.nth(2)).toContainText("网络定位中的二阶几何：研究概览");
+  await expect(archiveNotes.nth(2)).toContainText("进行中的合作研究");
+  await expect(archiveNotes.nth(3)).toContainText("子模贪心算法形式化正式进入 AFP");
+  await expect(archiveNotes.nth(3).locator(".math-date")).toContainText("原始发布 · 2026-06-30");
   await expect(page.locator('a[href="notes/theorem11_convexity_note.html"]')).toHaveCount(0);
   await expect(page.locator('a[href="notes/huber_glm_sparsification_refinement_note.html"]')).toHaveCount(0);
 

@@ -318,13 +318,15 @@ def fit_text_lines(
     font: ImageFont.ImageFont,
     max_width: int,
     max_lines: int,
+    preserve_words: bool = False,
 ) -> List[str]:
     compact = re.sub(r"\s+", " ", str(text or "").strip())
     if not compact:
         return []
     lines: List[str] = []
     current = ""
-    for ch in compact:
+    units = re.findall(r"\S+\s*", compact) if preserve_words else compact
+    for ch in units:
         test = current + ch
         bbox = draw.textbbox((0, 0), test, font=font)
         width = bbox[2] - bbox[0]
@@ -400,10 +402,13 @@ def render_math_card_image(item: dict, out_path: Path) -> None:
     meta_font = load_font(MONO_FONT_CANDIDATES, 20)
     label_font = load_font(SANS_FONT_CANDIDATES, 22)
 
-    draw.rounded_rectangle((86, 92, 314, 132), radius=18, fill=(36, 52, 88, 228))
-    draw.text((104, 101), "CHRONOHAZE · MATH", font=label_font, fill=(240, 246, 255, 255))
+    is_reflection = item.get("note_status") == "Research Reflection"
+    label = "CHRONOHAZE · WRITING" if is_reflection else "CHRONOHAZE · MATH"
+    label_right = 122 + draw.textbbox((0, 0), label, font=label_font)[2] if is_reflection else 314
+    draw.rounded_rectangle((86, 92, label_right, 132), radius=18, fill=(36, 52, 88, 228))
+    draw.text((104, 101), label, font=label_font, fill=(240, 246, 255, 255))
 
-    title_lines = fit_text_lines(draw, item.get("title") or "", title_font, max_width=940, max_lines=4)
+    title_lines = fit_text_lines(draw, item.get("title") or "", title_font, max_width=940, max_lines=4, preserve_words=is_reflection)
     y = draw_text_lines(
         draw,
         title_lines,
@@ -415,7 +420,7 @@ def render_math_card_image(item: dict, out_path: Path) -> None:
     )
 
     excerpt = item.get("excerpt") or ""
-    excerpt_lines = fit_text_lines(draw, excerpt, body_font, max_width=910, max_lines=4)
+    excerpt_lines = fit_text_lines(draw, excerpt, body_font, max_width=910, max_lines=4, preserve_words=is_reflection)
     y = draw_text_lines(
         draw,
         excerpt_lines,
