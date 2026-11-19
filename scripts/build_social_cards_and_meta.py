@@ -22,6 +22,7 @@ OG_SIZE = (OG_WIDTH, OG_HEIGHT)
 
 MATH_OG_DIR = "assets/og/math"
 MUSIC_OG_DIR = "assets/og/music"
+MUSIC_OG_TITLE_FONT_SIZES = {"music/track-11.html": 50}
 SITE_OG_DIR = "assets/og/site"
 
 STATIC_OG_IMAGE_OVERRIDES = {
@@ -478,7 +479,7 @@ def render_music_card_image(item: dict, out_path: Path, palette_hex: str) -> Non
     img.alpha_composite(panel)
 
     draw = ImageDraw.Draw(img, "RGBA")
-    title_font = load_font(HEADLINE_FONT_CANDIDATES, 62)
+    title_font = load_font(HEADLINE_FONT_CANDIDATES, MUSIC_OG_TITLE_FONT_SIZES.get(item.get("url"), 62))
     body_font = load_font(SANS_FONT_CANDIDATES, 26)
     small_font = load_font(SANS_FONT_CANDIDATES, 22)
     mono_font = load_font(MONO_FONT_CANDIDATES, 20)
