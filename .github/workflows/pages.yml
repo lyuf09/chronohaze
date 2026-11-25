@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: read
   contents: read
   pages: write
   id-token: write
@@ -84,8 +85,31 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
+          name: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
           path: _site
+
+      - name: Wait for uploaded artifact metadata
+        timeout-minutes: 3
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PAGES_ARTIFACT_NAME: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
+        run: |
+          for attempt in {1..24}; do
+            if gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts?per_page=100" \
+              --jq '.artifacts[].name' \
+              | rg --fixed-strings --line-regexp --quiet "$PAGES_ARTIFACT_NAME"; then
+              echo "Uploaded Pages artifact is available."
+              sleep 10
+              exit 0
+            fi
+            echo "Waiting for Pages artifact metadata ($attempt/24)."
+            sleep 5
+          done
+          echo "::error::Uploaded Pages artifact did not become available."
+          exit 1
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+        with:
+          artifact_name: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
