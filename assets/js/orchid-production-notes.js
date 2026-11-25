@@ -66,7 +66,8 @@
     details.appendChild(summary);
 
     target.parentNode.insertBefore(section, target);
-    target.classList.add("affizieren-note-full-copy");
+    // Expanded notes must remain readable independently of scroll-reveal animations.
+    target.classList.add("affizieren-note-full-copy", "is-in");
     details.appendChild(target);
     section.appendChild(grid);
     section.appendChild(details);
