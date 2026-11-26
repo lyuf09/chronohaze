@@ -8,7 +8,7 @@ const ignoreHTTPSErrors =
 
 module.exports = defineConfig({
   testDir: "./tests",
-  testMatch: /(?:runtime-smoke|structured-data)\.spec\.js$/,
+  testMatch: /(?:runtime-smoke|structured-data|selected-works)\.spec\.js$/,
   timeout: 45000,
   retries: process.env.CI ? 1 : 0,
   workers: process.env.CI ? 1 : undefined,

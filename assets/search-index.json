@@ -1,6 +1,26 @@
 {
-  "generated_at": "2026-11-20",
+  "generated_at": "2026-11-26",
   "items": [
+    {
+      "title": "Selected Works | HAZEZZ — 精选作品・作品選集",
+      "title_en": "Selected Works | HAZEZZ",
+      "url": "selected-works.html",
+      "section": "Music",
+      "date": "",
+      "excerpt": "Affizieren、Orchid、He and Me：三首完整作品、创作实践及现场演出。",
+      "excerpt_en": "Listen to three full works by HAZEZZ: Affizieren, Orchid and He and Me. Creative practice, live performance and collaboration.",
+      "tags": [
+        "music",
+        "portfolio",
+        "HAZEZZ",
+        "selected-works",
+        "音楽",
+        "作品集"
+      ],
+      "sort": 20261126,
+      "scope": "site",
+      "content": "Selected Works Artist Portfolio HAZEZZ Affizieren HazezZ vocal version Orchid 新语言 Haze_zzZ feat. 初音ミク He and Me Creative Practice CHONGQING FULI IMAGES JUN Contact Collaboration 作品選集 精选作品 音楽 音乐"
+    },
     {
       "title": "Research Statement | Feier Lyu (Fay Lyu)",
       "url": "research.html",

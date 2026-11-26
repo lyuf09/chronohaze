@@ -2303,7 +2303,7 @@
   function enhanceObfuscatedEmailLinks() {
     var safeLang = detectPreferredLanguage();
     var dict = getSecondaryPageDictionary(safeLang) || {};
-    var sendHintPrefix = safeLang === "en" ? "Send email to " : "发送邮件至 ";
+    var sendHintPrefix = safeLang === "ja" ? "メールを送信：" : safeLang === "en" ? "Send email to " : "发送邮件至 ";
     var copyHint =
       dict.emailCopyHint ||
       (safeLang === "en" ? "Copy email address" : "复制邮箱地址");
@@ -3493,7 +3493,24 @@
     };
   }
 
+  function getSelectedWorksCopy() {
+    var node = document.getElementById("selected-works-copy");
+    if (!node) return {};
+    return node.portfolioCopy || (node.portfolioCopy = JSON.parse(node.textContent));
+  }
+
+  function isSelectedWorksPage() {
+    return !!document.body && document.body.classList.contains("selected-works-page");
+  }
+
+  function normalizeSecondaryLanguage(lang) {
+    return lang === "ja" && isSelectedWorksPage() ? "ja" : lang === "en" ? "en" : "zh";
+  }
+
   function getSecondaryPageDictionary(lang) {
+    if (lang === "ja" && isSelectedWorksPage()) {
+      return Object.assign({}, getSecondaryPageDictionary("en"), getSelectedWorksCopy().ja);
+    }
     var safeLang = lang === "en" ? "en" : "zh";
 
     return {
@@ -4040,6 +4057,7 @@
 
   function getPersistentAudioLabels() {
     var lang = detectPreferredLanguage();
+    if (lang === "ja") return getSelectedWorksCopy().mini;
     return lang === "en"
       ? {
           kicker: "Now playing",
@@ -4492,7 +4510,7 @@
       navigateAdjacentTrack("next");
     });
 
-    ["play", "pause", "timeupdate", "loadedmetadata", "durationchange", "ended"].forEach(
+    ["play", "pause", "timeupdate", "loadedmetadata", "durationchange", "ended", "waiting", "playing", "canplay"].forEach(
       function (eventName) {
         audio.addEventListener(eventName, syncPersistentAudioDock);
       }
@@ -4881,15 +4899,16 @@
   }
 
   function enhanceMusicPlayers() {
-    if (!document.body || !document.body.classList.contains("music-detail-page")) {
+    var portfolio = isSelectedWorksPage();
+    if (!document.body || (!portfolio && !document.body.classList.contains("music-detail-page"))) {
       return;
     }
 
     var players = Array.from(
-      document.querySelectorAll(".music-detail-article audio")
+      document.querySelectorAll(".music-detail-article audio, .selected-work audio")
     );
     var dict = getSecondaryPageDictionary(detectPreferredLanguage());
-    ensureMusicDetailPageNavigation(dict);
+    if (!portfolio) ensureMusicDetailPageNavigation(dict);
     ensurePersistentAudioDock();
 
     players.forEach(function (audio) {
@@ -4912,9 +4931,9 @@
 
       var label = document.createElement("p");
       label.className = "music-player-label";
-      var article = audio.closest(".music-detail-article") || document;
+      var article = audio.closest(".music-detail-article, .selected-work") || document;
       var trackData = buildTrackLabel(article, audio);
-      var navData = getCurrentTrackNavigation();
+      var navData = portfolio ? { prevHref: "", nextHref: "" } : getCurrentTrackNavigation();
       var trackSource = resolveAudioSource(audio);
       var trackDuration = getMediaDuration(audio);
       var trackTitleSpan = document.createElement("span");
@@ -4961,7 +4980,15 @@
       row.appendChild(timeLabel);
       shell.appendChild(label);
       shell.appendChild(row);
+      var status = document.createElement("p");
+      status.className = "selected-player-status";
+      status.setAttribute("role", "status");
+      if (portfolio) shell.appendChild(status);
       audio.insertAdjacentElement("afterend", shell);
+
+      function detailHref() {
+        return portfolio ? article.querySelector(".selected-work-detail").href : window.location.href;
+      }
 
       function isCurrentPersistentTrack() {
         var controller = ensurePersistentAudioDock();
@@ -4974,6 +5001,7 @@
       }
 
       function syncPlayState() {
+        dict = getSecondaryPageDictionary(detectPreferredLanguage());
         var controller = ensurePersistentAudioDock();
         var isPlaying =
           isCurrentPersistentTrack() &&
@@ -4982,7 +5010,7 @@
         playButton.classList.toggle("is-playing", isPlaying);
         playButton.setAttribute(
           "aria-label",
-          isPlaying ? dict.playerPauseAria : dict.playerPlayAria
+          (isPlaying ? dict.playerPauseAria : dict.playerPlayAria) + (portfolio ? " · " + trackData.title : "")
         );
       }
 
@@ -5009,6 +5037,13 @@
 
         timeLabel.textContent =
           formatDuration(current) + " / " + formatDuration(duration);
+        if (portfolio) {
+          var labels = getSelectedWorksCopy().status[detectPreferredLanguage()];
+          var state = !isCurrentPersistentTrack() ? "ready" : controller.audio.error ? "error" : controller.audio.ended ? "ended" : controller.audio.paused ? "paused" : controller.audio.readyState < 3 ? "loading" : "playing";
+          setAudioText(status, labels[state]);
+          scrubber.setAttribute("aria-label", dict.playerProgressAria + " · " + trackData.title);
+          scrubber.setAttribute("aria-valuetext", timeLabel.textContent);
+        }
       }
 
       bindResponsivePress(playButton, function () {
@@ -5025,7 +5060,7 @@
               src: trackSource,
               title: trackData.title,
               artist: trackData.artist,
-              pageHref: window.location.href,
+              pageHref: detailHref(),
               prevHref: navData.prevHref,
               nextHref: navData.nextHref,
               duration: trackDuration,
@@ -5050,6 +5085,10 @@
       scrubber.addEventListener("input", function () {
         var controller = ensurePersistentAudioDock();
         if (!isCurrentPersistentTrack()) {
+          if (portfolio) loadPersistentTrack({src: trackSource, title: trackData.title, artist: trackData.artist,
+            pageHref: detailHref(),
+            duration: getMediaDuration(audio)},
+            {autoplay: false, currentTime: Number(scrubber.value) / 1000 * getMediaDuration(audio)});
           return;
         }
 
@@ -5066,10 +5105,17 @@
         syncTimeState();
       });
 
-      document.addEventListener("chronohaze:persistent-audio-sync", function () {
+      function syncPlayer() {
+        if (!shell.isConnected) {
+          document.removeEventListener("chronohaze:persistent-audio-sync", syncPlayer);
+          document.removeEventListener("chronohaze:language-changed", syncPlayer);
+          return;
+        }
         syncPlayState();
         syncTimeState();
-      });
+      }
+      document.addEventListener("chronohaze:persistent-audio-sync", syncPlayer);
+      document.addEventListener("chronohaze:language-changed", syncPlayer);
 
       ["loadedmetadata", "durationchange"].forEach(function (eventName) {
         audio.addEventListener(eventName, syncTimeState);
@@ -5088,7 +5134,7 @@
             src: trackSource,
             title: trackData.title,
             artist: trackData.artist,
-            pageHref: window.location.href,
+            pageHref: detailHref(),
             prevHref: navData.prevHref,
             nextHref: navData.nextHref,
             duration: trackDuration,
@@ -5107,7 +5153,7 @@
             src: trackSource,
             title: trackData.title,
             artist: trackData.artist,
-            pageHref: window.location.href,
+            pageHref: detailHref(),
             prevHref: navData.prevHref,
             nextHref: navData.nextHref,
             duration: trackDuration,
@@ -11382,43 +11428,23 @@
   }
 
   function detectPreferredLanguage() {
-    var query = new URLSearchParams(window.location.search).get("lang");
-    if (query === "zh" || query === "en") {
-      window.__chronohazePreferredLang = query;
-      return query;
-    }
-
-    if (window.__chronohazePreferredLang === "zh" || window.__chronohazePreferredLang === "en") {
-      return window.__chronohazePreferredLang;
-    }
-
+    var candidates = [new URLSearchParams(window.location.search).get("lang"), window.__chronohazePreferredLang];
     try {
-      var saved = localStorage.getItem("siteLang");
-      if (saved === "zh" || saved === "en") {
-        window.__chronohazePreferredLang = saved;
-        return saved;
-      }
-
-      var homeSaved = localStorage.getItem("chronohaze-lang");
-      if (homeSaved === "zh" || homeSaved === "en") {
-        window.__chronohazePreferredLang = homeSaved;
-        return homeSaved;
-      }
-    } catch (_err) {
-      window.__chronohazePreferredLang = "en";
-      return "en";
+      candidates.push(localStorage.getItem("siteLang"), localStorage.getItem("chronohaze-lang"));
+    } catch (_err) { candidates.push("en"); }
+    var preferred = candidates.find(function (lang) {
+      return lang === "zh" || lang === "en" || (lang === "ja" && isSelectedWorksPage());
+    });
+    if (!preferred) {
+      var browserLanguage = String((navigator.languages && navigator.languages[0]) || navigator.language || "");
+      preferred = !isSelectedWorksPage() && /^zh/i.test(browserLanguage) ? "zh" : "en";
     }
-
-    var browserLanguage = String(
-      (navigator.languages && navigator.languages[0]) || navigator.language || ""
-    ).toLowerCase();
-    var preferred = browserLanguage.indexOf("zh") === 0 ? "zh" : "en";
     window.__chronohazePreferredLang = preferred;
     return preferred;
   }
 
   function persistPreferredLanguage(lang) {
-    var safeLang = lang === "en" ? "en" : "zh";
+    var safeLang = normalizeSecondaryLanguage(lang);
     window.__chronohazePreferredLang = safeLang;
     document.documentElement.setAttribute("data-site-lang", safeLang);
     try {
@@ -11430,11 +11456,11 @@
   }
 
   function ensureAccessibleControlLabels() {
-    var safeLang = detectPreferredLanguage() === "en" ? "en" : "zh";
+    var safeLang = detectPreferredLanguage();
     Array.from(
       document.querySelectorAll(".lang-pill, .floating-lang-switch, .cv-lang-tabs")
     ).forEach(function (panel) {
-      panel.setAttribute("aria-label", safeLang === "en" ? "Language switch" : "语言切换");
+      panel.setAttribute("aria-label", safeLang === "ja" ? "表示言語" : safeLang === "en" ? "Language switch" : "语言切换");
     });
 
     Array.from(
@@ -11446,7 +11472,9 @@
       var isCurrent = lang === safeLang;
       button.classList.toggle("active", isCurrent);
       button.setAttribute("aria-pressed", isCurrent ? "true" : "false");
-      if (lang === "zh") {
+      if (lang === "ja") {
+        button.setAttribute("aria-label", "日本語に切り替える");
+      } else if (lang === "zh") {
         button.setAttribute(
           "aria-label",
           safeLang === "en" ? "Switch site language to Chinese" : "切换网站语言为中文"
@@ -14210,7 +14238,7 @@
   }
 
   function applyLocalizedPageMetadata(lang) {
-    var safeLang = lang === "en" ? "en" : "zh";
+    var safeLang = normalizeSecondaryLanguage(lang);
     var titleNode = document.querySelector("title");
     var localizedTitle =
       titleNode && titleNode.getAttribute("data-title-" + safeLang);
@@ -14226,7 +14254,7 @@
   }
 
   function syncLanguageUrlAndSeo(lang) {
-    var safeLang = lang === "en" ? "en" : "zh";
+    var safeLang = normalizeSecondaryLanguage(lang);
     var currentUrl = new URL(window.location.href);
 
     if (currentUrl.searchParams.get("lang") !== safeLang) {
@@ -14267,6 +14295,7 @@
     } else {
       ensureAlternate("zh-CN", variantHref("zh"));
       ensureAlternate("en", variantHref("en"));
+      if (isSelectedWorksPage()) ensureAlternate("ja", variantHref("ja"));
     }
     ensureAlternate("x-default", canonicalBase.toString());
 
@@ -14545,7 +14574,7 @@
   }
 
   function applySecondaryPageLanguage(lang) {
-    var safeLang = lang === "en" ? "en" : "zh";
+    var safeLang = normalizeSecondaryLanguage(lang);
     var dict = getSecondaryPageDictionary(safeLang);
 
     ensureSearchNavLink(safeLang);
@@ -14623,7 +14652,7 @@
     Array.from(document.querySelectorAll("[data-copy-zh][data-copy-en]")).forEach(function (
       node
     ) {
-      var key = safeLang === "en" ? "data-copy-en" : "data-copy-zh";
+      var key = "data-copy-" + safeLang;
       var value = node.getAttribute(key);
       if (value) {
         node.textContent = value;
@@ -14631,12 +14660,12 @@
     });
 
     Array.from(document.querySelectorAll("[data-alt-zh][data-alt-en]")).forEach(function (node) {
-      var key = safeLang === "en" ? "data-alt-en" : "data-alt-zh";
+      var key = "data-alt-" + safeLang;
       node.setAttribute("alt", node.getAttribute(key) || "");
     });
 
     Array.from(document.querySelectorAll("[data-aria-label-zh][data-aria-label-en]")).forEach(function (node) {
-      var key = safeLang === "en" ? "data-aria-label-en" : "data-aria-label-zh";
+      var key = "data-aria-label-" + safeLang;
       var value = node.getAttribute(key);
       if (value) {
         node.setAttribute("aria-label", value);
@@ -14918,7 +14947,7 @@
         Array.from(
           document.querySelectorAll(".math-index-page [data-copy-zh][data-copy-en]")
         ).forEach(function (node) {
-          var key = safeLang === "en" ? "data-copy-en" : "data-copy-zh";
+          var key = "data-copy-" + safeLang;
           var value = node.getAttribute(key);
           if (value) {
             node.textContent = value;
@@ -15208,6 +15237,8 @@
     renderMetalcorePost(safeLang, dict);
     applyLocalizedPageMetadata(safeLang);
     syncLanguageUrlAndSeo(safeLang);
+    localizeSelectedWorks(safeLang);
+    document.dispatchEvent(new Event("chronohaze:language-changed"));
   }
 
   function injectFloatingSiteLogo() {
@@ -16404,6 +16435,25 @@
     });
   }
 
+  function localizeSelectedWorks(lang) {
+    if (!isSelectedWorksPage()) return;
+    document.querySelectorAll(".selected-works-page a[href]").forEach(function (link) {
+      var url = new URL(link.getAttribute("href"), window.location.href);
+      if (url.origin === window.location.origin && /\.html$/.test(url.pathname)) {
+        url.searchParams.set("lang", lang);
+        link.setAttribute("href", url.pathname + url.search + url.hash);
+      }
+    });
+    document.querySelectorAll("[data-copy-" + lang + "]").forEach(function (node) {
+      setAudioText(node, node.getAttribute("data-copy-" + lang));
+    });
+    if (lang === "ja") {
+      var identity = document.querySelector("[data-footer-identity]");
+      if (identity) setAudioText(identity, "HazezZ · 作曲・ベース・音楽制作");
+    }
+    enhanceObfuscatedEmailLinks();
+  }
+
   function injectFloatingLanguageSwitch() {
     if (document.querySelector(".lang-pill")) {
       return;
@@ -16438,7 +16488,7 @@
           btn.dataset.chronohazeLanguageSync = "1";
           btn.addEventListener("click", function () {
             var nextLang = btn.getAttribute("data-lang");
-            if (nextLang !== "zh" && nextLang !== "en") {
+            if (nextLang !== "zh" && nextLang !== "en" && !(nextLang === "ja" && isSelectedWorksPage())) {
               return;
             }
             persistPreferredLanguage(nextLang);
@@ -16477,13 +16527,19 @@
           return;
         }
         persistPreferredLanguage(lang);
-        setSamePageLanguageInUrl(lang);
+        if (isSelectedWorksPage()) {
+          applySecondaryPageLanguage(lang);
+          ensureAccessibleControlLabels();
+        } else {
+          setSamePageLanguageInUrl(lang);
+        }
       });
       return btn;
     }
 
     panel.appendChild(buildButton("zh", "ZH"));
     panel.appendChild(buildButton("en", "EN"));
+    if (isSelectedWorksPage()) panel.appendChild(buildButton("ja", "JA"));
     if (headerInner) {
       headerInner.classList.add("header-inner--with-lang");
       headerInner.appendChild(panel);
@@ -17750,7 +17806,7 @@
   function isSecondaryPageSwapPath(pathname) {
     var path = String(pathname || "").toLowerCase();
     return (
-      /(?:^|\/)(?:math|research|research-summary|projects|cv|music|photography|search|yin-le|portfolio-1|policy|accessibility|404)\.html$/.test(path) ||
+      /(?:^|\/)(?:math|research|research-summary|projects|cv|music|selected-works|photography|search|yin-le|portfolio-1|policy|accessibility|404)\.html$/.test(path) ||
       /(?:^|\/)music\/[^/]+\.html$/.test(path) ||
       /(?:^|\/)post\/[^/]+\.html$/.test(path) ||
       /(?:^|\/)photo\/[^/]+\.html$/.test(path)
@@ -18014,7 +18070,7 @@
     }
 
     var managedStylesheetPattern =
-      /(?:^|\/)(?:styles|home|performance-archive|editorial-evidence|academic-mobile|olfactory)(?:\.min)?\.css(?:[?#]|$)/;
+      /(?:^|\/)(?:styles|home|performance-archive|editorial-evidence|academic-mobile|olfactory|selected-works)(?:\.min)?\.css(?:[?#]|$)/;
 
     function isManagedStylesheetHref(href) {
       var input = String(href || "").toLowerCase();
@@ -18423,7 +18479,7 @@
 
     // Reading-page bootstrap scripts must see the chosen language before they
     // run, otherwise they can reload the document during a page swap.
-    if (shouldUsePageSwap(url) && !/^(en|zh)$/.test(url.searchParams.get("lang"))) {
+    if (shouldUsePageSwap(url) && !/^(en|zh|ja)$/.test(url.searchParams.get("lang"))) {
       url.searchParams.set("lang", detectPreferredLanguage());
     }
 

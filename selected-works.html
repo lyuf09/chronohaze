@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta id="chronohaze-security-policy" http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self'; frame-src 'none'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <style id="chronohaze-critical-loader-style">
+    html.chronohaze-critical-loading,
+    html.chronohaze-critical-loading body {
+      min-height: 100%;
+      background: #10141b;
+    }
+
+    html.chronohaze-critical-loading body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    html.chronohaze-critical-loading body > :not(.chronohaze-loader) {
+      visibility: hidden !important;
+    }
+
+    html.chronohaze-critical-loading::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 2147483000;
+      background:
+        linear-gradient(90deg, rgba(138, 160, 200, 0.09) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(138, 160, 200, 0.07) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(13, 17, 24, 0.992) 0%, rgba(19, 24, 33, 0.992) 55%, rgba(13, 17, 24, 0.996) 100%);
+      background-size: 54px 54px, 54px 54px, 100% 100%;
+    }
+
+    html.chronohaze-critical-loading::after {
+      content: "CHRONOHAZE";
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      z-index: 2147483001;
+      width: min(500px, calc(100vw - 40px));
+      padding: 30px 32px;
+      transform: translate(-50%, -50%);
+      white-space: pre-line;
+      color: rgba(232, 234, 237, 0.9);
+      font: 300 clamp(22px, 3.2vw, 34px)/1.48 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.055em;
+      border: 1px solid rgba(154, 172, 204, 0.3);
+      border-radius: 0;
+      background: linear-gradient(180deg, rgba(20, 25, 34, 0.84) 0%, rgba(13, 17, 24, 0.82) 100%);
+      box-shadow: 0 24px 58px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.045);
+    }
+
+    html[lang^="zh"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A 页面加载中";
+    }
+
+    html[lang^="en"].chronohaze-critical-loading:not(.chronohaze-critical-loading-mobile)::after {
+      content: "CHRONOHAZE\A Loading";
+    }
+
+    html.chronohaze-critical-loading-mobile body {
+      overflow: auto;
+    }
+
+    html.chronohaze-critical-loading-mobile body > :not(.chronohaze-loader) {
+      visibility: visible !important;
+    }
+
+    html.chronohaze-critical-loading-mobile::before {
+      background: linear-gradient(180deg, rgba(13, 17, 24, 0.18) 0%, rgba(19, 24, 33, 0.22) 100%);
+      pointer-events: none;
+    }
+
+    html.chronohaze-critical-loading-mobile::after {
+      content: "CHRONOHAZE";
+      left: 16px;
+      top: 16px;
+      width: auto;
+      max-width: calc(100vw - 32px);
+      padding: 10px 12px;
+      transform: none;
+      white-space: normal;
+      color: rgba(232, 234, 237, 0.78);
+      font: 400 12px/1.3 "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", serif;
+      letter-spacing: 0.18em;
+      border: 1px solid rgba(154, 172, 204, 0.18);
+      background: rgba(16, 20, 27, 0.34);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+      backdrop-filter: blur(2px);
+    }
+  </style>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var isMobile = window.matchMedia && window.matchMedia("(max-width: 760px)").matches;
+      root.classList.add("chronohaze-critical-loading");
+      if (isMobile) {
+        root.classList.add("chronohaze-critical-loading-mobile");
+      }
+      window.__chronohazeReleaseCriticalLoader = function () {
+        root.classList.remove("chronohaze-critical-loading");
+        root.classList.remove("chronohaze-critical-loading-mobile");
+      };
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", window.__chronohazeReleaseCriticalLoader, { once: true });
+      } else {
+        window.requestAnimationFrame(window.__chronohazeReleaseCriticalLoader);
+      }
+      window.setTimeout(window.__chronohazeReleaseCriticalLoader, 500);
+    })();
+  </script>
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico?v=4">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=4">
+  <title data-title-en="Selected Works | HAZEZZ — CHRONOHAZE" data-title-ja="作品選集 | HAZEZZ — CHRONOHAZE" data-title-zh="精选作品 | HAZEZZ — CHRONOHAZE">Selected Works | HAZEZZ — CHRONOHAZE</title>
+  <meta name="description" data-content-en="Three selected works by HAZEZZ, an independent artist and producer based in the UK. Listen to Affizieren, Orchid and He and Me." data-content-ja="英国を拠点とする音楽家HAZEZZの作品選集。Affizieren、Orchid、He and Meの全編音源、創作活動、ライブ記録。" data-content-zh="英国独立音乐人 HAZEZZ 的精选作品集。在线聆听 Affizieren、Orchid、He and Me，了解创作实践与现场演出。" content="Three selected works by HAZEZZ, an independent artist and producer based in the UK. Listen to Affizieren, Orchid and He and Me." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Chronohaze" />
+  <meta property="og:title" content="Selected Works | HAZEZZ — CHRONOHAZE" />
+  <meta property="og:description" content="Three selected works, creative practice and live performance by HAZEZZ." />
+  <meta property="og:url" content="https://lyuf09.github.io/chronohaze/selected-works.html" />
+  <meta property="og:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/music.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Selected Works | HAZEZZ — CHRONOHAZE" />
+  <meta name="twitter:description" content="Three selected works, creative practice and live performance by HAZEZZ." />
+  <meta name="twitter:image" content="https://lyuf09.github.io/chronohaze/assets/og/site/music.png" />
+  <link rel="canonical" href="https://lyuf09.github.io/chronohaze/selected-works.html" />
+  <!-- GENERATED:hreflang:start -->
+  <link rel="alternate" hreflang="zh-CN" href="https://lyuf09.github.io/chronohaze/selected-works.html?lang=zh" />
+  <link rel="alternate" hreflang="en" href="https://lyuf09.github.io/chronohaze/selected-works.html?lang=en" />
+  <link rel="alternate" hreflang="ja" href="https://lyuf09.github.io/chronohaze/selected-works.html?lang=ja" />
+  <link rel="alternate" hreflang="x-default" href="https://lyuf09.github.io/chronohaze/selected-works.html" />
+  <!-- GENERATED:hreflang:end -->
+  <link rel="alternate" type="application/rss+xml" title="Chronohaze Notes Feed" href="https://lyuf09.github.io/chronohaze/feed.xml" />
+<link rel="stylesheet" href="styles.min.css?v=20261103-history-search1">
+  <link rel="stylesheet" href="assets/css/selected-works.css?v=20261126-portfolio1">
+  <script defer src="protect-media.min.js?v=20261126-selected-works1"></script>
+
+  <!-- Chronohaze analytics preference and opt-out control -->
+  <script id="chronohaze-analytics-bootstrap">
+    (function () {
+      var measurementId = "G-JWZY2TVYFZ";
+      var storedPreference;
+      try { storedPreference = window.localStorage.getItem("chronohaze-analytics"); } catch (_err) {}
+      var doNotTrack = navigator.doNotTrack === "1" || window.doNotTrack === "1";
+      var enabled = storedPreference === "on" || (storedPreference !== "off" && !doNotTrack);
+      window["ga-disable-" + measurementId] = !enabled;
+      window.__chronohazeAnalyticsInitialEnabled = enabled;
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/css/analytics-control.min.css?v=20260906-latin-a11y1" />
+  <script id="chronohaze-analytics-runtime" defer src="assets/js/analytics-control.min.js?v=20260906-latin-a11y1" data-analytics-collection="enabled"></script>
+</head>
+<body class="selected-works-page music-portfolio-page">
+  <a class="skip-link" href="#main-content">Skip to content / 跳到正文</a>
+<div class="page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="index.html">
+          <img src="assets/logo-header.png" alt="Chronohaze site logo">
+          <span>CHRONOHAZE</span>
+        </a>
+        <nav class="nav" aria-label="Main navigation">
+          <a href="index.html" data-i18n="navHome">Home</a>
+          <a href="academic.html" data-i18n="navAcademic">Academic</a>
+          <a class="active" href="music.html" data-i18n="navMusic">Music</a>
+          <a href="photography.html" data-i18n="navPhoto">Photography</a>
+          <a href="cv.html" data-i18n="navCV">CV</a>
+        </nav>
+      </div>
+    </header>
+
+
+    <main id="main-content" class="main selected-main container">
+<script id="selected-works-copy" type="application/json">{"ja":{"htmlLang":"ja","navAria":"メインナビゲーション","navHome":"ホーム","navAcademic":"研究","navProfile":"プロフィール","navStudio":"スタジオ","navPhoto":"写真","navMusic":"音楽","navOlfactory":"調香","navCV":"プロフィール","navSearch":"検索","a11y":"アクセシビリティ","siteNotes":"サイトについて","footerContactLead":"メール：","footerSocialAria":"ソーシャルリンク","playerPlayAria":"再生","playerPauseAria":"一時停止","playerProgressAria":"再生位置","emailCopyHint":"メールアドレスをコピー","emailCopiedEmail":"コピーしました","emailCopyFailed":"コピーできませんでした。手動でコピーしてください。"},"status":{"en":{"ready":"Ready to play","playing":"Playing","paused":"Paused","ended":"Finished","loading":"Loading audio…","error":"Audio unavailable. Try again or open the work."},"ja":{"ready":"再生できます","playing":"再生中","paused":"一時停止中","ended":"再生終了","loading":"音声を読み込み中…","error":"音声を再生できません。もう一度お試しいただくか、作品詳細をご覧ください。"},"zh":{"ready":"待播放","playing":"正在播放","paused":"已暂停","ended":"播放结束","loading":"正在加载音频…","error":"暂时无法播放，请重试或打开作品详情。"}},"mini":{"kicker":"再生中","peek":"音声","collapse":"閉じる","open":"作品詳細","close":"停止","prev":"前へ","next":"次へ","expandAria":"ミニプレーヤーを開く","collapseAria":"ミニプレーヤーを閉じる"}}</script>
+      <section class="selected-intro" aria-labelledby="selected-title">
+        <p class="selected-eyebrow">ARTIST PORTFOLIO <span>HAZEZZ</span></p>
+        <h1 id="selected-title" data-copy-en="Selected Works" data-copy-ja="作品選集" data-copy-zh="精选作品">Selected Works</h1>
+        <p class="selected-roles" data-copy-en="Composer · Arranger · Bassist · Guitarist · Producer" data-copy-ja="作曲・編曲・ベース・ギター・音楽制作" data-copy-zh="作曲 · 编曲 · 贝斯 · 吉他 · 制作">Composer · Arranger · Bassist · Guitarist · Producer</p>
+        <p class="selected-intro-copy" data-copy-en="I&#x27;m an independent artist and music producer based in the UK. My music draws on progressive metalcore, Japanese rock, synthesized vocals and personal narratives. I approach composition, arrangement, instrumental performance and production as parts of the same creative process." data-copy-ja="英国を拠点に活動するインディペンデント・アーティスト。プログレッシブ・メタルコア、日本のロック、合成音声、そして個人的な物語を軸に楽曲を制作しています。作曲、編曲、楽器演奏、音楽制作を一つの創作プロセスとして捉えています。" data-copy-zh="现居英国的独立音乐人及音乐制作人。创作以 progressive metalcore、日系摇滚、虚拟歌声与个人叙事为核心，将作曲、编曲、乐器演奏及音乐制作视为同一个创作过程。">I&#x27;m an independent artist and music producer based in the UK. My music draws on progressive metalcore, Japanese rock, synthesized vocals and personal narratives. I approach composition, arrangement, instrumental performance and production as parts of the same creative process.</p>
+      </section>
+      <section class="selected-list" aria-label="Selected Works" data-aria-label-en="Selected Works" data-aria-label-ja="作品選集" data-aria-label-zh="精选作品">
+        <article class="selected-work selected-work-signature" id="affizieren" aria-labelledby="affizieren-title">
+      <figure class="selected-art"><img src="assets/template/affizieren-cover.jpg" alt="Affizieren — art by HazezZ" sizes="(max-width: 760px) 84px, 200px" data-eager="true" loading="eager" decoding="async" /><figcaption>Art by HazezZ</figcaption></figure>
+      <div class="selected-work-body">
+        <header class="selected-work-heading"><span class="selected-number">01</span><h2 id="affizieren-title">Affizieren</h2></header>
+        <p class="selected-description" data-copy-en="My most personal composition and the work that best represents my artistic identity. Mixed-meter passages, atmospheric guitars, slap bass, spoken word and progressive metalcore instrumentation trace the emotional aftermath of memory." data-copy-ja="自分自身を最もよく表している、大切な一曲です。変拍子、空間的なギター、スラップベース、語り、プログレッシブ・メタルコアの編曲を通して、記憶が残した感情の余韻を描いています。" data-copy-zh="最能代表我的个人创作的一首作品。通过混合拍、氛围吉他、Slap 贝斯、念白与前卫核编配，描绘记忆留下的情感余波。">My most personal composition and the work that best represents my artistic identity. Mixed-meter passages, atmospheric guitars, slap bass, spoken word and progressive metalcore instrumentation trace the emotional aftermath of memory.</p>
+        <p class="selected-credits" data-copy-en="Lyrics, composition, arrangement, vocals, guitar, bass &amp; mixing — HazezZ" data-copy-ja="作詞・作曲・編曲・歌唱・ギター・ベース・ミキシング：HazezZ" data-copy-zh="作词、作曲、编曲、演唱、吉他、贝斯、混音：HazezZ">Lyrics, composition, arrangement, vocals, guitar, bass &amp; mixing — HazezZ</p>
+        <p class="selected-version" data-copy-en="HazezZ vocal version" data-copy-ja="HazezZ 歌唱版" data-copy-zh="HazezZ 真人演唱版">HazezZ vocal version</p>
+        <audio controls controlslist="nodownload noplaybackrate noremoteplayback" preload="metadata" data-track-title="Affizieren · HazezZ Vocal Ver." data-track-artist="HazezZ" src="assets/audio/juke/d535eae92e52004a1b3bdb88eca4f651.mp3" aria-label="Affizieren"></audio>
+        <a class="selected-work-detail" href="music/track-04.html?lang=en" data-copy-en="Explore the work — lyrics, credits &amp; composition notes" data-copy-ja="作品詳細 — 歌詞・クレジット・制作ノート" data-copy-zh="探索作品 — 歌词、制作信息与创作笔记">Explore the work — lyrics, credits &amp; composition notes</a>
+      </div>
+    </article><article class="selected-work" id="orchid" aria-labelledby="orchid-title">
+      <figure class="selected-art"><img src="assets/images/music/orchid/orchid-art-01.jpg" alt="Orchid — art by HazezZ" loading="lazy" decoding="async" /><figcaption>Art by HazezZ</figcaption></figure>
+      <div class="selected-work-body">
+        <header class="selected-work-heading"><span class="selected-number">02</span><h2 id="orchid-title">Orchid</h2></header>
+        <p class="selected-description" data-copy-en="A fusion of melodic songwriting and progressive metalcore, built around a recurring vocal melody that moves through changing rhythmic arrangements, heavy riffs and contrasting instrumental textures." data-copy-ja="メロディアスな楽曲とプログレッシブ・メタルコアの融合。同じ歌唱旋律を異なるリズムや編曲で展開し、重厚なリフと対照的な音の質感を組み合わせた作品です。" data-copy-zh="旋律性歌曲写作与前卫金属核的结合。通过同一人声旋律在不同节奏编配中的反复发展，将重型 Riff 与具有反差的器乐质感融为一体。">A fusion of melodic songwriting and progressive metalcore, built around a recurring vocal melody that moves through changing rhythmic arrangements, heavy riffs and contrasting instrumental textures.</p>
+        <p class="selected-credits" data-copy-en="Lyrics, composition, arrangement, guitar &amp; mixing — HazezZ" data-copy-ja="作詞・作曲・編曲・ギター・ミキシング：HazezZ" data-copy-zh="作词、作曲、编曲、吉他、混音：HazezZ">Lyrics, composition, arrangement, guitar &amp; mixing — HazezZ</p>
+        <p class="selected-compilation" data-copy-en="Featured on 新语言 (2026), track 12." data-copy-ja="コンピレーション『新语言』（2026）第12曲に収録。" data-copy-zh="收录于《新语言》（2026），第 12 曲。">Featured on 新语言 (2026), track 12.</p><p class="selected-compilation">铁头动力 · Haze_zzZ feat. 初音ミク · <a href="https://vocadb.net/Al/57003" target="_blank" rel="noopener noreferrer">VocaDB</a></p>
+        <audio controls controlslist="nodownload noplaybackrate noremoteplayback" preload="metadata" data-track-title="Orchid" data-track-artist="HazezZ" src="assets/audio/juke/orchid51513.mp3" aria-label="Orchid"></audio>
+        <a class="selected-work-detail" href="music/track-orchid.html?lang=en" data-copy-en="Explore the work — lyrics, credits &amp; composition notes" data-copy-ja="作品詳細 — 歌詞・クレジット・制作ノート" data-copy-zh="探索作品 — 歌词、制作信息与创作笔记">Explore the work — lyrics, credits &amp; composition notes</a>
+      </div>
+    </article><article class="selected-work" id="he-and-me" aria-labelledby="he-and-me-title">
+      <figure class="selected-art"><img src="assets/template/he-and-me-cover.jpg" alt="He and Me — art by HazezZ" sizes="(max-width: 760px) 84px, 200px" loading="lazy" decoding="async" /><figcaption>Art by HazezZ</figcaption></figure>
+      <div class="selected-work-body">
+        <header class="selected-work-heading"><span class="selected-number">03</span><h2 id="he-and-me-title">He and Me</h2></header>
+        <p class="selected-description" data-copy-en="A reflective composition centred on harmonic movement, layered clean and heavy guitars, and melodic development. The closing harmony recalls Ipomoea alba, connecting the piece to a larger body of work." data-copy-ja="和声の移り変わり、クリーンギターと歪んだギターの重なり、旋律の展開を中心とした内省的な作品です。終盤の和声は『Ipomoea alba』を想起させ、他の作品とのつながりを生み出しています。" data-copy-zh="以和声走向、多层清音与重型吉他、旋律发展为核心的回望式作品。结尾的和声呼应《Ipomoea alba》，与更长久的创作脉络形成联系。">A reflective composition centred on harmonic movement, layered clean and heavy guitars, and melodic development. The closing harmony recalls Ipomoea alba, connecting the piece to a larger body of work.</p>
+        <p class="selected-credits" data-copy-en="Lyrics, composition, arrangement, guitar &amp; mixing — HazezZ" data-copy-ja="作詞・作曲・編曲・ギター・ミキシング：HazezZ" data-copy-zh="作词、作曲、编曲、吉他、混音：HazezZ">Lyrics, composition, arrangement, guitar &amp; mixing — HazezZ</p>
+        
+        <audio controls controlslist="nodownload noplaybackrate noremoteplayback" preload="metadata" data-track-title="He and Me" data-track-artist="HazezZ" src="assets/audio/juke/HaM51513.mp3" aria-label="He and Me"></audio>
+        <a class="selected-work-detail" href="music/track-02.html?lang=en" data-copy-en="Explore the work — lyrics, credits &amp; composition notes" data-copy-ja="作品詳細 — 歌詞・クレジット・制作ノート" data-copy-zh="探索作品 — 歌词、制作信息与创作笔记">Explore the work — lyrics, credits &amp; composition notes</a>
+      </div>
+    </article>
+      </section>
+      <section class="selected-practice selected-section" aria-labelledby="practice-title">
+        <h2 id="practice-title" data-copy-en="Creative Practice" data-copy-ja="創作について" data-copy-zh="创作实践">Creative Practice</h2>
+        <div><p  data-copy-en="I have been writing original music since the age of fourteen. My practice brings songwriting, arrangement, bass and guitar performance, recording and mixing together within a largely self-directed creative process. Across my works, recurring musical motifs and personal narratives connect individual songs into a broader artistic world." data-copy-ja="14歳からオリジナル楽曲の制作を始め、作曲、編曲、ベースとギターの演奏、録音、ミキシングまでを自ら手がけてきました。作品を横断する音楽的モチーフや個人的な物語を通して、一曲ごとの表現をより大きな創作世界へとつなげています。" data-copy-zh="从十四岁开始创作原创音乐，将作曲、编曲、贝斯与吉他演奏、录音及混音逐步整合为个人创作流程。通过不同作品之间反复出现的音乐动机与个人叙事，将独立歌曲连接成更完整的艺术世界。">I have been writing original music since the age of fourteen. My practice brings songwriting, arrangement, bass and guitar performance, recording and mixing together within a largely self-directed creative process. Across my works, recurring musical motifs and personal narratives connect individual songs into a broader artistic world.</p>
+        <a href="music.html?lang=en#about-the-practice" data-copy-en="About the practice" data-copy-ja="創作活動の詳細" data-copy-zh="更多创作实践">About the practice</a></div>
+      </section>
+      <section class="selected-live selected-section" aria-labelledby="live-title">
+        <h2 id="live-title" data-copy-en="Selected Live Performance" data-copy-ja="ライブ記録" data-copy-zh="精选现场">Selected Live Performance</h2>
+        <div class="selected-live-content">
+          <figure><img src="assets/images/music/live-003/live-003-01-960.webp" alt="HazezZ playing bass under blue stage lights at Chongqing Fuli" data-alt-en="HazezZ playing bass under blue stage lights at Chongqing Fuli" data-alt-ja="CHONGQING FULIの青いステージ照明の下でベースを演奏するHazezZ" data-alt-zh="HazezZ 在重庆伏羲的蓝色舞台灯光下演奏贝斯" width="960" height="720" loading="lazy" decoding="async" /><figcaption>IMAGES © JUN</figcaption></figure>
+          <div><time datetime="2026-08-03">03 AUG 2026</time><h3>CHONGQING FULI</h3>
+          <p  data-copy-en="Bass / Vocals" data-copy-ja="ベース / ボーカル" data-copy-zh="贝斯 / 人声">Bass / Vocals</p>
+          <p class="selected-setlist"><span  data-copy-en="Setlist:" data-copy-ja="セットリスト：" data-copy-zh="曲目：">Setlist:</span> Orchid · He and Me · Affizieren</p>
+          <a href="music/live-003-chongqing-fuli.html?lang=en" data-copy-en="View the performance archive" data-copy-ja="ライブアーカイブを見る" data-copy-zh="查看完整演出档案">View the performance archive</a></div>
+        </div>
+      </section>
+      <section class="selected-contact selected-section" aria-labelledby="contact-title">
+        <h2 id="contact-title" data-copy-en="Contact &amp; Collaboration" data-copy-ja="お問い合わせ・共同制作" data-copy-zh="联系与合作">Contact &amp; Collaboration</h2>
+        <div><p  data-copy-en="Open to release partnerships and remote creative collaborations." data-copy-ja="楽曲リリースに関するパートナーシップや、リモートでの共同制作に関心があります。" data-copy-zh="欢迎探讨音乐发行合作及远程共同创作的可能性。">Open to release partnerships and remote creative collaborations.</p>
+        <div class="selected-contact-links"><div><p class="selected-contact-label" data-copy-en="Contact by email" data-copy-ja="メールでのお問い合わせ" data-copy-zh="邮件联系">Contact by email</p><a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a></div>
+        <a href="music.html?lang=en" data-copy-en="Explore all music" data-copy-ja="すべての音楽作品" data-copy-zh="探索全部音乐">Explore all music</a></div></div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <p class="footer-title">CHRONOHAZE</p>
+          <p class="footer-note">联系邮箱：<a href="#email-main" data-email-link="1" data-email-key="main" class="obf-email-link">moc.duolci@035reief</a></p>
+          <p class="footer-note" data-footer-identity="1">HazezZ · 作曲、贝斯与音乐制作</p>
+          <p class="footer-copy">© 2026 by CHRONOHAZE. Hosted on GitHub Pages.</p>
+          <div class="social" aria-label="Social links">
+            <a href="https://www.linkedin.com/in/fay-lyu-uoe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://www.instagram.com/lyuf09" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://space.bilibili.com/35902781" target="_blank" rel="noopener noreferrer">Bilibili</a>
+            <a href="https://github.com/lyuf09" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+        <div class="footer-right">
+          <a href="policy.html">网站说明</a>
+          <a href="accessibility.html">无障碍支持</a>
+        </div>
+      </div>
+  <div class="analytics-control-shell" data-analytics-collection="enabled">
+    <p class="analytics-control" data-analytics-control>
+      <span data-analytics-status>Analytics: On</span><span aria-hidden="true"> · </span><button type="button" data-analytics-toggle>Turn off</button>
+    </p>
+  </div>
+</footer>
+  </div>
+</body>
+</html>

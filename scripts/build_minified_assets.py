@@ -12,7 +12,7 @@ ACADEMIC_STYLE_VERSION = PLAYER_STYLE_VERSION
 MATH_STYLE_VERSION = "20261103-history-search1"
 BLUE_STYLE_VERSION = PLAYER_STYLE_VERSION
 HOME_VERSION = "20261117-selected-writing1"
-PROTECT_VERSION = "20261120-japanese-lyrics1"
+PROTECT_VERSION = "20261126-selected-works1"
 PHOTO_PROTECT_VERSION = PROTECT_VERSION
 MUSIC_PROTECT_VERSION = PROTECT_VERSION
 MUSIC_STYLE_VERSION = "20261103-history-search1"
@@ -185,6 +185,7 @@ HTML_FILES = [
         "index.html",
         "math.html",
         "music.html",
+        "selected-works.html",
         "olfactory.html",
         "photography.html",
         "policy.html",

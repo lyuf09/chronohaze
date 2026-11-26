@@ -97,5 +97,5 @@ if [[ -n "${CHRONOHAZE_SMOKE_PROJECTS:-}" ]]; then
     fi
   done
 fi
-PLAYWRIGHT_CMD+=("$ROOT/tests/runtime-smoke.spec.js")
+PLAYWRIGHT_CMD+=("$ROOT/tests/runtime-smoke.spec.js" "$ROOT/tests/selected-works.spec.js")
 "${PLAYWRIGHT_CMD[@]}" "$@"

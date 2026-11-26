@@ -26,6 +26,7 @@ MUSIC_OG_TITLE_FONT_SIZES = {"music/track-11.html": 50}
 SITE_OG_DIR = "assets/og/site"
 
 STATIC_OG_IMAGE_OVERRIDES = {
+    "selected-works.html": "assets/og/site/music.png",
     "notes/network_localization_structural_certificates.html":
         "assets/og/math/network-localization.png",
 }
@@ -146,6 +147,7 @@ def build_hreflang_block(canonical_url: str, article_language: str = "") -> str:
             "  " + HREFLANG_MARKER_START,
             f'  <link rel="alternate" hreflang="zh-CN" href="{zh_url}" />',
             f'  <link rel="alternate" hreflang="en" href="{en_url}" />',
+            *([f'  <link rel="alternate" hreflang="ja" href="{canonical_url}{sep}lang=ja" />'] if canonical_url.endswith("/selected-works.html") else []),
             f'  <link rel="alternate" hreflang="x-default" href="{canonical_url}" />',
             "  " + HREFLANG_MARKER_END,
         ]
