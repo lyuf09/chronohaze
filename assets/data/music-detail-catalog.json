@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20",
+  "generated_at": "2026-11-27",
   "source_glob": "music/track-*.html",
   "items": [
     {
@@ -190,7 +190,8 @@
         "I’ll miss our words"
       ],
       "credit_lines": [
-        "作词作曲编曲吉他混音：HazezZ"
+        "作词作曲编曲吉他混音：HazezZ",
+        "Vocaloid 调教：HazezZ"
       ],
       "extra_meta_lines": [],
       "credit_alias_tokens": [
@@ -4462,7 +4463,8 @@
       "subtitle": "",
       "subtitle_lines": [],
       "credit_lines": [
-        "作词作曲编曲吉他混音：HazezZ"
+        "作词作曲编曲吉他混音：HazezZ",
+        "Vocaloid 调教：HazezZ"
       ],
       "extra_meta_lines": [],
       "credit_alias_tokens": [

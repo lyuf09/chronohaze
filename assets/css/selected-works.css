@@ -42,7 +42,15 @@
 .selected-contact p.selected-contact-label { margin-bottom: 4px; font-size: 14px; }
 .selected-contact .obf-email-link { font-size: 16px; }
 .selected-works-page :focus-visible { outline: 2px solid #506b91; outline-offset: 4px; }
-html[lang="ja"] .selected-works-page { --font-music-serif: var(--font-serif-zh); --font-music-sans: var(--font-sans-zh); }
+html[lang="ja"] .selected-works-page {
+  --font-serif: "Cormorant Garamond", "Noto Serif JP", "Noto Serif CJK JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --font-sans: "Chronohaze Sans Latin", "Noto Sans JP", "Noto Sans CJK JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+  --font-editorial-serif: var(--font-serif);
+  --font-editorial-sans: var(--font-sans);
+  --font-music-serif: var(--font-serif);
+  --font-music-sans: var(--font-sans);
+}
+html[lang="ja"] .selected-intro-copy { white-space: pre-line; }
 @media (max-width: 760px) {
   .selected-main { padding-top: 30px; padding-bottom: 50px; }
   .selected-intro { margin-bottom: 30px; }

@@ -27,7 +27,7 @@ test('portfolio localizes in place, exposes real metadata and preserves artist c
     await page.locator(`.floating-lang-btn[data-lang="${lang}"]`).click();
     await expect(page).toHaveURL(new RegExp(`lang=${lang}`));
     await expect(page.locator(`.floating-lang-btn[data-lang="${lang}"]`)).toHaveAttribute('aria-pressed', 'true');
-    await expect(page.locator('.selected-work-detail').first()).toHaveAttribute('href', new RegExp(`lang=${lang}`));
+    await expect(page.locator('.selected-work-detail').first()).toHaveAttribute('href', new RegExp(`lang=${lang === "ja" ? "en" : lang}`));
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', new RegExp(`lang=${lang}$`));
   }
   await expect(page.locator('link[hreflang="ja"]')).toHaveCount(1);
@@ -78,4 +78,20 @@ test('no query uses saved site language, otherwise English, and page-swap entry 
   await expect(page.locator('link[href*="selected-works.css"]')).toHaveCount(1);
   expect(await page.locator('.selected-work').first().evaluate(e => getComputedStyle(e).display)).toBe('grid');
   await context.close();
+});
+
+
+test('Japanese portfolio labels English destinations and preserves tuning credits', async ({ page }) => {
+  await openPortfolio(page, '?lang=ja');
+  await expect(page.locator('#orchid .selected-credits')).toContainText('ボーカロイド調声');
+  await expect(page.locator('#he-and-me .selected-credits')).toContainText('ボーカロイド調声');
+  await expect(page.locator('#affizieren .selected-credits')).not.toContainText('ボーカロイド調声');
+  await expect(page.locator('.selected-work-detail')).toHaveText(Array(3).fill('作品詳細（英語）— 歌詞・クレジット・制作ノート'));
+  await expect(page.locator('.selected-intro-copy')).toContainText('一貫して自ら手がけています。');
+  const destinations = await page.locator('a[href]').evaluateAll(nodes => nodes.map(n => new URL(n.href)).filter(u => u.origin === location.origin && u.pathname.endsWith('.html') && u.pathname !== location.pathname).map(u => u.searchParams.get('lang')));
+  expect(destinations.every(lang => lang === 'en')).toBe(true);
+  await page.locator('#orchid .selected-work-detail').click();
+  await expect(page).toHaveURL(/track-orchid\.html\?lang=en/);
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+  await expect(page.locator('.music-detail-meta').filter({ hasText: 'Vocaloid tuning' })).toContainText('HazezZ');
 });

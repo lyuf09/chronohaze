@@ -16440,7 +16440,7 @@
     document.querySelectorAll(".selected-works-page a[href]").forEach(function (link) {
       var url = new URL(link.getAttribute("href"), window.location.href);
       if (url.origin === window.location.origin && /\.html$/.test(url.pathname)) {
-        url.searchParams.set("lang", lang);
+        url.searchParams.set("lang", lang === "ja" && url.pathname !== location.pathname ? "en" : lang);
         link.setAttribute("href", url.pathname + url.search + url.hash);
       }
     });
